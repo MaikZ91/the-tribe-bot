@@ -3364,11 +3364,11 @@ client.on('qr', async qr => {
         console.error('QR-Matrix konnte nicht erzeugt werden:', err && err.stack ? err.stack : err);
     }
 
-    if (matrix) {
+    if (matrix && matrix.modules) {
         console.log('\n===== QR-CODE (heller QR auf dunklem Hintergrund — normales Actions-Log-Theme) =====\n');
-        console.log(renderQrAsBlocks(matrix, { invert: false }));
+        console.log(renderQrAsBlocks(matrix.modules, { invert: false }));
         console.log('\n===== QR-CODE INVERTIERT (falls obiger nicht scannt) =====\n');
-        console.log(renderQrAsBlocks(matrix, { invert: true }));
+        console.log(renderQrAsBlocks(matrix.modules, { invert: true }));
         console.log('\n===== ENDE QR-CODE =====\n');
     } else {
         qrcode.generate(qr, { small: false }, qrText => console.log(qrText));
