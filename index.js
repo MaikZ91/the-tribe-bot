@@ -3331,11 +3331,48 @@ async function sendCommunityWelcome(notification) {
     }
 }
 
+function renderQrAsBlocks(matrix, { invert = false } = {}) {
+    const size = matrix.size;
+    const data = matrix.data;
+    const dark = invert ? '  ' : '██';
+    const light = invert ? '██' : '  ';
+    const quietZone = 4;
+    const rowWidth = (size + quietZone * 2);
+    const blankRow = light.repeat(rowWidth);
+
+    const lines = [];
+    for (let i = 0; i < quietZone; i++) lines.push(blankRow);
+    for (let row = 0; row < size; row++) {
+        let line = light.repeat(quietZone);
+        for (let col = 0; col < size; col++) {
+            line += data[row * size + col] ? dark : light;
+        }
+        line += light.repeat(quietZone);
+        lines.push(line);
+    }
+    for (let i = 0; i < quietZone; i++) lines.push(blankRow);
+    return lines.join('\n');
+}
+
 client.on('qr', async qr => {
-    qrcode.generate(qr, { small: false }, qrText => {
-        console.log(qrText);
-    });
     console.log('QR-Code in WhatsApp scannen.');
+
+    let matrix;
+    try {
+        matrix = QRCode.create(qr, { errorCorrectionLevel: 'M' });
+    } catch (err) {
+        console.error('QR-Matrix konnte nicht erzeugt werden:', err && err.stack ? err.stack : err);
+    }
+
+    if (matrix) {
+        console.log('\n===== QR-CODE (heller QR auf dunklem Hintergrund — normales Actions-Log-Theme) =====\n');
+        console.log(renderQrAsBlocks(matrix, { invert: false }));
+        console.log('\n===== QR-CODE INVERTIERT (falls obiger nicht scannt) =====\n');
+        console.log(renderQrAsBlocks(matrix, { invert: true }));
+        console.log('\n===== ENDE QR-CODE =====\n');
+    } else {
+        qrcode.generate(qr, { small: false }, qrText => console.log(qrText));
+    }
 
     const pngPath = path.join(process.cwd(), 'qr-code.png');
     try {
@@ -3344,13 +3381,12 @@ client.on('qr', async qr => {
             margin: 2,
             color: { dark: '#000000', light: '#FFFFFF' }
         });
-        console.log(`QR-Code als PNG gespeichert: ${pngPath}`);
-        console.log('Im GitHub-Actions-Run unter "Artifacts" → "whatsapp-qr-code" herunterladen und scannen.');
+        console.log(`QR-Code zusätzlich als PNG gespeichert: ${pngPath} (Artifact: whatsapp-qr-code)`);
     } catch (err) {
         console.error('QR-PNG konnte nicht gespeichert werden:', err && err.stack ? err.stack : err);
     }
 
-    console.log('--- QR-Rohdaten (zum Debuggen / lokal in QR-Generator einfügen) ---');
+    console.log('--- QR-Rohdaten (Fallback) ---');
     console.log(qr);
     console.log('--- Ende QR-Rohdaten ---');
 });
