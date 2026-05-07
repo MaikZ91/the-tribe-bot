@@ -3331,7 +3331,7 @@ async function sendCommunityWelcome(notification) {
 }
 
 client.on('qr', qr => {
-    qrcode.generate(qr, { small: true }, qrText => {
+    qrcode.generate(qr, { small: false }, qrText => {
         console.log(qrText);
     });
     console.log('QR-Code in WhatsApp scannen.');
