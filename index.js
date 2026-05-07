@@ -9,6 +9,8 @@ const readline = require('readline');
 const EVENTS_URL = 'https://raw.githubusercontent.com/MaikZ91/productiontools/master/events.json';
 const STATE_FILE = path.join(__dirname, '.daily-highlights-state.json');
 const ANALYTICS_FILE = path.join(__dirname, '.community-dashboard.json');
+const PENDING_MEMBERS_FILE = path.join(__dirname, '.pending-new-members.json');
+const KNOWN_MEMBERS_FILE = path.join(__dirname, '.known-members.json');
 const TIME_ZONE = 'Europe/Berlin';
 const DAILY_POST_HOUR = 9;
 const MAX_HIGHLIGHTS = 3;
@@ -112,7 +114,6 @@ let scheduledJobs = [];
 let dashboardServer;
 let dashboardRefreshIntervalId;
 let cachedWebsiteAnalytics = null;
-let pendingNewMembers = [];
 const dashboardLogs = [];
 const MAX_DASHBOARD_LOGS = 500;
 const recentMessages = [];
@@ -331,6 +332,32 @@ function readAnalytics() {
 
 function writeAnalytics(analytics) {
     fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(analytics, null, 2));
+}
+
+function readPendingNewMembers() {
+    try {
+        const raw = JSON.parse(fs.readFileSync(PENDING_MEMBERS_FILE, 'utf8'));
+        return Array.isArray(raw) ? raw : [];
+    } catch {
+        return [];
+    }
+}
+
+function writePendingNewMembers(ids) {
+    fs.writeFileSync(PENDING_MEMBERS_FILE, JSON.stringify(ids, null, 2));
+}
+
+function readKnownMembers() {
+    try {
+        const raw = JSON.parse(fs.readFileSync(KNOWN_MEMBERS_FILE, 'utf8'));
+        return raw && typeof raw === 'object' ? raw : {};
+    } catch {
+        return {};
+    }
+}
+
+function writeKnownMembers(snapshot) {
+    fs.writeFileSync(KNOWN_MEMBERS_FILE, JSON.stringify(snapshot, null, 2));
 }
 
 function getAnalytics() {
@@ -3125,6 +3152,12 @@ function isDueNow({ weekdayIndex, hour, minute = 0 }, nowParts = getDateParts())
 }
 
 async function runDueJobs() {
+    try {
+        await checkForNewMembers();
+    } catch (err) {
+        console.error('Fehler beim Prüfen neuer Mitglieder:', err && err.stack ? err.stack : err);
+    }
+
     const nowParts = getDateParts();
     const dueJobs = [
         ['daily-highlights', { hour: DAILY_POST_HOUR }, () => sendDailyHighlights()],
@@ -3181,6 +3214,9 @@ async function runBotCommand(command) {
             return;
         case 'ping-pong':
             await sendThursdayPingPongRecommendation({ force: true });
+            return;
+        case 'check-new-members':
+            await checkForNewMembers();
             return;
         default:
             throw new Error(`Unbekannter BOT_COMMAND: ${command}`);
@@ -3269,6 +3305,56 @@ async function handleConsoleCommand(input) {
     }
 }
 
+async function sendCommunityWelcomeBatch(batchIds) {
+    const contacts = await Promise.all(batchIds.map(id => client.getContactById(id)));
+    const names = contacts.map(getDisplayNameForContact);
+    const [name1, name2, name3] = names;
+    const introNames = `${name1}, ${name2} & ${name3}`;
+
+    const greetings = [
+        `Hey ${introNames}, willkommen bei THE TRIBE! 👋`,
+        `${introNames} – schön dass ihr da seid! 🎉`,
+        `Willkommen ${introNames}! 👋`,
+        `${introNames} sind jetzt dabei – herzlich willkommen! 🙌`,
+        `Hey ${introNames}! Schön dass ihr hier seid 😊`,
+        `${introNames} – willkommen! ✌️`,
+    ];
+    const context = [
+        `Echte Treffen in Bielefeld, jeden Sonntag Kennenlernabend – stellt euch kurz vor! 🙌`,
+        `Sonntags Kennenlernabend – einfach vorbeikommen. Wer seid ihr? 👀`,
+        `THE TRIBE = echte Treffen, kein Social Media. Sonntags Kennenlernabend. Sagt kurz Hallo! 😄`,
+        `Jeden Sonntag Kennenlernabend – kommt vorbei & stellt euch kurz vor ✌️`,
+        `Hier treffen sich echte Menschen – Sonntags beim Kennenlernabend. Wer seid ihr? 😊`,
+        `Sonntags Kennenlernabend, echte Verbindungen in Bielefeld – stellt euch kurz vor! 🙌`,
+    ];
+    const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+    const message = `${pick(greetings)}\n${pick(context)}`;
+
+    await client.sendMessage(chatId, message);
+    console.log(`Begruessung fuer neue Community-Mitglieder gesendet: ${introNames}.`);
+
+    const joinAnalytics = getAnalytics();
+    joinAnalytics.communityJoins.push({
+        date: getDateParts().dateKey,
+        count: batchIds.length
+    });
+    writeAnalytics(joinAnalytics);
+}
+
+async function processWelcomeQueue(queue) {
+    while (queue.length >= 3) {
+        const batchIds = queue.splice(0, 3);
+        try {
+            await sendCommunityWelcomeBatch(batchIds);
+        } catch (err) {
+            console.error('Welcome-Versand fehlgeschlagen:', err && err.stack ? err.stack : err);
+            queue.unshift(...batchIds);
+            break;
+        }
+    }
+    return queue;
+}
+
 async function sendCommunityWelcome(notification) {
     if (!communityJoinSourceChatIds.has(notification.chatId)) {
         return;
@@ -3286,48 +3372,87 @@ async function sendCommunityWelcome(notification) {
         return;
     }
 
-    pendingNewMembers.push(...newMemberIds);
-
-    while (pendingNewMembers.length >= 3) {
-        const batchIds = pendingNewMembers.splice(0, 3);
-
-        const contacts = await Promise.all(batchIds.map(id => client.getContactById(id)));
-        const names = contacts.map(getDisplayNameForContact);
-        const [name1, name2, name3] = names;
-        const introNames = `${name1}, ${name2} & ${name3}`;
-
-        const greetings = [
-            `Hey ${introNames}, willkommen bei THE TRIBE! 👋`,
-            `${introNames} – schön dass ihr da seid! 🎉`,
-            `Willkommen ${introNames}! 👋`,
-            `${introNames} sind jetzt dabei – herzlich willkommen! 🙌`,
-            `Hey ${introNames}! Schön dass ihr hier seid 😊`,
-            `${introNames} – willkommen! ✌️`,
-        ];
-        const context = [
-            `Echte Treffen in Bielefeld, jeden Sonntag Kennenlernabend – stellt euch kurz vor! 🙌`,
-            `Sonntags Kennenlernabend – einfach vorbeikommen. Wer seid ihr? 👀`,
-            `THE TRIBE = echte Treffen, kein Social Media. Sonntags Kennenlernabend. Sagt kurz Hallo! 😄`,
-            `Jeden Sonntag Kennenlernabend – kommt vorbei & stellt euch kurz vor ✌️`,
-            `Hier treffen sich echte Menschen – Sonntags beim Kennenlernabend. Wer seid ihr? 😊`,
-            `Sonntags Kennenlernabend, echte Verbindungen in Bielefeld – stellt euch kurz vor! 🙌`,
-        ];
-        const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-        const message = `${pick(greetings)}\n${pick(context)}`;
-
-        await client.sendMessage(chatId, message);
-        console.log(`Begruessung fuer neue Community-Mitglieder gesendet: ${introNames}.`);
-
-        const joinAnalytics = getAnalytics();
-        joinAnalytics.communityJoins.push({
-            date: getDateParts().dateKey,
-            count: batchIds.length
-        });
-        writeAnalytics(joinAnalytics);
+    let queue = readPendingNewMembers();
+    for (const id of newMemberIds) {
+        if (!queue.includes(id)) queue.push(id);
     }
 
-    if (pendingNewMembers.length > 0) {
-        console.log(`${pendingNewMembers.length} neues Mitglied in der Warteschlange (warte auf insgesamt 3).`);
+    queue = await processWelcomeQueue(queue);
+    writePendingNewMembers(queue);
+
+    if (queue.length > 0) {
+        console.log(`${queue.length} neues Mitglied in der Warteschlange (warte auf insgesamt 3).`);
+    }
+}
+
+async function checkForNewMembers() {
+    if (communityJoinSourceChatIds.size === 0) {
+        console.log('Keine Community-Source-Gruppen konfiguriert — überspringe Mitglieder-Check.');
+        return;
+    }
+
+    const knownMembers = readKnownMembers();
+    let queue = readPendingNewMembers();
+    const selfId = client.info?.wid?._serialized;
+    let snapshotChanged = false;
+
+    for (const sourceChatId of communityJoinSourceChatIds) {
+        let chat;
+        try {
+            chat = await client.getChatById(sourceChatId);
+        } catch (err) {
+            console.error(`Kann Gruppe ${sourceChatId} nicht laden: ${err.message}`);
+            continue;
+        }
+        if (!chat || !chat.isGroup) {
+            console.warn(`Chat ${sourceChatId} ist keine Gruppe — übersprungen.`);
+            continue;
+        }
+
+        const currentIds = (chat.participants || [])
+            .map(p => p.id?._serialized)
+            .filter(id => id && id !== selfId);
+
+        const previous = knownMembers[sourceChatId];
+        if (!Array.isArray(previous)) {
+            console.log(`Erstmalige Erfassung von ${sourceChatId}: ${currentIds.length} Mitglieder als Baseline (keine Begrüßung).`);
+            knownMembers[sourceChatId] = currentIds;
+            snapshotChanged = true;
+            continue;
+        }
+
+        const previousSet = new Set(previous);
+        const newOnes = currentIds.filter(id => !previousSet.has(id));
+        if (newOnes.length > 0) {
+            console.log(`${newOnes.length} neue Mitglieder in ${sourceChatId}: ${newOnes.join(', ')}`);
+            for (const id of newOnes) {
+                if (!queue.includes(id)) queue.push(id);
+            }
+        }
+        knownMembers[sourceChatId] = currentIds;
+        snapshotChanged = true;
+    }
+
+    const allCurrent = new Set();
+    for (const ids of Object.values(knownMembers)) {
+        if (Array.isArray(ids)) ids.forEach(id => allCurrent.add(id));
+    }
+    const filtered = queue.filter(id => allCurrent.has(id));
+    const dropped = queue.length - filtered.length;
+    if (dropped > 0) {
+        console.log(`${dropped} Mitglied(er) aus der Warteschlange entfernt (Gruppe verlassen).`);
+    }
+    queue = filtered;
+
+    queue = await processWelcomeQueue(queue);
+
+    writePendingNewMembers(queue);
+    if (snapshotChanged) writeKnownMembers(knownMembers);
+
+    if (queue.length > 0) {
+        console.log(`${queue.length} Mitglied(er) in Warteschlange (warte auf insgesamt 3).`);
+    } else {
+        console.log('Keine neuen Mitglieder zu begrüßen.');
     }
 }
 

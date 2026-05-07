@@ -27,6 +27,7 @@ on:
           - jam-session
           - thursday-football
           - ping-pong
+          - check-new-members
       force_fresh_auth:
         description: "WhatsApp-Session-Cache löschen (erzwingt neuen QR-Code)"
         required: false
@@ -40,6 +41,8 @@ on:
     - cron: "20 10,11 * * *"
     - cron: "5 16,17 * * *"
     - cron: "5 18,19 * * *"
+    # Mitglieder-Polling alle 30 Minuten (für "Welcome alle 3 neuen User")
+    - cron: "*/30 * * * *"
 
 concurrency:
   group: whatsapp-bot
@@ -63,6 +66,8 @@ jobs:
             .wwebjs_cache
             .daily-highlights-state.json
             .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
             images/daily-highlights
           key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
@@ -122,5 +127,7 @@ jobs:
             .wwebjs_cache
             .daily-highlights-state.json
             .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
             images/daily-highlights
           key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
