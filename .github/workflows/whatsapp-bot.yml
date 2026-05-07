@@ -1,0 +1,98 @@
+name: WhatsApp Bot
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "Bot command"
+        required: true
+        default: "run-due"
+        type: choice
+        options:
+          - run-due
+          - daily-highlights
+          - wednesday-poll
+          - friday-poll
+          - sunday-reminder
+          - weekly-calendar
+          - tuesday-run
+          - jam-session
+          - thursday-football
+          - ping-pong
+  schedule:
+    # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
+    # summer/winter time both land on the intended local time.
+    - cron: "5 7,8 * * *"
+    - cron: "5 10,11 * * *"
+    - cron: "20 10,11 * * *"
+    - cron: "5 16,17 * * *"
+    - cron: "5 18,19 * * *"
+
+concurrency:
+  group: whatsapp-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore WhatsApp session and bot state
+        id: restore-bot-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            whatsapp-bot-
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run bot command
+        env:
+          BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
+          WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
+          WHATSAPP_TUESDAY_RUN_CHAT_ID: ${{ secrets.WHATSAPP_TUESDAY_RUN_CHAT_ID }}
+          WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
+          WHATSAPP_ANNOUNCEMENTS_CHAT_ID: ${{ secrets.WHATSAPP_ANNOUNCEMENTS_CHAT_ID }}
+          WHATSAPP_AUSGEHEN_CHAT_ID: ${{ secrets.WHATSAPP_AUSGEHEN_CHAT_ID }}
+          WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS: ${{ secrets.WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS }}
+          TRIBE_TUESDAY_RUN_IMAGE_URL: ${{ secrets.TRIBE_TUESDAY_RUN_IMAGE_URL }}
+          TRIBE_JAM_SESSION_IMAGE_URL: ${{ secrets.TRIBE_JAM_SESSION_IMAGE_URL }}
+          TRIBE_THURSDAY_FOOTBALL_IMAGE_URL: ${{ secrets.TRIBE_THURSDAY_FOOTBALL_IMAGE_URL }}
+          TRIBE_KENNENLERNABEND_IMAGE_URL: ${{ secrets.TRIBE_KENNENLERNABEND_IMAGE_URL }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm start
+
+      - name: Save WhatsApp session and bot state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
