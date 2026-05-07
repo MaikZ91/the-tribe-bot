@@ -3,6 +3,7 @@ const http = require('http');
 const path = require('path');
 const { Client, LocalAuth, Poll, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
 const readline = require('readline');
 
 const EVENTS_URL = 'https://raw.githubusercontent.com/MaikZ91/productiontools/master/events.json';
@@ -3330,11 +3331,28 @@ async function sendCommunityWelcome(notification) {
     }
 }
 
-client.on('qr', qr => {
+client.on('qr', async qr => {
     qrcode.generate(qr, { small: false }, qrText => {
         console.log(qrText);
     });
     console.log('QR-Code in WhatsApp scannen.');
+
+    const pngPath = path.join(process.cwd(), 'qr-code.png');
+    try {
+        await QRCode.toFile(pngPath, qr, {
+            width: 512,
+            margin: 2,
+            color: { dark: '#000000', light: '#FFFFFF' }
+        });
+        console.log(`QR-Code als PNG gespeichert: ${pngPath}`);
+        console.log('Im GitHub-Actions-Run unter "Artifacts" → "whatsapp-qr-code" herunterladen und scannen.');
+    } catch (err) {
+        console.error('QR-PNG konnte nicht gespeichert werden:', err && err.stack ? err.stack : err);
+    }
+
+    console.log('--- QR-Rohdaten (zum Debuggen / lokal in QR-Generator einfügen) ---');
+    console.log(qr);
+    console.log('--- Ende QR-Rohdaten ---');
 });
 
 client.on('ready', async () => {

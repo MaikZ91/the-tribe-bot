@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - ".github/workflows/whatsapp-bot.yml"
+      - "index.js"
+      - "package.json"
+      - "package-lock.json"
   workflow_dispatch:
     inputs:
       command:
@@ -24,6 +27,11 @@ on:
           - jam-session
           - thursday-football
           - ping-pong
+      force_fresh_auth:
+        description: "WhatsApp-Session-Cache löschen (erzwingt neuen QR-Code)"
+        required: false
+        default: false
+        type: boolean
   schedule:
     # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
     # summer/winter time both land on the intended local time.
@@ -60,6 +68,12 @@ jobs:
           restore-keys: |
             whatsapp-bot-
 
+      - name: Force fresh WhatsApp auth (clear session cache)
+        if: github.event_name == 'workflow_dispatch' && inputs.force_fresh_auth == true
+        run: |
+          echo "Lösche .wwebjs_auth und .wwebjs_cache, damit ein neuer QR-Code generiert wird."
+          rm -rf .wwebjs_auth .wwebjs_cache
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -89,6 +103,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: npm start
+
+      - name: Upload QR code artifact (if generated)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: whatsapp-qr-code
+          path: qr-code.png
+          if-no-files-found: ignore
+          retention-days: 1
 
       - name: Save WhatsApp session and bot state
         if: always()
