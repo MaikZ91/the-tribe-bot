@@ -3565,14 +3565,20 @@ client.on('ready', async () => {
     console.log(`Jam-Session-Ziel: ${jamSessionChatId}`);
 
     if (IS_ONE_SHOT_RUN) {
+        // whatsapp-web.js' sendMessage resolves when the message is queued in the
+        // in-browser WhatsApp Web client, not when it has been delivered to the
+        // WhatsApp servers. Destroying the client too quickly drops queued sends.
+        const ONE_SHOT_FLUSH_MS = 8000;
         try {
             console.log(`Einmaliger Bot-Command: ${BOT_COMMAND}`);
             await runBotCommand(BOT_COMMAND);
             console.log('Einmaliger Bot-Command abgeschlossen.');
+            await new Promise(resolve => setTimeout(resolve, ONE_SHOT_FLUSH_MS));
             await client.destroy();
             process.exit(0);
         } catch (err) {
             console.error('Einmaliger Bot-Command fehlgeschlagen:', err && err.stack ? err.stack : err);
+            await new Promise(resolve => setTimeout(resolve, ONE_SHOT_FLUSH_MS));
             await client.destroy().catch(() => {});
             process.exit(1);
         }
