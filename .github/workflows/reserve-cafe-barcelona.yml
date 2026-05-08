@@ -1,0 +1,68 @@
+name: Reserve Cafe Barcelona
+
+on:
+  workflow_dispatch:
+    inputs:
+      reservation_date:
+        description: "Reservierungs-Datum (YYYY-MM-DD)"
+        required: true
+        default: "2026-05-10"
+        type: string
+      reservation_time:
+        description: "Uhrzeit (HH:MM)"
+        required: true
+        default: "18:00"
+        type: string
+      reservation_guests:
+        description: "Personenzahl"
+        required: true
+        default: "5"
+        type: string
+      reservation_dry_run:
+        description: "Dry-Run: nur Screenshots, kein Submit"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+
+jobs:
+  reserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install Puppeteer
+        run: npm ci
+
+      - name: Run reservation
+        env:
+          RESERVATION_DATE: ${{ inputs.reservation_date }}
+          RESERVATION_TIME: ${{ inputs.reservation_time }}
+          RESERVATION_GUESTS: ${{ inputs.reservation_guests }}
+          RESERVATION_NAME: ${{ secrets.RESERVATION_NAME }}
+          RESERVATION_EMAIL: ${{ secrets.RESERVATION_EMAIL }}
+          RESERVATION_PHONE: ${{ secrets.RESERVATION_PHONE }}
+          RESERVATION_DRY_RUN: ${{ inputs.reservation_dry_run }}
+        run: node reserve-cafe-barcelona.js
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reservation-debug
+          path: reservation-debug
+          if-no-files-found: ignore
+          retention-days: 7

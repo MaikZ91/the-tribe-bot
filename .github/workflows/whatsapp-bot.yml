@@ -28,7 +28,6 @@ on:
           - thursday-football
           - ping-pong
           - check-new-members
-          - reserve-cafe-barcelona
       force_fresh_auth:
         description: "WhatsApp-Session-Cache löschen (erzwingt neuen QR-Code)"
         required: false
@@ -38,26 +37,6 @@ on:
         description: "Optional: Venue-Name für friday-poll erzwingen (z. B. 'Café Barcelona'). Leer lassen für normales Verhalten."
         required: false
         default: ""
-        type: string
-      reservation_date:
-        description: "Reservierungs-Datum (YYYY-MM-DD), nur für reserve-cafe-barcelona"
-        required: false
-        default: "2026-05-10"
-        type: string
-      reservation_time:
-        description: "Reservierungs-Uhrzeit (HH:MM), nur für reserve-cafe-barcelona"
-        required: false
-        default: "18:00"
-        type: string
-      reservation_guests:
-        description: "Personenzahl, nur für reserve-cafe-barcelona"
-        required: false
-        default: "5"
-        type: string
-      reservation_dry_run:
-        description: "Dry-Run: nur exploration, kein Submit"
-        required: false
-        default: "true"
         type: string
   schedule:
     # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
@@ -119,7 +98,6 @@ jobs:
         run: npm ci
 
       - name: Run bot command
-        if: ${{ inputs.command != 'reserve-cafe-barcelona' }}
         env:
           BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
@@ -140,27 +118,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: npm start
-
-      - name: Run Cafe Barcelona reservation
-        if: ${{ inputs.command == 'reserve-cafe-barcelona' }}
-        env:
-          RESERVATION_DATE: ${{ inputs.reservation_date }}
-          RESERVATION_TIME: ${{ inputs.reservation_time }}
-          RESERVATION_GUESTS: ${{ inputs.reservation_guests }}
-          RESERVATION_NAME: ${{ secrets.RESERVATION_NAME }}
-          RESERVATION_EMAIL: ${{ secrets.RESERVATION_EMAIL }}
-          RESERVATION_PHONE: ${{ secrets.RESERVATION_PHONE }}
-          RESERVATION_DRY_RUN: ${{ inputs.reservation_dry_run }}
-        run: node reserve-cafe-barcelona.js
-
-      - name: Upload reservation debug artifacts
-        if: always() && inputs.command == 'reserve-cafe-barcelona'
-        uses: actions/upload-artifact@v4
-        with:
-          name: reservation-debug
-          path: reservation-debug
-          if-no-files-found: ignore
-          retention-days: 7
 
       - name: Upload QR code artifact (if generated)
         if: always()
