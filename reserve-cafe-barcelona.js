@@ -261,20 +261,35 @@ async function main() {
         await shot(page, '03-date');
 
         const timeValue = await findTimeValue(page, RESERVATION_TIME);
-        console.log(`Uhrzeit-Wert: ${timeValue}`);
+        console.log(`Uhrzeit-Filter-Wert: ${timeValue}`);
         await selectByAriaLabel(page, 'Uhrzeit', timeValue);
         await new Promise(r => setTimeout(r, 2500));
         await shot(page, '04-time');
-        await dumpFormFields(page, '04-time');
 
-        // Maybe a "Weiter"/"Reservieren"/"Tisch suchen" button needs to be clicked
-        const advancedByButton = await clickByText(page, /weiter|reservier|tisch suchen|fortfahren/i);
-        if (advancedByButton) {
-            console.log('Weiter-Button geklickt.');
-            await new Promise(r => setTimeout(r, 2500));
+        // Step 2: nach dem Filter erscheinen Slot-Buttons (z. B. 17:30, 18:00, 18:15).
+        // Den exakten Slot anklicken.
+        const slotClicked = await page.evaluate((desired) => {
+            const buttons = Array.from(document.querySelectorAll('button'));
+            const candidates = buttons.filter(btn => /^\d{1,2}:\d{2}$/.test((btn.innerText || '').trim()));
+            if (!candidates.length) return { clicked: null, available: [] };
+            const exact = candidates.find(btn => btn.innerText.trim() === desired);
+            const target = exact || candidates[0];
+            target.scrollIntoView({ block: 'center' });
+            target.click();
+            return {
+                clicked: target.innerText.trim(),
+                available: candidates.map(b => b.innerText.trim()),
+                wasExact: !!exact,
+            };
+        }, RESERVATION_TIME);
+
+        if (!slotClicked.clicked) {
+            console.warn('Kein Uhrzeit-Slot-Button gefunden — möglicherweise nichts verfügbar.');
         } else {
-            console.log('Kein Weiter-Button gefunden — Form ist vermutlich Single-Step oder zeigt Step 2 automatisch.');
+            console.log(`Slot geklickt: ${slotClicked.clicked} (verfügbar: ${slotClicked.available.join(', ')}, exakter Treffer: ${slotClicked.wasExact})`);
         }
+
+        await new Promise(r => setTimeout(r, 3000));
         await shot(page, '05-step2');
         await dumpHtml(page, '05-step2');
         await dumpFormFields(page, '05-step2');
