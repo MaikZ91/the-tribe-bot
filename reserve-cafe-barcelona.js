@@ -293,7 +293,16 @@ async function main() {
         const timeValue = await findTimeValue(page, RESERVATION_TIME);
         console.log(`Uhrzeit-Filter-Wert: ${timeValue}`);
         await selectByAriaLabel(page, 'Uhrzeit', timeValue);
-        await new Promise(r => setTimeout(r, 2500));
+
+        // Auf das Erscheinen der Slot-Buttons warten (max. 15 s).
+        try {
+            await page.waitForFunction(() => {
+                return Array.from(document.querySelectorAll('button'))
+                    .some(btn => /^\d{1,2}:\d{2}$/.test((btn.innerText || '').trim()));
+            }, { timeout: 15000, polling: 500 });
+        } catch (err) {
+            console.warn('Timeout beim Warten auf Slot-Buttons:', err.message);
+        }
         await shot(page, '04-time');
 
         // Step 2: nach dem Filter erscheinen Slot-Buttons (z. B. 17:30, 18:00, 18:15).
