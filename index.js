@@ -2932,7 +2932,10 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
         return;
     }
 
-    const result = await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
+    const venueOverride = (process.env.FRIDAY_POLL_VENUE_OVERRIDE || '').trim();
+    const result = venueOverride
+        ? { winner: venueOverride, counts: {}, source: 'override' }
+        : await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
     const intro = `Wir treffen uns am Sonntag um 18 Uhr bei ${result.winner}. Wer ist dabei?`;
 
     const media = await loadKennenlernabendMedia();

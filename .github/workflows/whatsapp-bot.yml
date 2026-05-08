@@ -33,6 +33,11 @@ on:
         required: false
         default: false
         type: boolean
+      friday_poll_venue_override:
+        description: "Optional: Venue-Name für friday-poll erzwingen (z. B. 'Café Barcelona'). Leer lassen für normales Verhalten."
+        required: false
+        default: ""
+        type: string
   schedule:
     # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
     # summer/winter time both land on the intended local time.
@@ -95,6 +100,7 @@ jobs:
       - name: Run bot command
         env:
           BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
+          FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
           WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
           WHATSAPP_TUESDAY_RUN_CHAT_ID: ${{ secrets.WHATSAPP_TUESDAY_RUN_CHAT_ID }}
           WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
