@@ -172,20 +172,45 @@
 
   .hero-title {
     font-family: 'Fraunces', serif;
-    font-size: clamp(44px, 12vw, 64px);
-    line-height: 1.0;
-    letter-spacing: -0.035em;
+    font-size: clamp(34px, 8.5vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
     font-weight: 500;
     margin-bottom: 18px;
+    max-width: 16ch;
   }
-  .hero-title .day {
+  .hero-title em {
     font-style: italic;
-    font-weight: 400;
     color: var(--amber);
+    font-weight: 500;
   }
-  .hero-title .line {
-    display: block;
+
+  /* Avatar stack — social proof */
+  .avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
   }
+  .avatar-stack {
+    display: flex;
+  }
+  .avatar-stack img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    object-fit: cover;
+    margin-left: -8px;
+    background: var(--bg-3);
+  }
+  .avatar-stack img:first-child { margin-left: 0; }
+  .avatar-row-label {
+    font-size: 13px;
+    color: var(--ink-dim);
+    line-height: 1.3;
+  }
+  .avatar-row-label strong { color: var(--ink); font-weight: 500; }
 
   .hero-sub {
     font-size: 17px;
@@ -376,6 +401,7 @@
     text-transform: uppercase;
     border: 1px solid var(--rule);
   }
+  img.msg-avatar { display: block; padding: 0; }
   .msg-avatar[data-color="amber"] { background: linear-gradient(135deg, #c97a3a, #8a4f23); }
   .msg-avatar[data-color="rose"]  { background: linear-gradient(135deg, #b85a6f, #7a3a4a); }
   .msg-avatar[data-color="moss"]  { background: linear-gradient(135deg, #6b8a5a, #3f5a3a); }
@@ -606,21 +632,32 @@
   </nav>
 
   <div class="hero-content">
-    <div class="eyebrow">Kennenlernabend · Sonntag</div>
+    <div class="eyebrow">Stammtisch · jeden Sonntag</div>
     <h1 class="hero-title">
-      <span class="line"><span class="day">Sonntag.</span></span>
-      <span class="line">19 Uhr.</span>
-      <span class="line">Café Barcelona.</span>
+      Bielefeld ist nur eine Stadt, <em>bis du deine Leute findest.</em>
     </h1>
 
     <p class="hero-sub">
       Komm einfach. <strong>Du musst niemand kennen.</strong> Geht 90% der Leute hier so.
     </p>
 
+    <div class="avatar-row">
+      <div class="avatar-stack" aria-hidden="true">
+        <img src="assets/maik.webp" alt="" width="30" height="30" decoding="async">
+        <img src="assets/lena.webp" alt="" width="30" height="30" decoding="async">
+        <img src="assets/patrick.webp" alt="" width="30" height="30" decoding="async">
+        <img src="assets/sarah.webp" alt="" width="30" height="30" decoding="async">
+        <img src="assets/tim.webp" alt="" width="30" height="30" decoding="async">
+      </div>
+      <div class="avatar-row-label"><strong>Maik, Lena, Patrick</strong> &amp; 84 weitere</div>
+    </div>
+
     <div class="meta-row">
-      <span><strong>87</strong> Mitglieder</span>
+      <span>Sonntags <strong>19 Uhr</strong></span>
       <span class="dot" aria-hidden="true"></span>
-      <span>Seit 2024 in Bielefeld</span>
+      <span>Café Barcelona</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span>Seit 2024</span>
     </div>
 
     <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta" id="primaryCta">
@@ -655,13 +692,10 @@
   <div class="chat-day">Gestern</div>
 
   <div class="msg">
-    <div class="msg-avatar" data-color="amber" aria-hidden="true">P</div>
+    <img class="msg-avatar" src="assets/patrick.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Patrick</span>
-      <div class="msg-photo-placeholder" aria-hidden="true">
-        <span>📸 Gruppenfoto</span>
-        <small>Altstadt, gestern Abend</small>
-      </div>
+      <img class="msg-photo" src="assets/gruppe.webp" alt="Gruppenfoto vom letzten Stammtisch in der Altstadt" width="280" height="210" loading="lazy" decoding="async">
       Gestern Abend war einfach nur 🔥🌃 <span class="time">23:47</span>
     </div>
   </div>
@@ -670,7 +704,7 @@
   <div class="chat-day">Sonntag</div>
 
   <div class="msg">
-    <div class="msg-avatar" data-color="dusk" aria-hidden="true">M</div>
+    <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Maik</span>
       Heute Abend Kennenlernabend! 19 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
@@ -678,7 +712,7 @@
   </div>
 
   <div class="msg">
-    <div class="msg-avatar" data-color="rose" aria-hidden="true">L</div>
+    <img class="msg-avatar" src="assets/lena.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Lena</span>
       Bin dabei 🙋‍♀️ <span class="time">14:24</span>
@@ -686,7 +720,7 @@
   </div>
 
   <div class="msg">
-    <div class="msg-avatar" data-color="moss" aria-hidden="true">S</div>
+    <img class="msg-avatar" src="assets/sarah.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Sarah</span>
       Hey! Bin neu in Bielefeld und hab eure Anzeige gesehen — kann ich einfach so vorbeikommen Sonntag? <span class="time">14:38</span>
@@ -694,7 +728,7 @@
   </div>
 
   <div class="msg">
-    <div class="msg-avatar" data-color="dusk" aria-hidden="true">M</div>
+    <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Maik</span>
       Logo, deshalb sind wir hier 🙂 Komm einfach. Du musst niemand kennen, das geht 90% so. <span class="time">14:40</span>
@@ -764,24 +798,35 @@
 </div>
 
 <script>
-  // Show sticky CTA when hero is scrolled past
-  const sticky = document.getElementById('stickyCta');
-  const primary = document.getElementById('primaryCta');
+  // Sticky CTA — appears as soon as user scrolls past the hero CTA
+  (function () {
+    const sticky = document.getElementById('stickyCta');
+    const primary = document.getElementById('primaryCta');
+    if (!sticky || !primary) return;
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          sticky.classList.remove('visible');
-          sticky.setAttribute('aria-hidden', 'true');
-        } else {
-          sticky.classList.add('visible');
-          sticky.setAttribute('aria-hidden', 'false');
-        }
-      });
-    }, { rootMargin: '0px 0px -100px 0px', threshold: 0 });
-    observer.observe(primary);
-  }
+    const show = () => {
+      sticky.classList.add('visible');
+      sticky.setAttribute('aria-hidden', 'false');
+    };
+    const hide = () => {
+      sticky.classList.remove('visible');
+      sticky.setAttribute('aria-hidden', 'true');
+    };
+
+    if ('IntersectionObserver' in window) {
+      // Trigger as soon as the bottom of the primary CTA leaves the viewport
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => entry.isIntersecting ? hide() : show());
+      }, { rootMargin: '0px 0px 0px 0px', threshold: 0 });
+      observer.observe(primary);
+    } else {
+      // Fallback for old browsers
+      window.addEventListener('scroll', () => {
+        const rect = primary.getBoundingClientRect();
+        rect.bottom < 0 ? show() : hide();
+      }, { passive: true });
+    }
+  })();
 </script>
 
 </body>
