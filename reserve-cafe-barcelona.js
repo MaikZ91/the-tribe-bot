@@ -155,8 +155,8 @@ async function clickByText(page, regex, opts = {}) {
 
 async function fillContactForm(page) {
     const nameParts = RESERVATION_NAME.trim().split(/\s+/);
-    const firstName = nameParts[0] || RESERVATION_NAME;
-    const lastName = nameParts.slice(1).join(' ');
+    const firstName = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : RESERVATION_NAME;
+    const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
 
     const labelMap = [
         { keys: ['firstname', 'vorname'], value: firstName },
