@@ -92,16 +92,6 @@
       radial-gradient(ellipse 80% 50% at 50% 100%, rgba(15,14,13,0.92) 0%, rgba(15,14,13,0.45) 50%, rgba(15,14,13,0.15) 100%);
   }
 
-  /* Subtle grain texture */
-  .grain {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.06;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
   .nav {
     display: flex;
     justify-content: space-between;
@@ -603,11 +593,21 @@
   }
 </style>
 <script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wnqkprjmab");
+  // Microsoft Clarity — deferred until after first paint to keep TBT low.
+  // Queued events still record once the script loads.
+  window.clarity = window.clarity || function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};
+  function loadClarity(){
+    if (document.querySelector('script[src*="clarity.ms/tag/"]')) return;
+    var s = document.createElement('script');
+    s.async = 1;
+    s.src = "https://www.clarity.ms/tag/wnqkprjmab";
+    document.head.appendChild(s);
+  }
+  if (window.requestIdleCallback) {
+    requestIdleCallback(loadClarity, { timeout: 4000 });
+  } else {
+    addEventListener('load', function(){ setTimeout(loadClarity, 1500); });
+  }
 </script>
 </head>
 <body>
@@ -618,7 +618,6 @@
   <svg class="hero-skyline" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,80 L0,55 L18,55 L18,40 L32,40 L32,52 L48,52 L48,28 L62,28 L62,45 L78,45 L78,38 L92,38 L92,22 L108,22 L108,42 L124,42 L124,50 L140,50 L140,30 L156,30 L156,18 L172,18 L172,35 L188,35 L188,48 L204,48 L204,25 L220,25 L220,42 L236,42 L236,32 L252,32 L252,50 L268,50 L268,38 L284,38 L284,22 L300,22 L300,45 L316,45 L316,52 L332,52 L332,30 L348,30 L348,42 L364,42 L364,55 L380,55 L380,48 L400,48 L400,80 Z" fill="#000" opacity="0.6"/>
   </svg>
-  <div class="grain" aria-hidden="true"></div>
 
   <!-- 📸 OPTIONAL: Eigenes Foto einsetzen
        <img class="hero-photo" src="DEIN-FOTO.jpg" alt=""> -->
