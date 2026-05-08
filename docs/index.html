@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F0E0D">
-<title>The Tribe · Bielefeld</title>
+<title>The Tribe · Bielefeld – Finde deine Leute</title>
+<meta name="description" content="The Tribe ist Bielefelds entspannteste WhatsApp-Community. Komm einfach – du musst niemand kennen. Sonntags Kennenlernabend im Café Barcelona.">
+<meta property="og:title" content="The Tribe · Bielefeld – Finde deine Leute">
+<meta property="og:description" content="Bielefeld ist nur eine Stadt, bis du deine Leute findest. Komm einfach. Du musst niemand kennen.">
+<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/hero.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maikz91.github.io/the-tribe-bot/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F0E0D'/%3E%3Ctext x='50' y='68' font-size='62' text-anchor='middle' font-family='Georgia,serif' fill='%23E9A85A'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preload" as="image" href="hero.webp" fetchpriority="high">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,6 +250,37 @@
   }
   .meta-row .dot { width: 3px; height: 3px; background: var(--ink-faint); border-radius: 50%; }
   .meta-row strong { color: var(--ink); font-weight: 500; }
+
+  /* Next-event urgency line — live countdown to Sunday 19:00 */
+  .next-event {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 4px;
+    padding: 7px 12px;
+    border: 1px solid var(--amber-soft);
+    border-radius: 999px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .next-event .pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 0 var(--amber);
+    animation: pulseDot 1.8s ease-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0.55); }
+    70%  { box-shadow: 0 0 0 10px rgba(233, 168, 90, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .next-event .pulse-dot { animation: none; }
+  }
 
   /* WhatsApp CTA — the hero of the page */
   .cta {
@@ -750,6 +789,11 @@
       <span>Seit 2024</span>
     </div>
 
+    <div class="next-event" id="nextEvent" aria-live="polite">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span class="next-event-text">Nächster Kennenlernabend lädt…</span>
+    </div>
+
     <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta" id="primaryCta">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Zm3.55-4.87c-.19-.1-1.13-.56-1.31-.62-.18-.07-.31-.1-.44.1-.13.19-.5.62-.62.75-.11.13-.23.15-.42.05-.19-.1-.81-.3-1.55-.95a5.81 5.81 0 0 1-1.07-1.34c-.11-.19-.01-.29.08-.39.08-.08.19-.23.29-.34.1-.11.13-.19.19-.32.07-.13.03-.24-.01-.34-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.34l-.37-.01a.72.72 0 0 0-.52.24c-.18.19-.69.68-.69 1.65 0 .98.71 1.92.81 2.05.1.13 1.41 2.16 3.43 3.02.48.21.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.13-.46 1.29-.91.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.23Z"/>
@@ -920,6 +964,41 @@
       requestAnimationFrame(() => { update(); ticking = false; });
     }, { passive: true });
     update();
+  })();
+
+  // Next-Sunday countdown for the Kennenlernabend (19:00 local time).
+  (function () {
+    const el = document.getElementById('nextEvent');
+    if (!el) return;
+    const txt = el.querySelector('.next-event-text');
+    const fmt = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long' });
+    const tick = () => {
+      const now = new Date();
+      const target = new Date(now);
+      const day = now.getDay(); // 0 = Sunday
+      let addDays = (7 - day) % 7;
+      target.setHours(19, 0, 0, 0);
+      if (addDays === 0 && now >= target) addDays = 7;
+      target.setDate(now.getDate() + addDays);
+      const diffMs = target - now;
+      const hrs = Math.floor(diffMs / 3600000);
+      const days = Math.floor(hrs / 24);
+      const dateStr = fmt.format(target);
+      let when;
+      if (diffMs < 3600000) {
+        const mins = Math.max(1, Math.floor(diffMs / 60000));
+        when = `Heute · läuft in ${mins} Min`;
+      } else if (days === 0) {
+        when = `Heute · 19:00 · in ${hrs} Std`;
+      } else if (days === 1) {
+        when = `Morgen · 19:00 · ${dateStr}`;
+      } else {
+        when = `Diesen Sonntag · 19:00 · in ${days} Tagen`;
+      }
+      txt.textContent = when;
+    };
+    tick();
+    setInterval(tick, 60000);
   })();
 </script>
 
