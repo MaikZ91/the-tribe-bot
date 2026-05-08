@@ -154,11 +154,16 @@ async function clickByText(page, regex, opts = {}) {
 }
 
 async function fillContactForm(page) {
+    const nameParts = RESERVATION_NAME.trim().split(/\s+/);
+    const firstName = nameParts[0] || RESERVATION_NAME;
+    const lastName = nameParts.slice(1).join(' ');
+
     const labelMap = [
-        { keys: ['name', 'vorname'], value: RESERVATION_NAME },
+        { keys: ['firstname', 'vorname'], value: firstName },
+        { keys: ['lastname', 'nachname', 'surname'], value: lastName },
         { keys: ['mail', 'email'], value: RESERVATION_EMAIL },
-        { keys: ['telefon', 'phone', 'mobil'], value: RESERVATION_PHONE },
-        { keys: ['nachricht', 'anmerkung', 'kommentar', 'message', 'notes'], value: RESERVATION_NOTES },
+        { keys: ['telefon', 'phone', 'mobil', 'handy'], value: RESERVATION_PHONE },
+        { keys: ['nachricht', 'anmerkung', 'kommentar', 'message', 'notes', 'mitteilung'], value: RESERVATION_NOTES },
     ];
 
     for (const { keys, value } of labelMap) {
@@ -197,21 +202,46 @@ async function fillContactForm(page) {
         }
     }
 
-    // Datenschutz-Checkbox
-    const privacyChecked = await page.evaluate(() => {
+    // Datenschutz-Checkbox finden + aktivieren. Wunschliste-Toggles
+    // (Barrierefreiheit, Fußballfan, Hund, Kinderstuhl, Kinderwagen),
+    // Newsletter, Dauer-Speicher-Opt-In NICHT aktivieren.
+    const skipPattern = /(barriere|fußballfan|fussballfan|hund|kinderstuhl|kinderwagen|newsletter|dauerhaft gespeichert|exklusive angebote)/i;
+    const privacyPattern = /(datenschutzerklärung|datenschutzerklaerung|einverstanden|datenschutz)/i;
+
+    const privacyResult = await page.evaluate((skipSrc, prefSrc) => {
+        const skipRe = new RegExp(skipSrc, 'i');
+        const prefRe = new RegExp(prefSrc, 'i');
         const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+        let activated = null;
+        let inspected = [];
+
         for (const cb of checkboxes) {
-            if (cb.id === 'barrierFree') continue;
             const rect = cb.getBoundingClientRect();
             if (rect.width === 0 || rect.height === 0) continue;
-            if (cb.checked) return cb.id || cb.name;
+            const labelEl = document.querySelector(`label[for="${cb.id}"]`);
+            const ancestorText = (cb.closest('div,li,section,form,p') || cb.parentElement || {}).textContent || '';
+            const text = ((labelEl && labelEl.textContent) || ancestorText || '').replace(/\s+/g, ' ').trim().slice(0, 200);
+            inspected.push({ id: cb.id || cb.name, checked: cb.checked, text: text.slice(0, 80) });
+            if (cb.id === 'barrierFree') continue;
+            if (skipRe.test(text)) continue;
+            if (!prefRe.test(text)) continue;
+            if (cb.checked) {
+                activated = { id: cb.id || cb.name || '(unnamed)', already: true, text };
+                break;
+            }
             cb.click();
-            return cb.id || cb.name || '(unnamed)';
+            activated = { id: cb.id || cb.name || '(unnamed)', already: false, text };
+            break;
         }
-        return null;
-    });
-    if (privacyChecked) {
-        console.log(`[contact] Checkbox aktiviert: ${privacyChecked}`);
+
+        return { activated, inspected };
+    }, skipPattern.source, privacyPattern.source);
+
+    console.log(`[contact] Checkboxen inspiziert: ${JSON.stringify(privacyResult.inspected)}`);
+    if (privacyResult.activated) {
+        console.log(`[contact] Datenschutz-Checkbox: ${privacyResult.activated.id} (${privacyResult.activated.already ? 'war bereits aktiviert' : 'aktiviert'}) — Text: "${privacyResult.activated.text.slice(0, 100)}"`);
+    } else {
+        console.warn('[contact] Datenschutz-Checkbox nicht gefunden — Submit wird vermutlich scheitern.');
     }
 }
 
