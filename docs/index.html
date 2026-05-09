@@ -3,797 +3,750 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0F0E0D">
-<title>The Tribe · Bielefeld – Finde deine Leute</title>
-<meta name="description" content="The Tribe ist Bielefelds entspannteste WhatsApp-Community. Komm einfach – du musst niemand kennen. Sonntags Kennenlernabend im Café Barcelona.">
-<meta property="og:title" content="The Tribe · Bielefeld – Finde deine Leute">
-<meta property="og:description" content="Bielefeld ist nur eine Stadt, bis du deine Leute findest. Komm einfach. Du musst niemand kennen.">
-<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/hero.webp">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://maikz91.github.io/the-tribe-bot/">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F0E0D'/%3E%3Ctext x='50' y='68' font-size='62' text-anchor='middle' font-family='Georgia,serif' fill='%23E9A85A'%3ET%3C/text%3E%3C/svg%3E">
-<link rel="preload" as="image" href="hero.webp" fetchpriority="high">
+<meta name="theme-color" content="#0A0807">
+<meta name="description" content="The Tribe Bielefeld — Community für Leute, die nicht alleine zu Hause sitzen wollen. Sonntags treffen, unter der Woche schreiben.">
+
+<title>THE TRIBE — Bielefeld</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='white' text-anchor='middle' font-weight='900'>T</text></svg>">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://chat.whatsapp.com">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
 <style>
+  /* ──────────────────────────────────────────
+     THE TRIBE · BIELEFELD
+     Cinematic editorial — designed as a continuation of the IG reel.
+     Visual DNA: dark warm ground, Anton uppercase display, candid stills.
+     ────────────────────────────────────────── */
+
   :root {
-    --bg: #0F0E0D;
-    --bg-2: #1A1816;
-    --bg-3: #221F1C;
-    --ink: #F4EFE8;
-    --ink-dim: rgba(244, 239, 232, 0.62);
-    --ink-faint: rgba(244, 239, 232, 0.38);
-    --amber: #E9A85A;
-    --amber-soft: rgba(233, 168, 90, 0.18);
+    --black: #0A0807;
+    --black-rich: #050403;
+    --paper: #FAFAF7;
+    --amber: #F59E0B;
+    --amber-deep: #B45309;
+    --concert: #DC2626;
     --whatsapp: #25D366;
-    --whatsapp-dim: #1FAA52;
-    --rule: rgba(244, 239, 232, 0.08);
+    --whatsapp-deep: #128C7E;
+    --text: #F5F0E8;
+    --text-muted: #9C9690;
+    --rule: rgba(245,240,232,0.12);
+
+    --font-display: "Anton", "Arial Narrow", sans-serif;
+    --font-body: "Familjen Grotesk", system-ui, sans-serif;
+
+    --shell: min(100%, 720px);
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; min-width: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Geist', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    font-weight: 400;
-    line-height: 1.5;
+    font-family: var(--font-body);
+    background: var(--black);
+    color: var(--text);
     -webkit-font-smoothing: antialiased;
-    overflow-x: clip;
-  }
-  /* Fallback for browsers without overflow-x: clip (older Safari).
-     'clip' is preferred because, unlike 'hidden', it does not break
-     position:fixed children on iOS. */
-  @supports not (overflow-x: clip) {
-    body { overflow-x: hidden; }
-  }
-  img, svg { max-width: 100%; height: auto; }
-
-  .display { font-family: 'Fraunces', 'Georgia', serif; font-weight: 500; letter-spacing: -0.02em; }
-  .italic { font-style: italic; }
-
-  /* ── HERO ───────────────────────────── */
-  .hero {
-    position: relative;
-    min-height: 100svh;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: max(env(safe-area-inset-top), 14px) 20px max(env(safe-area-inset-bottom), 20px);
-    isolation: isolate;
-    overflow: hidden;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+    overflow-x: hidden;
+    padding-bottom: 80px; /* room for sticky CTA */
   }
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -3;
-    background: #0a0908;
-  }
-
-  .hero-photo {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: center 30%;
-    z-index: -2;
-    filter: saturate(1.08) contrast(1.04);
-    animation: heroZoom 14s ease-out forwards;
-  }
-  @keyframes heroZoom {
-    from { transform: scale(1.06); }
-    to   { transform: scale(1); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-photo { animation: none; }
-  }
-
-  /* Bottom-only gradient: keeps the upper photo clean, gives lower text legibility */
-  .hero-scrim {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(180deg, rgba(15,14,13,0) 0%, rgba(15,14,13,0) 35%, rgba(15,14,13,0.55) 60%, rgba(15,14,13,0.95) 100%);
-  }
-
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .brand {
-    font-family: 'Fraunces', serif;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .brand-mark { color: var(--amber); margin-left: 4px; }
-
-  .member-count {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 6px 11px 6px 9px;
-    background: rgba(15, 14, 13, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(244, 239, 232, 0.12);
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: -0.005em;
-    color: var(--ink);
-    font-weight: 500;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  }
-  .member-count-dot {
-    width: 6px; height: 6px;
-    background: var(--whatsapp);
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22);
-    animation: pulse 2.4s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22); }
-    50%      { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0.04); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .member-count-dot { animation: none; }
-  }
-
-  /* Single content block — pinned to bottom of hero, content stacks naturally */
-  .hero-content {
-    margin-top: auto;
-    position: relative;
-    z-index: 2;
-    animation: fadeUp 1s 0.25s ease-out backwards;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-content { animation: none; }
-  }
-
-  .hero-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(34px, 9vw, 54px);
-    line-height: 1.02;
-    letter-spacing: -0.028em;
-    font-weight: 500;
-    max-width: 18ch;
-    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
-    margin: 0;
-  }
-  .hero-title em {
-    font-style: italic;
-    color: var(--amber);
-    font-weight: 500;
-  }
-
-  /* Date-anchor capsule — the time-bound urgency element */
-  .event-capsule {
-    align-self: flex-start;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 12px 16px 13px;
-    background: rgba(15, 14, 13, 0.55);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(233, 168, 90, 0.32);
-    border-radius: 16px;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.05) inset,
-      0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-  .event-capsule-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--amber);
-    font-weight: 500;
-  }
-  .event-pulse {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--amber);
-    animation: pulseDot 2s ease-out infinite;
-    flex-shrink: 0;
-  }
-  @keyframes pulseDot {
-    0%   { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0.55); }
-    70%  { box-shadow: 0 0 0 9px rgba(233, 168, 90, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .event-pulse { animation: none; }
-  }
-  .event-capsule-when {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: var(--ink);
-  }
-  .event-capsule-where {
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    letter-spacing: -0.005em;
-  }
-
-  /* Primary WhatsApp CTA — the hero of the page */
-  .cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 19px 20px;
-    background: linear-gradient(180deg, #2BDD6E 0%, var(--whatsapp) 60%, var(--whatsapp-dim) 100%);
-    color: #07110A;
-    font-weight: 600;
-    font-size: 17px;
-    letter-spacing: -0.005em;
-    border: none;
-    border-radius: 999px;
-    text-decoration: none;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.35) inset,
-      0 -2px 0 rgba(0, 0, 0, 0.14) inset,
-      0 14px 36px rgba(37, 211, 102, 0.4),
-      0 2px 0 rgba(0, 0, 0, 0.22);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    position: relative;
-    overflow: hidden;
-    margin-top: 4px;
-  }
-  .cta::after {
-    /* subtle shine sweep on idle */
+  /* Subtle film grain — gives the page a cinematic, not-flat feel */
+  body::before {
     content: "";
-    position: absolute;
-    top: 0; left: -60%;
-    width: 40%; height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
-    transform: skewX(-18deg);
-    animation: ctaShine 5.5s ease-in-out 1.2s infinite;
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
-  @keyframes ctaShine {
-    0%, 70%, 100% { left: -60%; }
-    85%           { left: 130%; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cta::after { animation: none; display: none; }
-  }
-  .cta:active {
-    transform: translateY(1px) scale(0.99);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.35) inset,
-      0 -2px 0 rgba(0, 0, 0, 0.14) inset,
-      0 4px 14px rgba(37, 211, 102, 0.28);
-  }
-  .cta-arrow {
-    transition: transform 0.3s ease;
-  }
-  .cta:hover .cta-arrow { transform: translateX(4px); }
 
-  .micro-trust {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 4px;
-    font-size: 12px;
-    color: var(--ink-dim);
+  ::selection { background: var(--amber); color: var(--black); }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ──────────────────────────────
+     Typography primitives
+     ────────────────────────────── */
+
+  .display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
     letter-spacing: -0.005em;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    line-height: 0.92;
+    font-weight: 400;
   }
-  .micro-trust span { display: inline-flex; align-items: center; gap: 5px; }
-  .micro-trust .check { color: var(--whatsapp); font-weight: 600; }
 
-  /* ── SECTION DIVIDERS ────────────────── */
-  .section-marker {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 56px 20px 28px;
+  .label {
+    font-family: var(--font-body);
     font-size: 11px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--ink-dim);
+    font-weight: 500;
+    color: var(--text-muted);
   }
-  .section-marker .num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--amber);
-    letter-spacing: -0.01em;
-    text-transform: none;
-  }
-  .section-marker::after {
-    content: "";
-    flex: 1;
+
+  .rule {
     height: 1px;
     background: var(--rule);
-  }
-
-  /* ── CHAT PREVIEW ──────────────────────── */
-  .chat-intro {
-    padding: 0 20px 28px;
-  }
-  .chat-intro h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 32px;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    font-weight: 500;
-    margin-bottom: 12px;
-  }
-  .chat-intro h2 em {
-    color: var(--amber);
-    font-style: italic;
-  }
-  .chat-intro p {
-    font-size: 15px;
-    color: var(--ink-dim);
-    line-height: 1.55;
-    max-width: 36ch;
-  }
-
-  .chat {
-    background: var(--bg-2);
-    margin: 0 16px 28px;
-    border-radius: 22px;
-    padding: 18px 14px;
-    border: 1px solid var(--rule);
-    position: relative;
-  }
-  .chat-day {
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    margin: 14px 0 18px;
-  }
-  .chat-day:first-child { margin-top: 4px; }
-
-  .msg {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 14px;
-    align-items: flex-end;
-  }
-  .msg-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: var(--bg-3);
-    flex-shrink: 0;
-    object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    text-transform: uppercase;
-    border: 1px solid var(--rule);
-  }
-  img.msg-avatar { display: block; padding: 0; }
-  .msg-avatar[data-color="amber"] { background: linear-gradient(135deg, #c97a3a, #8a4f23); }
-  .msg-avatar[data-color="rose"]  { background: linear-gradient(135deg, #b85a6f, #7a3a4a); }
-  .msg-avatar[data-color="moss"]  { background: linear-gradient(135deg, #6b8a5a, #3f5a3a); }
-  .msg-avatar[data-color="dusk"]  { background: linear-gradient(135deg, #5a6a8a, #3a455f); }
-  .msg-avatar[data-color="sand"]  { background: linear-gradient(135deg, #a89070, #6a5a45); }
-  .msg-bubble {
-    background: var(--bg-3);
-    padding: 10px 14px;
-    border-radius: 18px 18px 18px 4px;
-    max-width: 78%;
-    font-size: 14.5px;
-    line-height: 1.4;
-  }
-  .msg-bubble .name {
-    display: block;
-    font-size: 12px;
-    color: var(--amber);
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-  .msg-bubble .time {
-    font-size: 10.5px;
-    color: var(--ink-faint);
-    margin-left: 6px;
-    letter-spacing: 0.02em;
-  }
-  .msg-photo {
     width: 100%;
-    max-width: 280px;
-    border-radius: 14px;
-    margin: 6px 0 4px;
-    display: block;
-  }
-  .msg-photo-placeholder {
-    width: 100%;
-    max-width: 280px;
-    aspect-ratio: 4 / 3;
-    border-radius: 14px;
-    margin: 6px 0 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    background:
-      radial-gradient(ellipse 70% 50% at 30% 30%, rgba(233, 168, 90, 0.25) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 70% 70%, rgba(217, 95, 60, 0.22) 0%, transparent 55%),
-      linear-gradient(135deg, #2a2018 0%, #1a1410 100%);
-    color: var(--ink-dim);
-    font-size: 13px;
-    border: 1px dashed var(--rule);
-  }
-  .msg-photo-placeholder span { font-size: 24px; }
-  .msg-photo-placeholder small { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.05em; }
-  .reactions {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin: -4px 0 14px 42px;
-    background: var(--bg-3);
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    color: var(--ink);
-    border: 1px solid var(--rule);
   }
 
-  .typing {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 4px;
-    color: var(--ink-faint);
-    font-size: 12.5px;
-    font-style: italic;
-    padding-left: 4px;
-  }
-  .typing-dots {
-    display: inline-flex;
-    gap: 3px;
-  }
-  .typing-dots span {
-    width: 5px; height: 5px;
-    background: var(--ink-faint);
-    border-radius: 50%;
-    animation: typedots 1.4s infinite;
-  }
-  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes typedots {
-    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
-    30% { opacity: 1; transform: translateY(-2px); }
-  }
+  /* ──────────────────────────────
+     Shell — top brand bar (always visible, mimics ad header)
+     ────────────────────────────── */
 
-  /* ── DETAILS / WHAT TO EXPECT ───────────── */
-  .details {
-    padding: 0 20px;
-    margin-bottom: 56px;
-  }
-
-  .detail-card {
-    border: 1px solid var(--rule);
-    border-radius: 18px;
-    padding: 22px;
-    margin-bottom: 12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-  }
-  .detail-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    margin-bottom: 6px;
-  }
-  .detail-card h3 em {
-    color: var(--amber);
-    font-style: italic;
-  }
-  .detail-card p {
-    font-size: 14.5px;
-    color: var(--ink-dim);
-    line-height: 1.55;
-  }
-
-  /* ── FINAL CTA SECTION ────────────────── */
-  .closer {
-    padding: 0 20px 80px;
-    text-align: center;
-    position: relative;
-  }
-  .closer::before {
-    content: "";
-    display: block;
-    width: 1px;
-    height: 56px;
-    background: linear-gradient(180deg, transparent, var(--rule));
-    margin: 0 auto 40px;
-  }
-
-  .closer-quote {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 26px;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin-bottom: 36px;
-    color: var(--ink);
-  }
-  .closer-quote::before { content: "„"; color: var(--amber); }
-  .closer-quote::after { content: "\201C"; color: var(--amber); }
-
-  .closer .cta { max-width: 360px; margin: 0 auto; }
-
-  .footer {
-    padding: 32px 20px max(env(safe-area-inset-bottom), 32px);
-    text-align: center;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    border-top: 1px solid var(--rule);
-  }
-  .footer-mark {
-    font-family: 'Fraunces', serif;
-    font-size: 13px;
-    color: var(--ink-dim);
-    letter-spacing: 0.02em;
-    text-transform: none;
-    margin-bottom: 4px;
-  }
-
-  /* ── STICKY HEADER ─────────────────────── */
-  .sticky-header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 60;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 14px max(10px, env(safe-area-inset-top));
-    padding-top: max(10px, env(safe-area-inset-top));
-    background: rgba(15, 14, 13, 0.85);
-    backdrop-filter: saturate(160%) blur(12px);
-    -webkit-backdrop-filter: saturate(160%) blur(12px);
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px;
+    background: var(--black);
     border-bottom: 1px solid var(--rule);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
   }
-  .sticky-header.visible { transform: translateY(0); }
-  .sticky-header .brand {
-    font-family: 'Fraunces', serif;
+  .topbar .brand-tag {
+    font-family: var(--font-display);
     font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: var(--ink);
+    letter-spacing: 0.04em;
+    background: var(--text);
+    color: var(--black);
+    padding: 5px 9px 3px;
+    line-height: 1;
   }
-  .sticky-header .brand-mark { color: var(--amber); margin-left: 4px; }
-  .sticky-header .header-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: var(--whatsapp);
-    color: #07110A;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: -0.005em;
-    border-radius: 999px;
-    text-decoration: none;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.25) inset,
-      0 -2px 0 rgba(0, 0, 0, 0.12) inset,
-      0 4px 12px rgba(37, 211, 102, 0.3),
-      0 1px 0 rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .topbar .live {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-muted);
   }
-  .sticky-header .header-cta:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.25) inset,
-      0 -1px 0 rgba(0, 0, 0, 0.12) inset,
-      0 2px 6px rgba(37, 211, 102, 0.25);
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--whatsapp); box-shadow: 0 0 10px var(--whatsapp);
+    animation: pulse 1.6s ease-in-out infinite;
   }
-  .sticky-header .header-cta .cta-arrow {
-    transition: transform 0.3s ease;
-    margin-left: 2px;
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
   }
-  .sticky-header .header-cta:hover .cta-arrow { transform: translateX(3px); }
 
-  /* ── STICKY BOTTOM CTA ─────────────────── */
-  .sticky-cta {
-    position: fixed;
-    left: 12px; right: 12px;
-    bottom: max(env(safe-area-inset-bottom), 12px);
-    z-index: 50;
-    transform: translateY(140%);
-    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  /* ──────────────────────────────
+     Hero — the black "logo card" that picks up where the reel ended
+     ────────────────────────────── */
+
+  .opener {
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 32px 22px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .opener::after {
+    /* warm spotlight wash */
+    content: "";
+    position: absolute; inset: -20% -20% auto -20%; height: 70%;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.18), transparent 65%);
     pointer-events: none;
   }
-  .sticky-cta.visible { transform: translateY(0); pointer-events: auto; }
-  .sticky-cta .cta {
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.25) inset,
-      0 -2px 0 rgba(0,0,0,0.12) inset,
-      0 18px 40px rgba(0, 0, 0, 0.5),
-      0 6px 16px rgba(37, 211, 102, 0.25);
+
+  .opener-meta {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    z-index: 2; position: relative;
+  }
+  .opener-meta .label { color: var(--text-muted); }
+
+  .opener-core {
+    z-index: 2; position: relative;
+    display: flex; flex-direction: column; gap: 22px;
+    margin: auto 0;
   }
 
+  .pre-hook {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--amber);
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0;
+    animation: rise 0.7s 0.1s ease-out forwards;
+  }
+
+  .opener-title {
+    font-size: clamp(62px, 18vw, 124px);
+    color: var(--text);
+  }
+  .opener-title .line {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 0.7s ease-out forwards;
+  }
+  .opener-title .line:nth-child(1) { animation-delay: 0.25s; }
+  .opener-title .line:nth-child(2) { animation-delay: 0.4s;  color: var(--amber); }
+  .opener-title .line:nth-child(3) { animation-delay: 0.55s; font-size: 0.42em; letter-spacing: 0.18em; padding-top: 10px; color: var(--text-muted); }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .opener-sub {
+    font-size: 17px;
+    line-height: 1.45;
+    max-width: 28ch;
+    color: var(--text);
+    opacity: 0;
+    animation: rise 0.7s 0.7s ease-out forwards;
+  }
+  .opener-sub strong { color: var(--amber); font-weight: 600; }
+
+  .scroll-cue {
+    display: flex; align-items: center; gap: 14px;
+    z-index: 2; position: relative;
+    opacity: 0;
+    animation: rise 0.7s 0.95s ease-out forwards;
+  }
+  .scroll-cue .arrow {
+    width: 1px; height: 38px; background: var(--text);
+    position: relative;
+    transform-origin: top;
+    animation: drop 1.6s 1.5s ease-in-out infinite;
+  }
+  .scroll-cue .arrow::after {
+    content: ""; position: absolute; bottom: 0; left: -3px;
+    width: 7px; height: 7px;
+    border-right: 1px solid var(--text);
+    border-bottom: 1px solid var(--text);
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  @keyframes drop {
+    0%,100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.4; }
+  }
+
+  /* ──────────────────────────────
+     Photo blocks — full-bleed stills with hook text
+     mimics the ad's "white-text-on-image-bottom" composition
+     ────────────────────────────── */
+
+  .frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1080 / 780;
+    overflow: hidden;
+    background: var(--black);
+  }
+  .frame.tall { aspect-ratio: 1080 / 1480; }
+  .frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .frame::before {
+    /* dark vignette for legibility of overlaid text */
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10,8,7,0.85) 0%,
+      rgba(10,8,7,0.35) 35%,
+      rgba(10,8,7,0)    65%,
+      rgba(10,8,7,0.55) 100%
+    );
+    pointer-events: none;
+  }
+
+  .frame .chapter {
+    position: absolute;
+    top: 18px; left: 18px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    background: rgba(0,0,0,0.55);
+    padding: 6px 10px 4px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+
+  .frame .hook {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 24px 22px 28px;
+    z-index: 2;
+  }
+  .frame .hook .roman {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    color: var(--amber);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .frame .hook .question {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 11vw, 80px);
+    color: var(--text);
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+  .frame .hook .question em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  /* concert variant — red accent instead of amber */
+  .frame.concert .hook .roman { color: var(--concert); }
+  .frame.concert .hook .question em { color: var(--concert); }
+
+  /* ──────────────────────────────
+     Answer block — big editorial response
+     ────────────────────────────── */
+
+  .answer {
+    padding: 80px 22px 70px;
+    background: var(--black);
+    position: relative;
+  }
+  .answer .stamp {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    color: var(--amber);
+    margin-bottom: 26px;
+  }
+  .answer h2 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: clamp(80px, 24vw, 160px);
+    line-height: 0.85;
+    color: var(--text);
+  }
+  .answer h2 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .answer .body {
+    margin-top: 36px;
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 36ch;
+    color: var(--text);
+  }
+  .answer .body p + p { margin-top: 16px; }
+  .answer .signature {
+    margin-top: 32px;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .answer .signature .dash {
+    width: 28px; height: 1px; background: var(--text-muted);
+  }
+
+  /* ──────────────────────────────
+     Chapters — what you actually get
+     ────────────────────────────── */
+
+  .chapters {
+    background: var(--black);
+    padding: 60px 0 30px;
+  }
+  .chapter-head {
+    display: flex; align-items: baseline; gap: 14px;
+    padding: 0 22px 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .chapter-head .num {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--amber);
+  }
+  .chapter-head .title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .chapter-list .item {
+    padding: 28px 22px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .chapter-list .item .roman {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--amber);
+    letter-spacing: 0.04em;
+  }
+  .chapter-list .item h3 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 6.5vw, 36px);
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .chapter-list .item h3 em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .chapter-list .item p {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .chapter-list .item .meta {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ──────────────────────────────
+     Proof strip — group photo + numeric weight
+     ────────────────────────────── */
+
+  .proof {
+    background: var(--black);
+    padding: 48px 22px;
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .proof .label { color: var(--amber); }
+  .proof .stat {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 16vw, 96px);
+    line-height: 0.9;
+    color: var(--text);
+  }
+  .proof .stat em { font-style: normal; color: var(--amber); }
+  .proof .caption {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ──────────────────────────────
+     CTA section — WhatsApp green pops here only
+     ────────────────────────────── */
+
+  .closer {
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(37,211,102,0.14), transparent 65%),
+      var(--black);
+    padding: 80px 22px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closer .quote {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 9vw, 56px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+  .closer .quote em {
+    font-style: normal;
+    color: var(--amber);
+  }
+  .closer .quote-attr {
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 50px;
+  }
+
+  /* CTA button — WhatsApp brand green, big, bold */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 30px;
+    background: var(--whatsapp);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    border: none;
+    cursor: pointer;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 18px 40px rgba(37,211,102,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta:hover { transform: translateY(-2px); }
+  .cta:active { transform: translateY(0); }
+  .cta svg { width: 22px; height: 22px; }
+  .cta .arrow { font-size: 22px; }
+
+  .cta-block { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .micro-trust {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .micro-trust span { display: inline-flex; align-items: center; gap: 6px; }
+  .micro-trust .check { color: var(--whatsapp); font-weight: 700; }
+
+  /* ──────────────────────────────
+     Footer — record-label vibe
+     ────────────────────────────── */
+
+  footer {
+    padding: 40px 22px 60px;
+    background: var(--black-rich);
+    border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  footer .stamp-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 8px;
+  }
+  footer .stamp {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  footer .meta {
+    font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  footer .links {
+    display: flex; gap: 18px; font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  footer .links a { border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+
+  /* ──────────────────────────────
+     Sticky bottom CTA — visible from first paint
+     ────────────────────────────── */
+
+  .sticky-cta {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 60;
+    padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--black) 60%, rgba(10,8,7,0.85));
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: center;
+  }
+  .sticky-cta a {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; max-width: 460px;
+    padding: 16px 22px;
+    background: var(--whatsapp);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    box-shadow: 0 12px 30px rgba(37,211,102,0.30);
+  }
+  .sticky-cta svg { width: 18px; height: 18px; }
+
+  /* ──────────────────────────────
+     Reduced motion
+     ────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .opener-title .line, .opener-sub, .pre-hook, .scroll-cue { opacity: 1; transform: none; }
+  }
+
+  /* ──────────────────────────────
+     Wider screens — keep mobile-shaped column, just cap width
+     ────────────────────────────── */
   @media (min-width: 720px) {
-    body { font-size: 16px; }
-    .hero { padding: 32px 40px; }
-    .hero-title { font-size: clamp(56px, 7vw, 88px); }
-    .chat, .details, .closer, .chat-intro, .section-marker { max-width: 560px; margin-left: auto; margin-right: auto; }
-    .section-marker { padding-left: 0; padding-right: 0; }
-    .chat-intro { padding-left: 4px; padding-right: 4px; }
-    .details, .closer { padding-left: 4px; padding-right: 4px; }
-    .chat { margin-left: 0; margin-right: 0; }
+    .opener, .answer, .chapters, .proof, .closer, footer { padding-left: max(22px, calc((100vw - 720px)/2)); padding-right: max(22px, calc((100vw - 720px)/2)); }
+    .frame .hook, .frame .chapter, .topbar { padding-left: max(22px, calc((100vw - 720px)/2)); padding-right: max(22px, calc((100vw - 720px)/2)); }
+    .frame .chapter { left: max(18px, calc((100vw - 720px)/2)); }
   }
 </style>
-<script type="text/javascript">
-  // PostHog Cloud EU — deferred until idle to keep first paint snappy.
-  // Captures pageviews, autocaptures clicks, runs heatmaps + session replay.
-  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-  function loadPostHog(){
-    posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t', {
-      api_host: 'https://eu.i.posthog.com',
-      person_profiles: 'always',
-      capture_pageview: true,
-      capture_pageleave: true,
-      autocapture: true,
-      session_recording: { maskAllInputs: true },
-      enable_heatmaps: true,
-      defaults: '2025-05-24'
-    });
-    if (window.posthog && posthog.register) posthog.register({ landing_variant: 'v1-original' });
-  }
-  loadPostHog();
-
-  // Dwell + scroll heartbeat. IG in-app browsers drop $pageleave when the
-  // user swipes back, so we send our own tribe_dwell every 5s and on every
-  // visibility/pagehide change, with send_instantly for keepalive transport.
-  (function(){
-    var visibleSince = Date.now();
-    var totalVisible = 0;
-    var maxScrollPct = 0;
-    var ticks = 0;
-    function scrollPct(){
-      var doc = document.documentElement;
-      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
-      return Math.min(100, Math.round((window.scrollY || window.pageYOffset || 0) / max * 100));
-    }
-    function send(reason){
-      if (document.visibilityState === 'visible') {
-        totalVisible += Date.now() - visibleSince;
-        visibleSince = Date.now();
-      }
-      var pct = Math.max(maxScrollPct, scrollPct());
-      maxScrollPct = pct;
-      try {
-        window.posthog && posthog.capture && posthog.capture('tribe_dwell', {
-          dwell_ms: totalVisible, reason: reason, scroll_pct: pct, ticks: ticks,
-          landing_variant: 'v1-original'
-        }, { send_instantly: true });
-      } catch(e){}
-    }
-    setInterval(function(){ ticks++; send('heartbeat'); }, 5000);
-    document.addEventListener('visibilitychange', function(){
-      if (document.visibilityState === 'hidden') {
-        totalVisible += Date.now() - visibleSince;
-        send('hidden');
-      } else { visibleSince = Date.now(); }
-    });
-    addEventListener('pagehide', function(){ send('pagehide'); });
-  })();
-
-  document.addEventListener('click', function(ev){
-    var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
-    if (!a) return;
-    loadPostHog();
-    try {
-      posthog.capture('whatsapp_cta_click', {
-        cta_location: a.className || 'unknown',
-        cta_text: (a.innerText || '').trim().slice(0, 60),
-        href: a.href
-      }, { send_instantly: true });
-    } catch (e) {}
-  }, true);
-
-  // Track whether the primary CTA button was ever visible (IntersectionObserver).
-  // Fires once per page load as 'cta_visible' in PostHog.
-  (function () {
-    var reported = false;
-    var cta = document.getElementById('primaryCta');
-    if (!cta || !window.IntersectionObserver) return;
-    var io = new IntersectionObserver(function (entries) {
-      if (reported) return;
-      if (entries[0].isIntersecting) {
-        reported = true;
-        io.disconnect();
-        try { posthog.capture('cta_visible', { cta_id: 'primaryCta' }); } catch (e) {}
-      }
-    }, { threshold: 0.5 });
-    io.observe(cta);
-  })();
-</script>
 </head>
 <body>
 
-<header class="sticky-header" id="stickyHeader" aria-hidden="true">
-  <div class="brand">The Tribe<span class="brand-mark">·</span> Bielefeld</div>
-  <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="header-cta">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Zm3.55-4.87c-.19-.1-1.13-.56-1.31-.62-.18-.07-.31-.1-.44.1-.13.19-.5.62-.62.75-.11.13-.23.15-.42.05-.19-.1-.81-.3-1.55-.95a5.81 5.81 0 0 1-1.07-1.34c-.11-.19-.01-.29.08-.39.08-.08.19-.23.29-.34.1-.11.13-.19.19-.32.07-.13.03-.24-.01-.34-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.34l-.37-.01a.72.72 0 0 0-.52.24c-.18.19-.69.68-.69 1.65 0 .98.71 1.92.81 2.05.1.13 1.41 2.16 3.43 3.02.48.21.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.13-.46 1.29-.91.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.23Z"/>
-    </svg>
-    <span>Beitreten</span>
-    <span class="cta-arrow" aria-hidden="true">→</span>
-  </a>
-</header>
+<!-- ────────────────────────────────────
+     PostHog — same project as v1, so we can A/B compare
+     ──────────────────────────────────── -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t', {
+    api_host: 'https://eu.i.posthog.com',
+    person_profiles: 'always',
+    capture_pageview: true,
+    capture_pageleave: true,
+    autocapture: true,
+    session_recording: { maskAllInputs: true },
+    enable_heatmaps: true
+  });
+  posthog.register({ landing_variant: 'v2-cinematic' });
+</script>
 
-<section class="hero">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <img class="hero-photo" src="hero.webp" alt="The Tribe Bielefeld – Sonntag bei der Sparrenburg" fetchpriority="high" decoding="async">
-  <div class="hero-scrim" aria-hidden="true"></div>
+<!-- ────────────────────────────────────
+     Top bar — always-on brand strip (matches the ad's THE TRIBE chip)
+     ──────────────────────────────────── -->
+<div class="topbar">
+  <span class="brand-tag">THE&nbsp;TRIBE</span>
+  <span class="live"><span class="live-dot"></span>WhatsApp aktiv</span>
+</div>
 
-  <nav class="nav">
-    <div class="brand">The Tribe<span class="brand-mark">·</span> Bielefeld</div>
-    <div class="member-count">
-      <span class="member-count-dot" aria-hidden="true"></span>
-      <span>87 Leute</span>
-    </div>
-  </nav>
+<!-- ────────────────────────────────────
+     OPENER — picks up where the reel ended (black logo card → into the page)
+     ──────────────────────────────────── -->
+<section class="opener">
+  <div class="opener-meta">
+    <span class="label">Bielefeld&nbsp;·&nbsp;Seit 2024</span>
+    <span class="label">Reel · Fortsetzung</span>
+  </div>
 
-  <div class="hero-content">
-    <h1 class="hero-title">
-      Jeden Sonntag treffen wir uns.<br>
-      <em>Du auch?</em>
+  <div class="opener-core">
+    <span class="pre-hook">Du kommst gerade von Instagram. Der Reel ist hier nicht zu Ende.</span>
+    <h1 class="opener-title display">
+      <span class="line">The</span>
+      <span class="line">Tribe</span>
+      <span class="line">— Bielefeld</span>
     </h1>
+    <p class="opener-sub">
+      Eine Community für Leute, die <strong>nicht alleine</strong> zu Hause sitzen wollen.
+      Sonntags treffen wir uns. Unter der Woche schreiben wir.
+    </p>
+  </div>
 
-    <div class="event-capsule" id="nextEvent" aria-live="polite">
-      <div class="event-capsule-label">
-        <span class="event-pulse" aria-hidden="true"></span>
-        Nächstes Treffen
+  <div class="scroll-cue">
+    <span class="label">Weiter</span>
+    <span class="arrow"></span>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────
+     CHAPTER I — Bar still + hook 1
+     ──────────────────────────────────── -->
+<section class="frame" aria-label="Bar in Bielefeld">
+  <span class="chapter">I</span>
+  <img src="assets/ad/bar.jpg" alt="Freunde stoßen abends in einer Bar in Bielefeld an" loading="eager" fetchpriority="high">
+  <div class="hook">
+    <span class="roman">Frage Eins</span>
+    <p class="question">Neu in <em>Bielefeld?</em></p>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────
+     CHAPTER II — Concert still + hook 2
+     ──────────────────────────────────── -->
+<section class="frame tall concert" aria-label="Konzert in Bielefeld">
+  <span class="chapter">II</span>
+  <img src="assets/ad/concert.jpg" alt="Konzertcrowd mit erhobenen Händen in rotem Bühnenlicht" loading="lazy">
+  <div class="hook">
+    <span class="roman">Frage Zwei</span>
+    <p class="question">Bock auf <em>Ausgehen?</em></p>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────
+     CHAPTER III — Answer
+     ──────────────────────────────────── -->
+<section class="answer">
+  <span class="stamp">Antwort</span>
+  <h2>
+    Wir<br>
+    <em>auch.</em>
+  </h2>
+  <div class="body">
+    <p>Deshalb gibt's uns. Eine WhatsApp-Gruppe von Bielefeldern, die nicht mehr alleine ausgehen wollen.</p>
+    <p>Kein Algorithmus. Kein Verein. Kein Smalltalk. Nur Menschen, die sich Sonntag im Café Barcelona treffen — und unter der Woche miteinander schreiben.</p>
+  </div>
+  <div class="signature">
+    <span class="dash"></span>
+    <span>Maik · Lena · Patrick &amp; 84 weitere</span>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ────────────────────────────────────
+     CHAPTERS LIST — What actually happens
+     ──────────────────────────────────── -->
+<section class="chapters">
+  <div class="chapter-head">
+    <span class="num">§</span>
+    <span class="title">Was dich erwartet</span>
+  </div>
+
+  <div class="chapter-list">
+    <article class="item">
+      <span class="roman">I.</span>
+      <div>
+        <h3>Sonntags <em>kennenlernen</em></h3>
+        <p>Jeden Sonntag, 18 Uhr, Café Barcelona am Niederwall. 15–25 Leute, bunt gemischt. Niemand muss reden. Alle reden trotzdem.</p>
+        <div class="meta">Wöchentlich · Café Barcelona · 18:00</div>
       </div>
-      <div class="event-capsule-when">Lädt…</div>
-      <div class="event-capsule-where">Café Barcelona · Niederwall, Bielefeld</div>
-    </div>
+    </article>
 
-    <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta" id="primaryCta">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Zm3.55-4.87c-.19-.1-1.13-.56-1.31-.62-.18-.07-.31-.1-.44.1-.13.19-.5.62-.62.75-.11.13-.23.15-.42.05-.19-.1-.81-.3-1.55-.95a5.81 5.81 0 0 1-1.07-1.34c-.11-.19-.01-.29.08-.39.08-.08.19-.23.29-.34.1-.11.13-.19.19-.32.07-.13.03-.24-.01-.34-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.34l-.37-.01a.72.72 0 0 0-.52.24c-.18.19-.69.68-.69 1.65 0 .98.71 1.92.81 2.05.1.13 1.41 2.16 3.43 3.02.48.21.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.13-.46 1.29-.91.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.23Z"/>
+    <article class="item">
+      <span class="roman">II.</span>
+      <div>
+        <h3>Unter der Woche <em>schreiben</em></h3>
+        <p>Konzerte, Sport, spontane Pläne. Wer mag, ist dabei. Wer nicht, liest mit. Alles freiwillig.</p>
+        <div class="meta">WhatsApp · stumm-schalten erlaubt</div>
+      </div>
+    </article>
+
+    <article class="item">
+      <span class="roman">III.</span>
+      <div>
+        <h3>Bielefeld <em>endlich kennen</em></h3>
+        <p>Im Forum. In der Altstadt. Am Obersee. Auf'm Konzert. Wir sind keine App. Wir sind eine Gruppe Bielefelder, die du nach drei Sonntagen mit Vornamen kennst.</p>
+        <div class="meta">Echte Menschen · echte Orte</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────
+     PROOF — Numeric weight
+     ──────────────────────────────────── -->
+<section class="proof">
+  <span class="label">Stand heute</span>
+  <h2 class="stat"><em>87</em> Bielefelder</h2>
+  <p class="caption">aktiv in der Gruppe. Diese Woche 3 dazugekommen. Jeden Sonntag dabei: zwischen 15 und 25 Menschen.</p>
+</section>
+
+<div class="rule"></div>
+
+<!-- ────────────────────────────────────
+     CLOSER — Big WhatsApp CTA
+     ──────────────────────────────────── -->
+<section class="closer">
+  <p class="quote">
+    Bielefeld ist nur eine Stadt —<br>
+    bis du <em>deine Leute</em> kennst.
+  </p>
+  <p class="quote-attr">— Maik, Gründer</p>
+
+  <div class="cta-block">
+    <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta" id="ctaPrimary" data-cta-location="closer">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/>
       </svg>
-      <span>Komm in die Gruppe</span>
-      <span class="cta-arrow" aria-hidden="true">→</span>
+      <span>Jetzt dabei sein</span>
+      <span class="arrow">→</span>
     </a>
-
     <div class="micro-trust">
       <span><span class="check">✓</span> kostenlos</span>
       <span><span class="check">✓</span> jederzeit raus</span>
@@ -802,194 +755,94 @@
   </div>
 </section>
 
-<div class="section-marker">
-  <span class="num"><em>i.</em></span>
-  <span>Vorgestern Abend</span>
-</div>
-
-<div class="chat-intro">
-  <h2>Echte Leute,<br><em>echte Abende.</em></h2>
-  <p>Kein Algorithmus, kein Smalltalk. Nur Bielefelder, die sich Sonntag treffen — und unter der Woche miteinander schreiben.</p>
-</div>
-
-<div class="chat">
-  <div class="chat-day">Gestern</div>
-
-  <div class="msg">
-    <img class="msg-avatar" src="assets/patrick.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
-    <div class="msg-bubble">
-      <span class="name">Patrick</span>
-      <img class="msg-photo" src="assets/gruppe.webp" alt="Gruppenfoto vom letzten Kennenlernabend in der Altstadt" width="880" height="567" loading="lazy" decoding="async">
-      Gestern Abend war einfach nur 🔥🌃 <span class="time">23:47</span>
-    </div>
+<!-- ────────────────────────────────────
+     Footer
+     ──────────────────────────────────── -->
+<footer>
+  <div class="stamp-row">
+    <span class="stamp">Pressed in Bielefeld</span>
+    <span class="meta">2024 — heute</span>
   </div>
-  <div class="reactions">❤️ 18 · 🔥 6</div>
-
-  <div class="chat-day">Sonntag</div>
-
-  <div class="msg">
-    <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
-    <div class="msg-bubble">
-      <span class="name">Maik</span>
-      Heute Abend Kennenlernabend! 18 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
-    </div>
+  <div class="links">
+    <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+    <a href="mailto:hi@thetribe-bielefeld.de">hi@thetribe-bielefeld.de</a>
   </div>
-
-  <div class="msg">
-    <img class="msg-avatar" src="assets/lena.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
-    <div class="msg-bubble">
-      <span class="name">Lena</span>
-      Bin dabei 🙋‍♀️ <span class="time">14:24</span>
-    </div>
-  </div>
-
-  <div class="msg">
-    <img class="msg-avatar" src="assets/sarah.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
-    <div class="msg-bubble">
-      <span class="name">Sarah</span>
-      Hey! Bin neu in Bielefeld und hab eure Anzeige gesehen — kann ich einfach so vorbeikommen Sonntag? <span class="time">14:38</span>
-    </div>
-  </div>
-
-  <div class="msg">
-    <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
-    <div class="msg-bubble">
-      <span class="name">Maik</span>
-      Logo, deshalb sind wir hier 🙂 Komm einfach. Du musst niemand kennen, das geht 90% so. <span class="time">14:40</span>
-    </div>
-  </div>
-  <div class="reactions">❤️ 9</div>
-
-  <div class="typing">
-    <span>Lena schreibt</span>
-    <span class="typing-dots"><span></span><span></span><span></span></span>
-  </div>
-</div>
-
-<div class="section-marker">
-  <span class="num"><em>ii.</em></span>
-  <span>Was dich erwartet</span>
-</div>
-
-<div class="details">
-  <div class="detail-card">
-    <h3><em>Sonntag</em> ist Kennenlernabend</h3>
-    <p>Jeden Sonntag 18 Uhr im Café Barcelona. Bunt gemischt, meistens 15-25 Leute, niemand muss reden, alle reden trotzdem.</p>
-  </div>
-  <div class="detail-card">
-    <h3>Konzerte, Sport,<br><em>spontane Aktionen</em></h3>
-    <p>Im Forum, in der Altstadt, am Obersee. Wer mag, ist dabei. Wer nicht, liest mit.</p>
-  </div>
-  <div class="detail-card">
-    <h3>Eine WhatsApp-Gruppe,<br><em>kein Algorithmus</em></h3>
-    <p>Wir sind keine App, kein Verein, kein Kurs. Nur eine Gruppe Bielefelder, die nicht mehr alleine zu Hause sitzen wollen.</p>
-  </div>
-</div>
-
-<div class="section-marker">
-  <span class="num"><em>iii.</em></span>
-  <span>Komm vorbei</span>
-</div>
-
-<section class="closer">
-  <p class="closer-quote">Bielefeld ist nur eine Stadt — bis du deine Leute kennst.</p>
-  <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Zm3.55-4.87c-.19-.1-1.13-.56-1.31-.62-.18-.07-.31-.1-.44.1-.13.19-.5.62-.62.75-.11.13-.23.15-.42.05-.19-.1-.81-.3-1.55-.95a5.81 5.81 0 0 1-1.07-1.34c-.11-.19-.01-.29.08-.39.08-.08.19-.23.29-.34.1-.11.13-.19.19-.32.07-.13.03-.24-.01-.34-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.34l-.37-.01a.72.72 0 0 0-.52.24c-.18.19-.69.68-.69 1.65 0 .98.71 1.92.81 2.05.1.13 1.41 2.16 3.43 3.02.48.21.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.13-.46 1.29-.91.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.23Z"/>
-    </svg>
-    <span>In WhatsApp beitreten</span>
-    <span class="cta-arrow" aria-hidden="true">→</span>
-  </a>
-  <div class="micro-trust">
-    <span><span class="check">✓</span> kostenlos</span>
-    <span><span class="check">✓</span> jederzeit raus</span>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-mark">The Tribe · Bielefeld</div>
-  <div>seit 2024 · gemacht von uns für uns</div>
+  <div class="meta">Nicht von Meta. Nicht von Apple. Nur von uns.</div>
 </footer>
 
-<div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<!-- ────────────────────────────────────
+     Sticky CTA — visible from first paint, the safety net
+     ──────────────────────────────────── -->
+<div class="sticky-cta">
+  <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" id="ctaSticky" data-cta-location="sticky">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/>
     </svg>
-    <span>Beitreten</span>
-    <span class="cta-arrow" aria-hidden="true">→</span>
+    Jetzt in WhatsApp beitreten
   </a>
 </div>
 
 <script>
-  // Sticky header + bottom CTA — both appear after the user scrolls
-  // past the hero. Uses scroll position so behaviour is identical
-  // across browsers and never gets stuck.
-  (function () {
-    const stickyBottom = document.getElementById('stickyCta');
-    const stickyHeader = document.getElementById('stickyHeader');
-    if (!stickyBottom && !stickyHeader) return;
+  // CTA tracking — fires whatsapp_cta_click on every CTA tap.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
+    if (!a) return;
+    try {
+      window.posthog && posthog.capture('whatsapp_cta_click', {
+        cta_location: a.getAttribute('data-cta-location') || 'unknown',
+        cta_text: (a.innerText || '').trim().slice(0, 80),
+        href: a.href,
+        landing_variant: 'v2-cinematic'
+      }, { send_instantly: true });
+    } catch (e) {}
+  }, true);
 
-    const TRIGGER = 220; // px scrolled before sticky elements show
+  // Dwell + scroll heartbeat. IG in-app browsers drop $pageleave when the
+  // user swipes back, so we send our own tribe_dwell every 5s and on every
+  // visibility/pagehide change. send_instantly forces fetch keepalive so the
+  // event survives the tab dying.
+  (function(){
+    var arrived = Date.now();
+    var visibleSince = arrived;
+    var totalVisible = 0;
+    var maxScrollPct = 0;
+    var ticks = 0;
 
-    let visible = false;
-    const update = () => {
-      const shouldShow = (window.scrollY || window.pageYOffset || 0) > TRIGGER;
-      if (shouldShow === visible) return;
-      visible = shouldShow;
-      if (stickyBottom) {
-        stickyBottom.classList.toggle('visible', shouldShow);
-        stickyBottom.setAttribute('aria-hidden', String(!shouldShow));
+    function scrollPct(){
+      var doc = document.documentElement;
+      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      return Math.min(100, Math.round((window.scrollY || window.pageYOffset || 0) / max * 100));
+    }
+
+    function send(reason){
+      if (document.visibilityState === 'visible') {
+        totalVisible += Date.now() - visibleSince;
+        visibleSince = Date.now();
       }
-      if (stickyHeader) {
-        stickyHeader.classList.toggle('visible', shouldShow);
-        stickyHeader.setAttribute('aria-hidden', String(!shouldShow));
-      }
-    };
+      var pct = Math.max(maxScrollPct, scrollPct());
+      maxScrollPct = pct;
+      try {
+        window.posthog && posthog.capture('tribe_dwell', {
+          dwell_ms: totalVisible,
+          reason: reason,
+          scroll_pct: pct,
+          ticks: ticks,
+          landing_variant: 'v2-cinematic'
+        }, { send_instantly: true });
+      } catch(e){}
+    }
 
-    let ticking = false;
-    addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => { update(); ticking = false; });
-    }, { passive: true });
-    update();
-  })();
+    setInterval(function(){ ticks++; send('heartbeat'); }, 5000);
 
-  // Next-Sunday countdown for the Kennenlernabend (18:00 local Berlin time).
-  (function () {
-    const el = document.getElementById('nextEvent');
-    if (!el) return;
-    const whenEl = el.querySelector('.event-capsule-when');
-    if (!whenEl) return;
-    const dayFmt = new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-    const tick = () => {
-      const now = new Date();
-      const target = new Date(now);
-      const day = now.getDay(); // 0 = Sunday
-      let addDays = (7 - day) % 7;
-      target.setHours(18, 0, 0, 0);
-      if (addDays === 0 && now >= target) addDays = 7;
-      target.setDate(now.getDate() + addDays);
-      const diffMs = target - now;
-      const hrs = Math.floor(diffMs / 3600000);
-      const days = Math.floor(hrs / 24);
-      const dateStr = dayFmt.format(target); // e.g. "Sonntag, 11. Mai"
-      let when;
-      if (diffMs < 3600000) {
-        const mins = Math.max(1, Math.floor(diffMs / 60000));
-        when = `Heute · läuft in ${mins} Min`;
-      } else if (days === 0) {
-        when = `Heute · 18:00 · in ${hrs} Std`;
-      } else if (days === 1) {
-        when = `Morgen · 18:00 · ${dateStr.replace(/^[A-Za-zäöü]+, /, '')}`;
+    document.addEventListener('visibilitychange', function(){
+      if (document.visibilityState === 'hidden') {
+        totalVisible += Date.now() - visibleSince;
+        send('hidden');
       } else {
-        when = `${dateStr} · 18:00`;
+        visibleSince = Date.now();
       }
-      whenEl.textContent = when;
-    };
-    tick();
-    setInterval(tick, 60000);
+    });
+    addEventListener('pagehide', function(){ send('pagehide'); });
   })();
 </script>
 
