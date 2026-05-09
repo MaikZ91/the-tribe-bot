@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tribe – Funnel Report (Stand 09.05.2026)</title>
+<style>
+  :root { --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --good:#3fb950; --warn:#d29922; --bad:#f85149; --line:#30363d; --pos:#1f6feb; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--fg); margin: 0; padding: 32px; max-width: 880px; margin-inline: auto; line-height: 1.5; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 32px 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .funnel { display: flex; flex-direction: column; gap: 6px; }
+  .step { background: #161b22; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center; }
+  .step .label { font-weight: 600; }
+  .step .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .step .count { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .step .conv { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 70px; text-align: right; }
+  .bar { height: 6px; background: var(--pos); border-radius: 3px; margin-top: 8px; }
+  .arrow { text-align: center; color: var(--muted); font-size: 11px; padding: 2px 0; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { background: #161b22; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .card .num { font-size: 20px; font-weight: 700; }
+  .card .lbl { color: var(--muted); font-size: 12px; }
+  .leak { color: var(--bad); }
+  .ok { color: var(--good); }
+  .warn { color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  ul.notes { padding-left: 18px; }
+  ul.notes li { margin-bottom: 6px; }
+  code { background: #161b22; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h1>The Tribe – Funnel-Analyse</h1>
+<div class="meta">Zeitraum: letzte 30 Tage · Stand: 09.05.2026 10:10 (Berlin) · Datenquellen: Meta Ads Insights + PostHog Cloud EU (Project 175210)</div>
+
+<h2>Pipeline End-to-End</h2>
+<div class="funnel">
+
+  <div class="step" style="border-color:#2a4a6e;">
+    <div>
+      <div class="label">Ad-Aufrufe (Reichweite)</div>
+      <div class="sub">Meta Ads · IG + FB · Anzeige seit 08.05.2026</div>
+      <div class="bar" style="width:100%;"></div>
+    </div>
+    <div class="count">706</div>
+    <div class="conv">100 %</div>
+  </div>
+
+  <div class="arrow">↓ 27,8 % · 196 verlieren</div>
+
+  <div class="step">
+    <div>
+      <div class="label">3-Sek-Aufrufe (echte Aufmerksamkeit)</div>
+      <div class="sub">Meta-Insights: Nutzer, die das Reel ≥ 3 s sehen</div>
+      <div class="bar" style="width:27.8%;"></div>
+    </div>
+    <div class="count">196</div>
+    <div class="conv">27,8 %</div>
+  </div>
+
+  <div class="arrow">↓ 9,7 % · klicken auf Link</div>
+
+  <div class="step">
+    <div>
+      <div class="label">Link-Klicks</div>
+      <div class="sub">Meta-Insights · Klick auf "Mehr erfahren"</div>
+      <div class="bar" style="width:2.7%;"></div>
+    </div>
+    <div class="count">19</div>
+    <div class="conv">2,7 %</div>
+  </div>
+
+  <div class="arrow">↓ 84,2 % · Meta zählt 16 Besuche, PostHog sieht 11</div>
+
+  <div class="step" style="border-color:#5a3d11;">
+    <div>
+      <div class="label warn">Pageviews (PostHog)</div>
+      <div class="sub">PostHog $pageview-Event · 10 unique Visitors</div>
+      <div class="bar" style="width:1.5%;"></div>
+    </div>
+    <div class="count">11</div>
+    <div class="conv">1,6 %</div>
+  </div>
+
+  <div class="arrow">↓ Bounce ~75 % · 8/10 nur 1 Event, kein zweites Lebenszeichen</div>
+
+  <div class="step" style="border-color:#5a1f1f;">
+    <div>
+      <div class="label leak">WhatsApp-CTA-Klicks</div>
+      <div class="sub">posthog "whatsapp_cta_click" · seit heute getrackt</div>
+      <div class="bar" style="width:0.1%;"></div>
+    </div>
+    <div class="count">0</div>
+    <div class="conv">0 %</div>
+  </div>
+
+  <div class="arrow">↓ Konversionsrate unbekannt</div>
+
+  <div class="step" style="border-color:#5a1f1f;">
+    <div>
+      <div class="label leak">WhatsApp-Beitritte</div>
+      <div class="sub">Bot-Event "whatsapp_join" · seit heute getrackt</div>
+      <div class="bar" style="width:0.1%;"></div>
+    </div>
+    <div class="count">0</div>
+    <div class="conv">0 %</div>
+  </div>
+
+</div>
+
+<h2>Bottlenecks</h2>
+<div class="grid">
+  <div class="card"><div class="num leak">2,7 %</div><div class="lbl">Reach → Link-Klick · Ad-Hook ist der erste Engpass</div></div>
+  <div class="card"><div class="num warn">~31 %</div><div class="lbl">Tracking-Loss: Meta sagt 16 Besuche, PostHog sieht 11 (Differenz war früher größer, Lade-Lücke gefixt)</div></div>
+  <div class="card"><div class="num leak">~75 %</div><div class="lbl">Sub-Sekunden-Bounce auf Landing Page (8/10 Visitors)</div></div>
+  <div class="card"><div class="num">unbekannt</div><div class="lbl">CTA → Join: Tracking ab heute scharf, erste Daten in 24–48 h</div></div>
+</div>
+
+<h2>Spend-Analyse</h2>
+<table>
+<tr><th>Metrik</th><th class="num">Wert</th></tr>
+<tr><td>Budget gesamt</td><td class="num">90,00 €</td></tr>
+<tr><td>Verbraucht</td><td class="num">3,60 € (4 %)</td></tr>
+<tr><td>Kosten pro Website-Besuch (Meta-Zählung)</td><td class="num">0,23 €</td></tr>
+<tr><td>Kosten pro CTA-Klick</td><td class="num leak">∞ (kein CTA-Klick erfasst)</td></tr>
+<tr><td>Kosten pro WhatsApp-Beitritt</td><td class="num leak">∞ (keiner erfasst)</td></tr>
+</table>
+
+<h2>Demografie der Reichweite</h2>
+<table>
+<tr><th>Geschlecht</th><th class="num">%</th></tr>
+<tr><td>Frauen</td><td class="num">51,6</td></tr>
+<tr><td>Männer</td><td class="num">47,2</td></tr>
+</table>
+<table style="margin-top:12px;">
+<tr><th>Alter</th><th class="num">%</th></tr>
+<tr><td>25–34</td><td class="num">32</td></tr>
+<tr><td>35–44</td><td class="num">27</td></tr>
+<tr><td>45–54</td><td class="num">14</td></tr>
+<tr><td>55–64</td><td class="num">10</td></tr>
+<tr><td>18–24</td><td class="num">8</td></tr>
+<tr><td>65+</td><td class="num">8</td></tr>
+</table>
+
+<h2>Diagnose</h2>
+<ul class="notes">
+  <li><strong>Bottleneck Nr. 1 — Landing Page:</strong> 75 % Sub-Sekunden-Bounce. Visitors aus IG/FB-Mobile-Ads kommen, sehen Above-the-Fold, swipen sofort weg. Ursache wahrscheinlich Mismatch zwischen Ad-Versprechen und sichtbarem Hero. Vor einem Above-the-Fold-Redesign ist Ad-Spend ineffizient.</li>
+  <li><strong>Bottleneck Nr. 2 — Ad-Hook:</strong> 27,8 % der Reichweite halten 3 Sekunden, davon klicken 9,7 % weiter. Klickrate auf Reichweite gesamt = 2,7 %. Branchenmittel für Local-Community-Ads liegt bei 1–3 %, also okay, aber nicht stark.</li>
+  <li><strong>Tracking-Status:</strong> <code>whatsapp_cta_click</code> und <code>whatsapp_join</code> sind seit heute live. Ohne diese Events war die rechte Hälfte des Funnels blind.</li>
+  <li><strong>PostHog vs. Meta Diskrepanz:</strong> Meta zählt 16 Klicks/Besuche, PostHog sah 8 (vor Fix), jetzt 11. PostHog-eager-Init ist live, weitere Annäherung mit kommenden Visits erwartet.</li>
+</ul>
+
+<h2>Nächste Schritte (priorisiert)</h2>
+<ol>
+  <li><strong>Above-the-Fold-Audit der Landing Page</strong> – Playwright-Render auf iPhone-Viewport, Vergleich mit Ad-Hero-Frames, konkrete Edits gegen den 75 %-Bounce.</li>
+  <li><strong>24–48 h Tracking-Daten sammeln</strong> – dann erste echte CTA-Conversion-Rate sichtbar.</li>
+  <li><strong>Bot-Stabilität langfristig</strong> – whatsapp-web.js-Version pinnen oder Migration zu Baileys.</li>
+</ol>
+
+</body>
+</html>
