@@ -269,11 +269,22 @@ async function generateGif(highlights, date, outputPath) {
         const encoder = new GIFEncoder(GIF_WIDTH, GIF_HEIGHT, 'neuquant', true);
         encoder.start();
         encoder.setRepeat(0);
-        encoder.setDelay(FRAME_DELAY);
         encoder.setQuality(20);
 
         process.stdout.write('Capturing frames');
 
+        // Capture final state first and hold it (so first frame = full content visible)
+        await page.evaluate((time) => {
+            document.getAnimations().forEach(a => { a.currentTime = time; });
+        }, TOTAL_ANIM_MS);
+        await new Promise(r => setTimeout(r, 10));
+        const holdBuf = await page.screenshot({ type: 'png' });
+        const holdRgba = await screenshotToRgba(holdBuf);
+        encoder.setDelay(1200);
+        encoder.addFrame(holdRgba);
+        process.stdout.write('H');
+
+        // Then play animation from start
         for (let i = 0; i < FRAMES; i++) {
             const t = (i / (FRAMES - 1)) * TOTAL_ANIM_MS;
             await page.evaluate((time) => {
@@ -284,14 +295,14 @@ async function generateGif(highlights, date, outputPath) {
 
             const buf = await page.screenshot({ type: 'png' });
             const rgba = await screenshotToRgba(buf);
+            encoder.setDelay(FRAME_DELAY);
             encoder.addFrame(rgba);
             process.stdout.write('.');
         }
 
-        // Hold last frame longer (600ms)
-        encoder.setDelay(600);
-        const lastBuf = await page.screenshot({ type: 'png' });
-        encoder.addFrame(await screenshotToRgba(lastBuf));
+        // Hold last frame longer
+        encoder.setDelay(800);
+        encoder.addFrame(holdRgba);
 
         encoder.finish();
         process.stdout.write('\n');
