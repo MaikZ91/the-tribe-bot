@@ -14,9 +14,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F0E0D'/%3E%3Ctext x='50' y='68' font-size='62' text-anchor='middle' font-family='Georgia,serif' fill='%23E9A85A'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preload" as="image" href="hero.webp" fetchpriority="high">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://chat.whatsapp.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -64,45 +65,41 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: max(env(safe-area-inset-top), 18px) 20px max(env(safe-area-inset-bottom), 24px);
+    padding: max(env(safe-area-inset-top), 14px) 20px max(env(safe-area-inset-bottom), 20px);
     isolation: isolate;
-  }
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background:
-      radial-gradient(ellipse 120% 60% at 50% 30%, rgba(255, 138, 76, 0.12) 0%, rgba(15,14,13,0) 60%),
-      #0a0908;
     overflow: hidden;
   }
 
-  /* OPTIONAL: Wenn du ein Foto verwenden willst, setz es als <img class="hero-photo"> in den Hero und uncomment die CSS-Regeln drunter.
-     .hero-photo {
-       position: absolute; inset: 0; width: 100%; height: 100%;
-       object-fit: cover; z-index: -2;
-       filter: saturate(1.05) contrast(1.05);
-     }
-  */
-
-
-  /* SVG-Stadtsilhouette unten — Bielefeld-Vibes */
-  .hero-skyline {
+  .hero-bg {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 80px;
-    z-index: -1;
-    opacity: 0.35;
-    pointer-events: none;
+    inset: 0;
+    z-index: -3;
+    background: #0a0908;
   }
 
+  .hero-photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 30%;
+    z-index: -2;
+    filter: saturate(1.08) contrast(1.04);
+    animation: heroZoom 14s ease-out forwards;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo { animation: none; }
+  }
+
+  /* Bottom-only gradient: keeps the upper photo clean, gives lower text legibility */
   .hero-scrim {
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(15,14,13,0.92) 0%, rgba(15,14,13,0.45) 50%, rgba(15,14,13,0.15) 100%);
+      linear-gradient(180deg, rgba(15,14,13,0) 0%, rgba(15,14,13,0) 35%, rgba(15,14,13,0.55) 60%, rgba(15,14,13,0.95) 100%);
   }
 
   .nav {
@@ -121,174 +118,135 @@
   }
   .brand-mark { color: var(--amber); margin-left: 4px; }
 
-  .live-badge {
+  .member-count {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
+    gap: 7px;
+    padding: 6px 11px 6px 9px;
+    background: rgba(15, 14, 13, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(244, 239, 232, 0.12);
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
     font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   }
-  .live-dot {
-    width: 7px; height: 7px;
+  .member-count-dot {
+    width: 6px; height: 6px;
     background: var(--whatsapp);
     border-radius: 50%;
-    box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.18);
-    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22);
+    animation: pulse 2.4s ease-in-out infinite;
+    flex-shrink: 0;
   }
   @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.18); }
-    50% { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0.04); }
+    0%, 100% { box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22); }
+    50%      { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0.04); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .member-count-dot { animation: none; }
   }
 
-  .hero-top {
-    margin-top: 28px;
-    position: relative;
-    z-index: 2;
-    animation: fadeUp 1s 0.15s ease-out backwards;
-  }
-
-  .hero-bottom {
+  /* Single content block — pinned to bottom of hero, content stacks naturally */
+  .hero-content {
     margin-top: auto;
-    margin-bottom: 16px;
     position: relative;
     z-index: 2;
-    animation: fadeUp 1s 0.3s ease-out backwards;
+    animation: fadeUp 1s 0.25s ease-out backwards;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
-
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--amber);
-    font-weight: 500;
-    margin-bottom: 18px;
-  }
-  .eyebrow::before {
-    content: "";
-    width: 24px; height: 1px;
-    background: var(--amber);
+  @media (prefers-reduced-motion: reduce) {
+    .hero-content { animation: none; }
   }
 
   .hero-title {
     font-family: 'Fraunces', serif;
-    font-size: clamp(30px, 7.6vw, 46px);
-    line-height: 1.05;
-    letter-spacing: -0.022em;
+    font-size: clamp(34px, 9vw, 54px);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
     font-weight: 500;
-    max-width: 16ch;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+    max-width: 18ch;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
+    margin: 0;
   }
   .hero-title em {
     font-style: italic;
     color: var(--amber);
     font-weight: 500;
   }
-  .hero-top .eyebrow { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); }
 
-  /* Avatar stack — social proof */
-  .avatar-row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 22px;
+  /* Date-anchor capsule — the time-bound urgency element */
+  .event-capsule {
+    align-self: flex-start;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 16px 13px;
+    background: rgba(15, 14, 13, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(233, 168, 90, 0.32);
+    border-radius: 16px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 8px 24px rgba(0, 0, 0, 0.4);
   }
-  .avatar-stack {
-    display: flex;
-  }
-  .avatar-stack img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid var(--bg);
-    object-fit: cover;
-    margin-left: -8px;
-    background: var(--bg-3);
-  }
-  .avatar-stack img:first-child { margin-left: 0; }
-  .avatar-row-label {
-    font-size: 13px;
-    color: var(--ink-dim);
-    line-height: 1.3;
-  }
-  .avatar-row-label strong { color: var(--ink); font-weight: 500; }
-
-  .hero-sub {
-    font-size: 17px;
-    line-height: 1.45;
-    color: var(--ink);
-    max-width: 30ch;
-    margin-bottom: 28px;
-    font-weight: 400;
-  }
-  .hero-sub strong {
-    font-weight: 500;
-    color: var(--amber);
-  }
-
-  .meta-row {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    font-size: 13px;
-    color: var(--ink-dim);
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-  }
-  .meta-row .dot { width: 3px; height: 3px; background: var(--ink-faint); border-radius: 50%; }
-  .meta-row strong { color: var(--ink); font-weight: 500; }
-
-  /* Next-event urgency line — live countdown to Sunday 19:00 */
-  .next-event {
+  .event-capsule-label {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin: 14px 0 4px;
-    padding: 7px 12px;
-    border: 1px solid var(--amber-soft);
-    border-radius: 999px;
-    background: var(--amber-soft);
+    gap: 7px;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--amber);
-    font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.01em;
   }
-  .next-event .pulse-dot {
-    width: 7px; height: 7px; border-radius: 50%;
+  .event-pulse {
+    width: 6px; height: 6px; border-radius: 50%;
     background: var(--amber);
-    box-shadow: 0 0 0 0 var(--amber);
-    animation: pulseDot 1.8s ease-out infinite;
+    animation: pulseDot 2s ease-out infinite;
     flex-shrink: 0;
   }
   @keyframes pulseDot {
     0%   { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0.55); }
-    70%  { box-shadow: 0 0 0 10px rgba(233, 168, 90, 0); }
+    70%  { box-shadow: 0 0 0 9px rgba(233, 168, 90, 0); }
     100% { box-shadow: 0 0 0 0 rgba(233, 168, 90, 0); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .next-event .pulse-dot { animation: none; }
+    .event-pulse { animation: none; }
+  }
+  .event-capsule-when {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .event-capsule-where {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    letter-spacing: -0.005em;
   }
 
-  /* WhatsApp CTA — the hero of the page */
+  /* Primary WhatsApp CTA — the hero of the page */
   .cta {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 18px 20px;
-    background: var(--whatsapp);
+    padding: 19px 20px;
+    background: linear-gradient(180deg, #2BDD6E 0%, var(--whatsapp) 60%, var(--whatsapp-dim) 100%);
     color: #07110A;
     font-weight: 600;
     font-size: 17px;
@@ -297,20 +255,38 @@
     border-radius: 999px;
     text-decoration: none;
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.25) inset,
-      0 -2px 0 rgba(0,0,0,0.12) inset,
-      0 12px 32px rgba(37, 211, 102, 0.35),
-      0 2px 0 rgba(0,0,0,0.2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+      0 1px 0 rgba(255, 255, 255, 0.35) inset,
+      0 -2px 0 rgba(0, 0, 0, 0.14) inset,
+      0 14px 36px rgba(37, 211, 102, 0.4),
+      0 2px 0 rgba(0, 0, 0, 0.22);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
     position: relative;
     overflow: hidden;
+    margin-top: 4px;
+  }
+  .cta::after {
+    /* subtle shine sweep on idle */
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
+    transform: skewX(-18deg);
+    animation: ctaShine 5.5s ease-in-out 1.2s infinite;
+  }
+  @keyframes ctaShine {
+    0%, 70%, 100% { left: -60%; }
+    85%           { left: 130%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta::after { animation: none; display: none; }
   }
   .cta:active {
     transform: translateY(1px) scale(0.99);
     box-shadow:
-      0 1px 0 rgba(255,255,255,0.25) inset,
-      0 -2px 0 rgba(0,0,0,0.12) inset,
-      0 4px 12px rgba(37, 211, 102, 0.25);
+      0 1px 0 rgba(255, 255, 255, 0.35) inset,
+      0 -2px 0 rgba(0, 0, 0, 0.14) inset,
+      0 4px 14px rgba(37, 211, 102, 0.28);
   }
   .cta-arrow {
     transition: transform 0.3s ease;
@@ -321,39 +297,14 @@
     display: flex;
     gap: 16px;
     justify-content: center;
-    margin-top: 14px;
+    margin-top: 4px;
     font-size: 12px;
     color: var(--ink-dim);
     letter-spacing: -0.005em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
   .micro-trust span { display: inline-flex; align-items: center; gap: 5px; }
   .micro-trust .check { color: var(--whatsapp); font-weight: 600; }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: max(env(safe-area-inset-bottom), 18px);
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    z-index: 1;
-    animation: bounce 2.5s ease-in-out infinite;
-    text-align: center;
-    pointer-events: none;
-  }
-  .scroll-hint::after {
-    content: "↓";
-    display: block;
-    font-size: 14px;
-    margin-top: 6px;
-    color: var(--ink-faint);
-  }
-  @keyframes bounce {
-    0%, 100% { transform: translate(-50%, 0); }
-    50% { transform: translate(-50%, 6px); }
-  }
 
   /* ── SECTION DIVIDERS ────────────────── */
   .section-marker {
@@ -594,7 +545,7 @@
     color: var(--ink);
   }
   .closer-quote::before { content: "„"; color: var(--amber); }
-  .closer-quote::after { content: """; color: var(--amber); }
+  .closer-quote::after { content: "\201C"; color: var(--amber); }
 
   .closer .cta { max-width: 360px; margin: 0 auto; }
 
@@ -737,6 +688,23 @@
       }, { send_instantly: true });
     } catch (e) {}
   }, true);
+
+  // Track whether the primary CTA button was ever visible (IntersectionObserver).
+  // Fires once per page load as 'cta_visible' in PostHog.
+  (function () {
+    var reported = false;
+    var cta = document.getElementById('primaryCta');
+    if (!cta || !window.IntersectionObserver) return;
+    var io = new IntersectionObserver(function (entries) {
+      if (reported) return;
+      if (entries[0].isIntersecting) {
+        reported = true;
+        io.disconnect();
+        try { posthog.capture('cta_visible', { cta_id: 'primaryCta' }); } catch (e) {}
+      }
+    }, { threshold: 0.5 });
+    io.observe(cta);
+  })();
 </script>
 </head>
 <body>
@@ -754,63 +722,37 @@
 
 <section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <img class="hero-photo" src="hero.webp" alt="The Tribe Bielefeld – Sonntag bei der Sparrenburg" fetchpriority="high" decoding="async">
   <div class="hero-scrim" aria-hidden="true"></div>
-  <svg class="hero-skyline" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,80 L0,55 L18,55 L18,40 L32,40 L32,52 L48,52 L48,28 L62,28 L62,45 L78,45 L78,38 L92,38 L92,22 L108,22 L108,42 L124,42 L124,50 L140,50 L140,30 L156,30 L156,18 L172,18 L172,35 L188,35 L188,48 L204,48 L204,25 L220,25 L220,42 L236,42 L236,32 L252,32 L252,50 L268,50 L268,38 L284,38 L284,22 L300,22 L300,45 L316,45 L316,52 L332,52 L332,30 L348,30 L348,42 L364,42 L364,55 L380,55 L380,48 L400,48 L400,80 Z" fill="#000" opacity="0.6"/>
-  </svg>
-
-  <!-- 📸 OPTIONAL: Eigenes Foto einsetzen
-       <img class="hero-photo" src="DEIN-FOTO.jpg" alt=""> -->
 
   <nav class="nav">
     <div class="brand">The Tribe<span class="brand-mark">·</span> Bielefeld</div>
-    <div class="live-badge">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span>12 online</span>
+    <div class="member-count">
+      <span class="member-count-dot" aria-hidden="true"></span>
+      <span>87 Leute</span>
     </div>
   </nav>
 
-  <div class="hero-top">
-    <div class="eyebrow">The Tribe · Bielefeld</div>
+  <div class="hero-content">
     <h1 class="hero-title">
-      Neu in Bielefeld? <em>Bock auf Ausgehen?</em>
+      Jeden Sonntag treffen wir uns.<br>
+      <em>Du auch?</em>
     </h1>
-  </div>
 
-  <div class="hero-bottom">
-    <p class="hero-sub">
-      Werde Teil der Community. <strong>Sonntags treffen wir uns.</strong> Unter der Woche schreiben wir.
-    </p>
-
-    <div class="avatar-row">
-      <div class="avatar-stack" aria-hidden="true">
-        <img src="assets/maik.webp" alt="" width="30" height="30" decoding="async">
-        <img src="assets/lena.webp" alt="" width="30" height="30" decoding="async">
-        <img src="assets/patrick.webp" alt="" width="30" height="30" decoding="async">
-        <img src="assets/sarah.webp" alt="" width="30" height="30" decoding="async">
-        <img src="assets/tim.webp" alt="" width="30" height="30" decoding="async">
+    <div class="event-capsule" id="nextEvent" aria-live="polite">
+      <div class="event-capsule-label">
+        <span class="event-pulse" aria-hidden="true"></span>
+        Nächstes Treffen
       </div>
-      <div class="avatar-row-label"><strong>Maik, Lena, Patrick</strong> &amp; 84 weitere</div>
-    </div>
-
-    <div class="meta-row">
-      <span>Sonntags <strong>19 Uhr</strong></span>
-      <span class="dot" aria-hidden="true"></span>
-      <span>Café Barcelona</span>
-      <span class="dot" aria-hidden="true"></span>
-      <span>Seit 2024</span>
-    </div>
-
-    <div class="next-event" id="nextEvent" aria-live="polite">
-      <span class="pulse-dot" aria-hidden="true"></span>
-      <span class="next-event-text">Nächster Kennenlernabend lädt…</span>
+      <div class="event-capsule-when">Lädt…</div>
+      <div class="event-capsule-where">Café Barcelona · Niederwall, Bielefeld</div>
     </div>
 
     <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" class="cta" id="primaryCta">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Zm3.55-4.87c-.19-.1-1.13-.56-1.31-.62-.18-.07-.31-.1-.44.1-.13.19-.5.62-.62.75-.11.13-.23.15-.42.05-.19-.1-.81-.3-1.55-.95a5.81 5.81 0 0 1-1.07-1.34c-.11-.19-.01-.29.08-.39.08-.08.19-.23.29-.34.1-.11.13-.19.19-.32.07-.13.03-.24-.01-.34-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.34l-.37-.01a.72.72 0 0 0-.52.24c-.18.19-.69.68-.69 1.65 0 .98.71 1.92.81 2.05.1.13 1.41 2.16 3.43 3.02.48.21.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.13-.46 1.29-.91.16-.45.16-.83.11-.91-.05-.08-.18-.13-.37-.23Z"/>
       </svg>
-      <span>In WhatsApp beitreten</span>
+      <span>Komm in die Gruppe</span>
       <span class="cta-arrow" aria-hidden="true">→</span>
     </a>
 
@@ -820,8 +762,6 @@
       <span><span class="check">✓</span> kein Spam</span>
     </div>
   </div>
-
-  <div class="scroll-hint">So sieht's bei uns aus</div>
 </section>
 
 <div class="section-marker">
@@ -853,7 +793,7 @@
     <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Maik</span>
-      Heute Abend Kennenlernabend! 19 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
+      Heute Abend Kennenlernabend! 18 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
     </div>
   </div>
 
@@ -896,7 +836,7 @@
 <div class="details">
   <div class="detail-card">
     <h3><em>Sonntag</em> ist Kennenlernabend</h3>
-    <p>Jeden Sonntag 19 Uhr im Café Barcelona. Bunt gemischt, meistens 15-25 Leute, niemand muss reden, alle reden trotzdem.</p>
+    <p>Jeden Sonntag 18 Uhr im Café Barcelona. Bunt gemischt, meistens 15-25 Leute, niemand muss reden, alle reden trotzdem.</p>
   </div>
   <div class="detail-card">
     <h3>Konzerte, Sport,<br><em>spontane Aktionen</em></h3>
@@ -978,36 +918,37 @@
     update();
   })();
 
-  // Next-Sunday countdown for the Kennenlernabend (19:00 local time).
+  // Next-Sunday countdown for the Kennenlernabend (18:00 local Berlin time).
   (function () {
     const el = document.getElementById('nextEvent');
     if (!el) return;
-    const txt = el.querySelector('.next-event-text');
-    const fmt = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long' });
+    const whenEl = el.querySelector('.event-capsule-when');
+    if (!whenEl) return;
+    const dayFmt = new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
     const tick = () => {
       const now = new Date();
       const target = new Date(now);
       const day = now.getDay(); // 0 = Sunday
       let addDays = (7 - day) % 7;
-      target.setHours(19, 0, 0, 0);
+      target.setHours(18, 0, 0, 0);
       if (addDays === 0 && now >= target) addDays = 7;
       target.setDate(now.getDate() + addDays);
       const diffMs = target - now;
       const hrs = Math.floor(diffMs / 3600000);
       const days = Math.floor(hrs / 24);
-      const dateStr = fmt.format(target);
+      const dateStr = dayFmt.format(target); // e.g. "Sonntag, 11. Mai"
       let when;
       if (diffMs < 3600000) {
         const mins = Math.max(1, Math.floor(diffMs / 60000));
         when = `Heute · läuft in ${mins} Min`;
       } else if (days === 0) {
-        when = `Heute · 19:00 · in ${hrs} Std`;
+        when = `Heute · 18:00 · in ${hrs} Std`;
       } else if (days === 1) {
-        when = `Morgen · 19:00 · ${dateStr}`;
+        when = `Morgen · 18:00 · ${dateStr.replace(/^[A-Za-zäöü]+, /, '')}`;
       } else {
-        when = `Diesen Sonntag · 19:00 · in ${days} Tagen`;
+        when = `${dateStr} · 18:00`;
       }
-      txt.textContent = when;
+      whenEl.textContent = when;
     };
     tick();
     setInterval(tick, 60000);
