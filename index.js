@@ -1676,21 +1676,42 @@ async function sendDailyHighlights({ force = false } = {}) {
     const { day, month, year } = today;
     const pollQuestion = `Bielefeld Tageshighlights fuer ${day}.${month}.${year} – Wer ist heute dabei?`;
 
+    const highlightsForPoll = withTribe.slice(0, MAX_HIGHLIGHTS);
     const pollOptions = [
-        ...withTribe.slice(0, MAX_HIGHLIGHTS).map(h => {
+        ...highlightsForPoll.map(h => {
             const time = h.time ? `${h.time} Uhr` : 'Ohne Uhrzeit';
-            const link = h.link ? ` ${h.link}` : '';
-            return `${time} - ${h.event}${link}`.slice(0, 100);
+            return `${time} - ${h.event}`.slice(0, 100);
         }),
-        'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
+        'Mehr Events für #Liebefeld'
     ];
 
-    const imagePath = await sendDailyHighlightsImage(withTribe.slice(0, MAX_HIGHLIGHTS), now);
+    const linkLines = highlightsForPoll
+        .filter(h => h.link)
+        .map(h => `• ${h.event}: ${h.link}`);
+    const agendaLines = [
+        `*Bielefeld Tageshighlights ${day}.${month}.${year}*`,
+        ...highlightsForPoll.map(h => {
+            const time = h.time ? `${h.time} Uhr` : 'Ohne Uhrzeit';
+            return `${time} – ${h.event}`;
+        })
+    ];
+    const linkSection = linkLines.length
+        ? ['', '🔗 Links:', ...linkLines]
+        : [];
+    const agendaMessage = [
+        ...agendaLines,
+        ...linkSection,
+        '',
+        'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
+    ].join('\n');
+
+    const imagePath = await sendDailyHighlightsImage(highlightsForPoll, now);
 
     if (imagePath) {
         sendDailyHighlightsInstagramStory(imagePath);
     }
 
+    await client.sendMessage(announcementChatId, agendaMessage);
     await client.sendMessage(
         announcementChatId,
         new Poll(pollQuestion, pollOptions, { allowMultipleAnswers: true })
