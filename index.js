@@ -6,6 +6,7 @@ const { Client, LocalAuth, Poll, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const QRCode = require('qrcode');
 const readline = require('readline');
+const { generateDailyHighlightsVideo } = require('./render-highlights-video.js');
 
 const POSTHOG_PUBLIC_KEY = process.env.POSTHOG_PUBLIC_KEY || 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
 const POSTHOG_HOST = process.env.POSTHOG_HOST || 'https://eu.i.posthog.com';
@@ -1696,10 +1697,11 @@ async function sendDailyHighlights({ force = false } = {}) {
         'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
     ].join('\n');
 
-    const imagePath = await sendDailyHighlightsImage(highlightsForPoll, now);
-
-    if (imagePath) {
-        sendDailyHighlightsInstagramStory(imagePath);
+    // Generate and send video highlight reel
+    try {
+        await sendDailyHighlightsVideo(now);
+    } catch (err) {
+        console.error('Tageshighlights-Video konnte nicht gesendet werden:', err.message);
     }
 
     await client.sendMessage(
