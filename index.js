@@ -1688,18 +1688,9 @@ async function sendDailyHighlights({ force = false } = {}) {
     const linkLines = highlightsForPoll
         .filter(h => h.link)
         .map(h => `• ${h.event}: ${h.link}`);
-    const agendaLines = [
-        `*Bielefeld Tageshighlights ${day}.${month}.${year}*`,
-        ...highlightsForPoll.map(h => {
-            const time = h.time ? `${h.time} Uhr` : 'Ohne Uhrzeit';
-            return `${time} – ${h.event}`;
-        })
-    ];
-    const linkSection = linkLines.length
-        ? ['', '🔗 Links:', ...linkLines]
-        : [];
-    const agendaMessage = [
-        ...agendaLines,
+    const linkSection = linkLines.length ? ['', '🔗 Links:', ...linkLines] : [];
+    const pollQuestionWithLinks = [
+        pollQuestion,
         ...linkSection,
         '',
         'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
@@ -1711,10 +1702,9 @@ async function sendDailyHighlights({ force = false } = {}) {
         sendDailyHighlightsInstagramStory(imagePath);
     }
 
-    await client.sendMessage(announcementChatId, agendaMessage);
     await client.sendMessage(
         announcementChatId,
-        new Poll(pollQuestion, pollOptions, { allowMultipleAnswers: true })
+        new Poll(pollQuestionWithLinks, pollOptions, { allowMultipleAnswers: true })
     );
 
     state.lastPostedDate = todayKey;
