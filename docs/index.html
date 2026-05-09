@@ -673,8 +673,46 @@
       enable_heatmaps: true,
       defaults: '2025-05-24'
     });
+    if (window.posthog && posthog.register) posthog.register({ landing_variant: 'v1-original' });
   }
   loadPostHog();
+
+  // Dwell + scroll heartbeat. IG in-app browsers drop $pageleave when the
+  // user swipes back, so we send our own tribe_dwell every 5s and on every
+  // visibility/pagehide change, with send_instantly for keepalive transport.
+  (function(){
+    var visibleSince = Date.now();
+    var totalVisible = 0;
+    var maxScrollPct = 0;
+    var ticks = 0;
+    function scrollPct(){
+      var doc = document.documentElement;
+      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      return Math.min(100, Math.round((window.scrollY || window.pageYOffset || 0) / max * 100));
+    }
+    function send(reason){
+      if (document.visibilityState === 'visible') {
+        totalVisible += Date.now() - visibleSince;
+        visibleSince = Date.now();
+      }
+      var pct = Math.max(maxScrollPct, scrollPct());
+      maxScrollPct = pct;
+      try {
+        window.posthog && posthog.capture && posthog.capture('tribe_dwell', {
+          dwell_ms: totalVisible, reason: reason, scroll_pct: pct, ticks: ticks,
+          landing_variant: 'v1-original'
+        }, { send_instantly: true });
+      } catch(e){}
+    }
+    setInterval(function(){ ticks++; send('heartbeat'); }, 5000);
+    document.addEventListener('visibilitychange', function(){
+      if (document.visibilityState === 'hidden') {
+        totalVisible += Date.now() - visibleSince;
+        send('hidden');
+      } else { visibleSince = Date.now(); }
+    });
+    addEventListener('pagehide', function(){ send('pagehide'); });
+  })();
 
   document.addEventListener('click', function(ev){
     var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
