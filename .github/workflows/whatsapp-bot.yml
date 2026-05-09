@@ -9,6 +9,7 @@ on:
       - "index.js"
       - "package.json"
       - "package-lock.json"
+      - "render-highlights-video.js"
   workflow_dispatch:
     inputs:
       command:
@@ -19,6 +20,7 @@ on:
         options:
           - run-due
           - daily-highlights
+          - daily-highlights-video
           - wednesday-poll
           - friday-poll
           - sunday-reminder
@@ -65,6 +67,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Ensure ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Restore WhatsApp session and bot state
         id: restore-bot-cache

@@ -1714,6 +1714,21 @@ async function sendDailyHighlights({ force = false } = {}) {
     console.log(`Tageshighlights fuer ${todayKey} gesendet.`);
 }
 
+async function sendDailyHighlightsVideo(date = getBerlinNow()) {
+    const videoPath = await generateDailyHighlightsVideo(date, { label: 'daily-video' });
+    if (!videoPath || !fs.existsSync(videoPath)) {
+        throw new Error('Video rendering produced no output');
+    }
+    try {
+        const media = MessageMedia.fromFilePath(videoPath);
+        await client.sendMessage(announcementChatId, media, {
+            caption: '🎬 Tageshighlights als Video – viel Spass beim Durchscrollen!'
+        });
+    } catch (err) {
+        throw new Error(`Failed to send video: ${err.message}`);
+    }
+}
+
 async function sendSpecialSundayAnnouncement({ state, weeklyState, weekKey, today }) {
     const activity = getSpecialSundayActivity(weekKey);
     const intro = [
@@ -3232,6 +3247,9 @@ async function runBotCommand(command) {
             return;
         case 'daily-highlights':
             await sendDailyHighlights({ force: true });
+            return;
+        case 'daily-highlights-video':
+            await sendDailyHighlightsVideo();
             return;
         case 'wednesday-poll':
             await sendWednesdayVenuePoll({ force: true });
