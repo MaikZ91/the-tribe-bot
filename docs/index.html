@@ -78,13 +78,11 @@
     overflow: hidden;
   }
 
-  /* OPTIONAL: Wenn du ein Foto verwenden willst, setz es als <img class="hero-photo"> in den Hero und uncomment die CSS-Regeln drunter.
-     .hero-photo {
-       position: absolute; inset: 0; width: 100%; height: 100%;
-       object-fit: cover; z-index: -2;
-       filter: saturate(1.05) contrast(1.05);
-     }
-  */
+  .hero-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: -2;
+    filter: saturate(1.05) contrast(1.05);
+  }
 
 
   /* SVG-Stadtsilhouette unten — Bielefeld-Vibes */
@@ -737,6 +735,23 @@
       }, { send_instantly: true });
     } catch (e) {}
   }, true);
+
+  // Track whether the primary CTA button was ever visible (IntersectionObserver).
+  // Fires once per page load as 'cta_visible' in PostHog.
+  (function () {
+    var reported = false;
+    var cta = document.getElementById('primaryCta');
+    if (!cta || !window.IntersectionObserver) return;
+    var io = new IntersectionObserver(function (entries) {
+      if (reported) return;
+      if (entries[0].isIntersecting) {
+        reported = true;
+        io.disconnect();
+        try { posthog.capture('cta_visible', { cta_id: 'primaryCta' }); } catch (e) {}
+      }
+    }, { threshold: 0.5 });
+    io.observe(cta);
+  })();
 </script>
 </head>
 <body>
@@ -759,21 +774,20 @@
     <path d="M0,80 L0,55 L18,55 L18,40 L32,40 L32,52 L48,52 L48,28 L62,28 L62,45 L78,45 L78,38 L92,38 L92,22 L108,22 L108,42 L124,42 L124,50 L140,50 L140,30 L156,30 L156,18 L172,18 L172,35 L188,35 L188,48 L204,48 L204,25 L220,25 L220,42 L236,42 L236,32 L252,32 L252,50 L268,50 L268,38 L284,38 L284,22 L300,22 L300,45 L316,45 L316,52 L332,52 L332,30 L348,30 L348,42 L364,42 L364,55 L380,55 L380,48 L400,48 L400,80 Z" fill="#000" opacity="0.6"/>
   </svg>
 
-  <!-- 📸 OPTIONAL: Eigenes Foto einsetzen
-       <img class="hero-photo" src="DEIN-FOTO.jpg" alt=""> -->
+  <img class="hero-photo" src="hero.webp" alt="The Tribe Bielefeld – Stammtisch">
 
   <nav class="nav">
     <div class="brand">The Tribe<span class="brand-mark">·</span> Bielefeld</div>
     <div class="live-badge">
       <span class="live-dot" aria-hidden="true"></span>
-      <span>12 online</span>
+      <span>87 Mitglieder</span>
     </div>
   </nav>
 
   <div class="hero-top">
     <div class="eyebrow">The Tribe · Bielefeld</div>
     <h1 class="hero-title">
-      Neu in Bielefeld? <em>Bock auf Ausgehen?</em>
+      Bock auf Ausgehen <em>in Bielefeld?</em>
     </h1>
   </div>
 
@@ -794,7 +808,7 @@
     </div>
 
     <div class="meta-row">
-      <span>Sonntags <strong>19 Uhr</strong></span>
+      <span>Sonntags <strong>18 Uhr</strong></span>
       <span class="dot" aria-hidden="true"></span>
       <span>Café Barcelona</span>
       <span class="dot" aria-hidden="true"></span>
@@ -853,7 +867,7 @@
     <img class="msg-avatar" src="assets/maik.webp" alt="" width="32" height="32" loading="lazy" decoding="async">
     <div class="msg-bubble">
       <span class="name">Maik</span>
-      Heute Abend Kennenlernabend! 19 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
+      Heute Abend Kennenlernabend! 18 Uhr Café Barcelona 🍻 Wer ist dabei? <span class="time">14:22</span>
     </div>
   </div>
 
@@ -896,7 +910,7 @@
 <div class="details">
   <div class="detail-card">
     <h3><em>Sonntag</em> ist Kennenlernabend</h3>
-    <p>Jeden Sonntag 19 Uhr im Café Barcelona. Bunt gemischt, meistens 15-25 Leute, niemand muss reden, alle reden trotzdem.</p>
+    <p>Jeden Sonntag 18 Uhr im Café Barcelona. Bunt gemischt, meistens 15-25 Leute, niemand muss reden, alle reden trotzdem.</p>
   </div>
   <div class="detail-card">
     <h3>Konzerte, Sport,<br><em>spontane Aktionen</em></h3>
@@ -978,7 +992,7 @@
     update();
   })();
 
-  // Next-Sunday countdown for the Kennenlernabend (19:00 local time).
+  // Next-Sunday countdown for the Kennenlernabend (18:00 local time).
   (function () {
     const el = document.getElementById('nextEvent');
     if (!el) return;
@@ -989,7 +1003,7 @@
       const target = new Date(now);
       const day = now.getDay(); // 0 = Sunday
       let addDays = (7 - day) % 7;
-      target.setHours(19, 0, 0, 0);
+      target.setHours(18, 0, 0, 0);
       if (addDays === 0 && now >= target) addDays = 7;
       target.setDate(now.getDate() + addDays);
       const diffMs = target - now;
@@ -1001,11 +1015,11 @@
         const mins = Math.max(1, Math.floor(diffMs / 60000));
         when = `Heute · läuft in ${mins} Min`;
       } else if (days === 0) {
-        when = `Heute · 19:00 · in ${hrs} Std`;
+        when = `Heute · 18:00 · in ${hrs} Std`;
       } else if (days === 1) {
-        when = `Morgen · 19:00 · ${dateStr}`;
+        when = `Morgen · 18:00 · ${dateStr}`;
       } else {
-        when = `Diesen Sonntag · 19:00 · in ${days} Tagen`;
+        when = `Diesen Sonntag · 18:00 · in ${days} Tagen`;
       }
       txt.textContent = when;
     };
