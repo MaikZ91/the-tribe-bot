@@ -1,10 +1,39 @@
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
+const crypto = require('crypto');
 const { Client, LocalAuth, Poll, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const QRCode = require('qrcode');
 const readline = require('readline');
+
+const POSTHOG_PUBLIC_KEY = process.env.POSTHOG_PUBLIC_KEY || 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
+const POSTHOG_HOST = process.env.POSTHOG_HOST || 'https://eu.i.posthog.com';
+
+async function capturePostHog(event, distinctId, properties = {}) {
+    try {
+        const res = await fetch(`${POSTHOG_HOST}/capture/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                api_key: POSTHOG_PUBLIC_KEY,
+                event,
+                distinct_id: distinctId,
+                properties: { $lib: 'the-tribe-bot', ...properties },
+                timestamp: new Date().toISOString()
+            })
+        });
+        if (!res.ok) {
+            console.warn(`PostHog capture ${event} responded ${res.status}`);
+        }
+    } catch (err) {
+        console.warn(`PostHog capture ${event} failed: ${err.message}`);
+    }
+}
+
+function hashMemberId(rawId) {
+    return crypto.createHash('sha256').update(String(rawId)).digest('hex').slice(0, 24);
+}
 
 const EVENTS_URL = 'https://raw.githubusercontent.com/MaikZ91/productiontools/master/events.json';
 const STATE_FILE = path.join(__dirname, '.daily-highlights-state.json');
@@ -1664,7 +1693,7 @@ async function sendDailyHighlights({ force = false } = {}) {
 
     await client.sendMessage(
         announcementChatId,
-        new Poll(pollQuestion, pollOptions)
+        new Poll(pollQuestion, pollOptions, { allowMultipleAnswers: true })
     );
 
     state.lastPostedDate = todayKey;
@@ -3430,6 +3459,11 @@ async function checkForNewMembers() {
             console.log(`${newOnes.length} neue Mitglieder in ${sourceChatId}: ${newOnes.join(', ')}`);
             for (const id of newOnes) {
                 if (!queue.includes(id)) queue.push(id);
+                await capturePostHog('whatsapp_join', hashMemberId(id), {
+                    source_chat_id: sourceChatId,
+                    source_chat_name: chat.name || null,
+                    group_size_after: currentIds.length
+                });
             }
         }
         knownMembers[sourceChatId] = currentIds;

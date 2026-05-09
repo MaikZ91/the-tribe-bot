@@ -725,11 +725,7 @@
       defaults: '2025-05-24'
     });
   }
-  if (window.requestIdleCallback) {
-    requestIdleCallback(loadPostHog, { timeout: 4000 });
-  } else {
-    addEventListener('load', function(){ setTimeout(loadPostHog, 1500); });
-  }
+  loadPostHog();
 
   document.addEventListener('click', function(ev){
     var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
