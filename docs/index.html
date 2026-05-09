@@ -730,6 +730,19 @@
   } else {
     addEventListener('load', function(){ setTimeout(loadPostHog, 1500); });
   }
+
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
+    if (!a) return;
+    loadPostHog();
+    try {
+      posthog.capture('whatsapp_cta_click', {
+        cta_location: a.className || 'unknown',
+        cta_text: (a.innerText || '').trim().slice(0, 60),
+        href: a.href
+      }, { send_instantly: true });
+    } catch (e) {}
+  }, true);
 </script>
 </head>
 <body>
