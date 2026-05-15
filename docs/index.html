@@ -216,6 +216,19 @@
   }
   .hero-cta:active { transform: scale(0.97); }
 
+  .event-countdown {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--amber);
+    padding: 2px 7px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
   .opener-event .event-text strong {
     color: var(--amber);
     font-weight: 600;
@@ -808,7 +821,8 @@
     </div>
     <div class="opener-event" id="next-event-badge">
       <span class="event-icon">📅</span>
-      <span class="event-text">Nächster Kennenlernabend: <strong id="next-event-label">Sonntag · 18:00 Uhr · Café Barcelona</strong></span>
+      <span class="event-text">Nächster Kennenlernabend: <strong id="next-event-label">Sonntag · 18:00 Uhr · Bernstein</strong></span>
+      <span class="event-countdown" id="event-countdown"></span>
     </div>
   </div>
   </div><!-- /.opener-top -->
@@ -1142,6 +1156,30 @@
   }, { threshold: 0.5 });
 
   document.querySelectorAll('.proof-pill, .proof .stat em').forEach(function(el) { obs.observe(el); });
+})();
+</script>
+<script>
+(function() {
+  var el = document.getElementById('event-countdown');
+  if (!el) return;
+  var now = new Date();
+  var day = now.getDay(); // 0=Sun
+  var daysUntilSunday = day === 0 ? 0 : 7 - day;
+  var sunday = new Date(now);
+  sunday.setDate(now.getDate() + daysUntilSunday);
+  sunday.setHours(18, 0, 0, 0);
+  var diff = sunday - now;
+  var hours = Math.floor(diff / 3600000);
+  var text;
+  if (diff <= 0) {
+    text = 'Heute!';
+  } else if (hours < 24) {
+    text = 'Heute · in ' + hours + ' Std';
+  } else {
+    var days = Math.ceil(diff / 86400000);
+    text = 'in ' + days + ' Tag' + (days === 1 ? '' : 'en');
+  }
+  el.textContent = text;
 })();
 </script>
 </body>

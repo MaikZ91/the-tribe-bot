@@ -1933,7 +1933,7 @@ async function updateLandingPageNextEvent() {
             location = ` · ${weeklyState.venuePoll.options[0]}`;
         }
 
-        if (!location) location = ' · Café Barcelona';
+        if (!location) location = ' · Bernstein';
         const fullLabel = label + location;
 
         let html = fs.readFileSync(htmlPath, 'utf8');
