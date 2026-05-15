@@ -2174,30 +2174,33 @@ function renderDashboardHtml(data) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE TRIBE Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         :root {
-            --bg: #f4efe7;
-            --panel: rgba(255, 252, 247, 0.78);
-            --panel-strong: #fffaf2;
-            --ink: #11212d;
-            --muted: #5f6b73;
-            --accent: #ff7a18;
-            --accent-2: #00c2a8;
-            --accent-3: #1e3a5f;
-            --line: rgba(17, 33, 45, 0.08);
-            --shadow: 0 20px 60px rgba(17, 33, 45, 0.12);
+            --bg: #0A0807;
+            --bg-soft: #141110;
+            --panel: rgba(20,17,16,0.85);
+            --ink: #F5F0E8;
+            --muted: #9C9690;
+            --accent: #F59E0B;
+            --accent-deep: #B45309;
+            --green: #25D366;
+            --red: #EF4444;
+            --line: rgba(245,240,232,0.10);
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+            --font-display: "Anton", "Arial Narrow", sans-serif;
+            --font-body: "Familjen Grotesk", system-ui, sans-serif;
         }
 
         * { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-body);
             color: var(--ink);
-            background:
-                radial-gradient(circle at top left, rgba(255, 122, 24, 0.25), transparent 28%),
-                radial-gradient(circle at top right, rgba(0, 194, 168, 0.16), transparent 24%),
-                linear-gradient(135deg, #f4efe7 0%, #ece4d7 100%);
+            background: var(--bg);
         }
 
         .shell {
@@ -2207,46 +2210,58 @@ function renderDashboardHtml(data) {
         }
 
         .hero {
-            padding: 28px;
-            border-radius: 28px;
-            background: linear-gradient(140deg, rgba(17, 33, 45, 0.96), rgba(30, 58, 95, 0.92));
-            color: #fff7ed;
-            box-shadow: var(--shadow);
+            padding: 32px 36px;
+            border-radius: 4px;
+            border-left: 4px solid var(--accent);
+            background: var(--bg-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: -20% -20% auto -20%;
+            height: 60%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.12), transparent 65%);
+            pointer-events: none;
         }
 
         .eyebrow {
-            font-size: 12px;
-            letter-spacing: 0.24em;
+            font-size: 11px;
+            letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: rgba(255, 247, 237, 0.7);
+            color: var(--accent);
+            font-weight: 600;
         }
 
         h1 {
-            margin: 12px 0 8px;
-            font-size: clamp(2rem, 5vw, 4rem);
+            margin: 10px 0 8px;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
             line-height: 0.95;
+            text-transform: uppercase;
+            color: var(--ink);
         }
 
         .hero p {
             max-width: 720px;
             margin: 0;
-            color: rgba(255, 247, 237, 0.82);
-            font-size: 1.05rem;
+            color: var(--muted);
+            font-size: 0.95rem;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 18px;
-            margin-top: 22px;
+            gap: 14px;
+            margin-top: 18px;
         }
 
         .card {
             grid-column: span 3;
-            background: var(--panel);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 24px;
+            background: var(--bg-soft);
+            border: 1px solid var(--line);
+            border-radius: 4px;
             padding: 20px;
             box-shadow: var(--shadow);
         }
@@ -2255,22 +2270,25 @@ function renderDashboardHtml(data) {
         .card.full { grid-column: 1 / -1; }
 
         .label {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.22em;
             color: var(--muted);
+            font-weight: 600;
         }
 
         .value {
             margin-top: 10px;
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            line-height: 1;
+            color: var(--ink);
         }
 
         .subtle {
             margin-top: 6px;
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .sparkline {
@@ -2285,27 +2303,28 @@ function renderDashboardHtml(data) {
             gap: 8px;
             margin-top: 8px;
             color: var(--muted);
-            font-size: 0.78rem;
+            font-size: 0.72rem;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            font-family: "Segoe UI", sans-serif;
+            font-family: var(--font-body);
         }
 
         th, td {
             text-align: left;
             padding: 12px 10px;
             border-bottom: 1px solid var(--line);
+            font-size: 0.9rem;
         }
 
         th {
             color: var(--muted);
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.18em;
         }
 
         .member-chart {
@@ -2320,12 +2339,14 @@ function renderDashboardHtml(data) {
             align-items: center;
             gap: 8px;
             margin-top: 16px;
-            padding: 8px 12px;
+            padding: 6px 14px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.12);
-            color: #fff7ed;
-            font-family: "Segoe UI", sans-serif;
-            font-size: 0.9rem;
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.25);
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
         }
 
         .console-layout {
@@ -2344,20 +2365,30 @@ function renderDashboardHtml(data) {
 
         .command-button,
         .send-button {
-            border: 0;
-            border-radius: 8px;
-            background: #11212d;
-            color: #fff7ed;
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: rgba(245,158,11,0.10);
+            color: var(--ink);
             cursor: pointer;
-            font: 600 0.9rem "Segoe UI", sans-serif;
+            font: 600 0.85rem var(--font-body);
             min-height: 38px;
             padding: 9px 10px;
+            letter-spacing: 0.04em;
+            transition: background 0.15s;
         }
 
         .command-button:hover,
         .send-button:hover {
-            background: #1e3a5f;
+            background: rgba(245,158,11,0.22);
+            border-color: var(--accent);
         }
+
+        .send-button {
+            background: var(--accent);
+            color: #0A0807;
+            border-color: var(--accent);
+        }
+        .send-button:hover { background: var(--accent-deep); }
 
         .console-form {
             display: grid;
@@ -2369,33 +2400,35 @@ function renderDashboardHtml(data) {
         .console-input {
             min-width: 0;
             border: 1px solid var(--line);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.75);
+            border-radius: 4px;
+            background: rgba(245,240,232,0.05);
             color: var(--ink);
-            font: 0.95rem Consolas, "Courier New", monospace;
+            font: 0.9rem Consolas, "Courier New", monospace;
             min-height: 40px;
             padding: 10px 12px;
         }
+        .console-input:focus { outline: none; border-color: var(--accent); }
 
         .log-box {
             height: min(68vh, 760px);
             min-height: 560px;
             overflow: auto;
-            border-radius: 8px;
-            background: #101820;
-            color: #dbe7ef;
-            font: 0.74rem/1.05 Consolas, "Courier New", monospace;
+            border-radius: 4px;
+            background: #050403;
+            border: 1px solid var(--line);
+            color: #9C9690;
+            font: 0.74rem/1.5 Consolas, "Courier New", monospace;
             padding: 12px;
             white-space: pre;
         }
 
         .log-line {
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 4px 0;
+            border-bottom: 1px solid rgba(245,240,232,0.04);
+            padding: 3px 0;
         }
 
-        .log-line.error { color: #ffb4a8; }
-        .log-line.warn { color: #ffe1a8; }
+        .log-line.error { color: #FCA5A5; }
+        .log-line.warn  { color: #FCD34D; }
 
         .msg-list {
             list-style: none;
@@ -2405,12 +2438,13 @@ function renderDashboardHtml(data) {
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         .msg-item {
-            background: rgba(17, 33, 45, 0.04);
-            border: 1px solid rgba(17, 33, 45, 0.08);
-            border-radius: 12px;
+            background: rgba(245,240,232,0.04);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            border-radius: 2px;
             padding: 10px 14px;
         }
         .msg-meta {
@@ -2418,24 +2452,26 @@ function renderDashboardHtml(data) {
             flex-wrap: wrap;
             gap: 8px;
             align-items: baseline;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: var(--muted);
             margin-bottom: 4px;
         }
-        .msg-author { color: var(--ink); font-weight: 600; }
+        .msg-author { color: var(--ink); font-weight: 700; }
         .msg-chat {
-            background: rgba(255, 122, 24, 0.12);
-            color: var(--accent);
+            background: rgba(37,211,102,0.12);
+            color: var(--green);
             padding: 1px 8px;
             border-radius: 999px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
         .msg-time { margin-left: auto; }
         .msg-body {
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             color: var(--ink);
             white-space: pre-wrap;
             word-wrap: break-word;
+            opacity: 0.9;
         }
         .msg-empty {
             color: var(--muted);
@@ -2445,11 +2481,12 @@ function renderDashboardHtml(data) {
 
         .status-dot {
             display: inline-block;
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 999px;
             margin-right: 8px;
-            background: ${isReady ? '#22c55e' : '#f59e0b'};
+            background: ${isReady ? '#25D366' : '#F59E0B'};
+            box-shadow: 0 0 6px ${isReady ? 'rgba(37,211,102,0.6)' : 'rgba(245,158,11,0.6)'};
         }
 
         @media (max-width: 900px) {
@@ -2567,8 +2604,8 @@ function renderDashboardHtml(data) {
                 </table>
             </article>
 
-            <article class="card full" style="background: linear-gradient(140deg,rgba(17,33,45,0.05),rgba(255,122,24,0.04)); border-top: 3px solid var(--accent);">
-                <div class="label" style="color: var(--accent); font-size:0.85rem;">🌐 Landing Page Analytics · PostHog · maikz91.github.io/the-tribe-bot</div>
+            <article class="card full" style="border-left: 4px solid var(--accent);">
+                <div class="label" style="color: var(--accent);">Landing Page Analytics · PostHog · maikz91.github.io/the-tribe-bot</div>
                 <div style="margin-top:4px; font-size:0.8rem; color:var(--muted);">
                     ${data.website.fetchedAt ? `Zuletzt geladen: ${escapeHtml(new Date(data.website.fetchedAt).toLocaleString('de-DE', { timeZone: TIME_ZONE }))}` : 'Noch nicht geladen'}
                     &nbsp;·&nbsp; Baseline 15.05: 16,8% Bounce · 63% 0%-Scroll · 6,1% CTA-Rate
@@ -2582,22 +2619,22 @@ function renderDashboardHtml(data) {
             </article>
             <article class="card">
                 <div class="label">Bounce-Rate (7d)</div>
-                <div class="value" style="color:${data.website.bounceRate < 20 ? 'var(--accent-2)' : data.website.bounceRate < 35 ? 'var(--accent)' : '#e55'}">${data.website.bounceRate}%</div>
+                <div class="value" style="color:${data.website.bounceRate < 20 ? 'var(--green)' : data.website.bounceRate < 35 ? 'var(--accent)' : 'var(--red)'}">${data.website.bounceRate}%</div>
                 <div class="subtle">Kein Scroll-Event · Baseline 16,8%</div>
             </article>
             <article class="card">
                 <div class="label">0%-Scroll (7d)</div>
-                <div class="value" style="color:${data.website.zeroRate < 50 ? 'var(--accent-2)' : data.website.zeroRate < 65 ? 'var(--accent)' : '#e55'}">${data.website.zeroRate}%</div>
+                <div class="value" style="color:${data.website.zeroRate < 50 ? 'var(--green)' : data.website.zeroRate < 65 ? 'var(--accent)' : 'var(--red)'}">${data.website.zeroRate}%</div>
                 <div class="subtle">Nie gescrollt · Baseline 63%</div>
             </article>
             <article class="card">
                 <div class="label">CTA-Rate (7d)</div>
-                <div class="value" style="color:var(--accent-2);">${data.website.ctaRate}%</div>
+                <div class="value" style="color:var(--green);">${data.website.ctaRate}%</div>
                 <div class="subtle">${data.website.cta7d} Klicks · Baseline 6,1%</div>
             </article>
             <article class="card">
                 <div class="label">CTA Heute</div>
-                <div class="value" style="color:var(--accent);">${data.website.ctaToday}</div>
+                <div class="value" style="color:var(--accent);" >${data.website.ctaToday}</div>
                 <div class="subtle">IG ${data.website.ctaIG} · FB ${data.website.ctaFB} (7d)</div>
             </article>
 
@@ -2607,12 +2644,12 @@ function renderDashboardHtml(data) {
                 <script>
                 (function(){
                     const buckets = ${JSON.stringify(data.website.scrollBuckets)};
-                    const colors = ['#e55','#d29922','#e3b341','#3fb950','#56d364','#7ee787'];
+                    const colors = ['#EF4444','#F59E0B','#FCD34D','#34D399','#25D366','#6EE7B7'];
                     if (window.Chart) {
                         new Chart(document.getElementById('scroll-chart'), {
                             type: 'bar',
-                            data: { labels: buckets.map(b=>b.label), datasets: [{ data: buckets.map(b=>b.count), backgroundColor: colors, borderRadius: 5, borderSkipped: false }] },
-                            options: { responsive: true, plugins: { legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.raw+' Sessions ('+buckets[ctx.dataIndex].pct+'%)'}} }, scales: { x:{ticks:{color:'#888'},grid:{color:'#333'}}, y:{ticks:{color:'#888'},grid:{color:'#333'}} } }
+                            data: { labels: buckets.map(b=>b.label), datasets: [{ data: buckets.map(b=>b.count), backgroundColor: colors, borderRadius: 3, borderSkipped: false }] },
+                            options: { responsive: true, plugins: { legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.raw+' Sessions ('+buckets[ctx.dataIndex].pct+'%)'}} }, scales: { x:{ticks:{color:'#9C9690'},grid:{color:'rgba(245,240,232,0.08)'}}, y:{ticks:{color:'#9C9690'},grid:{color:'rgba(245,240,232,0.08)'}} } }
                         });
                     } else {
                         document.getElementById('scroll-chart').insertAdjacentHTML('afterend', buckets.map(b=>'<div style="display:flex;gap:8px;align-items:center;font-size:0.85rem;margin:3px 0"><span style="width:60px;color:#888">'+b.label+'</span><div style="height:12px;background:#ff7a18;border-radius:3px;width:'+Math.max(b.pct,1)+'%"></div><span>'+b.count+' ('+b.pct+'%)</span></div>').join(''));
