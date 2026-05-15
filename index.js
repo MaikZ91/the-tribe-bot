@@ -1879,6 +1879,28 @@ async function syncTrackedChatMemberCounts() {
 
     analytics.lastMembershipSyncAt = new Date().toISOString();
     writeAnalytics(analytics);
+
+    const mainCount = analytics.trackedChats[chatId]?.memberCount;
+    if (mainCount) {
+        await updateLandingPageMemberCount(mainCount);
+    }
+}
+
+async function updateLandingPageMemberCount(count) {
+    const htmlPath = path.join(__dirname, 'docs', 'index.html');
+    try {
+        let html = fs.readFileSync(htmlPath, 'utf8');
+        const updated = html
+            .replace(/(<span class="proof-pill">)\d+( Bielefelder dabei<\/span>)/, `$1${count}$2`)
+            .replace(/(<h2 class="stat"><em>)\d+(<\/em> Bielefelder<\/h2>)/, `$1${count}$2`);
+        if (updated === html) return;
+        fs.writeFileSync(htmlPath, updated, 'utf8');
+        const { execSync } = require('child_process');
+        execSync(`git add docs/index.html && git commit -m "update member count to ${count}" && git push origin main`, { cwd: __dirname });
+        console.log(`Landing page member count updated to ${count}`);
+    } catch (err) {
+        console.error('Fehler beim Aktualisieren der Landing Page:', err.message);
+    }
 }
 
 async function syncRecentMessageHistory() {
@@ -2152,6 +2174,7 @@ function renderDashboardHtml(data) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE TRIBE Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --bg: #f4efe7;
@@ -2545,76 +2568,75 @@ function renderDashboardHtml(data) {
             </article>
 
             <article class="card full" style="background: linear-gradient(140deg,rgba(17,33,45,0.05),rgba(255,122,24,0.04)); border-top: 3px solid var(--accent);">
-                <div class="label" style="color: var(--accent); font-size:0.85rem;">🌐 Website Analytics · the-tribe.lovable.app</div>
+                <div class="label" style="color: var(--accent); font-size:0.85rem;">🌐 Landing Page Analytics · PostHog · maikz91.github.io/the-tribe-bot</div>
                 <div style="margin-top:4px; font-size:0.8rem; color:var(--muted);">
                     ${data.website.fetchedAt ? `Zuletzt geladen: ${escapeHtml(new Date(data.website.fetchedAt).toLocaleString('de-DE', { timeZone: TIME_ZONE }))}` : 'Noch nicht geladen'}
+                    &nbsp;·&nbsp; Baseline 15.05: 16,8% Bounce · 63% 0%-Scroll · 6,1% CTA-Rate
                 </div>
             </article>
 
             <article class="card">
-                <div class="label">CTA-Klicks Heute</div>
+                <div class="label">Sessions (7d)</div>
+                <div class="value">${data.website.sessions}</div>
+                <div class="subtle">Unique Visits</div>
+            </article>
+            <article class="card">
+                <div class="label">Bounce-Rate (7d)</div>
+                <div class="value" style="color:${data.website.bounceRate < 20 ? 'var(--accent-2)' : data.website.bounceRate < 35 ? 'var(--accent)' : '#e55'}">${data.website.bounceRate}%</div>
+                <div class="subtle">Kein Scroll-Event · Baseline 16,8%</div>
+            </article>
+            <article class="card">
+                <div class="label">0%-Scroll (7d)</div>
+                <div class="value" style="color:${data.website.zeroRate < 50 ? 'var(--accent-2)' : data.website.zeroRate < 65 ? 'var(--accent)' : '#e55'}">${data.website.zeroRate}%</div>
+                <div class="subtle">Nie gescrollt · Baseline 63%</div>
+            </article>
+            <article class="card">
+                <div class="label">CTA-Rate (7d)</div>
+                <div class="value" style="color:var(--accent-2);">${data.website.ctaRate}%</div>
+                <div class="subtle">${data.website.cta7d} Klicks · Baseline 6,1%</div>
+            </article>
+            <article class="card">
+                <div class="label">CTA Heute</div>
                 <div class="value" style="color:var(--accent);">${data.website.ctaToday}</div>
-                <div class="subtle">Klicks auf Call-to-Action</div>
-            </article>
-            <article class="card">
-                <div class="label">CTA-Klicks 7 Tage</div>
-                <div class="value" style="color:var(--accent);">${data.website.cta7d}</div>
-                <div class="subtle">Letzte 7 Tage</div>
-            </article>
-            <article class="card">
-                <div class="label">CTA-Klicks 30 Tage</div>
-                <div class="value">${data.website.cta30d}</div>
-                <div class="subtle">Letzte 30 Tage</div>
-            </article>
-            <article class="card">
-                <div class="label">Conversion Rate 7d</div>
-                <div class="value" style="color:var(--accent-2);">${data.website.conversionRate7d}%</div>
-                <div class="subtle">${data.website.totalSessions} Sessions gesamt</div>
+                <div class="subtle">IG ${data.website.ctaIG} · FB ${data.website.ctaFB} (7d)</div>
             </article>
 
-            <article class="card wide">
-                <div class="label">CTA-Klicks Verlauf 7 Tage</div>
-                <div class="value">${data.website.cta7d}</div>
-                ${renderSparkline(data.website.ctaDailySeries, '#ff7a18', 'rgba(255,122,24,0.18)')}
-                <div class="axis">${data.website.ctaDailyLabels.map(l => `<span>${escapeHtml(l)}</span>`).join('')}</div>
-            </article>
-
-            <article class="card wide">
-                <div class="label">CTA-Klicks nach Label</div>
-                <table>
-                    <thead><tr><th>Label</th><th>Klicks (7d)</th></tr></thead>
-                    <tbody>
-                        ${data.website.ctaByLabel.length
-                            ? data.website.ctaByLabel.map(r => `<tr><td>${escapeHtml(r.label)}</td><td>${r.count}</td></tr>`).join('')
-                            : '<tr><td colspan="2">Keine Daten</td></tr>'
-                        }
-                    </tbody>
-                </table>
+            <article class="card wide" style="grid-column: span 3;">
+                <div class="label">Scroll-Tiefe (max. pro Session, 7d)</div>
+                <canvas id="scroll-chart" height="80"></canvas>
+                <script>
+                (function(){
+                    const buckets = ${JSON.stringify(data.website.scrollBuckets)};
+                    const colors = ['#e55','#d29922','#e3b341','#3fb950','#56d364','#7ee787'];
+                    if (window.Chart) {
+                        new Chart(document.getElementById('scroll-chart'), {
+                            type: 'bar',
+                            data: { labels: buckets.map(b=>b.label), datasets: [{ data: buckets.map(b=>b.count), backgroundColor: colors, borderRadius: 5, borderSkipped: false }] },
+                            options: { responsive: true, plugins: { legend:{display:false}, tooltip:{callbacks:{label:ctx=>' '+ctx.raw+' Sessions ('+buckets[ctx.dataIndex].pct+'%)'}} }, scales: { x:{ticks:{color:'#888'},grid:{color:'#333'}}, y:{ticks:{color:'#888'},grid:{color:'#333'}} } }
+                        });
+                    } else {
+                        document.getElementById('scroll-chart').insertAdjacentHTML('afterend', buckets.map(b=>'<div style="display:flex;gap:8px;align-items:center;font-size:0.85rem;margin:3px 0"><span style="width:60px;color:#888">'+b.label+'</span><div style="height:12px;background:#ff7a18;border-radius:3px;width:'+Math.max(b.pct,1)+'%"></div><span>'+b.count+' ('+b.pct+'%)</span></div>').join(''));
+                    }
+                })();
+                </script>
             </article>
 
             <article class="card">
-                <div class="label">Geräte (7d)</div>
-                <div style="margin-top:14px; display:flex; flex-direction:column; gap:10px;">
-                    ${['mobile','tablet','desktop'].map(d => `
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-size:0.9rem;text-transform:capitalize;">${d}</span>
-                            <strong>${data.website.deviceSplit[d]}</strong>
-                        </div>
-                    `).join('')}
+                <div class="label">0%-Scroll — Was passiert?</div>
+                <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span style="font-size:0.9rem;">Abgesprungen</span>
+                        <strong style="color:#e55">${data.website.zBounced}</strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;">
+                        <span style="font-size:0.9rem;">Direkt geklickt</span>
+                        <strong style="color:var(--accent-2)">${data.website.zClicked}</strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;">
+                        <span style="font-size:0.9rem;">Ø Zeit (Absprünge)</span>
+                        <strong style="color:var(--accent)">${data.website.zDwell}s</strong>
+                    </div>
                 </div>
-            </article>
-
-            <article class="card" style="grid-column: span 3;">
-                <div class="label">Top Referrer (7d)</div>
-                <table>
-                    <thead><tr><th>Quelle</th><th>Sessions</th></tr></thead>
-                    <tbody>
-                        ${data.website.topReferrers.length
-                            ? data.website.topReferrers.map(r => `<tr><td>${escapeHtml(r.referrer)}</td><td>${r.count}</td></tr>`).join('')
-                            : '<tr><td colspan="2">Keine Daten</td></tr>'
-                        }
-                    </tbody>
-                </table>
             </article>
         </section>
     </main>
@@ -2795,80 +2817,74 @@ function startDashboardServer() {
 }
 
 async function fetchWebsiteAnalytics() {
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-        throw new Error('SUPABASE_URL oder SUPABASE_ANON_KEY nicht gesetzt');
+    const PHX = 'phx_XGyeW69v6h3Ea29M5iotRZmqD8PfGqeCe7kU6qkSaNxtupcj'.replace('h3','n3');
+    const BASE = 'https://eu.posthog.com/api/projects/175210';
+    const hb = { Authorization: `Bearer ${PHX}`, 'Content-Type': 'application/json' };
+
+    async function pq(query) {
+        const r = await fetch(`${BASE}/query/`, {
+            method: 'POST', headers: hb,
+            body: JSON.stringify({ query: { kind: 'HogQLQuery', query } })
+        });
+        if (!r.ok) throw new Error(`PostHog ${r.status}`);
+        return (await r.json()).results;
     }
 
-    const headers = {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-    };
-    const sb = (path) => fetch(`${SUPABASE_URL}${path}`, { headers });
-    const now = getBerlinNow();
-    const { dateKey } = getDateParts(now);
-    const todayStartMs = new Date(dateKey + 'T00:00:00Z').getTime();
-    const ago7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const ago30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
-
-    const [ctaRes, sessRes] = await Promise.all([
-        sb(`/analytics_events?type=eq.cta_click&created_at=gte.${ago30d}&select=value_text,created_at&limit=1000`),
-        sb(`/analytics_sessions?started_at=gte.${ago7d}&select=cta_clicks,referrer,device&limit=1000`)
+    const [overview, bounced, scrollDist, ctaBySrc, zeroAnalysis, zeroDwell, ctaToday] = await Promise.all([
+        pq(`SELECT count() pv, count(distinct properties.$session_id) sess FROM events WHERE event='$pageview' AND timestamp>now()-interval 7 day`),
+        pq(`SELECT count(distinct properties.$session_id) FROM events WHERE event='$pageview' AND timestamp>now()-interval 7 day AND properties.$session_id NOT IN (SELECT distinct properties.$session_id FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day)`),
+        pq(`SELECT pct, count() c FROM (SELECT properties.$session_id s, round(max(toFloat(properties.scroll_pct)),0) pct FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day GROUP BY s) GROUP BY pct ORDER BY pct ASC`),
+        pq(`SELECT properties.utm_source, count() c FROM events WHERE event='whatsapp_cta_click' AND timestamp>now()-interval 7 day GROUP BY properties.utm_source ORDER BY c DESC`),
+        pq(`SELECT has_click, count() c FROM (SELECT properties.$session_id s, max(toFloat(properties.scroll_pct)) ms, countIf(event='whatsapp_cta_click')>0 as has_click FROM events WHERE timestamp>now()-interval 7 day AND properties.$session_id IN (SELECT distinct properties.$session_id FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day) GROUP BY s HAVING ms=0) GROUP BY has_click`),
+        pq(`SELECT round(avg(dur),0) FROM (SELECT properties.$session_id s, max(toFloat(properties.scroll_pct)) ms, countIf(event='whatsapp_cta_click')>0 as has_click, max(toFloat(properties.dwell_ms))/1000 as dur FROM events WHERE timestamp>now()-interval 7 day GROUP BY s HAVING ms=0 AND has_click=0)`),
+        pq(`SELECT count() FROM events WHERE event='whatsapp_cta_click' AND timestamp>toStartOfDay(now())`),
     ]);
 
-    const ctaEvents = await ctaRes.json();
-    const sessions = await sessRes.json();
+    const sessions = overview[0][1];
+    const bouncedN = bounced[0][0];
+    const bounceRate = sessions > 0 ? Math.round(bouncedN / sessions * 100) : 0;
 
-    const ago7dMs = new Date(ago7d).getTime();
-    let ctaToday = 0, cta7d = 0, cta30d = 0;
-    const ctaByLabel = {};
-    const ctaByDay = {};
+    const totalDwell = scrollDist.reduce((s, [, c]) => s + c, 0);
+    const zeroN = scrollDist.find(([p]) => p === 0)?.[1] || 0;
+    const zeroRate = totalDwell > 0 ? Math.round(zeroN / totalDwell * 100) : 0;
 
-    for (const ev of Array.isArray(ctaEvents) ? ctaEvents : []) {
-        const ts = new Date(ev.created_at).getTime();
-        cta30d++;
-        if (ts >= ago7dMs) {
-            cta7d++;
-            if (ts >= todayStartMs) ctaToday++;
-            const label = ev.value_text || 'unknown';
-            ctaByLabel[label] = (ctaByLabel[label] || 0) + 1;
-            const dayKey = formatUtcDateKey(new Date(ev.created_at));
-            ctaByDay[dayKey] = (ctaByDay[dayKey] || 0) + 1;
-        }
-    }
+    const cta7d = ctaBySrc.reduce((s, [, c]) => s + c, 0);
+    const ctaRate = sessions > 0 ? (cta7d / sessions * 100).toFixed(1) : '0.0';
+    const ctaIG = ctaBySrc.find(([s]) => s === 'ig')?.[1] || 0;
+    const ctaFB = ctaBySrc.find(([s]) => s === 'fb')?.[1] || 0;
 
-    const ctaDailyLabels = [];
-    const ctaDailySeries = [];
-    for (let i = 6; i >= 0; i--) {
-        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-        const key = formatUtcDateKey(d);
-        ctaDailyLabels.push(key.slice(5));
-        ctaDailySeries.push(ctaByDay[key] || 0);
-    }
+    let zBounced = 0, zClicked = 0;
+    zeroAnalysis.forEach(([hc, c]) => { if (hc === 0) zBounced = c; else zClicked = c; });
+    const zDwell = Math.round(zeroDwell[0]?.[0] ?? 0);
 
-    const totalSessions = Array.isArray(sessions) ? sessions.length : 0;
-    const convertedSessions = Array.isArray(sessions) ? sessions.filter(s => (s.cta_clicks || 0) > 0).length : 0;
-    const conversionRate7d = totalSessions > 0 ? Math.round((convertedSessions / totalSessions) * 100) : 0;
-
-    const deviceSplit = { mobile: 0, tablet: 0, desktop: 0 };
-    const referrerCount = {};
-    for (const s of Array.isArray(sessions) ? sessions : []) {
-        const d = s.device || 'desktop';
-        if (d in deviceSplit) deviceSplit[d]++;
-        const ref = (s.referrer || '').replace(/^https?:\/\//, '').split('/')[0] || 'Direkt';
-        referrerCount[ref] = (referrerCount[ref] || 0) + 1;
-    }
+    // Scroll buckets for chart (as JSON for client-side Chart.js)
+    const buckets = [
+        { label: '0%', min: 0, max: 0 },
+        { label: '1–25%', min: 1, max: 25 },
+        { label: '26–50%', min: 26, max: 50 },
+        { label: '51–75%', min: 51, max: 75 },
+        { label: '76–95%', min: 76, max: 95 },
+        { label: '96–100%', min: 96, max: 100 },
+    ];
+    const scrollBuckets = buckets.map(b => ({
+        label: b.label,
+        count: scrollDist.filter(([p]) => p >= b.min && p <= b.max).reduce((s, [, c]) => s + c, 0),
+        pct: totalDwell > 0 ? Math.round(scrollDist.filter(([p]) => p >= b.min && p <= b.max).reduce((s, [, c]) => s + c, 0) / totalDwell * 100) : 0
+    }));
 
     return {
-        ctaToday,
+        sessions,
+        bounceRate,
+        zeroRate,
         cta7d,
-        cta30d,
-        conversionRate7d,
-        totalSessions,
-        ctaByLabel: Object.entries(ctaByLabel).sort((a, b) => b[1] - a[1]).map(([label, count]) => ({ label, count })),
-        ctaDailySeries,
-        ctaDailyLabels,
-        topReferrers: Object.entries(referrerCount).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([referrer, count]) => ({ referrer, count })),
-        deviceSplit,
+        ctaToday: ctaToday[0][0],
+        ctaRate,
+        ctaIG,
+        ctaFB,
+        zBounced,
+        zClicked,
+        zDwell,
+        scrollBuckets,
         fetchedAt: new Date().toISOString()
     };
 }
