@@ -1837,6 +1837,7 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
 
     writeState(state);
     console.log(`Mittwochs-Umfrage fuer ${weekKey} gesendet.`);
+    await updateLandingPageNextEvent();
 }
 
 function getLatestVotesPerVoter(votes) {
@@ -1884,6 +1885,7 @@ async function syncTrackedChatMemberCounts() {
     if (mainCount) {
         await updateLandingPageMemberCount(mainCount);
     }
+    await updateLandingPageNextEvent();
 }
 
 async function updateLandingPageMemberCount(count) {
@@ -1900,6 +1902,51 @@ async function updateLandingPageMemberCount(count) {
         console.log(`Landing page member count updated to ${count}`);
     } catch (err) {
         console.error('Fehler beim Aktualisieren der Landing Page:', err.message);
+    }
+}
+
+async function updateLandingPageNextEvent() {
+    const htmlPath = path.join(__dirname, 'docs', 'index.html');
+    try {
+        const today = getToday();
+        const weekKey = today.weekKey;
+
+        // Nächsten Sonntag berechnen
+        const sundayDate = getUpcomingSundayUtcDate(weekKey);
+        const day = sundayDate.getUTCDate();
+        const month = sundayDate.getUTCMonth() + 1;
+        const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+        const monthNames = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+        const dayName = dayNames[sundayDate.getUTCDay()];
+        const label = `${dayName}. ${day}. ${monthNames[month - 1]} · 18:00 Uhr`;
+
+        // Location: aus laufender Abstimmung oder Fallback
+        const weeklyState = ensureWeeklyPollState(state, weekKey);
+        let location = '';
+        if (weeklyState.venuePoll?.messageId) {
+            try {
+                const { winner } = await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
+                location = winner !== VENUE_POLL_CHAT_OPTION ? ` · ${winner}` : '';
+            } catch (e) { /* ignore */ }
+        }
+        if (!location && weeklyState.venuePoll?.options?.[0]) {
+            location = ` · ${weeklyState.venuePoll.options[0]}`;
+        }
+
+        const fullLabel = label + location;
+
+        let html = fs.readFileSync(htmlPath, 'utf8');
+        const updated = html.replace(
+            /(<strong id="next-event-label">)[^<]*(<\/strong>)/,
+            `$1${fullLabel}$2`
+        );
+        if (updated === html) return;
+        fs.writeFileSync(htmlPath, updated, 'utf8');
+        const { execSync } = require('child_process');
+        execSync(`git add docs/index.html && git commit -m "update next event: ${fullLabel}" && git push origin main`, { cwd: __dirname });
+        console.log(`Landing page next event updated: ${fullLabel}`);
+    } catch (err) {
+        console.error('Fehler beim Aktualisieren des Next-Event-Badge:', err.message);
     }
 }
 
