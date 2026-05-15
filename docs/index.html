@@ -876,5 +876,48 @@
   })();
 </script>
 
+<script>
+(function(){
+  function countUp(el, target, duration) {
+    const start = Math.max(1, Math.round(target * 0.82));
+    const startTime = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - startTime) / duration);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(start + (target - start) * ease);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const targets = [
+    { sel: '.proof-pill',  pattern: /^(\d+)(.*)$/, duration: 1400 },
+    { sel: '.proof .stat em', pattern: null,        duration: 1600 },
+  ];
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      obs.unobserve(entry.target);
+      const el = entry.target;
+      if (el.classList.contains('proof-pill')) {
+        const m = el.textContent.match(/^(\d+)(.*)/);
+        if (!m) return;
+        const num = document.createElement('span');
+        num.textContent = m[1];
+        const rest = m[2];
+        el.textContent = '';
+        el.appendChild(num);
+        el.appendChild(document.createTextNode(rest));
+        countUp(num, parseInt(m[1]), 1400);
+      } else {
+        countUp(el, parseInt(el.textContent), 1600);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.proof-pill, .proof .stat em').forEach(el => obs.observe(el));
+})();
+</script>
 </body>
 </html>
