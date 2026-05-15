@@ -138,11 +138,15 @@
 
   .opener {
     min-height: 100svh;
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column; justify-content: flex-start; gap: 28px;
     padding: 32px 22px 28px;
     position: relative;
     overflow: hidden;
   }
+  .opener-top {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .scroll-cue { margin-top: auto; }
   .opener::after {
     /* warm spotlight wash */
     content: "";
@@ -160,7 +164,27 @@
   .opener-core {
     z-index: 2; position: relative;
     display: flex; flex-direction: column; gap: 22px;
-    margin: auto 0;
+    margin-top: 0;
+  }
+
+  .opener-proof {
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0;
+    animation: rise 0.7s 0.9s ease-out forwards;
+  }
+  .opener-proof .proof-pill {
+    background: rgba(37,211,102,0.15);
+    border: 1px solid rgba(37,211,102,0.35);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--whatsapp);
+    letter-spacing: 0.03em;
+  }
+  .opener-proof .proof-sub {
+    font-size: 13px;
+    color: var(--text-muted);
   }
 
   .pre-hook {
@@ -610,10 +634,11 @@
      OPENER — picks up where the reel ended (black logo card → into the page)
      ──────────────────────────────────── -->
 <section class="opener">
-  <div class="opener-meta">
-    <span class="label">Bielefeld&nbsp;·&nbsp;Seit 2024</span>
-    <span class="label">Reel · Fortsetzung</span>
-  </div>
+  <div class="opener-top">
+    <div class="opener-meta">
+      <span class="label">Bielefeld&nbsp;·&nbsp;Seit 2024</span>
+      <span class="label">Reel · Fortsetzung</span>
+    </div>
 
   <div class="opener-core">
     <span class="pre-hook">Du kommst gerade von Instagram. Der Reel ist hier nicht zu Ende.</span>
@@ -626,7 +651,12 @@
       Eine Community für Leute, die <strong>nicht alleine</strong> zu Hause sitzen wollen.
       Sonntags treffen wir uns. Unter der Woche schreiben wir.
     </p>
+    <div class="opener-proof">
+      <span class="proof-pill">87 Bielefelder dabei</span>
+      <span class="proof-sub">Kostenlos · jederzeit raus</span>
+    </div>
   </div>
+  </div><!-- /.opener-top -->
 
   <div class="scroll-cue">
     <span class="label">Weiter</span>
