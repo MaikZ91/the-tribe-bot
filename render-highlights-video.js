@@ -421,16 +421,7 @@ window.__renderAt = function(t){
   const dur = active.end - active.start;
   const p = Math.min(1, local / dur);
 
-  if (active.id === 'scene-cover') {
-    // The cover stays mostly static so it works as a still preview, but we
-    // do a very subtle 0→0.5 fade-up on the rows so the eye lands on them.
-    document.querySelectorAll('.cover-row').forEach((row, i) => {
-      const tStart = i * 80;
-      const inP = Math.min(1, Math.max(0, (local - tStart) / 350));
-      row.style.opacity = ease(inP);
-      row.style.transform = 'translateY(' + (10 * (1 - ease(inP))) + 'px)';
-    });
-  } else if (active.id.startsWith('scene-ev-')) {
+  if (active.id.startsWith('scene-ev-')) {
     const sc = document.getElementById(active.id);
     const img = sc.querySelector('.photo img');
     const body = sc.querySelector('.body');
