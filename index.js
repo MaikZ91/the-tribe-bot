@@ -1892,9 +1892,12 @@ async function updateLandingPageMemberCount(count) {
     const htmlPath = path.join(__dirname, 'docs', 'index.html');
     try {
         let html = fs.readFileSync(htmlPath, 'utf8');
+        // Story-Page (v3-story) hat 3 Stellen mit der Zahl; bigCount + Chat-Header
+        // zeigen den Gesamtcount, die Faces-Zeile "& N weitere" = count - 3 (3 namentlich genannt).
         const updated = html
-            .replace(/(<span class="proof-pill">)\d+( Bielefelder dabei<\/span>)/, `$1${count}$2`)
-            .replace(/(<h2 class="stat"><em>)\d+(<\/em> Bielefelder<\/h2>)/, `$1${count}$2`);
+            .replace(/(id="bigCount">)\d+(<)/, `$1${count}$2`)
+            .replace(/(<i class="online"><\/i>\s*)\d+(\s*Mitglieder)/, `$1${count}$2`)
+            .replace(/(&amp;\s*)\d+(\s*weitere Bielefelder)/, `$1${Math.max(count - 3, 0)}$2`);
         if (updated === html) return;
         fs.writeFileSync(htmlPath, updated, 'utf8');
         const { execSync } = require('child_process');
