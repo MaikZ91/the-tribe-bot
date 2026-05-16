@@ -33,12 +33,9 @@
   .stage{position:relative;height:100dvh;width:100%;overflow:hidden;
     display:flex;flex-direction:column;justify-content:flex-end}
 
-  /* atmosphere: ken-burns photo + vignette + grain */
+  /* atmosphere: statisches Foto + vignette + grain (keine Einblendung) */
   .bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;
-    object-position:50% 20%;opacity:0;transform:scale(1.12);
-    animation:in-bg 1.4s var(--ease) forwards, kenburns 22s ease-out 1s forwards}
-  @keyframes in-bg{to{opacity:1}}
-  @keyframes kenburns{to{transform:scale(1)}}
+    object-position:50% 20%}
   .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
       radial-gradient(120% 78% at 50% 32%,transparent 0%,rgba(7,5,4,.42) 70%,rgba(7,5,4,.82) 100%),
@@ -48,8 +45,7 @@
 
   /* top bar — wordmark + de-emphasised ghost CTA (one filled CTA wins) */
   .top{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;
-    justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0;
-    opacity:0;animation:rise .7s var(--ease) .15s forwards}
+    justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0}
   .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
     color:var(--black);padding:5px 9px 3px;line-height:1}
   .ghost{font-size:12.5px;font-weight:600;color:var(--text);opacity:.62;
@@ -58,11 +54,9 @@
   /* the staged statement */
   .c{position:relative;z-index:4;display:flex;flex-direction:column;
     padding:0 24px calc(26px + env(safe-area-inset-bottom));gap:clamp(11px,2.4vh,18px)}
-  .reveal{opacity:0;transform:translateY(15px);animation:rise .85s var(--ease) forwards}
-  @keyframes rise{to{opacity:1;transform:none}}
-  /* non-CTA elements settle slightly back so the button is the brightest thing */
-  .dim{animation:rise-dim .85s var(--ease) forwards}
-  @keyframes rise-dim{to{opacity:.82;transform:none}}
+  .reveal{opacity:1}
+  /* non-CTA elements stehen leicht zurück, damit der Button am hellsten ist */
+  .dim{opacity:.82}
 
   .kick{font-family:var(--fd);font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;
     color:var(--amber);animation-delay:.45s}
@@ -102,11 +96,10 @@
   .meta{font-size:11.5px;color:var(--muted);animation-delay:1.95s}
 
   /* directional guide: faint line that travels down toward the CTA */
-  .guide{height:34px;position:relative;align-self:center;width:1px;overflow:hidden;
-    opacity:0;animation:rise .6s var(--ease) 3.3s forwards}
+  .guide{height:34px;position:relative;align-self:center;width:1px;overflow:hidden}
   .guide::before{content:"";position:absolute;left:0;top:-34px;width:1px;height:34px;
     background:linear-gradient(to bottom,transparent,var(--amber));
-    animation:flow 2.6s ease-in-out 3.6s infinite}
+    animation:flow 2.6s ease-in-out infinite}
   @keyframes flow{0%{transform:translateY(0);opacity:0}30%{opacity:.85}100%{transform:translateY(68px);opacity:0}}
 
   .when{font-size:12px;color:var(--muted);text-align:center;animation-delay:2.25s}
@@ -115,15 +108,13 @@
   .cta{position:relative;display:flex;align-items:center;justify-content:center;gap:11px;
     background:var(--wa);color:var(--wa-deep);font-weight:700;font-size:clamp(16px,4.7vw,18.5px);
     padding:19px 22px;border-radius:17px;overflow:hidden;
-    opacity:0;transform:translateY(16px) scale(.94);
-    animation:cta-in 1.05s var(--ease) 2.65s forwards, glow 3.6s ease-in-out 3.7s infinite}
-  @keyframes cta-in{60%{opacity:1;transform:translateY(0) scale(1.025)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    animation:glow 3.6s ease-in-out infinite}
   @keyframes glow{0%,100%{box-shadow:0 14px 30px rgba(37,211,102,.34)}50%{box-shadow:0 18px 52px rgba(37,211,102,.66)}}
   .cta svg{width:22px;height:22px;flex-shrink:0}
   .cta:active{transform:scale(.98)}
   .cta::after{content:"";position:absolute;inset:0;
     background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.42) 50%,transparent 70%);
-    transform:translateX(-130%);animation:sweep 4.4s ease-in-out 4s infinite}
+    transform:translateX(-130%);animation:sweep 4.4s ease-in-out infinite}
   @keyframes sweep{0%,62%{transform:translateX(-130%)}82%,100%{transform:translateX(130%)}}
 
   .reassure{text-align:center;font-size:11.5px;color:var(--muted);animation-delay:3.2s}
@@ -212,15 +203,7 @@
     t(); setInterval(t,60000);
   })();
 
-  // Zahl zählt während der Headline-Reveal hoch
-  (function(){
-    var el=document.getElementById('bigCount'); if(!el) return;
-    var tgt=parseInt(el.textContent,10)||0, st=Math.round(tgt*0.55); el.textContent=st;
-    setTimeout(function(){var t0=performance.now();
-      (function f(now){var p=Math.min(1,(now-t0)/1000),e=1-Math.pow(1-p,3);
-        el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
-    },820);
-  })();
+  // Zahl steht sofort (keine Einblend-/Hochzähl-Animation mehr) — #bigCount bleibt Sync-Anker
 
   // CTA + Verweil-Tracking (Event-Namen identisch -> Loop bleibt kompatibel)
   (function(){
