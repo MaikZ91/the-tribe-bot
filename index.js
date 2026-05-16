@@ -1881,9 +1881,13 @@ async function syncTrackedChatMemberCounts() {
     analytics.lastMembershipSyncAt = new Date().toISOString();
     writeAnalytics(analytics);
 
-    const mainCount = analytics.trackedChats[chatId]?.memberCount;
-    if (mainCount) {
-        await updateLandingPageMemberCount(mainCount);
+    // Landing Page bewirbt die "THE TRIBE.BI"-Community, nicht den generischen
+    // chatId (#ausgehen). Diesen Chat bevorzugt nehmen, sonst Fallback auf chatId.
+    const LANDING_CHAT_ID = process.env.LANDING_CHAT_ID || '120363425963185977@g.us';
+    const landingCount = analytics.trackedChats[LANDING_CHAT_ID]?.memberCount
+        || analytics.trackedChats[chatId]?.memberCount;
+    if (landingCount) {
+        await updateLandingPageMemberCount(landingCount);
     }
     await updateLandingPageNextEvent();
 }
@@ -1892,12 +1896,13 @@ async function updateLandingPageMemberCount(count) {
     const htmlPath = path.join(__dirname, 'docs', 'index.html');
     try {
         let html = fs.readFileSync(htmlPath, 'utf8');
-        // Story-Page (v3-story) hat 3 Stellen mit der Zahl; bigCount + Chat-Header
-        // zeigen den Gesamtcount, die Faces-Zeile "& N weitere" = count - 3 (3 namentlich genannt).
+        // v4-onepager: bigCount = Gesamtcount, Faces-Zeile "& N weitere" = count - 3
+        // (Maik/Lena/Patrick namentlich). "Bielefelder" am Ende optional (v3-story
+        // hatte es, v4-onepager nicht). Chat-Header-Regex no-opt't auf v4 (kein Chat).
         const updated = html
             .replace(/(id="bigCount">)\d+(<)/, `$1${count}$2`)
             .replace(/(<i class="online"><\/i>\s*)\d+(\s*Mitglieder)/, `$1${count}$2`)
-            .replace(/(&amp;\s*)\d+(\s*weitere Bielefelder)/, `$1${Math.max(count - 3, 0)}$2`);
+            .replace(/(&amp;\s*)\d+(\s*weitere)/, `$1${Math.max(count - 3, 0)}$2`);
         if (updated === html) return;
         fs.writeFileSync(htmlPath, updated, 'utf8');
         const { execSync } = require('child_process');
