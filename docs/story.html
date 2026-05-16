@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0A0807">
+<meta name="description" content="The Tribe Bielefeld — die Community, die jede Woche zusammen ausgeht und dich mitnimmt. Kostenlos, jederzeit raus.">
+<title>THE TRIBE — Bielefeld</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='white' text-anchor='middle' font-weight='900'>T</text></svg>">
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
+
+<style>
+  @font-face{
+    font-family:'Anton'; font-style:normal; font-weight:400; font-display:swap;
+    src:url(assets/fonts/anton-latin.woff2) format('woff2');
+  }
+  @font-face{
+    font-family:'Familjen Grotesk'; font-style:normal; font-weight:400 600; font-display:swap;
+    src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2');
+  }
+  :root{
+    --black:#0A0807; --black-rich:#050403;
+    --amber:#F59E0B; --whatsapp:#25D366; --whatsapp-dark:#0c3a26;
+    --text:#F5F0E8; --muted:#9C9690; --rule:rgba(245,240,232,.14);
+    --fd:"Anton","Arial Narrow",sans-serif;
+    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--fb); background:var(--black); color:var(--text);
+    -webkit-font-smoothing:antialiased; line-height:1.45;
+    overflow:hidden; overscroll-behavior:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .display{font-family:var(--fd);text-transform:uppercase;line-height:.92;font-weight:400;letter-spacing:.005em}
+  a{color:inherit;text-decoration:none}
+
+  /* ── Story chrome (always on top, like IG) ───────────── */
+  .chrome{
+    position:fixed; top:0; left:0; right:0; z-index:40;
+    padding:max(10px,env(safe-area-inset-top)) 14px 0;
+    background:linear-gradient(to bottom,rgba(5,4,3,.78),rgba(5,4,3,0));
+    pointer-events:none;
+  }
+  .bars{display:flex; gap:5px; margin-bottom:11px}
+  .bars .seg{
+    flex:1; height:3px; border-radius:3px;
+    background:rgba(245,240,232,.28); overflow:hidden;
+  }
+  .bars .seg i{
+    display:block; height:100%; width:0%;
+    background:var(--text); border-radius:3px;
+  }
+  .bars .seg.done i{width:100%}
+  .accountrow{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .wordmark{
+    font-family:var(--fd); font-size:15px; letter-spacing:.06em;
+    background:var(--text); color:var(--black);
+    padding:5px 9px 3px; line-height:1;
+  }
+  .join-pill{
+    pointer-events:auto;
+    display:inline-flex; align-items:center; gap:7px;
+    background:var(--whatsapp); color:#06210f;
+    font-weight:700; font-size:13px;
+    padding:8px 15px; border-radius:100px;
+    box-shadow:0 6px 18px rgba(37,211,102,.4);
+  }
+  .join-pill svg{width:15px;height:15px}
+  .join-pill:active{transform:scale(.95)}
+
+  /* ── Deck ────────────────────────────────────────────── */
+  .deck{
+    height:100dvh; width:100%;
+    overflow-y:scroll; scroll-snap-type:y mandatory;
+    scrollbar-width:none;
+  }
+  .deck::-webkit-scrollbar{display:none}
+  .panel{
+    position:relative;
+    height:100dvh; width:100%;
+    scroll-snap-align:start; scroll-snap-stop:always;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 24px calc(104px + env(safe-area-inset-bottom));
+    overflow:hidden;
+    content-visibility:auto;
+  }
+  .panel .bg{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%; object-fit:cover;
+    object-position:50% 40%;            /* faces sit in the upper half */
+  }
+  .bg-hero{object-position:34% 36% !important}  /* keep her face in frame */
+  .bg-bar{object-position:24% 40% !important}   /* main woman is left-of-centre */
+  .panel .scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(to top,
+      rgba(8,6,5,.94) 0%, rgba(8,6,5,.72) 26%,
+      rgba(8,6,5,.30) 55%, rgba(8,6,5,.55) 100%);
+  }
+  .panel .inner{position:relative; z-index:2; padding-bottom:6px}
+  .kicker{
+    font-family:var(--fd); font-size:13px; letter-spacing:.26em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:16px;
+  }
+  .panel h2{
+    font-family:var(--fd); text-transform:uppercase;
+    font-size:clamp(46px,14.5vw,86px); line-height:.9; color:var(--text);
+  }
+  .panel h2 em{font-style:normal; color:var(--amber)}
+  .panel p.sub{
+    margin-top:18px; font-size:17px; line-height:1.5;
+    max-width:24ch; color:var(--text);
+  }
+  .panel p.sub strong{color:var(--amber); font-weight:600}
+  .answer-body{
+    margin-top:20px; font-size:16.5px; line-height:1.52;
+    max-width:32ch; color:var(--text);
+  }
+  .answer-body strong{color:var(--amber); font-weight:600}
+  .answer-proof{
+    margin-top:22px; font-size:13px; line-height:1.5;
+    letter-spacing:.02em; color:var(--muted); max-width:34ch;
+  }
+  .answer-proof #bigCount{
+    color:var(--amber); font-weight:600;
+    font-family:var(--fd); font-size:15px; letter-spacing:.02em;
+  }
+
+  /* reveal-on-active */
+  .anim{opacity:0; transform:translateY(16px)}
+  .panel.live .anim{opacity:1; transform:none; transition:opacity .38s ease,transform .38s ease}
+  .panel.live .d1{transition-delay:.03s}
+  .panel.live .d2{transition-delay:.10s}
+  .panel.live .d3{transition-delay:.18s}
+  .panel.live .d4{transition-delay:.26s}
+
+  .tap-hint{
+    position:absolute; right:22px; bottom:calc(100px + env(safe-area-inset-bottom));
+    z-index:2; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); display:flex; align-items:center; gap:7px;
+    animation:hintpulse 2.4s ease-in-out infinite;
+  }
+  @keyframes hintpulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+  /* big number panel */
+  .bignum{
+    font-family:var(--fd); font-size:clamp(120px,40vw,230px);
+    line-height:.82; color:var(--amber); display:block;
+  }
+
+  /* faces */
+  .faces{display:flex; align-items:center; margin-top:22px}
+  .faces img{
+    width:42px;height:42px;border-radius:50%;object-fit:cover;
+    border:2px solid var(--black); margin-left:-12px;
+  }
+  .faces img:first-child{margin-left:0}
+  .faces .who{margin-left:14px; font-size:14px; color:var(--text); line-height:1.35}
+  .faces .who b{color:var(--text)}
+  .faces .who span{color:var(--muted); display:block; font-size:12.5px}
+
+  /* trust row */
+  .trust{
+    display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:22px;
+    font-size:13px; letter-spacing:.04em; color:var(--muted);
+  }
+  .trust span{display:inline-flex;align-items:center;gap:6px}
+  .trust b{color:var(--whatsapp)}
+
+  /* event line */
+  .eventline{
+    display:inline-flex; align-items:center; gap:10px; margin-top:20px;
+    background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.4);
+    padding:9px 15px; border-radius:100px; font-size:14px;
+  }
+  .eventline b{color:var(--amber)}
+  .eventline .cd{
+    background:var(--amber); color:#1a1206; font-weight:700;
+    font-size:11.5px; padding:3px 9px; border-radius:100px; letter-spacing:.03em;
+  }
+
+  /* ── Chat panel ──────────────────────────────────────── */
+  .panel.chat{justify-content:center; padding-top:calc(74px + env(safe-area-inset-top))}
+  .chatwrap{position:relative; z-index:2; width:100%}
+  .chat-window{
+    background:rgba(17,16,9,.94); border:1px solid rgba(255,255,255,.09);
+    border-radius:20px; padding:14px 13px 14px; backdrop-filter:blur(2px);
+  }
+  /* WhatsApp-style group header */
+  .chat-head{
+    display:flex; align-items:center; gap:11px;
+    padding:0 2px 12px; margin-bottom:12px;
+    border-bottom:1px solid rgba(255,255,255,.09);
+  }
+  .ch-av{
+    width:40px; height:40px; border-radius:50%; object-fit:cover;
+    border:1px solid rgba(255,255,255,.16); flex-shrink:0;
+  }
+  .ch-meta{display:flex; flex-direction:column; gap:2px; min-width:0}
+  .ch-meta b{font-size:15px; color:var(--text); font-weight:600; letter-spacing:.01em}
+  .ch-meta span{
+    font-size:12px; color:var(--muted);
+    display:flex; align-items:center; gap:7px;
+  }
+  .ch-meta .online{
+    width:7px; height:7px; border-radius:50%; background:var(--whatsapp);
+    box-shadow:0 0 8px var(--whatsapp); flex-shrink:0;
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  /* dynamic reveal — messages drop in like a live chat */
+  .panel.chat .chat-body>*{opacity:0; transform:translateY(12px)}
+  .panel.chat.live .chat-body>*{
+    opacity:1; transform:none;
+    transition:opacity .34s ease, transform .34s ease;
+  }
+  .panel.chat.live .chat-body>*:nth-child(1){transition-delay:.12s}
+  .panel.chat.live .chat-body>*:nth-child(2){transition-delay:.32s}
+  .panel.chat.live .chat-body>*:nth-child(3){transition-delay:.54s}
+  .panel.chat.live .chat-body>*:nth-child(4){transition-delay:.78s}
+  .panel.chat.live .chat-body>*:nth-child(5){transition-delay:1.02s}
+  .panel.chat.live .chat-body>*:nth-child(6){transition-delay:1.22s}
+  .panel.chat.live .chat-body>*:nth-child(7){transition-delay:1.42s}
+  .cm{display:flex; gap:9px; margin-bottom:11px; align-items:flex-start}
+  .cm img.av{width:30px;height:30px;border-radius:50%;flex-shrink:0;object-fit:cover;border:1px solid rgba(255,255,255,.12)}
+  .cb{
+    background:#1e1c18; border:1px solid rgba(255,255,255,.07);
+    padding:8px 12px; border-radius:15px 15px 15px 4px;
+    max-width:82%; font-size:13.5px; line-height:1.42;
+  }
+  .cb .sn{display:block;font-size:11px;color:var(--amber);font-weight:600;margin-bottom:2px}
+  .cb .ts{font-size:10px;color:var(--muted);margin-left:6px;opacity:.6}
+  .cb img.cp{display:block;width:100%;max-width:220px;border-radius:10px;margin:5px 0 6px;object-fit:cover}
+  .react{font-size:12px;color:var(--muted);margin:-6px 0 11px 39px;opacity:.8}
+  .typing{display:flex;align-items:center;gap:7px;margin:2px 0 0 39px;font-size:12px;color:var(--muted);opacity:.65}
+  .dots{display:flex;gap:3px}
+  .dots i{width:5px;height:5px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+  .dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+  .chatcap{margin-top:16px; font-size:14px; color:var(--muted); text-align:center}
+  .chatcap b{color:var(--text)}
+
+  /* ── Closer panel ────────────────────────────────────── */
+  .panel.closer{
+    justify-content:center; align-items:center; text-align:center;
+    background:radial-gradient(ellipse at 50% 62%,rgba(37,211,102,.22),transparent 62%),var(--black);
+  }
+  .panel.closer .inner{display:flex;flex-direction:column;align-items:center}
+  .panel.closer h2{font-size:clamp(48px,15vw,92px)}
+  .panel.closer h2.quote{font-size:clamp(34px,10vw,58px); line-height:1.1}
+  .panel.closer .quote-attr{
+    margin-top:13px; font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .panel.closer .cta-big{margin-top:24px}
+  .cta-big{
+    display:inline-flex; align-items:center; gap:13px;
+    margin-top:34px; padding:21px 34px;
+    background:var(--whatsapp); color:#06210f;
+    font-family:var(--fd); font-size:23px; text-transform:uppercase;
+    letter-spacing:.04em; line-height:1; border-radius:100px;
+    box-shadow:0 0 0 1px rgba(255,255,255,.1),0 16px 42px rgba(37,211,102,.5);
+    animation:ctabeat 2.6s ease-in-out infinite;
+  }
+  @keyframes ctabeat{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+  .cta-big:active{transform:scale(.97);animation:none}
+  .cta-big svg{width:24px;height:24px}
+  .closer .trust{justify-content:center;margin-top:26px}
+  .closer .micro{margin-top:18px;font-size:13px;color:var(--muted);max-width:26ch}
+
+  /* restart on closer */
+  .restart{
+    margin-top:22px; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted); border-bottom:1px solid var(--rule); padding-bottom:2px;
+    pointer-events:auto;
+  }
+
+  /* ── Bottom sticky CTA — always visible, like the old page ─ */
+  .sticky-cta{
+    position:fixed; bottom:0; left:0; right:0; z-index:50;
+    padding:11px 14px calc(11px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top,var(--black) 62%,rgba(10,8,7,.82));
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:center;
+  }
+  .sticky-cta a{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; max-width:460px; padding:16px 22px;
+    background:var(--whatsapp); color:#06210f;
+    font-family:var(--fd); font-size:19px; text-transform:uppercase;
+    letter-spacing:.04em; line-height:1; border-radius:100px;
+    box-shadow:0 10px 28px rgba(37,211,102,.34);
+  }
+  .sticky-cta a:active{transform:scale(.98)}
+  .sticky-cta svg{width:19px;height:19px;flex-shrink:0}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .anim{opacity:1;transform:none}
+    .deck{scroll-behavior:auto}
+  }
+  @media (min-width:560px){
+    .panel,.chrome{max-width:480px;margin:0 auto}
+    .chrome{left:50%;transform:translateX(-50%)}
+    .deck{display:flex;flex-direction:column;align-items:center}
+  }
+</style>
+</head>
+<body>
+
+<!-- PostHog (same project — A/B vs v2-cinematic) -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',
+    person_profiles:'always', capture_pageview:true, capture_pageleave:true,
+    autocapture:true, session_recording:{maskAllInputs:true}, enable_heatmaps:true
+  });
+  posthog.register({landing_variant:'v3-story'});
+</script>
+
+<!-- top chrome: progress bars + wordmark + persistent join -->
+<header class="chrome">
+  <div class="bars" id="bars"></div>
+  <div class="accountrow">
+    <span class="wordmark">THE&nbsp;TRIBE</span>
+    <a class="join-pill" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta-location="sticky-top" data-no-advance>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+      Beitreten
+    </a>
+  </div>
+</header>
+
+<main class="deck" id="deck">
+
+  <!-- S1 — HOOK (statisches Bild — bei 1,2s Panel-Dauer wirkt Video eh wie ein Standbild) -->
+  <section class="panel" data-dur="1200">
+    <img class="bg bg-hero" src="assets/hero-poster.jpg" alt="" fetchpriority="high" decoding="async">
+    <div class="scrim"></div>
+    <div class="inner">
+      <div class="kicker anim d1">The Tribe · Bielefeld</div>
+      <h2 class="anim d2">Bielefeld<br>geht ab.<br><em>Du auch?</em></h2>
+      <p class="sub anim d3">Neu hier oder keine Lust mehr allein? Bielefelder, die <strong>jede Woche</strong> ausgehen — und dich mitnehmen.</p>
+    </div>
+    <div class="tap-hint">Tippen <span aria-hidden="true">›</span></div>
+  </section>
+
+  <!-- S2 — DIE ZAHL (social proof, jetzt direkt nach dem Hook) -->
+  <section class="panel" data-dur="1500">
+    <img class="bg" src="assets/ad/concert.jpg" alt="" loading="lazy" decoding="async">
+    <div class="scrim"></div>
+    <div class="inner">
+      <div class="kicker anim d1">Deshalb gibt's uns</div>
+      <span class="bignum anim d2" id="bigCount">101</span>
+      <h2 class="anim d3" style="font-size:clamp(30px,9vw,52px)">Bielefelder,<br>die zusammen<br><em>losziehen.</em></h2>
+      <p class="sub anim d4">Kein Verein. Kein Algorithmus. Echte Leute, echte Abende.</p>
+    </div>
+  </section>
+
+  <!-- S3 — KENNENLERNABEND (das konkrete Angebot, jetzt vor dem Chat) -->
+  <section class="panel" data-dur="1800">
+    <img class="bg bg-bar" src="assets/ad/bar.jpg" alt="" loading="lazy" decoding="async" style="filter:brightness(.62)">
+    <div class="scrim"></div>
+    <div class="inner">
+      <div class="kicker anim d1">Dein erster Abend</div>
+      <h2 class="anim d2">Sonntag<br><em>18:00 Uhr</em></h2>
+      <div class="eventline anim d3">
+        <b>Location wird in der Gruppe abgestimmt</b>
+        <span class="cd" id="evCd"></span>
+      </div>
+      <div class="faces anim d3">
+        <img src="assets/maik.webp" alt="" loading="lazy">
+        <img src="assets/lena.webp" alt="" loading="lazy">
+        <img src="assets/patrick.webp" alt="" loading="lazy">
+        <img src="assets/sarah.webp" alt="" loading="lazy">
+        <img src="assets/tim.webp" alt="" loading="lazy">
+        <span class="who"><b>Maik, Lena, Patrick</b><span>&amp; 98 weitere Bielefelder</span></span>
+      </div>
+      <div class="trust anim d4">
+        <span><b>✓</b> kostenlos</span>
+        <span><b>✓</b> jederzeit raus</span>
+        <span><b>✓</b> kein Spam</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 — THE CHAT (the proof, live-chat feel) -->
+  <section class="panel chat" data-dur="1900">
+    <div class="scrim" style="background:linear-gradient(to top,rgba(8,6,5,.97),rgba(8,6,5,.9))"></div>
+    <div class="chatwrap inner">
+      <div class="chat-window anim d1">
+        <div class="chat-head">
+          <img class="ch-av" src="assets/gruppe.webp" alt="" loading="lazy">
+          <div class="ch-meta">
+            <b>The&nbsp;Tribe · Bielefeld</b>
+            <span><i class="online"></i> 101 Mitglieder · 14 gerade aktiv</span>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="cm">
+            <img class="av" src="assets/lena.webp" alt="Lena" loading="lazy">
+            <div class="cb"><span class="sn">Lena</span>
+              <img class="cp" src="assets/gruppe.webp" alt="" loading="lazy">
+              Gestern an der Sparrenburg war einfach 🔥🌃 <span class="ts">23:47</span>
+            </div>
+          </div>
+          <div class="react">❤️ 18 · 🔥 6</div>
+          <div class="cm">
+            <img class="av" src="assets/maik.webp" alt="Maik" loading="lazy">
+            <div class="cb"><span class="sn">Maik</span>Heute Kennenlernabend! 18 Uhr — wer ist dabei? <span class="ts">14:22</span></div>
+          </div>
+          <div class="cm">
+            <img class="av" src="assets/anna.webp" alt="Anna" loading="lazy">
+            <div class="cb"><span class="sn">Anna</span>Hey, bin neu in Bielefeld — kann ich einfach so kommen? <span class="ts">14:38</span></div>
+          </div>
+          <div class="cm">
+            <img class="av" src="assets/maik.webp" alt="Maik" loading="lazy">
+            <div class="cb"><span class="sn">Maik</span>Logo, deshalb sind wir hier 🙂 Komm einfach. Du musst niemanden kennen. <span class="ts">14:40</span></div>
+          </div>
+          <div class="react">❤️ 9</div>
+          <div class="typing"><span>Lena schreibt</span><span class="dots"><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+      <p class="chatcap anim d2"><b>Jeden Tag</b> in der Gruppe. <b>Jeden Sonntag</b> draußen.</p>
+    </div>
+  </section>
+
+  <!-- S5 — CLOSER (the join ask) -->
+  <section class="panel closer" data-dur="0">
+    <div class="inner">
+      <h2 class="quote anim d2">Bielefeld ist nur<br>eine Stadt — bis du<br><em>deine Leute</em><br>kennst.</h2>
+      <p class="quote-attr anim d3">— Maik, Gründer</p>
+      <a class="cta-big anim d3" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta-location="closer" data-no-advance>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        Jetzt beitreten
+      </a>
+      <div class="trust anim d4">
+        <span><b>✓</b> kostenlos</span>
+        <span><b>✓</b> jederzeit raus</span>
+        <span><b>✓</b> kein Spam</span>
+      </div>
+      <span class="restart anim d4" id="restart" data-no-advance>↻ Nochmal ansehen</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- bottom sticky CTA — visible from first paint, same pattern as the old page -->
+<div class="sticky-cta">
+  <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta-location="sticky-bottom" data-no-advance>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+    Jetzt in WhatsApp beitreten
+  </a>
+</div>
+
+<script>
+(function(){
+  var deck   = document.getElementById('deck');
+  var panels = Array.prototype.slice.call(deck.querySelectorAll('.panel'));
+  var barbox = document.getElementById('bars');
+  var n = panels.length;
+  var cur = 0, raf = 0, t0 = 0, held = false, paused = false;
+  var maxReached = 0, tapCount = 0;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // build progress segments
+  var segs = [];
+  for (var i=0;i<n;i++){
+    var s=document.createElement('div'); s.className='seg';
+    var fi=document.createElement('i'); s.appendChild(fi);
+    barbox.appendChild(s); segs.push(fi);
+  }
+
+  function dur(i){ return parseInt(panels[i].getAttribute('data-dur'),10)||0; }
+
+  function paint(){
+    for (var i=0;i<n;i++){
+      segs[i].style.width = i<cur ? '100%' : (i>cur ? '0%' : segs[i].style.width||'0%');
+      segs[i].parentNode.classList.toggle('done', i<cur);
+    }
+  }
+
+  function track(i){
+    try{ window.posthog && posthog.capture('story_panel_view',{
+      panel_index:i, panel_total:n, landing_variant:'v3-story'
+    }); }catch(e){}
+  }
+
+  function loop(ts){
+    if (paused){ raf=requestAnimationFrame(loop); return; }
+    if (!t0) t0=ts;
+    var d = dur(cur);
+    if (d>0){
+      var p = Math.min(1,(ts-t0)/d);
+      segs[cur].style.width = (p*100).toFixed(2)+'%';
+      if (p>=1){ go(cur+1); return; }
+    }
+    raf=requestAnimationFrame(loop);
+  }
+
+  function startTimer(){
+    cancelAnimationFrame(raf); t0=0;
+    if (reduce) return;            // no auto-advance w/ reduced motion
+    if (dur(cur)>0) raf=requestAnimationFrame(loop);
+  }
+
+  function setActive(i){
+    if (i===cur) return;
+    cur=i;
+    if (i>maxReached){                          // tap/scroll depth
+      maxReached=i;
+      try{ window.posthog && posthog.register({
+        max_panel_reached: maxReached,
+        max_panel_pct: Math.round(maxReached/(n-1)*100)
+      }); }catch(e){}
+    }
+    panels.forEach(function(pn,idx){ pn.classList.toggle('live', idx===i); });
+    var v = panels[i].querySelector('video');
+    panels.forEach(function(pn){ var vv=pn.querySelector('video'); if(vv&&vv!==v){try{vv.pause()}catch(e){}} });
+    if (v){ try{ v.currentTime=0; v.play().catch(function(){}); }catch(e){} }
+    paint(); track(i); startTimer();
+  }
+
+  function go(i){
+    if (i<0) i=0;
+    if (i>=n) i=n-1;
+    if (i===cur){ return; }
+    var jump = Math.abs(i-cur) > 1;            // restart / keyboard skips
+    if (reduce || jump){
+      // instant: the observer fires once at the destination, no thrash
+      panels[i].scrollIntoView({behavior:'auto'});
+    } else {
+      panels[i].scrollIntoView({behavior:'smooth'});
+      setActive(i);                            // eager; IO no-ops (i===cur)
+    }
+  }
+
+  // observe which panel is on screen (covers swipe too)
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if (en.isIntersecting && en.intersectionRatio>0.6){
+        var idx = panels.indexOf(en.target);
+        if (idx>-1 && idx!==cur) setActive(idx);
+      }
+    });
+  },{threshold:[0.6]});
+  panels.forEach(function(p){ io.observe(p); });
+
+  // ── tap / hold interaction (Instagram pattern), driven from the deck ──
+  // No overlay layer: a single deck handler decides tap vs swipe vs hold and
+  // never fires on links/controls, so the CTA + join pill stay clickable.
+  var downX=0, downY=0, downT=0, moved=false, holdTimer=0;
+
+  deck.addEventListener('pointerdown', function(e){
+    downX=e.clientX; downY=e.clientY; downT=Date.now(); moved=false; held=true;
+    holdTimer=setTimeout(function(){ if(held){ paused=true; cancelAnimationFrame(raf); } },220);
+  }, {passive:true});
+
+  deck.addEventListener('pointermove', function(e){
+    if (Math.abs(e.clientX-downX)>12 || Math.abs(e.clientY-downY)>12) moved=true;
+  }, {passive:true});
+
+  function endPointer(e){
+    clearTimeout(holdTimer);
+    if (paused){ paused=false; held=false; startTimer(); return; } // resume after hold
+    held=false;
+    if (moved) return;                                  // swipe/scroll → snap handles it
+    if (Date.now()-downT>300) return;                   // slow press, no nav
+    if (e.target.closest && e.target.closest('a,[data-no-advance]')) return; // links work
+    tapCount++;
+    if (e.clientX < innerWidth*0.30) go(cur-1); else go(cur+1);
+  }
+  deck.addEventListener('pointerup', endPointer);
+  deck.addEventListener('pointercancel', function(){
+    clearTimeout(holdTimer); held=false;
+    if (paused){ paused=false; startTimer(); }
+  });
+
+  // keyboard a11y
+  addEventListener('keydown', function(e){
+    if (e.key==='ArrowRight'||e.key===' '||e.key==='ArrowDown'){ e.preventDefault(); go(cur+1); }
+    if (e.key==='ArrowLeft' ||e.key==='ArrowUp'){ e.preventDefault(); go(cur-1); }
+  });
+
+  // restart
+  document.getElementById('restart').addEventListener('click', function(ev){
+    ev.stopPropagation(); go(0);
+  });
+
+  // pause auto-advance when tab hidden
+  document.addEventListener('visibilitychange', function(){
+    paused = document.visibilityState!=='visible';
+    if (!paused) startTimer();
+  });
+
+  // CTA tracking
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest && ev.target.closest('a[href*="chat.whatsapp.com"]');
+    if (!a) return;
+    try{ window.posthog && posthog.capture('whatsapp_cta_click',{
+      cta_location:a.getAttribute('data-cta-location')||'unknown',
+      cta_text:(a.innerText||'').trim().slice(0,80),
+      panel_index:cur, landing_variant:'v3-story'
+    },{send_instantly:true}); }catch(e){}
+  }, true);
+
+  // dwell + tap-depth (IG in-app browser drops pageleave; send our own)
+  (function(){
+    var start=Date.now(), vis=start, total=0, tk=0, sentDepth=false;
+    function depthProps(){
+      return {
+        max_panel: maxReached,
+        panels_total: n,
+        pct_through: Math.round(maxReached/(n-1)*100),
+        reached_cta: maxReached >= n-1,
+        taps: tapCount,
+        dwell_ms: total,
+        landing_variant:'v3-story'
+      };
+    }
+    function send(reason){
+      if (document.visibilityState==='visible'){ total+=Date.now()-vis; vis=Date.now(); }
+      try{ window.posthog && posthog.capture('tribe_dwell',
+        Object.assign({reason:reason, ticks:tk}, depthProps())
+      ,{send_instantly:true}); }catch(e){}
+      if ((reason==='hidden'||reason==='pagehide') && !sentDepth){
+        sentDepth=true;                          // final "wie weit getippt" snapshot
+        try{ window.posthog && posthog.capture('story_tap_depth',
+          depthProps()
+        ,{send_instantly:true}); }catch(e){}
+      }
+    }
+    setInterval(function(){ tk++; send('heartbeat'); },5000);
+    document.addEventListener('visibilitychange',function(){
+      if(document.visibilityState==='hidden'){ total+=Date.now()-vis; send('hidden'); } else vis=Date.now();
+    });
+    addEventListener('pagehide',function(){ send('pagehide'); });
+  })();
+
+  // countdown + count-up
+  (function(){
+    var el=document.getElementById('evCd'); if(!el) return;
+    var now=new Date(), day=now.getDay();
+    var dUS = day===0?0:7-day;
+    var sun=new Date(now); sun.setDate(now.getDate()+dUS); sun.setHours(18,0,0,0);
+    var diff=sun-now, hrs=Math.floor(diff/3600000), txt;
+    if (diff<=0) txt='Heute!';
+    else if (hrs<24) txt='Heute · in '+hrs+' Std';
+    else { var dd=Math.ceil(diff/86400000); txt='in '+dd+' Tag'+(dd===1?'':'en'); }
+    el.textContent=txt;
+  })();
+  (function(){
+    var el=document.getElementById('bigCount'); if(!el) return;
+    var tgt=parseInt(el.textContent,10), st=Math.round(tgt*0.7), began=false;
+    var ob=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting||began) return; began=true; ob.disconnect();
+        var t=performance.now();
+        (function tick(now){
+          var p=Math.min(1,(now-t)/600), e=1-Math.pow(1-p,3);
+          el.textContent=Math.round(st+(tgt-st)*e);
+          if(p<1) requestAnimationFrame(tick);
+        })(t);
+      });
+    },{threshold:.6});
+    ob.observe(el);
+  })();
+
+  // init
+  panels[0].classList.add('live');
+  paint(); track(0); startTimer();
+
+  // debug handle (no UI, no cost) — lets us drive the deck in tests
+  window.__story = {
+    go: go,
+    pause: function(){ paused = true; cancelAnimationFrame(raf); },
+    resume: function(){ paused = false; startTimer(); },
+    state: function(){ return { cur: cur, n: n }; }
+  };
+})();
+</script>
+</body>
+</html>
