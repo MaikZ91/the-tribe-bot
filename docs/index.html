@@ -11,7 +11,7 @@
 
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-bg.jpg" fetchpriority="high">
 
 <style>
   @font-face{
@@ -45,7 +45,7 @@
   }
   .bg{
     position:absolute; inset:0; z-index:0;
-    width:100%; height:100%; object-fit:cover; object-position:34% 34%;
+    width:100%; height:100%; object-fit:cover; object-position:52% 30%;
   }
   .scrim{
     position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -160,7 +160,7 @@
 </script>
 
 <main class="wrap">
-  <img class="bg" src="assets/hero-poster.jpg" alt="" fetchpriority="high" decoding="async">
+  <img class="bg" src="assets/hero-bg.jpg" alt="" fetchpriority="high" decoding="async">
   <div class="scrim"></div>
 
   <div class="top">
@@ -232,6 +232,22 @@
       el.textContent = (days>0? days+' Tag'+(days>1?'e':'')+', ':'') + hh + ' Std — Location in der Gruppe';
     }
     tick(); setInterval(tick,60000);
+  })();
+
+  // animierte Hochzählung der Bielefelder-Zahl
+  (function(){
+    var el=document.getElementById('bigCount'); if(!el) return;
+    var tgt=parseInt(el.textContent,10)||0, st=Math.round(tgt*0.65);
+    el.textContent=st;
+    function run(){
+      var t=performance.now();
+      (function tick(now){
+        var p=Math.min(1,(now-t)/900), e=1-Math.pow(1-p,3);
+        el.textContent=Math.round(st+(tgt-st)*e);
+        if(p<1) requestAnimationFrame(tick);
+      })(t);
+    }
+    setTimeout(run,260);
   })();
 
   // CTA + dwell tracking (parität mit v3-story)
