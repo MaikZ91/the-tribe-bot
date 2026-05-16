@@ -72,9 +72,19 @@
   h1 .l2{display:block;animation-delay:.82s}
   h1 em{font-style:normal;color:var(--amber)}
   h1 .n{font-style:normal;color:var(--amber);display:inline-block;min-width:1.7em;text-align:center}
-  /* stärkster Hebel: EINE dezente Chat-Nachricht (echt + aktiv + Einwand killt) */
-  .chat{display:flex;align-items:flex-start;gap:9px;max-width:31ch;animation-delay:1.6s}
-  .chat img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;
+  /* stärkster Hebel: lebendiger Chat — 1 dezenter Slot, Lena↔Maik cross-faden */
+  .chat{position:relative;min-height:76px;max-width:31ch;animation-delay:1.6s}
+  .msg{position:absolute;inset:0;display:flex;align-items:flex-start;gap:9px;
+    opacity:0;animation:msgcycle 9s ease-in-out infinite}
+  .msg.m2{animation-delay:-4.5s}
+  @keyframes msgcycle{
+    0%{opacity:0;transform:translateY(7px)}
+    5%{opacity:1;transform:none}
+    44%{opacity:1;transform:none}
+    50%{opacity:0;transform:translateY(-5px)}
+    100%{opacity:0;transform:translateY(-5px)}
+  }
+  .msg img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;
     border:1.5px solid rgba(0,0,0,.45)}
   .bub{background:rgba(18,26,22,.66);backdrop-filter:blur(3px);
     border:1px solid rgba(37,211,102,.22);border-radius:3px 14px 14px 14px;
@@ -118,6 +128,7 @@
     *{animation:none!important;transition:none!important}
     .bg{opacity:1;transform:none} .reveal,.dim,.guide,.cta{opacity:1;transform:none}
     .guide{display:none}
+    .msg{position:static;opacity:1} .msg.m1{display:none}  /* nur Maik statisch */
   }
   @media (min-width:560px){.stage,.top{max-width:480px;margin:0 auto}.top{left:50%;transform:translateX(-50%)}}
   @media (max-height:680px){.c{gap:10px;padding-bottom:20px}h1{font-size:clamp(34px,10vw,50px)}.guide{height:22px}}
@@ -147,15 +158,24 @@
     <div class="kick reveal dim">Neu in Bielefeld? Bock auszugehen?</div>
 
     <h1>
-      <span class="l1 reveal">Hier sind <span class="n" id="bigCount">110</span>,</span>
+      <span class="l1 reveal">Hier sind <span class="n" id="bigCount">110</span> Bielefelder,</span>
       <span class="l2 reveal">die dich <em>mitnehmen</em>.</span>
     </h1>
 
-    <div class="chat reveal dim">
-      <img src="assets/maik.webp" alt="">
-      <div class="bub">
-        <span class="nm">Maik <i>· Gründer</i><span class="on" aria-hidden="true"></span></span>
-        Komm einfach vorbei — du musst niemanden kennen 🙂
+    <div class="chat reveal dim" aria-label="Nachrichten aus der Community">
+      <div class="msg m1">
+        <img src="assets/anna.webp" alt="">
+        <div class="bub">
+          <span class="nm">Anna <i>· neu hier</i></span>
+          Kann ich da einfach so dazukommen? Kenn ja niemanden 😅
+        </div>
+      </div>
+      <div class="msg m2">
+        <img src="assets/maik.webp" alt="">
+        <div class="bub">
+          <span class="nm">Maik <i>· Gründer</i><span class="on" aria-hidden="true"></span></span>
+          Komm einfach vorbei — du musst niemanden kennen 🙂
+        </div>
       </div>
     </div>
     <div class="meta reveal dim">Kostenlose WhatsApp-Community · Maik, Lena, Patrick &amp; 107 weitere dabei</div>
