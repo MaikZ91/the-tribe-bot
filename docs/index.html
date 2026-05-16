@@ -199,6 +199,12 @@
   }
   .panel.closer .inner{display:flex;flex-direction:column;align-items:center}
   .panel.closer h2{font-size:clamp(48px,15vw,92px)}
+  .panel.closer h2.quote{font-size:clamp(26px,7.4vw,40px); line-height:1.08}
+  .panel.closer .quote-attr{
+    margin-top:13px; font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .panel.closer .cta-big{margin-top:24px}
   .cta-big{
     display:inline-flex; align-items:center; gap:13px;
     margin-top:34px; padding:21px 34px;
@@ -378,8 +384,8 @@
   <!-- S6 — CLOSER (the join ask) -->
   <section class="panel closer" data-dur="0">
     <div class="inner">
-      <div class="kicker anim d1">Dein Platz ist frei</div>
-      <h2 class="anim d2">Dein erster<br>Sonntag<br><em>wartet.</em></h2>
+      <h2 class="quote anim d2">Bielefeld ist nur<br>eine Stadt — bis du<br><em>deine Leute</em><br>kennst.</h2>
+      <p class="quote-attr anim d3">— Maik, Gründer</p>
       <a class="cta-big anim d3" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta-location="closer" data-no-advance>
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
         Jetzt beitreten
@@ -389,7 +395,6 @@
         <span><b>✓</b> jederzeit raus</span>
         <span><b>✓</b> kein Spam</span>
       </div>
-      <p class="micro anim d4">Du musst niemanden kennen. Komm einfach.</p>
       <span class="restart anim d4" id="restart" data-no-advance>↻ Nochmal ansehen</span>
     </div>
   </section>
@@ -411,6 +416,7 @@
   var barbox = document.getElementById('bars');
   var n = panels.length;
   var cur = 0, raf = 0, t0 = 0, held = false, paused = false;
+  var maxReached = 0, tapCount = 0;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // build progress segments
@@ -457,6 +463,13 @@
   function setActive(i){
     if (i===cur) return;
     cur=i;
+    if (i>maxReached){                          // tap/scroll depth
+      maxReached=i;
+      try{ window.posthog && posthog.register({
+        max_panel_reached: maxReached,
+        max_panel_pct: Math.round(maxReached/(n-1)*100)
+      }); }catch(e){}
+    }
     panels.forEach(function(pn,idx){ pn.classList.toggle('live', idx===i); });
     var v = panels[i].querySelector('video');
     panels.forEach(function(pn){ var vv=pn.querySelector('video'); if(vv&&vv!==v){try{vv.pause()}catch(e){}} });
@@ -510,6 +523,7 @@
     if (moved) return;                                  // swipe/scroll → snap handles it
     if (Date.now()-downT>300) return;                   // slow press, no nav
     if (e.target.closest && e.target.closest('a,[data-no-advance]')) return; // links work
+    tapCount++;
     if (e.clientX < innerWidth*0.30) go(cur-1); else go(cur+1);
   }
   deck.addEventListener('pointerup', endPointer);
@@ -546,16 +560,31 @@
     },{send_instantly:true}); }catch(e){}
   }, true);
 
-  // dwell heartbeat (IG in-app browser drops pageleave)
+  // dwell + tap-depth (IG in-app browser drops pageleave; send our own)
   (function(){
-    var start=Date.now(), vis=start, total=0, maxP=0, tk=0;
+    var start=Date.now(), vis=start, total=0, tk=0, sentDepth=false;
+    function depthProps(){
+      return {
+        max_panel: maxReached,
+        panels_total: n,
+        pct_through: Math.round(maxReached/(n-1)*100),
+        reached_cta: maxReached >= n-1,
+        taps: tapCount,
+        dwell_ms: total,
+        landing_variant:'v3-story'
+      };
+    }
     function send(reason){
       if (document.visibilityState==='visible'){ total+=Date.now()-vis; vis=Date.now(); }
-      maxP=Math.max(maxP,cur);
-      try{ window.posthog && posthog.capture('tribe_dwell',{
-        dwell_ms:total, reason:reason, max_panel:maxP, ticks:tk,
-        landing_variant:'v3-story'
-      },{send_instantly:true}); }catch(e){}
+      try{ window.posthog && posthog.capture('tribe_dwell',
+        Object.assign({reason:reason, ticks:tk}, depthProps())
+      ,{send_instantly:true}); }catch(e){}
+      if ((reason==='hidden'||reason==='pagehide') && !sentDepth){
+        sentDepth=true;                          // final "wie weit getippt" snapshot
+        try{ window.posthog && posthog.capture('story_tap_depth',
+          depthProps()
+        ,{send_instantly:true}); }catch(e){}
+      }
     }
     setInterval(function(){ tk++; send('heartbeat'); },5000);
     document.addEventListener('visibilitychange',function(){
