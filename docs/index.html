@@ -48,8 +48,9 @@
     justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0}
   .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
     color:var(--black);padding:5px 9px 3px;line-height:1}
-  .ghost{font-size:12.5px;font-weight:600;color:var(--text);opacity:.62;
-    border:1px solid rgba(247,242,234,.32);padding:7px 14px;border-radius:100px}
+  .ticker{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text);opacity:.95}
+  .ticker .d{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:onpulse 2.4s ease-in-out infinite}
+  .ticker .cd{color:var(--amber)}
 
   /* the staged statement */
   .c{position:relative;z-index:4;display:flex;flex-direction:column;
@@ -71,10 +72,10 @@
   .lead .n{font-family:var(--fd);font-style:normal;color:var(--amber);font-size:1.32em;
     display:inline-block;min-width:1.5em;text-align:center;vertical-align:-1px}
   .lead b{font-weight:600}
-  .faces{display:flex;align-items:center;margin-top:-3px}
-  .faces img{width:25px;height:25px;border-radius:50%;object-fit:cover;border:2px solid var(--black);margin-left:-8px}
+  .faces{display:inline-flex;align-items:center;vertical-align:middle;margin-left:7px}
+  .faces img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:2px solid var(--black);margin-left:-7px}
   .faces img:first-child{margin-left:0}
-  .faces span{margin-left:9px;font-size:11.5px;color:var(--muted)}
+  .faces .fw{margin-left:7px;font-size:11px;color:var(--muted)}
   /* stärkster Hebel: lebendiger Chat — 1 dezenter Slot, 3-Beat: Event → Anna → Maik, schnell */
   .chat{position:relative;min-height:92px;max-width:32ch;animation-delay:1.6s}
   .msg{position:absolute;inset:0;display:flex;align-items:flex-start;gap:9px;
@@ -151,7 +152,7 @@
 
   <div class="top">
     <span class="mark">THE&nbsp;TRIBE</span>
-    <a class="ghost" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="header">Beitreten</a>
+    <span class="ticker"><span class="d"></span>Kennenlernabend&nbsp;So&nbsp;18:00 · <span class="cd" id="evCd">bald</span></span>
   </div>
 
   <div class="c">
@@ -163,9 +164,7 @@
       <span class="l4 reveal">kennst.</span>
     </h1>
 
-    <p class="lead reveal dim">Schon <span class="n" id="bigCount">110</span> Bielefelder ziehen zusammen los — <b>komm mit</b>.</p>
-
-    <div class="faces reveal dim"><img src="assets/maik.webp" alt=""><img src="assets/patrick.webp" alt=""><img src="assets/lena.webp" alt=""><img src="assets/anna.webp" alt=""><span>Maik, Patrick, Lena, Anna &amp; 107 weitere</span></div>
+    <p class="lead reveal dim">Schon <span class="n" id="bigCount">110</span> Bielefelder ziehen zusammen los — <b>komm mit</b>.<span class="faces"><img src="assets/maik.webp" alt=""><img src="assets/patrick.webp" alt=""><img src="assets/lena.webp" alt=""><img src="assets/anna.webp" alt=""><span class="fw">&amp; 107 weitere</span></span></p>
 
     <div class="chat reveal dim" aria-label="Nachrichten aus der Community">
       <div class="msg m1">
