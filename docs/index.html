@@ -57,6 +57,9 @@
   .c{position:relative;z-index:4;display:flex;flex-direction:column;
     padding:0 24px calc(26px + env(safe-area-inset-bottom));gap:clamp(11px,2.4vh,18px)}
   .reveal{opacity:1}
+  /* Grundseite zuerst sichtbar — alle Animationen erst nach window.load (html.ready) */
+  html:not(.ready) *,html:not(.ready) *::before,html:not(.ready) *::after{animation-play-state:paused!important}
+  html:not(.ready) .msg.m1{opacity:1}
   /* non-CTA elements stehen leicht zurück, damit der Button am hellsten ist */
   .dim{opacity:.82}
 
@@ -215,7 +218,16 @@ Kennenlernabend <b>Sonntag 18:00</b> 🎉 Location klären wir in der Gruppe
     tick(); setInterval(tick,3200);
   })();
 
-  // Zahl steht sofort (keine Einblend-/Hochzähl-Animation mehr) — #bigCount bleibt Sync-Anker
+  // Grundseite zuerst, DANN Animationen: erst bei window.load html.ready setzen
+  // + schnelle Hochzählung der 110 (Start = Endwert − 20)
+  window.addEventListener('load',function(){
+    document.documentElement.classList.add('ready');
+    var el=document.getElementById('bigCount'); if(!el) return;
+    var tgt=parseInt(el.textContent,10)||0, st=Math.max(tgt-20,0); el.textContent=st;
+    var t0=performance.now();
+    (function f(now){var p=Math.min(1,(now-t0)/650),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
+  });
 
   // CTA + Verweil-Tracking (Event-Namen identisch -> Loop bleibt kompatibel)
   (function(){
