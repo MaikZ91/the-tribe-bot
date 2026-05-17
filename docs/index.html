@@ -153,7 +153,7 @@
 
   <div class="top">
     <span class="mark">THE&nbsp;TRIBE</span>
-    <span class="ticker"><span class="d"></span>Kennenlernabend · <b>Bernstein</b> · So&nbsp;18:00</span>
+    <span class="ticker"><span class="d"></span>Kennenlernabend · <b>Bernstein</b> · <span id="evCd">So&nbsp;18:00</span></span>
   </div>
 
   <div class="c">
@@ -207,11 +207,12 @@ Kennenlernabend <b>Sonntag 18:00</b> 🎉 Location klären wir in der Gruppe
     var el=document.getElementById('evCd'); if(!el) return;
     function nx(){var n=new Date(),d=new Date(n);d.setHours(18,0,0,0);
       var a=(7-n.getDay())%7; if(a===0&&n.getTime()>d.getTime())a=7; d.setDate(d.getDate()+a); return d;}
-    function t(){var ms=nx()-new Date();
-      if(ms<=0){el.textContent='heute Abend';return;}
+    function cd(){var ms=nx()-new Date(); if(ms<=0) return 'heute Abend';
       var h=Math.floor(ms/3.6e6),dd=Math.floor(h/24),hh=h%24;
-      el.textContent='in '+(dd>0?dd+' Tag'+(dd>1?'en':''):hh+' Std');}
-    t(); setInterval(t,60000);
+      return 'in '+(dd>0?dd+' Tag'+(dd>1?'en':''):hh+' Std');}
+    var flip=false;
+    function tick(){ el.textContent = flip ? cd() : 'So 18:00'; flip=!flip; }
+    tick(); setInterval(tick,3200);
   })();
 
   // Zahl steht sofort (keine Einblend-/Hochzähl-Animation mehr) — #bigCount bleibt Sync-Anker
