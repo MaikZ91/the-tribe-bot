@@ -2102,6 +2102,7 @@ function buildDashboardData() {
             conversionRate7d: 0, totalSessions: 0,
             ctaByLabel: [], ctaDailySeries: [], ctaDailyLabels: [],
             topReferrers: [], deviceSplit: { mobile: 0, tablet: 0, desktop: 0 },
+            landingChart: { keys: [], visitors: [], cta: [], visTotal: 0, ctaTotal: 0, rate: '0.0' },
             fetchedAt: null
         }
     };
@@ -2171,6 +2172,47 @@ function renderMemberChart(data) {
             ${axisLabels}
             ${yLabels}
             ${legend}
+        </svg>`;
+}
+
+function renderLandingChart(lc) {
+    const W = 580, H = 170, pL = 34, pR = 34, pT = 14, pB = 30;
+    const cW = W - pL - pR, cH = H - pT - pB;
+    const keys = lc.keys || [];
+    const vis = lc.visitors || [];
+    const cta = lc.cta || [];
+    const n = keys.length;
+    if (n === 0) {
+        return `<svg viewBox="0 0 ${W} ${H}" class="member-chart"><text x="${W / 2}" y="${H / 2}" text-anchor="middle" fill="#888" font-size="12">Noch keine Landing-Daten</text></svg>`;
+    }
+    const maxV = Math.max(...vis, 1);
+    const maxC = Math.max(...cta, 1);
+    const sx = i => pL + (i / Math.max(n - 1, 1)) * cW;
+    const syV = v => pT + cH - (v / maxV) * cH;
+    const syC = c => pT + cH - (c / maxC) * cH;
+
+    const visLine = vis.map((v, i) => `${sx(i).toFixed(1)},${syV(v).toFixed(1)}`).join(' ');
+    const visArea = `${sx(0).toFixed(1)},${(pT + cH).toFixed(1)} ${visLine} ${sx(n - 1).toFixed(1)},${(pT + cH).toFixed(1)}`;
+    const ctaLine = cta.map((c, i) => `${sx(i).toFixed(1)},${syC(c).toFixed(1)}`).join(' ');
+    const ctaDots = cta.map((c, i) => `<circle cx="${sx(i).toFixed(1)}" cy="${syC(c).toFixed(1)}" r="3.2" fill="#22c55e"/>`).join('');
+
+    const xLabels = keys.map((k, i) => (n <= 8 || i === 0 || i === n - 1 || i % Math.ceil(n / 6) === 0)
+        ? `<text x="${sx(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#888" font-size="9">${k.slice(5)}</text>`
+        : '').join('');
+    const yLeft = `<text x="${pL - 6}" y="${(pT + 4).toFixed(1)}" text-anchor="end" fill="#4fc3f7" font-size="9">${maxV}</text>
+                   <text x="${pL - 6}" y="${(pT + cH).toFixed(1)}" text-anchor="end" fill="#4fc3f7" font-size="9">0</text>`;
+    const yRight = `<text x="${(W - pR + 6).toFixed(1)}" y="${(pT + 4).toFixed(1)}" text-anchor="start" fill="#22c55e" font-size="9">${maxC}</text>
+                    <text x="${(W - pR + 6).toFixed(1)}" y="${(pT + cH).toFixed(1)}" text-anchor="start" fill="#22c55e" font-size="9">0</text>`;
+    const legend = `<circle cx="${pL + 4}" cy="10" r="4" fill="#4fc3f7"/><text x="${pL + 12}" y="13" fill="#4fc3f7" font-size="9">Besucher</text>
+                    <circle cx="${pL + 84}" cy="10" r="4" fill="#22c55e"/><text x="${pL + 92}" y="13" fill="#22c55e" font-size="9">CTA-Klicks</text>`;
+
+    return `
+        <svg viewBox="0 0 ${W} ${H}" class="member-chart" preserveAspectRatio="xMidYMid meet" aria-label="Besucher- und CTA-Verlauf">
+            <polygon points="${visArea}" fill="rgba(79,195,247,0.10)"/>
+            <polyline points="${visLine}" fill="none" stroke="#4fc3f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="${ctaLine}" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            ${ctaDots}
+            ${xLabels}${yLeft}${yRight}${legend}
         </svg>`;
 }
 
@@ -2590,6 +2632,13 @@ function renderDashboardHtml(data) {
             </article>
 
             <article class="card full">
+                <div class="label">Besucher &amp; CTA Verlauf (seit Landing-Launch, paid IG)</div>
+                <div class="value">${data.website.landingChart.visTotal} <span style="font-size:.5em;color:#888;">Besucher</span> · ${data.website.landingChart.ctaTotal} <span style="font-size:.5em;color:#888;">CTA</span> · ${data.website.landingChart.rate}%</div>
+                <div class="subtle">Eindeutige paid-IG-Besucher (blau) vs. WhatsApp-CTA-Klicks (grün) pro Tag &mdash; kumulative CTA-Rate</div>
+                ${renderLandingChart(data.website.landingChart)}
+            </article>
+
+            <article class="card full">
                 <div class="label">Bot Steuerung</div>
                 <div class="subtle"><span class="status-dot"></span>${isReady ? 'Bot ist online' : 'Bot startet oder wartet auf WhatsApp-Verbindung'}</div>
                 <div class="console-layout">
@@ -2923,7 +2972,10 @@ async function fetchWebsiteAnalytics() {
         return (await r.json()).results;
     }
 
-    const [overview, bounced, scrollDist, ctaBySrc, zeroAnalysis, zeroDwell, ctaToday] = await Promise.all([
+    const PAID_IG = `properties.$current_url LIKE '%maikz91.github.io%' AND (properties.utm_source='ig' OR properties.fbclid IS NOT NULL OR properties.$current_url LIKE '%fbclid%')`;
+    const V6_LAUNCH = "2026-05-16 19:33:00";
+
+    const [overview, bounced, scrollDist, ctaBySrc, zeroAnalysis, zeroDwell, ctaToday, landingVis, landingCta] = await Promise.all([
         pq(`SELECT count() pv, count(distinct properties.$session_id) sess FROM events WHERE event='$pageview' AND timestamp>now()-interval 7 day`),
         pq(`SELECT count(distinct properties.$session_id) FROM events WHERE event='$pageview' AND timestamp>now()-interval 7 day AND properties.$session_id NOT IN (SELECT distinct properties.$session_id FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day)`),
         pq(`SELECT pct, count() c FROM (SELECT properties.$session_id s, round(max(toFloat(properties.scroll_pct)),0) pct FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day GROUP BY s) GROUP BY pct ORDER BY pct ASC`),
@@ -2931,7 +2983,33 @@ async function fetchWebsiteAnalytics() {
         pq(`SELECT has_click, count() c FROM (SELECT properties.$session_id s, max(toFloat(properties.scroll_pct)) ms, countIf(event='whatsapp_cta_click')>0 as has_click FROM events WHERE timestamp>now()-interval 7 day AND properties.$session_id IN (SELECT distinct properties.$session_id FROM events WHERE event='tribe_dwell' AND timestamp>now()-interval 7 day) GROUP BY s HAVING ms=0) GROUP BY has_click`),
         pq(`SELECT round(avg(dur),0) FROM (SELECT properties.$session_id s, max(toFloat(properties.scroll_pct)) ms, countIf(event='whatsapp_cta_click')>0 as has_click, max(toFloat(properties.dwell_ms))/1000 as dur FROM events WHERE timestamp>now()-interval 7 day GROUP BY s HAVING ms=0 AND has_click=0)`),
         pq(`SELECT count() FROM events WHERE event='whatsapp_cta_click' AND timestamp>toStartOfDay(now())`),
+        pq(`SELECT toString(toDate(timestamp)) d, count(distinct person_id) v FROM events WHERE event='$pageview' AND timestamp>='${V6_LAUNCH}' AND ${PAID_IG} GROUP BY d ORDER BY d`),
+        pq(`SELECT toString(toDate(timestamp)) d, count() c FROM events WHERE event='whatsapp_cta_click' AND timestamp>='${V6_LAUNCH}' AND properties.$current_url LIKE '%maikz91.github.io%' GROUP BY d ORDER BY d`),
     ]);
+
+    // Lückenlose Tagesreihe seit v6-Launch: Besucher + CTA (paid IG)
+    const visMap = Object.fromEntries((landingVis || []).map(([d, v]) => [d, Number(v)]));
+    const ctaMap = Object.fromEntries((landingCta || []).map(([d, c]) => [d, Number(c)]));
+    const lcKeys = [], lcVis = [], lcCta = [];
+    {
+        const start = new Date(V6_LAUNCH + 'Z');
+        const today = new Date();
+        for (let dt = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+             dt <= today;
+             dt.setUTCDate(dt.getUTCDate() + 1)) {
+            const k = dt.toISOString().slice(0, 10);
+            lcKeys.push(k);
+            lcVis.push(visMap[k] || 0);
+            lcCta.push(ctaMap[k] || 0);
+        }
+    }
+    const lcVisTotal = lcVis.reduce((s, v) => s + v, 0);
+    const lcCtaTotal = lcCta.reduce((s, c) => s + c, 0);
+    const landingChart = {
+        keys: lcKeys, visitors: lcVis, cta: lcCta,
+        visTotal: lcVisTotal, ctaTotal: lcCtaTotal,
+        rate: lcVisTotal > 0 ? (lcCtaTotal / lcVisTotal * 100).toFixed(1) : '0.0'
+    };
 
     const sessions = overview[0][1];
     const bouncedN = bounced[0][0];
@@ -2978,6 +3056,7 @@ async function fetchWebsiteAnalytics() {
         zClicked,
         zDwell,
         scrollBuckets,
+        landingChart,
         fetchedAt: new Date().toISOString()
     };
 }
