@@ -3130,7 +3130,8 @@ async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) 
         '',
         'Die Anmeldung ist verbindlich.',
         '',
-        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
+        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
+        'Social Warm-Up — wer mag, zieht danach mit uns weiter.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -3190,7 +3191,8 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
         'Die Anmeldung ist verbindlich.',
         '',
         '',
-        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
+        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
+        'Social Warm-Up — wer mag, zieht danach mit uns weiter.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
