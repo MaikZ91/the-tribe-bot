@@ -3127,7 +3127,16 @@ async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
     const intro = [
         `Special Sonntag steht: ${label} (${time}).`,
         'Falls Orga und Treffpunkt noch offen sind: jetzt im Chat klaeren.',
-        'Wer ist dabei?'
+        '',
+        'Damit niemand am Ende allein dasteht, ist die Anmeldung diesmal verbindlich.',
+        '',
+        'Teilnahmebeitrag: 5\u20AC',
+        '(Sichert deinen Platz + hilft uns, das Format zuverlaessig zu machen und die Community weiter wachsen zu lassen)',
+        '',
+        'Anmeldung hier:',
+        'https://paypal.me/thetribebielefeld',
+        '',
+        'Nur wer sich hier anmeldet, zaehlt final als dabei.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -3181,7 +3190,19 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
     const result = venueOverride
         ? { winner: venueOverride, counts: {}, source: 'override' }
         : await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
-    const intro = `Wir treffen uns am Sonntag um 18 Uhr bei ${result.winner}. Wer ist dabei?`;
+    const intro = [
+        `Wir treffen uns am Sonntag um 18 Uhr bei ${result.winner}.`,
+        '',
+        'Damit niemand am Ende allein dasteht, ist die Anmeldung diesmal verbindlich.',
+        '',
+        'Teilnahmebeitrag: 5\u20AC',
+        '(Sichert deinen Platz + hilft uns, das Format zuverlaessig zu machen und die Community weiter wachsen zu lassen)',
+        '',
+        'Anmeldung hier:',
+        'https://paypal.me/thetribebielefeld',
+        '',
+        'Nur wer sich hier anmeldet, zaehlt final als dabei.'
+    ].join('\n');
 
     const media = await loadKennenlernabendMedia();
 
@@ -3266,9 +3287,10 @@ async function sendSundayKennenlernabendReminder({ force = false } = {}) {
         'Wann: heute, 18:00 Uhr',
         `Wo: ${venue}`,
         '',
-        'Kommt einfach vorbei, auch wenn ihr noch nicht abgestimmt habt.',
+        'Angemeldet? Perfekt. Heute Abend wird gut.',
         '',
-        'Die Zusagen laufen ueber die Umfrage vom Freitag.'
+        'Noch nicht angemeldet? Letzte Chance:',
+        'https://paypal.me/thetribebielefeld'
     ].join('\n');
 
     await client.sendMessage(chatId, message);
