@@ -3423,7 +3423,7 @@ async function runDueJobs() {
         ['wednesday-poll', { weekdayIndex: 3, hour: 20 }, () => sendWednesdayVenuePoll()],
         ['friday-poll', { weekdayIndex: 5, hour: 18 }, () => sendSaturdayAttendancePoll()],
         ['saturday-reminder', { weekdayIndex: 6, hour: 12 }, () => sendSaturdayKennenlernabendReminder()],
-        ['weekly-calendar', { weekdayIndex: 6, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
+        ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
         ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
