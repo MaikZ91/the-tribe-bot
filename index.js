@@ -3128,13 +3128,7 @@ async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
         `Special Sonntag steht: ${label} (${time}).`,
         'Falls Orga und Treffpunkt noch offen sind: jetzt im Chat klaeren.',
         '',
-        'Damit niemand am Ende allein dasteht, ist die Anmeldung diesmal verbindlich.',
-        '',
-        'Teilnahmebeitrag: 5\u20AC',
-        '(Sichert deinen Platz + hilft uns, das Format zuverlaessig zu machen und die Community weiter wachsen zu lassen)',
-        '',
-        'Anmeldung hier:',
-        'https://paypal.me/thetribebielefeld',
+        'Die Anmeldung ist verbindlich.',
         '',
         'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
     ].join('\n');
@@ -3193,13 +3187,8 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
     const intro = [
         `Wir treffen uns am Sonntag um 18 Uhr bei ${result.winner}.`,
         '',
-        'Damit niemand am Ende allein dasteht, ist die Anmeldung diesmal verbindlich.',
+        'Die Anmeldung ist verbindlich.',
         '',
-        'Teilnahmebeitrag: 5\u20AC',
-        '(Sichert deinen Platz + hilft uns, das Format zuverlaessig zu machen und die Community weiter wachsen zu lassen)',
-        '',
-        'Anmeldung hier:',
-        'https://paypal.me/thetribebielefeld',
         '',
         'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
     ].join('\n');
@@ -3289,8 +3278,8 @@ async function sendSundayKennenlernabendReminder({ force = false } = {}) {
         '',
         'Angemeldet? Perfekt. Heute Abend wird gut.',
         '',
-        'Noch nicht angemeldet? Letzte Chance:',
-        'https://paypal.me/thetribebielefeld'
+        'Noch nicht zugesagt? Sag jetzt verbindlich zu — stimm ab!',
+
     ].join('\n');
 
     await client.sendMessage(chatId, message);
