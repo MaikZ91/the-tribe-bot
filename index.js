@@ -3136,7 +3136,7 @@ async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
         'Anmeldung hier:',
         'https://paypal.me/thetribebielefeld',
         '',
-        'Nur wer sich hier anmeldet, zaehlt final als dabei.'
+        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -3201,7 +3201,7 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
         'Anmeldung hier:',
         'https://paypal.me/thetribebielefeld',
         '',
-        'Nur wer sich hier anmeldet, zaehlt final als dabei.'
+        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
