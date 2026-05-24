@@ -1296,7 +1296,7 @@ const WEEKLY_CALENDAR_POLL_OPTIONS = [
     'Fussball (Do 17:00)',
     'Creative Circle (Do 18:00)',
     'Ping Pong (Do 18:00)',
-    'Kennenlernabend (So 18:00)',
+    'Social Warmup (Sa 18:00)',
 ];
 
 function buildWeeklyCalendarMessage(date = getBerlinNow()) {
@@ -1316,7 +1316,7 @@ function buildWeeklyCalendarMessage(date = getBerlinNow()) {
         '18:00 Uhr – Ping Pong | Nr.z.P.',
         '',
         formatGermanDateFromUtcDate(saturday),
-        '18:00 Uhr – Kennenlernabend | Location folgt Freitagabend',
+        '18:00 Uhr – Social Warmup | Einstieg in den Abend, danach ziehen wir gemeinsam weiter | Location folgt Freitagabend',
         '',
         'Bei welchen Events seid ihr dabei?'
     ].join('\n');
@@ -1665,7 +1665,6 @@ async function sendDailyHighlights({ force = false } = {}) {
     };
     const isMonday = weekdayIndex === 1;
     const isThursday = weekdayIndex === 4;
-    const isSaturday = weekdayIndex === 0;
     const fixedEntries = [
         ...(isMonday ? [pubQuizEntry] : []),
         ...(isThursday ? [pingPongEntry] : []),
@@ -1823,7 +1822,7 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll('Location fuer den Kennenlernabend am Samstag?', options)
+        new Poll('Location fuer den Social Warmup am Samstag?', options)
     );
     await pollMessage.pin(604800);
 
@@ -3205,7 +3204,7 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll(`Kennenlernabend am Samstag bei ${result.winner} – 18 Uhr: bist du dabei?`, ATTENDANCE_OPTIONS)
+        new Poll(`Social Warmup am Samstag bei ${result.winner} – 18 Uhr (danach ziehen wir gemeinsam weiter): bist du dabei?`, ATTENDANCE_OPTIONS)
     );
     await pollMessage.pin(604800);
 
@@ -3272,9 +3271,9 @@ async function sendSaturdayKennenlernabendReminder({ force = false } = {}) {
     }
 
     const message = [
-        'Reminder: Kennenlernabend heute',
+        'Reminder: Social Warmup heute',
         '',
-        'Was: Kennenlernabend',
+        'Was: Social Warmup – Einstieg in den Abend, danach ziehen wir weiter',
         'Wann: heute, 18:00 Uhr',
         `Wo: ${venue}`,
         '',
@@ -3584,12 +3583,12 @@ async function sendCommunityWelcomeBatch(batchIds) {
         `${introNames} – willkommen! ✌️`,
     ];
     const context = [
-        `Echte Treffen in Bielefeld, jeden Samstag Kennenlernabend – stellt euch kurz vor! 🙌`,
-        `Samstags Kennenlernabend – einfach vorbeikommen. Wer seid ihr? 👀`,
-        `THE TRIBE = echte Treffen, kein Social Media. Samstags Kennenlernabend. Sagt kurz Hallo! 😄`,
-        `Jeden Samstag Kennenlernabend – kommt vorbei & stellt euch kurz vor ✌️`,
-        `Hier treffen sich echte Menschen – Samstags beim Kennenlernabend. Wer seid ihr? 😊`,
-        `Samstags Kennenlernabend, echte Verbindungen in Bielefeld – stellt euch kurz vor! 🙌`,
+        `Echte Treffen in Bielefeld, jeden Samstag Social Warmup als Einstieg in den Abend – stellt euch kurz vor! 🙌`,
+        `Samstags Social Warmup – Einstieg in den Abend, danach ziehen wir gemeinsam weiter. Wer seid ihr? 👀`,
+        `THE TRIBE = echte Treffen. Samstags Social Warmup, danach gemeinsam los. Sagt kurz Hallo! 😄`,
+        `Jeden Samstag Social Warmup – kommt vorbei, lernt uns kennen, dann ziehen wir weiter ✌️`,
+        `Hier treffen sich echte Menschen – Samstags beim Social Warmup. Wer seid ihr? 😊`,
+        `Samstags Social Warmup als Startpunkt in den Abend – stellt euch kurz vor! 🙌`,
     ];
     const pick = arr => arr[Math.floor(Math.random() * arr.length)];
     const message = `${pick(greetings)}\n${pick(context)}`;
