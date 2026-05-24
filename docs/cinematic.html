@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0807">
-<meta name="description" content="The Tribe Bielefeld — Bielefelder, die jeden Sonntag ausgehen und dich mitnehmen. Kostenlos, jederzeit raus.">
+<meta name="description" content="The Tribe Bielefeld — Bielefelder, die jeden Samstag ausgehen und dich mitnehmen. Kostenlos, jederzeit raus.">
 
 <title>THE TRIBE — Bielefeld</title>
 
@@ -841,7 +841,7 @@
     </div>
     <div class="opener-event" id="next-event-badge">
       <span class="event-icon">📅</span>
-      <span class="event-text">Nächster Kennenlernabend: <strong id="next-event-label">Sonntag · 18:00 Uhr · Bernstein</strong></span>
+      <span class="event-text">Nächster Kennenlernabend: <strong id="next-event-label">Samstag · 18:00 Uhr · Bernstein</strong></span>
       <span class="event-countdown" id="event-countdown"></span>
     </div>
   </div>
@@ -888,7 +888,7 @@
   </h2>
   <div class="body">
     <p>Deshalb gibt's uns. Eine WhatsApp-Gruppe von Bielefeldern, die nicht mehr alleine ausgehen wollen.</p>
-    <p>Kein Algorithmus. Kein Verein. Kein Smalltalk. Nur Menschen, die sich Sonntag in den angesagtesten Locations der Stadt treffen — und unter der Woche miteinander schreiben.</p>
+    <p>Kein Algorithmus. Kein Verein. Kein Smalltalk. Nur Menschen, die sich Samstag in den angesagtesten Locations der Stadt treffen — und unter der Woche miteinander schreiben.</p>
   </div>
   <div class="signature">
     <span class="dash"></span>
@@ -911,8 +911,8 @@
     <article class="item">
       <span class="roman">I.</span>
       <div>
-        <h3>Sonntags <em>kennenlernen</em></h3>
-        <p>Jeden Sonntag, 18 Uhr, in den angesagtesten Lokalitäten der Stadt — die Location wird jede Woche neu in der Community abgestimmt. 15–25 Leute, bunt gemischt.</p>
+        <h3>Samstags <em>kennenlernen</em></h3>
+        <p>Jeden Samstag, 18 Uhr, in den angesagtesten Lokalitäten der Stadt — die Location wird jede Woche neu in der Community abgestimmt. 15–25 Leute, bunt gemischt.</p>
         <div class="meta">Wöchentlich · Location per Community-Abstimmung · 18:00</div>
       </div>
     </article>
@@ -930,7 +930,7 @@
       <span class="roman">III.</span>
       <div>
         <h3>Bielefeld <em>endlich kennen</em></h3>
-        <p>Im Forum. In der Altstadt. Am Obersee. Auf'm Konzert. Wir sind keine App. Wir sind eine Gruppe Bielefelder, die du nach drei Sonntagen mit Vornamen kennst.</p>
+        <p>Im Forum. In der Altstadt. Am Obersee. Auf'm Konzert. Wir sind keine App. Wir sind eine Gruppe Bielefelder, die du nach drei Samstagen mit Vornamen kennst.</p>
         <div class="meta">Echte Menschen · echte Orte</div>
       </div>
     </article>
@@ -943,7 +943,7 @@
 <section class="proof">
   <span class="label">Stand heute</span>
   <h2 class="stat"><em>99</em> Bielefelder</h2>
-  <p class="caption">aktiv in der Gruppe. Diese Woche 3 dazugekommen. Jeden Sonntag dabei: zwischen 15 und 25 Menschen.</p>
+  <p class="caption">aktiv in der Gruppe. Diese Woche 3 dazugekommen. Jeden Samstag dabei: zwischen 15 und 25 Menschen.</p>
 </section>
 
 <div class="rule"></div>
@@ -954,7 +954,7 @@
 <section class="chat-section">
   <span class="section-label">So läuft's bei uns</span>
   <h2>Echte Leute,<br><em>echte Abende.</em></h2>
-  <p class="chat-sub">Kein Algorithmus, kein Smalltalk. Nur Bielefelder, die sich Sonntag treffen — und unter der Woche miteinander schreiben.</p>
+  <p class="chat-sub">Kein Algorithmus, kein Smalltalk. Nur Bielefelder, die sich Samstag treffen — und unter der Woche miteinander schreiben.</p>
 
   <div class="chat-window">
     <div class="chat-day-divider">Gestern</div>
@@ -969,7 +969,7 @@
     </div>
     <div class="chat-reactions">❤️ 18 · 🔥 6</div>
 
-    <div class="chat-day-divider">Sonntag</div>
+    <div class="chat-day-divider">Samstag</div>
 
     <div class="chat-msg">
       <img class="chat-avatar" src="assets/maik.webp" alt="Maik">
@@ -1176,12 +1176,12 @@
   var el = document.getElementById('event-countdown');
   if (!el) return;
   var now = new Date();
-  var day = now.getDay(); // 0=Sun
-  var daysUntilSunday = day === 0 ? 0 : 7 - day;
-  var sunday = new Date(now);
-  sunday.setDate(now.getDate() + daysUntilSunday);
-  sunday.setHours(18, 0, 0, 0);
-  var diff = sunday - now;
+  var day = now.getDay(); // 0=Sun, 6=Sat
+  var daysUntilSaturday = (6 - day + 7) % 7;
+  var saturday = new Date(now);
+  saturday.setDate(now.getDate() + daysUntilSaturday);
+  saturday.setHours(18, 0, 0, 0);
+  var diff = saturday - now;
   var hours = Math.floor(diff / 3600000);
   var text;
   if (diff <= 0) {

@@ -62,22 +62,22 @@ const STAMMTISCH_VENUES = [
 const VENUE_POLL_WEEKLY_COUNT = 3;
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag - schreib's in den Chat";
 const VENUE_POLL_OPENERS = [
-    'Sonntag, 18 Uhr - Tribe trifft sich offline.',
-    'Neue Woche, neuer Sonntag, neue Location.',
-    'Bielefeld-Sonntag ohne Plan? Hier ist einer.',
-    'Sonntag, 18 Uhr - Tisch, Drink, neue Gesichter.',
-    'Mittwoch heisst: wo treffen wir uns Sonntag?',
-    'Diese Woche wieder Tribe-Sonntag - 18 Uhr, offline, echt.',
-    'Sonntag-Plan steht: 18 Uhr, Tribe-Tisch.'
+    'Samstag, 18 Uhr - Tribe trifft sich offline.',
+    'Neue Woche, neuer Samstag, neue Location.',
+    'Bielefeld-Samstag ohne Plan? Hier ist einer.',
+    'Samstag, 18 Uhr - Tisch, Drink, neue Gesichter.',
+    'Mittwoch heisst: wo treffen wir uns Samstag?',
+    'Diese Woche wieder Tribe-Samstag - 18 Uhr, offline, echt.',
+    'Samstag-Plan steht: 18 Uhr, Tribe-Tisch.'
 ];
-const SPECIAL_SUNDAY_OPENERS = [
-    'Letzter Sonntag im Monat - Zeit fuer was anderes.',
-    'Special-Sonntag steht an - keine Kneipe, was Neues.',
+const SPECIAL_SATURDAY_OPENERS = [
+    'Letzter Samstag im Monat - Zeit fuer was anderes.',
+    'Special-Samstag steht an - keine Kneipe, was Neues.',
     'Ein Mal im Monat raus aus dem Tisch-Modus.',
-    'Special-Sonntag - wir machen gemeinsam was abseits der Bar.'
+    'Special-Samstag - wir machen gemeinsam was abseits der Bar.'
 ];
-const SPECIAL_SUNDAY_ACTIVITIES = [
-    { name: 'Spielsonntag',  emoji: '🎲', time: '18 Uhr',                blurb: 'Brettspiele, Karten, Wuerfel - bringt mit was ihr habt oder Cafe mit Spielregal.' },
+const SPECIAL_SATURDAY_ACTIVITIES = [
+    { name: 'SpielSamstag',  emoji: '🎲', time: '18 Uhr',                blurb: 'Brettspiele, Karten, Wuerfel - bringt mit was ihr habt oder Cafe mit Spielregal.' },
     { name: 'Walk + Bar',    emoji: '🚶', time: '17 Uhr (Sommer 18 Uhr)', blurb: 'Spaziergang Altstadt oder Sparrenburg, danach gemeinsam einkehren.' },
     { name: 'Kochen',        emoji: '🍝', time: '17 Uhr',                blurb: 'Gemeinsam kochen beim Host - wer hat Platz und Bock?' },
     { name: 'Sofa-Konzert',  emoji: '🎸', time: '19 Uhr',                blurb: 'Akustik im Wohnzimmer. Spieler bringt Instrument, Hoerer bringt Wein.' },
@@ -85,7 +85,7 @@ const SPECIAL_SUNDAY_ACTIVITIES = [
     { name: 'Jam Session',   emoji: '🎶', time: '18 Uhr',                blurb: 'Instrumente mitbringen, zusammen klimpern. Singen, Trommeln, Loops - alles erlaubt.' },
     { name: 'Foto-Walk',     emoji: '📷', time: '17 Uhr (zum Sunset)',   blurb: 'Kamera oder Handy reicht. Spaziergang durch die Stadt, Bilder spaeter im Chat teilen.' }
 ];
-const SPECIAL_SUNDAY_POLL_OPTIONS = [
+const SPECIAL_SATURDAY_POLL_OPTIONS = [
     'Bin dabei',
     'Uebernehme die Orga',
     'Vielleicht',
@@ -272,29 +272,29 @@ function getOpenerForWeek(weekKey) {
     return VENUE_POLL_OPENERS[getWeekNumber(weekKey) % VENUE_POLL_OPENERS.length];
 }
 
-function getUpcomingSundayUtcDate(weekKey) {
+function getUpcomingSaturdayUtcDate(weekKey) {
     const [year, month, day] = weekKey.split('-').map(Number);
     const mondayUtc = Date.UTC(year, month - 1, day, 12, 0, 0);
-    return new Date(mondayUtc + 6 * 24 * 60 * 60 * 1000);
+    return new Date(mondayUtc + 5 * 24 * 60 * 60 * 1000);
 }
 
-function isLastSundayOfMonth(weekKey) {
-    const sundayDate = getUpcomingSundayUtcDate(weekKey);
-    const nextSundayDate = new Date(sundayDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-    return sundayDate.getUTCMonth() !== nextSundayDate.getUTCMonth();
+function isLastSaturdayOfMonth(weekKey) {
+    const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
+    const nextSaturdayDate = new Date(saturdayDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+    return saturdayDate.getUTCMonth() !== nextSaturdayDate.getUTCMonth();
 }
 
-function getSundayMonthIndex(weekKey) {
-    const sundayDate = getUpcomingSundayUtcDate(weekKey);
-    return sundayDate.getUTCFullYear() * 12 + sundayDate.getUTCMonth();
+function getSaturdayMonthIndex(weekKey) {
+    const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
+    return saturdayDate.getUTCFullYear() * 12 + saturdayDate.getUTCMonth();
 }
 
-function getSpecialSundayActivity(weekKey) {
-    return SPECIAL_SUNDAY_ACTIVITIES[getSundayMonthIndex(weekKey) % SPECIAL_SUNDAY_ACTIVITIES.length];
+function getSpecialSaturdayActivity(weekKey) {
+    return SPECIAL_SATURDAY_ACTIVITIES[getSaturdayMonthIndex(weekKey) % SPECIAL_SATURDAY_ACTIVITIES.length];
 }
 
-function getSpecialSundayOpener(weekKey) {
-    return SPECIAL_SUNDAY_OPENERS[getSundayMonthIndex(weekKey) % SPECIAL_SUNDAY_OPENERS.length];
+function getSpecialSaturdayOpener(weekKey) {
+    return SPECIAL_SATURDAY_OPENERS[getSaturdayMonthIndex(weekKey) % SPECIAL_SATURDAY_OPENERS.length];
 }
 
 function rotateArray(values, shift) {
@@ -1302,7 +1302,7 @@ const WEEKLY_CALENDAR_POLL_OPTIONS = [
 function buildWeeklyCalendarMessage(date = getBerlinNow()) {
     const tuesday  = getUpcomingWeekdayDate(2, date);
     const thursday = getUpcomingWeekdayDate(4, date);
-    const sunday   = getUpcomingWeekdayDate(0, date);
+    const saturday   = getUpcomingWeekdayDate(6, date);
 
     return [
         'THE TRIBE – Events diese Woche',
@@ -1315,7 +1315,7 @@ function buildWeeklyCalendarMessage(date = getBerlinNow()) {
         '18:00 Uhr – Creative Circle | Wiese Obersee (bei Regen: CoWorking Merianstr. 8)',
         '18:00 Uhr – Ping Pong | Nr.z.P.',
         '',
-        formatGermanDateFromUtcDate(sunday),
+        formatGermanDateFromUtcDate(saturday),
         '18:00 Uhr – Kennenlernabend | Location folgt Freitagabend',
         '',
         'Bei welchen Events seid ihr dabei?'
@@ -1665,11 +1665,11 @@ async function sendDailyHighlights({ force = false } = {}) {
     };
     const isMonday = weekdayIndex === 1;
     const isThursday = weekdayIndex === 4;
-    const isSunday = weekdayIndex === 0;
+    const isSaturday = weekdayIndex === 0;
     const fixedEntries = [
         ...(isMonday ? [pubQuizEntry] : []),
         ...(isThursday ? [pingPongEntry] : []),
-        ...(isSunday ? [tribeEntry] : [])
+        ...(isSaturday ? [tribeEntry] : [])
     ];
     const fixedNames = new Set(fixedEntries.map(e => e.event));
     const withTribe = [...fixedEntries, ...filtered.filter(h => !fixedNames.has(h.event))];
@@ -1731,17 +1731,17 @@ async function sendDailyHighlightsVideo(date = getBerlinNow()) {
     }
 }
 
-async function sendSpecialSundayAnnouncement({ state, weeklyState, weekKey, today }) {
-    const activity = getSpecialSundayActivity(weekKey);
+async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today }) {
+    const activity = getspecialSaturdayActivity(weekKey);
     const intro = [
-        getSpecialSundayOpener(weekKey),
+        getspecialSaturdayOpener(weekKey),
         '',
-        '🎉 Letzter Sonntag im Monat = SPECIAL SONNTAG.',
+        '🎉 Letzter Samstag im Monat = SPECIAL SAMSTAG.',
         '',
         `Diese Mal: ${activity.emoji} ${activity.name} (${activity.time})`,
         activity.blurb,
         '',
-        '⚠️ Special Sonntag heisst: jemand aus der Tribe uebernimmt die Orga.',
+        '⚠️ Special Samstag heisst: jemand aus der Tribe uebernimmt die Orga.',
         'Treffpunkt, Location, Details - im Chat klaeren.',
         "Wer hat Bock? Schreibt 👇 \"Ich mach's\" - sonst faellt's flach.",
         '',
@@ -1758,11 +1758,11 @@ async function sendSpecialSundayAnnouncement({ state, weeklyState, weekKey, toda
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll(`Special Sonntag: ${activity.emoji} ${activity.name}`, SPECIAL_SUNDAY_POLL_OPTIONS)
+        new Poll(`Special Samstag: ${activity.emoji} ${activity.name}`, SPECIAL_SATURDAY_POLL_OPTIONS)
     );
     await pollMessage.pin(604800);
 
-    weeklyState.specialSunday = {
+    weeklyState.specialSaturday = {
         dateKey: today.dateKey,
         weekKey,
         activity: activity.name,
@@ -1776,13 +1776,13 @@ async function sendSpecialSundayAnnouncement({ state, weeklyState, weekKey, toda
         dateKey: today.dateKey,
         weekKey,
         messageId: pollMessage.id._serialized,
-        options: SPECIAL_SUNDAY_POLL_OPTIONS,
+        options: SPECIAL_SATURDAY_POLL_OPTIONS,
         special: true,
         createdAt: new Date().toISOString()
     };
 
     writeState(state);
-    console.log(`Special-Sonntag-Post fuer ${weekKey} gesendet. Aktion: ${activity.name}.`);
+    console.log(`Special-Samstag-Post fuer ${weekKey} gesendet. Aktion: ${activity.name}.`);
 }
 
 async function sendWednesdayVenuePoll({ force = false } = {}) {
@@ -1795,8 +1795,8 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
         return;
     }
 
-    if (isLastSundayOfMonth(weekKey)) {
-        await sendSpecialSundayAnnouncement({ state, weeklyState, weekKey, today });
+    if (isLastSaturdayOfMonth(weekKey)) {
+        await sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today });
         return;
     }
 
@@ -1823,7 +1823,7 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll('Location fuer den Kennenlernabend am Sonntag?', options)
+        new Poll('Location fuer den Kennenlernabend am Samstag?', options)
     );
     await pollMessage.pin(604800);
 
@@ -1919,13 +1919,13 @@ async function updateLandingPageNextEvent() {
         const today = getToday();
         const weekKey = today.weekKey;
 
-        // Nächsten Sonntag berechnen
-        const sundayDate = getUpcomingSundayUtcDate(weekKey);
-        const day = sundayDate.getUTCDate();
-        const month = sundayDate.getUTCMonth() + 1;
+        // Nächsten Samstag berechnen
+        const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
+        const day = saturdayDate.getUTCDate();
+        const month = saturdayDate.getUTCMonth() + 1;
         const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
         const monthNames = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-        const dayName = dayNames[sundayDate.getUTCDay()];
+        const dayName = dayNames[saturdayDate.getUTCDay()];
         const label = `${dayName}. ${day}. ${monthNames[month - 1]} · 18:00 Uhr`;
 
         // Location: aus laufender Abstimmung oder Fallback
@@ -3121,11 +3121,11 @@ async function getWinningVenueFromWednesdayPoll(weeklyState, weekKey) {
     };
 }
 
-async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
-    const { activity, emoji, time } = weeklyState.specialSunday;
+async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) {
+    const { activity, emoji, time } = weeklyState.specialSaturday;
     const label = `${emoji} ${activity}`;
     const intro = [
-        `Special Sonntag steht: ${label} (${time}).`,
+        `Special Samstag steht: ${label} (${time}).`,
         'Falls Orga und Treffpunkt noch offen sind: jetzt im Chat klaeren.',
         '',
         'Die Anmeldung ist verbindlich.',
@@ -3143,7 +3143,7 @@ async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll(`${label} - Sonntag ${time}: bist du dabei?`, ATTENDANCE_OPTIONS)
+        new Poll(`${label} - Samstag ${time}: bist du dabei?`, ATTENDANCE_OPTIONS)
     );
     await pollMessage.pin(604800);
 
@@ -3162,10 +3162,10 @@ async function sendSpecialSundayAttendancePoll({ state, weeklyState, today }) {
     };
 
     writeState(state);
-    console.log(`Freitags-Umfrage (Special) fuer ${weeklyState.specialSunday.weekKey} gesendet. Aktion: ${activity}.`);
+    console.log(`Freitags-Umfrage (Special) fuer ${weeklyState.specialSaturday.weekKey} gesendet. Aktion: ${activity}.`);
 }
 
-async function sendSundayAttendancePoll({ force = false } = {}) {
+async function sendSaturdayAttendancePoll({ force = false } = {}) {
     const state = getState();
     const today = getDateParts();
     const weekKey = getBerlinWeekKey();
@@ -3175,8 +3175,8 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
         return;
     }
 
-    if (weeklyState.specialSunday) {
-        await sendSpecialSundayAttendancePoll({ state, weeklyState, today });
+    if (weeklyState.specialSaturday) {
+        await sendSpecialSaturdayAttendancePoll({ state, weeklyState, today });
         return;
     }
 
@@ -3185,7 +3185,7 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
         ? { winner: venueOverride, counts: {}, source: 'override' }
         : await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
     const intro = [
-        `Wir treffen uns am Sonntag um 18 Uhr bei ${result.winner}.`,
+        `Wir treffen uns am Samstag um 18 Uhr bei ${result.winner}.`,
         '',
         'Die Anmeldung ist verbindlich.',
         '',
@@ -3203,7 +3203,7 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
 
     const pollMessage = await client.sendMessage(
         chatId,
-        new Poll(`Kennenlernabend am Sonntag bei ${result.winner} – 18 Uhr: bist du dabei?`, ATTENDANCE_OPTIONS)
+        new Poll(`Kennenlernabend am Samstag bei ${result.winner} – 18 Uhr: bist du dabei?`, ATTENDANCE_OPTIONS)
     );
     await pollMessage.pin(604800);
 
@@ -3225,20 +3225,20 @@ async function sendSundayAttendancePoll({ force = false } = {}) {
     console.log(`Freitags-Umfrage fuer ${weekKey} gesendet. Gewinner: ${result.winner}.`);
 }
 
-async function sendSundayKennenlernabendReminder({ force = false } = {}) {
+async function sendSaturdayKennenlernabendReminder({ force = false } = {}) {
     const state = getState();
     const today = getDateParts();
     const weekKey = getBerlinWeekKey();
     const weeklyState = ensureWeeklyPollState(state, weekKey);
 
-    if (!force && weeklyState.sundayReminder && weeklyState.sundayReminder.dateKey === today.dateKey) {
+    if (!force && weeklyState.saturdayReminder && weeklyState.saturdayReminder.dateKey === today.dateKey) {
         return;
     }
 
-    if (weeklyState.specialSunday) {
-        const { activity, emoji, time } = weeklyState.specialSunday;
+    if (weeklyState.specialSaturday) {
+        const { activity, emoji, time } = weeklyState.specialSaturday;
         const message = [
-            'Reminder: Special Sonntag heute',
+            'Reminder: Special Samstag heute',
             '',
             `Was: ${emoji} ${activity}`,
             `Wann: heute, ${time}`,
@@ -3249,7 +3249,7 @@ async function sendSundayKennenlernabendReminder({ force = false } = {}) {
 
         await client.sendMessage(chatId, message);
 
-        weeklyState.sundayReminder = {
+        weeklyState.saturdayReminder = {
             dateKey: today.dateKey,
             venue: `${emoji} ${activity}`,
             special: true,
@@ -3257,7 +3257,7 @@ async function sendSundayKennenlernabendReminder({ force = false } = {}) {
         };
 
         writeState(state);
-        console.log(`Sonntags-Reminder (Special) fuer ${weekKey} gesendet. Aktion: ${activity}.`);
+        console.log(`Samstags-Reminder (Special) fuer ${weekKey} gesendet. Aktion: ${activity}.`);
         return;
     }
 
@@ -3293,14 +3293,14 @@ async function sendSundayKennenlernabendReminder({ force = false } = {}) {
         };
     }
 
-    weeklyState.sundayReminder = {
+    weeklyState.saturdayReminder = {
         dateKey: today.dateKey,
         venue,
         sentAt: new Date().toISOString()
     };
 
     writeState(state);
-    console.log(`Sonntags-Reminder fuer ${weekKey} gesendet. Location: ${venue}.`);
+    console.log(`Samstags-Reminder fuer ${weekKey} gesendet. Location: ${venue}.`);
 }
 
 function findNextOccurrence({ weekdayIndex, hour, minute = 0 }, fromDate = getBerlinNow()) {
@@ -3361,11 +3361,11 @@ function startScheduler() {
     });
 
     scheduleJob('Freitags-Umfrage', { weekdayIndex: 5, hour: 18 }, async () => {
-        await sendSundayAttendancePoll();
+        await sendSaturdayAttendancePoll();
     });
 
-    scheduleJob('Kennenlernabend-Reminder', { weekdayIndex: 0, hour: 12 }, async () => {
-        await sendSundayKennenlernabendReminder();
+    scheduleJob('Kennenlernabend-Reminder', { weekdayIndex: 6, hour: 12 }, async () => {
+        await sendSaturdayKennenlernabendReminder();
     });
 
     scheduleJob('Wochenkalender', { weekdayIndex: 0, hour: 12, minute: 15 }, async () => {
@@ -3421,9 +3421,9 @@ async function runDueJobs() {
     const dueJobs = [
         ['daily-highlights', { hour: DAILY_POST_HOUR }, () => sendDailyHighlights()],
         ['wednesday-poll', { weekdayIndex: 3, hour: 20 }, () => sendWednesdayVenuePoll()],
-        ['friday-poll', { weekdayIndex: 5, hour: 18 }, () => sendSundayAttendancePoll()],
-        ['sunday-reminder', { weekdayIndex: 0, hour: 12 }, () => sendSundayKennenlernabendReminder()],
-        ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
+        ['friday-poll', { weekdayIndex: 5, hour: 18 }, () => sendSaturdayAttendancePoll()],
+        ['saturday-reminder', { weekdayIndex: 6, hour: 12 }, () => sendSaturdayKennenlernabendReminder()],
+        ['weekly-calendar', { weekdayIndex: 6, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
         ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
@@ -3456,11 +3456,11 @@ async function runBotCommand(command) {
             await sendWednesdayVenuePoll({ force: true });
             return;
         case 'friday-poll':
-        case 'sunday-poll':
-            await sendSundayAttendancePoll({ force: true });
+        case 'saturday-poll':
+            await sendSaturdayAttendancePoll({ force: true });
             return;
-        case 'sunday-reminder':
-            await sendSundayKennenlernabendReminder({ force: true });
+        case 'saturday-reminder':
+            await sendSaturdayKennenlernabendReminder({ force: true });
             return;
         case 'weekly-calendar':
             await sendWeeklyCalendar({ force: true });
@@ -3511,13 +3511,13 @@ async function handleConsoleCommand(input) {
         return;
     }
 
-    if (message === '/poll-freitag' || message === '/poll-sonntag') {
-        await sendSundayAttendancePoll({ force: true });
+    if (message === '/poll-freitag' || message === '/poll-samstag') {
+        await sendSaturdayAttendancePoll({ force: true });
         return;
     }
 
     if (message === '/kennenlernabend-reminder') {
-        await sendSundayKennenlernabendReminder({ force: true });
+        await sendSaturdayKennenlernabendReminder({ force: true });
         return;
     }
 
@@ -3582,12 +3582,12 @@ async function sendCommunityWelcomeBatch(batchIds) {
         `${introNames} – willkommen! ✌️`,
     ];
     const context = [
-        `Echte Treffen in Bielefeld, jeden Sonntag Kennenlernabend – stellt euch kurz vor! 🙌`,
-        `Sonntags Kennenlernabend – einfach vorbeikommen. Wer seid ihr? 👀`,
-        `THE TRIBE = echte Treffen, kein Social Media. Sonntags Kennenlernabend. Sagt kurz Hallo! 😄`,
-        `Jeden Sonntag Kennenlernabend – kommt vorbei & stellt euch kurz vor ✌️`,
-        `Hier treffen sich echte Menschen – Sonntags beim Kennenlernabend. Wer seid ihr? 😊`,
-        `Sonntags Kennenlernabend, echte Verbindungen in Bielefeld – stellt euch kurz vor! 🙌`,
+        `Echte Treffen in Bielefeld, jeden Samstag Kennenlernabend – stellt euch kurz vor! 🙌`,
+        `Samstags Kennenlernabend – einfach vorbeikommen. Wer seid ihr? 👀`,
+        `THE TRIBE = echte Treffen, kein Social Media. Samstags Kennenlernabend. Sagt kurz Hallo! 😄`,
+        `Jeden Samstag Kennenlernabend – kommt vorbei & stellt euch kurz vor ✌️`,
+        `Hier treffen sich echte Menschen – Samstags beim Kennenlernabend. Wer seid ihr? 😊`,
+        `Samstags Kennenlernabend, echte Verbindungen in Bielefeld – stellt euch kurz vor! 🙌`,
     ];
     const pick = arr => arr[Math.floor(Math.random() * arr.length)];
     const message = `${pick(greetings)}\n${pick(context)}`;
@@ -3852,7 +3852,7 @@ client.on('ready', async () => {
         return;
     }
 
-    console.log('Enter sendet eine Nachricht. /groups, /highlights, /poll-mittwoch, /poll-freitag, /poll-sonntag, /kennenlernabend-reminder, /tuesday-run, /jam-session, /thursday-football und /ping-pong testen die automatischen Posts. /exit beendet den Bot.');
+    console.log('Enter sendet eine Nachricht. /groups, /highlights, /poll-mittwoch, /poll-freitag, /poll-samstag, /kennenlernabend-reminder, /tuesday-run, /jam-session, /thursday-football und /ping-pong testen die automatischen Posts. /exit beendet den Bot.');
 
     startScheduler();
     startDashboardServer();
@@ -3954,3 +3954,6 @@ client.initialize().catch(err => {
 process.on('unhandledRejection', err => {
     console.error('Unhandled promise rejection:', err && err.stack ? err.stack : err);
 });
+
+
+
