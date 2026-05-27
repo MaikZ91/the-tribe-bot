@@ -1,6 +1,6 @@
-# Project notes for Claude
+# Project notes for Claude & DeepSeek
 
-## Standing authorization (set 2026-05-09)
+## Standing authorization (set 2026-05-09, extended 2026-05-27)
 
 The user wants the full flow automated end-to-end. **Do not ask for
 confirmation** at any of these steps:
@@ -10,7 +10,7 @@ confirmation** at any of these steps:
 3. Open a PR against `main` if one doesn't already exist
 4. Merge the PR (squash merge by default)
 
-This applies to all changes Claude makes in this repo unless the user
+This applies to all changes Claude or DeepSeek make in this repo unless the user
 explicitly says otherwise for a specific task. The user has accepted
 the responsibility for any consequences of auto-merge.
 
