@@ -1731,9 +1731,9 @@ async function sendDailyHighlightsVideo(date = getBerlinNow()) {
 }
 
 async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today }) {
-    const activity = getspecialSaturdayActivity(weekKey);
+    const activity = getSpecialSaturdayActivity(weekKey);
     const intro = [
-        getspecialSaturdayOpener(weekKey),
+        getSpecialSaturdayOpener(weekKey),
         '',
         '🎉 Letzter Samstag im Monat = SPECIAL SAMSTAG.',
         '',
