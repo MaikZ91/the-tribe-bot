@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3E1220">
+<title>TRIBE Wine Walk — Walk · Sip · Connect · Bielefeld, Sommer 2026</title>
+<meta name="description" content="TRIBE Wine Walk Bielefeld: Ein Spaziergang vom Bürgerpark zum Obersee. Feine Weine an kleinen Stopps, gute Gespräche, neue Leute. Walk. Sip. Connect. Sommer 2026 — sichere dir dein Ticket.">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%233E1220'/><text x='16' y='23' font-family='Georgia,serif' font-size='17' fill='%23DDC78D' text-anchor='middle'>&%23127863;</text></svg>">
+
+<!-- social share -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TRIBE Wine Walk — Walk · Sip · Connect">
+<meta property="og:description" content="Ein Spaziergang. Feine Weine. Gute Gespräche. Schöne Ausblicke. Bürgerpark → Obersee · Bielefeld · Sommer 2026.">
+<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/assets/wine/poster.jpg">
+<meta property="og:url" content="https://maikz91.github.io/the-tribe-bot/wine-walk/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="../assets/wine/glass.webp">
+
+<style>
+  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+
+  :root{
+    --burgundy:#5C1A2B; --burgundy-deep:#3A1019; --burgundy-soft:#7A2438;
+    --gold:#C9A24B; --gold-lite:#DDC78D; --rose:#E3A89E;
+    --green:#7E8B4E; --brown:#6E4A2E;
+    --cream:#F7F0E2; --paper:#FBF6EC; --ink:#2A171B; --muted:#8A7468;
+    --wa:#25D366; --wa-deep:#0c3a1f;
+    --fd:'Anton','Arial Narrow',sans-serif;
+    --fs:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --fc:'Caveat','Segoe Script',cursive;
+    --fb:'Familjen Grotesk',system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,.84,.34,1);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--paper);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+  a{color:inherit;text-decoration:none}
+  img,video{display:block;max-width:100%}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  section{position:relative}
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+  /* ---------- top bar ---------- */
+  .top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 20px;transition:background .4s var(--ease),backdrop-filter .4s;
+    padding-top:max(13px,env(safe-area-inset-top))}
+  .top.solid{background:rgba(58,16,25,.86);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(221,199,141,.18)}
+  .brand{display:flex;align-items:baseline;gap:9px;color:var(--cream)}
+  .brand .b1{font-family:var(--fs);font-weight:600;letter-spacing:.16em;font-size:18px}
+  .brand .b2{font-family:var(--fb);font-size:9.5px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lite);opacity:.9}
+  .top .navcta{font-size:12.5px;font-weight:600;color:var(--burgundy-deep);background:var(--gold-lite);
+    padding:8px 15px;border-radius:30px;letter-spacing:.02em;transition:transform .25s,box-shadow .25s}
+  .top .navcta:active{transform:scale(.96)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+    overflow:hidden;background:radial-gradient(120% 90% at 50% 8%,var(--burgundy-soft) 0%,var(--burgundy) 38%,var(--burgundy-deep) 100%)}
+  .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+    opacity:.30;mix-blend-mode:screen;filter:saturate(1.15)}
+  .hero-orbs{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(34px);opacity:.5;mix-blend-mode:screen;animation:float 14s var(--ease) infinite}
+  .orb.o1{width:240px;height:240px;background:radial-gradient(circle,#E9B96b,transparent 70%);top:-40px;left:-30px}
+  .orb.o2{width:300px;height:300px;background:radial-gradient(circle,#C76b7f,transparent 70%);bottom:6%;right:-60px;animation-delay:-5s}
+  .orb.o3{width:180px;height:180px;background:radial-gradient(circle,#DDC78D,transparent 70%);top:30%;right:12%;animation-delay:-9s}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(14px,-22px) scale(1.08)}}
+  .hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(to top,rgba(36,10,16,.92) 0%,rgba(46,12,20,.55) 42%,rgba(58,16,25,.18) 72%,rgba(80,24,40,.05) 100%)}
+  .grain{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.40;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+
+  .hero-c{position:relative;z-index:5;color:var(--cream);padding:0 24px calc(38px + env(safe-area-inset-bottom));
+    width:100%;max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:16px}
+  .eyebrow{font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite)}
+  .hero-tribe{font-family:var(--fs);font-weight:600;letter-spacing:.28em;font-size:clamp(15px,4.4vw,20px);color:var(--cream);opacity:.92}
+  .hero-h1{font-family:var(--fd);text-transform:uppercase;line-height:.86;letter-spacing:.005em;
+    font-size:clamp(64px,21vw,150px);
+    background:linear-gradient(178deg,#FBF1DA 0%,#E9Cf8f 52%,#C9A24B 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 6px 40px rgba(0,0,0,.35);margin:-4px 0 2px}
+  .hero-h1 span{display:block}
+  .hero-tag{font-family:var(--fb);font-weight:600;letter-spacing:.34em;font-size:clamp(12px,3.6vw,16px);
+    text-transform:uppercase;color:var(--cream)}
+  .hero-tag i{font-style:normal;color:var(--gold-lite)}
+  .hero-script{font-family:var(--fc);font-weight:600;font-size:clamp(24px,7vw,34px);color:var(--rose);line-height:1;margin-top:-2px}
+  .date-chip{display:inline-flex;align-items:center;gap:11px;align-self:flex-start;
+    background:rgba(251,246,236,.08);border:1px solid rgba(221,199,141,.4);border-radius:14px;
+    padding:10px 15px;backdrop-filter:blur(4px);margin-top:2px}
+  .date-chip svg{width:22px;height:22px;color:var(--gold-lite);flex-shrink:0}
+  .date-chip .dc-main{font-weight:600;font-size:13.5px;color:var(--cream);line-height:1.2}
+  .date-chip .dc-sub{font-family:var(--fc);font-size:18px;color:var(--gold-lite);line-height:.9}
+
+  .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--fb);
+    font-weight:600;border:0;cursor:pointer;border-radius:40px;transition:transform .25s var(--ease),box-shadow .3s,filter .3s}
+  .btn-gold{background:linear-gradient(120deg,#E9CF8F,#C9A24B);color:#3A1019;font-size:16px;padding:16px 26px;
+    box-shadow:0 12px 34px rgba(201,162,75,.42)}
+  .btn-gold:active{transform:scale(.97)}
+  .btn-gold svg{width:19px;height:19px}
+  .btn-ghost{color:var(--cream);font-size:14px;font-weight:600;letter-spacing:.02em;border-bottom:1px solid rgba(221,199,141,.5);
+    border-radius:0;padding:4px 2px 5px;gap:6px}
+  .scrolldown{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;color:var(--gold-lite);
+    opacity:.8;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  .scrolldown svg{width:24px;height:24px}
+
+  /* ---------- generic section heads ---------- */
+  .sec{padding:clamp(64px,11vw,118px) 0}
+  .kicker{font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .kicker.center{text-align:center}
+  h2{font-family:var(--fs);font-weight:600;line-height:1.02;font-size:clamp(32px,8vw,56px);letter-spacing:.005em}
+  .script{font-family:var(--fc);color:var(--burgundy);font-weight:600}
+  .lead{font-size:clamp(16px,4.4vw,19px);color:#52403c;max-width:54ch}
+
+  /* ---------- INTRO ---------- */
+  .intro{background:var(--cream)}
+  .intro-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
+  .glass-frame{position:relative;justify-self:center;width:min(78vw,300px);aspect-ratio:158/420;
+    border-radius:200px 200px 26px 26px;overflow:hidden;box-shadow:0 30px 60px -22px rgba(58,16,25,.55);
+    border:1px solid rgba(201,162,75,.35)}
+  .glass-frame img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;
+    animation:kenburns 16s ease-in-out infinite alternate}
+  @keyframes kenburns{0%{transform:scale(1)}100%{transform:scale(1.09) translateY(-2%)}}
+  .glass-frame::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(to bottom,transparent 60%,rgba(92,26,43,.5) 100%)}
+  .glass-cap{position:absolute;left:0;right:0;bottom:14px;z-index:2;text-align:center;
+    font-family:var(--fc);font-size:21px;color:#FBF6EC;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .intro-txt .big{font-family:var(--fs);font-weight:500;font-size:clamp(24px,6.4vw,38px);line-height:1.12;color:var(--ink);margin-bottom:16px}
+  .intro-txt p{font-size:clamp(15px,4.2vw,17.5px);color:#52403c;margin-bottom:14px;max-width:48ch}
+  .pull{font-family:var(--fd);text-transform:uppercase;letter-spacing:.04em;font-size:clamp(26px,7.4vw,44px);
+    color:var(--burgundy);line-height:.95;margin-top:6px}
+  .pull em{font-style:normal;color:var(--gold)}
+
+  /* ---------- ROUTE ---------- */
+  .route{background:var(--burgundy-deep);color:var(--cream);overflow:hidden}
+  .route h2{color:#FBF1DA}
+  .route .kicker{color:var(--gold-lite)}
+  .route-grid{display:grid;grid-template-columns:1fr;gap:36px;margin-top:34px;align-items:start}
+  .map-wrap{position:relative;background:linear-gradient(160deg,rgba(251,246,236,.05),rgba(201,162,75,.06));
+    border:1px solid rgba(221,199,141,.22);border-radius:22px;padding:14px}
+  .map-wrap svg{width:100%;height:auto;display:block;overflow:visible}
+  .mp-bg-water{fill:url(#water)}
+  .mp-park{fill:rgba(126,139,78,.5)}
+  .mp-bld{fill:rgba(221,199,141,.16);stroke:rgba(221,199,141,.3);stroke-width:1}
+  .mp-path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .mp-direct{stroke:var(--gold-lite);stroke-width:4;stroke-dasharray:7 9;opacity:.35;transition:opacity .5s,stroke-width .5s}
+  .mp-scenic{stroke:var(--rose);stroke-width:4;stroke-dasharray:7 9;opacity:.35;transition:opacity .5s,stroke-width .5s}
+  .map-wrap[data-active="direct"] .mp-direct{opacity:1;stroke-width:5;stroke-dasharray:none;animation:dash 2.6s linear infinite}
+  .map-wrap[data-active="scenic"] .mp-scenic{opacity:1;stroke-width:5;stroke-dasharray:none;animation:dash 2.6s linear infinite}
+  .mp-flow{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:2 220;opacity:0;transition:opacity .4s}
+  .map-wrap[data-active="direct"] .mp-flow.direct{stroke:#fff;opacity:.9;animation:flow 2.4s linear infinite}
+  .map-wrap[data-active="scenic"] .mp-flow.scenic{stroke:#fff;opacity:.9;animation:flow 3s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-32}}
+  @keyframes flow{from{stroke-dashoffset:0}to{stroke-dashoffset:-444}}
+  .mk{fill:#FBF1DA;stroke:var(--burgundy-deep);stroke-width:2.5}
+  .mk-start{fill:var(--green)}.mk-end{fill:var(--gold)}
+  .mk-lbl{font-family:var(--fb);font-size:12px;font-weight:600;fill:#FBF1DA}
+  .mk-sub{font-family:var(--fb);font-size:9px;fill:rgba(251,241,218,.6)}
+
+  .route-toggle{display:flex;gap:8px;margin-bottom:18px}
+  .rt-btn{flex:1;background:rgba(251,246,236,.06);border:1px solid rgba(221,199,141,.28);color:var(--cream);
+    border-radius:12px;padding:11px 8px;font-family:var(--fb);font-weight:600;font-size:13px;cursor:pointer;
+    transition:all .3s var(--ease);display:flex;flex-direction:column;gap:2px;align-items:center}
+  .rt-btn .rt-time{font-size:11px;font-weight:400;color:var(--gold-lite);opacity:.8}
+  .rt-btn[aria-pressed="true"]{background:linear-gradient(120deg,rgba(201,162,75,.3),rgba(201,162,75,.12));
+    border-color:var(--gold-lite);box-shadow:0 8px 24px -8px rgba(201,162,75,.5)}
+  .route-card{border:1px solid rgba(221,199,141,.22);border-radius:16px;padding:20px;margin-bottom:14px;
+    background:rgba(251,246,236,.04);transition:all .4s var(--ease)}
+  .route-card[hidden]{display:none}
+  .route-card .rc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .route-card h3{font-family:var(--fd);text-transform:uppercase;letter-spacing:.04em;font-size:20px;color:var(--gold-lite)}
+  .route-card .rc-time{font-family:var(--fb);font-weight:600;font-size:13px;color:var(--cream);
+    background:rgba(201,162,75,.18);border:1px solid rgba(221,199,141,.4);border-radius:30px;padding:4px 12px;white-space:nowrap}
+  .route-card p{font-size:14.5px;color:rgba(247,240,226,.82);line-height:1.5}
+  .route-note{font-family:var(--fc);font-size:20px;color:var(--gold-lite);text-align:center;margin-top:6px}
+  .route-note svg{width:18px;height:18px;vertical-align:-3px;margin-right:4px}
+
+  /* ---------- EXPECT ---------- */
+  .expect{background:var(--paper)}
+  .feat{display:grid;grid-template-columns:1fr;gap:16px;margin-top:36px}
+  .fcard{display:flex;gap:16px;align-items:flex-start;background:var(--cream);border:1px solid rgba(110,74,46,.12);
+    border-radius:18px;padding:20px 18px;box-shadow:0 14px 30px -22px rgba(58,16,25,.35)}
+  .ficon{flex-shrink:0;width:50px;height:50px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(140deg,var(--burgundy),var(--burgundy-soft));color:var(--gold-lite)}
+  .ficon svg{width:25px;height:25px}
+  .fcard h3{font-family:var(--fs);font-weight:600;font-size:21px;line-height:1.1;margin-bottom:3px;color:var(--ink)}
+  .fcard p{font-size:14.5px;color:#5d4a44}
+  .feat-foot{font-family:var(--fc);font-size:clamp(26px,7vw,38px);color:var(--burgundy);text-align:center;margin-top:34px}
+
+  /* ---------- VIDEO MOMENT ---------- */
+  .moment{background:var(--burgundy-deep);padding:0}
+  .moment-stage{position:relative;min-height:74svh;display:flex;align-items:flex-end;overflow:hidden}
+  .moment-stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .moment-stage::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to top,rgba(36,10,16,.9),rgba(58,16,25,.25) 55%,rgba(58,16,25,.55))}
+  .moment-c{position:relative;z-index:2;color:var(--cream);padding:40px 24px;width:100%;max-width:var(--maxw);margin:0 auto}
+  .moment-c .m-script{font-family:var(--fc);font-size:clamp(28px,8vw,46px);color:var(--gold-lite);line-height:1}
+  .moment-c .m-tag{font-family:var(--fd);text-transform:uppercase;letter-spacing:.12em;font-size:clamp(20px,6vw,34px);
+    margin-top:6px;color:#FBF1DA}
+
+  /* ---------- DRESSCODE ---------- */
+  .dress{background:var(--cream);text-align:center}
+  .dress .lead{margin:0 auto}
+  .swatches{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px}
+  .sw{display:flex;flex-direction:column;align-items:center;gap:9px;cursor:default}
+  .sw .chip{width:62px;height:62px;border-radius:50%;box-shadow:0 10px 22px -8px rgba(0,0,0,.4);
+    border:3px solid #fff;transition:transform .4s var(--ease)}
+  .sw:hover .chip{transform:translateY(-6px) scale(1.06)}
+  .sw span{font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5d4a44}
+  .dress-script{font-family:var(--fc);font-size:clamp(30px,9vw,48px);color:var(--burgundy);margin-bottom:6px}
+
+  /* ---------- TICKETS ---------- */
+  .tickets{background:linear-gradient(165deg,var(--burgundy) 0%,var(--burgundy-deep) 100%);color:var(--cream)}
+  .tickets h2{color:#FBF1DA}.tickets .kicker{color:var(--gold-lite)}
+  .ticket-card{max-width:430px;margin:34px auto 0;background:var(--paper);color:var(--ink);border-radius:24px;
+    overflow:hidden;box-shadow:0 36px 70px -30px rgba(0,0,0,.6);border:1px solid rgba(221,199,141,.4)}
+  .tc-head{background:linear-gradient(135deg,var(--burgundy-deep),var(--burgundy));color:var(--cream);padding:22px 24px;position:relative}
+  .tc-head::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:20px;
+    background:radial-gradient(circle at 12px -2px,transparent 10px,var(--paper) 11px) repeat-x;background-size:24px 20px}
+  .tc-head .tc-name{font-family:var(--fs);font-weight:600;font-size:23px;line-height:1.05}
+  .tc-head .tc-sub{font-size:12.5px;color:var(--gold-lite);letter-spacing:.04em;margin-top:2px}
+  .tc-body{padding:22px 24px 26px}
+  .tc-price{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+  .tc-price .amt{font-family:var(--fd);font-size:52px;line-height:.9;color:var(--burgundy)}
+  .tc-price .per{font-size:14px;color:var(--muted)}
+  .tc-incl{list-style:none;margin:18px 0;display:flex;flex-direction:column;gap:11px}
+  .tc-incl li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#3f2c28}
+  .tc-incl svg{width:19px;height:19px;color:var(--green);flex-shrink:0;margin-top:1px}
+  .qty{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);
+    border:1px solid rgba(110,74,46,.18);border-radius:14px;padding:10px 14px;margin:6px 0 16px}
+  .qty .q-lbl{font-size:13px;font-weight:600;color:#5d4a44}
+  .qty .q-ctrl{display:flex;align-items:center;gap:14px}
+  .qbtn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(92,26,43,.3);background:#fff;color:var(--burgundy);
+    font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .2s,background .2s}
+  .qbtn:active{transform:scale(.9)}
+  .qbtn:disabled{opacity:.35;cursor:not-allowed}
+  .qty .q-val{font-family:var(--fd);font-size:22px;min-width:26px;text-align:center;color:var(--ink)}
+  .pay-btn{width:100%;background:linear-gradient(120deg,#E9CF8F,#C9A24B);color:#3A1019;font-size:17px;font-weight:600;
+    padding:17px;border-radius:15px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+    box-shadow:0 14px 30px -8px rgba(201,162,75,.55);transition:transform .25s,box-shadow .3s}
+  .pay-btn:active{transform:scale(.98)}
+  .pay-btn svg{width:20px;height:20px}
+  .pay-note{text-align:center;font-size:12px;color:var(--muted);margin-top:12px;line-height:1.45}
+  .pay-note b{color:#3f2c28}
+  .tc-secure{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--muted);margin-top:10px}
+  .tc-secure svg{width:14px;height:14px;color:var(--green)}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--paper)}
+  .acc{max-width:680px;margin:30px auto 0}
+  .ai{border-bottom:1px solid rgba(110,74,46,.16)}
+  .aq{width:100%;text-align:left;background:none;border:0;cursor:pointer;padding:18px 2px;display:flex;
+    align-items:center;justify-content:space-between;gap:14px;font-family:var(--fs);font-weight:600;font-size:20px;color:var(--ink)}
+  .aq .pm{flex-shrink:0;width:24px;height:24px;position:relative;transition:transform .35s var(--ease)}
+  .aq .pm::before,.aq .pm::after{content:"";position:absolute;background:var(--burgundy);border-radius:2px}
+  .aq .pm::before{top:11px;left:3px;right:3px;height:2px}
+  .aq .pm::after{left:11px;top:3px;bottom:3px;width:2px;transition:opacity .35s}
+  .ai.open .pm{transform:rotate(90deg)}
+  .ai.open .pm::after{opacity:0}
+  .aa{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+  .aa p{padding:0 2px 18px;font-size:15px;color:#5d4a44;max-width:60ch}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--burgundy-deep);color:var(--cream);text-align:center;padding:54px 22px calc(40px + env(safe-area-inset-bottom))}
+  footer .f-brand{font-family:var(--fs);font-weight:600;letter-spacing:.2em;font-size:26px;color:#FBF1DA}
+  footer .f-sub{font-family:var(--fc);font-size:22px;color:var(--gold-lite);margin:2px 0 22px}
+  .f-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;margin-bottom:22px}
+  .f-links a{font-size:13px;font-weight:600;color:var(--cream);border:1px solid rgba(221,199,141,.32);
+    border-radius:30px;padding:9px 16px;transition:background .3s,transform .2s;display:inline-flex;align-items:center;gap:7px}
+  .f-links a:active{transform:scale(.96)}
+  .f-links a svg{width:16px;height:16px}
+  .f-tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lite);opacity:.85}
+  .f-fine{font-size:11px;color:rgba(247,240,226,.45);margin-top:14px}
+
+  /* ---------- sticky mobile CTA ---------- */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:35;transform:translateY(120%);transition:transform .45s var(--ease);
+    background:rgba(58,16,25,.94);backdrop-filter:blur(10px);border-top:1px solid rgba(221,199,141,.3);
+    padding:11px 16px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .sticky.show{transform:none}
+  .sticky .s-info{color:var(--cream);line-height:1.1}
+  .sticky .s-info b{font-family:var(--fd);font-size:16px;letter-spacing:.02em;color:var(--gold-lite)}
+  .sticky .s-info span{display:block;font-size:11px;color:rgba(247,240,226,.7)}
+  .sticky .btn-gold{padding:13px 20px;font-size:14.5px;box-shadow:none}
+
+  /* ---------- responsive ---------- */
+  @media(min-width:760px){
+    .intro-grid{grid-template-columns:.85fr 1.15fr;gap:54px}
+    .glass-frame{width:300px}
+    .route-grid{grid-template-columns:1fr 1fr;gap:48px}
+    .feat{grid-template-columns:1fr 1fr;gap:20px}
+    .sticky{display:none}
+  }
+  @media(min-width:1000px){
+    .feat{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition-duration:.001s!important}
+    .rv{opacity:1;transform:none}
+    .hero-vid{opacity:.22}
+  }
+</style>
+</head>
+<body>
+
+<!-- PostHog (same project as main funnel) -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,
+    autocapture:true,session_recording:{maskAllInputs:true}});
+  posthog.register({landing_variant:'wine-walk'});}catch(e){}
+</script>
+
+<header class="top" id="top">
+  <a class="brand" href="../" aria-label="TRIBE Startseite">
+    <span class="b1">TRIBE</span><span class="b2">Wine&nbsp;Walk</span>
+  </a>
+  <a class="navcta" href="#tickets" data-cta="nav">Ticket · €25</a>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <video class="hero-vid" src="../assets/wine/cheers.mp4" poster="../assets/wine/cheers.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="hero-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+  <div class="hero-scrim"></div>
+  <div class="grain"></div>
+
+  <div class="hero-c">
+    <div class="eyebrow rv in">Die Alternative zum Social Warm-Up</div>
+    <div class="hero-tribe rv in d1">TRIBE</div>
+    <h1 class="hero-h1 rv in d1"><span>WINE</span><span>WALK</span></h1>
+    <div class="hero-tag rv in d2">Walk <i>·</i> Sip <i>·</i> Connect</div>
+    <div class="hero-script rv in d2">Good wine. Good people. Good vibes.</div>
+
+    <div class="date-chip rv in d3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4" stroke-linecap="round"/></svg>
+      <div><div class="dc-main">Freitag oder Samstag · Sommer 2026</div><div class="dc-sub">Save the date!</div></div>
+    </div>
+
+    <div class="hero-cta rv in d4">
+      <a class="btn btn-gold" href="#tickets" data-cta="hero">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V7l-3 2-2-3-2 3-2-3-2 3-2-3-2 3-3-2v1l1 9a2 2 0 002 2h12a2 2 0 002-2l1-9zM5 19v1a1 1 0 001 1h12a1 1 0 001-1v-1H5z"/></svg>
+        Ticket sichern · €25
+      </a>
+      <a class="btn btn-ghost" href="#route">So läuft's</a>
+    </div>
+  </div>
+  <a class="scrolldown" href="#intro" aria-label="Weiter">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="sec intro" id="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="glass-frame rv">
+        <img src="../assets/wine/glass.webp" alt="Hand hält ein TRIBE-Weinglas mit Rotwein im warmen Abendlicht">
+        <div class="glass-cap">Bring your glass.</div>
+      </div>
+      <div class="intro-txt">
+        <div class="kicker rv">Tribe Together</div>
+        <p class="big rv d1">Ein Spaziergang. Feine Weine.<br>Gute Gespräche. Schöne Ausblicke.</p>
+        <p class="rv d2">Gemeinsam laufen, genießen und den Abend in bester Gesellschaft ausklingen lassen. Kein Smalltalk-Zwang, kein Programm-Stress — einfach loslaufen, das Glas heben und neue Leute treffen.</p>
+        <p class="rv d2">Wir starten im Grünen, ziehen durch die Stadt und lassen den Abend am Wasser ausklingen. Du musst niemanden kennen — die meisten kommen allein.</p>
+        <div class="pull rv d3">TRIBE. <em>TOGETHER.</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROUTE ============ -->
+<section class="sec route" id="route">
+  <div class="wrap">
+    <div class="kicker rv">Die Route</div>
+    <h2 class="rv d1">Du hast die <span class="script" style="color:var(--gold-lite)">Wahl</span></h2>
+    <p class="lead rv d2" style="color:rgba(247,240,226,.8);margin-top:14px">Vom Bürgerpark zum Obersee — entspannt direkt oder als längere Scenic Route durch die Stadt. Tippe und sieh die Wege.</p>
+
+    <div class="route-grid">
+      <div class="map-wrap rv d1" data-active="scenic" id="mapWrap">
+        <svg viewBox="0 0 360 470" role="img" aria-label="Stilisierte Karte der Wine-Walk-Route vom Bürgerpark zum Obersee">
+          <defs>
+            <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#3b5a6b"/><stop offset="1" stop-color="#24414f"/>
+            </linearGradient>
+          </defs>
+          <!-- park (top) -->
+          <ellipse class="mp-park" cx="92" cy="64" rx="78" ry="42" opacity=".6"/>
+          <circle cx="56" cy="46" r="9" fill="rgba(126,139,78,.85)"/><circle cx="78" cy="36" r="7" fill="rgba(126,139,78,.7)"/>
+          <circle cx="118" cy="44" r="8" fill="rgba(126,139,78,.75)"/><circle cx="100" cy="78" r="6" fill="rgba(126,139,78,.6)"/>
+          <!-- city blocks (mid) -->
+          <rect class="mp-bld" x="40" y="210" width="26" height="26" rx="3"/>
+          <rect class="mp-bld" x="74" y="224" width="20" height="22" rx="3"/>
+          <rect class="mp-bld" x="150" y="232" width="30" height="24" rx="3"/>
+          <rect class="mp-bld" x="186" y="246" width="18" height="18" rx="3"/>
+          <!-- water (bottom) -->
+          <path class="mp-bg-water" d="M150 470 q-40 -70 30 -118 q70 -44 150 -2 q40 90 -20 120 z" opacity=".9"/>
+          <!-- routes -->
+          <path class="mp-path mp-scenic" d="M92 64 C 30 140, 40 210, 110 244 S 220 300, 268 408"/>
+          <path class="mp-path mp-direct" d="M92 64 C 130 170, 200 300, 268 408"/>
+          <path class="mp-path mp-flow scenic" d="M92 64 C 30 140, 40 210, 110 244 S 220 300, 268 408"/>
+          <path class="mp-path mp-flow direct" d="M92 64 C 130 170, 200 300, 268 408"/>
+          <!-- intermediate markers -->
+          <circle class="mk" cx="78" cy="232" r="5"/><text class="mk-sub" x="14" y="200">Fußgängerzone</text>
+          <circle class="mk" cx="165" cy="244" r="5"/><text class="mk-sub" x="150" y="278">Lokschuppen</text>
+          <!-- start / end -->
+          <circle class="mk mk-start" cx="92" cy="64" r="9"/>
+          <text class="mk-lbl" x="108" y="60">Bürgerpark</text><text class="mk-sub" x="108" y="74">Start</text>
+          <circle class="mk mk-end" cx="268" cy="408" r="10"/>
+          <text class="mk-lbl" x="200" y="436" text-anchor="middle">Obersee</text><text class="mk-sub" x="200" y="450" text-anchor="middle">Ziel · Ausklang am Wasser</text>
+        </svg>
+      </div>
+
+      <div>
+        <div class="route-toggle rv d2" role="group" aria-label="Route wählen">
+          <button class="rt-btn" id="btnDirect" aria-pressed="false" data-route="direct">Direkter Weg<span class="rt-time">ca. 1:15 h</span></button>
+          <button class="rt-btn" id="btnScenic" aria-pressed="true" data-route="scenic">Scenic Route<span class="rt-time">ca. 2:00 h</span></button>
+        </div>
+
+        <div class="route-card rv d3" id="cardDirect" hidden>
+          <div class="rc-top"><h3>Direkter Weg</h3><span class="rc-time">ca. 1:15 h</span></div>
+          <p>Für alle, die's entspannt mögen. Direkt vom Bürgerpark zum Obersee — laut Google Maps gut 1:15&nbsp;h. Kurz, schön, geradeaus zum Wasser.</p>
+        </div>
+        <div class="route-card rv d3" id="cardScenic">
+          <div class="rc-top"><h3>Scenic Route</h3><span class="rc-time">ca. 2:00 h</span></div>
+          <p>Für alle, die mehr erleben wollen. Über die Fußgängerzone und am Lokschuppen vorbei — mehr Stadt, mehr Natur, mehr zu sehen. Die längere, aber schönere Route.</p>
+        </div>
+
+        <p class="route-note rv d4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4"/></svg>
+          Start im Bürgerpark · Ziel am Obersee — oder anders herum, je nach Vibe.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPECT ============ -->
+<section class="sec expect" id="expect">
+  <div class="wrap">
+    <div class="kicker center rv" style="text-align:center">Was dich erwartet</div>
+    <h2 class="rv d1" style="text-align:center">Mehr als ein Spaziergang</h2>
+    <div class="feat">
+      <div class="fcard rv">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10l-1 7a4 4 0 01-3 3.9V19h3v2H8v-2h3v-6.1A4 4 0 018 9L7 2zm2.2 2l.5 3.5h4.6L14.8 4H9.2z"/></svg></div>
+        <div><h3>Ausgewählte Weine</h3><p>An kleinen Stopps entlang der Route — gut ausgesucht, in lockerer Runde verkostet.</p></div>
+      </div>
+      <div class="fcard rv d1">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 4V6a2 2 0 012-2zm3 5v2h10V9H7zm0 3.5V14h7v-1.5H7z"/></svg></div>
+        <div><h3>Gute Gespräche</h3><p>Zeit für neue Leute. Beim Laufen redet es sich leichter — niemand bleibt allein.</p></div>
+      </div>
+      <div class="fcard rv">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-3.9 0-7 3.1-7 7 0 .7.1 1.4.3 2H3v2h3.3A7 7 0 0013 17v4h2v-4a7 7 0 100-14zm0 2a5 5 0 110 10 5 5 0 010-10z"/></svg></div>
+        <div><h3>Bewegung & Stadtflair</h3><p>Bewegung, Natur und ein bisschen Bielefeld — Park, Stadt und Wasser an einem Abend.</p></div>
+      </div>
+      <div class="fcard rv d1">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v2H3v-2zm9-13a5 5 0 015 5h-2a3 3 0 00-6 0H7a5 5 0 015-5zM2 14h20v2H2v-2z"/></svg></div>
+        <div><h3>Ausklang am Wasser</h3><p>Gemeinsamer Abschluss am Obersee — anstoßen, durchatmen, den Abend genießen.</p></div>
+      </div>
+    </div>
+    <div class="feat-foot rv">Bring your glass. Bring your tribe.</div>
+  </div>
+</section>
+
+<!-- ============ VIDEO MOMENT ============ -->
+<section class="moment" id="moment" aria-label="Momente vom Wine Walk">
+  <div class="moment-stage">
+    <video src="../assets/wine/cheers.mp4" poster="../assets/wine/cheers.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="moment-c">
+      <div class="m-script rv">Momente festhalten,<br>Erinnerungen teilen</div>
+      <div class="m-tag rv d1">#TRIBEWINEWALK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DRESSCODE ============ -->
+<section class="sec dress" id="dress">
+  <div class="wrap">
+    <div class="kicker center rv" style="text-align:center">Dresscode</div>
+    <div class="dress-script rv d1">Wir tragen Wein</div>
+    <p class="lead rv d2">Komm in deinen Lieblingsfarben des Weins — für ein schönes Gesamtbild und gute Stimmung.</p>
+    <div class="swatches rv d2">
+      <div class="sw"><span class="chip" style="background:#5C1A2B"></span><span>Burgunder</span></div>
+      <div class="sw"><span class="chip" style="background:#E3A89E"></span><span>Rosé</span></div>
+      <div class="sw"><span class="chip" style="background:#DDC78D"></span><span>Goldweiß</span></div>
+      <div class="sw"><span class="chip" style="background:#7E8B4E"></span><span>Grün</span></div>
+      <div class="sw"><span class="chip" style="background:#6E4A2E"></span><span>Braun</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKETS ============ -->
+<section class="sec tickets" id="tickets">
+  <div class="wrap">
+    <div class="kicker center rv" style="text-align:center">Tickets</div>
+    <h2 class="rv d1" style="text-align:center">Sei dabei</h2>
+    <div class="ticket-card rv d2">
+      <div class="tc-head">
+        <div class="tc-name">TRIBE Wine Walk</div>
+        <div class="tc-sub">Bürgerpark → Obersee · Sommer 2026</div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-price"><span class="amt">€25</span><span class="per">/ Person</span></div>
+        <ul class="tc-incl">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ausgewählte Weine an mehreren Stopps</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Geführte Route Bürgerpark → Obersee</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Gemeinsamer Ausklang am Wasser</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>Teil der TRIBE-Community in Bielefeld</li>
+        </ul>
+        <div class="qty">
+          <span class="q-lbl">Anzahl Tickets</span>
+          <div class="q-ctrl">
+            <button class="qbtn" id="qMinus" aria-label="weniger" disabled>−</button>
+            <span class="q-val" id="qVal">1</span>
+            <button class="qbtn" id="qPlus" aria-label="mehr">+</button>
+          </div>
+        </div>
+        <button class="pay-btn" id="payBtn" data-cta="pay">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h7.5c2.7 0 4.5 1.6 4.1 4.3-.4 2.6-2.4 4-5.1 4H10l-.8 5H6L7 4zm2.6 2l-.5 3.3h2.6c1.2 0 2-.5 2.2-1.6.2-1.2-.5-1.7-1.7-1.7H9.6z" opacity=".55"/><path d="M5 7h7.5c2.7 0 4.5 1.6 4.1 4.3-.4 2.6-2.4 4-5.1 4H8l-.8 5H4L5 7zm2.6 2l-.5 3.3h2.6c1.2 0 2-.5 2.2-1.6.2-1.2-.5-1.7-1.7-1.7H7.6z"/></svg>
+          <span id="payLabel">Mit PayPal bezahlen · €25</span>
+        </button>
+        <div class="tc-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Sichere Zahlung über PayPal · begrenzte Plätze</div>
+        <p class="pay-note" id="payNote"><b>So geht's:</b> Anzahl wählen, bezahlen — deinen Platz bestätigen wir per WhatsApp. Den finalen Termin (Fr/Sa im Sommer 2026) bekommst du rechtzeitig in der Gruppe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <div class="kicker center rv" style="text-align:center">Gut zu wissen</div>
+    <h2 class="rv d1" style="text-align:center">Häufige Fragen</h2>
+    <div class="acc">
+      <div class="ai rv"><button class="aq" aria-expanded="false">Was ist im Ticket enthalten?<span class="pm"></span></button><div class="aa"><p>Ausgewählte Weine an mehreren Stopps entlang der Route, die geführte Strecke vom Bürgerpark zum Obersee und der gemeinsame Ausklang am Wasser. Snacks & weitere Getränke gibt's unterwegs zum Selbstkauf.</p></div></div>
+      <div class="ai rv"><button class="aq" aria-expanded="false">Ich kenne niemanden — kann ich trotzdem kommen?<span class="pm"></span></button><div class="aa"><p>Genau dafür gibt's den Wine Walk. Die meisten kommen allein. Beim Laufen kommt man ganz natürlich ins Gespräch — niemand bleibt allein stehen.</p></div></div>
+      <div class="ai rv"><button class="aq" aria-expanded="false">Wann genau ist der Termin?<span class="pm"></span></button><div class="aa"><p>Freitag oder Samstag im Sommer 2026. Der finale Termin steht kurz vorher fest — sichere dir jetzt deinen Platz, das genaue Datum bekommst du rechtzeitig per WhatsApp.</p></div></div>
+      <div class="ai rv"><button class="aq" aria-expanded="false">Was, wenn das Wetter nicht mitspielt?<span class="pm"></span></button><div class="aa"><p>Bei schlechtem Wetter verschieben wir und informieren dich rechtzeitig in der WhatsApp-Gruppe. Dein Ticket bleibt natürlich gültig.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="f-brand">TRIBE</div>
+  <div class="f-sub">Wine Walk</div>
+  <div class="f-links">
+    <a href="#tickets" data-cta="footer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V7l-3 2-2-3-2 3-2-3-2 3-2-3-2 3-3-2v1l1 9a2 2 0 002 2h12a2 2 0 002-2l1-9z"/></svg>Ticket sichern · €25</a>
+    <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.9 7.9 0 0012 4C7.6 4 4 7.6 4 12c0 1.4.4 2.8 1.1 4L4 20l4.1-1.1A7.9 7.9 0 0012 19.9c4.4 0 8-3.6 8-8 0-2.1-.8-4.1-2.4-5.6z"/></svg>WhatsApp-Community</a>
+    <a href="../">← Zur TRIBE-Startseite</a>
+  </div>
+  <div class="f-tag">Bielefeld · #TribeWineWalk · Sommer 2026</div>
+  <div class="f-fine">TRIBE Wine Walk — mehr als ein Spaziergang. Ein Erlebnis.</div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="sticky" id="sticky">
+  <div class="s-info"><b>Wine Walk · €25</b><span>Walk · Sip · Connect · Sommer 2026</span></div>
+  <a class="btn btn-gold" href="#tickets" data-cta="sticky">Ticket sichern</a>
+</div>
+
+<script>
+/* ============ PAYMENT CONFIG — hier dein PayPal eintragen ============ */
+/*  paypalUser: deine PayPal.Me-Kennung (paypal.me/DEINEKENNUNG).
+    Leer lassen => Button leitet sicher in die WhatsApp-Gruppe (kein toter Link).
+    customPayUrl: optional kompletter Zahllink (z.B. ein PayPal-Button/Stripe-Link); hat Vorrang.  */
+const WINE = {
+  paypalUser: "",
+  price: 25,
+  currency: "EUR",
+  customPayUrl: "",
+  whatsapp: "https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL",
+  maxQty: 12
+};
+
+/* ---- reveal on scroll ---- */
+(function(){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.12});
+  document.querySelectorAll('.rv:not(.in)').forEach(function(el){ io.observe(el); });
+})();
+
+/* ---- top bar solid + sticky CTA ---- */
+(function(){
+  var top=document.getElementById('top'), sticky=document.getElementById('sticky'),
+      tickets=document.getElementById('tickets');
+  function onScroll(){
+    var y=window.scrollY;
+    top.classList.toggle('solid', y>40);
+    var pastHero=y>window.innerHeight*0.85;
+    var nearTickets=tickets.getBoundingClientRect().top < window.innerHeight*0.9;
+    sticky.classList.toggle('show', pastHero && !nearTickets);
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+
+/* ---- route toggle ---- */
+(function(){
+  var map=document.getElementById('mapWrap'),
+      bD=document.getElementById('btnDirect'), bS=document.getElementById('btnScenic'),
+      cD=document.getElementById('cardDirect'), cS=document.getElementById('cardScenic');
+  function set(route){
+    map.setAttribute('data-active',route);
+    var direct=route==='direct';
+    bD.setAttribute('aria-pressed',direct); bS.setAttribute('aria-pressed',!direct);
+    cD.hidden=!direct; cS.hidden=direct;
+    try{posthog.capture('wine_route_toggle',{route:route});}catch(e){}
+  }
+  bD.addEventListener('click',function(){set('direct');});
+  bS.addEventListener('click',function(){set('scenic');});
+})();
+
+/* ---- FAQ accordion ---- */
+document.querySelectorAll('.ai .aq').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=btn.closest('.ai'), body=item.querySelector('.aa'), open=item.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+    body.style.maxHeight = open ? body.scrollHeight+'px' : 0;
+  });
+});
+
+/* ---- tickets: qty + total + pay ---- */
+(function(){
+  var qty=1, qVal=document.getElementById('qVal'),
+      minus=document.getElementById('qMinus'), plus=document.getElementById('qPlus'),
+      payLabel=document.getElementById('payLabel'), payBtn=document.getElementById('payBtn'),
+      payNote=document.getElementById('payNote');
+  var usingPaypal = !!(WINE.customPayUrl || WINE.paypalUser);
+
+  function fmt(n){ return '€'+n; }
+  function render(){
+    var total=WINE.price*qty;
+    qVal.textContent=qty;
+    minus.disabled = qty<=1; plus.disabled = qty>=WINE.maxQty;
+    payLabel.textContent = usingPaypal ? ('Mit PayPal bezahlen · '+fmt(total)) : ('Platz sichern · '+fmt(total));
+  }
+  minus.addEventListener('click',function(){ if(qty>1){qty--;render();} });
+  plus.addEventListener('click',function(){ if(qty<WINE.maxQty){qty++;render();} });
+
+  if(!usingPaypal){
+    payNote.innerHTML='<b>Plätze sind begrenzt.</b> Tippe auf „Platz sichern" — du landest direkt in unserer WhatsApp-Gruppe und wir klären die Zahlung (€25/Person) persönlich. Termin (Fr/Sa, Sommer 2026) folgt dort.';
+  }
+
+  payBtn.addEventListener('click',function(){
+    var total=WINE.price*qty, url;
+    if(WINE.customPayUrl){ url=WINE.customPayUrl; }
+    else if(WINE.paypalUser){ url='https://www.paypal.com/paypalme/'+encodeURIComponent(WINE.paypalUser)+'/'+total+WINE.currency; }
+    else { url=WINE.whatsapp; }
+    try{posthog.capture('wine_pay_click',{qty:qty,total:total,method:WINE.customPayUrl?'custom':(WINE.paypalUser?'paypal':'whatsapp_fallback')});}catch(e){}
+    window.open(url,'_blank','noopener');
+  });
+
+  render();
+})();
+
+/* ---- dwell tracking (matches main funnel naming) ---- */
+(function(){
+  var t0=Date.now(), paid=false;
+  document.querySelectorAll('[data-cta]').forEach(function(a){
+    a.addEventListener('click',function(){
+      try{posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'wine-walk'});}catch(e){}
+    });
+  });
+  document.getElementById('payBtn').addEventListener('click',function(){paid=true;});
+  function bye(){try{posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:paid,landing_variant:'wine-walk'});}catch(e){}}
+  addEventListener('pagehide',bye);
+  addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye();});
+})();
+</script>
+</body>
+</html>
