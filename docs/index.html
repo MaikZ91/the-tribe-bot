@@ -53,6 +53,28 @@
   .ticker .cd{color:var(--amber)}
   .ticker b{color:var(--amber);font-weight:700}
 
+  /* community-driven events — dezenter Auto-Marquee unter der Top-Bar */
+  .events{position:absolute;left:0;right:0;z-index:5;
+    top:calc(max(13px,env(safe-area-inset-top)) + 34px);
+    padding:7px 0;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);
+            mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent)}
+  .events .lbl{display:block;text-align:center;font-size:9px;font-weight:700;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:.85;margin-bottom:6px}
+  .evtrack{display:flex;width:max-content;gap:8px;will-change:transform;
+    animation:evscroll 34s linear infinite}
+  .events:hover .evtrack{animation-play-state:paused}
+  @keyframes evscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .ev{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;
+    padding:5px 11px 5px 6px;border-radius:999px;
+    background:rgba(18,16,14,.52);backdrop-filter:blur(4px);
+    border:1px solid rgba(245,162,26,.22);
+    font-size:11.5px;font-weight:600;color:var(--text);white-space:nowrap}
+  .ev .ico{display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;background:rgba(245,162,26,.16);
+    font-size:12px;line-height:1;flex-shrink:0}
+  .ev:active{transform:scale(.97)}
+
   /* the staged statement */
   .c{position:relative;z-index:4;display:flex;flex-direction:column;
     padding:0 24px calc(26px + env(safe-area-inset-bottom));gap:clamp(11px,2.4vh,18px)}
@@ -139,6 +161,7 @@
     .bg{opacity:1;transform:none} .reveal,.dim,.guide,.cta{opacity:1;transform:none}
     .guide{display:none}
     .msg{position:static;opacity:1} .msg.m1{display:none}  /* nur Maik statisch */
+    .evtrack{animation:none!important;transform:none!important;flex-wrap:wrap;justify-content:center}
   }
   @media (min-width:560px){.stage,.top{max-width:480px;margin:0 auto}.top{left:50%;transform:translateX(-50%)}}
   @media (max-height:680px){.c{gap:10px;padding-bottom:20px}h1{font-size:clamp(34px,10vw,50px)}.guide{height:22px}}
@@ -163,6 +186,21 @@
     <span class="mark">THE&nbsp;TRIBE</span>
     <span class="ticker"><span class="d"></span>Social Warmup · <b>Bernstein</b> · <span id="evCd">Sa&nbsp;18:00</span></span>
   </div>
+
+  <nav class="events" aria-label="Community-Events jede Woche">
+    <span class="lbl">Community-driven · jede Woche</span>
+    <div class="evtrack" id="evtrack">
+      <a class="ev" href="wine-walk.html"><span class="ico">🍷</span>Wine Walk</a>
+      <a class="ev" href="events.html"><span class="ico">🌇</span>Rooftop Session</a>
+      <a class="ev" href="buchclub.html"><span class="ico">📖</span>Buchclub</a>
+      <a class="ev" href="events.html"><span class="ico">🎨</span>Creative Circle</a>
+      <a class="ev" href="events.html"><span class="ico">🤝</span>Kennenlernabend</a>
+      <a class="ev" href="events.html"><span class="ico">🎲</span>Spielabend</a>
+      <a class="ev" href="events.html"><span class="ico">🎸</span>Konzerte</a>
+      <a class="ev" href="events.html"><span class="ico">🎤</span>Jam Session</a>
+      <a class="ev" href="events.html"><span class="ico">🏃</span>Laufgruppe</a>
+    </div>
+  </nav>
 
   <div class="c">
     <div class="kick reveal">Neu in Bielefeld? Bock auszugehen?</div>
@@ -219,6 +257,11 @@
 </main>
 
 <script>
+  // Event-Marquee: Inhalt 1× klonen -> nahtloser -50%-Loop
+  (function(){var t=document.getElementById('evtrack');if(!t)return;
+    t.innerHTML+=t.innerHTML;
+    t.querySelectorAll('a').forEach(function(a,i){if(i>=t.children.length/2)a.setAttribute('aria-hidden','true');});})();
+
   // Live-Countdown bis nächsten Samstag 18:00
   (function(){
     var el=document.getElementById('evCd'); if(!el) return;
