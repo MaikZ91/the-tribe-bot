@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0807">
+<meta name="description" content="The Tribe Bielefeld — alle Events auf einen Blick: Social Warmup jede Woche, Wine Walk, Book Club und mehr. Komm raus, lern Leute kennen.">
+<title>The Tribe — Events in Bielefeld</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='white' text-anchor='middle' font-weight='900'>T</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Tribe — Events in Bielefeld">
+<meta property="og:description" content="Social Warmup, Wine Walk, Book Club & mehr. Such dir was aus und sei dabei.">
+<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/assets/gruppe.webp">
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="assets/gruppe.webp" fetchpriority="high">
+
+<style>
+  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+  :root{
+    --black:#0A0807; --amber:#F5A21A; --wa:#25D366; --wa-deep:#062c16;
+    --text:#F7F2EA; --muted:#A8A199; --line:rgba(247,242,234,.12);
+    --fd:"Anton","Arial Narrow",sans-serif;
+    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,.84,.34,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--black);color:var(--text);
+    -webkit-font-smoothing:antialiased;line-height:1.45;overscroll-behavior-y:none;
+    -webkit-tap-highlight-color:transparent}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:560px;margin:0 auto;position:relative}
+
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+
+  /* top bar */
+  .top{position:absolute;top:0;left:0;right:0;z-index:8;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0}
+  .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
+    color:var(--black);padding:5px 9px 3px;line-height:1}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;
+    background:rgba(10,8,7,.5);border:1px solid var(--line);padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px)}
+  .live .d{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:onpulse 2.4s ease-in-out infinite}
+  @keyframes onpulse{0%,100%{opacity:.4}50%{opacity:1}}
+  .live b{color:var(--amber);font-weight:700}
+
+  /* HERO */
+  .hero{position:relative;min-height:92svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+  .hero .scrim{position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(6,4,3,.98) 0%,rgba(6,4,3,.86) 28%,rgba(6,4,3,.5) 60%,rgba(6,4,3,.22) 100%)}
+  .hero .grain{position:absolute;inset:0;pointer-events:none;opacity:.45;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+  .hero .c{position:relative;z-index:3;padding:0 24px calc(30px + env(safe-area-inset-bottom))}
+  .kick{font-family:var(--fd);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+  h1{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:.004em;
+    font-size:clamp(40px,13vw,72px);line-height:.92;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+  h1 span{display:block}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lead{font-size:clamp(14.5px,4vw,16.5px);color:var(--text);max-width:32ch;margin-top:16px;opacity:.92}
+  .faces{display:flex;align-items:center;margin:16px 0 0}
+  .faces img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--black);margin-left:-9px}
+  .faces img:first-child{margin-left:0}
+  .faces .fw{margin-left:10px;font-size:13px;color:var(--text)}
+  .faces .fw b{color:var(--amber);font-family:var(--fd);font-size:1.18em;font-weight:400;vertical-align:-1px}
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;
+    background:var(--wa);color:var(--wa-deep);font-weight:700;font-size:16px;padding:16px 24px;border-radius:14px;
+    box-shadow:0 14px 34px -8px rgba(37,211,102,.5);transition:transform .2s var(--ease)}
+  .cta:active{transform:scale(.98)}
+  .cta svg{width:20px;height:20px}
+  .scrollcue{margin-top:22px;display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text);opacity:.62}
+  .scrollcue .ln{width:1px;height:28px;background:linear-gradient(var(--amber),transparent);position:relative;overflow:hidden}
+  .scrollcue .ln::after{content:"";position:absolute;left:0;top:-28px;width:1px;height:28px;background:linear-gradient(transparent,var(--amber));animation:flow 2.4s ease-in-out infinite}
+  @keyframes flow{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(56px);opacity:0}}
+
+  /* EVENTS */
+  .events{padding:46px 20px 14px}
+  .sec-h{font-family:var(--fd);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+    margin:0 4px 20px;display:flex;align-items:center;gap:12px}
+  .sec-h::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .card{display:block;position:relative;border-radius:18px;overflow:hidden;margin-bottom:16px;
+    min-height:228px;border:1px solid var(--line);background:#120E0B;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+  .card:active{transform:scale(.985)}
+  .card .cimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .card .cgrad{position:absolute;inset:0;
+    background:linear-gradient(105deg,rgba(8,6,5,.92) 6%,rgba(8,6,5,.66) 42%,rgba(8,6,5,.26) 100%),
+      linear-gradient(to top,rgba(8,6,5,.92) 0%,rgba(8,6,5,.2) 60%)}
+  .card .cbody{position:relative;z-index:2;height:100%;min-height:228px;display:flex;flex-direction:column;
+    justify-content:flex-end;padding:22px 20px 20px}
+  .card .ckick{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+    font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--black);
+    background:var(--accent);padding:5px 11px;border-radius:100px;margin-bottom:auto}
+  .card h3{font-family:var(--fd);font-size:clamp(30px,8vw,40px);text-transform:uppercase;letter-spacing:.01em;
+    line-height:.96;margin-top:14px}
+  .card .ctag{font-size:14px;color:var(--text);opacity:.9;margin-top:8px;max-width:34ch}
+  .card .meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .card .meta span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+    color:var(--text);background:rgba(247,242,234,.1);border:1px solid var(--line);padding:5px 10px;border-radius:8px}
+  .card .meta svg{width:13px;height:13px;color:var(--accent)}
+  .card .cgo{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;margin-top:16px;
+    font-size:13.5px;font-weight:700;color:var(--accent)}
+  .card .cgo svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .card:active .cgo svg{transform:translateX(3px)}
+  .card .accentbar{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);z-index:3}
+
+  /* book club card — no photo, styled bg */
+  .card--book{background:
+      radial-gradient(120% 90% at 88% 12%,rgba(214,162,58,.22),transparent 55%),
+      linear-gradient(135deg,#1E1711,#241B14 55%,#16110D)}
+  .card--book .deco{position:absolute;right:14px;top:0;bottom:0;display:flex;align-items:flex-start;gap:5px;
+    padding-top:24px;opacity:.9;z-index:1}
+  .card--book .deco i{display:block;width:20px;border-radius:2px 2px 0 0;align-self:flex-start;
+    box-shadow:inset -2px 0 4px rgba(0,0,0,.4)}
+
+  /* invite card */
+  .invite{border:1px dashed rgba(245,162,26,.45);border-radius:18px;padding:26px 22px;text-align:center;
+    background:radial-gradient(80% 80% at 50% 0%,rgba(245,162,26,.1),transparent 70%);margin-bottom:18px}
+  .invite h3{font-family:var(--fd);font-size:26px;text-transform:uppercase;letter-spacing:.02em}
+  .invite p{font-size:14px;color:var(--muted);margin-top:8px;max-width:36ch;margin-inline:auto}
+  .invite a{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;font-weight:700;
+    color:var(--amber)}
+  .invite a svg{width:17px;height:17px}
+
+  /* closing CTA */
+  .close{padding:30px 24px 18px;text-align:center}
+  .close .big{font-family:var(--fd);font-size:clamp(28px,8vw,40px);text-transform:uppercase;line-height:.98}
+  .close .big em{font-style:normal;color:var(--amber)}
+  .close p{font-size:14px;color:var(--muted);margin-top:12px;max-width:32ch;margin-inline:auto}
+  .close .cta{margin-top:20px}
+  .close .reassure{font-size:11.5px;color:var(--muted);margin-top:14px}
+  .close .reassure b{color:var(--text);font-weight:600}
+
+  footer{text-align:center;padding:26px 24px calc(38px + env(safe-area-inset-bottom));border-top:1px solid var(--line);margin-top:20px}
+  footer .copy{font-size:11px;color:var(--muted)}
+  footer .copy b{color:var(--text);font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}html{scroll-behavior:auto}
+    .rv{opacity:1;transform:none;transition:none}.scrollcue{display:none}
+  }
+  @media (min-width:560px){.top{left:50%;transform:translateX(-50%);max-width:560px}}
+</style>
+</head>
+<body>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,
+    autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
+  posthog.register({landing_variant:'events-hub'});}catch(e){}
+</script>
+
+<div class="wrap">
+
+  <header class="top">
+    <span class="mark">THE&nbsp;TRIBE</span>
+    <span class="live"><span class="d"></span>Nächstes: <b id="nextEv">Sa&nbsp;18:00</b></span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="bg" src="assets/gruppe.webp" alt="Die Tribe stößt gemeinsam vor der Sparrenburg in Bielefeld an" fetchpriority="high" decoding="async">
+    <div class="scrim"></div>
+    <div class="grain"></div>
+    <div class="c">
+      <div class="kick">Deine Community in Bielefeld</div>
+      <h1><span>Such dir</span><span>was <em>aus.</em></span></h1>
+      <p class="lead">Jede Woche, jeden Monat — echte Anlässe, gemeinsam loszuziehen. Du musst niemanden kennen. Komm einfach mit.</p>
+      <div class="faces">
+        <img src="assets/maik.webp" alt="Maik"><img src="assets/patrick.webp" alt="Patrick"><img src="assets/lena.webp" alt="Lena"><img src="assets/anna.webp" alt="Anna">
+        <span class="fw">Schon <b id="bigCount">139</b> dabei</span>
+      </div>
+      <a class="cta" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="hub-hero">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        Kostenlos in die WhatsApp-Gruppe
+      </a>
+      <div class="scrollcue">Alle Events<span class="ln"></span></div>
+    </div>
+  </section>
+
+  <!-- EVENTS LIST -->
+  <section class="events">
+    <h2 class="sec-h">Was läuft</h2>
+
+    <!-- Social Warmup -->
+    <a class="card rv" href="index.html" style="--accent:#F5A21A" data-cta="hub-social-warmup">
+      <img class="cimg" src="assets/hero-bg.jpg" alt="" decoding="async">
+      <div class="cgrad"></div>
+      <span class="accentbar"></span>
+      <div class="cbody">
+        <span class="ckick">★ Jede Woche</span>
+        <h3>Social Warmup</h3>
+        <p class="ctag">Der wöchentliche Einstieg in den Abend — danach ziehen wir gemeinsam weiter.</p>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Samstag 18:00</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg> Bernstein</span>
+        </div>
+        <span class="cgo">Mehr erfahren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Wine Walk -->
+    <a class="card rv" href="wine-walk.html" style="--accent:#D7B24C" data-cta="hub-wine-walk">
+      <img class="cimg" src="assets/wine/cheers.jpg" alt="" decoding="async">
+      <div class="cgrad"></div>
+      <span class="accentbar"></span>
+      <div class="cbody">
+        <span class="ckick">🍷 Sommer 2026</span>
+        <h3>Wine Walk</h3>
+        <p class="ctag">Walk. Sip. Connect. Ein Spaziergang mit feinen Weinen vom Bürgerpark zum Obersee.</p>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Fr/Sa · Sommer 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg> Bürgerpark → Obersee</span>
+        </div>
+        <span class="cgo">Zur Route <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Book Club -->
+    <a class="card card--book rv" href="buchclub.html" style="--accent:#D6A23A" data-cta="hub-buchclub">
+      <div class="deco" aria-hidden="true">
+        <i style="height:130px;background:#7C2B2E"></i>
+        <i style="height:158px;background:#2E3A2A"></i>
+        <i style="height:120px;background:#9c721f"></i>
+        <i style="height:150px;background:#5A3551"></i>
+      </div>
+      <span class="accentbar"></span>
+      <div class="cbody">
+        <span class="ckick">📖 Einmal im Monat</span>
+        <h3>Book Club</h3>
+        <p class="ctag">Lesen. Reden. Ankommen. Ein Buch, ein Glas und echte Gespräche.</p>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Monatlich</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h10v18H6a2 2 0 0 0-2 2z"/><path d="M16 3h2a2 2 0 0 1 2 2v14"/></svg> Buch wird gewählt</span>
+        </div>
+        <span class="cgo">Zum Lesekreis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Invite -->
+    <div class="invite rv">
+      <h3>Dein Event?</h3>
+      <p>Du hast eine Idee — Kino, Bouldern, Kochabend, Konzert? In der Gruppe entstehen ständig neue Pläne. Bring deine Idee mit.</p>
+      <a href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="hub-invite">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        Idee in der Gruppe teilen →
+      </a>
+    </div>
+
+    <!-- Premium upsell -->
+    <a class="card rv" href="premium.html" style="--accent:#E9C46A" data-cta="hub-premium">
+      <img class="cimg" src="assets/gruppe.webp" alt="" decoding="async">
+      <div class="cgrad"></div>
+      <span class="accentbar"></span>
+      <div class="cbody">
+        <span class="ckick">★ Premium · All-Access</span>
+        <h3>Tribe Premium</h3>
+        <p class="ctag">Alle exklusiven Events inklusive — Wine Walk, Tribe Concert, Supper Club &amp; mehr. Ab 49 €/Monat oder einzeln buchen.</p>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.7z"/></svg> 49 €/Monat</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> monatlich kündbar</span>
+        </div>
+        <span class="cgo">Premium entdecken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </a>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="close">
+    <div class="big">Ein <em>Tap</em> — und du bist drin.</div>
+    <p>Eine Community, alle Events. Tritt der kostenlosen WhatsApp-Gruppe bei und sei beim nächsten Mal dabei.</p>
+    <a class="cta rv" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="hub-closing">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+      Ich bin dabei — kostenlos beitreten
+    </a>
+    <div class="reassure"><b>Öffnet WhatsApp</b> · deine Nummer bleibt privat · nur mitlesen ok · jederzeit raus</div>
+  </section>
+
+  <footer>
+    <div class="copy"><b>The Tribe</b> · Bielefeld · komm raus, lern Leute kennen</div>
+  </footer>
+
+</div>
+
+<script>
+  // reveal
+  (function(){
+    var els=document.querySelectorAll('.rv');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  })();
+
+  // count-up for member count
+  window.addEventListener('load',function(){
+    var el=document.getElementById('bigCount'); if(!el) return;
+    var tgt=parseInt(el.textContent,10)||0, st=Math.max(tgt-20,0); el.textContent=st;
+    var t0=performance.now();
+    (function f(now){var p=Math.min(1,(now-t0)/650),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
+  });
+
+  // next Saturday 18:00 countdown in the ticker
+  (function(){
+    var el=document.getElementById('nextEv'); if(!el) return;
+    function nx(){var n=new Date(),d=new Date(n);d.setHours(18,0,0,0);
+      var a=(6-n.getDay()+7)%7; if(a===0&&n.getTime()>d.getTime())a=7; d.setDate(d.getDate()+a); return d;}
+    function cd(){var ms=nx()-new Date(); if(ms<=0) return 'heute 18:00';
+      var h=Math.floor(ms/3.6e6),dd=Math.floor(h/24),hh=h%24;
+      return dd>0?('Sa · in '+dd+' Tag'+(dd>1?'en':'')):('Sa · in '+hh+' Std');}
+    var flip=false;
+    function tick(){el.textContent=flip?cd():'Sa 18:00';flip=!flip;}
+    tick();setInterval(tick,3200);
+  })();
+
+  // CTA + dwell tracking (event names identical -> loop stays compatible)
+  (function(){
+    var clicked=false,t0=Date.now();
+    document.querySelectorAll('a[data-cta]').forEach(function(a){
+      a.addEventListener('click',function(){clicked=true;
+        try{window.posthog&&posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'events-hub'});}catch(e){}});
+    });
+    function bye(){try{window.posthog&&posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:clicked,landing_variant:'events-hub'});}catch(e){}}
+    addEventListener('pagehide',bye);
+    addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye();});
+  })();
+</script>
+</body>
+</html>

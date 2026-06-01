@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0807">
+<meta name="description" content="Tribe Premium — dein All-Access zu allen exklusiven Tribe-Events in Bielefeld. Wine Walk, Book Club, Pub Crawl, Techno & Paint, Tribe Concert. Einzeln buchen oder monatlich für 49 € alles inklusive. Basis bleibt kostenlos.">
+<title>Tribe Premium — Dein Zugang zu allem</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='%23E9C46A' text-anchor='middle' font-weight='900'>T</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tribe Premium — Dein Zugang zu allem">
+<meta property="og:description" content="All-Access zu allen exklusiven Tribe-Events in Bielefeld. Einzeln buchen oder 49 €/Monat alles inklusive. Basis bleibt kostenlos.">
+<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/assets/gruppe.webp">
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="assets/gruppe.webp" fetchpriority="high">
+
+<style>
+  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+  :root{
+    --black:#0A0807; --black2:#120E0B; --panel:#17120E; --panel2:#1E1712;
+    --amber:#F5A21A; --gold:#E9C46A; --gold-deep:#C9A24B; --gold-soft:#F0D699;
+    --wa:#25D366; --wa-deep:#062c16;
+    --text:#F7F2EA; --muted:#A8A199; --line:rgba(247,242,234,.12); --line2:rgba(233,196,106,.24);
+    --fd:"Anton","Arial Narrow",sans-serif;
+    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,.84,.34,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--black);color:var(--text);
+    -webkit-font-smoothing:antialiased;line-height:1.5;overscroll-behavior-y:none;
+    -webkit-tap-highlight-color:transparent}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:560px;margin:0 auto;position:relative}
+
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+
+  /* grain overlay reused across sections */
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:soft-light;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+
+  /* top bar */
+  .top{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;padding:max(12px,env(safe-area-inset-top)) 18px 12px;
+    transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+  .top.solid{background:rgba(10,8,7,.82);backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+  .top .brand{display:flex;align-items:center;gap:9px}
+  .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
+    color:var(--black);padding:5px 9px 3px;line-height:1}
+  .pbadge{font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--line2);padding:4px 8px 3px;border-radius:100px;
+    background:rgba(233,196,106,.07)}
+  .top .back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text);opacity:.85}
+  .top .back svg{width:15px;height:15px}
+
+  /* HERO */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 32%;z-index:0}
+  .hero .scrim{position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(120% 80% at 50% 22%,transparent 0%,rgba(8,6,4,.45) 64%,rgba(8,6,4,.86) 100%),
+      linear-gradient(to top,rgba(7,5,3,.98) 0%,rgba(7,5,3,.9) 30%,rgba(8,6,4,.5) 62%,rgba(20,12,4,.2) 100%)}
+  .hero .gleam{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(60% 38% at 50% 8%,rgba(233,196,106,.18),transparent 60%)}
+  .hero .c{position:relative;z-index:3;padding:0 24px calc(30px + env(safe-area-inset-bottom))}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--gold);opacity:.7}
+  h1{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:.004em;
+    font-size:clamp(44px,15vw,80px);line-height:.9;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+  h1 span{display:block}
+  h1 em{font-style:normal;color:var(--gold);
+    background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hlead{font-size:clamp(15px,4.1vw,17px);color:var(--text);max-width:33ch;margin-top:18px;opacity:.92}
+  .hlead b{color:var(--gold-soft);font-weight:600}
+  .faces{display:flex;align-items:center;margin:18px 0 0}
+  .faces img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid var(--black);margin-left:-9px}
+  .faces img:first-child{margin-left:0}
+  .faces .fw{margin-left:11px;font-size:13px;color:var(--text)}
+  .faces .fw b{color:var(--gold);font-family:var(--fd);font-size:1.18em;font-weight:400;vertical-align:-1px}
+  .hcta{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--fb);
+    font-weight:700;font-size:16px;padding:17px 22px;border-radius:14px;border:none;cursor:pointer;
+    transition:transform .18s var(--ease),box-shadow .3s var(--ease);width:100%;text-align:center}
+  .btn:active{transform:scale(.98)}
+  .btn svg{width:20px;height:20px;flex-shrink:0}
+  .btn-gold{background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep));color:#241a06;
+    box-shadow:0 14px 34px -10px rgba(233,196,106,.6)}
+  .btn-wa{background:var(--wa);color:var(--wa-deep);box-shadow:0 14px 34px -12px rgba(37,211,102,.5)}
+  .btn-ghost{background:rgba(247,242,234,.04);color:var(--text);border:1px solid var(--line)}
+  .btn-sm{font-size:14px;padding:13px 18px;border-radius:11px;width:auto}
+  .hsub{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--muted);margin-top:2px}
+  .hsub b{color:var(--text);font-weight:600}
+  .scrollcue{margin-top:24px;display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text);opacity:.6}
+  .scrollcue .ln{width:1px;height:30px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
+  .scrollcue .ln::after{content:"";position:absolute;left:0;top:-30px;width:1px;height:30px;
+    background:linear-gradient(transparent,var(--gold));animation:flow 2.4s ease-in-out infinite}
+  @keyframes flow{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+
+  /* section frame */
+  section.s{padding:58px 22px;position:relative}
+  .sec-eyebrow{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:12px}
+  h2{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:.01em;
+    font-size:clamp(30px,8.6vw,46px);line-height:.98}
+  h2 em{font-style:normal;color:var(--gold)}
+  .s-lead{font-size:15.5px;line-height:1.6;color:var(--text);opacity:.82;margin-top:16px;max-width:42ch}
+
+  /* ===== MODELS: Basis vs Premium ===== */
+  .models{background:linear-gradient(var(--black),var(--black2))}
+  .plan-grid{margin-top:26px;display:flex;flex-direction:column;gap:16px}
+  .plan{position:relative;border-radius:18px;padding:24px 20px 22px;border:1px solid var(--line);
+    background:var(--panel);overflow:hidden}
+  .plan--free{background:var(--panel)}
+  .plan--prem{border-color:var(--line2);
+    background:
+      radial-gradient(120% 80% at 100% 0%,rgba(233,196,106,.14),transparent 55%),
+      linear-gradient(160deg,#1d160f,#17120d 60%,#14100b)}
+  .plan--prem::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
+    background:linear-gradient(150deg,rgba(233,196,106,.6),transparent 40%,transparent 70%,rgba(233,196,106,.35));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .plan .ribbon{position:absolute;top:16px;right:-32px;transform:rotate(45deg);
+    background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep));color:#241a06;
+    font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 38px}
+  .plan .ptag{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .plan--prem .ptag{color:var(--gold)}
+  .plan h3{font-family:var(--fd);font-size:32px;text-transform:uppercase;letter-spacing:.01em;margin-top:6px;line-height:1}
+  .plan .price{display:flex;align-items:baseline;gap:6px;margin-top:10px}
+  .plan .price .amt{font-family:var(--fd);font-size:42px;line-height:1}
+  .plan--prem .price .amt{color:var(--gold)}
+  .plan .price .per{font-size:13px;color:var(--muted);font-weight:600}
+  .plan .psub{font-size:13px;color:var(--muted);margin-top:6px}
+  .plan ul{list-style:none;margin:18px 0 0;display:flex;flex-direction:column;gap:11px}
+  .plan li{display:flex;align-items:flex-start;gap:11px;font-size:14.5px;line-height:1.4;color:var(--text)}
+  .plan li svg{width:18px;height:18px;flex-shrink:0;margin-top:1px}
+  .plan--free li svg{color:var(--wa)}
+  .plan--prem li svg{color:var(--gold)}
+  .plan li.dim{color:var(--muted)}
+  .plan .cta{margin-top:22px}
+  .plan .fineline{font-size:11.5px;color:var(--muted);text-align:center;margin-top:11px}
+  .plan .fineline b{color:var(--text);font-weight:600}
+
+  /* pricing toggle (monthly / yearly) */
+  .billing{display:inline-flex;align-items:center;gap:0;margin-top:18px;padding:4px;border-radius:100px;
+    background:rgba(247,242,234,.05);border:1px solid var(--line)}
+  .billing button{font-family:var(--fb);font-weight:700;font-size:12.5px;letter-spacing:.02em;color:var(--muted);
+    background:none;border:none;cursor:pointer;padding:8px 15px;border-radius:100px;transition:all .2s var(--ease)}
+  .billing button[aria-pressed="true"]{background:var(--gold);color:#241a06}
+  .billing .save{font-size:10px;font-weight:700;color:var(--gold);margin-left:4px}
+  .billing button[aria-pressed="true"] .save{color:#241a06}
+
+  /* compare strip */
+  .or{display:flex;align-items:center;gap:14px;margin:24px 2px 6px;color:var(--muted);font-size:12px;
+    font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+  .breakeven{margin-top:18px;padding:16px 18px;border-radius:14px;border:1px dashed var(--line2);
+    background:rgba(233,196,106,.05);font-size:13.5px;color:var(--text);line-height:1.5}
+  .breakeven b{color:var(--gold)}
+
+  /* ===== CALENDAR ===== */
+  .cal{background:var(--black)}
+  .cal-recur{margin-top:24px;border-radius:16px;border:1px solid var(--line);background:var(--panel);
+    padding:18px 18px 16px;position:relative;overflow:hidden}
+  .cal-recur .rt{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--wa);margin-bottom:14px;
+    display:flex;align-items:center;gap:8px}
+  .cal-recur .rt .d{width:7px;height:7px;border-radius:50%;background:var(--wa);animation:onpulse 2.4s ease-in-out infinite}
+  @keyframes onpulse{0%,100%{opacity:.4}50%{opacity:1}}
+  .freeline{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+  .freeline:first-of-type{border-top:none}
+  .freeline .ic{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;font-size:17px;
+    background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.22)}
+  .freeline .fb{flex:1;min-width:0}
+  .freeline .fb b{font-size:15px;font-weight:600}
+  .freeline .fb .ep{display:inline-block;font-family:var(--fb);font-size:9px;font-weight:800;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--amber);border:1px solid rgba(245,162,26,.4);border-radius:100px;
+    padding:2px 7px;margin-left:7px;vertical-align:1.5px;background:rgba(245,162,26,.08)}
+  .freeline .fb span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .freeline .ft{font-size:12px;font-weight:700;color:var(--wa);white-space:nowrap}
+
+  .cal-month{margin:30px 2px 14px;font-family:var(--fd);font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:12px}
+  .cal-month::after{content:"";flex:1;height:1px;background:var(--line)}
+  .agenda{display:flex;flex-direction:column;gap:10px}
+  .ev{display:flex;align-items:stretch;gap:14px;border-radius:15px;border:1px solid var(--line);
+    background:var(--panel);padding:14px 14px 14px 12px;position:relative;overflow:hidden;
+    transition:border-color .25s,transform .2s var(--ease)}
+  .ev:active{transform:scale(.99)}
+  .ev.prem{border-color:var(--line2)}
+  .ev .date{flex-shrink:0;width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border-radius:11px;background:var(--black2);border:1px solid var(--line)}
+  .ev.prem .date{background:linear-gradient(160deg,rgba(233,196,106,.16),rgba(233,196,106,.04));border-color:var(--line2)}
+  .ev .date .d{font-family:var(--fd);font-size:24px;line-height:1;color:var(--text)}
+  .ev.prem .date .d{color:var(--gold)}
+  .ev .date .m{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  .ev .date .wd{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+  .ev .body{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center}
+  .ev .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ev .body h4{font-family:var(--fd);font-size:21px;text-transform:uppercase;letter-spacing:.01em;line-height:1}
+  .ev .tag{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:100px}
+  .ev .tag.t-prem{color:var(--gold);background:rgba(233,196,106,.1);border:1px solid var(--line2)}
+  .ev .tag.t-flag{color:#241a06;background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep))}
+  .ev .meta{font-size:12.5px;color:var(--muted);margin-top:5px}
+  .ev .meta b{color:var(--text);font-weight:600}
+  .ev .act{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px}
+  .ev .act .pr{font-family:var(--fd);font-size:20px;color:var(--gold);line-height:1}
+  .ev .act .inc{font-size:9.5px;color:var(--muted);text-align:right;line-height:1.2;max-width:9ch}
+  .bookbtn{font-family:var(--fb);font-weight:700;font-size:12.5px;color:#241a06;cursor:pointer;border:none;
+    background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep));padding:9px 13px;border-radius:10px;white-space:nowrap;
+    transition:transform .18s var(--ease)}
+  .bookbtn:active{transform:scale(.95)}
+  .cal-note{font-size:12px;color:var(--muted);text-align:center;margin-top:18px;line-height:1.5}
+
+  /* ===== EVENT CATALOG ===== */
+  .catalog{background:linear-gradient(var(--black2),var(--black))}
+  .grid{margin-top:24px;display:flex;flex-direction:column;gap:15px}
+  .ecard{position:relative;border-radius:18px;overflow:hidden;min-height:210px;border:1px solid var(--line);
+    background:var(--panel);display:block;transition:transform .25s var(--ease)}
+  .ecard:active{transform:scale(.99)}
+  .ecard.prem{border-color:var(--line2)}
+  .ecard .cimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .ecard .cgrad{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(8,6,5,.94) 8%,rgba(8,6,5,.6) 46%,rgba(8,6,5,.22) 100%),
+      linear-gradient(to top,rgba(8,6,5,.95) 0%,rgba(8,6,5,.2) 62%)}
+  .ecard .cbody{position:relative;z-index:2;min-height:210px;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:20px 18px 18px}
+  .ecard .ckick{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;margin-bottom:auto;
+    font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:100px}
+  .ckick.k-free{color:var(--wa-deep);background:var(--wa)}
+  .ckick.k-entry{color:#241a06;background:var(--amber)}
+  .ckick.k-prem{color:#241a06;background:linear-gradient(100deg,var(--gold-soft),var(--gold-deep))}
+  .ckick.k-flag{color:var(--text);background:rgba(20,12,8,.7);border:1px solid var(--line2)}
+  .ecard h3{font-family:var(--fd);font-size:clamp(26px,7.4vw,34px);text-transform:uppercase;letter-spacing:.01em;line-height:.96;margin-top:10px}
+  .ecard .etag{font-size:13.5px;color:var(--text);opacity:.88;margin-top:7px;max-width:32ch}
+  .ecard .efoot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+  .ecard .eprice{display:flex;flex-direction:column;gap:1px}
+  .ecard .eprice .p{font-family:var(--fd);font-size:24px;line-height:1}
+  .ecard .eprice .p.free{color:var(--wa)}
+  .ecard .eprice .p.paid{color:var(--gold)}
+  .ecard .eprice small{font-size:10.5px;color:var(--muted)}
+  .ecard .ebtns{display:flex;align-items:center;gap:8px}
+  .lnk{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--text);opacity:.8}
+  .lnk svg{width:14px;height:14px}
+
+  /* styled (photo-less) cards */
+  .ecard.styled .cbody{min-height:200px}
+  .st-paint{background:radial-gradient(120% 90% at 88% 8%,rgba(176,108,255,.3),transparent 52%),linear-gradient(150deg,#241338,#1a1024 60%,#140b1c)}
+  .st-book{background:radial-gradient(120% 90% at 88% 8%,rgba(214,162,58,.24),transparent 52%),linear-gradient(150deg,#231a12,#1c150f 60%,#160f0b)}
+  .st-supper{background:radial-gradient(120% 90% at 86% 6%,rgba(224,120,80,.26),transparent 52%),linear-gradient(150deg,#2a1810,#1e120b 60%,#160d08)}
+  .st-boulder{background:radial-gradient(120% 90% at 86% 6%,rgba(86,200,180,.24),transparent 52%),linear-gradient(150deg,#0f2420,#0c1a17 60%,#0a1411)}
+  .st-sauna{background:radial-gradient(120% 90% at 86% 6%,rgba(120,170,255,.24),transparent 52%),linear-gradient(150deg,#11203a,#0e182b 60%,#0b1220)}
+  .st-run{background:radial-gradient(120% 90% at 86% 6%,rgba(245,162,26,.22),transparent 52%),linear-gradient(150deg,#241a0e,#1b140b 60%,#150f08)}
+  .ecard.styled .emoji{position:absolute;right:14px;top:12px;z-index:1;font-size:40px;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4))}
+
+  /* ===== CREATOR ===== */
+  .creator{background:linear-gradient(var(--black),#0d0b08);position:relative;overflow:hidden}
+  .creator .glow{position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:120%;height:60%;z-index:0;
+    background:radial-gradient(50% 60% at 50% 0%,rgba(245,162,26,.16),transparent 70%)}
+  .creator .inner{position:relative;z-index:2}
+  .creator h2 em{color:var(--amber)}
+  .csteps{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  .cstep{display:flex;gap:14px;align-items:flex-start}
+  .cstep .n{flex-shrink:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+    font-family:var(--fd);font-size:19px;color:var(--amber);background:var(--panel);border:1.5px solid rgba(245,162,26,.4)}
+  .cstep .ct{flex:1}
+  .cstep h4{font-family:var(--fd);font-size:20px;text-transform:uppercase;letter-spacing:.01em}
+  .cstep p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.5}
+  .split{margin-top:26px;display:flex;gap:12px}
+  .split .sc{flex:1;border-radius:14px;padding:18px 14px;text-align:center;border:1px solid var(--line);background:var(--panel)}
+  .split .sc.you{border-color:rgba(245,162,26,.4);background:radial-gradient(120% 100% at 50% 0,rgba(245,162,26,.1),transparent 70%)}
+  .split .sc .pct{font-family:var(--fd);font-size:40px;line-height:1}
+  .split .sc.you .pct{color:var(--amber)}
+  .split .sc.tribe .pct{color:var(--muted)}
+  .split .sc small{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .split .sc b{display:block;font-size:13px;color:var(--text);margin-top:8px;font-weight:600}
+  .creator-perks{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+  .creator-perks li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--text)}
+  .creator-perks li svg{width:18px;height:18px;color:var(--amber);flex-shrink:0;margin-top:1px}
+  .creator .cta{margin-top:26px}
+  .btn-amber{background:var(--amber);color:#241400;box-shadow:0 14px 34px -12px rgba(245,162,26,.55)}
+
+  /* ===== FINAL CTA ===== */
+  .final{background:linear-gradient(#0d0b08,var(--black));text-align:center}
+  .final h2{font-size:clamp(32px,9vw,50px)}
+  .final p{font-size:15px;color:var(--muted);margin-top:14px;max-width:34ch;margin-inline:auto}
+  .final .stack{margin-top:24px;display:flex;flex-direction:column;gap:11px;max-width:340px;margin-inline:auto}
+  .final .reassure{font-size:11.5px;color:var(--muted);margin-top:16px}
+  .final .reassure b{color:var(--text);font-weight:600}
+
+  /* footer */
+  footer{background:var(--black);border-top:1px solid var(--line);text-align:center;
+    padding:30px 24px calc(38px + env(safe-area-inset-bottom))}
+  footer .fmark{font-family:var(--fd);font-size:22px;letter-spacing:.06em}
+  footer .ftag{font-family:var(--fb);font-style:italic;font-size:13px;color:var(--gold-soft);margin-top:4px}
+  footer .flinks{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:13px;font-weight:600}
+  footer .flinks a{padding:8px 13px;border:1px solid var(--line);border-radius:100px;transition:background .2s}
+  footer .flinks a:active{background:rgba(247,242,234,.08)}
+  footer .copy{font-size:11px;color:var(--muted);margin-top:20px}
+  footer .copy b{color:var(--text);font-weight:600}
+
+  /* sticky mobile CTA */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:12px;
+    padding:11px 16px calc(11px + env(safe-area-inset-bottom));background:rgba(13,10,8,.92);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line2);transform:translateY(120%);transition:transform .35s var(--ease)}
+  .sticky.show{transform:none}
+  .sticky .si{flex:1;min-width:0}
+  .sticky .si b{font-size:14px;font-weight:700}
+  .sticky .si b .g{color:var(--gold)}
+  .sticky .si span{display:block;font-size:11.5px;color:var(--muted)}
+  .sticky .btn{width:auto;padding:13px 18px;font-size:14.5px;border-radius:11px}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}html{scroll-behavior:auto}
+    .rv{opacity:1;transform:none;transition:none}.scrollcue{display:none}
+  }
+  @media (min-width:560px){
+    .top{max-width:560px;left:50%;transform:translateX(-50%)}
+    .sticky{max-width:560px;left:50%;transform:translate(-50%,120%)}
+    .sticky.show{transform:translateX(-50%)}
+  }
+</style>
+</head>
+<body>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,
+    autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
+  posthog.register({landing_variant:'premium'});}catch(e){}
+</script>
+
+<!-- TOP BAR -->
+<header class="top" id="top">
+  <a class="brand" href="events.html">
+    <span class="mark">THE&nbsp;TRIBE</span>
+    <span class="pbadge">Premium</span>
+  </a>
+  <a class="back" href="events.html" aria-label="Zu allen Events">
+    Events
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="bg" src="assets/gruppe.webp" alt="Die Tribe stößt gemeinsam an" fetchpriority="high" decoding="async">
+  <div class="scrim"></div>
+  <div class="gleam"></div>
+  <div class="grain"></div>
+  <div class="c wrap">
+    <div class="eyebrow">Exklusiv für die Tribe</div>
+    <h1><span>Dein Zugang</span><span>zu <em>allem.</em></span></h1>
+    <p class="hlead">Die Community ist und bleibt <b>kostenlos</b>. Mit <b>Premium</b> sicherst du dir den Zugang zu den exklusiven Tribe-Events — vom Wine Walk bis zum Tribe Concert.</p>
+    <div class="faces">
+      <img src="assets/maik.webp" alt="Maik"><img src="assets/lena.webp" alt="Lena"><img src="assets/anna.webp" alt="Anna"><img src="assets/patrick.webp" alt="Patrick">
+      <span class="fw">Schon <b id="bigCount">138</b> in der Tribe</span>
+    </div>
+    <div class="hcta">
+      <a class="btn btn-gold" href="#pricing" data-cta="hero-premium">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.7z"/></svg>
+        Premium werden — alle Events
+      </a>
+      <a class="btn btn-ghost" href="#models" data-cta="hero-free">Erst kostenlos reinschnuppern</a>
+    </div>
+    <div class="hsub"><b>Monatlich kündbar</b> · oder Events einzeln buchen</div>
+    <div class="scrollcue">So funktioniert's<span class="ln"></span></div>
+  </div>
+</section>
+
+<!-- MODELS: Basis vs Premium -->
+<section class="s models" id="models">
+  <div class="wrap">
+    <div class="sec-eyebrow">Zwei Wege, dabei zu sein</div>
+    <h2>Basis <em>oder</em> Premium</h2>
+    <p class="s-lead">Jeder startet kostenlos in der Community. Premium ist für alle, die mehr wollen: die besonderen Abende, die nicht jede Woche stattfinden.</p>
+
+    <div class="plan-grid">
+      <!-- FREE -->
+      <article class="plan plan--free rv">
+        <span class="ptag">Basis · für alle</span>
+        <h3>Community</h3>
+        <div class="price"><span class="amt">0&nbsp;€</span><span class="per">für immer</span></div>
+        <div class="psub">Dein Einstieg in die Tribe — null Risiko, null Kosten.</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Kostenlose WhatsApp-Community</b><br><span style="color:var(--muted);font-size:13px">138 Leute, jede Woche neue Pläne</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Social Warm Up</b> <span style="color:var(--amber);font-weight:600">· dein Entry Point</span><br><span style="color:var(--muted);font-size:13px">Jeden Samstag 18:00 — der Einstieg in den Abend</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Laufgruppe, Stadion-Kick &amp; Spieleabend — kostenlos dabei</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Zugang zur Tribe-App &amp; allen Event-Infos</li>
+        </ul>
+        <a class="btn btn-wa cta" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="model-free">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+          Kostenlos beitreten
+        </a>
+        <div class="fineline">Öffnet WhatsApp · deine Nummer bleibt privat · jederzeit raus</div>
+      </article>
+
+      <!-- PREMIUM -->
+      <article class="plan plan--prem rv" id="pricing">
+        <span class="ribbon">Beliebt</span>
+        <span class="ptag">Premium · All-Access</span>
+        <h3>Premium</h3>
+        <div class="price"><span class="amt" id="planAmt">49&nbsp;€</span><span class="per" id="planPer">/ Monat</span></div>
+        <div class="psub" id="planSub">Alle exklusiven Events inklusive. Monatlich kündbar.</div>
+
+        <div class="billing" role="group" aria-label="Abrechnung wählen">
+          <button id="billM" aria-pressed="true">Monatlich</button>
+          <button id="billY" aria-pressed="false">Jährlich<span class="save">−2 Monate</span></button>
+        </div>
+
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Alle Premium-Events inklusive</b><br><span style="color:var(--muted);font-size:13px">Wine Walk, Book Club, Pub Crawl, Techno &amp; Paint, Supper Club &amp; mehr</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><div><b>Tribe Concert &amp; Flagships zum Members-Preis</b></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Priority-Plätze bei limitierten Events</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Gast mitbringen — vergünstigt</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Members-only Specials &amp; Überraschungs-Events</li>
+          <li style="color:var(--muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M20 6L9 17l-5-5"/></svg>Alles aus Basis sowieso mit drin</li>
+        </ul>
+        <button class="btn btn-gold cta" id="subBtn" data-cta="premium-subscribe" data-amount="49">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.7z"/></svg>
+          <span id="subLabel">Premium holen · 49 €/Monat</span>
+        </button>
+        <div class="fineline" id="subNote"><b>Monatlich kündbar.</b> Plätze werden persönlich per WhatsApp bestätigt.</div>
+      </article>
+    </div>
+
+    <div class="or">oder</div>
+    <div class="breakeven">
+      <b>Lieber Event für Event?</b> Klar — du kannst jedes Event auch einzeln buchen (siehe unten). Premium lohnt sich schon <b>ab ~2 Events im Monat</b>: Wine Walk (25&nbsp;€) + Techno&nbsp;&amp;&nbsp;Paint (29&nbsp;€) = 54&nbsp;€ einzeln — mit Premium für 49&nbsp;€ alles drin.
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section class="s cal" id="calendar">
+  <div class="wrap">
+    <div class="sec-eyebrow">Der Tribe-Kalender</div>
+    <h2>Was als <em>Nächstes</em> läuft</h2>
+    <p class="s-lead">Jede Woche kostenlose Treffen, dazu die besonderen Premium-Abende. Such dir was aus — oder hol Premium und sei überall dabei.</p>
+
+    <div class="cal-recur rv">
+      <div class="rt"><span class="d"></span>Jede Woche · kostenlos</div>
+      <div class="freeline">
+        <span class="ic">🍻</span>
+        <div class="fb"><b>Social Warm Up</b><span class="ep">Entry Point</span><span>Der Einstieg in den Abend — danach ziehen wir gemeinsam los</span></div>
+        <span class="ft">Sa&nbsp;18:00</span>
+      </div>
+      <div class="freeline">
+        <span class="ic">🏃</span>
+        <div class="fb"><b>Laufgruppe</b><span>Locker laufen, quatschen, ankommen</span></div>
+        <span class="ft">Mi&nbsp;19:00</span>
+      </div>
+      <div class="freeline">
+        <span class="ic">⚽</span>
+        <div class="fb"><b>Stadion-Kick</b><span>Gemeinsam kicken &amp; Spiele schauen</span></div>
+        <span class="ft">So</span>
+      </div>
+    </div>
+
+    <div class="cal-month">Juni 2026</div>
+    <div class="agenda" id="agenda">
+      <!-- agenda rows injected/curated below -->
+      <div class="ev prem rv">
+        <div class="date"><span class="d">12</span><span class="m">Jun</span><span class="wd">Fr</span></div>
+        <div class="body"><div class="row1"><h4>Wine Walk</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>19:00</b> · Bürgerpark → Obersee</div></div>
+        <div class="act"><span class="pr">25 €</span><button class="bookbtn" data-book="Wine Walk · 12.06" data-amount="25">Buchen</button><span class="inc">o. Premium inkl.</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">17</span><span class="m">Jun</span><span class="wd">Mi</span></div>
+        <div class="body"><div class="row1"><h4>Book Club</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>19:30</b> · Café · Buch des Monats</div></div>
+        <div class="act"><span class="pr">12 €</span><button class="bookbtn" data-book="Book Club · 17.06" data-amount="12">Buchen</button><span class="inc">o. Premium inkl.</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">19</span><span class="m">Jun</span><span class="wd">Fr</span></div>
+        <div class="body"><div class="row1"><h4>Pub Crawl</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>20:00</b> · Altstadt · 4 Bars, 1 Crew</div></div>
+        <div class="act"><span class="pr">15 €</span><button class="bookbtn" data-book="Pub Crawl · 19.06" data-amount="15">Buchen</button><span class="inc">o. Premium inkl.</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">21</span><span class="m">Jun</span><span class="wd">So</span></div>
+        <div class="body"><div class="row1"><h4>Techno &amp; Paint</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>16:00</b> · Leinwand, Beats &amp; Farbe</div></div>
+        <div class="act"><span class="pr">29 €</span><button class="bookbtn" data-book="Techno & Paint · 21.06" data-amount="29">Buchen</button><span class="inc">Material inkl.</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">27</span><span class="m">Jun</span><span class="wd">Sa</span></div>
+        <div class="body"><div class="row1"><h4>Tribe Concert</h4><span class="tag t-flag">Flagship</span></div><div class="meta"><b>20:00</b> · Live-Act · limitiert</div></div>
+        <div class="act"><span class="pr">22 €</span><button class="bookbtn" data-book="Tribe Concert · 27.06" data-amount="22">Buchen</button><span class="inc">Members-Preis</span></div>
+      </div>
+
+      <div class="cal-month">Juli 2026</div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">03</span><span class="m">Jul</span><span class="wd">Fr</span></div>
+        <div class="body"><div class="row1"><h4>Supper Club</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>19:00</b> · Tribe Table · langes Dinner</div></div>
+        <div class="act"><span class="pr">34 €</span><button class="bookbtn" data-book="Supper Club · 03.07" data-amount="34">Buchen</button><span class="inc">3 Gänge</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">11</span><span class="m">Jul</span><span class="wd">Sa</span></div>
+        <div class="body"><div class="row1"><h4>Boulder &amp; Beer</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>17:00</b> · Klettern, danach Bier</div></div>
+        <div class="act"><span class="pr">18 €</span><button class="bookbtn" data-book="Boulder & Beer · 11.07" data-amount="18">Buchen</button><span class="inc">o. Premium inkl.</span></div>
+      </div>
+      <div class="ev prem rv">
+        <div class="date"><span class="d">19</span><span class="m">Jul</span><span class="wd">So</span></div>
+        <div class="body"><div class="row1"><h4>Sauna &amp; Cold Plunge</h4><span class="tag t-prem">Premium</span></div><div class="meta"><b>09:00</b> · Aufguss &amp; Eisbad · Reset</div></div>
+        <div class="act"><span class="pr">24 €</span><button class="bookbtn" data-book="Sauna & Cold Plunge · 19.07" data-amount="24">Buchen</button><span class="inc">o. Premium inkl.</span></div>
+      </div>
+    </div>
+    <div class="cal-note">Termine werden in der Gruppe final bestätigt · Wetter-/Verfügbarkeitsänderungen möglich.</div>
+  </div>
+</section>
+
+<!-- EVENT CATALOG -->
+<section class="s catalog" id="events">
+  <div class="wrap">
+    <div class="sec-eyebrow">Alle Events</div>
+    <h2>Die <em>ganze</em> Tribe</h2>
+    <p class="s-lead">Kostenlos dabei oder Premium-exklusiv — hier ist alles. Einzeln buchbar, mit Premium ohne Aufpreis.</p>
+
+    <div class="grid">
+
+      <!-- Social Warm Up — ENTRY POINT -->
+      <a class="ecard rv" href="index.html" data-cta="cat-social">
+        <img class="cimg" src="assets/hero-bg.jpg" alt="" decoding="async">
+        <div class="cgrad"></div>
+        <div class="cbody">
+          <span class="ckick k-entry">★ Entry Point · kostenlos</span>
+          <h3>Social Warm Up</h3>
+          <p class="etag">Jeden Samstag 18:00. Der wöchentliche Einstieg — danach ziehen wir gemeinsam weiter. Hier fängt alles an.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p free">Free</span><small>Samstag · Bernstein</small></div>
+            <span class="lnk">Mehr <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Laufgruppe (free) -->
+      <div class="ecard styled st-run rv">
+        <span class="emoji" aria-hidden="true">🏃</span>
+        <div class="cbody">
+          <span class="ckick k-free">Kostenlos</span>
+          <h3>Laufgruppe</h3>
+          <p class="etag">Mittwochs locker laufen, quatschen, den Kopf frei machen. Jedes Tempo willkommen.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p free">Free</span><small>Mittwoch 19:00</small></div>
+            <a class="lnk" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="cat-lauf">Dabei <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wine Walk (premium) -->
+      <a class="ecard prem rv" href="wine-walk.html" data-cta="cat-wine">
+        <img class="cimg" src="assets/wine/cheers.jpg" alt="" decoding="async">
+        <div class="cgrad"></div>
+        <div class="cbody">
+          <span class="ckick k-prem">🍷 Premium</span>
+          <h3>Wine Walk</h3>
+          <p class="etag">Walk · Sip · Connect. Feine Weine an kleinen Stopps, vom Bürgerpark zum Obersee.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">25 €</span><small>oder mit Premium inkl.</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Wine Walk" data-amount="25">Buchen</button></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Book Club (premium) -->
+      <a class="ecard prem styled st-book rv" href="buchclub.html" data-cta="cat-book">
+        <span class="emoji" aria-hidden="true">📖</span>
+        <div class="cbody">
+          <span class="ckick k-prem">📖 Premium</span>
+          <h3>Book Club</h3>
+          <p class="etag">Lesen. Reden. Ankommen. Ein Buch, ein Glas und echte Gespräche — einmal im Monat.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">12 €</span><small>oder mit Premium inkl.</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Book Club" data-amount="12">Buchen</button></div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pub Crawl (premium) -->
+      <div class="ecard prem rv">
+        <img class="cimg" src="assets/ad/bar.jpg" alt="" decoding="async">
+        <div class="cgrad"></div>
+        <div class="cbody">
+          <span class="ckick k-prem">🍸 Premium</span>
+          <h3>Pub Crawl</h3>
+          <p class="etag">Vier Bars, eine Crew, ein Abend. Durch die Altstadt mit Welcome-Shot an jedem Stopp.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">15 €</span><small>oder mit Premium inkl.</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Pub Crawl" data-amount="15">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Techno & Paint (premium) -->
+      <div class="ecard prem styled st-paint rv">
+        <span class="emoji" aria-hidden="true">🎨</span>
+        <div class="cbody">
+          <span class="ckick k-prem">🎨 Premium</span>
+          <h3>Techno &amp; Paint</h3>
+          <p class="etag">Leinwand, Farbe und Beats. Lass los, mal drauf los — Material gibt's vor Ort.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">29 €</span><small>Material inkl. · o. Premium</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Techno & Paint" data-amount="29">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tribe Concert (flagship) -->
+      <div class="ecard prem rv">
+        <img class="cimg" src="assets/ad/concert.jpg" alt="" decoding="async">
+        <div class="cgrad"></div>
+        <div class="cbody">
+          <span class="ckick k-flag">★ Flagship</span>
+          <h3>Tribe Concert</h3>
+          <p class="etag">Live-Musik, unsere Leute, ein Abend zum Erinnern. Das Highlight der Saison — streng limitiert.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">22 €</span><small>Members-Preis · Premium</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Tribe Concert" data-amount="22">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supper Club (premium special) -->
+      <div class="ecard prem styled st-supper rv">
+        <span class="emoji" aria-hidden="true">🍝</span>
+        <div class="cbody">
+          <span class="ckick k-prem">🍝 Premium Special</span>
+          <h3>Supper Club</h3>
+          <p class="etag">Tribe Table: ein langer Tisch, drei Gänge, viele neue Gesichter. Essen verbindet.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">34 €</span><small>3 Gänge · o. Premium</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Supper Club" data-amount="34">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boulder & Beer (premium special) -->
+      <div class="ecard prem styled st-boulder rv">
+        <span class="emoji" aria-hidden="true">🧗</span>
+        <div class="cbody">
+          <span class="ckick k-prem">🧗 Premium Special</span>
+          <h3>Boulder &amp; Beer</h3>
+          <p class="etag">Erst zusammen an die Wand, danach ein kühles Bier. Keine Erfahrung nötig.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">18 €</span><small>Eintritt inkl. · o. Premium</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Boulder & Beer" data-amount="18">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sauna & Cold Plunge (premium special) -->
+      <div class="ecard prem styled st-sauna rv">
+        <span class="emoji" aria-hidden="true">🧖</span>
+        <div class="cbody">
+          <span class="ckick k-prem">🧖 Premium Special</span>
+          <h3>Sauna &amp; Cold Plunge</h3>
+          <p class="etag">Aufguss, Eisbad, Ruhe. Der Sonntags-Reset für Körper und Kopf — gemeinsam.</p>
+          <div class="efoot">
+            <div class="eprice"><span class="p paid">24 €</span><small>o. Premium inkl.</small></div>
+            <div class="ebtns"><button class="bookbtn" data-book="Sauna & Cold Plunge" data-amount="24">Buchen</button></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="cal-note" style="margin-top:22px">Mit <b style="color:var(--gold)">Premium</b> sind alle Premium-Events ohne Einzelbuchung drin — Flagships wie das Tribe Concert zum Members-Preis.</div>
+  </div>
+</section>
+
+<!-- CREATOR -->
+<section class="s creator" id="creator">
+  <div class="glow"></div>
+  <div class="wrap inner">
+    <div class="sec-eyebrow" style="color:var(--amber)">Werde Teil der Orga</div>
+    <h2>Werde <em>Tribe Creator</em></h2>
+    <p class="s-lead">Du hast eine Idee für ein Event? Mach es unter dem Tribe-Dach — wir geben dir die Reichweite, das Buchungs-Setup und die Bühne. Du verdienst mit.</p>
+
+    <div class="csteps">
+      <div class="cstep rv"><span class="n">1</span><div class="ct"><h4>Idee einreichen</h4><p>Kochabend, DJ-Set, Yoga im Park, Fotowalk — egal. Erzähl uns, was du machen willst.</p></div></div>
+      <div class="cstep rv"><span class="n">2</span><div class="ct"><h4>Wir bringen Reichweite</h4><p>138+ Members, Instagram, WhatsApp und eine eigene Event-Seite. Buchung &amp; Bezahlung laufen über die Tribe.</p></div></div>
+      <div class="cstep rv"><span class="n">3</span><div class="ct"><h4>Du leitest — und verdienst</h4><p>Du machst dein Event zu deinem Ding. Den Großteil der Einnahmen behältst du.</p></div></div>
+    </div>
+
+    <div class="split rv">
+      <div class="sc you"><span class="pct">70%</span><small>für dich</small><b>Deine Ticket-Einnahmen</b></div>
+      <div class="sc tribe"><span class="pct">30%</span><small>The Tribe</small><b>Reichweite, Buchung &amp; Orga</b></div>
+    </div>
+
+    <ul class="creator-perks rv">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Verdienstmöglichkeit statt Hobby auf eigene Kosten</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Profitier von einer Community, die schon da ist</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Eigene Event-Landingpage im Tribe-Look — wie diese hier</li>
+    </ul>
+
+    <a class="btn btn-amber cta" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="creator-join">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.7z"/></svg>
+      Creator werden — Idee einreichen
+    </a>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="s final" id="join">
+  <div class="wrap">
+    <div class="sec-eyebrow" style="color:var(--gold)">Bereit?</div>
+    <h2>Werde Teil <em>der&nbsp;Tribe</em></h2>
+    <p>Kostenlos rein in die Community — oder direkt Premium für alle exklusiven Abende. Dein Move.</p>
+    <div class="stack">
+      <a class="btn btn-gold" href="#pricing" data-cta="final-premium">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.7z"/></svg>
+        Premium werden · ab 49 €/Monat
+      </a>
+      <a class="btn btn-wa" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="final-free">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        Kostenlos in die Community
+      </a>
+      <a class="btn btn-ghost" href="events.html" data-cta="final-app">Zur Tribe-App &amp; allen Events</a>
+    </div>
+    <div class="reassure"><b>Basis bleibt für immer kostenlos.</b> Premium monatlich kündbar.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">THE&nbsp;TRIBE</div>
+  <div class="ftag">Komm an. Bleib. Werde Teil.</div>
+  <div class="flinks">
+    <a href="events.html">Alle Events</a>
+    <a href="index.html">Social Warm Up</a>
+    <a href="wine-walk.html">Wine Walk</a>
+    <a href="buchclub.html">Book Club</a>
+    <a href="#creator">Creator werden</a>
+  </div>
+  <div class="copy"><b>The Tribe</b> · Bielefeld · Premium-Zugang &amp; Community</div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky" id="sticky">
+  <div class="si"><b>Tribe <span class="g">Premium</span> · 49 €/Monat</b><span>Alle exklusiven Events inklusive</span></div>
+  <a class="btn btn-gold" href="#pricing" data-cta="sticky-premium">Premium</a>
+</div>
+
+<script>
+/* ============ BUCHUNG / PAYMENT CONFIG ============
+   paypalUser : deine PayPal.Me-Kennung (paypal.me/DEINEKENNUNG).
+                Leer lassen => Buttons leiten sicher in die WhatsApp-Gruppe (kein toter Link).
+   customPayUrl: optionaler kompletter Zahllink (Stripe/PayPal-Button), hat Vorrang.
+   app        : Link zur Tribe-App (aktuell die Event-Übersicht). TODO: echten App-/Store-Link eintragen.   */
+const TRIBE = {
+  whatsapp:    "https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL",
+  app:         "events.html",
+  paypalUser:  "",
+  customPayUrl:"",
+  currency:    "EUR",
+  monthly:     49,
+  yearly:      490   /* 2 Monate geschenkt */
+};
+function payUrl(amount){
+  if(TRIBE.customPayUrl) return TRIBE.customPayUrl;
+  if(TRIBE.paypalUser)   return 'https://www.paypal.com/paypalme/'+encodeURIComponent(TRIBE.paypalUser)+'/'+amount+TRIBE.currency;
+  return TRIBE.whatsapp;
+}
+function method(){ return TRIBE.customPayUrl?'custom':(TRIBE.paypalUser?'paypal':'whatsapp_fallback'); }
+
+/* ---- single-event booking buttons ---- */
+document.querySelectorAll('.bookbtn').forEach(function(btn){
+  btn.addEventListener('click',function(ev){
+    ev.preventDefault(); ev.stopPropagation();
+    var amount=parseInt(btn.getAttribute('data-amount'),10)||0,
+        name=btn.getAttribute('data-book')||'Event';
+    try{posthog.capture('premium_event_book_click',{event:name,amount:amount,method:method(),landing_variant:'premium'});}catch(e){}
+    window.open(payUrl(amount),'_blank','noopener');
+  });
+});
+
+/* ---- subscription (monthly / yearly toggle) ---- */
+(function(){
+  var billM=document.getElementById('billM'), billY=document.getElementById('billY'),
+      amt=document.getElementById('planAmt'), per=document.getElementById('planPer'),
+      sub=document.getElementById('planSub'), subBtn=document.getElementById('subBtn'),
+      subLabel=document.getElementById('subLabel'), subNote=document.getElementById('subNote');
+  var usingPay = !!(TRIBE.customPayUrl || TRIBE.paypalUser);
+  var mode='monthly';
+  function render(){
+    var yearly = mode==='yearly';
+    var price = yearly ? TRIBE.yearly : TRIBE.monthly;
+    billM.setAttribute('aria-pressed', !yearly);
+    billY.setAttribute('aria-pressed', yearly);
+    amt.innerHTML = price+'&nbsp;€';
+    per.textContent = yearly ? '/ Jahr' : '/ Monat';
+    sub.textContent = yearly
+      ? 'Ein Jahr All-Access — 2 Monate geschenkt (statt '+(TRIBE.monthly*12)+' €).'
+      : 'Alle exklusiven Events inklusive. Monatlich kündbar.';
+    subBtn.setAttribute('data-amount', price);
+    subLabel.textContent = (usingPay?'Premium holen · ':'Premium sichern · ') + price + (yearly?' €/Jahr':' €/Monat');
+    subNote.innerHTML = yearly
+      ? '<b>Bestes Angebot.</b> Ein Jahr Premium, jederzeit pausierbar. Bestätigung per WhatsApp.'
+      : '<b>Monatlich kündbar.</b> Plätze werden persönlich per WhatsApp bestätigt.';
+  }
+  billM.addEventListener('click',function(){mode='monthly';render();try{posthog.capture('premium_billing_toggle',{mode:mode});}catch(e){}});
+  billY.addEventListener('click',function(){mode='yearly'; render();try{posthog.capture('premium_billing_toggle',{mode:mode});}catch(e){}});
+  subBtn.addEventListener('click',function(){
+    var amount=parseInt(subBtn.getAttribute('data-amount'),10)||TRIBE.monthly;
+    try{posthog.capture('premium_subscribe_click',{plan:mode,amount:amount,method:method(),landing_variant:'premium'});}catch(e){}
+    window.open(payUrl(amount),'_blank','noopener');
+  });
+  render();
+})();
+
+/* ---- reveal on scroll ---- */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+/* ---- top bar solidify + sticky CTA visibility ---- */
+(function(){
+  var top=document.getElementById('top'), sticky=document.getElementById('sticky'),
+      pricing=document.getElementById('pricing'), join=document.getElementById('join');
+  function onScroll(){
+    var y=window.scrollY;
+    top.classList.toggle('solid', y>30);
+    var pastHero = y > window.innerHeight*0.8;
+    var nearPricing = pricing.getBoundingClientRect().top < window.innerHeight*0.9 &&
+                      pricing.getBoundingClientRect().bottom > 0;
+    var nearJoin = join.getBoundingClientRect().top < window.innerHeight*0.95;
+    sticky.classList.toggle('show', pastHero && !nearPricing && !nearJoin);
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+
+/* ---- member count count-up ---- */
+window.addEventListener('load',function(){
+  var el=document.getElementById('bigCount'); if(!el) return;
+  var tgt=parseInt(el.textContent,10)||0, st=Math.max(tgt-20,0); el.textContent=st;
+  var t0=performance.now();
+  (function f(now){var p=Math.min(1,(now-t0)/650),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
+});
+
+/* ---- CTA + dwell tracking (matches main funnel naming -> loop stays compatible) ---- */
+(function(){
+  var clicked=false,t0=Date.now();
+  document.querySelectorAll('a[data-cta]').forEach(function(a){
+    a.addEventListener('click',function(){clicked=true;
+      try{posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'premium'});}catch(e){}});
+  });
+  function bye(){try{posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:clicked,landing_variant:'premium'});}catch(e){}}
+  addEventListener('pagehide',bye);
+  addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye();});
+})();
+</script>
+</body>
+</html>
