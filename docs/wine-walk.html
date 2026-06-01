@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3A0E1A">
+<meta name="description" content="The Tribe Wine Walk — ein Spaziergang vom Bürgerpark zum Obersee. Feine Weine, gute Gespräche, schöne Ausblicke. Walk. Sip. Connect. Sommer 2026 in Bielefeld.">
+<title>Tribe Wine Walk — Walk. Sip. Connect.</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%233A0E1A'/><text x='16' y='23' font-family='Georgia' font-size='18' fill='%23D7B24C' text-anchor='middle'>W</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tribe Wine Walk — Walk. Sip. Connect.">
+<meta property="og:description" content="Ein Spaziergang vom Bürgerpark zum Obersee. Feine Weine, gute Gespräche, schöne Ausblicke. Sommer 2026.">
+<meta property="og:image" content="https://maikz91.github.io/the-tribe-bot/assets/wine/cheers.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="assets/wine/cheers.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+  :root{
+    --wine:#5C1A2B; --wine-deep:#3A0E1A; --wine-soft:#7A2233;
+    --gold:#C2992F; --gold-soft:#D7B24C;
+    --cream:#F6EEDF; --paper:#F1E7D4; --ink:#2A1618; --muted:#7A655C;
+    --wa:#25D366; --wa-deep:#062c16;
+    --fd:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --fs:"Dancing Script",cursive;
+    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,.84,.34,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--paper);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.5;overscroll-behavior-y:none;
+    -webkit-tap-highlight-color:transparent}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:560px;margin:0 auto;position:relative}
+
+  /* reveal on scroll */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+
+  /* top bar */
+  .top{position:absolute;top:0;left:0;right:0;z-index:8;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;padding:max(14px,env(safe-area-inset-top)) 18px 0}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+    color:var(--cream);opacity:.92;letter-spacing:.02em}
+  .back svg{width:15px;height:15px}
+  .mark{font-family:var(--fd);font-weight:700;font-size:16px;letter-spacing:.16em;
+    color:var(--cream);text-transform:uppercase}
+
+  /* HERO */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
+    justify-content:flex-end;overflow:hidden;background:var(--wine-deep)}
+  .hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+  .hero .scrim{position:absolute;inset:0;
+    background:
+      radial-gradient(120% 80% at 50% 30%,transparent 0%,rgba(40,8,18,.35) 62%,rgba(40,8,18,.78) 100%),
+      linear-gradient(to top,rgba(36,8,16,.96) 0%,rgba(40,10,20,.82) 30%,rgba(50,14,26,.42) 60%,rgba(60,18,30,.18) 100%)}
+  .hero .grain{position:absolute;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+  .hero .c{position:relative;z-index:3;padding:0 26px calc(34px + env(safe-area-inset-bottom));color:var(--cream)}
+  .kick{font-family:var(--fb);font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:14px}
+  .kick::before{content:"";display:inline-block;width:26px;height:1px;background:var(--gold-soft);
+    vertical-align:middle;margin-right:10px;opacity:.8}
+  h1.title{font-family:var(--fd);font-weight:600;text-transform:uppercase;letter-spacing:.03em;
+    font-size:clamp(54px,19vw,108px);line-height:.86;color:var(--cream);
+    text-shadow:0 4px 40px rgba(0,0,0,.45)}
+  h1.title span{display:block}
+  h1.title .w2{color:var(--gold-soft)}
+  .sip{font-family:var(--fb);font-weight:600;font-size:clamp(15px,4.4vw,19px);letter-spacing:.14em;
+    text-transform:uppercase;color:var(--cream);margin-top:16px}
+  .sip b{color:var(--gold-soft)}
+  .vibes{font-family:var(--fs);font-weight:600;font-size:clamp(22px,6.6vw,30px);color:var(--gold-soft);
+    margin-top:4px;line-height:1.1}
+  .chip{display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:9px 15px;
+    background:rgba(246,238,223,.1);border:1px solid rgba(215,178,76,.4);border-radius:100px;
+    font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--cream);backdrop-filter:blur(4px)}
+  .chip svg{width:15px;height:15px;color:var(--gold-soft)}
+  .chip .sd{font-family:var(--fs);font-size:16px;color:var(--gold-soft)}
+  .scrollcue{margin-top:26px;display:flex;align-items:center;gap:8px;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--cream);opacity:.66}
+  .scrollcue .dot{width:1px;height:30px;background:linear-gradient(var(--gold-soft),transparent);
+    position:relative;overflow:hidden}
+  .scrollcue .dot::after{content:"";position:absolute;left:0;top:-30px;width:1px;height:30px;
+    background:linear-gradient(transparent,var(--gold-soft));animation:flow 2.4s ease-in-out infinite}
+  @keyframes flow{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(60px);opacity:0}}
+
+  /* SECTIONS */
+  section{padding:62px 26px}
+  .eyebrow{font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--wine-soft);margin-bottom:14px}
+  h2{font-family:var(--fd);font-weight:600;font-size:clamp(30px,8.5vw,44px);line-height:1.0;
+    color:var(--wine);letter-spacing:.01em}
+  h2 em{font-style:italic;color:var(--gold)}
+  .lead-p{font-size:16.5px;line-height:1.6;color:var(--ink);margin-top:18px;max-width:40ch}
+  .lead-p + .lead-p{margin-top:14px}
+  .together{font-family:var(--fd);font-weight:700;font-size:clamp(26px,7vw,36px);
+    letter-spacing:.04em;text-transform:uppercase;color:var(--wine);margin-top:26px}
+  .together span{color:var(--gold)}
+
+  .intro{background:var(--cream);border-top:1px solid rgba(92,26,43,.12);border-bottom:1px solid rgba(92,26,43,.12)}
+  .editorial{margin-top:30px;border-radius:6px;overflow:hidden;position:relative;
+    box-shadow:0 24px 60px -28px rgba(58,14,26,.6)}
+  .editorial img{width:100%;height:auto;object-position:50% 30%}
+  .editorial figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px;
+    background:linear-gradient(transparent,rgba(40,8,16,.82));color:var(--cream);
+    font-family:var(--fs);font-size:21px}
+
+  /* ROUTE */
+  .route{background:var(--wine-deep);color:var(--cream)}
+  .route .eyebrow{color:var(--gold-soft)}
+  .route h2{color:var(--cream)}
+  .route h2 em{color:var(--gold-soft)}
+  .route-sub{font-family:var(--fs);font-size:24px;color:var(--gold-soft);margin-top:6px}
+  .routes{margin-top:30px;display:flex;flex-direction:column;gap:16px}
+  .rcard{position:relative;padding:22px 20px 20px;border-radius:12px;
+    background:rgba(246,238,223,.05);border:1px solid rgba(215,178,76,.22);overflow:hidden}
+  .rcard .num{position:absolute;top:14px;right:18px;font-family:var(--fd);font-weight:700;
+    font-size:46px;line-height:1;color:rgba(215,178,76,.18)}
+  .rcard h3{font-family:var(--fd);font-weight:700;font-size:23px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--cream);display:flex;align-items:center;gap:10px}
+  .rcard h3 svg{width:20px;height:20px;color:var(--gold-soft);flex-shrink:0}
+  .rcard .dur{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.04em;
+    color:var(--wine-deep);background:var(--gold-soft);padding:3px 11px;border-radius:100px}
+  .rcard p{font-size:14.5px;line-height:1.55;color:rgba(246,238,223,.8);margin-top:12px}
+  .startziel{margin-top:18px;display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:12px;
+    background:rgba(215,178,76,.1);border:1px solid rgba(215,178,76,.3)}
+  .startziel .pin{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+    background:var(--gold-soft);color:var(--wine-deep)}
+  .startziel .pin svg{width:18px;height:18px}
+  .startziel b{font-family:var(--fd);font-weight:700;font-size:18px;letter-spacing:.04em;color:var(--cream)}
+  .startziel .arr{color:var(--gold-soft);margin:0 4px}
+  .startziel small{display:block;font-size:12px;color:rgba(246,238,223,.62);margin-top:2px;font-family:var(--fb)}
+
+  /* EXPECT */
+  .expect{background:var(--paper)}
+  .checks{margin-top:26px;display:flex;flex-direction:column;gap:2px}
+  .chk{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid rgba(92,26,43,.13)}
+  .chk:first-child{border-top:1px solid rgba(92,26,43,.13)}
+  .chk .ic{flex-shrink:0;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+    background:var(--wine);color:var(--gold-soft);margin-top:1px}
+  .chk .ic svg{width:16px;height:16px}
+  .chk b{font-family:var(--fd);font-weight:600;font-size:19px;color:var(--wine);letter-spacing:.01em}
+  .chk span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+  .bring{font-family:var(--fs);font-size:clamp(26px,7.6vw,38px);color:var(--gold);text-align:center;
+    margin-top:34px;line-height:1.15}
+
+  /* DRESSCODE */
+  .dress{background:var(--cream);border-top:1px solid rgba(92,26,43,.12)}
+  .dress .row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .dress .ws{font-family:var(--fs);font-size:26px;color:var(--gold)}
+  .swatches{margin-top:26px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .sw{text-align:center}
+  .sw .dotc{width:100%;aspect-ratio:1;border-radius:50%;box-shadow:inset 0 -6px 14px rgba(0,0,0,.22),0 6px 16px -6px rgba(0,0,0,.4)}
+  .sw small{display:block;margin-top:8px;font-size:9.5px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted)}
+
+  /* CTA band */
+  .cta-band{background:var(--wine-deep);color:var(--cream);text-align:center;padding:70px 26px}
+  .cta-band h2{color:var(--cream);font-size:clamp(30px,8.5vw,42px)}
+  .cta-band h2 em{color:var(--gold-soft)}
+  .cta-band p{font-size:15px;color:rgba(246,238,223,.78);margin-top:14px;max-width:34ch;margin-inline:auto}
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;margin-top:26px;
+    background:var(--wa);color:var(--wa-deep);font-family:var(--fb);font-weight:700;font-size:17px;
+    padding:18px 30px;border-radius:100px;box-shadow:0 16px 40px -10px rgba(37,211,102,.5);
+    transition:transform .2s var(--ease),box-shadow .3s var(--ease)}
+  .cta:active{transform:scale(.97)}
+  .cta svg{width:21px;height:21px}
+  .reassure{font-size:12px;color:rgba(246,238,223,.6);margin-top:16px}
+  .reassure b{color:var(--gold-soft);font-weight:600}
+  .hashtag{font-family:var(--fd);font-weight:600;font-size:15px;letter-spacing:.12em;
+    color:var(--gold-soft);margin-top:30px;text-transform:uppercase}
+
+  /* footer */
+  footer{background:var(--wine);color:var(--cream);text-align:center;padding:34px 26px calc(40px + env(safe-area-inset-bottom))}
+  footer .tag{font-family:var(--fd);font-weight:600;font-style:italic;font-size:18px;color:var(--gold-soft);margin-bottom:18px}
+  footer .links{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600}
+  footer .links a{padding:8px 14px;border:1px solid rgba(246,238,223,.28);border-radius:100px;transition:background .2s}
+  footer .links a:active{background:rgba(246,238,223,.12)}
+  footer .copy{font-size:11px;color:rgba(246,238,223,.5);margin-top:22px}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    html{scroll-behavior:auto}
+    .rv{opacity:1;transform:none;transition:none}
+    .scrollcue{display:none}
+  }
+</style>
+</head>
+<body>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,
+    autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
+  posthog.register({landing_variant:'wine-walk'});}catch(e){}
+</script>
+
+<div class="wrap">
+
+  <header class="top">
+    <a class="back" href="events.html" aria-label="Zurück zu allen Events">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg> Events
+    </a>
+    <span class="mark">The&nbsp;Tribe</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="bg" src="assets/wine/cheers.jpg" alt="Anstoßen mit Wein bei Sonnenuntergang am Obersee" fetchpriority="high" decoding="async">
+    <div class="scrim"></div>
+    <div class="grain"></div>
+    <div class="c">
+      <div class="kick">Die Alternative zum Social Warm-up</div>
+      <h1 class="title"><span class="w1">Wine</span><span class="w2">Walk</span></h1>
+      <div class="sip">Walk · <b>Sip</b> · Connect</div>
+      <div class="vibes">Good wine. Good people. Good vibes.</div>
+      <div class="chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Freitag oder Samstag · <span class="sd">Sommer 2026</span>
+      </div>
+      <div class="scrollcue"><span class="dot"></span> Die ganze Route</div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="eyebrow">Tribe. Together.</div>
+    <h2>Ein Spaziergang. <em>Feine Weine.</em> Schöne Ausblicke.</h2>
+    <p class="lead-p">Gemeinsam laufen, genießen und den Abend in bester Gesellschaft ausklingen lassen. Gute Gespräche, neue Leute, ein Glas in der Hand und Bielefeld von seiner schönsten Seite.</p>
+    <p class="lead-p">Kein Programm, kein Druck — einfach loslaufen und schauen, wen du unterwegs kennenlernst.</p>
+    <div class="together">Tribe. <span>Together.</span></div>
+    <figure class="editorial">
+      <img src="assets/wine/glass.jpg" alt="Glas Rotwein mit Tribe-Gravur in der Hand">
+      <figcaption>Bring your glass.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ROUTE -->
+  <section class="route">
+    <div class="eyebrow">Die Route — du hast die Wahl</div>
+    <h2>Vom Bürgerpark <em>zum&nbsp;Obersee</em></h2>
+    <div class="route-sub">… oder anders herum, je nach Vibe.</div>
+
+    <div class="routes">
+      <article class="rcard">
+        <span class="num">1</span>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v3l3 2-2 4 2 7"/><circle cx="13" cy="3" r="1.6" fill="currentColor"/><path d="M5 21l3-7"/></svg> Direkter Weg</h3>
+        <span class="dur">ca. 1:15 h</span>
+        <p>Für alle, die's entspannt mögen. Direkt vom Bürgerpark zum Obersee — der kurze, gemütliche Weg.</p>
+      </article>
+      <article class="rcard">
+        <span class="num">2</span>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18s3-1 6-1 5 2 8 1 4-3 4-3"/><path d="M3 12s3-1 6-1 5 2 8 1 4-3 4-3"/></svg> Scenic Route</h3>
+        <span class="dur">ca. 2:00 h</span>
+        <p>Für alle, die mehr erleben wollen. Über die Fußgängerzone und am Lokschuppen vorbei — mehr Stadt, mehr Natur, mehr zu sehen. Die etwas längere, aber schönere Route.</p>
+      </article>
+    </div>
+
+    <div class="startziel">
+      <span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+      <div><b>Bürgerpark <span class="arr">→</span> Obersee</b><small>Start &amp; Ziel · oder anders herum</small></div>
+    </div>
+  </section>
+
+  <!-- WAS DICH ERWARTET -->
+  <section class="expect">
+    <div class="eyebrow">Was dich erwartet</div>
+    <h2>Mehr als ein <em>Spaziergang.</em></h2>
+    <div class="checks">
+      <div class="chk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><b>Ausgewählte Weine an kleinen Stopps</b><span>Unterwegs halten wir an, stoßen an und genießen.</span></div></div>
+      <div class="chk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><b>Zeit für gute Gespräche &amp; neue Leute</b><span>Beim Laufen entstehen die besten Gespräche.</span></div></div>
+      <div class="chk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><b>Bewegung, Natur &amp; Stadtflair</b><span>Park, Fußgängerzone, Wasser — Bielefeld zu Fuß.</span></div></div>
+      <div class="chk"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><div><b>Gemeinsamer Ausklang am Wasser</b><span>Sonnenuntergang am Obersee als großes Finale.</span></div></div>
+    </div>
+    <div class="bring">Bring your glass.<br>Bring your tribe.</div>
+  </section>
+
+  <!-- DRESSCODE -->
+  <section class="dress">
+    <div class="eyebrow">Dresscode</div>
+    <div class="row"><h2>Wir tragen <em>Wein</em></h2></div>
+    <p class="lead-p">Komm in deinen Lieblingsfarben des Weins — für ein schönes Gesamtbild und gute Stimmung. <span class="ws">Such dir deinen Ton aus ✿</span></p>
+    <div class="swatches">
+      <div class="sw"><div class="dotc" style="background:#6E1F2E"></div><small>Burgunder</small></div>
+      <div class="sw"><div class="dotc" style="background:#E0A085"></div><small>Rosé</small></div>
+      <div class="sw"><div class="dotc" style="background:#D7B24C"></div><small>Goldweiß</small></div>
+      <div class="sw"><div class="dotc" style="background:#7F8B49"></div><small>Grün</small></div>
+      <div class="sw"><div class="dotc" style="background:#7E4A2A"></div><small>Braun</small></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <h2>Save the <em>date.</em></h2>
+    <p>Freitag oder Samstag im Sommer 2026 — den genauen Termin posten wir in der Gruppe. Sei dabei, wenn's losgeht.</p>
+    <a class="cta" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" data-cta="wine-walk">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+      Beim Wine Walk dabei sein
+    </a>
+    <div class="reassure"><b>Öffnet WhatsApp</b> · kostenlos · Glas mitbringen · jederzeit raus</div>
+    <div class="hashtag">#TribeWineWalk</div>
+  </section>
+
+  <footer>
+    <div class="tag">Mehr als ein Spaziergang. Ein Erlebnis.</div>
+    <div class="links">
+      <a href="events.html">← Alle Events</a>
+      <a href="buchclub.html">Book Club</a>
+      <a href="index.html">Social Warmup</a>
+    </div>
+    <div class="copy">The Tribe · Bielefeld · Momente festhalten, Erinnerungen teilen</div>
+  </footer>
+
+</div>
+
+<script>
+  // reveal on scroll
+  (function(){
+    var els=document.querySelectorAll('section .eyebrow, section h2, section .lead-p, section .together, .editorial, .routes, .startziel, .checks, .bring, .swatches, .row, .cta, .hashtag, .scrollcue');
+    els.forEach(function(e){e.classList.add('rv');});
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  })();
+
+  // CTA + dwell tracking (event names identical to main page -> loop stays compatible)
+  (function(){
+    var clicked=false,t0=Date.now();
+    document.querySelectorAll('a[data-cta]').forEach(function(a){
+      a.addEventListener('click',function(){clicked=true;
+        try{window.posthog&&posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'wine-walk'});}catch(e){}});
+    });
+    function bye(){try{window.posthog&&posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:clicked,landing_variant:'wine-walk'});}catch(e){}}
+    addEventListener('pagehide',bye);
+    addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye();});
+  })();
+</script>
+</body>
+</html>
