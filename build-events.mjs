@@ -64,8 +64,11 @@ const BASE = {
   'foto-walk':{titleHtml:'Foto <em>Walk</em>', kind:'prem', price:15, glyph:'◉',
     kicker:'Premium-Event · monatlich', when:'Samstag · 17:00', where:'Altstadt → Sparrenburg', duration:'ca. 2,5 Std', priceLabel:'15 € / Person',
     bookSub:'Premium-Event · Einzelticket', related:['wine-walk','techno-paint','social-warm-up']},
+  'dj-workshop':{titleHtml:'DJ <em>Workshop</em>', kind:'prem', price:39, glyph:'♫',
+    kicker:'Premium-Special · monatlich', when:'Samstag · 15:00', where:'Studio / Proberaum', duration:'ca. 3 Std', priceLabel:'39 € · Equipment inkl.',
+    bookSub:'Premium-Special · Einzelticket', related:['techno-paint','tribe-concert','pub-crawl']},
 };
-const TITLE = {'social-warm-up':'Social Warm Up','laufgruppe':'Laufgruppe','stadion-kick':'Stadion-Kick','wine-walk':'Wine Walk','buchclub':'Book Club','pub-crawl':'Pub Crawl','techno-paint':'Techno & Paint','supper-club':'Supper Club','boulder-beer':'Boulder & Beer','sauna':'Sauna & Cold Plunge','tribe-concert':'Tribe Concert','foto-walk':'Foto Walk'};
+const TITLE = {'social-warm-up':'Social Warm Up','laufgruppe':'Laufgruppe','stadion-kick':'Stadion-Kick','wine-walk':'Wine Walk','buchclub':'Book Club','pub-crawl':'Pub Crawl','techno-paint':'Techno & Paint','supper-club':'Supper Club','boulder-beer':'Boulder & Beer','sauna':'Sauna & Cold Plunge','tribe-concert':'Tribe Concert','foto-walk':'Foto Walk','dj-workshop':'DJ Workshop'};
 const SIG_LABEL = {route:'Die Route',tour:'Die Tour',menu:'Das Menü',lineup:'Der Abend',ablauf:'Der Ablauf','aufguss-ablauf':'Der Ablauf',matchday:'Der Spieltag',pick:'Das Buch',timeline:'So läuft’s',levels:'Für jedes Level',dresscode:'Dresscode',runde:'Die Runde',firstnight:'Dein erster Abend'};
 const TAG = {entry:{c:'tagp--entry',t:'Entry Point'},free:{c:'tagp--free',t:'Free'},prem:{c:'tagp--prem',t:'Premium'},flag:{c:'tagp--flag',t:'Flagship'}};
 
