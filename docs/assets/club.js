@@ -10,10 +10,10 @@
      paypalUser  : PayPal.Me handle (paypal.me/HANDLE). Empty => buttons fall back
                    safely to the WhatsApp group (no dead links).
      customPayUrl: full custom checkout link (Stripe/PayPal button); takes priority.
-     app         : link to the Tribe app (currently the Premium hub). TODO: real app/store link. */
+     app         : link to the Tribe event app (liebefeld.lovable.app — "weiß, wo die besten Events laufen"). */
   var TRIBE = window.TRIBE = {
     whatsapp:    "https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL",
-    app:         "premium.html",
+    app:         "https://liebefeld.lovable.app/",
     paypalUser:  "",
     customPayUrl:"",
     currency:    "EUR",
