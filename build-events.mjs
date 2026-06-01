@@ -80,9 +80,9 @@ const split = s => { const i = s.split(/\s*::\s*/); return {h:i[0], p:i.slice(1)
 
 function relatedCard(slug){
   const e = bySlug[slug]; if(!e) return '';
-  const price = e.price>0 ? `${e.price} €` : 'Frei';
+  const priceBit = e.price>0 ? ` <span class="hideable-price">· ${e.price} €</span>` : ' · Frei';
   return `<a class="rel" href="${e.slug}.html" data-cta="rel-${e.slug}" style="--ev:${e.accent};--ev2:${e.accent2}">
-        <p class="rk">${TAG[e.kind].t} · ${price}</p>
+        <p class="rk">${TAG[e.kind].t}${priceBit}</p>
         <h3>${e.title} <span class="arr">→</span></h3>
         <p>${e.heroTagline}</p>
       </a>`;
@@ -209,7 +209,7 @@ ${cover}
       <div class="row"><span class="k">Wann</span><span class="v">${e.when}</span></div>
       <div class="row"><span class="k">Wo</span><span class="v">${e.where}</span></div>
       <div class="row"><span class="k">Dauer</span><span class="v">${e.duration}</span></div>
-      <div class="row"><span class="k">Preis</span><span class="v">${free?'<span class="free">Kostenlos</span>':e.priceLabel}</span></div>
+      <div class="row${free?'':' row--price'}"><span class="k">Preis</span><span class="v">${free?'<span class="free">Kostenlos</span>':e.priceLabel}</span></div>
     </div>
   </div>
 </section>
@@ -283,7 +283,7 @@ ${cover}
 </footer>
 
 <div class="sticky" id="sticky">
-  <div class="si"><b>${e.title}</b><span>${free?'Kostenlos · jederzeit dabei':e.priceLabel}</span></div>
+  <div class="si"><b>${e.title}</b><span${free?'':' class="hideable-price"'}>${free?'Kostenlos · jederzeit dabei':e.priceLabel}</span></div>
   <a class="btn btn--gold" href="#book" data-cta="sticky-book">${stickyLabel}</a>
 </div>
 

@@ -18,8 +18,14 @@
     customPayUrl:"",
     currency:    "EUR",
     monthly:     49,
-    yearly:      490   /* 2 months free */
+    yearly:      490,  /* 2 months free */
+    hidePrices:  true  /* set false to show all prices again */
   };
+  if(TRIBE.hidePrices){
+    document.documentElement.classList.add('hide-prices');
+    var _sb=document.querySelector('#sticky a[data-cta="sticky-book"]');
+    if(_sb && !/kostenlos/i.test(_sb.textContent)) _sb.textContent='Platz sichern';
+  }
   function payUrl(amount){
     if(TRIBE.customPayUrl) return TRIBE.customPayUrl;
     if(TRIBE.paypalUser)   return 'https://www.paypal.com/paypalme/'+encodeURIComponent(TRIBE.paypalUser)+'/'+amount+TRIBE.currency;
@@ -63,7 +69,8 @@
       if(plus) plus.disabled=qty>=max;
       if(priceEl) priceEl.innerHTML = free ? 'Frei' : (total+'&nbsp;€');
       if(label) label.textContent = free ? 'Kostenlos dabei sein'
-        : ((usingPay?'Mit PayPal bezahlen · ':'Platz sichern · ')+total+' €');
+        : (TRIBE.hidePrices ? 'Platz sichern'
+           : (usingPay?'Mit PayPal bezahlen · ':'Platz sichern · ')+total+' €');
     }
     if(minus) minus.addEventListener('click',function(){ if(qty>1){qty--;render();} });
     if(plus) plus.addEventListener('click',function(){ if(qty<max){qty++;render();} });
@@ -91,9 +98,12 @@
       if(billY) billY.setAttribute('aria-pressed',y);
       if(amt) amt.innerHTML=price+'&nbsp;€';
       if(per) per.textContent=y?'/ Jahr':'/ Monat';
-      if(sline) sline.textContent=y?('Ein Jahr All-Access — 2 Monate geschenkt (statt '+(TRIBE.monthly*12)+' €).')
-        :'Alle exklusiven Events inklusive. Monatlich kündbar.';
-      if(label) label.textContent=(usingPay?'Premium holen · ':'Premium sichern · ')+price+(y?' €/Jahr':' €/Monat');
+      if(sline) sline.textContent = TRIBE.hidePrices
+        ? 'Alle exklusiven Events inklusive. Monatlich kündbar.'
+        : (y?('Ein Jahr All-Access — 2 Monate geschenkt (statt '+(TRIBE.monthly*12)+' €).')
+            :'Alle exklusiven Events inklusive. Monatlich kündbar.');
+      if(label) label.textContent = TRIBE.hidePrices ? 'Premium sichern'
+        : (usingPay?'Premium holen · ':'Premium sichern · ')+price+(y?' €/Jahr':' €/Monat');
       if(note) note.innerHTML=y?'<b>Bestes Angebot.</b> Ein Jahr Premium · Bestätigung per WhatsApp.'
         :'<b>Monatlich kündbar.</b> Plätze werden persönlich per WhatsApp bestätigt.';
     }
