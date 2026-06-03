@@ -48,7 +48,34 @@
     justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0}
   .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
     color:var(--black);padding:5px 9px 3px;line-height:1}
-  .ticker{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;color:var(--text);opacity:.95;white-space:nowrap}
+  .topR{display:flex;align-items:center;gap:9px;min-width:0}
+  .ticker{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;color:var(--text);opacity:.95;white-space:nowrap;min-width:0;overflow:hidden}
+  .ticker>span:not(.d),.ticker b{overflow:hidden;text-overflow:ellipsis}
+
+  /* dezenter Info-Dropdown in der Ecke */
+  .menu{position:relative;flex-shrink:0}
+  .menu>summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;
+    justify-content:center;gap:3.5px;width:30px;height:24px;padding:5px 6px;
+    border-radius:7px;border:1px solid rgba(247,242,234,.18);background:rgba(18,16,14,.32);
+    -webkit-tap-highlight-color:transparent}
+  .menu>summary::-webkit-details-marker{display:none}
+  .menu>summary span{display:block;height:1.5px;background:var(--text);opacity:.75;border-radius:2px;transition:.2s var(--ease)}
+  .menu[open]>summary{border-color:rgba(245,162,26,.5)}
+  .menu[open]>summary span{opacity:1}
+  .menuPop{position:absolute;top:calc(100% + 8px);right:0;z-index:30;min-width:178px;
+    display:flex;flex-direction:column;padding:6px;border-radius:13px;
+    background:rgba(14,12,11,.92);backdrop-filter:blur(14px);
+    border:1px solid rgba(247,242,234,.12);box-shadow:0 18px 44px rgba(0,0,0,.55);
+    animation:popIn .18s var(--ease)}
+  @keyframes popIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .menuPop .ph{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);padding:5px 10px 6px}
+  .menuPop a{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:10px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--text);
+    transition:background .15s}
+  .menuPop a:active,.menuPop a:hover{background:rgba(245,162,26,.12)}
+  .menuPop a .ar{color:var(--amber);font-size:12px;opacity:.8}
+  .menuPop a.feat{color:var(--amber)}
   .ticker .d{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:onpulse 2.4s ease-in-out infinite}
   .ticker .cd{color:var(--amber)}
   .ticker b{color:var(--amber);font-weight:700}
@@ -184,7 +211,18 @@
 
   <div class="top">
     <span class="mark">THE&nbsp;TRIBE</span>
-    <span class="ticker"><span class="d"></span>Social Warmup · <b>Bernstein</b> · <span id="evCd">Sa&nbsp;18:00</span></span>
+    <div class="topR">
+      <span class="ticker"><span class="d"></span>Social Warmup · <b>Bernstein</b> · <span id="evCd">Sa&nbsp;18:00</span></span>
+      <details class="menu" id="menu">
+        <summary aria-label="Mehr Infos"><span></span><span></span><span></span></summary>
+        <div class="menuPop">
+          <span class="ph">Mehr erfahren</span>
+          <a class="feat" href="premium.html">Tribe Premium <span class="ar">→</span></a>
+          <a href="premium.html#programme">Programm <span class="ar">→</span></a>
+          <a href="premium.html#pricing">Preise <span class="ar">→</span></a>
+        </div>
+      </details>
+    </div>
   </div>
 
   <nav class="events" aria-label="Community-Events jede Woche">
@@ -318,6 +356,15 @@
           cd.textContent='dein Platz wartet … '+n;
         },1000);
       },DELAY);
+    });
+  })();
+
+  /* Info-Dropdown: schließt bei Klick außerhalb */
+  (function(){
+    var m=document.getElementById('menu');
+    if(!m)return;
+    document.addEventListener('click',function(e){
+      if(m.open && !m.contains(e.target))m.removeAttribute('open');
     });
   })();
 </script>
