@@ -57,7 +57,10 @@ const STAMMTISCH_VENUES = [
     'Alex',
     'Glueck & Seligkeit',
     'Hechelei',
-    'Capvin'
+    'Capvin',
+    'Plan B',
+    'Nichtschwimmer',
+    'Mellow Gold'
 ];
 const VENUE_POLL_WEEKLY_COUNT = 3;
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag - schreib's in den Chat";
@@ -70,6 +73,12 @@ const VENUE_POLL_OPENERS = [
     'Diese Woche wieder Tribe-Samstag - 18 Uhr, offline, echt.',
     'Samstag-Plan steht: 18 Uhr, Tribe-Tisch.'
 ];
+const WEEK_OVERRIDES = {
+    '2026-05-25': {
+        venues: ['Plan B', 'Nichtschwimmer', 'Mellow Gold'],
+        skipSpecialSaturday: true
+    }
+};
 const SPECIAL_SATURDAY_OPENERS = [
     'Letzter Samstag im Monat - Zeit fuer was anderes.',
     'Special-Samstag steht an - keine Kneipe, was Neues.',
@@ -303,6 +312,9 @@ function rotateArray(values, shift) {
 }
 
 function getVenueOptionsForWeek(weekKey) {
+    if (WEEK_OVERRIDES[weekKey]?.venues) {
+        return WEEK_OVERRIDES[weekKey].venues.slice(0, VENUE_POLL_WEEKLY_COUNT);
+    }
     return rotateArray(STAMMTISCH_VENUES, getWeekRotationIndex(weekKey)).slice(0, VENUE_POLL_WEEKLY_COUNT);
 }
 
@@ -1696,11 +1708,11 @@ async function sendDailyHighlights({ force = false } = {}) {
         'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
     ].join('\n');
 
-    // Generate and send video highlight reel
+    // Event-Übersicht als Bild posten (kein Video mehr)
     try {
-        await sendDailyHighlightsVideo(now);
+        await sendDailyHighlightsImage(withTribe, now);
     } catch (err) {
-        console.error('Tageshighlights-Video konnte nicht gesendet werden:', err.message);
+        console.error('Tageshighlights-Bild konnte nicht gesendet werden:', err.message);
     }
 
     await client.sendMessage(
@@ -1794,7 +1806,7 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
         return;
     }
 
-    if (isLastSaturdayOfMonth(weekKey)) {
+    if (isLastSaturdayOfMonth(weekKey) && !WEEK_OVERRIDES[weekKey]?.skipSpecialSaturday) {
         await sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today });
         return;
     }
@@ -1804,7 +1816,7 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
     const intro = [
         getOpenerForWeek(weekKey),
         '',
-        'Egal ob neu hier oder Tribe-Stammgast: einfach kommen, hinsetzen, mitreden – oder zuhoeren. Kein Programm, kein Ablauf.',
+        'Social Warmup: Einstieg in den Abend – entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.',
         '',
         'Drei Locations zur Auswahl:',
         ...venues.map(venue => `👉 ${venue}`),
@@ -1915,8 +1927,8 @@ async function updateLandingPageMemberCount(count) {
 async function updateLandingPageNextEvent() {
     const htmlPath = path.join(__dirname, 'docs', 'index.html');
     try {
-        const today = getToday();
-        const weekKey = today.weekKey;
+        const state = getState();
+        const weekKey = getBerlinWeekKey();
 
         // Nächsten Samstag berechnen
         const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
@@ -3175,7 +3187,7 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
         return;
     }
 
-    if (weeklyState.specialSaturday) {
+    if (weeklyState.specialSaturday && !WEEK_OVERRIDES[weekKey]?.skipSpecialSaturday) {
         await sendSpecialSaturdayAttendancePoll({ state, weeklyState, today });
         return;
     }
@@ -3955,6 +3967,3 @@ client.initialize().catch(err => {
 process.on('unhandledRejection', err => {
     console.error('Unhandled promise rejection:', err && err.stack ? err.stack : err);
 });
-
-
-
