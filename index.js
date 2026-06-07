@@ -1687,23 +1687,14 @@ async function sendDailyHighlights({ force = false } = {}) {
     const withTribe = [...fixedEntries, ...filtered.filter(h => !fixedNames.has(h.event))];
 
     const { day, month, year } = today;
-    const pollQuestion = `Bielefeld Tageshighlights fuer ${day}.${month}.${year} – Wer ist heute dabei?`;
-
     const highlightsForPoll = withTribe.slice(0, MAX_HIGHLIGHTS);
-    const pollOptions = [
-        ...highlightsForPoll.map(h => {
-            const time = h.time ? `${h.time} Uhr` : 'Ohne Uhrzeit';
-            return `${time} - ${h.event}`.slice(0, 100);
-        }),
-        'Mehr Events für #Liebefeld'
-    ];
 
     const linkLines = highlightsForPoll
         .filter(h => h.link)
         .map(h => `• ${h.event}: ${h.link}`);
     const linkSection = linkLines.length ? ['', '🔗 Links:', ...linkLines] : [];
-    const pollQuestionWithLinks = [
-        pollQuestion,
+    const highlightsMessage = [
+        `Bielefeld Tageshighlights fuer ${day}.${month}.${year} 👇`,
         ...linkSection,
         '',
         'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
@@ -1716,10 +1707,7 @@ async function sendDailyHighlights({ force = false } = {}) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', err.message);
     }
 
-    await client.sendMessage(
-        announcementChatId,
-        new Poll(pollQuestionWithLinks, pollOptions, { allowMultipleAnswers: true })
-    );
+    await client.sendMessage(announcementChatId, highlightsMessage);
 
     state.lastPostedDate = todayKey;
     state.lastPostedAt = new Date().toISOString();
