@@ -1158,11 +1158,11 @@ async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
     return outputPath;
 }
 
-async function sendDailyHighlightsImage(highlights, date = getBerlinNow()) {
+async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), caption) {
     try {
         const imagePath = await renderDailyHighlightsImage(highlights, date);
         const media = MessageMedia.fromFilePath(imagePath);
-        await client.sendMessage(announcementChatId, media);
+        await client.sendMessage(announcementChatId, media, caption ? { caption } : undefined);
         return imagePath;
     } catch (error) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', error.message);
@@ -1686,28 +1686,14 @@ async function sendDailyHighlights({ force = false } = {}) {
     const fixedNames = new Set(fixedEntries.map(e => e.event));
     const withTribe = [...fixedEntries, ...filtered.filter(h => !fixedNames.has(h.event))];
 
-    const { day, month, year } = today;
-    const highlightsForPoll = withTribe.slice(0, MAX_HIGHLIGHTS);
+    const caption = 'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/';
 
-    const linkLines = highlightsForPoll
-        .filter(h => h.link)
-        .map(h => `• ${h.event}: ${h.link}`);
-    const linkSection = linkLines.length ? ['', '🔗 Links:', ...linkLines] : [];
-    const highlightsMessage = [
-        `Bielefeld Tageshighlights fuer ${day}.${month}.${year} 👇`,
-        ...linkSection,
-        '',
-        'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/'
-    ].join('\n');
-
-    // Event-Übersicht als Bild posten (kein Video mehr)
+    // Event-Übersicht als Bild posten (kein Video mehr), Link direkt als Caption
     try {
-        await sendDailyHighlightsImage(withTribe, now);
+        await sendDailyHighlightsImage(withTribe, now, caption);
     } catch (err) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', err.message);
     }
-
-    await client.sendMessage(announcementChatId, highlightsMessage);
 
     state.lastPostedDate = todayKey;
     state.lastPostedAt = new Date().toISOString();
