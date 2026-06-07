@@ -1637,6 +1637,7 @@ async function sendDailyHighlights({ force = false } = {}) {
     const highlights = getTodayHighlights(events, now);
     const EXCLUDED_CATEGORIES = new Set(['sport', 'sonstiges', 'kino', 'ausgehen']);
     const { weekdayIndex } = today;
+    const isFriday = weekdayIndex === 5;
     const isSaturday = weekdayIndex === 6;
     const WEEKDAY_PREFIXES = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
     const todayPrefix = WEEKDAY_PREFIXES[weekdayIndex];
@@ -1649,8 +1650,8 @@ async function sendDailyHighlights({ force = false } = {}) {
         // nur am passenden Wochentag zeigen
         const prefixMatch = name.match(weekdayPrefixPattern);
         if (prefixMatch && prefixMatch[1].toUpperCase() !== todayPrefix) return false;
-        if (isSaturday) {
-            // Wiederkehrende Club-Events samstags nicht zeigen
+        if (isFriday || isSaturday) {
+            // Wiederkehrende Club-Events Fr/Sa nicht zeigen
             if (/cutie/i.test(name)) return false;
             if (/liv\/hinterzimmer/i.test(name)) return false;
         }
