@@ -133,8 +133,10 @@
   .node:focus{outline:none}
   .node.you .dot{fill:#fff}
   .node.you .ring{stroke:#fff;opacity:.8}
-  .node .pin-label{font-family:var(--fb);font-weight:600;fill:var(--text);font-size:12px}
-  .node .pin-count{font-family:var(--fd);fill:var(--amber);font-size:12px}
+  .node .pin-label{font-family:var(--fb);font-weight:600;fill:var(--text);font-size:10px;
+    paint-order:stroke;stroke:rgba(10,8,7,.92);stroke-width:2.6px;stroke-linejoin:round}
+  .node .pin-count{font-family:var(--fd);fill:var(--amber);font-size:10.5px;
+    paint-order:stroke;stroke:rgba(10,8,7,.92);stroke-width:2.6px;stroke-linejoin:round}
   @keyframes pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
   .node.hero .ring{transform-origin:center;transform-box:fill-box;animation:pulse 2.6s var(--ease) infinite}
   .hint{text-align:center;font-size:11px;color:var(--muted);letter-spacing:.04em;margin:2px 0 0}
@@ -358,11 +360,19 @@ function render(data){
     g.appendChild(el('circle',{class:'halo', cx:c.x, cy:c.y, r:r*2.1}));
     if(isHero) g.appendChild(el('circle',{class:'ring', cx:c.x, cy:c.y, r:r+3}));
     g.appendChild(el('circle',{class:'dot', cx:c.x, cy:c.y, r:r}));
-    if(i<3 || c.members>=40){
-      const lx = c.x + r + 6;
-      const t = el('text',{class:'pin-label', x:lx, y:c.y-1}); t.textContent = c.city;
-      const ct = el('text',{class:'pin-count', x:lx, y:c.y+12}); ct.textContent = c.members;
-      g.appendChild(t); g.appendChild(ct);
+    // Name für JEDE Live-Stadt; Mitgliederzahl nur für prominente (gegen Clutter).
+    // Label-Seite nach x flippen, damit Ost-Städte nicht aus der Karte laufen.
+    const prominent = (i<3 || c.members>=40);
+    const onRight = c.x < 470;
+    const lx = onRight ? c.x + r + 5 : c.x - r - 5;
+    const anchor = onRight ? 'start' : 'end';
+    const t = el('text',{class:'pin-label', x:lx, y:c.y+(prominent?-1:3.5), 'text-anchor':anchor});
+    t.textContent = c.city;
+    g.appendChild(t);
+    if(prominent){
+      const ct = el('text',{class:'pin-count', x:lx, y:c.y+12, 'text-anchor':anchor});
+      ct.textContent = c.members;
+      g.appendChild(ct);
     }
     nodes.appendChild(g);
   });
