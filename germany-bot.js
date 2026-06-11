@@ -15,16 +15,21 @@
 //  * Bielefeld bleibt Sache des Bielefeld-Bots (Count kommt dort aus der Analyse);
 //    dieser Bot fasst den Bielefeld-Eintrag nicht an.
 //
+// Im Dauerbetrieb begrüßt der Bot ausserdem neue Mitglieder in jeder Stadtgruppe
+// (group_join, öffentlich, stadt-spezifisch) — analog Bielefeld-Bot. KEINE der
+// anderen Bielefeld-Features (Tuesday-Run, Jam, Fussball, Dashboard, Highlights …).
+//
 // Start:
-//   node germany-bot.js          -> dauerhaft: QR scannen, Export + Refresh alle 30 min
-//   node germany-bot.js --once    -> einmalig exportieren und beenden (für Cron)
-//   BOT_COMMAND=germany-export node germany-bot.js   -> wie --once
+//   node germany-bot.js          -> dauerhaft: Export+Refresh alle 30 min + Begrüßung neuer Mitglieder
+//   node germany-bot.js --once    -> einmalig Karte exportieren und beenden (für Cron)
+//   node germany-bot.js --poll    -> Social-Warmup-Umfrage in alle Stadtgruppen posten und beenden
+//   BOT_COMMAND=germany-export|germany-poll node germany-bot.js   -> wie --once / --poll
 // ============================================================================
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const { Client, LocalAuth, Poll } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const QRCode = require('qrcode');
 
@@ -33,6 +38,11 @@ const REFRESH_INTERVAL_MS = Number(process.env.GERMANY_REFRESH_INTERVAL_MS || 30
 const ONE_SHOT =
     process.argv.includes('--once') ||
     (process.env.BOT_COMMAND || '').trim() === 'germany-export';
+// Social-Warmup-Umfrage in alle Stadtgruppen posten und beenden (manuell ausgelöst,
+// genau wie der Bielefeld-Bot seine Mittwochs-Umfrage triggert).
+const POLL_MODE =
+    process.argv.includes('--poll') ||
+    (process.env.BOT_COMMAND || '').trim() === 'germany-poll';
 
 // Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json
 // und zu GERMANY_CITIES im Bielefeld-Bot. Nur Städte aus dieser Liste haben eine
@@ -47,8 +57,63 @@ const GERMANY_CITIES = [
     'Braunschweig', 'Würzburg', 'Regensburg', 'Ingolstadt', 'Heidelberg', 'Ulm',
     'Oldenburg', 'Potsdam', 'Göttingen', 'Koblenz', 'Trier', 'Konstanz', 'Flensburg',
     'Gütersloh', 'Herford', 'Detmold', 'Minden', 'Bremerhaven', 'Wolfsburg', 'Jena',
-    'Chemnitz', 'Halle', 'Darmstadt', 'Oberhausen', 'Krefeld', 'Mönchengladbach',
+    'Chemnitz', 'Halle', 'Darmstadt', 'Duisburg', 'Oberhausen', 'Krefeld', 'Mönchengladbach',
     'Kaiserslautern', 'Marburg', 'Tübingen', 'Lüneburg'
+];
+
+// ---------------------------------------------------------------------------
+// Social-Warmup-Umfrage (analog Bielefeld-Bot) — pro Stadt eigene "coolste"
+// Locations. Frei editierbar: hier ergänzen/ändern. Städte ohne Eintrag
+// bekommen keine Location-Umfrage (werden geloggt, damit du sie nachträgst).
+// ---------------------------------------------------------------------------
+const VENUE_POLL_COUNT = 3;
+const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag — schreib's in den Chat";
+const CITY_VENUES = {
+    'Bielefeld': ['Bernstein', 'Cafe Barcelona', 'Nichtschwimmer', 'Mellow Gold', 'Plan B'],
+    'Berlin': ['Klunkerkranich', 'Hopfenreich', 'Prince Charles', 'Monkey Bar', 'Hofbräu Wirtshaus'],
+    'Hamburg': ['Aurel', 'Katze', 'Komet Musikbar', 'Lunacy', 'Familieneck'],
+    'München': ['Trachtenvogl', 'Goldene Bar', 'Holy Home', 'Zephyr Bar', 'Eat the Rich'],
+    'Köln': ['Hallmackenreuther', 'Lotta', 'Heising & Adelmann', 'Low Budget', 'Zum Scheuen Reh'],
+    'Frankfurt': ['Plank', 'Walden', 'Maxie Eisen', 'The Parlour', 'Yok Yok'],
+    'Stuttgart': ['Paul & George', 'Misch Misch', 'Weiße Villa', 'Schräglage', '0711 Club'],
+    'Düsseldorf': ['Pitcher', 'Salon des Amateurs', 'Sausalitos', 'Et Kabüffke', 'Knoten'],
+    'Dortmund': ['subrosa', 'Tortuga', 'Nepomuk', 'Hövels Hausbrauerei', 'Pferdestall'],
+    'Essen': ['Café Central', 'Hotto', 'Eulenspiegel', 'Cocoon', 'Grend'],
+    'Leipzig': ['Noch Besser Leben', 'Killiwilly', 'Flowerpower', 'Sixtina', 'Telegraph'],
+    'Dresden': ['Kollektiv', 'Combo', 'Louisengarten', 'Katys Garage', 'Hebeda’s'],
+    'Hannover': ['Lux', 'Café Mezzo', 'Hausbar', 'Holländische Kakaostube', 'Stuttgarter Klause'],
+    'Nürnberg': ['Kantine', 'Treibhaus', 'Gostner Hoftheater', 'Mr. Kennedy', 'Bar Modern'],
+    'Bremen': ['Lila Eule', 'Karton', 'Tower', 'Spedition', 'Litfass'],
+    'Münster': ['Cuba Nova', 'Pension Schmidt', 'Blaues Haus', 'Gleis 22', 'Cavete'],
+    'Bonn': ['Pawlow', 'Bla', 'Nyam', 'Sunset', 'Café Spitz'],
+    'Mannheim': ['Zwischenbau', 'Hagestolz', 'Murphy’s Law', 'Café Vienna', 'Tante Emma'],
+    'Karlsruhe': ['Café Palaver', 'Stövchen', 'Kohi', 'Alte Hackerei', 'Vogelbräu'],
+    'Augsburg': ['City Club', 'Mahagoni Bar', 'Yum Yum', 'Peaches', 'Ballonfabrik'],
+    'Freiburg': ['Schmitz Katze', 'White Rabbit', 'Karma', 'Slow Club', 'Hausbar'],
+    'Heidelberg': ['Café Gegendruck', 'Destille', 'Nachtschicht', 'Untere Strasse', 'Cave 54'],
+    'Duisburg': ['Hundertmeister', 'Djäzz', 'Goldsaal', 'Pulp', 'Webster Brauhaus'],
+    'Jena': ['Kassablanca', 'Café Wagner', 'Rosenkeller', 'Stilbruch', 'Grünowski'],
+    'Lübeck': ['Hüxstrasse', 'Brauberger', 'Finnegan', 'Parkhaus', 'Café Affenbrot'],
+    'Wiesbaden': ['Park Café', 'Wagner’s', 'Robert Johnson Nähe', 'Sherry & Port', 'Irish Pub'],
+    'Mainz': ['Bagatelle', 'Eisgrub', '50grad', 'Q-Bar', 'Schon Schön'],
+    'Aachen': ['B9', 'Domkeller', 'Pontstrasse', 'Café Kittel', 'Apollo']
+};
+
+// Begrüßung (analog Bielefeld) — öffentlich in der jeweiligen Stadtgruppe.
+const WELCOME_GREETINGS = [
+    'Hey {names}, willkommen bei THE TRIBE {city}! 👋',
+    '{names} – schön dass ihr da seid! 🎉',
+    'Willkommen {names}! 👋',
+    '{names} sind jetzt dabei – herzlich willkommen! 🙌',
+    'Hey {names}! Schön dass ihr hier seid 😊',
+    '{names} – willkommen in {city}! ✌️'
+];
+const WELCOME_CONTEXT = [
+    'Echte Treffen in {city}, jeden Samstag Social Warmup als Einstieg in den Abend – stellt euch kurz vor! 🙌',
+    'Samstags Social Warmup – Einstieg in den Abend, danach ziehen wir gemeinsam weiter. Wer seid ihr? 👀',
+    'THE TRIBE = echte Treffen. Samstags Social Warmup, danach gemeinsam los. Sagt kurz Hallo! 😄',
+    'Jeden Samstag Social Warmup – kommt vorbei, lernt {city} kennen, dann ziehen wir weiter ✌️',
+    'Hier treffen sich echte Menschen in {city} – samstags beim Social Warmup. Wer seid ihr? 😊'
 ];
 
 function normalizeCityToken(value) {
@@ -212,11 +277,110 @@ async function exportGermanyMap() {
 }
 
 // ---------------------------------------------------------------------------
+// Begrüßung + Social-Warmup-Umfrage (analog Bielefeld-Bot, pro Stadtgruppe)
+// ---------------------------------------------------------------------------
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+function fillTemplate(tpl, vars) {
+    return String(tpl).replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
+function isoWeek() {
+    const d = new Date();
+    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    const dayNum = (date.getUTCDay() + 6) % 7;
+    date.setUTCDate(date.getUTCDate() - dayNum + 3);
+    const firstThursday = new Date(Date.UTC(date.getUTCFullYear(), 0, 4));
+    return 1 + Math.round(((date - firstThursday) / 86400000 - 3 + ((firstThursday.getUTCDay() + 6) % 7)) / 7);
+}
+
+// Alle Gruppen-Chats dieses Accounts, die auf eine Stadt matchen.
+async function getMatchedCityGroups() {
+    const chats = await client.getChats();
+    const out = [];
+    for (const chat of chats) {
+        if (!chat.isGroup) continue;
+        const city = matchCityDirect(chat.name || '');
+        if (city) out.push({ city, chat });
+    }
+    return out;
+}
+
+// Öffentliche Begrüßung neuer Mitglieder in der jeweiligen Stadtgruppe.
+async function sendCityWelcome(chat, city, recipientIds) {
+    const selfId = client.info?.wid?._serialized;
+    const ids = (recipientIds || []).filter(id => id && id !== selfId);
+    if (!ids.length) return;
+    let names = [];
+    try {
+        const contacts = await Promise.all(ids.map(id => client.getContactById(id)));
+        names = contacts.map(c => c.pushname || c.name || (c.number ? `+${c.number}` : null)).filter(Boolean);
+    } catch (_) { /* Namen optional */ }
+    const introNames = names.length
+        ? (names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ' & ' + names[names.length - 1])
+        : 'ihr Neuen';
+    const msg = fillTemplate(pick(WELCOME_GREETINGS), { names: introNames, city })
+        + '\n' + fillTemplate(pick(WELCOME_CONTEXT), { names: introNames, city });
+    try {
+        await chat.sendMessage(msg);
+        console.log(`Germany-Bot: Begrüßung in ${city} gesendet (${introNames}).`);
+    } catch (err) {
+        console.error(`Germany-Bot: Begrüßung in ${city} fehlgeschlagen:`, err.message);
+    }
+}
+
+async function handleGroupJoin(notification) {
+    if (ONE_SHOT || POLL_MODE) return; // nur im Dauerbetrieb begrüßen
+    let chat;
+    try { chat = await notification.getChat(); } catch (_) { return; }
+    if (!chat || !chat.isGroup) return;
+    const city = matchCityDirect(chat.name || '');
+    if (!city) return;
+    await sendCityWelcome(chat, city, notification.recipientIds || []);
+}
+
+// Social-Warmup-Location-Umfrage in jede Stadtgruppe posten (manuell via --poll).
+async function sendSocialWarmupPolls() {
+    const groups = await getMatchedCityGroups();
+    if (!groups.length) { console.log('Germany-Bot: keine Stadtgruppen gefunden.'); return; }
+    const week = isoWeek();
+    let sent = 0;
+    const noVenues = [];
+    for (const { city, chat } of groups) {
+        const all = CITY_VENUES[city];
+        if (!all || !all.length) { noVenues.push(city); continue; }
+        const off = week % all.length;
+        const venues = all.slice(off).concat(all.slice(0, off)).slice(0, VENUE_POLL_COUNT);
+        const options = [...venues, VENUE_POLL_CHAT_OPTION];
+        const intro = [
+            `Social Warmup ${city} — Samstag, 18 Uhr.`,
+            '',
+            'Einstieg in den Abend: entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.',
+            '',
+            'Drei Locations zur Auswahl:',
+            ...venues.map(v => `👉 ${v}`),
+            '',
+            'Bis Freitag abstimmen. Eigene Idee? Ab in den Chat.'
+        ].join('\n');
+        try {
+            await chat.sendMessage(intro);
+            const pollMsg = await chat.sendMessage(new Poll('Location für den Social Warmup am Samstag?', options));
+            try { await pollMsg.pin(604800); } catch (_) {}
+            sent++;
+            console.log(`Germany-Bot: Umfrage in ${city} gepostet (${venues.join(', ')}).`);
+        } catch (err) {
+            console.error(`Germany-Bot: Umfrage in ${city} fehlgeschlagen:`, err.message);
+        }
+    }
+    console.log(`Germany-Bot: ${sent} Umfrage(n) gesendet.`);
+    if (noVenues.length) console.log(`Germany-Bot: keine Locations hinterlegt für ${noVenues.join(', ')} — in CITY_VENUES ergänzen.`);
+}
+
+// ---------------------------------------------------------------------------
 // WhatsApp-Client (eigene Session 'germany' — getrennt vom Bielefeld-Bot)
 // ---------------------------------------------------------------------------
 const client = new Client({
     authStrategy: new LocalAuth({ clientId: 'germany' }),
-    authTimeoutMs: 0, // kein Timeout beim ersten QR-Login (Zeit zum Scannen mit der 2. Nummer)
+    authTimeoutMs: 120000, // wie der Bielefeld-Bot (index.js) — bekannt funktionierend
+    takeoverOnConflict: true,
     puppeteer: {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
@@ -242,8 +406,21 @@ client.on('disconnected', reason => console.log('Germany-Bot: Verbindung getrenn
 
 let refreshTimer = null;
 
+client.on('group_join', notification => {
+    handleGroupJoin(notification).catch(err => console.error('Germany-Bot: group_join Fehler:', err.message));
+});
+
 client.on('ready', async () => {
     console.log('Germany-Bot ist online.');
+
+    if (POLL_MODE) {
+        try { await sendSocialWarmupPolls(); }
+        catch (err) { console.error('Germany-Poll fehlgeschlagen:', err && err.stack ? err.stack : err); }
+        await new Promise(r => setTimeout(r, 3000));
+        await client.destroy().catch(() => {});
+        process.exit(0);
+        return;
+    }
 
     if (ONE_SHOT) {
         try {
@@ -263,7 +440,7 @@ client.on('ready', async () => {
     refreshTimer = setInterval(() => {
         exportGermanyMap().catch(err => console.error('Germany-Export (Refresh) fehlgeschlagen:', err.message));
     }, REFRESH_INTERVAL_MS);
-    console.log(`Germany-Bot: Auto-Refresh alle ${Math.round(REFRESH_INTERVAL_MS / 60000)} min. Strg+C zum Beenden.`);
+    console.log(`Germany-Bot: Auto-Refresh alle ${Math.round(REFRESH_INTERVAL_MS / 60000)} min + Begrüßung neuer Mitglieder aktiv. Strg+C zum Beenden.`);
 });
 
 process.on('SIGINT', async () => {
