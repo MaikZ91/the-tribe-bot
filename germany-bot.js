@@ -15,21 +15,25 @@
 //  * Bielefeld bleibt Sache des Bielefeld-Bots (Count kommt dort aus der Analyse);
 //    dieser Bot fasst den Bielefeld-Eintrag nicht an.
 //
-// Im Dauerbetrieb begrüßt der Bot ausserdem neue Mitglieder in jeder Stadtgruppe
-// (group_join, öffentlich, stadt-spezifisch) — analog Bielefeld-Bot. KEINE der
-// anderen Bielefeld-Features (Tuesday-Run, Jam, Fussball, Dashboard, Highlights …).
+// Im Dauerbetrieb: (1) begrüßt neue Mitglieder in jeder Stadtgruppe (group_join,
+// öffentlich, stadt-spezifisch) und (2) fährt die volle Social-Warmup-Struktur wie
+// der Bielefeld-Bot — Mi 20:00 Venue-Umfrage, Fr 18:00 Zusage-Umfrage am Gewinner,
+// Sa 12:00 Reminder, mit DEMSELBEN Bild (images/tribe-kennenlernabend.jpg), pro Stadt.
+// KEINE anderen Bielefeld-Features (Tuesday-Run, Jam, Fussball, Dashboard, Highlights …).
 //
 // Start:
-//   node germany-bot.js          -> dauerhaft: Export+Refresh alle 30 min + Begrüßung neuer Mitglieder
+//   node germany-bot.js          -> dauerhaft: Karte-Refresh + Begrüßung + Mi/Fr/Sa-Warmup-Schedule
 //   node germany-bot.js --once    -> einmalig Karte exportieren und beenden (für Cron)
-//   node germany-bot.js --poll    -> Social-Warmup-Umfrage in alle Stadtgruppen posten und beenden
-//   BOT_COMMAND=germany-export|germany-poll node germany-bot.js   -> wie --once / --poll
+//   node germany-bot.js --poll    -> JETZT Venue-Umfrage (Mi-Schritt) in alle Stadtgruppen
+//   node germany-bot.js --friday  -> JETZT Zusage-Umfrage (Fr-Schritt) am Gewinner-Venue
+//   node germany-bot.js --reminder-> JETZT Samstags-Reminder posten
+//   BOT_COMMAND=germany-export|germany-poll|germany-friday|germany-reminder node germany-bot.js
 // ============================================================================
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { Client, LocalAuth, Poll } = require('whatsapp-web.js');
+const { Client, LocalAuth, Poll, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const QRCode = require('qrcode');
 
@@ -43,6 +47,12 @@ const ONE_SHOT =
 const POLL_MODE =
     process.argv.includes('--poll') ||
     (process.env.BOT_COMMAND || '').trim() === 'germany-poll';
+const FRIDAY_MODE =
+    process.argv.includes('--friday') ||
+    (process.env.BOT_COMMAND || '').trim() === 'germany-friday';
+const REMINDER_MODE =
+    process.argv.includes('--reminder') ||
+    (process.env.BOT_COMMAND || '').trim() === 'germany-reminder';
 
 // Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json
 // und zu GERMANY_CITIES im Bielefeld-Bot. Nur Städte aus dieser Liste haben eine
@@ -68,6 +78,11 @@ const GERMANY_CITIES = [
 // ---------------------------------------------------------------------------
 const VENUE_POLL_COUNT = 3;
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag — schreib's in den Chat";
+const ATTENDANCE_OPTIONS = ['Bin dabei', 'Beim nächsten Mal'];
+// Dasselbe Bild wie der Bielefeld-Bot (loadKennenlernabendMedia).
+const WARMUP_IMAGE_FILE = process.env.TRIBE_KENNENLERNABEND_IMAGE_PATH
+    || path.join(__dirname, 'images', 'tribe-kennenlernabend.jpg');
+const WARMUP_STATE_FILE = path.join(__dirname, '.germany-warmup-state.json');
 const CITY_VENUES = {
     'Bielefeld': ['Bernstein', 'Cafe Barcelona', 'Nichtschwimmer', 'Mellow Gold', 'Plan B'],
     'Berlin': ['Klunkerkranich', 'Hopfenreich', 'Prince Charles', 'Monkey Bar', 'Hofbräu Wirtshaus'],
@@ -337,41 +352,164 @@ async function handleGroupJoin(notification) {
     await sendCityWelcome(chat, city, notification.recipientIds || []);
 }
 
-// Social-Warmup-Location-Umfrage in jede Stadtgruppe posten (manuell via --poll).
-async function sendSocialWarmupPolls() {
+// --- Bild + Wochenstatus + Zeit/Vote-Helfer (analog Bielefeld-Bot) ---
+function loadWarmupImage() {
+    try { if (fs.existsSync(WARMUP_IMAGE_FILE)) return MessageMedia.fromFilePath(WARMUP_IMAGE_FILE); } catch (_) {}
+    return null;
+}
+function readWarmupState() {
+    try { const s = JSON.parse(fs.readFileSync(WARMUP_STATE_FILE, 'utf8')); return s && typeof s === 'object' ? s : {}; } catch (_) { return {}; }
+}
+function writeWarmupState(s) {
+    try { fs.writeFileSync(WARMUP_STATE_FILE, JSON.stringify(s, null, 2) + '\n', 'utf8'); }
+    catch (e) { console.error('Germany-Bot: Warmup-State schreiben fehlgeschlagen:', e.message); }
+}
+function berlinParts(date = new Date()) {
+    const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+    const p = Object.fromEntries(fmt.formatToParts(date).filter(x => x.type !== 'literal').map(x => [x.type, x.value]));
+    const noonUtc = new Date(Date.UTC(+p.year, +p.month - 1, +p.day, 12));
+    return { hour: +p.hour, minute: +p.minute, weekdayIndex: noonUtc.getUTCDay(), dateKey: `${p.year}-${p.month}-${p.day}`, noonUtc };
+}
+function berlinWeekKey(date = new Date()) {
+    const p = berlinParts(date);
+    const mon = new Date(p.noonUtc.getTime() - ((p.weekdayIndex + 6) % 7) * 86400000);
+    return `${mon.getUTCFullYear()}-${String(mon.getUTCMonth() + 1).padStart(2, '0')}-${String(mon.getUTCDate()).padStart(2, '0')}`;
+}
+function findNextOccurrence({ weekdayIndex, hour, minute = 0 }, from = new Date()) {
+    const c = new Date(from.getTime() + 60000); c.setSeconds(0, 0);
+    for (let i = 0; i < 60 * 24 * 8; i++) {
+        const p = berlinParts(c);
+        if ((weekdayIndex === undefined || p.weekdayIndex === weekdayIndex) && p.hour === hour && p.minute === minute) return new Date(c);
+        c.setMinutes(c.getMinutes() + 1, 0, 0);
+    }
+    throw new Error('kein gültiger nächster Zeitpunkt gefunden');
+}
+function getLatestVotesPerVoter(votes) {
+    const m = new Map();
+    for (const v of votes) { if (!v.voter) continue; const e = m.get(v.voter); if (!e || Number(v.interractedAtTs) >= Number(e.interractedAtTs)) m.set(v.voter, v); }
+    return Array.from(m.values());
+}
+function venuesForWeek(all) {
+    const off = isoWeek() % all.length;
+    return all.slice(off).concat(all.slice(0, off)).slice(0, VENUE_POLL_COUNT);
+}
+
+// MITTWOCH: Venue-Umfrage „Location für den Social Warmup am Samstag?" + Bild, pro Stadt.
+async function sendCityVenuePolls() {
     const groups = await getMatchedCityGroups();
     if (!groups.length) { console.log('Germany-Bot: keine Stadtgruppen gefunden.'); return; }
-    const week = isoWeek();
-    let sent = 0;
-    const noVenues = [];
+    const weekKey = berlinWeekKey();
+    const state = readWarmupState();
+    if (!state[weekKey]) state[weekKey] = {};
+    const img = loadWarmupImage();
+    let sent = 0; const noVenues = [];
     for (const { city, chat } of groups) {
         const all = CITY_VENUES[city];
         if (!all || !all.length) { noVenues.push(city); continue; }
-        const off = week % all.length;
-        const venues = all.slice(off).concat(all.slice(0, off)).slice(0, VENUE_POLL_COUNT);
+        const venues = venuesForWeek(all);
         const options = [...venues, VENUE_POLL_CHAT_OPTION];
         const intro = [
-            `Social Warmup ${city} — Samstag, 18 Uhr.`,
-            '',
-            'Einstieg in den Abend: entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.',
-            '',
-            'Drei Locations zur Auswahl:',
-            ...venues.map(v => `👉 ${v}`),
-            '',
-            'Bis Freitag abstimmen. Eigene Idee? Ab in den Chat.'
+            `Social Warmup ${city} — Samstag, 18 Uhr.`, '',
+            'Einstieg in den Abend: entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.', '',
+            'Drei Locations zur Auswahl:', ...venues.map(v => `👉 ${v}`), '',
+            'Bis Freitag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
         ].join('\n');
         try {
-            await chat.sendMessage(intro);
+            if (img) await chat.sendMessage(img, { caption: intro }); else await chat.sendMessage(intro);
             const pollMsg = await chat.sendMessage(new Poll('Location für den Social Warmup am Samstag?', options));
             try { await pollMsg.pin(604800); } catch (_) {}
+            state[weekKey][city] = { ...(state[weekKey][city] || {}), venuePollId: pollMsg.id._serialized, options };
             sent++;
-            console.log(`Germany-Bot: Umfrage in ${city} gepostet (${venues.join(', ')}).`);
-        } catch (err) {
-            console.error(`Germany-Bot: Umfrage in ${city} fehlgeschlagen:`, err.message);
-        }
+            console.log(`Germany-Bot: Venue-Umfrage in ${city} gepostet (${venues.join(', ')}).`);
+        } catch (err) { console.error(`Germany-Bot: Venue-Umfrage in ${city} fehlgeschlagen:`, err.message); }
     }
-    console.log(`Germany-Bot: ${sent} Umfrage(n) gesendet.`);
-    if (noVenues.length) console.log(`Germany-Bot: keine Locations hinterlegt für ${noVenues.join(', ')} — in CITY_VENUES ergänzen.`);
+    writeWarmupState(state);
+    console.log(`Germany-Bot: ${sent} Venue-Umfrage(n) gesendet.`);
+    if (noVenues.length) console.log(`Germany-Bot: keine Locations für ${noVenues.join(', ')} — CITY_VENUES ergänzen.`);
+}
+
+async function getCityWinner(cityState) {
+    const opts = cityState?.options || [];
+    const venueOpts = opts.filter(o => o !== VENUE_POLL_CHAT_OPTION);
+    if (!cityState?.venuePollId) return venueOpts[0] || null;
+    try {
+        const votes = await client.getPollVotes(cityState.venuePollId);
+        const counts = Object.fromEntries(opts.map(o => [o, 0]));
+        for (const v of getLatestVotesPerVoter(votes)) {
+            const o = v.selectedOptions?.[0]?.name;
+            if (o && o in counts) counts[o] += 1;
+        }
+        return venueOpts.reduce((best, o) => (counts[o] > counts[best] ? o : best), venueOpts[0]) || null;
+    } catch (_) { return venueOpts[0] || null; }
+}
+
+// FREITAG: Zusage-Umfrage am Gewinner-Venue „… bist du dabei?" + Bild, pro Stadt.
+async function sendCityAttendancePolls() {
+    const groups = await getMatchedCityGroups();
+    if (!groups.length) { console.log('Germany-Bot: keine Stadtgruppen gefunden.'); return; }
+    const weekKey = berlinWeekKey();
+    const state = readWarmupState();
+    if (!state[weekKey]) state[weekKey] = {};
+    const img = loadWarmupImage();
+    let sent = 0;
+    for (const { city, chat } of groups) {
+        const all = CITY_VENUES[city];
+        if (!all || !all.length) continue;
+        // Falls Mittwoch nichts lief (Bot war aus): Fallback-Rotation als Optionen.
+        const cs = state[weekKey][city] || { options: [...venuesForWeek(all), VENUE_POLL_CHAT_OPTION] };
+        const winner = (await getCityWinner(cs)) || all[0];
+        const intro = [
+            `Wir treffen uns am Samstag um 18 Uhr bei ${winner}.`, '',
+            'Die Anmeldung ist verbindlich.', '',
+            'Bitte beachte: Nur angemeldete Personen können wir für den Abend einplanen.',
+            'Social Warm-Up — wer mag, zieht danach mit uns weiter.'
+        ].join('\n');
+        try {
+            if (img) await chat.sendMessage(img, { caption: intro }); else await chat.sendMessage(intro);
+            const pollMsg = await chat.sendMessage(new Poll(`Social Warmup am Samstag bei ${winner} – 18 Uhr (danach ziehen wir gemeinsam weiter): bist du dabei?`, ATTENDANCE_OPTIONS));
+            try { await pollMsg.pin(604800); } catch (_) {}
+            state[weekKey][city] = { ...cs, winner, attendancePollId: pollMsg.id._serialized };
+            sent++;
+            console.log(`Germany-Bot: Zusage-Umfrage in ${city} gepostet (Venue: ${winner}).`);
+        } catch (err) { console.error(`Germany-Bot: Zusage-Umfrage in ${city} fehlgeschlagen:`, err.message); }
+    }
+    writeWarmupState(state);
+    console.log(`Germany-Bot: ${sent} Zusage-Umfrage(n) gesendet.`);
+}
+
+// SAMSTAG: Reminder (am Gewinner-Venue, falls bekannt), pro Stadt.
+async function sendCityReminders() {
+    const groups = await getMatchedCityGroups();
+    if (!groups.length) return;
+    const weekKey = berlinWeekKey();
+    const state = readWarmupState();
+    let sent = 0;
+    for (const { city, chat } of groups) {
+        if (!CITY_VENUES[city]) continue;
+        const winner = state[weekKey]?.[city]?.winner;
+        const msg = winner
+            ? `Reminder: Heute 18 Uhr Social Warmup in ${city} bei ${winner}. Kommt vorbei — danach ziehen wir gemeinsam weiter! 🎉`
+            : `Reminder: Heute 18 Uhr Social Warmup in ${city}. Kommt vorbei — danach ziehen wir gemeinsam weiter! 🎉`;
+        try { await chat.sendMessage(msg); sent++; } catch (err) { console.error(`Germany-Bot: Reminder in ${city} fehlgeschlagen:`, err.message); }
+    }
+    console.log(`Germany-Bot: ${sent} Reminder gesendet.`);
+}
+
+// Scheduler (Dauerbetrieb): Mi 20:00 Venue, Fr 18:00 Zusage, Sa 12:00 Reminder (Europe/Berlin).
+let warmupJobs = [];
+function scheduleWarmupJob(name, rule, task) {
+    let next; try { next = findNextOccurrence(rule); } catch (e) { console.error(`Germany-Bot: ${name} nicht geplant: ${e.message}`); return; }
+    console.log(`Germany-Bot: ${name} geplant für ${berlinParts(next).dateKey} ${String(rule.hour).padStart(2, '0')}:${String(rule.minute || 0).padStart(2, '0')} (Europe/Berlin).`);
+    const id = setTimeout(async () => {
+        try { await task(); } catch (err) { console.error(`Germany-Bot: ${name} Fehler:`, err.message); }
+        finally { scheduleWarmupJob(name, rule, task); }
+    }, Math.max(next.getTime() - Date.now(), 1000));
+    warmupJobs.push(id);
+}
+function startWarmupScheduler() {
+    scheduleWarmupJob('Mittwochs-Venue-Umfrage', { weekdayIndex: 3, hour: 20 }, () => sendCityVenuePolls());
+    scheduleWarmupJob('Freitags-Zusage-Umfrage', { weekdayIndex: 5, hour: 18 }, () => sendCityAttendancePolls());
+    scheduleWarmupJob('Samstags-Reminder', { weekdayIndex: 6, hour: 12 }, () => sendCityReminders());
 }
 
 // ---------------------------------------------------------------------------
@@ -413,10 +551,13 @@ client.on('group_join', notification => {
 client.on('ready', async () => {
     console.log('Germany-Bot ist online.');
 
-    if (POLL_MODE) {
-        try { await sendSocialWarmupPolls(); }
-        catch (err) { console.error('Germany-Poll fehlgeschlagen:', err && err.stack ? err.stack : err); }
-        await new Promise(r => setTimeout(r, 3000));
+    if (POLL_MODE || FRIDAY_MODE || REMINDER_MODE) {
+        try {
+            if (POLL_MODE) await sendCityVenuePolls();
+            else if (FRIDAY_MODE) await sendCityAttendancePolls();
+            else await sendCityReminders();
+        } catch (err) { console.error('Germany-Poll fehlgeschlagen:', err && err.stack ? err.stack : err); }
+        await new Promise(r => setTimeout(r, 4000)); // Medien/Polls in WhatsApp-Web-Queue flushen
         await client.destroy().catch(() => {});
         process.exit(0);
         return;
@@ -440,7 +581,8 @@ client.on('ready', async () => {
     refreshTimer = setInterval(() => {
         exportGermanyMap().catch(err => console.error('Germany-Export (Refresh) fehlgeschlagen:', err.message));
     }, REFRESH_INTERVAL_MS);
-    console.log(`Germany-Bot: Auto-Refresh alle ${Math.round(REFRESH_INTERVAL_MS / 60000)} min + Begrüßung neuer Mitglieder aktiv. Strg+C zum Beenden.`);
+    startWarmupScheduler();
+    console.log(`Germany-Bot: Auto-Refresh alle ${Math.round(REFRESH_INTERVAL_MS / 60000)} min + Begrüßung + Social-Warmup-Schedule (Mi/Fr/Sa) aktiv. Strg+C zum Beenden.`);
 });
 
 process.on('SIGINT', async () => {
