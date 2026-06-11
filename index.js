@@ -41,6 +41,23 @@ const STATE_FILE = path.join(__dirname, '.daily-highlights-state.json');
 const ANALYTICS_FILE = path.join(__dirname, '.community-dashboard.json');
 const PENDING_MEMBERS_FILE = path.join(__dirname, '.pending-new-members.json');
 const KNOWN_MEMBERS_FILE = path.join(__dirname, '.known-members.json');
+const GERMANY_MAP_FILE = path.join(__dirname, 'docs', 'germany', 'cities.json');
+const GERMANY_BIELEFELD_LINK = 'https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL';
+// Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json.
+// Gruppennamen der Community werden gegen diese Liste gematcht (Auto-Discovery
+// für /germany). Wenn sich die Liste ändert: build-germany-map.mjs neu laufen lassen.
+const GERMANY_CITIES = [
+    'Bielefeld', 'Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Stuttgart',
+    'Düsseldorf', 'Dortmund', 'Essen', 'Leipzig', 'Dresden', 'Hannover', 'Nürnberg',
+    'Bremen', 'Münster', 'Bonn', 'Mannheim', 'Karlsruhe', 'Wiesbaden', 'Augsburg',
+    'Freiburg', 'Aachen', 'Kiel', 'Lübeck', 'Rostock', 'Magdeburg', 'Erfurt', 'Kassel',
+    'Mainz', 'Saarbrücken', 'Osnabrück', 'Paderborn', 'Bochum', 'Wuppertal',
+    'Braunschweig', 'Würzburg', 'Regensburg', 'Ingolstadt', 'Heidelberg', 'Ulm',
+    'Oldenburg', 'Potsdam', 'Göttingen', 'Koblenz', 'Trier', 'Konstanz', 'Flensburg',
+    'Gütersloh', 'Herford', 'Detmold', 'Minden', 'Bremerhaven', 'Wolfsburg', 'Jena',
+    'Chemnitz', 'Halle', 'Darmstadt', 'Oberhausen', 'Krefeld', 'Mönchengladbach',
+    'Kaiserslautern', 'Marburg', 'Tübingen', 'Lüneburg'
+];
 const TIME_ZONE = 'Europe/Berlin';
 const DAILY_POST_HOUR = 9;
 const MAX_HIGHLIGHTS = 3;
@@ -1945,6 +1962,127 @@ async function updateLandingPageNextEvent() {
     }
 }
 
+function normalizeCityToken(value) {
+    return String(value || '')
+        .toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '') // Diakritika entfernen
+        .replace(/ß/g, 'ss')
+        .replace(/[^a-z0-9 ]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+// Ordnet einen WhatsApp-Gruppennamen einer Stadt zu (z. B. "THE TRIBE Köln" -> "Köln").
+// Konservativ: nur Gruppen, die nach Tribe-Stadtgruppen aussehen, werden gematcht,
+// damit nicht zufällige Gruppen ("Essen"=Mahlzeit, "Halle"=Raum) reinrutschen.
+function matchCityFromGroupName(name) {
+    const norm = normalizeCityToken(name);
+    if (!norm) return null;
+    const looksLikeTribeGroup = /\btribe\b/.test(norm) || /\bgermany\b/.test(norm) || /\bde\b/.test(norm);
+    for (const city of GERMANY_CITIES) {
+        const token = normalizeCityToken(city);
+        const re = new RegExp(`(^|[^a-z])${token}([^a-z]|$)`);
+        if (re.test(norm)) {
+            // Reiner Stadtname als Gruppenname (nach Entfernen von Tribe-Wörtern) zählt auch.
+            const stripped = norm.replace(/\b(the|tribe|germany|deutschland|community|gruppe|chat)\b/g, '').trim();
+            if (looksLikeTribeGroup || stripped === token) {
+                return city;
+            }
+        }
+    }
+    return null;
+}
+
+// Liest alle Community-Gruppen aus, matcht sie auf Städte, holt Mitgliederzahl
+// (chat.participants) + Invite-Link (chat.getInviteCode, nur als Admin), und
+// schreibt docs/germany/cities.json (committet + pusht wie der Member-Count-Sync).
+// Bestehende Links bleiben erhalten, falls der Bot keinen frischen Link ziehen kann.
+async function exportGermanyCommunityMap() {
+    let chats;
+    try {
+        chats = await client.getChats();
+    } catch (err) {
+        console.error('Germany-Map: getChats() fehlgeschlagen:', err.message);
+        return;
+    }
+
+    const groups = chats.filter(chat => chat.isGroup);
+    const discovered = new Map(); // city -> { members, link }
+
+    for (const group of groups) {
+        const city = matchCityFromGroupName(group.name || '');
+        if (!city) continue;
+
+        const members = Array.isArray(group.participants) ? group.participants.length : 0;
+        let link = null;
+        try {
+            const code = await group.getInviteCode();
+            if (code) link = `https://chat.whatsapp.com/${code}`;
+        } catch (_) {
+            // Bot ist kein Admin -> kein Link abrufbar, bestehenden behalten
+        }
+
+        const prev = discovered.get(city);
+        if (!prev || members > prev.members) {
+            discovered.set(city, { members, link: link || prev?.link || null });
+        } else if (!prev.link && link) {
+            prev.link = link;
+        }
+    }
+
+    // Bestehende Datei laden (manuell gepflegte Links / Einträge bewahren)
+    let existing = [];
+    try {
+        const raw = JSON.parse(fs.readFileSync(GERMANY_MAP_FILE, 'utf8'));
+        if (Array.isArray(raw)) existing = raw;
+    } catch (_) {}
+    const byCity = new Map(existing.filter(e => e && e.city).map(e => [e.city, e]));
+
+    // Bielefeld = Ursprung: Count aus der Landing-Analyse (konsistent mit index.html),
+    // Link fix (oder bereits gepflegter Link).
+    const analytics = getAnalytics();
+    const LANDING_CHAT_ID = process.env.LANDING_CHAT_ID || '120363425963185977@g.us';
+    const bielefeldCount = analytics.trackedChats[LANDING_CHAT_ID]?.memberCount
+        || analytics.trackedChats[chatId]?.memberCount
+        || byCity.get('Bielefeld')?.members
+        || 0;
+    discovered.set('Bielefeld', {
+        members: bielefeldCount,
+        link: byCity.get('Bielefeld')?.link || GERMANY_BIELEFELD_LINK
+    });
+
+    for (const [city, info] of discovered) {
+        const prev = byCity.get(city) || { city };
+        byCity.set(city, {
+            city,
+            members: Number(info.members || prev.members || 0),
+            link: info.link || prev.link || null
+        });
+    }
+
+    const result = Array.from(byCity.values())
+        .filter(entry => Number(entry.members || 0) > 0 || entry.link)
+        .sort((a, b) => Number(b.members || 0) - Number(a.members || 0));
+
+    const json = JSON.stringify(result, null, 2) + '\n';
+    let current = '';
+    try { current = fs.readFileSync(GERMANY_MAP_FILE, 'utf8'); } catch (_) {}
+    if (json === current) {
+        console.log('Germany-Map: keine Änderung.');
+        return;
+    }
+
+    try {
+        fs.mkdirSync(path.dirname(GERMANY_MAP_FILE), { recursive: true });
+        fs.writeFileSync(GERMANY_MAP_FILE, json, 'utf8');
+        const { execSync } = require('child_process');
+        execSync('git add docs/germany/cities.json && git commit -m "update germany community map" && git push origin main', { cwd: __dirname });
+        console.log(`Germany-Map aktualisiert: ${result.length} Städte (${result.map(r => `${r.city}:${r.members}`).join(', ')}).`);
+    } catch (err) {
+        console.error('Germany-Map: Schreiben/Commit fehlgeschlagen:', err.message);
+    }
+}
+
 async function syncRecentMessageHistory() {
     const analytics = getAnalytics();
 
@@ -3051,6 +3189,11 @@ async function refreshDashboardData() {
     await syncTrackedChatMemberCounts();
     await syncAttendanceAnalytics();
     try {
+        await exportGermanyCommunityMap();
+    } catch (err) {
+        console.error('Germany-Map (Dashboard-Refresh) fehlgeschlagen:', err.message);
+    }
+    try {
         cachedWebsiteAnalytics = await fetchWebsiteAnalytics();
     } catch (err) {
         console.error('Website-Analytics konnten nicht geladen werden:', err.message);
@@ -3405,6 +3548,12 @@ async function runDueJobs() {
         console.error('Fehler beim Prüfen neuer Mitglieder:', err && err.stack ? err.stack : err);
     }
 
+    try {
+        await exportGermanyCommunityMap();
+    } catch (err) {
+        console.error('Fehler beim Export der Germany-Map:', err && err.stack ? err.stack : err);
+    }
+
     const nowParts = getDateParts();
     const dueJobs = [
         ['daily-highlights', { hour: DAILY_POST_HOUR }, () => sendDailyHighlights()],
@@ -3467,6 +3616,9 @@ async function runBotCommand(command) {
             return;
         case 'check-new-members':
             await checkForNewMembers();
+            return;
+        case 'germany-export':
+            await exportGermanyCommunityMap();
             return;
         default:
             throw new Error(`Unbekannter BOT_COMMAND: ${command}`);

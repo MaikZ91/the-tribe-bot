@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0807">
+<meta name="description" content="THE TRIBE wächst — Stadt für Stadt. Finde deine Stadt auf der Karte und komm in deine lokale WhatsApp-Community.">
+<title>THE TRIBE · Deutschland — finde deine Stadt</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='white' text-anchor='middle' font-weight='900'>T</text></svg>">
+
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/anton-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
+
+<style>
+  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(../assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+  :root{
+    --black:#0A0807; --amber:#F5A21A; --wa:#25D366; --wa-deep:#062c16;
+    --text:#F7F2EA; --muted:#A8A199; --line:rgba(247,242,234,.10);
+    --fd:"Anton","Arial Narrow",sans-serif;
+    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.16,.84,.34,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);color:var(--text);line-height:1.45;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+    background:
+      radial-gradient(120% 60% at 50% -8%, rgba(245,162,26,.10), transparent 60%),
+      radial-gradient(90% 70% at 80% 12%, rgba(245,162,26,.05), transparent 55%),
+      var(--black);
+    min-height:100dvh;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+
+  .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 20px 48px;
+    padding-top:max(14px,env(safe-area-inset-top))}
+
+  /* top bar */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 8px}
+  .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
+    color:var(--black);padding:5px 9px 3px;line-height:1}
+  .back{font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px}
+  .back:active{color:var(--text)}
+
+  /* intro */
+  .intro{padding:14px 0 6px}
+  .kick{font-family:var(--fd);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber)}
+  h1{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:.005em;
+    font-size:clamp(34px,11vw,52px);line-height:.95;margin:8px 0 0}
+  h1 em{font-style:normal;color:var(--amber)}
+  .lead{font-size:clamp(14px,3.8vw,16px);color:var(--text);max-width:34ch;margin-top:12px;opacity:.92}
+  .lead b{font-weight:600;color:var(--amber)}
+
+  .stats{display:flex;gap:22px;margin-top:16px;padding:13px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stat .v{font-family:var(--fd);font-size:30px;line-height:1;color:var(--text)}
+  .stat .v .u{font-size:14px;color:var(--amber);margin-left:2px}
+  .stat .l{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+
+  /* map */
+  .mapwrap{position:relative;margin:18px auto 4px;width:100%;max-width:430px}
+  .mapwrap svg{width:100%;height:auto;display:block;overflow:visible}
+  .de-outline{fill:rgba(247,242,234,.022);stroke:rgba(247,242,234,.16);stroke-width:1.3;
+    stroke-linejoin:round;filter:drop-shadow(0 0 18px rgba(245,162,26,.05))}
+  .ghost{fill:rgba(247,242,234,.20)}
+  .link-line{stroke:rgba(245,162,26,.22);stroke-width:.8;stroke-dasharray:2 4;fill:none}
+  .node{cursor:pointer}
+  .node .halo{fill:var(--amber);opacity:.16}
+  .node .dot{fill:var(--amber);stroke:#1a1410;stroke-width:1}
+  .node.hero .dot{fill:var(--amber)}
+  .node .ring{fill:none;stroke:var(--amber);stroke-width:1.4;opacity:.55}
+  .node:focus{outline:none}
+  .node .pin-label{font-family:var(--fb);font-weight:600;fill:var(--text);font-size:12px}
+  .node .pin-count{font-family:var(--fd);fill:var(--amber);font-size:12px}
+  @keyframes pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
+  .node.hero .ring{transform-origin:center;transform-box:fill-box;animation:pulse 2.6s var(--ease) infinite}
+
+  .hint{text-align:center;font-size:11px;color:var(--muted);letter-spacing:.04em;margin:2px 0 0}
+
+  /* city list */
+  .listhead{display:flex;align-items:baseline;justify-content:space-between;margin:30px 0 12px}
+  .listhead h2{font-family:var(--fd);font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);font-weight:400}
+  .listhead .sub{font-size:11px;color:var(--muted)}
+  .cities{display:flex;flex-direction:column;gap:9px}
+  .city{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:14px;
+    background:rgba(255,255,255,.028);border:1px solid var(--line);transition:.16s var(--ease)}
+  .city.live{cursor:pointer}
+  .city.live:active{background:rgba(245,162,26,.08);border-color:rgba(245,162,26,.35);transform:translateY(-1px)}
+  .city .rank{font-family:var(--fd);font-size:13px;color:var(--muted);width:20px;text-align:center;flex-shrink:0}
+  .city .body{flex:1;min-width:0}
+  .city .name{font-size:15.5px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .city.lead-city .name{color:var(--amber)}
+  .city .tag{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    padding:2px 6px;border-radius:5px;background:rgba(245,162,26,.16);color:var(--amber)}
+  .city .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .city .count{font-family:var(--fd);font-size:21px;color:var(--text);line-height:1}
+  .city .count .pl{font-size:10px;color:var(--muted);font-family:var(--fb);font-weight:600}
+  .city .go{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
+    background:var(--wa);color:#04210f;font-size:15px;font-weight:800}
+  .city.soon{opacity:.6}
+  .city.soon .go{background:rgba(255,255,255,.07);color:var(--muted)}
+  .city.soon .count{color:var(--muted)}
+
+  /* start-your-city CTA */
+  .start{margin-top:26px;padding:22px 18px;border-radius:18px;text-align:center;
+    background:linear-gradient(180deg,rgba(245,162,26,.10),rgba(245,162,26,.02));
+    border:1px solid rgba(245,162,26,.22)}
+  .start h3{font-family:var(--fd);font-size:21px;text-transform:uppercase;letter-spacing:.01em;font-weight:400}
+  .start p{font-size:13px;color:var(--muted);margin:8px auto 16px;max-width:30ch}
+  .start a{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
+    background:var(--wa);color:#04210f;font-weight:700;font-size:14.5px}
+  .start a:active{transform:translateY(1px)}
+
+  footer{margin-top:34px;text-align:center;font-size:11px;color:var(--muted);line-height:1.7}
+  footer a{color:var(--amber)}
+
+  @media(min-width:620px){
+    .wrap{max-width:560px}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+
+  <div class="top">
+    <a class="mark" href="../">THE TRIBE</a>
+    <a class="back" href="../">← Bielefeld</a>
+  </div>
+
+  <section class="intro">
+    <div class="kick">THE TRIBE · Deutschland</div>
+    <h1>Finde<br>deine <em>Stadt</em>.</h1>
+    <p class="lead">Es begann in Bielefeld. Jetzt entsteht in ganz Deutschland eine Community, die jede Woche zusammen rausgeht. <b>Such dir deine Stadt</b> und komm an.</p>
+    <div class="stats">
+      <div class="stat"><div class="v" id="statCities">–</div><div class="l" id="statCitiesLabel">Städte aktiv</div></div>
+      <div class="stat"><div class="v" id="statPeople">–</div><div class="l">Menschen verbunden</div></div>
+    </div>
+  </section>
+
+  <section class="mapwrap">
+    <svg id="map" preserveAspectRatio="xMidYMid meet" aria-label="Deutschlandkarte mit aktiven THE-TRIBE-Städten">
+      <path id="outline" class="de-outline"></path>
+      <g id="ghosts"></g>
+      <g id="lines"></g>
+      <g id="nodes"></g>
+    </svg>
+    <p class="hint">Tipp auf eine leuchtende Stadt — oder scroll zur Liste.</p>
+  </section>
+
+  <div class="listhead">
+    <h2>Alle Städte</h2>
+    <span class="sub" id="listSub"></span>
+  </div>
+  <section class="cities" id="cityList"></section>
+
+  <section class="start">
+    <h3>Deine Stadt fehlt?</h3>
+    <p>Sei die Person, die THE TRIBE in deine Stadt bringt. Schreib uns — wir helfen dir beim Start.</p>
+    <a id="startCta" href="https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" target="_blank" rel="noopener">
+      <span>Stadt starten</span> <span>→</span>
+    </a>
+  </section>
+
+  <footer>
+    THE TRIBE · echte Treffen, echte Menschen<br>
+    <a href="../">the-tribe.de — zurück zur Startseite</a>
+  </footer>
+</div>
+
+<script>
+/* ---- gebackene Geometrie (Outline + Städte-x/y, gemeinsame Projektion) ---- */
+const GEO = {"viewBox":"0 0 812 1086","width":812,"height":1086,"outline":"M236.4 27.8L239.4 31.9L232 38.9L233.1 48.3L238.3 51.9L270 46.2L304.3 55L309.1 62.7L319.5 57.1L321.8 64.7L336.6 52.1L335.7 58.5L355.6 69.4L364.9 65.9L371.5 81.4L367.2 77.3L365.6 81.3L371.5 81.8L370.9 98.9L355.4 110.8L385.2 112.4L379.6 133L387.6 118.4L395.1 115.3L427.1 133.9L445.7 123L462.3 121.7L456.5 126.9L459.4 149.1L431.2 169.4L442.6 183.4L466.5 174.9L473.1 179.3L473.1 186.4L479.5 183L489.4 191.2L491.8 181.6L483 177.5L492.5 173.9L492.3 181.6L503.6 164.5L495.2 167L508.3 155.5L541.9 151.2L545 155.9L542.5 151.5L562.8 134.9L577.8 108.3L614.5 115L591.4 119.5L594 119.8L590.9 124.6L599.9 120.9L601.9 128.2L619.3 114.8L625.4 125.1L626.4 137.2L641.4 143.8L646.4 151.6L644 154.5L652.1 152.3L649.4 157L655.6 164.3L675.4 152.8L684.6 162.5L679.4 173L693.5 188.1L686.1 196L695.4 190L692.8 178.6L697.8 178.5L697.3 186.4L704.2 185.3L704.5 177.6L700.9 171.9L719 187L716.1 189L718.7 196.1L684.6 197.1L703.8 211.6L724.1 213.9L718.5 219L723.3 219.4L727.6 230.7L725.8 241.4L737.9 280.5L732.1 288.5L729.3 309.4L712.5 322L710.7 338.7L753.7 374.3L750.5 380.7L753 385.4L744.5 399.3L748 413.9L758.7 420.4L756.2 436.6L762.2 443.1L759.1 460.8L749.3 476.8L762 497.8L758.6 512.3L778.1 522.4L781 539.4L786 545.4L777.8 587.5L767.5 608.9L759.6 609.2L751.4 605.5L754.7 595.2L747.1 596.5L750 587.9L742.3 579.6L733.6 585.3L725 579.2L721.1 589.9L733.9 594L731.5 601L696.9 612.2L688.3 623.4L663.2 624.1L656.2 639.4L648.8 633.2L644.8 641.3L638.3 639.9L633.9 651.9L620.4 650.8L615.7 663.1L603.4 657.4L593.2 665.3L577.5 665L564.9 681.1L561.8 693.6L558.1 693.2L550.7 675L541.8 683.8L551.1 691.6L551.2 702.4L555.9 708.8L580.1 726.3L573.8 743.9L568.1 748.4L578.4 757.1L583.4 775.5L588.2 777.1L589.5 789.8L599.7 800L620.4 805.5L632.6 826.4L651.1 838.1L651 846.7L670 850.9L687 873.1L683 879.8L684.9 896.2L677.5 905.5L659.4 895.5L653.8 899.5L651.7 922.9L641.3 932L606.7 944.6L597.1 955.4L617.7 988.2L610.3 1003.2L621.2 1004.5L626.4 1014.5L618.7 1035.9L601 1024.1L603.2 1017.4L599.6 1010L584.9 1009.6L576.6 1015.8L570.8 1007L556.1 1010L555.7 1002.1L549.1 1007.2L552 1019.2L504.4 1019.6L499.9 1030.2L487.9 1030L483.8 1035.1L486.8 1038.3L480 1037.6L474.4 1045L470.2 1045L472.1 1039.7L449.8 1044.4L445.5 1034.4L440.3 1034.4L444.9 1029.7L441.9 1027L432.7 1029.7L418.4 1022.6L415.2 1027.3L404.5 1021.1L407.8 1039.9L404.6 1046.6L382.8 1059.9L387.5 1044.8L376.6 1049.5L376.2 1037L368.4 1033.4L366.2 1025.5L358.1 1027.9L349.9 1019.8L342.8 1026.3L289.3 991.8L304 1011L299.2 1012.8L284.9 1001.1L280.8 1003.1L286.2 1007.7L276.6 1012.6L269.7 1001.9L266.6 1004.6L268.9 1009.5L263 1007.4L263.3 998.9L249.8 992.9L236.2 1009.5L241.9 1014L253 1010L251.2 1019.3L245.9 1014.7L240.7 1018.6L243.2 1021.7L234.1 1023L219.5 1016.2L209.9 1023.9L198 1025.6L187.7 1020L175.2 1027.1L172.1 1024L175.3 1020.2L170.1 1021.7L162.1 1007.5L171.3 973.2L166.8 965.4L167.6 954.9L181.5 928.9L180.5 920.3L189 890.9L209.8 869.7L221.6 848.4L197.4 837.6L172.4 837.8L156.6 821.4L144 830.1L127.8 825.1L124.4 830.4L122.4 820.8L113.3 816.4L106.4 817.5L105.9 825.5L97.9 823.8L81.1 789.5L66.1 785.6L66.8 771.6L79.5 752.4L80.5 741.5L62.5 738.1L44.8 709.1L52.4 692.4L50.8 686.3L70.5 673.7L64.8 667.6L67.7 659L64 652.8L50.9 645.4L59.7 636.8L51 636.1L46.5 624.7L33.6 613.3L42.7 606.5L43.5 596.7L37.9 595.2L39.1 588.6L28.6 589.2L26 580.6L34.1 581.8L50.9 566.2L48.6 563.4L52.7 561L44.2 563.2L43.1 554L55.9 537.9L54.9 518.8L44.2 506L46.5 498.6L33.6 487.8L37 484.2L33.7 476.7L50.6 473.9L45.5 468L49.8 465.8L71.3 476.5L70 469.9L98.3 466.6L106 453.6L94.6 447.6L94.8 443.1L125.4 420.7L122.1 413.2L126.2 401.2L120.1 389.4L115.5 393.8L100.1 390L93.4 377.6L100.4 376.3L96.7 372.9L98.4 365.2L123.9 366.7L127.4 337.8L141.3 317L138.5 299.5L143.2 289.1L136.7 283.6L140.3 271L119.5 266.6L122.5 242.7L130.7 242.8L127.1 236.6L132.7 229.4L145.9 221.7L203.9 217.8L216.9 239.7L215.5 245.4L208 246.5L208.7 252.2L223.6 261.4L228.9 252L228.9 244.2L221.8 244.5L225.2 232L245.5 239.5L248.9 243.7L245.8 247.2L250 244.8L242.8 220.1L253.1 194.2L276 201.4L293.9 196.5L282.6 192L270.7 174.1L284.2 170.6L279.6 158.5L273.9 159.8L269.6 152.6L272 141.5L281.6 132.8L272.9 139.9L250.8 134L252.8 126.4L259.5 126.5L253.1 122.3L276.8 118.6L287.6 110L284.7 103.3L277.6 111.7L269.6 110.3L276.5 92.8L270.1 92.2L270.9 85.2L259.7 73.1L251.6 50.8L237.2 56.3L228.4 52.3L225.8 70L227.4 47.3L236.4 27.8ZM588.2 120L570.8 123.4L564.8 139.4L572.8 141.9L568.6 137.5L588.2 120ZM363.8 86.1L363.1 87.8L356.9 93L363.5 88.4L363.8 86.1ZM347.1 101.3L344.8 103.3L330.9 104.8L333.3 109.6L337.4 104.4L344.9 107.3L347.1 101.3ZM696.3 168.1L693.2 168L689.2 177.2L688.9 170.3L681.5 174.4L685.1 163.1L679.8 154.6L684.3 151.9L689.9 162.8L696.3 168.1ZM236.8 27L237.3 26L241.1 27.6L236.8 27ZM651.3 92.3L648.4 89.7L637.8 97.7L641.1 85.2L631 97.7L638.4 83.2L653.3 79.7L648.8 86.7L651.3 92.3ZM654.7 95.2L674.1 97.1L664.9 111.6L681.3 128.7L677.8 138.4L671.3 135.1L676.1 130.9L668.3 132.3L674.3 127.6L665.8 127.1L646.9 138.9L652.3 141L650.3 145.8L641.7 141.5L645.5 137.7L629.2 137.1L633 134.5L627.2 130.1L628.2 124.5L639.4 122.8L630.1 116.2L639.9 109.1L630.8 105.5L629.6 99.4L643 104.1L642.3 98.6L648.2 94.7L645.7 99.1L649 97.7L651.9 107L659.7 108.8L659.3 99.2L654.7 95.2ZM632.9 106.9L636.5 110.6L627.7 114.3L632.9 106.9ZM628 94.3L629 91L630.8 94.7L628 94.3ZM457.4 101.1L471.1 105.1L477.7 120.1L452.4 114.5L457.4 101.1ZM260.1 97.9L258.4 106.9L251.5 104.4L260.1 97.9ZM247.4 69.4L252 74.6L249.7 80.3L235.6 76.6L247.4 69.4ZM248.4 94.7L250.2 97.7L244.9 95.5L248.4 94.7ZM242.2 109.4L246.3 115.6L241.7 117.3L242.2 109.4ZM242.7 94L244.2 97.8L240.4 97.7L242.7 94ZM232.3 75.8L235.4 90.1L226.9 82.2L232.3 75.8ZM194 206.1L200 208.8L189.9 207.2L194 206.1ZM178.3 208.2L186.5 208.9L175 211.1L178.3 208.2ZM167.2 211.3L171.7 212.5L158.4 215.5L167.2 211.3ZM152.3 214.5L155.3 215.8L149.5 215.6L152.3 214.5ZM124.5 221.5L127.6 222L107.6 224.8L124.5 221.5ZM99.9 230.7L104 233L96.5 235.6L98.8 239.4L89 233.6L99.9 230.7Z","cities":{"Bielefeld":[246.8,449],"Berlin":[651.2,382.5],"Hamburg":[368.1,240.2],"München":[499.9,953.2],"Köln":[116.3,594.6],"Frankfurt":[259.2,702.5],"Stuttgart":[300.8,873],"Düsseldorf":[100.8,556.3],"Dortmund":[158.2,518.3],"Essen":[120.6,526],"Leipzig":[565.6,541.4],"Dresden":[678.8,579.7],"Hannover":[346.4,402.1],"Nürnberg":[458,787.2],"Bremen":[269.2,305.7],"Münster":[171.6,458.3],"Bonn":[127.8,620.9],"Mannheim":[241.3,782.7],"Karlsruhe":[236.1,843.8],"Wiesbaden":[222.5,706.8],"Augsburg":[443.1,923.8],"Freiburg":[189.5,970.1],"Aachen":[43.6,615.9],"Kiel":[378.8,131.3],"Lübeck":[425.6,196.1],"Rostock":[542.9,164.1],"Magdeburg":[503.7,436.8],"Erfurt":[454.4,589.2],"Kassel":[325.4,545],"Mainz":[223.1,717.8],"Saarbrücken":[119.4,814.2],"Osnabrück":[206.5,415.2],"Paderborn":[265.5,490.8],"Bochum":[137.6,522.5],"Wuppertal":[132.1,552.5],"Braunschweig":[412.4,416.7],"Würzburg":[364.8,743.8],"Regensburg":[543.1,843],"Ingolstadt":[487,874.1],"Heidelberg":[258.4,794],"Ulm":[367.6,920],"Oldenburg":[220.4,296.9],"Potsdam":[623,400.1],"Göttingen":[361.6,514.6],"Koblenz":[168.5,670.6],"Trier":[89.5,749.2],"Konstanz":[300,1009.8],"Flensburg":[322.6,64],"Gütersloh":[234,465.6],"Herford":[258.5,437.4],"Detmold":[275.1,461.4],"Minden":[278.7,414],"Bremerhaven":[250.8,241.8],"Wolfsburg":[433.9,395.8],"Jena":[500.5,596],"Chemnitz":[611.1,609],"Halle":[532,520.5],"Darmstadt":[256.7,733.3],"Oberhausen":[108.3,520.6],"Krefeld":[85.2,541.5],"Mönchengladbach":[73.4,562.5],"Kaiserslautern":[181.8,788.7],"Marburg":[266.2,612.4],"Tübingen":[290.4,904.9],"Lüneburg":[403,282]}};
+
+/* ---- Seed: Live-Daten. Wird von docs/germany/cities.json (Bot) überschrieben. ---- */
+const SEED = [
+  { city:"Bielefeld", members:151, link:"https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL" }
+];
+const FALLBACK_START = "https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL";
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const el = (n,a={}) => { const e=document.createElementNS(SVGNS,n); for(const k in a) e.setAttribute(k,a[k]); return e; };
+
+function radiusFor(members){ return Math.max(5, Math.min(20, 4 + Math.sqrt(members)*1.15)); }
+
+function render(data){
+  const map = document.getElementById('map');
+  map.setAttribute('viewBox', GEO.viewBox);
+  document.getElementById('outline').setAttribute('d', GEO.outline);
+
+  // Ghost-Layer: alle bekannten Städte als feine Potenzial-Punkte
+  const ghosts = document.getElementById('ghosts');
+  const liveNames = new Set(data.map(d=>d.city));
+  for(const [name,[x,y]] of Object.entries(GEO.cities)){
+    if(liveNames.has(name)) continue;
+    ghosts.appendChild(el('circle',{class:'ghost', cx:x, cy:y, r:2.2}));
+  }
+
+  // Live-Städte: nach Mitgliedern sortiert, nur die mit bekannter Geo-Position
+  const live = data
+    .filter(d => GEO.cities[d.city])
+    .map(d => ({...d, x:GEO.cities[d.city][0], y:GEO.cities[d.city][1], members:Number(d.members)||0}))
+    .sort((a,b)=> b.members - a.members);
+
+  const origin = GEO.cities["Bielefeld"];
+  const lines = document.getElementById('lines');
+  const nodes = document.getElementById('nodes');
+
+  live.forEach((c,i) => {
+    // Verbindungslinie von Bielefeld (Ursprung) zu jeder weiteren Stadt
+    if(origin && (c.x!==origin[0] || c.y!==origin[1])){
+      lines.appendChild(el('line',{class:'link-line', x1:origin[0], y1:origin[1], x2:c.x, y2:c.y}));
+    }
+    const r = radiusFor(c.members);
+    const isHero = i===0;
+    const g = el('g',{class:'node'+(isHero?' hero':''), tabindex:0, role:'link',
+      'aria-label':`${c.city}, ${c.members} Mitglieder`});
+    if(c.link){ g.style.cursor='pointer'; g.addEventListener('click',()=>open(c.link));
+      g.addEventListener('keydown',e=>{if(e.key==='Enter')open(c.link);}); }
+    g.appendChild(el('circle',{class:'halo', cx:c.x, cy:c.y, r:r*2.1}));
+    if(isHero) g.appendChild(el('circle',{class:'ring', cx:c.x, cy:c.y, r:r+3}));
+    g.appendChild(el('circle',{class:'dot', cx:c.x, cy:c.y, r:r}));
+    // Label nur für die prominentesten Städte (verhindert Clutter)
+    if(i<3 || c.members>=40){
+      const lx = c.x + r + 6;
+      const t = el('text',{class:'pin-label', x:lx, y:c.y-1});
+      t.textContent = c.city;
+      const ct = el('text',{class:'pin-count', x:lx, y:c.y+12});
+      ct.textContent = c.members;
+      g.appendChild(t); g.appendChild(ct);
+    }
+    nodes.appendChild(g);
+  });
+
+  // Stats
+  const totalPeople = live.reduce((s,c)=>s+c.members,0);
+  countUp(document.getElementById('statCities'), live.length, '');
+  countUp(document.getElementById('statPeople'), totalPeople, '');
+  document.getElementById('statCitiesLabel').textContent = live.length===1 ? 'Stadt aktiv' : 'Städte aktiv';
+
+  // Liste
+  const list = document.getElementById('cityList');
+  list.innerHTML = '';
+  document.getElementById('listSub').textContent = `${live.length} aktiv`;
+  live.forEach((c,i)=>{
+    const a = document.createElement(c.link ? 'a' : 'div');
+    a.className = 'city '+(c.link?'live':'soon')+(i===0?' lead-city':'');
+    if(c.link){ a.href=c.link; a.target='_blank'; a.rel='noopener'; }
+    a.innerHTML = `
+      <div class="rank">${i+1}</div>
+      <div class="body">
+        <div class="name">${c.city}${i===0?'<span class="tag">Heimat</span>':''}</div>
+        <div class="meta">${c.link?'WhatsApp-Community · jede Woche live':'kommt bald'}</div>
+      </div>
+      <div class="count">${c.members}<span class="pl"> Mitgl.</span></div>
+      <div class="go">${c.link?'›':'·'}</div>`;
+    list.appendChild(a);
+  });
+
+  // Start-CTA: auf die größte Live-Community zeigen lassen (Kontakt-Hub)
+  const hub = live.find(c=>c.link);
+  document.getElementById('startCta').href = hub ? hub.link : FALLBACK_START;
+}
+
+function open(url){
+  try{ window.posthog && posthog.capture('germany_city_click',{href:url}); }catch(e){}
+  window.open(url,'_blank','noopener');
+}
+
+function countUp(node, to, suffix){
+  const dur=900, t0=performance.now();
+  (function step(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    node.textContent = Math.round(to*e)+suffix;
+    if(p<1) requestAnimationFrame(step);
+  })(t0);
+}
+
+/* Live-Daten laden (Bot schreibt cities.json); Fallback = SEED */
+fetch('cities.json',{cache:'no-store'})
+  .then(r=> r.ok ? r.json() : Promise.reject())
+  .then(d=> render(Array.isArray(d) && d.length ? d : SEED))
+  .catch(()=> render(SEED));
+</script>
+</body>
+</html>
