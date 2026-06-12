@@ -669,9 +669,28 @@ async function renderCityHighlightsImage(city, highlights, meta) {
     return outputPath;
 }
 
+// Tages-Sperre, damit der Dauerbetrieb die Highlights nur EINMAL pro Tag postet —
+// egal ob via Startup-Catch-up oder 11:00-Job, und kein Doppelpost bei Neustart.
+const HIGHLIGHTS_STATE_FILE = path.join(__dirname, '.germany-highlights-state.json');
+function highlightsAlreadyPostedToday(dateKey) {
+    try { return JSON.parse(fs.readFileSync(HIGHLIGHTS_STATE_FILE, 'utf8')).lastDate === dateKey; }
+    catch (_) { return false; }
+}
+function markHighlightsPosted(dateKey) {
+    try { fs.writeFileSync(HIGHLIGHTS_STATE_FILE, JSON.stringify({ lastDate: dateKey }, null, 2) + '\n', 'utf8'); }
+    catch (e) { console.error('Germany-Bot: Highlights-State schreiben fehlgeschlagen:', e.message); }
+}
+
 // Postet pro Stadtgruppe ein Tageshighlights-Bild. Städte ohne heutige Events werden
-// übersprungen (kein leeres Poster spammen).
-async function sendCityHighlights() {
+// übersprungen (kein leeres Poster spammen). Im Auto-Modus (force=false) maximal
+// einmal pro Tag; manueller --highlights-Lauf erzwingt (force=true).
+async function sendCityHighlights({ force = false } = {}) {
+    const meta0 = highlightDateLabels();
+    const dayKey = `${meta0.year}-${meta0.month}-${meta0.day}`;
+    if (!force && highlightsAlreadyPostedToday(dayKey)) {
+        console.log(`Germany-Bot: Tageshighlights für ${dayKey} bereits gepostet — übersprungen.`);
+        return;
+    }
     const groups = await getMatchedCityGroups();
     if (!groups.length) { console.log('Germany-Bot: keine Stadtgruppen für Highlights gefunden.'); return; }
     let events;
@@ -698,6 +717,7 @@ async function sendCityHighlights() {
             console.error(`Germany-Bot: Tageshighlights in ${city} fehlgeschlagen:`, err.message);
         }
     }
+    markHighlightsPosted(dayKey);
     console.log(`Germany-Bot: ${sent} Tageshighlights-Bild(er) gesendet.`);
     if (skipped.length) console.log(`Germany-Bot: keine heutigen Events für ${skipped.join(', ')} — übersprungen.`);
 }
@@ -764,7 +784,7 @@ client.on('ready', async () => {
         try {
             if (POLL_MODE) await sendCityVenuePolls();
             else if (FRIDAY_MODE) await sendCityAttendancePolls();
-            else if (HIGHLIGHTS_MODE) await sendCityHighlights();
+            else if (HIGHLIGHTS_MODE) await sendCityHighlights({ force: true });
             else await sendCityReminders();
         } catch (err) { console.error('Germany-Poll fehlgeschlagen:', err && err.stack ? err.stack : err); }
         await new Promise(r => setTimeout(r, 4000)); // Medien/Polls in WhatsApp-Web-Queue flushen
@@ -791,6 +811,9 @@ client.on('ready', async () => {
     refreshTimer = setInterval(() => {
         exportGermanyMap().catch(err => console.error('Germany-Export (Refresh) fehlgeschlagen:', err.message));
     }, REFRESH_INTERVAL_MS);
+    // Catch-up: heutige Tageshighlights gleich beim Start posten, falls heute noch nicht
+    // geschehen (z.B. Bot war um 11:00 aus). Tages-Sperre verhindert Doppelpost.
+    sendCityHighlights().catch(err => console.error('Germany-Highlights (Startup) fehlgeschlagen:', err.message));
     startWarmupScheduler();
     console.log(`Germany-Bot: Auto-Refresh alle ${Math.round(REFRESH_INTERVAL_MS / 60000)} min + Begrüßung + Social-Warmup-Schedule (Mi/Fr/Sa) aktiv. Strg+C zum Beenden.`);
 });
