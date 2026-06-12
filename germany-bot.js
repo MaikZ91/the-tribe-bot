@@ -72,7 +72,7 @@ const GERMANY_CITIES = [
     'Mainz', 'Saarbrücken', 'Osnabrück', 'Paderborn', 'Bochum', 'Wuppertal',
     'Braunschweig', 'Würzburg', 'Regensburg', 'Ingolstadt', 'Heidelberg', 'Ulm',
     'Oldenburg', 'Potsdam', 'Göttingen', 'Koblenz', 'Trier', 'Konstanz', 'Flensburg',
-    'Gütersloh', 'Herford', 'Detmold', 'Minden', 'Bremerhaven', 'Wolfsburg', 'Jena',
+    'Gütersloh', 'Herford', 'Detmold', 'Lage', 'Minden', 'Bremerhaven', 'Wolfsburg', 'Jena',
     'Chemnitz', 'Halle', 'Darmstadt', 'Duisburg', 'Oberhausen', 'Krefeld', 'Mönchengladbach',
     'Kaiserslautern', 'Marburg', 'Tübingen', 'Lüneburg'
 ];
