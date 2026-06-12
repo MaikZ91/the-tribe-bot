@@ -519,6 +519,21 @@ function applyGeo(lat,lng){
   }
 }
 
+// Standort NICHT automatisch abfragen (der Browser-Prompt direkt beim Laden ist
+// für kalten Traffic eine Hürde). Stattdessen ein antippbares Angebot — der Prompt
+// erscheint erst nach bewusstem Klick und ist dann erwartbar.
+function offerGeo(){
+  if(!('geolocation' in navigator)) return;
+  $('geoHintText').innerHTML = `<a href="#" id="geoOptIn">Stadt in meiner Nähe finden</a>`;
+  $('geoHint').hidden = false;
+  const link = $('geoOptIn');
+  if(link) link.addEventListener('click', e=>{
+    e.preventDefault();
+    $('geoHintText').textContent = 'Suche deine Nähe …';
+    track('germany_geo_optin_click',{});
+    requestGeo();
+  });
+}
 function requestGeo(){
   if(!('geolocation' in navigator)) return;
   try{
@@ -540,7 +555,7 @@ function boot(data){
     const c = liveCityByName(qCity);
     if(c){ personalizeFor(c); return; }
   }
-  requestGeo();
+  offerGeo();
 }
 
 fetch('cities.json',{cache:'no-store'})
