@@ -544,12 +544,13 @@ function highlightDateLabels(date = new Date()) {
     const p = Object.fromEntries(fmt.formatToParts(date).filter(x => x.type !== 'literal').map(x => [x.type, x.value]));
     const en = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Berlin', weekday: 'short' }).format(date);
     const de = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', weekday: 'short' }).format(date).replace('.', '');
+    const dateLong = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', weekday: 'long', day: 'numeric', month: 'long' }).format(date);
     return {
         labels: new Set([
             `${en}, ${p.day}.${p.month}.${p.year}`, `${de}, ${p.day}.${p.month}.${p.year}`,
             `${en}, ${p.day}.${p.month}`, `${de}, ${p.day}.${p.month}`
         ]),
-        day: p.day, month: p.month, year: p.year
+        day: p.day, month: p.month, year: p.year, dateLong
     };
 }
 
@@ -571,87 +572,107 @@ function getCityHighlights(events, city, labels) {
         .sort((a, b) => toSortable(a.time).localeCompare(toSortable(b.time)));
 }
 
+// Tribe-Style-Akzente (identisch zum Highlights-Video render-highlights-video.js).
 const HL_CATEGORY_STYLES = {
-    kultur: { label: 'Kultur', accent: '#ef4444' },
-    musik: { label: 'Musik', accent: '#8b5cf6' },
-    party: { label: 'Party', accent: '#ec4899' },
-    ausgehen: { label: 'Ausgehen', accent: '#f97316' },
-    sport: { label: 'Sport', accent: '#16a34a' },
-    'the tribe': { label: 'THE TRIBE', accent: '#111827' },
-    theater: { label: 'Theater', accent: '#dc2626' },
-    comedy: { label: 'Comedy', accent: '#d97706' },
-    kunst: { label: 'Kunst', accent: '#2563eb' },
-    markt: { label: 'Markt', accent: '#059669' },
-    festival: { label: 'Festival', accent: '#e11d48' }
+    party: { label: 'PARTY', accent: '#EF4444' },
+    musik: { label: 'MUSIK', accent: '#A78BFA' },
+    konzert: { label: 'KONZERT', accent: '#A78BFA' },
+    sport: { label: 'SPORT', accent: '#10B981' },
+    kino: { label: 'KINO', accent: '#3B82F6' },
+    ausgehen: { label: 'AUSGEHEN', accent: '#F59E0B' },
+    kultur: { label: 'KULTUR', accent: '#EF4444' },
+    theater: { label: 'THEATER', accent: '#DC2626' },
+    comedy: { label: 'COMEDY', accent: '#D97706' },
+    kunst: { label: 'KUNST', accent: '#3B82F6' },
+    markt: { label: 'MARKT', accent: '#10B981' },
+    festival: { label: 'FESTIVAL', accent: '#E11D48' },
+    'the tribe': { label: 'THE TRIBE', accent: '#25D366' }
 };
-const HL_FALLBACK_ACCENTS = ['#f97316', '#0ea5e9', '#16a34a', '#8b5cf6', '#ef4444', '#2563eb'];
-function highlightCategoryStyle(category, index) {
+function highlightCategoryStyle(category) {
     const key = String(category || '').trim().toLowerCase();
-    if (HL_CATEGORY_STYLES[key]) return HL_CATEGORY_STYLES[key];
-    return { label: String(category || 'Event').trim() || 'Event', accent: HL_FALLBACK_ACCENTS[index % HL_FALLBACK_ACCENTS.length] };
+    return HL_CATEGORY_STYLES[key] || { label: 'EVENT', accent: '#F59E0B' };
 }
 
-// Kompaktes Poster: bis zu MAX_CITY_HIGHLIGHTS Events als Listenzeilen, damit es auch
-// bei 6 Einträgen übersichtlich bleibt.
-function getCityHighlightsImageHtml(city, highlights, meta) {
-    const display = highlights.slice(0, MAX_CITY_HIGHLIGHTS);
-    const rows = display.map((entry, index) => {
-        const style = highlightCategoryStyle(entry.category, index);
-        const time = entry.time && /^\d{2}:\d{2}$/.test(entry.time) ? `${escapeHtml(entry.time)}` : 'heute';
-        const title = escapeHtml(entry.event || 'Event');
-        const catBadge = String(entry.category || '').trim()
-            ? `<span class="cat">${escapeHtml(style.label)}</span>`
-            : '';
-        return `
-            <li class="row" style="--accent:${style.accent};">
-                <div class="time">${time}</div>
-                <div class="info">
-                    ${catBadge}
-                    <h2>${title}</h2>
-                </div>
-                <div class="num">${String(index + 1).padStart(2, '0')}</div>
-            </li>`;
-    }).join('');
+// Titel ohne "(@venue)"-Tag; Venue separat extrahieren (wie im Highlights-Video).
+function cleanEventTitle(raw) {
+    return String(raw || '').replace(/\s*\(@[^)]+\)\s*$/, '').trim();
+}
+function venueFromTitle(raw) {
+    const m = /\(@([^)]+)\)\s*$/.exec(String(raw || ''));
+    if (!m) return '';
+    return m[1].replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+}
 
-    const empty = `<li class="row empty"><div class="info"><h2>Heute noch keine Highlights eingetragen.</h2></div></li>`;
+// Event-Bild als data:-URL laden (für die Thumbnails). Bei Fehler null -> Fallback-Block.
+async function highlightImageDataUrl(url) {
+    if (!url) return null;
+    try {
+        const res = await fetch(url, { redirect: 'follow' });
+        if (!res.ok) return null;
+        const buf = Buffer.from(await res.arrayBuffer());
+        if (buf.length < 1000) return null;
+        const ct = res.headers.get('content-type') || 'image/jpeg';
+        if (!/^image\//.test(ct)) return null;
+        return `data:${ct};base64,${buf.toString('base64')}`;
+    } catch (_) { return null; }
+}
+const HL_FALLBACK_THUMB = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="%23141110"/></svg>';
+
+// Tribe-Style-„Cover" als statisches Bild: schwarzes Magazin-Sheet mit Anton-Headline,
+// amber-Akzent, Event-Liste mit Thumbnails — derselbe Look wie das Highlights-Video,
+// nur als 1 Frame. `items` ist vorverarbeitet (mit geladenem .image).
+function getCityHighlightsImageHtml(city, items, meta) {
+    const rows = items.map((it, index) => `
+        <div class="cover-row" style="--accent:${it.style.accent};">
+            <div class="thumb"><img src="${it.image || HL_FALLBACK_THUMB}" alt=""></div>
+            <div class="meta">
+                <div class="top"><span class="time">${escapeHtml(it.time)} Uhr</span> · <span class="cat">${escapeHtml(it.style.label)}</span></div>
+                <div class="name">${escapeHtml(it.title)}</div>
+                <div class="venue">${escapeHtml(it.venue || city)}</div>
+            </div>
+        </div>`).join('');
+
+    const empty = `<div class="cover-row" style="--accent:#F59E0B;"><div class="meta"><div class="name">Heute noch keine Highlights</div><div class="venue">${escapeHtml(city)}</div></div></div>`;
 
     return `<!doctype html><html lang="de"><head><meta charset="utf-8">
 <style>
-* { box-sizing: border-box; }
-body { margin:0; width:1080px; font-family: Inter, ui-sans-serif, system-ui, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at 18% 0%, rgba(255,255,255,.95), transparent 28%), linear-gradient(150deg,#fff7ed 0%,#ffffff 45%,#ecfeff 100%); color:#111827; }
-.poster { width:1080px; min-height:1350px; padding:70px 64px 56px; display:flex; flex-direction:column; gap:36px; }
-header { display:flex; justify-content:space-between; align-items:flex-start; gap:30px; }
-.brand { display:flex; align-items:center; gap:16px; font-weight:850; font-size:32px; }
-.brand-mark { width:54px; height:54px; border-radius:10px; background:#111827; color:#fff; display:grid; place-items:center; font-size:30px; }
-.date { text-align:right; font-size:26px; color:#4b5563; font-weight:750; }
-h1 { margin:4px 0 2px; font-size:88px; line-height:.96; font-weight:900; }
-.subtitle { margin:0; max-width:820px; color:#4b5563; font-size:30px; line-height:1.28; font-weight:600; }
-ul.events { list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:18px; }
-.row { display:grid; grid-template-columns:150px 1fr 60px; align-items:center; gap:24px;
-  background:rgba(255,255,255,.92); border:2px solid rgba(17,24,39,.08); border-left:10px solid var(--accent,#111827);
-  border-radius:10px; padding:24px 28px; box-shadow:0 18px 40px rgba(15,23,42,.10); }
-.time { font-size:38px; font-weight:900; color:var(--accent,#111827); text-align:center; }
-.info { min-width:0; }
-.cat { display:inline-block; font-size:18px; font-weight:850; letter-spacing:.04em; text-transform:uppercase; color:var(--accent,#111827); margin-bottom:6px; }
-.info h2 { margin:0; font-size:40px; line-height:1.08; font-weight:900; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
-.num { color:#d1d5db; font-size:30px; font-weight:900; text-align:right; }
-.row.empty { grid-template-columns:1fr; text-align:center; }
-footer { margin-top:auto; padding-top:18px; display:flex; justify-content:space-between; align-items:center; gap:30px; color:#374151; font-size:26px; font-weight:760; }
-.app-link { padding:14px 20px; border-radius:8px; background:#111827; color:#fff; font-weight:850; white-space:nowrap; }
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
+:root { --black:#0A0807; --black-soft:#141110; --amber:#F59E0B; --whatsapp:#25D366; --text:#F5F0E8; --muted:#9C9690; --rule:rgba(245,240,232,0.14); }
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1080px; background:var(--black); font-family:'Familjen Grotesk',sans-serif; color:var(--text); }
+.cover { position:relative; width:1080px; min-height:1350px; background:var(--black); padding:48px 52px; display:flex; flex-direction:column; }
+.cover::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0.28; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); }
+.cover-head { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--rule); padding-bottom:24px; margin-bottom:30px; }
+.cover-head .title { font-family:'Anton',sans-serif; font-size:82px; line-height:0.9; text-transform:uppercase; }
+.cover-head .title em { font-style:normal; color:var(--amber); }
+.cover-head .date { font-family:'Anton',sans-serif; font-size:24px; letter-spacing:0.04em; text-transform:uppercase; color:var(--muted); text-align:right; line-height:1.1; }
+.cover-list { flex:1; display:flex; flex-direction:column; gap:20px; }
+.cover-row { display:grid; grid-template-columns:170px 1fr; gap:26px; align-items:center; border-left:5px solid var(--accent); padding-left:24px; min-height:170px; }
+.cover-row .thumb { width:170px; height:170px; overflow:hidden; background:var(--black-soft); }
+.cover-row .thumb img { width:100%; height:100%; object-fit:cover; }
+.cover-row .meta { display:flex; flex-direction:column; justify-content:center; min-width:0; }
+.cover-row .top { font-weight:600; font-size:16px; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:8px; color:var(--accent); }
+.cover-row .top .time { color:var(--text); }
+.cover-row .name { font-family:'Anton',sans-serif; font-size:42px; line-height:0.96; text-transform:uppercase; color:var(--text); margin-bottom:8px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.cover-row .venue { font-size:18px; color:var(--muted); letter-spacing:0.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cover-foot { margin-top:24px; padding-top:22px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; }
+.cover-foot .stamp { font-family:'Anton',sans-serif; font-size:20px; letter-spacing:0.18em; text-transform:uppercase; }
+.cover-foot .stamp em { font-style:normal; color:var(--whatsapp); }
+.cover-foot .arrow { font-family:'Anton',sans-serif; font-size:30px; color:var(--amber); }
 </style></head><body>
-<main class="poster">
-  <header>
-    <div class="brand"><div class="brand-mark">T</div><span>THE TRIBE</span></div>
-    <div class="date">${escapeHtml(meta.day)}.${escapeHtml(meta.month)}.${escapeHtml(meta.year)}</div>
-  </header>
-  <section>
-    <h1>${escapeHtml(city)}<br>Tageshighlights</h1>
-    <p class="subtitle">Unsere Auswahl für heute in ${escapeHtml(city)}. Sei dabei.</p>
-  </section>
-  <ul class="events">${rows || empty}</ul>
-  <footer><span>Echte Treffen in ${escapeHtml(city)}</span><span class="app-link">THE TRIBE ${escapeHtml(city)}</span></footer>
-</main></body></html>`;
+<section class="cover">
+  <div class="cover-head">
+    <div class="title">Heute<br><em>in ${escapeHtml(city)}</em></div>
+    <div class="date">${escapeHtml(meta.dateLong || `${meta.day}.${meta.month}.${meta.year}`)}</div>
+  </div>
+  <div class="cover-list">${rows || empty}</div>
+  <div class="cover-foot">
+    <div class="stamp">Tageshighlights · <em>The Tribe ${escapeHtml(city)}</em></div>
+    <div class="arrow">▶</div>
+  </div>
+</section></body></html>`;
 }
 
 async function getHighlightsBrowser() {
@@ -661,7 +682,20 @@ async function getHighlightsBrowser() {
     return { browser: await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] }), owned: true };
 }
 
-async function renderCityHighlightsImage(city, highlights, meta) {
+// Aus den rohen Event-Einträgen die Tribe-Style-Items bauen (Titel säubern, Venue,
+// Style, Thumbnail laden).
+async function buildHighlightItems(highlights) {
+    const top = highlights.slice(0, MAX_CITY_HIGHLIGHTS);
+    return Promise.all(top.map(async (e) => ({
+        time: e.time && /^\d{2}:\d{2}$/.test(e.time) ? e.time : 'heute',
+        title: cleanEventTitle(e.event) || 'Event',
+        venue: venueFromTitle(e.event),
+        style: highlightCategoryStyle(e.category),
+        image: (await highlightImageDataUrl(e.image_url)) || HL_FALLBACK_THUMB
+    })));
+}
+
+async function renderCityHighlightsImage(city, items, meta) {
     fs.mkdirSync(HIGHLIGHTS_IMAGE_DIR, { recursive: true });
     const safeCity = normalizeCityToken(city).replace(/\s+/g, '-') || 'stadt';
     const outputPath = path.join(HIGHLIGHTS_IMAGE_DIR, `${safeCity}-tageshighlights-${meta.year}-${meta.month}-${meta.day}.png`);
@@ -669,7 +703,11 @@ async function renderCityHighlightsImage(city, highlights, meta) {
     const page = await browser.newPage();
     try {
         await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
-        await page.setContent(getCityHighlightsImageHtml(city, highlights, meta), { waitUntil: 'networkidle0' });
+        // 'load' statt 'networkidle0' — der Google-Fonts-@import hält sonst eine
+        // Verbindung offen und lässt networkidle0 ins Timeout laufen.
+        await page.setContent(getCityHighlightsImageHtml(city, items, meta), { waitUntil: 'load', timeout: 60000 });
+        await page.evaluate(() => document.fonts.ready).catch(() => {});
+        await new Promise(r => setTimeout(r, 400));
         await page.screenshot({ path: outputPath, type: 'png', fullPage: true });
     } finally {
         await page.close().catch(() => {});
@@ -711,7 +749,8 @@ async function sendCityHighlights({ force = false } = {}) {
         const highlights = getCityHighlights(events, city, meta.labels);
         if (!highlights.length) { skipped.push(city); continue; }
         try {
-            const imagePath = await renderCityHighlightsImage(city, highlights, meta);
+            const items = await buildHighlightItems(highlights);
+            const imagePath = await renderCityHighlightsImage(city, items, meta);
             const media = MessageMedia.fromFilePath(imagePath);
             // Nur das Bild + kurze Lovable-Zeile (analog Bielefeld-Bot), kein Event-Fließtext.
             await chat.sendMessage(media, { caption: HIGHLIGHTS_CAPTION });
