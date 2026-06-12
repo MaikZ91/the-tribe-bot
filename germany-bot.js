@@ -117,7 +117,13 @@ const CITY_VENUES = {
     'Lübeck': ['Hüxstrasse', 'Brauberger', 'Finnegan', 'Parkhaus', 'Café Affenbrot'],
     'Wiesbaden': ['Park Café', 'Wagner’s', 'Robert Johnson Nähe', 'Sherry & Port', 'Irish Pub'],
     'Mainz': ['Bagatelle', 'Eisgrub', '50grad', 'Q-Bar', 'Schon Schön'],
-    'Aachen': ['B9', 'Domkeller', 'Pontstrasse', 'Café Kittel', 'Apollo']
+    'Aachen': ['B9', 'Domkeller', 'Pontstrasse', 'Café Kittel', 'Apollo'],
+    // OWL-Region (neu dazugekommen) — Starter-Locations, frei editierbar; die
+    // "Eigener Vorschlag"-Option lässt die Gruppe selbst nachjustieren.
+    'Herford': ['Bei Mole', 'Pottkieker', 'Aquarium', 'Schillers', 'Cafe Hemann'],
+    'Detmold': ['Strate’s Brauhaus', 'Cafe del Sol', 'Hexenkessel', 'Irish Pub', 'Marktplatz'],
+    'Lage': ['Café Extrablatt', 'Marktplatz Lage', 'Eiscafé Venezia', 'Lagenser Hof', 'Stadthalle Lage'],
+    'Kassel': ['Lolita Bar', 'Mr. Jones', 'ARM', 'Gleis 1', 'Café Buch-Oase']
 };
 
 // Begrüßung (analog Bielefeld) — öffentlich in der jeweiligen Stadtgruppe.
@@ -513,6 +519,9 @@ const MAX_CITY_HIGHLIGHTS = Number(process.env.GERMANY_MAX_HIGHLIGHTS || 6);
 const HIGHLIGHTS_IMAGE_DIR = path.join(__dirname, 'images', 'germany-highlights');
 const HL_EXCLUDED_ACCOUNTS = ['sennefriedhof'];
 const HL_EXCLUDED_ORGANIZERS = ['kirchengemeinde oldentrup'];
+// Kurze Caption wie der Bielefeld-Bot — nur das Bild + Lovable-Link, kein Event-Text.
+const HIGHLIGHTS_CAPTION = process.env.GERMANY_HIGHLIGHTS_CAPTION
+    || 'Mehr Events: https://liebefeld.lovable.app/';
 
 function escapeHtml(value) {
     return String(value ?? '')
@@ -704,13 +713,8 @@ async function sendCityHighlights({ force = false } = {}) {
         try {
             const imagePath = await renderCityHighlightsImage(city, highlights, meta);
             const media = MessageMedia.fromFilePath(imagePath);
-            const top = highlights.slice(0, MAX_CITY_HIGHLIGHTS);
-            const caption = [
-                `Tageshighlights ${city} — ${meta.day}.${meta.month}.${meta.year} 🔥`, '',
-                ...top.map(e => `• ${e.time && /^\d{2}:\d{2}$/.test(e.time) ? `${e.time} ` : ''}${e.event}`),
-                '', 'Sei dabei — echte Treffen in ' + city + '.'
-            ].join('\n');
-            await chat.sendMessage(media, { caption });
+            // Nur das Bild + kurze Lovable-Zeile (analog Bielefeld-Bot), kein Event-Fließtext.
+            await chat.sendMessage(media, { caption: HIGHLIGHTS_CAPTION });
             sent++;
             console.log(`Germany-Bot: Tageshighlights in ${city} gepostet (${highlights.length} Events).`);
         } catch (err) {
