@@ -147,7 +147,6 @@
     animation:pulseDot 3.4s var(--ease) infinite}
   .node .dot{fill:var(--amber);stroke:#1a1410;stroke-width:1}
   .node .ring{fill:none;stroke:var(--amber);stroke-width:1.4;opacity:.55}
-  .node .av{} .node .av-ring{fill:none;stroke:var(--amber);stroke-width:1.6;opacity:.9}
   .node:focus{outline:none}
   .node.you .dot{fill:#fff}
   .node.you .ring{stroke:#fff;opacity:.8}
@@ -419,7 +418,6 @@ function render(data){
     if(A && B) lines.appendChild(el('line',{class:'mesh-line', x1:A[0], y1:A[1], x2:B[0], y2:B[1]}));
   });
 
-  const AVA = ['maik','patrick','lena','anna','lea','sarah','tim','gruppe']; // kleine Avatare für die größten Städte
   const origin = GEO.cities["Bielefeld"];
   live.forEach((c,i) => {
     if(origin && (c.x!==origin[0] || c.y!==origin[1])){
@@ -428,7 +426,6 @@ function render(data){
     const r = radiusFor(c.city);
     const isHero = i===0;
     const showCount = isBielefeld(c); // echte Zahl vorerst nur für Bielefeld
-    const withAvatar = i < AVA.length; // Avatare nur auf den prominentesten Punkten
     const g = el('g',{class:'node'+(isHero?' hero':''), tabindex:0, role:'link',
       'aria-label': showCount ? `${c.city}, ${c.members} Mitglieder` : c.city, 'data-city':c.city});
     if(c.link){ g.style.cursor='pointer'; g.addEventListener('click',()=>openCity(c));
@@ -438,21 +435,7 @@ function render(data){
     pulse.style.animationDelay = ((i*0.37) % 3.4).toFixed(2)+'s';
     g.appendChild(pulse);
     if(isHero) g.appendChild(el('circle',{class:'ring', cx:c.x, cy:c.y, r:r+3}));
-    if(withAvatar){
-      const ar = Math.max(r, 8); // Avatar etwas größer, damit erkennbar
-      const cid = 'avclip-'+i;
-      const cp = el('clipPath',{id:cid});
-      cp.appendChild(el('circle',{cx:c.x, cy:c.y, r:ar}));
-      g.appendChild(cp);
-      const img = el('image',{class:'av', x:c.x-ar, y:c.y-ar, width:ar*2, height:ar*2,
-        'clip-path':`url(#${cid})`, preserveAspectRatio:'xMidYMid slice'});
-      img.setAttribute('href', `../assets/${AVA[i % AVA.length]}.webp`);
-      img.setAttributeNS('http://www.w3.org/1999/xlink','href', `../assets/${AVA[i % AVA.length]}.webp`);
-      g.appendChild(img);
-      g.appendChild(el('circle',{class:'av-ring', cx:c.x, cy:c.y, r:ar}));
-    } else {
-      g.appendChild(el('circle',{class:'dot', cx:c.x, cy:c.y, r:r}));
-    }
+    g.appendChild(el('circle',{class:'dot', cx:c.x, cy:c.y, r:r}));
     // Name für JEDE Live-Stadt; Zahl nur für Bielefeld. Größere Städte = prominenteres Label.
     // Label-Seite nach x flippen, damit Ost-Städte nicht aus der Karte laufen.
     const prominent = (i<3 || (POP[c.city]||0) >= 500);
