@@ -19,7 +19,9 @@
 // öffentlich, stadt-spezifisch) und (2) fährt die volle Social-Warmup-Struktur wie
 // der Bielefeld-Bot — Mi 20:00 Venue-Umfrage, Fr 18:00 Zusage-Umfrage am Gewinner,
 // Sa 12:00 Reminder, mit DEMSELBEN Bild (images/tribe-kennenlernabend.jpg), pro Stadt.
-// KEINE anderen Bielefeld-Features (Tuesday-Run, Jam, Fussball, Dashboard, Highlights …).
+// Zusätzlich: täglich 11:00 ein Tageshighlights-Bild pro Stadt (datengetrieben aus
+// events.json, je Stadt gefiltert). KEINE weiteren Bielefeld-Features (Tuesday-Run, Jam, Dashboard …).
+// Manuell: node germany-bot.js --highlights  (oder BOT_COMMAND=germany-highlights).
 //
 // Start:
 //   node germany-bot.js          -> dauerhaft: Karte-Refresh + Begrüßung + Mi/Fr/Sa-Warmup-Schedule
@@ -53,6 +55,10 @@ const FRIDAY_MODE =
 const REMINDER_MODE =
     process.argv.includes('--reminder') ||
     (process.env.BOT_COMMAND || '').trim() === 'germany-reminder';
+// Tageshighlights-Bild pro Stadtgruppe posten (analog Bielefeld-Bot), manuell ausgelöst.
+const HIGHLIGHTS_MODE =
+    process.argv.includes('--highlights') ||
+    (process.env.BOT_COMMAND || '').trim() === 'germany-highlights';
 
 // Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json
 // und zu GERMANY_CITIES im Bielefeld-Bot. Nur Städte aus dieser Liste haben eine
@@ -495,6 +501,207 @@ async function sendCityReminders() {
     console.log(`Germany-Bot: ${sent} Reminder gesendet.`);
 }
 
+// ---------------------------------------------------------------------------
+// Tageshighlights-Bild pro Stadt (analog Bielefeld-Bot index.js, hier datengetrieben
+// aus events.json je Stadt). Holt die heutigen Events der jeweiligen Stadt, rendert
+// ein kompaktes Poster mit bis zu MAX_CITY_HIGHLIGHTS Einträgen und postet es in die
+// passende Stadtgruppe.
+// ---------------------------------------------------------------------------
+const EVENTS_URL = process.env.GERMANY_EVENTS_URL
+    || 'https://raw.githubusercontent.com/MaikZ91/productiontools/master/events.json';
+const MAX_CITY_HIGHLIGHTS = Number(process.env.GERMANY_MAX_HIGHLIGHTS || 6);
+const HIGHLIGHTS_IMAGE_DIR = path.join(__dirname, 'images', 'germany-highlights');
+const HL_EXCLUDED_ACCOUNTS = ['sennefriedhof'];
+const HL_EXCLUDED_ORGANIZERS = ['kirchengemeinde oldentrup'];
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+async function fetchEvents() {
+    const res = await fetch(EVENTS_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status} beim Laden der Event-Liste`);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('Event-Liste ist kein JSON-Array');
+    return data;
+}
+
+// Heutige Datums-Labels exakt im events.json-Format ("Fr, 12.06.2026" / "Fri, 12.06.2026"
+// und ohne Jahr), damit der String-Vergleich mit entry.date greift.
+function highlightDateLabels(date = new Date()) {
+    const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit' });
+    const p = Object.fromEntries(fmt.formatToParts(date).filter(x => x.type !== 'literal').map(x => [x.type, x.value]));
+    const en = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Berlin', weekday: 'short' }).format(date);
+    const de = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', weekday: 'short' }).format(date).replace('.', '');
+    return {
+        labels: new Set([
+            `${en}, ${p.day}.${p.month}.${p.year}`, `${de}, ${p.day}.${p.month}.${p.year}`,
+            `${en}, ${p.day}.${p.month}`, `${de}, ${p.day}.${p.month}`
+        ]),
+        day: p.day, month: p.month, year: p.year
+    };
+}
+
+function cityMatchesEvent(entry, city) {
+    return normalizeCityToken(entry.city || '') === normalizeCityToken(city);
+}
+
+function getCityHighlights(events, city, labels) {
+    const toSortable = v => (/^\d{2}:\d{2}$/.test(v || '') ? v : '99:99');
+    return events
+        .filter(e => cityMatchesEvent(e, city))
+        .filter(e => labels.has(String(e.date || '').trim()))
+        .filter(e => {
+            const name = String(e.event || '').toLowerCase();
+            if (HL_EXCLUDED_ACCOUNTS.some(a => name.includes(`@${a}`))) return false;
+            if (HL_EXCLUDED_ORGANIZERS.some(o => name.includes(o))) return false;
+            return true;
+        })
+        .sort((a, b) => toSortable(a.time).localeCompare(toSortable(b.time)));
+}
+
+const HL_CATEGORY_STYLES = {
+    kultur: { label: 'Kultur', accent: '#ef4444' },
+    musik: { label: 'Musik', accent: '#8b5cf6' },
+    party: { label: 'Party', accent: '#ec4899' },
+    ausgehen: { label: 'Ausgehen', accent: '#f97316' },
+    sport: { label: 'Sport', accent: '#16a34a' },
+    'the tribe': { label: 'THE TRIBE', accent: '#111827' },
+    theater: { label: 'Theater', accent: '#dc2626' },
+    comedy: { label: 'Comedy', accent: '#d97706' },
+    kunst: { label: 'Kunst', accent: '#2563eb' },
+    markt: { label: 'Markt', accent: '#059669' },
+    festival: { label: 'Festival', accent: '#e11d48' }
+};
+const HL_FALLBACK_ACCENTS = ['#f97316', '#0ea5e9', '#16a34a', '#8b5cf6', '#ef4444', '#2563eb'];
+function highlightCategoryStyle(category, index) {
+    const key = String(category || '').trim().toLowerCase();
+    if (HL_CATEGORY_STYLES[key]) return HL_CATEGORY_STYLES[key];
+    return { label: String(category || 'Event').trim() || 'Event', accent: HL_FALLBACK_ACCENTS[index % HL_FALLBACK_ACCENTS.length] };
+}
+
+// Kompaktes Poster: bis zu MAX_CITY_HIGHLIGHTS Events als Listenzeilen, damit es auch
+// bei 6 Einträgen übersichtlich bleibt.
+function getCityHighlightsImageHtml(city, highlights, meta) {
+    const display = highlights.slice(0, MAX_CITY_HIGHLIGHTS);
+    const rows = display.map((entry, index) => {
+        const style = highlightCategoryStyle(entry.category, index);
+        const time = entry.time && /^\d{2}:\d{2}$/.test(entry.time) ? `${escapeHtml(entry.time)}` : 'heute';
+        const title = escapeHtml(entry.event || 'Event');
+        const catBadge = String(entry.category || '').trim()
+            ? `<span class="cat">${escapeHtml(style.label)}</span>`
+            : '';
+        return `
+            <li class="row" style="--accent:${style.accent};">
+                <div class="time">${time}</div>
+                <div class="info">
+                    ${catBadge}
+                    <h2>${title}</h2>
+                </div>
+                <div class="num">${String(index + 1).padStart(2, '0')}</div>
+            </li>`;
+    }).join('');
+
+    const empty = `<li class="row empty"><div class="info"><h2>Heute noch keine Highlights eingetragen.</h2></div></li>`;
+
+    return `<!doctype html><html lang="de"><head><meta charset="utf-8">
+<style>
+* { box-sizing: border-box; }
+body { margin:0; width:1080px; font-family: Inter, ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 18% 0%, rgba(255,255,255,.95), transparent 28%), linear-gradient(150deg,#fff7ed 0%,#ffffff 45%,#ecfeff 100%); color:#111827; }
+.poster { width:1080px; min-height:1350px; padding:70px 64px 56px; display:flex; flex-direction:column; gap:36px; }
+header { display:flex; justify-content:space-between; align-items:flex-start; gap:30px; }
+.brand { display:flex; align-items:center; gap:16px; font-weight:850; font-size:32px; }
+.brand-mark { width:54px; height:54px; border-radius:10px; background:#111827; color:#fff; display:grid; place-items:center; font-size:30px; }
+.date { text-align:right; font-size:26px; color:#4b5563; font-weight:750; }
+h1 { margin:4px 0 2px; font-size:88px; line-height:.96; font-weight:900; }
+.subtitle { margin:0; max-width:820px; color:#4b5563; font-size:30px; line-height:1.28; font-weight:600; }
+ul.events { list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:18px; }
+.row { display:grid; grid-template-columns:150px 1fr 60px; align-items:center; gap:24px;
+  background:rgba(255,255,255,.92); border:2px solid rgba(17,24,39,.08); border-left:10px solid var(--accent,#111827);
+  border-radius:10px; padding:24px 28px; box-shadow:0 18px 40px rgba(15,23,42,.10); }
+.time { font-size:38px; font-weight:900; color:var(--accent,#111827); text-align:center; }
+.info { min-width:0; }
+.cat { display:inline-block; font-size:18px; font-weight:850; letter-spacing:.04em; text-transform:uppercase; color:var(--accent,#111827); margin-bottom:6px; }
+.info h2 { margin:0; font-size:40px; line-height:1.08; font-weight:900; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.num { color:#d1d5db; font-size:30px; font-weight:900; text-align:right; }
+.row.empty { grid-template-columns:1fr; text-align:center; }
+footer { margin-top:auto; padding-top:18px; display:flex; justify-content:space-between; align-items:center; gap:30px; color:#374151; font-size:26px; font-weight:760; }
+.app-link { padding:14px 20px; border-radius:8px; background:#111827; color:#fff; font-weight:850; white-space:nowrap; }
+</style></head><body>
+<main class="poster">
+  <header>
+    <div class="brand"><div class="brand-mark">T</div><span>THE TRIBE</span></div>
+    <div class="date">${escapeHtml(meta.day)}.${escapeHtml(meta.month)}.${escapeHtml(meta.year)}</div>
+  </header>
+  <section>
+    <h1>${escapeHtml(city)}<br>Tageshighlights</h1>
+    <p class="subtitle">Unsere Auswahl für heute in ${escapeHtml(city)}. Sei dabei.</p>
+  </section>
+  <ul class="events">${rows || empty}</ul>
+  <footer><span>Echte Treffen in ${escapeHtml(city)}</span><span class="app-link">THE TRIBE ${escapeHtml(city)}</span></footer>
+</main></body></html>`;
+}
+
+async function getHighlightsBrowser() {
+    if (client.pupBrowser) return { browser: client.pupBrowser, owned: false };
+    if (client.pupPage && typeof client.pupPage.browser === 'function') return { browser: client.pupPage.browser(), owned: false };
+    const puppeteer = require('puppeteer');
+    return { browser: await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] }), owned: true };
+}
+
+async function renderCityHighlightsImage(city, highlights, meta) {
+    fs.mkdirSync(HIGHLIGHTS_IMAGE_DIR, { recursive: true });
+    const safeCity = normalizeCityToken(city).replace(/\s+/g, '-') || 'stadt';
+    const outputPath = path.join(HIGHLIGHTS_IMAGE_DIR, `${safeCity}-tageshighlights-${meta.year}-${meta.month}-${meta.day}.png`);
+    const { browser, owned } = await getHighlightsBrowser();
+    const page = await browser.newPage();
+    try {
+        await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
+        await page.setContent(getCityHighlightsImageHtml(city, highlights, meta), { waitUntil: 'networkidle0' });
+        await page.screenshot({ path: outputPath, type: 'png', fullPage: true });
+    } finally {
+        await page.close().catch(() => {});
+        if (owned) await browser.close().catch(() => {});
+    }
+    return outputPath;
+}
+
+// Postet pro Stadtgruppe ein Tageshighlights-Bild. Städte ohne heutige Events werden
+// übersprungen (kein leeres Poster spammen).
+async function sendCityHighlights() {
+    const groups = await getMatchedCityGroups();
+    if (!groups.length) { console.log('Germany-Bot: keine Stadtgruppen für Highlights gefunden.'); return; }
+    let events;
+    try { events = await fetchEvents(); }
+    catch (err) { console.error('Germany-Bot: Events laden fehlgeschlagen:', err.message); return; }
+    const meta = highlightDateLabels();
+    let sent = 0; const skipped = [];
+    for (const { city, chat } of groups) {
+        const highlights = getCityHighlights(events, city, meta.labels);
+        if (!highlights.length) { skipped.push(city); continue; }
+        try {
+            const imagePath = await renderCityHighlightsImage(city, highlights, meta);
+            const media = MessageMedia.fromFilePath(imagePath);
+            const top = highlights.slice(0, MAX_CITY_HIGHLIGHTS);
+            const caption = [
+                `Tageshighlights ${city} — ${meta.day}.${meta.month}.${meta.year} 🔥`, '',
+                ...top.map(e => `• ${e.time && /^\d{2}:\d{2}$/.test(e.time) ? `${e.time} ` : ''}${e.event}`),
+                '', 'Sei dabei — echte Treffen in ' + city + '.'
+            ].join('\n');
+            await chat.sendMessage(media, { caption });
+            sent++;
+            console.log(`Germany-Bot: Tageshighlights in ${city} gepostet (${highlights.length} Events).`);
+        } catch (err) {
+            console.error(`Germany-Bot: Tageshighlights in ${city} fehlgeschlagen:`, err.message);
+        }
+    }
+    console.log(`Germany-Bot: ${sent} Tageshighlights-Bild(er) gesendet.`);
+    if (skipped.length) console.log(`Germany-Bot: keine heutigen Events für ${skipped.join(', ')} — übersprungen.`);
+}
+
 // Scheduler (Dauerbetrieb): Mi 20:00 Venue, Fr 18:00 Zusage, Sa 12:00 Reminder (Europe/Berlin).
 let warmupJobs = [];
 function scheduleWarmupJob(name, rule, task) {
@@ -510,6 +717,8 @@ function startWarmupScheduler() {
     scheduleWarmupJob('Mittwochs-Venue-Umfrage', { weekdayIndex: 3, hour: 20 }, () => sendCityVenuePolls());
     scheduleWarmupJob('Freitags-Zusage-Umfrage', { weekdayIndex: 5, hour: 18 }, () => sendCityAttendancePolls());
     scheduleWarmupJob('Samstags-Reminder', { weekdayIndex: 6, hour: 12 }, () => sendCityReminders());
+    // Täglich 11:00: Tageshighlights-Bild pro Stadtgruppe (weekdayIndex undefined = jeden Tag).
+    scheduleWarmupJob('Tageshighlights', { hour: 11, minute: 0 }, () => sendCityHighlights());
 }
 
 // ---------------------------------------------------------------------------
@@ -551,10 +760,11 @@ client.on('group_join', notification => {
 client.on('ready', async () => {
     console.log('Germany-Bot ist online.');
 
-    if (POLL_MODE || FRIDAY_MODE || REMINDER_MODE) {
+    if (POLL_MODE || FRIDAY_MODE || REMINDER_MODE || HIGHLIGHTS_MODE) {
         try {
             if (POLL_MODE) await sendCityVenuePolls();
             else if (FRIDAY_MODE) await sendCityAttendancePolls();
+            else if (HIGHLIGHTS_MODE) await sendCityHighlights();
             else await sendCityReminders();
         } catch (err) { console.error('Germany-Poll fehlgeschlagen:', err && err.stack ? err.stack : err); }
         await new Promise(r => setTimeout(r, 4000)); // Medien/Polls in WhatsApp-Web-Queue flushen
