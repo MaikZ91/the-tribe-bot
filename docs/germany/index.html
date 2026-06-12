@@ -158,6 +158,7 @@
   .city .meta{font-size:11.5px;color:var(--muted);margin-top:2px}
   .city .count{font-family:var(--fd);font-size:21px;color:var(--text);line-height:1}
   .city .count .pl{font-size:10px;color:var(--muted);font-family:var(--fb);font-weight:600}
+  .city .count .joincue{font-family:var(--fb);font-size:12px;font-weight:700;color:var(--amber);white-space:nowrap}
   .city .go{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
     background:var(--wa);color:#04210f;font-size:15px;font-weight:800}
 
@@ -332,7 +333,25 @@ let LIVE = []; // gefüllt aus cities.json
 const SVGNS = "http://www.w3.org/2000/svg";
 const el = (n,a={}) => { const e=document.createElementNS(SVGNS,n); for(const k in a) e.setAttribute(k,a[k]); return e; };
 const $ = id => document.getElementById(id);
-function radiusFor(members){ return Math.max(5, Math.min(20, 4 + Math.sqrt(members)*1.15)); }
+
+/* Einwohner (in Tausend, gerundet) — bestimmt die Punktgröße auf der Karte.
+   Solange die Communitys außerhalb Bielefelds noch klein sind, skalieren wir
+   nach Stadtgröße statt nach Mitgliederzahl (sonst wirken neue Städte „leer"). */
+const POP = {
+  "Bielefeld":334,"Berlin":3677,"Hamburg":1906,"München":1488,"Köln":1087,"Frankfurt":773,
+  "Stuttgart":632,"Düsseldorf":620,"Dortmund":588,"Essen":582,"Leipzig":616,"Dresden":556,
+  "Hannover":535,"Nürnberg":523,"Bremen":567,"Münster":318,"Bonn":331,"Mannheim":311,
+  "Karlsruhe":308,"Wiesbaden":278,"Augsburg":296,"Freiburg":231,"Aachen":249,"Kiel":247,
+  "Lübeck":217,"Rostock":209,"Magdeburg":238,"Erfurt":214,"Kassel":201,"Mainz":218,
+  "Saarbrücken":181,"Osnabrück":165,"Paderborn":152,"Bochum":365,"Wuppertal":355,
+  "Braunschweig":249,"Würzburg":127,"Regensburg":153,"Ingolstadt":139,"Heidelberg":159,
+  "Ulm":127,"Oldenburg":170,"Potsdam":183,"Göttingen":119,"Koblenz":114,"Trier":111,
+  "Konstanz":84,"Flensburg":90,"Gütersloh":100,"Herford":67,"Detmold":74,"Minden":82,
+  "Bremerhaven":113,"Wolfsburg":124,"Jena":111,"Chemnitz":247,"Halle":238,"Darmstadt":159,
+  "Oberhausen":210,"Krefeld":227,"Mönchengladbach":261,"Kaiserslautern":100,"Marburg":76,
+  "Tübingen":91,"Lüneburg":77,"Lage":35
+};
+function radiusFor(city){ const pop = POP[city] || 60; return Math.max(5, Math.min(20, 2 + Math.sqrt(pop)*0.30)); }
 function haversineKm(a,b){
   const R=6371, toR=d=>d*Math.PI/180;
   const dLat=toR(b[0]-a[0]), dLng=toR(b[1]-a[1]);
@@ -354,35 +373,43 @@ function render(data){
     ghosts.appendChild(el('circle',{class:'ghost', cx:x, cy:y, r:2.2}));
   }
 
+  // Bielefeld bleibt oben (Heimat/Hero), die übrigen Städte nach Einwohnerzahl —
+  // so wirkt das Netz gewachsen, ohne kleine Mitgliederzahlen zu zeigen.
+  const isBielefeld = c => String(c.city).toLowerCase() === 'bielefeld';
   const live = data
     .filter(d => GEO.cities[d.city])
     .map(d => ({...d, x:GEO.cities[d.city][0], y:GEO.cities[d.city][1], members:Number(d.members)||0}))
-    .sort((a,b)=> b.members - a.members);
+    .sort((a,b)=>{
+      if(isBielefeld(a)) return -1;
+      if(isBielefeld(b)) return 1;
+      return (POP[b.city]||0) - (POP[a.city]||0);
+    });
 
   const origin = GEO.cities["Bielefeld"];
   live.forEach((c,i) => {
     if(origin && (c.x!==origin[0] || c.y!==origin[1])){
       lines.appendChild(el('line',{class:'link-line', x1:origin[0], y1:origin[1], x2:c.x, y2:c.y}));
     }
-    const r = radiusFor(c.members);
+    const r = radiusFor(c.city);
     const isHero = i===0;
+    const showCount = isBielefeld(c); // echte Zahl vorerst nur für Bielefeld
     const g = el('g',{class:'node'+(isHero?' hero':''), tabindex:0, role:'link',
-      'aria-label':`${c.city}, ${c.members} Mitglieder`, 'data-city':c.city});
+      'aria-label': showCount ? `${c.city}, ${c.members} Mitglieder` : c.city, 'data-city':c.city});
     if(c.link){ g.style.cursor='pointer'; g.addEventListener('click',()=>openCity(c));
       g.addEventListener('keydown',e=>{if(e.key==='Enter')openCity(c);}); }
     g.appendChild(el('circle',{class:'halo', cx:c.x, cy:c.y, r:r*2.1}));
     if(isHero) g.appendChild(el('circle',{class:'ring', cx:c.x, cy:c.y, r:r+3}));
     g.appendChild(el('circle',{class:'dot', cx:c.x, cy:c.y, r:r}));
-    // Name für JEDE Live-Stadt; Mitgliederzahl nur für prominente (gegen Clutter).
+    // Name für JEDE Live-Stadt; Zahl nur für Bielefeld. Größere Städte = prominenteres Label.
     // Label-Seite nach x flippen, damit Ost-Städte nicht aus der Karte laufen.
-    const prominent = (i<3 || c.members>=40);
+    const prominent = (i<3 || (POP[c.city]||0) >= 500);
     const onRight = c.x < 470;
     const lx = onRight ? c.x + r + 5 : c.x - r - 5;
     const anchor = onRight ? 'start' : 'end';
-    const t = el('text',{class:'pin-label', x:lx, y:c.y+(prominent?-1:3.5), 'text-anchor':anchor});
+    const t = el('text',{class:'pin-label', x:lx, y:c.y+(showCount?-1:3.5), 'text-anchor':anchor});
     t.textContent = c.city;
     g.appendChild(t);
-    if(prominent){
+    if(showCount){
       const ct = el('text',{class:'pin-count', x:lx, y:c.y+12, 'text-anchor':anchor});
       ct.textContent = c.members;
       g.appendChild(ct);
@@ -395,6 +422,7 @@ function render(data){
   countUp($('statPeople'), totalPeople, '');
   $('statCitiesLabel').textContent = live.length===1 ? 'Stadt aktiv' : 'Städte aktiv';
   $('tickCities').textContent = live.length;
+  const showCountList = c => String(c.city).toLowerCase() === 'bielefeld';
 
   const list = $('cityList'); list.innerHTML = '';
   $('listSub').textContent = `${live.length} aktiv`;
@@ -409,7 +437,7 @@ function render(data){
         <div class="name">${c.city}${i===0?'<span class="tag">Heimat</span>':''}</div>
         <div class="meta">${c.link?'WhatsApp-Community · jede Woche live':'kommt bald'}</div>
       </div>
-      <div class="count">${c.members}<span class="pl"> Mitgl.</span></div>
+      <div class="count">${showCountList(c) ? `${c.members}<span class="pl"> Mitgl.</span>` : `<span class="joincue">${c.link?'dabei sein':'kommt bald'}</span>`}</div>
       <div class="go">${c.link?'›':'·'}</div>`;
     list.appendChild(a);
   });
