@@ -482,10 +482,15 @@ function highlightOnMap(cityName){
 }
 function personalizeFor(c){
   // c = LIVE-Eintrag {city, members, link}
+  const bielefeld = String(c.city).toLowerCase() === 'bielefeld';
   $('heroKick').textContent = `Neu in ${c.city}? Bock auszugehen?`;
   $('heroH1').innerHTML = `<span>${c.city} ist nur eine Stadt —</span><span>bis du <em>deine&nbsp;Leute</em> kennst.</span>`;
-  $('heroLead').innerHTML = `Schon <span class="n">${c.members}</span> aus ${c.city} ziehen zusammen los — <b>komm mit</b>.`;
-  $('facesWord').innerHTML = `&amp; ${Math.max(c.members-4,0)} weitere`;
+  // Echte Mitgliederzahl nur in Bielefeld zeigen; in neuen Städten Zahl raushalten,
+  // damit kleine Communitys nicht direkt am CTA abschrecken.
+  $('heroLead').innerHTML = bielefeld
+    ? `Schon <span class="n">${c.members}</span> aus ${c.city} ziehen zusammen los — <b>komm mit</b>.`
+    : `Jede Woche geht THE TRIBE in ${c.city} zusammen raus — <b>sei beim nächsten Mal dabei</b>.`;
+  $('facesWord').innerHTML = bielefeld ? `&amp; ${Math.max(c.members-4,0)} weitere` : `&amp; viele weitere`;
   const cta = $('heroCta'); cta.href = c.link || COMMUNITY_LINK;
   $('heroCtaLabel').textContent = `Ich bin dabei — kostenlos in die ${c.city}-Gruppe`;
   cta.setAttribute('data-city', c.city);
