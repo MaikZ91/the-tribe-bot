@@ -4,12 +4,15 @@ HERO-SLIDESHOW (Ausgehen-Seite v2 / docs/v2.html)
 Hier liegen die Hintergrundbilder, die auf der v2-Seite im Crossfade
 durchlaufen. Reihenfolge = Dateiname.
 
-Aktuell aktiv:
+Aktuell aktiv (Anzeige-Reihenfolge: 5,3,4,6,7,8,1,2):
   1.webp  - Anstoßen / Prost (Bar, Abend)
   2.webp  - Club-Selfie, pinke Lichter
   3.webp  - Gruppe am Restaurant-Tisch (Abend, Kerze)
   4.webp  - Club-Dancefloor mit Discokugel
   5.webp  - Gruppe in der Bar (2024)
+  6.webp  - Hausparty mit Gitarre (2021, gemütliche Runde)
+  7.webp  - Festival-Selfie in der Menge (Leineweber 2024)
+  8.webp  - Festival-Paar mit Herzbrille (2024)
 
 NEUE BILDER REINSCHIEBEN
 ------------------------
