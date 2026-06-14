@@ -1896,23 +1896,34 @@ async function syncTrackedChatMemberCounts() {
 }
 
 async function updateLandingPageMemberCount(count) {
-    const htmlPath = path.join(__dirname, 'docs', 'index.html');
+    // Beide Landing-Varianten mitpflegen: index.html (v6-focus) + v2.html (v6-bgslide).
+    const files = ['index.html', 'v2.html'];
+    const changed = [];
+    for (const file of files) {
+        const htmlPath = path.join(__dirname, 'docs', file);
+        try {
+            let html = fs.readFileSync(htmlPath, 'utf8');
+            // v4-onepager: bigCount = Gesamtcount, Faces-Zeile "& N weitere" = count - 3
+            // (Maik/Lena/Patrick namentlich). "Bielefelder" am Ende optional (v3-story
+            // hatte es, v4-onepager nicht). Chat-Header-Regex no-opt't auf v4 (kein Chat).
+            const updated = html
+                .replace(/(id="bigCount">)\d+(<)/, `$1${count}$2`)
+                .replace(/(<i class="online"><\/i>\s*)\d+(\s*Mitglieder)/, `$1${count}$2`)
+                .replace(/(&amp;\s*)\d+(\s*weitere)/, `$1${Math.max(count - 3, 0)}$2`);
+            if (updated === html) continue;
+            fs.writeFileSync(htmlPath, updated, 'utf8');
+            changed.push(`docs/${file}`);
+        } catch (err) {
+            console.error(`Fehler beim Aktualisieren der Landing Page (${file}):`, err.message);
+        }
+    }
+    if (!changed.length) return;
     try {
-        let html = fs.readFileSync(htmlPath, 'utf8');
-        // v4-onepager: bigCount = Gesamtcount, Faces-Zeile "& N weitere" = count - 3
-        // (Maik/Lena/Patrick namentlich). "Bielefelder" am Ende optional (v3-story
-        // hatte es, v4-onepager nicht). Chat-Header-Regex no-opt't auf v4 (kein Chat).
-        const updated = html
-            .replace(/(id="bigCount">)\d+(<)/, `$1${count}$2`)
-            .replace(/(<i class="online"><\/i>\s*)\d+(\s*Mitglieder)/, `$1${count}$2`)
-            .replace(/(&amp;\s*)\d+(\s*weitere)/, `$1${Math.max(count - 3, 0)}$2`);
-        if (updated === html) return;
-        fs.writeFileSync(htmlPath, updated, 'utf8');
         const { execSync } = require('child_process');
-        execSync(`git add docs/index.html && git commit -m "update member count to ${count}" && git push origin main`, { cwd: __dirname });
-        console.log(`Landing page member count updated to ${count}`);
+        execSync(`git add ${changed.join(' ')} && git commit -m "update member count to ${count}" && git push origin main`, { cwd: __dirname });
+        console.log(`Landing page member count updated to ${count} (${changed.join(', ')})`);
     } catch (err) {
-        console.error('Fehler beim Aktualisieren der Landing Page:', err.message);
+        console.error('Fehler beim Commit/Push der Landing Page:', err.message);
     }
 }
 
