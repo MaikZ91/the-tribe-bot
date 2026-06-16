@@ -134,19 +134,29 @@
   .art{position:relative;aspect-ratio:4/5;overflow:hidden;filter:grayscale(1) contrast(1.05)}
   .art::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  /* digital-art-frame effect: artwork slowly cross-fades + gentle Ken-Burns drift */
-  .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:opacity,transform;
-    animation:artken 24s ease-in-out infinite alternate}
-  .art .swap{opacity:0;animation:artswap 11s var(--ease) infinite,artken 24s ease-in-out infinite alternate}
-  @keyframes artswap{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
-  @keyframes artken{from{transform:scale(1.015)}to{transform:scale(1.085) translate(-1.2%,-1.4%)}}
-  /* stagger so the wall of frames switches at different moments */
-  .gallery .work:nth-child(2) .art .swap{animation-delay:-2.2s,-3s}
-  .gallery .work:nth-child(3) .art .swap{animation-delay:-4.4s,-6s}
-  .gallery .work:nth-child(4) .art .swap{animation-delay:-6.6s,-9s}
-  .gallery .work:nth-child(5) .art .swap{animation-delay:-8.8s,-12s}
-  .gallery .work:nth-child(6) .art .swap{animation-delay:-1.1s,-15s}
-  .work:hover .art img{animation-play-state:paused}
+  /* e-paper refresh: the frame holds a still artwork, then "redraws" to the next
+     composition with a top-down wipe + brief invert-flash — like an IONNYK e-ink frame */
+  .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .art .swap{clip-path:inset(0 0 100% 0);animation:epaper 9s var(--ease) infinite}
+  .art::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
+    background:#e7e4dc;mix-blend-mode:difference;animation:eflash 9s steps(1,end) infinite}
+  @keyframes epaper{
+    0%,44%{clip-path:inset(0 0 100% 0)}     /* hold base artwork (still) */
+    52%{clip-path:inset(0 0 0 0)}           /* quick redraw to new artwork */
+    92%{clip-path:inset(0 0 0 0)}           /* hold new artwork */
+    100%{clip-path:inset(0 0 100% 0)}       /* redraw back */
+  }
+  @keyframes eflash{
+    0%,43%{opacity:0} 45%{opacity:.8} 53%{opacity:0}
+    91%{opacity:0} 93%{opacity:.8} 100%{opacity:0}
+  }
+  /* stagger so the wall of frames refreshes at different moments */
+  .gallery .work:nth-child(2) .art .swap,.gallery .work:nth-child(2) .art::before{animation-delay:-1.5s}
+  .gallery .work:nth-child(3) .art .swap,.gallery .work:nth-child(3) .art::before{animation-delay:-3s}
+  .gallery .work:nth-child(4) .art .swap,.gallery .work:nth-child(4) .art::before{animation-delay:-4.5s}
+  .gallery .work:nth-child(5) .art .swap,.gallery .work:nth-child(5) .art::before{animation-delay:-6s}
+  .gallery .work:nth-child(6) .art .swap,.gallery .work:nth-child(6) .art::before{animation-delay:-7.5s}
+  .work:hover .art .swap,.work:hover .art::before{animation-play-state:paused}
   .work figcaption{display:flex;align-items:baseline;gap:14px;padding:16px 2px 0}
   .work .idx{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--grey)}
   .work .ttl{font-family:var(--serif);font-size:1.35rem;font-weight:300;color:var(--on-dark)}
