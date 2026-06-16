@@ -134,29 +134,18 @@
   .art{position:relative;aspect-ratio:4/5;overflow:hidden;filter:grayscale(1) contrast(1.05)}
   .art::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  /* e-paper refresh: the frame holds a still artwork, then "redraws" to the next
-     composition with a top-down wipe + brief invert-flash — like an IONNYK e-ink frame */
-  .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .art .swap{clip-path:inset(0 0 100% 0);animation:epaper 9s var(--ease) infinite}
-  .art::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
-    background:#e7e4dc;mix-blend-mode:difference;animation:eflash 9s steps(1,end) infinite}
-  @keyframes epaper{
-    0%,44%{clip-path:inset(0 0 100% 0)}     /* hold base artwork (still) */
-    52%{clip-path:inset(0 0 0 0)}           /* quick redraw to new artwork */
-    92%{clip-path:inset(0 0 0 0)}           /* hold new artwork */
-    100%{clip-path:inset(0 0 100% 0)}       /* redraw back */
-  }
-  @keyframes eflash{
-    0%,43%{opacity:0} 45%{opacity:.8} 53%{opacity:0}
-    91%{opacity:0} 93%{opacity:.8} 100%{opacity:0}
-  }
-  /* stagger so the wall of frames refreshes at different moments */
-  .gallery .work:nth-child(2) .art .swap,.gallery .work:nth-child(2) .art::before{animation-delay:-1.5s}
-  .gallery .work:nth-child(3) .art .swap,.gallery .work:nth-child(3) .art::before{animation-delay:-3s}
-  .gallery .work:nth-child(4) .art .swap,.gallery .work:nth-child(4) .art::before{animation-delay:-4.5s}
-  .gallery .work:nth-child(5) .art .swap,.gallery .work:nth-child(5) .art::before{animation-delay:-6s}
-  .gallery .work:nth-child(6) .art .swap,.gallery .work:nth-child(6) .art::before{animation-delay:-7.5s}
-  .work:hover .art .swap,.work:hover .art::before{animation-play-state:paused}
+  /* scroll-driven 3D product reveal: frames tilt in perspective, slide up and settle
+     as they enter the viewport (JS sets the custom properties per frame on scroll);
+     the artwork inside parallaxes for depth. */
+  .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transform:translateY(var(--iy,0px)) scale(1.06);will-change:transform}
+  .art .swap{display:none}
+  .gallery{perspective:1600px;perspective-origin:50% 40%}
+  .gallery .work{transform-origin:50% 120%;backface-visibility:hidden;will-change:transform,opacity;transition:none;
+    transform:translateY(var(--ty,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--sc,1));
+    opacity:var(--op,1)}
+  .gallery .work .frame{transition:box-shadow .5s var(--ease)}
+  .gallery .work:hover .frame{box-shadow:0 40px 90px rgba(0,0,0,.55)}
   .work figcaption{display:flex;align-items:baseline;gap:14px;padding:16px 2px 0}
   .work .idx{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--grey)}
   .work .ttl{font-family:var(--serif);font-size:1.35rem;font-weight:300;color:var(--on-dark)}
@@ -502,6 +491,41 @@
     },{threshold:.12,rootMargin:"0px 0px -8% 0px"});
     revealEls.forEach(function(el){io.observe(el);});
   } else { revealEls.forEach(function(el){el.classList.add("in");}); }
+
+  /* scroll-driven 3D product reveal for the Werkschau frames:
+     each frame tilts in perspective + rises, then settles flat as it scrolls
+     through the viewport; the artwork inside parallaxes. */
+  (function(){
+    var works=[].slice.call(document.querySelectorAll(".gallery .work"));
+    if(!works.length) return;
+    var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    if(reduce){ works.forEach(function(w){w.style.setProperty("--ty","0px");}); return; }
+    works.forEach(function(w,i){ w._dir = (i%3===0)?-1 : (i%3===2)?1 : 0; });
+    var ticking=false;
+    function frame(){
+      ticking=false;
+      var vh=window.innerHeight||document.documentElement.clientHeight;
+      for(var i=0;i<works.length;i++){
+        var w=works[i], r=w.getBoundingClientRect();
+        // p: 0 while still below the fold, 1 once it has risen to ~mid screen
+        var p=(vh - r.top)/(vh*0.85);
+        p=p<0?0:p>1?1:p;
+        var e=1-Math.pow(1-p,3);               // easeOutCubic
+        var d=w._dir;
+        w.style.setProperty("--ty",((1-e)*54).toFixed(1)+"px");
+        w.style.setProperty("--rx",((1-e)*9).toFixed(2)+"deg");
+        w.style.setProperty("--ry",((1-e)*16*d).toFixed(2)+"deg");
+        w.style.setProperty("--sc",(0.92+e*0.08).toFixed(4));
+        w.style.setProperty("--op",(0.18+e*0.82).toFixed(3));
+        var img=w.querySelector(".art img");
+        if(img) img.style.setProperty("--iy",((1-e)*-18).toFixed(1)+"px");
+      }
+    }
+    function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+    window.addEventListener("scroll",onScroll,{passive:true});
+    window.addEventListener("resize",onScroll,{passive:true});
+    frame();
+  })();
 
   /* showreel: click to play, pause when scrolled out */
   var reelFrame=document.getElementById("reel-frame"),
