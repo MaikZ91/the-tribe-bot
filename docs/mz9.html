@@ -107,10 +107,12 @@
   /* ===== hero ===== */
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#000}
   .hero .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
-    transform:scale(1.1);filter:grayscale(1) contrast(.92) brightness(.3) blur(3px);opacity:0;transition:opacity 1.6s var(--ease)}
+    transform:scale(1.04);filter:grayscale(1) contrast(1.02) brightness(.62);opacity:0;transition:opacity 1.6s var(--ease)}
   .hero .bgvid.ready{opacity:1}
+  /* lighter overlay so the film stays visible; readability comes from a bottom scrim + text-shadow */
   .hero .vign{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:radial-gradient(120% 90% at 50% 42%,rgba(0,0,0,.45) 0%,rgba(0,0,0,.3) 30%,rgba(0,0,0,.62) 72%,rgba(0,0,0,.95) 100%)}
+    background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.1) 22%,rgba(0,0,0,.18) 52%,rgba(0,0,0,.7) 88%,rgba(0,0,0,.9) 100%)}
+  .hero h1,.hero .lede,.hero .eyebrow{text-shadow:0 2px 36px rgba(0,0,0,.55)}
   .hero-inner{position:relative;z-index:3;width:100%;max-width:980px;padding:120px clamp(20px,5vw,40px) 0}
   .hero .eyebrow{margin-bottom:30px;color:var(--on-dark-2)}
   .hero h1{font-size:clamp(2.5rem,6.4vw,5.4rem);font-weight:200;letter-spacing:-.025em;line-height:1.04}
@@ -142,40 +144,50 @@
   .intro p em{font-style:normal;color:var(--on-dark-mut)}
   .intro .sub{margin:38px auto 0;max-width:54ch;font-size:1.04rem;font-weight:300;color:var(--on-dark-mut);line-height:1.7}
 
-  /* ===== MUSEUM WALL — signature product gallery ===== */
-  .wall{background:linear-gradient(180deg,var(--wall-1) 0%,var(--wall-2) 60%,var(--wall-3) 100%);color:var(--ink);
-    position:relative;overflow:hidden;padding:clamp(80px,12vh,150px) 0 clamp(40px,7vh,90px)}
-  .wall .wall-head{text-align:center;max-width:42ch;margin:0 auto clamp(40px,7vh,90px)}
+  /* ===== MUSEUM WALL — signature pinned horizontal-pan gallery ===== */
+  .wall{background:var(--wall-1);color:var(--ink);position:relative;overflow:hidden;
+    padding:clamp(80px,12vh,150px) 0 clamp(40px,7vh,90px);transition:background-color .6s var(--ease)}
+  .wall .wall-head{text-align:center;max-width:42ch;margin:0 auto clamp(40px,7vh,80px)}
   .wall .wall-head .eyebrow{color:var(--ink-mut)}
   .wall .wall-head h2{margin-top:18px;font-size:clamp(2rem,5vw,3.4rem);font-weight:200;color:var(--ink)}
   .wall .wall-head p{margin:20px auto 0;max-width:48ch;color:var(--ink-2);font-weight:300}
 
-  .product{display:grid;grid-template-columns:1.65fr 1fr;align-items:center;gap:clamp(28px,5vw,80px);
-    padding:clamp(48px,9vh,120px) 0;position:relative}
-  .product:nth-child(even){grid-template-columns:1fr 1.65fr}
-  .product:nth-child(even) .art-col{order:2}
-  .product:nth-child(even) .info-col{order:1}
+  /* default (mobile / no-JS): simple vertical stack — always usable */
+  .gallery-vp{position:relative}
+  .gallery{display:flex;flex-direction:column;gap:clamp(64px,11vh,130px);padding:0 clamp(20px,5vw,56px);max-width:var(--maxw);margin:0 auto}
+  .product{display:grid;grid-template-columns:1fr;gap:clamp(26px,5vw,56px);align-items:center}
 
   /* the framed artwork */
-  .art-col{position:relative;perspective:1600px}
-  .work-fig{margin:0;position:relative;z-index:1}
-  .glow{position:absolute;inset:-14% -12% -8%;z-index:0;border-radius:50%;
-    background:radial-gradient(58% 50% at 50% 54%,rgba(255,255,255,.45) 0%,rgba(255,255,255,0) 72%);filter:blur(28px)}
-  .frame{position:relative;z-index:1;background:linear-gradient(150deg,#23231f,#040405);padding:clamp(10px,1.2vw,15px);
+  .art-col{position:relative;perspective:1700px;display:flex;justify-content:center}
+  .work-fig{margin:0;position:relative;z-index:1;width:100%;max-width:380px}
+  .glow{position:absolute;inset:-12% -10% -6%;z-index:0;border-radius:50%;
+    background:radial-gradient(56% 50% at 50% 54%,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 72%);filter:blur(30px)}
+  .frame{position:relative;z-index:1;background:linear-gradient(150deg,#26261f,#040405);padding:clamp(9px,1vw,14px);
     border-radius:3px;transform-style:preserve-3d;will-change:transform;
-    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 40px 90px -30px rgba(20,18,16,.6), 0 16px 34px -20px rgba(20,18,16,.45)}
-  /* a thin bevel: lit top-left edge + shadowed inner step → physical frame profile */
+    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 44px 90px -34px rgba(20,18,16,.62), 0 18px 36px -22px rgba(20,18,16,.45)}
   .frame::before{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;
-    box-shadow:0 1px 0 rgba(255,255,255,.14) inset, 1px 0 0 rgba(255,255,255,.06) inset,
-      0 0 0 1px rgba(0,0,0,.5) inset, 0 0 0 6px rgba(0,0,0,.32) inset}
-  .mat{background:#F6F5F1;padding:clamp(12px,1.8vw,26px);border-radius:1px;overflow:hidden;
-    box-shadow:0 1px 2px rgba(0,0,0,.2) inset, 0 0 0 1px rgba(0,0,0,.05)}
-  .canvas{position:relative;overflow:hidden;background:#0a0a0b}
-  /* show the FULL artwork — natural ratio, no cover-crop */
-  .canvas img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.04)}
-  .product.portrait .work-fig{max-width:360px;margin:0 auto}
-  .plate{display:block;text-align:center;margin-top:24px;
+    box-shadow:0 1px 0 rgba(255,255,255,.16) inset, 1px 0 0 rgba(255,255,255,.07) inset,
+      0 0 0 1px rgba(0,0,0,.55) inset, 0 0 0 7px rgba(0,0,0,.34) inset}
+  .mat{background:#F6F5F1;padding:clamp(11px,1.5vw,22px);border-radius:1px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(0,0,0,.22) inset, 0 0 0 1px rgba(0,0,0,.05)}
+  .canvas{position:relative;overflow:hidden;background:#0a0a0b;aspect-ratio:4/5}
+  .canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .plate{display:block;text-align:center;margin-top:22px;
     font-size:9.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-mut);white-space:nowrap}
+
+  /* DESKTOP: JS upgrades the gallery to a pinned, horizontally-panned wall.
+     Frame size is driven by a fixed canvas height + 4:5 aspect (width derives). */
+  @media (min-width:921px){
+    .gallery-vp.h-pin{height:100vh;max-width:none;overflow:hidden;display:flex;align-items:center;padding:0}
+    .gallery-vp.h-pin .gallery{flex-direction:row;flex-wrap:nowrap;align-items:center;
+      gap:clamp(80px,8vw,190px);padding:0 14vw;max-width:none;margin:0;will-change:transform}
+    .gallery-vp.h-pin .product{flex:0 0 auto;width:min(1060px,82vw);
+      grid-template-columns:auto minmax(0,1fr);gap:clamp(48px,5vw,96px)}
+    .gallery-vp.h-pin .art-col{height:auto}
+    .gallery-vp.h-pin .work-fig{width:auto;max-width:none;margin:0;position:relative}
+    .gallery-vp.h-pin .canvas{height:min(62vh,640px);aspect-ratio:4/5}
+    .gallery-vp.h-pin .plate{margin-top:18px}
+  }
 
   /* the product copy */
   .info-col .pscript{font-family:var(--script);font-size:clamp(2.4rem,4vw,3.4rem);line-height:.8;color:var(--ink-soft);display:block;margin-bottom:2px}
@@ -205,8 +217,8 @@
 
   /* ===== full-bleed parallax band ===== */
   .band{position:relative;height:clamp(420px,72vh,760px);overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;background:#000}
-  .band .pbg{position:absolute;inset:-18% 0;z-index:0;width:100%;height:136%;object-fit:cover;filter:grayscale(1) contrast(.95) brightness(.28) blur(2px);transform:scale(1.06);will-change:transform}
-  .band .scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(110% 90% at 50% 50%,rgba(0,0,0,.45),rgba(0,0,0,.88))}
+  .band .pbg{position:absolute;inset:-18% 0;z-index:0;width:100%;height:136%;object-fit:cover;filter:grayscale(1) contrast(1.02) brightness(.6);will-change:transform}
+  .band .scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 95% at 50% 45%,rgba(0,0,0,.25),rgba(0,0,0,.8))}
   .band .bt{position:relative;z-index:2;max-width:22ch;padding:0 24px}
   .band .bt p{font-weight:200;font-size:clamp(1.8rem,4.6vw,3.4rem);line-height:1.12;letter-spacing:-.02em}
   .band .bt p em{font-style:normal;color:var(--on-dark-mut)}
@@ -298,16 +310,12 @@
 
   /* ===== responsive ===== */
   @media (max-width:920px){
-    .product,.product:nth-child(even){grid-template-columns:1fr;gap:30px}
-    .product .art-col,.product:nth-child(even) .art-col,
-    .product .info-col,.product:nth-child(even) .info-col{order:0}
     .feature .grid2{grid-template-columns:1fr;gap:30px}
     .feature.flip .media{order:0}
     .steps{grid-template-columns:repeat(2,1fr)}
     .row{grid-template-columns:46px 1fr;gap:6px 16px}
     .row .rd{grid-column:1 / -1;padding-left:62px}
     .row .ra{display:none}
-    .plate{position:static;transform:none;display:block;text-align:center;margin-top:18px}
   }
   @media (max-width:600px){
     body{font-size:16px}
@@ -375,92 +383,98 @@
   </div>
 </section>
 
-<!-- ===== MUSEUM WALL — signature product gallery ===== -->
+<!-- ===== MUSEUM WALL — signature pinned horizontal-pan gallery ===== -->
 <section class="wall" id="werke" data-light>
   <div class="wrap">
     <div class="wall-head">
       <div class="eyebrow lift" data-rev>Werkschau</div>
       <h2 data-split>Werke aus dem Atelier.</h2>
-      <p class="lift" data-rev>Jedes Stück gerahmt wie ein Original — gestaltet, gebaut und für den Betrieb gemacht.</p>
+      <p class="lift" data-rev>Jedes Stück gerahmt wie ein Original. Scrolle — die Werke ziehen vorbei, die Wand wechselt die Farbe.</p>
     </div>
+  </div>
 
-    <!-- PRODUCT 01 -->
-    <article class="product">
-      <div class="art-col">
-        <div class="glow" aria-hidden="true"></div>
-        <figure class="work-fig">
-          <div class="frame" data-frame>
-            <div class="mat"><div class="canvas"><img src="assets/mz9/mockup-website.jpg" alt="Dunkle, editoriale Website-Oberfläche von MZ.9 als S/W-Mockup" loading="lazy" width="900" height="276"></div></div>
-          </div>
-          <figcaption class="plate">MZ.9 · Werk N°01 — Web</figcaption>
-        </figure>
-      </div>
-      <div class="info-col">
-        <span class="pscript reveal" data-rev aria-hidden="true">Auftritt</span>
-        <h3 class="pname" data-split>Web <span>Design</span></h3>
-        <div class="plabel lift" data-rev>N°01 · Interface</div>
-        <ul class="spec lift" data-rev>
-          <li><span class="k">Disziplin</span><span class="v">Web Design &amp; Development</span></li>
-          <li><span class="k">Stack</span><span class="v">Static · Headless · Edge</span></li>
-          <li><span class="k">Format</span><span class="v">Responsive · 60fps</span></li>
-          <li><span class="k">Stil</span><span class="v">Editorial · Dark</span></li>
-          <li><span class="k">Einsatz</span><span class="v">Marke &amp; Vertrieb</span></li>
-        </ul>
-        <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
-      </div>
-    </article>
+  <div class="gallery-vp" id="gallery-vp">
+    <div class="gallery" id="gallery">
 
-    <!-- PRODUCT 02 -->
-    <article class="product">
-      <div class="art-col">
-        <div class="glow" aria-hidden="true"></div>
-        <figure class="work-fig">
-          <div class="frame" data-frame>
-            <div class="mat"><div class="canvas"><img src="assets/mz9/mockup-dashboard.jpg" alt="Dunkles Analytics-Dashboard von MZ.9 als S/W-Mockup" loading="lazy" width="900" height="379"></div></div>
+        <!-- WERK 01 -->
+        <article class="product" data-bg="#F4F2EC">
+          <div class="art-col">
+            <div class="glow" aria-hidden="true"></div>
+            <figure class="work-fig">
+              <div class="frame" data-frame>
+                <div class="mat"><div class="canvas"><img src="assets/mz9/works/eclipse.svg" alt="Éclipse — luminöse Sphäre, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+              </div>
+              <figcaption class="plate">MZ.9 · Werk N°01 — „Éclipse"</figcaption>
+            </figure>
           </div>
-          <figcaption class="plate">MZ.9 · Werk N°02 — System</figcaption>
-        </figure>
-      </div>
-      <div class="info-col">
-        <span class="pscript reveal" data-rev aria-hidden="true">System</span>
-        <h3 class="pname" data-split>Dashboard <span>Suite</span></h3>
-        <div class="plabel lift" data-rev>N°02 · Product</div>
-        <ul class="spec lift" data-rev>
-          <li><span class="k">Disziplin</span><span class="v">KI-Apps &amp; Tools</span></li>
-          <li><span class="k">Stack</span><span class="v">React · API · Realtime</span></li>
-          <li><span class="k">Format</span><span class="v">Web-App · SaaS</span></li>
-          <li><span class="k">Stil</span><span class="v">Funktional · Klar</span></li>
-          <li><span class="k">Einsatz</span><span class="v">Betrieb &amp; Steuerung</span></li>
-        </ul>
-        <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
-      </div>
-    </article>
+          <div class="info-col">
+            <span class="pscript reveal" data-rev aria-hidden="true">Auftritt</span>
+            <h3 class="pname" data-split>Web <span>Design</span></h3>
+            <div class="plabel lift" data-rev>N°01 · Interface</div>
+            <ul class="spec lift" data-rev>
+              <li><span class="k">Disziplin</span><span class="v">Web Design &amp; Development</span></li>
+              <li><span class="k">Stack</span><span class="v">Static · Headless · Edge</span></li>
+              <li><span class="k">Format</span><span class="v">Responsive · 60fps</span></li>
+              <li><span class="k">Stil</span><span class="v">Editorial · Dark</span></li>
+              <li><span class="k">Einsatz</span><span class="v">Marke &amp; Vertrieb</span></li>
+            </ul>
+            <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
+          </div>
+        </article>
 
-    <!-- PRODUCT 03 (portrait) -->
-    <article class="product portrait">
-      <div class="art-col">
-        <div class="glow" aria-hidden="true"></div>
-        <figure class="work-fig">
-          <div class="frame" data-frame>
-            <div class="mat"><div class="canvas"><img src="assets/mz9/mockup-app.jpg" alt="Mobile KI-App von MZ.9 als S/W-Mockup" loading="lazy" width="440" height="647"></div></div>
+        <!-- WERK 02 -->
+        <article class="product" data-bg="#E5E1D8">
+          <div class="art-col">
+            <div class="glow" aria-hidden="true"></div>
+            <figure class="work-fig">
+              <div class="frame" data-frame>
+                <div class="mat"><div class="canvas"><img src="assets/mz9/works/signal.svg" alt="Signal — radiale Wellen, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+              </div>
+              <figcaption class="plate">MZ.9 · Werk N°02 — „Signal"</figcaption>
+            </figure>
           </div>
-          <figcaption class="plate">MZ.9 · Werk N°03 — Mobile</figcaption>
-        </figure>
-      </div>
-      <div class="info-col">
-        <span class="pscript reveal" data-rev aria-hidden="true">Mobile</span>
-        <h3 class="pname" data-split>KI <span>App</span></h3>
-        <div class="plabel lift" data-rev>N°03 · Applied AI</div>
-        <ul class="spec lift" data-rev>
-          <li><span class="k">Disziplin</span><span class="v">KI Content &amp; Agenten</span></li>
-          <li><span class="k">Stack</span><span class="v">On-Device · LLM · Sync</span></li>
-          <li><span class="k">Format</span><span class="v">iOS · Android · PWA</span></li>
-          <li><span class="k">Stil</span><span class="v">Reduziert · Schnell</span></li>
-          <li><span class="k">Einsatz</span><span class="v">Alltag &amp; Automation</span></li>
-        </ul>
-        <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
-      </div>
-    </article>
+          <div class="info-col">
+            <span class="pscript reveal" data-rev aria-hidden="true">System</span>
+            <h3 class="pname" data-split>Dashboard <span>Suite</span></h3>
+            <div class="plabel lift" data-rev>N°02 · Product</div>
+            <ul class="spec lift" data-rev>
+              <li><span class="k">Disziplin</span><span class="v">KI-Apps &amp; Tools</span></li>
+              <li><span class="k">Stack</span><span class="v">React · API · Realtime</span></li>
+              <li><span class="k">Format</span><span class="v">Web-App · SaaS</span></li>
+              <li><span class="k">Stil</span><span class="v">Funktional · Klar</span></li>
+              <li><span class="k">Einsatz</span><span class="v">Betrieb &amp; Steuerung</span></li>
+            </ul>
+            <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
+          </div>
+        </article>
+
+        <!-- WERK 03 -->
+        <article class="product" data-bg="#D7D2C8">
+          <div class="art-col">
+            <div class="glow" aria-hidden="true"></div>
+            <figure class="work-fig">
+              <div class="frame" data-frame>
+                <div class="mat"><div class="canvas"><img src="assets/mz9/works/topographie.svg" alt="Topographie — fließende Höhenlinien, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+              </div>
+              <figcaption class="plate">MZ.9 · Werk N°03 — „Topographie"</figcaption>
+            </figure>
+          </div>
+          <div class="info-col">
+            <span class="pscript reveal" data-rev aria-hidden="true">Mobile</span>
+            <h3 class="pname" data-split>KI <span>App</span></h3>
+            <div class="plabel lift" data-rev>N°03 · Applied AI</div>
+            <ul class="spec lift" data-rev>
+              <li><span class="k">Disziplin</span><span class="v">KI Content &amp; Agenten</span></li>
+              <li><span class="k">Stack</span><span class="v">On-Device · LLM · Sync</span></li>
+              <li><span class="k">Format</span><span class="v">iOS · Android · PWA</span></li>
+              <li><span class="k">Stil</span><span class="v">Reduziert · Schnell</span></li>
+              <li><span class="k">Einsatz</span><span class="v">Alltag &amp; Automation</span></li>
+            </ul>
+            <a class="btn dark lift" data-rev href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
+          </div>
+        </article>
+
+    </div>
   </div>
 </section>
 
@@ -488,7 +502,7 @@
 
 <!-- ===== PARALLAX BAND ===== -->
 <section class="band" id="anspruch">
-  <img class="pbg" src="assets/mz9/mockup-system.jpg" alt="" aria-hidden="true" data-band>
+  <img class="pbg" src="assets/mz9/works/eclipse.svg" alt="" aria-hidden="true" data-band>
   <div class="scrim" aria-hidden="true"></div>
   <div class="bt">
     <p data-split-lines>Wir machen dich zur <em>Nummer 1</em> — durch eine Marke, die man fühlt.</p>
@@ -500,7 +514,7 @@
   <div class="wrap">
     <div class="grid2">
       <div class="media lift" data-rev>
-        <img src="assets/mz9/mockup-mobile.jpg" alt="Mobile MZ.9-Oberfläche als S/W-Mockup" loading="lazy" width="440" height="494">
+        <img src="assets/mz9/works/komposition.svg" alt="Komposition — geometrisches Werk von MZ.9" loading="lazy" width="1000" height="1250">
       </div>
       <div class="copy">
         <div class="eyebrow lift" data-rev>Haltung</div>
@@ -647,14 +661,15 @@
   /* reduced-motion: stop all autoplaying video (WCAG 2.2.2) */
   if(REDUCED){ [].forEach.call(document.querySelectorAll("video"),function(v){ v.removeAttribute("autoplay"); try{v.pause();}catch(e){} }); }
 
-  /* feature video: fetch + play only while in view, desktop only (saves mobile data) */
+  /* feature video: fetch + play while in view (desktop AND mobile) — lazy, so it
+     only costs data once scrolled to; paused off-screen + under reduced-motion */
   var fv=document.querySelector("[data-inview-video]");
-  if(fv && DESKTOP && !REDUCED && "IntersectionObserver" in window){
+  if(fv && !REDUCED && "IntersectionObserver" in window){
     new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting){ if(fv.getAttribute("preload")==="none"){ fv.setAttribute("preload","auto"); fv.load(); } fv.play().catch(function(){}); }
       else { try{fv.pause();}catch(x){} }
-    });},{threshold:.25}).observe(fv);
-  }
+    });},{threshold:.2}).observe(fv);
+  } else if(fv && REDUCED){ fv.setAttribute("preload","auto"); fv.load(); }
 
   /* split headings into word-spans for the reveal — recursive so inline
      elements (e.g. <em>) keep their styling while every word still clips. */
@@ -720,13 +735,40 @@
       });
     }
 
-    /* SIGNATURE: framed artworks tilt through 3D + rise as they cross the viewport */
-    document.querySelectorAll("[data-frame]").forEach(function(frame){
-      gsap.fromTo(frame,
-        {rotateY:9,rotateX:5,y:64,scale:.955,transformPerspective:1600},
-        {rotateY:-9,rotateX:-3,y:-64,scale:1,ease:"none",
-         scrollTrigger:{trigger:frame.closest(".product")||frame,start:"top bottom",end:"bottom top",scrub:1}});
-    });
+    /* SIGNATURE: pinned museum wall — works pan horizontally, the wall shifts
+       colour, and each frame scales to settle as it reaches centre (IONNYK). */
+    var vp=document.getElementById("gallery-vp"),
+        track=document.getElementById("gallery"),
+        wall=document.querySelector(".wall");
+    if(vp && track){
+      vp.classList.add("h-pin");
+      if(wall) wall.style.transition="none";
+      var products=gsap.utils.toArray(".gallery .product");
+      var dist=function(){ return Math.max(0, track.scrollWidth - window.innerWidth); };
+
+      var pan=gsap.to(track,{x:function(){return -dist();},ease:"none",
+        scrollTrigger:{trigger:vp,pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,
+          start:"top top",end:function(){return "+="+dist();}}});
+
+      /* wall colour shift across the pan (the “Farbwechsel”) */
+      if(wall){
+        var bgs=products.map(function(p){return p.getAttribute("data-bg")||"#F4F2EC";});
+        gsap.set(wall,{backgroundColor:bgs[0]});
+        var bgTl=gsap.timeline({scrollTrigger:{trigger:vp,scrub:1,invalidateOnRefresh:true,
+          start:"top top",end:function(){return "+="+dist();}}});
+        for(var b=1;b<bgs.length;b++){ bgTl.to(wall,{backgroundColor:bgs[b],ease:"none",duration:1}); }
+      }
+
+      /* per-work entrance: frame scales up + info rises as it pans to centre */
+      products.forEach(function(p){
+        var f=p.querySelector(".frame"), info=p.querySelector(".info-col");
+        if(f) gsap.fromTo(f,{scale:.82,filter:"brightness(.85)"},{scale:1,filter:"brightness(1)",ease:"power2.out",
+          scrollTrigger:{trigger:p,containerAnimation:pan,start:"left 92%",end:"center 58%",scrub:true}});
+        if(info) gsap.fromTo(info,{autoAlpha:.2,xPercent:8},{autoAlpha:1,xPercent:0,ease:"power2.out",
+          scrollTrigger:{trigger:p,containerAnimation:pan,start:"left 85%",end:"center 60%",scrub:true}});
+      });
+    }
+
     /* full-bleed band parallax */
     document.querySelectorAll("[data-band]").forEach(function(img){
       gsap.fromTo(img,{yPercent:-12},{yPercent:12,ease:"none",
