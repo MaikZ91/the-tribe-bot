@@ -237,6 +237,19 @@
   .chat-input button{border:none;background:var(--on-dark);color:var(--bg);width:44px;border-radius:1px;cursor:pointer;font-size:16px;flex-shrink:0;transition:opacity .2s}
   .chat-input button:disabled{opacity:.35;cursor:default}
 
+  /* inline atelier assistant (replaces the showreel) */
+  .assist{max-width:720px;margin:0 auto;display:flex;flex-direction:column;min-height:460px;
+    border:1px solid var(--line-d);background:var(--bg-2);border-radius:2px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+  .assist-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line-d-2)}
+  .assist-head .who{display:flex;align-items:center;gap:13px}
+  .assist-head .ava{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-d);object-fit:cover;background:#000;flex-shrink:0}
+  .assist-head .ti{font-family:var(--serif);font-size:1.18rem;font-weight:300}
+  .assist-head .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-mut);margin-top:3px;display:flex;align-items:center;gap:7px}
+  .assist-head .on{width:7px;height:7px;border-radius:50%;background:#7bd88f;animation:pulse 2.4s ease-in-out infinite}
+  .assist-head .badge{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-mut);border:1px solid var(--line-d);padding:6px 10px;border-radius:1px;white-space:nowrap}
+  .assist .chat-log{min-height:300px;max-height:440px}
+  @media (max-width:640px){.assist-head .badge{display:none}}
+
   /* responsive */
   @media (max-width:900px){
     .gallery{grid-template-columns:repeat(2,1fr)}
@@ -271,7 +284,7 @@
     <span class="tag">Media&nbsp;Engineering.AI</span>
   </a>
   <nav class="nav">
-    <a class="lk" href="#showreel">Showreel</a>
+    <a class="lk" href="#assistent">Assistent</a>
     <a class="lk" href="#leistungen">Leistungen</a>
     <a class="lk" href="#edge">Warum&nbsp;wir</a>
     <a class="ghost" href="#kontakt">Anfrage</a>
@@ -293,7 +306,7 @@
     <p class="lede rv" style="transition-delay:.16s">MZ.9 verwandelt Ideen in digitale Werke, die bewegen — emotional, elegant, transformativ. Gestalterische Präzision trifft auf KI und sauberes Engineering.</p>
     <div class="hero-cta rv" style="transition-delay:.24s">
       <a class="btn" href="#kontakt">Projekt anfragen <span class="ar">→</span></a>
-      <a class="btn ghost" href="#showreel">Showreel ansehen</a>
+      <a class="btn ghost" href="#assistent">Projekt besprechen</a>
     </div>
   </div>
   <div class="hero-meta" aria-hidden="true">
@@ -309,22 +322,29 @@
   <p class="sub rv" style="transition-delay:.1s">Die meisten Seiten erklären. Unsere bewegen. Kein Baukasten, keine Schablone — jedes Projekt entsteht im Atelier: durchdacht in der Gestaltung, sauber im Code, gebaut für den Betrieb.</p>
 </section>
 
-<!-- ===== SHOWREEL ===== -->
-<section class="section" id="showreel">
+<!-- ===== ATELIER-ASSISTENT (inline, personalisiert) ===== -->
+<section class="section" id="assistent">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="rv">Showreel</h2>
-      <p class="note rv">Ein Blick ins Atelier — in Bewegung.</p>
+      <h2 class="rv">Sag uns, was du vorhast.</h2>
+      <p class="note rv">Der Atelier-Assistent nimmt deine Idee auf — in unter einer Minute zur Anfrage.</p>
     </div>
-    <div class="reel-frame rv" id="reel-frame">
-      <video id="reel" loop muted playsinline preload="metadata" aria-label="MZ.9 Showreel">
-        <source src="assets/mz9/atelier.mp4" type="video/mp4">
-      </video>
-      <button class="reel-play" id="reel-play" type="button" aria-label="Showreel abspielen">▶ &nbsp;Showreel abspielen</button>
-    </div>
-    <div class="reel-cap">
-      <span>MZ.9 · Bewegtbild</span>
-      <span id="reel-hint">Tippen zum Abspielen · ohne Ton</span>
+    <div class="assist rv">
+      <div class="assist-head">
+        <div class="who">
+          <img src="assets/mz9/mark.png" alt="MZ.9" class="ava">
+          <div>
+            <div class="ti">Maik · MZ.9 Atelier</div>
+            <div class="st"><span class="on" aria-hidden="true"></span> Antwortet sofort · persönlich</div>
+          </div>
+        </div>
+        <div class="badge">Atelier-Assistent</div>
+      </div>
+      <div class="chat-log" id="chat-log"></div>
+      <div class="chat-input">
+        <textarea id="chat-text" rows="1" placeholder="Worum geht es? Schreib einfach los …" aria-label="Nachricht"></textarea>
+        <button id="chat-send" aria-label="Senden">↑</button>
+      </div>
     </div>
   </div>
 </section>
@@ -428,7 +448,7 @@
     <div class="top">
       <a class="brand" href="#top"><span>MZ.<b>9</b></span><span class="tag">Media&nbsp;Engineering.AI</span></a>
       <nav class="fnav">
-        <a href="#showreel">Showreel</a>
+        <a href="#assistent">Assistent</a>
         <a href="#werke">Werkschau</a>
         <a href="#leistungen">Leistungen</a>
         <a href="#edge">Warum wir</a>
@@ -442,24 +462,7 @@
   </div>
 </footer>
 
-<!-- ===== GUIDED CONTACT (local, no secrets) ===== -->
-<button class="chat-launcher" id="chat-launcher" aria-label="Atelier-Assistent öffnen">
-  <span class="dot" aria-hidden="true"></span> Anfrage starten
-</button>
-<aside class="chat-panel" id="chat-panel" role="dialog" aria-label="Atelier-Assistent" aria-modal="false">
-  <div class="chat-head">
-    <div>
-      <div class="ti">Atelier-Assistent</div>
-      <div class="st">Antwortet sofort · führt dich zur Anfrage</div>
-    </div>
-    <button id="chat-close" aria-label="Schließen">×</button>
-  </div>
-  <div class="chat-log" id="chat-log"></div>
-  <div class="chat-input">
-    <textarea id="chat-text" rows="1" placeholder="Worum geht es?" aria-label="Nachricht"></textarea>
-    <button id="chat-send" aria-label="Senden">↑</button>
-  </div>
-</aside>
+<!-- assistant is now inline in the #assistent section -->
 
 <script>
 (function(){
@@ -526,95 +529,72 @@
     frame();
   })();
 
-  /* showreel: click to play, pause when scrolled out */
-  var reelFrame=document.getElementById("reel-frame"),
-      reel=document.getElementById("reel"),
-      reelPlay=document.getElementById("reel-play"),
-      reelHint=document.getElementById("reel-hint");
-  if(reel&&reelPlay){
-    function startReel(){ reel.play().then(function(){ reelFrame.classList.add("playing"); if(reelHint) reelHint.textContent="Klick zum Pausieren · ohne Ton"; }).catch(function(){}); }
-    reelPlay.addEventListener("click",startReel);
-    reel.addEventListener("click",function(){ if(reel.paused) startReel(); else { reel.pause(); reelFrame.classList.remove("playing"); } });
-    if("IntersectionObserver" in window){
-      new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting && !reel.paused){ reel.pause(); reelFrame.classList.remove("playing"); } });},{threshold:.25}).observe(reel);
-    }
-  }
-
-  /* ---------- guided contact assistant (purely local, no network) ---------- */
-  var launcher=document.getElementById("chat-launcher"),
-      panel=document.getElementById("chat-panel"),
-      closeBtn=document.getElementById("chat-close"),
-      log=document.getElementById("chat-log"),
+  /* ---------- inline atelier assistant (personalised, local, no network) ---------- */
+  var log=document.getElementById("chat-log"),
       txt=document.getElementById("chat-text"),
       sendBtn=document.getElementById("chat-send");
-
-  var inquiry={richtung:"",umfang:"",kontakt:"",notiz:""}, step=0, started=false;
-
-  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]);});}
-  function down(){log.scrollTop=log.scrollHeight;}
-  function bubble(who,text){var b=document.createElement("div");b.className="bub "+who;b.textContent=text;log.appendChild(b);down();return b;}
-  function chips(opts){
-    var row=document.createElement("div");row.className="chip-row";
-    opts.forEach(function(o){var c=document.createElement("button");c.className="chip";c.type="button";c.textContent=o;
-      c.addEventListener("click",function(){row.remove();handle(o);});row.appendChild(c);});
-    log.appendChild(row);down();
-  }
-  function typing(cb){
-    var b=document.createElement("div");b.className="bub bot";b.textContent="…";log.appendChild(b);down();
-    setTimeout(function(){b.remove();cb();},420);
-  }
-  function buildMailto(){
-    var subject="Atelier-Anfrage: "+(inquiry.richtung||"Projekt");
-    var body=[
-      "Hallo "+STUDIO.owner+",","",
-      "Richtung: "+(inquiry.richtung||"—"),
-      "Umfang / Zeitrahmen: "+(inquiry.umfang||"—"),
-      "Kontakt: "+(inquiry.kontakt||"—"),
-      inquiry.notiz?("Notiz: "+inquiry.notiz):"",
-      "","— gesendet über die MZ.9 Website"
-    ].filter(Boolean).join("\n");
-    return "mailto:"+STUDIO.email+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  }
-  function summaryCard(){
-    var card=document.createElement("div");card.className="card";
-    card.innerHTML='<div class="ce">Bereit zum Absenden</div><h4>Anfrage an '+esc(STUDIO.owner)+'</h4>'+
-      '<dl><dt>Richtung</dt><dd>'+esc(inquiry.richtung||"—")+'</dd>'+
-      '<dt>Umfang / Zeitrahmen</dt><dd>'+esc(inquiry.umfang||"—")+'</dd>'+
-      '<dt>Kontakt</dt><dd>'+esc(inquiry.kontakt||"—")+'</dd></dl>';
-    var a=document.createElement("a");a.className="btn";a.href=buildMailto();
-    a.innerHTML='Anfrage senden <span class="ar">→</span>';
-    card.appendChild(a);log.appendChild(card);down();
-  }
-  function ask(){
-    if(step===0){ typing(function(){ bubble("bot","Schön, dass du da bist. In welche Richtung geht dein Projekt?");
-      chips(["KI-App","Website","Content","Werbefilm","Prototyp","Brand / Grafik"]); }); }
-    else if(step===1){ typing(function(){ bubble("bot","Notiert. Wie groß ist das Vorhaben ungefähr — und bis wann brauchst du es?"); }); }
-    else if(step===2){ typing(function(){ bubble("bot","Perfekt. Wie erreichen wir dich am besten? (E-Mail oder Telefon)"); }); }
-    else { typing(function(){ bubble("bot","Danke — ich habe alles für "+STUDIO.owner+" zusammengefasst. Du kannst die Anfrage direkt absenden:");
-      summaryCard(); bubble("bot","Lieber klassisch? Schreib an "+STUDIO.email); }); }
-  }
-  function handle(value){
-    bubble("me",value);
-    if(step===0) inquiry.richtung=value;
-    else if(step===1) inquiry.umfang=value;
-    else if(step===2) inquiry.kontakt=value;
-    else inquiry.notiz=(inquiry.notiz?inquiry.notiz+" · ":"")+value;
-    step++; ask();
-  }
-  function start(){ if(started) return; started=true; ask(); }
-  function send(){ var v=txt.value.trim(); if(!v) return; txt.value=""; txt.style.height="42px"; handle(v); }
-  function grow(){txt.style.height="42px";txt.style.height=Math.min(txt.scrollHeight,90)+"px";}
-  function openPanel(){panel.classList.add("open");launcher.style.opacity="0";launcher.style.pointerEvents="none";start();setTimeout(function(){txt.focus();},300);}
-  function closePanel(){panel.classList.remove("open");launcher.style.opacity="";launcher.style.pointerEvents="";}
-
-  if(launcher) launcher.addEventListener("click",openPanel);
-  if(closeBtn) closeBtn.addEventListener("click",closePanel);
-  if(sendBtn) sendBtn.addEventListener("click",send);
-  if(txt){
+  if(log&&txt&&sendBtn){
+    var inquiry={richtung:"",umfang:"",kontakt:"",notiz:""}, step=0, started=false;
+    function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]);});}
+    function down(){log.scrollTop=log.scrollHeight;}
+    function bubble(who,text){var b=document.createElement("div");b.className="bub "+who;b.textContent=text;log.appendChild(b);down();return b;}
+    function chips(opts){
+      var row=document.createElement("div");row.className="chip-row";
+      opts.forEach(function(o){var c=document.createElement("button");c.className="chip";c.type="button";c.textContent=o;
+        c.addEventListener("click",function(){row.remove();handle(o);});row.appendChild(c);});
+      log.appendChild(row);down();
+    }
+    function typing(cb){
+      var b=document.createElement("div");b.className="bub bot";b.textContent="…";log.appendChild(b);down();
+      setTimeout(function(){b.remove();cb();},480);
+    }
+    function buildMailto(){
+      var subject="Atelier-Anfrage: "+(inquiry.richtung||"Projekt");
+      var body=["Hi Maik,","",
+        "Richtung: "+(inquiry.richtung||"—"),
+        "Umfang / Zeitrahmen: "+(inquiry.umfang||"—"),
+        "Kontakt: "+(inquiry.kontakt||"—"),
+        inquiry.notiz?("Notiz: "+inquiry.notiz):"",
+        "","— gesendet über mz9-media"].filter(Boolean).join("\n");
+      return "mailto:"+STUDIO.email+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+    }
+    function summaryCard(){
+      var card=document.createElement("div");card.className="card";
+      card.innerHTML='<div class="ce">Bereit zum Absenden</div><h4>Deine Anfrage an Maik</h4>'+
+        '<dl><dt>Richtung</dt><dd>'+esc(inquiry.richtung||"—")+'</dd>'+
+        '<dt>Umfang / Zeitrahmen</dt><dd>'+esc(inquiry.umfang||"—")+'</dd>'+
+        '<dt>Kontakt</dt><dd>'+esc(inquiry.kontakt||"—")+'</dd></dl>';
+      var a=document.createElement("a");a.className="btn";a.href=buildMailto();
+      a.innerHTML='Anfrage an Maik senden <span class="ar">→</span>';
+      card.appendChild(a);log.appendChild(card);down();
+    }
+    function ask(){
+      if(step===0){ typing(function(){ bubble("bot","Hi, ich bin Maik vom MZ.9-Atelier 👋 Schön, dass du da bist. In welche Richtung geht dein Projekt?");
+        chips(["KI-App","Website","Content","Werbefilm","Prototyp","Brand / Grafik"]); }); }
+      else if(step===1){ typing(function(){ bubble("bot","Stark. Erzähl mir kurz: Wie groß ist das Ganze ungefähr — und bis wann brauchst du es?"); }); }
+      else if(step===2){ typing(function(){ bubble("bot","Alles klar. Wie erreiche ich dich am besten? (E-Mail oder Telefon)"); }); }
+      else { typing(function(){ bubble("bot","Danke dir! Ich hab alles zusammengefasst — schick es direkt an mich, ich melde mich i. d. R. innerhalb von 24 h persönlich zurück.");
+        summaryCard(); bubble("bot","Lieber klassisch? Schreib einfach an "+STUDIO.email); }); }
+    }
+    function handle(value){
+      bubble("me",value);
+      if(step===0) inquiry.richtung=value;
+      else if(step===1) inquiry.umfang=value;
+      else if(step===2) inquiry.kontakt=value;
+      else inquiry.notiz=(inquiry.notiz?inquiry.notiz+" · ":"")+value;
+      step++; ask();
+    }
+    function start(){ if(started) return; started=true; ask(); }
+    function send(){ var v=txt.value.trim(); if(!v) return; txt.value=""; txt.style.height="42px"; handle(v); }
+    function grow(){txt.style.height="42px";txt.style.height=Math.min(txt.scrollHeight,90)+"px";}
+    sendBtn.addEventListener("click",send);
     txt.addEventListener("input",grow);
     txt.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();}});
+    if("IntersectionObserver" in window){
+      var io2=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ start(); io2.disconnect(); } });},{threshold:.35});
+      io2.observe(log);
+    } else { start(); }
   }
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&panel.classList.contains("open"))closePanel();});
 })();
 </script>
 </body>
