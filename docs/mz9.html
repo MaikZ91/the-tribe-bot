@@ -170,22 +170,128 @@
       0 0 0 1px rgba(0,0,0,.55) inset, 0 0 0 7px rgba(0,0,0,.34) inset}
   .mat{background:#F6F5F1;padding:clamp(11px,1.5vw,22px);border-radius:1px;overflow:hidden;
     box-shadow:0 1px 2px rgba(0,0,0,.22) inset, 0 0 0 1px rgba(0,0,0,.05)}
-  .canvas{position:relative;overflow:hidden;background:#0a0a0b;aspect-ratio:4/5}
-  .canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* studio backdrop; the real screenshot sits in a device card (browser / phone) */
+  .canvas{position:relative;overflow:hidden;aspect-ratio:4/5;
+    background:radial-gradient(120% 92% at 50% 34%,#F3F1EB 0%,#DCD9D0 66%,#CAC7BC 100%)}
+  .canvas .shot{position:absolute;left:6%;right:6%;top:50%;transform:translateY(-50%);
+    border-radius:9px;overflow:hidden;background:#15161a;border:1px solid rgba(0,0,0,.22);
+    box-shadow:0 26px 56px -22px rgba(30,26,20,.5),0 8px 18px -10px rgba(30,26,20,.32)}
+  .canvas .shot .bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#23242b}
+  .canvas .shot .bar i{width:8px;height:8px;border-radius:50%;background:#55565e;display:block}
+  .canvas .shot img{display:block;width:100%}
+  .canvas.phone .shot{left:50%;top:50%;right:auto;transform:translate(-50%,-50%);height:94%;width:auto;aspect-ratio:9/19.5;
+    border:6px solid #0a0b0e;border-radius:30px;box-shadow:0 30px 60px -22px rgba(30,26,20,.55)}
+  .canvas.phone .shot .bar{display:none}
+
+  /* ===== live, CODE-generated product UIs inside the frames (self-animating on view) ===== */
+  .shot{container-type:inline-size}
+  .ui{font-family:var(--sans);color:#ECEAE4;background:#0e0f13;width:100%;display:block;line-height:1.2}
+  .ui *{box-sizing:border-box}
+  @keyframes ui-fade{to{opacity:1}}
+  @keyframes ui-rise{to{opacity:1;transform:none}}
+  @keyframes ui-bub{to{opacity:1;transform:none}}
+  @keyframes ui-area{to{opacity:.16}}
+  @keyframes ui-draw{to{stroke-dashoffset:0}}
+  @keyframes ui-sheen{0%{transform:translateX(-130%)}55%,100%{transform:translateX(130%)}}
+  @keyframes ui-type{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-45%);opacity:1}}
+  @keyframes ui-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  /* WEB */
+  .ui-web{position:relative;aspect-ratio:16/10.5;overflow:hidden}
+  .uw-nav{display:flex;align-items:center;justify-content:space-between;padding:3.4cqw 5cqw;border-bottom:1px solid rgba(236,234,228,.08)}
+  .uw-logo{font-size:4cqw;font-weight:500;letter-spacing:.04em}
+  .uw-links{display:flex;gap:3cqw}
+  .uw-links i{width:7cqw;height:1.5cqw;border-radius:2px;background:rgba(236,234,228,.38);display:block}
+  .uw-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:4cqw;padding:5.5cqw 5cqw}
+  .uw-eyebrow{font-size:2.3cqw;letter-spacing:.26em;color:#85857f;text-transform:uppercase;margin-bottom:3cqw;opacity:0}
+  .uw-title{font-size:7.2cqw;font-weight:200;letter-spacing:-.02em;line-height:1.05}
+  .uw-title span{display:block;opacity:0;transform:translateY(45%)}
+  .uw-cta{margin-top:5cqw;display:inline-block;font-size:2.5cqw;letter-spacing:.1em;text-transform:uppercase;background:#ECEAE4;color:#0e0f13;padding:2.6cqw 4cqw;border-radius:2px;opacity:0}
+  .uw-art{border-radius:2.4cqw;background:linear-gradient(135deg,#30323a,#15161b);position:relative;overflow:hidden}
+  .uw-art::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 42%,rgba(236,234,228,.16) 50%,transparent 58%);transform:translateX(-130%)}
+  .play .uw-eyebrow{animation:ui-fade .6s .15s forwards}
+  .play .uw-title span{animation:ui-rise .7s forwards}
+  .play .uw-title span:nth-child(1){animation-delay:.28s}
+  .play .uw-title span:nth-child(2){animation-delay:.44s}
+  .play .uw-cta{animation:ui-fade .6s .8s forwards}
+  .play .uw-art::after{animation:ui-sheen 3.2s 1.1s ease-in-out infinite}
+  /* DASHBOARD */
+  .ui-dash{display:grid;grid-template-columns:15cqw 1fr;aspect-ratio:16/11}
+  .ud-side{background:#0a0b0e;padding:4cqw 0;display:flex;flex-direction:column;align-items:center;gap:3.6cqw;border-right:1px solid rgba(236,234,228,.06)}
+  .ud-logo{width:7.4cqw;height:7.4cqw;border-radius:50%;border:1.4px solid rgba(236,234,228,.6);display:flex;align-items:center;justify-content:center;font-size:3.2cqw}
+  .ud-side i{width:6.2cqw;height:1.7cqw;border-radius:2px;background:rgba(236,234,228,.22);display:block}
+  .ud-side i.on{background:#ECEAE4}
+  .ud-main{padding:4cqw 4.5cqw}
+  .ud-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3.4cqw}
+  .ud-top b{font-size:3.6cqw;font-weight:400}
+  .ud-pill{font-size:2cqw;letter-spacing:.14em;text-transform:uppercase;color:#10b981;border:1px solid rgba(16,185,129,.45);padding:1cqw 2.2cqw;border-radius:3px}
+  .ud-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:2cqw;margin-bottom:2.6cqw}
+  .ud-kpis div{background:#191b21;border-radius:1.6cqw;padding:2.2cqw 2.4cqw}
+  .ud-kpis b{font-size:4.2cqw;font-weight:300;display:block}
+  .ud-kpis em{font-size:1.9cqw;color:#85857f;font-style:normal}
+  .ud-chart{background:#191b21;border-radius:1.6cqw;padding:3cqw;height:32cqw;margin-bottom:2.4cqw}
+  .ud-chart svg{width:100%;height:100%;overflow:visible}
+  .ud-chart .ln{fill:none;stroke:#ECEAE4;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:640;stroke-dashoffset:640}
+  .ud-chart .ar{fill:#ECEAE4;opacity:0}
+  .ud-chart .gl{stroke:rgba(236,234,228,.08);stroke-width:1}
+  .play .ud-chart .ln{animation:ui-draw 1.7s .3s ease-out forwards}
+  .play .ud-chart .ar{animation:ui-area 1s 1.1s forwards}
+  .ud-list{background:#191b21;border-radius:1.6cqw;padding:2.8cqw 3cqw;display:grid;gap:2.4cqw}
+  .ud-list .row{display:flex;align-items:center;gap:2.4cqw;opacity:0;transform:translateX(-5%)}
+  .ud-list .row i{width:4.2cqw;height:4.2cqw;border-radius:50%;background:#2a2c34;flex:none}
+  .ud-list .row span{height:1.8cqw;border-radius:2px;background:rgba(236,234,228,.34)}
+  .play .ud-list .row{animation:ui-bub .5s forwards}
+  .play .ud-list .row:nth-child(1){animation-delay:1.25s}
+  .play .ud-list .row:nth-child(2){animation-delay:1.4s}
+  .play .ud-list .row:nth-child(3){animation-delay:1.55s}
+  /* APP */
+  .ui-app{display:flex;flex-direction:column;height:100%;background:#0e0f13}
+  .ua-head{display:flex;align-items:center;gap:3cqw;padding:6cqw 5cqw 4cqw;border-bottom:1px solid rgba(236,234,228,.08)}
+  .ua-av{width:9cqw;height:9cqw;border-radius:50%;background:#2a2c34;border:1px solid rgba(236,234,228,.4);flex:none}
+  .ua-head b{font-size:3.8cqw;font-weight:400;display:block}
+  .ua-head em{font-size:2.6cqw;color:#10b981;font-style:normal}
+  .ua-log{flex:1;padding:5cqw;display:flex;flex-direction:column;gap:3.4cqw;justify-content:flex-end}
+  .ua-b{max-width:80%;font-size:3.3cqw;line-height:1.42;padding:3cqw 3.6cqw;border-radius:3.4cqw;opacity:0;transform:translateY(35%)}
+  .ua-b.bot{align-self:flex-start;background:#191b21;border-bottom-left-radius:1cqw}
+  .ua-b.me{align-self:flex-end;background:#ECEAE4;color:#0e0f13;border-bottom-right-radius:1cqw}
+  .ua-typing{align-self:flex-start;display:flex;gap:1.6cqw;background:#191b21;padding:3.6cqw 4cqw;border-radius:3.4cqw;opacity:0}
+  .ua-typing i{width:2.4cqw;height:2.4cqw;border-radius:50%;background:#85857f;display:block}
+  .ua-input{display:flex;align-items:center;gap:2.4cqw;padding:4cqw 5cqw 6cqw}
+  .ua-input span{flex:1;font-size:2.9cqw;color:#85857f;background:#191b21;padding:3.2cqw 4cqw;border-radius:6cqw}
+  .ua-input b{width:9cqw;height:9cqw;border-radius:50%;background:#ECEAE4;color:#0e0f13;display:flex;align-items:center;justify-content:center;font-size:4cqw;flex:none}
+  .play .ua-b{animation:ui-bub .55s forwards}
+  .play .ua-b:nth-child(1){animation-delay:.3s}
+  .play .ua-b:nth-child(2){animation-delay:.75s}
+  .play .ua-b:nth-child(3){animation-delay:1.2s}
+  .play .ua-typing{animation:ui-fade .4s 1.7s forwards}
+  .play .ua-typing i{animation:ui-type 1.2s 1.7s infinite}
+  .play .ua-typing i:nth-child(2){animation:ui-type 1.2s 1.85s infinite}
+  .play .ua-typing i:nth-child(3){animation:ui-type 1.2s 2s infinite}
   .plate{display:block;text-align:center;margin-top:22px;
     font-size:9.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-mut);white-space:nowrap}
 
-  /* DESKTOP: JS upgrades the gallery to a pinned, horizontally-panned wall.
-     Frame size is driven by a fixed canvas height + 4:5 aspect (width derives). */
+  /* JS upgrades the gallery to a pinned, horizontally-panned wall — ALL devices.
+     Base = compact single-column panel (mobile); desktop = 2-column. */
+  .gallery-vp.h-pin{height:100vh;max-width:none;overflow:hidden;display:flex;align-items:center;padding:0}
+  .gallery-vp.h-pin .gallery{flex-direction:row;flex-wrap:nowrap;align-items:center;
+    gap:16vw;padding:0 7vw;max-width:none;margin:0;will-change:transform}
+  .gallery-vp.h-pin .product{flex:0 0 auto;width:86vw;grid-template-columns:1fr;gap:clamp(14px,3vh,26px);justify-items:center}
+  .gallery-vp.h-pin .art-col{height:auto}
+  .gallery-vp.h-pin .work-fig{width:72vw;max-width:320px;margin:0 auto;position:relative}
+  .gallery-vp.h-pin .canvas{height:auto;aspect-ratio:4/5}
+  .gallery-vp.h-pin .plate{margin-top:14px}
+  .gallery-vp.h-pin .info-col{text-align:center}
+  .gallery-vp.h-pin .pscript,.gallery-vp.h-pin .spec{display:none}      /* keep panned mobile card compact */
+  .gallery-vp.h-pin .plabel{margin-top:10px}
+  .gallery-vp.h-pin .info-col .btn{margin-top:18px;width:auto}
   @media (min-width:921px){
-    .gallery-vp.h-pin{height:100vh;max-width:none;overflow:hidden;display:flex;align-items:center;padding:0}
-    .gallery-vp.h-pin .gallery{flex-direction:row;flex-wrap:nowrap;align-items:center;
-      gap:clamp(80px,8vw,190px);padding:0 14vw;max-width:none;margin:0;will-change:transform}
-    .gallery-vp.h-pin .product{flex:0 0 auto;width:min(1060px,82vw);
-      grid-template-columns:auto minmax(0,1fr);gap:clamp(48px,5vw,96px)}
-    .gallery-vp.h-pin .art-col{height:auto}
-    .gallery-vp.h-pin .work-fig{width:auto;max-width:none;margin:0;position:relative}
-    .gallery-vp.h-pin .canvas{height:min(62vh,640px);aspect-ratio:4/5}
+    .gallery-vp.h-pin .gallery{gap:clamp(80px,8vw,190px);padding:0 14vw}
+    .gallery-vp.h-pin .product{width:min(1060px,82vw);grid-template-columns:auto minmax(0,1fr);
+      gap:clamp(48px,5vw,96px);justify-items:stretch}
+    .gallery-vp.h-pin .work-fig{width:auto;max-width:none}
+    .gallery-vp.h-pin .canvas{height:min(62vh,640px)}
+    .gallery-vp.h-pin .info-col{text-align:left}
+    .gallery-vp.h-pin .pscript,.gallery-vp.h-pin .spec{display:block}
+    .gallery-vp.h-pin .info-col .btn{width:100%}
     .gallery-vp.h-pin .plate{margin-top:18px}
   }
 
@@ -245,6 +351,21 @@
   .step .sn{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark-mut)}
   .step h3{margin:16px 0 12px;font-size:1.45rem;font-weight:300}
   .step p{color:var(--on-dark-mut);font-size:.95rem;font-weight:300;line-height:1.6}
+
+  /* ===== manifest: scroll-driven colour wash (sticky pin, works on every device) ===== */
+  .manifest{position:relative;height:340vh;background:#0C0C0D}
+  .manifest-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;overflow:hidden;
+    color:#F0EEE9;background-color:#14110F;will-change:background-color}
+  .manifest .m-eyebrow{position:absolute;top:clamp(80px,12vh,140px);left:0;right:0;
+    font-size:11px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;opacity:.5}
+  .manifest .m-word{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);
+    width:92%;font-weight:200;font-size:clamp(2.6rem,10vw,8rem);letter-spacing:-.035em;line-height:1;
+    opacity:0;transition:opacity .55s var(--ease),transform .55s var(--ease);pointer-events:none}
+  .manifest .m-word.on{opacity:1;transform:translate(-50%,-50%)}
+  .manifest .m-progress{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(70px,11vh,130px);
+    width:min(220px,52vw);height:1px;background:currentColor;opacity:.22}
+  .manifest .m-progress span{display:block;height:100%;width:0;background:currentColor;opacity:.9}
 
   /* ===== contact ===== */
   .contact{background:#000;text-align:center;padding:clamp(110px,17vh,210px) 0}
@@ -336,6 +457,9 @@
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     .reveal,.lift{opacity:1!important;transform:none!important}
     .word > span{transform:none!important}
+    .ui *{opacity:1!important;transform:none!important}
+    .ud-chart .ln{stroke-dashoffset:0!important}
+    .ud-chart .ar{opacity:.16!important}
     .hero .bgvid{opacity:1}
     .scrollcue{display:none}
   }
@@ -402,9 +526,21 @@
             <div class="glow" aria-hidden="true"></div>
             <figure class="work-fig">
               <div class="frame" data-frame>
-                <div class="mat"><div class="canvas"><img src="assets/mz9/works/eclipse.svg" alt="Éclipse — luminöse Sphäre, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+                <div class="mat"><div class="canvas"><div class="shot"><span class="bar"><i></i><i></i><i></i></span>
+                  <div class="ui ui-web" role="img" aria-label="Web-Auftritt von MZ.9 — Landingpage">
+                    <div class="uw-nav"><span class="uw-logo">MZ.9</span><span class="uw-links"><i></i><i></i><i></i></span></div>
+                    <div class="uw-hero">
+                      <div class="uw-h">
+                        <div class="uw-eyebrow">Atelier · Bielefeld</div>
+                        <div class="uw-title"><span>Digitale Werke,</span><span>die bewegen.</span></div>
+                        <span class="uw-cta">Projekt anfragen</span>
+                      </div>
+                      <div class="uw-art"></div>
+                    </div>
+                  </div>
+                </div></div></div>
               </div>
-              <figcaption class="plate">MZ.9 · Werk N°01 — „Éclipse"</figcaption>
+              <figcaption class="plate">MZ.9 · Werk N°01 — Web</figcaption>
             </figure>
           </div>
           <div class="info-col">
@@ -428,9 +564,28 @@
             <div class="glow" aria-hidden="true"></div>
             <figure class="work-fig">
               <div class="frame" data-frame>
-                <div class="mat"><div class="canvas"><img src="assets/mz9/works/signal.svg" alt="Signal — radiale Wellen, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+                <div class="mat"><div class="canvas"><div class="shot"><span class="bar"><i></i><i></i><i></i></span>
+                  <div class="ui ui-dash" role="img" aria-label="Dashboard-Oberfläche von MZ.9">
+                    <aside class="ud-side"><span class="ud-logo">M</span><i class="on"></i><i></i><i></i><i></i></aside>
+                    <main class="ud-main">
+                      <div class="ud-top"><b>Dashboard</b><span class="ud-pill">Live</span></div>
+                      <div class="ud-kpis"><div><b>128</b><em>Projekte</em></div><div><b>24</b><em>Aktiv</em></div><div><b>96%</b><em>Uptime</em></div><div><b>3.4k</b><em>Events</em></div></div>
+                      <div class="ud-chart"><svg viewBox="0 0 300 110" preserveAspectRatio="none">
+                        <line class="gl" x1="0" y1="37" x2="300" y2="37" vector-effect="non-scaling-stroke"/>
+                        <line class="gl" x1="0" y1="74" x2="300" y2="74" vector-effect="non-scaling-stroke"/>
+                        <path class="ar" d="M0 92 C40 70 70 84 110 50 S180 24 220 44 S280 16 300 30 L300 110 L0 110 Z"/>
+                        <path class="ln" d="M0 92 C40 70 70 84 110 50 S180 24 220 44 S280 16 300 30" vector-effect="non-scaling-stroke"/>
+                      </svg></div>
+                      <div class="ud-list">
+                        <div class="row"><i></i><span style="width:55%"></span></div>
+                        <div class="row"><i></i><span style="width:42%"></span></div>
+                        <div class="row"><i></i><span style="width:64%"></span></div>
+                      </div>
+                    </main>
+                  </div>
+                </div></div></div>
               </div>
-              <figcaption class="plate">MZ.9 · Werk N°02 — „Signal"</figcaption>
+              <figcaption class="plate">MZ.9 · Werk N°02 — System</figcaption>
             </figure>
           </div>
           <div class="info-col">
@@ -454,9 +609,20 @@
             <div class="glow" aria-hidden="true"></div>
             <figure class="work-fig">
               <div class="frame" data-frame>
-                <div class="mat"><div class="canvas"><img src="assets/mz9/works/topographie.svg" alt="Topographie — fließende Höhenlinien, abstraktes Werk von MZ.9" loading="lazy" width="1000" height="1250"></div></div>
+                <div class="mat"><div class="canvas phone"><div class="shot">
+                  <div class="ui ui-app" role="img" aria-label="Mobile KI-App von MZ.9 — Chat mit Assistent">
+                    <div class="ua-head"><span class="ua-av"></span><div><b>MZ.9 Assistant</b><em>● online</em></div></div>
+                    <div class="ua-log">
+                      <div class="ua-b bot">Hi! Woran arbeiten wir?</div>
+                      <div class="ua-b me">Eine KI-App fürs Atelier.</div>
+                      <div class="ua-b bot">Stark — Prototyp in 14&nbsp;Tagen.</div>
+                      <div class="ua-typing"><i></i><i></i><i></i></div>
+                    </div>
+                    <div class="ua-input"><span>Nachricht …</span><b>↑</b></div>
+                  </div>
+                </div></div></div>
               </div>
-              <figcaption class="plate">MZ.9 · Werk N°03 — „Topographie"</figcaption>
+              <figcaption class="plate">MZ.9 · Werk N°03 — Mobile</figcaption>
             </figure>
           </div>
           <div class="info-col">
@@ -561,6 +727,18 @@
       <div class="step lift" data-rev><div class="sn">03 — Build</div><h3>Bauen</h3><p>Sauber, getestet, dokumentiert. Kein Code, den niemand mehr versteht.</p></div>
       <div class="step lift" data-rev><div class="sn">04 — Launch</div><h3>Übergeben</h3><p>Launch, Betrieb und Weiterentwicklung — wir bleiben ansprechbar.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- ===== MANIFEST — scroll-driven colour wash ===== -->
+<section class="manifest" id="manifest" aria-label="Anspruch">
+  <div class="manifest-pin">
+    <div class="m-eyebrow">Unser Anspruch</div>
+    <div class="m-word" data-i="0">Emotional.</div>
+    <div class="m-word" data-i="1">Elegant.</div>
+    <div class="m-word" data-i="2">Transformativ.</div>
+    <div class="m-word" data-i="3">Entworfen&nbsp;wie&nbsp;Kunst.</div>
+    <div class="m-progress" aria-hidden="true"><span></span></div>
   </div>
 </section>
 
@@ -671,6 +849,43 @@
     });},{threshold:.2}).observe(fv);
   } else if(fv && REDUCED){ fv.setAttribute("preload","auto"); fv.load(); }
 
+  /* manifest: scroll-driven colour wash + word swap — vanilla, every device */
+  (function(){
+    var sec=document.getElementById("manifest"); if(!sec) return;
+    var pin=sec.querySelector(".manifest-pin"),
+        words=[].slice.call(sec.querySelectorAll(".m-word")),
+        prog=sec.querySelector(".m-progress span");
+    var stops=[[20,17,15],[110,70,54],[52,70,62],[216,200,174]]; // warm-black → cocoa → forest → sand
+    function lerp(a,b,t){return Math.round(a+(b-a)*t);}
+    var tick=false;
+    function frame(){
+      tick=false;
+      var total=sec.offsetHeight-window.innerHeight; if(total<=0) return;
+      var p=Math.min(1,Math.max(0,(-sec.getBoundingClientRect().top)/total));
+      if(prog) prog.style.width=(p*100)+"%";
+      var n=stops.length, seg=p*(n-1), i=Math.min(n-2,Math.floor(seg)), t=seg-i;
+      var c0=stops[i], c1=stops[i+1];
+      var r=lerp(c0[0],c1[0],t), g=lerp(c0[1],c1[1],t), b=lerp(c0[2],c1[2],t);
+      pin.style.backgroundColor="rgb("+r+","+g+","+b+")";
+      pin.style.color=(r*0.299+g*0.587+b*0.114)>150?"#14110F":"#F0EEE9";
+      var active=Math.round(seg);
+      words.forEach(function(w,wi){ w.classList.toggle("on", wi===active); });
+    }
+    function onScroll(){ if(!tick){ tick=true; requestAnimationFrame(frame); } }
+    window.addEventListener("scroll",onScroll,{passive:true});
+    window.addEventListener("resize",onScroll,{passive:true});
+    frame();
+  })();
+
+  /* live coded product UIs: run their internal animation while in view (replays on re-enter) */
+  (function(){
+    var uis=[].slice.call(document.querySelectorAll(".ui"));
+    if(!uis.length) return;
+    if(!("IntersectionObserver" in window)){ uis.forEach(function(u){u.classList.add("play");}); return; }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle("play", e.isIntersecting); }); },{threshold:.4});
+    uis.forEach(function(u){ io.observe(u); });
+  })();
+
   /* split headings into word-spans for the reveal — recursive so inline
      elements (e.g. <em>) keep their styling while every word still clips. */
   function wordify(node,out){
@@ -716,12 +931,12 @@
       rest.forEach(function(el){ io.observe(el); });
     } else { rest.forEach(reveal); }
 
-    /* 3) GSAP scrubs + Lenis — desktop + motion-OK only (mobile keeps native scroll) */
-    if(REDUCED || !DESKTOP || !(window.gsap&&window.ScrollTrigger)) return;
+    /* 3) GSAP scrubs — the pinned pan runs on ALL devices; Lenis (smooth scroll) is desktop-only */
+    if(REDUCED || !(window.gsap&&window.ScrollTrigger)) return;
     var gsap=window.gsap; gsap.registerPlugin(window.ScrollTrigger); var ST=window.ScrollTrigger;
 
-    /* Lenis smooth scroll for the ScrollSmoother feel (anchors land below the header) */
-    if(window.Lenis){
+    /* Lenis smooth scroll for the ScrollSmoother feel (desktop only; anchors land below the header) */
+    if(DESKTOP && window.Lenis){
       var lenis=new window.Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));},smoothWheel:true});
       lenis.on("scroll",ST.update);
       gsap.ticker.add(function(t){lenis.raf(t*1000);});
