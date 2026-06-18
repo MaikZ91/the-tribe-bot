@@ -185,8 +185,18 @@
 
   /* ===== live, CODE-generated product UIs inside the frames (full detail, self-animating) ===== */
   .shot{container-type:inline-size}
-  .ui{font-family:var(--sans);color:#ECEAE4;background:#0d0e12;width:100%;display:block;line-height:1.2}
+  .ui{font-family:var(--sans);color:#ECEAE4;background:#0d0e12;width:100%;display:block;line-height:1.2;position:relative;overflow:hidden}
   .ui *{box-sizing:border-box}
+  /* glass glare sweep across the whole device (premium "real screen" feel) */
+  .ui::after{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
+    background:linear-gradient(116deg,transparent 40%,rgba(255,255,255,.1) 47%,rgba(255,255,255,.03) 53%,transparent 60%);transform:translateX(-130%)}
+  .play::after{animation:ui-glare 7.5s 3s ease-in-out infinite}
+  @keyframes ui-glare{0%{transform:translateX(-130%)}22%,100%{transform:translateX(130%)}}
+  @keyframes ui-pls{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%,100%{box-shadow:0 0 0 2.2cqw rgba(16,185,129,0)}}
+  @keyframes ui-gen{to{filter:none}}
+  @keyframes ui-toast{0%{opacity:0;transform:translateX(40%)}6%,42%{opacity:1;transform:none}50%,100%{opacity:0;transform:translateX(40%)}}
+  @keyframes ui-note{0%{opacity:0;transform:translateY(-30%)}8%,44%{opacity:1;transform:none}52%,100%{opacity:0;transform:translateY(-30%)}}
+  .play .ud-pill i,.play .ua-av::after{animation:ui-pls 2.4s ease-out infinite}
   @keyframes ui-fade{to{opacity:1}}
   @keyframes ui-rise{to{opacity:1;transform:none}}
   @keyframes ui-bub{to{opacity:1;transform:none}}
@@ -228,6 +238,11 @@
   .uw-badge{position:absolute;left:3cqw;bottom:3cqw;display:flex;align-items:center;gap:1.6cqw;font-size:1.9cqw;letter-spacing:.04em;
     background:rgba(13,14,18,.62);padding:1.6cqw 2.6cqw;border-radius:6cqw;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
   .uw-badge i{width:1.8cqw;height:1.8cqw;border-radius:50%;background:#10b981;display:block}
+  .uw-note{position:absolute;right:3cqw;top:3cqw;display:flex;align-items:center;gap:1.4cqw;
+    background:rgba(13,14,18,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(236,234,228,.14);
+    border-radius:5cqw;padding:1.4cqw 2.4cqw;font-size:1.9cqw;color:#ECEAE4;opacity:0;transform:translateY(-30%)}
+  .uw-note i{width:1.7cqw;height:1.7cqw;border-radius:50%;background:#10b981;flex:none}
+  .play .uw-note{animation:ui-note 7s 2.6s ease-in-out infinite}
   .uw-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4cqw;padding:0 5cqw 4cqw}
   .uw-card{background:#171922;border:1px solid rgba(236,234,228,.06);border-radius:2cqw;padding:2.8cqw;opacity:0;transform:translateY(26%)}
   .uw-card .ci{width:5.6cqw;height:5.6cqw;border-radius:1.4cqw;background:#262934;margin-bottom:2cqw;display:flex;align-items:center;justify-content:center;font-size:2.8cqw}
@@ -255,7 +270,12 @@
   .ud-logo{width:6.4cqw;height:6.4cqw;border-radius:50%;border:1.4px solid rgba(236,234,228,.6);display:flex;align-items:center;justify-content:center;font-size:2.6cqw}
   .ud-side i{width:5.4cqw;height:1.5cqw;border-radius:2px;background:rgba(236,234,228,.2);display:block}
   .ud-side i.on{background:#ECEAE4}
-  .ud-main{padding:3cqw 3.4cqw;display:flex;flex-direction:column;gap:2cqw;min-width:0}
+  .ud-main{padding:3cqw 3.4cqw;display:flex;flex-direction:column;gap:2cqw;min-width:0;position:relative}
+  .ud-toast{position:absolute;top:2.8cqw;right:3.4cqw;z-index:8;display:flex;align-items:center;gap:1.6cqw;
+    background:#22242c;border:1px solid rgba(236,234,228,.14);border-radius:1.6cqw;padding:1.6cqw 2.4cqw;
+    font-size:1.8cqw;color:#ECEAE4;box-shadow:0 4cqw 12cqw rgba(0,0,0,.45);opacity:0;transform:translateX(40%)}
+  .ud-toast i{width:1.8cqw;height:1.8cqw;border-radius:50%;background:#10b981;flex:none}
+  .play .ud-toast{animation:ui-toast 7s 3.4s ease-in-out infinite}
   .ud-top{display:flex;align-items:center;gap:1.6cqw}
   .ud-top b{font-size:3cqw;font-weight:400}
   .ud-top .ud-rng{margin-left:auto;font-size:1.8cqw;color:#85857f}
@@ -332,7 +352,10 @@
   .ua-typing{align-self:flex-start;display:flex;gap:1.6cqw;background:#191b21;padding:3.2cqw 3.6cqw;border-radius:3.2cqw;opacity:0}
   .ua-typing i{width:2.2cqw;height:2.2cqw;border-radius:50%;background:#85857f;display:block}
   .ua-card{align-self:flex-start;width:74%;border-radius:3cqw;overflow:hidden;background:#191b21;opacity:0;transform:translateY(35%)}
-  .ua-card .img{position:relative;height:22cqw;overflow:hidden;background:conic-gradient(from 200deg at 60% 38%,#3b3e48,#15161b 55%,#23262e)}
+  .ua-card .img{position:relative;height:22cqw;overflow:hidden;background:conic-gradient(from 200deg at 60% 38%,#3b3e48,#15161b 55%,#23262e);filter:blur(7px) saturate(.5)}
+  .play .ua-card .img{animation:ui-gen 1.5s 2.9s ease-out forwards}
+  .ua-card .ck{color:#10b981;opacity:0}
+  .play .ua-card .ck{animation:ui-fade .4s 4.5s forwards}
   .ua-card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(236,234,228,.22) 50%,transparent 60%);transform:translateX(-130%)}
   .ua-card .bd{padding:2.6cqw 3cqw 3cqw}
   .ua-card .bd b{font-size:2.7cqw;font-weight:500;display:block}
@@ -628,6 +651,7 @@
     .ud-chart .ar{opacity:1!important}
     .ud-bars .col span{transform:none!important}
     .ua-card .bar i{width:100%!important}
+    .ua-card .img{filter:none!important}
     .hero .bgvid{opacity:1}
     .scrollcue{display:none}
   }
@@ -705,7 +729,7 @@
                         <div class="uw-ctas"><span class="uw-cta">Projekt anfragen</span><span class="uw-cta g">Werke</span></div>
                         <div class="uw-trust"><span class="st">★★★★★</span><span>5,0 · 40+ Projekte realisiert</span></div>
                       </div>
-                      <div class="uw-art"><span class="uw-badge"><i></i>Live Preview</span></div>
+                      <div class="uw-art"><span class="uw-badge"><i></i>Live Preview</span><span class="uw-note"><i></i>Neue Anfrage · gerade</span></div>
                     </div>
                     <div class="uw-cards">
                       <div class="uw-card"><span class="ci">◆</span><b>KI-Apps</b><small>Agenten &amp; Tools</small></div>
@@ -796,6 +820,7 @@
                           <div class="col"><span class="hi" style="height:100%"></span><em>A</em></div>
                         </div>
                       </div>
+                      <div class="ud-toast"><i></i>Neuer Lead · gerade eben</div>
                     </main>
                   </div>
                 </div></div></div>
@@ -832,7 +857,7 @@
                       <div class="ua-b bot">Hi! Woran arbeiten wir?</div>
                       <div class="ua-b me">Eine KI-App fürs Atelier.</div>
                       <div class="ua-typing"><i></i><i></i><i></i></div>
-                      <div class="ua-card"><div class="img"></div><div class="bd"><b>Konzept · KI-App</b><div class="bar"><i></i></div><small>Generiert · Prototyp in 14&nbsp;Tagen</small></div></div>
+                      <div class="ua-card"><div class="img"></div><div class="bd"><b>Konzept · KI-App</b><div class="bar"><i></i></div><small><span class="ck">✓</span> Generiert · Prototyp in 14&nbsp;Tagen</small></div></div>
                     </div>
                     <div class="ua-chips"><span class="ua-chip">Mehr zeigen</span><span class="ua-chip">Timeline</span><span class="ua-chip">Anfrage</span></div>
                     <div class="ua-input"><span>Nachricht …<i></i></span><b>↑</b></div>
