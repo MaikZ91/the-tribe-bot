@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Physiofit Bielefeld — Physiotherapie, die wirklich ankommt</title>
+<meta name="description" content="Physiofit Bielefeld — moderne Physiotherapie & Rehabilitation. Termin in 30 Sekunden online buchen, per WhatsApp oder Anruf. Manuelle Therapie, KG, Lymphdrainage, medizinisches Training." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#3F5848" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%233F5848'/><text x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%23F7F5EF' text-anchor='middle'>P</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F5EF; --bg-2:#EFEBE1; --card:#FFFFFF;
+    --ink:#1E241F; --ink-2:#4C544A; --ink-mut:#7C8377;
+    --sage:#3F5848; --sage-2:#5E7C6B; --sage-soft:#E4ECE4;
+    --clay:#C2724E; --clay-2:#A85E3D;
+    --line:rgba(30,36,31,.12); --line-2:rgba(30,36,31,.07);
+    --gold:#E0A93B;
+    --maxw:1180px; --r:18px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Mulish",-apple-system,system-ui,sans-serif;
+    --sh:0 24px 60px -28px rgba(30,36,31,.4);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;font-weight:400;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--sage);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.07;letter-spacing:-.012em;margin:0}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-2)}
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  :focus-visible{outline:2px solid var(--sage);outline-offset:3px;border-radius:3px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:15px;
+    padding:15px 26px;border-radius:50px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),box-shadow .3s,background .3s,color .3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-clay{background:var(--clay);color:#fff;box-shadow:0 14px 30px -12px rgba(168,94,61,.7)}
+  .btn-clay:hover{background:var(--clay-2)}
+  .btn-sage{background:var(--sage);color:#fff}
+  .btn-sage:hover{background:#33483b}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{background:#fff;border-color:var(--ink)}
+  .btn svg{width:18px;height:18px;flex:none}
+
+  /* concept ribbon */
+  .ribbon{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--sage);color:#fff;
+    font-size:12px;font-weight:600;letter-spacing:.02em;text-align:center;padding:7px 16px}
+  .ribbon b{font-weight:700}
+
+  /* header */
+  .header{position:fixed;top:30px;left:0;right:0;z-index:200;transition:background .4s var(--ease),box-shadow .4s,padding .4s var(--ease)}
+  .header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .header.scrolled{background:rgba(247,245,239,.88);backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);box-shadow:0 1px 0 var(--line-2)}
+  .header.scrolled .bar{padding:11px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+  .brand .mk{width:38px;height:38px;border-radius:11px;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+  .brand small{display:block;font-family:var(--sans);font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mut);line-height:1}
+  .nav{display:flex;align-items:center;gap:28px}
+  .nav a.lk{font-size:14.5px;font-weight:600;color:var(--ink-2);transition:color .25s}
+  .nav a.lk:hover{color:var(--sage)}
+  .nav .ph{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink)}
+  .nav .ph svg{width:16px;height:16px;color:var(--sage)}
+
+  /* hero */
+  .hero{position:relative;padding:clamp(130px,20vh,180px) 0 clamp(60px,9vh,110px);overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(60% 70% at 82% 12%,var(--sage-soft) 0%,transparent 55%),radial-gradient(50% 60% at 8% 90%,#F1E7DC 0%,transparent 60%)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(30px,5vw,70px);align-items:center}
+  .hero .eyebrow{margin-bottom:18px}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:400}
+  .hero h1 em{font-style:italic;color:var(--sage)}
+  .hero .lede{margin:24px 0 0;max-width:46ch;font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--ink-2)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:14px 26px;margin-top:34px;align-items:center}
+  .stars{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px}
+  .stars .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .hero-trust .sep{width:1px;height:26px;background:var(--line)}
+  .hero-trust .ti{font-size:13.5px;color:var(--ink-2);font-weight:600;display:flex;align-items:center;gap:7px}
+  .hero-trust .ti svg{width:16px;height:16px;color:var(--sage-2)}
+
+  /* hero visual */
+  .hero-vis{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;box-shadow:var(--sh);
+    background:linear-gradient(150deg,#6E8B79,#3F5848 60%,#2C3E33)}
+  .hero-vis::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 30% 18%,rgba(255,255,255,.22),transparent 60%);mix-blend-mode:screen}
+  .hero-vis .ph-note{position:absolute;left:0;right:0;bottom:0;padding:26px;color:rgba(255,255,255,.62);font-size:12.5px;font-weight:600;letter-spacing:.03em}
+  .hero-vis .pulse{position:absolute;top:22px;right:22px;display:flex;align-items:center;gap:8px;background:rgba(20,30,24,.5);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:40px}
+  .hero-vis .pulse i{width:8px;height:8px;border-radius:50%;background:#7FE0A8;box-shadow:0 0 0 0 rgba(127,224,168,.7);animation:pl 2.2s infinite}
+  @keyframes pl{0%{box-shadow:0 0 0 0 rgba(127,224,168,.6)}70%,100%{box-shadow:0 0 0 12px rgba(127,224,168,0)}}
+  .hero-card{position:absolute;left:-26px;bottom:34px;background:#fff;border-radius:16px;box-shadow:var(--sh);padding:16px 18px;display:flex;align-items:center;gap:13px;max-width:78%}
+  .hero-card .ic{width:42px;height:42px;border-radius:12px;background:var(--sage-soft);color:var(--sage);display:flex;align-items:center;justify-content:center;flex:none}
+  .hero-card .ic svg{width:22px;height:22px}
+  .hero-card b{font-size:14.5px;display:block}
+  .hero-card span{font-size:12.5px;color:var(--ink-mut)}
+
+  /* logos / kassen strip */
+  .strip{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--bg-2)}
+  .strip .row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 38px;padding:22px 0;
+    font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink-mut);text-transform:uppercase}
+  .strip .row span{display:flex;align-items:center;gap:9px}
+  .strip .row svg{width:16px;height:16px;color:var(--sage-2)}
+
+  /* section base */
+  .section{padding:clamp(64px,10vh,120px) 0}
+  .sec-head{max-width:62ch;margin:0 auto clamp(38px,6vh,64px);text-align:center}
+  .sec-head h2{font-size:clamp(2rem,4.4vw,3.1rem);margin-top:14px}
+  .sec-head p{margin:16px auto 0;color:var(--ink-2);font-size:1.06rem;max-width:52ch}
+
+  /* services */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+  .scard{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);padding:30px 26px;transition:transform .4s var(--ease),box-shadow .4s}
+  .scard:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+  .scard .ic{width:52px;height:52px;border-radius:14px;background:var(--sage-soft);color:var(--sage);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .scard .ic svg{width:27px;height:27px}
+  .scard h3{font-size:1.4rem}
+  .scard p{margin:10px 0 0;color:var(--ink-2);font-size:.98rem}
+  .scard .more{margin-top:16px;font-weight:700;font-size:14px;color:var(--sage);display:inline-flex;gap:6px;align-items:center}
+  .scard .more svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+  .scard:hover .more svg{transform:translateX(4px)}
+
+  /* steps */
+  .steps-sec{background:var(--sage);color:#fff}
+  .steps-sec .eyebrow{color:#A9C3B2}
+  .steps-sec .sec-head h2{color:#fff}
+  .steps-sec .sec-head p{color:rgba(255,255,255,.8)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);counter-reset:st}
+  .step{position:relative;padding-top:14px}
+  .step .n{font-family:var(--serif);font-size:3rem;color:rgba(255,255,255,.34);line-height:1}
+  .step h3{font-size:1.45rem;margin:12px 0 8px;color:#fff}
+  .step p{color:rgba(255,255,255,.82);font-size:.98rem}
+  .steps-cta{text-align:center;margin-top:44px}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,22px)}
+  .tcard{text-align:center}
+  .tcard .ph{aspect-ratio:1;border-radius:20px;overflow:hidden;margin-bottom:14px;
+    background:linear-gradient(160deg,#7E9A86,#48624F);position:relative}
+  .tcard:nth-child(2) .ph{background:linear-gradient(160deg,#C99A6E,#9A6B43)}
+  .tcard:nth-child(3) .ph{background:linear-gradient(160deg,#8A9DB0,#4E6175)}
+  .tcard:nth-child(4) .ph{background:linear-gradient(160deg,#A88FA0,#6E5469)}
+  .tcard .ph span{position:absolute;left:0;right:0;bottom:0;padding:12px;color:rgba(255,255,255,.55);font-size:11px;font-weight:600}
+  .tcard b{font-size:1.12rem;font-family:var(--serif)}
+  .tcard small{display:block;color:var(--ink-mut);font-size:13px;font-weight:600;margin-top:2px}
+
+  /* reviews */
+  .rev-sec{background:var(--bg-2)}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+  .review{background:var(--card);border-radius:var(--r);padding:26px;box-shadow:0 10px 30px -22px rgba(30,36,31,.5)}
+  .review .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .review p{margin:12px 0 18px;font-size:1rem;color:var(--ink)}
+  .review .who{display:flex;align-items:center;gap:11px}
+  .review .av{width:40px;height:40px;border-radius:50%;background:var(--sage-soft);color:var(--sage);display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+  .review .who b{font-size:14.5px;display:block}
+  .review .who span{font-size:12.5px;color:var(--ink-mut)}
+  .rev-foot{text-align:center;margin-top:32px;font-weight:600;color:var(--ink-2)}
+  .rev-foot b{color:var(--ink)}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line);padding:6px 0}
+  .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:20px 0;font-family:var(--serif);font-size:1.2rem;font-weight:500}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .pl{width:22px;height:22px;flex:none;position:relative;transition:transform .3s var(--ease)}
+  .faq summary .pl::before,.faq summary .pl::after{content:"";position:absolute;background:var(--sage);border-radius:2px}
+  .faq summary .pl::before{top:10px;left:2px;right:2px;height:2px}
+  .faq summary .pl::after{left:10px;top:2px;bottom:2px;width:2px;transition:opacity .3s}
+  .faq details[open] summary .pl::after{opacity:0}
+  .faq details[open] summary .pl{transform:rotate(180deg)}
+  .faq p{margin:0 0 20px;color:var(--ink-2)}
+
+  /* booking band */
+  .band{position:relative;overflow:hidden;background:linear-gradient(135deg,#46624F,#2C3E33);color:#fff;border-radius:28px;
+    padding:clamp(44px,7vw,80px) clamp(28px,5vw,72px);text-align:center}
+  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 10%,rgba(255,255,255,.12),transparent 60%)}
+  .band .inner{position:relative}
+  .band h2{font-size:clamp(2rem,4.6vw,3.2rem);color:#fff}
+  .band p{margin:16px auto 0;max-width:48ch;color:rgba(255,255,255,.82)}
+  .band .hero-cta{justify-content:center}
+  .band .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+  .band .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+
+  /* footer */
+  .footer{padding:60px 0 120px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px}
+  .footer .brand{margin-bottom:16px}
+  .footer p{color:var(--ink-2);font-size:.96rem;margin:0}
+  .footer h4{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mut);margin:0 0 14px}
+  .footer .fcol a,.footer .fcol div{display:block;color:var(--ink-2);font-size:.98rem;margin-bottom:9px}
+  .footer .fcol a:hover{color:var(--sage)}
+  .foot-bot{margin-top:44px;padding-top:24px;border-top:1px solid var(--line-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--ink-mut)}
+
+  /* sticky mobile action bar */
+  .actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line);
+    box-shadow:0 -8px 30px -12px rgba(30,36,31,.4)}
+  .actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)}
+  .actionbar a.book{background:var(--clay);color:#fff}
+  .actionbar a.wa{background:#25D366;color:#fff}
+  .actionbar svg{width:20px;height:20px}
+
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-vis{max-width:440px}
+    .cards,.reviews,.steps{grid-template-columns:1fr 1fr}
+    .team{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:600px){
+    body{font-size:16px}
+    .nav .lk,.nav .ph{display:none}
+    .header{top:28px}
+    .cards,.reviews,.steps,.team,.foot-grid{grid-template-columns:1fr}
+    .hero-card{position:static;margin-top:16px;max-width:none}
+    .actionbar{display:flex}
+    .footer{padding-bottom:90px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Physiofit Bielefeld</div>
+
+<header class="header" id="header">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="mk">P</span><span>Physiofit<small>Bielefeld</small></span></a>
+    <nav class="nav">
+      <a class="lk" href="#leistungen">Leistungen</a>
+      <a class="lk" href="#ablauf">Ablauf</a>
+      <a class="lk" href="#team">Team</a>
+      <a class="lk" href="#faq">Fragen</a>
+      <a class="ph" href="tel:+49521000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0521 · 000 000</a>
+      <a class="btn btn-clay" href="#termin">Termin buchen</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow rv">Physiotherapie &amp; Rehabilitation · Bielefeld</div>
+      <h1 class="rv" style="transition-delay:.05s">Wieder <em>beweglich</em>.<br>Ohne langes Warten.</h1>
+      <p class="lede rv" style="transition-delay:.1s">Moderne Physiotherapie, die zu deinem Alltag passt — mit erfahrenem Team, kurzfristigen Terminen und einer Behandlung, die die Ursache findet, nicht nur das Symptom.</p>
+      <div class="hero-cta rv" style="transition-delay:.15s">
+        <a class="btn btn-clay" href="#termin">Termin online buchen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+49521000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+      </div>
+      <div class="hero-trust rv" style="transition-delay:.2s">
+        <div class="stars"><span class="s">★★★★★</span> 4,9 · Google</div>
+        <div class="sep"></div>
+        <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Alle Kassen &amp; privat</div>
+        <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Termin in 48 h</div>
+      </div>
+    </div>
+    <div class="hero-vis rv" style="transition-delay:.15s" aria-hidden="true">
+      <span class="pulse"><i></i>Heute noch Termine frei</span>
+      <span class="ph-note">▦ Platz für ein Foto deines Praxis-Teams / Behandlungsraums</span>
+      <div class="hero-card">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        <div><b>Online-Terminbuchung</b><span>24/7 buchbar — in unter 30 Sekunden</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KASSEN STRIP -->
+<div class="strip">
+  <div class="wrap row">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Gesetzlich &amp; Privat</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Hausbesuche möglich</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Barrierefrei</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Zentrale Lage · Parkplätze</span>
+  </div>
+</div>
+
+<!-- LEISTUNGEN -->
+<section class="section" id="leistungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Unsere Leistungen</div>
+      <h2 class="rv" style="transition-delay:.05s">Behandlung, die zur Ursache geht</h2>
+      <p class="rv" style="transition-delay:.1s">Von akutem Schmerz bis zur Reha nach OP — wir kombinieren Erfahrung, moderne Methoden und Zeit für dich.</p>
+    </div>
+    <div class="cards">
+      <div class="scard rv">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+        <h3>Manuelle Therapie</h3>
+        <p>Gezielte Mobilisation von Gelenken &amp; Muskulatur — bei Rücken-, Nacken- und Gelenkbeschwerden.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="scard rv" style="transition-delay:.06s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20s2-8 8-8 8 8 8 8M12 4v4M9 6h6"/></svg></span>
+        <h3>Krankengymnastik</h3>
+        <p>Individuelle Übungstherapie, die Beweglichkeit zurückbringt und Beschwerden nachhaltig löst.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="scard rv" style="transition-delay:.12s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>Lymphdrainage</h3>
+        <p>Sanfte Entstauungstherapie bei Schwellungen, nach Operationen oder Verletzungen.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="scard rv">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4v16M18 4v16M6 9h12M6 15h12"/></svg></span>
+        <h3>Med. Trainingstherapie</h3>
+        <p>Geräte­gestütztes Training unter Anleitung — Aufbau von Kraft, Stabilität und Sicherheit.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="scard rv" style="transition-delay:.06s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/><path d="M9 11l2 2 4-4"/></svg></span>
+        <h3>Reha nach OP</h3>
+        <p>Strukturierte Wiederherstellung nach Operationen — abgestimmt mit deinem Arzt.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="scard rv" style="transition-delay:.12s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+        <h3>Massage &amp; Wärme</h3>
+        <p>Klassische Massagen, Fango &amp; Wärmetherapie zur Lockerung und Schmerzlinderung.</p>
+        <a class="more" href="#termin">Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABLAUF -->
+<section class="section steps-sec" id="ablauf">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">So einfach geht's</div>
+      <h2 class="rv" style="transition-delay:.05s">In drei Schritten zum Termin</h2>
+      <p class="rv" style="transition-delay:.1s">Kein Telefon-Pingpong, keine Wartemusik. Du buchst, wir kümmern uns um den Rest.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><div class="n">01</div><h3>Online buchen</h3><p>Freien Termin im Kalender wählen — rund um die Uhr, in unter 30 Sekunden. Auch per WhatsApp.</p></div>
+      <div class="step rv" style="transition-delay:.08s"><div class="n">02</div><h3>Kurz ankommen</h3><p>Wir nehmen uns Zeit für deine Beschwerden und erstellen einen Plan, der zu dir passt.</p></div>
+      <div class="step rv" style="transition-delay:.16s"><div class="n">03</div><h3>Spürbar besser</h3><p>Behandlung &amp; Übungen für zuhause — damit der Erfolg bleibt, nicht nur kurz hält.</p></div>
+    </div>
+    <div class="steps-cta rv">
+      <a class="btn btn-clay" href="#termin">Jetzt Termin sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Dein Team</div>
+      <h2 class="rv" style="transition-delay:.05s">Menschen, die dir wirklich zuhören</h2>
+      <p class="rv" style="transition-delay:.1s">Ein eingespieltes Team mit Spezialisierungen — damit du bei genau der richtigen Person landest.</p>
+    </div>
+    <div class="team">
+      <div class="tcard rv"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Manuelle Therapie</small></div>
+      <div class="tcard rv" style="transition-delay:.06s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Lymphdrainage</small></div>
+      <div class="tcard rv" style="transition-delay:.12s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Sportphysio</small></div>
+      <div class="tcard rv" style="transition-delay:.18s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Reha &amp; Training</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section rev-sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Was Patient:innen sagen</div>
+      <h2 class="rv" style="transition-delay:.05s">4,9 von 5 — und das aus gutem Grund</h2>
+    </div>
+    <div class="reviews">
+      <div class="review rv"><div class="s">★★★★★</div><p>„Endlich eine Praxis, in der man sich Zeit nimmt. Nach zwei Terminen war mein Rücken spürbar besser."</p><div class="who"><span class="av">SK</span><div><b>S. Krüger</b><span>Google-Rezension</span></div></div></div>
+      <div class="review rv" style="transition-delay:.06s"><div class="s">★★★★★</div><p>„Termin online gebucht, zwei Tage später dran. Super freundliches Team, top Behandlung. Klare Empfehlung!"</p><div class="who"><span class="av">Mb</span><div><b>M. Brand</b><span>Google-Rezension</span></div></div></div>
+      <div class="review rv" style="transition-delay:.12s"><div class="s">★★★★★</div><p>„Kompetent, modern und ehrlich. Mir wurde genau erklärt, woran wir arbeiten. Komme gerne wieder."</p><div class="who"><span class="av">AT</span><div><b>A. Teigeler</b><span>Google-Rezension</span></div></div></div>
+    </div>
+    <div class="rev-foot rv">Über <b>180 Bewertungen</b> · Durchschnitt <b>4,9 ★</b> auf Google</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Häufige Fragen</div>
+      <h2 class="rv" style="transition-delay:.05s">Gut zu wissen</h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>Brauche ich eine Überweisung vom Arzt?<span class="pl"></span></summary><p>Für Kassenleistungen brauchst du ein Rezept (Heilmittelverordnung) vom Arzt. Für Präventions- und Selbstzahler-Leistungen kannst du auch ohne Rezept direkt einen Termin buchen.</p></details>
+      <details><summary>Wie schnell bekomme ich einen Termin?<span class="pl"></span></summary><p>In der Regel innerhalb von 48 Stunden. Akutfälle versuchen wir noch am selben Tag unterzubringen — buche online oder ruf uns kurz an.</p></details>
+      <details><summary>Rechnet ihr mit allen Kassen ab?<span class="pl"></span></summary><p>Ja, wir behandeln gesetzlich und privat Versicherte sowie Selbstzahler. Bei Privatrezepten und Zusatzleistungen beraten wir dich transparent zu den Kosten.</p></details>
+      <details><summary>Bietet ihr Hausbesuche an?<span class="pl"></span></summary><p>Ja, bei entsprechender ärztlicher Verordnung kommen wir auch zu dir nach Hause. Sprich uns einfach bei der Buchung darauf an.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING BAND -->
+<section class="section" id="termin">
+  <div class="wrap">
+    <div class="band rv">
+      <div class="inner">
+        <div class="eyebrow" style="color:#A9C3B2">Termin vereinbaren</div>
+        <h2 style="margin-top:12px">Heute buchen — bald wieder beweglich.</h2>
+        <p>Wähle deinen Termin online, schreib uns per WhatsApp oder ruf an. Wir freuen uns auf dich.</p>
+        <div class="hero-cta">
+          <a class="btn btn-clay" href="#">Online-Termin wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="https://wa.me/49521000000"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.9.9-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.5.3-.5v-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.2z"/></svg>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top"><span class="mk">P</span><span>Physiofit<small>Bielefeld</small></span></a>
+        <p>Moderne Physiotherapie &amp; Rehabilitation im Herzen von Bielefeld. Wir bringen dich wieder in Bewegung.</p>
+      </div>
+      <div class="fcol">
+        <h4>Praxis</h4>
+        <div>Musterstraße 00<br>33602 Bielefeld</div>
+        <a href="tel:+49521000000">0521 · 000 000</a>
+        <a href="mailto:info@physio-fit-bielefeld.de">info@physio-fit-bielefeld.de</a>
+      </div>
+      <div class="fcol">
+        <h4>Öffnungszeiten</h4>
+        <div>Mo – Fr · 08:00 – 19:00</div>
+        <div>Sa · nach Vereinbarung</div>
+        <a href="#termin">Termin online buchen →</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© <span id="yr">2026</span> Physiofit Bielefeld — Konzept-Vorschau</span>
+      <span>Gestaltet von MZ.9 · Media Engineering.AI</span>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE ACTION BAR -->
+<nav class="actionbar" aria-label="Schnellkontakt">
+  <a href="tel:+49521000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+  <a class="wa" href="https://wa.me/49521000000"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2z"/></svg>WhatsApp</a>
+  <a class="book" href="#termin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termin</a>
+</nav>
+
+<script>
+(function(){
+  var h=document.getElementById("header");
+  function s(){ h.classList.toggle("scrolled", window.scrollY>30); }
+  s(); addEventListener("scroll",s,{passive:true});
+  var y=document.getElementById("yr"); if(y) y.textContent=new Date().getFullYear();
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12,rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add("in");});
+})();
+</script>
+</body>
+</html>
