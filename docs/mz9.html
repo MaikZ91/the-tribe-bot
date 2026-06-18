@@ -461,6 +461,45 @@
     width:min(220px,52vw);height:1px;background:currentColor;opacity:.22}
   .manifest .m-progress span{display:block;height:100%;width:0;background:currentColor;opacity:.9}
 
+  /* ===== free consultation (alternative to the chat) ===== */
+  .consult{position:relative;background:#0A0A0B;padding:clamp(80px,13vh,160px) 0;border-top:1px solid var(--line-d-2);overflow:hidden}
+  .consult::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(58% 70% at 22% 28%,rgba(16,185,129,.07),transparent 60%)}
+  .consult-grid{position:relative;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(34px,6vw,90px);align-items:center}
+  .consult-media{position:relative;width:100%;max-width:360px}
+  .consult-photo{position:relative;border-radius:5px;overflow:hidden;aspect-ratio:4/5;background:#15161a;border:1px solid var(--line-d);box-shadow:0 44px 100px -44px rgba(0,0,0,.85)}
+  .consult-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.03)}
+  .consult-badge{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:9px;
+    background:rgba(10,10,11,.66);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--line-d);
+    padding:9px 14px;border-radius:40px;font-size:11.5px;font-weight:500;letter-spacing:.03em}
+  .consult-badge i{width:9px;height:9px;border-radius:50%;background:#10b981}
+  .consult-copy .eyebrow{color:#10b981}
+  .consult-copy h2{margin-top:18px;font-size:clamp(2rem,5vw,3.5rem);font-weight:200;letter-spacing:-.02em}
+  .consult-copy h2 em{font-style:normal;color:var(--on-dark-mut)}
+  .consult-copy>p{margin:22px 0 0;max-width:48ch;color:var(--on-dark-2);font-weight:300}
+  .consult-points{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:12px}
+  .consult-points li{display:flex;align-items:flex-start;gap:13px;color:var(--on-dark-2);font-weight:300}
+  .consult-points li::before{content:"";flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;
+    background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.5);background-repeat:no-repeat;background-position:center;background-size:12px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")}
+  .consult-cta{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+  .consult-cta .btn{min-width:0}
+  .consult-meta{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-mut)}
+  @media (max-width:780px){ .consult-grid{grid-template-columns:1fr;gap:34px} .consult-media{max-width:300px;margin:0 auto} }
+
+  /* ===== Atelier statt Fließband — rotating, colourful visual ===== */
+  .atelier-viz{position:absolute;inset:0;overflow:hidden;background:#08080a;display:flex;align-items:center;justify-content:center}
+  .atelier-viz .av-disc{position:absolute;width:130%;aspect-ratio:1;border-radius:50%;
+    background:conic-gradient(from 0deg,#e0b15a,#c0584e,#7d4ea8,#3e7ca8,#3fa88a,#d8c08a,#e0b15a);
+    filter:blur(7px) saturate(1.15);opacity:.92;will-change:transform,filter;
+    animation:av-spin 22s linear infinite,av-hue 16s linear infinite}
+  .atelier-viz .av-ring{position:absolute;width:64%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(236,234,228,.4);animation:av-spin 34s linear infinite reverse}
+  .atelier-viz .av-ring::before{content:"";position:absolute;top:-3px;left:50%;width:6px;height:6px;border-radius:50%;background:#ECEAE4;transform:translateX(-50%)}
+  .atelier-viz .av-core{position:absolute;width:50%;aspect-ratio:1;border-radius:50%;background:#08080a;
+    box-shadow:0 0 80px 18px #08080a;display:flex;align-items:center;justify-content:center}
+  .atelier-viz .av-core span{font-size:clamp(1.3rem,3.4vw,2.1rem);font-weight:300;letter-spacing:.06em;color:#ECEAE4}
+  @keyframes av-spin{to{transform:rotate(360deg)}}
+  @keyframes av-hue{to{filter:blur(7px) saturate(1.15) hue-rotate(360deg)}}
+
   /* ===== contact ===== */
   .contact{background:#000;text-align:center;padding:clamp(110px,17vh,210px) 0}
   .contact h2{font-size:clamp(2.3rem,6.2vw,4.8rem);font-weight:200;letter-spacing:-.025em}
@@ -513,6 +552,10 @@
   .chat-teaser .ct-x{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--on-dark-mut);
     font-size:18px;line-height:1;cursor:pointer;padding:4px;min-width:32px;min-height:32px}
   .chat-teaser .ct-x:hover{color:var(--on-dark)}
+  .chat-teaser .ct-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin-top:12px}
+  .chat-teaser .ct-actions .ct-cta{margin-top:0}
+  .chat-teaser .ct-call{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-2);border-bottom:1px solid var(--line-d);padding-bottom:2px}
+  .chat-teaser .ct-call:hover{color:var(--on-dark)}
   @media (max-width:600px){ .fab .ftxt small{display:none} }
   .chat-panel{position:fixed;right:22px;bottom:22px;z-index:201;width:min(380px,calc(100vw - 28px));max-height:min(620px,calc(100vh - 44px));
     display:flex;flex-direction:column;background:var(--ink-d);border:1px solid var(--line-d);border-radius:4px;
@@ -542,6 +585,9 @@
   .card dt{color:var(--on-dark-mut);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-top:8px}
   .card dd{margin:2px 0 0;color:var(--on-dark)}
   .card a.btn{display:inline-flex;width:100%;min-width:0;justify-content:center}
+  .chat-alt{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;border-top:1px solid var(--line-d-2);font-size:12.5px;color:var(--on-dark-mut)}
+  .chat-alt a{color:var(--on-dark);border-bottom:1px solid var(--line-d);padding-bottom:1px;font-weight:500;white-space:nowrap;transition:border-color .25s}
+  .chat-alt a:hover{border-color:var(--on-dark)}
   .chat-input{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line-d-2)}
   .chat-input textarea{flex:1;resize:none;height:42px;max-height:90px;background:#0c0c0e;border:1px solid var(--line-d);color:var(--on-dark);
     font-family:var(--sans);font-size:14px;padding:11px 12px;border-radius:2px;outline:none;transition:border-color .25s}
@@ -852,7 +898,11 @@
   <div class="wrap">
     <div class="grid2">
       <div class="media lift" data-rev>
-        <img src="assets/mz9/works/komposition.svg" alt="Komposition — geometrisches Werk von MZ.9" loading="lazy" width="1000" height="1250">
+        <div class="atelier-viz" role="img" aria-label="Rotierendes, farbiges Atelier-Motiv">
+          <span class="av-disc"></span>
+          <span class="av-ring"></span>
+          <span class="av-core"><span>MZ.9</span></span>
+        </div>
       </div>
       <div class="copy">
         <div class="eyebrow lift" data-rev>Haltung</div>
@@ -914,6 +964,34 @@
   </div>
 </section>
 
+<!-- ===== FREE CONSULTATION (alternative to the chat) ===== -->
+<section class="consult" id="beratung">
+  <div class="wrap">
+    <div class="consult-grid">
+      <div class="consult-media lift" data-rev>
+        <div class="consult-photo">
+          <img src="assets/mz9/maik.jpg" alt="Maik — MZ.9 Atelier" loading="lazy">
+          <span class="consult-badge"><i></i>Kostenlos · 30&nbsp;Min</span>
+        </div>
+      </div>
+      <div class="consult-copy">
+        <div class="eyebrow lift" data-rev>Lieber direkt reden?</div>
+        <h2 data-split>Kostenloses <em>Erstgespräch.</em></h2>
+        <p class="lift" data-rev>Kein Formular, kein Verkaufsgespräch. 30 Minuten mit Maik — wir schauen ehrlich auf deine Idee, und du gehst mit klaren nächsten Schritten raus.</p>
+        <ul class="consult-points lift" data-rev>
+          <li>Ehrliche Einschätzung deiner Idee &amp; Machbarkeit</li>
+          <li>Grobe Einordnung von Umfang, Zeit &amp; Aufwand</li>
+          <li>Konkrete nächste Schritte — komplett unverbindlich</li>
+        </ul>
+        <div class="consult-cta lift" data-rev>
+          <a class="btn" id="consult-link" href="mailto:maik.z@gmx.de">Beratungsgespräch vereinbaren <span class="ar">→</span></a>
+          <span class="consult-meta">30 Min · Video oder Telefon · Antwort &lt; 24&nbsp;h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== KONTAKT ===== -->
 <section class="contact" id="kontakt">
   <div class="wrap">
@@ -949,8 +1027,11 @@
 <!-- ===== guided contact assistant (local, no network) ===== -->
 <div class="chat-teaser" id="chat-teaser" role="button" tabindex="0" aria-label="Chat mit Maik öffnen">
   <button class="ct-x" id="teaser-x" type="button" aria-label="Schließen">×</button>
-  <p>Hi, ich bin <b>Maik</b> 👋 Worum geht's bei deinem Projekt? In&nbsp;30&nbsp;Sekunden zur Anfrage.</p>
-  <span class="ct-cta">Anfrage starten</span>
+  <p>Hi, ich bin <b>Maik</b> 👋 Erzähl mir kurz dein Projekt — oder sichere dir ein kostenloses Erstgespräch.</p>
+  <div class="ct-actions">
+    <span class="ct-cta">Anfrage starten</span>
+    <a class="ct-call" href="#beratung">Kostenloses Gespräch</a>
+  </div>
 </div>
 <button class="fab" id="chat-launcher" aria-label="Mit Maik chatten — Anfrage starten">
   <span class="av"><img src="assets/mz9/maik.jpg" alt="" aria-hidden="true" width="48" height="48"><span class="dot" aria-hidden="true"></span></span>
@@ -968,6 +1049,7 @@
     <button id="chat-close" aria-label="Schließen">×</button>
   </div>
   <div class="chat-log" id="chat-log"></div>
+  <div class="chat-alt">Lieber direkt reden? <a id="consult-chat" href="mailto:maik.z@gmx.de">Kostenloses Gespräch →</a></div>
   <div class="chat-input">
     <textarea id="chat-text" rows="1" placeholder="Worum geht es?" aria-label="Nachricht"></textarea>
     <button id="chat-send" aria-label="Senden">↑</button>
@@ -988,6 +1070,11 @@
   var mailEl=document.getElementById("mail-link");
   if(mailEl){mailEl.textContent=STUDIO.email;mailEl.href="mailto:"+STUDIO.email+"?subject="+encodeURIComponent("Anfrage über MZ.9");}
   var y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear();
+
+  /* free-consultation mailto (used by the section button + the chat alternative) */
+  var CONSULT="mailto:"+STUDIO.email+"?subject="+encodeURIComponent("Kostenloses Beratungsgespräch · MZ.9")
+    +"&body="+encodeURIComponent("Hallo "+STUDIO.owner+",\n\nich würde gern ein kostenloses 30-minütiges Erstgespräch vereinbaren.\n\nWorum es geht:\n\nWunschtermine (Video oder Telefon):\n\n— gesendet über die MZ.9 Website");
+  ["consult-link","consult-chat"].forEach(function(id){ var el=document.getElementById(id); if(el) el.href=CONSULT; });
 
   var REDUCED=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
   var DESKTOP=window.matchMedia&&window.matchMedia("(min-width:921px)").matches;
@@ -1298,7 +1385,11 @@
     if(permanent) markDismissed();
   }
   if(teaser){
-    teaser.addEventListener("click",function(e){ if(e.target===teaserX) return; openPanel(); });
+    teaser.addEventListener("click",function(e){
+      if(e.target===teaserX||e.target.closest(".ct-x")) return;
+      if(e.target.closest(".ct-call")){ hideTeaser(true); return; }   // let the #beratung anchor scroll
+      openPanel();
+    });
     teaser.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openPanel(); } });
     if(teaserX) teaserX.addEventListener("click",function(e){ e.stopPropagation(); hideTeaser(true); });
     if(!dismissed()) setTimeout(showTeaser, 5200);          // appear after the hero settles
