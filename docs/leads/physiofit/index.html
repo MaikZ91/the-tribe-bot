@@ -90,13 +90,14 @@
   /* hero visual */
   .hero-vis{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;box-shadow:var(--sh);
     background:linear-gradient(150deg,#6E8B79,#3F5848 60%,#2C3E33)}
-  .hero-vis::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 30% 18%,rgba(255,255,255,.22),transparent 60%);mix-blend-mode:screen}
-  .hero-vis .ph-note{position:absolute;left:0;right:0;bottom:0;padding:26px;color:rgba(255,255,255,.62);font-size:12.5px;font-weight:600;letter-spacing:.03em}
-  .hero-vis .pulse{position:absolute;top:22px;right:22px;display:flex;align-items:center;gap:8px;background:rgba(20,30,24,.5);
+  .hero-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero-vis::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(20,30,24,.18) 0%,transparent 28%,transparent 55%,rgba(20,30,24,.45) 100%)}
+  .hero-vis .pulse{position:absolute;z-index:2;top:22px;right:22px;display:flex;align-items:center;gap:8px;background:rgba(20,30,24,.5);
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:40px}
   .hero-vis .pulse i{width:8px;height:8px;border-radius:50%;background:#7FE0A8;box-shadow:0 0 0 0 rgba(127,224,168,.7);animation:pl 2.2s infinite}
   @keyframes pl{0%{box-shadow:0 0 0 0 rgba(127,224,168,.6)}70%,100%{box-shadow:0 0 0 12px rgba(127,224,168,0)}}
-  .hero-card{position:absolute;left:-26px;bottom:34px;background:#fff;border-radius:16px;box-shadow:var(--sh);padding:16px 18px;display:flex;align-items:center;gap:13px;max-width:78%}
+  .hero-card{position:absolute;z-index:2;left:-26px;bottom:34px;background:#fff;border-radius:16px;box-shadow:var(--sh);padding:16px 18px;display:flex;align-items:center;gap:13px;max-width:78%}
   .hero-card .ic{width:42px;height:42px;border-radius:12px;background:var(--sage-soft);color:var(--sage);display:flex;align-items:center;justify-content:center;flex:none}
   .hero-card .ic svg{width:22px;height:22px}
   .hero-card b{font-size:14.5px;display:block}
@@ -147,7 +148,8 @@
   .tcard:nth-child(2) .ph{background:linear-gradient(160deg,#C99A6E,#9A6B43)}
   .tcard:nth-child(3) .ph{background:linear-gradient(160deg,#8A9DB0,#4E6175)}
   .tcard:nth-child(4) .ph{background:linear-gradient(160deg,#A88FA0,#6E5469)}
-  .tcard .ph span{position:absolute;left:0;right:0;bottom:0;padding:12px;color:rgba(255,255,255,.55);font-size:11px;font-weight:600}
+  .tcard .ph{display:flex;align-items:center;justify-content:center}
+  .tcard .ph b{font-family:var(--serif);font-size:2.6rem;font-weight:400;color:rgba(255,255,255,.92)}
   .tcard b{font-size:1.12rem;font-family:var(--serif)}
   .tcard small{display:block;color:var(--ink-mut);font-size:13px;font-weight:600;margin-top:2px}
 
@@ -177,6 +179,15 @@
   .faq details[open] summary .pl::after{opacity:0}
   .faq details[open] summary .pl{transform:rotate(180deg)}
   .faq p{margin:0 0 20px;color:var(--ink-2)}
+
+  /* real-photo praxis band */
+  .praxis{position:relative;min-height:clamp(320px,46vh,520px);display:flex;align-items:center;overflow:hidden;border-radius:0}
+  .praxis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .praxis::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,30,24,.78) 0%,rgba(20,30,24,.5) 42%,rgba(20,30,24,.12) 100%)}
+  .praxis .pinner{position:relative;z-index:1;color:#fff;max-width:46ch}
+  .praxis .eyebrow{color:#A9C3B2}
+  .praxis h2{color:#fff;font-size:clamp(1.9rem,4.2vw,3rem);margin-top:12px}
+  .praxis p{color:rgba(255,255,255,.85);margin:14px 0 0}
 
   /* booking band */
   .band{position:relative;overflow:hidden;background:linear-gradient(135deg,#46624F,#2C3E33);color:#fff;border-radius:28px;
@@ -262,9 +273,9 @@
         <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Termin in 48 h</div>
       </div>
     </div>
-    <div class="hero-vis rv" style="transition-delay:.15s" aria-hidden="true">
+    <div class="hero-vis rv" style="transition-delay:.15s">
+      <img src="https://images.squarespace-cdn.com/content/v1/615208d34b68ee013856a968/1632853980119-XJDF5WS8HQD8I4186WJD/physio-fit-praxis-2.jpg?format=1500w" alt="Behandlungsraum der Praxis Physiofit Bielefeld" loading="eager">
       <span class="pulse"><i></i>Heute noch Termine frei</span>
-      <span class="ph-note">▦ Platz für ein Foto deines Praxis-Teams / Behandlungsraums</span>
       <div class="hero-card">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         <div><b>Online-Terminbuchung</b><span>24/7 buchbar — in unter 30 Sekunden</span></div>
@@ -360,11 +371,21 @@
       <p class="rv" style="transition-delay:.1s">Ein eingespieltes Team mit Spezialisierungen — damit du bei genau der richtigen Person landest.</p>
     </div>
     <div class="team">
-      <div class="tcard rv"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Manuelle Therapie</small></div>
-      <div class="tcard rv" style="transition-delay:.06s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Lymphdrainage</small></div>
-      <div class="tcard rv" style="transition-delay:.12s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Sportphysio</small></div>
-      <div class="tcard rv" style="transition-delay:.18s"><div class="ph"><span>▦ Foto</span></div><b>Team-Mitglied</b><small>Reha &amp; Training</small></div>
+      <div class="tcard rv"><div class="ph"><b>SM</b></div><b>Team-Mitglied</b><small>Manuelle Therapie</small></div>
+      <div class="tcard rv" style="transition-delay:.06s"><div class="ph"><b>LK</b></div><b>Team-Mitglied</b><small>Lymphdrainage</small></div>
+      <div class="tcard rv" style="transition-delay:.12s"><div class="ph"><b>JT</b></div><b>Team-Mitglied</b><small>Sportphysio</small></div>
+      <div class="tcard rv" style="transition-delay:.18s"><div class="ph"><b>An</b></div><b>Team-Mitglied</b><small>Reha &amp; Training</small></div>
     </div>
+  </div>
+</section>
+
+<!-- PRAXIS PHOTO BAND -->
+<section class="praxis" aria-label="Unsere Praxis">
+  <img src="https://images.squarespace-cdn.com/content/v1/615208d34b68ee013856a968/02803b59-1a3d-42a6-b9ca-dd0bee24847b/physio-fit-praxis-1.jpg?format=1500w" alt="Praxisräume von Physiofit Bielefeld" loading="lazy">
+  <div class="wrap pinner rv">
+    <div class="eyebrow">Unsere Praxis</div>
+    <h2>Alles unter einem Dach — mitten in Bielefeld.</h2>
+    <p>Moderne Behandlungsräume, medizinische Trainingsfläche und ein eingespieltes Team. Hell, barrierefrei und gut erreichbar.</p>
   </div>
 </section>
 
