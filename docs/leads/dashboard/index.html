@@ -54,6 +54,54 @@
   .kpi .l{font-size:11.5px;color:var(--ink-mut);margin-top:7px;letter-spacing:.02em}
   .kpi.accent .v{color:var(--green)}
 
+  /* ---- control panel (Auto Mode + pipeline) ---- */
+  .control{margin:16px clamp(16px,3vw,28px) 0;background:var(--panel);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden}
+  .control .ch{display:flex;align-items:center;gap:14px;padding:16px 20px;flex-wrap:wrap}
+  .control .ch .ic{width:34px;height:34px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none}
+  .control .ch .ic svg{width:18px;height:18px;color:var(--green)}
+  .control .ch h3{margin:0;font-size:14.5px;font-weight:600}
+  .control .ch .d{font-size:11.5px;color:var(--ink-mut);margin-top:1px}
+  .control .ch .sp{flex:1}
+  /* toggle */
+  .toggle{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+  .sw{width:46px;height:26px;border-radius:20px;background:var(--raise);border:1px solid var(--line);position:relative;transition:background .25s;flex:none}
+  .sw::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--ink-mut);transition:transform .25s,background .25s}
+  .toggle.on .sw{background:rgba(16,185,129,.3);border-color:var(--green)}
+  .toggle.on .sw::after{transform:translateX(20px);background:var(--green)}
+  .toggle.on{color:var(--green)}
+  /* config grid */
+  .cfg{border-top:1px solid var(--line-2);padding:18px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 18px;background:var(--bg-2)}
+  .cfg.hidden{display:none}
+  .cfg .f{display:flex;flex-direction:column;gap:7px;min-width:0}
+  .cfg .f.wide{grid-column:span 2}
+  .cfg label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mut)}
+  .cfg input,.cfg select{background:var(--panel);border:1px solid var(--line);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;border-radius:8px;outline:none}
+  .cfg input:focus,.cfg select:focus{border-color:var(--ink-mut)}
+  .brn{display:flex;flex-wrap:wrap;gap:6px}
+  .brn button{font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--panel);border:1px solid var(--line);padding:6px 10px;border-radius:16px}
+  .brn button.on{background:rgba(16,185,129,.16);color:var(--green);border-color:rgba(16,185,129,.45)}
+  .runrow{grid-column:1 / -1;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line-2);padding-top:16px;margin-top:2px}
+  .runrow .note{font-size:11.5px;color:var(--ink-mut);max-width:42ch;line-height:1.45}
+  .runrow .sp{flex:1}
+  /* pipeline */
+  .pipe{display:flex;gap:8px;border-top:1px solid var(--line-2);padding:14px 20px;overflow-x:auto}
+  .pstage{flex:1;min-width:108px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;position:relative}
+  .pstage .v{font-family:var(--mono);font-size:1.4rem;font-weight:500}
+  .pstage .l{font-size:10.5px;color:var(--ink-mut);margin-top:3px;display:flex;align-items:center;gap:6px}
+  .pstage .l i{width:7px;height:7px;border-radius:50%;flex:none}
+  /* run log */
+  .runlog{border-top:1px solid var(--line-2);max-height:0;overflow:hidden;transition:max-height .3s}
+  .runlog.open{max-height:240px;overflow-y:auto}
+  .runlog .ln{display:flex;gap:10px;padding:8px 20px;font-family:var(--mono);font-size:12px;border-bottom:1px solid var(--line-2)}
+  .runlog .ln .t{color:var(--ink-mut);flex:none}
+  .runlog .ln .m{color:var(--ink-2)}
+  .runlog .ln.ok .m{color:var(--green)} .runlog .ln.dispatch .m{color:var(--blue)} .runlog .ln.warn .m{color:var(--amber)}
+
+  /* stage chip on lead */
+  .lead .stg{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:5px;background:var(--raise);color:var(--ink-2)}
+  .lead .stg.bau{background:rgba(94,148,214,.16);color:var(--blue)}
+  .lead .stg.gebaut{background:rgba(16,185,129,.16);color:var(--green)}
+
   /* toolbar */
   .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:18px clamp(16px,3vw,28px) 10px}
   .chips{display:flex;gap:6px;flex-wrap:wrap}
@@ -159,6 +207,8 @@
 
   @media (max-width:720px){
     .kpis{grid-template-columns:repeat(2,1fr)}
+    .cfg{grid-template-columns:1fr 1fr}
+    .cfg .f.wide{grid-column:span 2}
     .lead{grid-template-columns:auto 1fr;}
     .lead .right{grid-column:1 / -1;flex-direction:row;justify-content:space-between;align-items:center}
     .bar{grid-template-columns:80px 1fr 30px}
@@ -178,12 +228,43 @@
   <div class="sp"></div>
   <div class="actions">
     <button class="btn" id="add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Lead</button>
+    <button class="btn" id="import"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 9l5-5 5 5M12 4v12"/></svg>Import</button>
     <button class="btn" id="export"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export</button>
     <button class="btn" id="reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Reset</button>
   </div>
 </header>
 
 <section class="kpis" id="kpis"></section>
+
+<!-- AUTO MODE CONTROL -->
+<section class="control">
+  <div class="ch">
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></span>
+    <div><h3>Auto-Steuerung — Finden &amp; Bauen</h3><div class="d">Steuert Discovery, Auto-Freigabe &amp; Bau-Queue. Ausführung über den MZ.9-Agent.</div></div>
+    <span class="sp"></span>
+    <button class="toggle" id="autotoggle" aria-pressed="false"><span>Auto-Mode</span><span class="sw"></span></button>
+    <button class="btn" id="logtoggle" style="font-size:12px">Run-Log</button>
+  </div>
+  <div class="cfg hidden" id="cfg">
+    <div class="f"><label>Region</label><input id="c-region" value="Bielefeld"></div>
+    <div class="f wide"><label>Branchen</label><div class="brn" id="c-branches"></div></div>
+    <div class="f"><label>Funde pro Lauf</label><input id="c-perrun" type="number" min="1" max="25" value="5"></div>
+    <div class="f"><label>Auto-Freigabe ab Hebel</label>
+      <select id="c-approve"><option value="hoch">nur hoch</option><option value="hochmittel">hoch + mittel</option><option value="off">aus (nur manuell)</option></select></div>
+    <div class="f"><label>Auto-Bau für Freigegebene</label>
+      <select id="c-autobuild"><option value="1">an</option><option value="0">aus</option></select></div>
+    <div class="f"><label>Max. Builds / Lauf</label><input id="c-maxbuild" type="number" min="0" max="10" value="2"></div>
+    <div class="f"><label>Niedrigen Hebel</label>
+      <select id="c-reject"><option value="keep">behalten (Neu)</option><option value="reject">automatisch ablehnen</option></select></div>
+    <div class="runrow">
+      <button class="btn green" id="run"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Lauf starten</button>
+      <button class="btn" id="rules"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Nur Regeln anwenden</button>
+      <span class="note">Discovery &amp; Bau kann eine statische Seite nicht selbst ausführen — „Lauf starten" legt den Auftrag an und übergibt ihn an den MZ.9-Agent.</span>
+    </div>
+  </div>
+  <div class="pipe" id="pipe"></div>
+  <div class="runlog" id="runlog"></div>
+</section>
 
 <div class="toolbar">
   <div class="chips" id="filters"></div>
@@ -287,6 +368,28 @@
   }
   function save(){ try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){} }
 
+  /* ---- config (Auto Mode) ---- */
+  var CKEY="mz9_audit_config_v1", LKEY="mz9_audit_runlog_v1";
+  var BRANCHES=["Physiotherapie","Gastronomie","Handwerk","Zahnarzt","Friseur","Immobilien","Kanzlei","Fitness"];
+  var DEFCFG={auto:false,region:"Bielefeld",branches:["Physiotherapie","Gastronomie","Handwerk"],perRun:5,approve:"hoch",autobuild:"1",maxbuild:2,reject:"keep"};
+  var cfg=loadCfg(), runlog=loadLog();
+  function loadCfg(){ try{var c=JSON.parse(localStorage.getItem(CKEY)); if(c) return Object.assign({},DEFCFG,c);}catch(e){} return clone(DEFCFG); }
+  function saveCfg(){ try{localStorage.setItem(CKEY,JSON.stringify(cfg));}catch(e){} }
+  function loadLog(){ try{var l=JSON.parse(localStorage.getItem(LKEY)); if(l) return l;}catch(e){} return []; }
+  function saveLog(){ try{localStorage.setItem(LKEY,JSON.stringify(runlog.slice(-60)));}catch(e){} }
+  function logIt(msg,kind){ var d=new Date(); var t=("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2);
+    runlog.push({t:t,m:msg,k:kind||""}); saveLog(); renderLog(); }
+
+  /* ---- pipeline stage of a lead ---- */
+  function stageInfo(l){
+    if(l.build==="done"||l.preview) return {key:"gebaut",k:"gebaut",l:"Gebaut"};
+    if(l.build==="queued") return {key:"bau",k:"bau",l:"Bau-Queue"};
+    if(l.status==="freigegeben") return {key:"frei",k:"",l:"Freigegeben"};
+    if(l.status==="geprueft") return {key:"pruef",k:"",l:"In Prüfung"};
+    if(l.status==="abgelehnt") return {key:"abg",k:"",l:"Abgelehnt"};
+    return {key:"neu",k:"",l:"Neu"};
+  }
+
   var filter="alle", q="", sortBy="hebel", selId=null;
 
   var HEBEL_RANK={hoch:0,mittel:1,niedrig:2};
@@ -343,13 +446,13 @@
     var list=visible(), el=document.getElementById("queue");
     if(!list.length){ el.innerHTML='<div class="empty">Keine Leads in dieser Ansicht.</div>'; return; }
     el.innerHTML=list.map(function(l){
-      var sc=avg(l.scores), st=STATI.filter(function(x){return x[0]===l.status;})[0];
+      var sc=avg(l.scores), st=STATI.filter(function(x){return x[0]===l.status;})[0], stg=stageInfo(l);
       var host=l.website.replace(/^https?:\/\//,"").replace(/\/$/,"");
       return '<div class="lead'+(l.id===selId?" sel":"")+'" data-id="'+l.id+'">'+
         ring(sc)+
         '<div class="mid"><div class="nm">'+esc(l.name)+' <span class="tag b">'+esc(l.industry)+'</span></div>'+
           '<div class="meta"><span>'+esc(l.location)+'</span><a href="'+l.website+'" target="_blank" rel="noopener" data-stop>'+esc(host)+' ↗</a>'+
-          '<span class="hebel '+l.hebel+'">▲ Hebel '+l.hebel+'</span>'+(l.preview?'<span class="tag b">Vorschau ✓</span>':"")+'</div></div>'+
+          '<span class="hebel '+l.hebel+'">▲ '+l.hebel+'</span><span class="stg '+stg.k+'">'+stg.l+'</span>'+(l.preview?'<span class="tag b">Vorschau ✓</span>':"")+'</div></div>'+
         '<div class="right"><span class="status '+l.status+'">'+st[1]+'</span><span class="stars">'+starStr(l.rating||0)+'</span></div>'+
       '</div>';
     }).join("");
@@ -460,8 +563,117 @@
     renderAll();
   };
 
-  function renderAll(){ renderKpis(); renderFilters(); renderQueue(); }
-  renderAll();
+  /* ---- pipeline render ---- */
+  function renderPipe(){
+    var s={neu:0,pruef:0,frei:0,bau:0,gebaut:0};
+    state.forEach(function(l){ var k=stageInfo(l).key; if(k==="abg")return; if(s[k]!=null)s[k]++; });
+    var defs=[["neu","Entdeckt","#5E94D6"],["pruef","In Prüfung","#E0A93B"],["frei","Freigegeben","#10B981"],["bau","Bau-Queue","#5E94D6"],["gebaut","Gebaut","#10B981"]];
+    document.getElementById("pipe").innerHTML=defs.map(function(d){
+      return '<div class="pstage"><div class="v">'+s[d[0]]+'</div><div class="l"><i style="background:'+d[2]+'"></i>'+d[1]+'</div></div>';
+    }).join("");
+  }
+
+  /* ---- run-log render ---- */
+  function renderLog(){
+    var el=document.getElementById("runlog");
+    el.innerHTML=runlog.slice(-14).reverse().map(function(e){
+      return '<div class="ln '+(e.k||"")+'"><span class="t">'+e.t+'</span><span class="m">'+esc(e.m)+'</span></div>';
+    }).join("")||'<div class="ln"><span class="m" style="color:var(--ink-mut)">Noch kein Lauf protokolliert.</span></div>';
+  }
+
+  /* ---- auto-rules engine (client-side, runs on the current queue) ---- */
+  function applyRules(){
+    var approved=0,rejected=0,queued=0,maxb=Math.max(0,+cfg.maxbuild||0),builtThis=0;
+    state.forEach(function(l){
+      if(l.status==="neu"){
+        if(cfg.approve!=="off" && (l.hebel==="hoch" || (cfg.approve==="hochmittel" && l.hebel==="mittel"))){ l.status="freigegeben"; approved++; }
+        else if(cfg.reject==="reject" && l.hebel==="niedrig"){ l.status="abgelehnt"; rejected++; }
+        else if(cfg.approve!=="off"){ l.status="geprueft"; }
+      }
+      if(cfg.autobuild==="1" && l.status==="freigegeben" && !l.preview && l.build!=="queued" && l.build!=="done" && builtThis<maxb){ l.build="queued"; queued++; builtThis++; }
+    });
+    save();
+    logIt("Regeln angewendet · "+approved+" freigegeben, "+rejected+" abgelehnt, "+queued+" in Bau-Queue","ok");
+    renderAll();
+    return {approved:approved,rejected:rejected,queued:queued};
+  }
+
+  /* ---- dispatch a job spec to the MZ.9 agent (download + log) ---- */
+  function dispatch(spec,label){
+    logIt(label,"dispatch");
+    dl("mz9-job-"+spec.type+".json","application/json",JSON.stringify(spec,null,2));
+  }
+  function runDiscovery(){
+    var spec={type:"discovery",region:cfg.region,branches:cfg.branches,count:+cfg.perRun,
+      instruction:"Finde "+cfg.perRun+" reale Unternehmen je Branche in "+cfg.region+", auditiere ihre Websites real und füge sie als Status 'neu' in die Queue ein (JSON-Import). Keine Fake-Daten."};
+    dispatch(spec,"Discovery angefordert · "+cfg.perRun+"× "+cfg.branches.join(", ")+" in "+cfg.region+" → an MZ.9-Agent");
+  }
+  function runBuild(){
+    var targets=state.filter(function(l){return l.build==="queued";}).map(function(l){return {id:l.id,name:l.name,website:l.website,industry:l.industry};});
+    if(!targets.length){ logIt("Bau-Queue leer — nichts zu bauen","warn"); return; }
+    var spec={type:"build",leads:targets,instruction:"Baue je Lead eine verbesserte, branchengerechte Konzept-Vorschau (auf der Original-Seite aufbauend, echte Fotos), deploye unter /leads/<id>/ und trage die Vorschau-URL ein."};
+    dispatch(spec,"Bau angefordert · "+targets.length+" Lead(s) in Bau-Queue → an MZ.9-Agent");
+  }
+  function runFull(){
+    logIt(cfg.auto?"Auto-Lauf gestartet":"Lauf gestartet","");
+    runDiscovery();
+    if(cfg.auto){ applyRules(); runBuild(); }
+    else logIt("Manueller Modus: nach Discovery bitte Leads prüfen & freigeben","warn");
+    document.getElementById("runlog").classList.add("open");
+  }
+
+  /* ---- import JSON (close the loop: agent results back into the queue) ---- */
+  function importJSON(text){
+    var data; try{ data=JSON.parse(text); }catch(e){ alert("Kein gültiges JSON."); return; }
+    if(!Array.isArray(data)){ alert("Erwartet ein Array von Leads."); return; }
+    var added=0,updated=0;
+    data.forEach(function(it){
+      if(!it||!it.name) return;
+      if(!it.id) it.id=String(it.name).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"")+"-"+Math.random().toString(36).slice(2,5);
+      if(!it.scores) it.scores={design:40,ux:40,seo:40,conversion:40,trust:40,performance:40};
+      ["problems","opps"].forEach(function(k){ if(!Array.isArray(it[k])) it[k]=it[k]?[String(it[k])]:[]; });
+      it.status=it.status||"neu"; it.rating=it.rating||0; it.hebel=it.hebel||"mittel"; it.notes=it.notes||""; it.preview=it.preview||""; it.build=it.build||"";
+      var ex=state.filter(function(x){return x.id===it.id;})[0];
+      if(ex){ Object.assign(ex,it); updated++; } else { state.push(it); added++; }
+    });
+    save(); logIt("Import · "+added+" neu, "+updated+" aktualisiert","ok"); renderAll();
+  }
+
+  /* ---- wire the control panel ---- */
+  function paintToggle(){ document.getElementById("autotoggle").classList.toggle("on",!!cfg.auto);
+    document.getElementById("autotoggle").setAttribute("aria-pressed",!!cfg.auto);
+    document.getElementById("cfg").classList.toggle("hidden",!cfg.auto); }
+  function initCfgUI(){
+    document.getElementById("c-branches").innerHTML=BRANCHES.map(function(b){
+      return '<button data-b="'+b+'" class="'+(cfg.branches.indexOf(b)>=0?"on":"")+'">'+b+'</button>';
+    }).join("");
+    document.getElementById("c-region").value=cfg.region;
+    document.getElementById("c-perrun").value=cfg.perRun;
+    document.getElementById("c-approve").value=cfg.approve;
+    document.getElementById("c-autobuild").value=cfg.autobuild;
+    document.getElementById("c-maxbuild").value=cfg.maxbuild;
+    document.getElementById("c-reject").value=cfg.reject;
+    paintToggle();
+  }
+  document.getElementById("autotoggle").onclick=function(){ cfg.auto=!cfg.auto; saveCfg(); paintToggle(); };
+  document.getElementById("logtoggle").onclick=function(){ document.getElementById("runlog").classList.toggle("open"); };
+  document.getElementById("c-branches").addEventListener("click",function(e){ var b=e.target.closest("[data-b]"); if(!b)return;
+    var v=b.getAttribute("data-b"), i=cfg.branches.indexOf(v); if(i>=0)cfg.branches.splice(i,1); else cfg.branches.push(v);
+    b.classList.toggle("on"); saveCfg(); });
+  [["c-region","region"],["c-perrun","perRun"],["c-approve","approve"],["c-autobuild","autobuild"],["c-maxbuild","maxbuild"],["c-reject","reject"]].forEach(function(p){
+    document.getElementById(p[0]).addEventListener("change",function(e){ cfg[p[1]]=e.target.value; saveCfg(); });
+  });
+  document.getElementById("run").onclick=runFull;
+  document.getElementById("rules").onclick=function(){ applyRules(); document.getElementById("runlog").classList.add("open"); };
+
+  /* import button → paste prompt */
+  document.getElementById("import").onclick=function(){
+    var t=prompt("Lead-JSON einfügen (Array). Vom MZ.9-Agent erzeugte Discovery-Ergebnisse hier importieren:");
+    if(t) importJSON(t);
+  };
+
+  function renderAll(){ renderKpis(); renderFilters(); renderQueue(); renderPipe(); }
+  initCfgUI(); renderLog(); renderAll();
 })();
 </script>
 </body>
