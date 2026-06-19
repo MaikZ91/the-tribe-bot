@@ -218,6 +218,7 @@ function gitPush(lead) {
     try { execSync('git add lead_agent_deepseek/DISCOVERY_NEEDED.txt', { cwd, stdio: 'pipe' }); } catch {}
     const diff = execSync('git diff --cached --stat', { cwd, stdio: 'pipe', encoding: 'utf8' });
     if (!diff.trim()) { log('  📭 Keine Änderungen zum Pushen.'); return; }
+    execSync(`git pull --rebase origin main`, { cwd, stdio: 'pipe' });
     execSync(`git commit -m "lead-agent: ${lead.id} — ${lead.name}"`, { cwd, stdio: 'pipe' });
     execSync('git push', { cwd, stdio: 'pipe' });
     log(`🚀 Gepusht: ${lead.name}`);
@@ -232,7 +233,7 @@ process.on('SIGINT', () => { log('\n⏹️  Beende Daemon...'); running = false;
 
 async function tick() {
   const queue = loadJson(QUEUE_FILE);
-  const lead = getNextLead();
+  let lead = getNextLead();
 
   if (!lead) {
     const filled = autoFillFromDiscoveries(queue);
