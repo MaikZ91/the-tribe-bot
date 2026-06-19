@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malerfachbetrieb Dreier | Malerarbeiten Bielefeld</title>
+    <meta name="description" content="Malerfachbetrieb Dreier in Bielefeld – Kompetenz und Erfahrung seit fast 20 Jahren. Malerarbeiten, Fassadendämmung, Tapezieren, Bodenbeläge.">
+    <style>
+        :root {
+            --red: #e52f34;
+            --blue: #006ab3;
+            --gray-blue: #606f83;
+            --light-gray: #f2f1f4;
+            --white: #ffffff;
+            --dark: #252525;
+            --yellow: #e3d000;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+
+        /* TOP BAR */
+        .topbar {
+            background: var(--blue);
+            color: var(--white);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+        .topbar a { color: var(--white); text-decoration: none; }
+        .topbar a:hover { color: var(--yellow); }
+
+        /* HEADER / NAV */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo img { height: 55px; width: auto; }
+        nav { display: flex; gap: 28px; }
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--blue); }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            background: url('https://assets.coco-online.de/47141720428209-Lnru7c9y/footer_full_w.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: var(--white);
+            max-width: 750px;
+            padding: 20px;
+        }
+        .hero-content .hero-badge {
+            display: inline-block;
+            background: var(--red);
+            padding: 8px 24px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.92;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .btn-red { background: var(--red); color: var(--white); }
+        .btn-red:hover { background: var(--yellow); color: var(--dark); }
+        .btn-blue { background: var(--blue); color: var(--white); }
+        .btn-blue:hover { background: #005a94; }
+
+        /* SECTION TITLES */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title .pretitle {
+            color: var(--red);
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .section-title h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        .section-title .subtitle-line {
+            color: var(--blue);
+            font-size: 18px;
+            font-weight: 400;
+        }
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: var(--red);
+            margin: 16px auto 0;
+        }
+
+        /* SERVICES */
+        #leistungen { background: var(--light-gray); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 40px 28px;
+            text-align: center;
+            border-radius: 4px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+        }
+        .service-card .icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--white);
+        }
+        .service-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        .service-card p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ABOUT */
+        #ueber-uns .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .about-text h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: var(--dark);
+        }
+        .about-text .highlight {
+            color: var(--blue);
+        }
+        .about-text p {
+            margin-bottom: 14px;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .stat-item { text-align: center; }
+        .stat-item .num {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1;
+        }
+        .stat-item .label {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* REFERENZEN / GALLERY */
+        #referenzen {
+            background: url('https://assets.coco-online.de/47141720428210-HKjlNUfj/bg-vlies_full_w.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: var(--white);
+            padding: 30px 20px 16px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .gallery-large {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        /* DETAIL SERVICES LIST */
+        #leistungen-detail { background: var(--white); }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .detail-item:hover { background: #e8e7ea; }
+        .detail-item .check {
+            color: var(--red);
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .detail-item h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .detail-item p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* PARTNERS */
+        #partner { background: var(--white); }
+        .partner-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .partner-tag {
+            background: var(--blue);
+            color: var(--white);
+            padding: 12px 28px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* CONTACT */
+        #kontakt { background: var(--blue); color: var(--white); }
+        #kontakt .section-title h2 { color: var(--white); }
+        #kontakt .section-title .subtitle-line { color: rgba(255,255,255,0.8); }
+        #kontakt .divider { background: var(--yellow); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+        .contact-detail .ico {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .contact-detail .info strong { display: block; margin-bottom: 2px; }
+        .contact-detail .info a { color: var(--white); text-decoration: none; }
+        .contact-detail .info a:hover { color: var(--yellow); }
+        .contact-form {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 4px;
+            color: var(--dark);
+        }
+        .contact-form h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .form-group { margin-bottom: 16px; }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 13px;
+        }
+        footer a { color: var(--yellow); text-decoration: none; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .detail-grid { grid-template-columns: 1fr; }
+            #ueber-uns .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 38px; }
+        }
+        @media (max-width: 640px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-large { grid-column: span 1; }
+            nav { display: none; }
+            .hero { min-height: 70vh; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-content p { font-size: 16px; }
+            .section-title h2 { font-size: 28px; }
+            .stats { grid-template-columns: 1fr 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    Rufen Sie uns an: <a href="tel:+49521392056">(05 21) 392056</a> &nbsp;|&nbsp;
+    <a href="mailto:malerfachbetriebdreier@t-online.de">malerfachbetriebdreier@t-online.de</a>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <a href="#" class="logo">
+            <img src="https://assets.coco-online.de/47141720428208-EgIV2vm8/dreier-logo.png" alt="Malerfachbetrieb Dreier Logo" width="300" height="47">
+        </a>
+        <nav>
+            <a href="#leistungen">Leistungen</a>
+            <a href="#ueber-uns">Über uns</a>
+            <a href="#referenzen">Referenzen</a>
+            <a href="#kontakt">Kontakt</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">Seit fast 20 Jahren in Bielefeld</span>
+        <h1>Malerfachbetrieb Dreier</h1>
+        <p>Kompetenz und Erfahrung für Ihre Wünsche – spezielle Spachtel- und Wischtechniken für edle, unvergleichliche Ergebnisse.</p>
+        <a href="#kontakt" class="btn btn-red">Beratungstermin vereinbaren</a>
+        <a href="tel:+49521392056" class="btn btn-blue" style="margin-left:12px;">&#9742; (05 21) 392056</a>
+    </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+    <div class="container">
+        <div class="section-title">
+            <div class="pretitle">Unsere Kernkompetenzen</div>
+            <h2>Malerarbeiten &amp; Serviceleistungen</h2>
+            <p class="subtitle-line">Eine breite Palette an hochwertigen Leistungen aus einer Hand</p>
+            <div class="divider"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">&#127968;</div>
+                <h3>Innenausbau</h3>
+                <p>Anstriche, Tapezierarbeiten, Spachteltechniken, Edelputze, Wandgestaltung und Lackierarbeiten für ein perfektes Zuhause.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#127959;</div>
+                <h3>Fassade</h3>
+                <p>Fassadengestaltung, Fassadenimprägnierung, Klinkerschutz, Holzbeschichtungen und Graffitientfernung.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#127912;</div>
+                <h3>Tapezieren</h3>
+                <p>Gewissenhafte Tapezierarbeit mit hochwertigen Tapeten von Schäfer Tapeten – unserem langjährigen Partner.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">&#128722;</div>
+                <h3>Bodenbeläge</h3>
+                <p>Verlegearbeiten für Teppichböden, Laminat, Vinyl, PVC und Designbeläge – fachgerecht und sauber.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ÜBER UNS -->
+<section id="ueber-uns">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://assets.coco-online.de/47141720428211-FobB4GNj/jumbo-serviceleistungen_full_w.jpg" alt="Malerfachbetrieb Dreier - Malerarbeiten" loading="lazy">
+            </div>
+            <div class="about-text">
+                <h2>Qualität &amp; <span class="highlight">Innovation</span> seit fast 20 Jahren</h2>
+                <p>Seit fast zwei Jahrzehnten steht der Malerfachbetrieb Dreier für höchste Qualität und Innovation in Material und Technik. Im Einzugsgebiet von rund 100 Kilometern um Bielefeld sind unsere <strong>acht erstklassig ausgebildeten Mitarbeiter</strong> vornehmlich für Privatpersonen im Einsatz.</p>
+                <p>Unser Alleinstellungsmerkmal: <strong>Spezielle Spachtel- und Wischtechniken</strong>, die nur von unserem eigens ausgebildeten Personal ausgeführt werden. So entstehen edle und unvergleichliche Ergebnisse.</p>
+                <p>Wir kooperieren mit Tischlern und Energieberatern und bieten Ihnen alles aus einer Hand – inklusive Beratung und Materialverkauf für Selbermacher.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="num">20</div>
+                        <div class="label">Jahre Erfahrung</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num">8</div>
+                        <div class="label">Mitarbeiter</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num">100km</div>
+                        <div class="label">Einzugsgebiet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REFERENZEN -->
+<section id="referenzen">
+    <div class="container">
+        <div class="section-title">
+            <div class="pretitle">Referenzen</div>
+            <h2>Unsere Arbeiten</h2>
+            <p class="subtitle-line" style="color:var(--dark);">Eindrücke aus ausgeführten Projekten</p>
+            <div class="divider"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item gallery-large">
+                <img src="https://assets.coco-online.de/47141720428211-FobB4GNj/jumbo-serviceleistungen_full_w.jpg" alt="Referenz - Fassadenarbeit" loading="lazy">
+                <div class="overlay">Fassadengestaltung – Bielefeld</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://assets.coco-online.de/47141720428212-QEmmpRUv/jumbo-fassadendaemmung_full_w.jpg" alt="Referenz - Fassadendämmung" loading="lazy">
+                <div class="overlay">Fassadendämmung</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://assets.coco-online.de/47141720428212-VrG1XOfv/jumbo-serviceleistungen-mobile_large_w.jpg" alt="Referenz - Innenausbau" loading="lazy">
+                <div class="overlay">Innenausbau &amp; Tapezieren</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://assets.coco-online.de/47141720428212-9gkW3zVs/jumbo-fassadendaemmung-mobile_large_w.jpg" alt="Referenz - Dämmarbeiten" loading="lazy">
+                <div class="overlay">Wärmedämmverbundsystem</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://assets.coco-online.de/47141720428209-Lnru7c9y/footer_full_w.jpg" alt="Referenz - Malerarbeiten außen" loading="lazy">
+                <div class="overlay">Malerarbeiten – Außenbereich</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://assets.coco-online.de/47141720428209-NyFdQVrt/jumbo-malerfachbetrieb-dreier-mobile_small_w.jpg" alt="Referenz - Detailarbeit" loading="lazy">
+                <div class="overlay">Spachteltechnik – Detail</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LEISTUNGEN DETAIL -->
+<section id="leistungen-detail">
+    <div class="container">
+        <div class="section-title">
+            <div class="pretitle">Unser komplettes Leistungsspektrum</div>
+            <h2>Alles aus einer Hand</h2>
+            <p class="subtitle-line">Von der Fassade bis zum Fußboden – wir sind für Sie da</p>
+            <div class="divider"></div>
+        </div>
+        <div class="detail-grid">
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Fassadengestaltung &amp; -malerei</h4>
+                    <p>Anstriche jeder Art, Fassadenreinigung, Imprägnierung</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Tapezierarbeiten</h4>
+                    <p>Gewissenhafte Tapezierung mit Tapeten von Schäfer Tapeten</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Spachtel- &amp; Wischtechniken</h4>
+                    <p>Unser Alleinstellungsmerkmal – edle, unvergleichliche Ergebnisse</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Fassadendämmung</h4>
+                    <p>Wärmedämmverbundsysteme – Hanf, Mineral, Polystyrol, Foamglas</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Bodenbeläge verlegen</h4>
+                    <p>Teppichböden, Laminat, Vinyl, PVC, Designbeläge</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Schimmelbekämpfung</h4>
+                    <p>Professionelle Schimmelentfernung und Prävention</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Renovierung im Urlaub</h4>
+                    <p>Wir renovieren, während Sie entspannen – alles dokumentiert</p>
+                </div>
+            </div>
+            <div class="detail-item">
+                <span class="check">&#10003;</span>
+                <div>
+                    <h4>Beratung &amp; Materialverkauf</h4>
+                    <p>Farben, Lacke, Zubehör in Profiqualität – auch für Selbermacher</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PARTNER -->
+<section id="partner">
+    <div class="container">
+        <div class="section-title">
+            <div class="pretitle">Unsere Partner &amp; Produkte</div>
+            <h2>Qualität von den Besten</h2>
+            <p class="subtitle-line">Wir vertreiben und verarbeiten ausschließlich Top-Marken</p>
+            <div class="divider"></div>
+        </div>
+        <div class="partner-tags">
+            <span class="partner-tag">Brillux</span>
+            <span class="partner-tag">Caparol</span>
+            <span class="partner-tag">STO</span>
+            <span class="partner-tag">Sikkens</span>
+            <span class="partner-tag">Mega</span>
+            <span class="partner-tag">Glasurit</span>
+            <span class="partner-tag">Alligator</span>
+            <span class="partner-tag">Zero</span>
+            <span class="partner-tag">Schäfer Tapeten</span>
+        </div>
+    </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+    <div class="container">
+        <div class="section-title">
+            <div class="pretitle">Kontakt</div>
+            <h2>Jetzt Beratungstermin vereinbaren</h2>
+            <p class="subtitle-line">Wir freuen uns auf Ihre Anfrage</p>
+            <div class="divider"></div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>So erreichen Sie uns</h3>
+                <div class="contact-detail">
+                    <div class="ico">&#127968;</div>
+                    <div class="info">
+                        <strong>Thorsten Dreier Malerfachbetrieb</strong>
+                        Kafkastraße 68<br>33729 Bielefeld
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="ico">&#9742;</div>
+                    <div class="info">
+                        <strong>Telefon</strong>
+                        <a href="tel:+49521392056">(05 21) 392056</a>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="ico">&#9993;</div>
+                    <div class="info">
+                        <strong>E-Mail</strong>
+                        <a href="mailto:malerfachbetriebdreier@t-online.de">malerfachbetriebdreier@t-online.de</a>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="ico">&#128338;</div>
+                    <div class="info">
+                        <strong>Öffnungszeiten</strong>
+                        Mo–Fr nach telefonischer Vereinbarung
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Schreiben Sie uns</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Ihr Name *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Ihre E-Mail *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Ihre Telefonnummer">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Ihre Nachricht *" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-red" style="width:100%;">Jetzt senden</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Thorsten Dreier Malerfachbetrieb – Kafkastraße 68, 33729 Bielefeld</p>
+        <p style="margin-top:6px;">
+            <a href="#">Impressum</a> &nbsp;|&nbsp; <a href="#">Datenschutz</a> &nbsp;|&nbsp; <a href="#">Barrierefreiheit</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
