@@ -24,6 +24,8 @@ const TEMPLATE_FILE = path.join(ROOT, 'templates', 'preview.html');
 const DASHBOARD_FILE = path.join(ROOT, '..', 'docs', 'leads', 'dashboard', 'index.html');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 const DISCOVERY_FLAG = path.join(ROOT, 'DISCOVERY_NEEDED.txt');
+const DISCOVERIES_DIR = path.join(ROOT, 'discoveries');
+const DISCOVERIES_USED = path.join(ROOT, 'discoveries', 'used');
 
 const INTERVAL_MINUTES = parseInt(
   process.env.INTERVAL_MINUTES ||
@@ -66,20 +68,43 @@ function getNextLead() {
   return lead;
 }
 
-// ─── Phase 2: Flag setzen wenn Queue leer ─────────────────────────
-function signalDiscoveryNeeded(queue) {
-  const empty = !queue?.leads?.length;
-  if (empty && !fs.existsSync(DISCOVERY_FLAG)) {
+// ─── Phase 2: Auto-Discovery aus Backlog ─────────────────────────
+function autoFillFromDiscoveries(queue) {
+  ensureDir(DISCOVERIES_DIR);
+  ensureDir(DISCOVERIES_USED);
+  
+  const files = fs.readdirSync(DISCOVERIES_DIR)
+    .filter(f => f.endsWith('.json'))
+    .sort();
+  
+  if (files.length === 0) {
     const branches = queue?.settings?.discover_branches || ['Gastronomie', 'Handwerk'];
     fs.writeFileSync(DISCOVERY_FLAG,
       `Discovery needed at ${new Date().toISOString()}\n` +
       `Branchen: ${branches.join(', ')}\n` +
       `Region: ${queue?.settings?.discover_region || 'Bielefeld'}\n`
     );
-    log(`🚩 DISCOVERY_NEEDED.txt geschrieben — Queue ist leer.`);
+    log(`🚩 Vorrat leer. DISCOVERY_NEEDED.txt — DeepSeek muss auffüllen.`);
     log(`   Branchen: ${branches.join(', ')}`);
+    return false;
   }
-  return empty;
+  
+  const batchFile = path.join(DISCOVERIES_DIR, files[0]);
+  try {
+    const batch = JSON.parse(fs.readFileSync(batchFile, 'utf8'));
+    if (!Array.isArray(batch) || batch.length === 0) {
+      fs.renameSync(batchFile, path.join(DISCOVERIES_USED, files[0]));
+      return autoFillFromDiscoveries(queue);
+    }
+    queue.leads = batch;
+    saveJson(QUEUE_FILE, queue);
+    fs.renameSync(batchFile, path.join(DISCOVERIES_USED, files[0]));
+    log(`📦 Batch geladen: ${files[0]} (${batch.length} Leads). Noch ${files.length - 1} im Vorrat.`);
+    return true;
+  } catch (err) {
+    log(`⚠️  Batch-Fehler: ${err.message}`);
+    return false;
+  }
 }
 
 // ─── Phase 3: Lighthouse-Audit ────────────────────────────────────
@@ -210,8 +235,10 @@ async function tick() {
   const lead = getNextLead();
 
   if (!lead) {
-    signalDiscoveryNeeded(queue);
-    return;
+    const filled = autoFillFromDiscoveries(queue);
+    if (!filled) return;
+    lead = getNextLead();
+    if (!lead) return;
   }
 
   log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
