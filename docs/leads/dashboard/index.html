@@ -184,8 +184,21 @@
   function mailFor(l){
     var domain=host(l.website).replace(/^www\./,"").split("/")[0];
     var to=EMAILS[l.id]||("info@"+domain);
-    var subject="Konzept-Vorschau für Ihre Website — "+l.name;
-    var body=
+    var subject=(l.noweb?"Ihre eigene Website — Konzept-Vorschau für ":"Konzept-Vorschau für Ihre Website — ")+l.name;
+    var body;
+    if(l.noweb){
+      body=
+"Hallo liebes "+l.name+"-Team,\n\n"+
+"mein Name ist Maik, ich komme aus Bielefeld. Ich habe euch online gefunden (z. B. bei Google/Facebook) — aber eine eigene Website habt ihr noch nicht. Schade, denn ihr macht etwas, das eine richtig gute Seite verdient.\n\n"+
+"Ich habe mir unverbindlich die Freiheit genommen, schon mal eine komplette Website für euch zu gestalten — schaut gern rein:\n\n"+
+l.preview+"\n\n"+
+"Was eine eigene Seite euch bringt:\n"+
+l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
+"Das Ganze ist kostenlos und ohne Hintergedanken — wenn es euch gefällt, setze ich es gern mit euch live. Wenn nicht, behaltet einfach die Idee. :)\n\n"+
+"Über eine kurze Rückmeldung würde ich mich sehr freuen.\n\n"+
+"Herzliche Grüße\nMaik\nMZ.9 — Media Engineering.AI\n";
+    } else {
+      body=
 "Hallo liebes "+l.name+"-Team,\n\n"+
 "mein Name ist Maik, ich komme aus Bielefeld — und ehrlich gesagt mag ich, was Sie machen. Genau deshalb ist mir Ihre Website aufgefallen: Sie hat richtig Potenzial, kommt online aber noch nicht so rüber, wie Sie es vor Ort tun.\n\n"+
 "Ich habe mir völlig unverbindlich die Freiheit genommen und eine moderne Vorschau gestaltet, wie Ihr Auftritt aussehen könnte — schauen Sie gern rein:\n\n"+
@@ -195,6 +208,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
 "Das Ganze ist kostenlos und ohne Hintergedanken — wenn es Ihnen gefällt, setze ich es gern für Sie um. Wenn nicht, behalten Sie einfach die Idee. :)\n\n"+
 "Über eine kurze Rückmeldung würde ich mich sehr freuen.\n\n"+
 "Herzliche Grüße\nMaik\nMZ.9 — Media Engineering.AI\n";
+    }
     return "mailto:"+encodeURIComponent(to)+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
   }
   function sendMail(l){ window.location.href=mailFor(l); }
@@ -245,7 +259,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
       return '<div class="row" data-id="'+l.id+'">'+
         '<div class="score '+scoreCls(l.score||0)+'" title="Audit-Score (0–100, niedriger = mehr Hebel)"><b>'+(l.score||0)+'</b><span>Score</span></div>'+
         '<div class="info"><div class="nm">'+esc(l.name)+'<span class="heb '+l.hebel+'">'+l.hebel+'</span></div>'+
-          '<div class="sub">'+esc(l.industry)+' · '+esc(host(l.website))+'</div></div>'+
+          '<div class="sub">'+esc(l.industry)+' · '+(l.noweb?'⚠ noch keine eigene Website':esc(host(l.website)))+'</div></div>'+
         '<button class="toggle" data-act="toggle" title="Bewertung / Schwachstellen">▾</button>'+
         '<div class="acts">'+
           '<button class="btn btn-pri" data-act="split"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="8" height="16" rx="1"/><rect x="13" y="4" width="8" height="16" rx="1"/></svg><span class="lbl">Alt ↔ Neu</span></button>'+
