@@ -196,15 +196,27 @@ function updateDashboard(lead, previewUrl) {
   if (!fs.existsSync(DASHBOARD_FILE)) return false;
   let h = fs.readFileSync(DASHBOARD_FILE, 'utf8');
   if (h.includes(`id:"${lead.id}"`)) { log('  ℹ️  Bereits im Dashboard.'); return true; }
+
+  // Insert into SEED array — find 'var SEED=[' then first '];' after it
+  const seedStart = h.indexOf('var SEED=[');
+  if (seedStart < 0) { log('  ⚠️  SEED-Marker nicht gefunden.'); return false; }
+  const seedEnd = h.indexOf('];', seedStart);
+  if (seedEnd < 0) { log('  ⚠️  SEED-Ende nicht gefunden.'); return false; }
+
   const entry = `\n    {id:"${lead.id}",name:"${lead.name}",industry:"${lead.industry}",hebel:"${lead.hebel||'mittel'}",score:${lead.score||50},website:"${lead.website}",problems:${JSON.stringify(lead.problems||['Veraltetes Design','Schwache CTA'])},opps:${JSON.stringify(lead.opps||['Modernes Design','Klare CTAs'])},preview:"${previewUrl}"},`;
-  const pos = h.lastIndexOf('];');
-  if (pos > 0) h = h.slice(0, pos) + entry + h.slice(pos);
+  h = h.slice(0, seedEnd) + entry + h.slice(seedEnd);
+
+  // Insert into EMAILS object — find 'var EMAILS={' then first '};' after it
   if (lead.email) {
-    const ep = h.lastIndexOf('};');
-    if (ep > 0 && !h.includes(`"${lead.id}":`)) {
-      h = h.slice(0, ep) + `\n    "${lead.id}":"${lead.email}",` + h.slice(ep);
+    const mailStart = h.indexOf('var EMAILS={');
+    if (mailStart > 0) {
+      const mailEnd = h.indexOf('};', mailStart);
+      if (mailEnd > 0 && !h.includes(`"${lead.id}":`)) {
+        h = h.slice(0, mailEnd) + `\n    "${lead.id}":"${lead.email}",` + h.slice(mailEnd);
+      }
     }
   }
+
   fs.writeFileSync(DASHBOARD_FILE, h);
   log('📊 Dashboard aktualisiert.');
   return true;
@@ -214,7 +226,9 @@ function updateDashboard(lead, previewUrl) {
 function gitPush(lead) {
   try {
     const cwd = path.join(ROOT, '..');
-    execSync('git pull --rebase origin main', { cwd, stdio: 'pipe' });
+    try { execSync('git stash', { cwd, stdio: 'pipe' }); } catch {}
+    try { execSync('git pull --rebase origin main', { cwd, stdio: 'pipe' }); } catch {}
+    try { execSync('git stash pop', { cwd, stdio: 'pipe' }); } catch {}
     try { execSync('git add docs/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/leads/', { cwd, stdio: 'pipe' }); } catch {}
     try { execSync('git add lead_agent_deepseek/discoveries/used/ lead_agent_deepseek/DISCOVERY_NEEDED.txt', { cwd, stdio: 'pipe' }); } catch {}
     const diff = execSync('git diff --cached --stat', { cwd, stdio: 'pipe', encoding: 'utf8' });
