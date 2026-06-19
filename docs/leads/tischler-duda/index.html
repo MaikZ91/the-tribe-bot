@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tischlerei Raphael Duda – Maßmöbel & Innenausbau | Bielefeld</title>
+<meta name="description" content="Raphael Duda – Ihr Tischler für individuelle Möbel, Innenausbau, Fenster & Türen in Bielefeld. Kreative Lösungen mit hohem Anspruch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --accent: #2d5a27;
+  --accent-light: #e8f0e5;
+  --border: #e8e8e4;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.05; }
+h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+
+/* Layout */
+.section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+/* Nav */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+  padding: 4rem 2rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-text { padding-right: 2rem; }
+.hero-text h1 { margin-bottom: 1.5rem; }
+.hero-text .lead {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.hero-visual {
+  aspect-ratio: 1;
+  background: var(--accent-light);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: #1f3e1b; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,90,39,0.2); }
+.btn-outline { border: 2px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+.card-icon { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; }
+.card h3 { margin-bottom: 0.8rem; }
+.card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+.stat-number { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--accent); }
+.stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+/* Process */
+.process { background: var(--surface); }
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.process-step:last-child { border-bottom: none; }
+.step-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  color: var(--accent);
+  min-width: 4rem;
+  text-align: center;
+  line-height: 1;
+}
+.step-content h3 { margin-bottom: 0.3rem; }
+.step-content p { color: var(--text-muted); }
+
+/* Contact */
+.contact-card {
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius);
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.contact-card h2 { color: white; }
+.contact-info p { margin-bottom: 0.8rem; opacity: 0.9; }
+.contact-info a { color: white; text-decoration: underline; }
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.2); }
+.contact-form textarea { min-height: 100px; resize: vertical; }
+.contact-form .btn { background: white; color: var(--accent); width: 100%; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.contact-form .btn:hover { background: var(--accent-light); box-shadow: none; transform: none; }
+
+footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; background: var(--surface); border-top: 1px solid var(--border); }
+footer a { color: var(--accent); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .hero, .grid-2, .grid-3, .stats, .contact-card { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero { padding: 2rem 1.5rem 4rem; }
+  .section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Raphael Duda</div>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#ablauf">Ablauf</a></li>
+    <li><a href="#referenzen">Referenzen</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Präzision,<br>Funktionalität<br>& Design.</h1>
+    <p class="lead">Ihr Partner für kreative und technische Lösungen mit hohem Anspruch. Wir setzen individuelle Vorstellungen um – von neuen Möbeln über hochwertige Fenster bis zum Innenausbau.</p>
+    <a href="#kontakt" class="btn btn-primary">Projekt anfragen</a>
+    <a href="#leistungen" class="btn btn-outline" style="margin-left:1rem">Leistungen</a>
+  </div>
+  <div class="hero-visual">🪚</div>
+</section>
+
+<div class="stats">
+  <div><div class="stat-number">20+</div><div class="stat-label">Jahre Erfahrung</div></div>
+  <div><div class="stat-number">500+</div><div class="stat-label">Projekte realisiert</div></div>
+  <div><div class="stat-number">100%</div><div class="stat-label">Maßarbeit</div></div>
+  <div><div class="stat-number">Ø 4.8</div><div class="stat-label">Kundenzufriedenheit</div></div>
+</div>
+
+<section class="section" id="leistungen">
+  <h2 style="text-align:center">Unser Leistungsspektrum</h2>
+  <p style="text-align:center; color:var(--text-muted); max-width:600px; margin:0 auto 3rem;">Besondere Räume verdienen besondere Möbel. Von der Nische bis zur Dachschräge – wir finden die perfekte Lösung.</p>
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-icon">🪑</span>
+      <h3>Individueller Möbelbau</h3>
+      <p>Maßgefertigte Möbel für räumliche Besonderheiten wie Nischen, extreme Dachschrägen oder Ecken und Kanten. Breite Auswahl an Formen, Farben und Oberflächen.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏗️</span>
+      <h3>Innenausbau</h3>
+      <p>Professioneller Innenausbau und Trockenbau – von der Decke bis zum Boden. Parkett, Laminat, und mehr.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🪟</span>
+      <h3>Fenster & Türen</h3>
+      <p>Hochwertige Fenster und Türen, Rollläden, Sonnenschutz und Insektenschutz. Fachgerechte Montage inklusive.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔧</span>
+      <h3>Renovierung</h3>
+      <p>Komplettrenovierung aus einer Hand – inklusive Silikonfugen und sämtlicher Montagearbeiten.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📐</span>
+      <h3>Planung & Beratung</h3>
+      <p>Gemeinsam mit Ihnen suchen wir nach der passenden Idee – beratend und gestaltend zugleich.</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🚪</span>
+      <h3>Tore & Rollläden</h3>
+      <p>Automatiktore, Rollläden und Sonnenschutzsysteme für Ihr Zuhause. Funktional und ästhetisch.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="ablauf">
+  <div class="section">
+    <h2 style="text-align:center">So arbeiten wir</h2>
+    <p style="text-align:center; color:var(--text-muted); max-width:600px; margin:0 auto 3rem;">Transparent, termintreu und in höchster Qualität – von der ersten Idee bis zur fertigen Umsetzung.</p>
+    <div class="process-step">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Beratungsgespräch</h3>
+        <p>Im persönlichen Gespräch erfassen wir Ihre Wünsche und Anforderungen. Wir beraten Sie zu Materialien, Formen und Gestaltungsmöglichkeiten.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Planung & Entwurf</h3>
+        <p>Basierend auf Ihren Vorstellungen entwickeln wir detaillierte Entwürfe und erstellen ein maßgeschneidertes Angebot.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>Fertigung</h3>
+        <p>In unserer Werkstatt fertigen wir Ihre Möbel mit handwerklicher Präzision und hochwertigen Materialien.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-number">04</div>
+      <div class="step-content">
+        <h3>Montage & Übergabe</h3>
+        <p>Termintreue Lieferung und fachgerechte Ausführung aller Arbeiten bei Ihnen vor Ort. Erst wenn Sie zufrieden sind, ist das Projekt abgeschlossen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="referenzen">
+  <h2 style="text-align:center">Referenzen</h2>
+  <p style="text-align:center; color:var(--text-muted); max-width:600px; margin:0 auto 3rem;">Eine Auswahl realisierter Projekte – vom Einbauschrank unter der Dachschräge bis zur kompletten Raumlösung.</p>
+  <div class="grid-3">
+    <div class="card" style="text-align:center">
+      <span style="font-size:4rem;display:block;margin-bottom:1rem">🛏️</span>
+      <h3>Schlafzimmer Nische</h3>
+      <p>Maßgefertigter Einbauschrank mit optimaler Raumausnutzung unter extremer Dachschräge.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <span style="font-size:4rem;display:block;margin-bottom:1rem">🍽️</span>
+      <h3>Einbauküche</h3>
+      <p>Individuelle Küchenlösung mit passgenauen Schränken für verwinkelte Altbau-Räume.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <span style="font-size:4rem;display:block;margin-bottom:1rem">🏠</span>
+      <h3>Fenstersanierung</h3>
+      <p>Komplettaustausch von 12 Fenstern in einem Bielefelder Altbau – termingerecht und sauber.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="kontakt">
+  <div class="contact-card">
+    <div class="contact-info">
+      <h2>Bereit für Ihr Projekt?</h2>
+      <p style="margin-bottom:1.5rem">Lassen Sie uns über Ihre Ideen sprechen. Rufen Sie an oder schreiben Sie uns – wir melden uns innerhalb von 24 Stunden.</p>
+      <p><strong>Tischlerei Raphael Duda</strong></p>
+      <p>Bielefeld</p>
+      <p style="margin-top:1rem">📞 <a href="tel:+495215239740">0521 52 39 74 0</a></p>
+      <p>🕐 Mo–Fr: 7:30 – 17:30 Uhr<br>Sa nach Vereinbarung</p>
+      <p style="margin-top:1rem">🌐 <a href="https://www.tischler-in-bielefeld.de" target="_blank">www.tischler-in-bielefeld.de</a></p>
+    </div>
+    <div class="contact-form">
+      <form action="#" method="POST">
+        <input type="text" name="name" placeholder="Ihr Name" required>
+        <input type="email" name="email" placeholder="Ihre E-Mail" required>
+        <input type="tel" name="phone" placeholder="Ihre Telefonnummer">
+        <textarea name="message" placeholder="Beschreiben Sie Ihr Projekt..." required></textarea>
+        <button type="submit" class="btn">Anfrage senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Tischlerei Raphael Duda, Bielefeld</p>
+  <p style="margin-top:0.5rem"><a href="#">Impressum</a> &bull; <a href="#">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>
