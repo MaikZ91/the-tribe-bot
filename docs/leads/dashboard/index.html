@@ -64,7 +64,7 @@
   /* split-view overlay */
   .split{position:fixed;inset:0;z-index:500;background:var(--bg);display:none;flex-direction:column}
   .split.open{display:flex}
-  .split .bar{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow:hidden}
+  .split .bar{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:nowrap}
   .split .bar .ttl{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0} .split .bar .ttl small{color:var(--ink-mut);font-weight:500;margin-left:6px;font-size:11px}
   .split .bar .sp{flex:1;min-width:4px}
   .split .bar button{font-family:inherit;font-weight:600;font-size:12px;padding:6px 11px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;flex:none}
@@ -96,7 +96,12 @@
     .panes{grid-template-columns:1fr;grid-template-rows:1fr}
     .pane{border-right:0;border-bottom:1px solid var(--line);display:none}
     .pane.show{display:flex}
-    .seg{display:flex}
+    /* großer, vollbreiter Alt/Neu-Umschalter in eigener Zeile */
+    .split .bar{flex-wrap:wrap;gap:6px;padding:7px 8px}
+    .split .bar .ttl{display:none}
+    .seg{display:flex;flex:1 1 100%;order:-1;border-radius:9px}
+    .seg button{flex:1;padding:12px 0;font-size:14px}
+    .split .bar .sp{flex:1}
   }
 </style>
 </head>
