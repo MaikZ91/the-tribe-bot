@@ -1,0 +1,54 @@
+name: MZ.9 Lead Agent — Autonome Pipeline
+
+on:
+  schedule:
+    # Alle 3 Stunden (Discovery-Modus — sucht neue Leads)
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Modus'
+        required: true
+        default: 'process'
+        type: choice
+        options:
+          - process
+          - discover
+      max_leads:
+        description: 'Max Leads pro Run'
+        default: '3'
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Pipeline ausführen
+        env:
+          DISCOVER: ${{ github.event.inputs.mode == 'discover' && 'true' || 'false' }}
+          MAX_LEADS: ${{ github.event.inputs.max_leads || '3' }}
+          NO_GIT: 'true'
+        run: node lead_agent_deepseek/scripts/pipeline.js
+
+      - name: Änderungen committen
+        if: success()
+        run: |
+          git config user.name "MZ.9 Lead Agent"
+          git config user.email "lead-agent@mz9.dev"
+          git add docs/leads/ lead_agent_deepseek/
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+          else
+            git commit -m "lead-agent: automated pipeline run"
+            git push
+          fi
