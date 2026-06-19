@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MZ.9 Studio — Website verbessern oder neu bauen</title>
+<meta name="description" content="MZ.9 Studio: Webadresse einfügen und ein Redesign-Konzept erhalten, oder in 1 Minute einen Website-Prototyp für dein Vorhaben bauen — gemeinsam mit Maik umsetzen." />
+<meta name="theme-color" content="#0A0A0B" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B; --panel:#121317; --panel-2:#191A1F; --line:rgba(255,255,255,.1); --line-2:rgba(255,255,255,.06);
+    --ink:#ECEEF1; --ink-2:#A4ABB5; --ink-mut:#6B7280; --acc:#10B981; --acc-2:#0E9C75;
+    --r:16px; --ease:cubic-bezier(.22,.61,.36,1); --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+  .glow{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.5;background:radial-gradient(circle,var(--acc),transparent 70%);width:50vw;height:50vw;top:-15%;right:-10%;animation:fl 16s var(--ease) infinite}
+  @keyframes fl{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-3vw,4vh) scale(1.15)}}
+  header{position:relative;z-index:2;padding:22px 0;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:21px;font-weight:600}
+  .brand .mk{width:38px;height:38px;border-radius:10px;background:var(--acc);color:#04130d;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--sans)}
+  header .back{font-size:13.5px;color:var(--ink-2)} header .back:hover{color:var(--acc)}
+  .hero{position:relative;z-index:2;text-align:center;padding:40px 0 14px}
+  .hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--acc)}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);margin:14px 0 0;letter-spacing:-.01em}
+  .hero p{color:var(--ink-2);max-width:46ch;margin:14px auto 0}
+  .tabs{position:relative;z-index:2;display:flex;gap:8px;background:var(--panel);border:1px solid var(--line-2);border-radius:50px;padding:6px;max-width:520px;margin:34px auto 0}
+  .tabs button{flex:1;background:transparent;border:0;color:var(--ink-2);font-family:inherit;font-weight:700;font-size:14px;padding:12px;border-radius:50px;cursor:pointer;transition:.25s}
+  .tabs button.on{background:var(--acc);color:#04130d}
+  .card{position:relative;z-index:2;background:var(--panel);border:1px solid var(--line-2);border-radius:var(--r);padding:clamp(22px,4vw,36px);margin:22px auto 60px;box-shadow:0 40px 90px -40px #000}
+  .pane{display:none} .pane.on{display:block;animation:fade .4s var(--ease)}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  label{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 7px;letter-spacing:.02em}
+  .fr{margin-bottom:16px}
+  input,select,textarea{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:14px 15px;font-family:inherit;font-size:15px}
+  textarea{min-height:84px;resize:vertical}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .up{border:1.5px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--ink-mut);font-size:13.5px;cursor:pointer} .up.has{color:var(--acc);border-color:var(--acc)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--acc);color:#04130d;border:0;border-radius:12px;font-family:inherit;font-weight:700;font-size:15px;padding:15px 22px;cursor:pointer;width:100%;transition:transform .2s,background .2s}
+  .btn:hover{transform:translateY(-2px);background:var(--acc-2)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)} .btn.ghost:hover{background:var(--panel-2);border-color:var(--acc)}
+  .note{font-size:12px;color:var(--ink-mut);margin-top:12px;text-align:center}
+  .load{text-align:center;padding:26px 0}
+  .spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 14px} @keyframes sp{to{transform:rotate(360deg)}}
+  .steps{margin:18px 0 0;display:grid;gap:10px}
+  .steps li{list-style:none;display:flex;gap:11px;align-items:flex-start;color:var(--ink-2);font-size:14.5px}
+  .steps li b{color:var(--acc);flex:none}
+  .frame{width:100%;height:460px;border:1px solid var(--line);border-radius:14px;background:#fff;margin-top:6px}
+  .hide{display:none}
+  @media (max-width:560px){ .row2{grid-template-columns:1fr} .tabs{max-width:none} }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+  <header>
+    <a class="brand" href="mz9.html"><span class="mk">M9</span>MZ.9 Studio</a>
+    <a class="back" href="mz9.html">← zurück</a>
+  </header>
+  <div class="hero">
+    <div class="eyebrow">In 1 Minute zum Konzept</div>
+    <h1>Deine Website — verbessert oder neu.</h1>
+    <p>Wähle deinen Weg. Du bekommst sofort etwas Greifbares, und setzt es dann gemeinsam mit Maik um.</p>
+  </div>
+  <div class="tabs">
+    <button id="tabA" class="on" onclick="switchTab('A')">Bestehende verbessern</button>
+    <button id="tabB" onclick="switchTab('B')">Neue Website bauen</button>
+  </div>
+
+  <!-- A: Redesign -->
+  <div class="card pane on" id="paneA">
+    <div id="aForm">
+      <div class="fr"><label>Adresse deiner aktuellen Website</label><input id="aUrl" type="text" placeholder="www.deinbetrieb.de" autocomplete="off"></div>
+      <button class="btn" onclick="startRedesign()">Redesign-Konzept starten</button>
+      <div class="note">Wir analysieren die typischen Hebel deiner Seite und bereiten ein Redesign vor. Kostenlos &amp; unverbindlich.</div>
+    </div>
+    <div id="aLoad" class="load hide"><div class="spin"></div><b id="aLoadTxt">Wir schauen uns deine Seite an …</b></div>
+    <div id="aResult" class="hide">
+      <div class="eyebrow" style="color:var(--acc);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase">Redesign-Konzept vorbereitet</div>
+      <h2 style="font-family:var(--serif);font-weight:500;margin:10px 0 0" id="aHead">Für deine Seite</h2>
+      <ul class="steps">
+        <li><b>→</b> Klarer Hero mit eindeutigem Call-to-Action</li>
+        <li><b>→</b> Online-Buchung / Anfrage statt Telefon-Pingpong</li>
+        <li><b>→</b> Google-Bewertungen sichtbar eingebunden</li>
+        <li><b>→</b> Sauber mobil &amp; schnell geladen</li>
+        <li><b>→</b> Modernes Design, das zu deinem Betrieb passt</li>
+      </ul>
+      <p style="color:var(--ink-2);margin:18px 0 0">Lass uns das gemeinsam umsetzen — beantworte kurz 3 Fragen, dann meldet sich Maik mit der fertigen Vorschau.</p>
+      <div class="fr" style="margin-top:18px"><label>Dein Name</label><input id="aName" type="text" placeholder="Vorname Nachname"></div>
+      <div class="row2"><div class="fr"><label>Kontakt (E-Mail / Tel.)</label><input id="aContact" type="text" placeholder="so erreicht dich Maik"></div>
+      <div class="fr"><label>Was ist dir am wichtigsten?</label><select id="aWish"><option>Mehr Anfragen/Termine</option><option>Moderneres Design</option><option>Online-Buchung</option><option>Bei Google gefunden werden</option><option>Einfach mal modernisieren</option></select></div></div>
+      <button class="btn" onclick="sendRedesign()">✉ An Maik senden</button>
+    </div>
+  </div>
+
+  <!-- B: Neu bauen -->
+  <div class="card pane" id="paneB">
+    <div id="bForm">
+      <div class="row2">
+        <div class="fr"><label>Name des Betriebs</label><input id="bName" type="text" placeholder="z. B. Trattoria Bella"></div>
+        <div class="fr"><label>Branche</label><select id="bBranche">
+          <option>Gastronomie / Café</option><option>Friseur / Beauty</option><option>Handwerk</option><option>Physio / Gesundheit</option><option>Fitness</option><option>Kanzlei / Beratung</option><option>Einzelhandel</option><option>Sonstiges</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div class="fr"><label>Stil</label><select id="bStil">
+          <option value="emerald">Modern &amp; frisch</option><option value="gold">Elegant &amp; edel</option><option value="coral">Warm &amp; einladend</option><option value="blue">Klar &amp; seriös</option><option value="forest">Natürlich &amp; ruhig</option>
+        </select></div>
+        <div class="fr"><label>Slogan (optional)</label><input id="bSlogan" type="text" placeholder="z. B. Echt italienisch. Mitten in Bielefeld."></div>
+      </div>
+      <div class="fr"><label>Worum geht's? (kurz)</label><textarea id="bDesc" placeholder="Was bietest du an, was macht dich besonders?"></textarea></div>
+      <div class="fr"><label>Logo / Foto (optional)</label>
+        <div class="up" id="bUp" onclick="document.getElementById('bFile').click()">📷 Bild auswählen (Logo oder Foto)</div>
+        <input id="bFile" type="file" accept="image/*" class="hide" onchange="pickImg(this)">
+      </div>
+      <button class="btn" onclick="buildProto()">⚡ Prototyp bauen</button>
+      <div class="note">Es entsteht sofort ein einfacher Website-Prototyp aus deinen Angaben — als Startpunkt. Den Feinschliff macht Maik mit dir.</div>
+    </div>
+    <div id="bLoad" class="load hide"><div class="spin"></div><b>Dein Prototyp wird gebaut …</b></div>
+    <div id="bResult" class="hide">
+      <div class="eyebrow" style="color:var(--acc);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase">Dein Prototyp</div>
+      <iframe class="frame" id="bFrame" title="Prototyp"></iframe>
+      <p style="color:var(--ink-2);margin:16px 0 14px">Gefällt's dir als Start? Dann baue ich (Maik) daraus deine fertige, echte Website.</p>
+      <div class="row2">
+        <button class="btn" onclick="sendProto()">✉ Mit Maik umsetzen</button>
+        <button class="btn ghost" onclick="resetProto()">Nochmal anpassen</button>
+      </div>
+    </div>
+  </div>
+  <div class="note" style="margin-bottom:50px">Persönlich von Maik aus Bielefeld · MZ.9 — Media Engineering.AI</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TO="mzschach@googlemail.com";
+  var imgData="";
+  var STIL={emerald:["#0E1714","#10B981","#062a1d"],gold:["#1A1410","#C6A15B","#231a08"],coral:["#1B1413","#E5805C","#2a1410"],blue:["#0E1626","#3E86D6","#04101f"],forest:["#0E1712","#3FA06A","#062013"]};
+  window.switchTab=function(t){
+    document.getElementById("tabA").classList.toggle("on",t==="A");
+    document.getElementById("tabB").classList.toggle("on",t==="B");
+    document.getElementById("paneA").classList.toggle("on",t==="A");
+    document.getElementById("paneB").classList.toggle("on",t==="B");
+  };
+  function show(id,on){ document.getElementById(id).classList.toggle("hide",!on); }
+
+  /* ---- A: Redesign ---- */
+  window.startRedesign=function(){
+    var u=(document.getElementById("aUrl").value||"").trim();
+    if(!u){ document.getElementById("aUrl").focus(); return; }
+    show("aForm",false); show("aLoad",true);
+    var txt=document.getElementById("aLoadTxt"), msgs=["Wir schauen uns deine Seite an …","Hebel werden geprüft …","Redesign-Konzept wird vorbereitet …"], i=0;
+    var iv=setInterval(function(){ i++; if(txt&&msgs[i]) txt.textContent=msgs[i]; },650);
+    setTimeout(function(){ clearInterval(iv); show("aLoad",false); show("aResult",true);
+      document.getElementById("aHead").textContent="Für "+u; },2000);
+  };
+  window.sendRedesign=function(){
+    var u=document.getElementById("aUrl").value.trim(), n=document.getElementById("aName").value.trim(),
+        c=document.getElementById("aContact").value.trim(), w=document.getElementById("aWish").value;
+    var body="Hallo Maik,\n\nich möchte mein Redesign gern gemeinsam umsetzen.\n\nMeine Website: "+(u||"-")+"\nName: "+(n||"-")+"\nKontakt: "+(c||"-")+"\nWichtig ist mir: "+w+"\n\nFreue mich auf deine Rückmeldung!\n";
+    location.href="mailto:"+encodeURIComponent(TO)+"?subject="+encodeURIComponent("Redesign umsetzen — "+(u||""))+"&body="+encodeURIComponent(body);
+  };
+
+  /* ---- B: Prototyp ---- */
+  window.pickImg=function(inp){
+    var f=inp.files&&inp.files[0]; if(!f) return;
+    var up=document.getElementById("bUp"); up.classList.add("has"); up.textContent="✓ "+f.name;
+    var r=new FileReader(); r.onload=function(e){ imgData=e.target.result; }; r.readAsDataURL(f);
+  };
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]);});}
+  function protoHtml(){
+    var name=document.getElementById("bName").value.trim()||"Dein Betrieb";
+    var branche=document.getElementById("bBranche").value;
+    var stilKey=document.getElementById("bStil").value, col=STIL[stilKey]||STIL.emerald;
+    var slogan=document.getElementById("bSlogan").value.trim()||(branche+" in Bielefeld");
+    var desc=document.getElementById("bDesc").value.trim()||"Herzlich willkommen — schön, dass du da bist.";
+    var bg=col[0], acc=col[1], accInk=col[2];
+    var media=imgData?'<img src="'+imgData+'" alt="" style="width:100%;height:230px;object-fit:cover;border-radius:14px;margin:22px 0 0">':'';
+    return '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    + '<style>*{box-sizing:border-box;margin:0}body{font-family:system-ui,sans-serif;background:'+bg+';color:#fff;line-height:1.6}'
+    + '.h{padding:54px 26px 40px;text-align:center;background:radial-gradient(120% 80% at 50% 0,'+acc+'33,transparent 60%)}'
+    + '.eb{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:'+acc+';font-weight:700}'
+    + 'h1{font-size:34px;font-weight:800;margin:12px 0 0;letter-spacing:-.02em}p.l{opacity:.82;margin:14px auto 0;max-width:34ch}'
+    + '.cta{display:inline-block;margin:24px 0 0;background:'+acc+';color:'+accInk+';font-weight:800;padding:14px 26px;border-radius:50px;text-decoration:none}'
+    + '.wrap{max-width:680px;margin:0 auto;padding:0 22px}.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:34px 22px;max-width:680px;margin:0 auto}'
+    + '.fc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px;text-align:center}'
+    + '.fc b{display:block;color:'+acc+';font-size:22px}.fc span{font-size:13px;opacity:.8}'
+    + '.ft{text-align:center;padding:24px;font-size:12px;opacity:.5}</style></head><body>'
+    + '<div class="h"><div class="wrap"><div class="eb">'+esc(branche)+' · Bielefeld</div><h1>'+esc(name)+'</h1>'
+    + '<p class="l">'+esc(slogan)+'</p>'+media+'<br><a class="cta" href="#">Jetzt anfragen →</a></div></div>'
+    + '<div class="wrap"><p style="opacity:.85;text-align:center;padding:8px 0">'+esc(desc)+'</p></div>'
+    + '<div class="feat"><div class="fc"><b>★</b><span>Top bewertet</span></div><div class="fc"><b>✓</b><span>Schnell erreichbar</span></div><div class="fc"><b>♥</b><span>Persönlich</span></div></div>'
+    + '<div class="ft">Prototyp · gestaltet im MZ.9 Studio</div></body></html>';
+  }
+  window.buildProto=function(){
+    if(!document.getElementById("bName").value.trim()){ document.getElementById("bName").focus(); return; }
+    show("bForm",false); show("bLoad",true);
+    setTimeout(function(){ show("bLoad",false); show("bResult",true);
+      document.getElementById("bFrame").srcdoc=protoHtml(); },1400);
+  };
+  window.resetProto=function(){ show("bResult",false); show("bForm",true); };
+  window.sendProto=function(){
+    var name=document.getElementById("bName").value.trim(), branche=document.getElementById("bBranche").value,
+        stil=document.getElementById("bStil").options[document.getElementById("bStil").selectedIndex].text,
+        slogan=document.getElementById("bSlogan").value.trim(), desc=document.getElementById("bDesc").value.trim();
+    var body="Hallo Maik,\n\nich habe im MZ.9 Studio einen Prototyp gebaut und möchte daraus eine echte Website machen.\n\nBetrieb: "+name+"\nBranche: "+branche+"\nStil: "+stil+"\nSlogan: "+(slogan||"-")+"\nWorum es geht: "+(desc||"-")+"\n\nLass uns starten!\n";
+    location.href="mailto:"+encodeURIComponent(TO)+"?subject="+encodeURIComponent("Neue Website — "+name)+"&body="+encodeURIComponent(body);
+  };
+})();
+</script>
+</body>
+</html>
