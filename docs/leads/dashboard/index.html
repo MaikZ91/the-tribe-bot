@@ -64,16 +64,16 @@
   /* split-view overlay */
   .split{position:fixed;inset:0;z-index:500;background:var(--bg);display:none;flex-direction:column}
   .split.open{display:flex}
-  .split .bar{display:flex;align-items:center;gap:12px;padding:10px clamp(12px,3vw,18px);background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .split .bar .ttl{font-weight:700;font-size:14.5px} .split .bar .ttl small{color:var(--ink-mut);font-weight:500;margin-left:8px;font-size:12px}
-  .split .bar .sp{flex:1}
-  .split .bar button{font-family:inherit;font-weight:600;font-size:13px;padding:8px 13px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+  .split .bar{display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:nowrap;overflow:hidden}
+  .split .bar .ttl{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0} .split .bar .ttl small{color:var(--ink-mut);font-weight:500;margin-left:6px;font-size:11px}
+  .split .bar .sp{flex:1;min-width:4px}
+  .split .bar button{font-family:inherit;font-weight:600;font-size:12px;padding:6px 11px;border-radius:7px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;flex:none}
   .split .bar button.x{background:var(--accent);color:#fff;border-color:transparent}
   .split .bar button:hover{border-color:var(--accent)}
   .panes{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
   .pane{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
   .pane:last-child{border-right:0}
-  .pane .lab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;background:var(--panel-2);color:var(--ink-2);display:flex;justify-content:space-between;align-items:center}
+  .pane .lab{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;background:var(--panel-2);color:var(--ink-2);display:flex;justify-content:space-between;align-items:center}
   .pane .lab.neu{color:var(--green)} .pane .lab a{color:var(--accent);font-size:11px;text-transform:none;letter-spacing:0}
   .pane .lab a.liveopen{background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700}
   .pane .fr{flex:1;position:relative;background:#fff;min-height:0;overflow:auto}
@@ -112,8 +112,8 @@
     <div class="ttl" id="splitTtl"></div>
     <div class="seg" id="seg"><button data-pane="alt" class="on">Alt</button><button data-pane="neu">Neu</button></div>
     <div class="sp"></div>
-    <button id="splitMail">✉ E-Mail rausschicken</button>
-    <button class="x" id="splitClose">Schließen ✕</button>
+    <button id="splitMail">✉ E-Mail</button>
+    <button class="x" id="splitClose">✕</button>
   </div>
   <div class="panes">
     <div class="pane show" data-pane="alt">
