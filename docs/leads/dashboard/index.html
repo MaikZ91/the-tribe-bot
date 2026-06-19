@@ -75,8 +75,11 @@
   .pane:last-child{border-right:0}
   .pane .lab{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;background:var(--panel-2);color:var(--ink-2);display:flex;justify-content:space-between;align-items:center}
   .pane .lab.neu{color:var(--green)} .pane .lab a{color:var(--accent);font-size:11px;text-transform:none;letter-spacing:0}
+  .pane .lab a.liveopen{background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700}
   .pane .fr{flex:1;position:relative;background:#fff;min-height:0;overflow:auto}
   .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+  .hint{position:absolute;left:0;right:0;bottom:0;z-index:3;background:rgba(22,27,34,.94);color:var(--ink-2);font-size:12px;text-align:center;padding:9px 12px}
+  .hint a{color:var(--accent);font-weight:700}
   /* alt = scrollbarer Vollseiten-Screenshot (iframe-Einbettung der Fremdseite wird i.d.R. geblockt) */
   .shot{width:100%;display:block}
   .shotwrap{position:relative;min-height:100%}
@@ -114,8 +117,10 @@
   </div>
   <div class="panes">
     <div class="pane show" data-pane="alt">
-      <div class="lab">Alt · aktuelle Website <a id="altLink" href="#" target="_blank" rel="noopener">↗ live öffnen</a></div>
-      <div class="fr" id="altFr"></div>
+      <div class="lab">Alt · aktuelle Website <a id="altLink" class="liveopen" href="#" target="_blank" rel="noopener">↗ Ganze Seite live öffnen</a></div>
+      <div class="fr"><iframe id="altFrame" referrerpolicy="no-referrer"></iframe>
+        <div class="hint" id="altHint">Lädt nicht? Manche Seiten verbieten die Einbettung — <a id="altHintLink" href="#" target="_blank" rel="noopener">hier ganze Seite live öffnen ↗</a></div>
+      </div>
     </div>
     <div class="pane" data-pane="neu">
       <div class="lab neu">Neu · MZ.9 Konzept-Vorschau <a id="neuLink" href="#" target="_blank" rel="noopener">↗ Tab</a></div>
@@ -177,27 +182,20 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   }
   function sendMail(l){ window.location.href=mailFor(l); }
 
-  /* ---- split view: alt = Vollseiten-Screenshot, neu = Live-iframe ---- */
+  /* ---- split view: beide live als iframe (schnell, volle Seite); alte Seite ggf. per Tab ---- */
   var split=document.getElementById("split"), curId=null;
-  function shotUrl(u){ return "https://image.thum.io/get/width/1200/fullpage/noanimate/"+u; }
-  function shotFallback(u){ return "https://s.wordpress.com/mshots/v1/"+encodeURIComponent(u)+"?w=1200"; }
   function openSplit(l){
     curId=l.id;
     document.getElementById("splitTtl").innerHTML=esc(l.name)+' <small>'+esc(l.industry)+' · '+esc(host(l.website))+'</small>';
     document.getElementById("altLink").href=l.website;
+    document.getElementById("altHintLink").href=l.website;
     document.getElementById("neuLink").href=l.preview;
     document.getElementById("neuFrame").src=l.preview;
-    var fr=document.getElementById("altFr");
-    fr.innerHTML='<div class="shotwrap"><div class="loading" id="altLoad"><div class="sp"></div>Lade Screenshot der aktuellen Seite …</div>'+
-      '<img class="shot" id="altShot" alt="Screenshot aktuelle Website" /></div>';
-    var img=document.getElementById("altShot"), load=document.getElementById("altLoad"), tries=0;
-    img.onload=function(){ if(load) load.style.display="none"; };
-    img.onerror=function(){ tries++; if(tries===1){ img.src=shotFallback(l.website); } else if(load){ load.innerHTML='Screenshot nicht verfügbar — <a href="'+esc(l.website)+'" target="_blank" rel="noopener" style="color:var(--accent)">Seite im Tab öffnen ↗</a>'; } };
-    img.src=shotUrl(l.website);
+    document.getElementById("altFrame").src=l.website;
     split.classList.add("open"); document.body.style.overflow="hidden"; setPane("alt");
   }
   function closeSplit(){ split.classList.remove("open"); document.body.style.overflow="";
-    document.getElementById("neuFrame").src="about:blank"; document.getElementById("altFr").innerHTML=""; curId=null; }
+    document.getElementById("neuFrame").src="about:blank"; document.getElementById("altFrame").src="about:blank"; curId=null; }
   function setPane(p){
     document.querySelectorAll(".pane").forEach(function(el){el.classList.toggle("show",el.getAttribute("data-pane")===p);});
     document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-pane")===p);});
