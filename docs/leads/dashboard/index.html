@@ -232,8 +232,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
     document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-pane")===p);});
   }
   document.getElementById("splitClose").onclick=closeSplit;
-  document.getElementById("splitMail").onclick=function(){ if(curId) sendMail(byId(curId)); 
-    "steuer-bielefeld":"info@steuer-bielefeld.de",};
+  document.getElementById("splitMail").onclick=function(){ if(curId) sendMail(byId(curId)); };
   document.getElementById("seg").addEventListener("click",function(e){var b=e.target.closest("[data-pane]");if(b)setPane(b.getAttribute("data-pane"));});
   document.addEventListener("keydown",function(e){ if(e.key==="Escape" && split.classList.contains("open")) closeSplit(); });
 
@@ -244,8 +243,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   var hidden=loadHidden();
   function isHidden(id){ return hidden.indexOf(id)>=0; }
   function hide(id){ if(!isHidden(id)){ hidden.push(id); saveHidden(hidden); render(); } }
-  function restoreAll(){ hidden=[
-    {id:"steuer-bielefeld",name:"Steuer-Bielefeld",industry:"Kanzlei",hebel:"hoch",score:50,website:"https://www.steuer-bielefeld.de/",problems:["Website minimalistisch, wenig Vertrauen","Keine Kundenbewertungen","Keine Gesichter/Team-Fotos"],opps:["Trust durch Team-Fotos","Mandantenstimmen einbinden","Klare Prozess-Darstellung"],preview:"https://maikz91.github.io/the-tribe-bot/leads/steuer-bielefeld/"},]; saveHidden(hidden); render(); }
+  function restoreAll(){ hidden=[]; saveHidden(hidden); render(); }
 
   /* ---- render: Listen-Ansicht ---- */
   function scoreCls(n){ return n<45?"lo":n<65?"mid":"hi"; }
