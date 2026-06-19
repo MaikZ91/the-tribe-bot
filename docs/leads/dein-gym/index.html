@@ -95,6 +95,13 @@
   .btn-lime:hover::after{left:130%}
   .fcard,.plan{transition:transform .4s var(--ease),box-shadow .4s var(--ease)} .fcard:hover,.plan:hover{transform:translateY(-8px);box-shadow:var(--sh)}
   .review{transition:transform .4s var(--ease)} .review:hover{transform:translateY(-6px)}
+  .check-sec{background:var(--bg-2)}
+  .check{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--sh);padding:clamp(22px,4vw,34px);text-align:center}
+  .check h2{font-size:clamp(2rem,4.5vw,2.8rem)} .check p{color:var(--ink-2);margin:8px 0 18px;font-size:15px}
+  .check select{width:100%;max-width:400px;padding:13px 15px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:var(--bg-2);color:var(--ink);text-align:center}
+  .check .res{margin:18px 0 0;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .check .res .pr{font-family:var(--disp);font-size:1.7rem;color:var(--lime);line-height:1.1;text-transform:uppercase}
+  .check .res .nt{font-size:12.5px;color:var(--ink-mut)} .check .cta{margin-top:14px;display:none} .check .cta.on{display:inline-flex}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
 </style>
 </head>
@@ -125,6 +132,25 @@
   </div>
 </section>
 <div class="strip"><div class="wrap row"><span>✦ Gratis Probetraining</span><span>✦ Kleine Gruppen</span><span>✦ Echte Betreuung</span><span>✦ Klare Preise</span></div></div>
+<section class="section check-sec" id="zielcheck">
+  <div class="wrap">
+    <div class="check rv">
+      <div class="eyebrow">Schnell-Check</div>
+      <h2>Was ist dein Ziel?</h2>
+      <p>Wähl dein Ziel — du siehst sofort, welches Training passt. Den Feinschliff machen wir im gratis Probetraining.</p>
+      <select id="bsSel" aria-label="Ziel wählen">
+        <option value="">Ziel wählen …</option>
+        <option data-r="Functional + CrossTraining">Abnehmen / Definition</option>
+        <option data-r="CrossTraining — Kraft &amp; Athletik">Kraft aufbauen</option>
+        <option data-r="Hyrox-Prep">Hyrox / Wettkampf</option>
+        <option data-r="Functional in kleiner Gruppe">Fit &amp; gesund bleiben</option>
+        <option data-r="Persönliche Betreuung / Einstieg">Wiedereinstieg nach Pause</option>
+      </select>
+      <div class="res" id="bsRes"><span class="pr" style="color:var(--ink-mut);font-size:1.1rem;font-family:inherit;text-transform:none">—</span><span class="nt">Wähl ein Ziel für die Empfehlung</span></div>
+      <a class="btn btn-lime cta" id="bsCta" href="#probe">Gratis Probetraining sichern <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
 <section class="section" id="training">
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow rv">Dein Training</div><h2 class="rv" style="transition-delay:.05s">Funktionell. Effektiv. Mit Plan.</h2></div>
@@ -232,6 +258,13 @@
       b.addEventListener("mouseleave",function(){b.style.transform="";});
     });
   }
+  var bs=document.getElementById("bsSel"), bsr=document.getElementById("bsRes"), bsc=document.getElementById("bsCta");
+  if(bs) bs.addEventListener("change",function(){
+    var o=bs.options[bs.selectedIndex], r=o.getAttribute("data-r");
+    if(!r){ bsr.innerHTML='<span class="pr" style="color:var(--ink-mut);font-size:1.1rem;font-family:inherit;text-transform:none">—</span><span class="nt">Wähl ein Ziel für die Empfehlung</span>'; bsc.classList.remove("on"); return; }
+    bsr.innerHTML='<span class="pr">'+r+'</span><span class="nt">Für „'+o.text+'" · genauen Plan machen wir im Probetraining</span>';
+    bsc.classList.add("on");
+  });
 })();
 </script>
 <script>window.MZ9CHAT={mode:"lead",name:"Dein Gym Bielefeld",accent:"#C6F24E",cta:"#probe"};</script>
