@@ -94,6 +94,13 @@
   .btn-gold:hover::after,.btn-navy:hover::after{left:130%}
   .fcard{transition:transform .4s var(--ease),box-shadow .4s var(--ease)} .fcard:hover{transform:translateY(-8px);box-shadow:var(--sh)}
   .review{transition:transform .4s var(--ease)} .review:hover{transform:translateY(-6px)}
+  .check-sec{background:var(--bg-2)}
+  .check{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);padding:clamp(22px,4vw,34px);text-align:center}
+  .check h2{font-size:clamp(1.6rem,4vw,2.3rem)} .check p{color:var(--ink-2);margin:8px 0 18px;font-size:15px}
+  .check select{width:100%;max-width:420px;padding:13px 15px;border:1px solid var(--line);border-radius:50px;font-family:inherit;font-size:15px;background:#fff;color:var(--ink);text-align:center}
+  .check .res{margin:18px 0 0;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .check .res .pr{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--gold-d);line-height:1.2}
+  .check .res .nt{font-size:12.5px;color:var(--ink-mut)} .check .cta{margin-top:14px;display:none} .check .cta.on{display:inline-flex}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
 </style>
 </head>
@@ -122,6 +129,26 @@
   </div>
 </section>
 <div class="strip"><div class="wrap row"><span><b>✦</b> Erstberatung kurzfristig</span><span><b>✦</b> Anfrage direkt online</span><span><b>✦</b> Klare Kostenorientierung</span><span><b>✦</b> Zentral in Bielefeld</span></div></div>
+<section class="section check-sec" id="anliegencheck">
+  <div class="wrap">
+    <div class="check rv">
+      <div class="eyebrow">Schnell-Check</div>
+      <h2>Worum geht es bei Ihnen?</h2>
+      <p>Wählen Sie Ihr Anliegen — Sie sehen sofort, in welchem Bereich wir Sie begleiten. Die konkrete Ersteinschätzung erfolgt vertraulich im Gespräch.</p>
+      <select id="bsSel" aria-label="Anliegen wählen">
+        <option value="">Anliegen wählen …</option>
+        <option data-r="Familienrecht &amp; Scheidung">Trennung / Scheidung</option>
+        <option data-r="Familienrecht — Sorge- &amp; Umgangsrecht">Sorgerecht / Umgang</option>
+        <option data-r="Familienrecht — Unterhalt">Unterhalt</option>
+        <option data-r="Erbrecht — Testament &amp; Nachlass">Testament / Nachlass</option>
+        <option data-r="Erbrecht — Pflichtteil">Pflichtteil / Enterbung</option>
+        <option data-r="Mediationsorientierte Beratung">Einvernehmliche Lösung gesucht</option>
+      </select>
+      <div class="res" id="bsRes"><span class="pr" style="color:var(--ink-mut);font-size:1.1rem">—</span><span class="nt">Wählen Sie ein Anliegen für die Einordnung</span></div>
+      <a class="btn btn-gold cta" id="bsCta" href="#beratung">Vertrauliche Erstberatung anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
 <section class="section" id="bereiche">
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow rv">Rechtsgebiete</div><h2 class="rv" style="transition-delay:.05s">Worin wir Sie begleiten</h2></div>
@@ -205,6 +232,13 @@
       b.addEventListener("mouseleave",function(){b.style.transform="";});
     });
   }
+  var bs=document.getElementById("bsSel"), bsr=document.getElementById("bsRes"), bsc=document.getElementById("bsCta");
+  if(bs) bs.addEventListener("change",function(){
+    var o=bs.options[bs.selectedIndex], r=o.getAttribute("data-r");
+    if(!r){ bsr.innerHTML='<span class="pr" style="color:var(--ink-mut);font-size:1.1rem">—</span><span class="nt">Wählen Sie ein Anliegen für die Einordnung</span>'; bsc.classList.remove("on"); return; }
+    bsr.innerHTML='<span class="pr">Bereich: '+r+'</span><span class="nt">Bei „'+o.text+'" · vertrauliche Ersteinschätzung im Gespräch</span>';
+    bsc.classList.add("on");
+  });
 })();
 </script>
 <script>window.MZ9CHAT={mode:"lead",name:"Kanzlei Kotte",accent:"#B89150",cta:"#beratung"};</script>
