@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Physiowell Bielefeld — Physiotherapie mit Termin in Minuten</title>
+<meta name="description" content="Moderne Physiotherapie in Bielefeld. Termin online buchen, Leistungen ansehen, Team kennenlernen — schnell, persönlich, ohne Umweg. Konzept-Vorschau." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0E2F33" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E2F33'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' fill='%234FD1C5' text-anchor='middle'>P</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4FAF9; --bg-2:#E7F3F1; --card:#FFFFFF; --deep:#0E2F33; --deep-2:#143E43;
+    --ink:#15302F; --ink-2:#4A615F; --ink-mut:#7E948F;
+    --teal:#0E9C90; --teal-2:#0B7E74; --mint:#4FD1C5; --coral:#F2785C;
+    --line:rgba(14,47,51,.12); --line-2:rgba(14,47,51,.06);
+    --maxw:1160px; --r:18px; --ease:cubic-bezier(.22,.61,.36,1);
+    --serif:"Fraunces",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+    --sh:0 24px 56px -28px rgba(14,47,51,.45);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  ::selection{background:var(--teal);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.07;margin:0;letter-spacing:-.01em}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-2)}
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:14.5px;
+    padding:15px 26px;border-radius:50px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-teal{background:var(--teal);color:#fff;box-shadow:0 14px 30px -12px rgba(14,156,144,.55)}
+  .btn-teal:hover{background:var(--teal-2)}
+  .btn-ol{background:transparent;border-color:rgba(244,250,249,.4);color:#fff} .btn-ol:hover{background:rgba(244,250,249,.12);border-color:#fff}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)} .btn-ghost:hover{border-color:var(--teal);color:var(--teal-2)}
+  .btn svg{width:17px;height:17px;flex:none}
+
+  .ribbon{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--deep);color:#EAF7F5;font-size:12px;font-weight:600;text-align:center;padding:7px 16px}
+  .ribbon b{color:var(--mint)}
+  .header{position:fixed;top:30px;left:0;right:0;z-index:200;transition:background .4s,box-shadow .4s}
+  .header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .header.scrolled{background:rgba(14,47,51,.94);backdrop-filter:blur(10px)}
+  .header.scrolled .brand,.header.scrolled .nav a.lk{color:#EAF7F5}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:23px;font-weight:600;color:var(--ink);transition:color .4s}
+  .brand .mk{width:40px;height:40px;border-radius:13px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+  .nav{display:flex;align-items:center;gap:24px}
+  .nav a.lk{font-size:14.5px;font-weight:600;color:var(--ink);transition:color .25s} .nav a.lk:hover{color:var(--teal-2)}
+
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;
+    background:radial-gradient(900px 600px at 78% 12%,#1C5A5C 0%,transparent 58%),linear-gradient(155deg,#0B2629 0%,#10393D 60%,#0E2F33 100%)}
+  .hero::after{content:"";position:absolute;right:-8%;top:50%;transform:translateY(-50%);width:min(46vw,560px);height:min(46vw,560px);border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,rgba(79,209,197,.32),transparent 62%);z-index:0}
+  .hero-inner{position:relative;z-index:2;color:#fff;padding:110px 0 60px;max-width:42rem}
+  .hero .eyebrow{color:var(--mint)}
+  .hero h1{font-size:clamp(2.7rem,6.5vw,4.8rem);margin:16px 0 0}
+  .hero h1 em{font-style:italic;color:var(--mint)}
+  .hero .lede{margin:20px 0 0;max-width:42ch;font-size:clamp(1.05rem,1.6vw,1.22rem);color:rgba(234,247,245,.88)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;align-items:center;font-size:14px}
+  .stars{display:flex;align-items:center;gap:8px;font-weight:700} .stars .s{color:var(--mint);letter-spacing:2px}
+  .hero-trust .sep{width:1px;height:20px;background:rgba(234,247,245,.3)} .hero-trust .ti{color:rgba(234,247,245,.82);font-weight:600}
+
+  .section{padding:clamp(60px,9vh,110px) 0}
+  .sec-head{max-width:58ch;margin:0 auto clamp(32px,5vh,54px);text-align:center}
+  .sec-head h2{font-size:clamp(2.1rem,4.5vw,3.2rem);margin-top:10px}
+  .sec-head p{margin:14px auto 0;color:var(--ink-2);max-width:48ch}
+
+  /* booking band right under hero */
+  .book{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);
+    margin-top:-60px;position:relative;z-index:5;padding:clamp(22px,4vw,34px);display:grid;grid-template-columns:1.3fr auto;gap:24px;align-items:center}
+  .book h3{font-size:1.7rem} .book p{margin:6px 0 0;color:var(--ink-2);font-size:15px}
+  .book .steps{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-mut);font-weight:600}
+  .book .steps b{color:var(--teal-2)}
+
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .fcard{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);padding:28px}
+  .fcard .ic{width:46px;height:46px;border-radius:13px;background:var(--bg-2);color:var(--teal-2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .fcard .ic svg{width:23px;height:23px} .fcard h3{font-size:1.4rem} .fcard p{margin:8px 0 0;color:var(--ink-2);font-size:15px}
+
+  .team-sec{background:var(--bg-2)}
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tm{background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2)}
+  .tm .ph{aspect-ratio:1/1;background:linear-gradient(150deg,#CBE8E4,#A9D8D1);display:flex;align-items:center;justify-content:center;color:#5E8A84;font-size:2.6rem;font-family:var(--serif)}
+  .tm .body{padding:18px 20px} .tm h3{font-size:1.3rem} .tm .role{color:var(--teal-2);font-weight:600;font-size:13px;margin-top:2px} .tm p{margin:8px 0 0;font-size:14px;color:var(--ink-2)}
+
+  .rev-sec{background:var(--deep);color:#EAF7F5}
+  .rev-sec .sec-head h2{color:#fff} .rev-sec .eyebrow{color:var(--mint)}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:var(--deep-2);border:1px solid rgba(234,247,245,.1);border-radius:var(--r);padding:26px}
+  .review .s{color:var(--mint);letter-spacing:2px} .review p{font-family:var(--serif);font-size:1.25rem;font-style:italic;margin:12px 0 16px;color:#fff;line-height:1.4}
+  .review .who{font-size:13px;color:rgba(234,247,245,.7);font-weight:600}
+  .rev-foot{text-align:center;margin-top:28px;color:rgba(234,247,245,.8)} .rev-foot b{color:#fff}
+
+  .cta-band{position:relative;overflow:hidden;border-radius:24px;text-align:center;padding:clamp(44px,7vw,78px) clamp(24px,5vw,60px);color:#fff;
+    background:radial-gradient(700px 400px at 20% 0%,#1C5A5C,transparent),linear-gradient(150deg,#0E2F33,#11474B)}
+  .cta-band h2{font-size:clamp(2.1rem,4.5vw,3.2rem)} .cta-band p{margin:14px auto 0;max-width:46ch;color:rgba(234,247,245,.85)} .cta-band .hero-cta{justify-content:center;margin-top:26px}
+
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+  .info dl{margin:22px 0 0;display:grid;grid-template-columns:auto 1fr;gap:12px 20px;font-size:15px}
+  .info dt{font-weight:700;color:var(--teal-2)} .info dd{margin:0;color:var(--ink-2)}
+  .info .mapph{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(150deg,#CBE8E4,#A9D8D1);position:relative;box-shadow:var(--sh)}
+  .info .mapph span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#5E8A84;font-size:13px;font-weight:600}
+
+  .footer{background:var(--deep);color:rgba(234,247,245,.75);padding:54px 0 110px}
+  .footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:26px}
+  .footer .brand{color:#EAF7F5} .footer p{max-width:34ch;font-size:14.5px;margin:14px 0 0}
+  .footer .fnav{display:flex;gap:22px;flex-wrap:wrap} .footer .fnav a{color:rgba(234,247,245,.75);font-weight:600;font-size:14px} .footer .fnav a:hover{color:var(--mint)}
+  .footer .bot{margin-top:38px;padding-top:22px;border-top:1px solid rgba(234,247,245,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:rgba(234,247,245,.5)}
+
+  .actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line);box-shadow:0 -8px 24px -10px rgba(14,47,51,.5)}
+  .actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)}
+  .actionbar a.bk{background:var(--teal);color:#fff} .actionbar svg{width:19px;height:19px}
+
+  @media (max-width:860px){ .feat,.team,.reviews,.info,.book{grid-template-columns:1fr} .book{margin-top:-40px} }
+  @media (max-width:600px){ body{font-size:16px} .nav .lk{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Physiowell Bielefeld</div>
+
+<header class="header" id="header">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="mk">P</span>Physiowell</a>
+    <nav class="nav">
+      <a class="lk" href="#leistungen">Leistungen</a>
+      <a class="lk" href="#team">Team</a>
+      <a class="lk" href="#info">Kontakt</a>
+      <a class="btn btn-teal" href="#termin">Termin buchen</a>
+    </nav>
+  </div>
+</header>
+
+<section id="top" class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow rv">Physiotherapie · Bielefeld</div>
+    <h1 class="rv" style="transition-delay:.05s">Wieder beweglich.<br><em>Ohne Wartezeit am Telefon.</em></h1>
+    <p class="lede rv" style="transition-delay:.1s">Persönliche Physiotherapie mit einem Team, das zuhört. Termin in 60 Sekunden online buchen — Krankengymnastik, manuelle Therapie, Massage &amp; mehr.</p>
+    <div class="hero-cta rv" style="transition-delay:.15s">
+      <a class="btn btn-teal" href="#termin">Termin online buchen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ol" href="#leistungen">Leistungen ansehen</a>
+    </div>
+    <div class="hero-trust rv" style="transition-delay:.2s">
+      <div class="stars"><span class="s">★★★★★</span> 4,8 · Google</div>
+      <div class="sep"></div><div class="ti">Alle Kassen &amp; privat</div>
+      <div class="sep"></div><div class="ti">Termine auch kurzfristig</div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="book rv" id="termin">
+    <div>
+      <h3>Termin buchen — in 60 Sekunden</h3>
+      <p>Wählen Sie Leistung &amp; Zeitfenster online, statt im Wartezimmer zu telefonieren.</p>
+      <div class="steps"><span><b>1.</b> Leistung wählen</span><span><b>2.</b> Termin aussuchen</span><span><b>3.</b> Bestätigung erhalten</span></div>
+    </div>
+    <a class="btn btn-teal" href="#">Jetzt Termin wählen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
+
+<section class="section" id="leistungen">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">Unsere Leistungen</div><h2 class="rv" style="transition-delay:.05s">Therapie, die zu Ihnen passt</h2></div>
+    <div class="feat">
+      <div class="fcard rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Krankengymnastik</h3><p>Individuelle Übungstherapie nach Rezept — Rücken, Gelenke, Haltung.</p></div>
+      <div class="fcard rv" style="transition-delay:.06s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0z"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><h3>Manuelle Therapie</h3><p>Gezielte Mobilisation von Gelenken &amp; Muskulatur bei Schmerzen.</p></div>
+      <div class="fcard rv" style="transition-delay:.12s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14s1-1 4-1 5 2 8 2 4-1 4-1V4s-1 1-4 1-5-2-8-2-4 1-4 1z"/></svg></div><h3>Massage &amp; Wellness</h3><p>Klassische Massage, Lymphdrainage &amp; Entspannung für Körper und Kopf.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section team-sec" id="team">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">Ihr Team</div><h2 class="rv" style="transition-delay:.05s">Die Menschen hinter der Therapie</h2><p class="rv" style="transition-delay:.1s">Vertrauen entsteht durch Gesichter &amp; Namen — hier ist Platz für Ihr echtes Team.</p></div>
+    <div class="team">
+      <div class="tm rv"><div class="ph">◐</div><div class="body"><h3>Therapeut:in</h3><div class="role">Manuelle Therapie</div><p>Spezialisierung &amp; Foto hier einsetzen — Patient:innen buchen lieber bei einem bekannten Gesicht.</p></div></div>
+      <div class="tm rv" style="transition-delay:.06s"><div class="ph">◑</div><div class="body"><h3>Therapeut:in</h3><div class="role">Krankengymnastik</div><p>Kurze Vita, Schwerpunkte, Jahre Erfahrung — schafft Vertrauen vor dem ersten Termin.</p></div></div>
+      <div class="tm rv" style="transition-delay:.12s"><div class="ph">◒</div><div class="body"><h3>Therapeut:in</h3><div class="role">Massage &amp; Lymphdrainage</div><p>Echtes Praxis-Foto statt Stockbild — der Unterschied in der Conversion ist messbar.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section rev-sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow rv">Patientenstimmen</div><h2 class="rv" style="transition-delay:.05s">4,8 ★ — und gern weiterempfohlen</h2></div>
+    <div class="reviews">
+      <div class="review rv"><div class="s">★★★★★</div><p>„Endlich online gebucht statt ewig telefoniert. Kompetent und freundlich."</p><div class="who">— Patient:in · Google</div></div>
+      <div class="review rv" style="transition-delay:.06s"><div class="s">★★★★★</div><p>„Nach drei Terminen deutlich weniger Schmerzen. Sehr persönliche Betreuung."</p><div class="who">— Patient:in · Google</div></div>
+      <div class="review rv" style="transition-delay:.12s"><div class="s">★★★★★</div><p>„Kurzfristig einen Termin bekommen, super Team. Klare Empfehlung."</p><div class="who">— Patient:in · Google</div></div>
+    </div>
+    <div class="rev-foot rv">Echte Google-Bewertungen hier einbinden · Ø <b>4,8 ★</b></div>
+  </div>
+</section>
+
+<section class="section"><div class="wrap"><div class="cta-band rv">
+  <div class="eyebrow" style="color:var(--mint)">Termin sichern</div>
+  <h2 style="margin-top:10px">Heute noch einen Platz reservieren?</h2>
+  <p>Online buchen in unter einer Minute — oder rufen Sie uns an. Wir melden uns schnell zurück.</p>
+  <div class="hero-cta"><a class="btn btn-teal" href="#">Termin online buchen</a><a class="btn btn-ol" href="tel:+49521000000">Anrufen</a></div>
+</div></div></section>
+
+<section class="section" id="info">
+  <div class="wrap info">
+    <div class="box rv">
+      <div class="eyebrow">Kontakt &amp; Anfahrt</div>
+      <h2 style="margin-top:10px">So erreichen Sie uns.</h2>
+      <dl>
+        <dt>Ort</dt><dd>Bielefeld</dd>
+        <dt>Termine</dt><dd>Online buchbar · auch kurzfristig</dd>
+        <dt>Kassen</dt><dd>Alle gesetzlichen &amp; privat</dd>
+        <dt>Sprechzeiten</dt><dd>Mo – Fr · 08:00 – 19:00</dd>
+      </dl>
+    </div>
+    <div class="mapph rv" style="transition-delay:.1s"><span>▦ Karte / Anfahrt (Google Maps Einbettung)</span></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <div><a class="brand" href="#top" style="font-size:22px"><span class="mk">P</span>Physiowell</a><p>Moderne Physiotherapie in Bielefeld — persönlich, kompetent, schnell terminierbar.</p></div>
+      <nav class="fnav"><a href="#leistungen">Leistungen</a><a href="#team">Team</a><a href="#termin">Termin</a><a href="#info">Kontakt</a></nav>
+    </div>
+    <div class="bot"><span>© <span id="yr">2026</span> Physiowell Bielefeld — Konzept-Vorschau</span><span>Gestaltet von MZ.9 · Media Engineering.AI</span></div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Schnellkontakt">
+  <a href="tel:+49521000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+  <a href="#leistungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h18M3 17h12"/></svg>Leistungen</a>
+  <a class="bk" href="#termin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termin</a>
+</nav>
+
+<script>
+(function(){
+  var h=document.getElementById("header");
+  function s(){ h.classList.toggle("scrolled", window.scrollY>30); } s(); addEventListener("scroll",s,{passive:true});
+  var y=document.getElementById("yr"); if(y) y.textContent=new Date().getFullYear();
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1,rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add("in");});
+})();
+</script>
+</body>
+</html>
