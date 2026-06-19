@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Restaurant Kreuzkrug — Gastlichkeit mit Tradition in Bielefeld</title>
+<meta name="description" content="Gutbürgerliche Küche, frisch und saisonal, in einem Haus mit Geschichte. Jetzt online Tisch reservieren, Speisekarte ansehen oder anrufen — Restaurant Kreuzkrug Bielefeld." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#13211A" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2313211A'/><text x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23C9A24A' text-anchor='middle'>K</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F2E9; --bg-2:#EAE6D7; --card:#FFFEFA; --forest:#13211A; --forest-2:#1B2E24;
+    --ink:#1E261F; --ink-2:#4C5750; --ink-mut:#7E8A80;
+    --brass:#BC8F3C; --brass-2:#9C722A; --wine:#6E2F30; --wine-2:#5C2728;
+    --cream:#F5F2E9;
+    --line:rgba(30,38,31,.14); --line-2:rgba(30,38,31,.08); --gold:#D6A943;
+    --maxw:1180px; --r:16px; --ease:cubic-bezier(.22,.61,.36,1);
+    --serif:"Cormorant Garamond",Georgia,serif; --sans:"Mulish",system-ui,sans-serif;
+    --sh:0 26px 60px -28px rgba(19,33,26,.5);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  ::selection{background:var(--forest);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:0;margin:0}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-2)}
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.02em;
+    padding:15px 26px;border-radius:50px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-forest{background:var(--forest);color:#fff;box-shadow:0 14px 30px -12px rgba(19,33,26,.6)}
+  .btn-forest:hover{background:var(--forest-2)}
+  .btn-brass{background:var(--brass);color:#231f10} .btn-brass:hover{background:var(--brass-2);color:#fff}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)} .btn-ghost:hover{background:var(--card);border-color:var(--ink)}
+  .btn-ol{background:transparent;border-color:rgba(245,242,233,.4);color:#fff} .btn-ol:hover{background:rgba(245,242,233,.12);border-color:#fff}
+  .btn svg{width:17px;height:17px;flex:none}
+
+  .ribbon{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--forest);color:var(--cream);font-size:12px;font-weight:600;text-align:center;padding:7px 16px}
+  .ribbon b{color:var(--brass)}
+
+  .header{position:fixed;top:30px;left:0;right:0;z-index:200;transition:background .4s,box-shadow .4s}
+  .header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .header.scrolled{background:rgba(19,33,26,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .header.scrolled .bar{padding:11px 0}
+  .header.scrolled .brand,.header.scrolled .nav a.lk,.header.scrolled .nav .ph{color:var(--cream)}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);transition:color .4s}
+  .brand .mk{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--brass);color:var(--brass);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+  .nav{display:flex;align-items:center;gap:26px}
+  .nav a.lk{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);transition:color .25s} .nav a.lk:hover{color:var(--brass)}
+  .nav .ph{font-family:var(--sans);font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px;transition:color .4s}
+  .nav .ph svg{width:15px;height:15px;color:var(--brass)}
+
+  /* hero — gradient, no claimed photo */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;
+    background:radial-gradient(1200px 700px at 70% -10%,#27402F 0%,transparent 60%),linear-gradient(160deg,#0E1813 0%,#192A20 48%,#13211A 100%)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:0;opacity:.5;
+    background:repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 2px,transparent 2px 9px)}
+  .hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(14,24,19,.2) 0%,transparent 40%,rgba(14,24,19,.6) 100%)}
+  .hero-inner{position:relative;z-index:2;color:#fff;padding:0 0 clamp(50px,9vh,100px);width:100%}
+  .hero .eyebrow{color:var(--gold)}
+  .hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:500;margin:18px 0 0;max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero .lede{margin:20px 0 0;max-width:46ch;font-size:clamp(1.05rem,1.6vw,1.25rem);color:rgba(245,242,233,.9);font-weight:300}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:30px;align-items:center;font-size:14px}
+  .stars{display:flex;align-items:center;gap:8px;font-weight:700} .stars .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .hero-trust .sep{width:1px;height:22px;background:rgba(245,242,233,.3)}
+  .hero-trust .ti{color:rgba(245,242,233,.85);font-weight:600}
+
+  .strip{background:var(--forest);color:var(--cream)}
+  .strip .row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:20px 0;font-size:13.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(245,242,233,.75)}
+  .strip .row span{display:flex;align-items:center;gap:9px} .strip .row b{color:var(--brass)}
+
+  .section{padding:clamp(64px,10vh,120px) 0}
+  .sec-head{max-width:60ch;margin:0 auto clamp(34px,6vh,58px);text-align:center}
+  .sec-head h2{font-size:clamp(2.4rem,5vw,3.6rem);margin-top:10px}
+  .sec-head p{margin:14px auto 0;color:var(--ink-2);max-width:50ch}
+
+  /* story */
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
+  .story .box h2{font-size:clamp(2rem,4vw,2.8rem)}
+  .story .box p{margin:16px 0 0;color:var(--ink-2)}
+  .story .yrs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+  .story .yr{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:18px;text-align:center;box-shadow:var(--sh)}
+  .story .yr b{display:block;font-family:var(--serif);font-size:2.1rem;color:var(--brass-2);line-height:1}
+  .story .yr span{font-size:12.5px;color:var(--ink-mut);font-weight:600}
+  .story .art{aspect-ratio:4/5;border-radius:18px;overflow:hidden;position:relative;box-shadow:var(--sh);
+    background:radial-gradient(700px 500px at 30% 0%,#2A4233,transparent),linear-gradient(160deg,#16261D,#22392B)}
+  .story .art .seal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(245,242,233,.85)}
+  .story .art .seal .ring{width:108px;height:108px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.6rem;color:var(--gold)}
+  .story .art .seal small{font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+
+  /* menu */
+  .menu-sec{background:var(--bg-2)}
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px)}
+  .menu-col h3{font-family:var(--serif);font-size:1.7rem;color:var(--brass-2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:8px}
+  .dish{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:16px 0;border-bottom:1px dashed var(--line-2);align-items:baseline}
+  .dish .nm{font-family:var(--serif);font-size:1.32rem;font-weight:600}
+  .dish .pr{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--brass-2);white-space:nowrap}
+  .dish .ds{grid-column:1 / -1;font-size:13.5px;color:var(--ink-mut)}
+  .menu-note{text-align:center;margin-top:34px;color:var(--ink-2)}
+
+  /* reviews */
+  .rev-sec{background:var(--forest);color:var(--cream)}
+  .rev-sec .sec-head h2{color:#fff} .rev-sec .eyebrow{color:var(--gold)}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:var(--forest-2);border:1px solid rgba(245,242,233,.1);border-radius:var(--r);padding:26px}
+  .review .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .review p{font-family:var(--serif);font-size:1.3rem;font-style:italic;margin:12px 0 18px;color:#fff;line-height:1.35}
+  .review .who{font-size:13.5px;color:rgba(245,242,233,.7);font-weight:600}
+  .rev-foot{text-align:center;margin-top:30px;color:rgba(245,242,233,.8)} .rev-foot b{color:#fff}
+
+  /* reservation band */
+  .band{position:relative;overflow:hidden;border-radius:24px;color:#fff;text-align:center;padding:clamp(44px,7vw,80px) clamp(24px,5vw,64px);
+    background:radial-gradient(900px 500px at 80% 0%,#2A4233,transparent),linear-gradient(150deg,#13211A,#1F3327)}
+  .band h2{font-size:clamp(2.4rem,5vw,3.6rem)} .band p{margin:14px auto 0;max-width:46ch;color:rgba(245,242,233,.85)}
+  .band .hero-cta{justify-content:center;margin-top:28px}
+
+  /* info */
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
+  .info .box h2{font-size:clamp(2rem,4vw,2.8rem)}
+  .info dl{margin:24px 0 0;display:grid;grid-template-columns:auto 1fr;gap:12px 20px;font-size:15px}
+  .info dt{font-weight:700;color:var(--brass-2)} .info dd{margin:0;color:var(--ink-2)}
+  .info .mapph{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(150deg,#DCD8C4,#CFC8AC);position:relative;overflow:hidden;box-shadow:var(--sh)}
+  .info .mapph span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#7E7A5E;font-size:13px;font-weight:600}
+
+  .footer{background:var(--forest);color:rgba(245,242,233,.75);padding:56px 0 110px}
+  .footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px}
+  .footer .brand{color:var(--cream)} .footer .brand .mk{border-color:var(--brass)}
+  .footer p{max-width:34ch;font-size:14.5px;margin:14px 0 0}
+  .footer .fnav{display:flex;gap:24px;flex-wrap:wrap}
+  .footer .fnav a{color:rgba(245,242,233,.75);font-weight:600;font-size:14px} .footer .fnav a:hover{color:var(--brass)}
+  .footer .bot{margin-top:40px;padding-top:22px;border-top:1px solid rgba(245,242,233,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:rgba(245,242,233,.5)}
+
+  .actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line);box-shadow:0 -8px 24px -10px rgba(19,33,26,.5)}
+  .actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)}
+  .actionbar a.res{background:var(--forest);color:#fff}
+  .actionbar svg{width:19px;height:19px}
+
+  @media (max-width:860px){ .menu-grid,.info,.story{grid-template-columns:1fr} .reviews{grid-template-columns:1fr} .story .art{aspect-ratio:16/10} }
+  @media (max-width:600px){ body{font-size:16px} .nav .lk,.nav .ph{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} .hero-cta{align-self:stretch} }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für das Restaurant Kreuzkrug</div>
+
+<header class="header" id="header">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="mk">K</span>Kreuzkrug</a>
+    <nav class="nav">
+      <a class="lk" href="#karte">Speisekarte</a>
+      <a class="lk" href="#geschichte">Geschichte</a>
+      <a class="lk" href="#info">Öffnungszeiten</a>
+      <a class="ph" href="tel:+495215579999"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+      <a class="btn btn-forest" href="#reservieren">Tisch reservieren</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="scrim"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow rv">Gasthaus mit Geschichte · seit 1829</div>
+    <h1 class="rv" style="transition-delay:.05s">Gastlichkeit,<br><em>seit fast 200 Jahren.</em></h1>
+    <p class="lede rv" style="transition-delay:.1s">Ehrliche, frisch zubereitete Küche in einem Haus, das Generationen von Gästen erlebt hat. Heute genauso herzlich wie damals — mitten in Bielefeld.</p>
+    <div class="hero-cta rv" style="transition-delay:.15s">
+      <a class="btn btn-brass" href="#reservieren">Tisch reservieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ol" href="#karte">Speisekarte ansehen</a>
+    </div>
+    <div class="hero-trust rv" style="transition-delay:.2s">
+      <div class="stars"><span class="s">★★★★★</span> 4,5 · Google</div>
+      <div class="sep"></div><div class="ti">Gutbürgerlich &amp; saisonal</div>
+      <div class="sep"></div><div class="ti">Feiern &amp; Gesellschaften</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap row">
+    <span><b>✦</b> Frische Tageskarte</span>
+    <span><b>✦</b> Saisonale Spezialitäten</span>
+    <span><b>✦</b> Räume für Feiern bis 80 Pers.</span>
+    <span><b>✦</b> Gewachsene Tradition seit 1829</span>
+  </div>
+</div>
+
+<!-- GESCHICHTE -->
+<section class="section" id="geschichte">
+  <div class="wrap story">
+    <div class="box rv">
+      <div class="eyebrow">Unsere Geschichte</div>
+      <h2 style="margin-top:10px">Ein Haus, das Geschichten erzählt.</h2>
+      <p>Der Kreuzkrug gehört seit fast zwei Jahrhunderten zu Bielefeld. Aus dem alten Gasthaus an der Kreuzung ist ein Ort geworden, an dem man gut isst, gern feiert und einfach gern wiederkommt — gepflegte Gastlichkeit, ohne Schnörkel.</p>
+      <div class="yrs">
+        <div class="yr"><b>1829</b><span>Gegründet</span></div>
+        <div class="yr"><b>4,5★</b><span>Google-Bewertung</span></div>
+        <div class="yr"><b>80</b><span>Plätze für Feiern</span></div>
+      </div>
+    </div>
+    <div class="art rv" style="transition-delay:.1s">
+      <div class="seal">
+        <div class="ring">K</div>
+        <small>Est. 1829 · Bielefeld</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEISEKARTE (web, statt externem Redirect) -->
+<section class="section menu-sec" id="karte">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Unsere Karte</div>
+      <h2 class="rv" style="transition-delay:.05s">Was bei uns auf den Tisch kommt</h2>
+      <p class="rv" style="transition-delay:.1s">Ein Auszug — direkt auf der Seite, ohne Umweg über PDF oder externe Links. Die volle Karte gibt's am Tisch.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-col rv">
+        <h3>Klassiker</h3>
+        <div class="dish"><span class="nm">Wiener Schnitzel</span><span class="pr">18,90 €</span><span class="ds">Vom Kalb, mit Bratkartoffeln &amp; Preiselbeeren</span></div>
+        <div class="dish"><span class="nm">Rinderroulade</span><span class="pr">19,50 €</span><span class="ds">Hausgemacht, mit Rotkohl &amp; Klößen</span></div>
+        <div class="dish"><span class="nm">Grünkohl mit Pinkel</span><span class="pr">16,90 €</span><span class="ds">Westfälisch, in der Saison</span></div>
+        <div class="dish"><span class="nm">Schweinebraten</span><span class="pr">17,50 €</span><span class="ds">Mit dunkler Soße &amp; Semmelknödel</span></div>
+      </div>
+      <div class="menu-col rv" style="transition-delay:.08s">
+        <h3>Saisonal &amp; Vegetarisch</h3>
+        <div class="dish"><span class="nm">Pfifferling-Pfanne</span><span class="pr">16,90 €</span><span class="ds">Mit Serviettenknödel &amp; Rahm</span></div>
+        <div class="dish"><span class="nm">Kürbisrisotto</span><span class="pr">15,50 €</span><span class="ds">Cremig, mit gerösteten Kernen</span></div>
+        <div class="dish"><span class="nm">Spargel-Variation</span><span class="pr">17,90 €</span><span class="ds">Im Frühjahr, mit neuen Kartoffeln</span></div>
+        <div class="dish"><span class="nm">Bratapfel</span><span class="pr">7,50 €</span><span class="ds">Warm, mit Marzipan &amp; Vanillesoße</span></div>
+      </div>
+    </div>
+    <div class="menu-note rv">Allergene &amp; Tageskarte erfragen Sie gern — oder <a href="#reservieren" style="color:var(--forest);font-weight:700">reservieren Sie direkt einen Tisch</a>.</div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section rev-sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Gästestimmen</div>
+      <h2 class="rv" style="transition-delay:.05s">4,5 ★ — und gern wiedergekommen</h2>
+    </div>
+    <div class="reviews">
+      <div class="review rv"><div class="s">★★★★★</div><p>„Bodenständig, herzlich, und das Essen schmeckt wie bei Oma — nur besser."</p><div class="who">— K. Lindner · Google</div></div>
+      <div class="review rv" style="transition-delay:.06s"><div class="s">★★★★★</div><p>„Wir haben hier gefeiert, alles top organisiert. Ein verlässliches Haus."</p><div class="who">— T. Brinkmann · Google</div></div>
+      <div class="review rv" style="transition-delay:.12s"><div class="s">★★★★★</div><p>„Faire Preise, freundliche Bedienung, ehrliche Küche. Kommen immer wieder."</p><div class="who">— D. Sauer · Google</div></div>
+    </div>
+    <div class="rev-foot rv">Ø <b>4,5 ★</b> auf Google · Gastlichkeit seit <b>1829</b></div>
+  </div>
+</section>
+
+<!-- RESERVATION BAND -->
+<section class="section" id="reservieren">
+  <div class="wrap">
+    <div class="band rv">
+      <div class="in">
+        <div class="eyebrow" style="color:var(--gold)">Tisch reservieren</div>
+        <h2 style="margin-top:10px">Heute schon einen Platz sichern?</h2>
+        <p>Reservieren Sie in 30 Sekunden online — oder rufen Sie uns an. Für Feiern &amp; Gesellschaften beraten wir Sie gern persönlich.</p>
+        <div class="hero-cta">
+          <a class="btn btn-brass" href="#">Online reservieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ol" href="tel:+495215579999"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO / ÖFFNUNGSZEITEN -->
+<section class="section" id="info">
+  <div class="wrap info">
+    <div class="box rv">
+      <div class="eyebrow">Besuch &amp; Kontakt</div>
+      <h2 style="margin-top:10px">Gut zu finden — und immer einen Besuch wert.</h2>
+      <dl>
+        <dt>Ort</dt><dd>Bielefeld</dd>
+        <dt>Telefon</dt><dd><a href="tel:+495215579999" style="color:var(--forest);font-weight:700">Anrufen</a></dd>
+        <dt>Küche</dt><dd>Di – So · 12:00 – 21:30</dd>
+        <dt>Ruhetag</dt><dd>Montag (Feiern auf Anfrage)</dd>
+        <dt>Feiern</dt><dd>Gesellschaftsräume bis 80 Personen</dd>
+      </dl>
+    </div>
+    <div class="mapph rv" style="transition-delay:.1s"><span>▦ Karte / Anfahrt (Google Maps Einbettung)</span></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <a class="brand" href="#top" style="font-size:24px"><span class="mk">K</span>Kreuzkrug</a>
+        <p>Restaurant Kreuzkrug — gutbürgerliche Gastlichkeit in Bielefeld, seit 1829.</p>
+      </div>
+      <nav class="fnav">
+        <a href="#karte">Speisekarte</a><a href="#geschichte">Geschichte</a><a href="#reservieren">Reservieren</a><a href="#info">Öffnungszeiten</a>
+      </nav>
+    </div>
+    <div class="bot">
+      <span>© <span id="yr">2026</span> Restaurant Kreuzkrug — Konzept-Vorschau</span>
+      <span>Gestaltet von MZ.9 · Media Engineering.AI</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Schnellkontakt">
+  <a href="tel:+495215579999"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+  <a href="#karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h18M3 17h12"/></svg>Karte</a>
+  <a class="res" href="#reservieren"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Reservieren</a>
+</nav>
+
+<script>
+(function(){
+  var h=document.getElementById("header");
+  function s(){ h.classList.toggle("scrolled", window.scrollY>30); } s(); addEventListener("scroll",s,{passive:true});
+  var y=document.getElementById("yr"); if(y) y.textContent=new Date().getFullYear();
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1,rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add("in");});
+})();
+</script>
+</body>
+</html>
