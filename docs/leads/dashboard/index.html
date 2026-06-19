@@ -73,8 +73,10 @@
   .panes{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
   .pane{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
   .pane:last-child{border-right:0}
-  .pane .lab{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;background:var(--panel-2);color:var(--ink-2);display:flex;justify-content:space-between;align-items:center}
-  .pane .lab.neu{color:var(--green)} .pane .lab a{color:var(--accent);font-size:11px;text-transform:none;letter-spacing:0}
+  .pane .lab{font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;background:var(--panel-2);color:var(--amber);display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--amber)}
+  .pane .lab::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber);margin-right:7px;vertical-align:-1px}
+  .pane .lab.neu{color:var(--green);border-bottom-color:var(--green)} .pane .lab.neu::before{background:var(--green)}
+  .pane .lab a{color:var(--accent);font-size:11px;text-transform:none;letter-spacing:0;font-weight:700;margin-left:auto}
   .pane .lab a.liveopen{background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px;font-weight:700}
   .pane .fr{flex:1;position:relative;background:#fff;min-height:0;overflow:auto}
   .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
@@ -86,8 +88,10 @@
   .loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink-mut);background:var(--panel);font-size:13px}
   .loading .sp{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .seg{display:none;gap:1px;background:var(--line);border-radius:8px;overflow:hidden}
-  .seg button{padding:8px 14px;font-size:13px}
+  .seg{display:none;gap:0;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{padding:7px 18px;font-size:13px;font-weight:800;background:transparent;color:var(--ink-2);border:0;cursor:pointer;text-transform:uppercase;letter-spacing:.04em}
+  .seg button[data-pane="alt"].on{background:var(--amber);color:#1a1206}
+  .seg button[data-pane="neu"].on{background:var(--green);color:#062a1d}
   @media (max-width:760px){
     .panes{grid-template-columns:1fr;grid-template-rows:1fr}
     .pane{border-right:0;border-bottom:1px solid var(--line);display:none}
@@ -147,6 +151,7 @@
     {id:"dein-gym",name:"Dein Gym Bielefeld",industry:"Fitness",hebel:"mittel",score:55,website:"https://deingym-bielefeld.de/",problems:["Intransparente Preise","Kein Probetraining sichtbar","Keine Bewertungen","Kein Lead-Formular above the fold"],opps:["Transparente Preis-Tiers","Gratis-Probetraining als CTA","Reviews & Vorher-/Nachher"],preview:"https://maikz91.github.io/the-tribe-bot/leads/dein-gym/"},
     {id:"heise-immobilien",name:"Heise Immobilien",industry:"Immobilien",hebel:"hoch",score:36,website:"https://www.heise-immobilien.de/",problems:["Stark veraltet (.htm, Tabellen-Layout, ~10–15 J.)","Kein Lead-/Wertermittlungsformular above the fold","Keine Google-Bewertungen","Nicht mobil-optimiert"],opps:["Kostenlose Wertermittlung above the fold","Objekt-Listings modern inszenieren","Google-Reviews & Trust einbinden","Mobile-first Redesign"],preview:"https://maikz91.github.io/the-tribe-bot/leads/heise-immobilien/"},
     {id:"cafe-knigge",name:"Café Knigge",industry:"Gastronomie",hebel:"mittel",score:52,website:"https://cafe-knigge.de/",problems:["Dated Template (~frühe 2010er)","Speisekarte nur als PDF","Keine Google-Bewertungen","CTA erst below the fold"],opps:["Inline-Frühstückskarte statt PDF","Google-Reviews prominent","Torten-Galerie & Reservierung in den Hero"],preview:"https://maikz91.github.io/the-tribe-bot/leads/cafe-knigge/"},
+    {id:"cafe-woelke",name:"Café Wölke",industry:"Gastronomie",hebel:"mittel",score:46,website:"https://cafe-woelke.de/",problems:["Veraltetes CMS (WorldSoft), dated Design","Keine Online-Torten-Anfrage/Bestellung","Keine Google-Bewertungen","Verschachtelte Navigation, CTA below the fold"],opps:["Online-Torten-Anfrage above the fold","Google-Reviews prominent","Torten-Galerie & klare Anlass-CTAs","Familien-USP (Spielplatz/Terrasse) inszenieren"],preview:"https://maikz91.github.io/the-tribe-bot/leads/cafe-woelke/"},
     {id:"buschkamp",name:"Am Buschkamp Immobilien",industry:"Immobilien",hebel:"niedrig",score:76,website:"https://am-buschkamp-immobilien.de/",problems:["Keine Objekt-Listings above the fold","Wertermittlung erst nach Scroll"],opps:["Featured-Objekte in den Hero","Wertermittlung above the fold"],preview:""},
     {id:"grossehelleforth",name:"Dres. Großehelleforth",industry:"Zahnarzt",hebel:"niedrig",score:69,website:"https://www.grossehelleforth.de/",problems:["Keine Google-Bewertungen auf Startseite","Kein Inline-Kontaktformular"],opps:["Reviews-Widget einbinden","Nutzenorientierte Headline"],preview:""}
   ];
@@ -171,8 +176,8 @@
     var to=EMAILS[l.id]||("info@"+domain);
     var subject="Konzept-Vorschau für Ihre Website — "+l.name;
     var body=
-"Guten Tag,\n\n"+
-"ich habe mir die Website von "+l.name+" angesehen und unverbindlich eine moderne Konzept-Vorschau gestaltet, wie der Auftritt aussehen könnte:\n\n"+
+"Hallo liebes "+l.name+"-Team,\n\n"+
+"ich habe mir Ihre Website angesehen und unverbindlich eine moderne Konzept-Vorschau gestaltet, wie der Auftritt aussehen könnte:\n\n"+
 l.preview+"\n\n"+
 "Im direkten Vergleich zur aktuellen Seite ("+host(l.website)+") fallen vor allem diese Punkte auf, die sich leicht verbessern lassen:\n"+
 l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
