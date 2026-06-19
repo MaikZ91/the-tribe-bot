@@ -82,7 +82,19 @@
   .actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line)} .actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)} .actionbar a.c{background:var(--gold);color:#1b1408} .actionbar svg{width:19px;height:19px}
   @media (max-width:860px){ .feat,.consult,.reviews,.info{grid-template-columns:1fr} }
   @media (max-width:600px){ body{font-size:16px} .nav .lk{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+  /* ---- premium layer ---- */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .rv{filter:blur(8px)} .rv.in{filter:blur(0)}
+  .hero .glow{position:absolute;z-index:1;border-radius:50%;filter:blur(70px);pointer-events:none;opacity:.4;background:radial-gradient(circle at 50% 50%,var(--gold),transparent 70%);animation:floaty 16s var(--ease) infinite;mix-blend-mode:screen}
+  .hero .glow.g1{width:40vw;height:40vw;top:-8%;right:-6%;animation-delay:-4s}
+  .hero .glow.g2{width:30vw;height:30vw;bottom:2%;left:-8%;background:radial-gradient(circle at 50% 50%,var(--burg),transparent 70%);opacity:.3}
+  @keyframes floaty{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2.2vw,-3vh,0) scale(1.14)}}
+  .btn{will-change:transform} .btn-gold,.btn-navy{position:relative;overflow:hidden}
+  .btn-gold::after,.btn-navy::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);transition:left .6s var(--ease)}
+  .btn-gold:hover::after,.btn-navy:hover::after{left:130%}
+  .fcard{transition:transform .4s var(--ease),box-shadow .4s var(--ease)} .fcard:hover{transform:translateY(-8px);box-shadow:var(--sh)}
+  .review{transition:transform .4s var(--ease)} .review:hover{transform:translateY(-6px)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
 </style>
 </head>
 <body>
@@ -94,7 +106,8 @@
   </div>
 </header>
 <section id="top" class="hero">
-  <img class="bg" src="https://www.kanzleikotte.de/stream/images/slider/001.jpg" alt="" aria-hidden="true" loading="eager" onerror="this.style.display='none'">
+  <img class="bg" id="heroBg" src="https://www.kanzleikotte.de/stream/images/slider/001.jpg" alt="" aria-hidden="true" loading="eager" onerror="this.style.display='none'">
+  <div class="glow g1"></div><div class="glow g2"></div>
   <div class="wrap hero-inner">
     <div class="eyebrow rv">Familienrecht · Scheidung · Erbrecht · Bielefeld</div>
     <h1 class="rv" style="transition-delay:.05s">Klarheit in schwierigen<br><em>Lebenslagen.</em></h1>
@@ -183,6 +196,15 @@
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1,rootMargin:"0px 0px -8% 0px"});
     els.forEach(function(el){io.observe(el);});
   } else els.forEach(function(el){el.classList.add("in");});
+  var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!reduce){
+    var bg=document.getElementById("heroBg");
+    addEventListener("scroll",function(){ if(bg&&scrollY<innerHeight) bg.style.transform="translateY("+(scrollY*.18)+"px) scale(1.06)"; },{passive:true});
+    document.querySelectorAll(".btn").forEach(function(b){
+      b.addEventListener("mousemove",function(e){var r=b.getBoundingClientRect();b.style.transform="translate("+((e.clientX-r.left-r.width/2)*.25)+"px,"+((e.clientY-r.top-r.height/2)*.4-2)+"px)";});
+      b.addEventListener("mouseleave",function(){b.style.transform="";});
+    });
+  }
 })();
 </script>
 </body>
