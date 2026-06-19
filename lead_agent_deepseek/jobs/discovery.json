@@ -1,0 +1,17 @@
+{
+  "type": "discovery",
+  "region": "Bielefeld",
+  "branches": [
+    "Gastronomie",
+    "Handwerk",
+    "Einzelhandel"
+  ],
+  "count": 3,
+  "instruction": "Finde 3 reale Unternehmen je Branche in Bielefeld. Analysiere ihre Websites via fetch_url + npx lighthouse. Bewerte nach Score (0-100), Hebeln (hoch/mittel/niedrig), Problemen und Opportunities. Speichere Audit als leads/<id>.json. Keine Fake-Daten.",
+  "deepseek_tools": {
+    "find": "web_search '<branche> Bielefeld'",
+    "analyze": "fetch_url <website> → HTML-Struktur, CTA, Reviews, Mobile-Readiness",
+    "audit": "exec_shell npx lighthouse <website> --output=json --chrome-flags='--headless=new'",
+    "score": "Lighthouse Performance × 0.4 + Heuristik (CTA 0.2, Trust 0.2, Mobile 0.2)"
+  }
+}
