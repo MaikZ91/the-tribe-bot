@@ -134,10 +134,22 @@
   function host(u){return u.replace(/^https?:\/\//,"").replace(/\/$/,"");}
   function byId(id){return SEED.filter(function(l){return l.id===id;})[0];}
 
+  /* ---- echte Kontakt-E-Mails aus dem Impressum (sonst Fallback info@domain) ---- */
+  var EMAILS={
+    "physiofit":"info@physio-fit-bielefeld.de",
+    "physiowell":"info@physiowell-bielefeld.de",
+    "kreuzkrug":"info@kreuzkrug.de",
+    "altbielefeld":"info@alt-bielefeld.de",
+    "strothmann":"mail@maler-strothmann.de",
+    "schmitz":"maler-schmitz@t-online.de",
+    "kanzlei-kotte":"info@kanzleikotte.de",
+    "zahnarzt-kahlke":"info@zahnarztpraxis-bielefeld.de",
+    "dein-gym":"deingym.bielefeld@gmail.com"
+  };
   /* ---- fertige E-Mail (mailto) ---- */
   function mailFor(l){
     var domain=host(l.website).replace(/^www\./,"").split("/")[0];
-    var to="info@"+domain;
+    var to=EMAILS[l.id]||("info@"+domain);
     var subject="Konzept-Vorschau für Ihre Website — "+l.name;
     var body=
 "Guten Tag,\n\n"+
