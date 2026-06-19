@@ -214,11 +214,11 @@ function updateDashboard(lead, previewUrl) {
 function gitPush(lead) {
   try {
     const cwd = path.join(ROOT, '..');
+    execSync('git pull --rebase origin main', { cwd, stdio: 'pipe' });
     try { execSync('git add docs/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/leads/', { cwd, stdio: 'pipe' }); } catch {}
-    try { execSync('git add lead_agent_deepseek/DISCOVERY_NEEDED.txt', { cwd, stdio: 'pipe' }); } catch {}
+    try { execSync('git add lead_agent_deepseek/discoveries/used/ lead_agent_deepseek/DISCOVERY_NEEDED.txt', { cwd, stdio: 'pipe' }); } catch {}
     const diff = execSync('git diff --cached --stat', { cwd, stdio: 'pipe', encoding: 'utf8' });
-    if (!diff.trim()) { log('  📭 Keine Änderungen zum Pushen.'); return; }
-    execSync(`git pull --rebase origin main`, { cwd, stdio: 'pipe' });
+    if (!diff.trim()) { log('  📭 Keine Änderungen.'); return; }
     execSync(`git commit -m "lead-agent: ${lead.id} — ${lead.name}"`, { cwd, stdio: 'pipe' });
     execSync('git push', { cwd, stdio: 'pipe' });
     log(`🚀 Gepusht: ${lead.name}`);
