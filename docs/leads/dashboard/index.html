@@ -371,8 +371,21 @@
   /* ---- state (seed merged with saved overrides) ---- */
   var state=load();
   function load(){
-    try{var saved=JSON.parse(localStorage.getItem(KEY)); if(saved&&saved.length) return saved;}catch(e){}
-    return clone(SEED);
+    var saved=null;
+    try{saved=JSON.parse(localStorage.getItem(KEY));}catch(e){}
+    if(!saved||!saved.length) return clone(SEED);
+    // Merge fresh SEED into saved state: add newly discovered/built leads,
+    // and pull through build results (preview/build/scores) without clobbering
+    // the user's own edits (status/rating/notes).
+    var byId={}; saved.forEach(function(l){byId[l.id]=l;});
+    SEED.forEach(function(s){
+      var ex=byId[s.id];
+      if(!ex){ saved.push(clone(s)); return; }
+      if(s.preview && !ex.preview) ex.preview=s.preview;
+      if(s.build && !ex.build) ex.build=s.build;
+      if(s.scores && (!ex.scores || !avg(ex.scores))) ex.scores=clone(s.scores);
+    });
+    return saved;
   }
   function save(){ try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){} }
 
