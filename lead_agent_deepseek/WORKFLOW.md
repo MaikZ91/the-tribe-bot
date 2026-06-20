@@ -92,8 +92,10 @@ Jede Seite muss das Niveau von `docs/leads/alt-bielefeld/index.html` haben:
 
 - **Self-contained** `index.html` (inline `<style>`, minimal inline JS für
   Scroll-Reveal `.rv`/`.in`, Header-scrolled-State, Mobile-Nav).
-- **Original-Bilder** aus `build-job.json` → `images[]` (Hero, Galerie,
-  CTA-Band, Leistungsbilder). Hero ohne `loading=lazy`, Rest mit.
+- **Original-Bilder = PFLICHT** aus `build-job.json` → `images[]` (Hero, Galerie,
+  CTA-Band, Leistungsbilder). Hero ohne `loading=lazy`, Rest mit. NIE eine
+  bildlose Seite, NIE Stock-/Fantasiebilder. Leads ohne `images[]` werden gar
+  nicht erst gebaut (Daemon/auto.js überspringen sie).
 - **Echte Inhalte** aus `build-job.json` → `content` (Titel, H1/H2, Desc) und
   `name`/`address`/`phone`. **Keine Fakten erfinden, keine Preise erfinden.**
 - Branchen-passende, eigene Farbpalette (nicht 1:1 die Referenz kopieren).

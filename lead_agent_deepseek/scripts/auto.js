@@ -52,7 +52,8 @@ function buildPrompt(id, dir) {
     `2) Lies die PFLICHT-Stilreferenz komplett und übernimm Aufbau/Niveau/Klassen/Animationen: ${REFERENCE}.`,
     `3) Lies das Build-Briefing in ${WORKFLOW} (Abschnitt "Build-Briefing für Stufe 2") und halte ALLE Punkte ein.`,
     `4) Schreibe EINE self-contained Datei nach: ${out}.`,
-    `Nutze AUSSCHLIESSLICH die echten Daten + Original-Bild-URLs aus dem Build-Job (keine Fakten/Preise erfinden).`,
+    `PFLICHT: Baue die Original-Bild-URLs aus images[] prominent ein (Hero, Galerie, CTA-Band, Leistungsbilder) — KEINE bildlose Seite, KEINE Stock-/Fantasiebilder.`,
+    `Nutze AUSSCHLIESSLICH die echten Daten aus dem Build-Job (keine Fakten/Preise erfinden).`,
     `Eigene branchenpassende Farbpalette. Deutsch. <meta name="robots" content="noindex">. Voll responsive.`,
     `Antworte am Ende nur knapp; die geschriebene Datei ${out} ist das Ergebnis.`,
   ].join(' ');
@@ -89,12 +90,20 @@ async function cycle() {
   try { run('node lead_agent_deepseek/scripts/daemon.js --once'); }
   catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
 
-  // STUFE 2: offene Builds
-  const pending = listPending().filter(i => !i.built).slice(0, MAX_BUILDS);
+  // STUFE 2: offene Builds — nur Leads MIT Originalbildern.
+  const fs = require('fs');
+  const hasImages = (jobFile) => {
+    try { return (JSON.parse(fs.readFileSync(jobFile, 'utf8')).images || []).length > 0; } catch { return false; }
+  };
+  const open = listPending().filter(i => !i.built);
+  const buildable = open.filter(i => hasImages(i.jobFile));
+  const skipped = open.length - buildable.length;
+  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne Originalbilder übersprungen (keine bildlose Seite).`);
+  const pending = buildable.slice(0, MAX_BUILDS);
   if (pending.length === 0) {
-    log('Keine offenen Builds.');
+    log('Keine offenen Builds mit Bildern.');
   } else {
-    log(`${pending.length} offene Build(s).`);
+    log(`${pending.length} offene Build(s) mit Bildern.`);
     for (const item of pending) buildLead(item);
   }
 

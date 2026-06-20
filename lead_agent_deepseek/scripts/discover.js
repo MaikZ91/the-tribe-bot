@@ -160,18 +160,34 @@ function evaluateSite(html, url) {
 
 function extractImages(html, base) {
   const imgs = new Set();
-  const og = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
-  if (og) { const u = absoluteUrl(og[1], base); if (u) imgs.add(u); }
-  // <img src> + lazy-load-Varianten (data-src / data-lazy-src / data-original)
-  for (const m of html.matchAll(/<img[^>]+(?:src|data-src|data-lazy-src|data-original)=["']([^"']+)["']/gi)) {
-    const u = absoluteUrl(m[1], base);
-    if (!u) continue;
-    if (/sprite|icon|logo|pixel|spacer|blank|white[_-]?space|placeholder|\.svg(\?|$)|^data:/i.test(u)) continue;
-    if (!/\.(jpe?g|png|webp|avif)(\?|$)/i.test(u)) continue; // nur echte Fotos
+  const add = (raw) => {
+    if (imgs.size >= 12) return;
+    const u = absoluteUrl(raw, base);
+    if (!u) return;
+    if (/sprite|icon|logo|pixel|spacer|blank|white[_-]?space|placeholder|loading|\.svg(\?|$)|^data:/i.test(u)) return;
+    if (!/\.(jpe?g|png|webp|avif)(\?|$|[#&])/i.test(u)) return; // nur echte Fotos
     imgs.add(u);
-    if (imgs.size >= 12) break;
+  };
+  const og = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+  if (og) add(og[1]);
+  // <img src> + lazy-load-Varianten
+  for (const m of html.matchAll(/<img[^>]+(?:src|data-src|data-lazy-src|data-original)=["']([^"']+)["']/gi)) add(m[1]);
+  // srcset (<img srcset> / <source srcset>) — erste URL je Eintrag
+  for (const m of html.matchAll(/srcset=["']([^"']+)["']/gi)) {
+    for (const part of m[1].split(',')) add(part.trim().split(/\s+/)[0]);
   }
+  // CSS-Hintergrundbilder: style="background-image:url(...)" + url(...) generell
+  for (const m of html.matchAll(/background(?:-image)?\s*:\s*url\(\s*["']?([^"')]+)["']?\s*\)/gi)) add(m[1]);
   return [...imgs];
+}
+
+// Holt Original-Bild-URLs zu einer Website (Fallback, wenn ein Lead keine hat).
+async function fetchSiteImages(url) {
+  try {
+    const { html, finalUrl, status } = await fetchUrl(url);
+    if (status >= 400 || !html) return [];
+    return extractImages(html, finalUrl);
+  } catch { return []; }
 }
 
 function decodeEntities(s) {
@@ -305,4 +321,4 @@ if (require.main === module) {
   }).catch(e => { console.error('FATAL', e); process.exit(1); });
 }
 
-module.exports = { discover, CITIES, BRANCH_NAMES, slugify };
+module.exports = { discover, fetchSiteImages, extractImages, CITIES, BRANCH_NAMES, slugify };

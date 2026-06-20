@@ -18,7 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const http = require('http');
-const { discover } = require('./discover');
+const { discover, fetchSiteImages } = require('./discover');
 
 // ─── Konfiguration ────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
@@ -179,12 +179,25 @@ async function tick() {
 
   log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
 
+  // PFLICHT: Originalbilder. Fehlen sie (z.B. bei Alt-Batch-Leads), von der
+  // Website nachholen. Ohne Bilder wird KEIN Build-Job angelegt — wir bauen
+  // keine bildlosen Seiten.
+  if ((!lead.images || lead.images.length === 0) && lead.website) {
+    log(`🖼️  Keine Bilder im Lead — hole von ${lead.website} nach...`);
+    lead.images = await fetchSiteImages(lead.website);
+    log(`   ${lead.images.length} Originalbilder gefunden.`);
+  }
+  if (!lead.images || lead.images.length === 0) {
+    log(`⏭️  ${lead.id} übersprungen: keine Originalbilder verfügbar (keine bildlose Seite).`);
+    return;
+  }
+
   // Daemon baut KEINE Seite und pusht NICHT — er legt nur den Build-Job an.
   // Den Custom-Seitenbau + Dashboard-Eintrag + Auto-Push erledigt Stufe 2/3
   // (Build-Agent → scripts/publish.js). Siehe WORKFLOW.md.
   buildPreview(lead); // schreibt docs/leads/<id>/build-job.json (status: needs_build)
   saveJson(path.join(LEADS_DIR, `${lead.id}.json`), lead);
-  log(`📥 Build-Job bereit für Stufe 2 (Agent): ${lead.id}`);
+  log(`📥 Build-Job bereit für Stufe 2 (Agent): ${lead.id} (${lead.images.length} Bilder)`);
 }
 
 async function loop() {
