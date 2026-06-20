@@ -40,13 +40,31 @@ const INTERVAL_MINUTES = parseInt(
 
 
 // Suchbegriffe für Auto-Discovery
-const SEARCH_TERMS = [
-  'Friseur Bielefeld', 'Zahnarzt Bielefeld', 'Steuerberater Bielefeld',
-  'Maler Bielefeld', 'Dachdecker Bielefeld', 'Elektriker Bielefeld',
-  'Tischler Bielefeld', 'Restaurant Bielefeld', 'Fotograf Bielefeld',
-  'Kosmetikstudio Bielefeld', 'Massage Bielefeld', 'Physiotherapie Bielefeld',
-  'Bäcker Bielefeld', 'Goldschmied Bielefeld', 'Hundesalon Bielefeld',
+// Deutschlandweite Städte-Rotation (40+ Großstädte)
+const CITIES = [
+  'Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt am Main', 'Stuttgart',
+  'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen', 'Bremen', 'Dresden',
+  'Hannover', 'Nürnberg', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld',
+  'Bonn', 'Münster', 'Karlsruhe', 'Mannheim', 'Augsburg', 'Wiesbaden',
+  'Aachen', 'Mönchengladbach', 'Braunschweig', 'Kiel', 'Chemnitz', 'Halle',
+  'Magdeburg', 'Freiburg', 'Krefeld', 'Lübeck', 'Erfurt', 'Mainz', 'Rostock',
+  'Kassel', 'Saarbrücken', 'Osnabrück', 'Oldenburg', 'Potsdam',
+  'Heidelberg', 'Paderborn', 'Darmstadt', 'Würzburg', 'Regensburg',
+  'Ingolstadt', 'Göttingen', 'Ulm', 'Trier', 'Cottbus', 'Siegen',
 ];
+const BRANCHES = [
+  'Friseur', 'Zahnarzt', 'Steuerberater', 'Maler', 'Dachdecker', 'Elektriker',
+  'Tischler', 'Restaurant', 'Fotograf', 'Kosmetikstudio', 'Massage',
+  'Physiotherapie', 'Bäcker', 'Goldschmied', 'Hundesalon', 'Rechtsanwalt',
+  'Reinigung', 'Sanitär', 'Heizung', 'Gartenbau', 'Immobilienmakler',
+  'Optiker', 'Hörakustik', 'Fitnessstudio', 'Blumenladen', 'Fahrschule',
+  'Schreiner', 'Fliesenleger', 'Gebäudereinigung', 'Autowerkstatt',
+];
+function pickSearchTerm() {
+  const city = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const branch = BRANCHES[Math.floor(Math.random() * BRANCHES.length)];
+  return `${branch} ${city}`;
+}
 
 const COLORS = {
   gastronomie:   { accent: '#c2410c', dark: '#7c2d12', light: '#fdba74' },
@@ -141,7 +159,7 @@ function guessIndustry(title, url) {
 }
 
 async function discoverOnline() {
-  const term = SEARCH_TERMS[Math.floor(Math.random() * SEARCH_TERMS.length)];
+  const term = pickSearchTerm();
   log(`🔍 Auto-Discovery: "${term}"`);
   const url = `https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(term)}+website`;
   try {
@@ -192,7 +210,7 @@ async function autoFillFromDiscoveries(queue) {
               website: r.url, phone: contact.phone || '+495210000000',
               email: contact.email || `info@${r.domain}`, score: ev.score,
               problems: ev.problems, opps: ev.opps,
-              heroH1: `${name.split(' ').pop()}.<br><em>${industry} in Bielefeld.</em>`,
+              heroH1: `${name.split(' ').pop()}.<br><em>${industry} — Ihre Region.</em>`,
               heroSub: meta.desc || `${industry} mit Qualität und Erfahrung.`,
               ctaText: 'Jetzt anfragen', features: [ev.opps[0] || 'Professionell', ev.opps[1] || 'Zuverlässig', ev.opps[2] || 'Erfahren'],
             });
@@ -256,62 +274,21 @@ function auditLead(lead) {
   }
 }
 
-// ─── Phase 4: HTML-Preview ────────────────────────────────────────
-function buildPreview(lead) {
-  if (!fs.existsSync(TEMPLATE_FILE)) {
-    log(`❌ Template fehlt: ${TEMPLATE_FILE}`);
-    return null;
-  }
-  let html = fs.readFileSync(TEMPLATE_FILE, 'utf8');
-  const c = colorsFor(lead.industry);
-  const esc = (s) => (s || '').replace(/#/g, '%23');
-
-  const r = {
-    '{{NAME}}': lead.name, '{{NAME_SHORT}}': lead.nameShort || lead.name,
-    '{{INITIAL}}': (lead.name || '?')[0].toUpperCase(),
-    '{{INDUSTRY}}': lead.industry || 'Unternehmen',
-    '{{ACCENT}}': c.accent, '{{ACCENT_DARK}}': c.dark, '{{ACCENT_LIGHT}}': c.light,
-    '{{ACCENT_DARK_ENC}}': esc(c.dark), '{{ACCENT_ENC}}': esc(c.accent),
-    '{{HERO_H1}}': lead.heroH1 || `${lead.name}<br><em>${lead.industry} in Bielefeld</em>`,
-    '{{HERO_SUB}}': lead.heroSub || `${lead.industry} mit Qualität und Erfahrung — direkt in Bielefeld.`,
-    '{{CTA_TEXT}}': lead.ctaText || 'Jetzt anfragen',
-    '{{CTA_HREF}}': lead.ctaHref || '#kontakt',
-    '{{SECONDARY_CTA}}': lead.secondaryCta || 'Mehr erfahren',
-    '{{STRIP_ITEMS}}': (lead.stripItems || ['✦ Lokal in Bielefeld', '✦ Persönlich', '✦ Modern', `✦ ${lead.industry}`]).map(s => `<span>${s}</span>`).join(''),
-    '{{LEISTUNGEN_EYEBROW}}': 'Leistungen',
-    '{{LEISTUNGEN_H2}}': 'Das bieten wir',
-    '{{LEISTUNGEN_SUB}}': 'Ein Auszug unserer Services — persönlich, professionell, für Sie.',
-    '{{FEATURE_CARDS}}': (lead.features || ['Leistung 1', 'Leistung 2', 'Leistung 3']).map((f, i) =>
-      `<div class="fcard rv"${i ? ` style="transition-delay:.${i*6}s"` : ''}><div class="ic">✦</div><h3>${f}</h3><p>Professionell und zuverlässig — seit Jahren in Bielefeld.</p></div>`).join(''),
-    '{{REVIEW_CARDS}}': (lead.reviews || [
-      { stars: 5, text: '"Super, sehr zu empfehlen."', author: 'Kunde · Google' },
-      { stars: 5, text: '"Professionell und freundlich."', author: 'Kundin · Google' },
-      { stars: 5, text: '"Gerne wieder."', author: 'Kunde · Google' }
-    ]).map(r => `<div class="review rv"><div class="s">${'★'.repeat(r.stars)}</div><p>${r.text}</p><div class="who">— ${r.author}</div></div>`).join(''),
-    '{{REVIEW_FOOTNOTE}}': 'Echte Google-Bewertungen einbinden — der fehlende Trust-Baustein.',
-    '{{CTA_BAND_EYEBROW}}': lead.ctaBandEyebrow || 'Jetzt Kontakt aufnehmen',
-    '{{CTA_BAND_H2}}': lead.ctaBandH2 || 'Bereit für den nächsten Schritt?',
-    '{{CTA_BAND_SUB}}': lead.ctaBandSub || 'Unverbindlich anfragen — wir melden uns zeitnah.',
-    '{{INFO_H2}}': 'So erreichen Sie uns.',
-    '{{CONTACT_DL}}': lead.contactDl || `<dt>Ort</dt><dd>Bielefeld</dd><dt>Telefon</dt><dd><a href="tel:${lead.phone||''}" style="color:var(--accent-d);font-weight:700">${lead.phone||'—'}</a></dd><dt>E-Mail</dt><dd>${lead.email||'—'}</dd>`,
-    '{{PHONE}}': lead.phone || '',
-    '{{NAV_LINKS}}': '<a class="lk" href="#leistungen">Leistungen</a><a class="lk" href="#reviews">Bewertungen</a><a class="lk" href="#info">Kontakt</a>',
-    '{{FOOTER_DESC}}': `${lead.industry} in Bielefeld — Qualität, auf die Sie zählen können.`,
-    '{{FOOTER_NAV}}': '<a href="#leistungen">Leistungen</a><a href="#reviews">Bewertungen</a><a href="#info">Kontakt</a>',
-    '{{MOBILE_CTA_SHORT}}': lead.mobileCtaShort || 'Anfragen',
-    '{{META_DESC}}': lead.metaDesc || `${lead.name} — ${lead.industry} Bielefeld. Konzept-Vorschau MZ.9.`,
-    '{{TRUST_STRIP}}': lead.trustStrip || `<div class="stars"><span class="s">✦✦✦✦✦</span> ${lead.industry} Bielefeld</div>`
-  };
-  for (const [k, v] of Object.entries(r)) {
-    html = html.replace(new RegExp(k.replace(/[{}]/g, '\\$&'), 'g'), v);
-  }
+// ─── Phase 4: Custom Build Marker ─────────────────────────────────
+// KEINE TEMPLATE-PREVIEWS! Custom Builds werden vom DeepSeek Agent
+// mit Frontend-Design-Skills, Originalbildern & Premium-Layout erstellt.
+// Siehe WORKFLOW.md.
+function markForCustomBuild(lead) {
   const dir = path.join(PREVIEW_DIR, lead.id);
   ensureDir(dir);
-  const out = path.join(dir, 'index.html');
-  fs.writeFileSync(out, html);
-  log(`📄 Preview: ${out}`);
+  const marker = path.join(dir, 'CUSTOM_BUILD_NEEDED.txt');
+  fs.writeFileSync(marker, `Custom build needed for: ${lead.name} (${lead.id})\nIndustry: ${lead.industry}\nWebsite: ${lead.website}\nAt: ${new Date().toISOString()}`);
+  log(`🎨 Custom Build benötigt: ${lead.id}`);
   return `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/`;
 }
+
+// Alias für Abwärtskompatibilität
+function buildPreview(lead) { return markForCustomBuild(lead); }
 
 // ─── Phase 5: Dashboard ───────────────────────────────────────────
 function updateDashboard(lead, previewUrl) {

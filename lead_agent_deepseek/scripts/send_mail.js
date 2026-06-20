@@ -114,7 +114,7 @@ function buildMail(lead) {
   if (lead.noweb) {
     body = `Hallo liebes ${lead.name}-Team,
 
-mein Name ist Maik, ich komme aus Berlin. Ich habe euch online gefunden (z. B. bei Google/Facebook) — aber eine eigene Website habt ihr noch nicht. Schade, denn ihr macht etwas, das eine richtig gute Seite verdient.
+mein Name ist Maik von MZ.9 — Media Engineering.AI. Ich habe euch online gefunden (z. B. bei Google/Facebook) — aber eine eigene Website habt ihr noch nicht. Schade, denn ihr macht etwas, das eine richtig gute Seite verdient.
 
 Ich habe mir unverbindlich die Freiheit genommen, schon mal eine komplette Website für euch zu gestalten — schaut gern rein:
 
@@ -133,7 +133,7 @@ MZ.9 — Media Engineering.AI`;
   } else {
     body = `Hallo liebes ${lead.name}-Team,
 
-mein Name ist Maik, ich komme aus Berlin — und ehrlich gesagt mag ich, was Sie machen. Genau deshalb ist mir Ihre Website aufgefallen: Sie hat richtig Potenzial, kommt online aber noch nicht so rüber, wie Sie es vor Ort tun.
+mein Name ist Maik von MZ.9 — und ehrlich gesagt mag ich, was Sie machen. Genau deshalb ist mir Ihre Website aufgefallen: Sie hat richtig Potenzial, kommt online aber noch nicht so rüber, wie Sie es vor Ort tun.
 
 Ich habe mir völlig unverbindlich die Freiheit genommen und eine moderne Vorschau gestaltet, wie Ihr Auftritt aussehen könnte — schauen Sie gern rein:
 

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Barbara Pölert — Goldschmiedemeisterin · Bielefeld</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Playfair Display',Georgia,'Times New Roman',serif;
+    color:#1a1a1a;
+    background:#fefefe;
+    line-height:1.7;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- GOLD ACCENT ---------- */
+  .gold-line{
+    width:60px;height:1px;background:#c9a84c;
+    margin:0 auto;
+  }
+  .gold-line.left{margin-left:0}
+  .gold-line.right{margin-right:0}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    background:#fefefe;
+    position:relative;
+    padding:40px 24px;
+  }
+  .hero::after{
+    content:'';
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:120px;height:1px;background:#c9a84c;
+  }
+  .hero .inner{max-width:700px}
+  .hero .overline{
+    font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;
+    color:#999;margin-bottom:40px;
+  }
+  .hero h1{
+    font-size:clamp(2.8rem,7vw,5.5rem);
+    font-weight:400;line-height:1.08;
+    color:#111;margin:0;
+  }
+  .hero h1 em{
+    font-style:italic;color:#c9a84c;display:block;
+    font-size:clamp(1.6rem,4vw,2.8rem);
+    margin-top:8px;font-weight:400;
+  }
+  .hero .sub{
+    font-size:1.05rem;color:#777;max-width:440px;
+    margin:36px auto 0;font-style:italic;line-height:1.6;
+  }
+
+  /* ---------- SECTION FRAME ---------- */
+  section{padding:100px 24px;position:relative}
+  section .boundary{max-width:860px;margin:0 auto}
+  section h2{
+    font-size:clamp(1.8rem,3.5vw,2.6rem);
+    font-weight:400;letter-spacing:.01em;
+    text-align:center;color:#111;margin-bottom:12px;
+  }
+  section .lead{
+    text-align:center;color:#888;font-style:italic;
+    max-width:500px;margin:0 auto 60px;font-size:1rem;line-height:1.6;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about .text-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:48px 64px;
+    margin-top:48px;
+  }
+  .about .text-grid p{
+    font-size:.95rem;color:#555;line-height:1.8;
+  }
+  .about .text-grid .highlight{
+    font-size:1.15rem;color:#111;font-style:italic;line-height:1.6;
+    grid-column:1/-1;text-align:center;max-width:600px;margin:0 auto;
+    padding:20px 0;
+    border-top:1px solid #e8e2d4;border-bottom:1px solid #e8e2d4;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services{background:#fafaf8}
+  .services .cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;background:#e8e2d4;
+  }
+  .services .card{
+    background:#fefefe;padding:48px 28px 36px;
+    text-align:center;transition:all .35s;
+    position:relative;overflow:hidden;
+  }
+  .services .card::before{
+    content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:0;height:1px;background:#c9a84c;transition:width .35s;
+  }
+  .services .card:hover::before{width:40px}
+  .services .card .signet{
+    font-size:2.6rem;margin-bottom:16px;display:block;
+  }
+  .services .card h3{
+    font-size:1rem;font-weight:500;letter-spacing:.04em;
+    text-transform:uppercase;color:#111;margin-bottom:10px;
+  }
+  .services .card p{
+    font-size:.82rem;color:#999;line-height:1.6;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews .quote-set{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    gap:0;position:relative;
+  }
+  .reviews .quote-set::before{
+    content:'';
+    position:absolute;top:0;bottom:0;left:33.333%;width:1px;background:#e8e2d4;
+  }
+  .reviews .quote-set::after{
+    content:'';
+    position:absolute;top:0;bottom:0;left:66.666%;width:1px;background:#e8e2d4;
+  }
+  .reviews .quote{
+    padding:40px 32px;text-align:center;
+  }
+  .reviews .quote .mark{
+    font-size:4rem;line-height:1;color:#c9a84c;font-style:italic;
+    font-weight:700;margin-bottom:12px;
+  }
+  .reviews .quote blockquote{
+    font-size:1.05rem;font-style:italic;color:#333;line-height:1.6;
+    margin-bottom:18px;
+  }
+  .reviews .quote .by{
+    font-size:.8rem;color:#aaa;letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:#1a1a1a;color:#ccc}
+  .contact h2{color:#fff}
+  .contact .lead{color:#999}
+  .contact .info-strip{
+    display:flex;justify-content:center;gap:60px;
+    flex-wrap:wrap;text-align:center;margin-top:32px;
+  }
+  .contact .info-strip .item{
+    max-width:200px;
+  }
+  .contact .info-strip .icon{
+    display:block;font-size:1.4rem;margin-bottom:12px;color:#c9a84c;
+  }
+  .contact .info-strip strong{
+    display:block;color:#fff;font-size:.85rem;
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;
+    font-weight:500;
+  }
+  .contact .info-strip span{
+    font-size:.85rem;color:#999;line-height:1.6;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#111;text-align:center;padding:32px 24px;
+    font-size:.75rem;color:#666;letter-spacing:.04em;
+  }
+  footer span{color:#c9a84c}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .about .text-grid{grid-template-columns:1fr;gap:24px}
+    .about .text-grid .highlight{text-align:left;margin:0}
+    .services .cards{grid-template-columns:1fr 1fr}
+    .reviews .quote-set{grid-template-columns:1fr}
+    .reviews .quote-set::before,.reviews .quote-set::after{display:none}
+    .reviews .quote{border-bottom:1px solid #e8e2d4}
+    .contact .info-strip{flex-direction:column;gap:28px;align-items:center}
+  }
+  @media(max-width:500px){
+    .services .cards{grid-template-columns:1fr}
+    section{padding:64px 18px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="inner">
+    <p class="overline">Goldschmiedemeisterin · Bielefeld</p>
+    <h1>Barbara<br>Pölert<em>Goldschmiede-<br>meisterin</em></h1>
+    <p class="sub">Seit über drei Jahrzehnten fertige ich Schmuck, der Geschichten erzählt — jedes Stück ein Unikat, von Hand gearbeitet in meiner Werkstatt in der Bielefelder Altstadt.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ ÜBER MICH ═══════════════ -->
+<section class="about" id="ueber-mich">
+  <div class="boundary">
+    <h2>Handwerk mit Seele</h2>
+    <p class="lead">In einer Welt des Massenproduzierten bewahre ich die Kunst des Besonderen.</p>
+    <div class="text-grid">
+      <p>Als Goldschmiedemeisterin führe ich eine traditionsreiche Werkstatt im Herzen von Bielefeld. Mein Handwerk habe ich von der Pike auf gelernt — mit Respekt vor dem Material und einem Auge für das, was Schmuck ausmacht: <strong>Charakter, Haltung, Einzigartigkeit</strong>.</p>
+      <p>Von der ersten Skizze bis zur letzten Politur entsteht jedes Stück in meinen Händen. Ob Trauring, Erbstück-Umarbeitung oder eine komplett neue Kreation — ich begleite Sie von der Idee bis zum fertigen Schmuckstück mit <strong>Leidenschaft und Präzision</strong>.</p>
+      <p class="highlight">„Schmuck ist mehr als Metall und Stein. Er trägt Erinnerungen, verbindet Menschen und überdauert Generationen."</p>
+      <p>Meine Kundinnen und Kunden schätzen die persönliche Beratung, das gemeinsame Entwickeln von Ideen und die Gewissheit, dass ihr Schmuckstück <strong>nirgendwo sonst auf der Welt</strong> existiert. Trauringe, Verlobungsringe, Ketten, Ohrringe — jedes Stück ein Unikat.</p>
+      <p>Neben Neuanfertigungen liegt mir die <strong>Reparatur und Umarbeitung</strong> besonders am Herzen: Alte Schätze neu interpretiert, beschädigte Lieblingsstücke gerettet, Familienerbstücke behutsam modernisiert — mit dem Wissen und der Sorgfalt von über 30 Jahren Handwerkserfahrung.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LEISTUNGEN ═══════════════ -->
+<section class="services" id="leistungen">
+  <div class="boundary">
+    <h2>Meine Arbeit</h2>
+    <p class="lead">Vier Säulen handwerklicher Meisterschaft — von der Trauring-Beratung bis zur feinsten Gravur.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="signet">&#x26AC;</span>
+        <h3>Trauringe</h3>
+        <p>Individuell gestaltete Trauringe in Gold, Weißgold oder Platin. Persönliche Beratung, gemeinsame Auswahl von Form und Oberfläche — für den wichtigsten Ring Ihres Lebens.</p>
+      </div>
+      <div class="card">
+        <span class="signet">&#x25C6;</span>
+        <h3>Einzel&shy;anfertigungen</h3>
+        <p>Ihre Idee, meine Hände: Ob Kette, Ohrring oder Armreif — jedes Schmuckstück wird nach Ihren Wünschen entworfen und in meiner Werkstatt realisiert.</p>
+      </div>
+      <div class="card">
+        <span class="signet">&#x2692;</span>
+        <h3>Reparaturen</h3>
+        <p>Defekte Ketten, verbogene Ringe, verlorene Steine — ich bringe Ihre Schmuckstücke fachgerecht in Ordnung. Sorgfältig, präzise und mit Respekt vor dem Original.</p>
+      </div>
+      <div class="card">
+        <span class="signet">&#x270E;</span>
+        <h3>Gravuren</h3>
+        <p>Namen, Daten, persönliche Botschaften — von Hand oder maschinell graviert. Dezente Schriftzüge, die Ihr Schmuckstück unverwechselbar machen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BEWERTUNGEN ═══════════════ -->
+<section class="reviews" id="bewertungen">
+  <div class="boundary">
+    <h2>Das sagen meine Kunden</h2>
+    <p class="lead">Vertrauen, das über Jahre gewachsen ist.</p>
+    <div class="quote-set">
+      <div class="quote">
+        <span class="mark">&ldquo;</span>
+        <blockquote>Seit über 20 Jahren unsere Goldschmiedin des Vertrauens — von den Trauringen über Taufgeschenke bis zur Reparatur. Frau Pölert ist eine Institution in Bielefeld.</blockquote>
+        <p class="by">Familie W., Bielefeld</p>
+      </div>
+      <div class="quote">
+        <span class="mark">&ldquo;</span>
+        <blockquote>Ich kam mit einer vagen Idee und ging mit dem schönsten Ring, den ich je besessen habe. Die Beratung war einfühlsam, das Ergebnis überwältigend.</blockquote>
+        <p class="by">Anna M., Herford</p>
+      </div>
+      <div class="quote">
+        <span class="mark">&ldquo;</span>
+        <blockquote>Das Collier meiner Großmutter war stark beschädigt — Frau Pölert hat es so behutsam restauriert, dass es wieder wie neu aussieht. Unbezahlbar.</blockquote>
+        <p class="by">Dr. Klaus R., Bielefeld</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ KONTAKT ═══════════════ -->
+<section class="contact" id="kontakt">
+  <div class="boundary">
+    <h2>Besuchen Sie mich</h2>
+    <p class="lead">In der Bielefelder Altstadt — persönlich, diskret, ohne Eile.</p>
+    <div class="info-strip">
+      <div class="item">
+        <span class="icon">&#x260E;</span>
+        <strong>Telefon</strong>
+        <span>0521 2528398</span>
+      </div>
+      <div class="item">
+        <span class="icon">&#x2709;</span>
+        <strong>E-Mail</strong>
+        <span>info@barbara-poelert.de</span>
+      </div>
+      <div class="item">
+        <span class="icon">&#x2302;</span>
+        <strong>Adresse</strong>
+        <span>Welle 11<br>33602 Bielefeld</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <p>&copy; 2026 Barbara Pölert · Goldschmiedemeisterin · Welle 11 · 33602 Bielefeld &ensp;|&ensp; <span>Impressum</span> &ensp;|&ensp; Datenschutz</p>
+</footer>
+
+<script>
+  window.MZ9CHAT={mode:"lead",name:"Goldschmiedin Barbara Pölert",accent:"#c9a84c"};
+</script>
+<script src="../chat.js" defer></script>
+</body>
+</html>

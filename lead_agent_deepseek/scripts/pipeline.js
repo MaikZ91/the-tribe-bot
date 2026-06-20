@@ -31,24 +31,31 @@ const DISCOVERIES_DIR = path.join(ROOT, 'discoveries');
 const MAX_LEADS = parseInt(process.env.MAX_LEADS || '3', 10);
 const DO_DISCOVER = process.env.DISCOVER === 'true';
 
-// Branchen + Suchbegriffe für Bielefeld
-const SEARCH_TERMS = [
-  'Friseur Bielefeld',
-  'Zahnarzt Bielefeld',  
-  'Steuerberater Bielefeld',
-  'Rechtsanwalt Bielefeld',
-  'Physiotherapie Bielefeld',
-  'Maler Bielefeld',
-  'Dachdecker Bielefeld',
-  'Elektriker Bielefeld',
-  'Tischler Bielefeld',
-  'Bäcker Bielefeld',
-  'Fotograf Bielefeld',
-  'Goldschmied Bielefeld',
-  'Kosmetikstudio Bielefeld',
-  'Massage Bielefeld',
-  'Hundesalon Bielefeld',
+// Deutschlandweite Städte-Rotation (40+ Großstädte)
+const CITIES = [
+  'Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt am Main', 'Stuttgart',
+  'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen', 'Bremen', 'Dresden',
+  'Hannover', 'Nürnberg', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld',
+  'Bonn', 'Münster', 'Karlsruhe', 'Mannheim', 'Augsburg', 'Wiesbaden',
+  'Aachen', 'Mönchengladbach', 'Braunschweig', 'Kiel', 'Chemnitz', 'Halle',
+  'Magdeburg', 'Freiburg', 'Krefeld', 'Lübeck', 'Erfurt', 'Mainz', 'Rostock',
+  'Kassel', 'Saarbrücken', 'Osnabrück', 'Oldenburg', 'Potsdam',
+  'Heidelberg', 'Paderborn', 'Darmstadt', 'Würzburg', 'Regensburg',
+  'Ingolstadt', 'Göttingen', 'Ulm', 'Trier', 'Cottbus', 'Siegen',
 ];
+const BRANCHES = [
+  'Friseur', 'Zahnarzt', 'Steuerberater', 'Maler', 'Dachdecker', 'Elektriker',
+  'Tischler', 'Restaurant', 'Fotograf', 'Kosmetikstudio', 'Massage',
+  'Physiotherapie', 'Bäcker', 'Goldschmied', 'Hundesalon', 'Rechtsanwalt',
+  'Reinigung', 'Sanitär', 'Heizung', 'Gartenbau', 'Immobilienmakler',
+  'Optiker', 'Hörakustik', 'Fitnessstudio', 'Blumenladen', 'Fahrschule',
+  'Schreiner', 'Fliesenleger', 'Gebäudereinigung', 'Autowerkstatt',
+];
+function pickSearchTerm() {
+  const city = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const branch = BRANCHES[Math.floor(Math.random() * BRANCHES.length)];
+  return `${branch} ${city}`;
+}
 
 const COLORS = {
   gastronomie:  { accent: '#c2410c', dark: '#7c2d12', light: '#fdba74' },
@@ -190,71 +197,23 @@ function buildLeadData(result, evalResult, contact, meta) {
     score: evalResult.score,
     problems: evalResult.problems,
     opps: evalResult.opps,
-    heroH1: `${name.split(' ').pop()}.<br><em>${industry} in Bielefeld.</em>`,
-    heroSub: meta.desc || `${industry} mit Qualität und Erfahrung — direkt in Bielefeld.`,
+    heroH1: `${name.split(' ').pop()}.<br><em>${industry} — Ihre Region.</em>`,
+    heroSub: meta.desc || `${industry} mit Qualität und Erfahrung — direkt vor Ort.`,
     ctaText: 'Jetzt anfragen',
     ctaHref: '#kontakt',
     features: [evalResult.opps[0] || 'Professionell', evalResult.opps[1] || 'Zuverlässig', evalResult.opps[2] || 'Erfahren'],
   };
 }
 
+// ─── Custom Build Marker (KEINE Templates!) ──────────────────────
+// Custom Builds werden vom DeepSeek Agent mit Frontend-Design-Skills,
+// Originalbildern und Premium-Layout erstellt. Siehe WORKFLOW.md.
 function buildPreview(lead) {
-  if (!fs.existsSync(TEMPLATE_FILE)) {
-    log('❌ Template fehlt. Verwende Fallback.');
-    return buildFallbackPreview(lead);
-  }
-  let html = fs.readFileSync(TEMPLATE_FILE, 'utf8');
-  const c = COLORS[(lead.industry || 'default').toLowerCase()] || COLORS.default;
-  const esc = s => (s || '').replace(/#/g, '%23');
-
-  const r = {
-    '{{NAME}}': lead.name,
-    '{{NAME_SHORT}}': lead.nameShort || lead.name,
-    '{{INITIAL}}': (lead.name || '?')[0].toUpperCase(),
-    '{{INDUSTRY}}': lead.industry || 'Unternehmen',
-    '{{ACCENT}}': c.accent, '{{ACCENT_DARK}}': c.dark, '{{ACCENT_LIGHT}}': c.light,
-    '{{ACCENT_DARK_ENC}}': esc(c.dark), '{{ACCENT_ENC}}': esc(c.accent),
-    '{{HERO_H1}}': lead.heroH1 || `${lead.name}<br><em>${lead.industry} Bielefeld</em>`,
-    '{{HERO_SUB}}': lead.heroSub || `${lead.industry} — Qualität und Erfahrung in Bielefeld.`,
-    '{{CTA_TEXT}}': lead.ctaText || 'Jetzt anfragen',
-    '{{CTA_HREF}}': lead.ctaHref || '#kontakt',
-    '{{SECONDARY_CTA}}': 'Mehr erfahren',
-    '{{STRIP_ITEMS}}': `<span>✦ ${lead.industry}</span><span>✦ Bielefeld</span><span>✦ Persönlich</span><span>✦ Qualität</span>`,
-    '{{LEISTUNGEN_EYEBROW}}': 'Leistungen',
-    '{{LEISTUNGEN_H2}}': 'Das bieten wir',
-    '{{LEISTUNGEN_SUB}}': 'Professionell, persönlich, für Sie in Bielefeld.',
-    '{{FEATURE_CARDS}}': (lead.features || ['Leistung 1', 'Leistung 2', 'Leistung 3']).map((f, i) => `<div class="fcard rv"${i ? ` style="transition-delay:.${i*6}s"` : ''}><div class="ic">✦</div><h3>${f}</h3><p>Professionell und zuverlässig — seit Jahren in Bielefeld.</p></div>`).join(''),
-    '{{REVIEW_CARDS}}': ['"Super, sehr zu empfehlen."', '"Professionell und freundlich."', '"Gerne wieder."'].map(t => `<div class="review rv"><div class="s">★★★★★</div><p>${t}</p><div class="who">— Google Bewertung</div></div>`).join(''),
-    '{{REVIEW_FOOTNOTE}}': 'Echte Google-Bewertungen einbinden — Vertrauen schaffen.',
-    '{{CTA_BAND_EYEBROW}}': 'Jetzt Kontakt aufnehmen',
-    '{{CTA_BAND_H2}}': 'Bereit für den nächsten Schritt?',
-    '{{CTA_BAND_SUB}}': 'Unverbindlich anfragen — wir melden uns zeitnah.',
-    '{{INFO_H2}}': 'So erreichen Sie uns.',
-    '{{CONTACT_DL}}': `<dt>Ort</dt><dd>Bielefeld</dd><dt>Telefon</dt><dd>${lead.phone || '—'}</dd><dt>E-Mail</dt><dd>${lead.email || '—'}</dd>`,
-    '{{PHONE}}': lead.phone || '',
-    '{{NAV_LINKS}}': '<a class="lk" href="#leistungen">Leistungen</a><a class="lk" href="#reviews">Bewertungen</a><a class="lk" href="#info">Kontakt</a>',
-    '{{FOOTER_DESC}}': `${lead.industry} in Bielefeld — Qualität, auf die Sie zählen können.`,
-    '{{FOOTER_NAV}}': '<a href="#leistungen">Leistungen</a><a href="#reviews">Bewertungen</a><a href="#info">Kontakt</a>',
-    '{{MOBILE_CTA_SHORT}}': 'Anfragen',
-    '{{META_DESC}}': `${lead.name} — ${lead.industry} Bielefeld. Konzept-Vorschau MZ.9.`,
-    '{{TRUST_STRIP}}': `<div class="stars"><span class="s">✦✦✦✦✦</span> ${lead.industry} Bielefeld</div>`,
-  };
-
-  for (const [k, v] of Object.entries(r)) html = html.replace(new RegExp(k.replace(/[{}]/g, '\\$&'), 'g'), String(v));
-
   const dir = path.join(PREVIEW_DIR, lead.id);
   ensureDir(dir);
-  fs.writeFileSync(path.join(dir, 'index.html'), html);
-  log(`  📄 Preview: ${lead.id}`);
-  return `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/`;
-}
-
-function buildFallbackPreview(lead) {
-  // Minimal preview wenn Template fehlt
-  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${lead.name} | ${lead.industry} Bielefeld</title><meta name="robots" content="noindex"><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#222;background:#f9f9f9}h1{font-size:2rem}em{color:#2563eb}.btn{display:inline-block;padding:14px 28px;background:#2563eb;color:#fff;border-radius:8px;text-decoration:none;font-weight:700}</style></head><body><h1>${lead.name}<br><em>${lead.industry} in Bielefeld</em></h1><p>${lead.heroSub}</p><a class="btn" href="tel:${lead.phone}">Jetzt anrufen</a><p style="margin-top:40px;color:#999;font-size:.85rem">Konzept-Vorschau von MZ.9 · Media Engineering.AI</p></body></html>`;
-  const dir = path.join(PREVIEW_DIR, lead.id);
-  ensureDir(dir);
-  fs.writeFileSync(path.join(dir, 'index.html'), html);
+  fs.writeFileSync(path.join(dir, 'CUSTOM_BUILD_NEEDED.txt'),
+    `Custom build needed: ${lead.name} (${lead.id})\nIndustry: ${lead.industry}\nAt: ${new Date().toISOString()}`);
+  log(`  🎨 Custom Build benötigt: ${lead.id}`);
   return `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/`;
 }
 
@@ -307,7 +266,7 @@ async function run() {
   if (DO_DISCOVER) {
     // Discovery: Suche nach neuen Leads
     log('\n📡 Phase 1: Discovery');
-    const term = SEARCH_TERMS[Math.floor(Math.random() * SEARCH_TERMS.length)];
+    const term = pickSearchTerm();
     const results = await discoverBatch(term);
     log(`  ${results.length} Ergebnisse gefunden.`);
 
