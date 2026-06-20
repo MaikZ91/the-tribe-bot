@@ -141,39 +141,33 @@ function buildMail(lead) {
   const opps = (lead.opps && lead.opps.length > 0) ? lead.opps : oppsFromProblems(lead.problems);
   let body;
   if (lead.noweb) {
-    body = `Hallo ${lead.name}-Team,
+    body = `Hallo liebes ${lead.name}-Team,
 
-ich bin über euren Eintrag gestolpert und habe gesehen, dass ihr noch keine eigene Website habt — schade eigentlich, denn was ihr macht, hat definitiv einen guten Auftritt verdient.
+ich bin über Ihren Eintrag gestolpert und habe gesehen, dass Sie noch keine eigene Website haben — schade eigentlich, denn was Sie machen, hat definitiv einen guten Auftritt verdient.
 
-Ich habe mir unverbindlich die Freiheit genommen, schon mal eine komplette Website für euch zu gestalten — schaut gern rein:
+Ich habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine Website für Sie aussehen könnte:
 
-${lead.preview}
+👉 ${lead.preview}
 
-Was eine eigene Seite euch bringt:
-${opps.map(o => '• ' + o).join('\n')}
+Im Vergleich zu einem reinen Google-Eintrag sieht man ziemlich schnell, was eine eigene Seite für Wirkung und Professionalität bringt.
 
-Das Ganze ist völlig unverbindlich — wenn es euch gefällt, setze ich es gern mit euch live. Wenn nicht, behaltet einfach die Idee. :)
-
-Würde mich freuen, von euch zu hören.
+Falls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret gemacht habe — wenn nicht, einfach ignorieren.
 
 Viele Grüße
 Maik
 MZ.9 — Media Engineering.AI`;
   } else {
-    body = `Hallo ${lead.name}-Team,
+    body = `Hallo liebes ${lead.name}-Team,
 
 ich bin über Ihre Website gestolpert und habe mir kurz angeschaut, wie Ihr Auftritt online etwas klarer und moderner wirken könnte.
 
-Ich habe mir völlig unverbindlich die Freiheit genommen und eine moderne Vorschau gestaltet, wie Ihr Auftritt aussehen könnte — schauen Sie gern rein:
+Ich habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine alternative Struktur aussehen könnte:
 
-${lead.preview}
+👉 ${lead.preview}
 
-Im Vergleich zur aktuellen Seite (${host(lead.website)}) fällt mir vor allem auf, was sich mit wenig Aufwand spürbar verbessern lässt:
-${opps.map(o => '• ' + o).join('\n')}
+Im direkten Vergleich zur aktuellen Seite sieht man ziemlich schnell, wo man mit kleinen Anpassungen mehr Klarheit und Wirkung erzeugen kann.
 
-Das Ganze ist kostenlos und ohne Hintergedanken — wenn es Ihnen gefällt, setze ich es gern für Sie um. Wenn nicht, behalten Sie einfach die Idee. :)
-
-Würde mich freuen, von Ihnen zu hören.
+Falls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret verändert habe — wenn nicht, einfach ignorieren.
 
 Viele Grüße
 Maik
@@ -215,7 +209,7 @@ function buildHtmlMail(lead) {
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1a1a2e;line-height:1.6">
 ${lead.hasCompare ? `
 <div style="margin:0 0 24px;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)">
-  <img src="${compareUrl}" alt="Vorher/Nachher Vergleich" style="width:100%;display:block">
+  <img src="cid:compare@mz9" alt="Vorher/Nachher Vergleich" style="width:100%;display:block">
 </div>
 <p style="font-size:12px;color:#888;margin:-16px 0 20px;text-align:center">Links: Aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</p>
 ` : ''}
@@ -288,6 +282,18 @@ async function sendHtmlMail(lead, dryRun = false) {
 
   const transporter = nodemailer.createTransport(SMTP);
 
+  // Vergleichsbild als Inline-Attachment einbetten
+  const attachments = [];
+  const leadDir = path.join(PREVIEW_DIR, lead.id);
+  const compareFile = path.join(leadDir, 'compare.png');
+  if (fs.existsSync(compareFile)) {
+    attachments.push({
+      filename: 'compare.png',
+      path: compareFile,
+      cid: 'compare@mz9',
+    });
+  }
+
   try {
     const info = await transporter.sendMail({
       from: `"${FROM.name}" <${FROM.email}>`,
@@ -295,6 +301,7 @@ async function sendHtmlMail(lead, dryRun = false) {
       subject,
       text: body,
       html: html,
+      attachments,
     });
     console.log(`  ✅ HTML-Mail gesendet an ${to} (ID: ${info.messageId})`);
     return { success: true, messageId: info.messageId };
