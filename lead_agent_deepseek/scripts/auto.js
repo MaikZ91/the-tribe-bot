@@ -63,10 +63,12 @@ function buildLead(item) {
   log(`🎨 Stufe 2 — baue ${item.id} (${item.name})`);
   const custom = process.env.BUILD_CMD;
   let cmd;
-  if (custom) {
+  // BUILD_CMD leer ODER "claude" → eingebauter Claude-Build mit vollem Prompt.
+  // Sonst: eigener Befehl als Template ({ID}/{DIR} werden ersetzt).
+  if (custom && custom.trim().toLowerCase() !== 'claude') {
     cmd = custom.replace(/\{ID\}/g, item.id).replace(/\{DIR\}/g, dir);
   } else {
-    // Claude Code headless. Prompt via Datei-arg vermeiden — direkt inline.
+    // Claude Code headless. Prompt inline.
     const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
     cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
   }
