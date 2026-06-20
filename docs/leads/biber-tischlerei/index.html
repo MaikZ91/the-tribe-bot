@@ -22,15 +22,47 @@ body{margin:0;font-family:'Georgia',serif;color:var(--ink);background:var(--bg);
 .card:hover{border-color:var(--wood)}.card .ic{font-size:2rem;margin-bottom:10px}.card h3{font-size:1.1rem;margin:0 0 6px}.card p{color:var(--ink2);font-size:.9rem}
 .review{background:var(--card);border:1px solid #e8dcc8;padding:24px;text-align:center}.review .stars{color:#d4a054;letter-spacing:2px}.review p{font-style:italic;margin:8px 0}.review .who{color:var(--ink2);font-size:.8rem}
 .footer{text-align:center;padding:40px 20px;color:var(--ink2);font-size:.8rem;background:var(--dk);color:rgba(255,255,255,.6)}
+/* premium touch */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.045;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero{position:relative;overflow:hidden}
+.hero .glow{position:absolute;z-index:0;border-radius:50%;filter:blur(80px);pointer-events:none;width:42vw;height:42vw;right:-8%;top:-16%;background:radial-gradient(circle,#d4a054,transparent 70%);opacity:.22;animation:flg 18s ease-in-out infinite}
+.hero>*{position:relative;z-index:1}
+@keyframes flg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-3vw,4vh) scale(1.15)}}
+.btn-pri{position:relative;overflow:hidden}
+.btn-pri::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .6s}
+.btn-pri:hover::after{left:130%}
+.card,.review{transition:transform .35s,box-shadow .3s,border-color .2s}.card:hover,.review:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(44,24,16,.10)}
+.finder{background:var(--card);border:1px solid #e8dcc8;max-width:600px;margin:0 auto;padding:34px;text-align:center;box-shadow:0 4px 18px rgba(44,24,16,.05)}
+.finder select{width:100%;max-width:360px;padding:13px 16px;border:1px solid #ddccb0;font-family:inherit;font-size:1rem;background:var(--bg);color:var(--ink);text-align:center}
+.finder .res{margin:16px 0 0;min-height:54px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.finder .res .pr{font-size:1.4rem;font-style:italic;color:var(--wood)}.finder .res .nt{color:var(--ink2);font-size:.85rem}
+.finder .fbtn{display:none;margin-top:14px}.finder .fbtn.on{display:inline-block}
 </style>
 </head>
 <body>
 <section class="hero">
+<div class="glow"></div>
 <h1>Holz, <em>das lebt.</em></h1>
 <p>Die Biber Tischlerei — ein kleiner, feiner Handwerksbetrieb mit Tradition. Seit über 30 Jahren fertigen wir individuelle Möbel, Innenausbau und mehr — ökologisch, funktional, ästhetisch.</p>
 <div><a href="#kontakt" class="btn btn-pri">Anfragen</a><a href="#leistungen" class="btn btn-sec">Leistungen</a></div>
 </section>
 <div class="strip"><span>✦ Seit 30 Jahren</span><span>✦ Ökologisch</span><span>✦ Handwerksqualität</span><span>✦ Bielefeld</span></div>
+
+<section class="sec" id="finder">
+<h2>Was möchten Sie aus Holz?</h2>
+<div class="finder">
+<select id="anl" aria-label="Vorhaben wählen">
+<option value="">Vorhaben wählen …</option>
+<option data-r="Maßgefertigtes Möbelstück aus Massivholz">Möbel nach Maß</option>
+<option data-r="Innenausbau — Treppe, Decke oder Boden">Innenausbau</option>
+<option data-r="Restauration & Aufarbeitung Ihres Stücks">Altes aufarbeiten</option>
+<option data-r="Reparatur von Fenster oder Tür">Fenster / Tür</option>
+<option data-r="Einbauküche nach Maß">Küche nach Maß</option>
+</select>
+<div class="res" id="anlRes"><span class="pr" style="color:#b8a888;font-style:normal;font-size:1.1rem">—</span><span class="nt">Wählen Sie Ihr Vorhaben</span></div>
+<a class="btn btn-pri fbtn" id="anlBtn" href="tel:+4952183081">📞 Unverbindlich anfragen</a>
+</div>
+</section>
 
 <section class="sec" id="leistungen">
 <h2>Unser Handwerk</h2>
@@ -52,11 +84,17 @@ body{margin:0;font-family:'Georgia',serif;color:var(--ink);background:var(--bg);
 
 <section class="sec" id="kontakt" style="text-align:center">
 <h2>Kontakt</h2>
-<p>📞 0521 · 00 00 00 · ✉️ info@biber-tischlerei.de · 📍 Bielefeld</p>
-<a href="tel:+495210000000" class="btn btn-pri">Jetzt anrufen</a>
+<p>📍 Johanneswerkstraße 9, 33611 Bielefeld<br>📞 <a href="tel:+4952183081" style="color:var(--wood);font-weight:700">0521 · 83081</a> · ✉️ <a href="mailto:info@biber-tischlerei.de" style="color:var(--wood)">info@biber-tischlerei.de</a></p>
+<a href="tel:+4952183081" class="btn btn-pri">📞 0521 · 83081</a>
 </section>
 
 <footer class="footer"><p>© 2026 Biber Tischlerei — Konzept-Vorschau · MZ.9</p></footer>
-<script>window.MZ9CHAT={mode:"lead",name:"Biber Tischlerei",accent:"#10B981"};</script><script src="../chat.js" defer></script>
+<script>
+(function(){var s=document.getElementById("anl"),r=document.getElementById("anlRes"),b=document.getElementById("anlBtn");if(!s)return;
+s.addEventListener("change",function(){var o=s.options[s.selectedIndex],t=o.getAttribute("data-r");
+if(!t){r.innerHTML='<span class="pr" style="color:#b8a888;font-style:normal;font-size:1.1rem">—</span><span class="nt">Wählen Sie Ihr Vorhaben</span>';b.classList.remove("on");return;}
+r.innerHTML='<span class="pr">'+t+'</span><span class="nt">Für „'+o.text+'" · in Handarbeit gefertigt</span>';b.classList.add("on");});})();
+</script>
+<script>window.MZ9CHAT={mode:"lead",name:"Biber Tischlerei",accent:"#8b6914",cta:"#finder"};</script><script src="../chat.js" defer></script>
 </body>
 </html>
