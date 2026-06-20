@@ -30,7 +30,6 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const QUEUE_FILE = path.join(ROOT, 'queue.json');
 const LEADS_DIR = path.join(ROOT, 'leads');
-const DONE_FILE = path.join(ROOT, '..', 'docs', 'leads', 'dashboard', 'done.json');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 
 // ─── Städte & Branchen (deutschlandweite Rotation) ────────────────
@@ -222,7 +221,6 @@ function extractContact(html) {
 // ─── Dedup ────────────────────────────────────────────────────────
 function loadDoneSet() {
   const ids = new Set();
-  try { (JSON.parse(fs.readFileSync(DONE_FILE, 'utf8')) || []).forEach(id => ids.add(id)); } catch {}
   try { fs.readdirSync(LEADS_DIR).forEach(f => { if (f.endsWith('.json') && !f.startsWith('.')) ids.add(f.replace('.json', '')); }); } catch {}
   try { fs.readdirSync(PREVIEW_DIR, { withFileTypes: true }).forEach(d => { if (d.isDirectory() && d.name !== 'dashboard') ids.add(d.name); }); } catch {}
   return ids;

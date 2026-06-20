@@ -38,7 +38,7 @@ loadEnv();
 // ─── Konfiguration ────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
 const SENT_FILE = path.join(ROOT, 'sent.json');
-const DASHBOARD_FILE = path.join(ROOT, '..', 'docs', 'leads', 'dashboard', 'index.html');
+const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 
 const SMTP = {
   host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
@@ -64,43 +64,32 @@ function saveSent(sent) {
 }
 function host(u) { return (u || '').replace(/^https?:\/\//, '').replace(/\/$/, ''); }
 
-// ─── Lead-Daten aus dem Dashboard extrahieren ─────────────────────
+// ─── Lead-Daten aus build-job.json extrahieren ────────────────────
 function loadLeads() {
-  const h = fs.readFileSync(DASHBOARD_FILE, 'utf8');
-  const seedMatch = h.match(/var SEED=\[([\s\S]*?)\];/);
-  if (!seedMatch) return [];
-  // Parse das SEED-Array als JSON-ähnlichen String
-  const raw = seedMatch[1];
   const leads = [];
-  const re = /{id:"([^"]+)",name:"([^"]+)",industry:"([^"]+)",hebel:"([^"]+)",score:(\d+),website:"([^"]*)",(?:noweb:(\w+),)?problems:\[([^\]]*)\],opps:\[([^\]]*)\],preview:"([^"]+)"}/g;
-  let m;
-  while ((m = re.exec(raw)) !== null) {
-    const noweb = m[7] === 'true';
-    leads.push({
-      id: m[1], name: m[2], industry: m[3], hebel: m[4], score: parseInt(m[5]),
-      website: m[6], noweb,
-      problems: m[8].split(',').map(s => s.replace(/"/g, '').trim()).filter(Boolean),
-      opps: m[9].split(',').map(s => s.replace(/"/g, '').trim()).filter(Boolean),
-      preview: m[10],
-    });
+  let dirs = [];
+  try { dirs = fs.readdirSync(PREVIEW_DIR, { withFileTypes: true }); } catch { return leads; }
+  for (const d of dirs) {
+    if (!d.isDirectory() || d.name === 'dashboard') continue;
+    const jobFile = path.join(PREVIEW_DIR, d.name, 'build-job.json');
+    if (!fs.existsSync(jobFile)) continue;
+    try {
+      const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+      leads.push({
+        id: job.id,
+        name: job.name,
+        industry: job.industry || 'Dienstleistung',
+        website: job.website || '',
+        email: job.email || '',
+        phone: job.phone || '',
+        problems: job.problems || [],
+        opps: job.opps || [],
+        preview: `https://maikz91.github.io/the-tribe-bot/leads/${job.id}/`,
+        noweb: !job.website,
+      });
+    } catch {}
   }
-
-  // Parse EMAILS object
-  const emailsMatch = h.match(/var EMAILS=\{([\s\S]*?)\};/);
-  const emails = {};
-  if (emailsMatch) {
-    const ere = /"([^"]+)":"([^"]+)"/g;
-    let em;
-    while ((em = ere.exec(emailsMatch[1])) !== null) {
-      emails[em[1]] = em[2];
-    }
-  }
-
-  return leads.map(l => {
-    const dom = host(l.website).replace(/^www\./, '').split('/')[0];
-    l.email = emails[l.id] || (l.website ? `info@${dom}` : '');
-    return l;
-  });
+  return leads;
 }
 
 // ─── E-Mail-Text generieren (wie im Dashboard) ────────────────────
@@ -235,12 +224,12 @@ async function main() {
     }
   } else {
     // Zeige Status
-    const berlin = leads.filter(l => l.id.startsWith('berlin-'));
-    const berlinSent = berlin.filter(l => sent[l.id]);
-    const berlinOpen = berlin.filter(l => !sent[l.id] && l.email);
-    const berlinNoEmail = berlin.filter(l => !sent[l.id] && !l.email);
+    const withEmail = leads.filter(l => l.email);
+    const sentCount = leads.filter(l => sent[l.id]).length;
+    const openCount = withEmail.filter(l => !sent[l.id]).length;
+    const noEmail = leads.filter(l => !l.email).length;
 
-    console.log(`\nStatus Berlin: ${berlinOpen.length} offen · ${berlinSent.length} gesendet · ${berlinNoEmail.length} ohne E-Mail`);
+    console.log(`\nStatus: ${openCount} offen · ${sentCount} gesendet · ${noEmail} ohne E-Mail`);
     console.log('\nNutzung:');
     console.log('  node send_mail.js <lead-id>     Einzelnen Lead senden');
     console.log('  node send_mail.js --all         Alle offenen senden');
