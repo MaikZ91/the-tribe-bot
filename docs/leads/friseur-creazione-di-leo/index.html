@@ -1,1 +1,278 @@
-test
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creazione Di Leo — Haute Coiffure in Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Montserrat',system-ui,sans-serif;color:#2c2c2c;background:#fdfcf9;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.display{font-family:'Playfair Display',Georgia,serif;font-weight:700}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1150px;margin:0 auto;padding:0 2rem}
+:root{--gold:#c8a45a;--black:#1a1a1a;--cream:#f9f5ee;--ivory:#fefdfa;--texture:#f3ede4;--ink:#333}
+.btn{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.5rem;cursor:pointer;transition:all .4s;border:1px solid transparent}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:var(--black);border-color:var(--black);transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+.btn-line{background:transparent;color:var(--black);border-color:var(--black)}
+.btn-line:hover{background:var(--black);color:#fff}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(253,252,249,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,164,90,.15)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--black);letter-spacing:.02em;font-style:italic}
+.nav-logo span{color:var(--gold);font-style:normal}
+.nav-list{display:flex;gap:2.5rem;list-style:none}
+.nav-list a{font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#777;transition:color .3s}
+.nav-list a:hover{color:var(--black)}
+.nav-trigger{display:none;background:none;border:none;color:var(--black);font-size:1.6rem;cursor:pointer}
+.hero-section{position:relative;min-height:100vh;display:flex;align-items:center;background:var(--cream);overflow:hidden}
+.hero-section .accent-line{position:absolute;top:0;left:4rem;width:1px;height:100%;background:rgba(200,164,90,.15);z-index:1}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center;padding:7rem 0 5rem}
+.hero-text .overline{font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.hero-text h1{font-size:clamp(3rem,6vw,5.5rem);line-height:.95;color:var(--black);margin-bottom:2rem}
+.hero-text h1 em{font-style:italic;color:var(--gold)}
+.hero-text .deck{font-size:1.1rem;color:#666;max-width:440px;margin-bottom:2.5rem;line-height:1.7;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-image-wrap{position:relative}
+.hero-image-wrap img{box-shadow:40px 40px 0 rgba(200,164,90,.15)}
+section{padding:6rem 0}
+.section-eyebrow{font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+h2{font-size:clamp(2.2rem,4vw,3rem);color:var(--black);margin-bottom:3rem;line-height:1.1}
+h2 em{font-style:italic;color:var(--gold)}
+.services-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid #eee}
+.services-layout .svc{padding:3rem 2rem;border-bottom:1px solid #eee;border-right:1px solid #eee;transition:background .35s}
+.services-layout .svc:nth-child(3n){border-right:none}
+.services-layout .svc:hover{background:var(--ivory)}
+.services-layout .svc .num{font-family:'Playfair Display',serif;font-size:2.5rem;color:rgba(200,164,90,.25);font-weight:900;line-height:1;margin-bottom:.8rem}
+.services-layout .svc h3{font-size:1.2rem;margin-bottom:.5rem;color:var(--black)}
+.services-layout .svc .cost{font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;color:var(--gold);margin-bottom:.8rem}
+.services-layout .svc p{font-size:.85rem;color:#777;line-height:1.6}
+.about-split{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-split .visual{position:relative}
+.about-split .visual img{filter:grayscale(20%)}
+.about-split .visual::before{content:'';position:absolute;top:-1rem;left:-1rem;width:180px;height:180px;border:2px solid var(--gold);z-index:-1}
+.about-split .copy p{color:#666;margin-bottom:1.2rem;font-size:1rem;line-height:1.8}
+.testimonials-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.testimonial{background:#fff;padding:3rem 2.5rem;box-shadow:0 2px 20px rgba(0,0,0,.03);position:relative}
+.testimonial::before{content:'\201C';font-family:'Playfair Display',serif;font-size:5rem;color:rgba(200,164,90,.15);position:absolute;top:.5rem;left:2.5rem;line-height:1}
+.testimonial .stars{color:var(--gold);letter-spacing:.2em;margin-bottom:1.2rem;font-size:.9rem}
+.testimonial blockquote{font-size:.95rem;color:#555;line-height:1.7;font-style:italic;margin-bottom:1.5rem;padding-top:1rem}
+.testimonial cite{font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-style:normal}
+.contact-row{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start}
+.contact-detail{background:var(--black);color:#fff;padding:4rem 3rem}
+.contact-detail h3{font-family:'Playfair Display',serif;font-size:2rem;font-style:italic;margin-bottom:2rem}
+.contact-detail .info{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;font-size:.9rem}
+.contact-detail .info .s{font-size:1.2rem;flex:none;margin-top:2px;color:var(--gold)}
+.contact-detail .times{margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;opacity:.7}
+.contact-form-panel{background:#fff;padding:3.5rem 3rem;box-shadow:0 10px 50px rgba(0,0,0,.04)}
+.contact-form-panel .group{margin-bottom:1.3rem}
+.contact-form-panel .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.contact-form-panel input,.contact-form-panel textarea,.contact-form-panel select{width:100%;padding:1rem 1.2rem;border:1px solid #e8e5df;font-family:'Montserrat',sans-serif;font-size:.85rem;background:var(--ivory);outline:none;transition:border-color .3s}
+.contact-form-panel input:focus,.contact-form-panel textarea:focus,.contact-form-panel select:focus{border-color:var(--gold)}
+.contact-form-panel textarea{resize:vertical;min-height:110px}
+.contact-form-panel .btn{width:100%;text-align:center;margin-top:.5rem}
+footer{background:var(--black);color:rgba(255,255,255,.5);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
+footer h4{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:1rem;font-style:italic}
+footer p,footer a{font-size:.85rem;line-height:2.2;transition:color .3s}
+footer a:hover{color:var(--gold)}
+.footer-rule{border-top:1px solid rgba(255,255,255,.08);margin-top:3rem;padding-top:1.5rem;text-align:center;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}
+@media(max-width:768px){
+.hero-grid,.about-split,.contact-row{grid-template-columns:1fr;gap:3rem}
+.services-layout{grid-template-columns:1fr 1fr}
+.services-layout .svc:nth-child(2n){border-right:none}
+.services-layout .svc:nth-child(3n){border-right:1px solid #eee}
+.testimonials-strip{grid-template-columns:1fr}
+.nav-list{display:none}.nav-trigger{display:block}
+.hero-section{min-height:auto;padding-top:5rem}
+.hero-section .accent-line{left:2rem}
+.contact-form-panel .row{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr;gap:2rem}
+}
+@media(max-width:480px){
+.services-layout{grid-template-columns:1fr}
+.services-layout .svc{border-right:none}
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="#" class="nav-logo">Creazione <span>Di Leo</span></a>
+<ul class="nav-list">
+<li><a href="#servizi">Servizi</a></li>
+<li><a href="#storia">La Storia</a></li>
+<li><a href="#testimonianze">Testimonianze</a></li>
+<li><a href="#contatto">Contatto</a></li>
+</ul>
+<button class="nav-trigger" aria-label="Menü">☰</button>
+</nav>
+
+<section class="hero-section">
+<div class="accent-line"></div>
+<div class="container hero-grid">
+<div class="hero-text">
+<p class="overline">Haute Coiffure seit 1995</p>
+<h1>La <em>bellezza</em> italiana</h1>
+<p class="deck">Im Herzen von Bielefeld bringt Creazione Di Leo italienische Eleganz und Handwerkskunst in Ihr Haar. La Biosthétique Partner — für Schönheit, die von innen kommt.</p>
+<div class="hero-actions">
+<a href="#contatto" class="btn btn-gold">Termine</a>
+<a href="tel:+4952165060" class="btn btn-line">0521 65060</a>
+</div>
+</div>
+<div class="hero-image-wrap">
+<img src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=600" alt="Creazione Di Leo" loading="eager">
+</div>
+</div>
+</section>
+
+<section id="servizi">
+<div class="container">
+<p class="section-eyebrow">I Nostri Servizi</p>
+<h2>Was wir <em>für Sie</em> kreieren</h2>
+<div class="services-layout">
+<div class="svc">
+<div class="num">01</div>
+<h3>Taglio Donna</h3>
+<div class="cost">ab 55 €</div>
+<p>Der klassische Damenschnitt — interpretiert mit italienischem Flair. Individuelle Beratung, präzise Schnittführung, perfektes Finish.</p>
+</div>
+<div class="svc">
+<div class="num">02</div>
+<h3>Taglio Uomo</h3>
+<div class="cost">ab 38 €</div>
+<p>Herrenschnitt mit Stil. Von klassisch-elegant bis modern-trendy — wir finden den Look, der zu Ihrem Typ passt.</p>
+</div>
+<div class="svc">
+<div class="num">03</div>
+<h3>Colore</h3>
+<div class="cost">ab 62 €</div>
+<p>Schonende Coloration mit La Biosthétique. Natürliche Nuancen, leuchtende Reflexe, perfekte Grauabdeckung.</p>
+</div>
+<div class="svc">
+<div class="num">04</div>
+<h3>Colpi di Sole</h3>
+<div class="cost">ab 75 €</div>
+<p>Handgemalte Strähnen — die italienische Balayage. Sonnenlicht im Haar, ganz ohne harte Ansätze.</p>
+</div>
+<div class="svc">
+<div class="num">05</div>
+<h3>Trattamento</h3>
+<div class="cost">ab 22 €</div>
+<p>Tiefenpflege mit den Premium-Produkten von La Biosthétique. Für gesundes, glänzendes Haar voller Lebendigkeit.</p>
+</div>
+<div class="svc">
+<div class="num">06</div>
+<h3>Acconciatura</h3>
+<div class="cost">auf Anfrage</div>
+<p>Festliche Hochsteckfrisuren für Hochzeiten und Events. Elegant, zeitlos, perfekt inszeniert.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="storia" style="background:var(--texture)">
+<div class="container">
+<p class="section-eyebrow">La Nostra Storia</p>
+<div class="about-split">
+<div class="visual">
+<img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600" alt="Salon Di Leo" loading="lazy">
+</div>
+<div class="copy">
+<h2>Drei Jahrzehnte <em>Leidenschaft</em></h2>
+<p>Seit 1995 steht <strong>Creazione Di Leo</strong> für italienische Haarkunst in Bielefeld. Was als kleiner Familienbetrieb begann, ist heute eine Institution für alle, die Wert auf echte Handwerkskunst legen.</p>
+<p>Als <strong>La Biosthétique Partner-Salon</strong> vertrauen wir auf Produkte, die Schönheit und Nachhaltigkeit vereinen. Jede Behandlung beginnt mit einem ausführlichen Beratungsgespräch — denn nur wer zuhört, kann wirklich verstehen.</p>
+<p>Unser Salon in der Obernstraße ist ein Ort der Ruhe und Eleganz. Italienischer Espresso, warme Farben und ein Team, das sein Handwerk liebt — willkommen in unserer Welt.</p>
+<a href="#contatto" class="btn btn-gold" style="margin-top:1rem">Besuchen Sie uns</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="testimonianze">
+<div class="container">
+<p class="section-eyebrow">Testimonianze</p>
+<h2>Was unsere <em>Gäste</em> sagen</h2>
+<div class="testimonials-strip">
+<div class="testimonial">
+<div class="stars">★★★★★</div>
+<blockquote>Seit über 10 Jahren lasse ich mir bei Di Leo die Haare machen — und es wird immer besser. Die Beratung ist erstklassig und das Team behandelt jeden Gast wie Familie.</blockquote>
+<cite>— Elisabeth R., Bielefeld</cite>
+</div>
+<div class="testimonial">
+<div class="stars">★★★★★</div>
+<blockquote>Meine Hochzeitsfrisur war ein Traum! Drei Probetermine, perfekte Beratung — ich habe mich noch nie so schön gefühlt. Grazie mille!</blockquote>
+<cite>— Francesca M., Gütersloh</cite>
+</div>
+<div class="testimonial">
+<div class="stars">★★★★★</div>
+<blockquote>Die La Biosthétique Produkte haben mein Haar komplett verändert. Gesund, glänzend, voller Leben. Dazu die angenehme Atmosphäre — einfach wunderbar.</blockquote>
+<cite>— Karin S., Herford</cite>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contatto" style="background:var(--cream)">
+<div class="container">
+<p class="section-eyebrow">Contatto</p>
+<h2>Sprechen wir <em>miteinander</em></h2>
+<div class="contact-row">
+<div class="contact-detail">
+<h3>Ci trovi qui</h3>
+<div class="info"><span class="s">📍</span> Obernstraße 30, 33602 Bielefeld</div>
+<div class="info"><span class="s">📞</span> <a href="tel:+4952165060" style="color:#fff">0521 65060</a></div>
+<div class="info"><span class="s">✉️</span> <a href="mailto:info@dileo.de" style="color:#fff">info@dileo.de</a></div>
+<div class="times">
+<strong>Orari di apertura:</strong><br>
+Di – Fr: 9:00 – 18:00<br>
+Sa: 9:00 – 14:00<br>
+Lunedì chiuso
+</div>
+</div>
+<div class="contact-form-panel">
+<form>
+<div class="group row">
+<input type="text" placeholder="Nome" required>
+<input type="email" placeholder="Email" required>
+</div>
+<div class="group row">
+<input type="tel" placeholder="Telefono">
+<select><option>Servizio desiderato</option><option>Taglio Donna</option><option>Taglio Uomo</option><option>Colore</option><option>Colpi di Sole</option><option>Trattamento</option><option>Acconciatura</option></select>
+</div>
+<div class="group"><textarea placeholder="Il vostro messaggio..."></textarea></div>
+<button type="submit" class="btn btn-gold">Invia richiesta</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>Creazione Di Leo</h4>
+<p>Italienische Haarkunst in Bielefeld seit 1995. La Biosthétique Partner-Salon.</p>
+</div>
+<div>
+<h4>Navigazione</h4>
+<p><a href="#servizi">Servizi</a><br><a href="#storia">La Storia</a><br><a href="#testimonianze">Testimonianze</a><br><a href="#contatto">Contatto</a></p>
+</div>
+<div>
+<h4>Sociale</h4>
+<p><a href="#">Instagram</a><br><a href="#">Facebook</a></p>
+</div>
+</div>
+<div class="footer-rule">© 2024 Creazione Di Leo &nbsp;|&nbsp; Obernstraße 30, 33602 Bielefeld &nbsp;|&nbsp; <a href="#" style="color:rgba(255,255,255,.3)">Impressum</a> &nbsp;|&nbsp; <a href="#" style="color:rgba(255,255,255,.3)">Datenschutz</a></div>
+</div>
+</footer>
+
+<script>
+document.querySelector('.nav-trigger')?.addEventListener('click',function(){var m=document.querySelector('.nav-list');m.style.display=m.style.display==='flex'?'none':'flex'});
+document.querySelector('.contact-form-panel form')?.addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<p style="text-align:center;font-family:Playfair Display,serif;font-style:italic;font-size:1.4rem;color:var(--gold);padding:2rem">Grazie! Wir melden uns in Kürze.</p>'});
+</script>
+</body>
+</html>

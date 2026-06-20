@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friseurstudio Knievel Dresden | Ihr Stil. Ihr Schnitt.</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#faf5ef;--card:#fff;--ink:#2c2416;--ink2:#6b5e4a;--muted:#9a8d7a;--accent:#4a6741;--accent2:#7a9b4c;--line:rgba(0,0,0,.08);--maxw:1050px;--r:12px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:1.02rem}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,36px)}
+section{padding:clamp(40px,6vw,80px) 0}
+/* Hero asymmetrisch */
+.hero{min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:420px;height:560px;background:radial-gradient(ellipse at 30% 50%,rgba(74,103,65,.06),transparent 70%);border-radius:50% 0 0 50%;pointer-events:none}
+.hero-content{max-width:560px;position:relative;z-index:1}
+.hero-label{font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-family:'Segoe UI',system-ui,sans-serif}
+.hero h1{font-size:clamp(2.3rem,5vw,3.5rem);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{font-size:1.12rem;color:var(--ink2);margin-bottom:34px;max-width:440px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 34px;border-radius:var(--r);font-size:1rem;font-weight:600;cursor:pointer;border:0;text-decoration:none;transition:all .25s;font-family:'Segoe UI',system-ui,sans-serif}
+.btn:hover{transform:translateY(-2px)}
+.btn-pri{background:var(--accent);color:#fff}
+.btn-pri:hover{background:#3d5837;box-shadow:0 6px 20px rgba(74,103,65,.3)}
+.btn-sec{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+.btn-sec:hover{background:var(--accent);color:#fff}
+/* Sec heads */
+.sec-label{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-family:'Segoe UI',system-ui,sans-serif}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;line-height:1.2;margin-bottom:10px}
+.sec-desc{color:var(--ink2);font-size:1.02rem;max-width:550px;margin-bottom:36px}
+/* Services horizontal scroll */
+.services-scroll{display:flex;gap:22px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.services-scroll::-webkit-scrollbar{height:6px}
+.services-scroll::-webkit-scrollbar-track{background:var(--line)}
+.services-scroll::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+.svc-card{flex:0 0 260px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 24px;scroll-snap-align:start;transition:box-shadow .25s,transform .25s}
+.svc-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.08);transform:translateY(-4px)}
+.svc-card .num{font-size:3.5rem;font-weight:300;color:var(--accent);opacity:.2;line-height:1;margin-bottom:-14px}
+.svc-card h3{font-size:1.2rem;font-weight:400;margin-bottom:8px;color:var(--ink)}
+.svc-card p{color:var(--ink2);font-size:.9rem;line-height:1.6}
+/* Reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.rev-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px}
+.rev-stars{color:#d4a017;font-size:1.05rem;margin-bottom:10px;letter-spacing:2px}
+.rev-text{color:var(--ink2);font-size:.92rem;line-height:1.7;margin-bottom:16px;font-style:italic}
+.rev-author{font-weight:600;color:var(--ink);font-size:.88rem}
+.rev-meta{color:var(--muted);font-size:.78rem;margin-top:3px}
+/* Contact */
+.contact-section{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:13px 16px;margin-bottom:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--ink);font-size:.94rem;font-family:inherit;outline:none}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent)}
+.contact-form textarea{min-height:100px;resize:vertical}
+.contact-info h3{font-size:1.2rem;font-weight:400;margin-bottom:16px;color:var(--accent)}
+.ci-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;color:var(--ink2);font-size:.93rem}
+.ci-item svg{flex:none;width:18px;height:18px;margin-top:3px;color:var(--accent)}
+footer{padding:24px 0;text-align:center;color:var(--muted);font-size:.82rem;font-family:'Segoe UI',system-ui,sans-serif}
+footer a{color:var(--accent);text-decoration:none}
+/* Cookie Banner */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;border-top:1px solid var(--line);padding:16px clamp(18px,4vw,36px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Segoe UI',system-ui,sans-serif;font-size:.88rem;color:var(--ink2);box-shadow:0 -4px 20px rgba(0,0,0,.06)}
+.cookie-banner p{margin:0;flex:1;min-width:240px}
+.cookie-btns{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-accept,.cookie-reject{padding:10px 22px;border-radius:var(--r);font-size:.85rem;font-weight:600;cursor:pointer;border:0;transition:all .2s;font-family:inherit}
+.cookie-accept{background:var(--accent);color:#fff}
+.cookie-accept:hover{background:#3d5837}
+.cookie-reject{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+.cookie-reject:hover{background:var(--accent);color:#fff}
+/* Scissors Silhouette */
+.hero-scissors{position:absolute;right:0;top:50%;transform:translateY(-50%);width:min(420px,40vw);height:100%;pointer-events:none;z-index:0;opacity:.06}
+.hero-scissors svg{width:100%;height:100%}
+/* Opening Hours */
+.open-hours{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:.9rem;color:var(--ink2);margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.open-hours .day{font-weight:600;color:var(--ink)}
+.open-hours .time{text-align:right}
+/* Impressum */
+.impressum-section{padding:clamp(30px,4vw,50px) 0;font-family:'Segoe UI',system-ui,sans-serif;font-size:.9rem;color:var(--ink2);line-height:1.8}
+.impressum-section h3{color:var(--accent);font-size:1.1rem;font-weight:600;margin-bottom:14px;font-family:Georgia,'Times New Roman',serif}
+.impressum-section p{margin-bottom:8px}
+@media(max-width:768px){
+.hero{min-height:70vh;text-align:center}
+.hero p{margin-inline:auto}
+.contact-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- DSGVO Cookie Consent -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>🍪 Diese Seite verwendet nur essentielle Cookies für die Funktionalität. Kein Tracking, keine Werbenetzwerke. Mit „Akzeptieren“ stimmen Sie der Nutzung zu. <a href="#impressum" style="color:var(--accent)">Mehr erfahren</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-reject" onclick="document.getElementById('cookie-banner').style.display='none'">Nur essenzielle</button>
+    <button class="cookie-accept" onclick="document.getElementById('cookie-banner').style.display='none'">Akzeptieren</button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-scissors">
+    <svg viewBox="0 0 200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.25">
+        <ellipse cx="62" cy="120" rx="44" ry="52" transform="rotate(-15 62 120)"/>
+        <ellipse cx="138" cy="120" rx="44" ry="52" transform="rotate(15 138 120)"/>
+        <path d="M62 165 Q100 220 80 320 Q70 380 40 440"/>
+        <path d="M138 165 Q100 220 120 320 Q130 380 160 440"/>
+        <circle cx="100" cy="240" r="6" fill="currentColor"/>
+        <line x1="62" y1="120" x2="100" y2="230"/>
+        <line x1="138" y1="120" x2="100" y2="230"/>
+        <path d="M30 100 L44 112 M170 100 L156 112" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="hero-label">Friseurstudio Knievel</div>
+      <h1>Ihr Stil.<br><em>Ihr Schnitt.</em></h1>
+      <p>Im Friseurstudio Knievel in Dresden-Neustadt dreht sich alles um Ihre individuelle Schönheit. Mit Leidenschaft und Präzision schaffen wir Looks, die zu Ihnen passen.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#termin" class="btn btn-pri">Termin buchen</a>
+        <a href="tel:03518042144" class="btn btn-sec">0351 8 04 21 44</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <div class="wrap">
+    <div class="sec-label">Unsere Leistungen</div>
+    <h2 class="sec-title">Handwerk mit Hingabe</h2>
+    <p class="sec-desc">Jeder Kopf ist einzigartig. Unsere Services sind es auch.</p>
+    <div class="services-scroll">
+      <div class="svc-card"><div class="num">01</div><h3>Haarschnitt</h3><p>Klassisch, modern oder extravagant — wir schneiden mit Präzision und Gespür für Ihre Gesichtsform.</p></div>
+      <div class="svc-card"><div class="num">02</div><h3>Coloration</h3><p>Natürlich oder auffällig: Strähnchen, Balayage, Vollfarbe — mit hochwertigen Produkten für gesundes Haar.</p></div>
+      <div class="svc-card"><div class="num">03</div><h3>Haarpflege</h3><p>Tiefenreinigende und nährende Behandlungen für sichtbar gesünderes, glänzenderes Haar.</p></div>
+      <div class="svc-card"><div class="num">04</div><h3>Styling</h3><p>Für den besonderen Anlass: Hochsteckfrisuren, Brautfrisuren, Event-Styling mit langanhaltendem Halt.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="sec-label">Bewertungen</div>
+    <h2 class="sec-title">Das sagen unsere Gäste</h2>
+    <p class="sec-desc">Ehrliches Feedback von Menschen, die uns ihr Vertrauen schenken.</p>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"Seit Jahren gehe ich zu Holger Knievel — und wurde noch nie enttäuscht. Er versteht sein Handwerk und nimmt sich Zeit für Beratung. Absolute Empfehlung!"</p>
+        <div class="rev-author">Katrin W.</div>
+        <div class="rev-meta">vor 3 Wochen</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"Habe zum ersten Mal Balayage machen lassen und bin begeistert. Das Ergebnis ist super natürlich geworden. Endlich ein Friseur, der zuhört."</p>
+        <div class="rev-author">Julia M.</div>
+        <div class="rev-meta">vor 1 Monat</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">"War für meine Hochzeitsfrisur hier — wow! Der ganze Salon hat mitgefiebert und das Ergebnis war atemberaubend. Bessere Styling-Beratung gibt's nicht."</p>
+        <div class="rev-author">Sabine & Thomas</div>
+        <div class="rev-meta">vor 2 Monaten</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="termin">
+  <div class="wrap">
+    <div class="sec-label">Kontakt & Termin</div>
+    <h2 class="sec-title">Bereit für Ihren neuen Look?</h2>
+    <p class="sec-desc">Vereinbaren Sie jetzt einen Termin — telefonisch oder über unser Online-Formular.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info">
+          <h3>Friseurstudio Knievel</h3>
+          <div class="ci-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Helgolandstr. 8, 01097 Dresden<br><a href="https://maps.google.com/?q=Helgolandstr.+8+01097+Dresden" target="_blank" rel="noopener" style="color:var(--accent);font-size:.85rem">Auf Google Maps anzeigen ↗</a></span>
+          </div>
+          <div class="ci-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <a href="tel:03518042144" style="color:var(--accent);text-decoration:none">0351 8 04 21 44</a>
+          </div>
+          <div class="ci-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+            <a href="mailto:info@friseurstudio-knievel.de" style="color:var(--accent);text-decoration:none">info@friseurstudio-knievel.de</a>
+          </div>
+        </div>
+        <div class="open-hours" style="margin-top:18px">
+          <div class="day">Montag</div><div class="time">9:00 – 19:00</div>
+          <div class="day">Di – Fr</div><div class="time">8:00 – 19:00</div>
+          <div class="day">Samstag</div><div class="time">8:00 – 15:00</div>
+          <div class="day">Sonntag</div><div class="time">geschlossen</div>
+        </div>
+      </div>
+      <form class="contact-form" action="mailto:info@friseurstudio-knievel.de" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Ihr vollständiger Name" required>
+        <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required>
+        <input type="tel" name="phone" placeholder="Telefon für Rückfragen">
+        <select name="service">
+          <option value="">Gewünschte Leistung</option>
+          <option>Haarschnitt</option>
+          <option>Coloration</option>
+          <option>Haarpflege</option>
+          <option>Styling / Hochsteckfrisur</option>
+          <option>Beratungstermin</option>
+        </select>
+        <textarea name="message" placeholder="Wunschtermin oder Nachricht…" required></textarea>
+        <button type="submit" class="btn btn-pri" style="width:100%">Termin anfragen</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="impressum-section" id="impressum">
+  <div class="wrap">
+    <h3>Impressum & Datenschutz</h3>
+    <p><strong>Friseurstudio Knievel</strong> — Inhaber: Holger Knievel</p>
+    <p>Helgolandstraße 8, 01097 Dresden</p>
+    <p>Telefon: <a href="tel:03518042144" style="color:var(--accent)">0351 8 04 21 44</a> · E-Mail: <a href="mailto:info@friseurstudio-knievel.de" style="color:var(--accent)">info@friseurstudio-knievel.de</a></p>
+    <p style="margin-top:10px;font-size:.8rem;color:var(--muted)">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV: Holger Knievel, Helgolandstr. 8, 01097 Dresden. Diese Vorschau-Seite enthält simulierte Bewertungen zu Demonstrationszwecken. Kein Einsatz von Tracking-Cookies — nur essenzielle Session-Cookies für die Formular-Funktionalität.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Friseurstudio Knievel · Helgolandstr. 8, 01097 Dresden · <a href="tel:03518042144">0351 8 04 21 44</a></p>
+    <p style="margin-top:4px">Konzept-Vorschau von <a href="https://the-tribe-bielefeld.de" target="_blank" rel="noopener">The Tribe Bielefeld</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

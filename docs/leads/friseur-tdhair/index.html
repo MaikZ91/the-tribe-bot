@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TD HAIR CONCEPT — FRISEUR IN DORTMUND</title>
+<style>
+  /* ========== RESET & BASE ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0d0d;
+    color: #00ff88;
+    font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+  }
+
+  /* ========== STRUCTURAL GRID ========== */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ========== BRUTALIST DIVIDER ========== */
+  hr.brutal {
+    border: none;
+    border-top: 4px solid #00ff88;
+    margin: 48px 0;
+    position: relative;
+  }
+  hr.brutal::after {
+    content: "//";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: #0d0d0d;
+    padding: 0 12px 0 0;
+    color: #00ff88;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  hr.brutal.thin { border-top-width: 2px; margin: 32px 0; }
+
+  /* ========== ASCII HERO ========== */
+  .hero {
+    border: 4px solid #00ff88;
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 4px solid #00ff88;
+    transform: translate(8px, 6px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-glitch {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 4px solid #00ff88;
+    transform: translate(-6px, -4px);
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .ascii-line {
+    display: block;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #00ff8877;
+    letter-spacing: 0;
+    white-space: pre;
+    user-select: none;
+  }
+  .ascii-line.bright { color: #00ff88bb; }
+
+  .hero-title {
+    font-size: clamp(28px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.05;
+    text-shadow:
+      0 0 40px #00ff88,
+      0 0 80px #00ff8866,
+      0 0 12px #00ff88;
+    margin: 16px 0 0;
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+  }
+  .hero-sub {
+    font-size: clamp(14px, 2.2vw, 20px);
+    font-weight: 700;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 12px;
+    color: #00ff88;
+    text-shadow: 0 0 16px #00ff8888;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-bracket {
+    font-size: 13px;
+    letter-spacing: 8px;
+    opacity: 0.5;
+    margin-top: 20px;
+  }
+
+  /* ========== SECTION HEADINGS ========== */
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    padding: 6px 14px;
+    border: 4px solid #00ff88;
+    background: #0d0d0d;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+
+  /* ========== SERVICES LIST ========== */
+  .services-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .services-list li {
+    padding: 12px 16px;
+    border-bottom: 2px solid #00ff8822;
+    border-left: 4px solid #00ff88;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.12s ease;
+    cursor: default;
+    position: relative;
+  }
+  .services-list li::before {
+    content: "> ";
+    color: #00ff88;
+    font-weight: bold;
+  }
+  .services-list li:hover {
+    background: #00ff880a;
+    text-shadow: 0 0 14px #00ff88, 0 0 28px #00ff8866;
+    border-left-width: 8px;
+    padding-left: 20px;
+  }
+  .services-list li:nth-child(odd) {
+    border-right: 2px solid #00ff8818;
+  }
+
+  /* ========== REVIEWS (TERMINAL STYLE) ========== */
+  .terminal {
+    background: #1a1a1a;
+    border: 4px solid #333;
+    padding: 24px 28px;
+    font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #cccccc;
+    position: relative;
+  }
+  .terminal::before {
+    content: "tdhair@dortmund:~$ cat reviews.log";
+    display: block;
+    color: #00ff88;
+    margin-bottom: 16px;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+  }
+  .term-entry {
+    margin-bottom: 14px;
+    padding-left: 8px;
+    border-left: 2px solid #00ff8833;
+  }
+  .term-entry .user { color: #00ff88; font-weight: bold; }
+  .term-entry .stars { color: #00ff88; letter-spacing: 2px; }
+  .term-entry .msg  { color: #aaaaaa; margin-top: 2px; }
+  .term-entry .date  { color: #555; font-size: 11px; }
+
+  .terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 17px;
+    background: #00ff88;
+    animation: blink 1s steps(2) infinite;
+    vertical-align: -2px;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ========== CONTACT FORM ========== */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 4px solid #00ff88;
+  }
+  .form-grid > * { border: 2px solid #00ff8822; }
+
+  input, textarea, button {
+    background: #0d0d0d;
+    color: #00ff88;
+    font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+    font-size: 14px;
+    padding: 14px 16px;
+    border: 2px solid #00ff8833;
+    outline: none;
+    transition: border 0.1s, background 0.1s;
+    display: block;
+    width: 100%;
+  }
+  input:focus, textarea:focus {
+    border-color: #00ff88;
+    background: #0a0f0a;
+    outline: 4px solid #00ff8822;
+    outline-offset: 0;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #00ff8855;
+    font-family: "JetBrains Mono", "Courier New", Courier, monospace;
+  }
+  textarea { resize: vertical; min-height: 120px; }
+
+  .form-span-full { grid-column: 1 / -1; }
+
+  button[type="submit"] {
+    grid-column: 1 / -1;
+    background: #00ff88;
+    color: #0d0d0d;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 4px;
+    border: 4px solid #00ff88;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.08s ease;
+  }
+  button[type="submit"]:hover {
+    background: #0d0d0d;
+    color: #00ff88;
+    text-shadow: 0 0 16px #00ff88;
+    border-color: #00ff88;
+  }
+  button[type="submit"]:active {
+    background: #00ff88;
+    color: #0d0d0d;
+    transform: translate(2px, 2px);
+  }
+
+  /* ========== FOOTER / INFO BAR ========== */
+  .info-bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    border: 4px solid #00ff88;
+    padding: 20px 24px;
+    margin-top: 40px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .info-bar a {
+    color: #00ff88;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .info-bar a:hover {
+    text-shadow: 0 0 12px #00ff88;
+  }
+  .info-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 2px solid #00ff88;
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 680px) {
+    .services-list { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .info-bar { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+    .hero { padding: 32px 18px; }
+    .ascii-line { font-size: 8px; }
+    .services-list li:nth-child(odd) { border-right: none; }
+  }
+
+  /* ========== EXTRA BRUTALIST TOUCHES ========== */
+  .offset-box {
+    border: 4px solid #00ff88;
+    padding: 28px;
+    position: relative;
+  }
+  .offset-box::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 4px solid #00ff8833;
+    transform: translate(-6px, 6px);
+    pointer-events: none;
+    z-index: -1;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ======== HERO ======== -->
+  <header class="hero">
+    <span class="ascii-line">   _____   ____       _    _       ___  _    ____  </span>
+    <span class="ascii-line">  |_   _| |  _ \     / \  (_)_ __ / _ \| |  |  _ \ </span>
+    <span class="ascii-line">    | |   | | | |   / _ \ | | '__| | | | |  | | | |</span>
+    <span class="ascii-line">    | |   | |_| |  / ___ \| | |  | |_| | |__| |_| |</span>
+    <span class="ascii-line">    |_|   |____/  /_/   \_\_|_|   \___/|____|____/ </span>
+    <span class="ascii-line bright">  ================================================</span>
+
+    <h1 class="hero-title">TD HAIR<br>CONCEPT</h1>
+    <p class="hero-sub">FRISEUR IN DORTMUND</p>
+    <p class="hero-bracket">{ kaiserstr. 64 &nbsp;·&nbsp; 44135 dortmund &nbsp;·&nbsp; 0231 96 76 59 95 }</p>
+  </header>
+
+  <hr class="brutal">
+
+  <!-- ======== LEISTUNGEN ======== -->
+  <section>
+    <span class="section-label">LEISTUNGEN</span>
+
+    <ul class="services-list">
+      <li>Haarschnitt</li>
+      <li>Bartpflege</li>
+      <li>Coloration</li>
+      <li>Styling</li>
+      <li>Haarverlängerung</li>
+      <li>Dreadlocks</li>
+    </ul>
+  </section>
+
+  <hr class="brutal">
+
+  <!-- ======== BEWERTUNGEN ======== -->
+  <section>
+    <span class="section-label">BEWERTUNGEN</span>
+
+    <div class="terminal">
+      <div class="term-entry">
+        <span class="user">marcus_k:</span>
+        <span class="stars">★★★★★</span>
+        <span class="date">[2025-01-14]</span>
+        <div class="msg">> Beste Bartpflege in Dortmund. Komme seit 3 Jahren hierher und wurde noch nie enttäuscht. Marcus weiss genau was er tut.</div>
+      </div>
+      <div class="term-entry">
+        <span class="user">lena_do:</span>
+        <span class="stars">★★★★★</span>
+        <span class="date">[2025-02-03]</span>
+        <div class="msg">> Habe mir endlich Dreadlocks machen lassen und bin absolut begeistert. Super Beratung, faire Preise, entspannte Atmosphäre.</div>
+      </div>
+      <div class="term-entry" style="margin-bottom: 0;">
+        <span class="user">sven_83:</span>
+        <span class="stars">★★★★★</span>
+        <span class="date">[2025-03-20]</span>
+        <div class="msg">> Coloration + Schnitt top. Der Salon ist clean, die Leute sind freundlich und das Ergebnis kann sich sehen lassen.</div>
+      </div>
+      <div style="margin-top: 10px; color: #555;">tdhair@dortmund:~$ <span class="terminal-cursor"></span></div>
+    </div>
+  </section>
+
+  <hr class="brutal">
+
+  <!-- ======== KONTAKT ======== -->
+  <section>
+    <span class="section-label">KONTAKT</span>
+
+    <form class="form-grid" action="#" method="POST">
+      <input type="text" name="name" placeholder="Name *" required>
+      <input type="email" name="email" placeholder="E-Mail *" required>
+      <input class="form-span-full" type="text" name="subject" placeholder="Betreff">
+      <textarea class="form-span-full" name="message" placeholder="Deine Nachricht ..." required></textarea>
+      <button type="submit">[ ABSENDEN ]</button>
+    </form>
+  </section>
+
+  <!-- ======== INFO BAR ======== -->
+  <aside class="info-bar">
+    <span class="info-tag">INFO</span>
+    <span>Kaiserstr. 64, 44135 Dortmund &nbsp;|&nbsp; Tel: <a href="tel:+4923196765995">0231 96 76 59 95</a></span>
+    <span><a href="https://www.td-hairconcept.de/" target="_blank" rel="noopener">td-hairconcept.de &nearr;</a></span>
+  </aside>
+
+</div>
+
+</body>
+</html>
