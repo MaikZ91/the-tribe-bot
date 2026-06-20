@@ -30,7 +30,7 @@ const SCRIPTS = __dirname;
 const ROOT = path.join(SCRIPTS, '..');
 const REPO = path.join(ROOT, '..');
 const PREVIEW_DIR = path.join(REPO, 'docs', 'leads');
-const REFERENCE = path.join(PREVIEW_DIR, 'alt-bielefeld', 'index.html');
+const REFERENCE = path.join(REPO, 'docs', 'mz9.html');
 const WORKFLOW = path.join(ROOT, 'WORKFLOW.md');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
