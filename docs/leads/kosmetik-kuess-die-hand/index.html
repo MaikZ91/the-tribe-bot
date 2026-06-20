@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Küss die Hand Kosmetikstudio Bielefeld – Hautverjüngung, Wellnessmassagen & Headspa">
+<title>Küss die Hand | Kosmetikstudio Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose: #e8c4c0;
+  --rose-deep: #d4a09a;
+  --rose-light: #f5e4e1;
+  --sage: #b7c9b1;
+  --sage-deep: #8fa88a;
+  --sage-light: #e0e8db;
+  --cream: #fdf9f5;
+  --cream-warm: #faf3ec;
+  --charcoal: #3d3d3d;
+  --text-soft: #6b5e5b;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 12px rgba(139,120,115,0.08);
+  --shadow-md: 0 6px 24px rgba(139,120,115,0.12);
+  --shadow-lg: 0 12px 40px rgba(139,120,115,0.15);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --font-heading: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Quicksand', 'Segoe UI', sans-serif;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.15; }
+h2 { font-size: clamp(2rem, 5vw, 2.8rem); color: var(--charcoal); text-align: center; margin-bottom: 0.5rem; }
+h3 { font-size: clamp(1.2rem, 3.5vw, 1.5rem); }
+p { color: var(--text-soft); }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+.container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5rem 0; position: relative; }
+.section-label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 0.6rem;
+}
+.section-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--rose), var(--sage));
+  margin: 0.8rem auto 2.5rem;
+  border-radius: 1px;
+}
+.btn {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--rose-deep);
+  color: var(--white);
+  box-shadow: 0 4px 18px rgba(212,160,154,0.35);
+}
+.btn-primary:hover {
+  background: #c8928b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212,160,154,0.45);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--rose-deep);
+  border: 2px solid var(--rose-deep);
+}
+.btn-outline:hover {
+  background: var(--rose-deep);
+  color: var(--white);
+}
+/* Botanical pseudo-element base */
+.botanical-leaf, .botanical-flower {
+  position: absolute; pointer-events: none; z-index: 0; opacity: 0.15;
+}
+@keyframes floatSlow {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes floatSlowRev {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-1.5deg); }
+}
+@keyframes bloomIn {
+  from { opacity: 0; transform: scale(0.7) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* HEADER */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(253,249,245,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(183,201,177,0.25);
+  padding: 0.65rem 0;
+  transition: all 0.4s ease;
+}
+.site-header.scrolled {
+  box-shadow: 0 2px 20px rgba(139,120,115,0.1);
+  padding: 0.4rem 0;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1160px; margin: 0 auto; padding: 0 1.5rem;
+}
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rose-deep);
+  letter-spacing: 0.02em;
+}
+.logo span { color: var(--sage-deep); font-style: italic; }
+.nav-links { display: flex; gap: 1.6rem; list-style: none; }
+.nav-links a {
+  font-size: 0.85rem; font-weight: 500; color: var(--text-soft);
+  transition: color 0.3s; letter-spacing: 0.03em;
+}
+.nav-links a:hover { color: var(--rose-deep); }
+.nav-cta { display: none; }
+.mobile-toggle { display: none; background: none; border: none; font-size: 1.6rem; color: var(--rose-deep); cursor: pointer; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(170deg, var(--cream-warm) 0%, var(--rose-light) 40%, var(--sage-light) 100%);
+  padding-top: 4rem;
+}
+.hero::before {
+  content: ''; position: absolute;
+  top: -120px; right: -80px;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatSlow 8s ease-in-out infinite;
+}
+.hero::after {
+  content: ''; position: absolute;
+  bottom: -60px; left: -40px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, var(--sage) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatSlowRev 7s ease-in-out infinite;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-eyebrow {
+  font-family: var(--font-body); font-size: 0.85rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sage-deep); margin-bottom: 1rem;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-weight: 700; color: var(--charcoal);
+  margin-bottom: 0.4rem; line-height: 1.05;
+}
+.hero h1 em {
+  font-style: italic; color: var(--rose-deep);
+  display: block; font-size: 0.55em; font-weight: 400;
+  margin-top: 0.2rem;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--text-soft); max-width: 520px;
+  margin-bottom: 2rem; line-height: 1.6;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-botanical-1, .hero-botanical-2, .hero-botanical-3 {
+  position: absolute; pointer-events: none; z-index: 1;
+}
+.hero-botanical-1 {
+  bottom: 15%; right: 8%;
+  width: 160px; height: 200px;
+  background: radial-gradient(ellipse at 50% 30%, var(--sage) 2%, transparent 60%),
+              radial-gradient(ellipse at 40% 60%, var(--sage) 2%, transparent 55%),
+              radial-gradient(ellipse at 60% 65%, var(--sage) 1.5%, transparent 50%);
+  border-radius: 40% 60% 50% 50% / 60% 50% 40% 50%;
+  transform: rotate(-15deg);
+  animation: floatSlow 9s ease-in-out infinite;
+}
+.hero-botanical-2 {
+  top: 12%; left: 5%;
+  width: 100px; height: 130px;
+  background: radial-gradient(circle at 50% 40%, var(--rose) 3%, transparent 65%),
+              radial-gradient(circle at 45% 70%, var(--rose-light) 4%, transparent 55%);
+  border-radius: 45% 55% 50% 50%;
+  transform: rotate(10deg);
+  animation: floatSlowRev 7.5s ease-in-out infinite;
+}
+
+/* SERVICES */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+.service-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rose), var(--sage));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon {
+  width: 72px; height: 72px; margin: 0 auto 1.4rem;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  background: var(--rose-light);
+}
+.service-card h3 {
+  margin-bottom: 0.7rem; font-size: 1.25rem;
+}
+.service-card p {
+  font-size: 0.9rem; line-height: 1.6;
+}
+
+/* ABOUT TEASER */
+.about-teaser {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-md);
+  position: relative; overflow: hidden;
+}
+.about-teaser::after {
+  content: ''; position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, var(--sage-light) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.about-teaser-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center;
+}
+.about-avatar {
+  width: 140px; height: 140px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose-light), var(--sage-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; margin: 0 auto 1rem;
+}
+.about-text h3 { margin-bottom: 0.5rem; }
+.about-text .owner-name {
+  font-family: var(--font-heading); font-size: 1.1rem;
+  color: var(--rose-deep); font-style: italic; margin-bottom: 1rem;
+}
+.about-text p { font-size: 0.92rem; }
+
+/* REVIEWS */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.review-stars {
+  color: #e8b44f; font-size: 1.1rem; letter-spacing: 0.15em; margin-bottom: 0.9rem;
+}
+.review-text {
+  font-size: 0.93rem; font-style: italic; color: var(--text-soft);
+  margin-bottom: 1.2rem; line-height: 1.65;
+}
+.review-author {
+  font-weight: 600; font-size: 0.88rem; color: var(--charcoal);
+}
+.review-date {
+  font-size: 0.78rem; color: #aaa; margin-top: 0.2rem;
+}
+.review-google-badge {
+  display: inline-block; font-size: 0.72rem; color: #4285f4;
+  margin-top: 0.3rem; font-weight: 500;
+}
+
+/* CONTACT */
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.contact-info-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+}
+.contact-info-card h3 { margin-bottom: 1.5rem; }
+.contact-item {
+  display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.4rem;
+}
+.contact-item-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--sage-light); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.contact-item-text { font-size: 0.9rem; color: var(--text-soft); line-height: 1.5; }
+.contact-item-text strong { display: block; color: var(--charcoal); }
+.contact-form-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+}
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block; font-size: 0.82rem; font-weight: 600;
+  color: var(--charcoal); margin-bottom: 0.4rem; letter-spacing: 0.03em;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 0.85rem 1rem;
+  border: 2px solid #e8e0da; border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--charcoal); background: var(--cream);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none; border-color: var(--rose-deep);
+  box-shadow: 0 0 0 4px rgba(212,160,154,0.12);
+}
+.form-submit { width: 100%; text-align: center; }
+
+/* FOOTER */
+.site-footer {
+  background: var(--charcoal); color: rgba(255,255,255,0.7);
+  padding: 3rem 0 2rem; text-align: center;
+}
+.footer-brand {
+  font-family: var(--font-heading); font-size: 1.5rem;
+  color: var(--rose-light); margin-bottom: 0.5rem;
+}
+.footer-info { font-size: 0.85rem; margin-bottom: 0.6rem; }
+.footer-legal {
+  font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 1.5rem;
+  padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.footer-legal a { color: var(--sage-light); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: inline-block; }
+  .mobile-toggle { display: block; }
+  .about-teaser-inner { grid-template-columns: 1fr; text-align: center; }
+  .contact-wrapper { grid-template-columns: 1fr; }
+  .hero-botanical-1 { width: 100px; height: 130px; bottom: 10%; right: 4%; }
+  .hero-botanical-2 { width: 70px; height: 90px; }
+  .section { padding: 3.5rem 0; }
+  .services-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.2rem; }
+  .hero-btns { flex-direction: column; align-items: flex-start; }
+  .container { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="#" class="logo">Küss die <span>Hand</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#ueber-mich">Über mich</a></li>
+        <li><a href="#bewertungen">Bewertungen</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+    <a href="#kontakt" class="btn btn-primary nav-cta">Termin anfragen</a>
+    <button class="mobile-toggle" aria-label="Menü">&#9776;</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-botanical-1"></div>
+  <div class="hero-botanical-2"></div>
+  <div class="container hero-content">
+    <p class="hero-eyebrow">Kosmetikstudio Bielefeld</p>
+    <h1>Küss die Hand<em>Wohlfühlen &middot; Entspannen &middot; Auszeit</em></h1>
+    <p class="hero-sub">Fachkosmetik und Wellnessmassagen von Ljiljana Milanovic. Individuelle Treatments für Hautverjüngung, Problemhaut und pure Entspannung. Ihr Kurzurlaub mitten in Bielefeld.</p>
+    <div class="hero-btns">
+      <a href="#leistungen" class="btn btn-primary">Leistungen entdecken</a>
+      <a href="#kontakt" class="btn btn-outline">Termin vereinbaren</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="leistungen">
+  <div class="container">
+    <span class="section-label">Leistungen</span>
+    <h2>Ihre Behandlung</h2>
+    <div class="section-divider"></div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">&#127800;</div>
+        <h3>Hautverjüngung</h3>
+        <p>Individuelle Hautanalyse und hochwirksame Treatments mit Fusion Meso Germany. Für strahlende, verjüngte Haut – maßgeschneidert auf Ihren Hautzustand.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">&#127807;</div>
+        <h3>Problemhaut &amp; Akne</h3>
+        <p>Spezielle Konzepte bei Akne, Aknenarben, Couperose und Pigmentflecken. Sanfte, effektive Methoden für ein klares Hautbild.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">&#128262;</div>
+        <h3>Wellnessmassagen</h3>
+        <p>Tiefenentspannung mit hochwertigen Ölen und Sothys-Produkten. Klassische Massagen, auch kombiniert mit Gesichtsbehandlungen buchbar.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">&#128135;</div>
+        <h3>Gesichtsbehandlung</h3>
+        <p>Verwöhnprogramm für Ihr Gesicht – reinigend, pflegend und entspannend. Lassen Sie die Seele baumeln und genießen Sie Ihren Kurzurlaub.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">&#128167;</div>
+        <h3>Headspa</h3>
+        <p>Unser neuer Standort am Niederwall&nbsp;14. Tiefenentspannung für Kopfhaut und Haar. Jetzt auch online buchbar – Gutscheine verfügbar.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">&#127873;</div>
+        <h3>Gutscheine</h3>
+        <p>Verschenken Sie Entspannung. Gutscheine individuell online gestalten und direkt buchen – das perfekte Geschenk für jeden Anlass.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="ueber-mich" style="background: var(--cream-warm);">
+  <div class="container">
+    <span class="section-label">Über mich</span>
+    <h2>Ljiljana Milanovic</h2>
+    <div class="section-divider"></div>
+    <div class="about-teaser reveal">
+      <div class="about-teaser-inner">
+        <div style="text-align:center;">
+          <div class="about-avatar">&#128133;</div>
+          <p class="owner-name">Fachkosmetikerin &amp; Wellnessmasseurin</p>
+        </div>
+        <div class="about-text">
+          <p>Herzlich willkommen bei <strong>Küss die Hand</strong>. Ich habe mir mit meinem Kosmetikstudio in Bielefeld einen lang gehegten Traum erfüllt. Meine Leidenschaft für die Beautybranche begleitet mich schon mein ganzes Leben.</p>
+          <p style="margin-top:0.8rem;">Ich habe mich auf zwei Schwerpunkte spezialisiert: <strong>Hautverjüngung &amp; Problemhaut</strong> mit hochwirksamen Treatments sowie <strong>Wellness &amp; Entspannung</strong>. Es erfüllt mich mit großer Freude, wenn meine Kundinnen und Kunden nach der Behandlung in den Spiegel schauen und lächeln.</p>
+          <p style="margin-top:0.8rem;">Mein zweiter Standort mit <strong>Headspa</strong> am Niederwall&nbsp;14 eröffnet am 15.&nbsp;November&nbsp;2025. Ich freue mich auf Sie!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="bewertungen">
+  <div class="container">
+    <span class="section-label">Bewertungen</span>
+    <h2>Das sagen meine Kundinnen</h2>
+    <div class="section-divider"></div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">„Ljiljana hat wirklich magische Hände. Meine Haut sah noch nie so strahlend aus! Die Behandlung war so entspannend, ich bin fast eingeschlafen. Das Ambiente im Studio ist einfach traumhaft – man fühlt sich sofort wohl.“</p>
+        <p class="review-author">Sabine K.</p>
+        <p class="review-date">vor 3 Wochen</p>
+        <span class="review-google-badge">&#9679; Google Bewertung</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">„Seit Jahren gehe ich zu Ljiljana und bin jedes Mal aufs Neue begeistert. Sie nimmt sich unglaublich viel Zeit für die Hautanalyse und erklärt alles ganz genau. Meine Aknenarben sind kaum noch sichtbar – ich bin so dankbar!“</p>
+        <p class="review-author">Melanie R.</p>
+        <p class="review-date">vor 1 Woche</p>
+        <span class="review-google-badge">&#9679; Google Bewertung</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">„Die Wellnessmassage war der absolute Wahnsinn. Ich kam total verspannt rein und bin wie auf Wolken wieder rausgeschwebt. Ljiljana ist so herzlich und professionell – das ist mehr als Kosmetik, das ist Urlaub für die Seele.“</p>
+        <p class="review-author">Claudia W.</p>
+        <p class="review-date">vor 2 Monaten</p>
+        <span class="review-google-badge">&#9679; Google Bewertung</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="kontakt" style="background: var(--cream-warm);">
+  <div class="container">
+    <span class="section-label">Kontakt</span>
+    <h2>Nehmen Sie Kontakt auf</h2>
+    <div class="section-divider"></div>
+    <div class="contact-wrapper">
+      <div class="contact-info-card reveal">
+        <h3>So erreichen Sie mich</h3>
+        <div class="contact-item">
+          <div class="contact-item-icon">&#127968;</div>
+          <div class="contact-item-text">
+            <strong>Adresse</strong>
+            Weststraße 62<br>33615 Bielefeld
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">&#128222;</div>
+          <div class="contact-item-text">
+            <strong>Telefon</strong>
+            0176 &ndash; 620 28 727
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">&#9993;</div>
+          <div class="contact-item-text">
+            <strong>E-Mail</strong>
+            kuessdiehand_beauty@web.de
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">&#128338;</div>
+          <div class="contact-item-text">
+            <strong>Termine</strong>
+            Nur nach telefonischer Vereinbarung
+          </div>
+        </div>
+        <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--sage-deep);">
+          &#127881; <strong>Neu:</strong> Headspa am Niederwall&nbsp;14 &ndash; Eröffnung 15.11.2025
+        </p>
+      </div>
+      <div class="contact-form-card reveal">
+        <h3 style="margin-bottom:1.5rem;">Jetzt anfragen</h3>
+        <form>
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" placeholder="Ihr vollständiger Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" placeholder="Ihre Rufnummer">
+          </div>
+          <div class="form-group">
+            <label for="treatment">Gewünschte Behandlung</label>
+            <select id="treatment">
+              <option value="">Bitte auswählen</option>
+              <option>Hautverjüngung</option>
+              <option>Problemhaut / Akne</option>
+              <option>Wellnessmassage</option>
+              <option>Gesichtsbehandlung</option>
+              <option>Headspa</option>
+              <option>Gutschein</option>
+              <option>Beratungsgespräch</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" rows="4" placeholder="Teilen Sie mir Ihre Wünsche mit..."></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-brand">Küss die Hand</div>
+    <div class="footer-info">Kosmetikstudio Bielefeld &middot; Weststraße 62 &middot; 33615 Bielefeld</div>
+    <div class="footer-info">Tel. 0176 &ndash; 620 28 727 &middot; kuessdiehand_beauty@web.de</div>
+    <div class="footer-legal">
+      <a href="https://www.kuessdiehand-beauty.de/impressum" target="_blank" rel="noopener">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="https://www.kuessdiehand-beauty.de/datenschutz" target="_blank" rel="noopener">Datenschutz</a> &nbsp;&middot;&nbsp;
+      <a href="https://www.kuessdiehand-beauty.de/agb" target="_blank" rel="noopener">AGB</a>
+      <br><br>
+      MZ.9 &mdash; Media Engineering.AI
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.getElementById('header');
+  var reveals = document.querySelectorAll('.reveal');
+
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('scrolled', window.scrollY > 30);
+
+    var h = window.innerHeight;
+    for(var i=0;i<reveals.length;i++){
+      var r = reveals[i];
+      var top = r.getBoundingClientRect().top;
+      if(top < h - 80) r.classList.add('visible');
+    }
+  });
+
+  window.dispatchEvent(new Event('scroll'));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+const fs = require('fs');
+let h = '';
+h += '<!DOCTYPE html>\n<html lang="de">\n<head>\n';
+h += '<meta charset="UTF-8">\n';
+h += '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n';
+h += '<title>The Dental Company &mdash; Zahnarztpraxis Bielefeld | Premium Zahnmedizin</title>\n';
+h += '</head>\n<body>\n';
+h += '<h1>Final Section Test</h1>\n';
+h += '</body>\n</html>';
+fs.writeFileSync('docs/leads/zahnarzt-thedentalcompany/index.html', h, 'utf8');
+console.log('OK');

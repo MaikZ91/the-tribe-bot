@@ -1,0 +1,59 @@
+name: Lead Agent (DeepSeek Edition)
+
+on:
+  schedule:
+    # Läuft kontinuierlich: alle 30 Minuten einen Lead verarbeiten.
+    # Queue leer → Discovery-Flag wird gesetzt.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Modus"
+        required: true
+        default: "process-next"
+        type: choice
+        options:
+          - process-next
+          - force-discover
+          - process-all
+
+concurrency:
+  group: lead-agent-deepseek
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Run Lead Agent Loop
+        id: loop
+        run: node lead_agent_deepseek/scripts/loop.js
+
+      - name: Git Auto-Commit (falls Änderungen)
+        if: always()
+        run: |
+          git config user.name "MZ.9 Lead Agent"
+          git config user.email "agent@mz9.ai"
+          git add docs/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/leads/
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+          else
+            git commit -m "lead-agent: automated run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
