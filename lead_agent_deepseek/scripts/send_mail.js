@@ -41,6 +41,8 @@ const ROOT = path.join(__dirname, '..');
 const SENT_FILE = path.join(ROOT, 'sent.json');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 
+const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '15', 10);
+
 const SMTP = {
   host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.MZ9_SMTP_PORT || '587'),
@@ -352,6 +354,11 @@ async function main() {
       return;
     }
     console.log(`→ ${lead.name} (${lead.email})${lead.hasCompare ? ' 🖼️' : ''}`);
+    if (!dryRun && EMAIL_DELAY_MAX_MIN > 0) {
+      const delaySec = Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60);
+      console.log(`  ⏳ Warte ${(delaySec / 60).toFixed(1)} Min vor Versand...`);
+      await new Promise(r => setTimeout(r, delaySec * 1000));
+    }
     const result = await sendHtmlMail(lead, dryRun);
     if (result.success && !dryRun) {
       const ts = new Date().toISOString();
