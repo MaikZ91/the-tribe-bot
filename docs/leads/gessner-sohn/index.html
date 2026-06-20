@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gessner & Sohn | Heizungsbau & Sanitär Kassel</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --cyan: #06b6d4;
+  --cyan2: #0891b2;
+  --white: #f8fafc;
+  --gray: #94a3b8;
+  --gray2: #64748b;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{line-height:1.15}
+.container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+.section-label{font-family:'JetBrains Mono','Fira Code',monospace;font-size:.8rem;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
+.btn{display:inline-block;padding:.85rem 2rem;font-weight:700;text-decoration:none;border:2px solid var(--cyan);transition:.3s;cursor:pointer;font-size:.95rem;letter-spacing:.03em}
+.btn-primary{background:var(--cyan);color:#0f172a}
+.btn-primary:hover{background:transparent;color:var(--cyan)}
+.btn-outline{color:var(--cyan);background:transparent}
+.btn-outline:hover{background:var(--cyan);color:#0f172a}
+/* Navigation */
+#nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(15,23,42,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(6,182,212,.15);transition:.35s}
+#nav.scrolled{background:rgba(15,23,42,.98);padding:.7rem 2rem}
+.nav-logo{font-size:1.3rem;font-weight:800;color:var(--white);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--cyan)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.04em;transition:.25s;text-transform:uppercase}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:var(--cyan);color:#0f172a!important;padding:.45rem 1.2rem!important;font-weight:700!important}
+.nav-cta:hover{background:var(--white)!important;color:#0f172a!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
+.hamburger span{width:26px;height:2px;background:var(--white);transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+/* Hero */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1a2744 40%,#0f172a 70%)}
+#hero::before{content:'';position:absolute;top:-20%;right:-10%;width:70%;height:140%;background:linear-gradient(160deg,var(--cyan) 0%,rgba(6,182,212,.08) 40%,transparent 70%);clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);z-index:0}
+#hero::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:120px;background:linear-gradient(to top,var(--bg),transparent);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-content h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;margin-bottom:1.2rem;line-height:1.08}
+.hero-content h1 span{color:var(--cyan);position:relative;display:inline-block}
+.hero-content h1 span::after{content:'';position:absolute;bottom:4px;left:0;width:100%;height:3px;background:var(--cyan);transform:skew(-20deg)}
+.hero-sub{font-size:clamp(1rem,2vw,1.3rem);color:var(--gray);margin-bottom:2.5rem;max-width:520px;line-height:1.6}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);padding:.5rem 1.2rem;margin-bottom:1.8rem;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.78rem;color:var(--cyan);letter-spacing:.08em}
+.hero-grid-bg{position:absolute;top:0;right:0;width:55%;height:100%;z-index:0;opacity:.04;background-image:linear-gradient(var(--cyan) 1px,transparent 1px),linear-gradient(90deg,var(--cyan) 1px,transparent 1px);background-size:50px 50px;transform:skew(-8deg);transform-origin:top right}
+/* Sections */
+section{padding:7rem 0;position:relative}
+.section-header{margin-bottom:4rem}
+.section-header h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-top:.3rem}
+.section-header h2 span{color:var(--cyan)}
+/* Leistungen Grid */
+#leistungen{background:var(--bg2);clip-path:polygon(0 5%,100% 0,100% 95%,0 100%);padding:9rem 0}
+#leistungen .container{position:relative;z-index:1}
+.services-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1.2rem}
+.service-card{background:rgba(15,23,42,.7);border:1px solid rgba(6,182,212,.1);padding:2.2rem;position:relative;overflow:hidden;transition:.35s;cursor:default}
+.service-card:hover{transform:translateY(-4px);border-color:rgba(6,182,212,.35);box-shadow:0 20px 50px rgba(6,182,212,.08)}
+.service-card.large{grid-row:span 2}
+.service-card .s-icon{font-size:2.4rem;margin-bottom:1.2rem;display:block}
+.service-card h3{font-size:1.3rem;font-weight:700;margin-bottom:.7rem}
+.service-card h3 span{font-family:'JetBrains Mono','Fira Code',monospace;font-size:.65em;color:var(--cyan);margin-right:.4em}
+.service-card p{color:var(--gray);font-size:.9rem;line-height:1.55}
+.service-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:linear-gradient(135deg,transparent 50%,rgba(6,182,212,.06) 50%);z-index:0}
+/* Zahlen */
+#zahlen{text-align:center;background:var(--bg)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem;margin-top:2rem}
+.stat-item{position:relative;padding:2rem}
+.stat-number{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:var(--cyan);line-height:1;margin-bottom:.5rem;font-family:'JetBrains Mono','Fira Code',monospace}
+.stat-label{color:var(--gray);font-size:.9rem;text-transform:uppercase;letter-spacing:.08em}
+.stat-divider{width:40px;height:2px;background:var(--cyan);margin:1rem auto 0;opacity:.4}
+/* Partner */
+#partner{background:var(--bg2);clip-path:polygon(0 0,100% 4%,100% 100%,0 96%);padding:8rem 0}
+.partner-scroll{display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:2rem}
+.partner-item{padding:1.5rem 2.5rem;background:rgba(15,23,42,.6);border:1px solid rgba(6,182,212,.08);text-align:center;min-width:150px;transition:.3s}
+.partner-item:hover{border-color:rgba(6,182,212,.3)}
+.partner-item .p-icon{font-size:2.5rem;margin-bottom:.5rem;display:block}
+.partner-item .p-name{font-weight:700;font-size:.85rem;letter-spacing:.04em;color:var(--white)}
+.partner-item .p-desc{font-size:.7rem;color:var(--gray2);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem}
+/* Bewertungen */
+#bewertungen{background:var(--bg)}
+.reviews-scroll{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1rem;margin-top:2rem;-ms-overflow-style:none;scrollbar-width:none}
+.reviews-scroll::-webkit-scrollbar{display:none}
+.review-card{flex:0 0 380px;scroll-snap-align:start;background:var(--bg2);border:1px solid rgba(6,182,212,.1);padding:2.2rem;position:relative}
+.review-card::before{content:'\201C';position:absolute;top:1rem;right:1.5rem;font-size:5rem;color:rgba(6,182,212,.1);line-height:1;font-family:Georgia,serif}
+.review-stars{color:#f59e0b;font-size:1rem;margin-bottom:1rem;letter-spacing:.1em}
+.review-text{color:var(--gray);font-size:.92rem;line-height:1.7;margin-bottom:1.5rem;font-style:italic}
+.review-author{font-weight:700;font-size:.85rem;color:var(--white)}
+.review-role{color:var(--gray2);font-size:.75rem}
+/* Kontakt */
+#kontakt{background:var(--bg2);clip-path:polygon(0 4%,100% 0,100% 100%,0 100%);padding:9rem 0 7rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
+.contact-info h3{font-size:1.5rem;font-weight:700;margin-bottom:1.5rem}
+.contact-info h3 span{color:var(--cyan)}
+.contact-detail{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem}
+.contact-icon{font-size:1.4rem;flex-shrink:0;margin-top:.15rem}
+.contact-detail strong{display:block;font-size:.85rem;color:var(--white);margin-bottom:.15rem}
+.contact-detail p{color:var(--gray);font-size:.9rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.contact-form input,.contact-form textarea,.contact-form select{background:rgba(15,23,42,.7);border:1px solid rgba(6,182,212,.15);padding:.9rem 1.1rem;color:var(--white);font-size:.9rem;font-family:inherit;transition:.3s;outline:none}
+.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(6,182,212,.1)}
+.contact-form textarea{resize:vertical;min-height:120px}
+.contact-form select{color:var(--white)}
+.contact-form select option{background:var(--bg2);color:var(--white)}
+.map-placeholder{grid-column:1/-1;height:280px;background:rgba(15,23,42,.7);border:1px solid rgba(6,182,212,.1);display:flex;align-items:center;justify-content:center;margin-top:1rem;position:relative;overflow:hidden}
+.map-placeholder iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.92)}
+/* Footer */
+#footer{background:#0b1322;border-top:1px solid rgba(6,182,212,.1);padding:3rem 0 1.5rem}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-about p{color:var(--gray);font-size:.85rem;margin-top:.8rem;line-height:1.7}
+.footer h4{font-family:'JetBrains Mono','Fira Code',monospace;font-size:.75rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{color:var(--gray);text-decoration:none;font-size:.85rem;transition:.2s}
+.footer-links a:hover{color:var(--cyan)}
+.footer-bottom{border-top:1px solid rgba(6,182,212,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{color:var(--gray2);font-size:.78rem}
+.footer-badges{display:flex;gap:1rem;font-size:.7rem;color:var(--gray2);letter-spacing:.06em}
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp .7s ease forwards;opacity:0}
+.animate.d1{animation-delay:.1s}.animate.d2{animation-delay:.25s}.animate.d3{animation-delay:.4s}.animate.d4{animation-delay:.55s}
+/* Responsive */
+@media(max-width:1024px){
+.services-grid{grid-template-columns:1fr 1fr}
+.service-card.large{grid-row:span 1}
+.stats-grid{grid-template-columns:1fr 1fr}
+.contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+#nav{padding:.9rem 1.2rem}
+.nav-links{position:fixed;top:0;right:-100%;width:75%;height:100vh;background:var(--bg);flex-direction:column;justify-content:center;align-items:center;transition:.4s;gap:2rem;z-index:999}
+.nav-links.active{right:0}
+.hamburger{display:flex}
+.services-grid{grid-template-columns:1fr;gap:.8rem}
+.stats-grid{grid-template-columns:1fr;gap:1rem}
+.review-card{flex:0 0 85vw}
+.footer-grid{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;text-align:center}
+#hero::before{width:100%;right:-30%}
+.hero-grid-bg{width:100%}
+#leistungen,#partner,#kontakt{clip-path:none;padding:5rem 0}
+section{padding:5rem 0}
+}
+@media(max-width:480px){
+.hero-content h1{font-size:2rem}
+.partner-scroll{gap:1rem}
+.partner-item{padding:1rem 1.5rem;min-width:130px}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+<div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+<a href="#" class="nav-logo">Gessner <span>&</span> Sohn</a>
+<ul class="nav-links">
+<li><a href="#leistungen">Leistungen</a></li>
+<li><a href="#zahlen">Referenzen</a></li>
+<li><a href="#partner">Partner</a></li>
+<li><a href="#bewertungen">Bewertungen</a></li>
+<li><a href="#kontakt" class="nav-cta">Anfragen</a></li>
+</ul>
+<div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active');this.classList.toggle('active')">
+<span></span><span></span><span></span>
+</div>
+</div>
+</nav>
+<header id="hero">
+<div class="hero-grid-bg"></div>
+<div class="container">
+<div class="hero-content">
+<div class="hero-badge animate d1">
+<span style="font-size:1.1rem">&#9889;</span> Meisterbetrieb seit 1965
+</div>
+<h1 class="animate d2">Gessner <span>& Sohn.</span><br>Die Experten für Wärme und Wasser.</h1>
+<p class="hero-sub animate d3">Ihr familiengeführter Meisterbetrieb in Kassel für moderne Heizungstechnik, Sanitärinstallation und Badumbau. Seit über 55 Jahren Qualität, auf die Sie sich verlassen können.</p>
+<div class="animate d4" style="display:flex;gap:1rem;flex-wrap:wrap">
+<a href="#kontakt" class="btn btn-primary">Jetzt anfragen &#8594;</a>
+<a href="tel:0561600216" class="btn btn-outline">&#9742; 0561 600216</a>
+</div>
+</div>
+</div>
+<div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;animation:bounce 2s infinite">
+<a href="#leistungen" style="color:var(--gray);text-decoration:none;font-size:.8rem;letter-spacing:.1em;display:flex;flex-direction:column;align-items:center;gap:.4rem">
+<span>MEHR ENTDECKEN</span>
+<span style="font-size:1.2rem">&#8595;</span>
+</a>
+</div>
+</header>
+<style>@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}</style>
+<section id="leistungen">
+<div class="container">
+<div class="section-header">
+<p class="section-label">// LEISTUNGEN</p>
+<h2>Was wir <span>für Sie</span> tun.</h2>
+</div>
+<div class="services-grid">
+<div class="service-card large" style="background:linear-gradient(160deg,rgba(6,182,212,.08),rgba(15,23,42,.7));border-color:rgba(6,182,212,.2)">
+<span class="s-icon">&#128293;</span>
+<h3><span>01</span> Heizungsbau</h3>
+<p>Von der Gas-Brennwerttherme bis zur modernen Wärmepumpe — wir planen, installieren und warten Ihre Heizungsanlage. Energieeffizient, zukunftssicher und perfekt auf Ihr Gebäude abgestimmt. Unsere Meister planen jedes Projekt individuell — für maximale Effizienz und Wohnkomfort.</p>
+<p style="margin-top:1rem"><a href="#kontakt" style="color:var(--cyan);text-decoration:none;font-weight:600;font-size:.85rem">Beratung vereinbaren &#8594;</a></p>
+</div>
+<div class="service-card">
+<span class="s-icon">&#128704;</span>
+<h3><span>02</span> Sanitär</h3>
+<p>Rohrbruch, Verstopfung oder neue Leitungen — wir kümmern uns um alles rund um Ihre Sanitäranlagen. Sauber, schnell, zuverlässig.</p>
+</div>
+<div class="service-card">
+<span class="s-icon">&#128705;</span>
+<h3><span>03</span> Badumbau</h3>
+<p>Ihr Traumbad aus einer Hand: Planung, Fliesen, Sanitär, Elektro. Barrierefrei oder Design-Loft — wir realisieren Ihr Wunschbad.</p>
+</div>
+<div class="service-card">
+<span class="s-icon">&#127777;&#65039;</span>
+<h3><span>04</span> Wärmepumpe</h3>
+<p>Zukunftssicher heizen mit Umweltwärme. Wir sind zertifizierte Fachpartner für Luft-, Erd- und Grundwasser-Wärmepumpensysteme.</p>
+</div>
+<div class="service-card">
+<span class="s-icon">&#128680;</span>
+<h3><span>05</span> 24h Notdienst</h3>
+<p>Heizungsausfall? Wasserrohrbruch? Unser Notdienst ist rund um die Uhr für Sie da. Schnelle Hilfe, wenn's drauf ankommt.</p>
+</div>
+<div class="service-card">
+<span class="s-icon">&#128295;</span>
+<h3><span>06</span> Wartung</h3>
+<p>Regelmäßige Wartung spart Energie und vermeidet Ausfälle. Wir bieten Wartungsverträge für Heizung, Sanitär und Lüftung.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="zahlen">
+<div class="container">
+<div class="section-header">
+<p class="section-label">// ZAHLEN</p>
+<h2>Qualität, <span>die zählt.</span></h2>
+</div>
+<div class="stats-grid">
+<div class="stat-item">
+<div class="stat-number">55+</div>
+<div class="stat-label">Jahre Erfahrung</div>
+<div class="stat-divider"></div>
+</div>
+<div class="stat-item">
+<div class="stat-number">5000+</div>
+<div class="stat-label">Zufriedene Kunden</div>
+<div class="stat-divider"></div>
+</div>
+<div class="stat-item">
+<div class="stat-number">24/7</div>
+<div class="stat-label">Notdienst</div>
+<div class="stat-divider"></div>
+</div>
+<div class="stat-item">
+<div class="stat-number">150+</div>
+<div class="stat-label">Wärmepumpen installiert</div>
+<div class="stat-divider"></div>
+</div>
+</div>
+</div>
+</section>
+<section id="partner"></section>
+<section id="bewertungen"></section>
+<section id="kontakt"></section>
+<footer id="footer"></footer>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 STERN Goldschmiede | Schmuck & Uhren Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D0D0D;--card:#1A1A1A;--gold:#C9A96E;--cream:#F5F0E8;--gray:#2D2D2D;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--cream);line-height:1.7}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600}
+section{padding:clamp(3rem,8vw,6rem) clamp(1rem,5vw,2rem)}
+/* Hero */
+.hero{display:flex;align-items:center;justify-content:center;text-align:center;min-height:100vh;background:radial-gradient(ellipse at center,var(--gray) 0%,var(--bg) 70%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(201,169,110,.03) 40px,rgba(201,169,110,.03) 41px)}
+.hero-inner{position:relative;z-index:1;max-width:700px;padding:2rem}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;color:var(--gold);line-height:1.1;margin-bottom:1.5rem;letter-spacing:.02em}
+.hero h1 em{font-style:italic;font-weight:400;display:block;font-size:.6em;color:var(--cream);opacity:.7}
+.hero p{font-size:1.1rem;opacity:.8;margin-bottom:2.5rem}
+.btn-gold{display:inline-block;padding:16px 40px;background:transparent;border:2px solid var(--gold);color:var(--gold);font-weight:600;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn-gold:hover{background:var(--gold);color:var(--bg)}
+/* Produkte */
+.produkte{background:var(--card)}
+.produkte h2{text-align:center;font-size:2.2rem;color:var(--gold);margin-bottom:2.5rem}
+.scroll-band{display:flex;gap:1.5rem;overflow-x:auto;padding:1rem 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll-band::-webkit-scrollbar{display:none}
+.scroll-band .item{flex:0 0 220px;background:var(--gray);border-radius:8px;padding:2rem 1.5rem;text-align:center;border-top:2px solid var(--gold);transition:transform .3s}
+.scroll-band .item:hover{transform:translateY(-6px)}
+.scroll-band .item .ic{font-size:2.5rem;margin-bottom:1rem}
+.scroll-band .item h4{font-size:1.1rem;color:var(--gold);margin-bottom:.4rem}
+.scroll-band .item p{font-size:.8rem;opacity:.6}
+/* Werkstatt */
+.werkstatt{background:linear-gradient(rgba(13,13,13,.85),rgba(13,13,13,.85)),repeating-linear-gradient(0deg,transparent,transparent 2px,var(--gray) 2px,var(--gray) 4px);text-align:center;min-height:50vh;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.werkstatt h2{font-size:3rem;color:var(--gold);margin-bottom:.5rem}
+.werkstatt p{opacity:.6;max-width:500px}
+/* Timeline */
+.timeline{max-width:800px;margin:0 auto}
+.timeline h2{text-align:center;color:var(--gold);font-size:2.2rem;margin-bottom:3rem}
+.timeline-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.timeline-steps::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--gold);opacity:.3;transform:translateX(-50%)}
+.step{display:flex;align-items:flex-start;gap:2rem;padding:2rem 0;position:relative}
+.step:nth-child(odd){flex-direction:row-reverse;text-align:right}
+.step .dot{flex:0 0 16px;height:16px;background:var(--gold);border-radius:50%;margin-top:.5rem;position:relative;z-index:1}
+.step .content{flex:1}
+.step h3{font-size:1.3rem;color:var(--gold)}
+.step p{font-size:.9rem;opacity:.7}
+/* Testimonials */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:900px;margin:0 auto}
+.testi{background:var(--gray);border-radius:8px;padding:2rem;border-left:3px solid var(--gold)}
+.testi .stars{color:var(--gold);margin-bottom:.8rem;font-size:1rem}
+.testi p{font-style:italic;font-size:.9rem;line-height:1.6;margin-bottom:1rem}
+.testi .author{color:var(--gold);font-size:.8rem}
+/* Contact */
+.contact{text-align:center;background:var(--gray)}
+.contact h2{color:var(--gold);font-size:2rem;margin-bottom:2rem}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:700px;margin:0 auto}
+.contact-item{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.contact-item .ic{font-size:1.6rem}
+.contact-item a,.contact-item span{color:var(--cream);text-decoration:none;font-size:.95rem}
+.contact-item a:hover{color:var(--gold)}
+footer{text-align:center;padding:2rem;background:var(--bg);color:rgba(255,255,255,.3);font-size:.75rem}
+@media(max-width:768px){
+.timeline-steps::before{left:20px}
+.step,.step:nth-child(odd){flex-direction:row;text-align:left}
+.hero h1{font-size:2rem}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-inner">
+<h1>5 STERN.<br><em>Goldschmiedekunst seit 1995.</em></h1>
+<p>Individuelle Schmuckstücke, fachmännische Reparaturen und kompetente Beratung — mit der Erfahrung aus über 25 Jahren Handwerkstradition.</p>
+<a href="#kontakt" class="btn-gold">Beratungstermin vereinbaren</a>
+</div>
+</header>
+<section class="produkte">
+<h2>Unsere Kollektionen</h2>
+<div class="scroll-band">
+<div class="item"><div class="ic">💍</div><h4>Trauringe</h4><p>Für den schönsten Tag</p></div>
+<div class="item"><div class="ic">💎</div><h4>Ringe</h4><p>Verlobung & Alltag</p></div>
+<div class="item"><div class="ic">⛓️</div><h4>Ketten</h4><p>Klassisch & modern</p></div>
+<div class="item"><div class="ic">⌚</div><h4>Uhren</h4><p>Marken & Service</p></div>
+<div class="item"><div class="ic">✨</div><h4>Unikate</h4><p>Ihr persönliches Stück</p></div>
+</div>
+</section>
+<section class="werkstatt">
+<h2>Tradition & Präzision</h2>
+<p>In unserer Werkstatt entsteht jedes Stück mit der gleichen Sorgfalt wie am ersten Tag.</p>
+</section>
+<section class="timeline-section" style="background:var(--card)">
+<div class="timeline">
+<h2>Ihr Schmuckstück entsteht</h2>
+<div class="timeline-steps">
+<div class="step"><div class="dot"></div><div class="content"><h3>Beratung</h3><p>Gemeinsam besprechen wir Ihre Wünsche, Stilvorstellungen und das Budget.</p></div></div>
+<div class="step"><div class="dot"></div><div class="content"><h3>Design</h3><p>Wir entwerfen Skizzen und wählen die perfekten Materialien für Ihr Unikat.</p></div></div>
+<div class="step"><div class="dot"></div><div class="content"><h3>Handarbeit</h3><p>In liebevoller Handarbeit entsteht Ihr Schmuckstück — jedes Detail mit Präzision.</p></div></div>
+<div class="step"><div class="dot"></div><div class="content"><h3>Ihr Schmuckstück</h3><p>Sie halten Ihr persönliches Meisterwerk in den Händen — mit Garantie und Strahlen.</p></div></div>
+</div>
+</div>
+</section>
+<section style="background:var(--bg)">
+<div class="section-title" style="text-align:center;margin-bottom:2.5rem"><h2 style="color:var(--gold);font-size:2.2rem">Das sagen unsere Kunden</h2></div>
+<div class="testi-grid">
+<div class="testi"><div class="stars">★★★★★</div><p>„Meine Verlobungsring-Vorstellung wurde perfekt umgesetzt. Meine Verlobte war sprachlos.“</p><div class="author">Markus T., Bielefeld</div></div>
+<div class="testi"><div class="stars">★★★★★</div><p>„Die Trauringe sind ein Traum. Die Beratung war so herzlich und kompetent — wir kommen immer wieder.“</p><div class="author">Julia &amp; Tim, OWL</div></div>
+<div class="testi"><div class="stars">★★★★★</div><p>„Alte Uhr repariert bekommen, die seit Jahren im Schrank lag. Läuft wieder einwandfrei!“</p><div class="author">Heinrich W., Herford</div></div>
+</div>
+</section>
+<section class="contact" id="kontakt">
+<h2>Kontakt</h2>
+<div class="contact-grid">
+<div class="contact-item"><div class="ic">📞</div><a href="tel:+4952155755060">0521 55 75 50 60</a></div>
+<div class="contact-item"><div class="ic">✉️</div><a href="mailto:goldschmiede@5-stern.com">goldschmiede@5-stern.com</a></div>
+<div class="contact-item"><div class="ic">📍</div><span>Bielefeld</span></div>
+</div>
+</section>
+<footer>&copy; 2026 5 STERN Goldschmiede &middot; Impressum &middot; Datenschutz</footer>
+</body>
+</html>
