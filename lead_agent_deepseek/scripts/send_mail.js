@@ -75,6 +75,14 @@ function loadLeads() {
     if (!fs.existsSync(jobFile)) continue;
     try {
       const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+      // Prüfe ob die Seite wirklich gebaut wurde (index.html existiert + hat Inhalt)
+      const idxFile = path.join(PREVIEW_DIR, d.name, 'index.html');
+      let built = false;
+      try {
+        const stat = fs.statSync(idxFile);
+        built = stat.size > 2000; // echte Seite, kein Platzhalter
+      } catch {}
+
       leads.push({
         id: job.id,
         name: job.name,
@@ -86,6 +94,7 @@ function loadLeads() {
         opps: job.opps || [],
         preview: `https://maikz91.github.io/the-tribe-bot/leads/${job.id}/`,
         noweb: !job.website,
+        built,
       });
     } catch {}
   }
@@ -226,10 +235,11 @@ async function main() {
     // Zeige Status
     const withEmail = leads.filter(l => l.email);
     const sentCount = leads.filter(l => sent[l.id]).length;
-    const openCount = withEmail.filter(l => !sent[l.id]).length;
+    const openCount = withEmail.filter(l => !sent[l.id] && l.built).length;
+    const unbuiltCount = withEmail.filter(l => !sent[l.id] && !l.built).length;
     const noEmail = leads.filter(l => !l.email).length;
 
-    console.log(`\nStatus: ${openCount} offen · ${sentCount} gesendet · ${noEmail} ohne E-Mail`);
+    console.log(`\nStatus: ${openCount} sendbar · ${unbuiltCount} ungebaut · ${sentCount} gesendet · ${noEmail} ohne E-Mail`);
     console.log('\nNutzung:');
     console.log('  node send_mail.js <lead-id>     Einzelnen Lead senden');
     console.log('  node send_mail.js --all         Alle offenen senden');
