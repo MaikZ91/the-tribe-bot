@@ -28,6 +28,11 @@
   .top p{margin:6px 0 0;color:var(--ink-2);font-size:14px}
   .top .meta{margin-top:12px;font-size:12.5px;color:var(--ink-mut);display:flex;gap:16px;flex-wrap:wrap}
   .top .meta b{color:var(--accent)}
+  .tabs{display:flex;gap:6px;margin-top:14px}
+  .tabs button{font-family:inherit;font-size:13px;font-weight:700;padding:8px 16px;border-radius:9px 9px 0 0;border:1px solid var(--line);border-bottom:0;background:var(--panel-2);color:var(--ink-2);cursor:pointer}
+  .tabs button b{color:var(--ink-mut);font-weight:800;margin-left:4px}
+  .tabs button.on{background:var(--panel);color:var(--ink);border-color:var(--accent)}
+  .tabs button.on b{color:var(--accent)}
 
   /* list view — kompakt */
   .list{padding:12px 0 80px;display:flex;flex-direction:column;gap:5px}
@@ -119,6 +124,7 @@
     <h1>Lead-Vorschauen</h1>
     <p>Alt-Website und neue Konzept-Vorschau nebeneinander ansehen — und mit einem Klick die fertige E-Mail rausschicken.</p>
     <div class="meta" id="meta"></div>
+    <div class="tabs" id="tabs"><button data-tab="offen" class="on">Offen</button><button data-tab="done">✓ Kontaktiert</button></div>
   </div>
 </header>
 <main class="wrap"><div class="list" id="list"></div></main>
@@ -368,11 +374,19 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   /* ---- render: Listen-Ansicht ---- */
   function scoreCls(n){ return n<45?"lo":n<65?"mid":"hi"; }
   var list=document.getElementById("list");
+  var curTab="offen";
   function render(){
-    var vis=built.filter(function(l){return !isHidden(l.id);});
+    var visAll=built.filter(function(l){return !isHidden(l.id);});
+    var openL=visAll.filter(function(l){return !isDone(l.id);});
+    var doneL=visAll.filter(function(l){return isDone(l.id);});
+    var vis=curTab==="done"?doneL:openL;
     document.getElementById("meta").innerHTML=
-      '<span><b>'+vis.length+'</b> in Liste</span><span><b style="color:var(--green)">'+done.filter(function(id){return !isHidden(id);}).length+'</b> kontaktiert</span>'+
+      '<span><b>'+openL.length+'</b> offen</span><span><b style="color:var(--green)">'+doneL.length+'</b> kontaktiert</span>'+
       (hidden.length?'<span><span class="restore" id="restore">'+hidden.length+' ausgeblendet — zurückholen</span></span>':'');
+    var tb=document.getElementById("tabs");
+    tb.querySelector('[data-tab="offen"]').innerHTML='Offen <b>'+openL.length+'</b>';
+    tb.querySelector('[data-tab="done"]').innerHTML='✓ Kontaktiert <b>'+doneL.length+'</b>';
+    tb.querySelectorAll("button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-tab")===curTab);});
     list.innerHTML=vis.map(function(l){
       var probs=(l.problems||[]).map(function(p){return '<li>'+esc(p)+'</li>';}).join("");
       var opps=(l.opps||[]).map(function(o){return '<li>'+esc(o)+'</li>';}).join("");
@@ -392,12 +406,13 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
           '<div class="col o"><h4>Was die neue Vorschau verbessert</h4><ul>'+opps+'</ul></div></div>'+
       '</div>';
     }).join("");
-    if(!vis.length) list.innerHTML='<div class="ghost">Keine Vorschauen in der Liste.'+(hidden.length?' <span class="restore" id="restore2">Ausgeblendete zurückholen</span>':'')+'</div>';
+    if(!vis.length) list.innerHTML='<div class="ghost">'+(curTab==="done"?'Noch nichts als kontaktiert markiert.':'Keine offenen Vorschauen.')+(hidden.length?' <span class="restore" id="restore2">Ausgeblendete zurückholen</span>':'')+'</div>';
     var r1=document.getElementById("restore"), r2=document.getElementById("restore2");
     if(r1) r1.onclick=restoreAll; if(r2) r2.onclick=restoreAll;
   }
   render();
 
+  document.getElementById("tabs").addEventListener("click",function(e){var b=e.target.closest("[data-tab]");if(!b)return;curTab=b.getAttribute("data-tab");render();});
   list.addEventListener("click",function(e){
     var b=e.target.closest("[data-act]"); if(!b) return;
     var row=b.closest(".row"); var l=byId(row.getAttribute("data-id")); if(!l) return;
