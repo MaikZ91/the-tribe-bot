@@ -15,6 +15,26 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 
+// ─── .env-Datei laden (falls vorhanden) ──────────────────────────
+function loadEnv() {
+  const envFile = path.join(__dirname, '..', '.env');
+  try {
+    const lines = fs.readFileSync(envFile, 'utf8').split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq > 0) {
+        const key = trimmed.slice(0, eq).trim();
+        const val = trimmed.slice(eq + 1).trim();
+        if (!process.env[key]) process.env[key] = val;
+      }
+    }
+    console.log('  ℹ️  .env geladen');
+  } catch { /* keine .env vorhanden */ }
+}
+loadEnv();
+
 // ─── Konfiguration ────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
 const SENT_FILE = path.join(ROOT, 'sent.json');
