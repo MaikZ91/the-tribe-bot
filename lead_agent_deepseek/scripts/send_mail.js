@@ -101,11 +101,34 @@ function loadLeads() {
 
       // Prüfe ob ein Vergleichsbild existiert
       const compareFile = path.join(PREVIEW_DIR, d.name, 'compare.png');
-      if (fs.existsSync(compareFile)) lead.hasCompare = true;
-      else lead.hasCompare = false;
+      leads[leads.length - 1].hasCompare = fs.existsSync(compareFile);
     } catch {}
   }
   return leads;
+}
+
+// ─── Opps aus Problems ableiten (Fallback) ──────────────────────
+function oppsFromProblems(problems) {
+  if (!problems || problems.length === 0) return ['Moderner, frischer Web-Auftritt', 'Bessere Sichtbarkeit bei Google', 'Mehr Kundenanfragen über die Website'];
+  const map = {
+    'WordPress': 'Moderne, wartungsarme Website ohne Baukasten-Risiko',
+    'Kein HTTPS': 'Sichere HTTPS-Verbindung für Vertrauen & Google-Ranking',
+    'Kein Kontaktformular': 'Direktes Kontaktformular für mehr Anfragen',
+    'Keine E-Mail-Adresse': 'Klare Kontaktmöglichkeit direkt auf der Seite',
+    'Veralteter Website-Baukasten': 'Maßgeschneiderte Seite statt generischem Baukasten',
+    'Wenig Bildmaterial': 'Hochwertige Bildsprache, die Ihr Handwerk zeigt',
+    'Sehr einfaches Design': 'Professionelles Design mit Wiedererkennungswert',
+    'Unprofessionelle E-Mail': 'Seriöse Geschäfts-E-Mail und Kontaktwege',
+    'Copyright ohne Jahr': 'Gepflegter, aktueller Online-Auftritt',
+    'Keine Produktfotos': 'Ansprechende Produktfotos, die verkaufen',
+  };
+  const opps = [];
+  for (const p of problems) {
+    for (const [key, val] of Object.entries(map)) {
+      if (p.includes(key)) { opps.push(val); break; }
+    }
+  }
+  return opps.length > 0 ? [...new Set(opps)] : ['Moderner, frischer Web-Auftritt', 'Bessere Sichtbarkeit bei Google'];
 }
 
 // ─── E-Mail-Text generieren (wie im Dashboard) ────────────────────
@@ -115,43 +138,44 @@ function buildMail(lead) {
     ? `Ihre eigene Website — Konzept-Vorschau für ${lead.name}`
     : `Konzept-Vorschau für Ihre Website — ${lead.name}`;
 
+  const opps = (lead.opps && lead.opps.length > 0) ? lead.opps : oppsFromProblems(lead.problems);
   let body;
   if (lead.noweb) {
-    body = `Hallo liebes ${lead.name}-Team,
+    body = `Hallo ${lead.name}-Team,
 
-mein Name ist Maik von MZ.9 — Media Engineering.AI. Ich habe euch online gefunden (z. B. bei Google/Facebook) — aber eine eigene Website habt ihr noch nicht. Schade, denn ihr macht etwas, das eine richtig gute Seite verdient.
+ich bin über euren Eintrag gestolpert und habe gesehen, dass ihr noch keine eigene Website habt — schade eigentlich, denn was ihr macht, hat definitiv einen guten Auftritt verdient.
 
 Ich habe mir unverbindlich die Freiheit genommen, schon mal eine komplette Website für euch zu gestalten — schaut gern rein:
 
 ${lead.preview}
 
 Was eine eigene Seite euch bringt:
-${lead.opps.map(o => '• ' + o).join('\n')}
+${opps.map(o => '• ' + o).join('\n')}
 
-Das Ganze ist kostenlos und ohne Hintergedanken — wenn es euch gefällt, setze ich es gern mit euch live. Wenn nicht, behaltet einfach die Idee. :)
+Das Ganze ist völlig unverbindlich — wenn es euch gefällt, setze ich es gern mit euch live. Wenn nicht, behaltet einfach die Idee. :)
 
-Über eine kurze Rückmeldung würde ich mich sehr freuen.
+Würde mich freuen, von euch zu hören.
 
-Herzliche Grüße
+Viele Grüße
 Maik
 MZ.9 — Media Engineering.AI`;
   } else {
-    body = `Hallo liebes ${lead.name}-Team,
+    body = `Hallo ${lead.name}-Team,
 
-mein Name ist Maik von MZ.9 — und ehrlich gesagt mag ich, was Sie machen. Genau deshalb ist mir Ihre Website aufgefallen: Sie hat richtig Potenzial, kommt online aber noch nicht so rüber, wie Sie es vor Ort tun.
+ich bin über Ihre Website gestolpert und habe mir kurz angeschaut, wie Ihr Auftritt online etwas klarer und moderner wirken könnte.
 
 Ich habe mir völlig unverbindlich die Freiheit genommen und eine moderne Vorschau gestaltet, wie Ihr Auftritt aussehen könnte — schauen Sie gern rein:
 
 ${lead.preview}
 
 Im Vergleich zur aktuellen Seite (${host(lead.website)}) fällt mir vor allem auf, was sich mit wenig Aufwand spürbar verbessern lässt:
-${lead.opps.map(o => '• ' + o).join('\n')}
+${opps.map(o => '• ' + o).join('\n')}
 
 Das Ganze ist kostenlos und ohne Hintergedanken — wenn es Ihnen gefällt, setze ich es gern für Sie um. Wenn nicht, behalten Sie einfach die Idee. :)
 
-Über eine kurze Rückmeldung würde ich mich sehr freuen.
+Würde mich freuen, von Ihnen zu hören.
 
-Herzliche Grüße
+Viele Grüße
 Maik
 MZ.9 — Media Engineering.AI`;
   }
