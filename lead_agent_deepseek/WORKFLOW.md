@@ -8,6 +8,11 @@ Eingreifen**, mit **automatischem Push** nach GitHub Pages.
 > Tool-agnostisch: Stufe 2 (Seitenbau) erledigt **DeepSeek ODER Claude**.
 > Stufe 1 + 3 sind reine Node-Scripts und brauchen keinen LLM.
 
+## ⚠️ EISERNE REGEL: NUR LEADS MIT E-MAIL BAUEN
+Leads **ohne E-Mail-Adresse** werden in Stufe 2 **übersprungen** — keine
+Seite bauen, die nicht verschickt werden kann. Build-Job bleibt liegen,
+wird beim nächsten Durchlauf ignoriert. E-Mail = Pflicht für Build.
+
 ## ⚠️ EISERNE REGEL: KEINE TEMPLATE-PREVIEWS
 Jede Konzept-Vorschau ist ein **handgebautes Unikat** mit eigenem Premium-Design
 und Originalbildern — als bewusster Kontrast zur alten Website des Betriebs.

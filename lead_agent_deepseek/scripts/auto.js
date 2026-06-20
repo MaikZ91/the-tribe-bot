@@ -114,15 +114,18 @@ async function cycle() {
   try { run('node lead_agent_deepseek/scripts/daemon.js --once'); }
   catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
 
-  // STUFE 2: offene Builds — nur Leads MIT Originalbildern.
+  // STUFE 2: offene Builds — nur Leads MIT Originalbildern UND E-Mail.
   const fs = require('fs');
   const hasImages = (jobFile) => {
     try { return (JSON.parse(fs.readFileSync(jobFile, 'utf8')).images || []).length > 0; } catch { return false; }
   };
+  const hasEmail = (jobFile) => {
+    try { return !!(JSON.parse(fs.readFileSync(jobFile, 'utf8')).email || '').includes('@'); } catch { return false; }
+  };
   const open = listPending().filter(i => !i.built);
-  const buildable = open.filter(i => hasImages(i.jobFile));
+  const buildable = open.filter(i => hasImages(i.jobFile) && hasEmail(i.jobFile));
   const skipped = open.length - buildable.length;
-  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne Originalbilder übersprungen (keine bildlose Seite).`);
+  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne Bilder oder E-Mail übersprungen.`);
   const pending = buildable.slice(0, MAX_BUILDS);
   const builtIds = [];
   if (pending.length === 0) {
