@@ -15,15 +15,16 @@
  *
  * Steuerung:
  *   INTERVAL_MINUTES   Pause zwischen Zyklen (Default 5)
- *   MAX_BUILDS         max. Builds pro Zyklus (Default 3)
+ *   MAX_BUILDS         max. Builds pro Zyklus (Default 0 = unbegrenzt)
  *   BUILD_CMD          eigener Build-Befehl (s.o.)
  *   BUILD_TIMEOUT_MIN  Timeout pro Build in Minuten (Default 12)
  *   ONCE=1             nur ein Zyklus, dann Ende
+ *   EMAIL_DELAY_MAX_MIN max. E-Mail-Verzögerung in Min (Default 15, 0 = sofort)
  */
 
-const { execSync } = require('child_process');
+const { execSync, spawn } = require('child_process');
 const path = require('path');
-const { listPending } = require('./pending');
+const { listPending, isValidEmail } = require('./pending');
 
 const SCRIPTS = __dirname;
 const ROOT = path.join(SCRIPTS, '..');
@@ -33,8 +34,9 @@ const REFERENCE = path.join(PREVIEW_DIR, 'alt-bielefeld', 'index.html');
 const WORKFLOW = path.join(ROOT, 'WORKFLOW.md');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
-const MAX_BUILDS = parseInt(process.env.MAX_BUILDS || '3', 10);
+const MAX_BUILDS = parseInt(process.env.MAX_BUILDS || '0', 10) || Infinity;
 const BUILD_TIMEOUT = parseInt(process.env.BUILD_TIMEOUT_MIN || '12', 10) * 60_000;
+const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '15', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
 function log(m) { console.log(`[${ts()}] ${m}`); }
@@ -88,12 +90,9 @@ function buildLead(item) {
   log(`🎨 Stufe 2 — baue ${item.id} (${item.name})`);
   const custom = process.env.BUILD_CMD;
   let cmd;
-  // BUILD_CMD leer ODER "claude" → eingebauter Claude-Build mit vollem Prompt.
-  // Sonst: eigener Befehl als Template ({ID}/{DIR} werden ersetzt).
   if (custom && custom.trim().toLowerCase() !== 'claude') {
     cmd = custom.replace(/\{ID\}/g, item.id).replace(/\{DIR\}/g, dir);
   } else {
-    // Claude Code headless. Prompt inline.
     const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
     cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
   }
@@ -114,18 +113,11 @@ async function cycle() {
   try { run('node lead_agent_deepseek/scripts/daemon.js --once'); }
   catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
 
-  // STUFE 2: offene Builds — nur Leads MIT Originalbildern UND E-Mail.
-  const fs = require('fs');
-  const hasImages = (jobFile) => {
-    try { return (JSON.parse(fs.readFileSync(jobFile, 'utf8')).images || []).length > 0; } catch { return false; }
-  };
-  const hasEmail = (jobFile) => {
-    try { return !!(JSON.parse(fs.readFileSync(jobFile, 'utf8')).email || '').includes('@'); } catch { return false; }
-  };
+  // STUFE 2: offene Builds
   const open = listPending().filter(i => !i.built);
-  const buildable = open.filter(i => hasImages(i.jobFile) && hasEmail(i.jobFile));
+  const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent);
   const skipped = open.length - buildable.length;
-  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne Bilder oder E-Mail übersprungen.`);
+  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail oder Bilder übersprungen.`);
   const pending = buildable.slice(0, MAX_BUILDS);
   const builtIds = [];
   if (pending.length === 0) {
@@ -137,20 +129,27 @@ async function cycle() {
     }
   }
 
-
-  // STUFE 3: Push + E-Mail direkt pro frisch gebautem Lead
+  // STUFE 3: Push sofort, E-Mail mit zufälliger Verzögerung (0–EMAIL_DELAY_MAX_MIN Min)
   for (const id of builtIds) {
     const item = pending.find(i => i.id === id);
     if (!item) continue;
-    // 3a: Git Push (Seite live stellen)
+    // 3a: Git Push
     if (gitPushOne(item.id, item.name)) {
       markPublished(item);
     }
-    // 3b: E-Mail direkt versenden
-    try { run(`node lead_agent_deepseek/scripts/send_mail.js ${id}`); }
-    catch (e) { log(`  ⚠️  E-Mail-Fehler (${id}): ${e.message}`); }
+    // 3b: E-Mail mit zufälliger Verzögerung im Hintergrund
+    const delaySec = EMAIL_DELAY_MAX_MIN > 0
+      ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60)
+      : 0;
+    const delayMin = (delaySec / 60).toFixed(1);
+    log(`  📧 ${item.name} → E-Mail in ${delayMin} Min`);
+    setTimeout(() => {
+      const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', id], {
+        cwd: REPO, detached: true, stdio: 'ignore',
+      });
+      child.unref();
+    }, delaySec * 1000);
   }
-  // Dashboard-Publishing wurde entfernt — E-Mail geht direkt raus.
 
   log('─── Zyklus Ende ───\n');
 }
@@ -161,7 +160,7 @@ process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; });
 
 (async () => {
   log('═══ MZ.9 Lead Agent — Auto-Loop ═══');
-  log(`Intervall: ${INTERVAL_MIN} min | Max-Builds/Zyklus: ${MAX_BUILDS} | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
+  log(`Intervall: ${INTERVAL_MIN} min | Max-Builds/Zyklus: ${MAX_BUILDS} | E-Mail-Verzögerung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
   do {
     try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
     if (process.env.ONCE === '1') break;

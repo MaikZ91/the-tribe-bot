@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>intakt GmbH – Zimmerei & Lehmbau in Braunschweig</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--earth:#3c2415;--clay:#8b6914;--sand:#d4a76a;--cream:#f5efe0;--ink:#2c1f14;--ink2:#5c4a38;--ink3:#8a7560;--maxw:1080px}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,5vw,40px)}
+  section{padding:clamp(50px,8vw,90px) 0}
+  
+  .hero{position:relative;background:var(--earth);color:var(--cream);padding:clamp(70px,12vw,140px) 0;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,var(--earth) 0%,#5a3820 50%,var(--clay) 100%);opacity:.4}
+  .hero .container{position:relative;z-index:1}
+  .hero h1{font-size:clamp(2rem,4.5vw,3.8rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px}
+  .hero h1 em{font-style:normal;color:var(--sand)}
+  .hero .sub{font-size:clamp(1rem,1.6vw,1.2rem);opacity:.8;max-width:540px;margin-bottom:30px}
+  .hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--sand);color:var(--earth);padding:14px 30px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+  .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+  h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;color:var(--earth)}
+  h2::after{content:'';display:block;width:50px;height:3px;background:var(--clay);margin-top:12px}
+  .lead{font-size:1.05rem;color:var(--ink2);max-width:600px;margin-bottom:45px}
+
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .svc-card{background:#fff;border:1px solid rgba(139,105,20,.12);border-radius:12px;padding:clamp(22px,3vw,32px);transition:border-color .3s,transform .3s;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+  .svc-card:hover{border-color:var(--sand);transform:translateY(-3px)}
+  .svc-card .icon{font-size:40px;margin-bottom:14px}
+  .svc-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--earth)}
+  .svc-card p{color:var(--ink2);font-size:.9rem}
+
+  .mat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+  .mat-card{background:#fff;border-radius:12px;padding:24px;text-align:center;border:1px solid rgba(0,0,0,.06)}
+  .mat-card .mat-icon{font-size:36px;margin-bottom:10px}
+  .mat-card h4{font-size:.95rem;font-weight:700;color:var(--earth)}
+
+  .ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+  .ref-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+  .ref-card .ref-img{height:160px;background:linear-gradient(135deg,var(--sand),var(--clay))}
+  .ref-card .ref-body{padding:20px}
+  .ref-card h4{font-size:1rem;font-weight:700;margin-bottom:6px}
+  .ref-card p{color:var(--ink2);font-size:.85rem}
+
+  .rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .rev-card{background:#fff;border-left:4px solid var(--clay);border-radius:0 12px 12px 0;padding:22px 24px}
+  .rev-card .stars{color:var(--clay);font-size:14px;letter-spacing:2px;margin-bottom:10px}
+  .rev-card p{font-style:italic;color:var(--ink2);font-size:.9rem;margin-bottom:10px}
+  .rev-card .author{font-weight:700;font-size:.82rem;color:var(--ink3)}
+
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .contact-info h3{font-size:.95rem;font-weight:700;color:var(--clay);margin-bottom:4px}
+  .contact-info p{margin-bottom:14px;color:var(--ink2)}
+  .contact-info a{color:var(--ink);text-decoration:none}
+  .contact-form{display:grid;gap:14px}
+  .contact-form input,.contact-form textarea{width:100%;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:8px;font-family:inherit;font-size:.9rem;color:var(--ink);transition:border-color .2s}
+  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--clay);outline:none}
+  .contact-form textarea{min-height:90px;resize:vertical}
+  .contact-form button{background:var(--earth);color:var(--cream);padding:14px 30px;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;transition:background .2s,transform .2s}
+  .contact-form button:hover{background:#2a180e;transform:translateY(-2px)}
+
+  footer{padding:30px 0;text-align:center;color:var(--ink3);font-size:.82rem;border-top:1px solid rgba(0,0,0,.06)}
+
+  @media(max-width:700px){.contact-wrap{grid-template-columns:1fr}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <h1>Nachhaltig bauen.<br><em>Mit Holz & Lehm.</em></h1>
+    <p class="sub">Zimmerei und Lehmbaubetrieb aus Braunschweig — ökologisch, handwerklich, generationengerecht.</p>
+    <a href="#kontakt" class="hero-cta">🌿 Projekt anfragen</a>
+  </div>
+</section>
+
+<section id="leistungen"><div class="container">
+  <h2>Unsere Leistungen</h2>
+  <p class="lead">Traditionelles Handwerk trifft ökologische Bauweise — alles aus einer Hand.</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="icon">🪵</div><h3>Zimmerei</h3><p>Dachstühle, Carports, Fachwerk, Holzkonstruktionen. Massivholz aus nachhaltiger Forstwirtschaft.</p></div>
+    <div class="svc-card"><div class="icon">🧱</div><h3>Lehmbau</h3><p>Lehmputz, Lehmsteinwände, Lehmfarben — natürliches Raumklima und gesundes Wohnen.</p></div>
+    <div class="svc-card"><div class="icon">🏗️</div><h3>Holzbau</h3><p>Moderner Holzrahmenbau, Aufstockungen, Anbauten. Schnell, präzise und ökologisch.</p></div>
+    <div class="svc-card"><div class="icon">🌱</div><h3>Ökologische Sanierung</h3><p>Altbausanierung mit Naturmaterialien. Wir erhalten Bausubstanz und verbessern die Energiebilanz.</p></div>
+    <div class="svc-card"><div class="icon">✏️</div><h3>Planung & Beratung</h3><p>Individuelle Beratung zu Materialien, Bauweise und Fördermöglichkeiten — von Anfang an.</p></div>
+    <div class="svc-card"><div class="icon">🪚</div><h3>Innenausbau</h3><p>Treppen, Böden, Türen, Einbaumöbel aus Massivholz — maßgefertigt für Ihre Räume.</p></div>
+  </div>
+</div></section>
+
+<section style="background:#fff"><div class="container">
+  <h2>Materialien mit Charakter</h2>
+  <p class="lead">Wir arbeiten mit Naturmaterialien, die atmen und leben.</p>
+  <div class="mat-grid">
+    <div class="mat-card"><div class="mat-icon">🌳</div><h4>Eiche</h4></div>
+    <div class="mat-card"><div class="mat-icon">🪨</div><h4>Lehmputz</h4></div>
+    <div class="mat-card"><div class="mat-icon">🌲</div><h4>Fichte / Tanne</h4></div>
+    <div class="mat-card"><div class="mat-icon">🧶</div><h4>Hanfdämmung</h4></div>
+    <div class="mat-card"><div class="mat-icon">🎨</div><h4>Lehmfarbe</h4></div>
+    <div class="mat-card"><div class="mat-icon">🪵</div><h4>Lärche</h4></div>
+  </div>
+</div></section>
+
+<section id="referenzen"><div class="container">
+  <h2>Referenzprojekte</h2>
+  <p class="lead">Eine Auswahl unserer Arbeiten aus der Region.</p>
+  <div class="ref-grid">
+    <div class="ref-card"><div class="ref-img"></div><div class="ref-body"><h4>Fachwerkhaus-Sanierung Wolfsburg</h4><p>Komplette Sanierung eines Fachwerkhauses von 1820 — mit Lehmputz, Holzbalkendecken und ökologischer Dämmung.</p></div></div>
+    <div class="ref-card"><div class="ref-img" style="background:linear-gradient(135deg,#6b4c2a,#8b6914)"></div><div class="ref-body"><h4>Dachstuhl Privathaus Braunschweig</h4><p>Neuer Dachstuhl in traditioneller Zimmermannskunst — 240m² Wohnfläche mit sichtbaren Balken.</p></div></div>
+    <div class="ref-card"><div class="ref-img" style="background:linear-gradient(135deg,#5a3820,#3c2415)"></div><div class="ref-body"><h4>Lehmputz Kulturzentrum</h4><p>Innenausbau eines Seminarzentrums mit 400m² Lehmputz für optimales Raumklima und Akustik.</p></div></div>
+  </div>
+</div></section>
+
+<section style="background:#fff"><div class="container">
+  <h2>Das sagen unsere Kunden</h2>
+  <div class="rev-grid" style="margin-top:30px">
+    <div class="rev-card"><div class="stars">★★★★★</div><p>"Unser Fachwerkhaus erstrahlt in neuem Glanz. Die Kombination aus altem Holz und Lehmputz ist einfach wunderschön. Handwerker mit Herzblut!"</p><div class="author">– Familie Kramer, Wolfsburg</div></div>
+    <div class="rev-card"><div class="stars">★★★★★</div><p>"Die Beratung zu den ökologischen Baumaterialien war unglaublich kompetent. Wir haben jetzt ein gesundes Raumklima und fühlen uns rundum wohl."</p><div class="author">– Anna & Jens M., Braunschweig</div></div>
+    <div class="rev-card"><div class="stars">★★★★★</div><p>"Präzise Arbeit, termingerecht und fair abgerechnet. Unser neuer Carport aus Lärche ist ein Hingucker und hält garantiert Jahrzehnte."</p><div class="author">– Michael S., Gifhorn</div></div>
+  </div>
+</div></section>
+
+<section id="kontakt"><div class="container">
+  <h2>Projekt besprechen</h2>
+  <p class="lead">Teilen Sie uns Ihre Idee mit — wir melden uns innerhalb von 48 Stunden.</p>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h3>📍 Adresse</h3><p>Rischbleek 9<br>38126 Braunschweig</p>
+      <h3>📞 Telefon</h3><p><a href="tel:+495312342758">+49 531 234 27 58</a></p>
+      <h3>📧 E-Mail</h3><p><a href="mailto:info@intaktgmbh.com">info@intaktgmbh.com</a></p>
+    </div>
+    <form class="contact-form" onsubmit="event.preventDefault();alert('Vielen Dank für Ihre Anfrage! Wir melden uns zeitnah.');">
+      <input type="text" placeholder="Ihr Name" required>
+      <input type="email" placeholder="Ihre E-Mail-Adresse" required>
+      <input type="tel" placeholder="Telefon (optional)">
+      <textarea placeholder="Beschreiben Sie Ihr Projekt kurz…" required></textarea>
+      <button type="submit">Anfrage senden</button>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="container"><p>© 2024 intakt GmbH – Zimmerei & Lehmbau – Rischbleek 9, 38126 Braunschweig</p></div></footer>
+
+</body>
+</html>

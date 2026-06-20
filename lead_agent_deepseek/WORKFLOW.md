@@ -8,10 +8,33 @@ Eingreifen**, mit **automatischem Push** nach GitHub Pages.
 > Tool-agnostisch: Stufe 2 (Seitenbau) erledigt **DeepSeek ODER Claude**.
 > Stufe 1 + 3 sind reine Node-Scripts und brauchen keinen LLM.
 
-## ⚠️ EISERNE REGEL: NUR LEADS MIT E-MAIL BAUEN
-Leads **ohne E-Mail-Adresse** werden in Stufe 2 **übersprungen** — keine
+## ⚠️ EISERNE REGEL: VOLL AUTONOM — KEINE RÜCKFRAGEN (Stand 2026-06-20)
+Der gesamte Funnel läuft **ohne jede Rückfrage** an den User:
+- **E-Mail-Versand ist autonom** — NIE vor dem Versand fragen. Mail geht nach
+  Build + Push automatisch raus (Stufe 3).
+- **Kein festes MAX_BUILDS=3-Limit** — der Build-Agent (Claude) entscheidet
+  selbst über die Kapazität pro Durchlauf und baut alle buildbaren Leads.
+- Auto-Commit + Auto-Push immer.
+
+## ⚠️ EISERNE REGEL: NUR LEADS MIT VALIDER E-MAIL BAUEN
+Leads **ohne valide E-Mail-Adresse** werden in Stufe 2 **übersprungen** — keine
 Seite bauen, die nicht verschickt werden kann. Build-Job bleibt liegen,
 wird beim nächsten Durchlauf ignoriert. E-Mail = Pflicht für Build.
+
+**Gültig ist eine E-Mail nur wenn:**
+- Sie das Format `name@domain.tld` hat (Regex: `/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/`)
+- Die TLD **keine** Bild-/Binary-Endung ist (`.jpg`, `.png`, `.gif`, `.webp`, `.svg`, `.ico`, `.css`, `.js`, `.woff`, `.woff2`, `.mp4`, `.pdf`, `.xml`, `.json`)
+- Sie nicht leer und max. 254 Zeichen lang ist
+
+**Implementiert in:** `isValidEmail()` in `scripts/pending.js` (exportiert),
+`scripts/daemon.js` (inline) und `scripts/auto.js` (importiert).
+
+## ⚠️ EISERNE REGEL: KEINE DOPPELTEN E-MAILS
+Eine E-Mail-Adresse, die bereits unter **irgendeiner** Lead-ID kontaktiert wurde
+(`sent.json`), darf **nie wieder** verwendet werden — auch nicht unter neuer ID.
+
+**Implementiert in:** `isEmailAlreadySent()` in `scripts/pending.js` (exportiert).
+Geprueft in: `daemon.js`, `auto.js`, `send_mail.js`, `publish.js`.
 
 ## ⚠️ EISERNE REGEL: KEINE TEMPLATE-PREVIEWS
 Jede Konzept-Vorschau ist ein **handgebautes Unikat** mit eigenem Premium-Design

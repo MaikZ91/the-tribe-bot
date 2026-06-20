@@ -40,6 +40,37 @@ const INTERVAL_MINUTES = parseInt(
 
 // Städte/Branchen-Rotation lebt jetzt in discover.js (Overpass-Discovery).
 
+// ─── E-Mail-Validierung ──────────────────────────────────────────
+// EISERNE REGEL: Nur Leads mit valider E-Mail bauen.
+function isValidEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  const e = email.trim();
+  if (!e || e.length > 254) return false;
+  if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(e)) return false;
+  if (/\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?|mp4|pdf|xml|json)(\?.*)?$/i.test(e)) return false;
+  return true;
+}
+
+// E-Mail-Dubletten-Pruefung
+const SENT_FILE = path.join(ROOT, 'sent.json');
+function isEmailAlreadySent(email) {
+  if (!email) return false;
+  try {
+    const sent = JSON.parse(fs.readFileSync(SENT_FILE, 'utf8'));
+    const needle = email.trim().toLowerCase();
+    for (const id of Object.keys(sent)) {
+      try {
+        const jf = path.join(PREVIEW_DIR, id, 'build-job.json');
+        if (fs.existsSync(jf)) {
+          const job = JSON.parse(fs.readFileSync(jf, 'utf8'));
+          if ((job.email || '').trim().toLowerCase() === needle) return true;
+        }
+      } catch {}
+    }
+  } catch {}
+  return false;
+}
+
 const COLORS = {
   gastronomie:   { accent: '#c2410c', dark: '#7c2d12', light: '#fdba74' },
   handwerk:      { accent: '#b45309', dark: '#78350f', light: '#fcd34d' },
@@ -185,6 +216,18 @@ async function tick() {
   }
   if (!lead.images || lead.images.length === 0) {
     log(`⏭️  ${lead.id} übersprungen: keine Originalbilder verfügbar (keine bildlose Seite).`);
+    return;
+  }
+
+  // EISERNE REGEL: Nur Leads mit valider E-Mail bauen.
+  if (!isValidEmail(lead.email)) {
+    log(`⏭️  ${lead.id} übersprungen: keine valide E-Mail („${lead.email || '(keine)'}“).`);
+    return;
+  }
+
+  // EISERNE REGEL: Keine Doppelsendungen — E-Mail bereits kontaktiert?
+  if (isEmailAlreadySent(lead.email)) {
+    log(`⏭️  ${lead.id} übersprungen: E-Mail „${lead.email}“ wurde bereits kontaktiert.`);
     return;
   }
 

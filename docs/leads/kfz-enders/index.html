@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enders Automobile – Premium-Fahrzeuge in Wiesbaden</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#0a0a0a;--bg2:#111;--gold:#c9a84c;--gold-dim:#a68a3a;--ink:#e8e4dc;--ink2:#9a9488;--ink3:#555;--maxw:1100px}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,5vw,40px)}
+  section{padding:clamp(50px,8vw,100px) 0}
+  
+  /* HERO */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.7) 40%,rgba(10,10,10,.3) 100%),radial-gradient(ellipse at 80% 20%,rgba(201,168,76,.15),transparent 60%);z-index:0}
+  .hero .container{position:relative;z-index:1}
+  .hero h1{font-size:clamp(2.4rem,5vw,4.5rem);font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-bottom:20px}
+  .hero h1 span{color:var(--gold);display:block}
+  .hero .sub{font-size:clamp(1rem,1.8vw,1.25rem);color:var(--ink2);max-width:560px;margin-bottom:36px}
+  .badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+  .badge{display:inline-block;padding:6px 16px;border:1px solid rgba(201,168,76,.3);border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.03em;color:var(--gold);white-space:nowrap}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0a0a0a;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,.3)}
+  .cta-sec{margin-left:14px;display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:1px solid rgba(255,255,255,.15);border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;color:var(--ink);transition:border-color .2s}
+  .cta-sec:hover{border-color:var(--gold)}
+
+  /* MARKS */
+  .marks{padding:40px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+  .marks-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(20px,5vw,50px);align-items:center}
+  .mark{font-size:clamp(1rem,2vw,1.35rem);font-weight:800;letter-spacing:.04em;color:var(--ink3);transition:color .3s}
+  .mark:hover{color:var(--gold)}
+
+  /* SECTION HEADERS */
+  h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+  h2 span{color:var(--gold)}
+  .lead{font-size:1.05rem;color:var(--ink2);max-width:600px;margin-bottom:50px}
+
+  /* SERVICES */
+  .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+  .svc-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:clamp(24px,4vw,36px);transition:border-color .3s,transform .3s}
+  .svc-card:hover{border-color:var(--gold-dim);transform:translateY(-4px)}
+  .svc-card .icon{font-size:36px;margin-bottom:14px}
+  .svc-card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+  .svc-card p{color:var(--ink2);font-size:.92rem}
+
+  /* REVIEWS */
+  .rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .rev-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:28px}
+  .rev-card .stars{color:var(--gold);font-size:15px;letter-spacing:2px;margin-bottom:12px}
+  .rev-card p{color:var(--ink2);font-size:.92rem;font-style:italic;margin-bottom:14px}
+  .rev-card .author{font-weight:700;font-size:.85rem}
+
+  /* CONTACT */
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .contact-info h3{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:6px}
+  .contact-info p{margin-bottom:14px;color:var(--ink2)}
+  .contact-info a{color:var(--ink);text-decoration:none;transition:color .2s}
+  .contact-info a:hover{color:var(--gold)}
+  .contact-form{display:grid;gap:16px}
+  .contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:var(--ink);font-family:inherit;font-size:.92rem;transition:border-color .2s}
+  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold);outline:none}
+  .contact-form textarea{min-height:100px;resize:vertical}
+  .contact-form button{background:var(--gold);color:#0a0a0a;padding:14px 28px;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s}
+  .contact-form button:hover{transform:translateY(-2px)}
+
+  /* FOOTER */
+  footer{padding:30px 0;border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--ink3);font-size:.82rem}
+
+  @media(max-width:700px){
+    .contact-wrap{grid-template-columns:1fr}
+    .cta-sec{margin-left:0;margin-top:12px;display:flex}
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <h1>Ihr Premium-<span>Autohaus</span> in Wiesbaden</h1>
+    <p class="sub">Renault, Dacia, Mazda, Opel, Alpine & Kia — faire Preise, erstklassiger Service und persönliche Beratung seit über 40 Jahren.</p>
+    <div class="badges">
+      <span class="badge">Renault</span><span class="badge">Dacia</span><span class="badge">Mazda</span><span class="badge">Opel</span><span class="badge">Alpine</span><span class="badge">Kia</span>
+    </div>
+    <div>
+      <a href="#kontakt" class="cta">🚗 Probefahrt vereinbaren</a>
+      <a href="tel:+49611928140" class="cta-sec">📞 +49 611 928140</a>
+    </div>
+  </div>
+</section>
+
+<div class="marks"><div class="container"><div class="marks-grid">
+  <span class="mark">RENAULT</span><span class="mark">DACIA</span><span class="mark">MAZDA</span><span class="mark">OPEL</span><span class="mark">ALPINE</span><span class="mark">KIA</span>
+</div></div></div>
+
+<section id="leistungen"><div class="container">
+  <h2>Mehr als nur <span>Autoverkauf</span></h2>
+  <p class="lead">Vom Neuwagen bis zur Inspektion — alles aus einer Hand, mit Leidenschaft fürs Automobil.</p>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="icon">🚗</div><h3>Neu- & Gebrauchtwagen</h3><p>Große Auswahl an Neuwagen und geprüften Gebrauchtwagen aller Marken. Transparente Preise, keine versteckten Kosten.</p></div>
+    <div class="svc-card"><div class="icon">🔧</div><h3>Werkstattservice</h3><p>Moderne Meisterwerkstatt für alle Marken. Inspektion, Reparatur, Reifenservice — schnell und zuverlässig.</p></div>
+    <div class="svc-card"><div class="icon">📋</div><h3>Leasing & Finanzierung</h3><p>Maßgeschneiderte Leasing- und Finanzierungsangebote. Wir finden die beste Lösung für Ihr Budget.</p></div>
+    <div class="svc-card"><div class="icon">🛡️</div><h3>Garantie & Service</h3><p>Herstellergarantie plus erweiterte Anschlussgarantien. Mobilitätsgarantie inklusive.</p></div>
+    <div class="svc-card"><div class="icon">🎨</div><h3>Lack & Karosserie</h3><p>Eigene Karosserieabteilung mit modernster Technik für Unfallinstandsetzung und Smart-Repair.</p></div>
+    <div class="svc-card"><div class="icon">⚡</div><h3>E-Mobilität</h3><p>Kompetente Beratung zu Elektro- und Hybridfahrzeugen. Probefahrt mit Ihrem Wunschmodell.</p></div>
+  </div>
+</div></section>
+
+<section id="bewertungen" style="background:var(--bg2)"><div class="container">
+  <h2>Was unsere <span>Kunden sagen</span></h2>
+  <p class="lead">Echte Erfahrungen von Menschen, die uns ihr Vertrauen geschenkt haben.</p>
+  <div class="rev-grid">
+    <div class="rev-card">
+      <div class="stars">★★★★★</div>
+      <p>"Hervorragende Beratung beim Kauf meines neuen Renault. Kein Verkaufsdruck, dafür ehrliche Empfehlungen. Die Werkstatt ist ebenfalls top."</p>
+      <div class="author">– Markus T., Wiesbaden</div>
+    </div>
+    <div class="rev-card">
+      <div class="stars">★★★★★</div>
+      <p>"Seit Jahren Kunde bei Enders. Ob Inspektion oder Reifenwechsel — immer fair, transparent und pünktlich. Die Kundenkarte lohnt sich!"</p>
+      <div class="author">– Sabine K., Mainz</div>
+    </div>
+    <div class="rev-card">
+      <div class="stars">★★★★★</div>
+      <p>"Tolle Auswahl an jungen Gebrauchten. Mein Dacia war wie neu und deutlich günstiger als erwartet. Der Service danach war auch klasse."</p>
+      <div class="author">– Thomas W., Taunusstein</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="kontakt"><div class="container">
+  <h2>Jetzt <span>Kontakt</span> aufnehmen</h2>
+  <p class="lead">Vereinbaren Sie eine unverbindliche Probefahrt oder Beratung.</p>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h3>📍 Adresse</h3>
+      <p>Carl-Bosch-Straße 9<br>65203 Wiesbaden</p>
+      <h3>📞 Telefon</h3>
+      <p><a href="tel:+49611928140">+49 611 928140</a></p>
+      <h3>📧 E-Mail</h3>
+      <p><a href="mailto:info@enders-automobile.de">info@enders-automobile.de</a></p>
+      <h3>🕐 Öffnungszeiten</h3>
+      <p>Mo–Fr: 08:00–18:00<br>Sa: 09:00–13:00</p>
+    </div>
+    <form class="contact-form" onsubmit="event.preventDefault();alert('Vielen Dank! Wir melden uns innerhalb von 24 Stunden.');">
+      <select><option>Ich interessiere mich für…</option><option>Neuwagen</option><option>Gebrauchtwagen</option><option>Leasing</option><option>Werkstattservice</option><option>Probefahrt</option></select>
+      <input type="text" placeholder="Ihr Name" required>
+      <input type="email" placeholder="Ihre E-Mail-Adresse" required>
+      <input type="tel" placeholder="Ihre Telefonnummer">
+      <textarea placeholder="Ihre Nachricht (optional)"></textarea>
+      <button type="submit">Anfrage senden</button>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="container">
+  <p>© 2024 Enders Automobile — Carl-Bosch-Straße 9, 65203 Wiesbaden</p>
+</div></footer>
+
+</body>
+</html>

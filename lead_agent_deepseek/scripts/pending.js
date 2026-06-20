@@ -1,3 +1,16 @@
+// ─── E-Mail-Validierung ──────────────────────────────────────────
+// EISERNE REGEL: Nur Leads mit valider E-Mail bauen.
+// Keine Bild-URLs, keine leeren Strings, keine kaputten Adressen.
+function isValidEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  const e = email.trim();
+  if (!e || e.length > 254) return false;
+  // Basis-Regex: user@domain.tld
+  if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(e)) return false;
+  // Bild-/Binary-Endungen als TLD ausschließen (häufiger Scraping-Fehler)
+  if (/\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?|mp4|pdf|xml|json)(\?.*)?$/i.test(e)) return false;
+  return true;
+}
 /**
  * MZ.9 Lead Agent — Pending Builds (Worklist für den Build-Agenten)
  *
@@ -17,7 +30,46 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
+const SENT_FILE = path.join(ROOT, 'sent.json');
 const MIN_BUILT_BYTES = 4000; // fertige Seiten sind deutlich größer
+
+// ─── E-Mail-Dubletten-Prüfung ────────────────────────────────────
+// Baut aus sent.json + den zugehörigen build-job.json-Dateien ein Set
+// aller bereits kontaktierten E-Mail-Adressen auf.
+// Cached im Modul-Scope, damit nicht pro listPending()-Aufruf neu gescannt wird.
+let _sentEmailsCache = null;
+let _sentEmailsCacheTs = 0;
+const SENT_EMAILS_CACHE_MS = 30_000;
+
+function getSentEmails() {
+  const now = Date.now();
+  if (_sentEmailsCache && (now - _sentEmailsCacheTs) < SENT_EMAILS_CACHE_MS) return _sentEmailsCache;
+  const emails = new Set();
+  try {
+    const sent = JSON.parse(fs.readFileSync(SENT_FILE, 'utf8'));
+    for (const id of Object.keys(sent)) {
+      try {
+        const jf = path.join(PREVIEW_DIR, id, 'build-job.json');
+        if (fs.existsSync(jf)) {
+          const job = JSON.parse(fs.readFileSync(jf, 'utf8'));
+          const email = (job.email || '').trim().toLowerCase();
+          if (email && email.includes('@')) emails.add(email);
+        }
+      } catch {}
+    }
+  } catch {}
+  _sentEmailsCache = emails;
+  _sentEmailsCacheTs = now;
+  return emails;
+}
+
+function isEmailAlreadySent(email) {
+  if (!email) return false;
+  return getSentEmails().has(email.trim().toLowerCase());
+}
+
+// Caches zurücksetzen (nach Änderungen an sent.json / build-jobs)
+function resetEmailCache() { _sentEmailsCache = null; _sentEmailsCacheTs = 0; }
 
 function listPending() {
   const out = [];
@@ -34,24 +86,41 @@ function listPending() {
     const indexFile = path.join(dir, 'index.html');
     let built = false;
     try { built = fs.existsSync(indexFile) && fs.statSync(indexFile).size >= MIN_BUILT_BYTES; } catch {}
-    out.push({ id: d.name, name: job.name, industry: job.industry, city: job.city, status: job.status, built, jobFile, indexFile });
+    const email = job.email || '';
+    const hasValidEmail = isValidEmail(email);
+    const emailAlreadySent = hasValidEmail && isEmailAlreadySent(email);
+    const images = (job.images || []).length;
+    out.push({ id: d.name, name: job.name, industry: job.industry, city: job.city, status: job.status, built, jobFile, indexFile, email, hasValidEmail, emailAlreadySent, images });
   }
+  // Sort: mit E-Mail zuerst, dann nach ID
+  out.sort((a, b) => (b.hasValidEmail - a.hasValidEmail) || a.id.localeCompare(b.id));
   return out;
 }
 
 if (require.main === module) {
   const items = listPending();
   const needsBuild = items.filter(i => !i.built);
-  const builtNotPublished = items.filter(i => i.built && i.status !== 'published');
+  const needsBuildValid = needsBuild.filter(i => i.hasValidEmail);
+  const needsBuildNoEmail = needsBuild.filter(i => !i.hasValidEmail);
+  const needsBuildAlreadySent = needsBuildValid.filter(i => i.emailAlreadySent);
+  const builtNotPublished = items.filter(i => i.built && i.status !== 'published' && i.hasValidEmail && !i.emailAlreadySent);
   if (process.argv.includes('--json')) {
-    console.log(JSON.stringify({ needsBuild, builtNotPublished }, null, 2));
+    console.log(JSON.stringify({ needsBuild: needsBuildValid.filter(i => !i.emailAlreadySent), needsBuildAlreadySent, needsBuildNoEmail, builtNotPublished }, null, 2));
   } else {
-    console.log(`\n🎨 Zu bauen (Stufe 2): ${needsBuild.length}`);
-    needsBuild.forEach(i => console.log(`   - ${i.id}  (${i.name}, ${i.industry}, ${i.city})`));
+    console.log(`\n🎨 Zu bauen (Stufe 2): ${needsBuildValid.length}`);
+    needsBuildValid.forEach(i => console.log(`   - ${i.id}  (${i.name}, ${i.industry}, ${i.city})`));
+    if (needsBuildNoEmail.length) {
+      console.log(`\n⏭️  Übersprungen (keine valide E-Mail): ${needsBuildNoEmail.length}`);
+      needsBuildNoEmail.forEach(i => console.log(`   - ${i.id}  (${i.name}, ${i.industry}, ${i.city})`));
+    }
+    if (needsBuildAlreadySent.length) {
+      console.log(`\n📬 Bereits per E-Mail kontaktiert: ${needsBuildAlreadySent.length}`);
+      needsBuildAlreadySent.forEach(i => console.log(`   - ${i.id}  (${i.name}, ${i.industry}, ${i.city})  → ${i.email}`));
+    }
     console.log(`\n📤 Gebaut, noch nicht publiziert (Stufe 3): ${builtNotPublished.length}`);
     builtNotPublished.forEach(i => console.log(`   - ${i.id}  (${i.name})  → node scripts/publish.js ${i.id}`));
     console.log('');
   }
 }
 
-module.exports = { listPending };
+module.exports = { listPending, isValidEmail, isEmailAlreadySent, getSentEmails, resetEmailCache };

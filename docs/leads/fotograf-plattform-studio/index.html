@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plattform Studio — Das Tageslicht-Mietstudio in Mainz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Code+Pro:wght@400;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d0d0d;--panel:#161616;--line:#2a2a2a;--ink:#f5f5f5;--ink2:#999;--ink3:#555;--accent:#aaa;--maxw:1200px}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+section{padding:clamp(60px,10vw,120px) 0}
+
+/* PORTFOLIO-FIRST — kein klassisches Hero */
+.portfolio-intro{padding-top:clamp(30px,5vw,60px)}
+.portfolio-intro h1{font-size:clamp(1.8rem,5vw,3.8rem);font-weight:300;letter-spacing:-.03em;line-height:1.05;margin-bottom:10px}
+.portfolio-intro h1 strong{font-weight:700;display:block;font-size:clamp(1.2rem,3vw,2.2rem)}
+.portfolio-intro .stats{display:flex;gap:clamp(20px,4vw,60px);margin-top:30px;font-size:.85rem;color:var(--ink2);text-transform:uppercase;letter-spacing:.1em}
+.portfolio-intro .stats b{display:block;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:600;color:var(--ink);letter-spacing:-.01em}
+
+.masonry{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));grid-auto-rows:10px;gap:6px;margin-top:40px}
+.masonry .item{border-radius:2px;overflow:hidden;position:relative;transition:filter .4s;filter:grayscale(1) brightness(.85)}
+.masonry .item:hover{filter:grayscale(0) brightness(1)}
+.masonry .item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.masonry .item:hover img{transform:scale(1.04)}
+.masonry .h1{grid-row:span 24;background:linear-gradient(135deg,#222,#0d0d0d)}
+.masonry .h2{grid-row:span 18;background:linear-gradient(200deg,#1a1a1a,#111)}
+.masonry .h3{grid-row:span 28;background:linear-gradient(160deg,#2a2a2a,#0d0d0d)}
+.masonry .h4{grid-row:span 20;background:linear-gradient(180deg,#333,#111)}
+
+/* Large typographic statements as section dividers */
+.typographic-divider{font-size:clamp(2rem,6vw,5rem);font-weight:700;letter-spacing:-.04em;color:var(--line);padding:30px 0;text-align:center;line-height:1}
+.typographic-divider.alt{text-align:left;padding-left:clamp(20px,5vw,48px)}
+
+/* Studio info */
+.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);align-items:start}
+.studio-facts h3{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--ink3);margin-bottom:10px}
+.studio-facts .fact{font-size:1.6rem;font-weight:300;margin-bottom:24px;line-height:1.2}
+.studio-facts .fact b{font-weight:600}
+.studio-text p{color:var(--ink2);margin-bottom:16px;font-size:1rem;line-height:1.7}
+
+/* Equipment */
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px}
+.equip-item{background:var(--panel);padding:28px 20px;text-align:center;transition:background .3s}
+.equip-item:hover{background:#1e1e1e}
+.equip-item .sym{font-size:2rem;margin-bottom:10px}
+.equip-item h4{font-weight:600;font-size:.9rem;margin-bottom:4px}
+.equip-item p{color:var(--ink2);font-size:.78rem}
+
+/* Reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px}
+.rev-card{background:var(--panel);padding:30px 24px;border-left:2px solid transparent;transition:border-color .3s}
+.rev-card:hover{border-left-color:var(--accent)}
+.rev-card .stars{font-size:13px;letter-spacing:3px;color:var(--accent);margin-bottom:10px}
+.rev-card p{font-style:italic;font-size:.9rem;color:var(--ink2);margin-bottom:12px}
+.rev-card .author{font-weight:600;font-size:.8rem}
+
+/* Contact */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px)}
+.contact-info h3{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--ink3);margin-bottom:6px}
+.contact-info p,.contact-info a{display:block;margin-bottom:16px;color:var(--ink);text-decoration:none;font-size:1.05rem;font-weight:300}
+.contact-form{display:grid;gap:14px}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:14px 16px;background:var(--panel);border:1px solid var(--line);font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);transition:border-color .3s}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent);outline:none}
+.contact-form textarea{min-height:100px;resize:vertical}
+.contact-form button{background:var(--ink);color:var(--bg);padding:14px 28px;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.04em;cursor:pointer;transition:background .3s}
+.contact-form button:hover{background:var(--ink2)}
+
+/* Terminal footer */
+footer{padding:40px 0;font-family:'Source Code Pro',monospace;font-size:.78rem;color:var(--ink3);border-top:1px solid var(--line)}
+footer .term{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+footer .term .prompt{color:var(--accent)}
+footer .term .prompt::before{content:'$ ';color:var(--ink3)}
+footer .term .out{color:var(--ink2);margin-bottom:4px;padding-left:20px}
+footer .term .blink::after{content:'▌';animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+@media(max-width:700px){
+  .studio-grid{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Portfolio-first: no hero, just typography + grid -->
+<section class="portfolio-intro">
+  <div class="container">
+    <h1>PLATTFORM <strong>STUDIO</strong></h1>
+    <div class="stats">
+      <div><b>180m²</b>Fläche</div>
+      <div><b>6m</b>Deckenhöhe</div>
+      <div><b>41</b>Bewertungen</div>
+      <div><b>5.0</b>Sterne ★</div>
+    </div>
+  </div>
+</section>
+
+<!-- Masonry gallery blocks -->
+<div class="container">
+  <div class="masonry">
+    <div class="item h1" style="background:linear-gradient(135deg,#1a1a1a,#0d0d0d)"></div>
+    <div class="item h2" style="background:linear-gradient(180deg,#222,#0d0d0d)"></div>
+    <div class="item h3" style="background:linear-gradient(160deg,#2a2a2a,#111)"></div>
+    <div class="item h4" style="background:linear-gradient(170deg,#1e1e1e,#0d0d0d)"></div>
+    <div class="item h1" style="background:linear-gradient(200deg,#2a2a2a,#0d0d0d)"></div>
+    <div class="item h2" style="background:linear-gradient(140deg,#1c1c1c,#111)"></div>
+    <div class="item h3" style="background:linear-gradient(190deg,#222,#0d0d0d)"></div>
+    <div class="item h4" style="background:linear-gradient(175deg,#333,#111)"></div>
+  </div>
+</div>
+
+<!-- Typographic statement divider -->
+<div class="typographic-divider">DAS MIETSTUDIO FÜR FOTO UND VIDEO</div>
+
+<!-- About the Studio -->
+<section>
+  <div class="container">
+    <div class="studio-grid">
+      <div class="studio-facts">
+        <h3>Das Studio</h3>
+        <div class="fact">180 Quadratmeter<br><b>Tageslicht pur</b></div>
+        <div class="fact">6 Meter<br><b>Deckenhöhe</b></div>
+        <div class="fact">Südseitige<br><b>Fensterfront</b></div>
+      </div>
+      <div class="studio-text">
+        <p>Unser 180 qm großes Mietstudio im Rhein-Main-Gebiet ist die ideale Location für Foto- und Filmproduktionen. Die lichtdurchfluteten Räume mit 6 Meter hohen Decken und südseitigen Fenstern schaffen perfekte Bedingungen für Werbung, Musikvideos, Interviews, Video-Podcasts, Fashion Shootings und vieles mehr.</p>
+        <p>Ebenerdiger Zugang, vollständige Abdunkelung möglich, und eine ruhige Lage in Mainz-Laubenheim — direkt an der Bushaltestelle. Täglich von 9:00 bis 19:00 Uhr geöffnet, nach Absprache auch länger.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="typographic-divider alt">AUSSTATTUNG</div>
+
+<!-- Equipment -->
+<section>
+  <div class="container">
+    <div class="equip-grid">
+      <div class="equip-item"><div class="sym">📸</div><h4>Foto</h4><p>Blitzanlage, Dauerlicht, Hintergrundsysteme</p></div>
+      <div class="equip-item"><div class="sym">🎬</div><h4>Video</h4><p>Greenscreen, Kameraschienen, Monitor</p></div>
+      <div class="equip-item"><div class="sym">🎤</div><h4>Ton</h4><p>Mikrofone, Recorder, schallgedämmter Raum</p></div>
+      <div class="equip-item"><div class="sym">💄</div><h4>Styling</h4><p>Make-up-Platz, Umkleide, Dampfbügeleisen</p></div>
+      <div class="equip-item"><div class="sym">☕</div><h4>Lounge</h4><p>Küche, Kaffee, WLAN, gemütlicher Aufenthaltsraum</p></div>
+      <div class="equip-item"><div class="sym">🅿️</div><h4>Anfahrt</h4><p>Parkplätze direkt vor dem Studio, ÖPNV-Anbindung</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="typographic-divider">BEWERTUNGEN</div>
+
+<!-- Reviews -->
+<section>
+  <div class="container">
+    <div class="rev-grid">
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p>"Fantastisches Studio mit unglaublichem Licht. Wir haben hier ein Musikvideo gedreht und waren von der Ausstattung und der Raumhöhe begeistert. Uneingeschränkt empfehlenswert!"</p>
+        <div class="author">— Marcus K., Regisseur</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p>"Das beste Mietstudio in Mainz. Die 6 Meter Deckenhöhe sind ein Traum für Fashion-Shootings. Alles top organisiert, super Betreuung vor Ort. Wir kommen wieder."</p>
+        <div class="author">— Laura W., Fotografin</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p>"Perfekt für unseren Video-Podcast. Abdunkelung klappt einwandfrei, die Technik ist auf aktuellem Stand. Und die Lage ist super erreichbar."</p>
+        <div class="author">— Team Digitalwerk, Mainz</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p>"180 qm Platz, Tageslicht satt und eine Atmosphäre, die inspiriert. Wir haben hier unser gesamtes Produktportfolio fotografiert. Effizienter geht's nicht."</p>
+        <div class="author">— Thomas B., Art Director</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="typographic-divider">STUDIO BUCHEN</div>
+
+<!-- Contact -->
+<section id="kontakt">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Adresse</h3>
+        <p>Dammweg 7a<br>55130 Mainz</p>
+        <h3>Telefon</h3>
+        <a href="tel:+491632493594">+49 163 2493594</a>
+        <h3>E-Mail</h3>
+        <a href="mailto:info@plattform.studio">info@plattform.studio</a>
+        <h3>Öffnungszeiten</h3>
+        <p>Täglich 9:00–19:00<br>Nach Absprache auch länger</p>
+        <h3>Rating</h3>
+        <p>★★★★★ 5.0 (41 Bewertungen)</p>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault();alert('Vielen Dank! Wir melden uns innerhalb von 24 Stunden.');">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="E-Mail" required>
+        <input type="tel" placeholder="Telefon">
+        <input type="date" required>
+        <select>
+          <option>Art des Shootings</option>
+          <option>Foto-Produktion</option>
+          <option>Video-Dreh</option>
+          <option>Musikvideo</option>
+          <option>Podcast / Interview</option>
+          <option>Fashion-Shooting</option>
+          <option>Event</option>
+          <option>Sonstiges</option>
+        </select>
+        <textarea placeholder="Projektbeschreibung (optional)"></textarea>
+        <button type="submit">ANFRAGE SENDEN</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Terminal Footer -->
+<footer>
+  <div class="term">
+    <p class="prompt">cat /studio/plattform.txt</p>
+    <p class="out">180m² Tageslichtstudio · 6m Deckenhöhe · Mainz-Laubenheim</p>
+    <p class="prompt">printf "kontakt"</p>
+    <p class="out">Dammweg 7a, 55130 Mainz · +49 163 2493594 · info@plattform.studio</p>
+    <p class="prompt blink">echo "studio buchen — täglich 9–19 Uhr"</p>
+    <p style="margin-top:20px;color:var(--ink3)">© 2024 Plattform Studio · Impressum & Datenschutz unter plattform.studio</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+name: The Tribe — Auto-Send
+
+on:
+  schedule:
+    # Alle 30 Minuten — sendet neue E-Mail-Leads, die der Agent entdeckt hat
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install nodemailer
+
+      - name: Send new Tribe invites
+        env:
+          MZ9_SMTP_PASS: ${{ secrets.MZ9_SMTP_PASS }}
+          MZ9_SMTP_USER: mzschach@googlemail.com
+        run: node lead_agent_tribe/scripts/send_invite.js --all
+
+      - name: Commit changes
+        run: |
+          git config user.name "tribe-agent[bot]"
+          git config user.email "tribe-agent[bot]@users.noreply.github.com"
+          git add lead_agent_tribe/queue.json lead_agent_tribe/sent.json
+          git diff --cached --quiet || git commit -m "tribe-agent: auto-send cycle"
+          git push

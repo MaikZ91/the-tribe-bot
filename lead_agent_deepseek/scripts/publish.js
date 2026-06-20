@@ -12,7 +12,7 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { listPending } = require('./pending');
+const { listPending, isValidEmail, isEmailAlreadySent } = require('./pending');
 
 const ROOT = path.join(__dirname, '..');
 const REPO = path.join(ROOT, '..');
@@ -43,11 +43,19 @@ function publishOne(id) {
   const jobFile = path.join(dir, 'build-job.json');
   const indexFile = path.join(dir, 'index.html');
   if (!fs.existsSync(jobFile)) { log(`❌ ${id}: kein build-job.json`); return false; }
+  const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+  if (isEmailAlreadySent(job.email)) {
+    log(`⏭️  ${id}: E-Mail bereits kontaktiert — wird nicht publiziert.`);
+    return false;
+  }
+  if (!isValidEmail(job.email)) {
+    log(`⏭️  ${id}: keine valide E-Mail („${job.email || '(keine)'}“) — wird nicht publiziert.`);
+    return false;
+  }
   if (!fs.existsSync(indexFile) || fs.statSync(indexFile).size < 4000) {
     log(`❌ ${id}: Seite noch nicht gebaut (index.html fehlt/zu klein). Erst Stufe 2 (Agent).`);
     return false;
   }
-  const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
   log(`📤 Publiziere ${id} — ${job.name}`);
   job.status = 'published';
   job.publishedAt = new Date().toISOString();
@@ -59,7 +67,7 @@ function publishOne(id) {
 if (require.main === module) {
   const args = process.argv.slice(2);
   if (args.includes('--all')) {
-    const { builtNotPublished } = { builtNotPublished: listPending().filter(i => i.built && i.status !== 'published') };
+    const { builtNotPublished } = { builtNotPublished: listPending().filter(i => i.built && i.status !== 'published' && i.hasValidEmail) };
     if (!builtNotPublished.length) { log('Nichts zu publizieren.'); process.exit(0); }
     builtNotPublished.forEach(i => publishOne(i.id));
   } else if (args[0]) {

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhysioConcept Heepen – Physiotherapie Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8fdf9;color:#1b4332;line-height:1.6;overflow-x:hidden}
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 1.5rem}
+section{padding:5rem 0}
+@media(max-width:768px){section{padding:3.5rem 0}}
+h2{font-size:clamp(1.55rem,3vw,2.15rem);font-weight:700;color:#2d6a4f;text-align:center;margin-bottom:.35rem;letter-spacing:-0.02em}
+h2+p{text-align:center;color:#52796f;max-width:520px;margin:0 auto 2.8rem;font-size:.95rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.9rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .25s ease;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.btn-primary{background:#2d6a4f;color:#fff;box-shadow:0 4px 16px rgba(45,106,79,.28)}
+.btn-primary:hover{background:#40916c;transform:translateY(-2px);box-shadow:0 8px 26px rgba(45,106,79,.35)}
+.btn-outline{background:transparent;color:#2d6a4f;border:2px solid #2d6a4f}
+.btn-outline:hover{background:#2d6a4f;color:#fff}
+.btn-cta{background:#40916c;color:#fff;font-size:1.05rem;padding:1rem 2.4rem;box-shadow:0 6px 24px rgba(64,145,108,.35);animation:ctaPulse 2.8s ease-in-out infinite}
+.btn-cta:hover{background:#2d6a4f;transform:translateY(-3px);box-shadow:0 10px 30px rgba(45,106,79,.4)}
+@keyframes ctaPulse{0%,100%{box-shadow:0 6px 24px rgba(64,145,108,.35)}50%{box-shadow:0 6px 36px rgba(64,145,108,.55)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 2px 16px rgba(0,0,0,.04);transition:all .3s ease;border:1px solid rgba(45,106,79,.08)}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.08)}
+header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(248,253,249,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(45,106,79,.1);padding:.75rem 0}
+header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.3rem;font-weight:800;color:#2d6a4f;display:flex;align-items:center;gap:.45rem;text-decoration:none}
+.logo span{color:#40916c}
+nav{display:flex;gap:1.8rem;align-items:center}
+nav a{text-decoration:none;color:#2d6a4f;font-weight:500;font-size:.9rem;transition:color .2s;position:relative}
+nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#40916c;border-radius:2px;transition:width .25s}
+nav a:hover::after{width:100%}
+.nav-cta{display:none}
+@media(min-width:900px){.nav-cta{display:inline-flex}}
+.mobile-toggle{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none;z-index:1001}
+.mobile-toggle span{display:block;width:24px;height:2.5px;background:#2d6a4f;border-radius:3px;transition:all .3s}
+@media(min-width:900px){.mobile-toggle{display:none}}
+#hero{padding:9rem 0 5rem;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;top:-120px;right:-120px;width:400px;height:400px;background:radial-gradient(circle,rgba(64,145,108,.12) 0%,transparent 70%);border-radius:50%}
+#hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(45,106,79,.08) 0%,transparent 70%);border-radius:50%}
+#hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:center}
+@media(min-width:900px){#hero .container{grid-template-columns:1fr 1fr}}
+.hero-badge{display:inline-block;background:rgba(64,145,108,.12);color:#2d6a4f;font-weight:600;font-size:.82rem;padding:.4rem 1rem;border-radius:50px;margin-bottom:1.2rem}
+.hero-badge::before{content:'🍃 '}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#1b4332;line-height:1.15;margin-bottom:1.2rem;letter-spacing:-0.02em}
+h1 em{color:#2d6a4f;font-style:normal}
+.hero-sub{font-size:clamp(.95rem,1.5vw,1.1rem);color:#52796f;max-width:460px;margin-bottom:2rem;line-height:1.7}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1rem}
+.hero-visual{display:none;justify-content:center;align-items:center}
+@media(min-width:900px){.hero-visual{display:flex}}
+.hero-illustration{position:relative;width:100%;max-width:420px;aspect-ratio:1}
+.hero-circle{width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,rgba(64,145,108,.15),rgba(45,106,79,.08));display:flex;align-items:center;justify-content:center;animation:float 6s ease-in-out infinite;position:relative}
+.hero-circle::after{content:'💚';font-size:5rem;animation:float 4s ease-in-out infinite;animation-delay:-2s}
+.hero-circle::before{content:'';position:absolute;inset:-20px;border-radius:50%;border:2px dashed rgba(45,106,79,.15);animation:float 8s ease-in-out infinite;animation-delay:-4s}
+.hero-stats{display:flex;gap:2rem;margin-top:1.5rem}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:2rem;font-weight:800;color:#2d6a4f;line-height:1}
+.hero-stat-label{font-size:.78rem;color:#52796f;margin-top:.25rem}
+#leistungen{background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.service-card{text-align:center;padding:2rem 1.5rem}
+.service-icon{font-size:2.8rem;margin-bottom:1rem;display:block}
+.service-card h3{font-size:1.05rem;color:#1b4332;margin-bottom:.5rem;font-weight:600}
+.service-card p{font-size:.85rem;color:#52796f;line-height:1.5}
+#team{background:#f8fdf9}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
+.team-card{text-align:center;padding:1.8rem 1.2rem}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#40916c);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;font-weight:700}
+.team-card h3{font-size:1rem;color:#1b4332;font-weight:600;margin-bottom:.15rem}
+.team-role{font-size:.8rem;color:#40916c;font-weight:500}
+#bewertungen{background:#fff}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.review-card{padding:1.8rem}
+.review-stars{color:#f4a340;font-size:1.1rem;margin-bottom:.8rem;letter-spacing:2px}
+.review-text{font-size:.9rem;color:#1b4332;line-height:1.6;font-style:italic;margin-bottom:1rem}
+.review-author{font-weight:600;font-size:.85rem;color:#2d6a4f}
+.review-author span{display:block;font-weight:400;font-size:.75rem;color:#52796f}
+#termin{background:linear-gradient(135deg,#f8fdf9 0%,#e8f5ed 100%);position:relative;overflow:hidden}
+#termin::before{content:'';position:absolute;top:0;right:0;width:250px;height:250px;background:radial-gradient(circle,rgba(64,145,108,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.termin-wrapper{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.termin-card{background:#fff;border-radius:20px;padding:2.5rem;box-shadow:0 8px 40px rgba(0,0,0,.06);border:1px solid rgba(45,106,79,.1);margin:0 1rem}
+@media(min-width:600px){.termin-card{margin:0}}
+.termin-card h3{font-size:1.3rem;color:#2d6a4f;text-align:center;margin-bottom:.3rem}
+.termin-card>p{text-align:center;color:#52796f;font-size:.88rem;margin-bottom:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.form-group label{font-size:.82rem;font-weight:600;color:#2d6a4f}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.75rem 1rem;border:1.5px solid #d8e8df;border-radius:10px;font-family:'Inter',sans-serif;font-size:.9rem;color:#1b4332;background:#fafdfb;transition:all .2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#40916c;box-shadow:0 0 0 3px rgba(64,145,108,.1);background:#fff}
+.form-group textarea{resize:vertical;min-height:100px}
+.termin-card .btn-cta{width:100%;justify-content:center;margin-top:.5rem}
+.termin-benefits{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.termin-benefit{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:#52796f}
+.termin-benefit::before{content:'✓';color:#40916c;font-weight:700;font-size:.9rem}
+#kontakt{background:#fff}
+.kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media(max-width:800px){.kontakt-grid{grid-template-columns:1fr}}
+.kontakt-info h3{font-size:1.3rem;color:#2d6a4f;margin-bottom:1.5rem}
+.kontakt-item{display:flex;gap:.9rem;margin-bottom:1.2rem;align-items:flex-start}
+.kontakt-icon{width:42px;height:42px;border-radius:12px;background:rgba(64,145,108,.1);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.kontakt-item strong{display:block;font-size:.82rem;color:#2d6a4f;margin-bottom:.1rem}
+.kontakt-item span,.kontakt-item a{font-size:.9rem;color:#1b4332;text-decoration:none}
+.kontakt-item a:hover{color:#40916c}
+.kontakt-map{border-radius:16px;overflow:hidden;border:1px solid rgba(45,106,79,.1);box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.kontakt-map iframe{width:100%;height:280px;border:none;display:block}
+.stunden-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1.5rem}
+.stunden-item{display:flex;justify-content:space-between;font-size:.85rem;padding:.5rem .7rem;background:rgba(64,145,108,.05);border-radius:8px}
+.stunden-item strong{color:#2d6a4f}
+footer{background:#1b4332;color:#b7d8c5;padding:3rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand h4{font-size:1.15rem;color:#fff;margin-bottom:.6rem}
+.footer-brand p{font-size:.82rem;line-height:1.6}
+footer h5{font-size:.85rem;color:#fff;margin-bottom:.8rem;font-weight:600}
+footer a{color:#b7d8c5;text-decoration:none;font-size:.82rem;display:block;margin-bottom:.4rem;transition:color .2s}
+footer a:hover{color:#fff}
+.footer-bottom{text-align:center;font-size:.75rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;color:#8aab97}
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<a href="#" class="logo">Physio<span>Concept</span> 🍃</a>
+<nav>
+<a href="#leistungen">Leistungen</a>
+<a href="#team">Team</a>
+<a href="#bewertungen">Bewertungen</a>
+<a href="#termin" class="btn btn-primary nav-cta">Termin anfragen</a>
+</nav>
+<button class="mobile-toggle" aria-label="Menü"><span></span><span></span><span></span></button>
+</div>
+</header>
+<section id="hero">
+<div class="container">
+<div>
+<span class="hero-badge">Seit 2005 in Bielefeld</span>
+<h1>Ihre Gesundheit in <em>besten Händen</em></h1>
+<p class="hero-sub">Physiotherapie und Gesundheit am Heeperholz. Individuelle Betreuung, modernste Therapiekonzepte und ein engagiertes Team – für Ihre Genesung, Fitness und Ihr Wohlbefinden.</p>
+<div class="hero-btns">
+<a href="#termin" class="btn btn-cta">📅 Jetzt Termin anfragen</a>
+<a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+</div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-num">20+</div><div class="hero-stat-label">Jahre Erfahrung</div></div>
+<div class="hero-stat"><div class="hero-stat-num">14</div><div class="hero-stat-label">Teammitglieder</div></div>
+<div class="hero-stat"><div class="hero-stat-num">220 m²</div><div class="hero-stat-label">Praxisfläche</div></div>
+</div>
+</div>
+<div class="hero-visual"><div class="hero-illustration"><div class="hero-circle"></div></div></div>
+</div>
+</section>
+<section id="leistungen">
+<div class="container">
+<h2>Unsere Leistungen</h2>
+<p>Von klassischer Physiotherapie bis zu innovativen Kursangeboten – Ihr Weg zu mehr Wohlbefinden beginnt hier.</p>
+<div class="services-grid">
+<div class="card service-card"><span class="service-icon">🦴</span><h3>Physiotherapie</h3><p>Manuelle Therapie, Bobath, PNF, Kiefergelenkmobilisation & Faszienbehandlung (FDM)</p></div>
+<div class="card service-card"><span class="service-icon">🤲</span><h3>Ergotherapie</h3><p>Handlungsorientierte Therapie zur Wiedererlangung motorischer und kognitiver Fähigkeiten im Alltag</p></div>
+<div class="card service-card"><span class="service-icon">💆</span><h3>Massage</h3><p>Klassische Massage, Lymphdrainage & Fango-Wärmeanwendungen zur Tiefenentspannung</p></div>
+<div class="card service-card"><span class="service-icon">🏋️</span><h3>Gerätetraining</h3><p>Krankengymnastik am Gerät (KGG) mit individueller Betreuung oder eigenständig mit 10er-Karte</p></div>
+<div class="card service-card"><span class="service-icon">🔗</span><h3>TRX</h3><p>Ganzkörpertraining mit dem eigenen Körpergewicht – Montags 17:40 Uhr. Kraft & Stabilität.</p></div>
+<div class="card service-card"><span class="service-icon">💃</span><h3>Fitness-Dance</h3><p>Tanz dich fit! Montags 19:40 Uhr. Mitreißende Choreografien für Ausdauer & Lebensfreude.</p></div>
+<div class="card service-card"><span class="service-icon">🥁</span><h3>Drums Alive</h3><p>Trommeln macht Spaß! Dienstags 19:00 Uhr. Rhythmus, Bewegung & gute Laune kombiniert.</p></div>
+<div class="card service-card"><span class="service-icon">🏃</span><h3>Rehasport</h3><p>Orthopädische & neurologische Gruppen in unserer 220 m² großen Halle. Flexible Kurszeiten.</p></div>
+<div class="card service-card"><span class="service-icon">🧊</span><h3>Weitere Therapien</h3><p>Elektrotherapie, Ultraschall, Kryotherapie, Taping, Schlingentisch & Hausbesuche</p></div>
+</div>
+</div>
+</section>
+<section id="team">
+<div class="container">
+<h2>Unser Team</h2>
+<p>Lernen Sie die Menschen kennen, die sich mit Herz und Fachwissen um Ihre Gesundheit kümmern.</p>
+<div class="team-grid">
+<div class="card team-card"><div class="team-avatar">HP</div><h3>Hartwig Pott</h3><p class="team-role">Physiotherapeut & Praxisinhaber</p></div>
+<div class="card team-card"><div class="team-avatar">BS</div><h3>Barbara Scholtz</h3><p class="team-role">Physiotherapeutin</p></div>
+<div class="card team-card"><div class="team-avatar">SF</div><h3>Sven Fleer</h3><p class="team-role">Physiotherapeut (freiberuflich)</p></div>
+<div class="card team-card"><div class="team-avatar">GH</div><h3>Gudrun Henke</h3><p class="team-role">Masseurin</p></div>
+<div class="card team-card"><div class="team-avatar">AA</div><h3>Andrea Abt</h3><p class="team-role">Physiotherapeutin</p></div>
+<div class="card team-card"><div class="team-avatar">UH</div><h3>Urte Heitbreder</h3><p class="team-role">Anmeldung</p></div>
+<div class="card team-card"><div class="team-avatar">WP</div><h3>Wiebke Pott</h3><p class="team-role">Anmeldung</p></div>
+<div class="card team-card"><div class="team-avatar">KR</div><h3>Kathrin Riepe</h3><p class="team-role">Rehasporttrainerin</p></div>
+<div class="card team-card"><div class="team-avatar">AA</div><h3>Alik Avdalyan</h3><p class="team-role">Rehasporttrainer</p></div>
+<div class="card team-card"><div class="team-avatar">MD</div><h3>Marzena Dreier</h3><p class="team-role">Rehasport- & Fitnesstrainerin</p></div>
+<div class="card team-card"><div class="team-avatar">JN</div><h3>Julita Neumann</h3><p class="team-role">Rehasporttrainerin</p></div>
+<div class="card team-card"><div class="team-avatar">RV</div><h3>Ramona Voß</h3><p class="team-role">Rehasporttrainerin</p></div>
+<div class="card team-card"><div class="team-avatar">LS</div><h3>Lena Strohkirch</h3><p class="team-role">Fitnesstrainerin</p></div>
+<div class="card team-card"><div class="team-avatar">JP</div><h3>Jan-Hendrik Pott</h3><p class="team-role">Fitnesstrainer</p></div>
+</div>
+</div>
+</section>
+<section id="bewertungen">
+<div class="container">
+<h2>Das sagen unsere Patienten</h2>
+<p>Ihre Zufriedenheit ist unser größter Erfolg. Lesen Sie, was andere über uns berichten.</p>
+<div class="reviews-grid">
+<div class="card review-card"><div class="review-stars">★★★★★</div><p class="review-text">„Nach meinem Bandscheibenvorfall hat das Team von PhysioConcept mich exzellent betreut. Die manuelle Therapie und das Gerätetraining haben mir enorm geholfen. Besonders die ruhige und motivierende Atmosphäre schätze ich sehr.“</p><p class="review-author">Michael K.<span>Patient seit 2019</span></p></div>
+<div class="card review-card"><div class="review-stars">★★★★★</div><p class="review-text">„Ich besuche wöchentlich den TRX-Kurs und bin begeistert. Marzena ist eine fantastische Trainerin – sie geht auf jedes Leistungsniveau ein. Die 220-m²-Halle ist super ausgestattet und die Stimmung immer toll!“</p><p class="review-author">Sabine L.<span>Kursteilnehmerin seit 2022</span></p></div>
+<div class="card review-card"><div class="review-stars">★★★★★</div><p class="review-text">„Meine Mutter (78) geht zum Rehasport und fühlt sich rundum wohl. Die Sitzhockergruppe ist perfekt auf ältere Menschen abgestimmt. Wir sind froh, eine so einfühlsame Praxis in der Nähe zu haben.“</p><p class="review-author">Familie Schulte<span>Angehörige einer Patientin</span></p></div>
+</div>
+</div>
+</section>
+<section id="termin">
+<div class="container">
+<div class="termin-wrapper">
+<div class="termin-card">
+<h3>📅 Online-Terminanfrage</h3>
+<p>Füllen Sie das Formular aus – wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+<form>
+<div class="form-row">
+<div class="form-group"><label for="vorname">Vorname *</label><input type="text" id="vorname" name="vorname" required placeholder="Ihr Vorname"></div>
+<div class="form-group"><label for="nachname">Nachname *</label><input type="text" id="nachname" name="nachname" required placeholder="Ihr Nachname"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="email">E-Mail *</label><input type="email" id="email" name="email" required placeholder="ihre@email.de"></div>
+<div class="form-group"><label for="telefon">Telefon</label><input type="tel" id="telefon" name="telefon" placeholder="+49 ..."></div>
+</div>
+<div class="form-group"><label for="leistung">Gewünschte Leistung</label><select id="leistung" name="leistung"><option value="">Bitte auswählen</option><option>Physiotherapie</option><option>Ergotherapie</option><option>Massage</option><option>Lymphdrainage</option><option>Gerätetraining (KGG)</option><option>TRX</option><option>Fitness-Dance</option><option>Drums Alive</option><option>Rehasport</option><option>Sonstiges</option></select></div>
+<div class="form-group"><label for="nachricht">Nachricht (optional)</label><textarea id="nachricht" name="nachricht" placeholder="Ihre Nachricht an uns..."></textarea></div>
+<button type="submit" class="btn btn-cta">✨ Termin anfragen</button>
+</form>
+<div class="termin-benefits">
+<span class="termin-benefit">Kostenlos & unverbindlich</span>
+<span class="termin-benefit">Antwort innerhalb 24h</span>
+<span class="termin-benefit">Datenschutzkonform</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="kontakt">
+<div class="container">
+<h2>Kontakt & Anfahrt</h2>
+<p>Wir sind für Sie da – persönlich, telefonisch oder online.</p>
+<div class="kontakt-grid">
+<div class="kontakt-info">
+<h3>So erreichen Sie uns</h3>
+<div class="kontakt-item"><div class="kontakt-icon">📍</div><div><strong>Adresse</strong><span>Heeperholz 8, 33719 Bielefeld</span></div></div>
+<div class="kontakt-item"><div class="kontakt-icon">📞</div><div><strong>Telefon</strong><a href="tel:+495213367471">0521 3367471</a></div></div>
+<div class="kontakt-item"><div class="kontakt-icon">✉️</div><div><strong>E-Mail</strong><a href="mailto:info@physioconcept-heepen.de">info@physioconcept-heepen.de</a></div></div>
+<div class="kontakt-item"><div class="kontakt-icon">🚌</div><div><strong>ÖPNV</strong><span>Bushaltestelle direkt vor der Tür</span></div></div>
+<div class="kontakt-item"><div class="kontakt-icon">♿</div><div><strong>Barrierefrei</strong><span>Ebenerdiger Zugang zu allen Räumen</span></div></div>
+<div class="kontakt-item"><div class="kontakt-icon">🅿️</div><div><strong>Parken</strong><span>Kostenfreie Parkplätze direkt am Haus</span></div></div>
+<h3 style="margin-top:2rem">Öffnungszeiten</h3>
+<div class="stunden-grid">
+<div class="stunden-item"><strong>Mo</strong><span>8:30 – 18:00</span></div>
+<div class="stunden-item"><strong>Di</strong><span>8:30 – 18:00</span></div>
+<div class="stunden-item"><strong>Mi</strong><span>8:30 – 14:00</span></div>
+<div class="stunden-item"><strong>Do</strong><span>8:30 – 18:00</span></div>
+<div class="stunden-item"><strong>Fr</strong><span>8:30 – 14:00</span></div>
+<div class="stunden-item"><strong>Sa / So</strong><span>geschlossen</span></div>
+</div>
+</div>
+<div class="kontakt-map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2500.0!2d8.6000!3d52.0300!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sHeeperholz+8%2C+33719+Bielefeld!5e0!3m2!1sde!2sde!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Standort PhysioConcept Heepen"></iframe>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand"><h4>🍃 PhysioConcept Heepen</h4><p>Ihre Praxis für Physiotherapie und Gesundheit am Heeperholz. Seit 2005 stehen wir für qualitativ hochwertige Therapien, individuelle Betreuung und stetige Weiterentwicklung.</p></div>
+<div><h5>Navigation</h5><a href="#hero">Start</a><a href="#leistungen">Leistungen</a><a href="#team">Team</a><a href="#bewertungen">Bewertungen</a><a href="#termin">Termin</a><a href="#kontakt">Kontakt</a></div>
+<div><h5>Rechtliches</h5><a href="https://www.physioconcept-heepen.de/impressum" target="_blank" rel="noopener">Impressum</a><a href="https://www.physioconcept-heepen.de/datenschutz" target="_blank" rel="noopener">Datenschutz</a></div>
+</div>
+<div class="footer-bottom">&copy; 2026 PhysioConcept Heepen. Alle Rechte vorbehalten.</div>
+</div>
+</footer>
+</body>
+</html>
+
