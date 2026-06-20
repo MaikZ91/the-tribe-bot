@@ -309,13 +309,21 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
 
   /* ---- split view: beide live als iframe (schnell, volle Seite); alte Seite ggf. per Tab ---- */
   var split=document.getElementById("split"), curId=null;
+  /* iframe bei jedem Öffnen frisch erzeugen — verhindert hängengebliebenen Zustand ("öffnet nur einmal") */
+  function freshFrame(id,sandbox){
+    var old=document.getElementById(id); if(!old) return null;
+    var f=document.createElement("iframe"); f.id=id;
+    if(sandbox){ f.setAttribute("sandbox","allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"); f.setAttribute("referrerpolicy","no-referrer"); }
+    old.parentNode.replaceChild(f,old); return f;
+  }
   function openSplit(l){
     curId=l.id;
     var w=l.website||"", hasAlt=w && w!=="#";
     document.getElementById("splitTtl").innerHTML=esc(l.name)+' <small>'+esc(l.industry)+' · '+(l.noweb?'noch keine eigene Website':(hasAlt?esc(host(w)):'keine Website hinterlegt'))+'</small>';
     document.getElementById("neuLink").href=l.preview;
-    document.getElementById("neuFrame").src=l.preview;
-    var altFrame=document.getElementById("altFrame"), altLink=document.getElementById("altLink"), altHint=document.getElementById("altHint"), altHintLink=document.getElementById("altHintLink");
+    var neuFrame=freshFrame("neuFrame",false); neuFrame.src=l.preview;
+    var altFrame=freshFrame("altFrame",true);
+    var altLink=document.getElementById("altLink"), altHint=document.getElementById("altHint"), altHintLink=document.getElementById("altHintLink");
     if(hasAlt){
       altLink.href=w; altLink.style.display=""; altHintLink.href=w;
       altFrame.src=w; altFrame.style.display="";
@@ -325,14 +333,14 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
         : 'Lädt nicht? Manche Seiten verbieten die Einbettung — <a href="'+esc(w)+'" target="_blank" rel="noopener">ganze Seite live öffnen ↗</a>';
       altHint.style.display="";
     } else {
-      altFrame.src="about:blank"; altFrame.style.display="none"; altLink.style.display="none";
+      altFrame.style.display="none"; altLink.style.display="none";
       altHint.innerHTML='Dieser Lead hat noch <b style="color:#fff">keine eigene Website</b> — genau hier entsteht die erste. Rechts siehst du die neue Vorschau.';
       altHint.style.display="block"; altHint.style.position="static"; altHint.style.padding="40px 20px";
     }
     split.classList.add("open"); document.body.style.overflow="hidden"; setPane(hasAlt?"alt":"neu");
   }
   function closeSplit(){ split.classList.remove("open"); document.body.style.overflow="";
-    document.getElementById("neuFrame").src="about:blank"; document.getElementById("altFrame").src="about:blank"; curId=null; }
+    freshFrame("neuFrame",false); freshFrame("altFrame",true); curId=null; }
   function setPane(p){
     document.querySelectorAll(".pane").forEach(function(el){el.classList.toggle("show",el.getAttribute("data-pane")===p);});
     document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-pane")===p);});
