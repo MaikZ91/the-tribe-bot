@@ -44,6 +44,11 @@
   .row .acts{display:flex;gap:6px;flex:none}
   .rm{flex:none;background:transparent;border:1px solid var(--line);color:var(--ink-mut);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:15px;line-height:1;transition:.2s}
   .rm:hover{border-color:var(--red);color:var(--red)}
+  .mkdone{flex:none;background:transparent;border:1px solid var(--line);color:var(--ink-mut);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;line-height:1;transition:.2s}
+  .mkdone:hover{border-color:var(--green);color:var(--green)}
+  .row.done{background:rgba(16,185,129,.10);border-color:rgba(16,185,129,.38)}
+  .row.done .mkdone{background:var(--green);color:#06150f;border-color:transparent}
+  .row.done .nm::after{content:"✓ kontaktiert";font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.04em;color:var(--green);background:rgba(16,185,129,.18);padding:2px 6px;border-radius:5px}
   .restore{color:var(--accent);cursor:pointer;text-decoration:underline}
   .det{display:none;grid-column:1/-1;width:100%;margin-top:4px;padding-top:14px;border-top:1px solid var(--line-2);gap:20px;grid-template-columns:1fr 1fr}
   .det.open{display:grid}
@@ -310,6 +315,12 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   function isHidden(id){ return hidden.indexOf(id)>=0; }
   function hide(id){ if(!isHidden(id)){ hidden.push(id); saveHidden(hidden); render(); } }
   function restoreAll(){ hidden=[]; saveHidden(hidden); render(); }
+  /* ---- kontaktiert/erledigt markieren ---- */
+  var DKEY="mz9_audit_done_v1";
+  function loadDone(){ try{var d=JSON.parse(localStorage.getItem(DKEY)); return Array.isArray(d)?d:[];}catch(e){return [];} }
+  var done=loadDone();
+  function isDone(id){ return done.indexOf(id)>=0; }
+  function toggleDone(id){ var i=done.indexOf(id); if(i>=0) done.splice(i,1); else done.push(id); try{localStorage.setItem(DKEY,JSON.stringify(done));}catch(e){} render(); }
 
   /* ---- render: Listen-Ansicht ---- */
   function scoreCls(n){ return n<45?"lo":n<65?"mid":"hi"; }
@@ -317,12 +328,12 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   function render(){
     var vis=built.filter(function(l){return !isHidden(l.id);});
     document.getElementById("meta").innerHTML=
-      '<span><b>'+vis.length+'</b> in Liste</span><span><b>'+built.length+'</b> Vorschauen gesamt</span>'+
+      '<span><b>'+vis.length+'</b> in Liste</span><span><b style="color:var(--green)">'+done.filter(function(id){return !isHidden(id);}).length+'</b> kontaktiert</span>'+
       (hidden.length?'<span><span class="restore" id="restore">'+hidden.length+' ausgeblendet — zurückholen</span></span>':'');
     list.innerHTML=vis.map(function(l){
       var probs=(l.problems||[]).map(function(p){return '<li>'+esc(p)+'</li>';}).join("");
       var opps=(l.opps||[]).map(function(o){return '<li>'+esc(o)+'</li>';}).join("");
-      return '<div class="row" data-id="'+l.id+'">'+
+      return '<div class="row'+(isDone(l.id)?' done':'')+'" data-id="'+l.id+'">'+
         '<div class="score '+scoreCls(l.score||0)+'" title="Audit-Score (0–100, niedriger = mehr Hebel)"><b>'+(l.score||0)+'</b><span>Score</span></div>'+
         '<div class="info"><div class="nm">'+esc(l.name)+'<span class="heb '+l.hebel+'">'+l.hebel+'</span></div>'+
           '<div class="sub">'+esc(l.industry)+' · '+(l.noweb?'⚠ noch keine eigene Website':esc(host(l.website)))+'</div></div>'+
@@ -332,6 +343,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
           '<button class="btn btn-sec" data-act="open" title="Neue Vorschau öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg><span class="lbl">Vorschau</span></button>'+
           '<button class="btn btn-sec" data-act="mail" title="Fertige E-Mail öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span class="lbl">E-Mail</span></button>'+
         '</div>'+
+        '<button class="mkdone" data-act="done" title="Als kontaktiert markieren">✓</button>'+
         '<button class="rm" data-act="remove" title="Aus Liste entfernen">×</button>'+
         '<div class="det"><div class="col p"><h4>Schwachstellen aktuell</h4><ul>'+probs+'</ul></div>'+
           '<div class="col o"><h4>Was die neue Vorschau verbessert</h4><ul>'+opps+'</ul></div></div>'+
@@ -347,6 +359,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
     var b=e.target.closest("[data-act]"); if(!b) return;
     var row=b.closest(".row"); var l=byId(row.getAttribute("data-id")); if(!l) return;
     var a=b.getAttribute("data-act");
+    if(a==="done"){ toggleDone(l.id); return; }
     if(a==="remove"){ hide(l.id); return; }
     if(a==="toggle"){ var det=row.querySelector(".det");
       var on=det.classList.toggle("open"); row.classList.toggle("exp",on); b.textContent=on?"▴":"▾"; return; }
