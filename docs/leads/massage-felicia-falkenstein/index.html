@@ -1,1 +1,473 @@
-...
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Heilpraktikerin Felicia Falkenstein – Klassische Massage, Faszientherapie &amp; Energetische Behandlung in Bielefeld.">
+<title>Felicia Falkenstein – Massagepraxis Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sage:#e8f0e3;--wald:#5c8a67;--creme:#f2e8dc;--braun:#4a3f35;
+  --wald-dunkel:#3d5c44;--braun-hell:#6b5d4f;--gold:#b8975e;--weiss:#fdfbf7;
+  --schatten:0 4px 24px rgba(74,63,53,0.08);
+  --schatten-hover:0 14px 44px rgba(74,63,53,0.13);
+  --radius:1.25rem;--radius-weich:2rem;
+  --uebergang:0.35s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth;font-size:17px}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--sage);color:var(--braun);
+  line-height:1.7;overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Lora',serif;font-weight:600;line-height:1.2;color:var(--braun)}
+h2{font-size:clamp(2rem,5vw,2.8rem);text-align:center;margin-bottom:2.8rem;position:relative}
+h2::after{content:'';display:block;width:70px;height:3px;background:var(--wald);margin:1rem auto 0;border-radius:2px}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+/* ── BLATT-MOTIVE (CSS-pure) ── */
+.blatt{
+  position:absolute;pointer-events:none;z-index:0;
+  width:60px;height:60px;background:var(--wald);
+  opacity:0.06;border-radius:2px 80% 2px 80%;
+  transform:rotate(var(--r,45deg));
+}
+.blatt::after{
+  content:'';position:absolute;top:50%;left:50%;
+  width:1px;height:40px;background:inherit;
+  transform:translate(-50%,-50%) rotate(-30deg);opacity:0.7;
+}
+.blatt-rechts{--r:-30deg;border-radius:80% 2px 80% 2px}
+/* ── RANKE (CSS-pure) ── */
+.ranke{
+  position:absolute;pointer-events:none;z-index:0;
+  width:130px;height:130px;
+  border:2.5px solid var(--wald);border-radius:50%;
+  opacity:0.07;
+  border-color:var(--wald) var(--wald) transparent transparent;
+  transform:rotate(var(--rr,45deg));
+}
+.ranke::after{
+  content:'';position:absolute;bottom:-8px;right:-8px;
+  width:20px;height:20px;background:var(--wald);
+  border-radius:2px 70% 2px 70%;opacity:0.6;transform:rotate(60deg);
+}
+.ranke-links{--rr:-135deg;border-color:transparent transparent var(--wald) var(--wald)}
+/* ── LILIE (dekorativ) ── */
+.lilie{
+  position:absolute;pointer-events:none;z-index:0;
+  width:50px;height:50px;opacity:0.08;
+}
+.lilie::before{
+  content:'';position:absolute;
+  top:50%;left:50%;width:50px;height:50px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,var(--wald) 0%,transparent 70%);
+  transform:translate(-50%,-50%);
+}
+.lilie::after{
+  content:'';position:absolute;
+  top:50%;left:50%;
+  width:24px;height:24px;
+  background:var(--gold);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:0.6;
+}
+/* ── HEADER / NAV ── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(232,240,227,0.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(92,138,103,0.12);
+  padding:0.7rem 0;transition:var(--uebergang);
+}
+header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{
+  font-family:'Lora',serif;font-size:1.1rem;font-weight:700;
+  color:var(--wald-dunkel);letter-spacing:-0.02em;
+  text-decoration:none;display:flex;align-items:center;gap:0.5rem;
+}
+.logo-blatt{
+  display:inline-block;width:28px;height:28px;
+  background:var(--wald);border-radius:2px 70% 2px 70%;
+  transform:rotate(-20deg);opacity:0.85;
+}
+header nav{display:flex;gap:1.75rem;align-items:center}
+header nav a{
+  font-size:0.9rem;font-weight:600;color:var(--braun-hell);
+  text-decoration:none;transition:color var(--uebergang);position:relative;
+}
+header nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;
+  width:0;height:2px;background:var(--wald);
+  border-radius:1px;transition:width var(--uebergang);
+}
+header nav a:hover{color:var(--wald-dunkel)}
+header nav a:hover::after{width:100%}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:var(--wald);color:#fff!important;
+  padding:0.6rem 1.4rem;border-radius:2rem;
+  font-weight:700;font-size:0.9rem;text-decoration:none;
+  transition:all var(--uebergang);
+  box-shadow:0 2px 12px rgba(92,138,103,0.3);
+}
+.btn-cta:hover{
+  background:var(--wald-dunkel);transform:translateY(-1px);
+  box-shadow:0 6px 22px rgba(92,138,103,0.4);
+}
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.5rem}
+.mobile-toggle span{display:block;width:24px;height:2.5px;background:var(--braun);margin:5px 0;border-radius:2px;transition:var(--uebergang)}
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:6rem 1.5rem 4rem;
+  overflow:hidden;
+  background:linear-gradient(175deg,var(--creme) 0%,var(--sage) 40%,#dce8d5 100%);
+}
+.hero .ranke:nth-child(1){top:12%;left:5%;--rr:30deg;width:160px;height:160px}
+.hero .ranke:nth-child(2){top:18%;right:6%;--rr:-60deg;width:140px;height:140px}
+.hero .ranke:nth-child(3){bottom:15%;left:8%;--rr:120deg;width:120px;height:120px}
+.hero .ranke:nth-child(4){bottom:22%;right:10%;--rr:-150deg;width:100px;height:100px}
+.hero .blatt:nth-child(5){top:8%;left:20%;--r:50deg;width:70px;height:70px;opacity:0.05}
+.hero .blatt:nth-child(6){top:25%;right:22%;--r:-40deg;width:55px;height:55px;opacity:0.05}
+.hero .blatt:nth-child(7){bottom:10%;left:40%;--r:70deg;width:65px;height:65px;opacity:0.04}
+.hero .lilie:nth-child(8){top:15%;left:55%}
+.hero .lilie:nth-child(9){bottom:20%;right:30%}
+.hero-inner{position:relative;z-index:1;max-width:700px}
+.hero h1{
+  font-size:clamp(2.4rem,6.5vw,4rem);
+  font-weight:700;color:var(--braun);
+  margin-bottom:1.8rem;line-height:1.15;
+}
+.hero h1 span{color:var(--wald);font-style:italic}
+.hero p{
+  font-size:clamp(1.05rem,2vw,1.25rem);
+  color:var(--braun-hell);margin-bottom:2.5rem;
+  max-width:520px;margin-left:auto;margin-right:auto;
+}
+.hero .btn-cta{
+  font-size:1.05rem;padding:0.9rem 2.2rem;
+  box-shadow:0 4px 18px rgba(92,138,103,0.35);
+}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:1;opacity:0.5;animation:schweben 2.5s ease-in-out infinite;
+}
+.hero-scroll svg{width:28px;height:28px;stroke:var(--wald);fill:none;stroke-width:2}
+@keyframes schweben{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+/* ── SEKTIONEN ── */
+section{padding:5rem 1.5rem;position:relative;overflow:hidden}
+/* ── INTRO ── */
+#intro{background:var(--weiss);text-align:center}
+#intro .container{max-width:720px}
+#intro p{font-size:1.15rem;color:var(--braun-hell);line-height:1.8}
+.intro-ornament{display:flex;justify-content:center;gap:0.6rem;margin-bottom:2rem}
+.intro-ornament span{width:8px;height:8px;background:var(--wald);border-radius:50%;opacity:0.35}
+.intro-ornament span:nth-child(2){opacity:0.55;width:10px;height:10px;margin-top:-2px}
+.intro-ornament span:nth-child(3){opacity:0.35}
+/* ── LEISTUNGEN ── */
+#leistungen{background:var(--sage)}
+.leistungen-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;position:relative;z-index:1;
+}
+.leistung-card{
+  background:var(--weiss);border-radius:var(--radius-weich);
+  padding:2.8rem 2rem 2.2rem;text-align:center;
+  position:relative;transition:all var(--uebergang);
+  box-shadow:var(--schatten);
+  margin:0 -0.5rem;z-index:1;
+}
+.leistung-card:nth-child(2){z-index:2;box-shadow:var(--schatten-hover);margin-top:-0.5rem;margin-bottom:-0.5rem}
+.leistung-card:hover{transform:translateY(-6px);box-shadow:var(--schatten-hover);z-index:5}
+.leistung-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:80px;height:80px;margin:0 auto 1.5rem;
+  border-radius:50%;background:var(--sage);
+  position:relative;
+}
+.leistung-icon::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:2px dashed var(--wald);opacity:0.25;
+}
+.leistung-icon svg{width:36px;height:36px;stroke:var(--wald);fill:none;stroke-width:1.5}
+.leistung-card h3{font-size:1.35rem;margin-bottom:0.8rem;color:var(--braun)}
+.leistung-card p{font-size:0.95rem;color:var(--braun-hell);line-height:1.7}
+/* ── ÜBER MICH ── */
+#ueber-mich{background:var(--creme)}
+.ueber-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:3.5rem;align-items:center;max-width:900px;margin:0 auto}
+.ueber-bild{
+  aspect-ratio:1;border-radius:var(--radius-weich);
+  background:linear-gradient(135deg,var(--wald) 0%,var(--wald-dunkel) 100%);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.ueber-bild-inner{
+  text-align:center;color:#fff;padding:2rem;
+}
+.ueber-bild-inner .initials{
+  font-family:'Lora',serif;font-size:4rem;font-weight:700;
+  line-height:1;opacity:0.9;
+}
+.ueber-bild-inner .label{
+  font-size:0.85rem;text-transform:uppercase;
+  letter-spacing:0.15em;opacity:0.7;margin-top:0.5rem;
+}
+.ueber-text h3{font-size:1.8rem;margin-bottom:1.2rem}
+.ueber-text p{color:var(--braun-hell);line-height:1.8;margin-bottom:1rem}
+.ueber-text .signatur{font-family:'Lora',serif;font-style:italic;color:var(--wald);font-size:1.3rem;margin-top:1.5rem}
+/* ── BEWERTUNGEN ── */
+#bewertungen{background:var(--weiss)}
+.bewertungen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.bewertung-card{
+  background:var(--sage);border-radius:var(--radius);
+  padding:2rem 1.8rem;position:relative;
+  transition:all var(--uebergang);
+}
+.bewertung-card:hover{transform:translateY(-4px);box-shadow:var(--schatten-hover)}
+.bewertung-sterne{color:var(--gold);font-size:1.1rem;letter-spacing:2px;margin-bottom:1rem}
+.bewertung-card blockquote{
+  font-style:italic;color:var(--braun-hell);
+  line-height:1.7;margin:0;font-size:0.98rem;
+  position:relative;padding-left:1.2rem;
+  border-left:3px solid var(--wald);
+  opacity:0.9;
+}
+.bewertung-card cite{
+  display:block;margin-top:1.2rem;font-style:normal;
+  font-weight:700;color:var(--braun);font-size:0.9rem;
+}
+.bewertung-card cite span{display:block;font-weight:400;font-size:0.8rem;color:var(--braun-hell);margin-top:0.15rem}
+/* ── KONTAKT ── */
+#kontakt{background:var(--creme);text-align:center}
+.kontakt-karte{
+  background:var(--weiss);border-radius:var(--radius-weich);
+  padding:3rem 2.5rem;max-width:600px;margin:0 auto;
+  box-shadow:var(--schatten);position:relative;z-index:1;
+}
+.kontakt-item{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.2rem}
+.kontakt-item svg{width:22px;height:22px;stroke:var(--wald);fill:none;stroke-width:2;flex-shrink:0}
+.kontakt-item a,.kontakt-item span{font-size:1.1rem;color:var(--braun);text-decoration:none;transition:color var(--uebergang)}
+.kontakt-item a:hover{color:var(--wald)}
+.kontakt-cta{margin-top:2rem}
+/* ── FOOTER ── */
+footer{
+  background:var(--braun);color:rgba(255,255,255,0.7);
+  text-align:center;padding:2.5rem 1.5rem;font-size:0.85rem;
+}
+footer a{color:rgba(255,255,255,0.9);text-decoration:none;transition:color var(--uebergang)}
+footer a:hover{color:#fff}
+footer .footer-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+footer p{margin-top:1rem;opacity:0.6}
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .leistungen-grid{grid-template-columns:1fr;gap:1.5rem}
+  .leistung-card{margin:0!important}
+  .leistung-card:nth-child(2){margin:0!important}
+  .ueber-grid{grid-template-columns:1fr;gap:2rem;text-align:center}
+  .ueber-bild{max-width:260px;margin:0 auto}
+  .bewertungen-grid{grid-template-columns:1fr;gap:1.5rem}
+}
+@media(max-width:768px){
+  header nav{display:none;position:fixed;top:60px;left:0;right:0;
+    background:rgba(232,240,227,0.97);backdrop-filter:blur(16px);
+    flex-direction:column;padding:2rem;gap:1.5rem;
+    border-bottom:1px solid rgba(92,138,103,0.15);
+  }
+  header nav.open{display:flex}
+  .mobile-toggle{display:block}
+  .hero{min-height:90vh;padding:5rem 1.2rem 3rem}
+}
+@media(max-width:480px){
+  html{font-size:16px}
+  h2{font-size:1.8rem}
+  .hero h1{font-size:2rem}
+  .kontakt-karte{padding:2rem 1.5rem}
+  .leistung-card{padding:2rem 1.5rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-blatt" aria-hidden="true"></span>
+      Felicia Falkenstein
+    </a>
+    <button class="mobile-toggle" aria-label="Menü öffnen" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mainNav">
+      <a href="#intro">Über mich</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#bewertungen">Bewertungen</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#kontakt" class="btn-cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Termin
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="ranke" aria-hidden="true"></div>
+  <div class="ranke" aria-hidden="true"></div>
+  <div class="ranke" aria-hidden="true"></div>
+  <div class="ranke" aria-hidden="true"></div>
+  <div class="blatt" aria-hidden="true"></div>
+  <div class="blatt blatt-rechts" aria-hidden="true"></div>
+  <div class="blatt" aria-hidden="true"></div>
+  <div class="lilie" aria-hidden="true"></div>
+  <div class="lilie" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1>Heilsame Hände.<br><span>Ihre Massagepraxis</span> in Bielefeld.</h1>
+    <p>Ganzheitliche Berührung, die Körper und Seele in Einklang bringt – in Ihrer persönlichen Oase der Ruhe.</p>
+    <a href="#kontakt" class="btn-cta">Behandlung buchen</a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="container">
+    <div class="intro-ornament" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p>Als Heilpraktikerin verbinde ich klassische Massage mit ganzheitlichen Ansätzen – für Ihr körperliches und seelisches Wohlbefinden. In meiner Praxis in Bielefeld erwartet Sie ein geschützter Raum, in dem Sie zur Ruhe kommen und neue Kraft schöpfen können.</p>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="container">
+    <h2>Meine Leistungen</h2>
+    <div class="leistungen-grid">
+      <div class="leistung-card">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Klassische Massage</h3>
+        <p>Lösen Sie Verspannungen und tauchen Sie ein in tiefe Entspannung. Mit sanftem Druck und fließenden Bewegungen löse ich Blockaden, fördere die Durchblutung und schenke Ihrem Körper neue Leichtigkeit.</p>
+      </div>
+      <div class="leistung-card">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Faszientherapie</h3>
+        <p>Die Arbeit am Bindegewebe befreit verklebte Faszien, verbessert Ihre Beweglichkeit und löst chronische Schmerzmuster – eine besonders tiefenwirksame Methode für nachhaltiges Wohlbefinden.</p>
+      </div>
+      <div class="leistung-card">
+        <div class="leistung-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>Energetische Behandlung</h3>
+        <p>Sanfte Berührung, die weit über das Körperliche hinausgeht. Ich begleite Sie dabei, Ihre eigenen Selbstheilungskräfte zu aktivieren und in Ihre innere Balance zurückzufinden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section id="ueber-mich">
+  <div class="container">
+    <h2>Über mich</h2>
+    <div class="ueber-grid">
+      <div class="ueber-bild" aria-hidden="true">
+        <div class="ueber-bild-inner">
+          <div class="initials">FF</div>
+          <div class="label">Heilpraktikerin</div>
+        </div>
+      </div>
+      <div class="ueber-text">
+        <h3>Felicia Falkenstein</h3>
+        <p>Schon als Kind faszinierte mich die heilsame Kraft der Berührung. Nach meiner Ausbildung zur Physiotherapeutin und der Weiterbildung zur Heilpraktikerin habe ich in Bielefeld einen Ort geschaffen, an dem sich Menschen geborgen fühlen und heilen dürfen.</p>
+        <p>Meine Arbeit ist geprägt von Achtsamkeit, Erfahrung und dem tiefen Vertrauen in die Fähigkeit jedes Menschen, gesund zu sein. Jede Behandlung stimme ich individuell auf Sie ab – ganz gleich, ob Sie Entspannung suchen, Beschwerden lindern oder präventiv handeln möchten.</p>
+        <p class="signatur">– Felicia Falkenstein</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEWERTUNGEN -->
+<section id="bewertungen">
+  <div class="container">
+    <h2>Das sagen meine Klienten</h2>
+    <div class="bewertungen-grid">
+      <div class="bewertung-card">
+        <div class="bewertung-sterne" aria-label="5 von 5 Sternen">★★★★★</div>
+        <blockquote>„Felicia hat so wunderbar einfühlsame Hände. Nach der Faszientherapie fühlte ich mich wie neugeboren – eine Erfahrung, die ich jedem nur ans Herz legen kann.“</blockquote>
+        <cite>Martina K.<span>seit 2019 Klientin</span></cite>
+      </div>
+      <div class="bewertung-card">
+        <div class="bewertung-sterne" aria-label="5 von 5 Sternen">★★★★★</div>
+        <blockquote>„Die Atmosphäre in der Praxis ist unbeschreiblich beruhigend. Felicia nimmt sich Zeit, hört zu und behandelt nicht nur den Körper, sondern den ganzen Menschen.“</blockquote>
+        <cite>Thomas R.<span>regelmäßig seit 2021</span></cite>
+      </div>
+      <div class="bewertung-card">
+        <div class="bewertung-sterne" aria-label="5 von 5 Sternen">★★★★★</div>
+        <blockquote>„Ich kam mit starken Rückenschmerzen und ging mit einem Gefühl von Leichtigkeit. Die energetische Behandlung war für mich ein Wendepunkt. Danke, Felicia!“</blockquote>
+        <cite>Sabine L.<span>Klientin seit 2022</span></cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <h2>Kontakt</h2>
+    <div class="kontakt-karte">
+      <p style="margin-bottom:1.8rem;color:var(--braun-hell)">Ich freue mich darauf, Sie kennenzulernen. Rufen Sie mich an oder schreiben Sie mir – gemeinsam finden wir den passenden Termin für Sie.</p>
+      <div class="kontakt-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:+4952611839505">05261 1839505</a>
+      </div>
+      <div class="kontakt-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:massage-bielefeld@posteo.de">massage-bielefeld@posteo.de</a>
+      </div>
+      <div class="kontakt-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Praxis in Bielefeld</span>
+      </div>
+      <div class="kontakt-cta">
+        <a href="tel:+4952611839505" class="btn-cta" style="font-size:1rem;padding:0.8rem 2rem">Jetzt anrufen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="http://www.massage-bielefeld.de/" target="_blank" rel="noopener">www.massage-bielefeld.de</a>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+    <p>&copy; 2025 Felicia Falkenstein – Heilpraktikerin für Massage in Bielefeld</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('menuToggle');
+  var n=document.getElementById('mainNav');
+  if(t&&n){
+    t.addEventListener('click',function(){n.classList.toggle('open')});
+    n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('open')})});
+  }
+})();
+</script>
+</body>
+</html>
