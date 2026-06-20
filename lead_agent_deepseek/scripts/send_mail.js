@@ -32,6 +32,14 @@ const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 const MZ9_URL = 'https://maikz91.github.io/the-tribe-bot/mz9';
 
+// Branchen, die wir nicht kontaktieren
+const BLOCKED = ['kanzlei', 'recht', 'steuer', 'anwalt'];
+
+function isBlocked(id, industry) {
+  const check = (id + ' ' + (industry || '')).toLowerCase();
+  return BLOCKED.some(b => check.includes(b));
+}
+
 const SMTP = {
   host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.MZ9_SMTP_PORT || '587'),
@@ -57,6 +65,7 @@ function loadLeads() {
     if (!fs.existsSync(jobFile)) continue;
     try {
       const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+      if (isBlocked(job.id, job.industry)) continue; // ⛔ Kanzleien, Recht, Steuer
       const idxFile = path.join(PREVIEW_DIR, d.name, 'index.html');
       let built = false;
       try { built = fs.statSync(idxFile).size > 2000; } catch {}
@@ -95,24 +104,21 @@ function oppsFromProblems(problems) {
 const SIG = `Viele Grüße\nMaik\nMZ.9 — Media Engineering.AI\n${MZ9_URL}`;
 
 function buildMail(lead) {
-  const to = lead.email;
   const subject = lead.noweb
     ? `Ihre eigene Website — Konzept-Vorschau für ${lead.name}`
     : `Konzept-Vorschau für Ihre Website — ${lead.name}`;
-
   let body;
   if (lead.noweb) {
     body = `Hallo liebes ${lead.name}-Team,\n\nich bin über Ihren Eintrag gestolpert und habe gesehen, dass Sie noch keine eigene Website haben — schade eigentlich, denn was Sie machen, hat definitiv einen guten Auftritt verdient.\n\nIch habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine Website für Sie aussehen könnte:\n\n👉 Zur Vorschau: ${lead.preview}\n\nIm Vergleich zu einem reinen Google-Eintrag sieht man ziemlich schnell, was eine eigene Seite für Wirkung und Professionalität bringt.\n\nFalls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret gemacht habe — wenn nicht, einfach ignorieren.\n\n${SIG}`;
   } else {
     body = `Hallo liebes ${lead.name}-Team,\n\nich bin über Ihre Website gestolpert und habe mir kurz angeschaut, wie Ihr Auftritt online etwas klarer und moderner wirken könnte.\n\nIch habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine alternative Struktur aussehen könnte:\n\n👉 Zur Vorschau: ${lead.preview}\n\nIm direkten Vergleich zur aktuellen Seite sieht man ziemlich schnell, wo man mit kleinen Anpassungen mehr Klarheit und Wirkung erzeugen kann.\n\nFalls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret verändert habe — wenn nicht, einfach ignorieren.\n\n${SIG}`;
   }
-  return { to, subject, body };
+  return { to: lead.email, subject, body };
 }
 
 function buildHtmlMail(lead) {
-  const { to, subject, body } = buildMail(lead);
+  const { subject, body } = buildMail(lead);
   const previewUrl = lead.preview;
-
   const lines = body.split('\n');
   let h = '';
   for (const line of lines) {
@@ -125,25 +131,22 @@ function buildHtmlMail(lead) {
     else if (t.startsWith('https://')) { continue; }
     else { h += `<p style="margin:8px 0;color:#333">${t}</p>\n`; }
   }
-
   const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1a1a2e;line-height:1.6">${lead.hasCompare ? `<div style="margin:0 0 24px;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)"><img src="cid:compare@mz9" alt="Vorher/Nachher Vergleich" style="width:100%;display:block"></div><p style="font-size:12px;color:#888;margin:-16px 0 20px;text-align:center">Links: Aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</p>` : ''}${h}</body></html>`;
-  return { to, subject, body, html };
+  return { to: lead.email, subject, body, html };
 }
 
 async function sendHtmlMail(lead, dryRun = false) {
   const { to, subject, body, html } = buildHtmlMail(lead);
   if (!to) { console.log(`  ⚠️  Keine E-Mail für ${lead.id}`); return { success: false }; }
-  if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}\n   Text:${body.length} HTML:${html.length} ${lead.hasCompare?'🖼️':''}`); return { success: true }; }
+  if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
   if (!SMTP.auth.pass) { console.log('  ❌ Kein SMTP-Passwort'); return { success: false }; }
-
   const attachments = [];
   const cf = path.join(PREVIEW_DIR, lead.id, 'compare.png');
   if (fs.existsSync(cf)) attachments.push({ filename: 'compare.png', path: cf, cid: 'compare@mz9' });
-
   const t = nodemailer.createTransport(SMTP);
   try {
     const info = await t.sendMail({ from: `"${FROM.name}" <${FROM.email}>`, to, subject, text: body, html, attachments });
-    console.log(`  ✅ HTML-Mail → ${to} (${info.messageId})`);
+    console.log(`  ✅ HTML-Mail → ${to}`);
     return { success: true };
   } catch (err) { console.log(`  ❌ ${err.message}`); return { success: false }; }
 }
@@ -153,14 +156,11 @@ async function main() {
   const dryRun = args.includes('--dry-run');
   const sendAll = args.includes('--all');
   const targetId = args.find(a => !a.startsWith('--'));
-
   const leads = loadLeads().filter(l => l.email);
   const sent = loadSent();
   console.log(`📧 ${leads.length} Leads | ${Object.keys(sent).length} gesendet`);
-
   if (sendAll) {
     const pending = leads.filter(l => !sent[l.id] && !isEmailAlreadySent(l.email));
-    console.log(`📬 ${pending.length} offen\n`);
     for (const lead of pending) {
       console.log(`→ ${lead.name}`);
       const r = await sendHtmlMail(lead, dryRun);
@@ -170,6 +170,7 @@ async function main() {
   } else if (targetId) {
     const lead = leads.find(l => l.id === targetId);
     if (!lead) { console.log(`❌ "${targetId}" nicht gefunden`); return; }
+    if (isBlocked(lead.id, lead.industry)) { console.log('⛔  Kanzlei/Recht/Steuer — blockiert'); return; }
     if (sent[targetId] && !dryRun) { console.log('⚠️  Bereits gesendet'); return; }
     console.log(`→ ${lead.name} ${lead.hasCompare?'🖼️':''}`);
     if (!dryRun && EMAIL_DELAY_MAX_MIN > 0) {
