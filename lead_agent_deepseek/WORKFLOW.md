@@ -1,8 +1,8 @@
 # MZ.9 Lead Agent — Autonomer Workflow (Deutschlandweit)
 
 Vollautomatischer, kontinuierlicher Lead-Funnel. Findet echte Betriebe
-deutschlandweit, baut jedem eine **echte Premium-Landingpage mit Original-
-bildern** und veröffentlicht sie inkl. Dashboard-Eintrag — **ohne manuelles
+deutschlandweit, baut jedem eine **echte Premium-Landingpage mit Originalbildern**,
+versendet direkt die Akquise-E-Mail und pusht live — **ohne manuelles
 Eingreifen**, mit **automatischem Push** nach GitHub Pages.
 
 > Tool-agnostisch: Stufe 2 (Seitenbau) erledigt **DeepSeek ODER Claude**.
@@ -38,14 +38,15 @@ Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
 │ STUFE 3 — PUBLISH + AUTO-PUSH     (Node, vollautomatisch)       │
-│   scripts/publish.js --all                                      │
-│   • Dashboard-Eintrag (SEED + EMAILS)                           │
-│   • build-job.json → status: published                          │
+│   Pro Lead: git push + E-Mail sofort                           │
 │   • git commit + push  → GitHub Pages deployt (1–2 Min)         │
+│   • build-job.json → status: published                          │
+│   • send_mail.js <id> → Akquise-E-Mail direkt an den Betrieb    │
+│   • KEIN Dashboard-Publishing (Dashboard nur manuell/review)    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Wichtig:** Dashboard-Eintrag + Push passieren ERST nach dem Seitenbau
+**Wichtig:** Push + E-Mail passieren ERST nach dem Seitenbau
 (Stufe 3) — so entstehen nie tote Links auf leere Seiten.
 
 ---
@@ -108,11 +109,16 @@ Jede Seite muss das Niveau von `docs/leads/alt-bielefeld/index.html` haben:
 
 ---
 
-## E-Mail-Versand ⚠️ NICHT im Auto-Loop — VORHER FRAGEN
-Der Versand an Leads läuft **niemals automatisch** mit. Vor jedem Versand:
-1. Leads + Empfänger-Adressen auflisten
-2. Betreiber-Bestätigung abwarten
-3. Erst dann versenden (SMTP-Creds in `.env`)
+## E-Mail-Versand — DIREKT nach Build im Auto-Loop
+Der Versand läuft **automatisch** mit — pro frisch gebautem Lead wird sofort
+eine Akquise-E-Mail versendet (SMTP-Creds in `.env` erforderlich).
+
+Voraussetzungen:
+1. `MZ9_SMTP_PASS` (Gmail App-Passwort) in `.env` oder als Umgebungsvariable
+2. `MZ9_SMTP_USER` = `mzschach@googlemail.com` (Default)
+
+Falls kein SMTP-Passwort gesetzt ist, wird die E-Mail übersprungen (Fehlerlog).
+Dry-Run zum Testen: `node scripts/send_mail.js <id> --dry-run`
 
 ---
 
@@ -126,18 +132,19 @@ Der Versand an Leads läuft **niemals automatisch** mit. Vor jedem Versand:
 | Worklist offener Builds | `node scripts/pending.js` (`--json`) |
 | Einen Lead publizieren | `node scripts/publish.js <id>` |
 | Alles Gebaute publizieren | `node scripts/publish.js --all` |
+| E-Mail an einen Lead | `node scripts/send_mail.js <id>` |
+| E-Mail-Dry-Run | `node scripts/send_mail.js <id> --dry-run` |
 
 | Datenfluss | Ort |
 |---|---|
 | Queue | `lead_agent_deepseek/queue.json` |
 | Build-Job pro Lead | `docs/leads/<id>/build-job.json` |
 | Fertige Seite | `docs/leads/<id>/index.html` |
-| Dashboard | `docs/leads/dashboard/index.html` |
-| Live | `https://maikz91.github.io/the-tribe-bot/leads/dashboard/` |
+| Live | `https://maikz91.github.io/the-tribe-bot/leads/<id>/` |
 
 ## Quellen / Technik
 - Discovery: **OpenStreetMap Overpass API** (`scripts/discover.js`) — ersetzt das
   frühere, unzuverlässige DuckDuckGo-Scraping. Kein API-Key. 53 Städte × ~27 Branchen.
 - Dedup gegen `docs/leads/dashboard/done.json` + bestehende Lead-Ordner.
 
-Letzter Stand: 2026-06-20 — Overpass-Discovery, 3-Stufen-Autoloop, Auto-Push.
+Letzter Stand: 2026-06-20 — Overpass-Discovery, 3-Stufen-Autoloop, Auto-Push, E-Mail direkt nach Build.

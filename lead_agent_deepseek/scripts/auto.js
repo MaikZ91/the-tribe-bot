@@ -4,7 +4,8 @@
  * Fährt im Dauerloop:
  *   STUFE 1  node daemon.js --once         → Discovery + Build-Job
  *   STUFE 2  Build-Agent pro offenem Lead  → echte Premium-Seite
- *   STUFE 3  node publish.js --all         → Dashboard + Auto-Push
+ *   STUFE 3  Pro Lead: git push + E-Mail   → GitHub Pages + Akquise-Mail
+ *   KEIN Dashboard-Publishing — E-Mail geht direkt nach Build raus.
  *
  * Der Build-Agent (Stufe 2) ist konfigurierbar — tool-agnostisch:
  *   - Default: Claude Code headless (`claude -p ... --dangerously-skip-permissions`)
@@ -40,6 +41,29 @@ function log(m) { console.log(`[${ts()}] ${m}`); }
 
 function run(cmd, opts = {}) {
   return execSync(cmd, { cwd: REPO, stdio: 'inherit', ...opts });
+}
+
+// ─── Git Push für einen einzelnen Lead ────────────────────────────
+function gitPushOne(id, name) {
+  try {
+    try { execSync('git pull --rebase --autostash origin main', { cwd: REPO, stdio: 'pipe' }); } catch {}
+    execSync(`git add docs/leads/${id}/ lead_agent_deepseek/leads/${id}.json lead_agent_deepseek/queue.json`, { cwd: REPO, stdio: 'pipe' });
+    const diff = execSync('git diff --cached --stat', { cwd: REPO, stdio: 'pipe', encoding: 'utf8' });
+    if (!diff.trim()) { log('  📭 Keine Änderungen zu pushen.'); return true; }
+    execSync(`git commit -m "lead-agent: ${id} — ${name}"`, { cwd: REPO, stdio: 'pipe' });
+    execSync('git push', { cwd: REPO, stdio: 'pipe' });
+    log(`  🚀 Gepusht → https://maikz91.github.io/the-tribe-bot/leads/${id}/`);
+    return true;
+  } catch (err) {
+    log(`  ⚠️  Git-Fehler: ${err.message}`);
+    return false;
+  }
+}
+
+// ─── Build-Job als published markieren ────────────────────────────
+function markPublished(item) {
+  const jobFile = path.join(PREVIEW_DIR, item.id, 'build-job.json');
+  try { const j = JSON.parse(fs.readFileSync(jobFile, 'utf8')); j.status = 'published'; j.publishedAt = new Date().toISOString(); fs.writeFileSync(jobFile, JSON.stringify(j, null, 2)); } catch {}
 }
 
 // ─── Build-Befehl für einen Lead ──────────────────────────────────
@@ -100,16 +124,30 @@ async function cycle() {
   const skipped = open.length - buildable.length;
   if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne Originalbilder übersprungen (keine bildlose Seite).`);
   const pending = buildable.slice(0, MAX_BUILDS);
+  const builtIds = [];
   if (pending.length === 0) {
     log('Keine offenen Builds mit Bildern.');
   } else {
     log(`${pending.length} offene Build(s) mit Bildern.`);
-    for (const item of pending) buildLead(item);
+    for (const item of pending) {
+      if (buildLead(item)) builtIds.push(item.id);
+    }
   }
 
-  // STUFE 3: publizieren + Auto-Push
-  try { run('node lead_agent_deepseek/scripts/publish.js --all'); }
-  catch (e) { log(`Stufe 3 Fehler: ${e.message}`); }
+
+  // STUFE 3: Push + E-Mail direkt pro frisch gebautem Lead
+  for (const id of builtIds) {
+    const item = pending.find(i => i.id === id);
+    if (!item) continue;
+    // 3a: Git Push (Seite live stellen)
+    if (gitPushOne(item.id, item.name)) {
+      markPublished(item);
+    }
+    // 3b: E-Mail direkt versenden
+    try { run(`node lead_agent_deepseek/scripts/send_mail.js ${id}`); }
+    catch (e) { log(`  ⚠️  E-Mail-Fehler (${id}): ${e.message}`); }
+  }
+  // Dashboard-Publishing wurde entfernt — E-Mail geht direkt raus.
 
   log('─── Zyklus Ende ───\n');
 }
