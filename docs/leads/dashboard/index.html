@@ -291,8 +291,7 @@
     {id:"zahnarzt-benz",name:"Dr. Benz & Kollegen - Zahnarztpraxis im Wellehaus",industry:"Zahnarzt",hebel:"niedrig",score:10,website:"https://www.drbenz.de",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/zahnarzt-benz/"},
     {id:"zahnarzt-durali-mosch",name:"Zahnarztpraxis Dr. Durali & Mosch",industry:"Zahnarzt",hebel:"niedrig",score:10,website:"https://www.durali-mosch.de",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/zahnarzt-durali-mosch/"},
     {id:"zahnarzt-nawartschi",name:"Dr. Amir Nawartschi - Praxis für Zahnheilkunde",industry:"Zahnarzt",hebel:"mittel",score:30,website:"https://www.nawartschi.de",problems:["Veraltetes Content-Management-System", "Veraltetes Content-Management-System"],opps:["Modernes CMS mit einfacher Pflege", "Modernes CMS mit einfacher Pflege"],preview:"https://maikz91.github.io/the-tribe-bot/leads/zahnarzt-nawartschi/"},
-    {id:"zahnarzt-thedentalcompany",name:"The Dental Company - Zahnarztpraxis Bielefeld",industry:"Zahnarzt",hebel:"niedrig",score:10,website:"https://thedentalcompany.de",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/zahnarzt-thedentalcompany/"}
-  
+    {id:"zahnarzt-thedentalcompany",name:"The Dental Company - Zahnarztpraxis Bielefeld",industry:"Zahnarzt",hebel:"niedrig",score:10,website:"https://thedentalcompany.de",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/zahnarzt-thedentalcompany/"},
     {id:"dienstleistung-hk-gebaeudereinigung",name:"HK Gebäudereinigung GmbH & Co. KG",industry:"Dienstleistung",hebel:"niedrig",score:10,website:"https://www.hk-gebaeudereinigung.de/",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/dienstleistung-hk-gebaeudereinigung/"},
     {id:"dienstleistung-kurz-um",name:"Kurz Um-Meisterbetriebe",industry:"Dienstleistung",hebel:"niedrig",score:10,website:"https://www.kurz-um.de/",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/dienstleistung-kurz-um/"},
     {id:"dienstleistung-niediek",name:"Erich Niediek GmbH & Co. KG - Gebäudedienste Niediek",industry:"Dienstleistung",hebel:"niedrig",score:10,website:"https://www.niediek.net/",problems:["Website könnte moderner und professioneller wirken"],opps:["Moderne, professionelle Website", "Bessere Service-Kommunikation"],preview:"https://maikz91.github.io/the-tribe-bot/leads/dienstleistung-niediek/"},
@@ -354,6 +353,9 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
 
   /* ---- split view: beide live als iframe (schnell, volle Seite); alte Seite ggf. per Tab ---- */
   var split=document.getElementById("split"), curId=null;
+  /* sichtbarer Fehler-Banner: stille JS-Fehler werden sofort sichtbar statt "Button tut nichts mehr" */
+  function showErr(m){ var e=document.getElementById("dbgErr"); if(!e){ e=document.createElement("div"); e.id="dbgErr"; e.style.cssText="position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#b00020;color:#fff;font:12px/1.45 monospace;padding:9px 14px;white-space:pre-wrap;cursor:pointer"; e.title="Tippen zum Ausblenden"; e.onclick=function(){e.remove();}; document.body.appendChild(e);} e.textContent="⚠ "+m; }
+  window.addEventListener("error",function(ev){ showErr((ev.message||"Fehler")+"  @"+String(ev.filename||"").split("/").pop()+":"+ev.lineno); });
   /* iframe bei jedem Öffnen frisch erzeugen — verhindert hängengebliebenen Zustand ("öffnet nur einmal") */
   function freshFrame(id,sandbox){
     var old=document.getElementById(id); if(!old) return null;
@@ -361,7 +363,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
     if(sandbox){ f.setAttribute("sandbox","allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"); f.setAttribute("referrerpolicy","no-referrer"); }
     old.parentNode.replaceChild(f,old); return f;
   }
-  function openSplit(l){
+  function openSplit(l){ try{
     curId=l.id;
     var w=l.website||"", hasAlt=w && w!=="#";
     document.getElementById("splitTtl").innerHTML=esc(l.name)+' <small>'+esc(l.industry)+' · '+(l.noweb?'noch keine eigene Website':(hasAlt?esc(host(w)):'keine Website hinterlegt'))+'</small>';
@@ -383,9 +385,11 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
       altHint.style.display="block"; altHint.style.position="static"; altHint.style.padding="40px 20px";
     }
     split.classList.add("open"); document.body.style.overflow="hidden"; setPane(hasAlt?"alt":"neu");
-  }
+  }catch(err){ console.error("openSplit",err); split.classList.add("open"); document.body.style.overflow="hidden"; showErr("openSplit: "+(err&&err.message||err)); } }
   function closeSplit(){ split.classList.remove("open"); document.body.style.overflow="";
-    freshFrame("neuFrame",false); freshFrame("altFrame",true); curId=null; }
+    try{ freshFrame("neuFrame",false); freshFrame("altFrame",true); }catch(err){ console.error("closeSplit",err); showErr("closeSplit: "+(err&&err.message||err)); } curId=null; }
+  /* Klick auf den dunklen Hintergrund (außerhalb der Panes/Bar) schließt ebenfalls */
+  split.addEventListener("click",function(e){ if(e.target===split) closeSplit(); });
   function setPane(p){
     document.querySelectorAll(".pane").forEach(function(el){el.classList.toggle("show",el.getAttribute("data-pane")===p);});
     document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-pane")===p);});
