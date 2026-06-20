@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malerbetrieb Weimann — Gelnhausen</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#1a1a2e" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --navy: #1a1a2e; --red: #e94560; --red-dark: #c73650;
+  --grey: #f5f5f5; --grey-2: #e8e8e8; --white: #fafafa;
+  --ink: #1a1a2e; --ink-2: #4a4a5e; --ink-mut: #888898;
+  --display: "Anton", sans-serif; --sans: "Inter", system-ui, sans-serif;
+  --maxw: 1200px; --ease: cubic-bezier(.22,.61,.36,1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,4vw,32px); }
+
+/* Nav */
+.nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:16px 0; transition:background .3s; mix-blend-mode:difference; color:#fff; }
+.nav .bar { display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,4vw,32px); gap:16px; }
+.nav .logo { font-family:var(--display); font-size:1.4rem; letter-spacing:.03em; text-transform:uppercase; }
+.nav .links { display:flex; gap:20px; }
+.nav .links a { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; opacity:.7; }
+.nav .links a:hover { opacity:1; }
+.btn { display:inline-flex; align-items:center; font-weight:700; font-size:12px; letter-spacing:.08em; padding:14px 28px; cursor:pointer; transition:all .2s var(--ease); text-transform:uppercase; border:none; }
+.btn-red { background:var(--red); color:#fff; }
+.btn-red:hover { background:var(--navy); transform:translateY(-2px); }
+.btn-ol { background:transparent; color:var(--navy); border:2px solid var(--navy); }
+.btn-ol:hover { background:var(--navy); color:#fff; transform:translateY(-2px); }
+
+/* Hero */
+.hero { min-height:100svh; display:flex; align-items:center; background:var(--navy); color:#fff; position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; right:-200px; bottom:-200px; width:600px; height:600px; border-radius:50%; background:var(--red); opacity:.08; }
+.hero .content { position:relative; z-index:1; }
+.hero h1 { font-family:var(--display); font-size:clamp(4rem,12vw,10rem); line-height:.85; text-transform:uppercase; letter-spacing:.02em; }
+.hero h1 em { color:var(--red); font-style:normal; display:block; font-size:.2em; font-family:var(--sans); font-weight:300; letter-spacing:.15em; margin-top:10px; }
+.hero .sub { font-size:1.05rem; color:rgba(255,255,255,.65); max-width:40ch; margin-top:20px; font-weight:300; }
+.hero .btns { display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; }
+.hero .btn-ol { color:#fff; border-color:rgba(255,255,255,.3); }
+.hero .btn-ol:hover { background:#fff; color:var(--navy); }
+
+/* Sections */
+.sec { padding:clamp(56px,9vh,90px) 0; }
+.sec-label { font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
+.sec-title { font-family:var(--display); font-size:clamp(1.8rem,4vw,2.8rem); text-transform:uppercase; letter-spacing:.02em; margin-bottom:36px; }
+
+/* Leistungs-Strips */
+.strip-row { display:flex; flex-direction:column; }
+.strip { display:flex; align-items:center; gap:20px; padding:24px 28px; transition:background .2s; border-bottom:1px solid var(--grey-2); }
+.strip:last-child { border-bottom:none; }
+.strip:nth-child(odd) { background:var(--grey); }
+.strip:hover { background:var(--navy); color:#fff; }
+.strip:hover .snum { color:var(--red); }
+.strip .snum { font-family:var(--display); font-size:2rem; color:var(--red); min-width:50px; transition:color .2s; }
+.strip h3 { font-size:1.1rem; font-weight:700; flex:1; text-transform:uppercase; letter-spacing:.04em; }
+.strip p { font-size:13px; color:var(--ink-2); flex:2; }
+.strip:hover p { color:rgba(255,255,255,.7); }
+
+/* Projekte */
+.pgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.pcard { aspect-ratio:16/9; border-radius:4px; display:flex; align-items:flex-end; padding:16px; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:.04em; color:#fff; position:relative; overflow:hidden; }
+.pcard::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(26,26,46,.7)); }
+.pcard span { position:relative; z-index:1; }
+.pcard:nth-child(1) { background:linear-gradient(150deg, var(--red), var(--red-dark)); }
+.pcard:nth-child(2) { background:linear-gradient(150deg, var(--navy), #2a2a4e); }
+.pcard:nth-child(3) { background:linear-gradient(150deg, #3a3a5e, var(--navy)); }
+.pcard:nth-child(4) { background:linear-gradient(150deg, var(--red-dark), var(--navy)); }
+
+/* Testimonials */
+.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--grey-2); }
+.tcard { background:var(--white); padding:28px 22px; }
+.tcard .stars { color:var(--red); letter-spacing:2px; font-size:.9rem; margin-bottom:8px; }
+.tcard q { display:block; font-size:.95rem; font-style:italic; margin-bottom:10px; }
+.tcard .who { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-mut); }
+
+/* Contact */
+.cgrid { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; }
+.cmap { aspect-ratio:4/3; background:var(--grey); display:flex; align-items:center; justify-content:center; color:var(--ink-mut); font-size:14px; }
+.cinfo dl { display:grid; gap:16px; }
+.cinfo dt { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:2px; }
+.cinfo dd { font-size:1.05rem; color:var(--ink-2); }
+
+/* Footer */
+.footer { background:var(--navy); color:rgba(255,255,255,.6); padding:44px 0 28px; }
+.footer .bar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+
+.rv { opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.rv.in { opacity:1; transform:none; }
+
+@media (max-width:680px) {
+  .strip { flex-direction:column; align-items:flex-start; } .pgrid { grid-template-columns:1fr; }
+  .tgrid { grid-template-columns:1fr; } .cgrid { grid-template-columns:1fr; }
+  .nav .links a:not(.btn) { display:none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="bar">
+  <a href="#" class="logo">Weimann</a>
+  <div class="links">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#projekte">Projekte</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="wrap"><div class="content">
+  <h1 class="rv">Weimann<em>Malerarbeiten die bleiben</em></h1>
+  <p class="sub rv">Seit 1995 Ihr Malerbetrieb in Gelnhausen. Innenausbau, Fassaden, Parkett und Wärmedämmung — handwerklich, zuverlässig, fair.</p>
+  <div class="btns rv">
+    <a href="#kontakt" class="btn btn-red">Angebot anfordern</a>
+    <a href="#leistungen" class="btn btn-ol">Leistungen</a>
+  </div>
+</div></div></section>
+
+<section class="sec" id="leistungen">
+  <div class="wrap">
+    <div class="sec-label rv">Unsere Stärken</div>
+    <h2 class="sec-title rv">Leistungen</h2>
+    <div class="strip-row rv">
+      <div class="strip"><div class="snum">01</div><h3>Innenausbau</h3><p>Wände, Decken, Böden — hochwertige Oberflächen für Wohn- und Gewerberäume.</p></div>
+      <div class="strip"><div class="snum">02</div><h3>Fassaden</h3><p>Anstrich, Putz, Sanierung — Ihre Immobilie wetterfest und attraktiv.</p></div>
+      <div class="strip"><div class="snum">03</div><h3>Parkett</h3><p>Verlegung, Abschleifen, Versiegelung — Böden mit Charakter.</p></div>
+      <div class="strip"><div class="snum">04</div><h3>WDVS</h3><p>Wärmedämmung mit System — Energiekosten senken, Wohnkomfort steigern.</p></div>
+      <div class="strip"><div class="snum">05</div><h3>Spachteltechnik</h3><p>Edelputz, Betonoptik, kreative Oberflächen — individuell und langlebig.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="projekte">
+  <div class="wrap">
+    <div class="sec-label rv">Referenzen</div>
+    <h2 class="sec-title rv">Projekte</h2>
+    <div class="pgrid rv">
+      <div class="pcard"><span>Wohnpark Barbarossa</span></div>
+      <div class="pcard"><span>Gewerbehof Kinzigtal</span></div>
+      <div class="pcard"><span>Altstadt-Sanierung</span></div>
+      <div class="pcard"><span>Neubaugebiet Meerholz</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--grey);">
+  <div class="wrap">
+    <div class="sec-label rv">Über uns</div>
+    <h2 class="sec-title rv">Malerbetrieb Weimann</h2>
+    <p class="rv" style="max-width:54ch; color:var(--ink-2); font-size:1.05rem;">1995 von Markus Weimann gegründet, ist der Malerbetrieb Weimann heute eine feste Größe in Gelnhausen und dem Main-Kinzig-Kreis. Mit sechs Mitarbeitern decken wir das gesamte Spektrum der Maler- und Lackiererarbeiten ab — vom privaten Wohnzimmer bis zur großen Gewerbeimmobilie.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-label rv">Kundenstimmen</div>
+    <h2 class="sec-title rv">Bewertungen</h2>
+    <div class="tgrid rv">
+      <div class="tcard"><div class="stars">★★★★★</div><q>Schnell, sauber, faire Preise. Unser gesamtes Haus wurde innerhalb einer Woche gestrichen.</q><div class="who">— H. L., Gelnhausen</div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><q>Die neue Fassade sieht klasse aus. Endlich keine kalten Wände mehr dank der Dämmung.</q><div class="who">— C. &amp; K. W., Gründau</div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><q>Parkettboden perfekt verlegt und geölt. Handwerklich top, nettes Team.</q><div class="who">— A. M., Langenselbold</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kontakt" style="background:var(--navy); color:#fff;">
+  <div class="wrap">
+    <div class="sec-label rv" style="color:var(--red);">Kontakt</div>
+    <h2 class="sec-title rv" style="color:#fff;">Jetzt anfragen</h2>
+    <div class="cgrid">
+      <div class="cmap rv" style="background:rgba(255,255,255,.06);">▦ Barbarossastraße 8 · 63571 Gelnhausen</div>
+      <dl class="cinfo rv" style="display:grid; gap:16px;">
+        <div><dt style="color:var(--red);">E-Mail</dt><dd style="color:rgba(255,255,255,.8);"><a href="mailto:info@malerbetrieb-weimann.de" style="color:#fff;">info@malerbetrieb-weimann.de</a></dd></div>
+        <div><dt style="color:var(--red);">Telefon</dt><dd style="color:rgba(255,255,255,.8);"><a href="tel:+491743523228" style="color:#fff;">0174 3523228</a></dd></div>
+        <div><dt style="color:var(--red);">Adresse</dt><dd style="color:rgba(255,255,255,.8);">Barbarossastraße 8<br>63571 Gelnhausen</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap"><div class="bar">
+    <span>Malerbetrieb Weimann · Gelnhausen</span>
+    <span>&copy; 2026 Konzept-Vorschau · MZ.9</span>
+  </div></div>
+</footer>
+
+<script>
+(function(){
+var els=[].slice.call(document.querySelectorAll(".rv"));
+if("IntersectionObserver"in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})});els.forEach(function(el){io.observe(el)});}else{els.forEach(function(el){el.classList.add("in")});}
+})();
+</script></body></html>

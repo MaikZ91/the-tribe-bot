@@ -1,123 +1,233 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanzlei Kleine — Notariat & Rechtsberatung Offenbach</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kanzlei am Rathaus — Schommertz &amp; Niko GbR | Bonn</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0d1b2a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-  :root{--bg:#F7FAF5;--green:#2D6A4F;--green-l:#52B788;--sage:#D8E2DC;--white:#fff;--ink:#1A2E1E;--ink2:#567A5A;--r:12px;--sans:'Segoe UI',system-ui,sans-serif}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65}
-  section{padding:80px 20px;max-width:1050px;margin:0 auto}
-  h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
-  .sub{color:var(--ink2);font-size:1.1rem;margin-bottom:36px}
+:root {
+  --navy: #0d1b2a; --navy-2: #132438; --gold: #c9a962;
+  --gold-light: #e0cc85; --cream: #e8e4df; --white: #faf9f7;
+  --ink: #1a1f28; --ink-2: #586170; --ink-mut: #8b919b;
+  --line: rgba(201,169,98,.18); --line-2: rgba(13,27,42,.08);
+  --serif: "Lora", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+  --maxw: 1140px; --r: 8px; --ease: cubic-bezier(.22,.61,.36,1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(18px,4vw,36px); }
 
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,250,245,.96);backdrop-filter:blur(10px);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:64px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
-  nav .logo{color:var(--green);font-weight:800;font-size:1.1rem}
-  nav a{color:var(--ink2);text-decoration:none;margin-left:20px;font-size:.9rem;font-weight:500;transition:.2s}
-  nav a:hover{color:var(--green)}
+/* Top Bar */
+.topbar { background:var(--navy); color:var(--cream); font-size:13px; padding:8px 0; }
+.topbar .row { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; max-width:var(--maxw); margin:0 auto; padding:0 clamp(18px,4vw,36px); }
+.topbar a { color:var(--gold); font-weight:600; }
+.topbar a:hover { color:var(--gold-light); }
 
-  .hero{text-align:center;padding:150px 20px 90px;background:linear-gradient(180deg,var(--white),var(--bg))}
-  .hero .tag{display:inline-block;background:var(--sage);color:var(--green);padding:6px 18px;border-radius:20px;font-size:.85rem;font-weight:600;margin-bottom:20px}
-  .hero h1{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.2}
-  .hero h1 em{color:var(--green-l);font-style:normal}
-  .hero p{color:var(--ink2);font-size:1.1rem;max-width:520px;margin:16px auto 28px}
-  .hero .cta{display:inline-block;background:var(--green);color:var(--white);padding:14px 36px;border-radius:var(--r);font-weight:700;text-decoration:none;transition:transform .2s}
-  .hero .cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,106,79,.3)}
+/* Nav */
+.nav { position:sticky; top:0; z-index:200; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); border-bottom:1px solid var(--line-2); padding:14px 0; }
+.nav .bar { display:flex; align-items:center; justify-content:space-between; }
+.nav .logo { font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--navy); }
+.nav .logo span { color:var(--gold); }
+.nav .links { display:flex; gap:22px; align-items:center; }
+.nav .links a { font-size:14px; font-weight:600; color:var(--ink-2); }
+.nav .links a:hover { color:var(--navy); }
+.btn { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:13px; padding:12px 22px; border-radius:var(--r); cursor:pointer; transition:all .25s var(--ease); border:none; }
+.btn-gold { background:var(--gold); color:var(--navy); }
+.btn-gold:hover { background:var(--navy); color:var(--gold); transform:translateY(-2px); box-shadow:0 8px 24px rgba(13,27,42,.2); }
+.btn-ol { background:transparent; color:var(--navy); border:2px solid var(--navy); }
+.btn-ol:hover { background:var(--navy); color:#fff; transform:translateY(-2px); }
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:32px}
-  .card{background:var(--white);border-radius:var(--r);padding:28px 24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.04)}
-  .card .icon{font-size:2.3rem;margin-bottom:10px}
-  .card h3{font-size:1.1rem;color:var(--green);margin-bottom:8px}
-  .card p{font-size:.92rem;color:var(--ink2)}
+/* Hero */
+.hero { padding:clamp(60px,10vh,100px) 0; background:linear-gradient(160deg, var(--navy), var(--navy-2)); color:#fff; position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; bottom:0; right:0; width:50%; height:100%; background:radial-gradient(ellipse at 80% 50%, rgba(201,169,98,.12) 0%, transparent 70%); }
+.hero .grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,5vw,50px); align-items:center; }
+.hero .tag { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.hero h1 { font-family:var(--serif); font-size:clamp(2.2rem,5vw,3.8rem); font-weight:600; line-height:1.08; }
+.hero h1 em { font-style:italic; color:var(--gold); }
+.hero .sub { margin-top:16px; color:rgba(255,255,255,.8); max-width:42ch; font-size:1.1rem; }
+.hero .btns { display:flex; gap:12px; margin-top:24px; flex-wrap:wrap; }
+.hero .btns .btn-gold { background:var(--gold); color:var(--navy); }
+.hero .btns .btn-ol { color:#fff; border-color:rgba(255,255,255,.3); }
+.hero .btns .btn-ol:hover { background:#fff; color:var(--navy); border-color:#fff; }
+.himg { aspect-ratio:4/3; background:linear-gradient(150deg, rgba(201,169,98,.15), rgba(255,255,255,.05)); border-radius:var(--r); display:flex; align-items:center; justify-content:center; font-size:60px; }
 
-  .split{display:flex;gap:36px;flex-wrap:wrap;margin-top:32px}
-  .split>div{flex:1;min-width:260px;background:var(--white);border-radius:var(--r);padding:28px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-  .split h3{color:var(--green);font-size:1.15rem;margin-bottom:8px}
+/* Sections */
+.sec { padding:clamp(56px,9vh,90px) 0; }
+.sec.navy { background:var(--navy); color:#fff; }
+.sec-label { font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.sec-title { font-family:var(--serif); font-size:clamp(1.7rem,3.2vw,2.4rem); font-weight:600; margin-bottom:36px; }
+.sec.navy .sec-title { color:#fff; }
 
-  .contact{background:var(--white)}
-  .contact-grid{display:flex;flex-wrap:wrap;gap:40px;margin-top:32px}
-  .contact-grid>div{flex:1;min-width:260px}
-  .contact-form{display:grid;gap:14px}
-  .contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:14px 16px;border:1px solid #ddd;border-radius:var(--r);font-family:var(--sans);font-size:1rem}
-  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--green);outline:none}
-  .contact-form button{background:var(--green);color:white;border:none;padding:16px;border-radius:var(--r);font-weight:700;cursor:pointer;transition:.2s}
-  .contact-form button:hover{background:var(--green-l)}
-  .contact-info div{margin-bottom:16px}
-  .contact-info b{color:var(--green);display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+/* Grids */
+.g6 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.g6 .card { background:#fff; border:1px solid var(--line-2); border-radius:var(--r); padding:24px; transition:transform .3s var(--ease), box-shadow .3s; }
+.g6 .card:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(13,27,42,.08); }
+.g6 .card .icon { font-size:28px; margin-bottom:10px; }
+.g6 .card h3 { font-family:var(--serif); font-size:1.15rem; margin-bottom:6px; }
+.g6 .card p { font-size:13px; color:var(--ink-2); line-height:1.5; }
 
-  footer{background:var(--ink);color:rgba(255,255,255,.7);text-align:center;padding:28px 20px;font-size:.85rem}
+/* Team */
+.team { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.team .member { display:flex; gap:18px; align-items:center; background:#fff; border:1px solid var(--line-2); border-radius:var(--r); padding:22px; }
+.team .avatar { width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg, var(--navy), var(--navy-2)); flex:none; display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:var(--serif); font-size:1.4rem; font-weight:700; }
+.team .name { font-family:var(--serif); font-size:1.1rem; font-weight:600; }
+.team .role { font-size:12px; color:var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+.team .bio { font-size:13px; color:var(--ink-2); margin-top:4px; }
+
+/* Timeline */
+.timeline { position:relative; padding-left:30px; }
+.timeline::before { content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:var(--gold); }
+.timeline .titem { position:relative; margin-bottom:24px; }
+.timeline .titem::before { content:""; position:absolute; left:-24px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--gold); }
+.timeline .tyear { font-size:12px; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:.08em; }
+.timeline .tdesc { font-size:14px; color:rgba(255,255,255,.85); margin-top:2px; }
+
+/* Testimonials */
+.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.tcard { background:#fff; border:1px solid var(--line-2); border-radius:var(--r); padding:22px; }
+.tcard .stars { color:var(--gold); font-size:1rem; letter-spacing:2px; margin-bottom:8px; }
+.tcard q { font-family:var(--serif); font-style:italic; display:block; color:var(--ink); margin-bottom:10px; }
+.tcard .who { font-size:12px; font-weight:700; color:var(--ink-mut); }
+
+/* Contact */
+.cgrid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+.cmap { aspect-ratio:4/3; background:linear-gradient(150deg, var(--cream), #d8d2c9); border-radius:var(--r); display:flex; align-items:center; justify-content:center; color:var(--ink-mut); font-size:14px; }
+.cinfo { display:grid; gap:18px; }
+.citem dt { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+.citem dd { font-size:1.05rem; color:var(--ink-2); }
+
+/* Footer */
+.footer { background:var(--navy); color:rgba(255,255,255,.7); padding:50px 0 30px; }
+.footer .bar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center; }
+.footer .copy { font-size:12px; color:rgba(255,255,255,.5); }
+
+/* Reveal */
+.rv { opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.in { opacity:1; transform:none; }
+
+@media (max-width:760px) {
+  .g6 { grid-template-columns:1fr 1fr; } .tgrid { grid-template-columns:1fr; }
+  .hero .grid, .team, .cgrid { grid-template-columns:1fr; }
+  .himg { display:none; }
+  .nav .links a:not(.btn) { display:none; }
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">⚖ Kanzlei Kleine</div>
-  <div>
-    <a href="#leistungen">Leistungen</a>
+<div class="topbar"><div class="row"><span>✦ Rechtsanwälte in Bonn seit 1978</span><span><a href="tel:+4922894731930">0228 9473 1930</a></span></div></div>
+
+<nav class="nav"><div class="wrap bar">
+  <a href="#" class="logo">Kanzlei <span>am Rathaus</span></a>
+  <div class="links">
+    <a href="#gebiete">Rechtsgebiete</a>
     <a href="#team">Team</a>
-    <a href="#kontakt">Kontakt</a>
+    <a href="#kanzlei">Kanzlei</a>
+    <a href="#kontakt" class="btn btn-gold">Kontakt</a>
   </div>
-</nav>
+</div></nav>
 
 <section class="hero">
-  <div class="tag">Notariat & Rechtsberatung</div>
-  <h1>Ihre <em>rechtssichere</em><br>Zukunft beginnt hier.</h1>
-  <p>Melanie Kleine, LL.M. — Ihre Rechtsanwältin und Notarin im Westend-Carré Offenbach. Wirtschaftsrecht, Mediation, Notariat aus einer Hand.</p>
-  <a href="#kontakt" class="cta">Jetzt Beratung anfragen</a>
-</section>
-
-<section id="leistungen">
-  <h2>Unsere Leistungen</h2>
-  <p class="sub">Kompetente Beratung in allen wirtschaftsrechtlichen und notariellen Angelegenheiten.</p>
-  <div class="grid">
-    <div class="card"><div class="icon">📜</div><h3>Notariat</h3><p>Beurkundungen, Vorsorgevollmachten, Testamente und Grundstückskaufverträge.</p></div>
-    <div class="card"><div class="icon">🤝</div><h3>Mediation</h3><p>Wirtschaftsmediation zur außergerichtlichen Einigung — schnell, vertraulich, lösungsorientiert.</p></div>
-    <div class="card"><div class="icon">💼</div><h3>Wirtschaftsrecht</h3><p>Gesellschaftsrecht, Handelsrecht und Vertragsgestaltung für Unternehmen und Gründer.</p></div>
-  </div>
-</section>
-
-<section id="team">
-  <h2>Ihr Team</h2>
-  <p class="sub">Persönliche Betreuung mit akademischer Exzellenz und praktischer Erfahrung.</p>
-  <div class="split">
+  <div class="wrap"><div class="grid">
     <div>
-      <h3>Melanie Kleine, LL.M.</h3>
-      <p style="color:var(--ink2)">Rechtsanwältin und Notarin. Master of Laws (Business Law, Mainz). Zertifizierte Wirtschaftsmediatorin. Ihre Ansprechpartnerin für alle notariellen und wirtschaftsrechtlichen Fragen.</p>
+      <div class="tag rv">Schommertz &amp; Niko GbR</div>
+      <h1 class="rv">Recht mit<br><em>Tradition und Weitblick.</em></h1>
+      <p class="sub rv">Vertrauen, Kompetenz, Erfahrung — seit über 45 Jahren Ihre Kanzlei am Bonner Rathaus. Persönliche Beratung in allen zivilrechtlichen Angelegenheiten.</p>
+      <div class="btns rv"><a href="#kontakt" class="btn btn-gold">Erstberatung</a><a href="#gebiete" class="btn btn-ol">Unsere Expertise</a></div>
     </div>
-    <div>
-      <h3>Standort</h3>
-      <p style="color:var(--ink2)">Westend-Carré Offenbach am Main — barrierefrei erreichbar mit Parkplätzen direkt vor der Kanzlei. Optimale Anbindung mit Kfz und ÖPNV.</p>
-      <p style="color:var(--green);font-weight:600;margin-top:12px">✦ Kfz-Parkplätze direkt vor Ort<br>✦ Barrierefreier Zugang</p>
+    <div class="himg rv">⚖️</div>
+  </div></div>
+</section>
+
+<section class="sec" id="gebiete">
+  <div class="wrap">
+    <div class="sec-label rv">Unsere Expertise</div>
+    <h2 class="sec-title rv">Sechs Rechtsgebiete — eine Kanzlei</h2>
+    <div class="g6">
+      <div class="card rv"><div class="icon">👨‍👩‍👧</div><h3>Familienrecht</h3><p>Scheidung, Unterhalt, Sorgerecht, Güterrecht — einfühlsam und zielorientiert.</p></div>
+      <div class="card rv"><div class="icon">📜</div><h3>Erbrecht</h3><p>Testament, Erbvertrag, Pflichtteil, Nachlass — vorausschauend gestalten, konsequent durchsetzen.</p></div>
+      <div class="card rv"><div class="icon">🚗</div><h3>Verkehrsrecht</h3><p>Unfallregulierung, Bußgeld, Führerschein — wir holen Ihr Recht auf die Straße zurück.</p></div>
+      <div class="card rv"><div class="icon">🏠</div><h3>Mietrecht</h3><p>Mietminderung, Kündigung, Nebenkosten — faire Lösungen für Mieter und Vermieter.</p></div>
+      <div class="card rv"><div class="icon">💼</div><h3>Arbeitsrecht</h3><p>Kündigungsschutz, Abfindung, Arbeitszeugnis — Ihre Rechte im Berufsleben.</p></div>
+      <div class="card rv"><div class="icon">⚡</div><h3>Strafrecht</h3><p>Verteidigung, Ermittlungsverfahren, Hauptverhandlung — entschlossen an Ihrer Seite.</p></div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="kontakt">
-  <h2>Kontakt & Terminbuchung</h2>
-  <p class="sub">Vereinbaren Sie ein persönliches Gespräch — wir freuen uns auf Sie.</p>
-  <div class="contact-grid">
-    <div class="contact-info">
-      <div><b>Telefon</b>+49 69 97392150</div>
-      <div><b>E-Mail</b>info@kanzlei-kleine.de</div>
-      <div><b>Adresse</b>Westend-Carré, Offenbach am Main</div>
-      <div style="margin-top:16px"><b>Sprechzeiten</b>Mo–Fr: 9:00–17:00 Uhr<br>und nach Vereinbarung</div>
+<section class="sec navy" id="kanzlei">
+  <div class="wrap">
+    <div class="sec-label rv">Unsere Geschichte</div>
+    <h2 class="sec-title rv">Vier Jahrzehnte am Bonner Rathaus</h2>
+    <div class="timeline rv">
+      <div class="titem"><div class="tyear">1978</div><div class="tdesc">Gründung durch RA Dr. Wilhelm Schommertz — zunächst als Einzelkanzlei mit Fokus auf Zivilrecht.</div></div>
+      <div class="titem"><div class="tyear">1992</div><div class="tdesc">Erweiterung zur Sozietät — RA Christina Niko tritt als Partnerin bei. Ausbau der Rechtsgebiete.</div></div>
+      <div class="titem"><div class="tyear">2005</div><div class="tdesc">Umzug in die Räume Am Rathaus 1 — direkt im Herzen der Bonner Altstadt.</div></div>
+      <div class="titem"><div class="tyear">2024</div><div class="tdesc">Heute ein etabliertes Team von drei Anwälten mit über 60 Jahren geballter Erfahrung.</div></div>
     </div>
-    <form class="contact-form" onsubmit="event.preventDefault();alert('Vielen Dank! Wir melden uns zeitnah.');">
-      <input type="text" placeholder="Ihr Name *" required>
-      <input type="email" placeholder="Ihre E-Mail *" required>
-      <input type="tel" placeholder="Ihre Telefonnummer">
-      <select required><option value="">Ihr Anliegen *</option><option>Notariat</option><option>Mediation</option><option>Wirtschaftsrecht</option><option>Sonstiges</option></select>
-      <textarea rows="3" placeholder="Ihre Nachricht"></textarea>
-      <button type="submit">Termin anfragen →</button>
-    </form>
   </div>
 </section>
 
-<footer>
-  <p>© 2024 Kanzlei Kleine — Rechtsanwältin und Notarin | Westend-Carré, Offenbach am Main</p>
-  <p style="margin-top:6px">Impressum · Datenschutz · Konzept-Vorschau von MZ.9</p>
+<section class="sec" id="team">
+  <div class="wrap">
+    <div class="sec-label rv">Ihr Team</div>
+    <h2 class="sec-title rv">Drei Anwälte für Ihr Recht</h2>
+    <div class="team">
+      <div class="member rv">
+        <div class="avatar">SN</div>
+        <div><div class="name">Dr. Stefan Schommertz</div><div class="role">Fachanwalt für Familienrecht</div><div class="bio">Seit 2005 in der Kanzlei. Schwerpunkt: komplexe Familiensachen mit internationalem Bezug.</div></div>
+      </div>
+      <div class="member rv">
+        <div class="avatar">CN</div>
+        <div><div class="name">Christina Niko</div><div class="role">Fachanwältin für Erbrecht</div><div class="bio">Partnerin seit 1992. Spezialisiert auf Unternehmensnachfolge und Testamentsgestaltung.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec navy">
+  <div class="wrap">
+    <div class="sec-label rv">Mandantenstimmen</div>
+    <h2 class="sec-title rv">Das Vertrauen unserer Klienten</h2>
+    <div class="tgrid">
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Die Kanzlei am Rathaus hat unsere komplexe Erbauseinandersetzung mit Fingerspitzengefühl und juristischer Brillanz gelöst.</q><div class="who">— Familie W., Bonn</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Schnelle Hilfe bei Mietstreitigkeiten — innerhalb einer Woche war alles geklärt. Danke an das gesamte Team!</q><div class="who">— A. L., Bad Godesberg</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Mandant seit 15 Jahren. Noch nie enttäuscht worden — hier ist man in guten Händen.</q><div class="who">— H. M., Königswinter</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kontakt">
+  <div class="wrap">
+    <div class="sec-label rv">Kontakt</div>
+    <h2 class="sec-title rv">Sprechen Sie uns an</h2>
+    <div class="cgrid">
+      <div class="cmap rv">▦ Am Rathaus 1 · 53111 Bonn</div>
+      <dl class="cinfo rv">
+        <div class="citem"><dt>E-Mail</dt><dd><a href="mailto:kontakt@kanzlei-am-rathaus.de">kontakt@kanzlei-am-rathaus.de</a></dd></div>
+        <div class="citem"><dt>Telefon</dt><dd><a href="tel:+4922894731930">0228 9473 1930</a></dd></div>
+        <div class="citem"><dt>Adresse</dt><dd>Am Rathaus 1<br>53111 Bonn</dd></div>
+        <a href="mailto:kontakt@kanzlei-am-rathaus.de" class="btn btn-gold" style="margin-top:8px;">Jetzt E-Mail schreiben</a>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap"><div class="bar">
+    <span>Kanzlei am Rathaus — Schommertz &amp; Niko GbR</span>
+    <span class="copy">&copy; 2026 Konzept-Vorschau · MZ.9 — Media Engineering.AI</span>
+  </div></div>
 </footer>
 
-</body>
-</html>
+<script>
+(function(){
+var els=[].slice.call(document.querySelectorAll(".rv"));
+if("IntersectionObserver"in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})});els.forEach(function(el){io.observe(el)})}else{els.forEach(function(el){el.classList.add("in")})}})();
+</script></body></html>

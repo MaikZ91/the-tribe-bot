@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Malermeister Michael Hayard — Leipzig</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#fafaf9" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --white: #fafaf9; --green: #2b4c3b; --green-light: #3d6b54;
+  --sand: #d4a96a; --sand-light: #e8cfa0; --warm: #f2efe8;
+  --ink: #1c231f; --ink-2: #5a6b60; --ink-mut: #8e9b92;
+  --line: rgba(43,76,59,.08); --line-2: rgba(43,76,59,.04);
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --maxw: 1080px; --r: 8px; --ease: cubic-bezier(.22,.61,.36,1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--white); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.68; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,5vw,40px); }
+
+/* Sticky Header */
+.header { position:sticky; top:0; z-index:200; padding:12px 0; transition:all .3s; background:rgba(250,249,249,.88); backdrop-filter:blur(14px); }
+.header .bar { display:flex; align-items:center; justify-content:space-between; }
+.header .logo { font-family:var(--serif); font-size:1.3rem; font-weight:600; color:var(--green); letter-spacing:.03em; }
+.header .links { display:flex; gap:20px; align-items:center; }
+.header .links a { font-size:13px; font-weight:500; color:var(--ink-2); letter-spacing:.02em; }
+.header .links a:hover { color:var(--green); }
+.btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13px; padding:11px 22px; border-radius:var(--r); cursor:pointer; transition:all .25s var(--ease); border:none; }
+.btn-pri { background:var(--green); color:#fff; }
+.btn-pri:hover { background:var(--sand); color:var(--ink); transform:translateY(-2px); }
+.btn-sec { background:transparent; color:var(--green); border:1.5px solid var(--green); }
+.btn-sec:hover { background:var(--green); color:#fff; transform:translateY(-2px); }
+
+/* Hero */
+.hero { padding:clamp(70px,12vh,120px) 0 clamp(50px,8vh,70px); text-align:center; }
+.hero .tag { font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--sand); margin-bottom:14px; }
+.hero h1 { font-family:var(--serif); font-size:clamp(2.8rem,6vw,4.6rem); font-weight:300; line-height:1.06; color:var(--green); }
+.hero h1 strong { font-weight:600; }
+.hero .sub { font-size:1.1rem; color:var(--ink-2); max-width:44ch; margin:16px auto 0; }
+.hero .btns { display:flex; gap:12px; margin-top:24px; justify-content:center; flex-wrap:wrap; }
+
+/* Sections */
+.sec { padding:clamp(50px,8vh,80px) 0; text-align:center; }
+.sec.dark { background:var(--green); color:#fff; }
+.sec-label { font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--sand); margin-bottom:6px; }
+.sec-title { font-family:var(--serif); font-size:clamp(1.8rem,3.2vw,2.3rem); font-weight:500; margin-bottom:36px; color:var(--green); }
+.sec.dark .sec-title { color:#fff; }
+
+/* Services */
+.services { display:flex; flex-direction:column; gap:1px; background:var(--line); border-radius:var(--r); overflow:hidden; }
+.svc { display:flex; align-items:center; gap:20px; background:var(--white); padding:20px 26px; text-align:left; transition:background .25s; }
+.svc:hover { background:var(--warm); }
+.svc .num { font-family:var(--serif); font-size:1.8rem; color:var(--sand); min-width:40px; font-weight:600; }
+.svc h3 { font-family:var(--serif); font-size:1.2rem; font-weight:500; flex:1; }
+.svc p { font-size:13px; color:var(--ink-2); flex:2; }
+
+/* Gallery */
+.gallery { display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:200px 160px 180px; gap:10px; }
+.gallery .gimg { border-radius:var(--r); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:rgba(255,255,255,.8); }
+.gallery .gimg:nth-child(1) { grid-row:span 2; background:linear-gradient(150deg, var(--green), var(--green-light)); }
+.gallery .gimg:nth-child(2) { background:linear-gradient(150deg, var(--sand), var(--sand-light)); color:var(--ink); }
+.gallery .gimg:nth-child(3) { background:linear-gradient(150deg, #5a6b60, #7a8b80); }
+.gallery .gimg:nth-child(4) { background:linear-gradient(150deg, var(--sand-light), var(--warm)); color:var(--ink); }
+.gallery .gimg:nth-child(5) { grid-row:span 2; background:linear-gradient(150deg, var(--green-light), #4a7b60); }
+.gallery .gimg:nth-child(6) { background:linear-gradient(150deg, var(--warm), #e5ddce); color:var(--ink); }
+
+/* Testimonials */
+.tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.tcard { background:rgba(255,255,255,.08); border-radius:var(--r); padding:22px; text-align:left; }
+.tcard .stars { color:var(--sand-light); letter-spacing:2px; margin-bottom:8px; }
+.tcard q { font-family:var(--serif); font-style:italic; font-size:1.05rem; display:block; margin-bottom:10px; }
+.tcard .who { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.5); }
+
+/* Contact */
+.cgrid { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; text-align:left; }
+.cmap { aspect-ratio:4/3; background:linear-gradient(150deg, var(--warm), #e5ddce); border-radius:var(--r); display:flex; align-items:center; justify-content:center; color:var(--ink-mut); font-size:14px; }
+.cinfo dt { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--sand); margin-bottom:3px; }
+.cinfo dd { font-size:1.05rem; color:var(--ink-2); margin-bottom:16px; }
+
+/* Footer */
+.footer { background:var(--green); color:rgba(255,255,255,.7); padding:40px 0 24px; text-align:center; }
+.footer .bar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:13px; }
+
+.rv { opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.in { opacity:1; transform:none; }
+
+@media (max-width:680px) {
+  .services .svc { flex-direction:column; align-items:flex-start; } .gallery { grid-template-columns:1fr 1fr; }
+  .tgrid { grid-template-columns:1fr; } .cgrid { grid-template-columns:1fr; }
+  .header .links a:not(.btn) { display:none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header"><div class="wrap bar">
+  <a href="#" class="logo">Michael Hayard</a>
+  <div class="links">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#kontakt" class="btn btn-pri">Kontakt</a>
+  </div>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="tag rv">Malermeister · Leipzig</div>
+  <h1 class="rv">Räume mit<br><strong>Charakter.</strong></h1>
+  <p class="sub rv">Jeder Raum erzählt eine Geschichte. Mit handwerklicher Präzision und einem Gespür für Farben und Materialien verleihen wir Ihren vier Wänden eine Seele.</p>
+  <div class="btns rv"><a href="#kontakt" class="btn btn-pri">Angebot anfragen</a><a href="#leistungen" class="btn btn-sec">Leistungen</a></div>
+</div></section>
+
+<section class="sec" id="leistungen">
+  <div class="wrap">
+    <div class="sec-label rv">Was wir für Sie tun</div>
+    <h2 class="sec-title rv">Handwerk mit Leidenschaft</h2>
+    <div class="services">
+      <div class="svc rv"><div class="num">01</div><h3>Malerarbeiten</h3><p>Innenwände, Decken, Lackierungen — sauber, präzise, mit hochwertigen Materialien.</p></div>
+      <div class="svc rv"><div class="num">02</div><h3>Fassaden</h3><p>Witterungsschutz und Gestaltung — Ihre Immobilie als Visitenkarte.</p></div>
+      <div class="svc rv"><div class="num">03</div><h3>Innenräume</h3><p>Tapeten, Spachteltechniken, Wandgestaltung — vom Altbau bis zum Loft.</p></div>
+      <div class="svc rv"><div class="num">04</div><h3>Trockenbau</h3><p>Wände einziehen, Räume teilen — flexibel, schnell, staubarm.</p></div>
+      <div class="svc rv"><div class="num">05</div><h3>Wärmedämmung</h3><p>Energie sparen, Klima schützen — WDVS mit System.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" id="galerie">
+  <div class="wrap">
+    <div class="sec-label rv">Referenzen</div>
+    <h2 class="sec-title rv">Projekte aus Leipzig</h2>
+    <div class="gallery rv">
+      <div class="gimg">Altbau · Südvorstadt</div>
+      <div class="gimg">Loft · Plagwitz</div>
+      <div class="gimg">Fassade · Gohlis</div>
+      <div class="gimg">Büro · Zentrum</div>
+      <div class="gimg">Villa · Markkleeberg</div>
+      <div class="gimg">Café · Schleußig</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-label rv">Über mich</div>
+    <h2 class="sec-title rv">Malermeister aus Leidenschaft</h2>
+    <p class="rv" style="max-width:50ch; margin:0 auto; color:var(--ink-2);">Michael Hayard führt seinen Malerbetrieb seit über 20 Jahren in Leipzig. Vom kleinen Renovierungsauftrag bis zur kompletten Fassadensanierung — Qualität und Zuverlässigkeit stehen an erster Stelle. Mit seinem Team aus vier Gesellen betreut er Privat- und Gewerbekunden in Leipzig und Umgebung.</p>
+  </div>
+</section>
+
+<section class="sec dark">
+  <div class="wrap">
+    <div class="sec-label rv">Kundenstimmen</div>
+    <h2 class="sec-title rv">Das sagen Leipziger</h2>
+    <div class="tgrid">
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Herr Hayard hat unsere Altbauwohnung in der Südvorstadt komplett renoviert. Vom Feinputz bis zur Deckenmalerei — alles perfekt.</q><div class="who">— J. K., Leipzig</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Unsere Büroräume im Zentrum wurden termingerecht und sauber gestrichen. Absolut professionell.</q><div class="who">— M. &amp; S. GmbH, Leipzig</div></div>
+      <div class="tcard rv"><div class="stars">★★★★★</div><q>Die Wärmedämmung an unserem Haus spart uns jetzt richtig Heizkosten. Danke für die gute Beratung!</q><div class="who">— Familie R., Markkleeberg</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kontakt">
+  <div class="wrap">
+    <div class="sec-label rv">Kontakt</div>
+    <h2 class="sec-title rv">Lassen Sie uns Ihr Projekt besprechen</h2>
+    <div class="cgrid">
+      <div class="cmap rv">▦ Karl-Liebknecht-Straße 45 · 04275 Leipzig</div>
+      <dl class="cinfo rv">
+        <dt>E-Mail</dt><dd><a href="mailto:malermeister-hayard@gmx.de">malermeister-hayard@gmx.de</a></dd>
+        <dt>Telefon</dt><dd><a href="tel:+493412613838">0341 2613838</a></dd>
+        <dt>Adresse</dt><dd>Karl-Liebknecht-Straße 45<br>04275 Leipzig</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap"><div class="bar">
+    <span>Malermeister Michael Hayard · Leipzig</span>
+    <span>&copy; 2026 Konzept-Vorschau · MZ.9</span>
+  </div></div>
+</footer>
+
+<script>
+(function(){
+var els=[].slice.call(document.querySelectorAll(".rv"));
+if("IntersectionObserver"in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})});els.forEach(function(el){io.observe(el)});}else{els.forEach(function(el){el.classList.add("in")});}
+})();
+</script></body></html>

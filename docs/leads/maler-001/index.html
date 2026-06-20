@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lars Kaufmann Malermeister — Biebergemünd</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#f5f0e8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ivory: #f5f0e8; --espresso: #2c1810; --terracotta: #c4492e;
+  --terracotta-light: #d9644a; --clay: #e8d5c4; --sand: #d4b896;
+  --ink: #1f1410; --ink-2: #5c4438; --ink-mut: #9a8276;
+  --sans: "Barlow", system-ui, sans-serif;
+  --maxw: 1120px; --r: 10px; --ease: cubic-bezier(.22,.61,.36,1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--ivory); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(18px,4vw,34px); }
+
+/* Nav */
+.nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:14px 0; transition:background .3s; }
+.nav.scrolled { background:rgba(245,240,232,.94); backdrop-filter:blur(12px); box-shadow:0 1px 0 rgba(44,24,16,.06); }
+.nav .bar { display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:0 clamp(18px,4vw,34px); }
+.nav .logo { font-size:1.2rem; font-weight:800; letter-spacing:-.01em; color:var(--espresso); }
+.nav .logo span { color:var(--terracotta); }
+.nav .links { display:flex; gap:22px; align-items:center; }
+.nav .links a { font-size:14px; font-weight:600; color:var(--ink-2); text-transform:uppercase; letter-spacing:.04em; }
+.nav .links a:hover { color:var(--terracotta); }
+.nav .cta { background:var(--terracotta); color:#fff; font-weight:700; font-size:13px; padding:10px 18px; border-radius:var(--r); text-transform:uppercase; letter-spacing:.04em; }
+.nav .cta:hover { background:var(--espresso); }
+
+/* Hero */
+.hero { min-height:95svh; display:flex; align-items:center; position:relative; overflow:hidden; background:var(--espresso); }
+.hero .splatters { position:absolute; inset:0; overflow:hidden; }
+.splat { position:absolute; border-radius:50%; background:var(--terracotta); opacity:.15; }
+.splat:nth-child(1) { width:300px; height:300px; top:-80px; right:-40px; }
+.splat:nth-child(2) { width:180px; height:180px; top:50%; left:-60px; opacity:.1; }
+.splat:nth-child(3) { width:120px; height:120px; bottom:10%; right:20%; opacity:.2; }
+.splat:nth-child(4) { width:60px; height:60px; top:20%; right:30%; opacity:.12; }
+.hero .content { position:relative; z-index:1; color:#fff; }
+.hero .tag { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--terracotta-light); margin-bottom:16px; }
+.hero h1 { font-size:clamp(2.8rem,7vw,5.5rem); font-weight:900; line-height:.95; letter-spacing:-.02em; text-transform:uppercase; }
+.hero h1 em { color:var(--terracotta); font-style:normal; display:block; font-size:.55em; font-weight:700; letter-spacing:.08em; margin-top:8px; }
+.hero .sub { font-size:1.15rem; color:rgba(255,255,255,.75); max-width:40ch; margin-top:20px; }
+.hero .btns { display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:13px; padding:15px 28px; border-radius:var(--r); cursor:pointer; text-transform:uppercase; letter-spacing:.05em; transition:all .25s var(--ease); border:none; }
+.btn-pri { background:var(--terracotta); color:#fff; }
+.btn-pri:hover { background:#fff; color:var(--espresso); transform:translateY(-2px); }
+.btn-sec { background:transparent; color:#fff; border:2px solid rgba(255,255,255,.3); }
+.btn-sec:hover { border-color:#fff; transform:translateY(-2px); }
+
+/* Sections */
+.sec { padding:clamp(56px,9vh,90px) 0; }
+.sec.dark { background:var(--espresso); color:#fff; }
+.sec-label { font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--terracotta); margin-bottom:6px; }
+.sec-title { font-size:clamp(1.7rem,3.5vw,2.5rem); font-weight:800; margin-bottom:34px; }
+
+/* Leistungen Grid */
+.lgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
+.lcard { background:#fff; border:1px solid var(--clay); border-radius:var(--r); padding:26px 22px; transition:transform .3s var(--ease), box-shadow .3s; position:relative; overflow:hidden; }
+.lcard::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--terracotta); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
+.lcard:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(44,24,16,.08); }
+.lcard:hover::before { transform:scaleX(1); }
+.lcard .icon { font-size:32px; margin-bottom:12px; }
+.lcard h3 { font-size:1.15rem; font-weight:700; margin-bottom:6px; }
+.lcard p { font-size:.9rem; color:var(--ink-2); line-height:1.5; }
+
+/* Referenzen */
+.rgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.rcard { background:linear-gradient(150deg, var(--clay), var(--sand)); aspect-ratio:3/2; border-radius:var(--r); display:flex; align-items:flex-end; padding:16px; color:var(--espresso); font-weight:700; font-size:14px; position:relative; overflow:hidden; }
+.rcard::after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(44,24,16,.6)); }
+
+/* Counters */
+.counters { display:flex; justify-content:center; gap:clamp(20px,5vw,60px); flex-wrap:wrap; margin-top:20px; }
+.counter { text-align:center; }
+.counter .num { font-size:clamp(2rem,4vw,3.5rem); font-weight:900; color:var(--terracotta); }
+.counter .lbl { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-mut); margin-top:4px; }
+
+/* Reviews */
+.vgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.vcard { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:var(--r); padding:22px; }
+.vcard .stars { color:var(--terracotta-light); font-size:1rem; letter-spacing:2px; margin-bottom:8px; }
+.vcard q { display:block; font-style:italic; margin-bottom:10px; font-size:.95rem; }
+.vcard .who { font-size:11px; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.05em; }
+
+/* Contact */
+.cgrid { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; }
+.cmap { aspect-ratio:4/3; background:linear-gradient(150deg, var(--clay), var(--sand)); border-radius:var(--r); display:flex; align-items:center; justify-content:center; color:var(--ink-mut); font-size:14px; }
+.cinfo dt { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--terracotta); margin-bottom:3px; }
+.cinfo dd { font-size:1.05rem; color:var(--ink-2); margin-bottom:18px; }
+
+/* Footer */
+.footer { background:var(--espresso); color:rgba(255,255,255,.6); padding:44px 0 28px; }
+.footer .bar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:13px; }
+
+.rv { opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.in { opacity:1; transform:none; }
+
+@media (max-width:700px) {
+  .rgrid { grid-template-columns:1fr 1fr; } .vgrid { grid-template-columns:1fr; } .cgrid { grid-template-columns:1fr; }
+  .nav .links a:not(.cta) { display:none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav"><div class="bar">
+  <a href="#" class="logo">KAUFMANN <span>Malermeister</span></a>
+  <div class="links">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#referenzen">Referenzen</a>
+    <a href="#kontakt" class="cta">Angebot anfragen</a>
+  </div>
+</div></nav>
+
+<section class="hero">
+  <div class="splatters"><div class="splat"></div><div class="splat"></div><div class="splat"></div><div class="splat"></div></div>
+  <div class="wrap"><div class="content">
+    <div class="tag rv">Malermeister seit 1998 · Biebergemünd</div>
+    <h1 class="rv">Meisterhaft.<br><em>Präzise. Schön.</em></h1>
+    <p class="sub rv">Vom Innenausbau bis zur Fassadengestaltung — Lars Kaufmann bringt Farbe und Qualität in Ihr Zuhause. Handwerk auf Meisterniveau aus dem Spessart.</p>
+    <div class="btns rv">
+      <a href="#kontakt" class="btn btn-pri">Kostenloses Angebot</a>
+      <a href="#leistungen" class="btn btn-sec">Alle Leistungen</a>
+    </div>
+  </div></div>
+</section>
+
+<section class="sec" id="leistungen">
+  <div class="wrap">
+    <div class="sec-label rv">Was wir machen</div>
+    <h2 class="sec-title rv">Leistungen mit Meisterqualität</h2>
+    <div class="lgrid">
+      <div class="lcard rv"><div class="icon">🏠</div><h3>Innenausbau</h3><p>Wände, Decken, Böden — perfekte Oberflächen für Ihr Zuhause.</p></div>
+      <div class="lcard rv"><div class="icon">🏗️</div><h3>Fassade</h3><p>Witterungsschutz und Ästhetik — Ihre Immobilie im besten Licht.</p></div>
+      <div class="lcard rv"><div class="icon">📐</div><h3>Tapezieren</h3><p>Präzise Bahnen, perfekte Muster — vom Raufaser bis zur Design-Tapete.</p></div>
+      <div class="lcard rv"><div class="icon">🔧</div><h3>Spachteltechnik</h3><p>Glatte Wände, kreative Strukturen — Edelputz für höchste Ansprüche.</p></div>
+      <div class="lcard rv"><div class="icon">🛡️</div><h3>Schimmelsanierung</h3><p>Ursachen beseitigen, Oberflächen dauerhaft schützen.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" id="referenzen">
+  <div class="wrap">
+    <div class="sec-label rv">Projekte</div>
+    <h2 class="sec-title rv">Referenzen aus der Region</h2>
+    <div class="rgrid">
+      <div class="rcard rv">Villa Spessartblick — Fassade</div>
+      <div class="rcard rv">Rathaus Biebergemünd — Innenausbau</div>
+      <div class="rcard rv">Wohnpark Kinzigtal — WDVS</div>
+    </div>
+    <div class="counters rv">
+      <div class="counter"><div class="num" data-target="12500">0</div><div class="lbl">qm gestrichen</div></div>
+      <div class="counter"><div class="num" data-target="480">0</div><div class="lbl">Projekte</div></div>
+      <div class="counter"><div class="num" data-target="26">0</div><div class="lbl">Jahre Erfahrung</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-label rv">Über uns</div>
+    <h2 class="sec-title rv">Malermeister seit 1998</h2>
+    <p class="rv" style="max-width:60ch; color:var(--ink-2); font-size:1.1rem;">Lars Kaufmann führt den Familienbetrieb in zweiter Generation. Gegründet 1998 in Biebergemünd, steht der Name Kaufmann für handwerkliche Perfektion, faire Preise und termintreue Ausführung. Unser Team aus fünf qualifizierten Malern und Lackierern betreut Privatkunden, Hausverwaltungen und Gewerbeobjekte im gesamten Main-Kinzig-Kreis.</p>
+  </div>
+</section>
+
+<section class="sec dark">
+  <div class="wrap">
+    <div class="sec-label rv">Kundenstimmen</div>
+    <h2 class="sec-title rv">Das sagen unsere Kunden</h2>
+    <div class="vgrid">
+      <div class="vcard rv"><div class="stars">★★★★★</div><q>Die komplette Fassadensanierung unseres Hauses — pünktlich, sauber, perfekt. Besser geht's nicht.</q><div class="who">— Familie H., Biebergemünd</div></div>
+      <div class="vcard rv"><div class="stars">★★★★★</div><q>Edle Spachteltechnik im Wohnzimmer. Herr Kaufmann hat unsere Vorstellungen exakt umgesetzt.</q><div class="who">— M. L., Gelnhausen</div></div>
+      <div class="vcard rv"><div class="stars">★★★★★</div><q>Schimmelsanierung im Keller — seit zwei Jahren ruhe. Endlich! Kompetente Beratung inklusive.</q><div class="who">— S. B., Bad Orb</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kontakt">
+  <div class="wrap">
+    <div class="sec-label rv">Kontakt</div>
+    <h2 class="sec-title rv">Jetzt kostenloses Angebot einholen</h2>
+    <div class="cgrid">
+      <div class="cmap rv">▦ Spessartstraße 12 · 63599 Biebergemünd</div>
+      <dl class="cinfo rv">
+        <dt>E-Mail</dt><dd><a href="mailto:info@kaufmann-malermeister.de">info@kaufmann-malermeister.de</a></dd>
+        <dt>Telefon</dt><dd><a href="tel:+496050906653">06050 906653</a></dd>
+        <dt>Adresse</dt><dd>Spessartstraße 12<br>63599 Biebergemünd</dd>
+        <a href="mailto:info@kaufmann-malermeister.de" class="btn btn-pri" style="margin-top:8px; background:var(--terracotta);">Jetzt E-Mail schreiben</a>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap"><div class="bar">
+    <span>Lars Kaufmann Malermeister · Biebergemünd</span>
+    <span>&copy; 2026 Konzept-Vorschau · MZ.9</span>
+  </div></div>
+</footer>
+
+<script>
+(function(){
+var nav=document.getElementById("nav");
+addEventListener("scroll",function(){nav.classList.toggle("scrolled",scrollY>40)},{passive:true});
+var els=[].slice.call(document.querySelectorAll(".rv"));
+if("IntersectionObserver"in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})});els.forEach(function(el){io.observe(el)});}else{els.forEach(function(el){el.classList.add("in")});}
+
+/* Counter animation */
+var counters=[].slice.call(document.querySelectorAll(".counter .num"));
+var counted=false;
+function animCounters(){
+  if(counted)return;
+  counters.forEach(function(el){var t=parseInt(el.getAttribute("data-target"));var d=2000;var s=Math.ceil(t/(d/16));var c=0;var iv=setInterval(function(){c+=s;if(c>=t){el.textContent=t.toLocaleString();clearInterval(iv)}else{el.textContent=c.toLocaleString()}},16)});
+  counted=true;
+}
+var ci=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)animCounters()})});
+var cs=document.querySelector(".counters");if(cs)ci.observe(cs);
+})();
+</script></body></html>
