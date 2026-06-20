@@ -29,10 +29,25 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 .review .stars{color:#e0a93b;font-size:1.1rem}.review p{font-style:italic;margin:8px 0;font-size:1rem}.review .who{color:#8b6f5c;font-size:.8rem}
 .footer{background:var(--brown);color:rgba(255,255,255,.7);text-align:center;padding:40px 20px;font-size:.85rem}
 @media(max-width:600px){.hero h1{font-size:2.5rem}}
+/* premium touch */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.045;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero{overflow:hidden}
+.hero .glow{position:absolute;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;width:42vw;height:42vw;left:-6%;top:-18%;background:radial-gradient(circle,var(--crust),transparent 70%);opacity:.3;animation:flg 18s ease-in-out infinite}
+@keyframes flg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3vw,4vh) scale(1.14)}}
+.btn-pri{position:relative;overflow:hidden}
+.btn-pri::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);transition:left .6s}
+.btn-pri:hover::after{left:130%}
+.card,.review{transition:transform .35s,box-shadow .3s}.card:hover,.review:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(92,58,33,.10)}
+.finder{background:#fff;border:1px solid #f0e0d0;border-radius:18px;max-width:600px;margin:0 auto;padding:34px;text-align:center;box-shadow:0 4px 18px rgba(92,58,33,.06)}
+.finder select{width:100%;max-width:360px;padding:13px 16px;border:1px solid #e6d2bd;border-radius:25px;font-family:inherit;font-size:1rem;background:var(--cream);color:var(--ink);text-align:center}
+.finder .res{margin:16px 0 0;min-height:54px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.finder .res .pr{font-family:'Amatic SC',cursive;font-size:1.9rem;font-weight:700;color:var(--brown)}.finder .res .nt{color:#8b6f5c;font-size:.85rem}
+.finder .fbtn{display:none;margin-top:14px}.finder .fbtn.on{display:inline-block}
 </style>
 </head>
 <body>
 <section class="hero">
+<div class="glow"></div>
 <h1>Kornblume<em>Bäckerei · Bielefeld</em></h1>
 <p>Frisch gebacken — täglich. Brot, Brötchen & Konditorei aus handwerklicher Backkunst mit regionalen Zutaten.</p>
 <div style="margin-top:24px;position:relative">
@@ -40,7 +55,24 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 <a href="#sortiment" class="btn btn-sec">Unser Sortiment</a>
 </div>
 </section>
-<div class="strip"><span>✦ Täglich frisch</span><span>✦ Regionale Zutaten</span><span>✦ Handwerk seit 1988</span></div>
+<div class="strip"><span>✦ Täglich frisch</span><span>✦ Regionale Zutaten</span><span>✦ Eigene Herstellung</span></div>
+
+<section class="sec" id="planer">
+<h2>Was darf es sein?</h2>
+<p class="sub">Sagen Sie uns den Anlass — wir legen das Passende frisch für Sie zurück.</p>
+<div class="finder">
+<select id="anl" aria-label="Anlass wählen">
+<option value="">Anlass wählen …</option>
+<option data-r="Frische Brötchen & Brot zum Abholen">Frühstück daheim</option>
+<option data-r="Belegtes Catering & Kaffeetafel">Feier / Büro</option>
+<option data-r="Torte nach Wunsch — auf Bestellung">Geburtstag</option>
+<option data-r="Hochzeitstorte mit persönlicher Beratung">Hochzeit</option>
+<option data-r="Fingerfood & Snacks fürs Team">Firmen-Catering</option>
+</select>
+<div class="res" id="anlRes"><span class="pr" style="color:#bda58c;font-size:1.4rem">—</span><span class="nt">Wählen Sie einen Anlass</span></div>
+<a class="btn btn-pri fbtn" id="anlBtn" href="#bestellen">Frisch zurücklegen lassen</a>
+</div>
+</section>
 
 <section class="sec" id="sortiment">
 <h2>Unser Sortiment</h2>
@@ -64,14 +96,20 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 
 <section class="sec" id="bestellen" style="text-align:center">
 <h2>Vorbestellen</h2>
-<p class="sub">Rufen Sie an oder schreiben Sie — wir legen zurück.</p>
-<p style="font-size:1.2rem">📞 0521 · 00 00 00<br>✉️ info@baeckerei-kornblume.de<br>📍 Bielefeld</p>
-<a href="tel:+495210000000" class="btn btn-pri">Jetzt anrufen</a>
+<p class="sub">Schreiben Sie uns kurz, was Sie brauchen — wir legen es frisch zurück.</p>
+<p style="font-size:1.2rem">✉️ info@baeckerei-kornblume.de<br>📍 Bielefeld</p>
+<a href="mailto:info@baeckerei-kornblume.de?subject=Vorbestellung" class="btn btn-pri">E-Mail schreiben</a>
 </section>
 
 <footer class="footer">
 <p>© 2026 Bäckerei Kornblume — Konzept-Vorschau · MZ.9</p>
 </footer>
-<script>window.MZ9CHAT={mode:"lead",name:"Baeckerei Kornblume",accent:"#10B981"};</script><script src="../chat.js" defer></script>
+<script>
+(function(){var s=document.getElementById("anl"),r=document.getElementById("anlRes"),b=document.getElementById("anlBtn");if(!s)return;
+s.addEventListener("change",function(){var o=s.options[s.selectedIndex],t=o.getAttribute("data-r");
+if(!t){r.innerHTML='<span class="pr" style="color:#bda58c;font-size:1.4rem">—</span><span class="nt">Wählen Sie einen Anlass</span>';b.classList.remove("on");return;}
+r.innerHTML='<span class="pr">'+t+'</span><span class="nt">Für „'+o.text+'" · aus eigener Herstellung</span>';b.classList.add("on");});})();
+</script>
+<script>window.MZ9CHAT={mode:"lead",name:"Bäckerei Kornblume",accent:"#d4a054",cta:"#planer"};</script><script src="../chat.js" defer></script>
 </body>
 </html>
