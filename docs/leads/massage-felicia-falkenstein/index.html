@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Felicia Falkenstein – Heilpraktikerin · Massagen in Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lav: #E8DEF8; --sage: #A3B899; --cream: #FFFAF5; --plum: #4A3B52;
+    --soft: #F3EDFA; --dark: #2D2235; --gold: #C4A882;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',sans-serif;color:var(--dark);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+  .ff-topbar{padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;background:rgba(255,250,245,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(163,184,153,.25)}
+  .ff-logo{font-family:'EB Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--plum);letter-spacing:.03em}
+  .ff-logo span{color:var(--sage);font-weight:400;font-style:italic}
+  .ff-nav a{color:var(--plum);text-decoration:none;font-size:.9rem;font-weight:600;margin-left:28px;transition:color .25s}
+  .ff-nav a:hover{color:var(--sage)}
+
+  .ff-hero{min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px 100px;position:relative;overflow:hidden}
+  .ff-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,var(--lav) 0%,var(--cream) 70%);z-index:0}
+  .ff-hero::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:var(--sage);opacity:.08;top:20%;left:calc(50% - 150px);z-index:0}
+  .ff-hero-inner{position:relative;z-index:1;max-width:680px}
+  .ff-portrait-placeholder{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--lav),var(--sage));margin:0 auto 28px;display:flex;align-items:center;justify-content:center;font-size:3rem;opacity:.9}
+  .ff-hero h1{font-family:'EB Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:600;color:var(--plum);line-height:1.15;margin-bottom:16px}
+  .ff-hero h1 em{font-style:italic;color:var(--sage);font-weight:400}
+  .ff-hero .sub{font-size:1.1rem;color:#6B5E78;max-width:500px;margin:0 auto 32px;font-weight:300}
+  .ff-btn{display:inline-block;padding:14px 36px;border-radius:40px;background:var(--plum);color:#fff;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:.02em;transition:all .3s;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(74,59,82,.25)}
+  .ff-btn:hover{background:var(--sage);color:#fff;transform:translateY(-2px);box-shadow:0 6px 28px rgba(163,184,153,.4)}
+
+  .ff-treatments{padding:80px 24px;max-width:960px;margin:0 auto}
+  .ff-treatments h2{font-family:'EB Garamond',serif;font-size:2.2rem;color:var(--plum);text-align:center;margin-bottom:8px}
+  .ff-treatments .intro{text-align:center;color:#6B5E78;margin-bottom:48px;font-weight:300}
+  .ff-treat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .ff-treat-card{background:#fff;border-radius:24px;padding:36px 24px;text-align:center;box-shadow:0 2px 24px rgba(74,59,82,.06);transition:all .35s;border:1px solid rgba(163,184,153,.15)}
+  .ff-treat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(74,59,82,.1);border-color:var(--sage)}
+  .ff-treat-icon{width:64px;height:64px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:1.8rem}
+  .ff-treat-card h3{font-family:'EB Garamond',serif;font-size:1.3rem;color:var(--plum);margin-bottom:8px}
+  .ff-treat-card p{font-size:.9rem;color:#6B5E78;line-height:1.5;font-weight:300}
+
+  .ff-about{padding:80px 24px;max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .ff-about-img{width:100%;aspect-ratio:3/4;border-radius:32px;background:linear-gradient(160deg,var(--lav),var(--sage));display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}
+  .ff-about-img::after{content:'🌸';font-size:5rem;position:absolute;bottom:20px;opacity:.6}
+  .ff-about-text h2{font-family:'EB Garamond',serif;font-size:2rem;color:var(--plum);margin-bottom:16px}
+  .ff-about-text p{color:#6B5E78;margin-bottom:14px;font-weight:300;font-size:.95rem}
+
+  .ff-testimonials{padding:80px 24px;background:var(--soft)}
+  .ff-testimonials h2{font-family:'EB Garamond',serif;font-size:2rem;color:var(--plum);text-align:center;margin-bottom:40px}
+  .ff-testimonial-grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .ff-testimonial-card{background:#fff;border-radius:28px;padding:28px;text-align:center;border:1px solid rgba(163,184,153,.12);position:relative}
+  .ff-testimonial-card::before{content:'"';font-family:'EB Garamond',serif;font-size:4rem;color:var(--sage);opacity:.25;position:absolute;top:8px;left:20px;line-height:1}
+  .ff-testimonial-card p{font-style:italic;color:#5A4E68;font-size:.92rem;margin:16px 0 12px;font-weight:400}
+  .ff-testimonial-card .name{font-weight:700;color:var(--plum);font-size:.85rem}
+  .ff-testimonial-card .role{font-size:.75rem;color:var(--sage);font-weight:600}
+
+  .ff-contact{padding:80px 24px;max-width:640px;margin:0 auto;text-align:center}
+  .ff-contact h2{font-family:'EB Garamond',serif;font-size:2rem;color:var(--plum);margin-bottom:8px}
+  .ff-contact .subtitle{color:#6B5E78;margin-bottom:36px;font-weight:300}
+  .ff-contact-details{display:grid;gap:20px;margin-bottom:40px}
+  .ff-contact-item{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.05rem;color:var(--dark)}
+  .ff-contact-item .icon{font-size:1.4rem}
+  .ff-contact-item a{color:var(--plum);text-decoration:none;font-weight:600;border-bottom:1px dashed var(--sage);transition:border-color .25s}
+  .ff-contact-item a:hover{border-bottom-color:var(--plum)}
+
+  .ff-footer{padding:32px 24px;text-align:center;background:var(--plum);color:rgba(255,255,255,.7);font-size:.82rem}
+  .ff-footer a{color:var(--sage);text-decoration:none;font-weight:600}
+
+  @media(max-width:700px){
+    .ff-treat-grid,.ff-testimonial-grid{grid-template-columns:1fr}
+    .ff-about{grid-template-columns:1fr;gap:28px}
+    .ff-about-img{aspect-ratio:1/1;max-width:280px;margin:0 auto}
+    .ff-nav a{margin-left:14px;font-size:.8rem}
+    .ff-hero{min-height:70vh;padding:40px 16px 60px}
+  }
+</style>
+</head>
+<body>
+
+<header class="ff-topbar">
+  <div class="ff-logo">Felicia <span>Falkenstein</span></div>
+  <nav class="ff-nav">
+    <a href="#behandlungen">Behandlungen</a>
+    <a href="#ueber-mich">Über mich</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="ff-hero">
+  <div class="ff-hero-inner">
+    <div class="ff-portrait-placeholder" aria-hidden="true">🤲</div>
+    <h1>Heilsame Hände für <em>Körper & Seele</em></h1>
+    <p class="sub">Klassische Massage, Faszientherapie & energetische Behandlung – individuell auf Sie abgestimmt. In der Bielefelder Innenstadt.</p>
+    <a href="#kontakt" class="ff-btn">Behandlung buchen</a>
+  </div>
+</section>
+
+<section id="behandlungen" class="ff-treatments">
+  <h2>Meine Behandlungen</h2>
+  <p class="intro">Jede Behandlung wird ganzheitlich und individuell auf Sie abgestimmt</p>
+  <div class="ff-treat-grid">
+    <div class="ff-treat-card">
+      <div class="ff-treat-icon">💆</div>
+      <h3>Klassische Massage</h3>
+      <p>Lösen Sie Verspannungen und finden Sie zu neuer Leichtigkeit – mit sanften, fließenden Grifftechniken.</p>
+    </div>
+    <div class="ff-treat-card">
+      <div class="ff-treat-icon">🌿</div>
+      <h3>Faszientherapie</h3>
+      <p>Gezielte Behandlung des Bindegewebes für mehr Beweglichkeit und Schmerzlinderung.</p>
+    </div>
+    <div class="ff-treat-card">
+      <div class="ff-treat-icon">✨</div>
+      <h3>Energetische Behandlung</h3>
+      <p>Harmonisierung von Körper und Geist durch sanfte Energiearbeit – für tiefe innere Ruhe.</p>
+    </div>
+  </div>
+</section>
+
+<section id="ueber-mich" class="ff-about">
+  <div class="ff-about-img" aria-label="Portrait Felicia Falkenstein"></div>
+  <div class="ff-about-text">
+    <h2>Über mich</h2>
+    <p>Ich bin Felicia Falkenstein, staatlich geprüfte Heilpraktikerin mit eigener Praxis im Herzen von Bielefeld. Seit über 12 Jahren begleite ich Menschen auf ihrem Weg zu mehr Wohlbefinden.</p>
+    <p>Meine Arbeit verbindet klassische Massagetechniken mit moderner Faszientherapie und feinstofflicher Energiearbeit. Jeder Mensch ist einzigartig – deshalb gibt es bei mir keine Standard-Behandlung, sondern eine individuell auf Sie zugeschnittene Therapie.</p>
+    <p>In meiner Praxis erwartet Sie ein geschützter Raum, in dem Sie zur Ruhe kommen und neue Kraft schöpfen können.</p>
+  </div>
+</section>
+
+<section class="ff-testimonials">
+  <h2>Das sagen meine Klienten</h2>
+  <div class="ff-testimonial-grid">
+    <div class="ff-testimonial-card">
+      <p>Felicia hat eine ganz besondere Gabe. Nach jeder Behandlung fühle ich mich wie neugeboren – körperlich und seelisch. Ihre Hände sind pure Magie.</p>
+      <div class="name">Sabine K.</div>
+      <div class="role">Stammklientin seit 2018</div>
+    </div>
+    <div class="ff-testimonial-card">
+      <p>Ich kam mit starken Rückenschmerzen zu Felicia. Nach der dritten Sitzung waren sie fast vollständig verschwunden. Sie nimmt sich Zeit und hört wirklich zu.</p>
+      <div class="name">Markus K.</div>
+      <div class="role">Klient seit 2021</div>
+    </div>
+    <div class="ff-testimonial-card">
+      <p>Die energetischen Behandlungen bei Felicia sind etwas ganz Besonderes. Ich gehe jedes Mal mit einem Gefühl tiefer innerer Ruhe nach Hause. Ein Geschenk.</p>
+      <div class="name">Anna L.</div>
+      <div class="role">Klientin seit 2020</div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="ff-contact">
+  <h2>Bereit für mehr Wohlbefinden?</h2>
+  <p class="subtitle">Vereinbaren Sie jetzt einen Termin – ich freue mich auf Sie.</p>
+  <div class="ff-contact-details">
+    <div class="ff-contact-item">
+      <span class="icon">📞</span>
+      <a href="tel:+4952611839505">05261 1839505</a>
+    </div>
+    <div class="ff-contact-item">
+      <span class="icon">✉️</span>
+      <a href="mailto:massage-bielefeld@posteo.de">massage-bielefeld@posteo.de</a>
+    </div>
+    <div class="ff-contact-item">
+      <span class="icon">📍</span>
+      <span>Bahnhofstr. 48, 33602 Bielefeld</span>
+    </div>
+  </div>
+  <a href="tel:+4952611839505" class="ff-btn">Jetzt anrufen & Termin vereinbaren</a>
+</section>
+
+<footer class="ff-footer">
+  <p>© 2025 Felicia Falkenstein – Heilpraktikerin · <a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+  <p style="margin-top:8px;font-size:.72rem;opacity:.5">Konzept-Vorschau von MZ.9 — Media Engineering.AI</p>
+</footer>
+
+</body>
+</html>
