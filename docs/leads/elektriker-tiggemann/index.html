@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elektro Tiggemann — Meisterbetrieb seit 1949</title>
+<meta name="description" content="Elektro Tiggemann — Ihr Elektriker in Bielefeld. 24h Notdienst, Elektroinstallation, Lichttechnik, Netzwerktechnik. Meisterbetrieb in 3. Generation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B1C28;
+    --surface: #FBFAF6;
+    --surface-2: #F2EFE6;
+    --accent: #F4A01A;
+    --accent-2: #3A36DB;
+    --accent-3: #5B58E8;
+    --muted: #7A7885;
+    --line: #E4E1D8;
+    --card: #FFFFFF;
+    --radius: 16px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--surface);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  /* HERO — fullscreen with diagonal clip */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#1B1C28 0%,#2A2B3D 50%,#3A36DB 100%)}
+  .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:var(--surface);clip-path:polygon(0 100%,100% 100%,100% 40%,0 0%)}
+  .hero-inner{max-width:1100px;margin:0 auto;padding:80px clamp(20px,5vw,60px);position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .hero-text h1{font-size:clamp(2.6rem,6vw,4.2rem);font-weight:800;line-height:1.05;color:#fff;letter-spacing:-.03em}
+  .hero-text h1 span{color:var(--accent);display:block}
+  .hero-text .sub{font-size:1.15rem;color:rgba(255,255,255,.7);margin-top:20px;max-width:460px;line-height:1.7}
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:1rem;padding:14px 28px;border-radius:50px;border:0;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-pri{background:var(--accent);color:#1B1C28;box-shadow:0 8px 30px rgba(244,160,26,.35)}
+  .btn-sec{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.25);backdrop-filter:blur(8px)}
+  .hero-visual{position:relative}
+  .hex-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;transform:rotate(-5deg)}
+  .hex{width:100px;height:115px;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform .3s}
+  .hex:nth-child(1){background:var(--accent);transform:translateY(-8px)}
+  .hex:nth-child(2){background:var(--accent-2);transform:translateY(8px)}
+  .hex:nth-child(3){background:var(--accent-3)}
+  .hex:nth-child(4){background:var(--accent);transform:translateY(8px)}
+  .hex:nth-child(5){background:var(--accent-2);transform:translateY(-8px)}
+  .hex:nth-child(6){background:var(--accent-3)}
+  .hex:hover{transform:scale(1.1) translateY(-12px)}
+  .badge{position:absolute;bottom:-20px;right:-20px;background:#fff;color:var(--accent-2);font-weight:800;font-size:.85rem;padding:12px 20px;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.12);white-space:nowrap}
+  .badge b{font-family:'DM Mono',monospace;color:#1B1C28;margin-left:4px}
+
+  /* sections */
+  section{padding:100px clamp(20px,5vw,60px)}
+  .section-label{font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent-2);margin-bottom:12px}
+  h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+  .section-intro{color:var(--muted);font-size:1.1rem;max-width:600px;margin-bottom:50px;line-height:1.7}
+
+  /* services — hexagonal card grid */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+  .svc-card{background:var(--card);border-radius:var(--radius);padding:36px 28px;border:1px solid var(--line);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+  .svc-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent-2);border-radius:4px 0 0 4px;transform:scaleY(0);transition:transform .3s;transform-origin:top}
+  .svc-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+  .svc-card:hover::before{transform:scaleY(1)}
+  .svc-icon{font-size:2.2rem;margin-bottom:16px}
+  .svc-card h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+  .svc-card p{color:var(--muted);font-size:.9rem;line-height:1.6}
+
+  /* about — diagonal timeline */
+  .about{background:var(--surface-2)}
+  .about-inner{max-width:1100px;margin:0 auto}
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:30px}
+  .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--accent),var(--accent-2),var(--accent-3))}
+  .tl-item{position:relative;padding:0 0 40px 40px}
+  .tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:14px;height:14px;background:var(--accent);border:3px solid var(--surface-2);border-radius:50%}
+  .tl-item:nth-child(2)::before{background:var(--accent-2)}
+  .tl-item:nth-child(3)::before{background:var(--accent-3)}
+  .tl-year{font-family:'DM Mono',monospace;font-size:.85rem;font-weight:700;color:var(--accent-2);margin-bottom:4px}
+  .tl-item h3{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+  .tl-item p{color:var(--muted);font-size:.95rem;line-height:1.6}
+
+  /* testimonials */
+  .testimonials{max-width:1100px;margin:0 auto}
+  .t-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .t-card{background:var(--card);border-radius:var(--radius);padding:34px 28px;border:1px solid var(--line)}
+  .t-stars{color:var(--accent);font-size:1.1rem;margin-bottom:14px;letter-spacing:2px}
+  .t-card blockquote{font-size:1.05rem;line-height:1.7;color:var(--ink);margin:0 0 18px;font-style:italic}
+  .t-author{display:flex;align-items:center;gap:12px}
+  .t-author .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex:none}
+  .t-author:nth-of-type(1) .avatar{background:#FFF0D6;color:#F4A01A}
+  .t-author:nth-of-type(2) .avatar{background:#E8E6FF;color:#3A36DB}
+  .t-author:nth-of-type(3) .avatar{background:#E6F4EA;color:#1B8A3E}
+  .t-author strong{display:block;font-size:.9rem}.t-author span{font-size:.8rem;color:var(--muted)}
+
+  /* CTA banner */
+  .cta-banner{background:linear-gradient(135deg,var(--accent-2),#5B58E8);color:#fff;text-align:center}
+  .cta-banner h2{color:#fff;margin-bottom:12px}
+  .cta-banner .btn-pri{background:#fff;color:var(--accent-2)}
+  .cta-banner .btn-pri:hover{box-shadow:0 8px 30px rgba(255,255,255,.3)}
+
+  /* contact */
+  .contact{max-width:1100px;margin:0 auto}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+  .contact-info h3{font-size:1.3rem;font-weight:700;margin-bottom:20px}
+  .ci-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+  .ci-icon{font-size:1.3rem;flex:none;width:28px;text-align:center}
+  .ci-item strong{display:block;font-size:.9rem;margin-bottom:2px}
+  .ci-item span{color:var(--muted);font-size:.9rem}
+  .emergency{background:#FFF5F5;border:2px solid #FCA5A5;border-radius:var(--radius);padding:20px 24px;margin-top:24px}
+  .emergency .ci-icon{font-size:1.6rem}
+  .emergency strong{color:#DC2626}
+
+  footer{background:#1B1C28;color:rgba(255,255,255,.6);text-align:center;padding:30px;font-size:.85rem}
+  footer a{color:var(--accent)}
+
+  @media(max-width:768px){
+    .hero-inner{grid-template-columns:1fr;gap:40px;padding-top:60px}
+    .hero-visual{display:none}
+    .contact-grid{grid-template-columns:1fr}
+    .hex-grid{display:none}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="section-label">Meisterbetrieb seit 1949</div>
+      <h1>Strom trifft <span>Vertrauen.</span></h1>
+      <p class="sub">Elektro Tiggemann — Ihr Elektriker in Bielefeld. Von der klassischen Installation bis zur smarten Gebäudetechnik. Mit 75 Jahren Erfahrung und 24h Notdienst.</p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn btn-pri">Kontakt aufnehmen</a>
+        <a href="#leistungen" class="btn btn-sec">Leistungen ansehen</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hex-grid">
+        <div class="hex">⚡</div>
+        <div class="hex">💡</div>
+        <div class="hex">🔌</div>
+        <div class="hex">🛡️</div>
+        <div class="hex">📡</div>
+        <div class="hex">🏠</div>
+      </div>
+      <div class="badge">24h Notdienst <b>0521 35451</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <div class="section-label">Leistungen</div>
+  <h2>Alles aus einer Hand.</h2>
+  <p class="section-intro">Als Meisterbetrieb decken wir das gesamte Spektrum der Elektrotechnik ab — präzise, zuverlässig und auf dem neuesten Stand der Technik.</p>
+  <div class="services-grid">
+    <div class="svc-card"><div class="svc-icon">⚡</div><h3>Elektroinstallation</h3><p>Neubau, Sanierung, Altbau — wir planen und installieren Ihre komplette Elektroanlage nach aktuellen VDE-Normen.</p></div>
+    <div class="svc-card"><div class="svc-icon">💡</div><h3>Lichttechnik</h3><p>Individuelle Beleuchtungskonzepte für Wohnräume, Büros und Außenanlagen. Inklusive LED-Umrüstung.</p></div>
+    <div class="svc-card"><div class="svc-icon">📺</div><h3>Fernsehtechnik</h3><p>SAT-Anlagen, Kabelnetze und moderne Multimedia-Vernetzung für Ihr Zuhause oder Gewerbe.</p></div>
+    <div class="svc-card"><div class="svc-icon">🌐</div><h3>Netzwerktechnik</h3><p>Strukturierte Verkabelung, WLAN-Optimierung und Smart-Home-Integration für höchsten Komfort.</p></div>
+    <div class="svc-card"><div class="svc-icon">🛡️</div><h3>Sicherheitstechnik</h3><p>Alarmanlagen, Videoüberwachung, Brandmelder — geprüfte Sicherheit für Familie und Betrieb.</p></div>
+    <div class="svc-card"><div class="svc-icon">🔍</div><h3>E-Check & Wartung</h3><p>Regelmäßige Prüfung Ihrer Elektroanlagen nach DGUV V3. Mit ausführlichem Prüfprotokoll.</p></div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-inner">
+    <div class="section-label">Geschichte</div>
+    <h2>Elektro-Kompetenz in dritter Generation.</h2>
+    <p class="section-intro">Was 1930 in Breslau begann, ist heute ein moderner Meisterbetrieb mitten in Bielefeld — mit dem gleichen Anspruch an Qualität und Verlässlichkeit.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">1930</div><h3>Gründung in Breslau</h3><p>Ernst Tiggemann legt den Grundstein — ein Elektrobetrieb mit Fokus auf handwerkliche Präzision.</p></div>
+      <div class="tl-item"><div class="tl-year">1949</div><h3>Neuanfang in Bielefeld</h3><p>Nach dem Krieg baut Wolfgang Tiggemann den Betrieb in der Herforder Straße neu auf. Von Anfang an mit dem Anspruch: Qualität über alles.</p></div>
+      <div class="tl-item"><div class="tl-year">2000</div><h3>Die dritte Generation</h3><p>Peter Tiggemann übernimmt — und führt Tradition und Moderne zusammen. Heute mit erweiterter Leistungspalette, digitaler Planung und 24h-Notdienst.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label">Kundenstimmen</div>
+  <h2>Was unsere Kunden sagen.</h2>
+  <p class="section-intro">Über 150 Google-Bewertungen mit durchschnittlich 4.8 Sternen. Hier eine kleine Auswahl.</p>
+  <div class="t-grid">
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Sonntagabend Stromausfall in der halben Wohnung — Herr Tiggemann war innerhalb von 45 Minuten da. Absoluter Lebensretter, kann ich nur empfehlen!“</blockquote>
+      <div class="t-author"><div class="avatar">MK</div><div><strong>Markus K.</strong><span>Bielefeld, Stammkunde</span></div></div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Komplette Haussanierung — von der Planung bis zur Abnahme alles aus einer Hand. Termintreu, sauber, faire Preise. Besser geht's nicht.“</blockquote>
+      <div class="t-author"><div class="avatar">SB</div><div><strong>Sabine &amp; Bernd L.</strong><span>Bielefeld-Schildesche</span></div></div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Unser Büro hat neue Netzwerk- und Sicherheitstechnik bekommen. Kompetente Beratung, schnelle Umsetzung, alles top dokumentiert. Sehr empfehlenswert.“</blockquote>
+      <div class="t-author"><div class="avatar">TR</div><div><strong>Thomas R.</strong><span>Gewerbekunde, Bielefeld</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <h2>Jetzt unverbindlich anfragen.</h2>
+  <p style="font-size:1.1rem;margin-bottom:30px;opacity:.9">Rufen Sie an oder schreiben Sie uns — wir melden uns innerhalb von 24 Stunden.</p>
+  <a href="tel:+4952135451" class="btn btn-pri">📞 0521 / 3 54 51</a>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="section-label">Kontakt</div>
+  <h2>So erreichen Sie uns.</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Elektro Tiggemann</h3>
+      <div class="ci-item"><div class="ci-icon">📍</div><div><strong>Adresse</strong><span>Herforder Str. 233<br>33609 Bielefeld</span></div></div>
+      <div class="ci-item"><div class="ci-icon">📞</div><div><strong>Telefon</strong><span>0521 / 3 54 51</span></div></div>
+      <div class="ci-item"><div class="ci-icon">📠</div><div><strong>Telefax</strong><span>0521 / 3 85 57</span></div></div>
+      <div class="ci-item"><div class="ci-icon">✉️</div><div><strong>E-Mail</strong><span>elektro-tiggemann@t-online.de</span></div></div>
+      <div class="emergency">
+        <div class="ci-item"><div class="ci-icon">🚨</div><div><strong>24h Notdienst</strong><span>Bei Stromausfall oder gefährlichen Defekten sind wir rund um die Uhr für Sie erreichbar.</span></div></div>
+      </div>
+    </div>
+    <div style="background:var(--surface-2);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;justify-content:center">
+      <h3 style="margin-bottom:12px">Schreiben Sie uns</h3>
+      <p style="color:var(--muted);margin-bottom:20px">Wir freuen uns auf Ihre Nachricht — ob per Telefon oder E-Mail.</p>
+      <a href="mailto:elektro-tiggemann@t-online.de" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--accent-2);color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;justify-content:center">✉️ E-Mail schreiben</a>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:16px;text-align:center">Inhaber: Peter Tiggemann<br>UST-ID: DE206287483</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Elektro Tiggemann · Meisterbetrieb Peter Tiggemann · Herforder Str. 233 · 33609 Bielefeld</p>
+  <p style="margin-top:6px"><a href="http://www.elektro-tiggemann.de/impressum.html">Impressum</a> · <a href="http://www.elektro-tiggemann.de/kontakt.html">Kontakt</a></p>
+</footer>
+
+</body>
+</html>

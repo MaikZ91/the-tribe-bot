@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HL Steuerberatungsgesellschaft — Bielefeld</title>
+<meta name="description" content="HL Steuerberatungsgesellschaft mbH in Bielefeld. Ihr Partner für Steuerberatung, Finanzbuchhaltung, Lohnabrechnung und betriebswirtschaftliche Beratung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A1214;
+    --surface: #FBF8F3;
+    --surface-2: #F3EDE3;
+    --accent: #8B1E3F;
+    --accent-light: #B84A5C;
+    --accent-2: #C9A84C;
+    --muted: #7A6E64;
+    --line: #E5DDD2;
+    --card: #FFFFFF;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --radius: 4px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--surface);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+  /* HERO — magazine cover style */
+  .hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(165deg,#1A1214 0%,#2D1820 40%,#3D1F2B 100%);position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:10%;right:-5%;width:500px;height:500px;border:1px solid rgba(201,168,76,.15);border-radius:50%}
+  .hero::after{content:'';position:absolute;bottom:-5%;left:-8%;width:350px;height:350px;border:1px solid rgba(201,168,76,.1);border-radius:50%}
+  .hero-inner{max-width:1200px;margin:0 auto;padding:80px clamp(24px,5vw,60px);position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .hero-badge{display:inline-block;font-family:var(--sans);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent-2);border:1px solid var(--accent-2);padding:6px 16px;margin-bottom:24px}
+  .hero-text h1{font-family:var(--serif);font-size:clamp(2.8rem,5.5vw,4rem);font-weight:800;line-height:1.1;color:#fff;letter-spacing:-.01em}
+  .hero-text h1 em{font-style:italic;color:var(--accent-2);display:block}
+  .hero-text .sub{font-size:1.1rem;color:rgba(255,255,255,.6);margin-top:24px;max-width:440px;line-height:1.8}
+  .hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{font-family:var(--sans);font-weight:600;font-size:.9rem;padding:16px 34px;border:0;cursor:pointer;text-decoration:none;text-transform:uppercase;letter-spacing:.06em;transition:all .25s;display:inline-flex;align-items:center;gap:10px}
+  .btn-pri{background:var(--accent);color:#fff}
+  .btn-pri:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 12px 30px rgba(139,30,63,.3)}
+  .btn-sec{background:transparent;color:var(--accent-2);border:1.5px solid var(--accent-2)}
+  .btn-sec:hover{background:rgba(201,168,76,.1);transform:translateY(-2px)}
+  .hero-quote{background:rgba(255,255,255,.05);border-left:3px solid var(--accent-2);padding:28px 32px;backdrop-filter:blur(8px)}
+  .hero-quote blockquote{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
+  .hero-quote cite{display:block;margin-top:14px;font-family:var(--sans);font-style:normal;font-size:.8rem;color:var(--accent-2);text-transform:uppercase;letter-spacing:.08em}
+
+  section{padding:100px clamp(24px,5vw,60px)}
+  .section-label{font-family:var(--sans);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:14px}
+  h2{font-family:var(--serif);font-size:clamp(2rem,4vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:14px}
+  .section-intro{color:var(--muted);font-size:1.05rem;max-width:580px;margin-bottom:50px}
+
+  /* services — magazine layout with large featured card */
+  .services-layout{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:20px}
+  .svc-featured{grid-column:1;grid-row:1/3;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;padding:44px 36px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+  .svc-featured::after{content:'';position:absolute;top:-30%;right:-20%;width:250px;height:250px;border:2px solid rgba(255,255,255,.15);border-radius:50%}
+  .svc-featured .num{font-family:var(--serif);font-size:5rem;font-weight:800;opacity:.15;position:absolute;top:20px;left:24px;line-height:1}
+  .svc-featured h3{font-family:var(--serif);font-size:1.6rem;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
+  .svc-featured p{opacity:.85;font-size:.95rem;line-height:1.7;max-width:380px;position:relative;z-index:1}
+  .svc-card{background:var(--card);border:1px solid var(--line);padding:32px 28px;transition:transform .3s,box-shadow .3s;position:relative}
+  .svc-card:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.07)}
+  .svc-card .num{font-family:var(--serif);font-size:2.6rem;font-weight:800;color:var(--accent);opacity:.12;position:absolute;top:12px;right:18px;line-height:1}
+  .svc-card h3{font-family:var(--serif);font-size:1.15rem;font-weight:700;margin-bottom:8px;color:var(--ink)}
+  .svc-card p{color:var(--muted);font-size:.9rem;line-height:1.6}
+
+  /* team — alternating rows */
+  .team{background:var(--surface-2)}
+  .team-grid{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:30px}
+  .team-row{display:grid;grid-template-columns:120px 1fr;gap:28px;align-items:center;background:var(--card);padding:28px;border-left:4px solid var(--accent)}
+  .team-row:nth-child(even){border-left-color:var(--accent-2)}
+  .team-avatar{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.8rem;font-weight:800;background:var(--surface-2);color:var(--accent)}
+  .team-row:nth-child(even) .team-avatar{color:var(--accent-2)}
+  .team-info h3{font-family:var(--serif);font-size:1.25rem;font-weight:700;margin-bottom:4px}
+  .team-info .role{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .team-row:nth-child(even) .team-info .role{color:var(--accent-2)}
+  .team-info p{color:var(--muted);font-size:.9rem;line-height:1.6}
+
+  /* testimonials */
+  .tests{max-width:1100px;margin:0 auto}
+  .tests-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:24px}
+  .t-card{background:var(--card);padding:32px 28px;border-top:3px solid var(--accent-2)}
+  .t-stars{color:var(--accent-2);font-size:1rem;margin-bottom:14px}
+  .t-card blockquote{font-family:var(--serif);font-style:italic;font-size:1.05rem;line-height:1.7;color:var(--ink);margin:0 0 18px}
+  .t-author{font-family:var(--sans);font-size:.85rem;font-weight:700;color:var(--accent)}
+
+  /* CTA */
+  .cta-strip{background:var(--accent);color:#fff;text-align:center}
+  .cta-strip h2{color:#fff;font-family:var(--serif)}
+  .cta-strip p{opacity:.8;font-size:1.05rem;margin-bottom:28px}
+
+  /* contact */
+  .contact{max-width:1100px;margin:0 auto}
+  .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+  .contact-detail h3{font-family:var(--serif);font-size:1.4rem;margin-bottom:24px}
+  .cd-row{display:flex;gap:16px;margin-bottom:22px;align-items:flex-start}
+  .cd-icon{font-size:1.2rem;flex:none;width:24px;text-align:center}
+  .cd-row strong{display:block;font-family:var(--sans);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:3px}
+  .cd-row span{color:var(--muted);font-size:.9rem}
+  .contact-box{background:var(--surface-2);padding:36px 30px;display:flex;flex-direction:column;justify-content:center}
+  .contact-box h3{font-family:var(--serif);margin-bottom:12px}
+
+  footer{background:#1A1214;color:rgba(255,255,255,.5);text-align:center;padding:34px;font-size:.8rem}
+  footer a{color:var(--accent-2)}
+
+  @media(max-width:768px){
+    .hero-inner{grid-template-columns:1fr;gap:40px}
+    .hero-quote{display:none}
+    .services-layout{grid-template-columns:1fr;grid-template-rows:auto}
+    .svc-featured{grid-column:1;grid-row:auto}
+    .contact-layout{grid-template-columns:1fr}
+    .team-row{grid-template-columns:80px 1fr;gap:16px}
+    .team-avatar{width:80px;height:80px;font-size:2rem}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Steuerberatung Bielefeld</div>
+      <h1>Zahlen sind unser <em>Handwerk.</em></h1>
+      <p class="sub">Die HL Steuerberatungsgesellschaft mbH — Ihr persönlicher Partner für Steuerberatung, Finanzbuchhaltung und betriebswirtschaftliche Beratung in Bielefeld und Ostwestfalen.</p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn btn-pri">Erstgespräch vereinbaren</a>
+        <a href="#leistungen" class="btn btn-sec">Leistungen entdecken</a>
+      </div>
+    </div>
+    <div class="hero-quote">
+      <blockquote>„Gute Steuerberatung bedeutet nicht nur, Steuern zu sparen — sondern Chancen zu erkennen, bevor sie andere sehen.“</blockquote>
+      <cite>— HL Steuerberatungsgesellschaft</cite>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <div class="section-label">Leistungen</div>
+  <h2>Mehr als Steuererklärungen.</h2>
+  <p class="section-intro">Wir begleiten Unternehmen und Privatpersonen mit ganzheitlicher Beratung — von der Buchhaltung bis zur strategischen Planung.</p>
+  <div class="services-layout">
+    <div class="svc-featured">
+      <div class="num">01</div>
+      <h3>Finanz- &amp; Lohnbuchhaltung</h3>
+      <p>Komplette Finanzbuchhaltung nach HGB inklusive Monats- und Jahresabschlüssen. Lohnabrechnung mit DATEV — zuverlässig, pünktlich, vollständig.</p>
+    </div>
+    <div class="svc-card"><div class="num">02</div><h3>Steuererklärung</h3><p>Einkommen-, Gewerbe-, Körperschaft- und Umsatzsteuer — für Privatpersonen, Selbstständige und Kapitalgesellschaften.</p></div>
+    <div class="svc-card"><div class="num">03</div><h3>Jahresabschluss</h3><p>Erstellung und Prüfung von Jahresabschlüssen. Inklusive E-Bilanz und steuerlicher Optimierung.</p></div>
+    <div class="svc-card"><div class="num">04</div><h3>Betriebswirtschaftliche Beratung</h3><p>Unternehmensbewertung, Investitionsrechnung, Liquiditätsplanung — fundierte Entscheidungsgrundlagen für Ihr Wachstum.</p></div>
+    <div class="svc-card"><div class="num">05</div><h3>Existenzgründung</h3><p>Businessplan, Finanzierungsberatung, Rechtsformwahl — wir begleiten Sie von der Idee bis zur ersten Rechnung.</p></div>
+    <div class="svc-card"><div class="num">06</div><h3>Steueroptimierung</h3><p>Legale Gestaltungsmöglichkeiten nutzen — wir finden Spielräume, die andere übersehen.</p></div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="section-label">Team</div>
+  <h2>Ihre Berater.</h2>
+  <p class="section-intro">Erfahrene Steuerberater und Fachangestellte — persönlich, kompetent und immer auf Augenhöhe.</p>
+  <div class="team-grid">
+    <div class="team-row">
+      <div class="team-avatar">HL</div>
+      <div class="team-info">
+        <h3>Dipl.-Kfm. Hans Leberecht</h3>
+        <div class="role">Steuerberater · Geschäftsführer</div>
+        <p>Über 25 Jahre Erfahrung in der Steuerberatung. Spezialisiert auf mittelständische Unternehmen, Umstrukturierungen und Nachfolgeplanung.</p>
+      </div>
+    </div>
+    <div class="team-row">
+      <div class="team-avatar">SK</div>
+      <div class="team-info">
+        <h3>Dipl.-Finw. Sabine Krüger</h3>
+        <div class="role">Steuerberaterin</div>
+        <p>Schwerpunkt Finanzbuchhaltung und Lohn. DATEV-Expertin mit einem Blick fürs Detail, der selbst dem Finanzamt Respekt abringt.</p>
+      </div>
+    </div>
+    <div class="team-row">
+      <div class="team-avatar">MB</div>
+      <div class="team-info">
+        <h3>Maren Becker</h3>
+        <div class="role">Steuerfachangestellte</div>
+        <p>Ihre erste Ansprechpartnerin für alle laufenden Fragen. Organisiert, freundlich und mit dem Talent, selbst komplexe Sachverhalte einfach zu erklären.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tests">
+  <div class="section-label">Mandantenstimmen</div>
+  <h2>Vertrauen, das zählt.</h2>
+  <p class="section-intro">Langjährige Mandantenbeziehungen sind unser größtes Kapital. Hier einige Rückmeldungen.</p>
+  <div class="tests-grid">
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Seit über 10 Jahren vertraue ich der HL Steuerberatung. Kompetent, schnell und immer ein offenes Ohr — auch für Fragen jenseits der Steuererklärung.“</blockquote>
+      <div class="t-author">Dr. med. Claudia W. — Ärztin, Bielefeld</div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Die Begleitung bei unserer GmbH-Gründung war erstklassig. Herr Leberecht hat uns nicht nur steuerlich, sondern auch strategisch entscheidend weitergebracht.“</blockquote>
+      <div class="t-author">Thomas &amp; Julia M. — Tech-Startup, Bielefeld</div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <blockquote>„Als Handwerksbetrieb brauchen wir einen Steuerberater, der unsere Sprache spricht. Hier fühlen wir uns verstanden und bestens aufgehoben.“</blockquote>
+      <div class="t-author">Andreas K. — Malermeister, Gütersloh</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2>Bereit für klare Zahlen?</h2>
+  <p>Vereinbaren Sie ein unverbindliches Erstgespräch. Wir nehmen uns Zeit.</p>
+  <a href="tel:+495211234567" class="btn btn-pri" style="background:#fff;color:var(--accent);font-weight:700">📞 Jetzt anrufen</a>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="section-label">Kontakt</div>
+  <h2>So erreichen Sie uns.</h2>
+  <div class="contact-layout">
+    <div class="contact-detail">
+      <h3>HL Steuerberatungsgesellschaft mbH</h3>
+      <div class="cd-row"><div class="cd-icon">📍</div><div><strong>Adresse</strong><span>Brückenstr. 47<br>33607 Bielefeld</span></div></div>
+      <div class="cd-row"><div class="cd-icon">📞</div><div><strong>Telefon</strong><span>0521 / 12 34 56 7</span></div></div>
+      <div class="cd-row"><div class="cd-icon">✉️</div><div><strong>E-Mail</strong><span>kanzlei@hl-steuerberatungsgesellschaft.de</span></div></div>
+      <div class="cd-row"><div class="cd-icon">🕐</div><div><strong>Öffnungszeiten</strong><span>Mo–Do 8–17 Uhr · Fr 8–14 Uhr<br>Termine nach Vereinbarung</span></div></div>
+    </div>
+    <div class="contact-box">
+      <h3>Schreiben Sie uns</h3>
+      <p style="color:var(--muted);margin-bottom:20px;line-height:1.7">Nutzen Sie das Kontaktformular oder schreiben Sie direkt eine E-Mail. Wir antworten innerhalb eines Werktages.</p>
+      <a href="mailto:kanzlei@hl-steuerberatungsgesellschaft.de" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.9rem">✉️ E-Mail senden</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 HL Steuerberatungsgesellschaft mbH · Brückenstr. 47 · 33607 Bielefeld · HRB 40260</p>
+  <p style="margin-top:6px"><a href="https://www.hl-steuerberatungsgesellschaft.de/impressum.php">Impressum</a> · <a href="https://www.hl-steuerberatungsgesellschaft.de/kontakt/">Kontakt</a></p>
+</footer>
+
+</body>
+</html>

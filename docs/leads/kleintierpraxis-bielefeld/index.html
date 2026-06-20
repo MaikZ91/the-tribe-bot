@@ -30,6 +30,23 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 .review{background:var(--card);border-radius:12px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .review .stars{color:#e0a93b;font-size:1rem}.review p{font-style:italic;margin:8px 0}.review .who{color:var(--ink2);font-size:.8rem}
 .footer{background:var(--green);color:rgba(255,255,255,.7);text-align:center;padding:40px 20px;font-size:.85rem}
+/* premium touch */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero{background:linear-gradient(135deg,rgba(45,106,79,.92),rgba(27,67,50,.95)),url('https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/banner-praxis3.jpg') center/cover}
+.btn-pri{position:relative;overflow:hidden}
+.btn-pri::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .6s}
+.btn-pri:hover::after{left:130%}
+.card,.review{transition:transform .35s,box-shadow .3s}.card:hover,.review:hover{transform:translateY(-6px);box-shadow:0 10px 26px rgba(27,67,50,.10)}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.team figure{margin:0;text-align:center}
+.team img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;display:block;transition:transform .4s,box-shadow .3s}
+.team img:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(27,67,50,.18)}
+.team figcaption{margin-top:8px;font-weight:700;font-size:.9rem;color:var(--green)}
+.finder{background:var(--card);border-radius:14px;max-width:600px;margin:0 auto;padding:34px;text-align:center;box-shadow:0 4px 18px rgba(27,67,50,.06)}
+.finder select{width:100%;max-width:360px;padding:13px 16px;border:1px solid #d4e4da;border-radius:10px;font-family:inherit;font-size:1rem;background:var(--warm);color:var(--ink);text-align:center}
+.finder .res{margin:16px 0 0;min-height:54px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.finder .res .pr{font-size:1.25rem;font-weight:800;color:var(--green)}.finder .res .nt{color:var(--ink2);font-size:.85rem}
+.finder .fbtn{display:none;margin-top:14px}.finder .fbtn.on{display:inline-block}
 </style>
 </head>
 <body>
@@ -38,6 +55,23 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 <p>Kompetente und einfühlsame Versorgung für Hunde, Katzen und Kleintiere — mit persönlicher Betreuung durch Dr. Silke Mehlhose-Koch und Team.</p>
 <a href="tel:+4952186617" class="btn btn-pri">📞 0521 · 86617</a>
 <a href="#leistungen" class="btn btn-sec">Leistungen</a>
+</section>
+
+<section class="sec" id="finder">
+<h2>Worum geht es bei Ihrem Tier?</h2>
+<p class="sub">Sagen Sie uns kurz Ihr Anliegen — wir sagen Ihnen den passenden Schritt.</p>
+<div class="finder">
+<select id="anl" aria-label="Anliegen wählen">
+<option value="">Anliegen wählen …</option>
+<option data-r="Vorsorge-Untersuchung & Impfung">Vorsorge / Impfung</option>
+<option data-r="Untersuchung bei Beschwerden">Mein Tier ist krank</option>
+<option data-r="Professionelle Zahnbehandlung">Zähne / Maul</option>
+<option data-r="Beratung zu Operation & Narkose">Operation geplant</option>
+<option data-r="Hausbesuch in vertrauter Umgebung">Hausbesuch gewünscht</option>
+</select>
+<div class="res" id="anlRes"><span class="pr" style="color:#9cc3ad;font-size:1.1rem">—</span><span class="nt">Wählen Sie ein Anliegen</span></div>
+<a class="btn btn-pri fbtn" id="anlBtn" href="tel:+4952186617">📞 Termin vereinbaren</a>
+</div>
 </section>
 
 <section class="sec" id="leistungen">
@@ -53,12 +87,28 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 </div>
 </section>
 
+<section class="sec" id="team">
+<h2>Unser Team</h2>
+<p class="sub">Vertraute Gesichter, die sich um Ihr Tier kümmern.</p>
+<div class="team">
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Silke-Mehlhose-Koch-01.jpg" alt="Dr. Silke Mehlhose-Koch" loading="lazy"><figcaption>Dr. Silke Mehlhose-Koch</figcaption></figure>
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Christos-Marinos-01.jpg" alt="Christos Marinos" loading="lazy"><figcaption>Christos Marinos</figcaption></figure>
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Gesa-Ruerup-01.jpg" alt="Gesa Rürup" loading="lazy"><figcaption>Gesa Rürup</figcaption></figure>
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Maren-Otto-01-1.jpg" alt="Maren Otto" loading="lazy"><figcaption>Maren Otto</figcaption></figure>
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Petra-Sawadzki-01.jpg" alt="Petra Sawadzki" loading="lazy"><figcaption>Petra Sawadzki</figcaption></figure>
+<figure><img src="https://www.kleintierpraxis-bielefeld.de/wp-content/uploads/2026_Lena-Schledde-01.jpg" alt="Lena Schledde" loading="lazy"><figcaption>Lena Schledde</figcaption></figure>
+</div>
+</section>
+
 <div class="emergency">
 <div class="big">🐾</div>
-<h2 style="color:#fff">Öffnungszeiten & Notfall</h2>
-<div class="hours" style="margin-top:20px">
-<b>Mo – Fr: 8 – 18 Uhr</b>
-<p>und nach Vereinbarung</p>
+<h2 style="color:#fff">Öffnungszeiten</h2>
+<div class="hours" style="margin-top:20px;text-align:left;max-width:320px">
+<p style="margin:0 0 6px"><b>Sprechzeiten</b></p>
+<p style="margin:2px 0">Mo, Di, Do: 10–12 &amp; 15:30–18 Uhr</p>
+<p style="margin:2px 0">Mi: 15:30–18 Uhr</p>
+<p style="margin:2px 0">Fr: 10–12 &amp; 15:30–17 Uhr</p>
+<p style="margin:6px 0 0">und nach Vereinbarung</p>
 </div>
 <p style="margin-top:20px">📍 Beckhausstr. 171, 33611 Bielefeld<br>📞 0521 · 86617</p>
 </div>
@@ -75,13 +125,19 @@ body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--
 <section class="sec" style="text-align:center">
 <h2>Termin vereinbaren</h2>
 <p class="sub">Rufen Sie an oder kommen Sie vorbei — wir freuen uns auf Sie und Ihr Tier.</p>
-<p style="font-size:1.2rem">📞 0521 · 86617<br>📍 Beckhausstr. 171, 33611 Bielefeld<br>🕐 Mo – Fr 8 – 18 Uhr</p>
+<p style="font-size:1.2rem">📞 <a href="tel:+4952186617" style="color:var(--green);font-weight:700">0521 · 86617</a><br>✉️ <a href="mailto:info@kleintierpraxis-bielefeld.de" style="color:var(--green)">info@kleintierpraxis-bielefeld.de</a><br>📍 Beckhausstr. 171, 33611 Bielefeld</p>
 <a href="tel:+4952186617" class="btn btn-pri">Jetzt anrufen</a>
 </section>
 
 <footer class="footer">
 <p>© 2026 Kleintierpraxis Dr. Mehlhose-Koch — Konzept-Vorschau · MZ.9</p>
 </footer>
-<script>window.MZ9CHAT={mode:"lead",name:"Kleintierpraxis Bielefeld",accent:"#10B981"};</script><script src="../chat.js" defer></script>
+<script>
+(function(){var s=document.getElementById("anl"),r=document.getElementById("anlRes"),b=document.getElementById("anlBtn");if(!s)return;
+s.addEventListener("change",function(){var o=s.options[s.selectedIndex],t=o.getAttribute("data-r");
+if(!t){r.innerHTML='<span class="pr" style="color:#9cc3ad;font-size:1.1rem">—</span><span class="nt">Wählen Sie ein Anliegen</span>';b.classList.remove("on");return;}
+r.innerHTML='<span class="pr">'+t+'</span><span class="nt">Für „'+o.text+'" · einfühlsam im Team Mehlhose-Koch</span>';b.classList.add("on");});})();
+</script>
+<script>window.MZ9CHAT={mode:"lead",name:"Kleintierpraxis Bielefeld",accent:"#52b788",cta:"#finder"};</script><script src="../chat.js" defer></script>
 </body>
 </html>
