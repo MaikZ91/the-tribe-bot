@@ -52,25 +52,32 @@ Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
 
 ## So läuft es autonom
 
-### Variante A — Agent treibt den Loop (empfohlen, voll custom)
-Der Agent (DeepSeek oder Claude) wiederholt pro Zyklus:
+### Variante A — Turnkey: `run-auto.bat` (empfohlen, voll custom)
+Ein Doppelklick startet den autonomen Dauerloop (`scripts/auto.js`), der pro
+Zyklus alle drei Stufen fährt: Discovery → Custom-Build → Publish + Auto-Push.
 
-```bash
-# 1) einen neuen Lead finden + Build-Job anlegen
-node lead_agent_deepseek/scripts/daemon.js --once
-
-# 2) offene Build-Jobs holen
-node lead_agent_deepseek/scripts/pending.js --json
-
-# 3) für jeden „needsBuild": echte Premium-Seite bauen
-#    → docs/leads/<id>/index.html  (siehe Build-Briefing unten)
-
-# 4) alles Gebaute publizieren + automatisch pushen
-node lead_agent_deepseek/scripts/publish.js --all
+```
+lead_agent_deepseek\run-auto.bat
 ```
 
-In Claude Code: `/loop` auf genau diese Schrittfolge. In DeepSeek: Agent-
-Dauerschleife.
+Der Build-Agent (Stufe 2) ist **tool-agnostisch** und über `BUILD_CMD` wählbar:
+- **Default:** Claude Code headless (`claude -p ... --dangerously-skip-permissions`).
+- **DeepSeek o.a.:** vorher setzen, `{ID}`/`{DIR}` werden ersetzt:
+  ```
+  set BUILD_CMD=deepseek run build-lead --id {ID}
+  ```
+
+Steuerung per Umgebungsvariablen: `INTERVAL_MINUTES` (Default 5),
+`MAX_BUILDS` pro Zyklus (Default 3), `BUILD_TIMEOUT_MIN` (Default 12),
+`ONCE=1` (nur ein Zyklus, zum Testen).
+
+Manuell / Schritt für Schritt (was auto.js intern macht):
+```bash
+node lead_agent_deepseek/scripts/daemon.js --once     # Stufe 1
+node lead_agent_deepseek/scripts/pending.js --json     # Worklist Stufe 2
+#   → pro „needsBuild": docs/leads/<id>/index.html bauen (Build-Briefing unten)
+node lead_agent_deepseek/scripts/publish.js --all      # Stufe 3 (+ Auto-Push)
+```
 
 ### Variante B — Reiner Daemon (Dauer-Loop)
 `run.bat` bzw. `node scripts/daemon.js` läuft alle N Minuten und legt nur
