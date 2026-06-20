@@ -18,6 +18,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const http = require('http');
+const { discover } = require('./discover');
 
 // ─── Konfiguration ────────────────────────────────────────────────
 const ROOT = path.join(__dirname, '..');
@@ -39,32 +40,7 @@ const INTERVAL_MINUTES = parseInt(
 );
 
 
-// Suchbegriffe für Auto-Discovery
-// Deutschlandweite Städte-Rotation (40+ Großstädte)
-const CITIES = [
-  'Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt am Main', 'Stuttgart',
-  'Düsseldorf', 'Leipzig', 'Dortmund', 'Essen', 'Bremen', 'Dresden',
-  'Hannover', 'Nürnberg', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld',
-  'Bonn', 'Münster', 'Karlsruhe', 'Mannheim', 'Augsburg', 'Wiesbaden',
-  'Aachen', 'Mönchengladbach', 'Braunschweig', 'Kiel', 'Chemnitz', 'Halle',
-  'Magdeburg', 'Freiburg', 'Krefeld', 'Lübeck', 'Erfurt', 'Mainz', 'Rostock',
-  'Kassel', 'Saarbrücken', 'Osnabrück', 'Oldenburg', 'Potsdam',
-  'Heidelberg', 'Paderborn', 'Darmstadt', 'Würzburg', 'Regensburg',
-  'Ingolstadt', 'Göttingen', 'Ulm', 'Trier', 'Cottbus', 'Siegen',
-];
-const BRANCHES = [
-  'Friseur', 'Zahnarzt', 'Steuerberater', 'Maler', 'Dachdecker', 'Elektriker',
-  'Tischler', 'Restaurant', 'Fotograf', 'Kosmetikstudio', 'Massage',
-  'Physiotherapie', 'Bäcker', 'Goldschmied', 'Hundesalon', 'Rechtsanwalt',
-  'Reinigung', 'Sanitär', 'Heizung', 'Gartenbau', 'Immobilienmakler',
-  'Optiker', 'Hörakustik', 'Fitnessstudio', 'Blumenladen', 'Fahrschule',
-  'Schreiner', 'Fliesenleger', 'Gebäudereinigung', 'Autowerkstatt',
-];
-function pickSearchTerm() {
-  const city = CITIES[Math.floor(Math.random() * CITIES.length)];
-  const branch = BRANCHES[Math.floor(Math.random() * BRANCHES.length)];
-  return `${branch} ${city}`;
-}
+// Städte/Branchen-Rotation lebt jetzt in discover.js (Overpass-Discovery).
 
 const COLORS = {
   gastronomie:   { accent: '#c2410c', dark: '#7c2d12', light: '#fdba74' },
@@ -103,81 +79,6 @@ function getNextLead() {
 }
 
 
-// ─── Web Discovery (DuckDuckGo Scraping) ──────────────────────────
-function fetchUrl(url) {
-  return new Promise((resolve, reject) => {
-    const mod = url.startsWith('https') ? https : http;
-    mod.get(url, { timeout: 15000, headers: { 'User-Agent': 'MZ9-LeadAgent/1.0' } }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return fetchUrl(res.headers.location).then(resolve).catch(reject);
-      }
-      let data = '';
-      res.on('data', c => { data += c; if (data.length > 200000) { res.destroy(); resolve({ status: res.statusCode, html: data.slice(0, 100000), url }); } });
-      res.on('end', () => resolve({ status: res.statusCode, html: data.slice(0, 100000), url }));
-    }).on('error', reject).on('timeout', () => { this.destroy(); reject(new Error('timeout')); });
-  });
-}
-
-function evaluateWebsite(html, url) {
-  let score = 100;
-  const problems = [], opps = [];
-  if (!url.startsWith('https')) { score -= 20; problems.push('Kein HTTPS'); opps.push('SSL/HTTPS einrichten'); }
-  if (!html.includes('viewport')) { score -= 15; problems.push('Nicht mobil-optimiert'); opps.push('Responsive Design'); }
-  if (!/<form/i.test(html)) { score -= 10; problems.push('Kein Kontaktformular'); opps.push('Kontaktformular integrieren'); }
-  if (html.includes('IONOS MyWebsite') || html.includes('website-start.de')) { score -= 10; problems.push('Veralteter Website-Baukasten'); opps.push('Moderne CMS-Plattform'); }
-  if ((html.match(/<img/gi) || []).length < 2) { score -= 5; problems.push('Wenig Bilder'); opps.push('Bildergalerie aufbauen'); }
-  return { score: Math.max(0, Math.round(score * 0.7 + 30)), problems: problems.slice(0, 4), opps: opps.slice(0, 4) };
-}
-
-function extractContact(html) {
-  const email = (html.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i) || [''])[0];
-  const phone = (html.match(/(?:\+49\s?)?(?:05[0-9]{2,3}\s?[\/\-\s]?\s?[0-9]{2,8})/) || [''])[0];
-  return { email, phone };
-}
-
-function extractMeta(html) {
-  const title = (html.match(/<title>([^<]+)<\/title>/i) || ['',''])[1];
-  const desc = (html.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i) || ['',''])[1];
-  return { title, desc };
-}
-
-function guessIndustry(title, url) {
-  const t = (title + ' ' + url).toLowerCase();
-  if (/friseur|hair|salon/i.test(t)) return 'Friseur';
-  if (/zahnarzt|zahn/i.test(t)) return 'Zahnarzt';
-  if (/steuerberat|kanzlei/i.test(t)) return 'Kanzlei';
-  if (/physio|therapie/i.test(t)) return 'Physiotherapie';
-  if (/maler|dachdeck|elektro|tischler|schreiner/i.test(t)) return 'Handwerk';
-  if (/restaurant|café|cafe|imbiss|bäck|bäcker|konditor/i.test(t)) return 'Gastronomie';
-  if (/fotograf/i.test(t)) return 'Dienstleistung';
-  if (/kosmetik/i.test(t)) return 'Kosmetik';
-  if (/massage/i.test(t)) return 'Dienstleistung';
-  if (/auto|kfz|werkstatt|reifen/i.test(t)) return 'Automotive';
-  if (/blumen|florist/i.test(t)) return 'Florist';
-  if (/immobilien/i.test(t)) return 'Immobilien';
-  return 'Dienstleistung';
-}
-
-async function discoverOnline() {
-  const term = pickSearchTerm();
-  log(`🔍 Auto-Discovery: "${term}"`);
-  const url = `https://lite.duckduckgo.com/lite/?q=${encodeURIComponent(term)}+website`;
-  try {
-    const { html } = await fetchUrl(url);
-    const links = [...html.matchAll(/<a[^>]+href="(https?:\/\/[^"]+)"[^>]*>([^<]+)<\/a>/gi)];
-    const results = [];
-    const seen = new Set();
-    for (const [, link, text] of links) {
-      if (seen.has(link) || link.includes('duckduckgo') || link.includes('google.') || link.includes('facebook') || link.includes('instagram')) continue;
-      seen.add(link);
-      try { const domain = new URL(link).hostname.replace('www.', ''); if (domain.split('.').length <= 3) results.push({ url: link, name: text.replace(/<\/?[^>]+>/g, '').trim(), domain }); } catch {}
-      if (results.length >= 5) break;
-    }
-    log(`  ${results.length} Websites gefunden.`);
-    return results;
-  } catch (e) { log(`  Fehler: ${e.message}`); return []; }
-}
-
 // ─── Phase 2: Auto-Discovery aus Backlog ─────────────────────────
 async function autoFillFromDiscoveries(queue) {
   ensureDir(DISCOVERIES_DIR);
@@ -188,44 +89,21 @@ async function autoFillFromDiscoveries(queue) {
     .sort();
   
   if (files.length === 0) {
-    // Keine Batch-Dateien — versuche Online-Discovery
-    log('🚩 Vorrat leer — starte automatische Websuche...');
-    try {
-      const discovered = await discoverOnline();
-      if (discovered.length > 0) {
-        const leads = [];
-        for (const r of discovered) {
-          try {
-            const { html } = await fetchUrl(r.url);
-            if (!html) continue;
-            const ev = evaluateWebsite(html, r.url);
-            const contact = extractContact(html);
-            const meta = extractMeta(html);
-            const name = meta.title?.split(/[–\-\|]/)[0]?.trim() || r.name;
-            const industry = guessIndustry(meta.title, r.url);
-            leads.push({
-              id: r.domain.replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').slice(0, 50),
-              name, nameShort: name.split(' ').slice(0, 2).join(' '),
-              industry, hebel: ev.score < 45 ? 'hoch' : ev.score < 60 ? 'mittel' : 'niedrig',
-              website: r.url, phone: contact.phone || '+495210000000',
-              email: contact.email || `info@${r.domain}`, score: ev.score,
-              problems: ev.problems, opps: ev.opps,
-              heroH1: `${name.split(' ').pop()}.<br><em>${industry} — Ihre Region.</em>`,
-              heroSub: meta.desc || `${industry} mit Qualität und Erfahrung.`,
-              ctaText: 'Jetzt anfragen', features: [ev.opps[0] || 'Professionell', ev.opps[1] || 'Zuverlässig', ev.opps[2] || 'Erfahren'],
-            });
-          } catch (e) { /* skip */ }
-        }
+    // Keine Batch-Dateien — robuste Overpass-Discovery (deutschlandweit).
+    // Bis zu 3 Versuche mit unterschiedlichen Stadt/Branche-Kombis pro Tick.
+    log('🚩 Vorrat leer — starte Overpass-Discovery...');
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const leads = await discover({ count: 3, log: m => log(m) });
         if (leads.length > 0) {
-          leads.sort((a, b) => a.score - b.score);
-          queue.leads = leads.slice(0, 3);
+          queue.leads = leads;
           saveJson(QUEUE_FILE, queue);
-          log(`  ✅ ${Math.min(3, leads.length)} neue Leads in Queue.`);
+          log(`  ✅ ${leads.length} neue Leads in Queue.`);
           return true;
         }
-      }
-    } catch (e) { log(`  ⚠️  Discovery-Fehler: ${e.message}`); }
-    log('  Keine neuen Leads gefunden. Versuche es beim nächsten Tick erneut.');
+      } catch (e) { log(`  ⚠️  Discovery-Fehler: ${e.message}`); }
+    }
+    log('  Keine neuen Leads gefunden. Nächster Tick versucht andere Stadt/Branche.');
     return false;
   }
   
@@ -248,7 +126,11 @@ async function autoFillFromDiscoveries(queue) {
 }
 
 // ─── Phase 3: Lighthouse-Audit ────────────────────────────────────
+// Optional & nicht blockierend: SKIP_AUDIT=1 überspringt komplett.
+// Der Build-Schritt braucht Lighthouse nicht — discover.js liefert bereits
+// Schwächen/Score. Daher ist der Audit nur ein nice-to-have.
 function auditLead(lead) {
+  if (process.env.SKIP_AUDIT === '1') { log('⏭️  Audit übersprungen (SKIP_AUDIT=1).'); return null; }
   const lhFile = path.join(LEADS_DIR, `.lh-${lead.id}.json`);
   ensureDir(LEADS_DIR);
   log(`🔍 Lighthouse: ${lead.website}`);
@@ -258,7 +140,7 @@ function auditLead(lead) {
       `--only-categories=performance,accessibility,seo ` +
       `--form-factor=mobile --throttling-method=simulate ` +
       `--chrome-flags="--headless=new --no-sandbox" --quiet`,
-      { stdio: 'pipe', timeout: 120_000, env: { ...process.env, TMP: 'C:\\temp', TEMP: 'C:\\temp', TMPDIR: 'C:\\temp' } }
+      { stdio: 'pipe', timeout: 60_000, env: { ...process.env, TMP: 'C:\\temp', TEMP: 'C:\\temp', TMPDIR: 'C:\\temp' } }
     );
     const lh = JSON.parse(fs.readFileSync(lhFile, 'utf8'));
     const scores = {
@@ -281,64 +163,32 @@ function auditLead(lead) {
 function markForCustomBuild(lead) {
   const dir = path.join(PREVIEW_DIR, lead.id);
   ensureDir(dir);
-  const marker = path.join(dir, 'CUSTOM_BUILD_NEEDED.txt');
-  fs.writeFileSync(marker, `Custom build needed for: ${lead.name} (${lead.id})\nIndustry: ${lead.industry}\nWebsite: ${lead.website}\nAt: ${new Date().toISOString()}`);
-  log(`🎨 Custom Build benötigt: ${lead.id}`);
+  // Strukturierter Build-Job: alles, was ein Agent (DeepSeek/Claude) braucht,
+  // um eine echte Premium-Seite mit Originalbildern zu bauen.
+  const job = {
+    id: lead.id,
+    name: lead.name,
+    industry: lead.industry,
+    website: lead.website,
+    phone: lead.phone || '',
+    email: lead.email || '',
+    address: lead.address || '',
+    city: lead.city || '',
+    problems: lead.problems || lead.reasons || [],
+    opps: lead.opps || [],
+    lighthouse: lead.lighthouseScores || null,
+    images: lead.images || [],        // Original-Bild-URLs von der Website
+    content: lead.scraped || null,    // Titel, Description, H1/H2 als Copy-Basis
+    status: 'needs_build',
+    createdAt: new Date().toISOString(),
+  };
+  fs.writeFileSync(path.join(dir, 'build-job.json'), JSON.stringify(job, null, 2));
+  log(`🎨 Build-Job angelegt: ${lead.id} (${job.images.length} Bilder, Hebel ${lead.hebel || '?'})`);
   return `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/`;
 }
 
 // Alias für Abwärtskompatibilität
 function buildPreview(lead) { return markForCustomBuild(lead); }
-
-// ─── Phase 5: Dashboard ───────────────────────────────────────────
-function updateDashboard(lead, previewUrl) {
-  if (!fs.existsSync(DASHBOARD_FILE)) return false;
-  let h = fs.readFileSync(DASHBOARD_FILE, 'utf8');
-  if (h.includes(`id:"${lead.id}"`)) { log('  ℹ️  Bereits im Dashboard.'); return true; }
-
-  // Insert into SEED array — find 'var SEED=[' then first '];' after it
-  const seedStart = h.indexOf('var SEED=[');
-  if (seedStart < 0) { log('  ⚠️  SEED-Marker nicht gefunden.'); return false; }
-  const seedEnd = h.indexOf('];', seedStart);
-  if (seedEnd < 0) { log('  ⚠️  SEED-Ende nicht gefunden.'); return false; }
-
-  const entry = `\n    {id:"${lead.id}",name:"${lead.name}",industry:"${lead.industry}",hebel:"${lead.hebel||'mittel'}",score:${lead.score||50},website:"${lead.website}",problems:${JSON.stringify(lead.problems||['Veraltetes Design','Schwache CTA'])},opps:${JSON.stringify(lead.opps||['Modernes Design','Klare CTAs'])},preview:"${previewUrl}"},`;
-  h = h.slice(0, seedEnd) + entry + h.slice(seedEnd);
-
-  // Insert into EMAILS object — find 'var EMAILS={' then first '};' after it
-  if (lead.email) {
-    const mailStart = h.indexOf('var EMAILS={');
-    if (mailStart > 0) {
-      const mailEnd = h.indexOf('};', mailStart);
-      if (mailEnd > 0 && !h.includes(`"${lead.id}":`)) {
-        h = h.slice(0, mailEnd) + `\n    "${lead.id}":"${lead.email}",` + h.slice(mailEnd);
-      }
-    }
-  }
-
-  fs.writeFileSync(DASHBOARD_FILE, h);
-  log('📊 Dashboard aktualisiert.');
-  return true;
-}
-
-// ─── Phase 6: Git Push ────────────────────────────────────────────
-function gitPush(lead) {
-  try {
-    const cwd = path.join(ROOT, '..');
-    try { execSync('git stash', { cwd, stdio: 'pipe' }); } catch {}
-    try { execSync('git pull --rebase origin main', { cwd, stdio: 'pipe' }); } catch {}
-    try { execSync('git stash pop', { cwd, stdio: 'pipe' }); } catch {}
-    try { execSync('git add docs/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/leads/', { cwd, stdio: 'pipe' }); } catch {}
-    try { execSync('git add lead_agent_deepseek/discoveries/used/ lead_agent_deepseek/DISCOVERY_NEEDED.txt', { cwd, stdio: 'pipe' }); } catch {}
-    const diff = execSync('git diff --cached --stat', { cwd, stdio: 'pipe', encoding: 'utf8' });
-    if (!diff.trim()) { log('  📭 Keine Änderungen.'); return; }
-    execSync(`git commit -m "lead-agent: ${lead.id} — ${lead.name}"`, { cwd, stdio: 'pipe' });
-    execSync('git push', { cwd, stdio: 'pipe' });
-    log(`🚀 Gepusht: ${lead.name}`);
-  } catch (err) {
-    log(`⚠️  Git: ${err.message}`);
-  }
-}
 
 // ─── Main Loop ────────────────────────────────────────────────────
 let running = true;
@@ -363,13 +213,12 @@ async function tick() {
     lead.lighthouseScores = scores;
   }
 
-  const previewUrl = buildPreview(lead);
-  if (previewUrl) {
-    updateDashboard(lead, previewUrl);
-    gitPush(lead);
-  }
-
+  // Daemon baut KEINE Seite und pusht NICHT — er legt nur den Build-Job an.
+  // Den Custom-Seitenbau + Dashboard-Eintrag + Auto-Push erledigt Stufe 2/3
+  // (Build-Agent → scripts/publish.js). Siehe WORKFLOW.md.
+  buildPreview(lead); // schreibt docs/leads/<id>/build-job.json (status: needs_build)
   saveJson(path.join(LEADS_DIR, `${lead.id}.json`), lead);
+  log(`📥 Build-Job bereit für Stufe 2 (Agent): ${lead.id}`);
 }
 
 async function loop() {
@@ -390,4 +239,10 @@ async function loop() {
   log('👋 Daemon beendet.');
 }
 
-loop();
+// --once: genau ein Tick (Discovery → Audit → Build-Job), dann Ende.
+// Für den Agenten-Loop (Stufe 1), der danach Stufe 2/3 fährt.
+if (process.argv.includes('--once')) {
+  tick().then(() => log('✅ Ein Tick fertig (--once).')).catch(err => { log(`❌ ${err.message}`); process.exit(1); });
+} else {
+  loop();
+}

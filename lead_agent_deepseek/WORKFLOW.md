@@ -1,80 +1,135 @@
-# MZ.9 Lead Agent — Workflow (Deutschlandweit)
+# MZ.9 Lead Agent — Autonomer Workflow (Deutschlandweit)
+
+Vollautomatischer, kontinuierlicher Lead-Funnel. Findet echte Betriebe
+deutschlandweit, baut jedem eine **echte Premium-Landingpage mit Original-
+bildern** und veröffentlicht sie inkl. Dashboard-Eintrag — **ohne manuelles
+Eingreifen**, mit **automatischem Push** nach GitHub Pages.
+
+> Tool-agnostisch: Stufe 2 (Seitenbau) erledigt **DeepSeek ODER Claude**.
+> Stufe 1 + 3 sind reine Node-Scripts und brauchen keinen LLM.
 
 ## ⚠️ EISERNE REGEL: KEINE TEMPLATE-PREVIEWS
+Jede Konzept-Vorschau ist ein **handgebautes Unikat** mit eigenem Premium-Design
+und Originalbildern — als bewusster Kontrast zur alten Website des Betriebs.
+Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
 
-**Jede Konzept-Vorschau wird individuell von Grund auf als Custom-Build erstellt.**
-Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz, keine Standard-Blöcke.
-Jede Seite ist ein Unikat mit eigenem Premium-Design — als bewusster Kontrast zur alten Website.
+---
 
-## Workflow-Phasen
-
-### Phase 1: Discovery 🔍
-- **DeepSeek Agent** sucht Unternehmen deutschlandweit
-- Tools: `web_search "<branche> <stadt>"` → `fetch_url <website>`
-- 54 Städte × 30 Branchen = 1.620 Kombinationen
-- Region: ganz Deutschland (vorher: nur Bielefeld)
-
-### Phase 2: Evaluate 📊
-- Website-Analyse: HTTPS, Mobile, Formulare, CMS, Bilder, SEO
-- Score 0–100 (niedriger = mehr Hebel für Verbesserung)
-- Probleme & Opportunities dokumentieren
-- Optional: Lighthouse-Audit via `daemon.js` (Performance, A11y, SEO)
-
-### Phase 3: Custom Premium Build 🎨 ⭐ ENTSCHEIDEND
-- **DeepSeek Agent baut individuelle HTML-Vorschau**
-- **KEINE Templates!** Jede Seite ist handgebaut mit:
-  - ✅ **Originalbildern** von der echten Website (extrahiert via `fetch_url`)
-  - ✅ **Premium-Design** mit starker visueller Hierarchie, Animationen, Farbkonzept
-  - ✅ **Branchen-spezifischem Layout** (Restaurant ≠ Maler ≠ Friseur)
-  - ✅ **Echten Google-Bewertungen** (extrahiert oder als Platzhalter)
-  - ✅ **Kontrast zur alten Seite**: Modern, mobile-first, hohe Design-Qualität
-- **Multi-Agent-Strategie**: Bei 4+ Leads → parallele Sub-Agenten pro Build
-- Output: `docs/leads/<id>/index.html`
-
-### Phase 4: Dashboard 📋
-- Lead in `docs/leads/dashboard/index.html` eintragen
-- SEED-Array + EMAILS-Objekt aktualisieren
-- Vorschau-URL: `https://maikz91.github.io/the-tribe-bot/leads/<id>/`
-
-### Phase 5: E-Mail 📧 ⚠️ VORHER FRAGEN
-- **User muss E-Mail-Versand ausdrücklich bestätigen**
-- `send_mail.js` via Gmail SMTP
-- Personalisierte Texte mit Vorschau-Link, Problemen & Opportunities
-- Absender: Maik von MZ.9 — Media Engineering.AI (stadtneutral)
-
-### Phase 6: Deploy 🚀
-- `git add docs/leads/` → `git commit` → `git push`
-- GitHub Pages deployed automatisch von `main`
-
-## Datei-Struktur
+## Die drei Stufen
 
 ```
-lead_agent_deepseek/
-├── discoveries/          ← Batch-JSONs (vom Agent befüllt)
-│   └── used/             ← verarbeitete Batches
-├── leads/                ← Lead-JSONs + Lighthouse-Daten
-├── scripts/
-│   ├── daemon.js         ← Auto-Loop: Queue → LH → Custom-Marker → Dashboard
-│   ├── pipeline.js       ← Einmal-Pipeline (GitHub Actions)
-│   └── send_mail.js      ← E-Mail-Versand via Gmail SMTP
-├── queue.json            ← Settings + verarbeitete Leads
-├── DISCOVERY_NEEDED.txt  ← Flag: Queue leer → Agent füllt auf
-└── WORKFLOW.md           ← Diese Datei
+┌─────────────────────────────────────────────────────────────────┐
+│ STUFE 1 — DISCOVER + AUDIT        (Node, vollautomatisch)        │
+│   scripts/daemon.js  (--once oder Dauer-Loop)                    │
+│   • Overpass-API: echte Betriebe (Stadt×Branche, deutschlandweit)│
+│   • zieht Original-Bild-URLs, Kontakt, Content von der Website   │
+│   • Lighthouse-Audit                                             │
+│   • schreibt docs/leads/<id>/build-job.json (status: needs_build)│
+│   • KEIN Seitenbau, KEIN Push                                    │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STUFE 2 — CUSTOM BUILD            (LLM-Agent: DeepSeek/Claude)   │
+│   Worklist:  node scripts/pending.js                            │
+│   • baut docs/leads/<id>/index.html — echte Premium-Seite       │
+│   • Frontend-Design-Skills, Originalbilder aus build-job.json    │
+│   • Stilreferenz: docs/leads/alt-bielefeld/index.html           │
+│   • Multi-Agent: bei mehreren Leads parallele Sub-Agenten        │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ STUFE 3 — PUBLISH + AUTO-PUSH     (Node, vollautomatisch)       │
+│   scripts/publish.js --all                                      │
+│   • Dashboard-Eintrag (SEED + EMAILS)                           │
+│   • build-job.json → status: published                          │
+│   • git commit + push  → GitHub Pages deployt (1–2 Min)         │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-## Konfiguration
+**Wichtig:** Dashboard-Eintrag + Push passieren ERST nach dem Seitenbau
+(Stufe 3) — so entstehen nie tote Links auf leere Seiten.
 
-- `queue.json` → `settings.discover_region`: "Deutschland"
-- 54 Städte in `CITIES[]` (daemon.js + pipeline.js)
-- 30 Branchen in `BRANCHES[]`
+---
 
-## E-Mail-Regel
+## So läuft es autonom
 
-⚠️ **Nie ungefragt E-Mails versenden.** Vor jedem Versand:
+### Variante A — Agent treibt den Loop (empfohlen, voll custom)
+Der Agent (DeepSeek oder Claude) wiederholt pro Zyklus:
+
+```bash
+# 1) einen neuen Lead finden + Build-Job anlegen
+node lead_agent_deepseek/scripts/daemon.js --once
+
+# 2) offene Build-Jobs holen
+node lead_agent_deepseek/scripts/pending.js --json
+
+# 3) für jeden „needsBuild": echte Premium-Seite bauen
+#    → docs/leads/<id>/index.html  (siehe Build-Briefing unten)
+
+# 4) alles Gebaute publizieren + automatisch pushen
+node lead_agent_deepseek/scripts/publish.js --all
+```
+
+In Claude Code: `/loop` auf genau diese Schrittfolge. In DeepSeek: Agent-
+Dauerschleife.
+
+### Variante B — Reiner Daemon (Dauer-Loop)
+`run.bat` bzw. `node scripts/daemon.js` läuft alle N Minuten und legt nur
+Build-Jobs an. Seiten werden dann separat vom Agenten gebaut + publiziert.
+Für „wirklich ohne mich" → Variante A.
+
+---
+
+## Build-Briefing für Stufe 2 (Qualitätsstandard)
+
+Jede Seite muss das Niveau von `docs/leads/alt-bielefeld/index.html` haben:
+
+- **Self-contained** `index.html` (inline `<style>`, minimal inline JS für
+  Scroll-Reveal `.rv`/`.in`, Header-scrolled-State, Mobile-Nav).
+- **Original-Bilder** aus `build-job.json` → `images[]` (Hero, Galerie,
+  CTA-Band, Leistungsbilder). Hero ohne `loading=lazy`, Rest mit.
+- **Echte Inhalte** aus `build-job.json` → `content` (Titel, H1/H2, Desc) und
+  `name`/`address`/`phone`. **Keine Fakten erfinden, keine Preise erfinden.**
+- Branchen-passende, eigene Farbpalette (nicht 1:1 die Referenz kopieren).
+- Sektionen: Ribbon · fixer Header · Vollbild-Hero · Info-Strip · Leistungen-
+  Grid · Galerie · Reviews (3× „· Google" + Trust-Fußnote) · CTA-Band ·
+  Kontakt (tel:-Link) · Footer „Konzept-Vorschau · MZ.9" · Mobile-CTA-Bar.
+- `<html lang="de">`, viewport, **`<meta name="robots" content="noindex">`**
+  (Akquise-Konzeptseite!), Titel + Description aus echten Inhalten.
+- Voll responsive, valide, deutsch, sinnvolle alt-Texte.
+
+---
+
+## E-Mail-Versand ⚠️ NICHT im Auto-Loop — VORHER FRAGEN
+Der Versand an Leads läuft **niemals automatisch** mit. Vor jedem Versand:
 1. Leads + Empfänger-Adressen auflisten
-2. User-Konfirmation abwarten
-3. Erst dann `send_mail.js` ausführen
+2. Betreiber-Bestätigung abwarten
+3. Erst dann versenden (SMTP-Creds in `.env`)
 
-## Git-Notiz
+---
 
-Letzter Stand: 2026-06-20 — Deutschlandweites Rollout, Template-freie Custom-Builds, Multi-Agent-Parallelisierung.
+## Befehle & Datenfluss
+
+| Zweck | Befehl |
+|---|---|
+| Ein Discovery-Tick | `node scripts/daemon.js --once` |
+| Dauer-Loop (alle N Min) | `node scripts/daemon.js` · `INTERVAL_MINUTES=5` |
+| Discovery direkt testen | `node scripts/discover.js <Stadt> <Branche> <n>` |
+| Worklist offener Builds | `node scripts/pending.js` (`--json`) |
+| Einen Lead publizieren | `node scripts/publish.js <id>` |
+| Alles Gebaute publizieren | `node scripts/publish.js --all` |
+
+| Datenfluss | Ort |
+|---|---|
+| Queue | `lead_agent_deepseek/queue.json` |
+| Build-Job pro Lead | `docs/leads/<id>/build-job.json` |
+| Fertige Seite | `docs/leads/<id>/index.html` |
+| Dashboard | `docs/leads/dashboard/index.html` |
+| Live | `https://maikz91.github.io/the-tribe-bot/leads/dashboard/` |
+
+## Quellen / Technik
+- Discovery: **OpenStreetMap Overpass API** (`scripts/discover.js`) — ersetzt das
+  frühere, unzuverlässige DuckDuckGo-Scraping. Kein API-Key. 53 Städte × ~27 Branchen.
+- Dedup gegen `docs/leads/dashboard/done.json` + bestehende Lead-Ordner.
+
+Letzter Stand: 2026-06-20 — Overpass-Discovery, 3-Stufen-Autoloop, Auto-Push.

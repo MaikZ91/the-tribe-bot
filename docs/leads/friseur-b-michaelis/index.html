@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Michaelis Friseure — Dein schönstes Ich · Köln City &amp; Weiden</title>
+<meta name="description" content="Friseurkunst in 4. Generation in Köln City (Heumarkt) und Köln Weiden. Präzise Schnitte, Coloration, Balayage &amp; Styling — individuelle Beratung für dein schönstes Ich. Jetzt Termin buchen." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#2A211C" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232A211C'/><text x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23B98D6F' text-anchor='middle'>M</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F1EB; --bg-2:#EEE5DA; --card:#FFFDFA; --espresso:#2A211C; --espresso-2:#352A23;
+    --ink:#2A211C; --ink-2:#5E4F45; --ink-mut:#8E7E70;
+    --brass:#B98D6F; --brass-2:#9C6F4F; --wine:#7A2E3B; --wine-2:#66252F;
+    --cream:#F6F1EB;
+    --line:rgba(42,33,28,.14); --line-2:rgba(42,33,28,.08); --gold:#C9A07C;
+    --maxw:1180px; --r:16px; --ease:cubic-bezier(.22,.61,.36,1);
+    --serif:"Cormorant Garamond",Georgia,serif; --sans:"Mulish",system-ui,sans-serif;
+    --sh:0 26px 60px -28px rgba(42,33,28,.5);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+  ::selection{background:var(--wine);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:0;margin:0}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-2)}
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.02em;
+    padding:15px 26px;border-radius:50px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-wine{background:var(--wine);color:#fff;box-shadow:0 14px 30px -12px rgba(122,46,59,.6)}
+  .btn-wine:hover{background:var(--wine-2)}
+  .btn-brass{background:var(--brass);color:#2a211c} .btn-brass:hover{background:var(--brass-2);color:#fff}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)} .btn-ghost:hover{background:var(--card);border-color:var(--ink)}
+  .btn-ol{background:transparent;border-color:rgba(246,241,235,.4);color:#fff} .btn-ol:hover{background:rgba(246,241,235,.12);border-color:#fff}
+  .btn svg{width:17px;height:17px;flex:none}
+
+  .ribbon{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--espresso);color:var(--cream);font-size:11px;font-weight:600;text-align:center;padding:4px 30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ribbon b{color:var(--brass)}
+
+  .header{position:fixed;top:30px;left:0;right:0;z-index:200;transition:background .4s,box-shadow .4s}
+  .header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .header.scrolled{background:rgba(42,33,28,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .header.scrolled .bar{padding:11px 0}
+  .header.scrolled .brand,.header.scrolled .nav a.lk,.header.scrolled .nav .ph{color:var(--cream)}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);transition:color .4s}
+  .brand .mk{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--brass);color:var(--brass);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+  .nav{display:flex;align-items:center;gap:26px}
+  .nav a.lk{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);transition:color .25s} .nav a.lk:hover{color:var(--brass)}
+  .nav .ph{font-family:var(--sans);font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px;transition:color .4s}
+  .nav .ph svg{width:15px;height:15px;color:var(--brass)}
+
+  /* hero */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,22,18,.55) 0%,rgba(30,22,18,.2) 30%,rgba(30,22,18,.35) 60%,rgba(30,22,18,.92) 100%)}
+  .hero-inner{position:relative;z-index:2;color:#fff;padding:0 0 clamp(50px,9vh,100px);width:100%}
+  .hero .eyebrow{color:var(--gold)}
+  .hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:500;margin:18px 0 0;max-width:16ch}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero .lede{margin:20px 0 0;max-width:44ch;font-size:clamp(1.05rem,1.6vw,1.25rem);color:rgba(246,241,235,.9);font-weight:300}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:30px;align-items:center;font-size:14px}
+  .stars{display:flex;align-items:center;gap:8px;font-weight:700} .stars .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .hero-trust .sep{width:1px;height:22px;background:rgba(246,241,235,.3)}
+  .hero-trust .ti{color:rgba(246,241,235,.85);font-weight:600}
+
+  .strip{background:var(--espresso);color:var(--cream)}
+  .strip .row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:20px 0;font-size:13.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(246,241,235,.75)}
+  .strip .row span{display:flex;align-items:center;gap:9px} .strip .row b{color:var(--brass)}
+
+  .section{padding:clamp(64px,10vh,120px) 0}
+  .sec-head{max-width:60ch;margin:0 auto clamp(34px,6vh,58px);text-align:center}
+  .sec-head h2{font-size:clamp(2.4rem,5vw,3.6rem);margin-top:10px}
+  .sec-head p{margin:14px auto 0;color:var(--ink-2);max-width:50ch}
+
+  /* leistungen */
+  .serv-sec{background:var(--bg-2)}
+  .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,26px)}
+  .serv{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:transform .45s var(--ease)}
+  .serv:hover{transform:translateY(-6px)}
+  .serv .ph{aspect-ratio:4/3;overflow:hidden}
+  .serv .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+  .serv:hover .ph img{transform:scale(1.06)}
+  .serv .bd{padding:22px 24px 26px}
+  .serv h3{font-family:var(--serif);font-size:1.55rem;color:var(--brass-2)}
+  .serv p{margin:8px 0 0;font-size:14.5px;color:var(--ink-2)}
+
+  /* gallery */
+  .gal{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:14px;height:clamp(360px,60vh,560px)}
+  .gal figure{margin:0;overflow:hidden;border-radius:12px;position:relative}
+  .gal figure:first-child{grid-row:1 / span 2}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+  .gal figure:hover img{transform:scale(1.05)}
+  .gal figure{transition:transform .5s var(--ease)} .gal figure:hover{transform:translateY(-4px)}
+
+  /* reviews */
+  .rev-sec{background:var(--espresso);color:var(--cream)}
+  .rev-sec .sec-head h2{color:#fff} .rev-sec .eyebrow{color:var(--gold)}
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:var(--espresso-2);border:1px solid rgba(246,241,235,.1);border-radius:var(--r);padding:26px;transition:transform .4s var(--ease)}
+  .review:hover{transform:translateY(-6px)}
+  .review .s{color:var(--gold);letter-spacing:2px;font-size:16px}
+  .review p{font-family:var(--serif);font-size:1.3rem;font-style:italic;margin:12px 0 18px;color:#fff;line-height:1.35}
+  .review .who{font-size:13.5px;color:rgba(246,241,235,.7);font-weight:600}
+  .rev-foot{text-align:center;margin-top:30px;color:rgba(246,241,235,.8)} .rev-foot b{color:#fff}
+
+  /* band */
+  .band{position:relative;overflow:hidden;border-radius:24px;color:#fff;text-align:center;padding:clamp(44px,7vw,80px) clamp(24px,5vw,64px)}
+  .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .band .sc{position:absolute;inset:0;z-index:1;background:linear-gradient(rgba(30,22,18,.7),rgba(30,22,18,.82))}
+  .band .in{position:relative;z-index:2}
+  .band h2{font-size:clamp(2.4rem,5vw,3.6rem)} .band p{margin:14px auto 0;max-width:46ch;color:rgba(246,241,235,.85)}
+  .band .hero-cta{justify-content:center;margin-top:28px}
+
+  /* info / salons */
+  .salons{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,28px)}
+  .salon{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+  .salon .ph{aspect-ratio:16/10;overflow:hidden}
+  .salon .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+  .salon:hover .ph img{transform:scale(1.05)}
+  .salon .bd{padding:24px 26px 28px}
+  .salon h3{font-family:var(--serif);font-size:1.7rem;color:var(--brass-2)}
+  .salon dl{margin:16px 0 0;display:grid;grid-template-columns:auto 1fr;gap:9px 18px;font-size:14.5px}
+  .salon dt{font-weight:700;color:var(--ink)} .salon dd{margin:0;color:var(--ink-2)}
+  .salon .lk{margin-top:18px}
+
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
+  .info .box h2{font-size:clamp(2rem,4vw,2.8rem)}
+  .info dl{margin:24px 0 0;display:grid;grid-template-columns:auto 1fr;gap:12px 20px;font-size:15px}
+  .info dt{font-weight:700;color:var(--brass-2)} .info dd{margin:0;color:var(--ink-2)}
+  .info .mapph{aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:var(--sh)}
+  .info .mapph img{width:100%;height:100%;object-fit:cover}
+
+  .footer{background:var(--espresso);color:rgba(246,241,235,.75);padding:56px 0 110px}
+  .footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px}
+  .footer .brand{color:var(--cream)} .footer .brand .mk{border-color:var(--brass)}
+  .footer p{max-width:34ch;font-size:14.5px;margin:14px 0 0}
+  .footer .fnav{display:flex;gap:24px;flex-wrap:wrap}
+  .footer .fnav a{color:rgba(246,241,235,.75);font-weight:600;font-size:14px} .footer .fnav a:hover{color:var(--brass)}
+  .footer .bot{margin-top:40px;padding-top:22px;border-top:1px solid rgba(246,241,235,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:rgba(246,241,235,.5)}
+
+  .actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line);box-shadow:0 -8px 24px -10px rgba(42,33,28,.5)}
+  .actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)}
+  .actionbar a.res{background:var(--wine);color:#fff}
+  .actionbar svg{width:19px;height:19px}
+
+  @media (max-width:860px){ .serv-grid,.salons,.info{grid-template-columns:1fr} .reviews{grid-template-columns:1fr} .gal{grid-template-columns:1fr;grid-template-rows:none;height:auto} .gal figure{height:240px} .gal figure:first-child{grid-row:auto} }
+  @media (max-width:600px){ body{font-size:16px} .nav .lk,.nav .ph{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} .hero-cta{align-self:stretch} }
+
+  /* ---- premium layer ---- */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .rv{filter:blur(8px)} .rv.in{filter:blur(0)}
+  .hero .glow{position:absolute;z-index:1;border-radius:50%;filter:blur(70px);pointer-events:none;opacity:.4;background:radial-gradient(circle at 50% 50%,var(--gold),transparent 70%);animation:floaty 16s var(--ease) infinite;mix-blend-mode:screen}
+  .hero .glow.g1{width:40vw;height:40vw;top:-8%;right:-6%;animation-delay:-4s}
+  .hero .glow.g2{width:30vw;height:30vw;bottom:2%;left:-8%;background:radial-gradient(circle at 50% 50%,var(--wine),transparent 70%);opacity:.32}
+  @keyframes floaty{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2.2vw,-3vh,0) scale(1.14)}}
+  .btn{will-change:transform} .btn-wine,.btn-brass{position:relative;overflow:hidden}
+  .btn-wine::after,.btn-brass::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);transition:left .6s var(--ease)}
+  .btn-wine:hover::after,.btn-brass:hover::after{left:130%}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Michaelis Friseure</div>
+
+<header class="header" id="header">
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="mk">M</span>Michaelis</a>
+    <nav class="nav">
+      <a class="lk" href="#leistungen">Leistungen</a>
+      <a class="lk" href="#galerie">Galerie</a>
+      <a class="lk" href="#salons">Salons</a>
+      <a class="ph" href="tel:+492212580235"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0221 · 2580235</a>
+      <a class="btn btn-wine" href="#kontakt">Termin buchen</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <img class="bg" id="heroBg" src="https://michaelis-friseur.de/wp-content/uploads/2025/12/michaelis-friseure-koeln-Startseite-dein-schoenstes-ich.png" alt="Michaelis Friseure Köln — dein schönstes Ich" loading="eager">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="scrim"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow rv">Friseurkunst in 4. Generation · Köln City &amp; Weiden</div>
+    <h1 class="rv" style="transition-delay:.05s">Dein<br><em>schönstes Ich.</em></h1>
+    <p class="lede rv" style="transition-delay:.1s">Präzise Schnitte, moderner Style und individuelle Beratung — in unseren Salons am Heumarkt und in Köln Weiden. Friseurhandwerk, das seit Generationen begeistert.</p>
+    <div class="hero-cta rv" style="transition-delay:.15s">
+      <a class="btn btn-wine" href="#kontakt">Termin buchen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ol" href="#salons">Salons ansehen</a>
+    </div>
+    <div class="hero-trust rv" style="transition-delay:.2s">
+      <div class="stars"><span class="s">★★★★★</span> 5,0 · Google</div>
+      <div class="sep"></div><div class="ti">4. Generation Friseurhandwerk</div>
+      <div class="sep"></div><div class="ti">Zwei Salons in Köln</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap row">
+    <span><b>✦</b> Individuelle Beratung</span>
+    <span><b>✦</b> Moderne Stylings</span>
+    <span><b>✦</b> Coloration &amp; Balayage</span>
+    <span><b>✦</b> Eigener Onlineshop</span>
+  </div>
+</div>
+
+<!-- LEISTUNGEN -->
+<section class="section serv-sec" id="leistungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Unsere Leistungen</div>
+      <h2 class="rv" style="transition-delay:.05s">Handwerk für deinen Look</h2>
+      <p class="rv" style="transition-delay:.1s">Vom präzisen Schnitt bis zur feinen Coloration — abgestimmt auf dich, dein Haar und deinen Stil.</p>
+    </div>
+    <div class="serv-grid">
+      <div class="serv rv">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/michaelis-friseure-professionelle-friseurin-damenhaarschnitt.jpg" alt="Damenhaarschnitt bei Michaelis Friseure" loading="lazy"></div>
+        <div class="bd"><h3>Damen- &amp; Herrenschnitt</h3><p>Präzise Schnitte mit individueller Typberatung — für jeden Anlass und jeden Style.</p></div>
+      </div>
+      <div class="serv rv" style="transition-delay:.06s">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/06/michaelis-friseure-koeln-leistung-info-balayage.jpg" alt="Balayage Coloration bei Michaelis Friseure" loading="lazy"></div>
+        <div class="bd"><h3>Coloration &amp; Balayage</h3><p>Natürliche Farbverläufe und brillante Töne — handwerklich aufgetragen für ein lebendiges Ergebnis.</p></div>
+      </div>
+      <div class="serv rv" style="transition-delay:.12s">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/06/michaelis-friseure-koeln-leistung-info-thermo-cut.jpg" alt="Thermo-Cut bei Michaelis Friseure" loading="lazy"></div>
+        <div class="bd"><h3>Thermo-Cut</h3><p>Versiegelte Spitzen, weniger Spliss — die schonende Schneidetechnik für gesund wirkendes Haar.</p></div>
+      </div>
+      <div class="serv rv">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2024/02/michaelis_friseure_redesign_haarverlaengerung_adobe_stock.jpg" alt="Haarverlängerung bei Michaelis Friseure" loading="lazy"></div>
+        <div class="bd"><h3>Haarverlängerung</h3><p>Mehr Länge, mehr Fülle — diskret und individuell auf deine Haarstruktur abgestimmt.</p></div>
+      </div>
+      <div class="serv rv" style="transition-delay:.06s">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/michaelis-friseure-aufbau-haarpflege-koeln-dom-edition-cologne.jpg" alt="Aufbau- und Haarpflege Dom-Edition" loading="lazy"></div>
+        <div class="bd"><h3>Aufbau- &amp; Haarpflege</h3><p>Intensive Pflege bis zur eigenen Dom-Edition — für Glanz und Geschmeidigkeit, die bleiben.</p></div>
+      </div>
+      <div class="serv rv" style="transition-delay:.12s">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/06/michaelis-friseure-koeln_blogbeitrag_teaser_calligraphy.jpg" alt="Calligraphy Cut bei Michaelis Friseure" loading="lazy"></div>
+        <div class="bd"><h3>Styling &amp; Beratung</h3><p>Vom Calligraphy Cut bis zum Anlass-Styling — ehrliche Beratung für dein schönstes Ich.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="section" id="galerie">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Einblicke</div>
+      <h2 class="rv" style="transition-delay:.05s">Unser Team &amp; unsere Arbeit</h2>
+    </div>
+    <div class="gal rv">
+      <figure><img src="https://michaelis-friseur.de/wp-content/uploads/2026/05/Michaelis-Friseure-Gruppe_Mai_2026.jpg" alt="Team von Michaelis Friseure, Mai 2026" loading="lazy"></figure>
+      <figure><img src="https://michaelis-friseur.de/wp-content/uploads/2026/05/teresa_rothwangl_fotografin_P6A7865-scaled.jpg" alt="Stimmungsbild Michaelis Friseure" loading="lazy"></figure>
+      <figure><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/Michaelis-Friseure.jpg" alt="Salon-Atmosphäre bei Michaelis Friseure" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section rev-sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Kundenstimmen</div>
+      <h2 class="rv" style="transition-delay:.05s">Gekommen, begeistert, wiedergekommen</h2>
+    </div>
+    <div class="reviews">
+      <div class="review rv"><div class="s">★★★★★</div><p>„Ehrliche Beratung und ein Schnitt, der wirklich zu mir passt. Genau so stelle ich mir einen Top-Friseur vor."</p><div class="who">— L. Brandt · Google</div></div>
+      <div class="review rv" style="transition-delay:.06s"><div class="s">★★★★★</div><p>„Meine Balayage ist traumhaft natürlich geworden. Tolles Team, schöner Salon am Heumarkt."</p><div class="who">— C. Vogel · Google</div></div>
+      <div class="review rv" style="transition-delay:.12s"><div class="s">★★★★★</div><p>„Herzlicher Empfang, viel Erfahrung und ein Ergebnis, das hält. Komme gern wieder."</p><div class="who">— N. Sander · Google</div></div>
+    </div>
+    <div class="rev-foot rv">Echte Google-Bewertungen werden hier künftig prominent eingebunden — der bisher fehlende <b>Trust-Baustein</b>, der Erstbesucher zum Termin bewegt.</div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="section" id="termin">
+  <div class="wrap">
+    <div class="band rv">
+      <img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/michaelis-friseure-koeln-Startseite-dein-schoenstes-ich.png" alt="" aria-hidden="true">
+      <div class="sc"></div>
+      <div class="in">
+        <div class="eyebrow" style="color:var(--gold)">Termin buchen</div>
+        <h2 style="margin-top:10px">Bereit für dein schönstes Ich?</h2>
+        <p>Vereinbare jetzt deinen Termin in Köln City oder Köln Weiden — wir freuen uns auf dich und beraten dich persönlich.</p>
+        <div class="hero-cta">
+          <a class="btn btn-brass" href="#kontakt">Termin buchen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ol" href="tel:+492212580235"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0221 · 2580235</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALONS -->
+<section class="section serv-sec" id="salons">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow rv">Unsere Salons</div>
+      <h2 class="rv" style="transition-delay:.05s">Zweimal Köln, einmal Michaelis</h2>
+      <p class="rv" style="transition-delay:.1s">Besuche uns mitten in der City oder in Köln Weiden — beide Salons mit dem gleichen handwerklichen Anspruch.</p>
+    </div>
+    <div class="salons">
+      <div class="salon rv">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/Michaelis-Friseure-Salon-Koeln-City-Heumarkt.jpg" alt="Michaelis Friseure Salon Köln City am Heumarkt" loading="lazy"></div>
+        <div class="bd">
+          <h3>Köln City · Heumarkt</h3>
+          <dl>
+            <dt>Lage</dt><dd>Am Heumarkt, mitten in der Kölner Altstadt</dd>
+            <dt>Telefon</dt><dd><a href="tel:+492212580235" style="color:var(--wine);font-weight:700">0221 · 2580235</a></dd>
+          </dl>
+          <a class="btn btn-wine lk" href="#kontakt">Termin in City buchen</a>
+        </div>
+      </div>
+      <div class="salon rv" style="transition-delay:.08s">
+        <div class="ph"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/Michaelis-Friseure-Salon-Koeln-Weiden-Bahnstrasse.jpg" alt="Michaelis Friseure Salon Köln Weiden an der Bahnstraße" loading="lazy"></div>
+        <div class="bd">
+          <h3>Köln Weiden · Bahnstraße</h3>
+          <dl>
+            <dt>Lage</dt><dd>An der Bahnstraße in Köln Weiden</dd>
+            <dt>Telefon</dt><dd><a href="tel:+492212580235" style="color:var(--wine);font-weight:700">0221 · 2580235</a></dd>
+          </dl>
+          <a class="btn btn-wine lk" href="#kontakt">Termin in Weiden buchen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="section" id="kontakt">
+  <div class="wrap info">
+    <div class="box rv">
+      <div class="eyebrow">Termin &amp; Kontakt</div>
+      <h2 style="margin-top:10px">Ruf an — wir finden deinen Termin.</h2>
+      <p style="color:var(--ink-2);margin-top:14px">Friseur &amp; Styling in Köln City und Köln Weiden. Individuelle Beratung, moderne Stylings, 4. Generation Friseurhandwerk.</p>
+      <dl>
+        <dt>Telefon</dt><dd><a href="tel:+492212580235" style="color:var(--wine);font-weight:700">0221 · 2580235</a></dd>
+        <dt>Salons</dt><dd>Köln City (Heumarkt) &amp; Köln Weiden (Bahnstraße)</dd>
+        <dt>Termin</dt><dd>Telefonisch oder direkt vor Ort</dd>
+        <dt>Onlineshop</dt><dd>Pflegeprodukte &amp; eigene Dom-Edition</dd>
+      </dl>
+      <div class="hero-cta" style="margin-top:26px">
+        <a class="btn btn-wine" href="tel:+492212580235"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Jetzt Termin buchen</a>
+      </div>
+    </div>
+    <div class="mapph rv" style="transition-delay:.1s"><img src="https://michaelis-friseur.de/wp-content/uploads/2025/12/Michaelis-Friseure.jpg" alt="Salon-Atmosphäre bei Michaelis Friseure" loading="lazy"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <a class="brand" href="#top" style="font-size:24px"><span class="mk">M</span>Michaelis</a>
+        <p>Michaelis Friseure — Friseurkunst in 4. Generation. Dein schönstes Ich in Köln City und Köln Weiden.</p>
+      </div>
+      <nav class="fnav">
+        <a href="#leistungen">Leistungen</a><a href="#galerie">Galerie</a><a href="#salons">Salons</a><a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+    <div class="bot">
+      <span>© <span id="yr">2026</span> Michaelis Friseure — Konzept-Vorschau · MZ.9</span>
+      <span>Gestaltet von MZ.9 · Media Engineering.AI</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Schnellkontakt">
+  <a href="tel:+492212580235"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a>
+  <a href="#leistungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h18M3 17h12"/></svg>Leistungen</a>
+  <a class="res" href="#kontakt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termin</a>
+</nav>
+
+<script>
+(function(){
+  var h=document.getElementById("header");
+  function s(){ h.classList.toggle("scrolled", window.scrollY>30); } s(); addEventListener("scroll",s,{passive:true});
+  var y=document.getElementById("yr"); if(y) y.textContent=new Date().getFullYear();
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1,rootMargin:"0px 0px -8% 0px"});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add("in");});
+  if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+    var hb=document.getElementById("heroBg");
+    addEventListener("scroll",function(){ if(hb&&scrollY<innerHeight) hb.style.transform="translateY("+(scrollY*.16)+"px) scale(1.06)"; },{passive:true});
+    document.querySelectorAll(".btn").forEach(function(b){
+      b.addEventListener("mousemove",function(e){var r=b.getBoundingClientRect();b.style.transform="translate("+((e.clientX-r.left-r.width/2)*.22)+"px,"+((e.clientY-r.top-r.height/2)*.35-2)+"px)";});
+      b.addEventListener("mouseleave",function(){b.style.transform="";});
+    });
+  }
+})();
+</script>
+</body>
+</html>
