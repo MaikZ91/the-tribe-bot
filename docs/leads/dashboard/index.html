@@ -462,12 +462,36 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
   function isHidden(id){ return hidden.indexOf(id)>=0; }
   function hide(id){ if(!isHidden(id)){ hidden.push(id); saveHidden(hidden); render(); } }
   function restoreAll(){ hidden=[]; saveHidden(hidden); render(); }
-  /* ---- kontaktiert/erledigt markieren ---- */
+  /* ---- kontaktiert/erledigt markieren (global via done.json + localStorage overlay) ---- */
   var DKEY="mz9_audit_done_v1";
-  function loadDone(){ try{var d=JSON.parse(localStorage.getItem(DKEY)); return Array.isArray(d)?d:[];}catch(e){return [];} }
-  var done=loadDone();
+  var done=[];  // wird async geladen
+  var doneReady=false;
+  function loadDone(cb){
+    // 1. global: done.json vom Server (Source of Truth)
+    fetch('done.json?_='+Date.now())
+      .then(function(r){ return r.ok?r.json():[]; })
+      .catch(function(){ return []; })
+      .then(function(remote){
+        // 2. lokal: localStorage (Session-Overlay)
+        var local=[];
+        try{ local=JSON.parse(localStorage.getItem(DKEY))||[]; }catch(e){}
+        // 3. merge: union beider Listen
+        var merged={};
+        remote.forEach(function(id){ merged[id]=true; });
+        local.forEach(function(id){ merged[id]=true; });
+        done=Object.keys(merged);
+        doneReady=true;
+        if(cb) cb();
+        render();
+      });
+  }
   function isDone(id){ return done.indexOf(id)>=0; }
-  function toggleDone(id){ var i=done.indexOf(id); if(i>=0) done.splice(i,1); else done.push(id); try{localStorage.setItem(DKEY,JSON.stringify(done));}catch(e){} render(); }
+  function toggleDone(id){
+    var i=done.indexOf(id);
+    if(i>=0) done.splice(i,1); else done.push(id);
+    try{localStorage.setItem(DKEY,JSON.stringify(done));}catch(e){}
+    render();
+  }
 
   /* ---- render: Listen-Ansicht ---- */
   function scoreCls(n){ return n<45?"lo":n<65?"mid":"hi"; }
@@ -508,7 +532,7 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
     var r1=document.getElementById("restore"), r2=document.getElementById("restore2");
     if(r1) r1.onclick=restoreAll; if(r2) r2.onclick=restoreAll;
   }
-  render();
+  loadDone();  // async: lädt done.json + localStorage, dann render()
 
   document.getElementById("tabs").addEventListener("click",function(e){var b=e.target.closest("[data-tab]");if(!b)return;curTab=b.getAttribute("data-tab");render();});
   list.addEventListener("click",function(e){

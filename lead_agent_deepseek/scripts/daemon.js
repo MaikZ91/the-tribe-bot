@@ -26,6 +26,7 @@ const LEADS_DIR = path.join(ROOT, 'leads');
 const TEMPLATE_FILE = path.join(ROOT, 'templates', 'preview.html');
 const DASHBOARD_FILE = path.join(ROOT, '..', 'docs', 'leads', 'dashboard', 'index.html');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
+const DONE_FILE = path.join(ROOT, '..', 'docs', 'leads', 'dashboard', 'done.json');
 const DISCOVERY_FLAG = path.join(ROOT, 'DISCOVERY_NEEDED.txt');
 const DISCOVERIES_DIR = path.join(ROOT, 'discoveries');
 const DISCOVERIES_USED = path.join(ROOT, 'discoveries', 'used');
@@ -69,6 +70,8 @@ function loadJson(file) { try { return JSON.parse(fs.readFileSync(file, 'utf8'))
 function saveJson(file, data) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 function ensureDir(dir) { if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true }); }
 function colorsFor(industry) { return COLORS[(industry || '').toLowerCase()] || COLORS.default; }
+
+function loadDoneList() { try { return JSON.parse(fs.readFileSync(DONE_FILE, 'utf8')) || []; } catch { return []; } }
 
 // ─── Phase 1: Queue ───────────────────────────────────────────────
 function getNextLead() {
