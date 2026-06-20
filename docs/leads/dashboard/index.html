@@ -723,9 +723,11 @@ l.opps.map(function(o){return "• "+o;}).join("\n")+"\n\n"+
       .then(function(remote){
         // 2. lokal: localStorage (Session-Overlay)
         var local=[];
-        try{ local=JSON.parse(localStorage.getItem(DKEY))||[]; }catch(e){}
+        try{ local=JSON.parse(localStorage.getItem(DKEY))||[
+    {id:"kosmetik-hien-spa-beauty-care",name:"Hien Spa Beauty Care",industry:"Kosmetik",hebel:"mittel",score:3,website:"https://www.spa-beautycare.de/",problems:["Keine Bewertungen","Veraltetes Design","Schwache CTA"],opps:["Google-Reviews einbinden","Modernes Design","Klare CTAs"],preview:"https://maikz91.github.io/the-tribe-bot/leads/kosmetik-hien-spa-beauty-care/"},]; }catch(e){}
         // 3. merge: union beider Listen
-        var merged={};
+        var merged={
+    "kosmetik-hien-spa-beauty-care":"info@spa-beautycare.de;beautycare.hn@gmail.com",};
         remote.forEach(function(id){ merged[id]=true; });
         local.forEach(function(id){ merged[id]=true; });
         done=Object.keys(merged);
