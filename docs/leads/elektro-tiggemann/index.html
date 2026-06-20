@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Elektro Tiggemann – Ihr Meisterbetrieb für Elektroinstallation, Kommunikationstechnik & Service in Bielefeld seit den 1930er Jahren.">
+<title>Elektro Tiggemann | Meisterbetrieb Bielefeld – seit 1930</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1a1a2e;--card:#16213e;--neon:#e2c044;--neon2:#f0a500;--text:#ffffff;--muted:#9ca3af;--line:rgba(226,192,68,.15)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.mono{font-family:ui-monospace,'Cascadia Code',Consolas,monospace;letter-spacing:.02em}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+section{padding:clamp(3rem,8vw,6rem) 0}
+h1,h2,h3{line-height:1.15}
+h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800}
+h2{font-size:clamp(1.6rem,3.5vw,2.4rem);color:var(--neon);margin-bottom:2rem;font-weight:700}
+h2::after{content:'';display:block;width:60px;height:3px;background:var(--neon);margin-top:.75rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:4px;font-weight:700;font-size:.95rem;cursor:pointer;text-decoration:none;transition:all .25s;border:none;text-transform:uppercase;letter-spacing:.05em}
+.btn-primary{background:var(--neon);color:var(--bg)}
+.btn-primary:hover{background:var(--neon2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(226,192,68,.3)}
+.btn-outline{background:transparent;color:var(--neon);border:2px solid var(--neon)}
+.btn-outline:hover{background:rgba(226,192,68,.1)}
+.badge{display:inline-block;font-family:ui-monospace,monospace;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border:1px solid var(--neon);color:var(--neon);margin-bottom:1.5rem}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 50%,rgba(226,192,68,.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(22,33,62,.8) 0%,transparent 50%)}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,var(--line) 0,var(--line) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(0deg,var(--line) 0,var(--line) 1px,transparent 1px,transparent 60px);opacity:.4;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:650px}
+.hero-content .overline{font-family:ui-monospace,monospace;font-size:.8rem;color:var(--neon);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:block}
+.hero-content p{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);margin:1.5rem 0 2rem;max-width:500px}
+.hero-buttons{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-spark{position:absolute;right:5%;top:20%;font-size:10rem;opacity:.06;color:var(--neon);user-select:none;pointer-events:none}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.service-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2rem 1.5rem;transition:all .3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--neon);opacity:0;transition:opacity .3s}
+.service-card:hover::before{opacity:1}
+.service-card:hover{border-color:var(--neon);transform:translateY(-4px)}
+.service-card .icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+.service-card h3{font-size:1.2rem;margin-bottom:.6rem;color:var(--text)}
+.service-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.about-text .heritage{font-family:ui-monospace,monospace;font-size:.75rem;color:var(--neon);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.about-text p{color:var(--muted);margin-bottom:1rem;font-size:.95rem;line-height:1.7}
+.about-text .highlight{color:var(--neon);font-size:1.15rem;font-weight:600;margin:1.5rem 0;line-height:1.5}
+.timeline{position:relative;padding-left:2rem;border-left:2px solid var(--line)}
+.timeline-item{position:relative;margin-bottom:1.8rem}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.3rem;width:10px;height:10px;background:var(--neon);border-radius:2px;transform:rotate(45deg)}
+.timeline-item .year{font-family:ui-monospace,monospace;font-size:.8rem;color:var(--neon);font-weight:700}
+.timeline-item .event{font-size:.88rem;color:var(--muted);margin-top:.25rem}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.review-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2rem;position:relative}
+.review-card .stars{color:var(--neon);font-size:1.2rem;margin-bottom:.8rem;letter-spacing:.15em}
+.review-card .text{font-size:.95rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:1rem}
+.review-card .author{font-family:ui-monospace,monospace;font-size:.8rem;color:var(--neon);font-weight:600}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact-info h3{font-size:1.3rem;margin-bottom:1.5rem;color:var(--text)}
+.contact-info .info-row{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.contact-info .info-icon{width:44px;height:44px;background:var(--card);border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--neon);flex-shrink:0;font-size:1.2rem}
+.contact-info .info-text strong{display:block;font-family:ui-monospace,monospace;font-size:.75rem;color:var(--neon);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
+.contact-info .info-text span{color:var(--muted);font-size:.95rem}
+.contact-form{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--neon);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+.form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;color:var(--text);font-family:inherit;font-size:.95rem;transition:border-color .25s}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--neon)}
+.form-group textarea{min-height:120px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* Footer */
+footer{background:var(--card);border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}
+.footer-grid h4{color:var(--neon);font-family:ui-monospace,monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.footer-grid p,.footer-grid a{display:block;color:var(--muted);text-decoration:none;line-height:2;font-size:.85rem}
+.footer-grid a:hover{color:var(--neon)}
+.footer-bottom{border-top:1px solid var(--line);margin-top:2rem;padding-top:1.5rem;text-align:center;font-family:ui-monospace,monospace;font-size:.72rem;letter-spacing:.05em}
+
+@media(max-width:768px){
+.about-grid{grid-template-columns:1fr}
+.contact-grid{grid-template-columns:1fr}
+.form-row{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr;gap:1.5rem}
+.hero-spark{right:-10%;font-size:6rem}
+.hero-buttons{flex-direction:column}
+.hero-buttons .btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="home">
+<div class="container">
+<div class="hero-content">
+<span class="overline">Meisterbetrieb seit 1930</span>
+<h1>Elektroinstallation<br>mit Tradition</h1>
+<p>Von Breslau über Herford nach Bielefeld – seit drei Generationen Ihr Partner für Elektrotechnik, Kommunikationstechnik und Service. Meisterqualität, der Sie vertrauen können.</p>
+<div class="hero-buttons">
+<a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
+<a href="#leistungen" class="btn btn-outline">Leistungen</a>
+</div>
+</div>
+<div class="hero-spark">⚡</div>
+</div>
+</section>
+
+<section id="leistungen">
+<div class="container">
+<h2>Unsere Leistungen</h2>
+<div class="services-grid">
+<div class="service-card">
+<span class="icon">🔌</span>
+<h3>Elektroinstallation</h3>
+<p>Komplette Elektroinstallationen für Neubau und Sanierung. Schaltanlagen, Verteiler, Beleuchtungstechnik – alles aus einer Hand.</p>
+</div>
+<div class="service-card">
+<span class="icon">📡</span>
+<h3>Kommunikationstechnik</h3>
+<p>Netzwerktechnik, Telefonanlagen, SAT-Anlagen und Antennentechnik. Wir vernetzen Ihr Zuhause und Ihr Büro.</p>
+</div>
+<div class="service-card">
+<span class="icon">✅</span>
+<h3>E-Check</h3>
+<p>Der E-Check – die geprüfte Sicherheit für Ihre elektrischen Anlagen und Geräte. Nach DIN VDE 0100.</p>
+</div>
+<div class="service-card">
+<span class="icon">🔧</span>
+<h3>Service & Reparatur</h3>
+<p>Schnelle Hilfe bei Störungen und Defekten. Wir sind für Sie da – zuverlässig und kompetent seit über 90 Jahren.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="ueber-uns" style="background:var(--card)">
+<div class="container">
+<div class="about-grid">
+<div class="about-text">
+<span class="heritage">Drei Generationen Handwerkskunst</span>
+<h2 style="margin-bottom:.5rem">Die Tiggemann-Story</h2>
+<p>Die Wurzeln unseres Betriebs reichen zurück bis in die 1930er Jahre nach Breslau. Nach dem Krieg baute die Familie 1949 in Bielefeld neu auf – mit nichts als Werkzeug, Wissen und dem festen Willen, Qualität zu liefern.</p>
+<p class="highlight">„Was mein Großvater begann und mein Vater fortführte, führe ich mit demselben Anspruch weiter: Elektrotechnik auf Meisterniveau."</p>
+<p>Heute steht Peter Tiggemann in dritter Generation für den Familienbetrieb – modern, aber mit den Werten von damals: Verlässlichkeit, Präzision und ein offenes Ohr für jeden Kunden.</p>
+</div>
+<div class="timeline">
+<div class="timeline-item"><div class="year">1930er</div><div class="event">Gründung in Breslau – der Grundstein wird gelegt</div></div>
+<div class="timeline-item"><div class="year">1949</div><div class="event">Neuanfang in Bielefeld – Aufbau aus dem Nichts</div></div>
+<div class="timeline-item"><div class="year">1966</div><div class="event">Wolfgang Tiggemann übernimmt den Betrieb</div></div>
+<div class="timeline-item"><div class="year">2000</div><div class="event">Peter Tiggemann führt die Familientradition fort</div></div>
+<div class="timeline-item"><div class="year">Heute</div><div class="event">Moderne Elektrotechnik mit fast 100 Jahren Erfahrung</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="bewertungen">
+<div class="container">
+<h2>Das sagen unsere Kunden</h2>
+<div class="reviews-grid">
+<div class="review-card">
+<div class="stars">★★★★★</div>
+<p class="text">„Seit 20 Jahren unser Elektriker des Vertrauens. Egal ob Notfall oder große Installation – immer top."</p>
+<div class="author">Familie M., Bielefeld</div>
+</div>
+<div class="review-card">
+<div class="stars">★★★★★</div>
+<p class="text">„Endlich ein Handwerker, der sein Handwerk versteht. Pünktlich, sauber, faire Preise. Kann ich nur empfehlen."</p>
+<div class="author">Bürogemeinschaft S., Bielefeld</div>
+</div>
+<div class="review-card">
+<div class="stars">★★★★★</div>
+<p class="text">„Komplette Haussanierung mit Elektro Tiggemann gemacht. Alles perfekt geplant und umgesetzt."</p>
+<div class="author">Bauherr H., Herford</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="kontakt" style="background:var(--card)">
+<div class="container">
+<div class="contact-grid">
+<div class="contact-info">
+<h3 style="color:var(--text)">So erreichen Sie uns</h3>
+<div class="info-row">
+<div class="info-icon">📞</div>
+<div class="info-text"><strong>Telefon</strong><span>0521 / 35451</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">📠</div>
+<div class="info-text"><strong>Fax</strong><span>0521 / 38557</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">📍</div>
+<div class="info-text"><strong>Adresse</strong><span>Herforder Str. 233<br>33609 Bielefeld</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">✉</div>
+<div class="info-text"><strong>E-Mail</strong><span>elektro-tiggemann@t-online.de</span></div>
+</div>
+</div>
+<div>
+<div class="contact-form">
+<form action="#" method="post">
+<div class="form-row">
+<div class="form-group"><label>Name *</label><input type="text" required placeholder="Ihr Name"></div>
+<div class="form-group"><label>Telefon</label><input type="tel" placeholder="0521 ..."></div>
+</div>
+<div class="form-group"><label>E-Mail *</label><input type="email" required placeholder="ihre@email.de"></div>
+<div class="form-group"><label>Nachricht *</label><textarea required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea></div>
+<button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Nachricht senden</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>Elektro Tiggemann</h4>
+<p>Meisterbetrieb Peter Tiggemann<br>Elektroinstallation und Kommunikationstechnik<br>Herforder Str. 233, 33609 Bielefeld</p>
+</div>
+<div>
+<h4>Navigation</h4>
+<a href="#home">Start</a>
+<a href="#leistungen">Leistungen</a>
+<a href="#ueber-uns">Über uns</a>
+<a href="#kontakt">Kontakt</a>
+</div>
+<div>
+<h4>Rechtliches</h4>
+<a href="#">Impressum</a>
+<a href="#">Datenschutz</a>
+</div>
+</div>
+<div class="footer-bottom">© 2025 Elektro Tiggemann · UST-ID DE206287483 · Amtsgericht Bielefeld</div>
+</div>
+</footer>
+</body>
+</html>

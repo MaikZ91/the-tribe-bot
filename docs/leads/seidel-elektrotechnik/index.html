@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Seidel Elektrotechnik GmbH Bielefeld – Ihr Partner für Elektroinstallation, Gebäudetechnik, Industrieanlagen und 24h-Notdienst.">
+<title>Seidel Elektrotechnik GmbH | Bielefeld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0a1628;--blue:#3b82f6;--lblue:#60a5fa;--gray:#e2e8f0;--dgray:#1e293b;--slate:#334155;--accent:#f59e0b}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--navy);color:var(--gray);line-height:1.65;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+section{padding:clamp(3rem,8vw,6rem) 0}
+h1,h2,h3{line-height:1.15;color:#fff}
+h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:2.5rem;position:relative;display:inline-block}
+h2::after{content:'';position:absolute;bottom:-8px;left:0;width:50px;height:3px;background:var(--blue);border-radius:2px}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:6px;font-weight:700;font-size:.92rem;cursor:pointer;text-decoration:none;transition:all .25s;letter-spacing:.01em}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,130,246,.35)}
+.btn-outline{background:transparent;color:var(--lblue);border:2px solid var(--lblue)}
+.btn-outline:hover{background:rgba(96,165,250,.1)}
+.btn-emergency{background:var(--accent);color:#1a1406;font-weight:800;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 12px rgba(245,158,11,0)}}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:4px;color:var(--lblue);background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);margin-bottom:1.2rem}
+
+/* Circuit background */
+.circuit-bg{position:relative}
+.circuit-bg::before{content:'';position:absolute;inset:0;opacity:.03;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,var(--lblue) 1px,transparent 1px),radial-gradient(circle at 70% 60%,var(--lblue) 1px,transparent 1px),radial-gradient(circle at 40% 80%,var(--lblue) 1px,transparent 1px);background-size:80px 80px,100px 100px,60px 60px}
+
+/* Hero */
+.hero{min-height:85vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-10%;top:10%;width:400px;height:600px;border:1px solid rgba(59,130,246,.08);transform:rotate(15deg);pointer-events:none}
+.hero::before{content:'';position:absolute;left:5%;bottom:20%;width:200px;height:200px;border:2px solid rgba(59,130,246,.06);border-radius:50%;pointer-events:none}
+.hero .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:650px}
+.hero-content p{font-size:clamp(1rem,2vw,1.15rem);color:#94a3b8;margin:1.5rem 0 2rem;max-width:520px}
+.hero-buttons{display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* Circuit grid */
+.circuit-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin:4rem 0}
+.circuit-grid.reverse{direction:rtl}
+.circuit-grid.reverse .circuit-text{direction:ltr}
+.circuit-visual{aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.circuit-drawing{width:100%;height:100%;max-width:320px;position:relative}
+.circuit-drawing .node{position:absolute;width:16px;height:16px;background:var(--blue);border-radius:3px;box-shadow:0 0 12px rgba(59,130,246,.4)}
+.circuit-drawing .line-h{position:absolute;height:2px;background:linear-gradient(90deg,var(--blue),transparent)}
+.circuit-drawing .line-v{position:absolute;width:2px;background:linear-gradient(0deg,var(--blue),transparent)}
+.circuit-text h3{font-size:1.4rem;margin-bottom:.8rem;color:#fff}
+.circuit-text p{color:#94a3b8;margin-bottom:1rem;line-height:1.7}
+.circuit-text .specs{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.circuit-text .specs li{display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--gray)}
+.circuit-text .specs li::before{content:'⟐';color:var(--lblue);font-size:1.1rem}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem}
+.service-card{background:var(--dgray);border:1px solid rgba(59,130,246,.15);border-radius:8px;padding:2rem 1.5rem;transition:all .3s;text-align:center}
+.service-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 8px 30px rgba(59,130,246,.1)}
+.service-card .icon{font-size:2.8rem;margin-bottom:1rem;display:block}
+.service-card h3{font-size:1.05rem;margin-bottom:.5rem}
+.service-card p{font-size:.85rem;color:#94a3b8;line-height:1.5}
+
+/* Emergency banner */
+.emergency{background:linear-gradient(135deg,var(--dgray),var(--navy));border:2px solid var(--accent);border-radius:12px;padding:2.5rem;text-align:center;margin-top:3rem}
+.emergency h3{color:var(--accent);font-size:1.3rem;margin-bottom:.5rem}
+.emergency p{color:var(--gray);margin-bottom:1.5rem}
+.emergency .phone{font-size:2rem;font-weight:800;color:var(--accent);display:block;margin-bottom:1rem;font-family:monospace}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-info .info-row{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.contact-info .info-icon{width:46px;height:46px;background:var(--dgray);border:1px solid rgba(59,130,246,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--lblue);flex-shrink:0;font-size:1.2rem}
+.contact-info strong{display:block;color:var(--lblue);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.contact-info span{color:var(--gray);font-size:.95rem}
+.contact-form-box{background:var(--dgray);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:2rem}
+.contact-form-box h3{font-size:1.2rem;margin-bottom:1.5rem}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.75rem;font-weight:600;color:var(--lblue);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.35rem}
+.form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;background:var(--navy);border:1px solid var(--slate);border-radius:6px;color:var(--gray);font-family:inherit;font-size:.92rem;transition:border-color .25s}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.form-group textarea{min-height:110px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* Footer */
+footer{background:var(--dgray);border-top:1px solid var(--slate);padding:3rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem}
+.footer-grid h4{color:var(--lblue);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.footer-grid p,.footer-grid a{color:#94a3b8;text-decoration:none;font-size:.88rem;line-height:2;display:block}
+.footer-grid a:hover{color:var(--blue)}
+.footer-bottom{border-top:1px solid var(--slate);margin-top:2rem;padding-top:1.5rem;text-align:center;font-size:.8rem;color:#64748b}
+
+@media(max-width:768px){
+.circuit-grid{grid-template-columns:1fr}
+.circuit-grid.reverse{direction:ltr}
+.contact-grid{grid-template-columns:1fr}
+.form-row{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr;gap:1.5rem}
+.hero-buttons{flex-direction:column}
+.hero-buttons .btn{justify-content:center}
+.services-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<section class="hero circuit-bg" id="home">
+<div class="grid-overlay"></div>
+<div class="container">
+<div class="hero-content">
+<span class="badge">Elektrotechnik GmbH · Bielefeld</span>
+<h1>Präzision,<br>die verbindet.</h1>
+<p>Seit über 25 Jahren Ihr Partner für Elektroinstallation, Gebäudetechnik und Industrieanlagen in Bielefeld und Umgebung. Technik auf den Punkt gebracht.</p>
+<div class="hero-buttons">
+<a href="#kontakt" class="btn btn-primary">Projekt anfragen</a>
+<a href="tel:+49521131324" class="btn btn-emergency">⚡ 24h Notdienst</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="leistungen">
+<div class="container">
+<h2>Unsere Leistungen</h2>
+<div class="services-grid">
+<div class="service-card">
+<span class="icon">🏗️</span>
+<h3>Elektroinstallation</h3>
+<p>Neubau, Sanierung, Modernisierung – komplette Elektroinstallation aus einer Hand nach DIN VDE.</p>
+</div>
+<div class="service-card">
+<span class="icon">🏢</span>
+<h3>Gebäudetechnik</h3>
+<p>Smart-Home, KNX-Bussysteme, Beleuchtungssteuerung und Energiemanagement für moderne Gebäude.</p>
+</div>
+<div class="service-card">
+<span class="icon">🏭</span>
+<h3>Industrieanlagen</h3>
+<p>Maschineninstallation, Schaltanlagenbau und Wartung von Industrieanlagen nach höchsten Standards.</p>
+</div>
+<div class="service-card">
+<span class="icon">🔌</span>
+<h3>Netzwerktechnik</h3>
+<p>Strukturierte Verkabelung, Glasfaser, Serverräume und IT-Infrastruktur für Unternehmen.</p>
+</div>
+<div class="service-card">
+<span class="icon">☀️</span>
+<h3>Photovoltaik</h3>
+<p>Planung und Installation von PV-Anlagen, Speichersystemen und Wallboxen für die Energiewende.</p>
+</div>
+<div class="service-card">
+<span class="icon">🛡️</span>
+<h3>Sicherheitstechnik</h3>
+<p>Alarmanlagen, Videoüberwachung, Brandmeldeanlagen und Zutrittskontrolle.</p>
+</div>
+</div>
+
+<div class="emergency">
+<h3>⚡ 24-Stunden-Notdienst</h3>
+<p>Stromausfall? Kurzschluss? Wir sind rund um die Uhr für Sie erreichbar – auch an Wochenenden und Feiertagen.</p>
+<span class="phone">0521 / 131324</span>
+<a href="tel:+49521131324" class="btn btn-emergency">Jetzt anrufen</a>
+</div>
+</div>
+</section>
+
+<section id="projekte" style="background:var(--dgray)">
+<div class="container">
+<h2>Referenzprojekte</h2>
+<div class="circuit-grid">
+<div class="circuit-visual">
+<div class="circuit-drawing">
+<div class="node" style="top:10%;left:10%"></div>
+<div class="line-h" style="top:calc(10% + 7px);left:calc(10% + 16px);width:60px"></div>
+<div class="node" style="top:10%;left:calc(10% + 76px)"></div>
+<div class="line-v" style="top:calc(10% + 16px);left:calc(10% + 83px);height:80px"></div>
+<div class="node" style="top:calc(10% + 96px);left:calc(10% + 76px)"></div>
+<div class="line-h" style="top:calc(10% + 103px);left:calc(10% - 44px);width:120px"></div>
+<div class="node" style="top:calc(10% + 96px);left:calc(10% - 60px)"></div>
+<div class="node" style="top:50%;left:50%;width:24px;height:24px;background:var(--accent)"></div>
+<div class="line-h" style="top:calc(50% + 11px);right:10%;left:calc(50% + 30px)"></div>
+<div class="node" style="top:50%;right:10%"></div>
+<div class="node" style="bottom:15%;left:30%"></div>
+<div class="line-v" style="bottom:calc(15% + 16px);left:calc(30% + 7px);height:60px"></div>
+<div class="node" style="bottom:calc(15% + 75px);left:30%"></div>
+</div>
+</div>
+<div class="circuit-text">
+<h3>Von der Industriehalle bis zum Smart Home</h3>
+<p>Unsere Projekte sprechen für sich. Wir haben für namhafte Industrieunternehmen, Bürokomplexe und Privathaushalte in Bielefeld und ganz NRW gearbeitet.</p>
+<ul class="specs">
+<li>VDE-zertifizierte Fachbetrieb</li>
+<li>Zertifizierter KNX-Partner</li>
+<li>Eingetragen bei der Handwerkskammer</li>
+<li>Umfassend versichert</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="kontakt">
+<div class="container">
+<div class="contact-grid">
+<div class="contact-info">
+<span class="badge">Kontakt</span>
+<h2 style="display:block;margin-bottom:1.5rem">Bereit für Ihr Projekt?</h2>
+<div class="info-row">
+<div class="info-icon">📍</div>
+<div><strong>Adresse</strong><span>Seidel Elektrotechnik GmbH<br>Bielefeld, NRW</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">📞</div>
+<div><strong>Telefon</strong><span>0521 / 131324</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">✉</div>
+<div><strong>E-Mail</strong><span>info@seidel-elektrotechnik.info</span></div>
+</div>
+<div class="info-row">
+<div class="info-icon">🕐</div>
+<div><strong>Erreichbarkeit</strong><span>Mo–Fr 7–17 Uhr<br>24h Notdienst ganzjährig</span></div>
+</div>
+</div>
+<div class="contact-form-box">
+<h3>Projekt anfragen</h3>
+<form action="#" method="post">
+<div class="form-row">
+<div class="form-group"><label>Name *</label><input type="text" required placeholder="Ihr Name"></div>
+<div class="form-group"><label>E-Mail *</label><input type="email" required placeholder="ihre@email.de"></div>
+</div>
+<div class="form-group"><label>Telefon</label><input type="tel" placeholder="0521 ..."></div>
+<div class="form-group"><label>Projektart</label><select style="width:100%;padding:.8rem 1rem;background:var(--navy);border:1px solid var(--slate);border-radius:6px;color:var(--gray);font-family:inherit;font-size:.92rem"><option>Bitte wählen</option><option>Elektroinstallation</option><option>Gebäudetechnik</option><option>Industrieanlagen</option><option>Photovoltaik</option><option>Notdienst</option><option>Sonstiges</option></select></div>
+<div class="form-group"><label>Nachricht *</label><textarea required placeholder="Beschreiben Sie Ihr Projekt..."></textarea></div>
+<button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Anfrage senden</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<h4>Seidel Elektrotechnik GmbH</h4>
+<p>Ihr Partner für Elektrotechnik in Bielefeld und NRW. Installation, Wartung und 24h-Notdienst.</p>
+</div>
+<div>
+<h4>Navigation</h4>
+<a href="#home">Start</a>
+<a href="#leistungen">Leistungen</a>
+<a href="#projekte">Projekte</a>
+<a href="#kontakt">Kontakt</a>
+</div>
+<div>
+<h4>Rechtliches</h4>
+<a href="#">Impressum</a>
+<a href="#">Datenschutz</a>
+<a href="#">AGB</a>
+</div>
+</div>
+<div class="footer-bottom">&copy; 2025 Seidel Elektrotechnik GmbH · Alle Rechte vorbehalten</div>
+</div>
+</footer>
+</body>
+</html>
