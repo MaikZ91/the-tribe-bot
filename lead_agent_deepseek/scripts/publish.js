@@ -56,7 +56,23 @@ function updateDashboard(job) {
   return true;
 }
 
+// Sicherheitsnetz: prüft, dass das Dashboard-<script> valide JS ist.
+// Verhindert, dass ein fehlendes Komma o.ä. das ganze Dashboard lahmlegt.
+function dashboardIsValid() {
+  try {
+    const h = fs.readFileSync(DASHBOARD_FILE, 'utf8');
+    const m = h.match(/<script>([\s\S]*?)<\/script>/);
+    if (!m) return true;
+    new Function(m[1]); // wirft bei Syntaxfehler
+    return true;
+  } catch (e) {
+    log(`  ⛔ Dashboard-Syntaxfehler: ${e.message} — Push abgebrochen, bitte prüfen.`);
+    return false;
+  }
+}
+
 function gitPush(job) {
+  if (!dashboardIsValid()) return false;
   const cwd = REPO;
   try {
     try { execSync('git pull --rebase --autostash origin main', { cwd, stdio: 'pipe' }); } catch {}
