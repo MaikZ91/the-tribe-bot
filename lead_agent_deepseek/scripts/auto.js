@@ -36,7 +36,7 @@ const WORKFLOW = path.join(ROOT, 'WORKFLOW.md');
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
 const MAX_BUILDS = parseInt(process.env.MAX_BUILDS || '0', 10) || Infinity;
 const BUILD_TIMEOUT = parseInt(process.env.BUILD_TIMEOUT_MIN || '12', 10) * 60_000;
-const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '15', 10);
+const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
 function log(m) { console.log(`[${ts()}] ${m}`); }

@@ -41,7 +41,7 @@ const ROOT = path.join(__dirname, '..');
 const SENT_FILE = path.join(ROOT, 'sent.json');
 const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 
-const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '15', 10);
+const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 
 const SMTP = {
   host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
