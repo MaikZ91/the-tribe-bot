@@ -14,6 +14,7 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const { isValidEmail, isEmailAlreadySent } = require('./pending');
 
 // ─── .env-Datei laden (falls vorhanden) ──────────────────────────
 function loadEnv() {
@@ -88,7 +89,8 @@ function loadLeads() {
         name: job.name,
         industry: job.industry || 'Dienstleistung',
         website: job.website || '',
-        email: job.email || '',
+        email: (isValidEmail(job.email) ? job.email : ''),
+        rawEmail: job.email || '',
         phone: job.phone || '',
         problems: job.problems || [],
         opps: job.opps || [],
@@ -96,6 +98,11 @@ function loadLeads() {
         noweb: !job.website,
         built,
       });
+
+      // Prüfe ob ein Vergleichsbild existiert
+      const compareFile = path.join(PREVIEW_DIR, d.name, 'compare.png');
+      if (fs.existsSync(compareFile)) lead.hasCompare = true;
+      else lead.hasCompare = false;
     } catch {}
   }
   return leads;
@@ -152,11 +159,53 @@ MZ.9 — Media Engineering.AI`;
   return { to, subject, body };
 }
 
+// ─── HTML-E-Mail mit Screenshot-Vergleich ────────────────────────
+function buildHtmlMail(lead) {
+  const { to, subject, body } = buildMail(lead);
+  const compareUrl = `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/compare.png`;
+  const previewUrl = `https://maikz91.github.io/the-tribe-bot/leads/${lead.id}/`;
+
+  // Plain-Text-Body in HTML-Zeilen umwandeln
+  const bodyLines = body.split('\n');
+  let htmlBody = '';
+  let inList = false;
+  for (const line of bodyLines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (inList) { htmlBody += '</ul>\n'; inList = false; }
+      htmlBody += '<br>\n';
+    } else if (trimmed.startsWith('•')) {
+      if (!inList) { htmlBody += '<ul style="margin:8px 0;padding-left:20px">\n'; inList = true; }
+      htmlBody += `<li style="margin:4px 0;color:#333">${trimmed.slice(1).trim()}</li>\n`;
+    } else if (trimmed.startsWith('http')) {
+      htmlBody += `<p style="margin:8px 0"><a href="${trimmed}" style="color:#2563eb">${trimmed}</a></p>\n`;
+    } else {
+      if (inList) { htmlBody += '</ul>\n'; inList = false; }
+      htmlBody += `<p style="margin:8px 0;color:#333">${trimmed}</p>\n`;
+    }
+  }
+  if (inList) htmlBody += '</ul>\n';
+
+  const html = `<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1a1a2e;line-height:1.6">
+${lead.hasCompare ? `
+<div style="margin:0 0 24px;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)">
+  <img src="${compareUrl}" alt="Vorher/Nachher Vergleich" style="width:100%;display:block">
+</div>
+<p style="font-size:12px;color:#888;margin:-16px 0 20px;text-align:center">Links: Aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</p>
+` : ''}
+${htmlBody}
+</body></html>`;
+
+  return { to, subject, body, html };
+}
+
 // ─── Senden ───────────────────────────────────────────────────────
 async function sendMail(lead, dryRun = false) {
   const { to, subject, body } = buildMail(lead);
 
-  if (!to || !to.includes('@')) {
+  if (!to) {
     console.log(`  ⚠️  Keine E-Mail-Adresse für ${lead.id}`);
     return { success: false, reason: 'no-email' };
   }
@@ -179,10 +228,51 @@ async function sendMail(lead, dryRun = false) {
     const info = await transporter.sendMail({
       from: `"${FROM.name}" <${FROM.email}>`,
       to,
-      subject,
+      subject: `Konzept-Vorschau für Ihre Website — ${lead.name}`,
       text: body,
     });
-    console.log(`  ✅ Gesendet an ${to} (ID: ${info.messageId})`);
+    console.log(`  ✅ Plain-Text gesendet an ${to} (ID: ${info.messageId})`);
+    return { success: true, messageId: info.messageId };
+  } catch (err) {
+    console.log(`  ❌ Fehler: ${err.message}`);
+    return { success: false, reason: err.message };
+  }
+}
+
+// ─── HTML-Mail senden ────────────────────────────────────────────
+async function sendHtmlMail(lead, dryRun = false) {
+  const { to, subject, body, html } = buildHtmlMail(lead);
+
+  if (!to) {
+    console.log(`  ⚠️  Keine E-Mail-Adresse für ${lead.id}`);
+    return { success: false, reason: 'no-email' };
+  }
+
+  if (dryRun) {
+    console.log(`\n📧 DRY RUN (HTML) — würde senden an: ${to}`);
+    console.log(`   Betreff: ${subject}`);
+    console.log(`   Text: ${body.length} Zeichen | HTML: ${html.length} Zeichen`);
+    if (lead.hasCompare) console.log('   🖼️  Vergleichsbild: eingebettet');
+    else console.log('   ⚠️  Kein Vergleichsbild vorhanden');
+    return { success: true, dryRun: true };
+  }
+
+  if (!SMTP.auth.pass) {
+    console.log('  ❌ Kein SMTP-Passwort gesetzt. Setze MZ9_SMTP_PASS.');
+    return { success: false, reason: 'no-auth' };
+  }
+
+  const transporter = nodemailer.createTransport(SMTP);
+
+  try {
+    const info = await transporter.sendMail({
+      from: `"${FROM.name}" <${FROM.email}>`,
+      to,
+      subject,
+      text: body,
+      html: html,
+    });
+    console.log(`  ✅ HTML-Mail gesendet an ${to} (ID: ${info.messageId})`);
     return { success: true, messageId: info.messageId };
   } catch (err) {
     console.log(`  ❌ Fehler: ${err.message}`);
@@ -197,14 +287,14 @@ async function main() {
   const sendAll = args.includes('--all');
   const targetId = args.find(a => !a.startsWith('--'));
 
-  const leads = loadLeads();
+  const leads = loadLeads().filter(l => l.email); // nur valide E-Mails
   const sent = loadSent();
 
   console.log(`📧 MZ.9 Mailer | ${leads.length} Leads | ${Object.keys(sent).length} bereits gesendet`);
   if (dryRun) console.log('🔍 DRY RUN — keine echten E-Mails\n');
 
   if (sendAll) {
-    const pending = leads.filter(l => !sent[l.id] && l.email);
+    const pending = leads.filter(l => !sent[l.id] && l.email && !isEmailAlreadySent(l.email));
     console.log(`📬 Sende an ${pending.length} offene Leads...\n`);
     for (const lead of pending) {
       console.log(`→ ${lead.name} (${lead.email})`);
@@ -225,10 +315,16 @@ async function main() {
       console.log('   --force zum erneuten Senden.');
       return;
     }
-    console.log(`→ ${lead.name} (${lead.email})`);
-    const result = await sendMail(lead, dryRun);
+    if (isEmailAlreadySent(lead.email) && !dryRun) {
+      console.log('⚠️  E-Mail wurde bereits unter anderer Lead-ID kontaktiert.');
+      console.log('   --force zum erneuten Senden.');
+      return;
+    }
+    console.log(`→ ${lead.name} (${lead.email})${lead.hasCompare ? ' 🖼️' : ''}`);
+    const result = await sendHtmlMail(lead, dryRun);
     if (result.success && !dryRun) {
-      sent[lead.id] = new Date().toISOString();
+      const ts = new Date().toISOString();
+      if (!sent[lead.id]) sent[lead.id] = ts;
       saveSent(sent);
     }
   } else {
