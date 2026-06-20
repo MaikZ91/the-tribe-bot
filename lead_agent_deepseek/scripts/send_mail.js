@@ -46,7 +46,6 @@ const FROM = {
 
 function loadSent() { try { return JSON.parse(fs.readFileSync(SENT_FILE, 'utf8')); } catch { return {}; } }
 function saveSent(sent) { fs.writeFileSync(SENT_FILE, JSON.stringify(sent, null, 2)); }
-function host(u) { return (u || '').replace(/^https?:\/\//, '').replace(/\/$/, ''); }
 
 function loadLeads() {
   const leads = [];
@@ -122,7 +121,7 @@ function buildHtmlMail(lead) {
     else if (t.startsWith('👉')) { h += `<p style="margin:12px 0"><a href="${previewUrl}" style="color:#2563eb;font-weight:600;font-size:16px;text-decoration:none">👉 Zur unverbindlichen Vorschau</a></p>\n`; }
     else if (t === 'Viele Grüße') { h += `<p style="margin:18px 0 4px;color:#333">${t}</p>\n`; }
     else if (t === 'Maik') { h += `<p style="margin:0;color:#333">${t}</p>\n`; }
-    else if (t.startsWith('MZ.9')) { h += `<p style="margin:0"><a href="${MZ9_URL}" style="color:#2563eb;text-decoration:none;font-weight:600">MZ.9</a> — Media Engineering.AI</p>\n`; }
+    else if (t.startsWith('MZ.9')) { h += `<p style="margin:0"><a href="${MZ9_URL}" style="color:#2563eb;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>\n`; }
     else if (t.startsWith('https://')) { continue; }
     else { h += `<p style="margin:8px 0;color:#333">${t}</p>\n`; }
   }
