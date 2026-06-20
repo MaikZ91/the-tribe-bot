@@ -37,11 +37,24 @@ body{margin:0;font-family:var(--serif);color:var(--ink);background:var(--ivory);
 .cta-band{background:var(--ebony);color:#fff;text-align:center;padding:70px 20px;border-radius:12px;max-width:800px;margin:0 auto}
 .footer{background:var(--ebony);color:rgba(255,255,255,.5);text-align:center;padding:40px 20px;font-size:.8rem;font-family:var(--sans)}
 @media(max-width:700px){.hero .inner{grid-template-columns:1fr;text-align:center}.hero .hero-img{max-width:300px;margin:0 auto}}
+/* premium touch */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero .glow{position:absolute;z-index:0;border-radius:50%;filter:blur(80px);pointer-events:none;width:38vw;height:38vw;left:-8%;bottom:-14%;background:radial-gradient(circle,var(--gold),transparent 70%);opacity:.22;animation:flg 18s ease-in-out infinite}
+@keyframes flg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3vw,-3vh) scale(1.14)}}
+.btn-pri{position:relative;overflow:hidden}
+.btn-pri::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .6s}
+.btn-pri:hover::after{left:130%}
+.finder{background:#fff;border:1px solid var(--line);border-radius:10px;max-width:600px;margin:0 auto;padding:34px;text-align:center;box-shadow:0 6px 22px rgba(26,22,20,.06)}
+.finder select{width:100%;max-width:360px;padding:13px 16px;border:1px solid var(--line);border-radius:4px;font-family:var(--sans);font-size:1rem;background:var(--ivory);color:var(--ink);text-align:center}
+.finder .res{margin:16px 0 0;min-height:54px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.finder .res .pr{font-size:1.5rem;font-style:italic;color:var(--gold)}.finder .res .nt{color:var(--ink2);font-size:.85rem;font-family:var(--sans);font-weight:300}
+.finder .fbtn{display:none;margin-top:14px}.finder .fbtn.on{display:inline-block}
 </style>
 </head>
 <body>
 
 <section class="hero">
+<div class="glow"></div>
 <div class="inner">
 <div>
 <img src="https://image.jimcdn.com/app/cms/image/transf/none/path/s0db4877d8d3937a0/image/ica05655ce0d3e5d3/version/1577641628/image.jpg" alt="Beyer Klaviere" style="max-width:280px;margin-bottom:24px;filter:brightness(10)">
@@ -57,6 +70,23 @@ body{margin:0;font-family:var(--serif);color:var(--ink);background:var(--ivory);
 </section>
 
 <div class="strip">✦ Klavierstimmungen ✦ Reparaturen ✦ Konzertservice ✦ Beratung &amp; Verkauf ✦ Vermietung</div>
+
+<section class="sec" id="finder">
+<h2>Was braucht Ihr Instrument?</h2>
+<p class="sub">Sagen Sie uns kurz, worum es geht — wir empfehlen den passenden Schritt.</p>
+<div class="finder">
+<select id="anl" aria-label="Anliegen wählen">
+<option value="">Anliegen wählen …</option>
+<option data-r="Klavierstimmung nach Gehör">Klavier stimmen</option>
+<option data-r="Reparatur von Mechanik, Saiten oder Dämpfung">Etwas ist defekt</option>
+<option data-r="Vor-Ort-Konzertservice">Service fürs Konzert</option>
+<option data-r="Persönliche Kaufberatung">Klavier kaufen</option>
+<option data-r="Generalüberholung Ihres Instruments">Altes Klavier aufarbeiten</option>
+</select>
+<div class="res" id="anlRes"><span class="pr" style="color:#c9bda8;font-size:1.2rem">—</span><span class="nt">Wählen Sie ein Anliegen</span></div>
+<a class="btn btn-pri fbtn" id="anlBtn" href="tel:+49521445536">📞 Termin vereinbaren</a>
+</div>
+</section>
 
 <section class="sec" id="leistungen">
 <h2>Unsere Leistungen</h2>
@@ -122,6 +152,12 @@ body{margin:0;font-family:var(--serif);color:var(--ink);background:var(--ivory);
 <footer class="footer">
 <p>© 2026 Beyer Klaviere — Konzept-Vorschau · Gestaltet von MZ.9</p>
 </footer>
-<script>window.MZ9CHAT={mode:"lead",name:"Beyer Klaviere",accent:"#10B981"};</script><script src="../chat.js" defer></script>
+<script>
+(function(){var s=document.getElementById("anl"),r=document.getElementById("anlRes"),b=document.getElementById("anlBtn");if(!s)return;
+s.addEventListener("change",function(){var o=s.options[s.selectedIndex],t=o.getAttribute("data-r");
+if(!t){r.innerHTML='<span class="pr" style="color:#c9bda8;font-size:1.2rem">—</span><span class="nt">Wählen Sie ein Anliegen</span>';b.classList.remove("on");return;}
+r.innerHTML='<span class="pr">'+t+'</span><span class="nt">Für „'+o.text+'" · von Meisterhand</span>';b.classList.add("on");});})();
+</script>
+<script>window.MZ9CHAT={mode:"lead",name:"Beyer Klaviere",accent:"#b8935a",cta:"#finder"};</script><script src="../chat.js" defer></script>
 </body>
 </html>
