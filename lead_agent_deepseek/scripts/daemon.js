@@ -125,36 +125,8 @@ async function autoFillFromDiscoveries(queue) {
   }
 }
 
-// ─── Phase 3: Lighthouse-Audit ────────────────────────────────────
-// Optional & nicht blockierend: SKIP_AUDIT=1 überspringt komplett.
-// Der Build-Schritt braucht Lighthouse nicht — discover.js liefert bereits
-// Schwächen/Score. Daher ist der Audit nur ein nice-to-have.
-function auditLead(lead) {
-  if (process.env.SKIP_AUDIT === '1') { log('⏭️  Audit übersprungen (SKIP_AUDIT=1).'); return null; }
-  const lhFile = path.join(LEADS_DIR, `.lh-${lead.id}.json`);
-  ensureDir(LEADS_DIR);
-  log(`🔍 Lighthouse: ${lead.website}`);
-  try {
-    execSync(
-      `npx lighthouse "${lead.website}" --output=json --output-path="${lhFile}" ` +
-      `--only-categories=performance,accessibility,seo ` +
-      `--form-factor=mobile --throttling-method=simulate ` +
-      `--chrome-flags="--headless=new --no-sandbox" --quiet`,
-      { stdio: 'pipe', timeout: 60_000, env: { ...process.env, TMP: 'C:\\temp', TEMP: 'C:\\temp', TMPDIR: 'C:\\temp' } }
-    );
-    const lh = JSON.parse(fs.readFileSync(lhFile, 'utf8'));
-    const scores = {
-      performance: Math.round((lh.categories?.performance?.score || 0) * 100),
-      accessibility: Math.round((lh.categories?.accessibility?.score || 0) * 100),
-      seo: Math.round((lh.categories?.seo?.score || 0) * 100),
-    };
-    log(`  ✅ Perf:${scores.performance} A11y:${scores.accessibility} SEO:${scores.seo}`);
-    return scores;
-  } catch (err) {
-    log(`⚠️  Lighthouse fehlgeschlagen: ${err.message}`);
-    return null;
-  }
-}
+// Lighthouse-Audit entfernt: discover.js liefert die Schwächen (reasons/score)
+// bereits beim Scrapen — ein separater Audit ist überflüssig.
 
 // ─── Phase 4: Custom Build Marker ─────────────────────────────────
 // KEINE TEMPLATE-PREVIEWS! Custom Builds werden vom DeepSeek Agent
@@ -207,12 +179,6 @@ async function tick() {
 
   log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
 
-  const scores = auditLead(lead);
-  if (scores) {
-    lead.score = lead.score || Math.round(scores.performance * 0.5 + scores.accessibility * 0.2 + scores.seo * 0.1);
-    lead.lighthouseScores = scores;
-  }
-
   // Daemon baut KEINE Seite und pusht NICHT — er legt nur den Build-Job an.
   // Den Custom-Seitenbau + Dashboard-Eintrag + Auto-Push erledigt Stufe 2/3
   // (Build-Agent → scripts/publish.js). Siehe WORKFLOW.md.
@@ -239,7 +205,7 @@ async function loop() {
   log('👋 Daemon beendet.');
 }
 
-// --once: genau ein Tick (Discovery → Audit → Build-Job), dann Ende.
+// --once: genau ein Tick (Discovery → Build-Job), dann Ende.
 // Für den Agenten-Loop (Stufe 1), der danach Stufe 2/3 fährt.
 if (process.argv.includes('--once')) {
   tick().then(() => log('✅ Ein Tick fertig (--once).')).catch(err => { log(`❌ ${err.message}`); process.exit(1); });

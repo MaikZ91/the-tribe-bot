@@ -19,13 +19,12 @@ Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ STUFE 1 — DISCOVER + AUDIT        (Node, vollautomatisch)        │
+│ STUFE 1 — DISCOVER               (Node, vollautomatisch)        │
 │   scripts/daemon.js  (--once oder Dauer-Loop)                    │
 │   • Overpass-API: echte Betriebe (Stadt×Branche, deutschlandweit)│
-│   • zieht Original-Bild-URLs, Kontakt, Content von der Website   │
-│   • Lighthouse-Audit                                             │
+│   • zieht Original-Bild-URLs, Kontakt, Content, Schwächen+Score  │
 │   • schreibt docs/leads/<id>/build-job.json (status: needs_build)│
-│   • KEIN Seitenbau, KEIN Push                                    │
+│   • KEIN Seitenbau, KEIN Push (kein Lighthouse nötig)           │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
