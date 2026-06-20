@@ -10,10 +10,14 @@ DASHBOARD_FILE = os.path.join(ROOT, "docs", "leads", "dashboard", "index.html")
 QUEUE_FILE = os.path.join(ROOT, "lead_agent_deepseek", "queue.json")
 
 COLORS = {
-    'friseur':       {'accent': '#c77e6e', 'dark': '#a85f4f', 'light': '#d9a89b'},
-    'baeckerei':     {'accent': '#b45309', 'dark': '#78350f', 'light': '#fcd34d'},
-    'zahnarzt':      {'accent': '#0891b2', 'dark': '#155e75', 'light': '#67e8f9'},
-    'default':       {'accent': '#6366f1', 'dark': '#3730a3', 'light': '#a5b4fc'},
+    'friseur':         {'accent': '#c77e6e', 'dark': '#a85f4f', 'light': '#d9a89b'},
+    'baeckerei':       {'accent': '#b45309', 'dark': '#78350f', 'light': '#fcd34d'},
+    'zahnarzt':        {'accent': '#0891b2', 'dark': '#155e75', 'light': '#67e8f9'},
+    'gastronomie':     {'accent': '#c2410c', 'dark': '#7c2d12', 'light': '#fdba74'},
+    'handwerk':        {'accent': '#b45309', 'dark': '#78350f', 'light': '#fcd34d'},
+    'einzelhandel':    {'accent': '#0d9488', 'dark': '#134e4a', 'light': '#5eead4'},
+    'dienstleistung':  {'accent': '#2563eb', 'dark': '#1e3a5f', 'light': '#93c5fd'},
+    'default':         {'accent': '#6366f1', 'dark': '#3730a3', 'light': '#a5b4fc'},
 }
 
 def esc(s):
@@ -21,8 +25,12 @@ def esc(s):
 
 INDUSTRY_MAP = {
     'friseur': 'Friseur',
-    'baeckerei': 'Bäckerei',
+    'baeckerei': 'B\u00e4ckerei',
     'zahnarzt': 'Zahnarzt',
+    'gastronomie': 'Gastronomie',
+    'handwerk': 'Handwerk',
+    'einzelhandel': 'Einzelhandel',
+    'dienstleistung': 'Dienstleistung',
 }
 
 INDUSTRY_CONTENT = {
@@ -53,17 +61,69 @@ INDUSTRY_CONTENT = {
         'mobileCtaShort': 'Bestellen',
     },
     'zahnarzt': {
-        'heroH1': 'Ihr Lächeln.<br><em>Unsere Mission.</em>',
-        'heroSub': 'Moderne Zahnheilkunde in Bielefeld — von der Prophylaxe bis zur Implantologie. Ihre Zahngesundheit in besten Händen.',
+        'heroH1': 'Ihr L\u00e4cheln.<br><em>Unsere Mission.</em>',
+        'heroSub': 'Moderne Zahnheilkunde in Bielefeld \u2014 von der Prophylaxe bis zur Implantologie. Ihre Zahngesundheit in besten H\u00e4nden.',
         'ctaText': 'Termin anfragen',
         'secondaryCta': 'Leistungen ansehen',
-        'stripItems': ['✦ Prophylaxe', '✦ Ästhetik', '✦ Implantologie', '✦ Kinderzahnheilkunde'],
-        'features': ['Professionelle Zahnreinigung', 'Zahnästhetik & Bleaching', 'Implantologie'],
+        'stripItems': ['\u2726 Prophylaxe', '\u2726 \u00c4sthetik', '\u2726 Implantologie', '\u2726 Kinderzahnheilkunde'],
+        'features': ['Professionelle Zahnreinigung', 'Zahn\u00e4sthetik & Bleaching', 'Implantologie'],
         'ctaBandEyebrow': 'Jetzt Termin vereinbaren',
         'ctaBandH2': 'Ihr Zahnarzt in Bielefeld.',
-        'ctaBandSub': 'Vereinbaren Sie Ihren Wunschtermin — wir nehmen uns Zeit für Sie.',
-        'footerDesc': 'Zahnarztpraxis in Bielefeld — moderne Zahnheilkunde mit Herz. Prophylaxe, Ästhetik, Implantologie.',
+        'ctaBandSub': 'Vereinbaren Sie Ihren Wunschtermin \u2014 wir nehmen uns Zeit f\u00fcr Sie.',
+        'footerDesc': 'Zahnarztpraxis in Bielefeld \u2014 moderne Zahnheilkunde mit Herz. Prophylaxe, \u00c4sthetik, Implantologie.',
         'mobileCtaShort': 'Termin',
+    },
+    'gastronomie': {
+        'heroH1': 'Genie\u00dfen.<br><em>Mitten in Bielefeld.</em>',
+        'heroSub': 'Frische K\u00fcche, saisonale Spezialit\u00e4ten und herzliche Gastfreundschaft. Entdecken Sie Ihr neues Lieblingslokal in Bielefeld.',
+        'ctaText': 'Tisch reservieren',
+        'secondaryCta': 'Speisekarte ansehen',
+        'stripItems': ['\u2726 Frische K\u00fcche', '\u2726 Saisonal', '\u2726 Regionale Zutaten', '\u2726 Gem\u00fctlich'],
+        'features': ['Mittagstisch & Abendkarte', 'Saisonale Spezialit\u00e4ten', 'Feiern & Events'],
+        'ctaBandEyebrow': 'Jetzt Tisch sichern',
+        'ctaBandH2': 'Lust auf einen sch\u00f6nen Abend?',
+        'ctaBandSub': 'Reservieren Sie jetzt \u2014 wir freuen uns auf Ihren Besuch.',
+        'footerDesc': 'Restaurant in Bielefeld \u2014 frische K\u00fcche, herzliche Gastfreundschaft, saisonale Spezialit\u00e4ten.',
+        'mobileCtaShort': 'Reservieren',
+    },
+    'handwerk': {
+        'heroH1': 'Handwerk.<br><em>Das sitzt.</em>',
+        'heroSub': 'Meisterbetrieb in Bielefeld \u2014 Qualit\u00e4t, Pr\u00e4zision und Erfahrung. F\u00fcr Ihr Zuhause, Ihr Gesch\u00e4ft, Ihr Projekt.',
+        'ctaText': 'Angebot anfordern',
+        'secondaryCta': 'Referenzen ansehen',
+        'stripItems': ['\u2726 Meisterbetrieb', '\u2726 Qualit\u00e4t', '\u2726 Zuverl\u00e4ssig', '\u2726 Bielefeld'],
+        'features': ['Beratung & Planung', 'Ausf\u00fchrung', 'Wartung & Service'],
+        'ctaBandEyebrow': 'Jetzt anfragen',
+        'ctaBandH2': 'Ihr Projekt in besten H\u00e4nden.',
+        'ctaBandSub': 'Schreiben Sie uns oder rufen Sie an \u2014 wir erstellen Ihr unverbindliches Angebot.',
+        'footerDesc': 'Handwerksbetrieb in Bielefeld \u2014 Meisterqualit\u00e4t seit Jahren. Beratung, Ausf\u00fchrung, Service.',
+        'mobileCtaShort': 'Angebot',
+    },
+    'einzelhandel': {
+        'heroH1': 'Einkaufen.<br><em>Mit Stil in Bielefeld.</em>',
+        'heroSub': 'Qualit\u00e4t, Auswahl und pers\u00f6nliche Beratung in Bielefeld. Entdecken Sie Ihr neues Lieblingsgesch\u00e4ft.',
+        'ctaText': 'Jetzt entdecken',
+        'secondaryCta': 'Sortiment ansehen',
+        'stripItems': ['\u2726 Qualit\u00e4t', '\u2726 Beratung', '\u2726 Auswahl', '\u2726 Bielefeld'],
+        'features': ['Pers\u00f6nliche Beratung', 'Kuratierte Auswahl', 'Lieferservice'],
+        'ctaBandEyebrow': 'Jetzt vorbeischauen',
+        'ctaBandH2': 'Das Besondere finden Sie bei uns.',
+        'ctaBandSub': 'Besuchen Sie uns in Bielefeld oder st\u00f6bern Sie online.',
+        'footerDesc': 'Fachgesch\u00e4ft in Bielefeld \u2014 Qualit\u00e4t, pers\u00f6nliche Beratung, kuratierte Auswahl.',
+        'mobileCtaShort': 'Entdecken',
+    },
+    'dienstleistung': {
+        'heroH1': 'Ihr Partner.<br><em>Vor Ort in Bielefeld.</em>',
+        'heroSub': 'Professionelle Dienstleistungen f\u00fcr Privat- und Gesch\u00e4ftskunden. Zuverl\u00e4ssig, kompetent, nah.',
+        'ctaText': 'Angebot anfordern',
+        'secondaryCta': 'Leistungen ansehen',
+        'stripItems': ['\u2726 Professionell', '\u2726 Zuverl\u00e4ssig', '\u2726 Vor Ort', '\u2726 Bielefeld'],
+        'features': ['Beratung', 'Ausf\u00fchrung', 'Kundenservice'],
+        'ctaBandEyebrow': 'Jetzt Kontakt aufnehmen',
+        'ctaBandH2': 'Bereit f\u00fcr professionelle Unterst\u00fctzung?',
+        'ctaBandSub': 'Schreiben Sie uns \u2014 wir melden uns zeitnah mit einem unverbindlichen Angebot.',
+        'footerDesc': 'Dienstleister in Bielefeld \u2014 professionell, zuverl\u00e4ssig, vor Ort f\u00fcr Sie da.',
+        'mobileCtaShort': 'Angebot',
     },
 }
 
@@ -310,13 +370,15 @@ def update_queue(leads):
 
 # 1. Read all discoveries
 discoveries = {}
-for batch_file in ["batch_friseur.json", "batch_baeckerei.json", "batch_zahnarzt.json"]:
+for batch_file in os.listdir(DISCOVERIES_DIR):
+    if not batch_file.startswith('batch_') or not batch_file.endswith('.json'):
+        continue
     path = os.path.join(DISCOVERIES_DIR, batch_file)
     if os.path.exists(path):
         with open(path, encoding='utf-8') as f:
             data = json.load(f)
         for lead in data['leads']:
-            lead['branch'] = data.get('branch', 'default')
+            lead['branch'] = data.get('branch', 'default').lower()
             discoveries[lead['id']] = lead
 
 # 2. Check existing
