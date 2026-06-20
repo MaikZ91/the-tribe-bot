@@ -1,1 +1,226 @@
-BUILDING
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINK GmbH | Wärme & Wasser aus Meisterhand</title>
+<style>
+:root{--bg:#1a1a1e;--bg2:#232329;--kupfer:#d4784c;--kupfer2:#e8955f;--text:#e8e6e3;--text2:#9e9d9b;--line:rgba(212,120,76,.15);--r:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{line-height:1.15;font-weight:800}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+/* Nav */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 0;background:rgba(26,26,30,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.3rem;font-weight:900;color:var(--kupfer);letter-spacing:-.02em;text-decoration:none}
+.logo span{color:var(--text)}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--kupfer)}
+.nav-cta{background:var(--kupfer);color:var(--bg)!important;padding:.45rem 1.2rem!important;border-radius:var(--r)}
+/* Hero */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;background:linear-gradient(160deg,#1a1a1e 0%,#232329 50%,#1a1a1e 100%)}
+#hero::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(225deg,transparent 30%,rgba(212,120,76,.06) 100%);clip-path:polygon(25% 0,100% 0,100% 100%,0% 100%);z-index:0}
+#hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 80% 20%,rgba(212,120,76,.08) 0%,transparent 50%);z-index:0}
+.hero-content{position:relative;z-index:2;max-width:650px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(212,120,76,.12);border:1px solid rgba(212,120,76,.25);padding:.4rem 1rem;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--kupfer);margin-bottom:1.5rem}
+.hero-content h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;margin-bottom:1rem}
+.hero-content h1 em{font-style:normal;color:var(--kupfer)}
+.hero-sub{font-size:1.1rem;color:var(--text2);margin-bottom:2.5rem;max-width:500px;line-height:1.7}
+.btn{display:inline-block;padding:.85rem 2rem;font-weight:700;font-size:.9rem;text-decoration:none;border-radius:var(--r);transition:all .25s;cursor:pointer;letter-spacing:.03em}
+.btn-primary{background:var(--kupfer);color:#1a1a1e}
+.btn-primary:hover{background:var(--kupfer2);transform:translateY(-2px)}
+.btn-outline{border:2px solid var(--kupfer);color:var(--kupfer)}
+.btn-outline:hover{background:var(--kupfer);color:#1a1a1e}
+/* Sections */
+section{padding:6rem 0}
+.section-tag{font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--kupfer);margin-bottom:.75rem;display:block}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:3rem;font-weight:900}
+.section-title em{font-style:normal;color:var(--kupfer)}
+/* Leistungen */
+#leistungen{background:var(--bg2)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.svc-card{background:var(--bg);border:1px solid var(--line);padding:2rem;border-radius:var(--r);transition:all .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--kupfer);transition:height .4s}
+.svc-card:hover::before{height:100%}
+.svc-card:hover{border-color:rgba(212,120,76,.3);transform:translateY(-3px)}
+.svc-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.svc-card h3{font-size:1.1rem;margin-bottom:.6rem}
+.svc-card p{font-size:.88rem;color:var(--text2);line-height:1.55}
+/* Bewertungen */
+#bewertungen{background:var(--bg)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.review-card{background:var(--bg2);border:1px solid var(--line);padding:2rem;border-radius:var(--r);position:relative}
+.review-card::before{content:'\201C';position:absolute;top:.5rem;right:1.5rem;font-size:4rem;color:rgba(212,120,76,.08);font-family:Georgia,serif;line-height:1}
+.review-stars{color:var(--kupfer);font-size:1.1rem;margin-bottom:1rem;letter-spacing:.08em}
+.review-text{font-size:.9rem;color:var(--text2);line-height:1.7;font-style:italic;margin-bottom:1.2rem}
+.review-author{font-weight:700;font-size:.85rem}
+/* Über uns */
+#about{background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-grid p{color:var(--text2);font-size:1rem;line-height:1.8;margin-bottom:1rem}
+.about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.highlight{background:var(--bg2);border:1px solid var(--line);padding:1.2rem;border-radius:var(--r);text-align:center}
+.highlight .num{font-size:2rem;font-weight:900;color:var(--kupfer);line-height:1}
+.highlight .lbl{font-size:.75rem;color:var(--text2);margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em}
+/* Kontakt */
+#kontakt{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact-info h3{font-size:1.2rem;margin-bottom:1.5rem;color:var(--kupfer)}
+.contact-line{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.3rem}
+.contact-line .icon{font-size:1.3rem;flex-shrink:0;margin-top:.1rem}
+.contact-line strong{display:block;font-size:.85rem;margin-bottom:.1rem}
+.contact-line span,.contact-line a{color:var(--text2);font-size:.88rem;text-decoration:none}
+.contact-line a:hover{color:var(--kupfer)}
+.contact-form{display:flex;flex-direction:column;gap:.9rem}
+.contact-form input,.contact-form textarea{background:var(--bg);border:1px solid var(--line);padding:.85rem 1rem;color:var(--text);font-size:.9rem;font-family:inherit;border-radius:var(--r);outline:none;transition:border-color .2s}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--kupfer)}
+.contact-form textarea{min-height:120px;resize:vertical}
+/* Footer */
+footer{background:#151519;border-top:1px solid var(--line);padding:3rem 0 1.5rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
+footer h4{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--kupfer);margin-bottom:1rem}
+footer p{color:var(--text2);font-size:.82rem;line-height:1.7}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:.82rem;transition:color .2s}
+.footer-links a:hover{color:var(--kupfer)}
+.footer-bottom{border-top:1px solid var(--line);padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:var(--text2)}
+/* Responsive */
+@media(max-width:768px){
+.services-grid{grid-template-columns:1fr}
+.review-grid{grid-template-columns:1fr}
+.about-grid{grid-template-columns:1fr;gap:2rem}
+.contact-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+.nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+<div class="container">
+<a href="#" class="logo">LINK<span> GmbH</span></a>
+<ul class="nav-links">
+<li><a href="#leistungen">Leistungen</a></li>
+<li><a href="#about">Über uns</a></li>
+<li><a href="#bewertungen">Bewertungen</a></li>
+<li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+</ul>
+</div>
+</nav>
+<header id="hero">
+<div class="container">
+<div class="hero-content">
+<div class="hero-badge">&#9889; Meisterbetrieb seit 1995</div>
+<h1>Wärme &amp; Wasser<br><em>aus Meisterhand.</em></h1>
+<p class="hero-sub">Ihr Partner für moderne Heizungstechnik und Sanitärinstallation in Hosenfeld und ganz Osthessen. Seit drei Jahrzehnten Qualität, auf die Sie bauen können.</p>
+<div style="display:flex;gap:1rem;flex-wrap:wrap">
+<a href="#kontakt" class="btn btn-primary">Angebot anfordern &#8594;</a>
+<a href="tel:06650919708" class="btn btn-outline">&#9742; 06650 919708</a>
+</div>
+</div>
+</div>
+</header>
+<section id="leistungen">
+<div class="container">
+<span class="section-tag">// LEISTUNGEN</span>
+<h2 class="section-title">Alles rund um <em>Wärme &amp; Wasser.</em></h2>
+<div class="services-grid">
+<div class="svc-card"><span class="svc-icon">&#128293;</span><h3>Heizungsbau</h3><p>Von der Gas-Brennwerttherme bis zur Wärmepumpe — wir planen und installieren Ihre neue Heizung. Energieeffizient und zukunftssicher.</p></div>
+<div class="svc-card"><span class="svc-icon">&#128704;</span><h3>Sanitärinstallation</h3><p>Rohrleitungen, Armaturen, Reparaturen — alles aus einer Hand. Schnell, sauber und zuverlässig.</p></div>
+<div class="svc-card"><span class="svc-icon">&#127777;</span><h3>Wärmepumpen</h3><p>Heizen mit Umweltenergie: Wir sind Ihr Fachpartner für moderne Wärmepumpensysteme — inklusive Förderantrag.</p></div>
+<div class="svc-card"><span class="svc-icon">&#128705;</span><h3>Badumbau</h3><p>Ihr Traumbad von der Planung bis zur letzten Fliese. Barrierefrei, modern, individuell — ganz wie Sie es wünschen.</p></div>
+<div class="svc-card"><span class="svc-icon">&#128295;</span><h3>Wartung &amp; Service</h3><p>Regelmäßige Wartung spart Energie und vermeidet Ausfälle. Unsere Wartungsverträge geben Sicherheit.</p></div>
+<div class="svc-card"><span class="svc-icon">&#128680;</span><h3>24h Notdienst</h3><p>Heizungsausfall? Wasserrohrbruch? Unser Notdienst ist rund um die Uhr für Sie im Einsatz. Schnelle Hilfe garantiert.</p></div>
+</div>
+</div>
+</section>
+<section id="about">
+<div class="container">
+<span class="section-tag">// ÜBER UNS</span>
+<div class="about-grid">
+<div>
+<h2 class="section-title">Tradition trifft <em>Innovation.</em></h2>
+<p>Die LINK GmbH wurde 1995 von Meister Markus Link gegründet und ist seither ein fester Bestandteil der Region Osthessen. Als familiengeführter Betrieb verbinden wir traditionelles Handwerk mit modernster Technik.</p>
+<p>Unser 12-köpfiges Team aus Meistern, Gesellen und Auszubildenden steht für Qualität, Zuverlässigkeit und faire Preise. Jedes Projekt — ob Einfamilienhaus oder Gewerbeimmobilie — bekommt unsere volle Aufmerksamkeit.</p>
+</div>
+<div class="about-highlights">
+<div class="highlight"><div class="num">30+</div><div class="lbl">Jahre Erfahrung</div></div>
+<div class="highlight"><div class="num">12</div><div class="lbl">Mitarbeiter</div></div>
+<div class="highlight"><div class="num">24/7</div><div class="lbl">Notdienst</div></div>
+<div class="highlight"><div class="num">3000+</div><div class="lbl">Projekte</div></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bewertungen">
+<div class="container">
+<span class="section-tag">// BEWERTUNGEN</span>
+<h2 class="section-title">Was unsere <em>Kunden sagen.</em></h2>
+<div class="review-grid">
+<div class="review-card">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="review-text">"Sonntagabend 21 Uhr — Heizung komplett ausgefallen. LINK war innerhalb einer Stunde vor Ort und hat das Problem sofort behoben. Absolut beeindruckender Service!"</p>
+<div class="review-author">Familie Schneider, Hosenfeld</div>
+</div>
+<div class="review-card">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="review-text">"Unser Bad war eine Katastrophe aus den 80ern. Das Team hat innerhalb von zwei Wochen ein modernes, barrierefreies Bad daraus gemacht. Saubere Arbeit, fairer Preis."</p>
+<div class="review-author">H. Müller, Großenlüder</div>
+</div>
+<div class="review-card">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="review-text">"Wärmepumpe installiert — alles perfekt. Von der Beratung über den Förderantrag bis zur Endabnahme. Kompetent, freundlich, pünktlich. Nur zu empfehlen!"</p>
+<div class="review-author">Dr. Weber, Fulda</div>
+</div>
+</div>
+</div>
+</section>
+<section id="kontakt">
+<div class="container">
+<span class="section-tag">// KONTAKT</span>
+<h2 class="section-title">Lassen Sie uns <em>reden.</em></h2>
+<div class="contact-grid">
+<div class="contact-info">
+<h3>&#9993; So erreichen Sie uns</h3>
+<div class="contact-line"><span class="icon">&#128205;</span><div><strong>Adresse</strong><span>Am Küppel 1a<br>36154 Hosenfeld</span></div></div>
+<div class="contact-line"><span class="icon">&#9742;</span><div><strong>Telefon</strong><a href="tel:06650919708">06650 919708</a></div></div>
+<div class="contact-line"><span class="icon">&#9993;</span><div><strong>E-Mail</strong><a href="mailto:linkheizunggmbh@t-online.de">linkheizunggmbh@t-online.de</a></div></div>
+<div class="contact-line"><span class="icon">&#128338;</span><div><strong>Öffnungszeiten</strong><span>Mo–Do 7:00–17:00<br>Fr 7:00–15:00<br><em style="color:var(--kupfer);font-style:normal;font-size:.8rem">24h Notdienst an 365 Tagen</em></span></div></div>
+</div>
+<form class="contact-form" onsubmit="event.preventDefault();alert('Vorschau: Ihre Anfrage würde jetzt gesendet werden.')">
+<input type="text" placeholder="Ihr Name *" required>
+<input type="email" placeholder="Ihre E-Mail *" required>
+<input type="tel" placeholder="Telefon">
+<textarea placeholder="Ihre Nachricht..."></textarea>
+<button type="submit" class="btn btn-primary">Nachricht senden &#8594;</button>
+</form>
+</div>
+</div>
+</section>
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<a href="#" class="logo" style="font-size:1.1rem">LINK<span> GmbH</span></a>
+<p style="margin-top:.8rem">Familiengeführter Meisterbetrieb für Heizungsbau und Sanitärtechnik. Qualität und Zuverlässigkeit seit 1995. Ihr Partner für Wärme und Wasser in Osthessen.</p>
+</div>
+<div>
+<h4>Leistungen</h4>
+<ul class="footer-links"><li><a href="#">Heizungsbau</a></li><li><a href="#">Sanitär</a></li><li><a href="#">Wärmepumpen</a></li><li><a href="#">Badumbau</a></li><li><a href="#">Notdienst</a></li></ul>
+</div>
+<div>
+<h4>Rechtliches</h4>
+<ul class="footer-links"><li><a href="http://linkheizung.de/impressum" target="_blank">Impressum</a></li><li><a href="#">Datenschutz (DSGVO)</a></li><li><a href="#">AGB</a></li></ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2025 LINK GmbH – Wärme &amp; Wasser. Alle Rechte vorbehalten.</span>
+<span>Made in Hosenfeld &#127760;</span>
+</div>
+</div>
+</footer>
+</body>
+</html>

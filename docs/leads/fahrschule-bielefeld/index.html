@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fahrschule Bielefeld | Dein Führerschein. Deine Freiheit.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+:root{--bg:#fff;--red:#e63946;--yellow:#f4a261;--green:#2a9d8f;--green2:#218276;--text:#264653;--text2:#6c757d;--line:#e9ecef;--card:#f8f9fa;--r:20px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+h1,h2,h3{line-height:1.15}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+/* Nav */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:.9rem 0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.4rem;font-weight:900;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:700;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{background:var(--green);color:#fff!important;padding:.5rem 1.3rem!important;border-radius:50px}
+.nav-cta:hover{background:var(--green2)!important;color:#fff!important}
+/* Hero */
+#hero{min-height:95vh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#f0faf7 0%,#fff 100%)}
+.hero-deco{position:absolute;top:10%;right:-5%;font-size:18rem;opacity:.04;transform:rotate(15deg)}
+.hero-content{position:relative;z-index:2;max-width:650px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--card);border:2px solid var(--line);padding:.4rem 1.2rem;border-radius:50px;font-size:.78rem;font-weight:800;color:var(--green);margin-bottom:1.5rem}
+.hero-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--green)}
+.hero-content h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:900;margin-bottom:.8rem}
+.hero-content h1 span{color:var(--green)}
+.hero-content h1 em{font-style:normal;color:var(--red);font-weight:900}
+.hero-sub{font-size:1.15rem;color:var(--text2);margin-bottom:2.5rem;max-width:500px;line-height:1.7}
+.btn{display:inline-block;padding:.9rem 2.2rem;font-weight:800;font-size:.9rem;text-decoration:none;border-radius:50px;transition:all .25s;letter-spacing:.02em}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(42,157,143,.3)}
+.btn-outline{border:2px solid var(--red);color:var(--red);margin-left:.8rem}
+.btn-outline:hover{background:var(--red);color:#fff}
+/* Wave divider */
+.wave{position:relative;height:60px;overflow:hidden}
+.wave svg{position:absolute;bottom:0;width:100%;height:60px}
+/* Sections */
+section{padding:5rem 0}
+.section-tag{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem;display:block}
+.section-title{font-size:clamp(1.7rem,3.5vw,2.5rem);margin-bottom:3rem;font-weight:900}
+.section-title span{color:var(--green)}
+/* Führerscheinklassen */
+.classes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.class-card{background:var(--card);border:2px solid transparent;border-radius:var(--r);padding:1.8rem;text-align:center;transition:all .3s}
+.class-card:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.06)}
+.class-letter{font-size:3rem;font-weight:900;color:var(--green);line-height:1;margin-bottom:.5rem}
+.class-name{font-weight:800;font-size:1rem;margin-bottom:.2rem}
+.class-desc{font-size:.8rem;color:var(--text2)}
+/* USP */
+.usp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.usp-card{background:var(--card);border-radius:var(--r);padding:1.8rem;text-align:center;transition:all .3s}
+.usp-card:hover{transform:translateY(-3px)}
+.usp-icon{font-size:2.5rem;margin-bottom:.8rem;display:block}
+.usp-card h3{font-size:1rem;margin-bottom:.4rem}
+.usp-card p{font-size:.82rem;color:var(--text2);line-height:1.5}
+/* Preise */
+#preise{background:var(--card)}
+.price-table{max-width:600px;margin:0 auto;background:#fff;border-radius:var(--r);overflow:hidden;border:2px solid var(--line)}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+.price-row:last-child{border-bottom:0}
+.price-row.header{background:var(--green);color:#fff;font-weight:900;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
+.price-row .label{font-weight:700;font-size:.92rem}
+.price-row .value{font-weight:900;font-size:1.05rem;color:var(--green)}
+.price-row.header .value{color:#fff}
+.price-note{text-align:center;color:var(--text2);font-size:.78rem;margin-top:1rem}
+/* Bewertungen */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.review-card{background:var(--card);border-radius:var(--r);padding:1.8rem;position:relative}
+.review-stars{color:var(--yellow);font-size:1.2rem;margin-bottom:.8rem;letter-spacing:.1em}
+.review-text{font-size:.88rem;color:var(--text2);line-height:1.7;font-style:italic;margin-bottom:1rem}
+.review-author{font-weight:800;font-size:.88rem}
+.review-passed{font-size:.72rem;color:var(--green);font-weight:700;margin-top:.2rem}
+/* Kontakt */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact-info h3{font-size:1.2rem;margin-bottom:1.5rem;color:var(--green)}
+.contact-line{display:flex;gap:1rem;margin-bottom:1.2rem;align-items:flex-start}
+.contact-line .icon{font-size:1.3rem;flex-shrink:0;margin-top:.1rem}
+.contact-line strong{display:block;font-size:.85rem;margin-bottom:.1rem}
+.contact-line span,.contact-line a{color:var(--text2);font-size:.88rem;text-decoration:none}
+.contact-line a:hover{color:var(--green)}
+.contact-form{display:flex;flex-direction:column;gap:.8rem}
+.contact-form input,.contact-form select,.contact-form textarea{background:var(--card);border:2px solid var(--line);padding:.85rem 1rem;font-size:.88rem;font-family:inherit;border-radius:12px;outline:none;transition:border-color .2s}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--green)}
+.contact-form textarea{min-height:100px;resize:vertical}
+/* Footer */
+footer{background:#264653;color:#ddd;padding:3rem 0 1.5rem}
+footer .logo{color:#fff}
+footer h4{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:1rem}
+footer p{font-size:.82rem;line-height:1.7;margin-top:.6rem;color:#bbb}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{color:#bbb;text-decoration:none;font-size:.82rem;transition:color .2s}
+.footer-links a:hover{color:var(--green)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;font-size:.75rem;color:#999}
+@media(max-width:768px){.classes-grid,.review-grid{grid-template-columns:1fr 1fr}.usp-grid{grid-template-columns:1fr 1fr}.contact-grid,.footer-grid{grid-template-columns:1fr}.nav-links{display:none}}
+@media(max-width:480px){.classes-grid,.review-grid,.usp-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="container"><a href="#" class="logo"><span class="logo-dot"></span> Fahrschule Bielefeld</a><ul class="nav-links"><li><a href="#klassen">Angebot</a></li><li><a href="#warum">Warum wir</a></li><li><a href="#preise">Preise</a></li><li><a href="#bewertungen">Bewertungen</a></li><li><a href="#kontakt" class="nav-cta">Anmelden</a></li></ul></div></nav>
+<header id="hero"><div class="container"><div class="hero-content">
+<div class="hero-badge">&#127937; Bestehensquote 92%</div>
+<h1>Dein Führerschein.<br>Deine <span>Freiheit</span><em>.</em></h1>
+<p class="hero-sub">Bei der Fahrschule Bielefeld lernst du sicher, entspannt und mit Spaß. Moderne Fahrzeuge, geduldige Fahrlehrer und faire Preise — dein Weg zum Führerschein beginnt hier.</p>
+<div><a href="#kontakt" class="btn btn-primary">Jetzt Probestunde buchen &#8594;</a><a href="tel:05219876543" class="btn btn-outline">&#9742; 0521 9876543</a></div>
+</div></div><div class="hero-deco">&#127937;</div></header>
+<section id="klassen"><div class="container">
+<span class="section-tag">FÜHRERSCHEINKLASSEN</span>
+<h2 class="section-title">Wofür willst du <span>fahren?</span></h2>
+<div class="classes-grid">
+<div class="class-card"><div class="class-letter">B</div><div class="class-name">PKW</div><div class="class-desc">Auto</div></div>
+<div class="class-card"><div class="class-letter">BE</div><div class="class-name">PKW + Anhänger</div><div class="class-desc">Auto mit Hänger</div></div>
+<div class="class-card"><div class="class-letter">B96</div><div class="class-name">PKW Anhänger</div><div class="class-desc">Schwere Kombination</div></div>
+<div class="class-card"><div class="class-letter">A</div><div class="class-name">Motorrad</div><div class="class-desc">Alle Motorräder</div></div>
+<div class="class-card"><div class="class-letter">A1</div><div class="class-name">125er</div><div class="class-desc">Leichtkraftrad</div></div>
+<div class="class-card"><div class="class-letter">BF17</div><div class="class-name">Begleitet</div><div class="class-desc">Ab 17 Jahren</div></div>
+</div></div>
+</section>
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--card)" d="M0,30 C360,0 720,60 1080,30 C1260,15 1380,30 1440,30 L1440,60 L0,60 Z"/></svg></div>
+<section id="warum" style="background:var(--card)"><div class="container">
+<span class="section-tag">WARUM WIR?</span>
+<h2 class="section-title">Vier gute Gründe für <span>uns.</span></h2>
+<div class="usp-grid">
+<div class="usp-card"><span class="usp-icon">&#128663;</span><h3>Moderne Fahrzeuge</h3><p>Wir fahren die neuesten Modelle mit allen Assistenzsystemen — sicher und komfortabel.</p></div>
+<div class="usp-card"><span class="usp-icon">&#128176;</span><h3>Faire Preise</h3><p>Keine versteckten Kosten. Transparente Preisstruktur mit Zahlungsplänen.</p></div>
+<div class="usp-card"><span class="usp-icon">&#128339;</span><h3>Flexible Zeiten</h3><p>Fahrstunden morgens, abends oder am Wochenende — wir passen uns deinem Leben an.</p></div>
+<div class="usp-card"><span class="usp-icon">&#127942;</span><h3>92% Bestehensquote</h3><p>Unsere Schüler bestehen deutlich über dem Bundesdurchschnitt. Dein Erfolg ist unser Ziel.</p></div>
+</div></div>
+</section>
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--card)" d="M0,0 C360,30 720,0 1080,0 C1260,0 1380,15 1440,30 L1440,0 L0,0 Z"/></svg></div>
+<section id="preise"><div class="container">
+<span class="section-tag">PREISE</span>
+<h2 class="section-title">Transparent <span>&amp; fair.</span></h2>
+<div class="price-table">
+<div class="price-row header"><span>Leistung</span><span>Preis</span></div>
+<div class="price-row"><span class="label">Grundbetrag Klasse B</span><span class="value">350 €</span></div>
+<div class="price-row"><span class="label">Fahrstunde (45 Min.)</span><span class="value">55 €</span></div>
+<div class="price-row"><span class="label">Sonderfahrt (45 Min.)</span><span class="value">65 €</span></div>
+<div class="price-row"><span class="label">Probestunde</span><span class="value">kostenlos</span></div>
+<div class="price-row"><span class="label">Theoriepaket</span><span class="value">120 €</span></div>
+</div>
+<p class="price-note">Alle Preise inkl. MwSt. &#8226; Ratenzahlung möglich &#8226; Schüler- &amp; Studentenrabatt auf Anfrage</p>
+</div></section>
+<section id="bewertungen"><div class="container">
+<span class="section-tag">BEWERTUNGEN</span>
+<h2 class="section-title">Erfolgsgeschichten von <span>Schülern.</span></h2>
+<div class="review-grid">
+<div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Ich war so nervös vor der Prüfung, aber mein Fahrlehrer hat mich super vorbereitet. Beim ersten Mal bestanden! Kann die Fahrschule nur empfehlen."</p><div class="review-author">Lisa M.</div><div class="review-passed">&#10003; Prüfung bestanden — Klasse B</div></div>
+<div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Flexible Termine waren für mich als Schichtarbeiter Gold wert. Mein Fahrlehrer hat sich immer nach meinem Dienstplan gerichtet. Super Fahrschule!"</p><div class="review-author">Tobias K.</div><div class="review-passed">&#10003; Prüfung bestanden — Klasse B</div></div>
+<div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Hab meinen Motorradführerschein hier gemacht. Mein Fahrlehrer fährt selbst seit 20 Jahren Motorrad und hat mir so viel beigebracht. Absolute Empfehlung!"</p><div class="review-author">Sven R.</div><div class="review-passed">&#10003; Prüfung bestanden — Klasse A</div></div>
+</div></div>
+</section>
+<section id="kontakt"><div class="container">
+<span class="section-tag">KONTAKT</span>
+<h2 class="section-title">Bereit für deinen <span>Führerschein?</span></h2>
+<div class="contact-grid">
+<div class="contact-info">
+<h3>&#9993; So erreichst du uns</h3>
+<div class="contact-line"><span class="icon">&#128205;</span><div><strong>Adresse</strong><span>Herforder Straße 42<br>33602 Bielefeld</span></div></div>
+<div class="contact-line"><span class="icon">&#9742;</span><div><strong>Telefon</strong><a href="tel:05219876543">0521 9876543</a></div></div>
+<div class="contact-line"><span class="icon">&#9993;</span><div><strong>E-Mail</strong><a href="mailto:info@bielefeld-fahrschule.de">info@bielefeld-fahrschule.de</a></div></div>
+<div class="contact-line"><span class="icon">&#128338;</span><div><strong>Öffnungszeiten</strong><span>Mo–Fr 10:00–18:00<br>Sa 10:00–13:00<br><span style="color:var(--green);font-size:.8rem">Fahrstunden nach Vereinbarung</span></span></div></div>
+</div>
+<form class="contact-form" onsubmit="event.preventDefault();alert('Vorschau: Deine Anmeldung würde jetzt gesendet werden.')">
+<input type="text" placeholder="Dein Name *" required>
+<input type="email" placeholder="Deine E-Mail *" required>
+<input type="tel" placeholder="Telefon">
+<select><option value="">Gewünschte Klasse</option><option>B (PKW)</option><option>BE (PKW + Anhänger)</option><option>B96 (Anhänger)</option><option>A (Motorrad)</option><option>A1 (125er)</option><option>BF17 (Begleitet ab 17)</option></select>
+<textarea placeholder="Nachricht (optional)"></textarea>
+<button type="submit" class="btn btn-primary">Probestunde vereinbaren &#8594;</button>
+</form>
+</div></div>
+</section>
+<footer><div class="container">
+<div class="footer-grid">
+<div><a href="#" class="logo" style="font-size:1.3rem"><span class="logo-dot"></span> Fahrschule Bielefeld</a><p style="margin-top:.8rem">Deine Fahrschule in Bielefeld — modern, fair und mit 92% Bestehensquote. Wir bringen dich sicher auf die Straße.</p></div>
+<div><h4>Angebot</h4><ul class="footer-links"><li><a href="#">Klasse B (PKW)</a></li><li><a href="#">Klasse A (Motorrad)</a></li><li><a href="#">BF17</a></li><li><a href="#">Aufbauseminare</a></li><li><a href="#">Probestunde</a></li></ul></div>
+<div><h4>Rechtliches</h4><ul class="footer-links"><li><a href="http://bielefeld-fahrschule.de/impressum" target="_blank">Impressum</a></li><li><a href="#">Datenschutz (DSGVO)</a></li><li><a href="#">AGB</a></li></ul></div>
+</div>
+<div class="footer-bottom">&copy; 2025 Fahrschule Bielefeld | Alle Rechte vorbehalten.</div>
+</div></footer>
+</body>
+</html>
