@@ -52,7 +52,7 @@ async function screenshotCompare(leadId) {
 
   try {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1440, height: 900 });
+    await page.setViewport({ width: 1440, height: 1400 });
     await page.setUserAgent(
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     );
@@ -82,7 +82,7 @@ async function screenshotCompare(leadId) {
     const compareHtml = `<!doctype html>
 <html><head><meta charset="utf-8"><style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1a2e;display:flex;width:2880px;height:900px;gap:0;font-family:Inter,system-ui,sans-serif}
+body{background:#1a1a2e;display:flex;width:2880px;height:1400px;gap:0;font-family:Inter,system-ui,sans-serif}
 .panel{flex:1;position:relative;overflow:hidden}
 .panel img{width:100%;height:100%;object-fit:cover;object-position:top}
 .badge{position:absolute;top:20px;left:20px;background:rgba(0,0,0,.75);color:#fff;padding:8px 18px;border-radius:8px;font-size:18px;font-weight:700;letter-spacing:.04em;z-index:2;backdrop-filter:blur(6px)}
@@ -96,7 +96,7 @@ body{background:#1a1a2e;display:flex;width:2880px;height:900px;gap:0;font-family
 <div class="panel"><img src="data:image/png;base64,${previewBase64}" alt="MZ.9 Preview"><div class="badge new">NACHHER — MZ.9 Konzept</div></div>
 </body></html>`;
 
-    await page.setViewport({ width: 2880, height: 900 });
+    await page.setViewport({ width: 2880, height: 1400 });
     await page.setContent(compareHtml, { waitUntil: 'load', timeout: 30000 });
     await new Promise(r => setTimeout(r, 2000));
 
