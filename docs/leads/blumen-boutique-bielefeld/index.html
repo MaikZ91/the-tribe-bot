@@ -36,11 +36,26 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
 .hours h3{text-align:center;font-family:var(--serif);color:var(--green)}.hours dl{display:grid;grid-template-columns:auto 1fr;gap:6px 20px;font-size:.95rem}.hours dt{font-weight:600}.hours dd{margin:0;color:var(--ink2);text-align:right}
 .footer{background:var(--green);color:rgba(255,255,255,.8);padding:50px 20px;text-align:center;font-size:.9rem}
 @media(max-width:768px){.hero h1{font-size:2rem}.strip span{display:block;margin:4px 0}}
+/* premium touch */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero .glow{position:absolute;z-index:0;border-radius:50%;filter:blur(70px);pointer-events:none;width:38vw;height:38vw;left:-8%;bottom:-14%;background:radial-gradient(circle,var(--rose),transparent 70%);opacity:.4;animation:flg 16s ease-in-out infinite}
+@keyframes flg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(2vw,-3vh) scale(1.12)}}
+.btn-pri{position:relative;overflow:hidden}
+.btn-pri::after{content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .6s}
+.btn-pri:hover::after{left:130%}
+.card{transition:transform .35s,box-shadow .3s,border-color .3s}.card:hover{transform:translateY(-6px)}
+.review{transition:transform .35s}.review:hover{transform:translateY(-5px)}
+.finder{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:600px;margin:0 auto;padding:34px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.05)}
+.finder select{width:100%;max-width:360px;padding:13px 16px;border:1px solid var(--line);border-radius:30px;font-family:inherit;font-size:1rem;background:#fff;color:var(--ink);text-align:center}
+.finder .res{margin:16px 0 0;min-height:54px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.finder .res .pr{font-family:var(--serif);font-size:1.4rem;color:var(--rose-dk)}.finder .res .nt{color:var(--ink2);font-size:.85rem}
+.finder .fbtn{display:none;margin-top:14px}.finder .fbtn.on{display:inline-block}
 </style>
 </head>
 <body>
 
 <section class="hero">
+<div class="glow"></div>
 <div class="wrap">
 <div class="tag">Floristik · Bielefeld</div>
 <h1>Blumen, die <em>Gefühle</em> sprechen lassen</h1>
@@ -55,6 +70,23 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
 <div class="strip">
 <span>✦ Schnittblumen</span><span>✦ Hochzeitsfloristik</span><span>✦ Trauerfloristik</span><span>✦ Raumdekoration</span>
 </div>
+
+<section class="sec" id="finder">
+<h2>Welcher Strauß passt zum Anlass?</h2>
+<p class="sub">Wählen Sie den Anlass — wir empfehlen das Passende und binden ihn frisch von Hand.</p>
+<div class="finder">
+<select id="anl" aria-label="Anlass wählen">
+<option value="">Anlass wählen …</option>
+<option data-r="Romantischer Strauß in Ihren Wunschfarben">Liebe / Jahrestag</option>
+<option data-r="Farbenfroher Geburtstagsstrauß">Geburtstag</option>
+<option data-r="Festliche Hochzeitsfloristik mit Beratung">Hochzeit</option>
+<option data-r="Einfühlsame Trauerfloristik">Trauerfall</option>
+<option data-r="Saisonaler Strauß des Tages">Einfach so</option>
+</select>
+<div class="res" id="anlRes"><span class="pr" style="color:var(--ink2);font-size:1.05rem">—</span><span class="nt">Wählen Sie einen Anlass</span></div>
+<a class="btn btn-pri fbtn" id="anlBtn" href="tel:+4952172958">📞 Strauß anfragen</a>
+</div>
+</section>
 
 <section class="sec" id="leistungen">
 <h2>Unsere Floristik</h2>
@@ -89,7 +121,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
 </div>
 </section>
 
-<section class="sec"><div class="cta-band">
+<section class="sec" id="bestellen"><div class="cta-band">
 <h2>Sagen Sie es mit Blumen.</h2>
 <p style="opacity:.9">Bestellen Sie telefonisch oder per E-Mail — wir liefern frisch in ganz Bielefeld.</p>
 <div style="margin-top:24px">
@@ -118,6 +150,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line
 <p>© 2026 Blumen-Boutique Bielefeld — Konzept-Vorschau</p>
 <p>Gestaltet von MZ.9 · Media Engineering.AI</p>
 </footer>
-<script>window.MZ9CHAT={mode:"lead",name:"Blumen Boutique Bielefeld",accent:"#10B981"};</script><script src="../chat.js" defer></script>
+<script>
+(function(){var s=document.getElementById("anl"),r=document.getElementById("anlRes"),b=document.getElementById("anlBtn");if(!s)return;
+s.addEventListener("change",function(){var o=s.options[s.selectedIndex],t=o.getAttribute("data-r");
+if(!t){r.innerHTML='<span class="pr" style="color:var(--ink2);font-size:1.05rem">—</span><span class="nt">Wählen Sie einen Anlass</span>';b.classList.remove("on");return;}
+r.innerHTML='<span class="pr">'+t+'</span><span class="nt">Für „'+o.text+'" · frisch von Hand gebunden</span>';b.classList.add("on");});})();
+</script>
+<script>window.MZ9CHAT={mode:"lead",name:"Blumen-Boutique Bielefeld",accent:"#e8a0b4",cta:"#finder"};</script><script src="../chat.js" defer></script>
 </body>
 </html>
