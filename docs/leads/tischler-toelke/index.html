@@ -1,1 +1,126 @@
-test
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tischlerei Tölke | Meisterbetrieb Bielefeld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--espresso:#2C1810;--brass:#D4A056;--canvas:#F7F0E3;--walnut:#4A3728;--ink:#1A0D06;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;color:var(--ink);line-height:1.7;background:var(--canvas)}
+h1,h2,h3{font-family:'Josefin Sans',sans-serif}
+section{padding:clamp(3rem,7vw,5rem) clamp(1rem,5vw,2rem)}
+/* Hero Split */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:clamp(2rem,6vw,4rem);background:var(--espresso);color:var(--canvas)}
+.hero-left h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;line-height:1.1;margin-bottom:1rem}
+.hero-left h1 em{display:block;font-style:italic;font-weight:300;color:var(--brass);font-size:.7em;margin-top:.3rem}
+.hero-left p{font-size:1.05rem;opacity:.8;margin-bottom:2rem;max-width:400px}
+.btn{display:inline-block;padding:14px 28px;background:var(--brass);color:var(--espresso);font-weight:700;font-size:.95rem;border-radius:3px;text-decoration:none;transition:all .3s;align-self:flex-start}
+.btn:hover{background:#E8B86D;transform:translateY(-2px)}
+.hero-right{background:var(--walnut);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(212,160,86,.15) 3px,rgba(212,160,86,.15) 4px),repeating-linear-gradient(0deg,transparent,transparent 8px,rgba(255,255,255,.03) 8px,rgba(255,255,255,.03) 9px)}
+.hero-right .w-mark{font-size:10rem;color:rgba(212,160,86,.12);font-family:'Josefin Sans',sans-serif;font-weight:700}
+/* Projekte */
+.section-title{text-align:center;margin-bottom:2rem}
+.section-title h2{font-size:2rem;color:var(--espresso);font-weight:700}
+.section-title .accent{display:inline-block;width:50px;height:3px;background:var(--brass);margin-top:.6rem}
+.projekte-scroll{display:flex;gap:1.5rem;overflow-x:auto;padding:1rem 0;max-width:1000px;margin:0 auto;scrollbar-width:thin;scrollbar-color:var(--brass) transparent}
+.projekte-scroll .proj{flex:0 0 240px;background:var(--white);border-radius:8px;padding:2rem 1.5rem;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .3s;border-bottom:3px solid var(--brass)}
+.projekte-scroll .proj:hover{transform:translateY(-4px)}
+.projekte-scroll .proj .ic{font-size:2.5rem;margin-bottom:.8rem}
+.projekte-scroll .proj h4{font-size:1rem;color:var(--espresso)}
+/* Process */
+.process{background:var(--espresso);color:var(--canvas)}
+.process h2{color:var(--brass)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:900px;margin:0 auto;text-align:center}
+.step{position:relative}
+.step .num{width:50px;height:50px;border:2px solid var(--brass);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.2rem;font-weight:700;color:var(--brass)}
+.step h3{font-size:1.1rem;color:var(--brass);margin-bottom:.4rem}
+.step p{font-size:.9rem;opacity:.7}
+/* USP */
+.usp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;max-width:900px;margin:0 auto}
+.usp-item{text-align:center;padding:2rem;background:var(--canvas);border-radius:8px;transition:transform .3s}
+.usp-item:hover{transform:translateY(-3px)}
+.usp-item .ic{font-size:2.5rem;margin-bottom:.8rem}
+.usp-item h3{font-size:1.1rem;color:var(--espresso)}
+.usp-item p{font-size:.85rem;opacity:.7;margin-top:.4rem}
+/* Testimonials */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:900px;margin:0 auto}
+.testi{background:var(--white);border-radius:8px;padding:2rem;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.testi .stars{color:var(--brass);margin-bottom:.8rem}
+.testi .avatar{width:40px;height:40px;border-radius:50%;background:var(--walnut);display:inline-flex;align-items:center;justify-content:center;color:var(--canvas);font-weight:700;margin-bottom:.8rem;font-size:.8rem}
+.testi p{font-style:italic;font-size:.9rem;line-height:1.6;margin-bottom:1rem}
+.testi .author{font-weight:600;font-size:.8rem;color:var(--espresso)}
+/* Contact */
+.contact{background:var(--ink);color:var(--canvas);text-align:center}
+.contact h2{color:var(--brass);font-size:2rem;margin-bottom:2rem}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:700px;margin:0 auto}
+.c-item{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.c-item .ic{font-size:1.5rem}
+.c-item a,.c-item span{color:var(--canvas);text-decoration:none;font-size:.95rem}
+.c-item a:hover{color:var(--brass)}
+footer{text-align:center;padding:2rem;background:#0D0603;color:rgba(255,255,255,.25);font-size:.75rem}
+@media(max-width:768px){
+.hero{grid-template-columns:1fr}
+.hero-right{min-height:35vh}
+.hero-left h1{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-left">
+<h1>Tischlerei Tölke.<br><em>Ihr Holz. Unsere Leidenschaft.</em></h1>
+<p>Tradition und moderne Handwerkskunst — seit Generationen fertigen wir Möbel, Fenster und Innenausbauten mit Präzision und Herzblut.</p>
+<a href="#kontakt" class="btn">Projekt anfragen</a>
+</div>
+<div class="hero-right"><span class="w-mark">T</span></div>
+</header>
+<section>
+<div class="section-title"><h2>Unsere Projekte</h2><div class="accent"></div></div>
+<div class="projekte-scroll">
+<div class="proj"><div class="ic">🪑</div><h4>Möbelbau</h4></div>
+<div class="proj"><div class="ic">🏗️</div><h4>Innenausbau</h4></div>
+<div class="proj"><div class="ic">🪟</div><h4>Fenster</h4></div>
+<div class="proj"><div class="ic">🚪</div><h4>Türen</h4></div>
+</div>
+</section>
+<section class="process">
+<div class="section-title"><h2>Von der Idee zum Möbelstück</h2><div class="accent"></div></div>
+<div class="steps">
+<div class="step"><div class="num">1</div><h3>Beratung</h3><p>Wir besprechen Ihre Wünsche, nehmen Maß und beraten zu Material und Design.</p></div>
+<div class="step"><div class="num">2</div><h3>Planung</h3><p>Detaillierte Entwürfe und 3D-Visualisierungen — Sie sehen Ihr Möbel, bevor es entsteht.</p></div>
+<div class="step"><div class="num">3</div><h3>Fertigung</h3><p>In unserer Werkstatt setzen wir jedes Detail mit handwerklicher Perfektion um.</p></div>
+</div>
+</section>
+<section>
+<div class="section-title"><h2>Warum Tölke?</h2><div class="accent"></div></div>
+<div class="usp-grid">
+<div class="usp-item"><div class="ic">🏅</div><h3>Meisterqualität</h3><p>Jedes Stück wird von Meisterhand gefertigt — ohne Kompromisse.</p></div>
+<div class="usp-item"><div class="ic">📐</div><h3>Maßarbeit</h3><p>Kein Stück von der Stange. Alles individuell für Ihre Räume geplant.</p></div>
+<div class="usp-item"><div class="ic">🌳</div><h3>Regional</h3><p>Aus Bielefeld für die Region. Kurze Wege, persönlicher Kontakt.</p></div>
+</div>
+</section>
+<section style="background:var(--white)">
+<div class="section-title"><h2>Kundenstimmen</h2><div class="accent"></div></div>
+<div class="testi-grid">
+<div class="testi"><div class="stars">★★★★★</div><div class="avatar">JS</div><p>„Die neuen Fenster sind perfekt eingepasst. Handwerk vom Feinsten — ich bin begeistert!“</p><div class="author">Jürgen S., Bielefeld</div></div>
+<div class="testi"><div class="stars">★★★★★</div><div class="avatar">MK</div><p>„Unser maßgefertigter Kleiderschrank ist ein Traum. Tolle Beratung und saubere Arbeit.“</p><div class="author">Marion K., OWL</div></div>
+<div class="testi"><div class="stars">★★★★★</div><div class="avatar">PT</div><p>„Schnell, zuverlässig und fair im Preis. Die Tischlerei Tölke ist meine erste Wahl.“</p><div class="author">Peter T., Herford</div></div>
+</div>
+</section>
+<section class="contact" id="kontakt">
+<h2>Kontakt</h2>
+<div class="contact-grid">
+<div class="c-item"><div class="ic">📞</div><a href="tel:+49521200451">0521 20 04 51</a></div>
+<div class="c-item"><div class="ic">📱</div><a href="tel:+491716806274">0171 680 62 74</a></div>
+<div class="c-item"><div class="ic">📍</div><span>Bielefeld</span></div>
+</div>
+</section>
+<footer>&copy; 2026 Tischlerei Tölke &middot; Impressum &middot; Datenschutz</footer>
+</body>
+</html>
