@@ -46,6 +46,7 @@
 const { execSync, spawn, exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const {
   listPending, listBuiltNotSent, gate, preflight,
   ROOT, PREVIEW_DIR, LOCKFILE, MIN_BUILT_BYTES,
@@ -215,6 +216,17 @@ function claudeBin() {
   return 'claude';
 }
 
+// Einzigartiges temporäres CLAUDE_CONFIG_DIR pro Build, damit PARALLELE
+// claude-Prozesse sich nicht gegenseitig eine Config-/Lock-Datei sperren
+// (Windows: „Datei von anderem Prozess verwendet"). Projekt-Skills
+// (.claude/skills im Repo) werden unabhängig davon weiterhin gefunden.
+let _cfgCounter = 0;
+function isolatedConfigDir() {
+  const dir = path.join(os.tmpdir(), `mz9-claude-${process.pid}-${++_cfgCounter}`);
+  try { fs.mkdirSync(dir, { recursive: true }); } catch {}
+  return dir;
+}
+
 function buildLeadAsync(item) {
   return new Promise((resolve) => {
     const dir = path.join(PREVIEW_DIR, item.id);
@@ -227,7 +239,8 @@ function buildLeadAsync(item) {
       const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
       cmd = `"${claudeBin()}" -p "${prompt}" --dangerously-skip-permissions`;
     }
-    exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024 }, (err) => {
+    const env = { ...process.env, CLAUDE_CONFIG_DIR: isolatedConfigDir() };
+    exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024, env }, (err) => {
       if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.killed ? 'Timeout' : err.message}`); resolve(false); return; }
       try {
         const out = path.join(dir, 'index.html');
@@ -239,6 +252,21 @@ function buildLeadAsync(item) {
   });
 }
 
+// Parallele Builds mit Concurrency-Cap (Default 3), konfigurierbar via
+// BUILD_CONCURRENCY. Config-Isolation verhindert den Windows-Datei-Lock.
+async function runParallel(items, fn, concurrency) {
+  const queue = items.slice();
+  const results = [];
+  async function worker() {
+    while (queue.length) {
+      const item = queue.shift();
+      results.push(await fn(item));
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+  return results;
+}
+
 async function stage2() {
   // listPending filtert Kanzlei/Steuer + published bereits raus. Hier nur
   // die build-fähigen (valide E-Mail, Bilder, noch nicht gemailt) nehmen.
@@ -247,10 +275,9 @@ async function stage2() {
   const skipped = open.length - buildable.length;
   if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail/Bilder oder bereits gemailt übersprungen.`);
   if (!buildable.length) { log('Keine offenen Builds mit Bildern.'); return; }
-  // SERIELL (nicht parallel): parallele `claude -p`-Prozesse kollidieren auf Windows
-  // (Datei-Lock „von anderem Prozess verwendet"). Seriell ist zuverlässig.
-  log(`${buildable.length} offene Build(s) — serieller Build.`);
-  for (const item of buildable) { await buildLeadAsync(item); }
+  const concurrency = Math.max(1, parseInt(process.env.BUILD_CONCURRENCY || '3', 10));
+  log(`${buildable.length} offene Build(s) — parallel (×${concurrency}).`);
+  await runParallel(buildable, buildLeadAsync, concurrency);
 }
 
 // ═══ STUFE 3: Publish + Mail ════════════════════════════════════

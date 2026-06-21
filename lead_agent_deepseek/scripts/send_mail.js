@@ -119,10 +119,21 @@ function buildHtmlMail(lead) {
   const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t))
     .map(t => `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`).join('\n');
   const compareBlock = lead.hasCompare
-    ? `      <tr><td style="padding:22px 28px 0">
-        <img src="cid:compare@mz9" alt="Vorher/Nachher Vergleich" style="width:100%;border-radius:10px;display:block;border:1px solid #ECE9E3">
-      </td></tr>
-      <tr><td style="padding:6px 28px 0;font-size:11px;color:#8a8a8a;text-align:center">Links: aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</td></tr>\n`
+    ? `      <tr><td style="padding:22px 22px 4px">
+        <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #ECE9E3;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07)">
+          <tr>
+            <td width="50%" style="padding:0;vertical-align:top;border-right:1px solid #ECE9E3">
+              <img src="cid:orig@mz9" alt="Aktuelle Website" style="width:100%;display:block">
+              <div style="background:#0A0A0B;color:#F0EEE9;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">Aktuell</div>
+            </td>
+            <td width="50%" style="padding:0;vertical-align:top">
+              <img src="cid:prev@mz9" alt="MZ.9 Konzept-Vorschau" style="width:100%;display:block">
+              <div style="background:#10B981;color:#04130d;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">MZ.9 Konzept</div>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:9px 0 0;font-size:11px;color:#8a8a8a;text-align:center">Vorher · Nachher — Ihre Website, neu gedacht.</p>
+      </td></tr>\n`
     : '';
   const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
 <body style="margin:0;padding:0;background:#ECEAE4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#1a1a2e">
@@ -179,8 +190,11 @@ async function sendHtmlMail(lead, dryRun = false) {
   if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
   if (!SMTP.auth.pass) { console.log('  ❌ Kein SMTP-Passwort'); return { success: false }; }
   const attachments = [];
-  const cf = path.join(PREVIEW_DIR, lead.id, 'compare.png');
-  if (fs.existsSync(cf)) attachments.push({ filename: 'compare.png', path: cf, cid: 'compare@mz9' });
+  if (lead.hasCompare) {
+    const d = path.join(PREVIEW_DIR, lead.id);
+    if (fs.existsSync(path.join(d, 'original.png'))) attachments.push({ filename: 'original.png', path: path.join(d, 'original.png'), cid: 'orig@mz9' });
+    if (fs.existsSync(path.join(d, 'preview.png'))) attachments.push({ filename: 'preview.png', path: path.join(d, 'preview.png'), cid: 'prev@mz9' });
+  }
   const t = nodemailer.createTransport(SMTP);
   try {
     const info = await t.sendMail({ from: `"${FROM.name}" <${FROM.email}>`, to, subject, text: body, html, attachments });
