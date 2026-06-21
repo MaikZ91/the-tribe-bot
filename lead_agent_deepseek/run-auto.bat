@@ -7,7 +7,7 @@ echo ===============================================
 echo.
 echo   Stufe 1  Discovery (Overpass)      -^> Build-Job
 echo   Stufe 2  Custom-Build (LLM-Agent)  -^> Premium-Seite
-echo   Stufe 3  Publish + Auto-Push       -^> GitHub Pages
+echo   Stufe 3  Publish + Auto-Push       -^> Screenshot + gestaffelte Mail
 echo.
 REM Build-Agent = Claude Code (claude CLI, voller Build-Prompt).
 REM Fuer DeepSeek stattdessen:  set BUILD_CMD=deepseek run build-lead --id {ID}

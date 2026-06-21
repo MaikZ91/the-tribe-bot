@@ -26,7 +26,7 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { isKanzleiSteuer } = require('./pending');
+const { isKanzleiSteuer } = require('./rules');
 
 const ROOT = path.join(__dirname, '..');
 const QUEUE_FILE = path.join(ROOT, 'queue.json');

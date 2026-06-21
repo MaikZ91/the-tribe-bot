@@ -1,55 +1,78 @@
 /**
- * MZ.9 Lead Agent — Autonomer 3-Stufen-Orchestrator (skalierbar)
+ * MZ.9 Lead Agent — AUTO.js  (DER EINZIGE LOOP)
+ * =====================================================================
  *
- * Fährt im Dauerloop und draint JEDEN Zyklus den kompletten Backlog:
- *   STUFE 1  node daemon.js --once            → Discovery + Build-Job
- *   STUFE 2  Build-Agent pro offenem Lead     → echte Premium-Seite (PARALLEL)
- *   STUFE 3  Alle builtNotPublished publishen  → Bulk-Push + gestaffelte E-Mail
+ * Start:   node lead_agent_deepseek/scripts/auto.js
+ *          (oder: „start lead agent" → dieses Skript im Hintergrund)
  *
- * Skalierung (Stand 2026-06-21):
- *   - Stufe 3 draint den GESAMTEN Backlog (nicht nur aktuelle Zyklus-Builds),
- *     damit "start lead agent" den Funnel monoton Richtung Ziel treibt.
- *   - Ein Bulk-Commit+Push pro Zyklus statt Per-Lead-Push (GitHub-Schonung).
- *   - Email-Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min Staffelung.
+ * Fährt im Dauerloop und pro Zyklus die 3 STUFEN. Alle Regeln kommen aus
+ * ./rules.js (einzige Wahrheitsquelle). KEINE Subprozesse für Stufe 1/3 —
+ * alles inline, damit ein schwaches Modell dem Ablauf folgen kann.
  *
- * Build-Agent (Stufe 2) tool-agnostisch:
- *   - Default: Claude Code headless (`claude -p ... --dangerously-skip-permissions`)
- *   - Eigener Befehl via BUILD_CMD, {ID}/{DIR} wird ersetzt.
+ * ── DIE 3 STUFEN PRO ZYKLUS ────────────────────────────────────────────
  *
- * Steuerung:
- *   INTERVAL_MINUTES   Pause zwischen Zyklen (Default 5)
- *   BUILD_CMD          eigener Build-Befehl
- *   ONCE=1             nur ein Zyklus, dann Ende
+ *  STUFE 1  Discovery + Build-Job anlegen  (ehemals daemon.js)
+ *           Queue leer? → discover() (Overpass) füllt sie.
+ *           1 Lead konsumieren → Bilder ggf. nachholen → gate() prüfen
+ *           → bei ok: build-job.json (needs_build) + leads/<id>.json.
+ *
+ *  STUFE 2  Premium-Seite bauen
+ *           Alle offenen Builds parallel via `claude -p` (frontend-design-
+ *           Skill, Originalbilder). Verifikation: index.html > 4 KB.
+ *
+ *  STUFE 3  Publish + Screenshot + Mail
+ *           listBuiltNotSent() → markPublished + gitPushBulk (commit-first,
+ *           OHNE autostash) → Screenshot-Vergleich (Pages live) → pro Lead
+ *           send_mail.js mit 0–EMAIL_DELAY_MAX_MIN Min Staffelung.
+ *
+ * ── EISERNE REGELN (aus rules.js, an jedem Gate) ───────────────────────
+ *  1. Keine Kanzlei/Recht/Steuer/Anwalt
+ *  2. Keine Placeholder-Mails (mustermann/beispiel/rotlicht/example/…)
+ *  3. sent.json-Dedup — jede Adresse genau einmal
+ *  4. sent.json race-sicher (.sent.lock) + autostash-sicher (commit-first)
+ *  5. Originalbilder Pflicht — keine bildlose/Stock-Seite
+ *  6. E-Mail-Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min Staffelung
+ *  7. Single-Instance-Lock (.auto.lock + PID-Liveness)
+ *
+ * Steuerung (env):
+ *   INTERVAL_MINUTES    Pause zwischen Zyklen (Default 5)
  *   EMAIL_DELAY_MAX_MIN max. E-Mail-Verzögerung in Min (Default 10, 0 = sofort)
- *
- * ⚡ UNBEGRENZT: Alle offenen Builds parallel, kein MAX_BUILDS, kein Timeout.
+ *   BUILD_CMD           eigener Build-Befehl ({ID}/{DIR} ersetzt)
+ *   BUILD_TIMEOUT_MIN   Build-Timeout in Min (Default 8)
+ *   PAGES_DEPLOY_WAIT_SEC Wartezeit auf GitHub-Pages-Deploy vor Screenshot (Default 75)
+ *   ONCE=1              nur ein Zyklus, dann Ende
  */
 
 const { execSync, spawn, exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { listPending, listBuiltNotSent, isKanzleiSteuer } = require('./pending');
+const {
+  listPending, listBuiltNotSent, gate, preflight,
+  ROOT, PREVIEW_DIR, LOCKFILE, MIN_BUILT_BYTES,
+} = require('./rules');
+const { discover, fetchSiteImages } = require('./discover');
 
 const SCRIPTS = __dirname;
-const ROOT = path.join(SCRIPTS, '..');
-const REPO = path.join(ROOT, '..');
-const PREVIEW_DIR = path.join(REPO, 'docs', 'leads');
+const REPO = path.join(ROOT, '..');                       // the-tribe/
 const REFERENCE = path.join(REPO, 'docs', 'mz9.html');
+const QUEUE_FILE = path.join(ROOT, 'queue.json');
+const LEADS_DIR = path.join(ROOT, 'leads');
+const SCREENSHOT_SCRIPT = path.join(SCRIPTS, 'screenshot-compare.js');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
+const BUILD_TIMEOUT_MS = parseInt(process.env.BUILD_TIMEOUT_MIN || '8', 10) * 60_000;
+const PAGES_DEPLOY_WAIT_SEC = parseInt(process.env.PAGES_DEPLOY_WAIT_SEC || '75', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
 function log(m) { console.log(`[${ts()}] ${m}`); }
-function run(cmd, opts = {}) {
-  return execSync(cmd, { cwd: REPO, stdio: 'inherit', ...opts });
-}
+function run(cmd) { return execSync(cmd, { cwd: REPO, stdio: 'inherit' }); }
+function loadJson(file) { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; } }
+function saveJson(file, data) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
+function ensureDir(dir) { if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true }); }
 
-// ─── Single-Instance-Lock (verhindert konkurrente Loops) ──────────
-const LOCKFILE = path.join(ROOT, '.auto.lock');
-function isPidAlive(pid) {
-  try { process.kill(pid, 0); return true; } catch { return false; }
-}
+// ─── Single-Instance-Lock (Regel 7: kein zweiter Loop) ────────────
+function isPidAlive(pid) { try { process.kill(pid, 0); return true; } catch { return false; } }
 function acquireLock() {
   if (fs.existsSync(LOCKFILE)) {
     const pid = parseInt(String(fs.readFileSync(LOCKFILE, 'utf8')).trim(), 10);
@@ -62,11 +85,10 @@ function acquireLock() {
 }
 function releaseLock() { try { fs.unlinkSync(LOCKFILE); } catch {} }
 
-// ─── Bulk git push für alle publizierten Leads eines Zyklus ───────
-// WICHTIG: Erst committen, DANN pull --rebase (ohne --autostash!).
-// Grund: send_mail-Prozesse schreiben konkurrent sent.json. Ein
-// --autostash würde sent.json auf HEAD zurücksetzen → Dedup-Verlust.
-// Mit commit-first ist der Baum beim Pull clean → kein autostash nötig.
+// ─── Bulk git push (Regel 4: commit-first, OHNE --autostash) ──────
+// Erst committen, DANN pull --rebase (ohne autostash). Grund: send_mail-
+// Prozesse schreiben konkurrent sent.json; --autostash würde es auf HEAD
+// zurücksetzen → Dedup-Verlust. Mit commit-first ist der Baum clean.
 function gitPushBulk(ids) {
   try {
     execSync('git add docs/leads/ lead_agent_deepseek/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/sent.json', { cwd: REPO, stdio: 'pipe' });
@@ -96,7 +118,87 @@ function markPublished(item) {
   } catch {}
 }
 
-// ─── Build-Befehl für einen Lead (token-lean: Briefing inline) ─────
+// ═══ STUFE 1: Discovery + Build-Job (ehemals daemon.tick) ═════════
+function getNextLead() {
+  const queue = loadJson(QUEUE_FILE) || { leads: [], processed: [] };
+  if (!queue.leads || !queue.leads.length) return null;
+  const lead = queue.leads.shift();
+  if (!queue.processed) queue.processed = [];
+  queue.processed.push({ id: lead.id, at: new Date().toISOString() });
+  saveJson(QUEUE_FILE, queue);
+  return lead;
+}
+
+async function refillQueue() {
+  log('🚩 Queue leer — starte Overpass-Discovery...');
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const leads = await discover({ count: 3, log: m => log(m) });
+      if (leads.length > 0) {
+        const queue = loadJson(QUEUE_FILE) || { leads: [], processed: [] };
+        queue.leads = leads;
+        saveJson(QUEUE_FILE, queue);
+        log(`  ✅ ${leads.length} neue Leads in Queue.`);
+        return true;
+      }
+    } catch (e) { log(`  ⚠️  Discovery-Fehler: ${e.message}`); }
+  }
+  log('  Keine neuen Leads gefunden. Nächster Zyklus versucht andere Stadt/Branche.');
+  return false;
+}
+
+// Build-Job anlegen (ehemals daemon.markForCustomBuild).
+function createBuildJob(lead) {
+  const dir = path.join(PREVIEW_DIR, lead.id);
+  ensureDir(dir);
+  const job = {
+    id: lead.id,
+    name: lead.name,
+    industry: lead.industry,
+    website: lead.website,
+    phone: lead.phone || '',
+    email: lead.email || '',
+    address: lead.address || '',
+    city: lead.city || '',
+    problems: lead.problems || lead.reasons || [],
+    opps: lead.opps || [],
+    lighthouse: lead.lighthouseScores || null,
+    images: lead.images || [],        // Original-Bild-URLs (Regel 5)
+    content: lead.scraped || null,    // Titel/Description/H1/H2 als Copy-Basis
+    status: 'needs_build',
+    createdAt: new Date().toISOString(),
+  };
+  fs.writeFileSync(path.join(dir, 'build-job.json'), JSON.stringify(job, null, 2));
+  saveJson(path.join(LEADS_DIR, `${lead.id}.json`), lead);
+  log(`🎨 Build-Job angelegt: ${lead.id} (${job.images.length} Bilder)`);
+}
+
+async function stage1() {
+  let lead = getNextLead();
+  if (!lead) {
+    const filled = await refillQueue();
+    if (!filled) return;
+    lead = getNextLead();
+    if (!lead) return;
+  }
+  log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
+
+  // Regel 5: Originalbilder Pflicht — nachholen falls fehlend.
+  if ((!lead.images || lead.images.length === 0) && lead.website) {
+    log(`🖼️  Keine Bilder im Lead — hole von ${lead.website} nach...`);
+    lead.images = await fetchSiteImages(lead.website);
+    log(`   ${lead.images.length} Originalbilder gefunden.`);
+  }
+
+  // gate() bündelt ALLE Regeln (Regel 1–3 + 5). Bei !ok überspringen.
+  const g = gate(lead);
+  if (!g.ok) { log(`⏭️  ${lead.id} übersprungen (gate: ${g.reason}).`); return; }
+
+  createBuildJob(lead);
+  log(`📥 Build-Job bereit für Stufe 2: ${lead.id}`);
+}
+
+// ═══ STUFE 2: Premium-Seite bauen (parallel, kein Limit) ═════════
 function buildPrompt(id, dir) {
   const job = path.join(dir, 'build-job.json');
   const out = path.join(dir, 'index.html');
@@ -118,8 +220,6 @@ function buildPrompt(id, dir) {
   ].join(' ');
 }
 
-// ⚡ Parallel-Build: Promise-basiert, mit Timeout + Ergebnis-Verifikation.
-const BUILD_TIMEOUT_MS = parseInt(process.env.BUILD_TIMEOUT_MIN || '8', 10) * 60_000;
 function buildLeadAsync(item) {
   return new Promise((resolve) => {
     const dir = path.join(PREVIEW_DIR, item.id);
@@ -134,10 +234,9 @@ function buildLeadAsync(item) {
     }
     exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024 }, (err) => {
       if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.killed ? 'Timeout' : err.message}`); resolve(false); return; }
-      // Ergebnis-Verifikation: index.html muss echt sein (>4 KB), sonst als gescheitert werten
       try {
         const out = path.join(dir, 'index.html');
-        if (!fs.existsSync(out) || fs.statSync(out).size < 4000) { log(`  ⚠️  Build ohne Ergebnis für ${item.id} (index.html fehlt/zu klein)`); resolve(false); return; }
+        if (!fs.existsSync(out) || fs.statSync(out).size < MIN_BUILT_BYTES) { log(`  ⚠️  Build ohne Ergebnis für ${item.id} (index.html fehlt/zu klein)`); resolve(false); return; }
       } catch (e) { log(`  ⚠️  Build-Verifikation fehlgeschlagen für ${item.id}: ${e.message}`); resolve(false); return; }
       log(`  ✅ Build ok: ${item.id}`);
       resolve(true);
@@ -145,53 +244,74 @@ function buildLeadAsync(item) {
   });
 }
 
-// ─── Ein Zyklus ───────────────────────────────────────────────────
-async function cycle() {
-  log('─── Zyklus Start ───');
-
-  // STUFE 1: Discovery
-  try { run('node lead_agent_deepseek/scripts/daemon.js --once'); }
-  catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
-
-  // STUFE 2: offene Builds — alle parallel, kein Limit
+async function stage2() {
+  // listPending filtert Kanzlei/Steuer + published bereits raus. Hier nur
+  // die build-fähigen (valide E-Mail, Bilder, noch nicht gemailt) nehmen.
   const open = listPending().filter(i => !i.built);
-  const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent && !isKanzleiSteuer(i.id, i.industry, i.name));
-  if (open.length - buildable.length > 0) log(`⏭️  ${open.length - buildable.length} Lead(s) ohne valide E-Mail/Bilder oder Kanzlei/Steuer übersprungen.`);
-  if (buildable.length === 0) {
-    log('Keine offenen Builds mit Bildern.');
-  } else {
-    log(`${buildable.length} offene Build(s) — paralleler Build.`);
-    await Promise.allSettled(buildable.map(item => buildLeadAsync(item)));
-  }
+  const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent);
+  const skipped = open.length - buildable.length;
+  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail/Bilder oder bereits gemailt übersprungen.`);
+  if (!buildable.length) { log('Keine offenen Builds mit Bildern.'); return; }
+  log(`${buildable.length} offene Build(s) — paralleler Build.`);
+  await Promise.allSettled(buildable.map(item => buildLeadAsync(item)));
+}
 
-  // STUFE 3: Backlog drainen — publishen (push) + mailen (gestaffelt).
-  // "published" ≠ "gemailt": toPublish = noch nicht gepusht, toEmail = noch
-  // nicht gemailt (unabhängig vom publish-Status). So bleiben veröffentlichte,
-  // aber un gemailte Leads (z.B. nach Mail-Fehler) nicht stecken.
+// ═══ STUFE 3: Publish + Screenshot + Mail ════════════════════════
+// Vergleichsbild erzeugen (Pages muss live sein). Fehler blockiert Mail NICHT.
+function generateCompare(item) {
+  return new Promise((resolve) => {
+    const jobFile = path.join(PREVIEW_DIR, item.id, 'build-job.json');
+    let website = '';
+    try { website = JSON.parse(fs.readFileSync(jobFile, 'utf8')).website || ''; } catch {}
+    if (!website) { log(`  🖼️  ${item.id}: kein Vergleich (noweb) — Mail ohne Anhang.`); return resolve(); }
+    // Pages-Deploy abwarten, dann mit Retry screenshoten.
+    setTimeout(() => {
+      const tryOnce = (attempt) => {
+        exec(`node "${SCREENSHOT_SCRIPT}" ${item.id}`, { cwd: REPO, timeout: 120000, maxBuffer: 8 * 1024 * 1024 }, (err) => {
+          if (err) {
+            if (attempt < 2) { log(`  🖼️  ${item.id}: Screenshot-Versuch ${attempt + 1} fehlgeschlagen, Retry in 30s…`); setTimeout(() => tryOnce(attempt + 1), 30000); }
+            else { log(`  ⚠️  ${item.id}: Vergleichsbild nicht erstellt — Mail ohne Anhang.`); resolve(); }
+          } else {
+            log(`  🖼️  ${item.id}: Vergleichsbild erstellt.`);
+            resolve();
+          }
+        });
+      };
+      tryOnce(0);
+    }, PAGES_DEPLOY_WAIT_SEC * 1000);
+  });
+}
+
+async function stage3() {
   const built = listBuiltNotSent();
-  if (built.length === 0) {
-    log('Nichts zu publizieren/mailen.');
-  } else {
-    const toPublish = built.filter(i => i.status !== 'published');
-    const toEmail = built;
-    log(`📤 Stufe 3 — ${toPublish.length} publishen, ${toEmail.length} mailen (gestaffelt).`);
-    for (const item of toPublish) markPublished(item);
-    if (toPublish.length) gitPushBulk(toPublish.map(i => i.id));
-    // E-Mail mit zufälliger Verzögerung (Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min)
-    for (const item of toEmail) {
-      const delaySec = EMAIL_DELAY_MAX_MIN > 0
-        ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60)
-        : 0;
-      log(`  📧 ${item.name} → E-Mail in ${(delaySec / 60).toFixed(1)} Min`);
-      setTimeout(() => {
+  if (!built.length) { log('Nichts zu publizieren/mailen.'); return; }
+  const toPublish = built.filter(i => i.status !== 'published');
+  const toEmail = built;
+  log(`📤 Stufe 3 — ${toPublish.length} publishen, ${toEmail.length} mailen (gestaffelt).`);
+  for (const item of toPublish) markPublished(item);
+  if (toPublish.length) gitPushBulk(toPublish.map(i => i.id));
+
+  // Pro Lead: nach Pages-Deploy Screenshot, dann Mail (Timing: 0–EMAIL_DELAY_MAX_MIN).
+  for (const item of toEmail) {
+    const delaySec = EMAIL_DELAY_MAX_MIN > 0 ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60) : 0;
+    log(`  📧 ${item.name} → Screenshot+Mail in ${(delaySec / 60).toFixed(1)} Min`);
+    setTimeout(() => {
+      generateCompare(item).finally(() => {
         const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', item.id], {
           cwd: REPO, detached: true, stdio: 'ignore',
         });
         child.unref();
-      }, delaySec * 1000);
-    }
+      });
+    }, delaySec * 1000);
   }
+}
 
+// ─── Ein Zyklus ───────────────────────────────────────────────────
+async function cycle() {
+  log('─── Zyklus Start ───');
+  try { await stage1(); } catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
+  try { await stage2(); } catch (e) { log(`Stufe 2 Fehler: ${e.message}`); }
+  try { await stage3(); } catch (e) { log(`Stufe 3 Fehler: ${e.message}`); }
   log('─── Zyklus Ende ───\n');
 }
 
@@ -202,8 +322,9 @@ process.on('SIGTERM', () => { running = false; releaseLock(); process.exit(0); }
 
 (async () => {
   acquireLock();
-  log('═══ MZ.9 Lead Agent — Auto-Loop (skalierbar) ═══');
-  log(`Intervall: ${INTERVAL_MIN} min | Builds parallel | Backlog-Drain pro Zyklus | E-Mail-Staffelung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
+  log('═══ MZ.9 Lead Agent — Auto-Loop ═══');
+  log(`Intervall: ${INTERVAL_MIN} min | Stufen inline | Backlog-Drain pro Zyklus | E-Mail-Staffelung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
+  preflight(log);
   try {
     do {
       try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }

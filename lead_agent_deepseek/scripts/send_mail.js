@@ -1,11 +1,15 @@
 /**
  * MZ.9 — E-Mail-Versand via Gmail SMTP
+ *
+ * sent.json-Schutz (Mutex + recordSent) kommt aus ./rules.js — NICHT hier.
+ * Dieses Skript prüft gate-äquivalent vor Versand und ruft recordSent(id)
+ * nach erfolgreicher Mail. Aufgerufen von auto.js Stufe 3 (gestaffelt).
  */
 
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
-const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer } = require('./pending');
+const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer, loadSent, recordSent, PREVIEW_DIR } = require('./rules');
 
 function loadEnv() {
   const envFile = path.join(__dirname, '..', '.env');
@@ -25,10 +29,6 @@ function loadEnv() {
 }
 loadEnv();
 
-const ROOT = path.join(__dirname, '..');
-const SENT_FILE = path.join(ROOT, 'sent.json');
-const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
-
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 const MZ9_URL = 'https://maikz91.github.io/the-tribe-bot/mz9';
 
@@ -43,29 +43,6 @@ const FROM = {
   name: process.env.MZ9_FROM_NAME || 'Maik Zschach — MZ.9',
   email: process.env.MZ9_FROM_EMAIL || 'mzschach@googlemail.com',
 };
-
-function loadSent() { try { return JSON.parse(fs.readFileSync(SENT_FILE, 'utf8')); } catch { return {}; } }
-function saveSent(sent) { fs.writeFileSync(SENT_FILE, JSON.stringify(sent, null, 2)); }
-
-// ─── Mutex um sent.json (keine lost updates bei konkurrenten Versande) ───
-const SENT_LOCK = path.join(ROOT, '.sent.lock');
-function withSentLock(fn) {
-  // Exklusives Lock via 'wx' (Create-new). Spinnt kurz, bis frei.
-  const deadline = Date.now() + 30000;
-  while (Date.now() < deadline) {
-    try { fs.writeFileSync(SENT_LOCK, String(process.pid), { flag: 'wx' }); break; }
-    catch (e) { if (e.code !== 'EEXIST') throw e; }
-    const t = Date.now(); while (Date.now() - t < 50) {} // kurzer Backoff
-  }
-  try { return fn(); } finally { try { fs.unlinkSync(SENT_LOCK); } catch {} }
-}
-// Frisch laden + schreiben unter Lock — race-sicher.
-function recordSent(id) {
-  return withSentLock(() => {
-    const sent = loadSent();
-    if (!sent[id]) { sent[id] = new Date().toISOString(); saveSent(sent); }
-  });
-}
 
 function loadLeads() {
   const leads = [];

@@ -1,108 +1,47 @@
-# MZ.9 Lead Agent — DeepSeek Edition (Lokal)
+# MZ.9 Lead Agent
 
-Parallel-Workflow zum Claude/Playwright-System. Nutzt DeepSeeks native Tools.
-Output kompatibel mit dem bestehenden Dashboard unter `docs/leads/dashboard/`.
+Autonomer Lead-Funnel: findet echte Betriebe (Overpass), baut individuelle
+Premium-Seiten mit Originalbildern (`claude -p`), publiziert auf GitHub Pages und
+mailt eine Konzept-Vorschau — abgesichert gegen Doppelversendung.
 
-## 🚀 Quickstart
+## Quickstart
 
 ```bash
-# Daemon starten (alle 5 Min ein Lead):
-lead_agent_deepseek\run.bat
+# Autonomer Loop (Hintergrund):
+node lead_agent_deepseek/scripts/auto.js
+# oder Doppelklick: lead_agent_deepseek/run-auto.bat
 
-# Oder direkt:
-node lead_agent_deepseek/scripts/daemon.js
+# Einmal zum Testen (sofortige Mail):
+ONCE=1 EMAIL_DELAY_MAX_MIN=0 node lead_agent_deepseek/scripts/auto.js
 
-# Mit eigenem Intervall (z.B. 2 Minuten):
-set INTERVAL_MINUTES=2 && node lead_agent_deepseek/scripts/daemon.js
+# Status der offenen Builds:
+node lead_agent_deepseek/scripts/rules.js
 ```
 
-## Architektur
+## Architektur (5 Live-Dateien)
 
 ```
-┌──────────────────────────────────────────────────┐
-│              LOKALER DAEMON (alle 5 min)         │
-│                                                  │
-│  ┌──────────┐   ┌──────────┐   ┌──────────┐    │
-│  │ QUEUE    │ → │ AUDIT    │ → │ BUILD    │     │
-│  │ next lead│   │ Lighthse │   │ Preview  │     │
-│  └──────────┘   └──────────┘   └──────────┘    │
-│       ↑                              │          │
-│       │         ┌──────────────┐     │          │
-│       └─────────│ DEEPSEEK     │     │          │
-│   Queue füllen  │ (LLM Agent)  │     │          │
-│                 └──────────────┘     │          │
-│                          ↓           ↓          │
-│                    DASHBOARD    GIT PUSH         │
-│                    (eintragen)  (Pages Deploy)   │
-└──────────────────────────────────────────────────┘
+rules.js            ← EINZIGE Wahrheitsquelle: Filter, sent.json-Schutz, gate(), preflight()
+  ↑
+auto.js             ← Der einzige Loop (3 Stufen, inline)
+  ├─ discover.js    ← Stufe 1: Overpass-Discovery + Originalbilder
+  ├─ (claude -p)    ← Stufe 2: Premium-Seite bauen
+  ├─ screenshot-compare.js  ← Stufe 3: Original-vs-Preview-Vergleichsbild
+  └─ send_mail.js   ← Stufe 3: SMTP-Versand + recordSent
 ```
 
-**Zwei Modi, ein System:**
+## Die 3 Stufen pro Zyklus
 
-| Modus | Wer | Was |
-|---|---|---|
-| ⚡ **Daemon** (alle 5 min) | `daemon.js` | Queue → Lighthouse → Build → Dashboard → Push |
-| 🧠 **Intelligent** | DeepSeek Agent | Unternehmen finden, Copy schreiben, Queue füllen |
+1. **Discovery + Build-Job** — Queue füllen (Overpass), 1 Lead, Bilder nachholen,
+   `gate()` prüfen, `build-job.json` anlegen.
+2. **Build** — paralleler `claude -p`-Build, Verifikation > 4 KB.
+3. **Publish + Screenshot + Mail** — Bulk-Push (commit-first, kein autostash),
+   Vergleichsbild, gestaffelte E-Mail (0–10 Min), `recordSent`.
 
-## Dateien
+## Eisernen Regeln
 
-```
-lead_agent_deepseek/
-├── README.md                    Diese Datei
-├── run.bat                      ⭐ Doppelklick zum Starten
-├── queue.json                   Lead-Queue (wird abgearbeitet)
-├── DISCOVERY_NEEDED.txt         Flag: Queue leer → DeepSeek füllt auf
-├── jobs/
-│   ├── discovery.json           Discovery-Job
-│   ├── build.json               Build-Job
-│   └── deliver.json             E-Mail-Template
-├── scripts/
-│   ├── daemon.js                ⭐ Lokaler Daemon (Haupt-Script)
-│   ├── loop.js                  CI-Variante (GitHub Actions)
-│   └── audit.js                 Einmal-Audit
-├── templates/
-│   └── preview.html             Basis-Template mit {{PLATZHALTERN}}
-└── leads/                       Audit-Ergebnis-JSONs
-```
+Keine Kanzlei/Recht/Steuer/Anwalt · keine Placeholder-Mails · `sent.json`-Dedup
+(jede Adresse genau einmal) · `sent.json` race- + autostash-sicher · Originalbilder
+Pflicht · E-Mail-Timing 0–10 Min · Single-Instance-Lock.
 
-## So läuft's
-
-### Automatisch (Daemon läuft lokal)
-1. `daemon.js` prüft alle 5 Minuten `queue.json`
-2. Nächster Lead → Lighthouse-Audit
-3. HTML-Vorschau aus Template → `docs/leads/<id>/`
-4. Dashboard updaten
-5. Git commit + push → GitHub Pages deployt
-
-### Manuell (Queue auffüllen)
-1. DeepSeek Agent: `web_search "<branche> Bielefeld"`
-2. DeepSeek Agent: `fetch_url <website>` → HTML lesen
-3. DeepSeek Agent: Lead in `queue.json` eintragen
-4. Daemon verarbeitet automatisch beim nächsten Tick
-
-## Lead-Queue Format
-
-```json
-{
-  "id": "restaurant-beispiel",
-  "name": "Restaurant Beispiel",
-  "nameShort": "Beispiel",
-  "industry": "Gastronomie",
-  "hebel": "hoch",
-  "website": "https://www.restaurant-beispiel.de/",
-  "phone": "+495211234567",
-  "email": "info@restaurant-beispiel.de",
-  "heroH1": "Gut essen.<br><em>Mitten in Bielefeld.</em>",
-  "heroSub": "Frische, saisonale Küche...",
-  "ctaText": "Tisch reservieren",
-  "features": ["Saisonale Küche", "Täglich frisch"],
-  "problems": ["Keine Online-Reservierung", "Speisekarte nur PDF"],
-  "opps": ["Online-Reservierung 24/7", "Inline-Speisekarte"]
-}
-```
-
-## Deployment
-
-GitHub Pages deployed von `docs/` auf `main` Branch.
-- Dashboard: `https://maikz91.github.io/the-tribe-bot/leads/dashboard/`
-- MZ.9 Seite: `https://maikz91.github.io/the-tribe-bot/mz9.html`
+Siehe `WORKFLOW.md` für Details.
