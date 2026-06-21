@@ -63,16 +63,21 @@ function acquireLock() {
 function releaseLock() { try { fs.unlinkSync(LOCKFILE); } catch {} }
 
 // ─── Bulk git push für alle publizierten Leads eines Zyklus ───────
+// WICHTIG: Erst committen, DANN pull --rebase (ohne --autostash!).
+// Grund: send_mail-Prozesse schreiben konkurrent sent.json. Ein
+// --autostash würde sent.json auf HEAD zurücksetzen → Dedup-Verlust.
+// Mit commit-first ist der Baum beim Pull clean → kein autostash nötig.
 function gitPushBulk(ids) {
   try {
-    try { execSync('git pull --rebase --autostash origin main', { cwd: REPO, stdio: 'pipe' }); } catch {}
     execSync('git add docs/leads/ lead_agent_deepseek/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/sent.json', { cwd: REPO, stdio: 'pipe' });
     const diff = execSync('git diff --cached --stat', { cwd: REPO, stdio: 'pipe', encoding: 'utf8' });
-    if (!diff.trim()) { log('  📭 Keine Änderungen zu pushen.'); return true; }
-    const n = ids.length;
-    execSync(`git commit -m "lead-agent: ${n} Lead(s) publiziert — ${ids.slice(0, 3).join(', ')}${n > 3 ? ' …' : ''}"`, { cwd: REPO, stdio: 'pipe' });
+    if (diff.trim()) {
+      const n = ids.length;
+      execSync(`git commit -m "lead-agent: ${n} Lead(s) publiziert — ${ids.slice(0, 3).join(', ')}${n > 3 ? ' …' : ''}"`, { cwd: REPO, stdio: 'pipe' });
+    }
+    try { execSync('git pull --rebase origin main', { cwd: REPO, stdio: 'pipe' }); } catch {}
     execSync('git push', { cwd: REPO, stdio: 'pipe' });
-    log(`  🚀 Bulk-Push: ${n} Lead(s) live`);
+    log(`  🚀 Bulk-Push: ${ids.length} Lead(s) live`);
     return true;
   } catch (err) {
     log(`  ⚠️  Git-Fehler: ${err.message}`);
