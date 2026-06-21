@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tischlerei Hubrich | Tischler in Borchen · Maßgefertigte Holzarbeiten</title>
+    <meta name="description" content="Tischlerei Hubrich in Paderborn-Borchen. Ihr Meisterbetrieb für individuelle Einrichtungen, Möbel nach Maß und handwerkliche Qualität aus Holz.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8B5A2B;
+            --primary-dark: #6B4423;
+            --secondary: #4A4A55;
+            --accent: #C19A6B;
+            --bg-light: #F9F6F2;
+            --bg-white: #FFFFFF;
+            --text-dark: #2D2A26;
+            --text-medium: #5A5650;
+            --text-light: #8A857E;
+            --border: #E8E4DF;
+            --shadow: 0 4px 20px rgba(45, 42, 38, 0.08);
+            --shadow-hover: 0 8px 30px rgba(45, 42, 38, 0.12);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --container: 1200px;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        button { font-family: inherit; cursor: pointer; border: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .header.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .logo span { color: var(--secondary); }
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+        .nav a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-medium);
+        }
+        .nav a:hover { color: var(--primary); }
+        .header-cta {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .header-cta {
+                display: flex;
+                gap: 12px;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            padding-top: 70px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px 0;
+        }
+        @media (min-width: 960px) {
+            .hero-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .hero-content {
+            order: 2;
+        }
+        @media (min-width: 960px) {
+            .hero-content { order: 1; }
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(139, 90, 43, 0.1);
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        .hero h1 span {
+            color: var(--primary);
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .hero-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-badge-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .hero-badge-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .hero-badge-text span {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* USPs */
+        .usps {
+            padding: 60px 0;
+            background: var(--bg-white);
+        }
+        .usps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .usp-card {
+            padding: 30px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .usp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .usp-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .usp-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .usp-card p {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+
+        /* Leistungen */
+        .services {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        .service-content {
+            padding: 25px;
+        }
+        .service-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .service-content p {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            margin-bottom: 16px;
+        }
+        .service-link {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .service-link:hover { gap: 10px; }
+
+        /* Anfrageformular - Premium Feature */
+        .inquiry {
+            padding: 80px 0;
+            background: var(--primary);
+            color: white;
+        }
+        .inquiry h2 {
+            color: white;
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 16px;
+        }
+        .inquiry p {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        .inquiry-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-hover);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 600px) {
+            .form-row { grid-template-columns: 1fr 1fr; }
+        }
+        .form-submit {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Galerie */
+        .gallery {
+            padding: 80px 0;
+            background: var(--bg-white);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-overlay h4 {
+            color: white;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Kontakt */
+        .contact {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .contact-item-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(139, 90, 43, 0.1);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-item-content h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .contact-item-content p {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+        .contact-item-content a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .contact-item-content a:hover {
+            text-decoration: underline;
+        }
+        .contact-map {
+            background: var(--border);
+            border-radius: var(--radius-lg);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            background: var(--secondary);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+        }
+        .footer a {
+            color: white;
+        }
+        .footer-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 20px;
+            gap: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        .mobile-cta .btn {
+            flex: 1;
+            padding: 14px;
+            font-size: 0.9rem;
+        }
+        @media (min-width: 768px) {
+            .mobile-cta { display: none; }
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal,
+            .hero-image img,
+            .service-card:hover .service-image img,
+            .gallery-item img,
+            .usp-card,
+            .service-card {
+                transform: none !important;
+                opacity: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">Tischlerei<span>Hubrich</span></a>
+            <nav class="nav">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#galerie">Referenzen</a>
+                <a href="#kontakt">Kontakt</a>
+            </nav>
+            <div class="header-cta">
+                <a href="tel:+495251874666" class="btn btn-outline">
+                    📞 Anrufen
+                </a>
+                <a href="#anfrage" class="btn btn-primary">
+                    Anfrage senden
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-content reveal">
+                <div class="hero-tag">
+                    <span>★ Meisterbetrieb</span>
+                </div>
+                <h1>Maßgefertigte <span>Holzarbeiten</span> aus Leidenschaft</h1>
+                <p class="hero-desc">Tischlerei Hubrich in Borchen · Individuelle Einrichtungen, Möbel nach Maß und handwerkliche Qualität aus besten Hölzern.</p>
+                <div class="hero-cta">
+                    <a href="#anfrage" class="btn btn-primary">
+                        Kostenvoranschlag anfordern
+                    </a>
+                    <a href="#leistungen" class="btn btn-outline">
+                        Unsere Leistungen →
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image reveal">
+                <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Tischler-Header-1.png" alt="Tischlerei Hubrich Werkstatt" loading="eager">
+                <div class="hero-badge">
+                    <div class="hero-badge-icon">📍</div>
+                    <div class="hero-badge-text">
+                        Paderborn-Borchen
+                        <span>Seit über 20 Jahren</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USPs -->
+    <section class="usps">
+        <div class="container">
+            <div class="usps-grid reveal">
+                <div class="usp-card">
+                    <div class="usp-icon">🔨</div>
+                    <h3>Handwerkliche Qualität</h3>
+                    <p>Jedes Stück wird mit Sorgfalt und Liebe zum Detail in unserer Werkstatt gefertigt.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">📏</div>
+                    <h3>Möbel nach Maß</h3>
+                    <p>Individuelle Planung und Gestaltung nach Ihren Wünschen und Raumgegebenheiten.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">🌲</div>
+                    <h3>Nachhaltige Materialien</h3>
+                    <p>Wir arbeiten bevorzugt mit heimischen Hölzern aus zertifizierten Quellen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section class="services" id="leistungen">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Unsere Leistungen</h2>
+                <p>Von der ersten Skizze bis zur fertigen Montage · Alles aus einer Hand</p>
+            </div>
+            <div class="services-grid reveal">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Skizze-Fernsehschrank.png" alt="Individuelle Einbauschränke" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Einbaumöbel & Schränke</h3>
+                        <p>Maßgefertigte Einbauschränke, Kleiderschränke und Kommoden die perfekt in Ihre Räume passen.</p>
+                        <a href="#anfrage" class="service-link">Anfrage stellen →</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Schrank.png" alt="Büro- und Geschäftseinrichtungen" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Büro- & Ladenbau</h3>
+                        <p>Professionelle Einrichtungen für Büros, Praxen und Geschäfte · Repräsentativ und funktional.</p>
+                        <a href="#anfrage" class="service-link">Anfrage stellen →</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Unsere-Leistungen.jpg" alt="Küchen- & Wohnraumgestaltung" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Küchen & Wohnräume</h3>
+                        <p>Individuelle Küchenfronten, Tischplatten und Wohnraummöbel nach Ihren Vorstellungen.</p>
+                        <a href="#anfrage" class="service-link">Anfrage stellen →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anfrageformular - Premium Feature -->
+    <section class="inquiry" id="anfrage">
+        <div class="container">
+            <h2>Ihre Anfrage</h2>
+            <p>Erzählen Sie uns von Ihrem Projekt · Wir melden uns schnellstmöglich für ein persönliches Gespräch</p>
+            <form class="inquiry-form reveal" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail *</label>
+                        <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Gewünschte Leistung</label>
+                        <select id="service" name="service">
+                            <option value="">Bitte auswählen...</option>
+                            <option value="einbaumöbel">Einbaumöbel & Schränke</option>
+                            <option value="kueche">Küche / Küchenfronten</option>
+                            <option value="buero">Büro- / Ladenbau</option>
+                            <option value="sonstiges">Sonstiges Projekt</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Ihre Nachricht *</label>
+                    <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Projekt und Ihre Wünsche..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary form-submit">
+                    Anfrage absenden
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="gallery" id="galerie">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Referenzen</h2>
+                <p>Ein Auszug aus unseren realisierten Projekten</p>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/%C3%9Cber-uns.jpg" alt="Über uns - Werkstatt" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h4>Unsere Werkstatt</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Unsere-Leistungen.jpg" alt="Leistungsübersicht" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h4>Leistungen im Detail</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/Referenzen.jpg" alt="Referenzprojekte" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h4>Referenzprojekte</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tischler-hubrich.de/wp-content/uploads/2020/03/HG-Bild.png" alt="Hausgarten Projekt" loading="lazy">
+                    <div class="gallery-overlay">
+                        <h4>Hausgarten-Gestaltung</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Kontakt</h2>
+                <p>Wir freuen uns auf Ihren Besuch oder Anruf</p>
+            </div>
+            <div class="contact-grid reveal">
+                <div class="contact-info">
+                    <h3>So erreichen Sie uns</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-content">
+                            <h4>Adresse</h4>
+                            <p>Sandhöfener Straße 67<br>33106 Paderborn-Borchen</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-content">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:+495251874666">+49 5251 874666</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div class="contact-item-content">
+                            <h4>E-Mail</h4>
+                            <p><a href="mailto:tischler-hubrich@gmx.de">tischler-hubrich@gmx.de</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div style="text-align: center; padding: 40px;">
+                        <p style="font-size: 1.1rem; color: var(--text-medium);">📍</p>
+                        <p style="margin-top: 10px;">Karte wird geladen...</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">33106 Paderborn-Borchen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>© Tischlerei Hubrich · Meisterbetrieb in Borchen</p>
+            <a href="tel:+495251874666">+49 5251 874666</a>
+            <p class="footer-note">Konzept-Vorschau · MZ.9</p>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="tel:+495251874666" class="btn btn-outline">📞 Anrufen</a>
+        <a href="#anfrage" class="btn btn-primary">Anfrage senden</a>
+    </div>
+
+    <script>
+        // Header scroll state
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Form submission handler
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+
+            const subject = encodeURIComponent(`Anfrage von ${name} - ${service || 'Allgemein'}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `E-Mail: ${email}\n` +
+                `Telefon: ${phone || 'Keine Angabe'}\n` +
+                `Gewünschte Leistung: ${service || 'Nicht angegeben'}\n\n` +
+                `Nachricht:\n${message}`
+            );
+
+            window.location.href = `mailto:tischler-hubrich@gmx.de?subject=${subject}&body=${body}`;
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
