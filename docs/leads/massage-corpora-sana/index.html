@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corpora Sana · Physiotherapie & Massage in Braunschweig</title>
+  <meta name="description" content="Corpora Sana – Ihre Physiotherapie & Massage in Braunschweig. Professionelle Behandlung in entspannter Atmosphäre. Jetzt Termin vereinbaren.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #fafbfc;
+      --color-bg-alt: #f0f4f8;
+      --color-primary: #2c5f7d;
+      --color-primary-dark: #1a3a4d;
+      --color-accent: #4a9ab0;
+      --color-accent-light: #e8f4f8;
+      --color-text: #334155;
+      --color-text-light: #64748b;
+      --color-white: #ffffff;
+      --color-border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(44,95,125,0.12);
+      --shadow-lg: 0 8px 32px rgba(44,95,125,0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      line-height: 1.3;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--color-accent);
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-white);
+      box-shadow: 0 2px 8px rgba(44,95,125,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(44,95,125,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-accent-light);
+      border-color: var(--color-accent);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 16px 24px;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      padding: 12px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.02em;
+    }
+
+    .nav {
+      display: none;
+      gap: 32px;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--color-primary);
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+      .header-cta {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 100px 24px 60px;
+      background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-bg) 100%);
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--color-accent-light);
+      color: var(--color-primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--color-primary-dark);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--color-text-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-decor {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+      opacity: 0.15;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-decor-1 {
+      top: -100px;
+      right: -100px;
+    }
+
+    .hero-decor-2 {
+      bottom: -100px;
+      left: -100px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero h1 {
+        font-size: 4rem;
+      }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--color-white);
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--color-primary);
+    }
+
+    .trust-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    @media (min-width: 640px) {
+      .trust-inner {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 80px 24px;
+    }
+
+    .section-alt {
+      background: var(--color-bg-alt);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: var(--color-primary-dark);
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--color-text-light);
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      border: 1px solid var(--color-border);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-accent);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--color-primary);
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .service-card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      aspect-ratio: 16/10;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Booking Section */
+    .booking-section {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: var(--color-white);
+    }
+
+    .booking-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .booking-content h2 {
+      color: var(--color-white);
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .booking-content p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+    }
+
+    .booking-form {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s ease;
+      background: var(--color-bg);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-light);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .booking-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 16px;
+      color: var(--color-primary);
+    }
+
+    .contact-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .contact-card a,
+    .contact-card span {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+
+    .contact-card a:hover {
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 640px) {
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-primary-dark);
+      color: rgba(255,255,255,0.8);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--color-accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      padding: 12px 16px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: block;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta {
+        display: none;
+      }
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .lift {
+      transition: all 0.4s ease-out;
+    }
+
+    .lift:hover {
+      transform: translateY(-4px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .lift,
+      .gallery-item img,
+      .service-card,
+      .btn {
+        transition: none;
+      }
+      .reveal.in {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="logo">Corpora Sana</div>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#termin">Termin</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="header-cta">
+        <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-decor hero-decor-1"></div>
+    <div class="hero-decor hero-decor-2"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">Physiotherapie & Massage in Braunschweig</span>
+        <h1>Wohlbefinden beginnt hier</h1>
+        <p>Professionelle Behandlung in entspannter Atmosphäre. Lassen Sie sich von erfahrenen Therapeuten individuell beraten und behandeln.</p>
+        <div class="hero-buttons">
+          <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://cdn-ikppnpn.nitrocdn.com/BeDFBstFlCudJNMnajFazghfnsRsLpXt/assets/images/optimized/rev-6c9bd9b/bs-physio.de/wp-content/uploads/2023/07/Image-13-Corpora-Sana.jpg" alt="Corpora Sana Praxis">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Erfahrene Therapeuten</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Individuelle Behandlung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Zentral in Braunschweig</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Entspannte Atmosphäre</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section class="section" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Breites Therapieangebot für Ihre Gesundheit und Wohlbefinden</p>
+    </div>
+    <div class="section-inner">
+      <div class="services-grid">
+        <div class="service-card reveal lift">
+          <div class="service-icon">💆</div>
+          <h3>Klassische Massage</h3>
+          <p>Entspannende Ganzkörpermassage zur Linderung von Verspannungen und Förderung der Durchblutung.</p>
+        </div>
+        <div class="service-card reveal lift">
+          <div class="service-icon">🏊</div>
+          <h3>Wassergymnastik</h3>
+          <p>Gelenkschonendes Training im warmen Wasser zur Stärkung der Muskulatur und Verbesserung der Beweglichkeit.</p>
+        </div>
+        <div class="service-card reveal lift">
+          <div class="service-icon">🩺</div>
+          <h3>Physiotherapie</h3>
+          <p>Professionelle physiotherapeutische Behandlung nach Verletzungen oder bei chronischen Beschwerden.</p>
+        </div>
+        <div class="service-card reveal lift">
+          <div class="service-icon">🌿</div>
+          <h3>Wellness-Anwendungen</h3>
+          <p>Zusätzliche Entspannungstherapien für ganzheitliches Wohlbefinden und Stressabbau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section section-alt" id="galerie">
+    <div class="section-header reveal">
+      <h2>Einblicke</h2>
+      <p>Unsere Praxisräume und Behandlungsmöglichkeiten</p>
+    </div>
+    <div class="section-inner">
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://cdn-ikppnpn.nitrocdn.com/BeDFBstFlCudJNMnajFazghfnsRsLpXt/assets/images/optimized/rev-6c9bd9b/bs-physio.de/wp-content/uploads/2023/07/Image-13-Corpora-Sana-1024x683.jpg" alt="Corpora Sana Praxisansicht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://cdn-ikppnpn.nitrocdn.com/BeDFBstFlCudJNMnajFazghfnsRsLpXt/assets/images/optimized/rev-6c9bd9b/bs-physio.de/wp-content/uploads/2023/07/Wassergymnastik-in-Walle-1024x683.jpeg" alt="Wassergymnastik" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://cdn-ikppnpn.nitrocdn.com/BeDFBstFlCudJNMnajFazghfnsRsLpXt/assets/images/optimized/rev-6c9bd9b/bs-physio.de/wp-content/uploads/2023/07/Image-2-Corpora-Sana-modified-1024x1024.png" alt="Corpora Sana Logo" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Termin-Buchung -->
+  <section class="section booking-section" id="termin">
+    <div class="booking-inner">
+      <div class="booking-content reveal">
+        <h2>Termin vereinbaren</h2>
+        <p>Buchen Sie jetzt Ihren persönlichen Behandlungstermin. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+        <a href="tel:+4953138919128" class="btn" style="background: white; color: var(--color-primary);">
+          📞 Direkt anrufen
+        </a>
+      </div>
+      <div class="booking-form reveal">
+        <form action="mailto:info@bs-physio.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Ihr Name</label>
+            <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefonnummer</label>
+            <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschte Leistung</label>
+            <select id="service" name="service">
+              <option value="">Bitte auswählen</option>
+              <option value="massage">Klassische Massage</option>
+              <option value="wassergymnastik">Wassergymnastik</option>
+              <option value="physiotherapie">Physiotherapie</option>
+              <option value="wellness">Wellness-Anwendung</option>
+              <option value="beratung">Erstberatung</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" name="message" placeholder="Wunschtermin, Fragen oder Anmerkungen..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section" id="kontakt">
+    <div class="section-header reveal">
+      <h2>Kontakt & Anfahrt</h2>
+      <p>Wir freuen uns auf Ihren Besuch in unserer Praxis</p>
+    </div>
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-icon">📍</div>
+          <h3>Adresse</h3>
+          <span>Hagenmarkt 2<br>Braunschweig</span>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">📞</div>
+          <h3>Telefon</h3>
+          <a href="tel:+4953138919128">+49 531 38919128</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">✉️</div>
+          <h3>E-Mail</h3>
+          <a href="mailto:info@bs-physio.de">info@bs-physio.de</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Bereit für mehr Wohlbefinden?</h2>
+        <p>Vereinbaren Sie noch heute Ihren Termin bei Corpora Sana</p>
+      </div>
+      <div class="reveal" style="text-align: center;">
+        <a href="#termin" class="btn btn-primary">Jetzt Termin vereinbaren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9 · <a href="https://bs-physio.de/">Corpora Sana</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
