@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Körperformen | EMS Training in Deiner Nähe | Nur 20 Minuten pro Woche</title>
+  <meta name="description" content="Entdecke gesundheitsorientiertes EMS Training bei Körperformen. Effektiv, zeitsparend und persönlich betreut – finde jetzt Dein Studio in der Nähe und teste kostenlos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #2D2D2D;
+      --accent: #F4D03F;
+      --accent-hover: #E5C02E;
+      --bg-light: #FAFAFA;
+      --bg-white: #FFFFFF;
+      --text-dark: #1A1A2E;
+      --text-gray: #4A4A5A;
+      --success: #27AE60;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px; border-radius: 50px; font-weight: 600;
+      font-size: 16px; cursor: pointer; border: none; transition: all 0.3s ease;
+      gap: 8px;
+    }
+    .btn-primary { background: var(--accent); color: var(--text-dark); }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn-secondary { background: transparent; border: 2px solid var(--text-dark); color: var(--text-dark); }
+    .btn-secondary:hover { background: var(--text-dark); color: white; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+    header.scrolled { box-shadow: var(--shadow); }
+    header .container {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 70px;
+    }
+    .logo { font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 32px; list-style: none; }
+    nav a { font-weight: 500; color: var(--text-dark); font-size: 15px; }
+    nav a:hover { color: var(--accent); }
+    .mobile-menu { display: none; font-size: 24px; cursor: pointer; }
+
+    /* Hero */
+    .hero {
+      padding: 160px 0 100px; min-height: 90vh;
+      background: linear-gradient(135deg, #1A1A2E 0%, #2D2D2D 50%, #3D3D5C 100%);
+      color: white; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 600px; height: 600px; background: var(--accent);
+      opacity: 0.1; border-radius: 50%; filter: blur(100px);
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -30%; left: -10%;
+      width: 400px; height: 400px; background: var(--success);
+      opacity: 0.08; border-radius: 50%; filter: blur(80px);
+    }
+    .hero .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; position: relative; z-index: 1;
+    }
+    .hero-content h1 {
+      font-size: 48px; font-weight: 800; line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero-content p {
+      font-size: 18px; opacity: 0.9; margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 40px;
+    }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 36px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 14px; opacity: 0.8; }
+    .hero-image {
+      position: relative; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .hero-image img { width: 100%; display: block; }
+
+    /* USPs Strip */
+    .usps { padding: 60px 0; background: var(--bg-white); }
+    .usps .container {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+    }
+    .usp-item {
+      text-align: center; padding: 24px;
+    }
+    .usp-icon {
+      width: 60px; height: 60px; background: rgba(244, 208, 63, 0.15);
+      border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 16px; font-size: 28px;
+    }
+    .usp-item h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .usp-item p { font-size: 14px; color: var(--text-gray); }
+
+    /* Endorsement Section */
+    .endorsement {
+      padding: 100px 0; background: var(--bg-light);
+    }
+    .endorsement .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .endorsement-image {
+      position: relative; border-radius: 24px; overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .endorsement-image img { width: 100%; display: block; }
+    .endorsement-badge {
+      position: absolute; bottom: 20px; right: 20px;
+      background: var(--bg-white); padding: 12px 20px;
+      border-radius: 50px; font-weight: 600; font-size: 14px;
+      box-shadow: var(--shadow);
+    }
+    .endorsement-content h2 {
+      font-size: 36px; font-weight: 700; margin-bottom: 20px;
+    }
+    .endorsement-content p {
+      font-size: 16px; color: var(--text-gray); margin-bottom: 24px;
+      line-height: 1.8;
+    }
+    .quote {
+      border-left: 4px solid var(--accent);
+      padding-left: 24px; font-style: italic;
+      color: var(--text-dark); font-size: 18px;
+    }
+
+    /* Services */
+    .services { padding: 100px 0; background: var(--bg-white); }
+    .services .section-header { text-align: center; margin-bottom: 60px; }
+    .services .section-header h2 {
+      font-size: 36px; font-weight: 700; margin-bottom: 16px;
+    }
+    .services .section-header p {
+      font-size: 18px; color: var(--text-gray); max-width: 600px; margin: 0 auto;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+    }
+    .service-card {
+      background: var(--bg-light); border-radius: 20px; padding: 40px 30px;
+      transition: 0.3s; border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-8px); box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+    .service-icon {
+      width: 70px; height: 70px; background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border-radius: 20px; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 24px; font-size: 32px;
+    }
+    .service-card h3 {
+      font-size: 22px; font-weight: 700; margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 15px; color: var(--text-gray); line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .service-features li {
+      font-size: 14px; color: var(--text-gray);
+      margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+    }
+    .service-features li::before {
+      content: '✓'; color: var(--success); font-weight: 700;
+    }
+
+    /* Booking Feature */
+    .booking { padding: 100px 0; background: linear-gradient(135deg, #1A1A2E, #2D2D2D); }
+    .booking .container { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .booking-content h2 {
+      font-size: 36px; font-weight: 700; color: white; margin-bottom: 20px;
+    }
+    .booking-content p {
+      font-size: 16px; opacity: 0.85; margin-bottom: 32px;
+    }
+    .booking-form {
+      background: var(--bg-white); border-radius: 24px; padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .booking-form h3 {
+      font-size: 24px; font-weight: 700; margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 14px; font-weight: 500;
+      margin-bottom: 8px; color: var(--text-gray);
+    }
+    .form-group input, .form-group select {
+      width: 100%; padding: 14px 18px; border: 2px solid #E5E5E5;
+      border-radius: 12px; font-size: 16px; font-family: inherit;
+      transition: 0.3s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Gallery */
+    .gallery { padding: 100px 0; background: var(--bg-light); }
+    .gallery .section-header { text-align: center; margin-bottom: 50px; }
+    .gallery .section-header h2 {
+      font-size: 36px; font-weight: 700; margin-bottom: 16px;
+    }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .gallery-item {
+      position: relative; border-radius: 16px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0; transition: 0.3s; display: flex; align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { color: white; font-weight: 500; font-size: 16px; }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0; background: var(--accent);
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 32px; font-weight: 700; margin-bottom: 16px;
+    }
+    .cta-band p { font-size: 18px; margin-bottom: 32px; }
+    .cta-band .btn { background: var(--text-dark); color: white; }
+
+    /* Contact */
+    .contact { padding: 100px 0; background: var(--bg-white); }
+    .contact .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    }
+    .contact-info h2 {
+      font-size: 36px; font-weight: 700; margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex; gap: 16px; margin-bottom: 24px;
+    }
+    .contact-icon {
+      width: 50px; height: 50px; background: rgba(244, 208, 63, 0.15);
+      border-radius: 14px; display: flex; align-items: center;
+      justify-content: center; font-size: 22px;
+    }
+    .contact-details h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .contact-details p { color: var(--text-gray); font-size: 15px; }
+    .contact-details a { color: var(--text-dark); }
+    .contact-details a:hover { color: var(--accent); }
+    .map-frame {
+      background: #E5E5E5; border-radius: 20px; height: 350px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-gray); font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0; background: var(--primary); color: rgba(255,255,255,0.6);
+      font-size: 14px; text-align: center;
+    }
+    footer strong { color: white; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--bg-white); padding: 16px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1); z-index: 999;
+    }
+    .mobile-cta .btn { width: 100%; }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { transition: none; } }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero .container, .endorsement .container, .booking .container, .contact .container {
+        grid-template-columns: 1fr; gap: 40px;
+      }
+      .hero-image { order: -1; }
+      .hero-content h1 { font-size: 36px; }
+      .hero-stats { justify-content: center; }
+      .usps .container, .services-grid, .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      nav { display: none; }
+      .mobile-menu { display: block; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 80px; }
+    }
+    @media (max-width: 640px) {
+      .usps .container, .services-grid, .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero { padding: 140px 0 60px; min-height: auto; }
+      .hero-content h1 { font-size: 28px; }
+      .hero-content p { font-size: 16px; }
+      .btn { width: 100%; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <a href="#" class="logo">KÖRPER<span>FORMEN</span></a>
+      <nav>
+        <ul>
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#buchung">Probetermin</a></li>
+          <li><a href="#galerie">Studio</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+      <a href="#buchung" class="btn btn-primary">Probetermin buchen</a>
+      <div class="mobile-menu">☰</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content reveal">
+        <h1>Gesundheitsorientiertes EMS Training – nur 20 Minuten pro Woche</h1>
+        <p>Effektiv, zeitsparend und persönlich betreut. Über 270 Studios in Deutschland, Österreich, Schweiz und Italien.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#buchung" class="btn btn-primary">
+            <span>📅</span> Kostenlos testen
+          </a>
+          <a href="#leistungen" class="btn btn-secondary">Mehr erfahren</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">270+</div>
+            <div class="stat-label">Studios</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">20</div>
+            <div class="stat-label">Minuten</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Persönlich</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.xn--krperformen-rfb.com/wp-content/uploads/2020/03/HG_02-1920x820.jpg" alt="EMS Training bei Körperformen" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <section class="usps reveal">
+    <div class="container">
+      <div class="usp-item">
+        <div class="usp-icon">⏱️</div>
+        <h3>20 Minuten</h3>
+        <p>Zeitsparendes Training für deinen vollen Terminkalender</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">👨‍⚕️</div>
+        <h3>Ärztlich beraten</h3>
+        <p>Expertise im Gesundheitswesen mit ärztlicher Trainingsberatung</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🎯</div>
+        <h3>Persönlich</h3>
+        <p>Individuelle Betreuung durch zertifizierte Trainer</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🌍</div>
+        <h3>270+ Studios</h3>
+        <p>In ganz Deutschland, Österreich, Schweiz und Italien</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="endorsement reveal">
+    <div class="container">
+      <div class="endorsement-image">
+        <img src="https://www.xn--krperformen-rfb.com/wp-content/uploads/2020/04/Joey_Kelly_frei_03-1-670x766.png" alt="Joey Kelly - Körperformen Botschafter" loading="lazy">
+        <div class="endorse-badge">★ Joey Kelly empfiehlt</div>
+      </div>
+      <div class="endorsement-content">
+        <h2>Expertenmeinung</h2>
+        <p>Joey Kelly, Extremsportler und EMS-Überzeugter, setzt auf Körperformen. Als Profi weiß er, was effektives Training bedeutet.</p>
+        <div class="quote">
+          "EMS bei Körperformen – das ist Training auf höchstem Niveau, gesundheitsorientiert und zeitsparend."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere EMS-Training-Angebote</h2>
+        <p>Maßgeschneiderte Programme für jedes Ziel – ob Muskelaufbau, Rückengesundheit oder allgemeine Fitness.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">⚡</div>
+          <h3>EMS Grundprogramm</h3>
+          <p>Der Einstieg ins EMS-Training – perfekt für Einsteiger und alle, die ihre Fitness verbessern wollen.</p>
+          <ul class="service-features">
+            <li>Einzeltraining oder zu zweit</li>
+            <li>20 Minuten pro Woche</li>
+            <li>Persönliche Betreuung</li>
+          </ul>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💪</div>
+          <h3>EMS Intensiv</h3>
+          <p>Für ambitionierte Sportler – maximale Stimulation für sichtbare Ergebnisse.</p>
+          <ul class="service-features">
+            <li>Intensivierte Impulsstärke</li>
+            <li>Fokus auf Muskelaufbau</li>
+            <li>Erweiterte Übungsvielfalt</li>
+          </ul>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏥</div>
+          <h3>EMS Medizin</h3>
+          <p>Gesundheitsorientiertes Training in ärztlicher Begleitung – für Rücken, Gelenke und mehr.</p>
+          <ul class="service-features">
+            <li>Ärztliche Trainingsberatung</li>
+            <li>Rückengerechte Übungen</li>
+            <li>Individuelle Gesundheitsziele</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="buchung">
+    <div class="container">
+      <div class="booking-content reveal">
+        <h2>Dein kostenloses Probetraining</h2>
+        <p>Erlebe EMS hautnah – unverbindlich und ohne Risiko. Buche jetzt deinen Termin im Studio Ingolstadt.</p>
+        <div style="margin-top: 32px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <span style="color: var(--accent); font-size: 24px;">✓</span>
+            <span style="color: white;">Kostenloses Erstgespräch</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <span style="color: var(--accent); font-size: 24px;">✓</span>
+            <span style="color: white;">Individuelle Trainingsanalyse</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="color: var(--accent); font-size: 24px;">✓</span>
+            <span style="color: white;">20 Minuten Probe-EMS</span>
+          </div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <h3>Probetermin vereinbaren</h3>
+        <form action="mailto:kleve@kformen.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Dein Name</label>
+            <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="deine@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefonnummer</label>
+            <input type="tel" id="phone" name="phone" placeholder="+49 123 456789">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Wunschtermin</label>
+              <input type="date" id="date" name="date">
+            </div>
+            <div class="form-group">
+              <label for="time">Uhrzeit</label>
+              <select id="time" name="time">
+                <option value="">Wähle...</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="studio">Studio auswählen</label>
+            <select id="studio" name="studio" required>
+              <option value="">Wähle Studio...</option>
+              <option value="ingolstadt">Körperformen Ingolstadt</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht (optional)</label>
+            <input type="text" id="message" name="message" placeholder="Fragen oder Wünsche?">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <span>📅</span> Termin anfragen
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unser Studio</h2>
+        <p>Modern, hell und professionell – so sieht Training bei Körperformen aus.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.xn--krperformen-rfb.com/wp-content/uploads/2020/03/HG_02-1920x820.jpg" alt="Studio Übersicht" loading="lazy">
+          <div class="gallery-overlay"><span>Heller Trainingsbereich</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.xn--krperformen-rfb.com/wp-content/uploads/2019/11/slider-person01.png" alt="EMS Training" loading="lazy">
+          <div class="gallery-overlay"><span>Persönliche Betreuung</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://images.provenexpert.com/c3/9c/3efb3ce8af5139fb349594c72c95/widget_portrait_180_de_0.png" alt="Kundenstimmen" loading="lazy">
+          <div class="gallery-overlay"><span>Zufriedene Kunden</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="container">
+      <h2>Bereit für Dein erstes EMS-Training?</h2>
+      <p>Kostenlos testen – unverbindlich und persönlich betreut.</p>
+      <a href="#buchung" class="btn">Jetzt Probetermin buchen</a>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="contact-info reveal">
+        <h2>Kontakt & Anfahrt</h2>
+        <p style="margin-bottom: 32px; color: var(--text-gray);">
+          Hast du Fragen? Wir helfen dir gerne weiter.
+        </p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h4>Adresse</h4>
+            <p>Theodor-Heuss-Straße 35<br>85055 Ingolstadt</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-details">
+            <h4>Telefon</h4>
+            <p><a href="tel:+4984112814119">+49 841 12814119</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:kleve@kformen.com">kleve@kformen.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-details">
+            <h4>Website</h4>
+            <p><a href="http://www.körperformen.com/" target="_blank">www.körperformen.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame reveal">
+        <div style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+          <p>Google Maps<br>Körperformen Ingolstadt</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Konzept-Vorschau · <strong>MZ.9</strong> · Nur für Demo-Zwecke</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#buchung" class="btn btn-primary">📅 Probetermin buchen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu').addEventListener('click', () => {
+      alert('Mobile Navigation (Konzept)');
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

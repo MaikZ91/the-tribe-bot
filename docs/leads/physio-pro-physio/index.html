@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Physiotherapie Münster - Online Termine - PRO PHYSIO MÜNSTER</title>
+  <meta name="description" content="PRO Physio Münster: Ihre erste Adresse für Physiotherapie in Münster. Erfahrene Therapeuten, individuelle Behandlungen und modernste Methoden. ➜ Online Termine">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #0066CC;
+      --primary-dark: #0055A8;
+      --secondary: #00A3E0;
+      --accent: #00CC88;
+      --accent-dark: #00AA70;
+      --bg: #FFFFFF;
+      --bg-light: #F5F9FC;
+      --text: #1A2E3A;
+      --text-light: #6B7C85;
+      --border: #D1DBE3;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    a { color: inherit; text-decoration: none; transition: 0.2s; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; border: none; cursor: pointer; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      padding: 12px 24px;
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .logo span { color: var(--text); }
+    .nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .nav a:hover { color: var(--primary); }
+    .btn-header {
+      background: var(--primary);
+      color: #fff !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    .btn-header:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero {
+      padding: 120px 24px 80px;
+      background: linear-gradient(135deg, var(--bg-light) 0%, #E8F4FD 100%);
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: var(--primary-dark);
+      margin-bottom: 24px;
+    }
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,102,204,0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+      background: var(--bg-light);
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .badge-icon {
+      width: 24px; height: 24px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 40px 24px;
+    }
+    .usp-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    .usp-item {
+      text-align: center;
+    }
+    .usp-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .usp-item h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .usp-item p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Leistungen */
+    .section {
+      padding: 80px 24px;
+    }
+    .section-light { background: var(--bg-light); }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-header h2 {
+      font-size: 2.2rem;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: #fff;
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+      border: 1px solid var(--border);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .service-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    /* Terminbuchung */
+    .booking-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 80px 24px;
+    }
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .booking-inner h2 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    .booking-inner p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 40px;
+    }
+    .booking-form {
+      background: #fff;
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      text-align: left;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 12px;
+      transition: all 0.3s;
+    }
+    .form-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,102,204,0.4);
+    }
+
+    /* Galerie */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+    .cta-band p {
+      font-size: 1.1rem;
+      color: #fff;
+      opacity: 0.95;
+      margin-bottom: 24px;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--accent-dark);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Kontakt */
+    .contact-section {
+      background: var(--text);
+      color: #fff;
+      padding: 80px 24px;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+    }
+    .contact-block h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .contact-text {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .contact-text strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    a.contact-link {
+      color: var(--accent);
+      transition: color 0.2s;
+    }
+    a.contact-link:hover { color: #fff; }
+
+    /* Footer */
+    .footer {
+      background: #0F1A22;
+      color: #6B7C85;
+      padding: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      padding: 16px 24px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-content h1 { font-size: 2rem; }
+      .hero-content p { margin: 0 auto 24px; }
+      .hero-cta { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .section { padding: 56px 24px; }
+      .booking-form { padding: 24px; }
+      .mobile-cta { display: block; }
+      body { padding-bottom: 70px; }
+      .usp-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="logo">PRO <span>PHYSIO</span></div>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin</a>
+        <a href="#galerie">Über uns</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#termin" class="btn-header">Termin buchen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content reveal">
+        <h1>Physiotherapie in Münster von Mensch zu Mensch</h1>
+        <p>Ihre erste Adresse für Physiotherapie in Münster. Erfahrene Therapeuten, individuelle Behandlungen und modernste Methoden für Ihre Gesundheit.</p>
+        <div class="hero-cta">
+          <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn-secondary">Leistungen ansehen</a>
+        </div>
+        <div class="hero-badges">
+          <div class="badge">
+            <span class="badge-icon">✓</span>
+            Online Termine
+          </div>
+          <div class="badge">
+            <span class="badge-icon">★</span>
+            Erfahrene Therapeuten
+          </div>
+          <div class="badge">
+            <span class="badge-icon">♥</span>
+            Individuell
+          </div>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/Startseite-Hero-Manuelle-Therapie-150x150.jpg" alt="Professionelle Physiotherapie Behandlung" width="600" height="450">
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="usp-grid">
+      <div class="usp-item reveal">
+        <div class="usp-icon">🤝</div>
+        <h3>Mensch zu Mensch</h3>
+        <p>Persönliche Betreuung und individuelle Behandlungsstrategien</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">📅</div>
+        <h3>Online Termine</h3>
+        <p>Einfach und bequem von zu Hause aus Ihren Wunschtermin wählen</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">💪</div>
+        <h3>Modernste Methoden</h3>
+        <p>Aktuelle Therapieansätze und kontinuierliche Weiterbildung</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">🏥</div>
+        <h3>Zentral in Münster</h3>
+        <p>Gute Erreichbarkeit und komfortable Praxisräume</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="section section-light" id="leistungen">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Moderne Physiotherapie – weit mehr als Krankengymnastik! Wir bieten Ihnen ein breites Spektrum an therapeutischen Möglichkeiten.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🦴</div>
+          <h3>Manuelle Therapie</h3>
+          <p>Gelenkmobilisation und gezielte Techniken zur Wiederherstellung der Beweglichkeit und Schmerzlinderung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💆</div>
+          <h3>Krankengymnastik</h3>
+          <p>Individuelle Übungsbehandlungen zur Verbesserung von Muskelfunktion, Koordination und Beweglichkeit.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🦷</div>
+          <h3>CRAFTA Kiefergelenkstherapie</h3>
+          <p>Spezialisierte Behandlung bei Kiefergelenkbeschwerden, CMD und damit verbundenen Schmerzen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏃</div>
+          <h3>Rehabilitation</h3>
+          <p>Gezielte Reha nach Operationen oder Verletzungen für einen schnellen und sicheren Rückkehr in den Alltag.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Betreutes Training</h3>
+          <p>Professionell begleitetes Kraft- und Ausdauertraining unter physiotherapeutischer Aufsicht.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3>Gelenktherapie</h3>
+          <p>Konservative Behandlung von Gelenkbeschwerden – von Schulter bis Knöchel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminbuchung -->
+  <section class="booking-section" id="termin">
+    <div class="booking-inner reveal">
+      <h2>Online Termin vereinbaren</h2>
+      <p>Buchen Sie Ihren Wunschtermin einfach und bequem online – wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+      <form class="booking-form" action="mailto:mail@pro-physio-muenster.de" method="post" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Ihr Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="0123 456789">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" placeholder="max@beispiel.de">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschte Leistung</label>
+            <select id="service" name="service">
+              <option value="">Bitte wählen...</option>
+              <option value="manuelle">Manuelle Therapie</option>
+              <option value="krankengymnastik">Krankengymnastik</option>
+              <option value="crafta">CRAFTA Kiefergelenkstherapie</option>
+              <option value="rehabilitation">Rehabilitation</option>
+              <option value="training">Betreutes Training</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Wunschtermin</label>
+            <input type="date" id="date" name="date">
+          </div>
+          <div class="form-group">
+            <label for="time">Uhrzeit</label>
+            <select id="time" name="time">
+              <option value="">Bitte wählen...</option>
+              <option value="08:00">08:00 – 09:00</option>
+              <option value="09:00">09:00 – 10:00</option>
+              <option value="10:00">10:00 – 11:00</option>
+              <option value="11:00">11:00 – 12:00</option>
+              <option value="14:00">14:00 – 15:00</option>
+              <option value="15:00">15:00 – 16:00</option>
+              <option value="16:00">16:00 – 17:00</option>
+              <option value="17:00">17:00 – 18:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht / Anliegen</label>
+          <textarea id="message" name="message" placeholder="Beschreiben Sie kurz Ihr Anliegen..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Termin anfragen</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section" id="galerie">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Eindruck aus unserer Praxis</h2>
+        <p>Moderne Praxisräume und eine angenehme Atmosphäre für Ihre Therapie.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/Krankengymnastik-Physiotherapie-1024x768.jpg" alt="Physiotherapie Behandlung" loading="lazy">
+          <div class="gallery-caption">Professionelle Therapie</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/personaltrainer-betreutes-training-1-150x150.jpg" alt="Betreutes Training" loading="lazy">
+          <div class="gallery-caption">Betreutes Training</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/CRAFTA-Kiefergelenkstherapie-1.jpg" alt="Kiefergelenkstherapie" loading="lazy">
+          <div class="gallery-caption">CRAFTA Therapie</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/symptome-ruecken-150x150.jpg" alt="Rückenbehandlung" loading="lazy">
+          <div class="gallery-caption">Rücken & Wirbelsäule</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/symptome-gelenke.jpg" alt="Gelenkbehandlung" loading="lazy">
+          <div class="gallery-caption">Gelenktherapie</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://pro-physio-muenster.de/wp-content/uploads/2023/11/symptome-nacken-150x150.jpg" alt="Nackenbehandlung" loading="lazy">
+          <div class="gallery-caption">Nacken & Schultern</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für einen Schritt zur Besserung?</h2>
+    <p>Vereinbaren Sie noch heute Ihren Termin – wir helfen Ihnen gerne weiter.</p>
+    <a href="#termin" class="btn-white">Jetzt Termin buchen</a>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="contact-section" id="kontakt">
+    <div class="contact-inner">
+      <div class="contact-block reveal">
+        <h3>Kontakt</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <strong>Adresse</strong>
+            Scheibenstraße 71<br>48153 Münster
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <strong>Telefon</strong>
+            <a href="tel:+492517035795" class="contact-link">+49 251 7035795</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <strong>E-Mail</strong>
+            <a href="mailto:mail@pro-physio-muenster.de" class="contact-link">mail@pro-physio-muenster.de</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-block reveal">
+        <h3>Leistungen</h3>
+        <div class="contact-text" style="margin-bottom: 12px;">
+          • Manuelle Therapie
+        </div>
+        <div class="contact-text" style="margin-bottom: 12px;">
+          • Krankengymnastik
+        </div>
+        <div class="contact-text" style="margin-bottom: 12px;">
+          • CRAFTA Kiefergelenkstherapie
+        </div>
+        <div class="contact-text" style="margin-bottom: 12px;">
+          • Rehabilitation
+        </div>
+        <div class="contact-text">
+          • Betreutes Training
+        </div>
+      </div>
+      <div class="contact-block reveal">
+        <h3>Über PRO PHYSIO</h3>
+        <p style="opacity: 0.9; margin-bottom: 16px;">
+          Was eine physiotherapeutische Behandlung ausmacht: individuelle Betreuung, modernste Methoden und ein ganzheitlicher Ansatz für Ihre Gesundheit.
+        </p>
+        <a href="https://pro-physio-muenster.de/" target="_blank" class="btn-secondary" style="display: inline-block; padding: 12px 24px; border-radius: 50px; border: 2px solid var(--accent); color: var(--accent); font-weight: 600;">Zur aktuellen Website</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    Konzept-Vorschau · MZ.9 · <a href="https://pro-physio-muenster.de/" target="_blank" style="color: var(--primary);">pro-physio-muenster.de</a>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
