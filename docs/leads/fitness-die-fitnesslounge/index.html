@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Die Fitness Lounge - by Tamara Schmidt | Siegen</title>
+  <meta name="description" content="Die Fitness Lounge in Siegen — Perfektion ist nicht das Ziel, sondern Beständigkeit! Probetraining buchen und deine Ziele erreichen.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-dark: #1a1a1a;
+      --bg-darker: #121212;
+      --accent: #BFFF00;
+      --accent-dark: #9eD600;
+      --text-light: #f5f5f5;
+      --text-muted: #a0a0a0;
+      --white: #ffffff;
+      --border: #333;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    button, .btn { cursor: pointer; border: none; font-family: 'Montserrat', sans-serif; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: transparent;
+      padding: 1.5rem 5%;
+      transition: 0.4s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header.scrolled {
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg-darker);
+      padding: 0.6rem 1.4rem;
+      font-weight: 700;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(191, 255, 0, 0.3);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 6rem 5% 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--bg-darker) 0%, #1a2a1a 100%);
+      z-index: -2;
+    }
+    .hero-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.7;
+    }
+    .hero-content {
+      max-width: 600px;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(191, 255, 0, 0.15);
+      color: var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-darker);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(191, 255, 0, 0.4);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: border-color 0.3s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-darker);
+      padding: 3rem 5%;
+      border-bottom: 1px solid var(--border);
+    }
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .usp-item {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .usp-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+    .usp-item h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .usp-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Leistungen */
+    .leistungen {
+      padding: 5rem 5%;
+      background: var(--bg-dark);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .section-header h2 span { color: var(--accent); }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .leistung-card {
+      background: var(--bg-darker);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .leistung-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+    .leistung-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .leistung-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Kontaktformular (Premium-Feature) */
+    .kontakt-section {
+      padding: 5rem 5%;
+      background: linear-gradient(135deg, #1a2a1a 0%, var(--bg-darker) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .kontakt-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+    .kontakt-info h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .kontakt-info p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .kontakt-details {
+      margin-bottom: 2rem;
+    }
+    .kontakt-detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .kontakt-detail-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(191, 255, 0, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .form-box {
+      background: var(--bg-dark);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .form-box h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: var(--bg-darker);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg-darker);
+      padding: 1rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(191, 255, 0, 0.3);
+    }
+
+    /* Galerie */
+    .galerie {
+      padding: 5rem 5%;
+      background: var(--bg-darker);
+    }
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .galerie-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-dark);
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .galerie-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 5%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.fitnesslounge57.de/images/quad_dunkelgrau.jpg') center/cover;
+      opacity: 0.1;
+      mix-blend-mode: multiply;
+    }
+    .cta-band-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--bg-darker);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      font-size: 1.15rem;
+      color: rgba(26, 26, 26, 0.8);
+      margin-bottom: 2rem;
+    }
+    .cta-band .btn-primary {
+      background: var(--bg-darker);
+      color: var(--accent);
+    }
+    .cta-band .btn-primary:hover {
+      box-shadow: 0 8px 25px rgba(26, 26, 26, 0.4);
+    }
+
+    /* Kontakt Footer */
+    .kontakt-footer {
+      padding: 4rem 5%;
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+    }
+    .kontakt-footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .kontakt-footer h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .kontakt-footer p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .kontakt-footer a {
+      color: var(--accent);
+    }
+    .kontakt-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 5%;
+      background: var(--bg-darker);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-darker);
+      padding: 1rem 5%;
+      z-index: 999;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      border-top: 1px solid var(--border);
+    }
+    .mobile-cta .btn-primary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-image { width: 100%; opacity: 0.4; }
+      .hero-content { max-width: 100%; }
+      .kontakt-container { grid-template-columns: 1fr; gap: 2rem; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 6rem; }
+    }
+    @media (max-width: 600px) {
+      header { padding: 1rem 5%; }
+      .logo { font-size: 1.1rem; }
+      .nav-cta { padding: 0.5rem 1rem; font-size: 0.8rem; }
+      .hero { padding: 5rem 5% 3rem; }
+      .usp-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="logo">DIE FITNESS <span>LOUNGE</span></div>
+    <a href="#kontakt" class="nav-cta">Probetraining</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="https://www.fitnesslounge57.de/images/TS26.jpg" alt="Die Fitness Lounge Siegen" class="hero-image" loading="eager">
+    <div class="hero-content">
+      <span class="hero-tag">NEU: DIE XXL HELDEN</span>
+      <h1>Perfektion ist nicht das Ziel — <span>sondern Beständigkeit!</span></h1>
+      <p>Erlebe Training, das zu dir passt. In der Fitness Lounge in Siegen arbeiten wir gemeinsam an deinen Zielen — mit Spaß, Motivation und echtem Fortschritt.</p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn-primary">
+          <span>Jetzt Probetraining</span>
+          <span>→</span>
+        </a>
+        <a href="#leistungen" class="btn-secondary">Leistungen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="usp-grid reveal">
+      <div class="usp-item">
+        <div class="usp-icon">💪</div>
+        <h3>Individuelles Training</h3>
+        <p>Auf deine Ziele abgestimmte Pläne für echten, nachhaltigen Erfolg.</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🎯</div>
+        <h3>Kleine Gruppen</h3>
+        <p>Persönliche Betreuung in familiärer Atmosphäre.</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">⚡</div>
+        <h3>Motivierendes Umfeld</h3>
+        <p>Gemeinsam stärker werden — mit Spaß an der Bewegung.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="leistungen" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Was wir dir <span>bieten</span></h2>
+      <p>Trainingsansätze, die wirklich funktionieren — für jeden Level, jedes Ziel.</p>
+    </div>
+    <div class="leistungen-grid reveal">
+      <div class="leistung-card">
+        <h3>Krafttraining</h3>
+        <p>Modernes Equipment für effektives Muskelaufbau- und Krafttraining.</p>
+      </div>
+      <div class="leistung-card">
+        <h3>Ausdauer & Cardio</h3>
+        <p>Vielfältige Möglichkeiten, um deine Kondition nachhaltig zu steigern.</p>
+      </div>
+      <div class="leistung-card">
+        <h3>Gruppenkurse</h3>
+        <p>Motivierendes Training in der Gruppe — Spaß included.</p>
+      </div>
+      <div class="leistung-card">
+        <h3>Persönliche Betreuung</h3>
+        <p>Individuelle Anleitung und Unterstützung auf deinem Weg.</p>
+      </div>
+      <div class="leistung-card">
+        <h3>Flexibel & Unverbindlich</h3>
+        <p>Training, das sich in deinen Alltag integrieren lässt.</p>
+      </div>
+      <div class="leistung-card">
+        <h3>Neu: XXL Helden</h3>
+        <p>Spezielles Programm für größere Ziele und noch mehr Erfolg.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontaktformular (Premium-Feature) -->
+  <section class="kontakt-section" id="kontakt">
+    <div class="kontakt-container reveal">
+      <div class="kontakt-info">
+        <h2>Starte jetzt durch!</h2>
+        <p>Buche dein unverbindliches Probetraining oder kontaktiere uns für alle deine Fragen. Wir freuen uns auf dich!</p>
+        <div class="kontakt-details">
+          <div class="kontakt-detail">
+            <div class="kontakt-detail-icon">📍</div>
+            <div>
+              <strong>Adresse</strong><br>
+              Hauptmarkt 11, 57076 Siegen
+            </div>
+          </div>
+          <div class="kontakt-detail">
+            <div class="kontakt-detail-icon">📞</div>
+            <div>
+              <strong>Telefon</strong><br>
+              <a href="tel:+491707712174">+49 170 771 2174</a>
+            </div>
+          </div>
+          <div class="kontakt-detail">
+            <div class="kontakt-detail-icon">✉️</div>
+            <div>
+              <strong>E-Mail</strong><br>
+              <a href="mailto:info@fl57.de">info@fl57.de</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-box">
+        <h3>Probetraining anfragen</h3>
+        <form action="mailto:info@fl57.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Dein Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required placeholder="deine@email.de">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon (für Rückruf)</label>
+            <input type="tel" id="phone" name="phone" placeholder="+49 170 12345678">
+          </div>
+          <div class="form-group">
+            <label for="interest">Interesse an</label>
+            <select id="interest" name="interest">
+              <option value="probetraining">Probetraining</option>
+              <option value="mitgliedschaft">Mitgliedschaft</option>
+              <option value="gruppenkurs">Gruppenkurs</option>
+              <option value="info">Allgemeine Information</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Deine Nachricht</label>
+            <textarea id="message" name="message" placeholder="Erzähl uns, was dich interessiert..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Anfrage senden →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="galerie">
+    <div class="section-header reveal">
+      <h2>Ein Blick in die <span>Lounge</span></h2>
+      <p>Modernes Equipment, freundliche Atmosphäre — komm vorbei und überzeuge dich selbst.</p>
+    </div>
+    <div class="galerie-grid reveal">
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/Foto-03.03.26-17-59-33.jpg" alt="Fitnesslounge Training" loading="lazy">
+      </div>
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/quad_dunkelgrau.jpg" alt="Fitness Equipment" loading="lazy">
+      </div>
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/IMG_9880.jpg" alt="Trainingsbereich" loading="lazy">
+      </div>
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/quad_grau.jpg" alt="Krafttraining" loading="lazy">
+      </div>
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/quad_verlauf.jpg" alt="Cardio-Bereich" loading="lazy">
+      </div>
+      <div class="galerie-item">
+        <img src="https://www.fitnesslounge57.de/images/IMG_1363.jpg" alt="Fitnesslounge Atmosphäre" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-content reveal">
+      <h2>Bereit für deinen Start?</h2>
+      <p>Perfektion ist nicht das Ziel — Beständigkeit ist! Buch jetzt dein Probetraining und leg los.</p>
+      <a href="#kontakt" class="btn-primary">
+        <span>Jetzt Probetraining sichern</span>
+        <span>→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Kontakt Footer -->
+  <section class="kontakt-footer">
+    <div class="kontakt-footer-content">
+      <div>
+        <h3>Die Fitness Lounge</h3>
+        <p>by Tamara Schmidt</p>
+        <p>Hauptmarkt 11</p>
+        <p>57076 Siegen</p>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <p><a href="tel:+491707712174">+49 170 771 2174</a></p>
+        <p><a href="mailto:info@fl57.de">info@fl57.de</a></p>
+        <p><a href="https://www.fitnesslounge57.de/" target="_blank">www.fitnesslounge57.de</a></p>
+      </div>
+      <div>
+        <h3>Öffnungszeiten</h3>
+        <p>Bitte telefonisch erfragen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Konzept-Vorschau · <a href="#">MZ.9</a> · Akquise-Lead für Die Fitness Lounge</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#kontakt" class="btn-primary">
+      <span>Probetraining buchen</span>
+      <span>→</span>
+    </a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
