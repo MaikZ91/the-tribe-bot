@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kock Brillen | Ihr Optiker im Bochumer Süden</title>
+  <meta name="description" content="Kock Brillen – Ihr Optiker im Bochumer Süden. Brillenauswahl, professionelle Beratung, klimatisierte Verkaufsräume.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf9f6;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --accent: #c4a77d;
+      --accent-light: #e8dcc5;
+      --blue: #4a7c9b;
+      --border: #e5e5e5;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-soft: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-display {
+      font-family: Playfair Display, serif;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-soft);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      font-family: Playfair Display, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .header-contact {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .header-contact a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .header-contact a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .header-contact {
+        display: none;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: Playfair Display, serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #b3976e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 167, 125, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--surface);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .usp-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .usp-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .usp-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .usp-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Section */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: Playfair Display, serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Premium Feature: Beratungstermin */
+    .premium-section {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .premium-section .section-title {
+      color: #fff;
+    }
+
+    .premium-section .section-subtitle {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .booking-ui {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .booking-step {
+      margin-bottom: 1.5rem;
+    }
+
+    .booking-step label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .booking-input, .booking-select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      font-family: Inter, sans-serif;
+    }
+
+    .booking-input:focus, .booking-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .booking-actions {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .btn-booking {
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 2.5rem;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-booking:hover {
+      background: #b3976e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(196, 167, 125, 0.4);
+    }
+
+    .booking-note {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item-full {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-item-full {
+        grid-column: span 1;
+        aspect-ratio: 4/3;
+      }
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .cta-band h2 {
+      font-family: Playfair Display, serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-band .btn {
+      background: #fff;
+      color: var(--accent);
+    }
+
+    .cta-band .btn:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Contact */
+    .contact-section {
+      background: var(--surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-info h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-text h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-text p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-text a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .contact-text a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-image {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.8);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      padding: 0.75rem 1rem;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+      z-index: 99;
+      gap: 0.75rem;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .mobile-cta {
+        display: flex;
+      }
+      body {
+        padding-bottom: 70px;
+      }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">Kock Brillen</a>
+      <div class="header-contact">
+        <a href="tel:075132493">07513 2493</a>
+        <a href="mailto:kock@kock-brillen.de">E-Mail</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="https://www.kock-brillen.de/wp-content/uploads/2019/05/brillen_modelle_auswahl.jpg" alt="Kock Brillen Modellauswahl" class="hero-bg">
+    <div class="hero-content">
+      <h1>Ihr Optiker im Bochumer Süden</h1>
+      <p>„Das Leben ist bezaubernd, man muss es nur durch die richtige Brille sehen.“</p>
+      <div class="hero-buttons">
+        <a href="#beratung" class="btn btn-primary">Beratungstermin anfragen</a>
+        <a href="#leistungen" class="btn btn-secondary">Unsere Leistungen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="usp-strip">
+    <div class="usp-strip-inner">
+      <div class="usp-item">
+        <div class="usp-icon">✓</div>
+        <span class="usp-text">Klimatisierte Verkaufsräume</span>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">✓</div>
+        <span class="usp-text">Große Brillenauswahl</span>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">✓</div>
+        <span class="usp-text">Persönliche Beratung</span>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">✓</div>
+        <span class="usp-text">2× in Bochum</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="leistungen">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2 class="section-title">Nur das Beste, wenn es um Ihr Sehen geht</h2>
+        <p class="section-subtitle">Individuelle Brillenberatung, professionelle Anpassung und hochwertige Produkte – alles aus einer Hand.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Brillenauswahl</h3>
+          <p>Breites Sortiment an Designer- und Lifestyle-Brillen. Finden Sie die Brille, die zu Ihrem Gesicht und Ihrer Persönlichkeit passt.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Sehtests</h3>
+          <p>Punktionelle und refraktionsbestimmende Sehtests mit moderner Ausstattung für eine präzise Korrektur.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <h3>Kontaktlinsen</h3>
+          <p>Individuelle Kontaktlinsenberatung und Anpassung für komfortables Sehen ohne Brille.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h3>Glasanpassung</h3>
+          <p>Feinjustage jeder Brille für perfekten Sitz und komfortables Tragen den ganzen Tag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section premium-section" id="beratung">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2 class="section-title">Persönliche Beratungstermine</h2>
+        <p class="section-subtitle">Vereinbaren Sie einen Termin für eine unverbindliche Brillenberatung in unseren klimatisierten Verkaufsräumen.</p>
+      </div>
+      <div class="booking-ui reveal">
+        <form action="mailto:kock@kock-brillen.de" method="post" enctype="text/plain">
+          <div class="booking-step">
+            <label for="service">Beratungsschwerpunkt</label>
+            <select id="service" name="service" class="booking-select" required>
+              <option value="">Bitte wählen...</option>
+              <option value="brillenberatung">Brillenauswahl & Beratung</option>
+              <option value="sehtest">Sehtest</option>
+              <option value="kontaktlinsen">Kontaktlinsen-Anpassung</option>
+              <option value="reparatur">Brillen-Reparatur</option>
+            </select>
+          </div>
+          <div class="booking-step">
+            <label for="date">Wunschtermin</label>
+            <input type="date" id="date" name="date" class="booking-input" required>
+          </div>
+          <div class="booking-step">
+            <label for="name">Ihr Name</label>
+            <input type="text" id="name" name="name" class="booking-input" placeholder="Vor- und Nachname" required>
+          </div>
+          <div class="booking-step">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" class="booking-input" placeholder="ihre@email.de" required>
+          </div>
+          <div class="booking-actions">
+            <button type="submit" class="btn-booking">Termin anfragen</button>
+            <p class="booking-note">Sie erhalten eine Bestätigung per E-Mail.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2 class="section-title">Unser Geschäft</h2>
+        <p class="section-subtitle">Einblick in unsere modernen Verkaufsräume und unsere Auswahl.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2026/06/brille_klimatisierte_verkaufsraeume.png" alt="Klimatisierte Verkaufsräume" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2019/02/optiker_natuerliches_raumklima.jpg" alt="Natürliches Raumklima" loading="lazy">
+        </div>
+        <div class="gallery-item gallery-item-full reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2019/02/optiker_bochum_paternoster.jpg" alt="Optiker Bochum Paternoster" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2019/04/kock-brillen_2x_in_bochum.jpg" alt="Kock Brillen 2× in Bochum" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2026/06/bokenner_vfl-bochum.jpg" alt="Bochumer VFL" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="section-inner reveal">
+      <h2>Für ein besseres Seherlebnis</h2>
+      <p>Kommen Sie vorbei und lassen Sie sich von unserer Auswahl überzeugen.</p>
+      <a href="tel:075132493" class="btn btn-primary">Jetzt anrufen: 07513 2493</a>
+    </div>
+  </section>
+
+  <section class="section contact-section">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontakt & Anfahrt</h3>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Brenscheder Straße 49<br>44799 Bochum</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <p><a href="tel:075132493">07513 2493</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:kock@kock-brillen.de">kock@kock-brillen.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-image reveal">
+          <img src="https://www.kock-brillen.de/wp-content/uploads/2019/05/brillen_modelle_auswahl.jpg" alt="Brillenmodelle Auswahl" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9</p>
+    <p><a href="https://www.kock-brillen.de" target="_blank" rel="noopener">www.kock-brillen.de</a></p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:075132493" class="btn btn-primary">Anrufen</a>
+    <a href="mailto:kock@kock-brillen.de" class="btn btn-secondary">E-Mail</a>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
