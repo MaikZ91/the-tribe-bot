@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elmer – SHK-Abholmarkt in Paderborn | Fachhandwerk-Belieferung</title>
+  <meta name="description" content="Ihr SHK-Abholmarkt – Elmer in Paderborn. Alles für das SHK-Fachhandwerk: ✓ großes Sortiment ✓ hohe Warenverfügbarkeit ✓ schnell und zuverlässig. Jetzt kontaktieren!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --primary: #1a5f7a;
+      --primary-dark: #134e65;
+      --secondary: #7f8c8d;
+      --accent: #e67e22;
+      --accent-hover: #d35400;
+      --bg: #f8f9fa;
+      --bg-card: #ffffff;
+      --text: #2c3e50;
+      --text-light: #7f8c8d;
+      --border: #e9ecef;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span {
+      color: var(--accent);
+    }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--primary);
+    }
+    .header-cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .header-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
+      color: white;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://www.elmer-gruppe.de/assets/img/04_standorte/elmer-abholmarkt-paderborn.jpg?v=1.1') center/cover no-repeat;
+      opacity: 0.4;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(26,95,122,0.9) 0%, rgba(44,62,80,0.85) 100%);
+    }
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-text .tagline {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary, .btn-secondary {
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(230,126,34,0.4);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+    .hero-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-card h3::before {
+      content: '✓';
+      background: var(--accent);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+    .hero-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .hero-card li {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .hero-card li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-card);
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .usp-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .usp-item {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      transition: transform 0.2s;
+    }
+    .usp-item:hover {
+      transform: translateY(-3px);
+    }
+    .usp-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.8rem;
+    }
+    .usp-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .usp-item p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    /* Services */
+    .services {
+      padding: 5rem 1.5rem;
+      background: var(--bg);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    .service-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--primary);
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .service-card .icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    /* Contact Form */
+    .contact-section {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(135deg, #1a5f7a 0%, #134e65 100%);
+      color: white;
+    }
+    .contact-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-info p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .contact-text h4 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .contact-text p, .contact-text a {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+    }
+    .contact-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-text a:hover {
+      text-decoration: underline;
+    }
+    .contact-form {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      color: var(--text);
+    }
+    .contact-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .contact-form .subtitle {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26,95,122,0.1);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .submit-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    /* Location */
+    .location-section {
+      padding: 5rem 1.5rem;
+      background: var(--bg);
+    }
+    .location-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .location-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .location-card .subtitle {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    .location-card .address {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .location-card .map-placeholder {
+      background: var(--border);
+      border-radius: var(--radius);
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      margin-top: 2rem;
+    }
+    /* Footer */
+    footer {
+      background: #2c3e50;
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 1.5rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-legal {
+      text-align: center;
+      font-size: 0.85rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      z-index: 999;
+      display: none;
+      gap: 0.75rem;
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      padding: 0.9rem;
+      border-radius: var(--radius);
+      text-align: center;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .mobile-cta .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .mobile-cta .btn-secondary {
+      background: var(--primary);
+      color: white;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-text .tagline {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-cta {
+        justify-content: center;
+      }
+      .hero-card {
+        margin-top: 2rem;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      nav {
+        display: none;
+      }
+    }
+    @media (max-width: 600px) {
+      .mobile-cta {
+        display: flex;
+      }
+      body {
+        padding-bottom: 70px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .contact-form {
+        padding: 1.5rem;
+      }
+    }
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">Elmer<span>.</span></a>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#standort">Standort</a>
+      </nav>
+      <a href="tel:+495251387320" class="header-cta">📞 Anrufen</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>SHK-Abholmarkt in Paderborn</h1>
+        <p class="tagline">Ihr zuverlässiger Partner für Sanitär, Heizung und Klima. Große Auswahl, schnelle Verfügbarkeit, fachkundige Beratung vor Ort.</p>
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn-primary">✉️ Anfrage senden</a>
+          <a href="tel:+495251387320" class="btn-secondary">📞 05251 387320</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Warum Elmer?</h3>
+        <ul>
+          <li>Großes Sortiment für das SHK-Fachhandwerk</li>
+          <li>Hohe Warenverfügbarkeit – wenn Sie es brauchen</li>
+          <li>Schnell und zuverlässig, seit Jahren bewährt</li>
+          <li>Fachkundiges Team vor Ort</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="usp-strip">
+    <div class="usp-grid">
+      <div class="usp-item reveal">
+        <div class="usp-icon">🏭</div>
+        <h4>Großes Sortiment</h4>
+        <p>Alles für das SHK-Fachhandwerk aus einer Hand</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">⚡</div>
+        <h4>Schnelle Verfügbarkeit</h4>
+        <p>Ware bereit, wenn Sie sie brauchen</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">🤝</div>
+        <h4>Zuverlässig</h4>
+        <p>Partner für das Fachhandwerk seit Jahren</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">📍</div>
+        <h4>Vor Ort in Paderborn</h4>
+        <p>Herlestraße 5 – direkt abholbereit</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="section-header">
+      <h2>Unser Angebot</h2>
+      <p>Komplette SHK-Belieferung für Fachbetriebe in der Region Paderborn</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card reveal">
+        <span class="icon">🚿</span>
+        <h3>Sanitär</h3>
+        <p>Armaturen, Waschtische, WC-Systeme, Duschkabinen und alles für das moderne Bad – von Premium bis funktionell.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="icon">🔥</span>
+        <h3>Heizung</h3>
+        <p>Wärmeerzeuger, Heizkörper, Regelungstechnik und Systemkomponenten für effiziente Heizlösungen.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="icon">❄️</span>
+        <h3>Klima</h3>
+        <p>Klimaanlagen, Lüftungstechnik und Wärmepumpen – Komplettangebot für behagliche Raumtemperaturen.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="icon">🔧</span>
+        <h3>Installationsmaterial</h3>
+        <p>Rohre, Fittings, Werkzeuge und Befestigungstechnik – alles für die professionelle Installation.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="icon">💧</span>
+        <h3>Wasserversorgung</h3>
+        <p>Pumpen, Speicher, Filter und Armaturen für zuverlässige Trinkwasser- und Heizwassersysteme.</p>
+      </div>
+      <div class="service-card reveal">
+        <span class="icon">🛠️</span>
+        <h3>Fachberatung</h3>
+        <p>Unser kompetentes Team unterstützt Sie bei der Auswahl der passenden Produkte für Ihr Projekt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="kontakt">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h2>Kontaktieren Sie uns</h2>
+        <p>Haben Sie Fragen zu unserem Sortiment oder benötigen Sie eine unverbindliche Beratung? Wir sind für Sie da.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Herlestraße 5, 33100 Paderborn</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <p><a href="tel:+495251387320">+49 5251 387320</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:support@elmer-pro.de">support@elmer-pro.de</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <h3>Anfrage senden</h3>
+        <p class="subtitle">Wir melden uns schnellstmöglich bei Ihnen zurück</p>
+        <form action="mailto:support@elmer-pro.de" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="company">Firma</label>
+              <input type="text" id="company" name="company">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Betreff</label>
+            <select id="subject" name="subject">
+              <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+              <option value="Produktinformation">Produktinformation</option>
+              <option value="Preisanfrage">Preisanfrage</option>
+              <option value="Terminvereinbarung">Terminvereinbarung</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht *</label>
+            <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Anfrage absenden →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="location-section" id="standort">
+    <div class="location-card reveal">
+      <h3>Elmer SHK-Abholmarkt</h3>
+      <p class="subtitle">Ihr Fachhandwerker-Partner in Paderborn</p>
+      <p class="address">Herlestraße 5, 33100 Paderborn</p>
+      <p><a href="https://maps.google.com/?q=Herlestraße+5+33100+Paderborn" target="_blank" style="color: var(--primary);">In Google Maps öffnen →</a></p>
+      <div class="map-placeholder">
+        <p>🗺️ Karte wird hier angezeigt</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-legal">
+        <p><strong>Konzept-Vorschau · MZ.9</strong></p>
+        <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.5);">Diese Seite ist eine unverbindliche Konzept-Demonstration. Alle Angaben ohne Gewähr.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+495251387320" class="btn btn-secondary">📞 Anrufen</a>
+    <a href="#kontakt" class="btn btn-primary">✉️ Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
