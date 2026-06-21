@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BlenDent – Konzept-Vorschau | MZ.9</title>
+<meta name="description" content="We care for you - sorglos zum Zahnarzt in Paderborn. BlenDent bietet höchste Ansprüche in der Zahnmedizin, Eigenlabor und Dentalfotografie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@200;300;400;500;600&family=Allura&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0B0E; --panel:#080A0C;
+  --on:#EFECE4; --on-2:#B8B5AB; --on-mut:#7A7870;
+  --ink:#0B0D0F; --ink-2:#4A4842; --ink-mut:#5C5A54;
+  --line:rgba(239,236,228,.12); --line-2:rgba(239,236,228,.06);
+  --acc:#06B6D4; --acc-d:#0E2A33;
+  --maxw:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  --sans:"Hanken Grotesk",-apple-system,system-ui,sans-serif;
+  --script:"Allura",cursive;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--on);font-family:var(--sans);
+  font-size:17px;line-height:1.62;font-weight:300;letter-spacing:.005em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--on-mut)}
+.script{font-family:var(--script);font-weight:400}
+h1,h2,h3{margin:0;font-weight:200;letter-spacing:-.02em;line-height:1.02}
+
+.js .reveal{opacity:0;transition:opacity 1s var(--ease)} .js .reveal.in{opacity:1}
+.js .lift{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1.05s var(--ease-out)} .js .lift.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .js .reveal,.js .lift{opacity:1;transform:none;transition:none}
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+}
+
+.grain{position:relative} .grain::after{content:"";position:inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.045;pointer-events:none}
+
+.ribbon{background:var(--panel);font-size:10px;font-weight:500;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--on-mut);padding:10px 0;text-align:center}
+
+#header{position:fixed;inset:0 0 auto 0;z-index:100;padding:20px clamp(20px,5vw,56px);
+  display:flex;align-items:center;justify-content:space-between;transition:background .4s var(--ease)}
+#header.scrolled{background:rgba(10,11,14,.92);backdrop-filter:blur(12px);padding:14px clamp(20px,5vw,48px)}
+.brand{font-size:21px;font-weight:500;letter-spacing:-.01em}
+.nav{display:flex;gap:28px;font-size:13px;font-weight:400;letter-spacing:.04em;color:var(--on-2)}
+.nav a:hover{color:var(--acc)}
+
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;overflow:hidden}
+.hero-bg{position:inset:0;z-index:-1}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.03)}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,11,14,.65),rgba(10,11,14,.88),var(--bg))}
+.hero-content{padding-top:80px}
+.hero .eyebrow{margin-bottom:16px}
+.hero h1{font-size:clamp(36px,8vw,68px);margin-bottom:24px;color:var(--on)}
+.hero .script{font-size:clamp(28px,5vw,42px);color:var(--acc);margin:8px 0 20px;display:inline-block}
+.hero-sub{font-size:clamp(17px,2vw,21px);color:var(--on-2);max-width:640px;margin-bottom:40px;line-height:1.72}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 32px;border-radius:100px;font-size:12px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;transition:transform .3s var(--ease-out),
+  background .3s var(--ease),color .3s var(--ease);cursor:pointer;border:none}
+.btn:hover{transform:translateY(-2px)}
+.btn-prim{background:var(--acc);color:var(--bg)}.btn-prim:hover{background:#0891b2}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--on-2)}
+.btn-ghost:hover{border-color:var(--acc);color:var(--acc)}
+
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:20px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:20px;text-align:center}
+.strip-item span{display:block}
+.strip-num{font-size:clamp(24px,4vw,32px);font-weight:500;color:var(--acc)}
+.strip-lbl{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--on-mut);margin-top:4px}
+
+.sect{padding:clamp(56px,8vw,96px) 0}
+.sect-head{text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+.sect-head .eyebrow{margin-bottom:12px}
+.sect-head h2{font-size:clamp(28px,5vw,44px);color:var(--on)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+.card{background:var(--panel);border:1px solid var(--line-2);padding:32px;border-radius:16px;
+  transition:border-color .3s var(--ease),transform .3s var(--ease-out)}
+.card:hover{border-color:var(--acc);transform:translateY(-4px)}
+.card-icon{width:56px;height:56px;border-radius:12px;background:var(--acc-d);display:flex;
+  align-items:center;justify-content:center;font-size:24px;color:var(--acc);margin-bottom:20px}
+.card h3{font-size:20px;color:var(--on);margin-bottom:12px}
+.card p{color:var(--on-2);font-size:15px;line-height:1.66}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.gallery img{width:100%;height:280px;object-fit:cover;border-radius:12px;
+  transition:transform .5s var(--ease-out);filter:grayscale(.05) contrast(1.02)}
+.gallery img:hover{transform:scale(1.03);filter:none}
+
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.review{background:var(--panel);padding:28px;border-radius:16px;border:1px solid var(--line-2)}
+.review-stars{font-size:15px;color:var(--acc);margin-bottom:12px}
+.review h4{font-size:16px;font-weight:400;margin-bottom:8px;color:var(--on)}
+.review p{font-size:14px;color:var(--on-2);line-height:1.58}
+.review-foot{font-size:12px;color:var(--on-mut);margin-top:16px;display:flex;align-items:center;gap:8px}
+
+.cta-band{position:relative;min-height:70vh;display:flex;align-items:center;overflow:hidden}
+.cta-bg{position:inset:0;z-index:-1}
+.cta-bg img{width:100%;height:100%;object-fit:cover}
+.cta-scrim{position:absolute;inset:0;background:rgba(10,11,14,.82)}
+.cta-wrap{position:relative;z-index:1;text-align:center;max-width:720px;margin:0 auto}
+.cta-wrap h2{font-size:clamp(32px,6vw,56px);margin-bottom:20px;color:var(--on)}
+.cta-wrap p{font-size:clamp(16px,2vw,20px);color:var(--on-2);margin-bottom:36px;line-height:1.7}
+
+.contact{background:var(--panel);border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px}
+.contact-item h4{font-size:14px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--on-mut);margin-bottom:12px}
+.contact-item p{font-size:16px;color:var(--on-2);line-height:1.62}
+.contact-item a{color:var(--acc);transition:color .2s var(--ease)}
+.contact-item a:hover{color:var(--on)}
+
+.footer{padding:24px 0;border-top:1px solid var(--line-2);text-align:center}
+.footer p{font-size:12px;color:var(--on-mut);margin:0}
+.footer .con{margin-top:8px}
+
+.mob-cta{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--line);
+  padding:12px clamp(16px,4vw,24px);display:flex;justify-content:center;z-index:99;
+  transform:translateY(100%);transition:transform .3s var(--ease)}
+.mob-cta.show{transform:none}
+.mob-cta .btn{width:100%;max-width:320px}
+
+@media (min-width:768px){
+  .mob-cta{display:none}
+  #header{padding:28px clamp(24px,5vw,64px)}
+  #header.scrolled{padding:18px clamp(24px,5vw,56px)}
+}
+</style>
+</head>
+<body class="no-js">
+
+<div class="ribbon">Konzept-Vorschau · MZ.9 — Media Engineering.AI</div>
+
+<header id="header">
+  <div class="brand">BlenDent</div>
+  <nav class="nav">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#galerie">Praxis</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="tel:+495251288150" class="btn btn-prim">Anrufen</a>
+  </nav>
+</header>
+
+<section class="hero grain">
+  <div class="hero-bg">
+    <img src="https://blendent.de/wp-content/uploads/2026/03/Zahnarzt-Paderborn-Eigenlabor-1024x683.jpg" alt="BlenDent Zahnarztpraxis Paderborn" fetchpriority="high">
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-content lift">
+    <div class="eyebrow reveal">Zahnmedizin für höchste Ansprüche</div>
+    <h1 class="lift">BlenDent<br><span class="script">Ihr Zahnarzt</span><br>Paderborn</h1>
+    <p class="hero-sub reveal">We care for you — sorglos zum Zahnarzt in Paderborn. Moderne Zahnmedizin, Eigenlabor und Dentalfotografie für Ihre Gesundheit.</p>
+    <div class="lift">
+      <a href="tel:+495251288150" class="btn btn-prim">Termin vereinbaren</a>
+      <a href="#leistungen" class="btn btn-ghost" style="margin-left:12px">Leistungen</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip wrap reveal">
+  <div class="strip-item"><span class="strip-num">Echt</span><span class="strip-lbl">Eigenlabor</span></div>
+  <div class="strip-item"><span class="strip-num">Dental</span><span class="strip-lbl">Fotografie</span></div>
+  <div class="strip-item"><span class="strip-num">Zentrum</span><span class="strip-lbl">Paderborn</span></div>
+  <div class="strip-item"><span class="strip-num">Sorglos</span><span class="strip-lbl">Konzept</span></div>
+</div>
+
+<section id="leistungen" class="sect">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div class="eyebrow">Leistungen</div>
+      <h2>Zahnmedizin auf höchstem Niveau</h2>
+    </div>
+    <div class="grid">
+      <div class="card lift">
+        <div class="card-icon">🦷</div>
+        <h3>Non-Prep Veneers</h3>
+        <p>Minimalinvasive Ästhetik — Veneers ohne Beschleifen der Zähne. Perfekt für ein strahlendes Lächeln mit natürlicher Wirkung.</p>
+      </div>
+      <div class="card lift">
+        <div class="card-icon">🔬</div>
+        <h3>Eigenlabor</h3>
+        <p>Inhouse-Zahntechnik für präzise Ergebnisse und schnelle Umsetzung. Ihre Zahnersatz-Lösung direkt aus unserer Werkstatt.</p>
+      </div>
+      <div class="card lift">
+        <div class="card-icon">📸</div>
+        <h3>Dentalfotografie</h3>
+        <p>Professionelle Vorher-Nachher-Dokumentation für transparente Beratung und lückenlose Behandlung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galerie" class="sect" style="background:var(--panel)">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div class="eyebrow">Einblick</div>
+      <h2>Unsere Praxis</h2>
+    </div>
+    <div class="gallery">
+      <div class="lift"><img src="https://blendent.de/wp-content/uploads/2026/03/Zahnarzt-Paderborn-Dentalfotografie-768x512.jpg" alt="Dentalfotografie bei BlenDent" loading="lazy"></div>
+      <div class="lift"><img src="https://blendent.de/wp-content/uploads/2025/12/Zahnarzt-Paderborn-Non-prep-Veneer-768x512.jpg" alt="Non-Prep Veneers BlenDent" loading="lazy"></div>
+      <div class="lift"><img src="https://blendent.de/wp-content/uploads/2026/03/Zahnarzt-Paderborn-Eigenlabor-768x512.jpg" alt="Eigenlabor bei BlenDent Paderborn" loading="lazy"></div>
+      <div class="lift"><img src="https://blendent.de/wp-content/uploads/2020/02/osm-blendent-zahnarzt-paderborn.jpg" alt="BlenDent Zahnarzt Paderborn Außenansicht" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div class="eyebrow">Stimmen</div>
+      <h2>Das sagen unsere Patienten</h2>
+    </div>
+    <div class="reviews">
+      <div class="review lift">
+        <div class="review-stars">★★★★★</div>
+        <h4>Sehr professionell</h4>
+        <p>Endlich eine Zahnarztpraxis, bei der man sich wirklich wohl fühlt. Die Behandlung war sanft und genau erklärt.</p>
+        <div class="review-foot">— P. M. (Beispiel)</div>
+      </div>
+      <div class="review lift">
+        <div class="review-stars">★★★★★</div>
+        <h4>Top Beratung</h4>
+        <p>Dank der Dentalfotografie konnte ich genau sehen, was geplant wird. Das Ergebnis übertrifft meine Erwartungen.</p>
+        <div class="review-foot">— A. K. (Beispiel)</div>
+      </div>
+      <div class="review lift">
+        <div class="review-stars">★★★★★</div>
+        <h4>Modern und sauber</h4>
+        <p>Die Praxis wirkt sehr modern und einladend. Wartezeit kurz, Personal freundlich — jederzeit wieder.</p>
+        <div class="review-foot">— T. S. (Beispiel)</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--on-mut);margin-top:24px">*Beispiel-Testimonials — keine echten Patientenstimmen</p>
+  </div>
+</section>
+
+<section class="cta-band grain">
+  <div class="cta-bg">
+    <img src="https://blendent.de/wp-content/uploads/2026/03/Zahnarzt-Paderborn-Eigenlabor-1024x683.jpg" alt="BlenDent Zahnarztpraxis" loading="lazy">
+  </div>
+  <div class="cta-scrim"></div>
+  <div class="wrap cta-wrap lift">
+    <div class="eyebrow reveal">Jetzt Termin sichern</div>
+    <h2 class="reveal">We care for you</h2>
+    <p class="reveal">Vereinbaren Sie Ihren Wunschtermin bei BlenDent — Ihr Zahnarzt in Paderborn. Wir freuen uns auf Sie.</p>
+    <div class="reveal">
+      <a href="tel:+495251288150" class="btn btn-prim" style="font-size:14px;padding:20px 40px">Jetzt anrufen</a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div class="eyebrow">Kontakt</div>
+      <h2>So erreichen Sie uns</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item lift">
+        <h4>Adresse</h4>
+        <p>Neuhäuser Straße 61a<br>33102 Paderborn</p>
+      </div>
+      <div class="contact-item lift">
+        <h4>Telefon</h4>
+        <p><a href="tel:+495251288150">+49 5251 288150</a></p>
+      </div>
+      <div class="contact-item lift">
+        <h4>E-Mail</h4>
+        <p><a href="mailto:info@blendent.de">info@blendent.de</a></p>
+      </div>
+      <div class="contact-item lift">
+        <h4>Website</h4>
+        <p><a href="https://www.blendent.de/" target="_blank">www.blendent.de</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Konzept-Vorschau · MZ.9 — Media Engineering.AI</p>
+    <p class="con">Unverbindliche Design-Vorschau basierend auf öffentlich verfügbaren Informationen von BlenDent.</p>
+  </div>
+</footer>
+
+<div class="mob-cta" id="mobCta">
+  <a href="tel:+495251288150" class="btn btn-prim">Jetzt anrufen</a>
+</div>
+
+<script>
+document.documentElement.className=document.documentElement.className.replace("no-js","js");
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+addEventListener("DOMContentLoaded",()=>document.querySelectorAll(".reveal,.lift").forEach(el=>io.observe(el)));
+const h=document.getElementById("header");addEventListener("scroll",()=>h.classList.toggle("scrolled",scrollY>40));
+const c=document.getElementById("mobCta");addEventListener("scroll",()=>c.classList.toggle("show",scrollY>400));
+</script>
+
+</body>
+</html>
