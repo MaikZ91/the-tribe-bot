@@ -277,12 +277,17 @@ async function stage3() {
   for (const item of toPublish) markPublished(item);
   if (toPublish.length) gitPushBulk(toPublish.map(i => i.id));
 
-  // Pro Lead: send_mail.js detached starten. Dort: Pages-Deploy-Warte → Screenshot
-  // (mit Retry) → 0–EMAIL_DELAY_MAX_MIN Staffelung → Versand → recordSent.
-  for (const item of toEmail) {
-    log(`  📧 ${item.name} → Versand-Prozess gestartet`);
+  // Pro Lead: send_mail.js detached starten. Deterministische Staffelung
+  // (MAIL_DELAY_SEC = i × MAIL_STAGGER_SEC) → gleichmäßiger Abstand, kein
+  // Clustern. Jede Mail ist ein eigener Prozess (überlebt Loop-Ende).
+  const MAIL_STAGGER_SEC = parseInt(process.env.MAIL_STAGGER_SEC || '90', 10);
+  for (let i = 0; i < toEmail.length; i++) {
+    const item = toEmail[i];
+    const delay = i * MAIL_STAGGER_SEC;
+    log(`  📧 ${item.name} → Versand in ${(delay / 60).toFixed(1)} Min`);
     const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', item.id], {
       cwd: REPO, detached: true, stdio: 'ignore',
+      env: { ...process.env, MAIL_DELAY_SEC: String(delay) },
     });
     child.unref();
   }

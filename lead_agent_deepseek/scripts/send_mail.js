@@ -185,6 +185,10 @@ async function sendHtmlMail(lead, dryRun = false) {
   // Vor dem Versand: Vergleichsbild erzeugen (Pages muss live sein). noweb → ohne.
   // Fehler blockiert den Versand nicht (Mail geht ggf. ohne Anhang raus).
   if (!dryRun) await runScreenshot(lead.id);
+  // hasCompare FRISCH prüfen (nach Screenshot) — loadLeads() liefert einen
+  // veralteten Wert (vor dem Screenshot war compare.png oft noch nicht da).
+  const d = path.join(PREVIEW_DIR, lead.id);
+  lead.hasCompare = fs.existsSync(path.join(d, 'original.png')) && fs.existsSync(path.join(d, 'preview.png'));
   const { to, subject, body, html } = buildHtmlMail(lead);
   if (!to) { console.log(`  ⚠️  Keine E-Mail für ${lead.id}`); return { success: false }; }
   if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
@@ -224,11 +228,16 @@ async function main() {
     if (!lead) { console.log(`❌ "${targetId}" nicht gefunden`); return; }
     if (isKanzleiSteuer(lead.id, lead.industry, lead.name)) { console.log('⛔  Kanzlei/Recht/Steuer — blockiert'); return; }
     if (sent[targetId] && !dryRun) { console.log('⚠️  Bereits gesendet'); return; }
-    console.log(`→ ${lead.name} ${lead.hasCompare?'🖼️':''}`);
-    if (!dryRun && EMAIL_DELAY_MAX_MIN > 0) {
-      const ds = Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60);
-      console.log(`  ⏳ ${(ds/60).toFixed(1)} Min...`);
-      await new Promise(r => setTimeout(r, ds * 1000));
+    console.log(`→ ${lead.name}`);
+    // Deterministische Staffelung: MAIL_DELAY_SEC (vom Loop vorgegeben, z. B.
+    // 0/90/180s) → gleichmäßiger Abstand, kein Clustern. Fallback: Zufall 0–EMAIL_DELAY_MAX_MIN.
+    if (!dryRun) {
+      let ds = -1;
+      if (process.env.MAIL_DELAY_SEC !== undefined && process.env.MAIL_DELAY_SEC !== '') {
+        ds = parseInt(process.env.MAIL_DELAY_SEC, 10); if (isNaN(ds)) ds = -1;
+      }
+      if (ds < 0 && EMAIL_DELAY_MAX_MIN > 0) ds = Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60);
+      if (ds > 0) { console.log(`  ⏳ ${(ds/60).toFixed(1)} Min...`); await new Promise(r => setTimeout(r, ds * 1000)); }
     }
     const r = await sendHtmlMail(lead, dryRun);
     if (r.success && !dryRun) recordSent(lead.id);
