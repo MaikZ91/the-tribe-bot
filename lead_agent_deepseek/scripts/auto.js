@@ -28,7 +28,7 @@
 const { execSync, spawn, exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { listPending, isKanzleiSteuer } = require('./pending');
+const { listPending, listBuiltNotSent, isKanzleiSteuer } = require('./pending');
 
 const SCRIPTS = __dirname;
 const ROOT = path.join(SCRIPTS, '..');
@@ -145,18 +145,6 @@ function buildLeadAsync(item) {
   });
 }
 
-// ─── Backlog holen (built, unpubliziert, gefiltert, dedup) ────────
-function backlogToPublish() {
-  return listPending().filter(i =>
-    i.built &&
-    i.status !== 'published' &&
-    i.hasValidEmail &&
-    i.images > 0 &&
-    !i.emailAlreadySent &&
-    !isKanzleiSteuer(i.id, i.industry, i.name)
-  );
-}
-
 // ─── Ein Zyklus ───────────────────────────────────────────────────
 async function cycle() {
   log('─── Zyklus Start ───');
@@ -176,16 +164,21 @@ async function cycle() {
     await Promise.allSettled(buildable.map(item => buildLeadAsync(item)));
   }
 
-  // STUFE 3: Backlog drainen — ALLE builtNotPublished publishen + mailen
-  const toPublish = backlogToPublish();
-  if (toPublish.length === 0) {
-    log('Nichts zu publizieren.');
+  // STUFE 3: Backlog drainen — publishen (push) + mailen (gestaffelt).
+  // "published" ≠ "gemailt": toPublish = noch nicht gepusht, toEmail = noch
+  // nicht gemailt (unabhängig vom publish-Status). So bleiben veröffentlichte,
+  // aber un gemailte Leads (z.B. nach Mail-Fehler) nicht stecken.
+  const built = listBuiltNotSent();
+  if (built.length === 0) {
+    log('Nichts zu publizieren/mailen.');
   } else {
-    log(`📤 Stufe 3 — publiziere ${toPublish.length} Lead(s) (Bulk-Push + gestaffelte E-Mail).`);
+    const toPublish = built.filter(i => i.status !== 'published');
+    const toEmail = built;
+    log(`📤 Stufe 3 — ${toPublish.length} publishen, ${toEmail.length} mailen (gestaffelt).`);
     for (const item of toPublish) markPublished(item);
-    gitPushBulk(toPublish.map(i => i.id));
+    if (toPublish.length) gitPushBulk(toPublish.map(i => i.id));
     // E-Mail mit zufälliger Verzögerung (Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min)
-    for (const item of toPublish) {
+    for (const item of toEmail) {
       const delaySec = EMAIL_DELAY_MAX_MIN > 0
         ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60)
         : 0;

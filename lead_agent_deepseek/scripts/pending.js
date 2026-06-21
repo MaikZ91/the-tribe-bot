@@ -126,6 +126,37 @@ function listPending() {
   return out;
 }
 
+// ─── Gebaut, aber noch nicht gemailt (Email-Backlog) ──────────────
+// WICHTIG: "published" (status) bedeutet nur "Seite gepusht", NICHT
+// "gemailt". Diese Funktion liefert alle gebauten Leads mit valider
+// E-Mail, die nicht Kanzlei/Steuer/Placeholder sind und deren E-Mail
+// noch nie versendet wurde — unabhängig vom publish-Status. Das ist
+// die Arbeitliste für den Email-Drain (Stufe 3) im auto-Loop.
+function listBuiltNotSent() {
+  const out = [];
+  let dirs = [];
+  try { dirs = fs.readdirSync(PREVIEW_DIR, { withFileTypes: true }); } catch { return out; }
+  for (const d of dirs) {
+    if (!d.isDirectory() || d.name === 'dashboard') continue;
+    const dir = path.join(PREVIEW_DIR, d.name);
+    const jobFile = path.join(dir, 'build-job.json');
+    if (!fs.existsSync(jobFile)) continue;
+    let job;
+    try { job = JSON.parse(fs.readFileSync(jobFile, 'utf8')); } catch { continue; }
+    if (isKanzleiSteuer(d.name, job.industry, job.name)) continue;
+    const email = job.email || '';
+    if (!isValidEmail(email)) continue;
+    const indexFile = path.join(dir, 'index.html');
+    let built = false;
+    try { built = fs.existsSync(indexFile) && fs.statSync(indexFile).size >= MIN_BUILT_BYTES; } catch {}
+    if (!built) continue;
+    if (isEmailAlreadySent(email)) continue;
+    out.push({ id: d.name, name: job.name, industry: job.industry, city: job.city, status: job.status, email, images: (job.images || []).length });
+  }
+  out.sort((a, b) => a.id.localeCompare(b.id));
+  return out;
+}
+
 if (require.main === module) {
   const items = listPending();
   const needsBuild = items.filter(i => !i.built);
@@ -152,4 +183,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { listPending, isValidEmail, isEmailAlreadySent, isKanzleiSteuer, isPlaceholderEmail, getSentEmails, resetEmailCache };
+module.exports = { listPending, listBuiltNotSent, isValidEmail, isEmailAlreadySent, isKanzleiSteuer, isPlaceholderEmail, getSentEmails, resetEmailCache };
