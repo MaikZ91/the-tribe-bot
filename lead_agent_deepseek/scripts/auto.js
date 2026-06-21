@@ -220,6 +220,17 @@ function buildPrompt(id, dir) {
   ].join(' ');
 }
 
+// claude-CLI auflösen. Windows: npm legt claude.cmd im globalen npm-Verz.;
+// exec läuft über cmd.exe, dessen geerbter PATH das npm-Verz. oft NICHT
+// enthält → „Datei nicht gefunden". Voller Pfad macht den Build pfadrobust.
+function claudeBin() {
+  if (process.platform === 'win32') {
+    const cand = path.join(process.env.APPDATA || '', 'npm', 'claude.cmd');
+    if (fs.existsSync(cand)) return cand;
+  }
+  return 'claude';
+}
+
 function buildLeadAsync(item) {
   return new Promise((resolve) => {
     const dir = path.join(PREVIEW_DIR, item.id);
@@ -230,7 +241,7 @@ function buildLeadAsync(item) {
       cmd = custom.replace(/\{ID\}/g, item.id).replace(/\{DIR\}/g, dir);
     } else {
       const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
-      cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
+      cmd = `"${claudeBin()}" -p "${prompt}" --dangerously-skip-permissions`;
     }
     exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024 }, (err) => {
       if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.killed ? 'Timeout' : err.message}`); resolve(false); return; }
@@ -321,10 +332,10 @@ process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; releaseL
 process.on('SIGTERM', () => { running = false; releaseLock(); process.exit(0); });
 
 (async () => {
-  acquireLock();
   log('═══ MZ.9 Lead Agent — Auto-Loop ═══');
   log(`Intervall: ${INTERVAL_MIN} min | Stufen inline | Backlog-Drain pro Zyklus | E-Mail-Staffelung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
-  preflight(log);
+  preflight(log);   // VOR acquireLock: erkennt verwaiste Locks einer Vorgänger-Instanz.
+  acquireLock();
   try {
     do {
       try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
