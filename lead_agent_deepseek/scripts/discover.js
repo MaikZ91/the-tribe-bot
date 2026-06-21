@@ -26,6 +26,7 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { isKanzleiSteuer } = require('./pending');
 
 const ROOT = path.join(__dirname, '..');
 const QUEUE_FILE = path.join(ROOT, 'queue.json');
@@ -49,8 +50,6 @@ const CITIES = [
 const BRANCH_TAGS = {
   'Friseur':          { q: ['"shop"="hairdresser"'], industry: 'Friseur', prefix: 'friseur' },
   'Zahnarzt':         { q: ['"healthcare"="dentist"', '"amenity"="dentist"'], industry: 'Zahnarzt', prefix: 'zahnarzt' },
-  'Steuerberater':    { q: ['"office"="tax_advisor"', '"office"="accountant"'], industry: 'Kanzlei', prefix: 'steuer' },
-  'Rechtsanwalt':     { q: ['"office"="lawyer"'], industry: 'Kanzlei', prefix: 'kanzlei' },
   'Maler':            { q: ['"craft"="painter"'], industry: 'Handwerk', prefix: 'maler' },
   'Dachdecker':       { q: ['"craft"="roofer"'], industry: 'Handwerk', prefix: 'dachdecker' },
   'Elektriker':       { q: ['"craft"="electrician"'], industry: 'Handwerk', prefix: 'elektro' },
@@ -251,7 +250,8 @@ async function discover({ city, branch, count = 3, log = noop } = {}) {
       email: (t.email || t['contact:email'] || '').toLowerCase(),
       address: [t['addr:street'], t['addr:housenumber']].filter(Boolean).join(' ') + (t['addr:postcode'] ? `, ${t['addr:postcode']} ${city}` : `, ${city}`),
     }))
-    .filter(c => !done.has(`${cfg.prefix}-${slugify(c.name)}`) && !done.has(slugify(c.name)));
+    .filter(c => !done.has(`${cfg.prefix}-${slugify(c.name)}`) && !done.has(slugify(c.name)))
+    .filter(c => !isKanzleiSteuer(`${cfg.prefix}-${slugify(c.name)}`, cfg.industry, c.name)); // ⛔ Kanzlei/Recht/Steuer nie entdecken
 
   log(`  ${candidates.length} Kandidaten mit Website (nach Dedup).`);
 

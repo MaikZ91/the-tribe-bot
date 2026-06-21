@@ -12,8 +12,7 @@ Eingreifen**, mit **automatischem Push** nach GitHub Pages.
 Der gesamte Funnel läuft **ohne jede Rückfrage** an den User:
 - **E-Mail-Versand ist autonom** — NIE vor dem Versand fragen. Mail geht nach
   Build + Push automatisch raus (Stufe 3).
-- **Kein festes MAX_BUILDS=3-Limit** — der Build-Agent (Claude) entscheidet
-  selbst über die Kapazität pro Durchlauf und baut alle buildbaren Leads.
+- **Kein MAX_BUILDS-Limit** — alle buildbaren Leads werden parallel gebaut.
 - Auto-Commit + Auto-Push immer.
 
 ## ⚠️ EISERNE REGEL: NUR LEADS MIT VALIDER E-MAIL BAUEN
@@ -41,6 +40,33 @@ Jede Konzept-Vorschau ist ein **handgebautes Unikat** mit eigenem Premium-Design
 und Originalbildern — als bewusster Kontrast zur alten Website des Betriebs.
 Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
 
+## ⚠️ EISERNE REGEL: KEINE KANZLEIEN (Stand 2026-06-21)
+Leads aus den Branchen **Rechtsanwalt / Steuerberater / Kanzlei**
+(sowie artverwandte Rechts- und Steuerberatung) werden
+**grundsätzlich übersprungen** — weder Discovery (Stufe 1) noch
+Build (Stufe 2) noch E-Mail-Versand (Stufe 3). Bereits gebaute
+Kanzlei-Seiten bleiben bestehen, werden aber nicht erneut
+verarbeitet. Die Branchen sind aus `discover_branches` entfernt.
+
+**Implementiert (Stand 2026-06-21):** Zentrale Funktion `isKanzleiSteuer(id, industry, name)`
+in `scripts/pending.js` (exportiert). Greift zusätzlich in `publish.js` (`publishOne`),
+`auto.js` (buildable-Filter), `send_mail.js` (`loadLeads` + Einzellversand) und
+`discover.js` (Kandidaten-Filter). `listPending()` nimmt Kanzlei/Steuer-Leads gar nicht
+erst in die Worklist auf.
+
+## ⚠️ EISERNE REGEL: SCREENSHOT-VERGLEICH + INLINE POSTEN (Stand 2026-06-21)
+Nach jedem Build und Push **muss** ein Screenshot-Vergleich erstellt werden:
+`node scripts/screenshot-compare.js <id>` generiert:
+- `docs/leads/<id>/original.png` — Original-Website
+- `docs/leads/<id>/preview.png`  — MZ.9 Konzept-Vorschau
+- `docs/leads/<id>/compare.png`  — Side-by-Side (VORHER/NACHHER)
+
+Das Vergleichsbild (`compare.png`) wird **inline in die Akquise-E-Mail**
+eingebettet (Base64-CID), nicht als externer Link. Die E-Mail enthält
+somit den direkten Vorher-Nachher-Vergleich als Blickfang.
+Falls Puppeteer/Chromium nicht verfügbar: Screenshot-Schritt loggen +
+E-Mail ohne Bild versenden (KEIN Blockieren des Funnels).
+
 ---
 
 ## Die drei Stufen
@@ -60,13 +86,14 @@ Kein `templates/preview.html`, kein `{{PLATZHALTER}}`-Ersatz.
 │   Worklist:  node scripts/pending.js                            │
 │   • baut docs/leads/<id>/index.html — echte Premium-Seite       │
 │   • Frontend-Design-Skills, Originalbilder aus build-job.json    │
-│   • Stilreferenz: docs/leads/alt-bielefeld/index.html           │
+│   • Stilreferenz: docs/mz9.html (MZ.9 Agentur-Seite)            │
 │   • Multi-Agent: bei mehreren Leads parallele Sub-Agenten        │
 └─────────────────────────────────────────────────────────────────┘
                               ↓
 ┌─────────────────────────────────────────────────────────────────┐
 │ STUFE 3 — PUBLISH + AUTO-PUSH     (Node, vollautomatisch)       │
 │   Pro Lead: git push + E-Mail sofort                           │
+│   • screenshot-compare.js <id> → compare.png (VORHER/NACHHER)   │
 │   • git commit + push  → GitHub Pages deployt (1–2 Min)         │
 │   • build-job.json → status: published                          │
 │   • send_mail.js <id> → Akquise-E-Mail direkt an den Betrieb    │
@@ -97,7 +124,6 @@ Der Build-Agent (Stufe 2) ist **tool-agnostisch** und über `BUILD_CMD` wählbar
   ```
 
 Steuerung per Umgebungsvariablen: `INTERVAL_MINUTES` (Default 5),
-`MAX_BUILDS` pro Zyklus (Default 3), `BUILD_TIMEOUT_MIN` (Default 12),
 `ONCE=1` (nur ein Zyklus, zum Testen).
 
 Manuell / Schritt für Schritt (was auto.js intern macht):
@@ -117,7 +143,7 @@ Für „wirklich ohne mich" → Variante A.
 
 ## Build-Briefing für Stufe 2 (Qualitätsstandard)
 
-Jede Seite muss das Niveau von `docs/leads/alt-bielefeld/index.html` haben:
+Jede Seite muss das Niveau von `docs/mz9.html` (MZ.9 Agentur-Seite) haben:
 
 - **Self-contained** `index.html` (inline `<style>`, minimal inline JS für
   Scroll-Reveal `.rv`/`.in`, Header-scrolled-State, Mobile-Nav).
@@ -162,6 +188,7 @@ Dry-Run zum Testen: `node scripts/send_mail.js <id> --dry-run`
 | Alles Gebaute publizieren | `node scripts/publish.js --all` |
 | E-Mail an einen Lead | `node scripts/send_mail.js <id>` |
 | E-Mail-Dry-Run | `node scripts/send_mail.js <id> --dry-run` |
+| Screenshot-Vergleich | `node scripts/screenshot-compare.js <id>` |
 
 | Datenfluss | Ort |
 |---|---|

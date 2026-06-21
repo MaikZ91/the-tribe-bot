@@ -3,7 +3,7 @@
  *
  * Fährt im Dauerloop:
  *   STUFE 1  node daemon.js --once         → Discovery + Build-Job
- *   STUFE 2  Build-Agent pro offenem Lead  → echte Premium-Seite
+ *   STUFE 2  Build-Agent pro offenem Lead  → echte Premium-Seite (PARALLEL)
  *   STUFE 3  Pro Lead: git push + E-Mail   → GitHub Pages + Akquise-Mail
  *   KEIN Dashboard-Publishing — E-Mail geht direkt nach Build raus.
  *
@@ -15,16 +15,16 @@
  *
  * Steuerung:
  *   INTERVAL_MINUTES   Pause zwischen Zyklen (Default 5)
- *   MAX_BUILDS         max. Builds pro Zyklus (Default 0 = unbegrenzt)
  *   BUILD_CMD          eigener Build-Befehl (s.o.)
- *   BUILD_TIMEOUT_MIN  Timeout pro Build in Minuten (Default 12)
  *   ONCE=1             nur ein Zyklus, dann Ende
- *   EMAIL_DELAY_MAX_MIN max. E-Mail-Verzögerung in Min (Default 15, 0 = sofort)
+ *   EMAIL_DELAY_MAX_MIN max. E-Mail-Verzögerung in Min (Default 10, 0 = sofort)
+ *
+ * ⚡ UNBEGRENZT: Alle offenen Builds parallel, kein MAX_BUILDS, kein Timeout.
  */
 
-const { execSync, spawn } = require('child_process');
+const { execSync, spawn, exec } = require('child_process');
 const path = require('path');
-const { listPending, isValidEmail } = require('./pending');
+const { listPending, isValidEmail, isKanzleiSteuer } = require('./pending');
 
 const SCRIPTS = __dirname;
 const ROOT = path.join(SCRIPTS, '..');
@@ -34,8 +34,6 @@ const REFERENCE = path.join(REPO, 'docs', 'mz9.html');
 const WORKFLOW = path.join(ROOT, 'WORKFLOW.md');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
-const MAX_BUILDS = parseInt(process.env.MAX_BUILDS || '0', 10) || Infinity;
-const BUILD_TIMEOUT = parseInt(process.env.BUILD_TIMEOUT_MIN || '12', 10) * 60_000;
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
@@ -85,24 +83,24 @@ function buildPrompt(id, dir) {
   ].join(' ');
 }
 
-function buildLead(item) {
-  const dir = path.join(PREVIEW_DIR, item.id);
-  log(`🎨 Stufe 2 — baue ${item.id} (${item.name})`);
-  const custom = process.env.BUILD_CMD;
-  let cmd;
-  if (custom && custom.trim().toLowerCase() !== 'claude') {
-    cmd = custom.replace(/\{ID\}/g, item.id).replace(/\{DIR\}/g, dir);
-  } else {
-    const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
-    cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
-  }
-  try {
-    run(cmd, { timeout: BUILD_TIMEOUT });
-    return true;
-  } catch (e) {
-    log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${e.message}`);
-    return false;
-  }
+// ⚡ Parallel-Build: Promise-basiert, kein Timeout, keine Limits.
+function buildLeadAsync(item) {
+  return new Promise((resolve) => {
+    const dir = path.join(PREVIEW_DIR, item.id);
+    log(`🎨 Stufe 2 — baue ${item.id} (${item.name})`);
+    const custom = process.env.BUILD_CMD;
+    let cmd;
+    if (custom && custom.trim().toLowerCase() !== 'claude') {
+      cmd = custom.replace(/\{ID\}/g, item.id).replace(/\{DIR\}/g, dir);
+    } else {
+      const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
+      cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
+    }
+    exec(cmd, { cwd: REPO }, (err) => {
+      if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.message}`); resolve(false); }
+      else resolve(true);
+    });
+  });
 }
 
 // ─── Ein Zyklus ───────────────────────────────────────────────────
@@ -113,20 +111,21 @@ async function cycle() {
   try { run('node lead_agent_deepseek/scripts/daemon.js --once'); }
   catch (e) { log(`Stufe 1 Fehler: ${e.message}`); }
 
-  // STUFE 2: offene Builds
+  // STUFE 2: offene Builds — alle parallel, kein Limit
   const open = listPending().filter(i => !i.built);
-  const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent);
+  const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent && !isKanzleiSteuer(i.id, i.industry, i.name));
   const skipped = open.length - buildable.length;
   if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail oder Bilder übersprungen.`);
-  const pending = buildable.slice(0, MAX_BUILDS);
+  const pending = buildable;
   const builtIds = [];
   if (pending.length === 0) {
     log('Keine offenen Builds mit Bildern.');
   } else {
-    log(`${pending.length} offene Build(s) mit Bildern.`);
-    for (const item of pending) {
-      if (buildLead(item)) builtIds.push(item.id);
-    }
+    log(`${pending.length} offene Build(s) mit Bildern — paralleler Build.`);
+    const results = await Promise.allSettled(pending.map(item => buildLeadAsync(item)));
+    results.forEach((r, i) => {
+      if (r.status === 'fulfilled' && r.value) builtIds.push(pending[i].id);
+    });
   }
 
   // STUFE 3: Push sofort, E-Mail mit zufälliger Verzögerung (0–EMAIL_DELAY_MAX_MIN Min)
@@ -160,7 +159,7 @@ process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; });
 
 (async () => {
   log('═══ MZ.9 Lead Agent — Auto-Loop ═══');
-  log(`Intervall: ${INTERVAL_MIN} min | Max-Builds/Zyklus: ${MAX_BUILDS} | E-Mail-Verzögerung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
+  log(`Intervall: ${INTERVAL_MIN} min | Builds parallel (alle offenen) | E-Mail-Verzögerung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
   do {
     try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
     if (process.env.ONCE === '1') break;

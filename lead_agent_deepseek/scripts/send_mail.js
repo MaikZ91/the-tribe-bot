@@ -5,7 +5,7 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
-const { isValidEmail, isEmailAlreadySent } = require('./pending');
+const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer } = require('./pending');
 
 function loadEnv() {
   const envFile = path.join(__dirname, '..', '.env');
@@ -32,14 +32,6 @@ const PREVIEW_DIR = path.join(ROOT, '..', 'docs', 'leads');
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 const MZ9_URL = 'https://maikz91.github.io/the-tribe-bot/mz9';
 
-// Branchen, die wir nicht kontaktieren
-const BLOCKED = ['kanzlei', 'recht', 'steuer', 'anwalt'];
-
-function isBlocked(id, industry) {
-  const check = (id + ' ' + (industry || '')).toLowerCase();
-  return BLOCKED.some(b => check.includes(b));
-}
-
 const SMTP = {
   host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.MZ9_SMTP_PORT || '587'),
@@ -65,7 +57,7 @@ function loadLeads() {
     if (!fs.existsSync(jobFile)) continue;
     try {
       const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
-      if (isBlocked(job.id, job.industry)) continue; // ⛔ Kanzleien, Recht, Steuer
+      if (isKanzleiSteuer(job.id, job.industry, job.name)) continue; // ⛔ Kanzleien, Recht, Steuer
       const idxFile = path.join(PREVIEW_DIR, d.name, 'index.html');
       let built = false;
       try { built = fs.statSync(idxFile).size > 2000; } catch {}
@@ -165,12 +157,12 @@ async function main() {
       console.log(`→ ${lead.name}`);
       const r = await sendHtmlMail(lead, dryRun);
       if (r.success && !dryRun) { sent[lead.id] = new Date().toISOString(); saveSent(sent); }
-      if (!dryRun) await new Promise(r => setTimeout(r, 2000));
+      // Keine Batch-Pause — E-Mails werden einzeln via auto.js mit 0–10 Min Staffelung versendet.
     }
   } else if (targetId) {
     const lead = leads.find(l => l.id === targetId);
     if (!lead) { console.log(`❌ "${targetId}" nicht gefunden`); return; }
-    if (isBlocked(lead.id, lead.industry)) { console.log('⛔  Kanzlei/Recht/Steuer — blockiert'); return; }
+    if (isKanzleiSteuer(lead.id, lead.industry, lead.name)) { console.log('⛔  Kanzlei/Recht/Steuer — blockiert'); return; }
     if (sent[targetId] && !dryRun) { console.log('⚠️  Bereits gesendet'); return; }
     console.log(`→ ${lead.name} ${lead.hasCompare?'🖼️':''}`);
     if (!dryRun && EMAIL_DELAY_MAX_MIN > 0) {

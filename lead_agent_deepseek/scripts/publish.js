@@ -12,7 +12,7 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { listPending, isValidEmail, isEmailAlreadySent } = require('./pending');
+const { listPending, isValidEmail, isEmailAlreadySent, isKanzleiSteuer } = require('./pending');
 
 const ROOT = path.join(__dirname, '..');
 const REPO = path.join(ROOT, '..');
@@ -44,6 +44,10 @@ function publishOne(id) {
   const indexFile = path.join(dir, 'index.html');
   if (!fs.existsSync(jobFile)) { log(`❌ ${id}: kein build-job.json`); return false; }
   const job = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+  if (isKanzleiSteuer(id, job.industry, job.name)) {
+    log(`⛔ ${id}: Kanzlei/Recht/Steuer — wird nicht publiziert (eiserne Regel).`);
+    return false;
+  }
   if (isEmailAlreadySent(job.email)) {
     log(`⏭️  ${id}: E-Mail bereits kontaktiert — wird nicht publiziert.`);
     return false;

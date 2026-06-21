@@ -1,3 +1,16 @@
+// ─── Kanzlei/Steuer-Filter (eiserne Regel 2026-06-21) ─────────────
+// Rechtsanwalt / Steuerberater / Kanzlei sowie artverwandte Rechts- und
+// Steuerberatung werden GRUNDSÄTZLICH übersprungen — kein Discovery,
+// kein Build, kein Publish, kein E-Mail-Versand. Bereits gebaute Seiten
+// bleiben bestehen, werden aber nicht erneut verarbeitet.
+// Zentrale Einzelquelle: publish.js / auto.js / send_mail.js / discover.js
+// nutzen alle diese Funktion.
+const KANZLEI_KEYWORDS = ['kanzlei', 'recht', 'steuer', 'anwalt'];
+function isKanzleiSteuer(id, industry, name) {
+  const hay = `${id || ''} ${industry || ''} ${name || ''}`.toLowerCase();
+  return KANZLEI_KEYWORDS.some(k => hay.includes(k));
+}
+
 // ─── E-Mail-Validierung ──────────────────────────────────────────
 // EISERNE REGEL: Nur Leads mit valider E-Mail bauen.
 // Keine Bild-URLs, keine leeren Strings, keine kaputten Adressen.
@@ -83,6 +96,8 @@ function listPending() {
     let job;
     try { job = JSON.parse(fs.readFileSync(jobFile, 'utf8')); } catch { continue; }
     if (job.status === 'published') continue;
+    // ⛔ Eiserne Regel: Kanzlei/Recht/Steuer nie in die Worklist aufnehmen
+    if (isKanzleiSteuer(d.name, job.industry, job.name)) continue;
     const indexFile = path.join(dir, 'index.html');
     let built = false;
     try { built = fs.existsSync(indexFile) && fs.statSync(indexFile).size >= MIN_BUILT_BYTES; } catch {}
@@ -123,4 +138,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { listPending, isValidEmail, isEmailAlreadySent, getSentEmails, resetEmailCache };
+module.exports = { listPending, isValidEmail, isEmailAlreadySent, isKanzleiSteuer, getSentEmails, resetEmailCache };
