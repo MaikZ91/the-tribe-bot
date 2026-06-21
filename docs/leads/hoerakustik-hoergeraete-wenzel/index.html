@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hörgeräte Wenzel GmbH | Fachinstitut für Hörsysteme - Wiesbaden</title>
+  <meta name="description" content="Hörgeräte Wenzel GmbH, Ihr Fachinstitut für Hörsysteme in Wiesbaden. Persönliche Beratung, moderne Hörgeräte und Hörscreening. Termin vereinbaren!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #006699;
+      --primary-dark: #004d73;
+      --primary-light: #e6f0f7;
+      --accent: #ff6b35;
+      --accent-hover: #e55a25;
+      --bg: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #1a1a2e;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #4da6cc;
+        --primary-dark: #006699;
+        --primary-light: #1e3a47;
+        --bg: #0f172a;
+        --bg-alt: #1e293b;
+        --text: #f1f5f9;
+        --text-light: #94a3b8;
+        --border: #334155;
+      }
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+      background: rgba(255,255,255,0.98);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .logo span { color: var(--text); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-header {
+      padding: 0.5rem 1.25rem;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .btn-header:hover { background: var(--primary-dark); }
+    .mobile-menu { display: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text);
+      }
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-alt) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      background-image: url('https://www.hoergeraete-wenzel.de/s/cc_images/cache_5515062.jpg?t=1475663331');
+      background-size: cover;
+      background-position: center;
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    @media (max-width: 768px) {
+      .hero-bg {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        bottom: 0;
+        top: auto;
+        clip-path: none;
+      }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+      width: 60%;
+    }
+    @media (max-width: 768px) {
+      .hero-content { width: 100%; padding: 8rem 1.5rem 3rem; text-align: center; }
+      .hero { min-height: auto; padding-bottom: 4rem; }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 768px) { .hero-cta { justify-content: center; } }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.875rem 2rem;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0,102,153,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,102,153,0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .btn-secondary:hover {
+      background: var(--primary-light);
+    }
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg);
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    @media (max-width: 768px) { .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+    .trust-item {
+      padding: 1rem;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1rem;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .trust-item h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .trust-item p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    /* Leistungen */
+    .leistungen {
+      padding: 5rem 1.5rem;
+      background: var(--bg-alt);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .leistungen-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 768px) { .leistungen-grid { grid-template-columns: 1fr; } }
+    .leistung-card {
+      background: var(--bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .leistung-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .leistung-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .leistung-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .leistung-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    /* Terminbuchung - Premium Feature */
+    .termin {
+      padding: 5rem 1.5rem;
+      background: var(--bg);
+    }
+    .termin-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .termin-wrapper { grid-template-columns: 1fr; } }
+    .termin-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .termin-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .termin-content h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .termin-content p {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    .termin-form {
+      background: var(--bg-alt);
+      padding: 2rem;
+      border-radius: var(--radius);
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--bg);
+      color: var(--text);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,102,153,0.1);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+    /* Galerie */
+    .galerie {
+      padding: 5rem 1.5rem;
+      background: var(--bg-alt);
+    }
+    .galerie-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .galerie-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 150px); }
+    }
+    .galerie-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .galerie-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    @media (max-width: 768px) { .galerie-item:first-child { grid-column: span 2; grid-row: span 2; } }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .galerie-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://www.hoergeraete-wenzel.de/s/cc_images/cache_16221449.jpg?t=1617554100');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .btn-cta {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent);
+      color: white;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(255,107,53,0.4);
+    }
+    .btn-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,107,53,0.5);
+    }
+    /* Kontakt */
+    .kontakt {
+      padding: 5rem 1.5rem;
+      background: var(--bg);
+    }
+    .kontakt-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    @media (max-width: 768px) { .kontakt-wrapper { grid-template-columns: 1fr; gap: 3rem; } }
+    .kontakt-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .kontakt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kontakt-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .kontakt-item h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+    .kontakt-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .kontakt-item a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .kontakt-item a:hover { text-decoration: underline; }
+    .kontakt-map {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--bg-alt);
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+    /* Footer */
+    footer {
+      padding: 2rem 1.5rem;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem 1.5rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      z-index: 999;
+    }
+    @media (max-width: 768px) { .mobile-cta { display: block; } }
+    .mobile-cta a {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Hörgeräte <span>Wenzel</span></a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#termin" class="btn-header">Termin buchen</a>
+      </nav>
+      <div class="mobile-menu">☰</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <h1>Willkommen bei <span>Hörgeräte Wenzel GmbH</span></h1>
+      <p>Ihr Fachinstitut für Hörsysteme in Wiesbaden. Persönliche Beratung, modernste Hörgeräte und kompromisslose Zufriedenheit.</p>
+      <div class="hero-cta">
+        <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+        <a href="#leistungen" class="btn-secondary">Leistungen ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-icon">👂</div>
+        <h3>Gratis Hörscreening</h3>
+        <p>Erste Analyse kostenlos</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">🔬</div>
+        <h3>Fachinstitut</h3>
+        <p>Qualifizierte Akustiker</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">⭐</div>
+        <h3>Zufriedenheit</h3>
+        <p>Persönliche Betreuung</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">📍</div>
+        <h3>Wiesbaden</h3>
+        <p>Bismarckring 9</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="leistungen" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Leistungsspektrum</h2>
+      <p>Umfassende Dienstleistungen rund um Ihr Gehör – von der Beratung bis zur Nachsorge.</p>
+    </div>
+    <div class="leistungen-grid">
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🎧</div>
+        <h3>Modernste Hörgeräte</h3>
+        <p>Premium-Hörgeräte führender Hersteller, maßgeschneidert auf Ihre Bedürfnisse und Ihr Hörbild.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">📊</div>
+        <h3>Hörscreening</h3>
+        <p>Grundlegende Hörtest-Analyse zur ersten Einschätzung – kostenlos und unverbindlich.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🔧</div>
+        <h3>Reparatur & Service</h3>
+        <p>Schnelle Hilfe bei Problemen, Reinigung, Ohrpassstück-Anpassung und technische Unterstützung.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">👨‍⚕️</div>
+        <h3>Persönliche Beratung</h3>
+        <p>Individuelle Terminberatung in entspannter Atmosphäre – nehmen Sie sich Zeit.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🔄</div>
+        <h3>Nachsorge</h3>
+        <p>Kontinuierliche Begleitung nach der Anpassung für optimales Hörerlebnis.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">💼</div>
+        <h3>Kassenabrechnung</h3>
+        <p>Wir unterstützen Sie bei der Kassenabrechnung und klären alle Fragen zur Kostenübernahme.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="termin" id="termin">
+    <div class="termin-wrapper">
+      <div class="termin-image reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/cache_5514951.jpg?t=1474620991" alt="Hörberatung bei Hörgeräte Wenzel" loading="lazy">
+      </div>
+      <div class="termin-content reveal">
+        <h2>Kostenlosen Termin vereinbaren</h2>
+        <p>Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+        <form class="termin-form" action="mailto:info@hoergeraete-wenzel.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="Für Rückruf">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschter Service</label>
+            <select id="service" name="service">
+              <option value="">Bitte wählen...</option>
+              <option value="hoerscreening">Kostenloses Hörscreening</option>
+              <option value="beratung">Persönliche Beratung</option>
+              <option value="reparatur">Reparatur / Service</option>
+              <option value="nachsorge">Nachsorge-Termin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="3" placeholder="Ihre Anfrage oder Wunschtermin..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="galerie" id="galerie">
+    <div class="section-header reveal">
+      <h2>Unser Fachinstitut</h2>
+      <p>Ein Einblick in unsere Praxis und unsere Arbeit in Wiesbaden.</p>
+    </div>
+    <div class="galerie-grid">
+      <div class="galerie-item reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/cache_5588054.jpg?t=1474978656" alt="Praxisraum Hörgeräte Wenzel" loading="lazy">
+      </div>
+      <div class="galerie-item reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/thumb_11608997.jpg" alt="Hörgeräte Auswahl" loading="lazy">
+      </div>
+      <div class="galerie-item reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/thumb_11608998.png" alt="Hörscreening Geräte" loading="lazy">
+      </div>
+      <div class="galerie-item reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/thumb_11608999.jpg" alt="Beratungsgespräch" loading="lazy">
+      </div>
+      <div class="galerie-item reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/thumb_11609000.jpg" alt="Hörgeräte Wenzel Team" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-content reveal">
+      <h2>Besser hören, leben genießen</h2>
+      <p>Vereinbaren Sie noch heute Ihren kostenlosen Hörscreening-Termin bei Hörgeräte Wenzel in Wiesbaden.</p>
+      <a href="#termin" class="btn-cta">Jetzt Termin buchen</a>
+    </div>
+  </section>
+
+  <section class="kontakt" id="kontakt">
+    <div class="kontakt-wrapper">
+      <div class="kontakt-info reveal">
+        <h3>Kontakt & Anfahrt</h3>
+        <div class="kontakt-item">
+          <div class="kontakt-icon">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Bismarckring 9<br>65183 Wiesbaden</p>
+          </div>
+        </div>
+        <div class="kontakt-item">
+          <div class="kontakt-icon">📞</div>
+          <div>
+            <h4>Telefon</h4>
+            <p><a href="tel:+496113608944">+49 611 3608944</a></p>
+          </div>
+        </div>
+        <div class="kontakt-item">
+          <div class="kontakt-icon">✉️</div>
+          <div>
+            <h4>E-Mail</h4>
+            <p><a href="mailto:info@hoergeraete-wenzel.de">info@hoergeraete-wenzel.de</a></p>
+          </div>
+        </div>
+        <div class="kontakt-item">
+          <div class="kontakt-icon">🌐</div>
+          <div>
+            <h4>Website</h4>
+            <p><a href="https://www.hoergeraete-wenzel.de/" target="_blank" rel="noopener">www.hoergeraete-wenzel.de</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="kontakt-map reveal">
+        <img src="https://www.hoergeraete-wenzel.de/s/cc_images/cache_5500629.jpg?t=1474622657" alt="Standort Hörgeräte Wenzel Wiesbaden" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Konzept-Vorschau · MZ.9 · <a href="https://www.hoergeraete-wenzel.de/" style="color:var(--primary);">Hörgeräte Wenzel GmbH</a></p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#termin">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Form submission (mailto fallback)
+    document.querySelector('.termin-form').addEventListener('submit', function(e) {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value;
+
+      const subject = encodeURIComponent('Terminanfrage über Konzeptseite');
+      const body = encodeURIComponent(
+        `Name: ${name}\n` +
+        `E-Mail: ${email}\n` +
+        `Telefon: ${phone || '—'}\n` +
+        `Service: ${service || '—'}\n\n` +
+        `Nachricht:\n${message}`
+      );
+
+      window.location.href = `mailto:info@hoergeraete-wenzel.de?subject=${subject}&body=${body}`;
+      e.preventDefault();
+    });
+  </script>
+</body>
+</html>
