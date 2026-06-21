@@ -171,29 +171,39 @@ function createBuildJob(lead) {
   log(`🎨 Build-Job angelegt: ${lead.id} (${job.images.length} Bilder)`);
 }
 
+// Stufe 1 konsumiert bis zu STAGE1_BATCH Leads pro Zyklus und legt für jeden
+// (der gate besteht) einen Build-Job an — so hat Stufe 2 mehrere Builds zum
+// parallelen Bauen (mehr Durchsatz Richtung 1000). Default 3.
+const STAGE1_BATCH = parseInt(process.env.STAGE1_BATCH || '3', 10);
+
 async function stage1() {
-  let lead = getNextLead();
-  if (!lead) {
-    const filled = await refillQueue();
-    if (!filled) return;
-    lead = getNextLead();
-    if (!lead) return;
+  let created = 0;
+  for (let i = 0; i < STAGE1_BATCH; i++) {
+    let lead = getNextLead();
+    if (!lead) {
+      // Nur beim ersten Versuch refill; danach reicht's für diesen Zyklus.
+      if (i === 0) { const filled = await refillQueue(); if (!filled) break; lead = getNextLead(); }
+      if (!lead) break;
+    }
+    log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
+
+    // Regel 5: Originalbilder Pflicht — nachholen falls fehlend.
+    if ((!lead.images || lead.images.length === 0) && lead.website) {
+      log(`🖼️  Keine Bilder im Lead — hole von ${lead.website} nach...`);
+      lead.images = await fetchSiteImages(lead.website);
+      log(`   ${lead.images.length} Originalbilder gefunden.`);
+    }
+
+    // gate() bündelt ALLE Regeln (Regel 1–3 + 5). Bei !ok überspringen.
+    const g = gate(lead);
+    if (!g.ok) { log(`⏭️  ${lead.id} übersprungen (gate: ${g.reason}).`); continue; }
+
+    createBuildJob(lead);
+    log(`📥 Build-Job bereit für Stufe 2: ${lead.id}`);
+    created++;
   }
-  log(`📋 ${lead.id} — ${lead.name} (${lead.industry})`);
-
-  // Regel 5: Originalbilder Pflicht — nachholen falls fehlend.
-  if ((!lead.images || lead.images.length === 0) && lead.website) {
-    log(`🖼️  Keine Bilder im Lead — hole von ${lead.website} nach...`);
-    lead.images = await fetchSiteImages(lead.website);
-    log(`   ${lead.images.length} Originalbilder gefunden.`);
-  }
-
-  // gate() bündelt ALLE Regeln (Regel 1–3 + 5). Bei !ok überspringen.
-  const g = gate(lead);
-  if (!g.ok) { log(`⏭️  ${lead.id} übersprungen (gate: ${g.reason}).`); return; }
-
-  createBuildJob(lead);
-  log(`📥 Build-Job bereit für Stufe 2: ${lead.id}`);
+  if (created === 0) log('Stufe 1: keine neuen Build-Jobs (Queue leer oder alle gefiltert).');
+  return;
 }
 
 // ═══ STUFE 2: Premium-Seite bauen (parallel, kein Limit) ═════════
