@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Elektroinstallation, Industrieelektrik, Smart Home und Photovoltaik aus Göttingen. Zertifizierter Meisterbetrieb mit jahrzehntelanger Erfahrung.">
+  <title>Maihack Elektrotechnik – Elektriker & Meisterbetrieb in Göttingen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #e67e22;
+      --accent-hover: #d35400;
+      --bg-light: #f8f9fa;
+      --bg-white: #ffffff;
+      --text: #2c3e50;
+      --text-light: #6c757d;
+      --border: #dee2e6;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links, .header-cta {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: white;
+      box-shadow: 0 2px 8px rgba(230,126,34,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(230,126,34,0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background: rgba(44,62,80,0.05);
+    }
+
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(44,62,80,0.92) 0%, rgba(44,62,80,0.75) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    .hero-content p {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      opacity: 0.95;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .hero-actions .btn-primary {
+      background: white;
+      color: var(--accent);
+    }
+
+    .hero-actions .btn-primary:hover {
+      background: var(--bg-light);
+    }
+
+    .hero-actions .btn-secondary {
+      color: white;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .hero-actions .btn-secondary:hover {
+      border-color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 1.5rem;
+    }
+
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .trust-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .trust-content h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .trust-content p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    /* Services */
+    .section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-alt {
+      background: var(--bg-light);
+    }
+
+    .section-header {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 16/10;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item:first-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 21/9;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+    }
+
+    .gallery-caption h4 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 2;
+      }
+    }
+
+    /* Contact Form */
+    .contact-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);
+      color: white;
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      gap: 3rem;
+    }
+
+    @media (min-width: 900px) {
+      .contact-inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .contact-info h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+      opacity: 0.85;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-detail-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .contact-detail-content h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0.7;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-detail-content a, .contact-detail-content span {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .contact-detail-content a:hover {
+      color: var(--accent);
+    }
+
+    .contact-form {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-form h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-form p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(230,126,34,0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .cta-band-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--accent);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: var(--bg-light);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-inner p {
+      opacity: 0.7;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: white;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+
+    @media (max-width: 767px) {
+      .mobile-cta {
+        display: block;
+      }
+
+      .cta-band {
+        padding-bottom: 5rem;
+      }
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">M</div>
+        <span>Maihack</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:+495517704097" class="btn btn-secondary">
+          📞 +49 551 7704097
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.maihack-elektrotechnik.de/assets/hero-electrician-CsYogEY4.jpg" alt="Elektriker bei der Arbeit" width="1920" height="1080">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badges">
+        <span class="badge">⚡ Meisterbetrieb</span>
+        <span class="badge">🏆 Göttingen</span>
+        <span class="badge">✓ Jahrzehnte Erfahrung</span>
+      </div>
+      <h1>Strom. Licht. Zukunft. Ihr Elektromeister für Privat, Gewerbe & Industrie.</h1>
+      <p>Komplette Elektrotechnik aus einer Hand. Von der Installation über Smart Home bis Photovoltaik – zertifiziert, zuverlässig, regional.</p>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary btn-large">📝 Jetzt anfragen</a>
+        <a href="#leistungen" class="btn btn-secondary btn-large">Leistungen ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <div class="trust-content">
+            <h3>Meisterbetrieb</h3>
+            <p>Zertifiziert nach § 13a EnWG</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📍</div>
+          <div class="trust-content">
+            <h3>Regional</h3>
+            <p>Fest in Göttingen verwurzelt</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏭</div>
+          <div class="trust-content">
+            <h3>Industrie-Know-how</h3>
+            <p>Industrieelektrik & Schaltschränke</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">☀️</div>
+          <div class="trust-content">
+            <h3>Erneuerbar</h3>
+            <p>Photovoltaik & Smart Home</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Komplette Elektrotechnik. Eine Adresse.</h2>
+      <p>Tradition trifft Innovation. Wir bieten das gesamte Spektrum der Elektrotechnik – handwerkliche Qualität meets moderne Technik.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">💡</div>
+        <h3>Elektroinstallation</h3>
+        <p>Neuinstallationen, Erweiterungen, Reparaturen für Wohnhaus, Gewerbe und Industrie – alles aus Meisterhand.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏠</div>
+        <h3>Smart Home</h3>
+        <p>Moderne Hausautomatisierung für mehr Komfort, Sicherheit und Energieeffizienz in Ihrem Zuhause.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">☀️</div>
+        <h3>Photovoltaik</h3>
+        <p>Professionelle Planung und Installation von PV-Anlagen – nutzen Sie die Kraft der Sonne für Unabhängigkeit.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏭</div>
+        <h3>Industrieelektrik</h3>
+        <p>Industrielle Anlagen, Steuerungstechnik, Schaltschrankbau – wir verstehen komplexe Anforderungen.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔧</div>
+        <h3>Service & Reparatur</h3>
+        <p>Schnelle Hilfe bei Störungen, Wartungsverträge und vorbeugende Instandhaltung für maximale Verfügbarkeit.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏢</div>
+        <h3>Gewerbe</h3>
+        <p>Elektroanlagen für Büros, Läden, Werkstätten – normgerecht, effizient und auf Ihre Bedürfnisse zugeschnitten.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="galerie">
+    <div class="section-header reveal">
+      <h2>Unsere Projekte</h2>
+      <p>Einblick in unsere Arbeit – von der Installation bis zum komplexen Industrieprojekt.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.maihack-elektrotechnik.de/assets/smarthome-BxaQJccz.jpg" alt="Smart Home Installation" loading="lazy" width="1920" height="1080">
+        <div class="gallery-caption">
+          <h4>Smart Home – modernes Wohnen</h4>
+        </div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.maihack-elektrotechnik.de/assets/photovoltaik-EiiNqptM.jpg" alt="Photovoltaikanlage auf Dach" loading="lazy" width="1920" height="1080">
+        <div class="gallery-caption">
+          <h4>Photovoltaik – saubere Energie</h4>
+        </div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.maihack-elektrotechnik.de/assets/schaltschrank-BjLB4ruj.jpg" alt="Industrieller Schaltschrank" loading="lazy" width="1920" height="1080">
+        <div class="gallery-caption">
+          <h4>Industrieelektrik – Schaltschrankbau</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-section" id="kontakt">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h2>Starten wir Ihr Projekt.</h2>
+        <p>Vereinbaren Sie einen unverbindlichen Termin oder senden Sie uns Ihre Anfrage – wir melden uns schnellstmöglich.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div class="contact-detail-content">
+              <h4>Adresse</h4>
+              <span>Hauptstraße 47a, 37073 Göttingen</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📞</div>
+            <div class="contact-detail-content">
+              <h4>Telefon</h4>
+              <a href="tel:+495517704097">+49 551 7704097</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">✉️</div>
+            <div class="contact-detail-content">
+              <h4>E-Mail</h4>
+              <a href="mailto:info@maihack-elektrotechnik.de">info@maihack-elektrotechnik.de</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" action="mailto:info@maihack-elektrotechnik.de" method="post" enctype="text/plain">
+        <h3>📝 Anfrage senden</h3>
+        <p>Wir antworten innerhalb von 24 Stunden.</p>
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Ihr Name">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail *</label>
+          <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" name="phone" placeholder="+49 ...">
+        </div>
+        <div class="form-group">
+          <label for="service">Gewünschte Leistung</label>
+          <select id="service" name="service">
+            <option value="">Bitte auswählen...</option>
+            <option value="elektroinstallation">Elektroinstallation</option>
+            <option value="smarthome">Smart Home</option>
+            <option value="photovoltaik">Photovoltaik</option>
+            <option value="industrie">Industrieelektrik</option>
+            <option value="reparatur">Reparatur / Service</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Projekt oder Ihre Frage..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large form-submit">Absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band-inner reveal">
+      <h2>Bereit für Ihr nächstes Projekt?</h2>
+      <p>Zertifizierter Meisterbetrieb · Jahrzehnte Erfahrung · Aus Göttingen</p>
+      <a href="tel:+495517704097" class="btn btn-primary btn-large">📞 Jetzt anrufen</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© 2026 Maihack Elektrotechnik GmbH</p>
+      <p>Hauptstraße 47a · 37073 Göttingen · Tel: +49 551 7704097</p>
+      <p style="margin-top: 1.5rem; opacity: 0.5;">Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+495517704097" class="btn btn-primary">📞 Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
