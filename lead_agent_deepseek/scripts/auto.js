@@ -54,7 +54,6 @@ const { discover, fetchSiteImages } = require('./discover');
 
 const SCRIPTS = __dirname;
 const REPO = path.join(ROOT, '..');                       // the-tribe/
-const REFERENCE = path.join(REPO, 'docs', 'mz9.html');
 const QUEUE_FILE = path.join(ROOT, 'queue.json');
 const LEADS_DIR = path.join(ROOT, 'leads');
 const SCREENSHOT_SCRIPT = path.join(SCRIPTS, 'screenshot-compare.js');
@@ -199,25 +198,12 @@ async function stage1() {
 }
 
 // ═══ STUFE 2: Premium-Seite bauen (parallel, kein Limit) ═════════
+// Token-lean: Design-DNA + Eisen Regeln leben im Skill mz9-lead-build (kondensiert),
+// NICHT im Prompt und NICHT in einer 117 KB-Referenz, die jeder Build neu lädt.
 function buildPrompt(id, dir) {
   const job = path.join(dir, 'build-job.json');
   const out = path.join(dir, 'index.html');
-  return [
-    `Baue eine hochwertige, conversion-orientierte Premium-Landingpage als KONZEPT-VORSCHAU (MZ.9 Akquise-Lead).`,
-    `1) Lies den Build-Job: ${job} (Name, Branche, Telefon, Adresse, problems, images[], content).`,
-    `2) Lies die Stilreferenz komplett und übernimm Aufbau/Niveau/Klassen/Animationen: ${REFERENCE}.`,
-    `3) Nutze den frontend-design-Skill für ein unverkennbares, eigenständiges Premium-Design (kein generischer AI-Look).`,
-    `4) Schreibe EINE self-contained Datei nach: ${out}.`,
-    `PFLICHT-REGELN:`,
-    `- Original-Bild-URLs aus images[] prominent einbauen (Hero, Galerie, CTA-Band, Leistungsbilder) — KEINE bildlose Seite, KEINE Stock-/Fantasiebilder. Hero OHNE loading=lazy, Rest mit.`,
-    `- AUSSCHLIESSLICH echte Daten aus dem Build-Job — keine Fakten/Preise erfinden.`,
-    `- Eigene branchenpassende Farbpalette (nicht 1:1 die Referenz).`,
-    `- Sektionen: Ribbon · fixer Header · Vollbild-Hero · Info-Strip · Leistungen-Grid · Galerie · 3× Google-Reviews + Trust-Fußnote · CTA-Band · Kontakt (tel:-Link) · Footer „Konzept-Vorschau · MZ.9" · Mobile-CTA-Bar.`,
-    `- inline <style>, minimal inline JS (Scroll-Reveal .rv/.in, Header-scrolled, Mobile-Nav).`,
-    `- <html lang="de">, viewport, <meta name="robots" content="noindex">, Titel+Description aus echten Inhalten, sinnvolle alt-Texte.`,
-    `- Voll responsive, valide, deutsch.`,
-    `Antworte am Ende nur knapp; die geschriebene Datei ${out} ist das Ergebnis.`,
-  ].join(' ');
+  return `Nutze den Skill „mz9-lead-build", um aus dem Build-Job ${job} eine eigenständige Premium-Konzeptseite (MZ.9-Akquise-Lead) zu bauen. Schreibe die fertige self-contained index.html nach: ${out}. Halte alle Eisen-Regeln aus dem Skill ein (Originalbilder aus images[] prominent, eigene branchenpassende Palette, nur echte Daten, noindex, lang=de, >4 KB). Antworte danach nur knapp.`;
 }
 
 // claude-CLI auflösen. Windows: npm legt claude.cmd im globalen npm-Verz.;
