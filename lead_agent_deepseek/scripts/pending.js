@@ -14,6 +14,18 @@ function isKanzleiSteuer(id, industry, name) {
 // ─── E-Mail-Validierung ──────────────────────────────────────────
 // EISERNE REGEL: Nur Leads mit valider E-Mail bauen.
 // Keine Bild-URLs, keine leeren Strings, keine kaputten Adressen.
+// Placeholder-/Muster-Adressen (mustermann, beispiel, rotlicht, example …)
+// werden ebenfalls abgelehnt — keine Mails an Fake-/Fremd-Domains.
+const PLACEHOLDER_LOCAL = /mustermann|musterfirma|beispiel|placeholder|dummy|testuser|testaccount|john\.?doe|max\.mustermann/i;
+const PLACEHOLDER_DOMAINS = new Set(['beispiel.de', 'example.com', 'example.de', 'example.org', 'test.de', 'rotlicht.de', 'domain.tld', 'domain.de', 'email.com']);
+function isPlaceholderEmail(email) {
+  const e = String(email || '').trim().toLowerCase();
+  const at = e.lastIndexOf('@');
+  if (at < 0) return false;
+  if (PLACEHOLDER_LOCAL.test(e.slice(0, at))) return true;
+  if (PLACEHOLDER_DOMAINS.has(e.slice(at + 1))) return true;
+  return false;
+}
 function isValidEmail(email) {
   if (!email || typeof email !== 'string') return false;
   const e = email.trim();
@@ -22,6 +34,8 @@ function isValidEmail(email) {
   if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(e)) return false;
   // Bild-/Binary-Endungen als TLD ausschließen (häufiger Scraping-Fehler)
   if (/\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?|mp4|pdf|xml|json)(\?.*)?$/i.test(e)) return false;
+  // Placeholder-/Fremd-Domain blocken
+  if (isPlaceholderEmail(e)) return false;
   return true;
 }
 /**
@@ -138,4 +152,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { listPending, isValidEmail, isEmailAlreadySent, isKanzleiSteuer, getSentEmails, resetEmailCache };
+module.exports = { listPending, isValidEmail, isEmailAlreadySent, isKanzleiSteuer, isPlaceholderEmail, getSentEmails, resetEmailCache };

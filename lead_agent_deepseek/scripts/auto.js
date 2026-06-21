@@ -1,21 +1,24 @@
 /**
- * MZ.9 Lead Agent — Autonomer 3-Stufen-Orchestrator
+ * MZ.9 Lead Agent — Autonomer 3-Stufen-Orchestrator (skalierbar)
  *
- * Fährt im Dauerloop:
- *   STUFE 1  node daemon.js --once         → Discovery + Build-Job
- *   STUFE 2  Build-Agent pro offenem Lead  → echte Premium-Seite (PARALLEL)
- *   STUFE 3  Pro Lead: git push + E-Mail   → GitHub Pages + Akquise-Mail
- *   KEIN Dashboard-Publishing — E-Mail geht direkt nach Build raus.
+ * Fährt im Dauerloop und draint JEDEN Zyklus den kompletten Backlog:
+ *   STUFE 1  node daemon.js --once            → Discovery + Build-Job
+ *   STUFE 2  Build-Agent pro offenem Lead     → echte Premium-Seite (PARALLEL)
+ *   STUFE 3  Alle builtNotPublished publishen  → Bulk-Push + gestaffelte E-Mail
  *
- * Der Build-Agent (Stufe 2) ist konfigurierbar — tool-agnostisch:
+ * Skalierung (Stand 2026-06-21):
+ *   - Stufe 3 draint den GESAMTEN Backlog (nicht nur aktuelle Zyklus-Builds),
+ *     damit "start lead agent" den Funnel monoton Richtung Ziel treibt.
+ *   - Ein Bulk-Commit+Push pro Zyklus statt Per-Lead-Push (GitHub-Schonung).
+ *   - Email-Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min Staffelung.
+ *
+ * Build-Agent (Stufe 2) tool-agnostisch:
  *   - Default: Claude Code headless (`claude -p ... --dangerously-skip-permissions`)
- *   - Eigener Befehl via Umgebungsvariable BUILD_CMD, in der {ID} und {DIR}
- *     ersetzt werden. Beispiel (DeepSeek):
- *       set BUILD_CMD=deepseek run build-lead --id {ID}
+ *   - Eigener Befehl via BUILD_CMD, {ID}/{DIR} wird ersetzt.
  *
  * Steuerung:
  *   INTERVAL_MINUTES   Pause zwischen Zyklen (Default 5)
- *   BUILD_CMD          eigener Build-Befehl (s.o.)
+ *   BUILD_CMD          eigener Build-Befehl
  *   ONCE=1             nur ein Zyklus, dann Ende
  *   EMAIL_DELAY_MAX_MIN max. E-Mail-Verzögerung in Min (Default 10, 0 = sofort)
  *
@@ -23,36 +26,36 @@
  */
 
 const { execSync, spawn, exec } = require('child_process');
+const fs = require('fs');
 const path = require('path');
-const { listPending, isValidEmail, isKanzleiSteuer } = require('./pending');
+const { listPending, isKanzleiSteuer } = require('./pending');
 
 const SCRIPTS = __dirname;
 const ROOT = path.join(SCRIPTS, '..');
 const REPO = path.join(ROOT, '..');
 const PREVIEW_DIR = path.join(REPO, 'docs', 'leads');
 const REFERENCE = path.join(REPO, 'docs', 'mz9.html');
-const WORKFLOW = path.join(ROOT, 'WORKFLOW.md');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
 function log(m) { console.log(`[${ts()}] ${m}`); }
-
 function run(cmd, opts = {}) {
   return execSync(cmd, { cwd: REPO, stdio: 'inherit', ...opts });
 }
 
-// ─── Git Push für einen einzelnen Lead ────────────────────────────
-function gitPushOne(id, name) {
+// ─── Bulk git push für alle publizierten Leads eines Zyklus ───────
+function gitPushBulk(ids) {
   try {
     try { execSync('git pull --rebase --autostash origin main', { cwd: REPO, stdio: 'pipe' }); } catch {}
-    execSync(`git add docs/leads/${id}/ lead_agent_deepseek/leads/${id}.json lead_agent_deepseek/queue.json`, { cwd: REPO, stdio: 'pipe' });
+    execSync('git add docs/leads/ lead_agent_deepseek/leads/ lead_agent_deepseek/queue.json lead_agent_deepseek/sent.json', { cwd: REPO, stdio: 'pipe' });
     const diff = execSync('git diff --cached --stat', { cwd: REPO, stdio: 'pipe', encoding: 'utf8' });
     if (!diff.trim()) { log('  📭 Keine Änderungen zu pushen.'); return true; }
-    execSync(`git commit -m "lead-agent: ${id} — ${name}"`, { cwd: REPO, stdio: 'pipe' });
+    const n = ids.length;
+    execSync(`git commit -m "lead-agent: ${n} Lead(s) publiziert — ${ids.slice(0, 3).join(', ')}${n > 3 ? ' …' : ''}"`, { cwd: REPO, stdio: 'pipe' });
     execSync('git push', { cwd: REPO, stdio: 'pipe' });
-    log(`  🚀 Gepusht → https://maikz91.github.io/the-tribe-bot/leads/${id}/`);
+    log(`  🚀 Bulk-Push: ${n} Lead(s) live`);
     return true;
   } catch (err) {
     log(`  ⚠️  Git-Fehler: ${err.message}`);
@@ -63,24 +66,34 @@ function gitPushOne(id, name) {
 // ─── Build-Job als published markieren ────────────────────────────
 function markPublished(item) {
   const jobFile = path.join(PREVIEW_DIR, item.id, 'build-job.json');
-  try { const j = JSON.parse(fs.readFileSync(jobFile, 'utf8')); j.status = 'published'; j.publishedAt = new Date().toISOString(); fs.writeFileSync(jobFile, JSON.stringify(j, null, 2)); } catch {}
+  try {
+    const j = JSON.parse(fs.readFileSync(jobFile, 'utf8'));
+    j.status = 'published';
+    j.publishedAt = new Date().toISOString();
+    fs.writeFileSync(jobFile, JSON.stringify(j, null, 2));
+  } catch {}
 }
 
-// ─── Build-Befehl für einen Lead ──────────────────────────────────
+// ─── Build-Befehl für einen Lead (token-lean: Briefing inline) ─────
 function buildPrompt(id, dir) {
   const job = path.join(dir, 'build-job.json');
   const out = path.join(dir, 'index.html');
   return [
     `Baue eine hochwertige, conversion-orientierte Premium-Landingpage als KONZEPT-VORSCHAU (MZ.9 Akquise-Lead).`,
     `1) Lies den Build-Job: ${job} (Name, Branche, Telefon, Adresse, problems, images[], content).`,
-    `2) Lies die PFLICHT-Stilreferenz komplett und übernimm Aufbau/Niveau/Klassen/Animationen: ${REFERENCE}.`,
-    `3) Lies das Build-Briefing in ${WORKFLOW} (Abschnitt "Build-Briefing für Stufe 2") und halte ALLE Punkte ein.`,
+    `2) Lies die Stilreferenz komplett und übernimm Aufbau/Niveau/Klassen/Animationen: ${REFERENCE}.`,
+    `3) Nutze den frontend-design-Skill für ein unverkennbares, eigenständiges Premium-Design (kein generischer AI-Look).`,
     `4) Schreibe EINE self-contained Datei nach: ${out}.`,
-    `PFLICHT: Baue die Original-Bild-URLs aus images[] prominent ein (Hero, Galerie, CTA-Band, Leistungsbilder) — KEINE bildlose Seite, KEINE Stock-/Fantasiebilder.`,
-    `Nutze AUSSCHLIESSLICH die echten Daten aus dem Build-Job (keine Fakten/Preise erfinden).`,
-    `Eigene branchenpassende Farbpalette. Deutsch. <meta name="robots" content="noindex">. Voll responsive.`,
+    `PFLICHT-REGELN:`,
+    `- Original-Bild-URLs aus images[] prominent einbauen (Hero, Galerie, CTA-Band, Leistungsbilder) — KEINE bildlose Seite, KEINE Stock-/Fantasiebilder. Hero OHNE loading=lazy, Rest mit.`,
+    `- AUSSCHLIESSLICH echte Daten aus dem Build-Job — keine Fakten/Preise erfinden.`,
+    `- Eigene branchenpassende Farbpalette (nicht 1:1 die Referenz).`,
+    `- Sektionen: Ribbon · fixer Header · Vollbild-Hero · Info-Strip · Leistungen-Grid · Galerie · 3× Google-Reviews + Trust-Fußnote · CTA-Band · Kontakt (tel:-Link) · Footer „Konzept-Vorschau · MZ.9" · Mobile-CTA-Bar.`,
+    `- inline <style>, minimal inline JS (Scroll-Reveal .rv/.in, Header-scrolled, Mobile-Nav).`,
+    `- <html lang="de">, viewport, <meta name="robots" content="noindex">, Titel+Description aus echten Inhalten, sinnvolle alt-Texte.`,
+    `- Voll responsive, valide, deutsch.`,
     `Antworte am Ende nur knapp; die geschriebene Datei ${out} ist das Ergebnis.`,
-  ].join(' ');
+  ].join('\n');
 }
 
 // ⚡ Parallel-Build: Promise-basiert, kein Timeout, keine Limits.
@@ -103,6 +116,18 @@ function buildLeadAsync(item) {
   });
 }
 
+// ─── Backlog holen (built, unpubliziert, gefiltert, dedup) ────────
+function backlogToPublish() {
+  return listPending().filter(i =>
+    i.built &&
+    i.status !== 'published' &&
+    i.hasValidEmail &&
+    i.images > 0 &&
+    !i.emailAlreadySent &&
+    !isKanzleiSteuer(i.id, i.industry, i.name)
+  );
+}
+
 // ─── Ein Zyklus ───────────────────────────────────────────────────
 async function cycle() {
   log('─── Zyklus Start ───');
@@ -114,40 +139,35 @@ async function cycle() {
   // STUFE 2: offene Builds — alle parallel, kein Limit
   const open = listPending().filter(i => !i.built);
   const buildable = open.filter(i => i.hasValidEmail && i.images > 0 && !i.emailAlreadySent && !isKanzleiSteuer(i.id, i.industry, i.name));
-  const skipped = open.length - buildable.length;
-  if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail oder Bilder übersprungen.`);
-  const pending = buildable;
-  const builtIds = [];
-  if (pending.length === 0) {
+  if (open.length - buildable.length > 0) log(`⏭️  ${open.length - buildable.length} Lead(s) ohne valide E-Mail/Bilder oder Kanzlei/Steuer übersprungen.`);
+  if (buildable.length === 0) {
     log('Keine offenen Builds mit Bildern.');
   } else {
-    log(`${pending.length} offene Build(s) mit Bildern — paralleler Build.`);
-    const results = await Promise.allSettled(pending.map(item => buildLeadAsync(item)));
-    results.forEach((r, i) => {
-      if (r.status === 'fulfilled' && r.value) builtIds.push(pending[i].id);
-    });
+    log(`${buildable.length} offene Build(s) — paralleler Build.`);
+    await Promise.allSettled(buildable.map(item => buildLeadAsync(item)));
   }
 
-  // STUFE 3: Push sofort, E-Mail mit zufälliger Verzögerung (0–EMAIL_DELAY_MAX_MIN Min)
-  for (const id of builtIds) {
-    const item = pending.find(i => i.id === id);
-    if (!item) continue;
-    // 3a: Git Push
-    if (gitPushOne(item.id, item.name)) {
-      markPublished(item);
+  // STUFE 3: Backlog drainen — ALLE builtNotPublished publishen + mailen
+  const toPublish = backlogToPublish();
+  if (toPublish.length === 0) {
+    log('Nichts zu publizieren.');
+  } else {
+    log(`📤 Stufe 3 — publiziere ${toPublish.length} Lead(s) (Bulk-Push + gestaffelte E-Mail).`);
+    for (const item of toPublish) markPublished(item);
+    gitPushBulk(toPublish.map(i => i.id));
+    // E-Mail mit zufälliger Verzögerung (Timing UNVERÄNDERT: 0–EMAIL_DELAY_MAX_MIN Min)
+    for (const item of toPublish) {
+      const delaySec = EMAIL_DELAY_MAX_MIN > 0
+        ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60)
+        : 0;
+      log(`  📧 ${item.name} → E-Mail in ${(delaySec / 60).toFixed(1)} Min`);
+      setTimeout(() => {
+        const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', item.id], {
+          cwd: REPO, detached: true, stdio: 'ignore',
+        });
+        child.unref();
+      }, delaySec * 1000);
     }
-    // 3b: E-Mail mit zufälliger Verzögerung im Hintergrund
-    const delaySec = EMAIL_DELAY_MAX_MIN > 0
-      ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60)
-      : 0;
-    const delayMin = (delaySec / 60).toFixed(1);
-    log(`  📧 ${item.name} → E-Mail in ${delayMin} Min`);
-    setTimeout(() => {
-      const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', id], {
-        cwd: REPO, detached: true, stdio: 'ignore',
-      });
-      child.unref();
-    }, delaySec * 1000);
   }
 
   log('─── Zyklus Ende ───\n');
@@ -158,8 +178,8 @@ let running = true;
 process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; });
 
 (async () => {
-  log('═══ MZ.9 Lead Agent — Auto-Loop ═══');
-  log(`Intervall: ${INTERVAL_MIN} min | Builds parallel (alle offenen) | E-Mail-Verzögerung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
+  log('═══ MZ.9 Lead Agent — Auto-Loop (skalierbar) ═══');
+  log(`Intervall: ${INTERVAL_MIN} min | Builds parallel | Backlog-Drain pro Zyklus | E-Mail-Staffelung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
   do {
     try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
     if (process.env.ONCE === '1') break;
