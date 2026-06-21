@@ -184,7 +184,29 @@ async function fetchSiteImages(url) {
   try {
     const { html, finalUrl, status } = await fetchUrl(url);
     if (status >= 400 || !html) return [];
-    return extractImages(html, finalUrl);
+    let imgs = extractImages(html, finalUrl);
+    // WordPress: bei wenigen statischen Bildern → REST-API ziehen. Die holt
+    // auch JS/lazy-gerenderte Galerie-Bilder (Elementor o. ä.), die im statischen
+    // HTML fehlen — sonst wären viele WP-Sites bildlos (und damit nicht baubar).
+    if (imgs.length < 3 && /wp-content|wp-includes|wp-json/i.test(html)) {
+      try {
+        const origin = new URL(finalUrl).origin;
+        const r = await fetchUrl(`${origin}/wp-json/wp/v2/media?per_page=24&_fields=source_url,mime_type`);
+        const arr = JSON.parse(r.html);
+        if (Array.isArray(arr)) {
+          const isPhoto = (u) => !/sprite|icon|logo|pixel|spacer|blank|placeholder|\.svg/i.test(u) && /\.(jpe?g|png|webp|avif)(\?|$)/i.test(u);
+          for (const m of arr) {
+            if (imgs.length >= 12) break;
+            if (/image\/(jpeg|png|webp)/i.test(m.mime_type || '') && m.source_url && isPhoto(m.source_url)) {
+              const u = absoluteUrl(m.source_url, finalUrl);
+              if (u) imgs.push(u);
+            }
+          }
+          imgs = [...new Set(imgs)];
+        }
+      } catch {}
+    }
+    return imgs;
   } catch { return []; }
 }
 
