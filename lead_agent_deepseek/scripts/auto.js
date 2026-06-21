@@ -110,10 +110,11 @@ function buildPrompt(id, dir) {
     `- <html lang="de">, viewport, <meta name="robots" content="noindex">, Titel+Description aus echten Inhalten, sinnvolle alt-Texte.`,
     `- Voll responsive, valide, deutsch.`,
     `Antworte am Ende nur knapp; die geschriebene Datei ${out} ist das Ergebnis.`,
-  ].join('\n');
+  ].join(' ');
 }
 
-// ⚡ Parallel-Build: Promise-basiert, kein Timeout, keine Limits.
+// ⚡ Parallel-Build: Promise-basiert, mit Timeout + Ergebnis-Verifikation.
+const BUILD_TIMEOUT_MS = parseInt(process.env.BUILD_TIMEOUT_MIN || '8', 10) * 60_000;
 function buildLeadAsync(item) {
   return new Promise((resolve) => {
     const dir = path.join(PREVIEW_DIR, item.id);
@@ -126,9 +127,15 @@ function buildLeadAsync(item) {
       const prompt = buildPrompt(item.id, dir).replace(/"/g, '\\"');
       cmd = `claude -p "${prompt}" --dangerously-skip-permissions`;
     }
-    exec(cmd, { cwd: REPO }, (err) => {
-      if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.message}`); resolve(false); }
-      else resolve(true);
+    exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024 }, (err) => {
+      if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.killed ? 'Timeout' : err.message}`); resolve(false); return; }
+      // Ergebnis-Verifikation: index.html muss echt sein (>4 KB), sonst als gescheitert werten
+      try {
+        const out = path.join(dir, 'index.html');
+        if (!fs.existsSync(out) || fs.statSync(out).size < 4000) { log(`  ⚠️  Build ohne Ergebnis für ${item.id} (index.html fehlt/zu klein)`); resolve(false); return; }
+      } catch (e) { log(`  ⚠️  Build-Verifikation fehlgeschlagen für ${item.id}: ${e.message}`); resolve(false); return; }
+      log(`  ✅ Build ok: ${item.id}`);
+      resolve(true);
     });
   });
 }
