@@ -56,12 +56,10 @@ const SCRIPTS = __dirname;
 const REPO = path.join(ROOT, '..');                       // the-tribe/
 const QUEUE_FILE = path.join(ROOT, 'queue.json');
 const LEADS_DIR = path.join(ROOT, 'leads');
-const SCREENSHOT_SCRIPT = path.join(SCRIPTS, 'screenshot-compare.js');
 
 const INTERVAL_MIN = parseInt(process.env.INTERVAL_MINUTES || '5', 10);
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 const BUILD_TIMEOUT_MS = parseInt(process.env.BUILD_TIMEOUT_MIN || '8', 10) * 60_000;
-const PAGES_DEPLOY_WAIT_SEC = parseInt(process.env.PAGES_DEPLOY_WAIT_SEC || '75', 10);
 
 function ts() { return new Date().toLocaleTimeString('de-DE'); }
 function log(m) { console.log(`[${ts()}] ${m}`); }
@@ -203,7 +201,7 @@ async function stage1() {
 function buildPrompt(id, dir) {
   const job = path.join(dir, 'build-job.json');
   const out = path.join(dir, 'index.html');
-  return `Nutze den Skill „mz9-lead-build", um aus dem Build-Job ${job} eine eigenständige Premium-Konzeptseite (MZ.9-Akquise-Lead) zu bauen. Schreibe die fertige self-contained index.html nach: ${out}. Halte alle Eisen-Regeln aus dem Skill ein (Originalbilder aus images[] prominent, eigene branchenpassende Palette, nur echte Daten, noindex, lang=de, >4 KB). Antworte danach nur knapp.`;
+  return `Nutze den Skill „mz9-lead-build", um aus dem Build-Job ${job} eine eigenständige Premium-Konzeptseite (MZ.9-Akquise-Lead) zu bauen. Schreibe die fertige self-contained index.html nach: ${out}. WICHTIG: branchenspezifisches Design (NICHT pauschal dunkel), branchenspezifische Premium-Features (z. B. Terminbuchung, Speisekarte, Chatbot) — orientiert an der Analyse der Ursprungsseite (content/problems/opps). Halte die Eisen-Regeln aus dem Skill (Originalbilder aus images[] prominent, nur echte Daten, noindex, lang=de, >4 KB). Antworte danach nur knapp.`;
 }
 
 // claude-CLI auflösen. Windows: npm legt claude.cmd im globalen npm-Verz.;
@@ -249,57 +247,33 @@ async function stage2() {
   const skipped = open.length - buildable.length;
   if (skipped > 0) log(`⏭️  ${skipped} Lead(s) ohne valide E-Mail/Bilder oder bereits gemailt übersprungen.`);
   if (!buildable.length) { log('Keine offenen Builds mit Bildern.'); return; }
-  log(`${buildable.length} offene Build(s) — paralleler Build.`);
-  await Promise.allSettled(buildable.map(item => buildLeadAsync(item)));
+  // SERIELL (nicht parallel): parallele `claude -p`-Prozesse kollidieren auf Windows
+  // (Datei-Lock „von anderem Prozess verwendet"). Seriell ist zuverlässig.
+  log(`${buildable.length} offene Build(s) — serieller Build.`);
+  for (const item of buildable) { await buildLeadAsync(item); }
 }
 
-// ═══ STUFE 3: Publish + Screenshot + Mail ════════════════════════
-// Vergleichsbild erzeugen (Pages muss live sein). Fehler blockiert Mail NICHT.
-function generateCompare(item) {
-  return new Promise((resolve) => {
-    const jobFile = path.join(PREVIEW_DIR, item.id, 'build-job.json');
-    let website = '';
-    try { website = JSON.parse(fs.readFileSync(jobFile, 'utf8')).website || ''; } catch {}
-    if (!website) { log(`  🖼️  ${item.id}: kein Vergleich (noweb) — Mail ohne Anhang.`); return resolve(); }
-    // Pages-Deploy abwarten, dann mit Retry screenshoten.
-    setTimeout(() => {
-      const tryOnce = (attempt) => {
-        exec(`node "${SCREENSHOT_SCRIPT}" ${item.id}`, { cwd: REPO, timeout: 120000, maxBuffer: 8 * 1024 * 1024 }, (err) => {
-          if (err) {
-            if (attempt < 2) { log(`  🖼️  ${item.id}: Screenshot-Versuch ${attempt + 1} fehlgeschlagen, Retry in 30s…`); setTimeout(() => tryOnce(attempt + 1), 30000); }
-            else { log(`  ⚠️  ${item.id}: Vergleichsbild nicht erstellt — Mail ohne Anhang.`); resolve(); }
-          } else {
-            log(`  🖼️  ${item.id}: Vergleichsbild erstellt.`);
-            resolve();
-          }
-        });
-      };
-      tryOnce(0);
-    }, PAGES_DEPLOY_WAIT_SEC * 1000);
-  });
-}
-
+// ═══ STUFE 3: Publish + Mail ════════════════════════════════════
+// Screenshot + gestaffelter Versand laufen JEDE einzeln in send_mail.js als
+// eigener, detached Prozess — sie überleben den Loop-Tod (früher gingen
+// per setTimeout geplante Mails verloren, wenn der Loop endete).
 async function stage3() {
   const built = listBuiltNotSent();
   if (!built.length) { log('Nichts zu publizieren/mailen.'); return; }
   const toPublish = built.filter(i => i.status !== 'published');
   const toEmail = built;
-  log(`📤 Stufe 3 — ${toPublish.length} publishen, ${toEmail.length} mailen (gestaffelt).`);
+  log(`📤 Stufe 3 — ${toPublish.length} publishen, ${toEmail.length} mailen (gestaffelt via send_mail).`);
   for (const item of toPublish) markPublished(item);
   if (toPublish.length) gitPushBulk(toPublish.map(i => i.id));
 
-  // Pro Lead: nach Pages-Deploy Screenshot, dann Mail (Timing: 0–EMAIL_DELAY_MAX_MIN).
+  // Pro Lead: send_mail.js detached starten. Dort: Pages-Deploy-Warte → Screenshot
+  // (mit Retry) → 0–EMAIL_DELAY_MAX_MIN Staffelung → Versand → recordSent.
   for (const item of toEmail) {
-    const delaySec = EMAIL_DELAY_MAX_MIN > 0 ? Math.floor(Math.random() * EMAIL_DELAY_MAX_MIN * 60) : 0;
-    log(`  📧 ${item.name} → Screenshot+Mail in ${(delaySec / 60).toFixed(1)} Min`);
-    setTimeout(() => {
-      generateCompare(item).finally(() => {
-        const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', item.id], {
-          cwd: REPO, detached: true, stdio: 'ignore',
-        });
-        child.unref();
-      });
-    }, delaySec * 1000);
+    log(`  📧 ${item.name} → Versand-Prozess gestartet`);
+    const child = spawn('node', ['lead_agent_deepseek/scripts/send_mail.js', item.id], {
+      cwd: REPO, detached: true, stdio: 'ignore',
+    });
+    child.unref();
   }
 }
 

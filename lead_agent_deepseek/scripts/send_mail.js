@@ -9,7 +9,12 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer, loadSent, recordSent, PREVIEW_DIR } = require('./rules');
+
+const SCREENSHOT_SCRIPT = path.join(__dirname, 'screenshot-compare.js');
+const REPO = path.join(PREVIEW_DIR, '..', '..');
+const PAGES_DEPLOY_WAIT_SEC = parseInt(process.env.PAGES_DEPLOY_WAIT_SEC || '75', 10);
 
 function loadEnv() {
   const envFile = path.join(__dirname, '..', '.env');
@@ -108,23 +113,67 @@ function buildMail(lead) {
 function buildHtmlMail(lead) {
   const { subject, body } = buildMail(lead);
   const previewUrl = lead.preview;
-  const lines = body.split('\n');
-  let h = '';
-  for (const line of lines) {
-    const t = line.trim();
-    if (!t) { h += '<br>\n'; }
-    else if (t.startsWith('👉')) { h += `<p style="margin:12px 0"><a href="${previewUrl}" style="color:#2563eb;font-weight:600;font-size:16px;text-decoration:none">👉 Zur unverbindlichen Vorschau</a></p>\n`; }
-    else if (t === 'Viele Grüße') { h += `<p style="margin:18px 0 4px;color:#333">${t}</p>\n`; }
-    else if (t === 'Maik') { h += `<p style="margin:0;color:#333">${t}</p>\n`; }
-    else if (t.startsWith('MZ.9')) { h += `<p style="margin:0"><a href="${MZ9_URL}" style="color:#2563eb;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>\n`; }
-    else if (t.startsWith('https://')) { continue; }
-    else { h += `<p style="margin:8px 0;color:#333">${t}</p>\n`; }
-  }
-  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:0 auto;padding:20px;color:#1a1a2e;line-height:1.6">${lead.hasCompare ? `<div style="margin:0 0 24px;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.12)"><img src="cid:compare@mz9" alt="Vorher/Nachher Vergleich" style="width:100%;display:block"></div><p style="font-size:12px;color:#888;margin:-16px 0 20px;text-align:center">Links: Aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</p>` : ''}${h}</body></html>`;
+  // Zeilen, die als eigener Block (CTA/Footer) gerendert werden, im Body überspringen.
+  const skip = (t) => !t || t.startsWith('👉') || t === 'Viele Grüße' || t === 'Maik'
+    || t.startsWith('MZ.9') || t.startsWith('https://');
+  const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t))
+    .map(t => `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`).join('\n');
+  const compareBlock = lead.hasCompare
+    ? `      <tr><td style="padding:22px 28px 0">
+        <img src="cid:compare@mz9" alt="Vorher/Nachher Vergleich" style="width:100%;border-radius:10px;display:block;border:1px solid #ECE9E3">
+      </td></tr>
+      <tr><td style="padding:6px 28px 0;font-size:11px;color:#8a8a8a;text-align:center">Links: aktuelle Website · Rechts: MZ.9 Konzept-Vorschau</td></tr>\n`
+    : '';
+  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
+<body style="margin:0;padding:0;background:#ECEAE4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#1a1a2e">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ECEAE4;padding:28px 12px">
+<tr><td align="center">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FBFAF8;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.10)">
+<tr><td style="background:#0A0A0B;padding:20px 28px">
+  <span style="font-size:18px;font-weight:600;letter-spacing:.14em;color:#F0EEE9">MZ.<span style="color:#10B981">9</span></span>
+  <span style="float:right;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7C7A75;padding-top:7px">Konzept-Vorschau</span>
+</td></tr>
+${compareBlock}<tr><td style="padding:22px 28px 6px">
+${paras}
+</td></tr>
+<tr><td align="center" style="padding:14px 28px 26px">
+  <a href="${previewUrl}" style="display:inline-block;background:#10B981;color:#04130d;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur unverbindlichen Vorschau &rarr;</a>
+</td></tr>
+<tr><td style="padding:18px 28px;border-top:1px solid #ECE9E3;background:#F4F2EC">
+  <p style="margin:0 0 3px;font-weight:600;color:#1a1a2e">Viele Grüße</p>
+  <p style="margin:0 0 2px;color:#2a2a35">Maik</p>
+  <p style="margin:0"><a href="${MZ9_URL}" style="color:#0E9C75;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>
+  <p style="margin:10px 0 0;font-size:11px;color:#9a9a9a;line-height:1.5">Unverbindliche Konzept-Vorschau · keine Rechnung · MZ.9, Bielefeld</p>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>`;
   return { to: lead.email, subject, body, html };
 }
 
+// Vergleichsbild (Original vs. MZ.9-Preview) erzeugen, NACHDEM die Seite auf
+// GitHub Pages live ist. noweb-Leads → überspringen. Fehler → Mail ohne Anhang.
+async function runScreenshot(id) {
+  const jobFile = path.join(PREVIEW_DIR, id, 'build-job.json');
+  let website = '';
+  try { website = JSON.parse(fs.readFileSync(jobFile, 'utf8')).website || ''; } catch {}
+  if (!website) { console.log(`  🖼️  ${id}: kein Vergleich (noweb) — Mail ohne Anhang.`); return; }
+  await new Promise(r => setTimeout(r, PAGES_DEPLOY_WAIT_SEC * 1000));
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const ok = await new Promise(resolve => {
+      exec(`node "${SCREENSHOT_SCRIPT}" ${id}`, { cwd: REPO, timeout: 120000, maxBuffer: 8 * 1024 * 1024 }, (err) => resolve(!err));
+    });
+    if (ok) { console.log(`  🖼️  ${id}: Vergleichsbild erstellt.`); return; }
+    if (attempt < 2) { console.log(`  🖼️  ${id}: Screenshot-Versuch ${attempt + 1} fehlgeschlagen, Retry in 30s…`); await new Promise(r => setTimeout(r, 30000)); }
+  }
+  console.log(`  ⚠️  ${id}: Vergleichsbild nicht erstellt — Mail ohne Anhang.`);
+}
+
 async function sendHtmlMail(lead, dryRun = false) {
+  // Vor dem Versand: Vergleichsbild erzeugen (Pages muss live sein). noweb → ohne.
+  // Fehler blockiert den Versand nicht (Mail geht ggf. ohne Anhang raus).
+  if (!dryRun) await runScreenshot(lead.id);
   const { to, subject, body, html } = buildHtmlMail(lead);
   if (!to) { console.log(`  ⚠️  Keine E-Mail für ${lead.id}`); return { success: false }; }
   if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
@@ -175,4 +224,8 @@ async function main() {
   }
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+if (require.main === module) {
+  main().catch(err => { console.error(err); process.exit(1); });
+}
+
+module.exports = { buildMail, buildHtmlMail };
