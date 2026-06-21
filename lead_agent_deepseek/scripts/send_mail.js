@@ -47,6 +47,26 @@ const FROM = {
 function loadSent() { try { return JSON.parse(fs.readFileSync(SENT_FILE, 'utf8')); } catch { return {}; } }
 function saveSent(sent) { fs.writeFileSync(SENT_FILE, JSON.stringify(sent, null, 2)); }
 
+// ─── Mutex um sent.json (keine lost updates bei konkurrenten Versande) ───
+const SENT_LOCK = path.join(ROOT, '.sent.lock');
+function withSentLock(fn) {
+  // Exklusives Lock via 'wx' (Create-new). Spinnt kurz, bis frei.
+  const deadline = Date.now() + 30000;
+  while (Date.now() < deadline) {
+    try { fs.writeFileSync(SENT_LOCK, String(process.pid), { flag: 'wx' }); break; }
+    catch (e) { if (e.code !== 'EEXIST') throw e; }
+    const t = Date.now(); while (Date.now() - t < 50) {} // kurzer Backoff
+  }
+  try { return fn(); } finally { try { fs.unlinkSync(SENT_LOCK); } catch {} }
+}
+// Frisch laden + schreiben unter Lock — race-sicher.
+function recordSent(id) {
+  return withSentLock(() => {
+    const sent = loadSent();
+    if (!sent[id]) { sent[id] = new Date().toISOString(); saveSent(sent); }
+  });
+}
+
 function loadLeads() {
   const leads = [];
   let dirs = [];
@@ -156,7 +176,7 @@ async function main() {
     for (const lead of pending) {
       console.log(`→ ${lead.name}`);
       const r = await sendHtmlMail(lead, dryRun);
-      if (r.success && !dryRun) { sent[lead.id] = new Date().toISOString(); saveSent(sent); }
+      if (r.success && !dryRun) recordSent(lead.id);
       // Keine Batch-Pause — E-Mails werden einzeln via auto.js mit 0–10 Min Staffelung versendet.
     }
   } else if (targetId) {
@@ -171,7 +191,7 @@ async function main() {
       await new Promise(r => setTimeout(r, ds * 1000));
     }
     const r = await sendHtmlMail(lead, dryRun);
-    if (r.success && !dryRun) { if (!sent[lead.id]) sent[lead.id] = new Date().toISOString(); saveSent(sent); }
+    if (r.success && !dryRun) recordSent(lead.id);
   } else {
     const open = leads.filter(l => !sent[l.id] && l.built).length;
     console.log(`\nStatus: ${open} sendbar · ${Object.keys(sent).length} gesendet`);

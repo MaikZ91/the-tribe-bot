@@ -45,6 +45,23 @@ function run(cmd, opts = {}) {
   return execSync(cmd, { cwd: REPO, stdio: 'inherit', ...opts });
 }
 
+// ─── Single-Instance-Lock (verhindert konkurrente Loops) ──────────
+const LOCKFILE = path.join(ROOT, '.auto.lock');
+function isPidAlive(pid) {
+  try { process.kill(pid, 0); return true; } catch { return false; }
+}
+function acquireLock() {
+  if (fs.existsSync(LOCKFILE)) {
+    const pid = parseInt(String(fs.readFileSync(LOCKFILE, 'utf8')).trim(), 10);
+    if (pid && isPidAlive(pid)) {
+      log(`⏹️  Auto-Loop läuft bereits (PID ${pid}). Kein zweiter Start — Abbruch.`);
+      process.exit(0);
+    }
+  }
+  fs.writeFileSync(LOCKFILE, String(process.pid));
+}
+function releaseLock() { try { fs.unlinkSync(LOCKFILE); } catch {} }
+
 // ─── Bulk git push für alle publizierten Leads eines Zyklus ───────
 function gitPushBulk(ids) {
   try {
@@ -175,16 +192,22 @@ async function cycle() {
 
 // ─── Loop ─────────────────────────────────────────────────────────
 let running = true;
-process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; });
+process.on('SIGINT', () => { log('⏹️  Beende...'); running = false; releaseLock(); });
+process.on('SIGTERM', () => { running = false; releaseLock(); process.exit(0); });
 
 (async () => {
+  acquireLock();
   log('═══ MZ.9 Lead Agent — Auto-Loop (skalierbar) ═══');
   log(`Intervall: ${INTERVAL_MIN} min | Builds parallel | Backlog-Drain pro Zyklus | E-Mail-Staffelung: 0–${EMAIL_DELAY_MAX_MIN} Min | Build: ${process.env.BUILD_CMD ? 'BUILD_CMD' : 'claude -p'}`);
-  do {
-    try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
-    if (process.env.ONCE === '1') break;
-    if (!running) break;
-    await new Promise(r => setTimeout(r, INTERVAL_MIN * 60_000));
-  } while (running);
+  try {
+    do {
+      try { await cycle(); } catch (e) { log(`❌ Zyklus-Fehler: ${e.message}`); }
+      if (process.env.ONCE === '1') break;
+      if (!running) break;
+      await new Promise(r => setTimeout(r, INTERVAL_MIN * 60_000));
+    } while (running);
+  } finally {
+    releaseLock();
+  }
   log('👋 Auto-Loop beendet.');
 })();
