@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Elektro Martin Bolder | Spitzentechnologie in 4. Generation — Konzept-Vorschau</title>
+  <meta name="description" content="Elektro Martin Bolder — Wir liefern und installieren Spitzentechnologie mit höchster Kompetenz und Zuverlässigkeit. Ihr Elektrobetrieb in Köln in der 4. Generation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#c97f1a;
+      --primary-dark:#a06312;
+      --secondary:#1e3a5f;
+      --bg-light:#f8f7f4;
+      --bg-white:#ffffff;
+      --text-dark:#1a1a1a;
+      --text-medium:#4a4a4a;
+      --text-light:#6b6b6b;
+      --border:#e5e4e1;
+      --shadow:0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg:0 8px 40px rgba(0,0,0,0.12)
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg-light);color:var(--text-dark);line-height:1.6;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;border:none;background:none;cursor:pointer}
+
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .section{padding:80px 0}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+    .reveal.in{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}}
+
+    .header{position:fixed;top:0;left:0;right:0;background:var(--bg-white);z-index:100;transition:box-shadow 0.3s ease}
+    .header.scrolled{box-shadow:var(--shadow)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+    .header-logo{font-weight:800;font-size:1.4rem;color:var(--secondary);letter-spacing:-0.5px}
+    .header-logo span{color:var(--primary)}
+    .header-nav{display:flex;gap:30px}
+    .header-nav a{font-weight:500;color:var(--text-medium);transition:color 0.2s}
+    .header-nav a:hover{color:var(--primary)}
+    .header-cta{background:var(--primary);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;transition:background 0.2s}
+    .header-cta:hover{background:var(--primary-dark)}
+    .header-menu-btn{display:none;padding:8px}
+    .header-menu-btn svg{width:28px;height:28px;stroke:var(--text-dark)}
+
+    @media(max-width:768px){
+      .header-nav{display:none}
+      .header-menu-btn{display:block}
+    }
+
+    .hero{position:relative;min-height:85vh;display:flex;align-items:center;overflow:hidden}
+    .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1}
+    .hero-bg img{width:100%;height:100%;object-fit:cover}
+    .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to right,rgba(30,58,95,0.88) 0%,rgba(30,58,95,0.6) 50%,rgba(0,0,0,0.3) 100%)}
+    .hero-content{max-width:600px;color:#fff}
+    .hero-tag{display:inline-block;background:var(--primary);padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:20px}
+    .hero h1{font-size:clamp(2.5rem,5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+    .hero p{font-size:1.2rem;color:rgba(255,255,255,0.9);margin-bottom:30px;line-height:1.7}
+    .hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+    .hero-cta-primary{background:var(--primary);color:#fff;padding:16px 32px;border-radius:10px;font-weight:600;font-size:1.05rem;transition:background 0.2s,transform 0.2s}
+    .hero-cta-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
+    .hero-cta-secondary{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);color:#fff;padding:16px 32px;border-radius:10px;font-weight:600;font-size:1.05rem;border:1px solid rgba(255,255,255,0.3);transition:background 0.2s}
+    .hero-cta-secondary:hover{background:rgba(255,255,255,0.25)}
+
+    @media(max-width:768px){
+      .hero{min-height:75vh;align-items:flex-end;padding-bottom:60px}
+      .hero-overlay{background:linear-gradient(to top,rgba(30,58,95,0.95) 0%,rgba(30,58,95,0.7) 50%,rgba(0,0,0,0.3) 100%)}
+      .hero h1{font-size:2.2rem}
+      .hero-ctas{flex-direction:column}
+      .hero-cta-primary,.hero-cta-secondary{width:100%;text-align:center}
+    }
+
+    .usps{background:var(--bg-white);padding:50px 0;box-shadow:var(--shadow);position:relative;z-index:10}
+    .usps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+    .usp-item{text-align:center;padding:20px 10px}
+    .usp-icon{width:56px;height:56px;background:var(--primary);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .usp-icon svg{width:28px;height:28px;stroke:#fff}
+    .usp-item h3{font-weight:700;font-size:0.95rem;margin-bottom:8px;color:var(--secondary)}
+    .usp-item p{font-size:0.85rem;color:var(--text-light)}
+
+    @media(max-width:900px){
+      .usps-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:480px){
+      .usps-grid{grid-template-columns:1fr}
+    }
+
+    .section-header{text-align:center;margin-bottom:50px}
+    .section-tag{display:inline-block;background:var(--primary);color:#fff;padding:6px 18px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+    .section-header h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;color:var(--secondary);margin-bottom:16px;letter-spacing:-0.5px}
+    .section-header p{font-size:1.1rem;color:var(--text-medium);max-width:600px;margin:0 auto}
+
+    .services{background:var(--bg-light)}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+    .service-card{background:var(--bg-white);border-radius:16px;padding:30px;transition:transform 0.3s,box-shadow 0.3s;border:1px solid var(--border)}
+    .service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+    .service-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .service-icon svg{width:26px;height:26px;stroke:#fff}
+    .service-card h3{font-weight:700;font-size:1.2rem;margin-bottom:12px;color:var(--secondary)}
+    .service-card p{font-size:0.95rem;color:var(--text-light);line-height:1.7}
+
+    .generations{background:var(--secondary);color:#fff;overflow:hidden}
+    .generations-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .generations-content{max-width:520px}
+    .generations-content h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;margin-bottom:24px;letter-spacing:-0.5px}
+    .generations-content p{font-size:1.1rem;color:rgba(255,255,255,0.85);line-height:1.8;margin-bottom:20px}
+    .generations-badge{display:inline-flex;align-items:center;gap:12px;background:rgba(201,127,26,0.2);padding:12px 20px;border-radius:10px;border:1px solid rgba(201,127,26,0.4);margin-top:20px}
+    .generations-badge svg{width:24px;height:24px;stroke:var(--primary)}
+    .generations-badge span{font-weight:600;color:var(--primary)}
+    .generations-images{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .generations-images img{border-radius:12px;width:100%;height:200px;object-fit:cover}
+    .generations-images img:nth-child(1){grid-column:1/3;height:240px}
+
+    @media(max-width:900px){
+      .generations-inner{grid-template-columns:1fr;gap:40px}
+      .generations-images{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:500px){
+      .generations-images{grid-template-columns:1fr}
+      .generations-images img:nth-child(1){grid-column:1;height:180px}
+      .generations-images img{height:160px}
+    }
+
+    .contact-form-section{background:var(--bg-white)}
+    .contact-wrapper{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+    .contact-info h3{font-size:1.8rem;font-weight:700;color:var(--secondary);margin-bottom:24px}
+    .contact-info p{color:var(--text-medium);line-height:1.8;margin-bottom:30px}
+    .contact-links{display:flex;flex-direction:column;gap:16px}
+    .contact-link{display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-light);border-radius:10px;transition:background 0.2s}
+    .contact-link:hover{background:#efece5}
+    .contact-link-icon{width:44px;height:44px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .contact-link-icon svg{width:22px;height:22px;stroke:#fff}
+    .contact-link-text span:first-child{font-weight:600;color:var(--secondary);display:block}
+    .contact-link-text span:last-child{font-size:0.9rem;color:var(--text-light)}
+
+    .form-box{background:var(--bg-light);border-radius:20px;padding:40px;box-shadow:var(--shadow)}
+    .form-box h3{font-size:1.5rem;font-weight:700;color:var(--secondary);margin-bottom:8px}
+    .form-box p{font-size:0.9rem;color:var(--text-light);margin-bottom:24px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;font-weight:600;color:var(--secondary);margin-bottom:8px;font-size:0.9rem}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-family:inherit;font-size:1rem;transition:border-color 0.2s;background:var(--bg-white)}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary)}
+    .form-group textarea{min-height:120px;resize:vertical}
+    .form-submit{width:100%;background:var(--primary);color:#fff;padding:16px;border-radius:10px;font-weight:700;font-size:1.1rem;transition:background 0.2s,transform 0.2s}
+    .form-submit:hover{background:var(--primary-dark);transform:translateY(-2px)}
+
+    @media(max-width:900px){
+      .contact-wrapper{grid-template-columns:1fr}
+    }
+    @media(max-width:600px){
+      .form-row{grid-template-columns:1fr}
+      .form-box{padding:30px 20px}
+    }
+
+    .gallery{background:var(--bg-light)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .gallery-item{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+    .gallery-item:hover img{transform:scale(1.05)}
+
+    @media(max-width:900px){
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:500px){
+      .gallery-grid{grid-template-columns:1fr}
+    }
+
+    .cta-band{background:linear-gradient(135deg,var(--secondary) 0%,var(--primary-dark) 100%);color:#fff;padding:80px 0;text-align:center}
+    .cta-band h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:20px;letter-spacing:-0.5px}
+    .cta-band p{font-size:1.2rem;color:rgba(255,255,255,0.9);margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+    .cta-band-cta{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;padding:18px 40px;border-radius:12px;font-weight:700;font-size:1.15rem;transition:background 0.2s,transform 0.2s}
+    .cta-band-cta:hover{background:var(--primary-dark);transform:translateY(-3px)}
+    .cta-band-cta svg{width:24px;height:24px;stroke:#fff}
+
+    .footer{background:var(--secondary);color:rgba(255,255,255,0.7);padding:40px 0 100px;text-align:center;font-size:0.9rem}
+    .footer a{color:var(--primary);font-weight:600}
+    .footer-divider{width:60px;height:2px;background:var(--primary);margin:20px auto}
+
+    .mobile-cta{position:fixed;bottom:0;left:0;right:0;background:var(--bg-white);padding:12px 20px;box-shadow:0 -4px 20px rgba(0,0,0,0.1);z-index:200;display:none}
+    .mobile-cta-inner{max-width:1200px;margin:0 auto;display:flex;gap:12px}
+    .mobile-cta-phone{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--secondary);color:#fff;padding:14px;border-radius:10px;font-weight:600;font-size:1rem}
+    .mobile-cta-phone svg{width:20px;height:20px;stroke:#fff}
+    .mobile-cta-form{flex:1.5;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--primary);color:#fff;padding:14px;border-radius:10px;font-weight:600;font-size:1rem}
+    .mobile-cta-form svg{width:20px;height:20px;stroke:#fff}
+
+    @media(max-width:768px){
+      .mobile-cta{display:block}
+      .footer{padding-bottom:80px}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="header-logo">Elektro <span>Bolder</span></div>
+      <nav class="header-nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#galerie">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#kontakt" class="header-cta">Anfrage senden</a>
+      <button class="header-menu-btn" aria-label="Menü">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/_AHC0410_home_1000x662-1920w.jpg?Expires=1784340861&Signature=GhzJf8GkBpoIlRJE4H9M~s2XiGHIw--OeWF8jlardGkGcmc41BCbD4HoWpyEjMizkGJm3xciX-C~0er8Hou-7ROk5PxV9lyULdI2A-jpQsadFL8rNTkDe-DV1op9QKriF30shknOsRc-LgetOpe0oNcA8FU1SGgB0mt97-ZfLGPepa2g0dfPzx-SDLVvsLCWl6Wazot1JaCeqE0TQAMCfs0PDnyqFxGlvDye45G40qMsnZ4-q1Xwm1WJTDNHfwC~XMGAx1ym6Ix3ImPaXz4Glv~gEOm~OSni0foC5fj0gHhMqy9tKs3G8Tdg6V9XzquRm2hknuf1cXbtVkAgFX5HFg__&Key-Pair-Id=K2NXBXLF010TJW" alt="Elektro Martin Bolder — Professionelle Elektroinstallation">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-tag">4. Generation</span>
+        <h1>Spitzentechnologie. Mit höchster Kompetenz.</h1>
+        <p>Wir liefern und installieren Elektrotechnik für private und gewerbliche Projekte. Ihr zuverlässiger Partner in Köln seit über 80 Jahren.</p>
+        <div class="hero-ctas">
+          <a href="#kontakt" class="hero-cta-primary">Kostenlose Anfrage</a>
+          <a href="#leistungen" class="hero-cta-secondary">Unsere Leistungen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="usps">
+    <div class="container">
+      <div class="usps-grid">
+        <div class="usp-item reveal">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>4. Generation</h3>
+          <p>Familientradition seit über 80 Jahren</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3>Zuverlässig</h3>
+          <p>Termintreue & pünktliche Ausführung</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+          </div>
+          <h3>Zertifiziert</h3>
+          <p>Qualität nach geltenden Normen</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </div>
+          <h3>Regional</h3>
+          <p>Ihr Partner in Köln und Umgebung</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Leistungen</span>
+        <h2>Alles aus einer Hand</h2>
+        <p>Von der Planung bis zur Installation — wir realisieren Ihre Elektroprojekte kompetent und zuverlässig.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>Elektroinstallation</h3>
+          <p>Neubau, Sanierung und Modernisierung — wir installieren Ihre elektrische Anlage nach aktuellen Normen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>Smart Home</h3>
+          <p>Komfortable Gebäudeautomation für mehr Sicherheit, Energieeffizienz und Wohnkomfort.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <h3>Sicherheitstechnik</h3>
+          <p>Einbruchmeldeanlagen, Brandmeldeanlagen und Videoüberwachung für Ihren Schutz.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </div>
+          <h3>Beleuchtung</h3>
+          <p>Individuelle Lichtkonzepte für Innenräume und Außenbereiche — von Planung bis Umsetzung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h3>Gewerbe</h3>
+          <p>Komplettlösungen für Büros, Gastronomie und Produktion — von der Planung bis zur Inbetriebnahme.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h3>Wartung & Service</h3>
+          <p>Regelmäßige Wartung und schneller Service-Standby für Ihre elektrische Anlage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section generations" id="ueber-uns">
+    <div class="container">
+      <div class="generations-inner">
+        <div class="generations-content reveal">
+          <span class="section-tag">Über uns</span>
+          <h2>Das Unternehmen in der 4. Generation</h2>
+          <p>Seit über 80 Jahren steht Elektro Martin Bolder für Qualität und Zuverlässigkeit. Was als kleiner Familienbetrieb begann, ist heute ein moderner Elektrodienstleister, der Tradition mit Innovation verbindet.</p>
+          <p>Von Urgroßvater bis heute — vier Generationen haben das Unternehmen geprägt und weiterentwickelt. Heute arbeiten wir mit modernster Technik und höchsten Standards, ohne unsere Wurzeln zu vergessen.</p>
+          <div class="generations-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span>4 Generationen Kompetenz</span>
+          </div>
+        </div>
+        <div class="generations-images reveal">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/generationen_uropa-1920w.jpg?Expires=1784340861&Signature=CUiIx~wkDyCSeqY5CqU9y9XfWcARUs9eS3pT~3FcoHMmuDlFET9-YHLTTBPiplyhgnof1J0b-EJzTc7WaSSn3cba3dLEOtHDZwSzg~QEeU-T79e3UNj0-UnX0OHgVqwaUmdKCUK0OPh6n2FVdHmVWl2rAkfJB039SEJ5EkWNdr~ONkUbDKM-IBNKzj4OvVwfZm5j-udtpzyxztO~6EWOG5lq9RWXHXqGPxlSPJPlWSvkbkvMWrQxbUs~Aw1HwAOPT1n6ZErcHJ~AoR7tP2b1vWhjwyVAluiA9TZ5R~gCexzSm5cjhi9XRHfMssHt0fc~5UCtQU0JD5K~USlQ6irjg__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Familientradition Elektro Bolder">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/generationen_martin-1920w.jpg?Expires=1784340861&Signature=hknUd7KGrgzrKZKFEALPa9aB0nFLA~Uo4~7xiZvI5HGC78RN9W3vTkx3lHDEsX9dF-pL-EglhALJgfkKSb~wMTRo~CPdEaPiSz8hLswpHrbczOXP1~2yvQCfRpBf4ZB0p5Pnr15nUeZRDjyfFvM2c5~qcVJBf-Wk5Pb2sx-aXsdagbXzkA~bTE0maMSHJLDOp8kitoKGuZJOIG6G~UZcDDud1JVnI~GoqXqDee~Hr6mdHorfDbh8XuXw1hjjA1ttbHaq8Ok755RGZ~jLsSc14x6qcGOv6W~EcyogUYy8ojp0xn0tHAVBEY7jJt7afIPVkOjT92R-hn7jQKrdXrrZ4A__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Martin Bolder">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/generationen_paul-1920w.jpg?Expires=1784340861&Signature=bJ7lIM5ngacQY3bs9DpKx9xYMntZNVxOdpiazftWisfS4Y2myk1qqiv3lOwi0O~tfEwrGcveMw1FP9NghMAiM~TeUsjDbWvxq8w2XpynRbhwMFPsMAMOFADg0jwfhXC32MY5YVYFb~SCRIfCGLHg8W9RxoUbK3EGDpGKs9krVAhMihoPQ3qiRL~8FrQ2C1FAB02l2s53pZPlPpNEYs5I-080gBAWq7XZoBP2HU6lkr8cxxLl~MfCo4t9L67UIY2zDph0RoKkopvTOUJRz4nsjJXo~tLG0mO9238GA24mChWxNuX9s0OG0kfvxJ9farGKubsPG7ThV2LBm7CGIekrsQ__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Paul Bolder">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Projekte</span>
+        <h2>Aus unserer Arbeit</h2>
+        <p>Ein Einblick in unsere Projekte — von Privathaushalten bis zu gewerblichen Installationen.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/_AHC0447_1000x662-1920w.jpg?Expires=1784340861&Signature=PHQT8GGaFv8ZT-6U043nyY9A9BhIOd9rR3a3QxnxbfRMrkWsiTES78DLXyLHxoXwboE5jZHIbshGpTKasm3gblL-C52QlvoiOdtyV8v1J-7v7Q47y0FO~tT-HGywscac94kZRxHjOOpufAQsMskwpnDFHblgv36EhE3GIhOFxBFvmh2cJu5XtIBwvV3CRQml-DVn9tTscYW4H7URhm6pOWA2WbNKQo7ZEBpHQ4s-ZTWcePQJvO52JRpTu2-JbdTyEw-~SqQaqK~bPM98bVelAA8kjm0UgojUAJ5vB~QRpP6fmTtWGEKOlcR0SET39CXCHvSyiRuyFsNzZg46ivuzYg__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Projekt Elektroinstallation">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/_AHC0482_1000x662-1920w.jpg?Expires=1784340861&Signature=VXoP99uXxvJ9IP-rGIWZqHVvj9sZERYlAXufThFAKCBo3QS1ph4pEh7OpdUBMhq1VmI4KVsCADD9ALSO4co2cjnbRxsUChqyJpasMDTw7xdZzUvKS7Wqsn1rbu0~W6oczg7JTwVgeaCfY9SDtKst316rKjFB3yi0BkxqT5wXTtZuBjjwJr36qYInUclNkZzpn0TysBE5RZi0z1q1v~RZr8dxVQpjblwlH81bh-2zmewh8QPP5XhJBSXyF4w5Sa3yFdmCIsKaV8RekpKd1xbDBRxxHwV8d~wcVwbOLQtixCsqHxs40TNUUUz7Gm2gbRYFjdGnEEDuDjLFnXIqaxDPUQ__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Projekt Gewerbeinstallation">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/_AHC4810_1000x662-1920w.jpg?Expires=1784340861&Signature=DdtMrPC4qS6S6qDzonBDU~SX2ZIEVYJ-7pNkgbLtVtV6TKehK9wbcDDbbJiUUNjsonnk5wjfwbiANvotJ6e-8OYKc~HVZ2rkUTJqWj5F3J9J9C0LulrAQQ8w~J65NnL5~Zkx~gGLCGf9qa17a1VSc5kx-Q9UdL06l5ezjnmLdFWvE6JdxyKyxVgBOy~Wqs3KeW9aZF3AiBXCqf2QFJJsRzZ-PO3b5l7P~2sSX4fRPI4yTaz0Xc3OFnR~9HAQh5b0voUwToVthxAPoK11pFUKQvOCsE562A4SAvCRJT71wbVoIbMhVTmn2WkKGbX8J9qs1rNu-1p-QkvoI7DzXjXeaQ__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Projekt Beleuchtung">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-cdn.website-editor.net/s/3e5b3c3538ff447f9c382ae3ec179a1d/dms3rep/multi/opt/_AHC0011-1920w.jpg?Expires=1784340861&Signature=XKZGkZW1XzrRtq551S41EgzHcG9ABb8qWmAjSGkp1zslhD~F~9nn3OeYelqckAV~ubXBIygCt5th9QdagrpqOK3xTFzyjg-e41~4gX3bs6YDLN-NoyckxuFq~ZDp7E7SBH5VL3DFRBCNoZbvPhLDZUJ0Yxk~OZ1W7LQgL1w2pduQCpkwtTh-cCkEy7hMyaNbcql0whYiYBnFb-uDlZd4spUhaIcYxqWdgcQWr6jka4E1WmAZjrdhWb0WG4IYILxRwMsIcETOBUT--L1CHtwGKzIKFZVy-jpCled1Jv9Pwb2eZQTfG-Wo1xNeTEe9mZ7zm5AVKmQUPtD123MF1iKZOQ__&Key-Pair-Id=K2NXBXLF010TJW" loading="lazy" alt="Projekt Smart Home">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-form-section" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Kontakt</span>
+        <h2>Sprechen Sie uns an</h2>
+        <p>Wir beraten Sie gerne zu Ihrem Projekt — unverbindlich und persönlich.</p>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <h3>Kontaktinformationen</h3>
+          <p>Erreichen Sie uns telefonisch, per E-Mail oder über unser Anfrageformular. Wir melden uns schnellstmöglich zurück.</p>
+          <div class="contact-links">
+            <a href="tel:000000999" class="contact-link">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span>Telefon</span>
+                <span>000000999</span>
+              </div>
+            </a>
+            <a href="mailto:info@elektrobolder.de" class="contact-link">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span>E-Mail</span>
+                <span>info@elektrobolder.de</span>
+              </div>
+            </a>
+            <div class="contact-link">
+              <div class="contact-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="contact-link-text">
+                <span>Standort</span>
+                <span>Köln</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-box reveal">
+          <h3>Anfrage senden</h3>
+          <p>Erzählen Sie uns von Ihrem Projekt — wir melden uns zurück.</p>
+          <form action="mailto:info@elektrobolder.de" method="post" enctype="text/plain">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+              </div>
+              <div class="form-group">
+                <label for="service">Interesse an</label>
+                <select id="service" name="service">
+                  <option value="">Bitte wählen...</option>
+                  <option value="installation">Elektroinstallation</option>
+                  <option value="smarthome">Smart Home</option>
+                  <option value="sicherheit">Sicherheitstechnik</option>
+                  <option value="beleuchtung">Beleuchtung</option>
+                  <option value="gewerbe">Gewerbe</option>
+                  <option value="wartung">Wartung / Service</option>
+                  <option value="sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" name="message" required placeholder="Beschreiben Sie kurz Ihr Projekt..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihr Projekt?</h2>
+      <p>Holen Sie sich eine unverbindliche Beratung von den Experten der 4. Generation.</p>
+      <a href="#kontakt" class="cta-band-cta">
+        Jetzt anfragen
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo" style="font-weight:700;font-size:1.2rem;color:#fff;margin-bottom:16px;">Elektro <span style="color:var(--primary)">Bolder</span></div>
+      <div class="footer-divider"></div>
+      <p>Konzept-Vorschau · MZ.9</p>
+      <p style="margin-top:8px;font-size:0.8rem;opacity:0.6;">Diese Seite ist eine unverbindliche Konzept-Vorschau und wird nicht vom Betrieb betrieben.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="tel:000000999" class="mobile-cta-phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        Anrufen
+      </a>
+      <a href="#kontakt" class="mobile-cta-form">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Anfrage senden
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.header-nav a, .hero-cta-secondary').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

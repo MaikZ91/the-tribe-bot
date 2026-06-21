@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Elektro van Husen Köln-Ehrenfeld – Elektro van Husen GmbH</title>
+  <meta name="description" content="Elektro van Husen bietet professionelle Elektroinstallationen, Wartung & Reparatur. Kontaktieren Sie uns für Ihre Projekte!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #faf8f5;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    /* Palette: Handwerk-Elektro — Amber (#f59e0b) + Stahlblau (#1e40af) + Erdtöne */
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --secondary: #1e40af;
+      --accent: #fbbf24;
+      --dark: #111827;
+      --light: #fef3c7;
+      --surface: #ffffff;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    a { text-decoration: none; color: inherit; transition: 0.2s; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: 0.3s;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(10px);
+    }
+    header .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    header .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+    header .logo span { color: var(--primary); }
+    header nav { display: none; gap: 2rem; }
+    @media (min-width: 768px) {
+      header nav { display: flex; }
+      header nav a {
+        font-weight: 500;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      header nav a:hover { color: var(--secondary); }
+    }
+    header .cta-header {
+      display: none;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    @media (min-width: 768px) {
+      header .cta-header { display: inline-flex; }
+    }
+    /* Hero */
+    .hero {
+      padding-top: 70px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://irt-cdn.multiscreensite.com/ce0bb35f932b47bb809d0e37905542ba/dms3rep/multi/site_background_education-2087x1173.jpg') center/cover;
+      opacity: 0.2;
+    }
+    .hero .inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 3rem;
+      padding: 4rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .hero .inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+    }
+    .hero-content {
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 3.5rem; }
+    }
+    .hero .subline {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero .badge span {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--dark);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--dark);
+    }
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+    .btn-outline:hover {
+      background: white;
+      color: var(--dark);
+    }
+    .hero .actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero .tel {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    .hero .tel svg { width: 18px; height: 18px; }
+    .hero .image {
+      display: none;
+      position: relative;
+    }
+    @media (min-width: 768px) {
+      .hero .image { display: block; }
+    }
+    .hero .image img {
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+    }
+    /* USP Strip */
+    .usp-strip {
+      background: var(--surface);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .usp-strip .inner {
+      display: grid;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .usp-strip .inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .usp-strip .inner { grid-template-columns: repeat(4, 1fr); }
+    }
+    .usp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .usp-item .icon {
+      width: 40px;
+      height: 40px;
+      background: var(--light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+    .usp-item .icon svg { width: 20px; height: 20px; }
+    .usp-item strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    .usp-item span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    /* Section */
+    section { padding: 4rem 0; }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .section-header h2 { font-size: 2.5rem; }
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    /* Leistungen */
+    .services {
+      background: var(--surface);
+    }
+    .services-grid {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .service-card {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 12px;
+      transition: 0.3s;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .service-card .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .service-card .icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--dark);
+    }
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    /* Galerie */
+    .gallery {
+      background: var(--dark);
+      color: white;
+    }
+    .gallery .section-header h2,
+    .gallery .section-header p { color: white; }
+    .gallery .section-header p { opacity: 0.8; }
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
+    .gallery-item .overlay span {
+      color: white;
+      font-weight: 600;
+    }
+    /* Kontaktformular */
+    .contact-form-section {
+      background: linear-gradient(to bottom, var(--light), var(--surface));
+    }
+    .contact-form-section .inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .form-box {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+    }
+    @media (min-width: 640px) {
+      .form-box { padding: 3.5rem; }
+    }
+    .form-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+    .form-group label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-submit {
+      margin-top: 1.5rem;
+    }
+    .form-submit .btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      text-align: center;
+    }
+    /* CTA Band */
+    .cta-band {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 768px) {
+      .cta-band h2 { font-size: 2.25rem; }
+    }
+    .cta-band p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-band .btn-primary {
+      background: var(--primary);
+      color: var(--dark);
+    }
+    .cta-band .btn-outline {
+      border-color: white;
+      color: white;
+    }
+    /* Kontakt Info */
+    .contact-info {
+      background: var(--surface);
+    }
+    .contact-info .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .contact-info-grid {
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 640px) {
+      .contact-info-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .contact-info-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .contact-card {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .contact-card .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .contact-card .icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--dark);
+    }
+    .contact-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .contact-card a {
+      color: var(--secondary);
+      font-weight: 500;
+    }
+    .contact-card a:hover { text-decoration: underline; }
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 0 5rem;
+      text-align: center;
+    }
+    footer .logo {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    footer .tagline {
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    footer .concept {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 0.75rem;
+      z-index: 999;
+    }
+    @media (min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .mobile-cta .btn-primary { flex: 2; }
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.6s ease-out;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      .reveal.in { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="inner">
+      <a href="#" class="logo">Elektro <span>van Husen</span></a>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#referenzen">Referenzen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#kontakt" class="cta-header">Anfrage stellen</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <div class="hero-content reveal">
+        <div class="badge">
+          <span></span>
+          Ihr Elektrofachbetrieb aus Köln-Ehrenfeld
+        </div>
+        <h1>ELEKTRO VAN HUSEN AUS KÖLN-EHRENFELD</h1>
+        <p class="subline">Professionelle Elektroinstallationen, Wartung & Reparatur — seit über 20 Jahren Ihr zuverlässiger Partner in Köln.</p>
+        <div class="actions">
+          <a href="#kontakt" class="btn btn-primary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Jetzt anfragen
+          </a>
+          <a href="tel:0221512438" class="btn btn-outline">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.12 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0221 512438
+          </a>
+        </div>
+        <div class="tel">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Köln und Umgebung</span>
+        </div>
+      </div>
+      <div class="hero-image image reveal">
+        <img src="https://le-de.cdn-website.com/a9b7d897547044709f35fbb7556a0ba1/dms3rep/multi/opt/ueberuns_elektrovanhusen_koeln-432w.jpg" alt="Team von Elektro van Husen bei der Arbeit" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <div class="usp-strip reveal">
+    <div class="inner">
+      <div class="usp-item">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <div>
+          <strong>Qualifiziert</strong>
+          <span>Meisterbetrieb</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div>
+          <strong>Zuverlässig</strong>
+          <span>Pünktliche Termine</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <strong>Vollständig</strong>
+          <span>Alles aus einer Hand</span>
+        </div>
+      </div>
+      <div class="usp-item">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <strong>Sicher</strong>
+          <span>VDE-geprüft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="leistungen" class="services reveal">
+    <div class="section-header">
+      <h2>Unsere Leistungen</h2>
+      <p>Kompetente Elektrotechnik für Wohnung, Gewerbe und Industrie.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Elektroinstallation</h3>
+        <p>Neuanlagen, Erweiterungen und Modernisierungen für Neu- und Altbauten.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <h3>Wartung & Reparatur</h3>
+        <p>Schnelle Hilfe bei Störungen, regelmäßige Wartung und vorbeugende Instandhaltung.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><circle cx="12" cy="14" r="4"/><line x1="12" y1="6" x2="12.01" y2="6"/></svg>
+        </div>
+        <h3>Smart Home</h3>
+        <p>Intelligente Gebäudesteuerung für mehr Komfort, Sicherheit und Energieeffizienz.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <h3>Beleuchtung</h3>
+        <p>Planung und Installation moderner LED-Beleuchtungskonzepte innen und außen.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3>Qualitätssicherung</h3>
+        <p>VDE-Prüfungen, Dokumentation und rechtssichere Abnahme aller Arbeiten.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Kundenservice</h3>
+        <p>Persönliche Beratung, transparente Angebote und langfristige Begleitung.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="referenzen" class="gallery reveal">
+    <div class="section-header">
+      <h2>Referenzen</h2>
+      <p>Ausgewählte Projekte aus unserer Arbeit in Köln und Umgebung.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://le-de.cdn-website.com/a9b7d897547044709f35fbb7556a0ba1/dms3rep/multi/opt/leistungen_smarthome_koeln_vanhusen-432w.jpg" alt="Smart Home Installation" loading="lazy">
+        <div class="overlay"><span>Smart Home Projekt</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://le-de.cdn-website.com/a9b7d897547044709f35fbb7556a0ba1/dms3rep/multi/opt/referenzen_elektroinstallation_koeln-432w.jpg" alt="Elektroinstallation Projekt" loading="lazy">
+        <div class="overlay"><span>Elektroinstallation</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://le-de.cdn-website.com/a9b7d897547044709f35fbb7556a0ba1/dms3rep/multi/opt/smarthome_beleuchtung_vanhusen-1920w.jpg" alt="Beleuchtungskonzept" loading="lazy">
+        <div class="overlay"><span>Beleuchtungskonzept</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" class="contact-form-section reveal">
+    <div class="section-header">
+      <h2>Kontakt aufnehmen</h2>
+      <p>Wir beraten Sie gerne unverbindlich zu Ihrem Projekt.</p>
+    </div>
+    <div class="contact-form-section .inner">
+      <div class="form-box">
+        <form action="mailto:kontakt@elektrovanhusen.de" method="post" enctype="text/plain">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="installation">Elektroinstallation</option>
+                <option value="wartung">Wartung / Reparatur</option>
+                <option value="smarthome">Smart Home</option>
+                <option value="beleuchtung">Beleuchtung</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Ihre Nachricht *</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">Anfrage absenden</button>
+          </div>
+          <p class="form-note">Alternativ erreichen Sie uns unter 0221 512438</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="container">
+      <h2>Bereit für Ihr Projekt?</h2>
+      <p>Kontaktieren Sie uns noch heute — wir freuen uns auf Ihre Anfrage!</p>
+      <div class="actions">
+        <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+        <a href="tel:0221512438" class="btn btn-outline">0221 512438</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-info reveal">
+    <div class="inner">
+      <div class="contact-info-grid">
+        <div class="contact-card">
+          <div class="icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.12 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Telefon</h3>
+          <a href="tel:0221512438">0221 512438</a>
+        </div>
+        <div class="contact-card">
+          <div class="icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>E-Mail</h3>
+          <a href="mailto:kontakt@elektrovanhusen.de">kontakt@elektrovanhusen.de</a>
+        </div>
+        <div class="contact-card">
+          <div class="icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Standort</h3>
+          <span>Köln-Ehrenfeld</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo">Elektro van Husen GmbH</div>
+    <p class="tagline">Ihr Elektrofachbetrieb in Köln</p>
+    <p class="concept">Konzept-Vorschau · MZ.9</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:0221512438" class="btn btn-outline">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.12 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Anrufen
+    </a>
+    <a href="#kontakt" class="btn btn-primary">Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
