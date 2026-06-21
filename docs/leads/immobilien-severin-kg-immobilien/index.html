@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Severin Immobilien KG | Immobilienmakler Dortmund seit 1932</title>
+  <meta name="description" content="SEVERIN Immobilien seit 1932 – Ihr Experte und Immobilienmakler in Dortmund für Verkauf Ihrer Immobilie und Vermietung. Wir beraten kompetent im Ruhrgebiet & Herdecke.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a3a4a;
+      --primary-dark: #0f252f;
+      --accent: #c9a962;
+      --accent-light: #e6d4a0;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --border: #e9ecef;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(26,58,74,0.1);
+      --shadow-hover: 0 15px 40px rgba(26,58,74,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--primary-dark);
+      background: var(--light);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.3;
+      color: var(--primary);
+    }
+
+    h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; }
+    h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 600; }
+    h3 { font-size: 1.5rem; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.6rem; }
+      h3 { font-size: 1.25rem; }
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+
+    header.scrolled { box-shadow: var(--shadow); }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-desktop {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-desktop a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+
+    .nav-desktop a:hover { color: var(--accent); }
+
+    .header-cta {
+      display: inline-block;
+      padding: 0.6rem 1.3rem;
+      background: var(--primary);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .header-cta:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle { display: none; }
+
+    @media (max-width: 900px) {
+      .nav-desktop { display: none; }
+      .nav-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .nav-toggle span {
+        width: 25px;
+        height: 2px;
+        background: var(--primary);
+        transition: 0.3s;
+      }
+      .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+      .nav-toggle.active span:nth-child(2) { opacity: 0; }
+      .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.25;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+      max-width: 600px;
+      padding-top: 80px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 4px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      background: var(--accent-light);
+    }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: transparent;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid var(--white);
+      border-radius: 4px;
+      margin-left: 1rem;
+      transition: background 0.2s;
+    }
+
+    .hero-cta-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    @media (max-width: 768px) {
+      .hero { min-height: 80vh; }
+      .hero-cta-secondary { margin-left: 0; margin-top: 1rem; }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* Sections */
+    section { padding: 5rem 0; }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-header p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    /* Features / Leistungen */
+    .features { background: var(--white); }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      background: var(--light);
+      border-radius: 8px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-card h3 { margin-bottom: 0.8rem; }
+
+    .feature-card p { color: var(--gray); font-size: 0.95rem; }
+
+    /* Premium Feature: Immobilienbewertung */
+    .valuation {
+      background: var(--primary);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .valuation-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 45%;
+      opacity: 0.15;
+    }
+
+    .valuation-bg img { width: 100%; height: 100%; object-fit: cover; }
+
+    .valuation-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .valuation-content h2 { color: var(--white); }
+
+    .valuation-content p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+    }
+
+    .valuation-benefits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .valuation-benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .valuation-benefit::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .valuation-form {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .valuation-form h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-textarea { min-height: 100px; resize: vertical; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover { background: var(--primary-dark); }
+
+    @media (max-width: 900px) {
+      .valuation-inner { grid-template-columns: 1fr; }
+      .valuation-bg { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* Gallery */
+    .gallery { background: var(--light); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover { transform: scale(1.02); }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,58,74,0.8), transparent);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      color: var(--white);
+    }
+
+    .gallery-overlay h4 { color: var(--white); font-size: 1.1rem; }
+
+    /* Reviews */
+    .reviews { background: var(--white); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .review-card {
+      padding: 2rem;
+      background: var(--light);
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .review-stars {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .review-text {
+      font-style: italic;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .review-author {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .review-meta {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .reviews-disclaimer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 1.5rem;
+      font-style: italic;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent);
+      padding: 4rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+    }
+
+    .cta-band-bg img { width: 100%; height: 100%; object-fit: cover; }
+
+    .cta-band-content { position: relative; z-index: 2; }
+
+    .cta-band h2 { color: var(--primary-dark); margin-bottom: 1rem; }
+
+    .cta-band p {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-band .hero-cta {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .cta-band .hero-cta:hover { background: var(--primary-dark); }
+
+    /* Contact */
+    .contact { background: var(--white); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .contact-info h3 { margin-bottom: 1.5rem; }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-text h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+
+    .contact-text p { color: var(--gray); font-size: 0.95rem; }
+
+    .contact-text a { color: var(--accent); }
+    .contact-text a:hover { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    footer p { font-size: 0.9rem; opacity: 0.7; }
+
+    footer a { color: var(--accent-light); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      padding: 1rem;
+      z-index: 999;
+      display: none;
+    }
+
+    .mobile-cta a {
+      display: block;
+      text-align: center;
+      padding: 0.8rem;
+      background: var(--accent);
+      color: var(--primary-dark);
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+      body { padding-bottom: 70px; }
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Severin<span>Immobilien</span></a>
+      <nav class="nav-desktop">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#bewertung">Kostenlose Bewertung</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#kontakt" class="header-cta">Termin vereinbaren</a>
+      <div class="nav-toggle" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2023/10/Severin-Immobilien-Dortmund_Immobilien-auf-Sylt_1-1-1024x768.jpg" alt="Severin Immobilien Dortmund">
+    </div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Seit 1932 · Familie & Tradition</span>
+        <h1>Severin Immobilien – Ihr kompetenter Immobilienmakler im Raum Dortmund</h1>
+        <p>Verkauf, Vermietung & Wertermittlung. Wir beraten Sie kompetent im Ruhrgebiet & Herdecke mit über 90 Jahren Erfahrung.</p>
+        <div>
+          <a href="#bewertung" class="hero-cta">
+            <span>📊</span> Jetzt Immobilienbewertung anfordern
+          </a>
+          <a href="#kontakt" class="hero-cta-secondary">
+            <span>📞</span> Uns direkt anrufen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">🏠</div>
+          <span>Seit 1932 Familienunternehmen</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📍</div>
+          <span>Dortmund & Ruhrgebiet</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⭐</div>
+          <span>500+ vermittelte Immobilien</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🤝</div>
+          <span>Persönliche Beratung</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="features" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Maßgeschneiderte Lösungen für Ihre Immobilie – von der ersten Beratung bis zum erfolgreichen Abschluss.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">💰</div>
+          <h3>Verkauf Ihrer Immobilie</h3>
+          <p>Professionelle Vermarktung mit wertsteigernder Präsentation. Wir finden den richtigen Käufer zum besten Preis.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🔑</div>
+          <h3>Vermietung & Verwaltung</h3>
+          <p>Zuverlässige Mietersuche und laufende Verwaltung. Schützen Sie Ihr Investment mit erfahrenen Partnern.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📊</div>
+          <h3>Kostenlose Wertermittlung</h3>
+          <p>Transparente Bewertung nach Marktpreis. Was ist Ihre Immobilie wirklich wert?</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🏝️</div>
+          <h3>Exklusive Immobilien auf Sylt</h3>
+          <p>Spezialisiert auf Premium-Objekte auf der Insel Sylt – Traumimmobilien am Meer.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">👨‍👩‍👧</div>
+          <h3>Erbschaft & Schlüsselübergabe</h3>
+          <p>Sensibles Anvertrauen und professionelle Abwicklung bei Erbschaften und Immobilienübergaben.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🏘️</div>
+          <h3>Immobilienberatung</h3>
+          <p>Welche Immobilie passt zu Ihnen? Wir begleiten Sie auf dem Weg zu Ihren vier Wänden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="valuation" id="bewertung">
+    <div class="valuation-bg">
+      <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2016/12/banner_leistungsversprechen.jpg" alt="Leistungen">
+    </div>
+    <div class="container">
+      <div class="valuation-inner">
+        <div class="valuation-content reveal">
+          <span class="hero-tag">Kostenlos & Unverbindlich</span>
+          <h2>Was ist Ihre Immobilie in Dortmund wert?</h2>
+          <p>Verlassen Sie sich auf fundierte Expertise. Wir ermitteln den realistischen Marktwert Ihrer Immobilie – ganz ohne Verpflichtung.</p>
+          <div class="valuation-benefits">
+            <div class="valuation-benefit">Persönliches Gespräch vor Ort</div>
+            <div class="valuation-benefit">Erfahrung aus 90+ Jahren</div>
+            <div class="valuation-benefit">Lokale Marktkenntnis Dortmund</div>
+            <div class="valuation-benefit">Transparente Dokumentation</div>
+          </div>
+          <p>✓ Über 500 zufriedene Kunden im Ruhrgebiet</p>
+        </div>
+        <div class="valuation-form reveal">
+          <h3>Kostenlose Bewertung anfordern</h3>
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Vor- und Nachname</label>
+                <input type="text" id="name" class="form-input" placeholder="Ihr Name" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" class="form-input" placeholder="+49 ...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="property-type">Immobilienart</label>
+                <select id="property-type" class="form-select">
+                  <option value="">Bitte wählen</option>
+                  <option value="einfamilienhaus">Einfamilienhaus</option>
+                  <option value="zweifamilienhaus">Zweifamilienhaus</option>
+                  <option value="wohnung">Wohnung</option>
+                  <option value="grundstueck">Grundstück</option>
+                  <option value="gewerbe">Gewerbeimmobilie</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="city">Ort / Stadtteil</label>
+                <input type="text" id="city" class="form-input" placeholder="z.B. Dortmund-Hörde">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" class="form-textarea" placeholder="Erzählen Sie uns kurz über Ihre Immobilie (Quadratmeter, Baujahr, Besonderheiten)..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Bewertung anfordern</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Eindrücke von Severin Immobilien</h2>
+        <p>Unser Firmensitz in Dortmund und ausgewählte Immobilienstücke.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2022/07/Severin-Immobilien-Ladenlokal_2022-07_1280.jpg" alt="Severin Immobilien Firmensitz Dortmund">
+          <div class="gallery-overlay">
+            <h4>Unser Firmensitz in Dortmund</h4>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2023/10/Severin-Immobilien-Dortmund_Immobilien-auf-Sylt_1-1-1024x768.jpg" alt="Immobilien auf Sylt">
+          <div class="gallery-overlay">
+            <h4>Exklusive Immobilien auf Sylt</h4>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2021/05/erbschaft_schluesseluebergabe_verin-immobilien.jpg" alt="Beratung Erbschaft">
+          <div class="gallery-overlay">
+            <h4>Beratung bei Erbschaft & Übergabe</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Das sagen unsere Kunden</h2>
+        <p>Vertrauen durch überzeugende Ergebnisse.</p>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">„Hervorragende Beratung! Unser Haus wurde innerhalb von 6 Wochen verkauft – zum gewünschten Preis. Wir sind absolut zufrieden.“</p>
+          <p class="review-author">Michael K.</p>
+          <p class="review-meta">Dortmund, 2025</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">„Die Abwicklung der Erbschaft war uns sehr wichtig. Herr Severin hat alles mit viel Fingerspitzengefühl und Kompetenz geregelt.“</p>
+          <p class="review-author">Sabine M.</p>
+          <p class="review-meta">Hagen, 2025</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">„Endlich ein Makler, der hält was er verspricht. Transparente Kommunikation, keine versteckten Kosten. Sehr empfehlenswert!“</p>
+          <p class="review-author">Thomas W.</p>
+          <p class="review-meta">Dortmund, 2024</p>
+        </div>
+      </div>
+      <p class="reviews-disclaimer">* Beispielszenarien – keine echten Kundenstimmen</p>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band-bg">
+      <img src="https://www.immobilien-severin-kg.de/wp-content/uploads/2016/12/banner_kundenstimmen.jpg" alt="">
+    </div>
+    <div class="container cta-band-content reveal">
+      <h2>Bereit für den nächsten Schritt?</h2>
+      <p>Ob Verkauf, Vermietung oder Beratung – wir sind für Sie da.</p>
+      <a href="#kontakt" class="hero-cta">
+        <span>📞</span> Jetzt Kontakt aufnehmen
+      </a>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontaktieren Sie uns</h2>
+        <p>Wir freuen uns auf Ihre Anfrage.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Besuchen Sie uns in Dortmund</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Sölder Straße 103, 44289 Dortmund</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <p><a href="tel:+492311388875">+49 231 1388875</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:port@immobilien-severin-kg.de">port@immobilien-severin-kg.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-text">
+              <h4>Öffnungszeiten</h4>
+              <p>Mo–Fr: 9–18 Uhr · Nach Vereinbarung</p>
+            </div>
+          </div>
+        </div>
+        <div class="valuation-form reveal">
+          <h3>Schnellanfrage</h3>
+          <form>
+            <div class="form-group">
+              <label for="quick-name">Name</label>
+              <input type="text" id="quick-name" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="quick-phone">Telefon</label>
+              <input type="tel" id="quick-phone" class="form-input" placeholder="Rückrufnummer">
+            </div>
+            <div class="form-group">
+              <label for="quick-email">E-Mail</label>
+              <input type="email" id="quick-email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="quick-message">Ihr Anliegen</label>
+              <textarea id="quick-message" class="form-textarea" placeholder="Wie können wir Ihnen helfen?"></textarea>
+            </div>
+            <button type="submit" class="form-submit">Absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Severin Immobilien KG | <a href="https://www.immobilien-severin-kg.de/" target="_blank">immobilien-severin-kg.de</a></p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#kontakt">📞 Jetzt Kontakt aufnehmen</a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

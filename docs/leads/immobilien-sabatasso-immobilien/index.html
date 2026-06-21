@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SABATASSO Immobilien - Ihr Immobilienpartner in Dortmund | Konzept-Vorschau</title>
+  <meta name="description" content="Willkommen bei Sabatasso Immobilien - Ihr Partner für Immobilien in Dortmund und Umgebung. Mit langjähriger Erfahrung bieten wir eine vielfältige Auswahl an. Konzept-Vorschau.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a5f7a;
+      --primary-dark: #124a5f;
+      --secondary: #2c3e50;
+      --accent: #d4a017;
+      --accent-hover: #b8860b;
+      --bg-light: #f8f9fa;
+      --bg-white: #ffffff;
+      --text-main: #2c3e50;
+      --text-light: #6c757d;
+      --border: #e9ecef;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    button { cursor: pointer; border: none; font-family: inherit; transition: 0.3s; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-link {
+      color: var(--text-main);
+      font-weight: 500;
+      margin-left: 25px;
+    }
+
+    .nav-link:hover { color: var(--primary); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 100px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-light) 0%, #e8f4f8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('https://immobilien-sabatasso.de/wp-content/uploads/2023/04/candice-picard-vLENm-coX5Y-unsplash-1.jpg') center/cover no-repeat;
+      opacity: 0.15;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 30px;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .trust-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .trust-badge .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--primary);
+      padding: 30px 0;
+      color: white;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .trust-item h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .trust-item p { opacity: 0.9; font-size: 0.9rem; }
+
+    /* Services */
+    .services {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--primary);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+
+    .service-card p { color: var(--text-light); font-size: 0.95rem; }
+
+    /* Contact Form */
+    .contact {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      opacity: 0.9;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .contact-details {
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .contact-item .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      color: var(--text-main);
+    }
+
+    .contact-form h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: var(--secondary);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 15px;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: var(--accent);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .cta-band p {
+      margin-bottom: 30px;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--accent);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: var(--bg-light);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: rgba(255,255,255,0.8);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      color: white;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; }
+
+    .footer-col h4 {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .footer-col a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom .concept {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      gap: 10px;
+    }
+
+    .mobile-cta .btn-call {
+      flex: 1;
+      background: var(--primary);
+      color: white;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .mobile-cta .btn-form {
+      flex: 1;
+      background: var(--bg-light);
+      color: var(--text-main);
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+      border: 2px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-bg { width: 100%; opacity: 0.1; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-link { display: none; }
+      .hero { padding-top: 80px; min-height: auto; padding-bottom: 60px; }
+      .hero-content h1 { font-size: 1.8rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 180px); }
+      .gallery-item:first-child { grid-column: span 1; grid-row: span 1; }
+      .form-row { grid-template-columns: 1fr; }
+      .mobile-cta { display: flex; }
+      footer { padding-bottom: 100px; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .trust-badge { display: none; }
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">SABATASSO <span>Immobilien</span></a>
+      <nav>
+        <a href="#services" class="nav-link">Leistungen</a>
+        <a href="#gallery" class="nav-link">Galerie</a>
+        <a href="#contact" class="btn-primary">Kontaktieren</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <h1>Entdecken Sie Ihre Traumimmobilie in Dortmund</h1>
+        <p>Als Ihr zuverlässiger Immobilienpartner stehen wir Ihnen gerne zur Seite. Mit langjähriger Erfahrung und persönlicher Betreuung finden wir das perfekte Objekt für Sie.</p>
+        <a href="#contact" class="btn-accent">Jetzt unverbindlich anfragen</a>
+      </div>
+      <div class="hero-image">
+        <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/04/candice-picard-vLENm-coX5Y-unsplash-1.jpg" alt="Moderne Immobilienfassade in Dortmund" width="600" height="400">
+        <div class="trust-badge">
+          <div class="icon">★</div>
+          <div>
+            <strong>Lokale Expertise</strong>
+            <br><small>Dortmund & Umgebung</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <h3>10+</h3>
+          <p>Jahre Erfahrung</p>
+        </div>
+        <div class="trust-item">
+          <h3>500+</h3>
+          <p>Zufriedene Kunden</p>
+        </div>
+        <div class="trust-item">
+          <h3>24/7</h3>
+          <p>Erreichbarkeit</p>
+        </div>
+        <div class="trust-item">
+          <h3>100%</h3>
+          <p>Engagement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Immobilienmakler 2.0 – Unsere Servicepakete</h2>
+        <p>Maßgeschneiderte Lösungen für Verkauf, Kauf und Vermietung von Immobilien in Dortmund und dem Ruhrgebiet.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🏠</div>
+          <h3>Verkauf</h3>
+          <p>Professionelle Vermarktung Ihrer Immobilie mit professioneller Fotos, Exposé-Erstellung und persönlicher Betreuung vom Angebot bis zum Notartermin.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔑</div>
+          <h3>Kauf</h3>
+          <p>Gezielt passende Objekte für Ihre Wünsche finden – wir begleiten Sie bei der Suche, Besichtigung und Verhandlung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📋</div>
+          <h3>Vermietung</h3>
+          <p>Effiziente Vermietung Ihrer Wohn- oder Gewerbeimmobilie: Mietersuche, Vertragsprüfung und laufende Verwaltung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💼</div>
+          <h3>Bewertung</h3>
+          <p>Fachgerechte Immobilienbewertung nach aktuellen Marktdaten – für Verkäufe, Erbschaften oder Finanzierungen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Service-Pakete</h3>
+          <p>Flexible Pakete für jeden Bedarf: von der Basis-Begleitung bis zum All-inclusive-Service mit allem rund um die Immobilie.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🤝</div>
+          <h3>Tippgeber</h3>
+          <p>Kennen Sie jemanden, der verkauft oder sucht? Werden Sie Tippgeber und profitieren Sie von unserer Empfehlungsprämie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info reveal">
+          <h2>So funktioniert's</h2>
+          <p>Vom ersten Kontakt bis zum erfolgreichen Abschluss – wir sind in 4 Schritten für Sie da.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="icon">1</div>
+              <div>
+                <strong>Kostenlose Erstberatung</strong>
+                <br><small>Telefonisch oder vor Ort</small>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">2</div>
+              <div>
+                <strong>Individuelle Strategie</strong>
+                <br><small>Auf Ihre Bedürfnisse zugeschnitten</small>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">3</div>
+              <div>
+                <strong>Professionelle Umsetzung</strong>
+                <br><small>Mit allen Schritten und Details</small>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">4</div>
+              <div>
+                <strong>Erfolgreicher Abschluss</strong>
+                <br><small>Bis zum Notartermin und darüber hinaus</small>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <div class="contact-item">
+              <div class="icon">📍</div>
+              <div>
+                <strong>Märkische Straße 205</strong>
+                <br><small>44141 Dortmund</small>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">📞</div>
+              <div>
+                <a href="tel:+4917621315076" style="color: white; font-weight: 500;">+49 176 21315076</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="icon">✉️</div>
+              <div>
+                <a href="mailto:info@immobilien-sabatasso.de" style="color: white;">info@immobilien-sabatasso.de</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>Unverbindliche Anfrage</h3>
+          <form action="mailto:info@immobilien-sabatasso.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label>Anliegen</label>
+              <select name="anliegen">
+                <option value="Verkauf">Ich möchte verkaufen</option>
+                <option value="Kauf">Ich möchte kaufen</option>
+                <option value="Vermietung">Ich möchte vermieten</option>
+                <option value="Bewertung">Immobilienbewertung</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Vorname</label>
+                <input type="text" name="vorname" placeholder="Max" required>
+              </div>
+              <div class="form-group">
+                <label>Nachname</label>
+                <input type="text" name="nachname" placeholder="Mustermann" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" name="email" placeholder="max@beispiel.de" required>
+              </div>
+              <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" name="telefon" placeholder="+49 ...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nachricht</label>
+              <textarea name="nachricht" rows="4" placeholder="Erzählen Sie uns von Ihrem Vorhaben..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Anfrage absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Arbeiten</h2>
+        <p>Eindrücke von vergangenen Projekten – vertrauenswürdige Arbeit in Dortmund und Umgebung.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/07/Verkauftschild-Sabatasso.jpg" alt="SABATASSO Verkaufsschild" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/07/Verkauftschild-Sabatasso-1024x700.png" alt="Verkaufsprojekt in Dortmund" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/10/Verkauftschild-Sabatasso-1024x707.jpg" alt="Immobilienobjekt" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/10/Verkauftschild-Sabatasso-768x530.jpg" alt="Verkauftes Objekt" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://immobilien-sabatasso.de/wp-content/uploads/2023/07/Verkauftschild-Sabatasso-768x525.png" alt="Erfolgreicher Abschluss" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für den nächsten Schritt?</h2>
+      <p>Kontaktieren Sie uns jetzt – wir freuen uns auf Ihre Anfrage.</p>
+      <a href="#contact" class="btn-primary">Jetzt kontaktieren</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">SABATASSO <span>Immobilien</span></a>
+          <p>Ihr zuverlässiger Partner für Immobilien in Dortmund und Umgebung. Persönlich, transparent und erfolgreich.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Leistungen</h4>
+          <a href="#services">Verkauf</a>
+          <a href="#services">Kauf</a>
+          <a href="#services">Vermietung</a>
+          <a href="#services">Bewertung</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <a href="tel:+4917621315076">+49 176 21315076</a>
+          <a href="mailto:info@immobilien-sabatasso.de">info@immobilien-sabatasso.de</a>
+          <a href="https://immobilien-sabatasso.de/" target="_blank">Original-Website</a>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">AGB</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SABATASSO Immobilien · <span class="concept">Konzept-Vorschau · MZ.9</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+4917621315076" class="btn-call">📞 Anrufen</a>
+    <a href="#contact" class="btn-form">✉️ Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
