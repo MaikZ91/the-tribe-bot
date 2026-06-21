@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gasthaus zur Linde — Bayerische Gastlichkeit in Hohenpolding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--holz:#3E2723;--gold:#D4A853;--creme:#FFF8E7;--wein:#8B0000;--text:#2c1810;--muted:#6b5b4e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',serif;color:var(--text);background:var(--creme);line-height:1.7}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:900}
+.container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* Hero */
+.hero{position:relative;min-height:85vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--holz) 0%,#5d3a1a 50%,var(--holz) 100%);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 80%,rgba(212,168,83,.25),transparent 60%),radial-gradient(ellipse at 70% 20%,rgba(139,0,0,.15),transparent 50%)}
+.hero-content{position:relative;z-index:2;max-width:700px;padding:80px 0;color:var(--creme)}
+.hero-krone{display:inline-block;font-size:clamp(2rem,6vw,4rem);margin-bottom:8px;color:var(--gold)}
+.hero h1{font-size:clamp(2.2rem,7vw,4rem);line-height:1.1;text-shadow:2px 2px 8px rgba(0,0,0,.4)}
+.hero h1 span{display:block;color:var(--gold);font-size:.7em;font-style:italic;font-weight:700}
+.hero p{font-size:clamp(1rem,2vw,1.2rem);margin:24px 0 32px;opacity:.9;max-width:500px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 32px;border-radius:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+.btn-gold{background:var(--gold);color:var(--holz)}
+.btn-gold:hover{background:#e6b84a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,83,.35)}
+.btn-outline{border:2px solid var(--creme);color:var(--creme);background:transparent}
+.btn-outline:hover{background:rgba(255,248,231,.1);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:var(--gold);font-size:2rem;cursor:pointer}
+@keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-14px)}}
+
+/* Sections */
+section{padding:80px 0}
+section:nth-child(even){background:#fff}
+section:nth-child(odd){background:var(--creme)}
+.section-label{font-family:'Playfair Display',serif;color:var(--gold);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:16px;color:var(--holz)}
+.section-subtitle{color:var(--muted);font-size:1.05rem;max-width:600px;margin-bottom:48px}
+
+/* Menu */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.menu-card{background:#fff;border:1px solid rgba(62,39,35,.1);border-radius:16px;padding:28px;transition:all .3s;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(62,39,35,.12);border-color:var(--gold)}
+.menu-card .emoji{font-size:2.4rem;margin-bottom:12px;display:block}
+.menu-card h3{font-size:1.2rem;color:var(--holz);margin-bottom:6px}
+.menu-card .preis{display:inline-block;background:var(--gold);color:var(--holz);padding:3px 12px;border-radius:20px;font-weight:700;font-size:.85rem;margin-top:10px}
+.menu-card p{color:var(--muted);font-size:.92rem;line-height:1.6}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-text h2{font-size:clamp(1.6rem,3vw,2.2rem);color:var(--holz);margin-bottom:16px}
+.about-text p{color:var(--muted);margin-bottom:16px}
+.about-features{list-style:none;display:grid;gap:10px;margin-top:20px}
+.about-features li{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--holz)}
+.about-features li::before{content:'🍺';font-size:1.2rem}
+.about-image{background:linear-gradient(135deg,var(--holz),#5d3a1a);border-radius:24px;padding:60px;text-align:center;color:var(--creme)}
+.about-image .jahr{font-size:clamp(3rem,6vw,5rem);font-weight:900;font-family:'Playfair Display',serif;color:var(--gold);line-height:1}
+.about-image .seit{font-size:1.1rem;opacity:.8;margin-top:8px}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.review-card{background:#fff;border-radius:14px;padding:24px;border:1px solid rgba(62,39,35,.08)}
+.review-stars{color:var(--gold);font-size:1.1rem;margin-bottom:12px;letter-spacing:2px}
+.review-card p{font-size:.95rem;color:var(--text);font-style:italic;line-height:1.7;margin-bottom:16px}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:40px;height:40px;border-radius:50%;background:var(--holz);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.review-author strong{display:block;font-size:.9rem}
+.review-author span{font-size:.8rem;color:var(--muted)}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-info h2{color:var(--holz);margin-bottom:24px}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.contact-icon{width:44px;height:44px;border-radius:12px;background:var(--holz);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-item strong{display:block;font-size:.9rem;color:var(--holz)}
+.contact-item span{color:var(--muted);font-size:.9rem}
+.hours-table{width:100%;border-collapse:collapse;margin-top:12px}
+.hours-table td{padding:6px 0;font-size:.9rem;border-bottom:1px solid rgba(62,39,35,.08)}
+.hours-table td:last-child{text-align:right;font-weight:600;color:var(--holz)}
+.map-wrap{border-radius:16px;overflow:hidden;height:300px;border:2px solid rgba(62,39,35,.1)}
+.map-wrap iframe{width:100%;height:100%;border:0}
+
+/* Footer */
+.footer{background:var(--holz);color:var(--creme);padding:40px 0;text-align:center;font-size:.85rem}
+.footer a{color:var(--gold);text-decoration:underline}
+.footer p{opacity:.7;margin-top:8px}
+
+/* CTA Banner */
+.cta-banner{background:var(--wein);color:var(--creme);text-align:center;padding:60px 20px}
+.cta-banner h2{font-size:clamp(1.6rem,3.5vw,2.4rem);margin-bottom:12px}
+.cta-banner p{opacity:.85;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+
+@media(max-width:480px){.hero h1{font-size:1.8rem}.hero-btns{flex-direction:column}.menu-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content container">
+    <div class="hero-krone">🌳</div>
+    <h1>Gasthaus <span>zur Linde</span></h1>
+    <p>Echte bayerische Gastlichkeit seit 1872 — regional, saisonal, herzlich. Unser Biergarten unter der 150-jährigen Linde ist der schönste Platz in Hohenpolding.</p>
+    <div class="hero-btns">
+      <a href="#reservieren" class="btn btn-gold">🍽 Tisch reservieren</a>
+      <a href="#speisekarte" class="btn btn-outline">Speisekarte ansehen</a>
+    </div>
+  </div>
+  <div class="hero-scroll">⌄</div>
+</section>
+
+<section id="speisekarte">
+  <div class="container">
+    <div class="section-label">Unsere Küche</div>
+    <h2 class="section-title">Bayerische Spezialitäten</h2>
+    <p class="section-subtitle">Frisch zubereitet mit Zutaten aus der Region. Unser Küchenteam kocht nach traditionellen Rezepten — mit Liebe zum Detail.</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <span class="emoji">🥩</span>
+        <h3>Original Schweinsbraten</h3>
+        <p>Zart geschmorter Schweinebraten mit dunkler Biersoße, dazu hausgemachter Kartoffelknödel und Krautsalat.</p>
+        <span class="preis">14,90 €</span>
+      </div>
+      <div class="menu-card">
+        <span class="emoji">🍗</span>
+        <h3>Bayerisches Schnitzel</h3>
+        <p>Knusprig paniertes Kalbsschnitzel Wiener Art mit Preiselbeeren, Butterkartoffeln und Zitronenspalte.</p>
+        <span class="preis">18,50 €</span>
+      </div>
+      <div class="menu-card">
+        <span class="emoji">🥨</span>
+        <h3>Weißwurst-Frühstück</h3>
+        <p>Zwei original Münchner Weißwürste mit süßem Senf, frischer Brezn und einem kühlen Weißbier.</p>
+        <span class="preis">9,80 €</span>
+      </div>
+      <div class="menu-card">
+        <span class="emoji">🥟</span>
+        <h3>Semmelknödel-Pfandl</h3>
+        <p>Drei hausgemachte Semmelknödel mit cremiger Champignon-Rahmsoße und Röstzwiebeln.</p>
+        <span class="preis">12,90 €</span>
+      </div>
+      <div class="menu-card">
+        <span class="emoji">🐟</span>
+        <h3>Steckerlfisch</h3>
+        <p>Frischer Donau-Saibling vom Grill, mit Kräuterbutter und warmem Kartoffelsalat — ein Biergarten-Klassiker.</p>
+        <span class="preis">16,90 €</span>
+      </div>
+      <div class="menu-card">
+        <span class="emoji">🍰</span>
+        <h3>Apfelstrudel</h3>
+        <p>Warmer hausgemachter Apfelstrudel mit Vanillesoße, Walnüssen und einer Kugel Bourbon-Vanilleeis.</p>
+        <span class="preis">8,50 €</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ueber-uns">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Über uns</div>
+        <h2>Familientradition seit über 150 Jahren</h2>
+        <p>Was 1872 als kleine Dorfwirtschaft begann, ist heute ein Ort der Begegnung für die ganze Region. In fünfter Generation führen wir das Gasthaus zur Linde mit derselben Leidenschaft wie unsere Vorfahren.</p>
+        <p>Unser Biergarten unter der namensgebenden Linde bietet Platz für 120 Gäste — der perfekte Ort für Familienfeiern, Vereinsfeste oder einfach einen gemütlichen Feierabend.</p>
+        <ul class="about-features">
+          <li>Regionale Zutaten von Bauern aus der Umgebung</li>
+          <li>Bayerische Biere direkt aus der Klosterbrauerei</li>
+          <li>Gemütlicher Gastraum mit Kachelofen (40 Plätze)</li>
+        </ul>
+      </div>
+      <div class="about-image">
+        <div class="jahr">1872</div>
+        <div class="seit">seit über 150 Jahren<br>Ihr Wirtshaus in Hohenpolding</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bewertungen">
+  <div class="container">
+    <div class="section-label">Das sagen unsere Gäste</div>
+    <h2 class="section-title">Bewertungen</h2>
+    <p class="section-subtitle">Wir freuen uns über jede Rückmeldung — hier eine Auswahl unserer Google-Bewertungen.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Der beste Schweinsbraten weit und breit! Wir kommen seit Jahren mit der ganzen Familie und wurden noch nie enttäuscht. Der Biergarten ist im Sommer ein Traum."</p>
+        <div class="review-author">
+          <div class="review-avatar">MM</div>
+          <div><strong>Martin Meier</strong><span>vor 3 Wochen</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Wir haben unsere Hochzeit im Gasthaus zur Linde gefeiert — perfekte Organisation, tolles Essen, herzlicher Service. Die Familie hat sich rührend um alles gekümmert."</p>
+        <div class="review-author">
+          <div class="review-avatar">SW</div>
+          <div><strong>Susanne Weber</strong><span>vor 2 Monaten</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p>"Uriges Wirtshaus mit Charakter. Der Apfelstrudel ist göttlich! Einziger Minuspunkt: Am Wochenende sollte man reservieren, sonst wird es eng."</p>
+        <div class="review-author">
+          <div class="review-avatar">TK</div>
+          <div><strong>Thomas Koller</strong><span>vor 1 Monat</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="reservieren">
+  <h2>Reservieren Sie jetzt Ihren Tisch</h2>
+  <p>Rufen Sie uns an oder schreiben Sie uns eine E-Mail — wir freuen uns auf Ihren Besuch!</p>
+  <a href="#kontakt" class="btn btn-gold">📞 Jetzt reservieren</a>
+</section>
+
+<section id="kontakt">
+  <div class="container">
+    <div class="section-label">So erreichen Sie uns</div>
+    <h2 class="section-title">Kontakt & Öffnungszeiten</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><strong>Adresse</strong><span>Dorfstraße 15<br>84432 Hohenpolding (Bayern)</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><strong>Telefon</strong><span>+49 (0) 8084 123 45</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div><strong>E-Mail</strong><span>info@gasthaus-zur-linde.de</span></div>
+        </div>
+        <div style="margin-top:20px">
+          <strong>Öffnungszeiten</strong>
+          <table class="hours-table">
+            <tr><td>Montag</td><td>Ruhetag</td></tr>
+            <tr><td>Dienstag – Freitag</td><td>11:00 – 14:00 & 17:00 – 22:00</td></tr>
+            <tr><td>Samstag</td><td>11:00 – 22:00</td></tr>
+            <tr><td>Sonn- & Feiertag</td><td>10:00 – 20:00</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10574.022918752915!2d12.1473!3d48.3729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDIyJzIyLjQiTiAxMsKwMDgnNTAuMyJF!5e0!3m2!1sde!2sde!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Anfahrt"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 Gasthaus zur Linde — Fam. Gruber</p>
+    <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="#">AGB</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

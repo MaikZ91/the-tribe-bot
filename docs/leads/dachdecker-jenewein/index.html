@@ -1,11 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dachdeckerei Josef Jenewein GmbH – Ihr Dachdecker &amp; Spengler in München und Unterschleißheim. Familienbetrieb seit 1972. Dachsanierung, Neueindeckung, Flachdach, Dachfenster, Blecharbeiten, Dachbegrünung.">
-<title>Dachdeckerei Jenewein München – Ihr Dach in besten Händen</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dachdeckerei Jenewein — Ihr Dachdecker in München</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=Open+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<!-- END_HEAD -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--anthra:#1a1a2e;--kupfer:#c87941;--grau:#f0f0f0;--orange:#e8590c;--white:#fff;--text:#1a1a2e;--light:#f8f8f8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--text);background:var(--light);line-height:1.65}
+h1,h2{font-family:'Montserrat',sans-serif}
+.container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+
+/* Hero — Split Layout */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+@media(max-width:768px){.hero{grid-template-columns:1fr}}
+.hero-left{background:var(--anthra);display:flex;align-items:center;padding:clamp(40px,8vw,100px) clamp(20px,5vw,60px);position:relative;overflow:hidden}
+.hero-left::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;border:2px solid rgba(200,121,65,.25);border-radius:50%}
+.hero-left-content{position:relative;z-index:2;color:var(--white);max-width:520px}
+.hero-tag{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--kupfer);border:1.5px solid var(--kupfer);padding:6px 14px;border-radius:4px;margin-bottom:24px}
+.hero-left h1{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;line-height:1.1;margin-bottom:18px}
+.hero-left h1 span{color:var(--orange);display:block}
+.hero-left p{font-size:1rem;opacity:.8;margin-bottom:36px;line-height:1.7;max-width:440px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 34px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .25s;border:none;cursor:pointer}
+.btn-orange{background:var(--orange);color:var(--white)}
+.btn-orange:hover{background:#cd4f0b;transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,89,12,.35)}
+.btn-outline{border:2px solid rgba(255,255,255,.3);color:var(--white);background:transparent}
+.btn-outline:hover{border-color:var(--white)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-right{background:linear-gradient(135deg,var(--kupfer),#a05e2b);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(26,26,46,.2),transparent 60%)}
+.hero-geo{position:relative;z-index:2;text-align:center;color:var(--white)}
+.hero-geo .roof{font-size:clamp(4rem,10vw,7rem);line-height:1}
+.hero-geo .sub{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;margin-top:12px;opacity:.9}
+
+/* Sections */
+section{padding:80px 0}
+section.alt{background:var(--white)}
+.section-header{text-align:center;margin-bottom:56px}
+.section-tag{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--orange);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;color:var(--anthra);margin-bottom:12px}
+.section-sub{font-size:1rem;color:#666;max-width:560px;margin:0 auto}
+
+/* Services Icon Grid */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px}
+.service-item{background:var(--white);border:1px solid rgba(26,26,46,.06);border-radius:14px;padding:28px 16px;text-align:center;transition:all .3s}
+.service-item:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(26,26,46,.08);border-color:var(--orange)}
+.service-icon{font-size:2.8rem;margin-bottom:14px;display:block}
+.service-item h3{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:700;color:var(--anthra)}
+
+/* Gallery Grid */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.gallery-card{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--anthra),#2a2a4e)}
+.gallery-img{height:200px;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:3.5rem}
+.gallery-label{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(26,26,46,.9));color:var(--white);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem}
+.gallery-card .vorher{opacity:.65}
+.gallery-card:hover .gallery-label{background:rgba(232,89,12,.9)}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.review-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:0 2px 16px rgba(0,0,0,.04);border-top:3px solid var(--orange)}
+.review-stars{color:var(--orange);font-size:1.1rem;letter-spacing:2px;margin-bottom:12px}
+.review-card p{font-size:.93rem;color:#555;font-style:italic;line-height:1.7;margin-bottom:14px}
+.review-author{font-weight:700;font-size:.85rem;color:var(--anthra)}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
+.contact-dot{width:48px;height:48px;border-radius:50%;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-item strong{display:block;font-size:.9rem;color:var(--anthra)}
+.contact-item span{color:#666;font-size:.88rem}
+.contact-form{background:var(--white);border-radius:14px;padding:28px;box-shadow:0 2px 20px rgba(0,0,0,.05)}
+.contact-form h3{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--anthra);margin-bottom:20px;font-size:1.1rem}
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-weight:600;font-size:.82rem;color:var(--anthra);margin-bottom:6px}
+.form-row input,.form-row textarea{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-family:'Open Sans',sans-serif;font-size:.92rem;transition:border-color .2s}
+.form-row input:focus,.form-row textarea:focus{outline:none;border-color:var(--orange)}
+.form-row textarea{min-height:110px;resize:vertical}
+
+/* Footer */
+.footer{background:var(--anthra);color:rgba(255,255,255,.6);padding:40px 0;text-align:center;font-size:.82rem}
+.footer a{color:var(--kupfer);text-decoration:underline}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-content">
+      <div class="hero-tag">Meisterbetrieb · München</div>
+      <h1>Ihr Dach in <span>besten Händen</span></h1>
+      <p>Seit über 20 Jahren ist die Dachdeckerei Jenewein Ihr zuverlässiger Partner für sämtliche Dachdeckerarbeiten in München und Oberbayern. Qualität, die überdauert.</p>
+      <div class="hero-btns">
+        <a href="#kontakt" class="btn btn-orange">📋 Kostenloses Angebot</a>
+        <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-geo">
+      <div class="roof">🏠</div>
+      <div class="sub">Dachdeckerei<br>Jenewein</div>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Unsere Leistungen</div>
+      <h2 class="section-title">Rundum-Service für Ihr Dach</h2>
+      <p class="section-sub">Von der klassischen Neueindeckung bis zur modernen Photovoltaik — wir machen mehr als nur decken.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-item"><span class="service-icon">🏗️</span><h3>Dachsanierung</h3></div>
+      <div class="service-item"><span class="service-icon">🏠</span><h3>Neueindeckung</h3></div>
+      <div class="service-item"><span class="service-icon">🏢</span><h3>Flachdach</h3></div>
+      <div class="service-item"><span class="service-icon">🪟</span><h3>Dachfenster</h3></div>
+      <div class="service-item"><span class="service-icon">🔩</span><h3>Blecharbeiten</h3></div>
+      <div class="service-item"><span class="service-icon">🌿</span><h3>Dachbegrünung</h3></div>
+      <div class="service-item"><span class="service-icon">⚡</span><h3>Photovoltaik</h3></div>
+      <div class="service-item"><span class="service-icon">🛡️</span><h3>Dämmung</h3></div>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Referenzen</div>
+      <h2 class="section-title">Vorher · Nachher</h2>
+      <p class="section-sub">Sehen Sie selbst, was möglich ist — eine Auswahl unserer Projekte in München und Umgebung.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="gallery-img">🏚️</div>
+        <div class="gallery-label">Einfamilienhaus Schwabing — Vorher</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img">🏡</div>
+        <div class="gallery-label" style="background:rgba(232,89,12,.9)">Einfamilienhaus Schwabing — Nachher</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img">🏢</div>
+        <div class="gallery-label">Gewerbedach Giesing — Vorher</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img">✨</div>
+        <div class="gallery-label" style="background:rgba(232,89,12,.9)">Gewerbedach Giesing — Nachher</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bewertungen" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Bewertungen</div>
+      <h2 class="section-title">Das sagen unsere Kunden</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Die Dachdeckerei Jenewein hat unser Dach komplett saniert und mit neuen Dachfenstern ausgestattet. Termintreu, sauber und fairer Preis — eine echte Empfehlung für München."</p>
+        <div class="review-author">— Andrea F., München-Schwabing</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Unser Flachdach war undicht — das Team von Jenewein kam sofort und hat innerhalb von zwei Tagen alles abgedichtet. Kompetent, schnell, freundlich. Danke!"</p>
+        <div class="review-author">— Thomas R., München-Giesing</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p>"Gute Beratung zur Dachbegrünung mit Photovoltaik-Kombination. Leider kleine Verzögerung wegen Materialengpass, aber das Ergebnis ist top."</p>
+        <div class="review-author">— Claudia S., München-Haidhausen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Kontakt</div>
+      <h2 class="section-title">Jetzt unverbindlich anfragen</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-dot">📍</div>
+          <div><strong>Adresse</strong><span>Dachdeckerei Jenewein<br>Dachauer Str. 123<br>80335 München</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot">📞</div>
+          <div><strong>Telefon</strong><span>+49 (0) 89 123 45 67</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot">✉️</div>
+          <div><strong>E-Mail</strong><span>info@dachdeckerei-jenewein.de</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-dot">🕐</div>
+          <div><strong>Bürozeiten</strong><span>Mo–Fr 07:30–17:00<br>24h Notdienst verfügbar</span></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Angebot anfordern</h3>
+        <div class="form-row"><label>Name *</label><input type="text" placeholder="Vor- und Nachname"></div>
+        <div class="form-row"><label>E-Mail *</label><input type="email" placeholder="ihre@email.de"></div>
+        <div class="form-row"><label>Telefon</label><input type="tel" placeholder="+49 ..."></div>
+        <div class="form-row"><label>Ihr Projekt</label><textarea placeholder="Beschreiben Sie kurz, worum es geht..."></textarea></div>
+        <button class="btn btn-orange" style="width:100%">Anfrage senden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 Dachdeckerei Jenewein · Dachauer Str. 123 · 80335 München</p>
+    <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuvana Dach — Dachdecker in Frankfurt am Main</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,700;9..40,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#87CEEB;--concrete:#4a4a4a;--steel:#2c3e50;--amber:#f39c12;--white:#fff;--light:#f5f7fa;--text:#1a1a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;color:var(--text);background:var(--light);line-height:1.65}
+h1,h2,h3{font-family:'DM Sans',sans-serif;font-weight:800}
+.container{max-width:1140px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+
+/* Hero */
+.hero{position:relative;min-height:80vh;display:flex;align-items:center;background:linear-gradient(135deg,var(--steel) 0%,#1a3a4a 50%,#0f2027 100%);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath fill='rgba(135,206,235,.06)' d='M0,200 L40,190 L80,210 L120,180 L160,200 L200,170 L240,190 L280,160 L320,180 L360,150 L400,170 L440,140 L480,160 L520,130 L560,150 L600,120 L640,140 L680,110 L720,130 L760,100 L800,120 L840,90 L880,110 L920,80 L960,100 L1000,70 L1040,90 L1080,60 L1120,80 L1160,50 L1200,70 L1200,300 L0,300 Z'/%3E%3C/svg%3E") repeat-x bottom;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:650px;padding:80px 0;color:var(--white)}
+.hero-badge{display:inline-block;background:var(--amber);color:var(--steel);padding:6px 16px;border-radius:20px;font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.15;margin-bottom:20px}
+.hero h1 span{color:var(--amber)}
+.hero p{font-size:clamp(1rem,1.5vw,1.15rem);opacity:.88;margin-bottom:36px;max-width:480px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+.btn-amber{background:var(--amber);color:var(--steel)}
+.btn-amber:hover{background:#e5950f;transform:translateY(-2px);box-shadow:0 10px 28px rgba(243,156,18,.35)}
+.btn-white{border:2px solid rgba(255,255,255,.5);color:var(--white);background:transparent}
+.btn-white:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-skyline{position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(to top,var(--light) 0%,transparent 100%)}
+
+/* Sections */
+section{padding:80px 0}
+.section-label{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--amber);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.section-title{font-size:clamp(1.8rem,4vw,2.5rem);color:var(--steel);margin-bottom:12px}
+.section-subtitle{color:var(--concrete);font-size:1.05rem;max-width:600px;margin-bottom:48px}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-text p{color:var(--concrete);margin-bottom:16px;font-size:1rem}
+.about-text blockquote{border-left:4px solid var(--amber);padding:16px 20px;margin:24px 0;background:#fff;border-radius:0 12px 12px 0;font-style:italic;color:var(--steel)}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stat-card{background:#fff;border-radius:16px;padding:24px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.stat-number{font-family:'DM Sans',sans-serif;font-size:2.2rem;font-weight:800;color:var(--amber);line-height:1}
+.stat-label{font-size:.85rem;color:var(--concrete);margin-top:6px}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.service-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.04);transition:all .3s;border-top:4px solid transparent}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08);border-top-color:var(--amber)}
+.service-icon{font-size:2.2rem;margin-bottom:14px}
+.service-card h3{font-size:1.15rem;color:var(--steel);margin-bottom:8px}
+.service-card p{font-size:.92rem;color:var(--concrete);line-height:1.6}
+
+/* References */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.ref-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.04)}
+.ref-image{background:linear-gradient(135deg,var(--steel),var(--concrete));height:180px;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:3rem}
+.ref-body{padding:20px}
+.ref-body h3{font-size:1rem;color:var(--steel);margin-bottom:6px}
+.ref-body p{font-size:.88rem;color:var(--concrete)}
+.ref-tag{display:inline-block;background:rgba(243,156,18,.12);color:var(--amber);padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700;margin-top:8px}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.review-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.review-stars{color:var(--amber);font-size:1.1rem;letter-spacing:2px;margin-bottom:12px}
+.review-card p{font-size:.93rem;color:var(--concrete);font-style:italic;margin-bottom:16px;line-height:1.7}
+.review-author{font-weight:700;font-size:.88rem;color:var(--steel)}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
+.contact-icon{width:48px;height:48px;border-radius:12px;background:var(--steel);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.contact-item strong{display:block;font-size:.9rem;color:var(--steel)}
+.contact-item span{color:var(--concrete);font-size:.9rem}
+.contact-form{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.04)}
+.contact-form h3{color:var(--steel);margin-bottom:20px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:600;font-size:.85rem;color:var(--steel);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-family:inherit;font-size:.95rem;transition:border-color .2s}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--amber)}
+.form-group textarea{min-height:100px;resize:vertical}
+
+/* Footer */
+.footer{background:var(--steel);color:rgba(255,255,255,.7);padding:40px 0;text-align:center;font-size:.85rem}
+.footer a{color:var(--amber);text-decoration:underline}
+
+@media(max-width:480px){.hero h1{font-size:1.7rem}.hero-btns{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content container">
+    <div class="hero-badge">Meisterbetrieb seit 1998</div>
+    <h1>Ihr Dachdecker in <span>Frankfurt</span> — Qualität die überzeugt</h1>
+    <p>Von der Mainmetropole bis ins Rhein-Main-Gebiet: Tuvana Dach steht für präzise Handwerksarbeit, moderne Technik und faire Preise.</p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn btn-amber">📋 Kostenloses Angebot</a>
+      <a href="#leistungen" class="btn btn-white">Unsere Leistungen</a>
+    </div>
+  </div>
+  <div class="hero-skyline"></div>
+</section>
+
+<section id="ueber-uns">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Über uns</div>
+        <h2 class="section-title">Tuvana Dach — Handwerk mit Verantwortung</h2>
+        <p>Seit über 25 Jahren ist Tuvana Dach Ihr zuverlässiger Partner für sämtliche Dachdeckerarbeiten in Frankfurt und Umgebung. Als Meisterbetrieb vereinen wir traditionelles Handwerk mit modernster Technik.</p>
+        <p>Unser Team aus 12 qualifizierten Dachdeckern garantiert termingerechte und saubere Ausführung — vom Einfamilienhaus bis zur Gewerbeimmobilie.</p>
+        <blockquote>"Wir bauen nicht nur Dächer, wir schaffen ein Zuhause unter sicherem Schutz. Jedes Projekt verdient unsere volle Aufmerksamkeit — vom ersten Beratungsgespräch bis zur Endabnahme."</blockquote>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-number">25+</div><div class="stat-label">Jahre Erfahrung</div></div>
+        <div class="stat-card"><div class="stat-number">1.200+</div><div class="stat-label">Dächer gebaut</div></div>
+        <div class="stat-card"><div class="stat-number">12</div><div class="stat-label">Fachkräfte im Team</div></div>
+        <div class="stat-card"><div class="stat-number">5★</div><div class="stat-label">Kundenzufriedenheit</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen" style="background:#fff">
+  <div class="container">
+    <div class="section-label">Leistungen</div>
+    <h2 class="section-title">Was wir für Sie tun</h2>
+    <p class="section-subtitle">Von der klassischen Neueindeckung bis zur modernen Dachbegrünung — unser Leistungsspektrum deckt alle Bereiche ab.</p>
+    <div class="services-grid">
+      <div class="service-card"><span class="service-icon">🏠</span><h3>Steildach</h3><p>Klassische Dachkonstruktionen mit hochwertigen Ziegeln oder Schiefer — langlebig und ästhetisch.</p></div>
+      <div class="service-card"><span class="service-icon">🏢</span><h3>Flachdach</h3><p>Professionelle Abdichtung mit Bitumen, Kunststoff oder Flüssigkunststoff — absolut dicht, Jahrzehnte haltbar.</p></div>
+      <div class="service-card"><span class="service-icon">🔧</span><h3>Dachreparatur</h3><p>Schnelle Notreparaturen nach Sturm oder Hagel — 24h-Notdienst für akute Fälle in Frankfurt.</p></div>
+      <div class="service-card"><span class="service-icon">🪟</span><h3>Dachfenster & Gauben</h3><p>Mehr Licht unterm Dach — Einbau von Velux-Fenstern, Dachgauben und Lichtkuppeln.</p></div>
+      <div class="service-card"><span class="service-icon">🌿</span><h3>Dachbegrünung</h3><p>Extensive und intensive Begrünung — für ein besseres Stadtklima und natürliche Wärmedämmung.</p></div>
+      <div class="service-card"><span class="service-icon">⚡</span><h3>Solar-Integration</h3><p>Photovoltaik und Solarthermie — wir machen Ihr Dach zum Kraftwerk. Inklusive Förderungsberatung.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="referenzen">
+  <div class="container">
+    <div class="section-label">Referenzen</div>
+    <h2 class="section-title">Ausgewählte Projekte</h2>
+    <p class="section-subtitle">Eine kleine Auswahl unserer Arbeit in Frankfurt und dem Rhein-Main-Gebiet.</p>
+    <div class="ref-grid">
+      <div class="ref-card"><div class="ref-image">🏛️</div><div class="ref-body"><h3>Villa Sachsenhausen</h3><p>Komplette Neueindeckung einer Jugendstil-Villa mit Schiefer — inklusive Dachgauben und Zinkverblechung.</p><span class="ref-tag">2024 · Frankfurt-Sachsenhausen</span></div></div>
+      <div class="ref-card"><div class="ref-image">🏗️</div><div class="ref-body"><h3>Bürokomplex Niederrad</h3><p>2.400 m² Flachdach mit vollflächiger Begrünung und integrierter Photovoltaik-Anlage (98 kWp).</p><span class="ref-tag">2023 · Frankfurt-Niederrad</span></div></div>
+      <div class="ref-card"><div class="ref-image">🏡</div><div class="ref-body"><h3>Einfamilienhaus Bornheim</h3><p>Dachstuhlerweiterung mit 4 Velux-Fenstern und Komplett-Dämmung nach GEG-Standard.</p><span class="ref-tag">2024 · Frankfurt-Bornheim</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="bewertungen" style="background:#fff">
+  <div class="container">
+    <div class="section-label">Das sagen unsere Kunden</div>
+    <h2 class="section-title">Bewertungen</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Tuvana Dach hat bei uns ein komplett neues Flachdach gemacht. Termingerecht, sauber, und der Preis war fair. Die Solaranlage läuft seit einem Jahr ohne Probleme. Absolute Empfehlung!"</p>
+        <div class="review-author">— Michael K., Frankfurt</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Nach einem Sturmschaden kam das Team innerhalb von 2 Stunden zum Notdiensteinsatz. Das Dach wurde provisorisch abgedichtet, und am nächsten Tag komplett repariert. Top Service!"</p>
+        <div class="review-author">— Petra L., Offenbach</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p>"Die Beratung war sehr ausführlich, und das Ergebnis kann sich sehen lassen. Ein Stern Abzug, weil der Termin eine Woche verschoben wurde — aber das Endergebnis entschädigt."</p>
+        <div class="review-author">— Ralf S., Bad Homburg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="container">
+    <div class="section-label">Kontakt</div>
+    <h2 class="section-title">Jetzt unverbindlich anfragen</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><strong>Adresse</strong><span>Tiroler Str. 28c<br>60596 Frankfurt am Main</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><strong>Telefon</strong><span>+49 (0) 69 123 45 67</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div><strong>E-Mail</strong><span>info@tuvana-dach.de</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div><strong>Bürozeiten</strong><span>Mo–Fr 08:00–17:00<br>24h Notdienst verfügbar</span></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Angebot anfordern</h3>
+        <div class="form-group"><label>Name *</label><input type="text" placeholder="Vor- und Nachname"></div>
+        <div class="form-group"><label>E-Mail *</label><input type="email" placeholder="ihre@email.de"></div>
+        <div class="form-group"><label>Telefon</label><input type="tel" placeholder="+49 ..."></div>
+        <div class="form-group"><label>Ihr Anliegen</label><textarea placeholder="Beschreiben Sie kurz Ihr Projekt..."></textarea></div>
+        <button class="btn btn-amber" style="width:100%">Absenden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 Tuvana Dach — Meisterbetrieb für Dachtechnik in Frankfurt am Main</p>
+    <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
