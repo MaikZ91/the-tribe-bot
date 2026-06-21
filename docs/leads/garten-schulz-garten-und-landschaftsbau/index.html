@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Gartenbau & Baumpflege in Karlsruhe | Schulz Garten- und Landschaftsbau</title>
+    <meta name="description" content="Sie benötigen einen Landschaftsgärtner in Karlsruhe, Baumpflege oder Baumfällung? Garten- und Landschaftsbau Roland Schulz ist für Sie da!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #2d5a3d;
+            --forest-light: #3d7a52;
+            --earth: #8b7355;
+            --earth-light: #c4a882;
+            --sand: #f5f1e8;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--white);
+            box-shadow: 0 2px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 4px 30px var(--shadow);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .logo span {
+            color: var(--earth);
+        }
+
+        .header-cta {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .header-cta {
+                display: flex;
+                gap: 1rem;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 768px) {
+            .hero-cta {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--earth-light);
+            color: var(--text);
+        }
+
+        .btn-primary:hover {
+            background: var(--earth);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--forest);
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background: var(--sand);
+            padding: 3rem 1.5rem;
+        }
+
+        .trust-strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--forest);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .trust-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 0.25rem;
+        }
+
+        .trust-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Section */
+        .section {
+            padding: 5rem 1.5rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services */
+        .services {
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--sand);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+        }
+
+        .service-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--sand);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-item.large {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(45, 90, 61, 0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Contact Form */
+        .contact {
+            background: var(--white);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-info {
+            background: var(--forest);
+            border-radius: 16px;
+            padding: 2.5rem;
+            color: var(--white);
+        }
+
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item-content h4 {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item-content a, .contact-item-content p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .contact-item-content a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form-wrapper {
+            background: var(--sand);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .contact-form-wrapper h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-wrapper p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--forest);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--forest);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: var(--forest-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 90, 61, 0.4);
+        }
+
+        /* CTA Band */
+        .cta-band {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            padding: 5rem 1.5rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-band-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-band h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .cta-band p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .footer-brand h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: var(--white);
+            padding: 1rem;
+            box-shadow: 0 -4px 20px var(--shadow);
+        }
+
+        .mobile-cta-bar .btn {
+            width: 100%;
+        }
+
+        @media (max-width: 767px) {
+            .mobile-cta-bar {
+                display: block;
+            }
+            body {
+                padding-bottom: 80px;
+            }
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">Schulz <span>Gartenbau</span></div>
+            <div class="header-cta">
+                <a href="tel:0721483518" class="btn btn-primary">0721 483518</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://assets.coco-online.de/8471705083916-5knAC5CZ/galabau-roland-schulz-garten.jpg" alt="Garten- und Landschaftsbau Schulz Karlsruhe" class="hero-image">
+        </div>
+        <div class="hero-content">
+            <h1>Willkommen beim Garten- und Landschaftsbau Roland Schulz</h1>
+            <p>Ihrem Experten für Pflasterarbeiten, Teichanlagen & Baumpflege in Karlsruhe</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Anfrage senden</a>
+                <a href="#services" class="btn btn-secondary">Leistungen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <section class="trust-strip">
+        <div class="trust-strip-inner">
+            <div class="trust-item reveal">
+                <div class="trust-icon">🌳</div>
+                <h3>30+ Jahre Erfahrung</h3>
+                <p>Expertenwissen in Karlsruhe</p>
+            </div>
+            <div class="trust-item reveal">
+                <div class="trust-icon">🔧</div>
+                <h3>Qualitätsarbeit</h3>
+                <p>Handwerk auf höchstem Niveau</p>
+            </div>
+            <div class="trust-item reveal">
+                <div class="trust-icon">🌱</div>
+                <h3>Naturverbunden</h3>
+                <p>Umweltschonende Methoden</p>
+            </div>
+            <div class="trust-item reveal">
+                <div class="trust-icon">📍</div>
+                <h3>Regional</h3>
+                <p>Karlsruhe & Umgebung</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section services" id="services">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <h2>Unsere Leistungen</h2>
+                <p>Von der Planung bis zur Fertigstellung – wir verwirklichen Ihren Traumgarten</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083917-IjiVrEGP/kachel--pflasterarbeiten.png" alt="Pflasterarbeiten Karlsruhe" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Pflasterarbeiten</h3>
+                        <p>Professionelle Pflasterung von Wegen, Terrassen und Einfahrden mit hochwertigen Materialien.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083918-ho0IzJcb/kachel-teichanlage-brunnen-01.png" alt="Teichanlagen und Brunnen" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Teichanlagen & Brunnen</h3>
+                        <p>Individuelle Wassergärten, Gartenteiche und dekorative Brunnen für mehr Ambiente.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083917-gFsNhNjx/kachel-baumarbeiten.png" alt="Baumpflege und Fällung" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Baumpflege & Fällung</h3>
+                        <p>Fachgerechte Baumpflege, Kronenschnitt und sichere Baumfällung.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083918-vIoxzBRn/kachel-baumfeldrodung-wurzelfrsen.png" alt="Wurzelstock entfernen" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Wurzelstock entfernen</h3>
+                        <p>Lassen Sie in Karlsruhe professionell Wurzelstöcke entfernen – schnell und gründlich.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083919-c5eFueRp/kachel-terrasse-01.png" alt="Terrassenbau" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Terrassenbau</h3>
+                        <p>Moderne Terrassen aus Holz, Stein oder WPC – perfekt für Ihre Zeit im Freien.</p>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-image">
+                        <img src="https://assets.coco-online.de/8471705083917-k1dyGuPc/kachel-pflege-rollrasen.png" alt="Gartenpflege und Rollrasen" loading="lazy">
+                    </div>
+                    <div class="service-content">
+                        <h3>Gartenpflege & Rollrasen</h3>
+                        <p>Regelmäßige Gartenpflege, Rasenpflege und professionelle Rollrasenverlegung.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section gallery" id="gallery">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <h2>Unsere Projekte</h2>
+                <p>Ein Einblick in unsere Arbeit – von klein bis groß</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large reveal">
+                    <img src="https://assets.coco-online.de/8471705083916-5knAC5CZ/galabau-roland-schulz-garten.jpg" alt="Gartenprojekt Schulz Gartenbau" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://assets.coco-online.de/8471705083916-W0x6rmkC/galabau-roland-schulz-holzstufen.jpg" alt="Holzstufen im Garten" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://assets.coco-online.de/8471705083917-n30GZWt0/galabau-roland-spielplatz.jpg" alt="Spielplatz im Garten" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://assets.coco-online.de/8471705083919-2htFASbn/kachel-zune.png" alt="Gartenzaun und Einfriedung" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://assets.coco-online.de/8471705083919-nS4EJWvE/kachel-brennholz.png" alt="Brennholz und Forstarbeiten" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://assets.coco-online.de/8471705083958-YQHax2g0/kachel-gesiebter-mutterboden.png" alt="Mutterboden und Erdarbeiten" loading="lazy">
+                    <div class="gallery-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <h2>Kontaktieren Sie uns</h2>
+                <p>Für ein unverbindliches Angebot oder eine Beratung vor Ort</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info reveal">
+                    <h3>Schulz Garten- und Landschaftsbau</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-content">
+                            <h4>Adresse</h4>
+                            <p>Im Brühl 6<br>76229 Karlsruhe</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-content">
+                            <h4>Telefon</h4>
+                            <a href="tel:0721483518">0721 483518</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div class="contact-item-content">
+                            <h4>E-Mail</h4>
+                            <a href="mailto:info@gartenbauschulz.de">info@gartenbauschulz.de</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper reveal">
+                    <h3>Anfrage senden</h3>
+                    <p>Wir melden uns zeitnah bei Ihnen zurück</p>
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Gewünschte Leistung</label>
+                            <select id="service" name="service">
+                                <option value="">Bitte wählen...</option>
+                                <option value="pflaster">Pflasterarbeiten</option>
+                                <option value="teich">Teichanlagen & Brunnen</option>
+                                <option value="baumpflege">Baumpflege / Fällung</option>
+                                <option value="wurzel">Wurzelstock entfernen</option>
+                                <option value="terrasse">Terrassenbau</option>
+                                <option value="pflege">Gartenpflege</option>
+                                <option value="sonstiges">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Nachricht *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn form-submit">Anfrage absenden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="cta-band-inner reveal">
+            <h2>Bereit für Ihren Traumgarten?</h2>
+            <p>Rufen Sie uns an oder senden Sie eine Anfrage – wir freuen uns auf Ihr Projekt!</p>
+            <a href="tel:0721483518" class="btn btn-primary">0721 483518</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h4>Schulz Garten- und Landschaftsbau</h4>
+                <p>Ihr Partner für professionelle Gartenarbeiten in Karlsruhe und Umgebung.</p>
+                <p class="footer-note">Konzept-Vorschau · MZ.9</p>
+            </div>
+            <div class="footer-links">
+                <h5>Leistungen</h5>
+                <ul>
+                    <li><a href="#services">Pflasterarbeiten</a></li>
+                    <li><a href="#services">Teichanlagen</a></li>
+                    <li><a href="#services">Baumpflege</a></li>
+                    <li><a href="#services">Wurzelstock entfernen</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Kontakt</h5>
+                <ul>
+                    <li><a href="tel:0721483518">0721 483518</a></li>
+                    <li><a href="mailto:info@gartenbauschulz.de">info@gartenbauschulz.de</a></li>
+                    <li><a href="#contact">Anfrageformular</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta-bar">
+        <a href="tel:0721483518" class="btn btn-primary">0721 483518 anrufen</a>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Form handler (demo)
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const emailBody = Object.entries(formData)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+            window.location.href = `mailto:info@gartenbauschulz.de?subject=Gartenanfrage&body=${encodeURIComponent(emailBody)}`;
+        }
+    </script>
+</body>
+</html>

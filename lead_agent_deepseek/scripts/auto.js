@@ -238,15 +238,31 @@ function buildLeadAsync(item) {
       cmd = `"${claudeBin()}" -p "${prompt}" --dangerously-skip-permissions`;
     }
     exec(cmd, { cwd: REPO, timeout: BUILD_TIMEOUT_MS, maxBuffer: 16 * 1024 * 1024 }, (err) => {
-      if (err) { log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${err.killed ? 'Timeout' : err.message}`); resolve(false); return; }
+      // Datei-Check auch bei err — claude kann non-zero exiten (z. B. wegen
+      // stdin-Warning) aber trotzdem die Datei geschrieben haben.
       try {
         const out = path.join(dir, 'index.html');
-        if (!fs.existsSync(out) || fs.statSync(out).size < MIN_BUILT_BYTES) { log(`  ⚠️  Build ohne Ergebnis für ${item.id} (index.html fehlt/zu klein)`); resolve(false); return; }
-      } catch (e) { log(`  ⚠️  Build-Verifikation fehlgeschlagen für ${item.id}: ${e.message}`); resolve(false); return; }
-      log(`  ✅ Build ok: ${item.id}`);
-      resolve(true);
+        if (fs.existsSync(out) && fs.statSync(out).size >= MIN_BUILT_BYTES) {
+          log(`  ✅ Build ok: ${item.id}${err ? ' (mit non-zero exit, Datei ok)' : ''}`);
+          resolve(true);
+          return;
+        }
+      } catch (e) { /* unten als Fehler behandeln */ }
+      const why = err ? (err.killed ? 'Timeout' : (err.code ? `exit ${err.code}` : err.message).slice(0, 90)) : 'keine Datei';
+      log(`  ⚠️  Build fehlgeschlagen für ${item.id}: ${why}`);
+      resolve(false);
     });
   });
+}
+
+// Build mit sofortigem Retry (claude -p ist gelegentlich flaky — API-Overload,
+// non-zero exit ohne Datei). Retry innerhalb des Zyklus statt erst im nächsten.
+async function buildWithRetry(item, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    if (await buildLeadAsync(item)) return true;
+    if (attempt < retries) log(`  🔁 Retry ${attempt + 1}/${retries} für ${item.id}…`);
+  }
+  return false;
 }
 
 async function stage2() {
@@ -260,8 +276,8 @@ async function stage2() {
   // SERIELL: claude.exe (kompiliert) lässt sich nicht parallel starten
   // (Windows Sharing-Violation, auch mit CLAUDE_CONFIG_DIR-Isolation).
   // Seriell ist zuverlässig; batch-stage1 sorgt trotzdem für 3 Leads/Zyklus.
-  log(`${buildable.length} offene Build(s) — serieller Build.`);
-  for (const item of buildable) { await buildLeadAsync(item); }
+  log(`${buildable.length} offene Build(s) — serieller Build (mit Retry).`);
+  for (const item of buildable) { await buildWithRetry(item); }
 }
 
 // ═══ STUFE 3: Publish + Mail ════════════════════════════════════
