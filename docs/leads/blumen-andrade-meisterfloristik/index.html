@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Andrade Meisterfloristik — Blumen in Hamburg</title>
+  <meta name="description" content="Andrade Meisterfloristik in Hamburg — frische Blumen, Hochzeitsfloristik, Trauerfloristik und individuelle Gestaltung. Ihre Meisterblumenbinderin im Karoviertel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #2d5a27;
+      --primary-light: #4a7a42;
+      --accent: #7b5a8f;
+      --accent-light: #9d7eb0;
+      --bg: #fdfcf9;
+      --bg-alt: #f4f1e8;
+      --text: #2c2c2c;
+      --text-light: #5a5a5a;
+      --white: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; }
+    .section-alt { background: var(--bg-alt); }
+    h1, h2, h3 { color: var(--text); line-height: 1.2; }
+    h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 500; }
+    h3 { font-size: 1.5rem; margin-weight: 500; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(253, 252, 249, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled { box-shadow: var(--shadow-sm); }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo svg { width: 28px; height: 28px; fill: var(--primary); }
+    .nav { display: none; gap: 32px; }
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--primary); }
+    @media (min-width: 768px) {
+      .nav { display: flex; }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 120px 0 80px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 50%;
+      height: 140%;
+      background: radial-gradient(circle, rgba(123, 90, 143, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+    }
+    @media (min-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; gap: 60px; }
+    }
+    .hero-content { z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(45, 90, 39, 0.1);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 30px;
+      max-width: 480px;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-secondary:hover {
+      background: rgba(45, 90, 39, 0.05);
+    }
+    .hero-image {
+      position: relative;
+      order: -1;
+    }
+    @media (min-width: 960px) {
+      .hero-image { order: 1; }
+    }
+    .hero-image-inner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+    }
+    .hero-badge .number {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .hero-badge .label {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* USPs */
+    .usps {
+      padding: 40px 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      background: var(--white);
+    }
+    .usps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    .usp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .usp-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(45, 90, 39, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .usp-icon svg { width: 20px; height: 20px; fill: var(--primary); }
+    .usp-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .usp-content p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Leistungen */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(45, 90, 39, 0.2);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 28px; height: 28px; fill: var(--white); }
+    .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Termin-Feature */
+    .booking-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .booking-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+    .booking-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @media (min-width: 768px) {
+      .booking-inner { grid-template-columns: 1fr 1.2fr; }
+    }
+    .booking-content h2 { color: var(--white); margin-bottom: 1rem; }
+    .booking-content p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+    .booking-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .booking-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .step-text { font-size: 0.95rem; }
+    .booking-form {
+      background: var(--white);
+      padding: 32px;
+      border-radius: var(--radius);
+      color: var(--text);
+    }
+    .booking-form h3 {
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .form-btn:hover { background: var(--primary-light); }
+
+    /* Galerie */
+    .gallery-section .section-intro {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .gallery-section .section-intro p {
+      color: var(--text-light);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--bg-alt);
+      box-shadow: var(--shadow-sm);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
+    }
+    .gallery-placeholder svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--accent-light);
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+    .gallery-placeholder span {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Kontakt */
+    .contact-section {
+      padding: 80px 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @media (min-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr 1.2fr; }
+    }
+    .contact-info h3 { margin-bottom: 20px; font-size: 1.4rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(45, 90, 39, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 20px; height: 20px; fill: var(--primary); }
+    .contact-details h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-details p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+    .contact-details a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .contact-details a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      padding: 60px 0 20px;
+      font-size: 0.9rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    @media (min-width: 640px) {
+      .footer-inner { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .footer-col h4 {
+      color: var(--white);
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 12px;
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+    }
+    @media (min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+    .mobile-cta-spacer {
+      height: 70px;
+    }
+    @media (min-width: 768px) {
+      .mobile-cta-spacer { display: none; }
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo font-serif">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C9.5 2 7.5 4 7.5 6.5c0 1.5.7 2.8 1.8 3.7C6.8 11 5 13.3 5 16v4c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4c0-2.7-1.8-5-4.3-5.8 1.1-.9 1.8-2.2 1.8-3.7C16.5 4 14.5 2 12 2zm0 2c1.4 0 2.5 1.1 2.5 2.5S13.4 9 12 9s-2.5-1.1-2.5-2.5S10.6 4 12 4z"/>
+        </svg>
+        Andrade Meisterfloristik
+      </a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#beratung">Beratung</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#kontakt" class="btn btn-primary" style="display:none;">Anfragen</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Meisterfloristik im Karoviertel</span>
+        <h1 class="font-serif">Blumen, die Emotionen ausdrücken</h1>
+        <p class="hero-subtitle">Individuelle Floristik für jeden Anlass — von romantischen Hochzeiten bis herzliche Trauerfloristik. Gestaltet von Ihrer Meisterblumenbinderin in Hamburg.</p>
+        <div class="hero-ctas">
+          <a href="#beratung" class="btn btn-primary">
+            Beratungstermin
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </a>
+          <a href="tel:+49404903162" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.39-.04c1.15.92 2.49 1.68 3.95 2.25a1 1 0 01.58.93v2.77a1 1 0 01-1.07 1A19.998 19.998 0 012 6.27a1 1 0 011-1.07h2.77a1 1 0 01.93.58c.57 1.46 1.33 2.8 2.25 3.95a1 1 0 01-.04 1.39l-2.2 2.2z"/></svg>
+            Anrufen
+          </a>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <div class="hero-image-inner">
+          <img src="https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/278371460_4998936493524460_7730045479156609483_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=DiWBeIEuXkgQ7kNvwFhiIVR&_nc_oc=AdrC76_QVi7akRu-u4ioqOHxw67hN6o9NTpx6hCjephwoXoXtM4eRIsCnyoFffPgw_8&_nc_zt=24&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_ss=73a02&oh=00_Af_GITV0PDLAsrwp9cy6QaUvE1EV6JuVJ7o_NXuoUz-uSQ&oe=6A3E6140" alt="Andrade Meisterfloristik — Ihre Floristik in Hamburg">
+          <div class="hero-badge">
+            <span class="number">20+</span>
+            <span class="label">Jahre Erfahrung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <section class="usps">
+    <div class="container usps-grid">
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="usp-content">
+          <h4>Meister-Qualität</h4>
+          <p>Zertifizierte Meisterblumenbinderin mit langjähriger Erfahrung</p>
+        </div>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="usp-content">
+          <h4>Frisch &amp; Regional</h4>
+          <p>Täglich frische Blumen vom Großmarkt &amp; ausgewählten Züchtern</p>
+        </div>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v4l4-4h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H12l-2 2v-2H4V4h16v12z"/></svg>
+        </div>
+        <div class="usp-content">
+          <h4>Persönliche Beratung</h4>
+          <p>Individuelle Gestaltung nach Ihren Wünschen</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="section" id="leistungen">
+    <div class="container">
+      <div class="section-intro reveal">
+        <h2 class="font-serif">Unsere Leistungen</h2>
+        <p>Vertrauen Sie auf unser Fachwissen für jeden Anlass — von zarten Arrangements bis großformatige Dekorationen.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <h3>Hochzeitsfloristik</h3>
+          <p>Bräutigam-Sträuße, Tischdekorationen, Kirchenschmuck und mehr — romantisch perfekt auf Ihren großen Tag abgestimmt.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7V5h10v14z"/><path d="M11 10h2v4h-2zm0 5h2v2h-2z"/></svg>
+          </div>
+          <h3>Trauerfloristik</h3>
+          <p>Würdevolle Kranzbindungen und Gestecke, die tröstend gedenken — sensibel gestaltet in schwierigen Zeiten.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s9 13 9 13 9-8.03 9-13-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/></svg>
+          </div>
+          <h3>Saisonale Dekoration</h3>
+          <p>Weihnachtsschmuck, Osterarrangements und Herbstdeko — bringen Sie die Jahreszeiten in Ihr Zuhause.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+          </div>
+          <h3>Event-Floristik</h3>
+          <p>Firmenevents, Galas und private Feiern — beeindruckende Blumenkonzepte, die bleiben.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          </div>
+          <h3>Tagessträuße &amp; Geschenke</h3>
+          <p>Frische Sträuße jeden Tag und liebevoll verpackte Blumengeschenke für besondere Momente.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 2h10v2H7zm0 4h10v2H7zm0 4h6v2H7z"/></svg>
+          </div>
+          <h3>Grün- &amp; Zimmerpflanzen</h3>
+          <p>Gute Beratung für die richtige Pflanze zum richtigen Standort — inklusive Umtopf-Service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beratungstermin -->
+  <section class="section section-alt" id="beratung">
+    <div class="container">
+      <div class="booking-section reveal">
+        <div class="booking-inner">
+          <div class="booking-content">
+            <h2 class="font-serif">Kostenlose Erstberatung</h2>
+            <p>Planen Sie eine Hochzeit oder ein größeres Event? Lassen Sie uns gemeinsam Ihre Blumenwünsche besprechen.</p>
+            <div class="booking-steps">
+              <div class="booking-step">
+                <span class="step-number">1</span>
+                <span class="step-text">Wählen Sie Ihren Wunschtermin</span>
+              </div>
+              <div class="booking-step">
+                <span class="step-number">2</span>
+                <span class="step-text">Schildern Sie uns Ihre Vorstellungen</span>
+              </div>
+              <div class="booking-step">
+                <span class="step-number">3</span>
+                <span class="step-text">Wir erstellen ein individuelles Angebot</span>
+              </div>
+            </div>
+          </div>
+          <form class="booking-form" id="bookingForm">
+            <h3>Beratungstermin anfragen</h3>
+            <div class="form-group">
+              <label for="name">Ihr Name *</label>
+              <input type="text" id="name" class="form-input" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" class="form-input" placeholder="max@beispiel.de" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" class="form-input" placeholder="+49 40 12345678">
+            </div>
+            <div class="form-group">
+              <label for="occasion">Anlass</label>
+              <select id="occasion" class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option value="hochzeit">Hochzeit</option>
+                <option value="trauer">Trauerfloristik</option>
+                <option value="event">Event / Feier</option>
+                <option value="deko">Saisonale Dekoration</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Wünsche</label>
+              <textarea id="message" class="form-textarea" placeholder="Erzählen Sie uns von Ihrem Projekt..."></textarea>
+            </div>
+            <button type="submit" class="form-btn">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section" id="galerie">
+    <div class="container">
+      <div class="section-intro reveal">
+        <h2 class="font-serif">Galerie</h2>
+        <p>Ein Einblick in unsere Arbeiten — von eleganten Hochzeitssträußen bis saisonalen Arrangements.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/278371460_4998936493524460_7730045479156609483_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=DiWBeIEuXkgQ7kNvwFhiIVR&_nc_oc=AdrC76_QVi7akRu-u4ioqOHxw67hN6o9NTpx6hCjephwoXoXtM4eRIsCnyoFffPgw_8&_nc_zt=24&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_ss=73a02&oh=00_Af_GITV0PDLAsrwp9cy6QaUvE1EV6JuVJ7o_NXuoUz-uSQ&oe=6A3E6140" alt="Andrade Meisterfloristik">
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-7.14z"/></svg>
+            <span>Weitere Bilder folgen...</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-7.14z"/></svg>
+            <span>Hochzeitsfloristik</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-7.14z"/></svg>
+            <span>Trauerfloristik</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section section-alt" id="kontakt">
+    <div class="container">
+      <div class="section-intro reveal">
+        <h2 class="font-serif">Kontakt &amp; Anfahrt</h2>
+        <p>Besuchen Sie uns im Karoviertel oder kontaktieren Sie uns telefonisch — wir freuen uns auf Sie.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3 class="font-serif">Wir sind für Sie da</h3>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.39-.04c1.15.92 2.49 1.68 3.95 2.25a1 1 0 01.58.93v2.77a1 1 0 01-1.07 1A19.998 19.998 0 012 6.27a1 1 0 011-1.07h2.77a1 1 0 01.93.58c.57 1.46 1.33 2.8 2.25 3.95a1 1 0 01-.04 1.39l-2.2 2.2z"/></svg>
+            </div>
+            <div class="contact-details">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49404903162">+49 40 4903162</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="contact-details">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:andrade-meisterfloristik@t-online.de">andrade-meisterfloristik@t-online.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div class="contact-details">
+              <h4>Adresse</h4>
+              <p>Osterstraße 95<br>20259 Hamburg</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <div style="background: rgba(0,0,0,0.03); border-radius: var(--radius-lg); height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-light);">
+            <div style="text-align: center;">
+              <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: var(--primary); opacity: 0.3; margin-bottom: 12px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <span>Karten-Ansicht (Konzept)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h4>Andrade Meisterfloristik</h4>
+          <p style="opacity: 0.8; margin-bottom: 16px;">Meisterblumenbinderin im Karoviertel Hamburg — frische Blumen und individuelle Floristik seit über 20 Jahren.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Leistungen</h4>
+          <ul>
+            <li><a href="#leistungen">Hochzeitsfloristik</a></li>
+            <li><a href="#leistungen">Trauerfloristik</a></li>
+            <li><a href="#leistungen">Event-Dekoration</a></li>
+            <li><a href="#leistungen">Saisonale Arrangements</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+49404903162">+49 40 4903162</a></li>
+            <li><a href="mailto:andrade-meisterfloristik@t-online.de">E-Mail</a></li>
+            <li><a href="https://www.instagram.com/andrade_meisterfloristik/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Konzept-Vorschau · MZ.9 · Keine echte Website — unverbindliche Design-Demonstration</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49404903162" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.39-.04c1.15.92 2.49 1.68 3.95 2.25a1 1 0 01.58.93v2.77a1 1 0 01-1.07 1A19.998 19.998 0 012 6.27a1 1 0 011-1.07h2.77a1 1 0 01.93.58c.57 1.46 1.33 2.8 2.25 3.95a1 1 0 01-.04 1.39l-2.2 2.2z"/></svg>
+      Anrufen
+    </a>
+    <a href="#beratung" class="btn btn-secondary">Beratung</a>
+  </div>
+  <div class="mobile-cta-spacer"></div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submission (demo)
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Vielen Dank! Dies ist eine Konzept-Seite — Ihre Anfrage würde hier an ' +
+            'andrade-meisterfloristik@t-online.de gesendet werden.');
+    });
+  </script>
+</body>
+</html>
