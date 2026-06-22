@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zahnteam Bochum - Ihr Zahnarzt in Bochum | Prophylaxe, Implantologie, Bleaching</title>
+  <meta name="description" content="Ihr Zahnarzt in Bochum: Prophylaxe, Implantologie, Bleaching & mehr – mit eigenem Labor. Jetzt Termin vereinbaren: 0234 74182. Mo.–Do. 7:30–18:30 Uhr.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FAFAFA;
+      color: #1A1A1A;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Palette */
+    :root {
+      --primary: #006994;
+      --primary-dark: #004F6E;
+      --accent: #4CC9F0;
+      --bg-light: #F8FBFC;
+      --text-dark: #1A1A1A;
+      --text-muted: #6B7280;
+      --white: #FFFFFF;
+      --shadow: 0 4px 20px rgba(0, 105, 148, 0.1);
+      --shadow-lg: 0 8px 30px rgba(0, 105, 148, 0.15);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    }
+    header.scrolled { padding: 0.75rem 2rem; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+    .header-cta {
+      display: none;
+      padding: 0.5rem 1.25rem;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .header-cta:hover { background: var(--primary-dark); }
+    @media (min-width: 768px) { .header-cta { display: inline-flex; } }
+
+    /* Hero */
+    .hero {
+      min-height: 85vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 8rem 1.5rem 3rem;
+      background: linear-gradient(135deg, #F0F9FC 0%, #FFFFFF 100%);
+      align-items: center;
+      gap: 2rem;
+    }
+    @media (min-width: 992px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        padding: 8rem 3rem 4rem;
+      }
+    }
+    .hero-content {
+      max-width: 560px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.875rem;
+      background: rgba(0, 105, 148, 0.1);
+      color: var(--primary);
+      border-radius: 50px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 105, 148, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 105, 148, 0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(0, 105, 148, 0.05);
+    }
+    .hero-image {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4/3;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0, 105, 148, 0.1) 100%);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      padding: 2rem 1.5rem;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem 3rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 105, 148, 0.1);
+      border-radius: 50%;
+      color: var(--primary);
+      font-size: 0.75rem;
+    }
+
+    /* Leistungen */
+    .section {
+      padding: 5rem 1.5rem;
+      background: var(--white);
+    }
+    .section-alt {
+      background: var(--bg-light);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+    }
+    .section p {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+    }
+
+    .leistungen-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .leistung-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+    .leistung-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(0, 105, 148, 0.2);
+    }
+    .leistung-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 105, 148, 0.1);
+      border-radius: 12px;
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .leistung-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+    .leistung-card p {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Terminbuchung */
+    .termin-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--white);
+      padding: 5rem 1.5rem;
+    }
+    .termin-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .termin-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .termin-content h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .termin-content p {
+      font-size: 1.0625rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .termin-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .termin-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+    }
+    .termin-feature svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .termin-form {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    .termin-form h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 105, 148, 0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-submit {
+      width: 100%;
+      padding: 0.875rem 2rem;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .form-submit:hover { background: var(--primary-dark); }
+
+    /* Galerie */
+    .gallery-section {
+      background: var(--bg-light);
+    }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+    }
+    .gallery-item {
+      aspect-ratio: 4/3;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Kontakt */
+    .contact-section {
+      background: var(--white);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) {
+      .contact-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .contact-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+    }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 105, 148, 0.1);
+      border-radius: 12px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .contact-item-text h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-dark);
+    }
+    .contact-item-text p {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+    .contact-item-text a {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .contact-map {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 16/9;
+      background: #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      background: #1A1A1A;
+      color: #FFFFFF;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.875rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    footer a {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+      z-index: 99;
+      display: none;
+    }
+    @media (max-width: 767px) {
+      .mobile-cta { display: flex; gap: 0.75rem; }
+      .mobile-cta .btn-primary { flex: 1; justify-content: center; padding: 0.75rem 1.5rem; }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-content">
+      <div class="logo">Zahnteam Bochum</div>
+      <a href="#termin" class="header-cta">Termin vereinbaren</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content reveal">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+        Ihr Zahnarzt in Weitmar
+      </div>
+      <h1>Ihr Zahnteam in <span>Weitmar</span></h1>
+      <p>Professionelle Zahnmedizin mit Herz: Prophylaxe, Implantologie, Bleaching und mehr – mit eigenem Labor für perfekte Ergebnisse.</p>
+      <div class="hero-ctas">
+        <a href="#termin" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Termin vereinbaren
+        </a>
+        <a href="#leistungen" class="btn-secondary">Leistungen ansehen</a>
+      </div>
+    </div>
+    <div class="hero-image reveal">
+      <img src="https://www.zahnteam-bochum.de/img/zahnaerzte.jpg" alt="Zahnteam Bochum - Dr. med. dent. Britta Koch und Zahnärztin Tanja Kunkel">
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Mit eigenem Labor</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Erprobte Implantologie</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Lange Öffnungszeiten</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Zentrale Lage in Bochum</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="leistungen">
+    <div class="section-header reveal">
+      <span class="section-label">Unser Angebot</span>
+      <h2>Kompetente Zahnmedizin</h2>
+      <p>Umfassende Versorgung aus einer Hand – von Vorsorge bis zu komplexen Behandlungen.</p>
+    </div>
+    <div class="leistungen-grid">
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🦷</div>
+        <h3>Prophylaxe</h3>
+        <p>Professionelle Zahnreinigung und individuelle Vorsorgekonzepte für langfristige Zahngesundheit.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🔬</div>
+        <h3>Implantologie</h3>
+        <p>Festsitzende Zahnersatzlösungen mit modernen Implantaten und perfekter Ästhetik.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">✨</div>
+        <h3>Bleaching</h3>
+        <p>Professionelles Zahnaufhellung für ein strahlendes Lächeln – sicher und effektiv.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-icon">🏭</div>
+        <h3>Eigenes Labor</h3>
+        <p>In-House Zahntechnik für kurze Wege, präzise Anpassung und höchste Qualität.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="termin-section" id="termin">
+    <div class="termin-inner">
+      <div class="termin-content reveal">
+        <h2>Jetzt Termin vereinbaren</h2>
+        <p>Buchen Sie Ihren Wunschtermin bequem online – wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+        <div class="termin-features">
+          <div class="termin-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Schnelle Terminbestätigung</span>
+          </div>
+          <div class="termin-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Lange Öffnungszeiten Mo.–Do. 7:30–18:30</span>
+          </div>
+          <div class="termin-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Erstgespräch unverbindlich</span>
+          </div>
+        </div>
+      </div>
+      <form class="termin-form reveal" action="mailto:info@zahnteam-bochum.de" method="post" enctype="text/plain">
+        <h3>Ihre Anfrage</h3>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Ihr Name">
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefonnummer</label>
+          <input type="tel" id="phone" name="phone" required placeholder="Für Rückrufe">
+        </div>
+        <div class="form-group">
+          <label for="service">Gewünschte Leistung</label>
+          <select id="service" name="service">
+            <option value="">Bitte wählen...</option>
+            <option value="prophylaxe">Prophylaxe / Zahnreinigung</option>
+            <option value="kontrolle">Kontrolle / Vorsorge</option>
+            <option value="implantologie">Implantologie</option>
+            <option value="bleaching">Bleaching</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht (optional)</label>
+          <textarea id="message" name="message" placeholder="Ihre Wünsche oder Fragen..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage senden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section gallery-section">
+    <div class="section-header reveal">
+      <span class="section-label">Einblicke</span>
+      <h2>Unsere Praxis</h2>
+      <p>Modern eingerichtet mit freundlicher Atmosphäre – wir freuen uns auf Ihren Besuch.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.zahnteam-bochum.de/img/praxis-rezeption.jpg" alt="Rezeption der Zahnarztpraxis" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.zahnteam-bochum.de/img/praxis-wartezimmer.jpg" alt="Wartezimmer der Zahnarztpraxis" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.zahnteam-bochum.de/img/dentist-chair-low-res.jpg" alt="Behandlungsstuhl" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.zahnteam-bochum.de/img/zahnaerzte.jpg" alt="Zahnärztinnen-Team" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-section">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Kontakt & Anfahrt</h3>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <h4>Telefon</h4>
+            <p><a href="tel:+4923474182">+49 234 74182</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:info@zahnteam-bochum.de">info@zahnteam-bochum.de</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <h4>Adresse</h4>
+            <p>Markstraße 339, 44801 Bochum</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <h4>Öffnungszeiten</h4>
+            <p>Mo.–Do. 7:30–18:30 Uhr</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-map reveal">
+        <div style="text-align: center; padding: 2rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <p>Karte (Markstraße 339, Bochum)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Konzept-Vorschau · <a href="https://mz9.de" target="_blank" rel="noopener">MZ.9</a></p>
+    <p style="font-size: 0.75rem; opacity: 0.5;">Dies ist eine unverbindliche Design-Vorschau. Alle Daten stammen von der Website des Betriebs.</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+  </script>
+</body>
+</html>
