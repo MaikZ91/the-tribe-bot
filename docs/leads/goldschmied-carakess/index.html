@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carakess – Vintage-Shop & Café | Perlbeutel-Museum & Reparatur</title>
+  <meta name="description" content="Carakess: Vintage-Shop, Café, Perlbeutel-Museum und Reparatur von Perlbeuteln in Regensburg. Schmuck aus Glasperlen. Seit 2026 online.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #FDF9F5;
+      --color-surface: #FFFFFF;
+      --color-primary: #1A3A5C;
+      --color-accent: #C9A227;
+      --color-accent-light: #E8D5A3;
+      --color-text: #2C2C2C;
+      --color-text-muted: #666666;
+      --color-border: #E5E0D8;
+      --shadow-sm: 0 1px 3px rgba(26,58,92,0.08);
+      --shadow-md: 0 4px 12px rgba(26,58,92,0.12);
+      --shadow-lg: 0 8px 24px rgba(26,58,92,0.15);
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(253,249,245,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--color-border);
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-md);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-phone {
+      display: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 768px) {
+      .header-phone {
+        display: block;
+      }
+    }
+
+    /* Before/After Toggle */
+    .before-after-toggle {
+      position: fixed;
+      top: 76px;
+      right: 1.5rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 50px;
+      padding: 0.4rem 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      z-index: 999;
+      box-shadow: var(--shadow-md);
+    }
+
+    .toggle-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .toggle-btn.before {
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .toggle-btn.after {
+      background: var(--color-accent);
+      color: white;
+    }
+
+    .toggle-btn.before:hover {
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    @media (max-width: 768px) {
+      .before-after-toggle {
+        top: 64px;
+        right: 1rem;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-bg) 0%, #F5EFE7 100%);
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(26,58,92,0.7), rgba(26,58,92,0.3));
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,162,39,0.2);
+      border: 1px solid rgba(201,162,39,0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--color-accent-light);
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.95;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--color-accent);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(201,162,39,0.4);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201,162,39,0.5);
+    }
+
+    .hero-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .hero-cta-secondary:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .hero-cta-secondary {
+        display: none;
+      }
+    }
+
+    /* Sections */
+    .section {
+      padding: 4rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* USPs */
+    .usps {
+      background: var(--color-surface);
+      padding: 3rem 1.5rem;
+    }
+
+    .usps-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .usp-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .usp-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--color-accent-light), rgba(201,162,39,0.2));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+
+    .usp-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    .usp-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Services */
+    .services {
+      background: var(--color-bg);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .service-content {
+      padding: 1.75rem;
+    }
+
+    .service-tag {
+      display: inline-block;
+      background: rgba(201,162,39,0.15);
+      color: var(--color-accent);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-desc {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .service-link:hover {
+      gap: 0.75rem;
+    }
+
+    /* Media/Credibility */
+    .media {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #2A4A6C 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+    }
+
+    .media-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .media-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .media-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-accent);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .media-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .media-desc {
+      opacity: 0.9;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .media-image {
+      margin-top: 1rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .media-image img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    /* Repair Form */
+    .repair {
+      background: var(--color-surface);
+    }
+
+    .repair-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .repair-form {
+      background: var(--color-bg);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      background: var(--color-surface);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.15);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--color-accent);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-submit:hover {
+      background: #B89120;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--color-bg);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,58,92,0.8), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-label {
+      color: white;
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--color-accent) 0%, #D4AF37 100%);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      color: white;
+    }
+
+    .cta-band-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band-text {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-band-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: white;
+      color: var(--color-primary);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta-band-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Contact */
+    .contact {
+      background: var(--color-surface);
+      padding: 4rem 1.5rem;
+    }
+
+    .contact-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(201,162,39,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.25rem;
+    }
+
+    .contact-label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-value {
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .contact-value a {
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+
+    .contact-value a:hover {
+      color: var(--color-accent);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-primary);
+      color: rgba(255,255,255,0.8);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: var(--color-accent-light);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-surface);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      z-index: 998;
+    }
+
+    .mobile-cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .mobile-cta-btn {
+      flex: 1;
+      padding: 0.9rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .mobile-cta-primary {
+      background: var(--color-accent);
+      color: white;
+    }
+
+    .mobile-cta-secondary {
+      background: var(--color-bg);
+      color: var(--color-primary);
+      border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta {
+        display: block;
+      }
+      .section {
+        padding-bottom: 6rem;
+      }
+    }
+
+    /* Chat Widget */
+    .fab {
+      position: fixed;
+      bottom: 90px;
+      right: 22px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--color-surface);
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .fab:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+    }
+
+    .fab-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .fab-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid var(--color-accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 160px;
+      right: 22px;
+      width: 380px;
+      max-height: 500px;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-panel.active {
+      display: flex;
+    }
+
+    .chat-header {
+      background: var(--color-primary);
+      color: white;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chat-header-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .chat-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.5rem;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+    }
+
+    .chat-close:hover {
+      opacity: 1;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: 350px;
+    }
+
+    .chat-bubble {
+      max-width: 85%;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .chat-bubble.maik {
+      background: var(--color-bg);
+      color: var(--color-text);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-bubble.user {
+      background: var(--color-primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-input-area {
+      padding: 0.75rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.6rem 0.9rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .chat-send {
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .chat-send:hover {
+      background: #B89120;
+    }
+
+    .chat-problem-list {
+      margin-top: 0.5rem;
+      padding-left: 1.25rem;
+    }
+
+    .chat-problem-list li {
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .chat-link {
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    @media (max-width: 480px) {
+      .chat-panel {
+        width: calc(100% - 44px);
+        right: 22px;
+        bottom: 140px;
+      }
+      .fab {
+        bottom: 80px;
+      }
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+      .fab-ring {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Carakess<span>.</span></div>
+      <div class="header-actions">
+        <a href="tel:+49494146522920" class="header-phone">📞 +49 941 46522920</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Before/After Toggle -->
+  <div class="before-after-toggle">
+    <a href="https://www.carakess.de/" target="_blank" class="toggle-btn before">Vorher</a>
+    <span class="toggle-btn after">Nachher</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="https://www.carakess.de/wp-content/uploads/2022/11/Screenshot_Carakess.jpg" alt="Carakess Vintage-Shop & Café" class="hero-image">
+    <div class="hero-content">
+      <div class="hero-badge">✨ Seit Mai 2026 online präsent</div>
+      <h1 class="hero-title">Carakess –<br>Laden & Café</h1>
+      <p class="hero-subtitle">Einzigartige Perlbeutel-Kunst, Vintage-Schätze und warme Atmosphäre – jetzt digital erlebbar.</p>
+      <a href="#reparatur" class="hero-cta">
+        Perlbeutel-Reparatur anfragen
+      </a>
+      <a href="#virtuelles-museum" class="hero-cta-secondary">
+        Virtuelles Museum →
+      </a>
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <section class="usps">
+    <div class="usps-grid">
+      <div class="usp-card reveal">
+        <div class="usp-icon">🧵</div>
+        <h3 class="usp-title">Perlbeutel-Reparatur</h3>
+        <p class="usp-desc">Fachkundige Reparatur Ihrer wertvollen Perlbeutel – mit Liebe zum Detail.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">🏛️</div>
+        <h3 class="usp-title">Virtuelles Museum</h3>
+        <p class="usp-desc">Erfahren Sie auf Google Arts & Culture mehr über die Kunst des Perlbeutel-Strickens.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">💎</div>
+        <h3 class="usp-title">Handgearbeiteter Schmuck</h3>
+        <p class="usp-desc">Eindeutige Unikate aus Glasperlen – mit Geschichte und Seele.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">📺</div>
+        <h3 class="usp-title">TV-Präsenz</h3>
+        <p class="usp-desc">Gast bei „Wir in Bayern“ und im Google Arts & Culture Projekt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services" id="leistungen">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Angebot</div>
+        <h2 class="section-title">Was wir bieten</h2>
+        <p class="section-desc">Von traditioneller Handwerkskunst bis hin zu vintage Schätzen – entdecken Sie unsere Vielfalt.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2021/03/Perlbeutel_53.jpg" alt="Perlbeutel" class="service-image" loading="lazy">
+          <div class="service-content">
+            <span class="service-tag">Tradition</span>
+            <h3 class="service-title">Perlbeutel-Museum</h3>
+            <p class="service-desc">Tauchen Sie ein in die Welt der Perlbeutel-Kunst – virtuell und mit Herzblut präsentiert.</p>
+            <a href="https://artsandculture.google.com/" target="_blank" class="service-link">Zum virtuellen Museum →</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2025/01/arts_culture_9-scaled.jpg" alt="Perlen-Kunst" class="service-image" loading="lazy">
+          <div class="service-content">
+            <span class="service-tag">Service</span>
+            <h3 class="service-title">Reparatur</h3>
+            <p class="service-desc">Wir reparieren Ihre Perlbeutel fachgerecht – damit die Geschichte weiterlebt.</p>
+            <a href="#reparatur" class="service-link">Reparatur anfragen →</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2023/08/IMG_20230813_165737075-435x435.jpg" alt="Glasperlen-Schmuck" class="service-image" loading="lazy">
+          <div class="service-content">
+            <span class="service-tag">Handwerk</span>
+            <h3 class="service-title">Schmuck aus Glasperlen</h3>
+            <p class="service-desc">Unikate handgefertigt – jeder Schmuckstück erzählt seine eigene Geschichte.</p>
+            <a href="mailto:info@carakess.de" class="service-link">Anfrage senden →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media/Credibility -->
+  <section class="media" id="virtuelles-museum">
+    <div class="section-header">
+      <div class="section-label" style="color: var(--color-accent-light);">In den Medien</div>
+      <h2 class="section-title" style="color: white;">Überregional präsent</h2>
+    </div>
+    <div class="media-grid">
+      <div class="media-card reveal">
+        <div class="media-badge">📺 Fernsehen</div>
+        <h3 class="media-title">Wir in Bayern</h3>
+        <p class="media-desc">Zu Gast bei der beliebten TV-Sendung „Wir in Bayern“ – Einblicke in unsere Perlbeutel-Welt.</p>
+        <div class="media-image">
+          <img src="https://www.carakess.de/wp-content/uploads/2025/07/wir-in-bayern-2025-scaled.jpg" alt="Wir in Bayern Auftritt" loading="lazy">
+        </div>
+      </div>
+      <div class="media-card reveal">
+        <div class="media-badge">🌐 Google</div>
+        <h3 class="media-title">Google Arts & Culture</h3>
+        <p class="media-desc">Im virtuellen Museum: Die Perlbeutelstrickerin bei der Arbeit – weltweit erlebbar.</p>
+        <div class="media-image">
+          <img src="https://www.carakess.de/wp-content/uploads/2025/01/arts_culture_7-scaled.jpg" alt="Google Arts & Culture" loading="lazy">
+        </div>
+      </div>
+      <div class="media-card reveal">
+        <div class="media-badge">🎖️ Auszeichnung</div>
+        <h3 class="media-title">Bayern-Botschafterin</h3>
+        <p class="media-desc">Im Schloss Bellevue Berlin, Gartenfest des Bundespräsidenten 2022 – Vertreter bayerischer Handwerkskunst.</p>
+        <div class="media-image">
+          <img src="https://www.carakess.de/wp-content/uploads/2019/08/Konstanze_3.jpg" alt="Bayern-Botschafterin" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Repair Form -->
+  <section class="section repair" id="reparatur">
+    <div class="repair-container">
+      <div class="section-header reveal">
+        <div class="section-label">Service</div>
+        <h2 class="section-title">Perlbeutel-Reparatur</h2>
+        <p class="section-desc">Haben Sie einen Perlbeutel, der repariert werden muss? Wir helfen Ihnen gerne weiter.</p>
+      </div>
+      <form class="repair-form reveal">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="+49 ...">
+          </div>
+          <div class="form-group">
+            <label for="service">Service *</label>
+            <select id="service" name="service" required>
+              <option value="">Bitte wählen...</option>
+              <option value="reparatur">Perlbeutel-Reparatur</option>
+              <option value="anfrage">Allgemeine Anfrage</option>
+              <option value="bestellung">Schmuck-Bestellung</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihren Perlbeutel und die gewünschte Reparatur..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section gallery">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div class="section-label">Impressionen</div>
+        <h2 class="section-title">Galerie</h2>
+        <p class="section-desc">Einblicke in unsere Welt – Vintage, Handwerk und Atmosphäre.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2022/10/DSC_7956a-1020x600.jpg" alt="Carakess Laden" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-label">Laden & Café</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2023/11/Floetotto_dekoriert_5-1-1020x600.jpg" alt="Dekoration" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-label">Dekorierte Räume</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2024/05/ausschnitt-435x435.jpg" alt="Detailaufnahme" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-label">Details</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.carakess.de/wp-content/uploads/2022/01/Screenshot-2022-01-11-at-18-36-51-Handgestrickte-Perlenbeutel-Kleine-Perlen-grosse-Kunst.png" alt="Perlenbeutel" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-label">Perlenbeutel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2 class="cta-band-title">Entdecken Sie Carakess neu</h2>
+    <p class="cta-band-text">Von traditioneller Perlbeutel-Kunst bis zu vintage Schätzen – kontaktieren Sie uns für Ihr Anliegen.</p>
+    <a href="mailto:info@carakess.de" class="cta-band-btn">
+      📧 Kontakt aufnehmen
+    </a>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact">
+    <div class="contact-grid">
+      <div class="contact-item reveal">
+        <div class="contact-icon">📍</div>
+        <div class="contact-label">Adresse</div>
+        <div class="contact-value">Unter den Schwibbögen 11<br>93047 Regensburg</div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">📞</div>
+        <div class="contact-label">Telefon</div>
+        <div class="contact-value"><a href="tel:+49494146522920">+49 941 46522920</a></div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-label">E-Mail</div>
+        <div class="contact-value"><a href="mailto:info@carakess.de">info@carakess.de</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · MZ.9 · <a href="https://www.carakess.de/" target="_blank">Original ansehen →</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="tel:+49494146522920" class="mobile-cta-btn mobile-cta-primary">
+        📞 Anrufen
+      </a>
+      <a href="mailto:info@carakess.de" class="mobile-cta-btn mobile-cta-secondary">
+        ✉️ E-Mail
+      </a>
+    </div>
+  </div>
+
+  <!-- Chat Widget -->
+  <div class="fab" id="chatFab">
+    <div class="fab-ring"></div>
+    <img src="docs/assets/mz9/maik.jpg" alt="Maik" class="fab-avatar">
+  </div>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <img src="docs/assets/mz9/maik.jpg" alt="Maik" class="chat-header-avatar">
+        <span>MZ.9</span>
+      </div>
+      <button class="chat-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-bubble maik">
+        Echt — ich hab mir eure aktuelle Website angeschaut. Hier sind die größten Probleme, die euch Kunden kosten:
+        <ul class="chat-problem-list">
+          <li>WordPress-Seite wirkt veraltet und wenig einladend</li>
+          <li>Kein direkter Weg zur Reparatur-Anfrage</li>
+          <li>Medien-Präsenz nicht prominent hervorgehoben</li>
+        </ul>
+        <br>
+        Mit einem modernen, branchenpassenden Design bekommen Sie mehr Anfragen und können Ihre TV-Präsenz besser nutzen.
+        <br><br>
+        <a href="https://www.carakess.de/" target="_blank" class="chat-link">[Carakess] Original ansehen →</a>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Schreiben Sie eine Nachricht...">
+      <button class="chat-send" id="chatSend">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chat widget
+    const chatFab = document.getElementById('chatFab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatClose = document.getElementById('chatClose');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatMessages = document.getElementById('chatMessages');
+
+    let chatVisible = false;
+
+    function toggleChat() {
+      chatVisible = !chatVisible;
+      chatPanel.classList.toggle('active', chatVisible);
+    }
+
+    chatFab.addEventListener('click', toggleChat);
+    chatClose.addEventListener('click', toggleChat);
+
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.textContent = message;
+      chatMessages.appendChild(userBubble);
+
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Auto-response
+      setTimeout(() => {
+        const maikBubble = document.createElement('div');
+        maikBubble.className = 'chat-bubble maik';
+        maikBubble.textContent = 'Danke für Ihre Nachricht! Ich bin ein Konzept-Chat. Für echte Anfragen nutzen Sie bitte das Kontaktformular oder E-Mail.';
+        chatMessages.appendChild(maikBubble);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Show chat after delay or scroll
+    let chatShown = false;
+    function showChatFab() {
+      if (chatShown) return;
+      chatShown = true;
+      chatFab.style.opacity = '1';
+      chatFab.style.transform = 'scale(1)';
+    }
+
+    chatFab.style.opacity = '0';
+    chatFab.style.transform = 'scale(0.8)';
+    chatFab.style.transition = 'all 0.3s ease';
+
+    setTimeout(showChatFab, 3000);
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 30) showChatFab();
+    });
+
+    // Form submission
+    const repairForm = document.querySelector('.repair-form');
+    repairForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(repairForm);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const service = formData.get('service');
+      const message = formData.get('message');
+
+      const mailtoLink = `mailto:info@carakess.de?subject=Reparatur-Anfrage: ${encodeURIComponent(service)}&body=Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0ANachricht:%0A${encodeURIComponent(message)}`;
+      window.location.href = mailtoLink;
+    });
+  </script>
+</body>
+</html>
