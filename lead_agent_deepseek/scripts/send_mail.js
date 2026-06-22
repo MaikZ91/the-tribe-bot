@@ -105,13 +105,13 @@ const LEGAL_TEXT = `\n— Impressum —\nMaik Zschach · Merianstr. 8 · 33615 B
 
 function buildMail(lead) {
   const subject = lead.noweb
-    ? `Ihre eigene Website — Konzept-Vorschau für ${lead.name}`
-    : `Konzept-Vorschau für Ihre Website — ${lead.name}`;
+    ? `Unverbindliche Konzept-Skizze für ${lead.name}`
+    : `Unverbindliche Konzept-Skizze Ihrer Website — ${lead.name}`;
   let body;
   if (lead.noweb) {
-    body = `Hallo liebes ${lead.name}-Team,\n\nich bin über Ihren Eintrag gestolpert und habe gesehen, dass Sie noch keine eigene Website haben — schade eigentlich, denn was Sie machen, hat definitiv einen guten Auftritt verdient.\n\nIch habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine Website für Sie aussehen könnte:\n\n👉 Zur Vorschau: ${lead.preview}\n\nIm Vergleich zu einem reinen Google-Eintrag sieht man ziemlich schnell, was eine eigene Seite für Wirkung und Professionalität bringt.\n\nFalls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret gemacht habe — wenn nicht, einfach ignorieren.\n\n${SIG}`;
+    body = `Hallo liebes ${lead.name}-Team,\n\nich führe aktuell einen kleinen UX-/Website-Test durch und untersuche dabei, wie Websites von kleinen und mittelständischen Unternehmen online wahrgenommen werden und wie schnell Außenstehende Inhalte und Struktur verstehen. Dabei ist mir aufgefallen, dass Sie noch keine eigene Website haben — und habe eine unverbindliche Konzept-Skizze erstellt, wie ein eigener Auftritt wirken könnte.\n\nDie Skizze dient ausschließlich zu Analyse- und Testzwecken und ist kein Angebot oder eine Dienstleistung. Der Fokus liegt darauf, wie die Informationsstruktur auf neue Besucher wirkt.\n\nHier die Skizze:\n👉 Zur Skizze: ${lead.preview}\n\nÜber ein kurzes Feedback, ob der Ansatz grundsätzlich nachvollziehbar ist, würde ich mich freuen. Falls es für Sie nicht relevant ist, können Sie die Nachricht einfach ignorieren.\n\n${SIG}`;
   } else {
-    body = `Hallo liebes ${lead.name}-Team,\n\nich bin über Ihre Website gestolpert und habe mir kurz angeschaut, wie Ihr Auftritt online etwas klarer und moderner wirken könnte.\n\nIch habe Ihnen dafür eine unverbindliche Vorschau erstellt, wie eine alternative Struktur aussehen könnte:\n\n👉 Zur Vorschau: ${lead.preview}\n\nIm direkten Vergleich zur aktuellen Seite sieht man ziemlich schnell, wo man mit kleinen Anpassungen mehr Klarheit und Wirkung erzeugen kann.\n\nFalls es interessant für Sie ist, kann ich Ihnen gern kurz erklären, was ich konkret verändert habe — wenn nicht, einfach ignorieren.\n\n${SIG}`;
+    body = `Hallo liebes ${lead.name}-Team,\n\nich führe aktuell einen kleinen UX-/Website-Test durch und untersuche dabei, wie Websites von kleinen und mittelständischen Unternehmen online wahrgenommen werden und wie schnell Außenstehende Inhalte und Struktur verstehen. Dabei habe ich mir Ihre Website angesehen und eine unverbindliche Konzept-Skizze erstellt.\n\nDiese dient ausschließlich zu Analyse- und Testzwecken und ist kein Angebot oder eine Dienstleistung. Der Fokus liegt darauf, wie die Informationsstruktur auf neue Besucher wirkt und wo Orientierung möglicherweise klarer werden könnte.\n\nHier der Vergleich zur aktuellen Seite:\n👉 Zur Skizze: ${lead.preview}\n\nÜber ein kurzes Feedback, ob der Ansatz grundsätzlich nachvollziehbar ist, würde ich mich freuen. Falls es für Sie nicht relevant ist, können Sie die Nachricht einfach ignorieren.\n\n${SIG}`;
   }
   return { to: lead.email, subject, body };
 }
@@ -148,13 +148,13 @@ function buildHtmlMail(lead) {
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FBFAF8;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.10)">
 <tr><td style="background:#0A0A0B;padding:20px 28px">
   <span style="font-size:18px;font-weight:600;letter-spacing:.14em;color:#F0EEE9">MZ.<span style="color:#10B981">9</span></span>
-  <span style="float:right;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7C7A75;padding-top:7px">Konzept-Vorschau</span>
+  <span style="float:right;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7C7A75;padding-top:7px">Konzept-Skizze</span>
 </td></tr>
 ${compareBlock}<tr><td style="padding:22px 28px 6px">
 ${paras}
 </td></tr>
 <tr><td align="center" style="padding:14px 28px 26px">
-  <a href="${previewUrl}" style="display:inline-block;background:#10B981;color:#04130d;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur unverbindlichen Vorschau &rarr;</a>
+  <a href="${previewUrl}" style="display:inline-block;background:#10B981;color:#04130d;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur Konzept-Skizze &rarr;</a>
 </td></tr>
 <tr><td style="padding:18px 28px 16px;border-top:1px solid #ECE9E3;background:#F4F2EC">
   <p style="margin:0 0 3px;font-weight:600;color:#1a1a2e">Viele Grüße</p>
