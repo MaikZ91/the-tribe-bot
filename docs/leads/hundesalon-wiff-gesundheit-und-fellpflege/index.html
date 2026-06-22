@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>WIFF! — Gesundheit und Fellpflege für Deinen Hund | Kiel</title>
+  <meta name="description" content="WIFF! Gesundheit und Fellpflege in Kiel — liebevolle Ganzheitspflege für Deinen Hund. Professionelles Waschen, Schneiden, Krallenschneiden und mehr.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #E88D72;
+      --coral-dark: #D67257;
+      --brown: #5A3A36;
+      --beige: #FFF5F0;
+      --white: #FAFAFA;
+      --gray: #E5E5E5;
+      --text: #3A2A28;
+      --text-light: #6B5A58;
+      --shadow: 0 4px 20px rgba(90, 58, 54, 0.1);
+      --shadow-hover: 0 8px 30px rgba(90, 58, 54, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    header.scrolled {
+      padding: 0.75rem 5%;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--coral);
+      letter-spacing: 1px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: var(--brown);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover {
+      color: var(--coral);
+    }
+
+    .btn-nav {
+      padding: 0.6rem 1.4rem;
+      background: var(--coral);
+      color: white;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .btn-nav:hover {
+      background: var(--coral-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--brown);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      background: linear-gradient(135deg, var(--beige) 0%, #FFE8E0 100%);
+      display: flex;
+      align-items: center;
+      padding: 8rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 50%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(232, 141, 114, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 600px;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      color: var(--coral);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 450px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2.2rem;
+      background: var(--coral);
+      color: white;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 6px 20px rgba(232, 141, 114, 0.4);
+      transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--coral-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(232, 141, 114, 0.5);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 1rem 2.2rem;
+      background: transparent;
+      color: var(--brown);
+      border: 2px solid var(--coral);
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-left: 1rem;
+      transition: 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--coral);
+      color: white;
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      max-height: 500px;
+      border-radius: 30px 5px 30px 5px;
+      box-shadow: var(--shadow);
+      object-fit: cover;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: white;
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--brown);
+      font-weight: 600;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coral);
+      font-size: 1.2rem;
+    }
+
+    /* Services */
+    .services {
+      padding: 5rem 5%;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 2px solid var(--gray);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: var(--coral);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: var(--coral);
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      color: var(--brown);
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Booking Form */
+    .booking {
+      padding: 5rem 5%;
+      background: var(--beige);
+    }
+
+    .booking-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 3rem;
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .booking h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--brown);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .booking p {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--brown);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 2px solid var(--gray);
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--coral);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: var(--coral-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 5rem 5%;
+      background: white;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(transparent, rgba(90, 58, 54, 0.9));
+      color: white;
+    }
+
+    .gallery-item h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Location */
+    .location {
+      padding: 5rem 5%;
+      background: var(--beige);
+    }
+
+    .location-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .location-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--brown);
+      margin-bottom: 1.5rem;
+    }
+
+    .location-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .location-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--coral);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .location-text h4 {
+      color: var(--brown);
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .location-text p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .location-map img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 4rem 5%;
+      background: var(--brown);
+      text-align: center;
+      color: white;
+    }
+
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-band .btn-primary {
+      background: var(--coral);
+      box-shadow: 0 6px 20px rgba(232, 141, 114, 0.4);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: white;
+      color: var(--coral);
+    }
+
+    /* Contact */
+    .contact {
+      padding: 4rem 5%;
+      background: white;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--brown);
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--brown);
+      transition: 0.3s;
+    }
+
+    .contact-link:hover {
+      color: var(--coral);
+    }
+
+    .contact-link .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coral);
+      font-size: 1.3rem;
+    }
+
+    .contact-link span {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--beige);
+      padding: 2rem 5%;
+      text-align: center;
+      border-top: 2px solid var(--gray);
+    }
+
+    footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem 5%;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: none;
+    }
+
+    .mobile-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 7rem;
+      }
+
+      .hero-content {
+        margin-bottom: 3rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-image img {
+        max-height: 350px;
+      }
+
+      .location-container {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      footer {
+        padding-bottom: 5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .trust-strip {
+        gap: 1.5rem;
+      }
+
+      .booking-container {
+        padding: 2rem;
+      }
+
+      .contact-links {
+        gap: 1.5rem;
+      }
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">WIFF!</div>
+    <nav class="nav">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#termin">Termin</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#anfahrt">Anfahrt</a>
+      <a href="tel:017664027095" class="btn-nav">📞 Anrufen</a>
+    </nav>
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content reveal">
+      <h1>Gesundheit und <span>Fellpflege</span> für Deinen Hund</h1>
+      <p>Liebevolle Ganzheitspflege in Kiel — Waschen, Schneiden, Krallenschneiden und mehr. Dein Hund verdient die beste Behandlung!</p>
+      <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+      <a href="#leistungen" class="btn-secondary">Leistungen</a>
+    </div>
+    <div class="hero-image reveal">
+      <img src="http://wiff-fellpflege.de/wp-content/uploads/2017/04/IMG-20160823-WA0014.jpg" alt="Glücklicher Hund nach der Fellpflege bei WIFF! in Kiel">
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">🐕</div>
+      <span>Ganzheitliche Pflege</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💕</div>
+      <span>Liebvolle Behandlung</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📍</div>
+      <span>In Kiel</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">✨</div>
+      <span>Professionell</span>
+    </div>
+  </div>
+
+  <section class="services" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Vom Waschen bis zum kompletten Schnitt — alles für ein glänzendes Fell und einen glücklichen Hund</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🛁</div>
+        <h3>Waschen & Baden</h3>
+        <p>Sanfte Shampoos und schonende Trocknung für sauberes, gepflegtes Fell</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">✂️</div>
+        <h3>Fell schneiden</h3>
+        <p>Rasse- und wunschgerechtes Trimmen und Schneiden für das perfekte Aussehen</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💅</div>
+        <h3>Krallenschneiden</div>
+        <p>Sichere und professionelle Krallenpflege für gesunde Pfoten</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🧹</div>
+        <h3>Entfilzen</h3>
+        <p>Sanftes Entfernen von Filz und Verfilzungen für ein wohlfühlendes Fell</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👂</div>
+        <h3>Ohrenpflege</h3>
+        <p>Sorgfältige Reinigung der Ohren zur Vorbeugung von Infektionen</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎀</div>
+        <h3>Styling</h3>
+        <p>Kreative Accessoires und elegante Schluss-Pflege nach dem Schnitt</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="termin">
+    <div class="booking-container reveal">
+      <h2>Termin anfragen</h2>
+      <p>Fülle das Formular aus — wir melden uns schnellstmöglich bei Dir!</p>
+      <form action="mailto:kontakt@wiff-fellpflege.de" method="post" enctype="text/plain">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Dein Name</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefonnummer</label>
+            <input type="tel" id="phone" name="phone" placeholder="0176 12345678">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" placeholder="deine@email.de">
+          </div>
+          <div class="form-group">
+            <label for="dog-name">Name Deines Hundes</label>
+            <input type="text" id="dog-name" name="dog_name" required placeholder="Bello">
+          </div>
+          <div class="form-group">
+            <label for="dog-breed">Rasse</label>
+            <input type="text" id="dog-breed" name="dog_breed" placeholder="Golden Retriever">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschte Leistung</label>
+            <select id="service" name="service">
+              <option value="">Bitte wählen...</option>
+              <option value="waschen">Waschen & Baden</option>
+              <option value="schneiden">Fell schneiden</option>
+              <option value="krallen">Krallenschneiden</option>
+              <option value="komplett">Komplettpaket</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" placeholder="Weitere Informationen oder Wünsche..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Anfrage senden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="section-header reveal">
+      <h2>Galerie</h2>
+      <p>Einblicke in unsere Arbeit — glückliche Hunde nach der Pflege</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="http://wiff-fellpflege.de/wp-content/uploads/2017/04/IMG-20160823-WA0014.jpg" alt="Hund nach der professionellen Fellpflege">
+        <div class="overlay">
+          <h4>Glücklich nach der Pflege</h4>
+        </div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="http://wiff-fellpflege.de/wp-content/uploads/2017/04/Buerste.png" alt="Professionelle Bürste und Pflegeutensilien">
+        <div class="overlay">
+          <h4>Qualitäts-Pflegeutensilien</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="location" id="anfahrt">
+    <div class="location-container reveal">
+      <div class="location-info">
+        <h2>So findest Du uns</h2>
+        <div class="location-item">
+          <div class="location-icon">📍</div>
+          <div class="location-text">
+            <h4>Adresse</h4>
+            <p>Steekberg 3<br>24107 Kiel</p>
+          </div>
+        </div>
+        <div class="location-item">
+          <div class="location-icon">📞</div>
+          <div class="location-text">
+            <h4>Telefon</h4>
+            <p>0176-64027095</p>
+          </div>
+        </div>
+        <div class="location-item">
+          <div class="location-icon">✉️</div>
+          <div class="location-text">
+            <h4>E-Mail</h4>
+            <p>kontakt@wiff-fellpflege.de</p>
+          </div>
+        </div>
+      </div>
+      <div class="location-map">
+        <img src="http://wiff-fellpflege.de/wp-content/uploads/2023/06/2023-06-22-10_56_04-wiff_kiel_plan-1030x943.jpg" alt="Anfahrtsplan zu WIFF! in Kiel">
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Bereit für die Fellpflege Deines Hundes?</h2>
+    <p>Vereinbare jetzt einen Termin — wir freuen uns auf Euch!</p>
+    <a href="#termin" class="btn-primary">Termin anfragen</a>
+  </section>
+
+  <section class="contact">
+    <h2>Kontakt</h2>
+    <div class="contact-links">
+      <a href="tel:017664027095" class="contact-link">
+        <div class="icon">📞</div>
+        <span>0176-64027095</span>
+      </a>
+      <a href="mailto:kontakt@wiff-fellpflege.de" class="contact-link">
+        <div class="icon">✉️</div>
+        <span>kontakt@wiff-fellpflege.de</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Konzept-Vorschau · MZ.9 — Modernes Web für lokale Betriebe</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#termin" class="btn-primary">Termin anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    menuToggle.addEventListener('click', () => {
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      if (nav.style.display === 'flex') {
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.padding = '1rem';
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      }
+    });
+  </script>
+</body>
+</html>
