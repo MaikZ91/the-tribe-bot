@@ -100,7 +100,8 @@ const SIG = `Viele Grüße\nMaik\nMZ.9 — Media Engineering.AI\n${MZ9_URL}`;
 // ─── Rechtskonformer Footer (Impressum §5 DDG + Datenschutz + Widerspruch) ──
 const IMPRESSUM_URL = MZ9_URL.replace(/mz9$/, 'impressum.html');
 const DATENSCHUTZ_URL = MZ9_URL.replace(/mz9$/, 'datenschutz.html');
-const LEGAL_TEXT = `\n— Impressum —\nMaik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland\nTelefon: +49 176 45961547 · E-Mail: mzschach@googlemail.com\n\nDatenschutzerklärung: ${DATENSCHUTZ_URL}\n\nHinweis: Diese Nachricht ist eine unverbindliche, einmalige Konzept-Vorschau, keine Rechnung und kein Vertragsangebot. Wenn Sie keine weiteren Vorschläge wünschen, antworten Sie bitte kurz auf diese E-Mail oder schreiben Sie an mzschach@googlemail.com — ich nehme Sie umgehend aus dem Verteiler.`;
+const DEMO_NOTICE = 'Diese Website dient ausschließlich der Demonstration eines Konzeptes und wird nicht als dauerhaftes geschäftliches Angebot betrieben.';
+const LEGAL_TEXT = `\n— Impressum —\nMaik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland\nTelefon: +49 176 45961547 · E-Mail: mzschach@googlemail.com\nImpressum: ${IMPRESSUM_URL}\nDatenschutzerklärung: ${DATENSCHUTZ_URL}\n\nHinweis: Diese Nachricht ist eine unverbindliche, einmalige Konzept-Vorschau (Erprobung eines Konzeptes), keine Rechnung und kein Vertragsangebot. ${DEMO_NOTICE} Wenn Sie keine weiteren Vorschläge wünschen, antworten Sie bitte kurz auf diese E-Mail oder schreiben Sie an mzschach@googlemail.com — ich nehme Sie umgehend aus dem Verteiler.`;
 
 function buildMail(lead) {
   const subject = lead.noweb
@@ -161,8 +162,9 @@ ${paras}
   <p style="margin:0 0 14px"><a href="${MZ9_URL}" style="color:#0E9C75;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>
   <p style="margin:0 0 2px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7C7A75">Impressum · §5 DDG</p>
   <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55">Maik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland<br>Telefon: <a href="tel:+4917645961547" style="color:#6a6a6a;text-decoration:none">+49 176 45961547</a> · E-Mail: <a href="mailto:mzschach@googlemail.com" style="color:#6a6a6a;text-decoration:none">mzschach@googlemail.com</a></p>
-  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55"><a href="${DATENSCHUTZ_URL}" style="color:#0E9C75;text-decoration:none">Datenschutzerklärung</a></p>
-  <p style="margin:0;font-size:11px;color:#9a9a9a;line-height:1.55">Unverbindliche, einmalige Konzept-Vorschau · keine Rechnung · kein Vertragsangebot. Keine weiteren Vorschläge gewünscht? Kurze Antwort auf diese E-Mail — wir tragen Sie sofort aus dem Verteiler.</p>
+  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55"><a href="${IMPRESSUM_URL}" style="color:#0E9C75;text-decoration:none">Impressum</a> · <a href="${DATENSCHUTZ_URL}" style="color:#0E9C75;text-decoration:none">Datenschutzerklärung</a></p>
+  <p style="margin:0 0 8px;font-size:11px;color:#9a9a9a;line-height:1.55">Unverbindliche, einmalige Konzept-Vorschau (Erprobung eines Konzeptes) · keine Rechnung · kein Vertragsangebot. Keine weiteren Vorschläge gewünscht? Kurze Antwort auf diese E-Mail — wir tragen Sie sofort aus dem Verteiler.</p>
+  <p style="margin:0;padding:8px 10px;border:1px solid #ECE9E3;border-radius:6px;background:#FBFAF8;font-size:10.5px;color:#7C7A75;line-height:1.5">${DEMO_NOTICE}</p>
 </td></tr>
 </table>
 </td></tr>
