@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Niehage´s Autowerkstatt — Digital-Präsentation · MZ.9</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#161E2C" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E1420; --bg-2:#161E2C; --card:#1B2434; --ink:#F6F7F9; --ink-2:#AEB6C6; --ink-mut:#7E879B;
+    --blue:#60A0F0; --cta:#1D4ED8; --line:#F6F7F91A; --ok:#34D399; --warn:#FBBF24; --bad:#F87171;
+    --serif:"Cormorant Garamond",Georgia,serif; --sans:"Source Sans 3",system-ui,sans-serif;
+    --maxw:1100px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .deck{scroll-snap-type:y proximity}
+  .slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,8vh,90px) clamp(22px,6vw,70px);scroll-snap-align:start;position:relative;border-bottom:1px solid var(--line)}
+  .wrap{max-width:var(--maxw);margin:0 auto;width:100%}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.06;letter-spacing:-.01em;margin:0}
+  h1{font-size:clamp(2.6rem,7vw,5rem)} h2{font-size:clamp(2rem,5vw,3.4rem)} h3{font-size:1.5rem}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
+  .num{font-family:var(--serif);font-size:13px;color:var(--ink-mut);position:absolute;top:30px;right:clamp(22px,6vw,70px);letter-spacing:.2em}
+  p{color:var(--ink-2);max-width:62ch} .lead{font-size:clamp(1.1rem,2vw,1.4rem);color:var(--ink)}
+  .blue{color:var(--blue)} em{color:var(--blue);font-style:italic}
+  .grid{display:grid;gap:18px;margin-top:34px}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .card h3{color:var(--blue);margin-bottom:8px} .card p{font-size:15px}
+  .stat{font-family:var(--serif);font-size:clamp(2.4rem,5vw,3.6rem);font-weight:600;color:var(--blue);line-height:1}
+  .stat-l{font-size:14px;color:var(--ink-mut);margin-top:8px}
+  .bottleneck{display:flex;gap:16px;padding:18px 0;border-bottom:1px dashed var(--line)}
+  .bottleneck .ic{width:40px;height:40px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;background:#F8717118;border:1px solid #F8717140}
+  .bottleneck b{color:var(--ink)} .bottleneck .d{color:var(--ink-2);font-size:15px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:50px;margin-bottom:10px}
+  .tag.bad{background:#F8717118;color:var(--bad)} .tag.ok{background:#34D39918;color:var(--ok)}
+  .arrow-row{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin-top:30px}
+  .arrow{font-size:32px;color:var(--blue);text-align:center}
+  ul.clean{list-style:none;padding:0;margin:18px 0 0} ul.clean li{padding:9px 0 9px 30px;position:relative;color:var(--ink-2)}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--blue);font-weight:700}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:50px;padding:8px 16px;font-size:13px;font-weight:600;margin:4px 6px 0 0}
+  .cta-box{background:linear-gradient(135deg,#1D4ED8,#163AA0);border-radius:20px;padding:clamp(30px,5vw,54px);text-align:center;margin-top:10px}
+  .cta-box h2{color:#fff} .cta-box p{color:#E5ECFA;margin:14px auto 0}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1D4ED8;font-weight:700;font-size:15px;padding:15px 30px;border-radius:50px;margin-top:24px;text-decoration:none}
+  .foot{font-size:12.5px;color:var(--ink-mut);margin-top:40px}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .progress{position:fixed;top:0;left:0;height:3px;background:var(--blue);z-index:99;width:0}
+  @media(max-width:760px){.g2,.g3,.arrow-row{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+  @media print{.slide{min-height:auto;page-break-after:always;border:none;padding:30px}.progress,.num{display:none}.reveal{opacity:1;transform:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div class="progress" id="pg"></div>
+<div class="deck">
+
+  <!-- 1 — Title -->
+  <section class="slide" style="background:radial-gradient(120% 90% at 80% 10%,#1D4ED830,transparent 60%)">
+    <span class="num">01</span>
+    <div class="wrap">
+      <div class="eyebrow reveal">MZ.9 · Media Engineering.AI — Konzept-Präsentation</div>
+      <h1 class="reveal" style="transition-delay:.05s">Niehage´s<br>Autowerkstatt <em>digital.</em></h1>
+      <p class="lead reveal" style="transition-delay:.1s;margin-top:24px">Über 40 Jahre Meisterhandwerk in Wiesbaden-Nordenstadt — sichtbar gemacht für die Kunden von heute, die zuerst online suchen.</p>
+      <div class="reveal" style="transition-delay:.15s;margin-top:30px">
+        <span class="pill">📍 Stolberger Str. 7, Wiesbaden</span>
+        <span class="pill">🔧 Mercedes · BMW · Audi · VW · Opel · Ford</span>
+        <span class="pill">⭐ Freier Kfz-Meisterbetrieb</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 — Ausgangslage -->
+  <section class="slide">
+    <span class="num">02</span>
+    <div class="wrap">
+      <div class="eyebrow reveal">Die Ausgangslage</div>
+      <h2 class="reveal" style="transition-delay:.05s">Das Handwerk stimmt. <span class="blue">Die digitale Bühne fehlt.</span></h2>
+      <p class="reveal lead" style="transition-delay:.1s;margin-top:20px">Niehage´s ist seit über vier Jahrzehnten eine feste Größe. Doch ein neuer Kunde entscheidet heute in 8 Sekunden auf dem Handy, ob er anruft — oder zur nächsten Werkstatt scrollt.</p>
+      <div class="grid g3">
+        <div class="card reveal"><div class="stat">87%</div><div class="stat-l">der Autofahrer suchen ihre Werkstatt zuerst online (Google / Maps)</div></div>
+        <div class="card reveal" style="transition-delay:.06s"><div class="stat">8&nbsp;Sek.</div><div class="stat-l">entscheiden, ob ein Besucher bleibt oder abspringt</div></div>
+        <div class="card reveal" style="transition-delay:.12s"><div class="stat">3&nbsp;Klicks</div><div class="stat-l">braucht es heute, um Vertrauen &amp; Termin zu gewinnen</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — Bottlenecks -->
+  <section class="slide" style="background:#11182455">
+    <span class="num">03</span>
+    <div class="wrap">
+      <span class="tag bad reveal">Aktuelle Bottlenecks</span>
+      <h2 class="reveal" style="transition-delay:.05s">Wo heute Kunden verloren gehen</h2>
+      <div class="reveal" style="transition-delay:.1s;margin-top:24px">
+        <div class="bottleneck"><div class="ic">📝</div><div><b>Kein Kontakt- / Terminformular.</b><div class="d">Wer abends um 21 Uhr ein Geräusch am Motor hat, kann nicht buchen — nur anrufen, wenn die Werkstatt schon zu ist. Anfragen versickern.</div></div></div>
+        <div class="bottleneck"><div class="ic">📱</div><div><b>Veraltete WordPress-Basis.</b><div class="d">Langsame Ladezeit &amp; eingeschränkte mobile Darstellung — gerade dort, wo 70 % der Besucher herkommen.</div></div></div>
+        <div class="bottleneck"><div class="ic">⭐</div><div><b>Bewertungen unsichtbar.</b><div class="d">Jahrzehntelange Stammkundschaft, aber kein sichtbarer Social Proof, der neue Kunden überzeugt.</div></div></div>
+        <div class="bottleneck"><div class="ic">🔍</div><div><b>Schwache lokale Sichtbarkeit.</b><div class="d">Konkurrenz mit gepflegtem Google-Profil &amp; Buchung erscheint weiter oben — bei „Werkstatt Wiesbaden“.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — Vorher/Nachher -->
+  <section class="slide">
+    <span class="num">04</span>
+    <div class="wrap">
+      <div class="eyebrow reveal">Der Hebel</div>
+      <h2 class="reveal" style="transition-delay:.05s">Vom Schaufenster zur <span class="blue">Terminmaschine</span></h2>
+      <div class="arrow-row">
+        <div class="card reveal"><span class="tag bad">Heute</span>
+          <ul class="clean">
+            <li>Statische Info-Seite</li>
+            <li>Kontakt nur per Telefon (Mo–Fr)</li>
+            <li>Kein Vertrauensaufbau above-the-fold</li>
+            <li>Mobil langsam &amp; unübersichtlich</li>
+          </ul>
+        </div>
+        <div class="arrow reveal" style="transition-delay:.08s">➜</div>
+        <div class="card reveal" style="transition-delay:.16s;border-color:#34D39955"><span class="tag ok">MZ.9-Konzept</span>
+          <ul class="clean">
+            <li>Schnelle One-Page, mobil-first</li>
+            <li>24/7-Terminanfrage in 3 Klicks</li>
+            <li>Bewertungen &amp; 40-Jahre-Story im Fold</li>
+            <li>Klare Leistungsübersicht A–Z</li>
+          </ul>
+        </div>
+      </div>
+      <p class="reveal" style="transition-delay:.2s;margin-top:26px">Die Konzept-Vorschau ist bereits gebaut → <a class="blue" href="index.html" style="font-weight:700">index.html ansehen</a></p>
+    </div>
+  </section>
+
+  <!-- 5 — Was geliefert wird -->
+  <section class="slide" style="background:#11182455">
+    <span class="num">05</span>
+    <div class="wrap">
+      <span class="tag ok reveal">Das Business-Kit</span>
+      <h2 class="reveal" style="transition-delay:.05s">Was im Paket steckt</h2>
+      <div class="grid g2">
+        <div class="card reveal"><h3>① Premium Landing-Page</h3><p>Mobil-optimierte One-Page mit Terminanfrage, Leistungs-Übersicht, Marken-Spezialisierung &amp; Bewertungen — Ihre echten Bilder, Ihr Auftritt.</p></div>
+        <div class="card reveal" style="transition-delay:.06s"><h3>② 24/7-Terminanfrage</h3><p>Schnellauswahl nach Leistung (Inspektion, HU/AU, Reifen, Klima …) — Anfragen kommen auch nach Feierabend rein.</p></div>
+        <div class="card reveal" style="transition-delay:.12s"><h3>③ Lokale Sichtbarkeit</h3><p>Google-Business-Optimierung &amp; SEO für „Kfz-Werkstatt Wiesbaden-Nordenstadt“ — gefunden werden, wenn gesucht wird.</p></div>
+        <div class="card reveal" style="transition-delay:.18s"><h3>④ Print &amp; Reichweite</h3><p>Flyer für Wartezimmer &amp; Briefkasten, abgestimmt auf die Online-Linie — ein Auftritt, alle Kanäle.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — Business Case Teaser -->
+  <section class="slide">
+    <span class="num">06</span>
+    <div class="wrap">
+      <div class="eyebrow reveal">Rechnet sich das?</div>
+      <h2 class="reveal" style="transition-delay:.05s">Eine Anfrage mehr pro Woche zahlt alles</h2>
+      <div class="grid g3">
+        <div class="card reveal"><div class="stat">≈ 350 €</div><div class="stat-l">Ø Auftragswert pro Werkstattbesuch (Inspektion + Verschleiß)</div></div>
+        <div class="card reveal" style="transition-delay:.06s"><div class="stat">+1/Wo.</div><div class="stat-l">zusätzliche Online-Anfrage = ~18.000 €/Jahr Zusatzumsatz</div></div>
+        <div class="card reveal" style="transition-delay:.12s"><div class="stat">2.0×</div><div class="stat-l">höhere Conversion durch Online-Terminbuchung statt nur Telefon</div></div>
+      </div>
+      <p class="reveal" style="transition-delay:.16s;margin-top:24px">Vollständige Rechnung &amp; Branchen-Benchmarks → <a class="blue" href="business-case.html" style="font-weight:700">Business-Case-Report</a></p>
+    </div>
+  </section>
+
+  <!-- 7 — CTA -->
+  <section class="slide">
+    <span class="num">07</span>
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <div class="eyebrow" style="color:#cfe0ff">Nächster Schritt</div>
+        <h2>15 Minuten — und Sie sehen Ihre neue Werkstatt online.</h2>
+        <p>Unverbindlich. Die Konzept-Vorschau steht. Wir besprechen, was zu Niehage´s passt — und was es kostet.</p>
+        <a class="btn" href="tel:+4961222454">📞 06122 · 2454 — jetzt sprechen</a>
+      </div>
+      <p class="foot reveal">Erstellt von <b style="color:var(--blue)">MZ.9 — Media Engineering.AI</b> für Niehage´s Autowerkstatt · Konzept-Präsentation, unverbindlich. Alle Branchenwerte sind Richtwerte zur Veranschaulichung.</p>
+    </div>
+  </section>
+
+</div>
+<script>
+  var pg=document.getElementById('pg');
+  addEventListener('scroll',function(){var h=document.documentElement;pg.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>

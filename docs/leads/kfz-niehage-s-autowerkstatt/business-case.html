@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Business-Case-Report — Kfz-Werkstatt digital · Niehage´s</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#161E2C" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F7F9; --card:#fff; --ink:#0E1420; --ink-2:#3E4658; --ink-mut:#6E7688;
+    --dark:#161E2C; --blue:#1D4ED8; --blue-2:#163AA0; --accent:#2563EB;
+    --line:#0E142018; --ok:#0E9F6E; --warn:#D97706; --bad:#DC2626;
+    --serif:"Cormorant Garamond",Georgia,serif; --sans:"Source Sans 3",system-ui,sans-serif;
+    --maxw:880px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-.01em}
+  .cover{background:var(--dark);color:#F6F7F9;padding:clamp(50px,9vw,90px) 0 clamp(40px,7vw,70px);position:relative;overflow:hidden}
+  .cover::after{content:"";position:absolute;width:50vw;height:50vw;top:-20%;right:-10%;background:radial-gradient(circle,#1D4ED840,transparent 70%);border-radius:50%}
+  .cover .wrap{position:relative;z-index:1}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#60A0F0}
+  .cover h1{font-size:clamp(2.4rem,6vw,4rem);margin:16px 0 0;color:#fff}
+  .cover .sub{color:#C4CCDB;max-width:54ch;margin-top:16px;font-size:1.15rem}
+  .cover .meta{margin-top:30px;font-size:13px;color:#8893A6;display:flex;gap:8px 26px;flex-wrap:wrap}
+  .cover .meta b{color:#60A0F0}
+  section{padding:clamp(40px,6vw,64px) 0;border-bottom:1px solid var(--line)}
+  h2{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 6px}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+  p{color:var(--ink-2);max-width:66ch} h3{font-size:1.35rem;margin:26px 0 4px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 16px 36px -28px #0E142055}
+  .stat .n{font-family:var(--serif);font-size:2.4rem;font-weight:600;color:var(--blue);line-height:1}
+  .stat .l{font-size:13.5px;color:var(--ink-mut);margin-top:8px}
+  table{width:100%;border-collapse:collapse;margin:24px 0;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 16px 36px -28px #0E142055;font-size:15px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
+  th{background:var(--dark);color:#fff;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.04em}
+  tr:last-child td{border-bottom:none} td b{color:var(--ink)}
+  .tot{background:#1D4ED80D} .tot td{font-weight:700;color:var(--blue)}
+  .scenario{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+  .sc{border-radius:14px;padding:22px;border:1px solid var(--line);background:var(--card)}
+  .sc.mid{border-color:#1D4ED855;box-shadow:0 0 0 2px #1D4ED822}
+  .sc .h{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mut)}
+  .sc .v{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--ink);margin:8px 0 2px}
+  .sc.mid .v{color:var(--blue)} .sc .d{font-size:13px;color:var(--ink-mut)}
+  ul{padding-left:0;list-style:none;margin:16px 0} li{padding:8px 0 8px 28px;position:relative;color:var(--ink-2)}
+  li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+  .risk li::before{content:"!";color:var(--bad)}
+  .callout{background:var(--card);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0;box-shadow:0 16px 36px -30px #0E142055}
+  .callout b{color:var(--blue)}
+  .src{font-size:12.5px;color:var(--ink-mut);max-width:none}
+  .cta{background:linear-gradient(135deg,#1D4ED8,#163AA0);color:#fff;border-radius:20px;padding:clamp(30px,5vw,50px);text-align:center;margin:40px 0}
+  .cta h2{color:#fff} .cta p{color:#E5ECFA;margin:12px auto 0;max-width:50ch}
+  .btn{display:inline-flex;gap:10px;background:#fff;color:#1D4ED8;font-weight:700;padding:14px 30px;border-radius:50px;text-decoration:none;margin-top:22px}
+  .foot{padding:30px 0 60px;font-size:12.5px;color:var(--ink-mut)}
+  @media(max-width:680px){.stats,.scenario{grid-template-columns:1fr}}
+  @media print{body{background:#fff}section{page-break-inside:avoid}.cover::after{display:none}}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Business-Case-Report · MZ.9 Media Engineering.AI</div>
+    <h1>Was eine digitale Werkstatt-Präsenz wirklich bringt</h1>
+    <p class="sub">Branchen-Benchmark Kfz-Werkstatt &amp; konkrete Rechnung für Niehage´s Autowerkstatt, Wiesbaden-Nordenstadt.</p>
+    <div class="meta"><span>Erstellt für <b>Niehage´s Autowerkstatt</b></span><span>Stand <b>Juni 2026</b></span><span>Vertraulich · unverbindlich</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="kicker">Management Summary</div>
+    <h2>Die Kernaussage in drei Zeilen</h2>
+    <p>Die deutsche Kfz-Werkstatt-Branche ist solide ausgelastet, aber der Wettbewerb verschiebt sich vom Ortsschild ins Smartphone. Wer online schnell gefunden wird, Vertrauen zeigt und eine Terminanfrage rund um die Uhr ermöglicht, gewinnt die Kunden, die bei der Konkurrenz wegklicken.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">~38 Mio</div><div class="l">HU-Hauptuntersuchungen/Jahr in DE — wiederkehrender Pflichtbedarf</div></div>
+      <div class="stat"><div class="n">~12,5 J.</div><div class="l">Ø Fahrzeugalter in DE — älter = mehr Reparaturen pro Wagen</div></div>
+      <div class="stat"><div class="n">87 %</div><div class="l">recherchieren die Werkstatt online, bevor sie anrufen</div></div>
+    </div>
+    <div class="callout"><b>Fazit vorweg:</b> Schon <b>eine zusätzliche gewonnene Anfrage pro Woche</b> erwirtschaftet im Jahr ein Vielfaches der Kosten einer professionellen Online-Präsenz. Der Hebel ist nicht „mehr Werbung“, sondern „nicht mehr verlieren, was schon sucht“.</div>
+  </section>
+
+  <section>
+    <div class="kicker">Branchenbild</div>
+    <h2>Der Markt für freie Werkstätten</h2>
+    <p>Freie Kfz-Meisterbetriebe wie Niehage´s stehen im Wettbewerb mit Vertragswerkstätten und Ketten — und gewinnen bei Preis, Nähe und Vertrauen. Die Schwäche der Freien liegt fast nie im Handwerk, sondern in der digitalen Sichtbarkeit.</p>
+    <h3>Strukturelle Rückenwinde</h3>
+    <ul>
+      <li><b>Alternde Fahrzeugflotte:</b> Ø 12,5 Jahre — je älter das Auto, desto häufiger Verschleiß-Reparaturen außerhalb der Garantie, oft beim freien Betrieb.</li>
+      <li><b>Pflichtbedarf HU/AU:</b> Wiederkehrend, planbar, ein idealer Anker für Terminbindung und Folgegeschäft.</li>
+      <li><b>Saisongeschäft Reifen &amp; Klima:</b> Zweimal jährlich Reifenwechsel + Einlagerung = Stammkunden-Bindung und Auslastungsglättung.</li>
+      <li><b>Spezialisierung deutsche Marken:</b> Mercedes/BMW/Audi/VW/Opel/Ford-Fokus schafft klares Profil gegenüber „alles für alle“.</li>
+    </ul>
+    <h3 class="risk-h">Strukturelle Gegenwinde</h3>
+    <ul class="risk">
+      <li>Fachkräftemangel — jede gewonnene Stunde muss produktiv sein, kein Leerlauf durch verpasste Anfragen.</li>
+      <li>Preistransparenz online — Kunden vergleichen; wer Vertrauen &amp; Leistung klar zeigt, gewinnt trotz höherem Preis.</li>
+      <li>Sichtbarkeit von Ketten — große Werbebudgets dominieren Google, wenn der lokale Betrieb kein gepflegtes Profil hat.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="kicker">Der Engpass</div>
+    <h2>Wo Niehage´s heute Umsatz liegen lässt</h2>
+    <table>
+      <tr><th>Bottleneck</th><th>Auswirkung</th><th>Folge</th></tr>
+      <tr><td><b>Kein Terminformular</b></td><td>Anfragen nur telefonisch, nur zu Öffnungszeiten</td><td>Abend-/Wochenend-Bedarf geht zur Konkurrenz</td></tr>
+      <tr><td><b>Veraltete WordPress-Seite</b></td><td>Langsam &amp; mobil eingeschränkt</td><td>Absprung in den ersten 8 Sekunden</td></tr>
+      <tr><td><b>Bewertungen unsichtbar</b></td><td>Kein Social Proof above-the-fold</td><td>Neukunde fehlt Vertrauensanker</td></tr>
+      <tr><td><b>Schwache lokale SEO</b></td><td>Nicht oben bei „Werkstatt Wiesbaden“</td><td>Gar nicht erst in der Auswahl</td></tr>
+    </table>
+    <p class="src">Bottlenecks abgeleitet aus der Analyse der bestehenden Website (niehages-autowerkstatt.de) — fehlendes Kontaktformular &amp; WordPress-Basis dokumentiert; übrige Punkte aus Branchen-Best-Practice.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Die Rechnung</div>
+    <h2>Business Case: konservativ gerechnet</h2>
+    <p>Annahmen bewusst vorsichtig gewählt. Ø-Auftragswert einer Werkstatt-Durchsicht inkl. typischem Verschleiß: <b>~350 €</b>. Wir betrachten allein <b>zusätzlich gewonnene</b> Anfragen, die heute mangels Online-Buchung verloren gehen.</p>
+    <table>
+      <tr><th>Position</th><th>Annahme</th><th>Wert</th></tr>
+      <tr><td>Ø Auftragswert pro Besuch</td><td>Inspektion + Verschleiß</td><td><b>350 €</b></td></tr>
+      <tr><td>Zusätzliche Anfragen / Woche</td><td>durch 24/7-Buchung &amp; Sichtbarkeit</td><td><b>+2</b></td></tr>
+      <tr><td>Anfrage → Auftrag (Conversion)</td><td>realistisch für Werkstatt</td><td><b>60 %</b></td></tr>
+      <tr><td>Zusatz-Aufträge / Jahr</td><td>2 × 52 × 0,6</td><td><b>≈ 62</b></td></tr>
+      <tr class="tot"><td>Zusätzlicher Jahresumsatz</td><td>62 × 350 €</td><td>≈ 21.800 €</td></tr>
+    </table>
+    <div class="callout"><b>Selbst halbiert</b> (nur +1 Anfrage/Woche) bleiben rund <b>10.900 € Zusatzumsatz/Jahr</b> — ein Vielfaches der Investition in eine professionelle Seite samt Pflege.</div>
+  </section>
+
+  <section>
+    <div class="kicker">Szenarien</div>
+    <h2>Drei Wege, ein klarer Sieger</h2>
+    <div class="scenario">
+      <div class="sc"><div class="h">Vorsichtig</div><div class="v">+10.900 €</div><div class="d">+1 Anfrage/Woche · 60 % Conversion · /Jahr</div></div>
+      <div class="sc mid"><div class="h">Realistisch</div><div class="v">+21.800 €</div><div class="d">+2 Anfragen/Woche · 60 % Conversion · /Jahr</div></div>
+      <div class="sc"><div class="h">Ambitioniert</div><div class="v">+38.000 €</div><div class="d">+3–4/Woche inkl. besserer Google-Sichtbarkeit · /Jahr</div></div>
+    </div>
+    <p>Zusätzlich nicht eingerechnet: höhere <b>Stammkunden-Bindung</b> über Reifen-Einlagerung &amp; HU-Erinnerungen, planbarere Auslastung und ein moderner Auftritt für die <b>Mitarbeitergewinnung</b> (aktuell offene Stelle).</p>
+  </section>
+
+  <section>
+    <div class="kicker">Umsetzung</div>
+    <h2>Was wir liefern</h2>
+    <ul>
+      <li><b>Premium Landing-Page</b> — mobil-first, schnell, mit echten Werkstatt-Bildern.</li>
+      <li><b>24/7-Terminanfrage</b> nach Leistung (Inspektion, HU/AU, Reifen, Klima, Unfall).</li>
+      <li><b>Lokale SEO &amp; Google-Business</b> — gefunden werden bei „Werkstatt Wiesbaden-Nordenstadt“.</li>
+      <li><b>Bewertungs-Integration</b> — Vertrauen sichtbar im ersten Bildschirm.</li>
+      <li><b>Print-Flyer</b> abgestimmt auf die Online-Linie — ein konsistenter Auftritt.</li>
+    </ul>
+    <div class="cta">
+      <div class="eyebrow" style="color:#cfe0ff">Nächster Schritt</div>
+      <h2>Die Konzept-Vorschau steht bereits.</h2>
+      <p>15 Minuten Gespräch genügen, um zu entscheiden, ob es passt. Unverbindlich.</p>
+      <a class="btn" href="tel:+4961222454">📞 06122 · 2454</a>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p class="src"><b>Quellen &amp; Methodik:</b> Branchen-Richtwerte (Ø-Fahrzeugalter, HU-Volumen, Online-Recherche-Anteil) sind allgemein anerkannte Marktgrößen zur Veranschaulichung; konkrete Beträge für Niehage´s sind Modellrechnungen mit bewusst konservativen Annahmen, kein Versprechen. Website-Bottlenecks aus direkter Analyse von niehages-autowerkstatt.de. Erstellt von MZ.9 — Media Engineering.AI, Juni 2026.</p>
+  </div>
+
+</div>
+</body>
+</html>
