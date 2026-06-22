@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Zahnärzte an der Bürgerwiese Dresden — Ihre moderne Zahnarztpraxis für professionelle Zahnbehandlung und Prophylaxe.">
+  <title>Zahnärzte an der Bürgerwiese | Dresden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0088cc;
+      --primary-dark: #006699;
+      --primary-light: #e6f5fa;
+      --accent: #00c4b4;
+      --text: #2c3e50;
+      --text-light: #64748b;
+      --bg: #ffffff;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px rgba(0,136,204,0.1);
+      --shadow-lg: 0 10px 40px rgba(0,136,204,0.15);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .nav a.cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      margin-left: 1.5rem;
+    }
+
+    .nav a.cta:hover {
+      background: var(--primary-dark);
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 80px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 55%;
+      background-image: url('https://www.kombidental.de/files/Web/Fotos/Home/Slider/Slider2c.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.9;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    @media (min-width: 768px) {
+      .hero-text h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,136,204,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,136,204,0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-light);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Trust Strip */
+    .trust {
+      background: var(--bg);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* Section */
+    .section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-alt {
+      background: var(--bg-light);
+    }
+
+    .section-header {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-header h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Services */
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Booking Form - Premium Feature */
+    .booking {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+    }
+
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .booking-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .booking-content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .booking-content h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .booking-content p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .booking-form {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .booking-form h3 {
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      background: var(--bg-light);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .form-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Gallery */
+    .gallery {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-light);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-overlay span {
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Contact */
+    .contact-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+
+    .contact-item a,
+    .contact-item p {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary);
+    }
+
+    .contact-map {
+      background: var(--border);
+      border-radius: 16px;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary-light) 0%, white 100%);
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .cta-band h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      .cta-band h2 {
+        font-size: 2.25rem;
+      }
+    }
+
+    .cta-band p {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 3rem 1.5rem 6rem;
+      text-align: center;
+    }
+
+    .footer p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      gap: 0.75rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.9rem;
+      padding: 0.75rem;
+    }
+
+    .mobile-cta .btn-secondary {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta {
+        display: none;
+      }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Zahnärzte <span>Bürgerwiese</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin vereinbaren</a>
+        <a href="#galerie">Praxis</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:+493518673022" class="cta">📞 Anrufen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Herzlich willkommen<br>bei Zahnärzte an der Bürgerwiese</h1>
+        <p>Wir sind Ihr verlässlicher Partner für moderne Zahnmedizin in Dresden. Persönliche Betreuung, hochwertige Behandlung und ein wohlige Atmosphäre.</p>
+        <div class="hero-buttons">
+          <a href="#termin" class="btn btn-primary">📅 Termin vereinbaren</a>
+          <a href="tel:+493518673022" class="btn btn-secondary">📞 +49 351 8673022</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Erfahrene Zahnärzte</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Moderne Ausstattung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Individuelle Beratung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Zentrale Lage Dresden</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="section" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Komplettes Spektrum der modernen Zahnmedizin aus einer Hand</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🦷</div>
+        <h3>Prophylaxe</h3>
+        <p>Professionelle Zahnreinigung und individuelle Vorsorge für langfristige Mundgesundheit.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">✨</div>
+        <h3>Ästhetik</h3>
+        <p>Zahnbleaching, Veneers und kosmetische Behandlungen für ein strahlendes Lächeln.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔧</div>
+        <h3>Zahnersatz</h3>
+        <p>Kronen, Brücken und Implantate — hochwertige Lösungen für fehlende Zähne.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏥</div>
+        <h3>Parodontologie</h3>
+        <p>Behandlung von Zahnfleischerkrankungen und Erhalt des Zahnhalteapparates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Form -->
+  <section class="section booking" id="termin">
+    <div class="booking-inner">
+      <div class="booking-grid">
+        <div class="booking-content reveal">
+          <h2>Termin vereinbaren</h2>
+          <p>Buchen Sie Ihren Wunschtermin ganz einfach online. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+          <div style="margin-top: 2rem;">
+            <div style="margin-bottom: 1rem;">
+              <strong>📞 Telefonisch:</strong><br>
+              <a href="tel:+493518673022" style="color: white;">+49 351 8673022</a>
+            </div>
+            <div>
+              <strong>✉️ E-Mail:</strong><br>
+              <a href="mailto:info@kombidental.de" style="color: white;">info@kombidental.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="booking-form reveal">
+          <h3>Kontaktanfrage senden</h3>
+          <form action="mailto:info@kombidental.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Ihr vollständiger Name">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="+49 ...">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="Kontrolluntersuchung">Kontrolluntersuchung</option>
+                <option value="Professionelle Zahnreinigung">Professionelle Zahnreinigung</option>
+                <option value="Zahnersatz">Zahnersatz / Krone / Brücke</option>
+                <option value="Implantat">Implantat</option>
+                <option value="Zahnfleischbehandlung">Zahnfleischbehandlung</option>
+                <option value="Kosmetik">Kosmetische Behandlung</option>
+                <option value="Notfall">Notfall / Schmerzen</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" name="message" placeholder="Wunschtermin, Fragen oder besondere Anliegen..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage senden →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section section-alt" id="galerie">
+    <div class="section-header reveal">
+      <h2>Ein Blick in unsere Praxis</h2>
+      <p>Moderne Räumlichkeiten und eine angenehme Atmosphäre</p>
+    </div>
+    <div class="gallery">
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Fotos/Home/Slider/Slider3b.jpg" alt="Praxisraum Zahnarzt" loading="lazy">
+        <div class="gallery-overlay"><span>Behandlungsbereich</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Fotos/Home/Slider/Slider4.jpg" alt="Zahnarztpraxis Eingang" loading="lazy">
+        <div class="gallery-overlay"><span>Eingangsbereich</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Fotos/Home/Labor2.jpg" alt="Dentallabor" loading="lazy">
+        <div class="gallery-overlay"><span>Laboreinrichtung</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Fotos/Home/leistungen.jpg" alt="Leistungsübersicht" loading="lazy">
+        <div class="gallery-overlay"><span>Unsere Leistungen</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Fotos/Home/Kontakt.jpg" alt="Praxis Kontaktbereich" loading="lazy">
+        <div class="gallery-overlay"><span>Empfang</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.kombidental.de/files/Web/Layout/Footer/Footer2.jpg" alt="Praxis Team" loading="lazy">
+        <div class="gallery-overlay"><span>Unser Team</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für einen gesunden Biss?</h2>
+    <p>Vereinbaren Sie noch heute Ihren Termin — wir freuen uns auf Sie!</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="#termin" class="btn btn-primary">📅 Termin buchen</a>
+      <a href="tel:+493518673022" class="btn btn-secondary">📞 Jetzt anrufen</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="kontakt">
+    <div class="section-header reveal">
+      <h2>Kontakt & Anfahrt</h2>
+      <p>Wir erreichen Sie zentral in Dresden</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Zahnärzte an der Bürgerwiese<br>Bürgerwiese, Dresden</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Telefon</h4>
+            <a href="tel:+493518673022">+49 351 8673022</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <h4>E-Mail</h4>
+            <a href="mailto:info@kombidental.de">info@kombidental.de</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <h4>Website</h4>
+            <a href="https://www.kombidental.de" target="_blank">www.kombidental.de</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-map reveal">
+        <div>
+          <p style="margin-bottom: 0.5rem;">🗺️ Karte</p>
+          <p style="font-size: 0.85rem;">Bürgerwiese, 01069 Dresden</p>
+          <p style="font-size: 0.8rem; margin-top: 1rem;">(Karte im Original-Webseite)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · MZ.9</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Diese Seite ist eine Konzept-Demo für Akquise-Zwecke.</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn btn-primary">📅 Termin</a>
+    <a href="tel:+493518673022" class="btn btn-secondary">📞 Anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

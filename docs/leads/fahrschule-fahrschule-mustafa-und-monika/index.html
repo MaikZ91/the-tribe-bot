@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Fahrschule M & M - Führerscheinausbildung in Köln Vingst</title>
+  <meta name="description" content="Willkommen bei der Fahrschule M & M in Köln Vingst. Führerscheinausbildung seit 2007, familiäre Atmosphäre!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #FFD600;
+      --primary-dark: #E6C200;
+      --text: #1a1a1a;
+      --text-light: #666;
+      --bg: #fafafa;
+      --white: #ffffff;
+      --border: #e5e5e5;
+      --accent: #0047AB;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+    }
+    a { text-decoration: none; color: inherit; transition: .2s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: box-shadow .3s;
+    }
+    .header.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .logo { font-weight: 700; font-size: 1.25rem; letter-spacing: -.5px; }
+    .logo span { color: var(--accent); }
+    .nav { display: flex; gap: 1.5rem; }
+    .nav a { font-size: .9rem; font-weight: 500; color: var(--text-light); }
+    .nav a:hover { color: var(--accent); }
+    .btn-header { background: var(--primary); color: var(--text); padding: .6rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: .9rem; }
+    .btn-header:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero {
+      padding-top: 80px;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      z-index: -2;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,214,0,.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--text);
+      padding: 1rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,214,0,.3); }
+    .btn-secondary {
+      background: var(--white);
+      color: var(--text);
+      padding: 1rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 2px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-img { position: relative; }
+    .hero-img img {
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.12);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .trust-item { text-align: center; }
+    .trust-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+    .trust-label { font-size: .85rem; color: var(--text-light); margin-top: .25rem; }
+
+    /* Services */
+    .section { padding: 5rem 1.5rem; }
+    .section-dark { background: var(--white); }
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+    .section-title p { color: var(--text-light); max-width: 500px; margin: 0 auto; }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: .3s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); border-color: var(--primary); }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; }
+    .service-card p { font-size: .9rem; color: var(--text-light); }
+
+    /* Contact Form - Premium Feature */
+    .contact-section { background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); }
+    .contact-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .contact-info p { color: var(--text-light); margin-bottom: 2rem; }
+    .contact-item { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .contact-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-text h4 { font-size: .9rem; font-weight: 600; margin-bottom: .2rem; }
+    .contact-text p { font-size: .9rem; color: var(--text-light); margin-bottom: 0; }
+
+    .form-box {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.06);
+    }
+    .form-box h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: .85rem; font-weight: 500; margin-bottom: .5rem; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: .95rem;
+      transition: .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255,214,0,.2);
+    }
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: var(--text);
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: .2s;
+    }
+    .btn-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* Gallery */
+    .gallery-section { background: var(--white); }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16/9;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .3s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent) 0%, #003680 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .cta-band h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-band p { opacity: .9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .btn-cta-band {
+      background: var(--primary);
+      color: var(--text);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .btn-cta-band:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* Contact Footer */
+    .contact-footer {
+      background: var(--bg);
+      padding: 4rem 1.5rem 2rem;
+    }
+    .contact-footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+    .footer-section h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+    .footer-section p { color: var(--text-light); font-size: .95rem; }
+    .footer-section a { color: var(--accent); }
+    .footer-section a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 1.5rem;
+      text-align: center;
+    }
+    .footer p { font-size: .85rem; color: var(--text-light); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: none;
+      justify-content: center;
+      z-index: 999;
+    }
+    .mobile-cta .btn-mobile-cta {
+      width: 100%;
+      max-width: 400px;
+      background: var(--primary);
+      color: var(--text);
+      padding: 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+    }
+
+    /* Chatbot Widget */
+    .chatbot {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      z-index: 998;
+    }
+    .chatbot-btn {
+      width: 56px;
+      height: 56px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0,71,171,.3);
+      cursor: pointer;
+      transition: .2s;
+    }
+    .chatbot-btn:hover { transform: scale(1.1); }
+    .chatbot-window {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 300px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      padding: 1.5rem;
+      display: none;
+    }
+    .chatbot-window.active { display: block; }
+    .chatbot-window h4 { font-size: 1rem; font-weight: 600; margin-bottom: .75rem; }
+    .chatbot-window p { font-size: .9rem; color: var(--text-light); margin-bottom: 1rem; }
+    .chatbot-window a { display: block; background: var(--primary); color: var(--text); padding: .75rem; border-radius: 8px; text-align: center; font-weight: 600; font-size: .9rem; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-cta { justify-content: center; }
+      .hero-img { order: -1; margin-bottom: 2rem; }
+      .contact-container { grid-template-columns: 1fr; }
+      .nav { display: none; }
+    }
+    @media (max-width: 600px) {
+      .mobile-cta { display: flex; }
+      .hero { padding-bottom: 80px; min-height: auto; padding-top: 100px; }
+      .section { padding: 3rem 1rem; }
+      .trust-strip { padding: 1.5rem 1rem; }
+      .chatbot { bottom: 100px; right: 10px; }
+    }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: .6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="logo">Fahrschule <span>M & M</span></div>
+    <nav class="nav">
+      <a href="#services">Kurse</a>
+      <a href="#about">Über uns</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+    <a href="tel:0221873337" class="btn-header">📞 Anrufen</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text reveal">
+        <h1>Ihr Führerschein in Köln Vingst – familiär & seit 2007</h1>
+        <p>Fahrschule Mustafa & Monika: Persönliche Betreuung, moderne Fahrzeuge und faire Preise. Starten Sie jetzt Ihre Fahrausbildung!</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">🚗 Schnupperstunde buchen</a>
+          <a href="tel:0221873337" class="btn-secondary">📞 0221 873337</a>
+        </div>
+      </div>
+      <div class="hero-img reveal">
+        <img src="https://fahrschule-mm.de/wp-content/uploads/go-x/u/2aec1cce-440a-44db-ba18-e8af97cc7c74/image-1200x507.png" alt="Fahrschule M & M - Führerscheinausbildung in Köln" width="600" height="254">
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip reveal">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-value">2007</div>
+        <div class="trust-label">Seit Jahren am Start</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-value">Köln</div>
+        <div class="trust-label">Vingst & Umgebung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-value">Familiär</div>
+        <div class="trust-label">Persönliche Atmosphäre</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section section-dark" id="services">
+    <div class="section-title reveal">
+      <h2>Unsere Kurse</h2>
+      <p>Für jeden Anfänger und Wunschschein die passende Ausbildung</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🚗</div>
+        <h3>Klasse B – PKW</h3>
+        <p>Klassische Führerscheinausbildung für Personenkraftwagen. Theorie und Praxis aus einer Hand.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏍️</div>
+        <h3>Klasse A – Motorrad</h3>
+        <p>Frei auf zwei Rädern. Motorradführerschein mit professioneller Praxis-Schulung.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🛵</div>
+        <h3>Klasse AM – Roller</h3>
+        <p>Führerschein ab 16 Jahren für Kleinkrafträder und Mofas.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔄</div>
+        <h3>Aufbauseminare</h3>
+        <p>Verkehrspsychologische Beratung bei Punkten in Flensburg – wir unterstützen Sie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info reveal">
+        <h3>Kontaktieren Sie uns</h3>
+        <p>Haben Sie Fragen zu unseren Kursen oder möchten Sie einen unverbindlichen Beratungstermin vereinbaren? Wir melden uns schnell zurück.</p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Adresse</h4>
+            <p>Ostheimer Straße 91, Köln</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <h4>Telefon</h4>
+            <p><a href="tel:0221873337">0221 873337</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:info@fahrschule-mm.de">info@fahrschule-mm.de</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="form-box reveal">
+        <h3>Nachricht senden</h3>
+        <form action="mailto:info@fahrschule-mm.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Ihr Name</label>
+            <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon (für Rückruf)</label>
+            <input type="tel" id="phone" name="phone" placeholder="0123 456789">
+          </div>
+          <div class="form-group">
+            <label for="course">Interesse an</label>
+            <select id="course" name="course">
+              <option value="klasse-b">Klasse B – PKW</option>
+              <option value="klasse-a">Klasse A – Motorrad</option>
+              <option value="klasse-am">Klasse AM – Roller</option>
+              <option value="aufbauseminar">Aufbauseminar</option>
+              <option value="beratung">Allgemeine Beratung</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" name="message" rows="4" placeholder="Wie können wir Ihnen helfen?"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Nachricht absenden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallery-section">
+    <div class="section-title reveal">
+      <h2>Einblicke</h2>
+      <p>Moderne Fahrzeuge und freundliche Atmosphäre</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.fahrschule-mm.de/wp-content/uploads/go-x/u/2aec1cce-440a-44db-ba18-e8af97cc7c74/image-911x385.png" alt="Fahrschule Fahrzeug" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.fahrschule-mm.de/wp-content/uploads/go-x/u/2aec1cce-440a-44db-ba18-e8af97cc7c74/image-640x270.png" alt="Fahrschule Team" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.fahrschule-mm.de/wp-content/uploads/go-x/u/2aec1cce-440a-44db-ba18-e8af97cc7c74/image-512x216.png" alt="Unterricht" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.fahrschule-mm.de/wp-content/uploads/go-x/u/2aec1cce-440a-44db-ba18-e8af97cc7c74/image-455x192.png" alt="Fahrzeuge" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <h2>Bereit für den Führerschein?</h2>
+    <p>Starten Sie noch heute Ihre Ausbildung bei Fahrschule Mustafa & Monika in Köln Vingst.</p>
+    <a href="tel:0221873337" class="btn-cta-band">📞 Jetzt anrufen</a>
+  </section>
+
+  <footer class="contact-footer">
+    <div class="contact-footer-grid">
+      <div class="footer-section">
+        <h4>Fahrschule M & M</h4>
+        <p>Führerscheinausbildung seit 2007 in familiärer Atmosphäre.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Kontakt</h4>
+        <p>Ostheimer Straße 91<br>Köln</p>
+        <p style="margin-top: .5rem;"><a href="tel:0221873337">0221 873337</a></p>
+        <p><a href="mailto:info@fahrschule-mm.de">info@fahrschule-mm.de</a></p>
+      </div>
+      <div class="footer-section">
+        <h4>Website</h4>
+        <p><a href="https://fahrschule-mm.de/" target="_blank">www.fahrschule-mm.de</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <footer class="footer">
+    <p>Konzeptvorschau · MZ.9</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:0221873337" class="btn-mobile-cta">📞 Jetzt anrufen</a>
+  </div>
+
+  <div class="chatbot">
+    <div class="chatbot-window" id="chatbotWindow">
+      <h4>Können wir helfen?</h4>
+      <p>Haben Sie Fragen zu unseren Kursen? Schreiben Sie uns!</p>
+      <a href="mailto:info@fahrschule-mm.de">✉️ E-Mail schreiben</a>
+    </div>
+    <div class="chatbot-btn" id="chatbotBtn">💬</div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Chatbot toggle
+    const chatBtn = document.getElementById('chatbotBtn');
+    const chatWindow = document.getElementById('chatbotWindow');
+    chatBtn.addEventListener('click', () => {
+      chatWindow.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

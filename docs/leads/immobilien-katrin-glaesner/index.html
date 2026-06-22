@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>KGI - Katrin Gläsner Immobilien | Hamburg — Höchste Kompetenz für Privat- und Gewerbeimmobilien</title>
+  <meta name="description" content="KGI - Katrin Gläsner Immobilien - Hamburg - Höchste Kompetenz für Privat- und Gewerbeimmobilien in Hamburg und Umgebung. Ihr vertrauensvoller Partner für Verkauf, Vermietung und Beratung.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --primary-dark: #102a4f;
+      --accent: #c9a227;
+      --accent-light: #e6c547;
+      --sand: #f5f0e8;
+      --sand-dark: #e8e0d2;
+      --text: #2d3748;
+      --text-light: #718096;
+      --white: #ffffff;
+      --shadow: 0 4px 24px rgba(26, 54, 93, 0.08);
+      --shadow-hover: 0 8px 32px rgba(26, 54, 93, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      transition: box-shadow 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-desktop a {
+      margin-left: 32px;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-desktop a:hover {
+      color: var(--accent);
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-desktop {
+        display: flex;
+        align-items: center;
+      }
+      .header-cta {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.glaesner-immobilien.de/s/img/emotionheader.jpg?1664498316.920px.364px');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(26, 54, 93, 0.85) 0%, rgba(26, 54, 93, 0.5) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      color: var(--white);
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.95;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(201, 162, 39, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+    }
+
+    .btn-outline:hover {
+      background: var(--white);
+      color: var(--primary);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--sand);
+      padding: 40px 0;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .trust-item h4 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .trust-item p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .accent-line {
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      margin: 24px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Services */
+    .services {
+      background: var(--white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-card {
+      background: var(--sand);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--accent);
+    }
+
+    .service-card h3 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* About */
+    .about {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .about-text h2 {
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .about-text p {
+      opacity: 0.9;
+      margin-bottom: 16px;
+    }
+
+    .about-image {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+
+    /* Contact Form */
+    .contact {
+      background: var(--sand);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-info h3 {
+      font-size: 1.75rem;
+      margin-bottom: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-item-content h4 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .contact-item-content p, .contact-item-content a {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .contact-item-content a:hover {
+      color: var(--accent);
+    }
+
+    .contact-form {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-form > p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--sand-dark);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .btn-full {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26, 54, 93, 0.6), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--primary-dark);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .cta h2 {
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      padding: 40px 0 100px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .footer-brand h4 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer-brand span {
+      color: var(--accent);
+    }
+
+    .footer-brand p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .footer-concept {
+      text-align: right;
+    }
+
+    .footer-concept p {
+      opacity: 0.7;
+      font-size: 0.85rem;
+    }
+
+    .footer-concept strong {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 12px;
+      z-index: 99;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+    }
+
+    .mobile-cta .btn-primary {
+      flex: 2;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta {
+        display: none;
+      }
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+      .service-card:hover {
+        transform: none;
+      }
+      .gallery-item:hover img {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">KGI <span>Immobilien</span></div>
+      <nav class="nav-desktop">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="tel:+494055433475" class="btn btn-primary header-cta">
+        <span>📞</span> Anrufen
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Ihr Immobilienpartner in Hamburg</span>
+        <h1>Hier sind Sie richtig...</h1>
+        <p>Höchste Kompetenz für Privat- und Gewerbeimmobilien in Hamburg und Umgebung. Vertrauen Sie auf Erfahrung und persönliche Betreuung.</p>
+        <div class="hero-buttons">
+          <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+          <a href="tel:+494055433475" class="btn btn-outline">📞 +49 40 55433475</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="trust-icon">🏠</div>
+          <h4>Privatimmobilien</h4>
+          <p>Kauf & Verkauf</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">🏢</div>
+          <h4>Gewerbeimmobilien</h4>
+          <p>Professionelle Beratung</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">📍</div>
+          <h4>Hamburg & Umgebung</h4>
+          <p>Lokale Expertise</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">🤝</div>
+          <h4>Persönlich</h4>
+          <p>Individuelle Betreuung</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Leistungen</h2>
+        <p>Kompetente Unterstützung bei allen Fragen rund um Ihre Immobilie</p>
+        <div class="accent-line"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">💼</div>
+          <h3>Verkauf</h3>
+          <p>Professionelle Vermarktung Ihrer Immobilie zum bestmöglichen Preis. Von der Bewertung bis zur Übergabe.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3>Kaufberatung</h3>
+          <p>Geduldige Begleitung bei der Immobiliensuche. Wir finden das passende Objekt für Ihre Bedürfnisse.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📋</div>
+          <h3>Bewertung</h3>
+          <p>Fachgerechte Wertermittlung Ihrer Immobilie basierend auf aktuellen Marktdaten und Erfahrungswerten.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏗️</div>
+          <h3>Gewerbeimmobilien</h3>
+          <p>Spezialisierte Beratung für Büros, Praxisflächen und andere gewerbliche Objekte in Hamburg.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📑</div>
+          <h3>Dokumentenprüfung</h3>
+          <p>Sorgfältige Prüfung aller relevanten Unterlagen und Verträge für maximale Rechtssicherheit.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🗣️</div>
+          <h3>Verhandlung</h3>
+          <p>Interessenvertretung und professionelle Preisverhandlungen zu Ihren Gunsten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="ueber-mich">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text reveal">
+          <span style="color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 0.85rem;">Über mich</span>
+          <h2>Höchste Kompetenz seit Jahren</h2>
+          <p>Als erfahrene Immobilienmaklerin in Hamburg stehe ich Ihnen mit fundiertem Fachwissen und persönlichem Engagement zur Seite.</p>
+          <p>Mein Fokus liegt auf einer transparenten, verständlichen Beratung, die genau auf Ihre individuellen Bedürfnisse zugeschnitten ist. Ob Sie verkaufen, kaufen oder sich lediglich informieren möchten — ich bin Ihr Ansprechpartner.</p>
+          <p>Die Zufriedenheit meiner Kundinnen und Kunden ist mir wichtig. Deshalb begleite ich Sie vom ersten Gespräch bis zum erfolgreichen Abschluss.</p>
+        </div>
+        <div class="about-image reveal">
+          <img src="https://www.glaesner-immobilien.de/s/cc_images/cache_35877451.jpg?t=1755079419" alt="Katrin Gläsner - Ihre Immobilienmaklerin in Hamburg" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Eindrücke</h2>
+        <p>Auswahl aus unserem Portfolio</p>
+        <div class="accent-line"></div>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.glaesner-immobilien.de/s/cc_images/cache_68579962.jpg?t=1575549186" alt="Immobilienansicht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.glaesner-immobilien.de/s/cc_images/cache_35831706.jpeg?t=1576073014" alt="Immobilienobjekt" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.glaesner-immobilien.de/s/cc_images/cache_80985156.PNG?t=1646264954" alt="Immobilienangebot" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.glaesner-immobilien.de/s/cc_images/cache_83614506.jpg?t=1692548408" alt="Immobilienprojekt" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <p>Sprechen Sie mich an — ich freue mich auf Ihre Nachricht</p>
+        <div class="accent-line"></div>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <h3>KGI — Katrin Gläsner Immobilien</h3>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-content">
+              <h4>Standort</h4>
+              <p>Hamburg, Deutschland</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-content">
+              <h4>Telefon</h4>
+              <a href="tel:+494055433475">+49 40 55433475</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-content">
+              <h4>E-Mail</h4>
+              <a href="mailto:info@glaesner-immobilien.de">info@glaesner-immobilien.de</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🌐</div>
+            <div class="contact-item-content">
+              <h4>Website</h4>
+              <a href="https://www.glaesner-immobilien.de" target="_blank">www.glaesner-immobilien.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>Nachricht senden</h3>
+          <p>Ich melde mich zeitnah bei Ihnen zurück</p>
+          <form action="mailto:info@glaesner-immobilien.de" method="post" enctype="text/plain">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+              <div class="form-group">
+                <label for="interest">Interesse an</label>
+                <select id="interest" name="interest">
+                  <option value="">Bitte wählen...</option>
+                  <option value="verkauf">Verkauf meiner Immobilie</option>
+                  <option value="kauf">Kauf einer Immobilie</option>
+                  <option value="bewertung">Immobilienbewertung</option>
+                  <option value="gewerbe">Gewerbeimmobilie</option>
+                  <option value="sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht *</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Nachricht absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container reveal">
+      <h2>Bereit für den nächsten Schritt?</h2>
+      <p>Ob Verkauf, Kauf oder Beratung — kontaktieren Sie mich für ein unverbindliches Erstgespräch.</p>
+      <a href="tel:+494055433475" class="btn btn-primary">
+        <span>📞</span> Jetzt anrufen
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h4>KGI <span>Immobilien</span></h4>
+          <p>Höchste Kompetenz für Privat- und Gewerbeimmobilien in Hamburg</p>
+        </div>
+        <div class="footer-concept">
+          <p><strong>Konzeptvorschau · MZ.9</strong><br>Diese Seite ist ein unverbindliches Designkonzept.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+494055433475" class="btn btn-outline">📞 Anrufen</a>
+    <a href="#kontakt" class="btn btn-primary">Kontaktformular</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
