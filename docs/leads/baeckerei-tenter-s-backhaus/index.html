@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenter's Backhaus | Dein Bäcker in Bremen</title>
+  <meta name="description" content="Bäckerei / Bäcker in Bremen ✔ Brote ✔ Brötchen ✔ Snacks ✔ Kuchen ✔ Torten ✔ - von Ihrem Qualitätsbäcker Tenter in Oberneulander Heerstraße 28, Bremen.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;line-height:1.6;color:#3d2b1f;background:#fdfbf7}
+    h1,h2,h3{font-family:'Lora',serif;font-weight:600}
+    img{max-width:100%;height:auto;display:block}
+    a{text-decoration:none;color:#c94b2d}
+    a:hover{color:#a6381e}
+    :root{--primary:#c94b2d;--secondary:#e8d5c4;--dark:#3d2b1f;--light:#fdfbf7;--accent:#d4a574}
+
+    /* Header */
+    .header{position:fixed;top:0;left:0;right:0;background:rgba(253,251,247,0.95);backdrop-filter:blur(10px);z-index:1000;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,0.05);transition:all 0.3s ease}
+    .header.scrolled{padding:0.7rem 2rem}
+    .header-logo{font-family:'Lora',serif;font-size:1.5rem;font-weight:700;color:var(--dark)}
+    .header-cta{background:var(--primary);color:#fff;padding:0.6rem 1.4rem;border-radius:50px;font-weight:600;transition:all 0.3s}
+    .header-cta:hover{background:#a6381e;transform:translateY(-2px);box-shadow:0 4px 15px rgba(201,75,45,0.3)}
+    .nav-desktop{display:none}
+    @media(min-width:768px){
+      .nav-desktop{display:flex;gap:2rem}
+      .nav-desktop a{color:var(--dark);font-weight:500;transition:color 0.3s}
+      .nav-desktop a:hover{color:var(--primary)}
+    }
+
+    /* Hero */
+    .hero{position:relative;min-height:85vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg, #fdfbf7 0%, #f5ece0 100%)}
+    .hero-bg{position:absolute;inset:0;background:url('https://www.tenters-backhaus.de/documents/backwaren-handwerkstradition-startseite_1597133999.jpg') center/cover no-repeat;opacity:0.15}
+    .hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:1fr;gap:3rem;align-items:center}
+    @media(min-width:768px){.hero-content{grid-template-columns:1fr 1fr;padding:4rem 2rem}}
+    .hero-text h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;color:var(--dark);margin-bottom:1rem}
+    .hero-text p{font-size:1.1rem;color:#5a4636;margin-bottom:2rem;max-width:500px}
+    .hero-cta{background:var(--primary);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-weight:700;font-size:1.1rem;display:inline-flex;align-items:center;gap:0.5rem;transition:all 0.3s;box-shadow:0 4px 20px rgba(201,75,45,0.3)}
+    .hero-cta:hover{background:#a6381e;transform:translateY(-3px);box-shadow:0 6px 25px rgba(201,75,45,0.4)}
+    .hero-image img{border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1.5rem}
+    .badge{background:var(--secondary);color:var(--dark);padding:0.4rem 1rem;border-radius:20px;font-size:0.9rem;font-weight:600}
+
+    /* Trust Strip */
+    .trust-strip{background:var(--dark);color:#fff;padding:2rem 1rem}
+    .trust-content{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;text-align:center}
+    @media(min-width:640px){.trust-content{grid-template-columns:repeat(4,1fr)}}
+    .trust-item h3{font-size:1.8rem;color:var(--primary);margin-bottom:0.2rem}
+    .trust-item p{font-size:0.95rem;opacity:0.9}
+
+    /* Sections */
+    .section{padding:4rem 1rem}
+    .section-inner{max-width:1200px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:3rem}
+    .section-header h2{font-size:clamp(2rem,4vw,2.8rem);color:var(--dark);margin-bottom:0.8rem}
+    .section-header p{color:#5a4636;font-size:1.1rem;max-width:600px;margin:0 auto}
+    .section-light{background:var(--light)}
+    .section-warm{background:linear-gradient(180deg, #fff5ed 0%, var(--light) 100%)}
+
+    /* Produkte Kategorien */
+    .produkte-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+    .produkt-card{background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.06);transition:all 0.3s;border:2px solid transparent}
+    .produkt-card:hover{border-color:var(--secondary);transform:translateY(-5px);box-shadow:0 8px 30px rgba(0,0,0,0.1)}
+    .produkt-card-icon{font-size:2.5rem;margin-bottom:1rem}
+    .produkt-card h3{font-size:1.3rem;margin-bottom:0.5rem;color:var(--dark)}
+    .produkt-card p{color:#5a4636;font-size:0.95rem}
+    .produkt-card span{color:var(--primary);font-weight:700;font-size:0.85rem;display:block;margin-top:0.5rem}
+
+    /* Aktuelles */
+    .aktuelles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem}
+    .aktuelles-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);transition:all 0.3s}
+    .aktuelles-card:hover{transform:translateY(-5px);box-shadow:0 8px 30px rgba(0,0,0,0.1)}
+    .aktuelles-img{height:200px;overflow:hidden}
+    .aktuelles-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+    .aktuelles-card:hover .aktuelles-img img{transform:scale(1.05)}
+    .aktuelles-content{padding:1.5rem}
+    .aktuelles-content h3{font-size:1.2rem;margin-bottom:0.5rem;color:var(--dark)}
+    .aktuelles-content p{color:#5a4636;font-size:0.9rem}
+    .aktuelles-date{color:var(--primary);font-weight:600;font-size:0.8rem;margin-bottom:0.5rem;display:block}
+
+    /* Broterwerb Banner */
+    .broterwerb{background:linear-gradient(135deg, var(--primary) 0%, #e06b48 100%);color:#fff;padding:4rem 1rem;text-align:center;border-radius:20px;margin:2rem auto;max-width:1200px}
+    .broterwerb h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:1rem}
+    .broterwerb p{font-size:1.1rem;opacity:0.95;max-width:600px;margin:0 auto 2rem}
+    .broterwerb-cta{background:#fff;color:var(--primary);padding:1rem 2.5rem;border-radius:50px;font-weight:700;font-size:1.1rem;display:inline-flex;align-items:center;gap:0.5rem;transition:all 0.3s}
+    .broterwerb-cta:hover{background:#f5ece0;transform:translateY(-3px)}
+
+    /* Kontaktformular */
+    .kontakt-wrapper{display:grid;grid-template-columns:1fr;gap:3rem}
+    @media(min-width:768px){.kontakt-wrapper{grid-template-columns:1fr 1fr}}
+    .kontakt-info{background:#fff;border-radius:20px;padding:2.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+    .kontakt-info h3{font-size:1.5rem;margin-bottom:1.5rem;color:var(--dark)}
+    .kontakt-item{display:flex;gap:1rem;margin-bottom:1.5rem}
+    .kontakt-item-icon{width:45px;height:45px;background:var(--secondary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .kontakt-item-content h4{font-weight:700;margin-bottom:0.2rem;color:var(--dark)}
+    .kontakt-item-content p{color:#5a4636;font-size:0.95rem}
+    .kontakt-form{background:#fff;border-radius:20px;padding:2.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+    .form-row{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:1rem}
+    @media(min-width:480px){.form-row{grid-template-columns:1fr 1fr}}
+    .form-group label{display:block;font-weight:600;color:var(--dark);margin-bottom:0.4rem;font-size:0.9rem}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:0.8rem 1rem;border:2px solid #e8d5c4;border-radius:10px;font-family:'Nunito',sans-serif;font-size:1rem;transition:border-color 0.3s}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary)}
+    .form-submit{width:100%;background:var(--primary);color:#fff;padding:1rem;border-radius:50px;font-weight:700;font-size:1.1rem;border:none;cursor:pointer;transition:all 0.3s;margin-top:1rem}
+    .form-submit:hover{background:#a6381e;transform:translateY(-2px)}
+
+    /* CTA Band */
+    .cta-band{position:relative;padding:5rem 1rem;text-align:center;background:url('https://www.tenters-backhaus.de/documents/broterwerb-startseite_1597131852.jpg') center/cover no-repeat}
+    .cta-band::before{content:'';position:absolute;inset:0;background:rgba(61,43,31,0.85)}
+    .cta-band-content{position:relative;z-index:1;max-width:700px;margin:0 auto}
+    .cta-band h2{font-size:clamp(2rem,5vw,3rem);color:#fff;margin-bottom:1rem}
+    .cta-band p{color:rgba(255,255,255,0.9);font-size:1.2rem;margin-bottom:2rem}
+    .cta-band-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+    .cta-primary{background:var(--primary);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-weight:700;font-size:1.1rem}
+    .cta-primary:hover{background:#a6381e}
+    .cta-secondary{background:transparent;border:2px solid #fff;color:#fff;padding:0.9rem 2.5rem;border-radius:50px;font-weight:700;font-size:1.1rem}
+    .cta-secondary:hover{background:#fff;color:var(--dark)}
+
+    /* Footer */
+    .footer{background:var(--dark);color:#fff;padding:3rem 1rem 5rem;text-align:center}
+    .footer-logo{font-family:'Lora',serif;font-size:1.8rem;margin-bottom:1rem}
+    .footer p{opacity:0.8;font-size:0.9rem;margin-bottom:0.5rem}
+    .footer-preview{margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);font-size:0.85rem;opacity:0.6}
+
+    /* Mobile CTA Bar */
+    .mobile-cta{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:1rem;z-index:999;display:flex;justify-content:center;gap:1rem;box-shadow:0 -4px 20px rgba(0,0,0,0.1)}
+    .mobile-cta a{flex:1;max-width:200px;padding:0.9rem;border-radius:50px;text-align:center;font-weight:600;font-size:0.95rem}
+    .mobile-cta-primary{background:var(--primary);color:#fff}
+    .mobile-cta-secondary{background:var(--secondary);color:var(--dark)}
+    @media(min-width:768px){.mobile-cta{display:none}}
+
+    /* Reveal Animation */
+    .reveal{opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    .lift{opacity:0;transform:translateY(20px);transition:all 0.5s ease}
+    .lift.in{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){.reveal,.lift{transition:none;opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-logo">Tenter's Backhaus</div>
+    <nav class="nav-desktop">
+      <a href="#produkte">Produkte</a>
+      <a href="#aktuelles">Aktuelles</a>
+      <a href="#broterwerb">Karriere</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#kontakt" class="header-cta">Kontaktieren</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Dein Bäcker in Bremen</h1>
+        <p>Seit 1886 im Dienste unserer Kund:innen — Backwaren nach Bremer Handwerkstradition.</p>
+        <div class="hero-badges">
+          <span class="badge">✓ Frische Brote</span>
+          <span class="badge">✓ Knusprige Brötchen</span>
+          <span class="badge">✓ Leckere Snacks</span>
+          <span class="badge">✓ Kuchen & Torten</span>
+        </div>
+        <br>
+        <a href="#kontakt" class="hero-cta">
+          Anfrage senden →
+        </a>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.tenters-backhaus.de/documents/backwaren-handwerkstradition-startseite_1597133999.jpg" alt="Backwaren nach Bremer Handwerkstradition" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-content">
+      <div class="trust-item">
+        <h3>1886</h3>
+        <p>Jahre Tradition</p>
+      </div>
+      <div class="trust-item">
+        <h3>Frisch</h3>
+        <p>Täglich gebacken</p>
+      </div>
+      <div class="trust-item">
+        <h3>Bremen</h3>
+        <p>Mehrere Filialen</p>
+      </div>
+      <div class="trust-item">
+        <h3>Handwerk</h3>
+        <p>Qualität seit 1886</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produkte -->
+  <section class="section section-light" id="produkte">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unser Sortiment</h2>
+        <p>Frisch aus dem Ofen — von Brot bis Torte, alles mit Herz und Handwerk gebacken.</p>
+      </div>
+      <div class="produkte-grid">
+        <div class="produkt-card lift">
+          <div class="produkt-card-icon">🍞</div>
+          <h3>Brote</h3>
+          <p>Vielfältige Sorten, von klassischem Weizenbrot bis herzhaftem Roggen — alle nach traditionellen Rezepten.</p>
+          <span>Täglich frisch</span>
+        </div>
+        <div class="produkt-card lift">
+          <div class="produkt-card-icon">🥐</div>
+          <h3>Brötchen</h3>
+          <p>Morgens frisch gebacken: Wecken, Semmeln, Laugengebäck und mehr für den perfekten Start.</p>
+          <span>Vielzahl an Sorten</span>
+        </div>
+        <div class="produkt-card lift">
+          <div class="produkt-card-icon">🥪</div>
+          <h3>Snacks</h3>
+          <p>Quick, lecker und frisch: belegte Brötchen, Bäckerei-Snacks und mehr für zwischendurch.</p>
+          <span>Für Unterwegs</span>
+        </div>
+        <div class="produkt-card lift">
+          <div class="produkt-card-icon">🎂</div>
+          <h3>Kuchen & Torten</h3>
+          <p>Nachmittags-Belohnung: von cremigen Torten bis fruchtigen Kuchen — zur Feier oder zum Genuss.</p>
+          <span>Nach Maß</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aktuelles -->
+  <section class="section section-warm" id="aktuelles">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Aktuelles aus dem Bäckereialltag</h2>
+        <p>Neuigkeiten, Veranstaltungen und was uns bewegt.</p>
+      </div>
+      <div class="aktuelles-grid">
+        <div class="aktuelles-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/ttb_website_250919_newsmeldung_hoffest_2025_1758272301.jpg" alt="Hoffest 2025" loading="lazy" width="400" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <span class="aktuelles-date">Veranstaltung</span>
+            <h3>Hoffest 2025</h3>
+            <p>Kommen Sie vorbei und feiern Sie mit uns — frisches Gebäck und gute Stimmung garantiert.</p>
+          </div>
+        </div>
+        <div class="aktuelles-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/bbm_website_250411_charity_lauf_01_1744367535.jpg" alt="Charity Lauf" loading="lazy" width="400" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <span class="aktuelles-date">Engagement</span>
+            <h3>Charity Lauf</h3>
+            <p>Wir sind dabei — sportlich und sozial: Tenter's Backhaus unterstützt den Charity Lauf.</p>
+          </div>
+        </div>
+        <div class="aktuelles-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/ttb_website_250919_newsmeldung_tierschutzverein_2_1764919014.jpg" alt="Tierschutzverein" loading="lazy" width="400" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <span class="aktuelles-date">Kooperation</span>
+            <h3>Tierschutzverein</h3>
+            <p>Gemeinsam Gutes tun: Wir unterstützen den lokalen Tierschutzverein.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Broterwerb -->
+  <section class="section" id="broterwerb">
+    <div class="broterwerb reveal">
+      <h2>Broterwerb: Jetzt durchstarten!</h2>
+      <p>Suchst du einen Beruf mit Herz und Handwerk? Werde Teil unserer Tradition und starte deine Ausbildung bei Tenter's Backhaus.</p>
+      <a href="#kontakt" class="broterwerb-cta">
+        Jetzt bewerben →
+      </a>
+    </div>
+  </section>
+
+  <!-- Galerie CTA -->
+  <section class="section section-light">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Filiale in deiner Nähe</h2>
+        <p>Wir sind an mehreren Standorten in Bremen für dich da — frische Backwaren, nah dran.</p>
+      </div>
+      <div class="produkte-grid">
+        <div class="produkt-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/tent-start-4er-box-filialfinder_1595842691.png" alt="Filialfinder" loading="lazy" width="300" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <h3>Filialfinder</h3>
+            <p>Finde die Tenter's Backhaus Filiale in deiner Nähe — wir sind nah dran.</p>
+          </div>
+        </div>
+        <div class="produkt-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/tent-start-4er-box-angebote_1595842691.png" alt="Angebote" loading="lazy" width="300" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <h3>Aktuelle Angebote</h3>
+            <p>Entdecke unsere aktuellen Aktionen und besondere Angebote — immer frisch.</p>
+          </div>
+        </div>
+        <div class="produkt-card lift">
+          <div class="aktuelles-img">
+            <img src="https://www.tenters-backhaus.de/documents/61716458386d777514035dad9abeaac1@2x_1597131459.png" alt="Backwaren" loading="lazy" width="300" height="200">
+          </div>
+          <div class="aktuelles-content">
+            <h3>Unsere Backwaren</h3>
+            <p>Ein Überblick über unser handwerklich hergestelltes Sortiment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section section-warm" id="kontakt">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Kontakt aufnehmen</h2>
+        <p>Haben Sie Fragen oder möchten Sie uns kennenlernen? Schreiben Sie uns — wir antworten gerne.</p>
+      </div>
+      <div class="kontakt-wrapper">
+        <div class="kontakt-info lift">
+          <h3>So erreichen Sie uns</h3>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">📍</div>
+            <div class="kontakt-item-content">
+              <h4>Adresse</h4>
+              <p>Oberneulander Heerstraße 28, Bremen</p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">📞</div>
+            <div class="kontakt-item-content">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49422393090">+49 4223 93090</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">✉️</div>
+            <div class="kontakt-item-content">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:mail@tenters-backhaus.de">mail@tenters-backhaus.de</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-item-icon">🌐</div>
+            <div class="kontakt-item-content">
+              <h4>Website</h4>
+              <p><a href="http://www.tenters-backhaus.de/" target="_blank" rel="noopener">www.tenters-backhaus.de</a></p>
+            </div>
+          </div>
+        </div>
+        <form class="kontakt-form lift" action="mailto:mail@tenters-backhaus.de" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label for="subject">Betreff *</label>
+            <select id="subject" name="subject" required>
+              <option value="">Bitte wählen...</option>
+              <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+              <option value="Broterwerb / Ausbildung">Broterwerb / Ausbildung</option>
+              <option value="Filialstandort">Filialstandort</option>
+              <option value="Kooperation">Kooperation / Veranstaltung</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label for="message">Nachricht *</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-content reveal">
+      <h2>Jetzt die Filiale in deiner Nähe finden</h2>
+      <p>Wir sind in Bremen für dich da — frische Backwaren, nahe dran.</p>
+      <div class="cta-band-actions">
+        <a href="#kontakt" class="cta-primary">Kontaktieren</a>
+        <a href="tel:+49422393090" class="cta-secondary">Anrufen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">Tenter's Backhaus</div>
+    <p>Dein Bäcker in Bremen</p>
+    <p>Oberneulander Heerstraße 28, Bremen</p>
+    <p><a href="tel:+49422393090">+49 4223 93090</a></p>
+    <div class="footer-preview">
+      Konzept-Vorschau · MZ.9
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#kontakt" class="mobile-cta-primary">Kontaktieren</a>
+    <a href="tel:+49422393090" class="mobile-cta-secondary">Anrufen</a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .lift').forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const headerHeight = header.offsetHeight;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

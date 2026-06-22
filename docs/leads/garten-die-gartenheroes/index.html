@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Die Gartenheroes | Garten- und Landschaftsbau Trier</title>
+  <meta name="description" content="Gartenbauer Trier Luxembourg bietet umfassende Garten- und Landschaftsbau-Dienstleistungen für jeden Bedarf.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #2d5a27;
+      --green-light: #4a7c42;
+      --green-dark: #1a3817;
+      --accent: #d4a574;
+      --cream: #f8f6f1;
+      --sand: #e8e3d8;
+      --text: #2c3e2d;
+      --text-light: #5c6b5d;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      padding: 0.75rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header.scrolled { padding: 0.5rem 5%; }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .nav-desktop { display: none; gap: 2rem; }
+    .nav-desktop a { font-weight: 500; color: var(--text-light); }
+    .nav-desktop a:hover { color: var(--green); }
+    .btn-nav {
+      background: var(--green);
+      color: var(--white);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    .btn-nav:hover { background: var(--green-dark); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+                  url('https://diegartenheroes.de/wp-content/uploads/2024/09/diegartenheroes-startseite-slider-garten-hecken-blumen-rasen-1.jpg') center/cover no-repeat;
+      color: var(--white);
+      text-align: center;
+      padding: 2rem;
+    }
+    .hero-content {
+      max-width: 800px;
+      animation: fadeUp 1s ease;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    .btn-hero {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 20px rgba(212,165,116,0.4);
+    }
+    .btn-hero:hover {
+      background: #c49865;
+      transform: translateY(-2px);
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--green);
+      color: var(--white);
+      padding: 1.5rem 5%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .usp {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+    }
+    .usp-icon { width: 24px; height: 24px; fill: var(--accent); }
+
+    /* Sections */
+    section { padding: 4rem 5%; }
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .section-title p { color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+    /* Leistungen */
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .leistung-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: 0.3s;
+      border-top: 4px solid var(--green);
+    }
+    .leistung-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .leistung-card h3 {
+      color: var(--green);
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .leistung-card p { color: var(--text-light); font-size: 0.95rem; }
+
+    /* Anfrageformular */
+    .anfrage-section {
+      background: var(--sand);
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 24px;
+      padding: 3rem;
+    }
+    .anfrage-form {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border: 2px solid var(--sand);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: var(--white);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit {
+      background: var(--green);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      justify-self: start;
+    }
+    .btn-submit:hover {
+      background: var(--green-dark);
+      transform: scale(1.02);
+    }
+
+    /* Galerie */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .galerie-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      aspect-ratio: 4/3;
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .galerie-item:hover img { transform: scale(1.08); }
+    .galerie-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 5%;
+    }
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .cta-band p { margin-bottom: 2rem; opacity: 0.9; }
+    .btn-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .btn-cta:hover { background: #c49865; }
+
+    /* Kontakt */
+    .kontakt-section {
+      background: var(--white);
+    }
+    .kontakt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .kontakt-item {
+      text-align: center;
+      padding: 2rem;
+    }
+    .kontakt-item-icon {
+      width: 50px; height: 50px;
+      margin: 0 auto 1rem;
+      background: var(--sand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .kontakt-item-icon svg { width: 24px; height: 24px; fill: var(--green); }
+    .kontakt-item h3 { color: var(--green); margin-bottom: 0.5rem; }
+    .kontakt-item a { color: var(--text-light); }
+    .kontakt-item a:hover { color: var(--green); }
+
+    /* Footer */
+    footer {
+      background: var(--green-dark);
+      color: var(--sand);
+      text-align: center;
+      padding: 2rem 5%;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--green);
+      padding: 0.8rem 5%;
+      text-align: center;
+      box-shadow: 0 -2px 20px rgba(0,0,0,0.15);
+      z-index: 99;
+    }
+    .mobile-cta a {
+      display: block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .nav-desktop { display: flex; }
+      .anfrage-section { padding: 4rem; }
+      .section-title { margin-bottom: 4rem; }
+    }
+    @media (max-width: 767px) {
+      .hero { min-height: 75vh; }
+      .usp-strip { gap: 1.5rem; }
+      .mobile-cta { padding-bottom: env(safe-area-inset-bottom, 0.8rem); }
+      body { padding-bottom: 70px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div class="logo">Die Gartenheroes</div>
+  <nav class="nav-desktop">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#galerie">Projekte</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#anfrage" class="btn-nav">Anfrage senden</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Dein Garten, wie er sein soll.</h1>
+    <p>Garten- und Landschaftsbau aus Trier – von der Planung bis zur Pflege.</p>
+    <a href="#anfrage" class="btn-hero">Kostenlose Beratung</a>
+  </div>
+</section>
+
+<div class="usp-strip">
+  <div class="usp">
+    <svg class="usp-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+    Qualität aus Passion
+  </div>
+  <div class="usp">
+    <svg class="usp-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    Zuverlässig & Termintreu
+  </div>
+  <div class="usp">
+    <svg class="usp-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    Persönliche Beratung
+  </div>
+</div>
+
+<section id="leistungen" class="reveal">
+  <div class="section-title">
+    <h2>Unsere Leistungen</h2>
+    <p>Von der Idee bis zum fertigen Traumgarten – wir begleiten dich.</p>
+  </div>
+  <div class="leistungen-grid">
+    <div class="leistung-card">
+      <h3>Gartengestaltung</h3>
+      <p>Individuelle Planung und Umsetzung nach deinen Wünschen – harmonisch, naturnah, nachhaltig.</p>
+    </div>
+    <div class="leistung-card">
+      <h3>Pflege & Erhalt</h3>
+      <p>Regelmäßige Rasenpflege, Heckenschnitt, Pflanzenpflege und Saisonarbeiten.</p>
+    </div>
+    <div class="leistung-card">
+      <h3>Neuanlagen</h3>
+      <p>Neue Beete, Rasenflächen, Wege, Terrassen und Mauern – wir gestalten von Grund auf.</p>
+    </div>
+    <div class="leistung-card">
+      <h3>Baumpflege</h3>
+      <p>Professioneller Baumschnitt, Kronenpflege und fachgerechte Baumfällung bei Bedarf.</p>
+    </div>
+  </div>
+</section>
+
+<section id="anfrage" class="reveal">
+  <div class="anfrage-section">
+    <div class="section-title">
+      <h2>Kostenlose Anfrage</h2>
+      <p>Erzähl uns von deinem Projekt – wir melden uns schnellstmöglich.</p>
+    </div>
+    <form class="anfrage-form" action="mailto:info@diegartenheroes.de" method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Dein Name">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" required placeholder="deine@email.de">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Telefon</label>
+          <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+        </div>
+        <div class="form-group">
+          <label for="service">Interesse an</label>
+          <select id="service" name="service">
+            <option value="">Bitte wählen...</option>
+            <option value="Gartengestaltung">Gartengestaltung</option>
+            <option value="Pflege & Erhalt">Pflege & Erhalt</option>
+            <option value="Neuanlagen">Neuanlagen</option>
+            <option value="Baumpflege">Baumpflege</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Dein Anliegen</label>
+        <textarea id="message" name="message" placeholder="Beschreibe kurz dein Projekt oder deine Frage..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Anfrage senden</button>
+    </form>
+  </div>
+</section>
+
+<section id="galerie" class="reveal">
+  <div class="section-title">
+    <h2>Unsere Projekte</h2>
+    <p>Ein Einblick in unsere Arbeit in und um Trier.</p>
+  </div>
+  <div class="galerie-grid">
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2024/09/diegartenheroes-startseite-slider-garten-hecken-blumen-rasen-2.jpg" alt="Gartenprojekt Hecken und Blumen" loading="lazy">
+    </div>
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2024/09/diegartenheroes-startseite-slider-garten-hecken-blumen-rasen-3.jpg" alt="Gartenpflege Rasenflächen" loading="lazy">
+    </div>
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2025/02/AdobeStock_854048611-360x240.jpeg" alt="Professionelle Gartenpflege" loading="lazy">
+    </div>
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-16-at-13.16.25-360x240.jpeg" alt="Projektbeispiel Garten" loading="lazy">
+    </div>
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2025/02/2-360x240.jpeg" alt="Gartengestaltung Beispiele" loading="lazy">
+    </div>
+    <div class="galerie-item">
+      <img src="https://diegartenheroes.de/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-16-at-13.16.25-1-360x240.jpeg" alt="Pflegearbeiten" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="cta-band reveal">
+  <h2>Bereit für deinen Traumgarten?</h2>
+  <p>Vereinbare jetzt ein kostenloses Beratungsgespräch.</p>
+  <a href="#anfrage" class="btn-cta">Jetzt anfragen</a>
+</section>
+
+<section id="kontakt" class="kontakt-section reveal">
+  <div class="section-title">
+    <h2>Kontakt</h2>
+    <p>Wir freuen uns auf dich!</p>
+  </div>
+  <div class="kontakt-grid">
+    <div class="kontakt-item">
+      <div class="kontakt-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <h3>E-Mail</h3>
+      <a href="mailto:info@diegartenheroes.de">info@diegartenheroes.de</a>
+    </div>
+    <div class="kontakt-item">
+      <div class="kontakt-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </div>
+      <h3>Telefon</h3>
+      <a href="tel:+491633387733">+49 163 338 77 33</a>
+    </div>
+    <div class="kontakt-item">
+      <div class="kontakt-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <h3>Adresse</h3>
+      <p>Schützenstraße 11<br>54295 Trier</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Konzept-Vorschau · MZ.9</p>
+</footer>
+
+<div class="mobile-cta">
+  <a href="tel:+491633387733">Jetzt anrufen</a>
+</div>
+
+<script>
+  // Header scroll effect
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Reveal animations
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
