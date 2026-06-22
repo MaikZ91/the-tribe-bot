@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Concept Preview — Zahnarztpraxis Silvia Borchert</title>
+  <meta name="description" content="Konzept-Vorschau für Zahnarztpraxis Silvia Borchert — moderne Patienten-Website mit Online-Terminanfrage">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #006D77;
+      --primary-dark: #004D55;
+      --secondary: #83C5BE;
+      --accent: #E29578;
+      --accent-dark: #C77B63;
+      --white: #FFFFFF;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-600: #475569;
+      --gray-800: #1E293B;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .text-primary { color: var(--primary); }
+    .text-accent { color: var(--accent); }
+    .bg-primary { background: var(--primary); }
+    .bg-gray-50 { background: var(--gray-50); }
+    .bg-white { background: var(--white); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 8px; }
+    .gap-4 { gap: 16px; }
+    .gap-6 { gap: 24px; }
+    .gap-8 { gap: 32px; }
+    .text-center { text-align: center; }
+    .hidden { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+
+    /* Typography */
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 600; line-height: 1.3; }
+    h3 { font-size: 1.25rem; font-weight: 600; }
+    p { font-size: 1rem; color: var(--gray-600); }
+    .text-sm { font-size: 0.875rem; }
+    .text-lg { font-size: 1.125rem; }
+    .font-medium { font-weight: 500; }
+
+    /* Before/After Toggle */
+    .ba-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 6px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+    }
+    .ba-toggle a {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .ba-toggle .ba-before {
+      color: var(--gray-600);
+    }
+    .ba-toggle .ba-before:hover {
+      background: var(--gray-100);
+    }
+    .ba-toggle .ba-after {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-100);
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo svg { width: 32px; height: 32px; }
+    .nav { display: none; }
+    .nav-link {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      background: var(--gray-50);
+    }
+    .nav-link.cta {
+      background: var(--accent);
+      color: white;
+    }
+    .nav-link.cta:hover {
+      background: var(--accent-dark);
+    }
+    @media (min-width: 768px) {
+      .nav { display: flex; align-items: center; gap: 8px; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      opacity: 0.08;
+    }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      filter: brightness(0.95);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 109, 119, 0.85) 0%, rgba(131, 197, 190, 0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      max-width: 600px;
+    }
+    .hero-content h1 {
+      margin-bottom: 24px;
+    }
+    .hero-content p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.125rem;
+      margin-bottom: 32px;
+    }
+    .hero-tagline {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 14px rgba(226, 149, 120, 0.4);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(226, 149, 120, 0.5);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+    }
+    .btn-secondary:hover {
+      background: var(--gray-50);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: white;
+    }
+    .btn-outline:hover {
+      border-color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 0.875rem;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--gray-50);
+      padding: 48px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .trust-icon svg { width: 24px; height: 24px; }
+
+    /* Services */
+    .services { padding: 80px 0; }
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-header h2 {
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-100);
+      transition: all 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-bottom: 24px;
+    }
+    .service-icon svg { width: 28px; height: 28px; }
+    .service-card h3 {
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 80px 0;
+      color: white;
+    }
+    .booking-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .booking-content { grid-template-columns: 1fr 1fr; }
+    }
+    .booking-form {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    .booking-form h3 {
+      color: var(--gray-800);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0, 109, 119, 0.1);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* Gallery */
+    .gallery { padding: 80px 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent);
+      padding: 64px 0;
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 {
+      margin-bottom: 24px;
+    }
+    .cta-band p {
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    .cta-band .btn-secondary {
+      background: white;
+      color: var(--accent);
+    }
+
+    /* Contact */
+    .contact { padding: 80px 0; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+    }
+    .contact-card {
+      background: var(--gray-50);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+    .contact-card h3 {
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .contact-card a {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-card a:hover {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--gray-800);
+      color: var(--gray-300);
+      padding: 48px 0;
+      text-align: center;
+    }
+    .footer p {
+      color: var(--gray-300);
+      font-size: 0.875rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 998;
+      background: white;
+      padding: 12px 24px;
+      box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 12px;
+    }
+    @media (min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      font-size: 0.875rem;
+      padding: 12px;
+    }
+
+    /* Maik Chat */
+    .fab {
+      position: fixed;
+      bottom: 90px;
+      right: 22px;
+      z-index: 1001;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      overflow: hidden;
+      border: 2px solid var(--gray-100);
+      transition: all 0.2s ease;
+    }
+    @media (min-width: 768px) {
+      .fab { bottom: 22px; }
+    }
+    .fab:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    .fab-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fab-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid #22c55e;
+      animation: pulse-ring 2s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.6; }
+    }
+    .chat-panel {
+      position: fixed;
+      bottom: 160px;
+      right: 22px;
+      z-index: 1001;
+      width: 340px;
+      max-width: calc(100vw - 44px);
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      max-height: 480px;
+    }
+    @media (min-width: 768px) {
+      .chat-panel { bottom: 90px; }
+    }
+    .chat-panel.active { display: flex; }
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .chat-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chat-message {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .chat-message.maik {
+      background: var(--gray-100);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-message.user {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-input-area {
+      border-top: 1px solid var(--gray-200);
+      padding: 12px;
+    }
+    .chat-input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .chat-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .chat-btn {
+      padding: 8px 14px;
+      border: 1px solid var(--gray-300);
+      background: white;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chat-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .fab-ring { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Before/After Toggle -->
+  <div class="ba-toggle">
+    <a href="http://www.praxis-borchert.de/" target="_blank" class="ba-before">Vorher</a>
+    <span class="ba-after">Nachher</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" fill="currentColor" opacity="0.15"/>
+          <path d="M16 6C13.8 6 12 7.8 12 10V14C10.9 14 10 14.9 10 16V22C10 23.1 10.9 24 12 24H20C21.1 24 22 23.1 22 22V16C22 14.9 21.1 14 20 14V10C20 7.8 18.2 6 16 6ZM14 10C14 8.9 14.9 8 16 8C17.1 8 18 8.9 18 10V14H14V10ZM12 22V16H20V22H12Z" fill="currentColor"/>
+        </svg>
+        <span>Praxis Borchert</span>
+      </div>
+      <nav class="nav">
+        <a href="#services" class="nav-link">Leistungen</a>
+        <a href="#booking" class="nav-link">Termin</a>
+        <a href="#contact" class="nav-link">Kontakt</a>
+        <a href="#booking" class="nav-link cta">Online Anfrage</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="https://www.praxis-borchert.de/assets/images/1/ORP_4930_bearbeitet_farbe%20-%20Kopie-26c0f4bb.jpg" alt="Praxis Borchert Lübeck" class="hero-image" loading="eager">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="hero-tagline">Willkommen in unserer Praxis</span>
+      <h1>Natürlich schöne Zähne</h1>
+      <p>Ihre Gesundheit ist uns wichtig. Wir bieten Ihnen professionelle Zahnmedizin mit persönlicher Betreuung und moderner Technik in Lübeck.</p>
+      <div class="flex gap-4" style="flex-wrap: wrap;">
+        <a href="#booking" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2C8.9 2 8 2.9 8 4V6C5.8 6 4 7.8 4 10V16C4 17.1 4.9 18 6 18H14C15.1 18 16 17.1 16 16V10C16 7.8 14.2 6 12 6V4C12 2.9 11.1 2 10 2ZM10 8C10.6 8 11 8.4 11 9C11 9.6 10.6 10 10 10C9.4 10 9 9.6 9 9C9 8.4 9.4 8 10 8Z"/></svg>
+          Termin anfragen
+        </a>
+        <a href="tel:+49451891647" class="btn btn-outline">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M3.5 2C2.7 2 2 2.7 2 3.5V5.5C2 6.3 2.7 7 3.5 7H4C5.1 7 6 7.9 6 9V11C6 12.1 5.1 13 4 13H3.5C2.7 13 2 13.7 2 14.5V16.5C2 17.3 2.7 18 3.5 18H5C7.8 18 10 15.8 10 13V9C10 6.2 7.8 4 5 4H4V3.5C4 2.7 3.3 2 2.5 2H3.5ZM12 4C12 6.2 14.2 8 17 8H18V8.5C18 9.3 18.7 10 19.5 10H18.5C17.7 10 17 9.3 17 8.5V7C17 5.9 16.1 5 15 5H14.5C13.7 5 13 4.3 13 3.5V1.5C13 0.7 13.7 0 14.5 0H16.5C17.3 0 18 0.7 18 1.5V2H17C14.2 2 12 4.2 12 7V11C12 13.8 14.2 16 17 16H18V16.5C18 17.3 17.3 18 16.5 18H17.5C18.3 18 19 17.3 19 16.5V15C19 13.9 19.9 13 21 13H21.5C22.3 13 23 12.3 23 11.5V9.5C23 8.7 22.3 8 21.5 8H20C18.9 8 18 8.9 18 10V12C18 12.6 18.4 13 19 13C19.6 13 20 12.6 20 12V10H21.5C21.8 10 22 10.2 22 10.5V12.5C22 12.8 21.8 13 21.5 13H21C19.3 13 18 14.3 18 16V17H17C14.8 17 13 15.2 13 13V9C13 6.8 14.8 5 17 5H16.5C16.2 5 16 4.8 16 4.5V2.5C16 2.2 16.2 2 16.5 2H15C13.3 2 12 3.3 12 5V4Z"/></svg>
+          Anrufen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <div class="font-medium">Erfahrung</div>
+            <p class="text-sm">Jahrelange Praxiserfahrung</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <div class="font-medium">Flexibel</div>
+            <p class="text-sm">Termine nach Absprache</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="font-medium">Qualität</div>
+            <p class="text-sm">Moderne Ausstattung</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="font-medium">Persönlich</div>
+            <p class="text-sm">Individuelle Betreuung</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="font-serif">Unsere Leistungen</h2>
+        <p>Professionelle Zahnmedizin für Ihre Gesundheit</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.5C4.5 12.5 5.5 8 12 8s7.5 4.5 7.5 4.5S18 16 12 16s-7.5-3.5-7.5-3.5z"/><circle cx="12" cy="12" r="3"/><path d="M12 5V3"/><path d="M12 21v-2"/><path d="M5 12H3"/><path d="M21 12h-2"/></svg>
+          </div>
+          <h3>Zahnmedizin</h3>
+          <p>Komplette zahnärztliche Versorgung von Vorsorge bis Behandlung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Digitale Abformung</h3>
+          <p>Moderne Technologie für präzise und komfortable Zahnbilder.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Ästhetik</h3>
+          <p>Natürlich schöne Ergebnisse für Ihr strahlendes Lächeln.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="booking-section" id="booking">
+    <div class="container">
+      <div class="booking-content">
+        <div class="reveal">
+          <h2 class="font-serif" style="margin-bottom: 24px;">Termin vereinbaren</h2>
+          <p style="color: rgba(255,255,255,0.9); margin-bottom: 32px;">
+            Vereinbaren Sie bequem online Ihren nächsten Termin. Wir melden uns zeitnah bei Ihnen.
+          </p>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="font-medium">Telefonisch</div>
+                <a href="tel:+49451891647" style="color: rgba(255,255,255,0.9); text-decoration: none;">+49 451 891647</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="font-medium">E-Mail</div>
+                <a href="mailto:silvia@praxis-borchert.de" style="color: rgba(255,255,255,0.9); text-decoration: none;">silvia@praxis-borchert.de</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="booking-form reveal">
+          <h3>Ihre Terminanfrage</h3>
+          <form onsubmit="return false;">
+            <div class="form-group">
+              <label for="name">Ihr Name</label>
+              <input type="text" id="name" class="form-input" placeholder="Max Mustermann">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefonnummer</label>
+              <input type="tel" id="phone" class="form-input" placeholder="+49 123 456789">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" class="form-select">
+                <option value="">Bitte auswählen...</option>
+                <option value="vorsorge">Vorsorge / Kontrolle</option>
+                <option value="behandlung">Behandlung</option>
+                <option value="aesthetik">Ästhetik</option>
+                <option value="anderes">Anderes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" class="form-textarea" placeholder="Wann passt es Ihnen am besten?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Anfrage senden
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="font-serif">Einblick in unsere Praxis</h2>
+        <p>Moderne Räumlichkeiten für Ihre Gesundheit</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.praxis-borchert.de/assets/images/e/Foto%2031.08.17%2C%2012%2009%2038-6f3f8f4b.jpg" alt="Praxisraum" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.praxis-borchert.de/assets/images/6/ORP_5661_bearbeitet_farbe-3e931095.jpg" alt="Praxisdetails" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.praxis-borchert.de/assets/images/0/ORP_5221_bearbeitet_farbe-ac61fd2a.jpg" alt="Digitale Technik" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.praxis-borchert.de/assets/images/5/ORP_6208_bearbeitet_farbe-5c1a2ba7.jpg" alt="Praxisambiente" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="font-serif">Bereit für Ihren Termin?</h2>
+      <p>Wir freuen uns auf Sie in unserer Praxis in Lübeck.</p>
+      <a href="#booking" class="btn btn-secondary">Jetzt Termin anfragen</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="font-serif">Kontakt</h2>
+        <p>So erreichen Sie uns</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <h3>Adresse</h3>
+          <p>Klipperstraße 2<br>23558 Lübeck</p>
+        </div>
+        <div class="contact-card reveal">
+          <h3>Telefon</h3>
+          <a href="tel:+49451891647">+49 451 891647</a>
+        </div>
+        <div class="contact-card reveal">
+          <h3>E-Mail</h3>
+          <a href="mailto:silvia@praxis-borchert.de">silvia@praxis-borchert.de</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Concept Preview · MZ.9 · <a href="http://www.praxis-borchert.de/" style="color: inherit; text-decoration: underline;">Praxis Borchert</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#booking" class="btn btn-primary">Termin anfragen</a>
+    <a href="tel:+49451891647" class="btn btn-secondary" style="border: 1px solid var(--gray-200);">Anrufen</a>
+  </div>
+
+  <!-- Maik Chat -->
+  <div class="fab" id="fab">
+    <div class="fab-ring"></div>
+    <img src="docs/assets/mz9/maik.jpg" alt="Maik" class="fab-img">
+  </div>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <span class="chat-header-title">Maik · MZ.9</span>
+      <button class="chat-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message maik">Hallo! Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Schreiben Sie eine Nachricht...">
+      <div class="chat-buttons" id="chatButtons">
+        <button class="chat-btn" onclick="sendChatResponse('👍 Deutlich besser')">👍 Deutlich besser</button>
+        <button class="chat-btn" onclick="sendChatResponse('😐 Etwas besser')">😐 Etwas besser</button>
+        <button class="chat-btn" onclick="sendChatResponse('👎 Kein großer Unterschied')">👎 Kein großer Unterschied</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chat functionality
+    const fab = document.getElementById('fab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatClose = document.getElementById('chatClose');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatButtons = document.getElementById('chatButtons');
+
+    const problems = [
+      "Kein Kontaktformular – Interessenten müssen telefonisch kontaktieren, was oft eine Hürde ist."
+    ];
+
+    let chatState = 'initial';
+    let chatTimer = null;
+
+    function showChat() {
+      chatPanel.classList.add('active');
+    }
+
+    function hideChat() {
+      chatPanel.classList.remove('active');
+    }
+
+    fab.addEventListener('click', () => {
+      if (chatPanel.classList.contains('active')) {
+        hideChat();
+      } else {
+        showChat();
+        if (chatState === 'initial') {
+          addMaikMessage('Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten könnten:');
+          problems.forEach(p => addMaikMessage('• ' + p));
+          addMaikMessage('Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.');
+          addMaikMessage('Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?');
+          chatState = 'feedback';
+        }
+      }
+    });
+
+    chatClose.addEventListener('click', hideChat);
+
+    function addMaikMessage(text) {
+      const msg = document.createElement('div');
+      msg.className = 'chat-message maik';
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addUserMessage(text) {
+      const msg = document.createElement('div');
+      msg.className = 'chat-message user';
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function sendChatResponse(text) {
+      addUserMessage(text);
+      chatButtons.innerHTML = '';
+
+      if (chatState === 'feedback') {
+        if (text.includes('Deutlich besser') || text.includes('Etwas besser')) {
+          setTimeout(() => {
+            addMaikMessage('Danke für das Feedback. Welche Verbesserung wäre für euch aktuell am interessantesten?');
+            showInterestButtons();
+            chatState = 'interest';
+          }, 500);
+        } else {
+          setTimeout(() => {
+            addMaikMessage('Verstanden. Was könnte ich euch noch zeigen, um die Vorteile besser zu verdeutlichen?');
+          }, 500);
+        }
+      } else if (chatState === 'interest') {
+        setTimeout(() => {
+          if (text.includes('Mehr Anfragen')) {
+            addMaikMessage('Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?');
+          } else if (text.includes('Google-Sichtbarkeit')) {
+            addMaikMessage('Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?');
+          } else if (text.includes('Mobile')) {
+            addMaikMessage('Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?');
+          } else {
+            addMaikMessage('Danke für die Info. Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+          }
+          chatState = 'followup';
+        }, 500);
+      } else if (chatState === 'followup') {
+        setTimeout(() => {
+          addMaikMessage('Danke für diese Informationen. Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+        }, 500);
+      }
+    }
+
+    function showInterestButtons() {
+      const buttons = [
+        'Mehr Anfragen',
+        'Mehr Terminbuchungen',
+        'Moderneres Erscheinungsbild',
+        'Bessere mobile Darstellung',
+        'Bessere Google-Sichtbarkeit'
+      ];
+      chatButtons.innerHTML = buttons.map(b => `<button class="chat-btn" onclick="sendChatResponse('${b}')">${b}</button>`).join('');
+    }
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && chatInput.value.trim()) {
+        sendChatResponse(chatInput.value.trim());
+        chatInput.value = '';
+      }
+    });
+
+    // Show chat after delay or scroll
+    let chatShown = false;
+    function maybeShowChat() {
+      if (chatShown) return;
+      chatShown = true;
+      setTimeout(() => {
+        fab.style.animation = 'pulse-ring 2s ease-in-out infinite';
+      }, 2000);
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 30) {
+        maybeShowChat();
+      }
+    });
+
+    setTimeout(() => {
+      maybeShowChat();
+    }, 3000);
+  </script>
+</body>
+</html>

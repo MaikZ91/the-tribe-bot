@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Praxisgemeinschaft Willruth — Ihre Zahnärzte in Lübeck. Professionelle Zahnheilkunde, Implantologie, Parodontologie und Zahnreinigung.">
+    <title>Praxisgemeinschaft Willruth | Zahnheilkunde in Lübeck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent: #06b6d4;
+            --text-dark: #0f172a;
+            --text-gray: #475569;
+            --text-light: #94a3b8;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Before/After Toggle */
+        .ba-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-white);
+            padding: 8px 12px;
+            border-radius: 999px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .ba-toggle a {
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 999px;
+            transition: all 0.2s;
+        }
+        .ba-toggle a.ba-after {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .ba-toggle a:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.3s;
+        }
+        .header.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary); }
+        .nav-desktop { display: flex; gap: 32px; }
+        .nav-desktop a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-desktop a:hover { color: var(--primary); }
+        .header-cta {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .header-cta:hover { background: var(--primary-dark); }
+
+        /* Hero */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-white) 100%);
+            padding-top: 80px;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            padding: 14px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid var(--border);
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .hero-image {
+            position: relative;
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background: var(--bg-light);
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .trust-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .trust-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        /* Services */
+        .services {
+            padding: 100px 24px;
+        }
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .service-card {
+            background: var(--bg-white);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Booking Section */
+        .booking {
+            padding: 100px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        .booking-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .booking-card {
+            background: var(--bg-white);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+        }
+        .booking-card h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .booking-form {
+            display: grid;
+            gap: 24px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-submit {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .form-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 100px 24px;
+            background: var(--bg-light);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+        .gallery-item img:hover {
+            transform: scale(1.03);
+        }
+
+        /* CTA Band */
+        .cta-band {
+            padding: 80px 24px;
+            background: var(--bg-white);
+        }
+        .cta-band-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .cta-band h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        .cta-band p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 100px 24px;
+            background: var(--bg-light);
+        }
+        .contact-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .contact-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .contact-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        .contact-text a,
+        .contact-text p {
+            font-size: 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+        .contact-text a:hover { color: var(--primary); }
+        .contact-form {
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 20px;
+        }
+        .contact-form h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 24px;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .footer p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            z-index: 90;
+            display: none;
+        }
+        .mobile-cta .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Chat Widget */
+        .chat-fab {
+            position: fixed;
+            bottom: 100px;
+            right: 22px;
+            z-index: 200;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .chat-fab:hover { transform: scale(1.05); }
+        .chat-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: url(/assets/mz9/maik.jpg) center/cover;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        .chat-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 3px solid var(--bg-white);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+        .chat-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 22px;
+            width: 380px;
+            max-width: calc(100vw - 44px);
+            background: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            z-index: 199;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-panel.open { display: flex; }
+        .chat-header {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h4 { font-size: 16px; font-weight: 600; }
+        .chat-close {
+            background: none;
+            border: none;
+            color: var(--bg-white);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-messages {
+            flex: 1;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .chat-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .chat-bubble.maik {
+            background: var(--primary-light);
+            color: var(--text-dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-bubble.user {
+            background: var(--primary);
+            color: var(--bg-white);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-input {
+            border-top: 1px solid var(--border);
+            padding: 12px;
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .chat-btn {
+            background: var(--primary);
+            color: var(--bg-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .chat-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .chat-option {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .chat-option:hover { background: var(--primary); color: var(--bg-white); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-inner,
+            .contact-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-content h1 { font-size: 32px; }
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-desktop { display: none; }
+            .form-row { grid-template-columns: 1fr; }
+            .booking-card { padding: 32px 24px; }
+            .ba-toggle {
+                top: 12px;
+                right: 12px;
+                font-size: 12px;
+            }
+            .mobile-cta { display: block; }
+            .chat-fab,
+            .chat-panel { bottom: 80px; }
+            body { padding-bottom: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Before/After Toggle -->
+    <div class="ba-toggle">
+        <a href="https://www.willruth.de" target="_blank" class="ba-before">Vorher</a>
+        <span class="ba-after">Nachher</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="logo">Praxisgemeinschaft <span>Willruth</span></a>
+            <nav class="nav-desktop">
+                <a href="#services">Leistungen</a>
+                <a href="#booking">Termin</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+            <a href="#booking" class="header-cta">Termin vereinbaren</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h1>Ihre Zahnheilkunde<br>in Lübeck</h1>
+                <p>Professionelle Zahnmedizin mit modernster Technologie. Von der Diagnose bis zur Implantologie — wir kümmern uns um Ihr Lächeln.</p>
+                <div class="hero-ctas">
+                    <a href="#booking" class="btn-primary">📅 Termin vereinbaren</a>
+                    <a href="#services" class="btn-secondary">Leistungen</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://www.willruth.de/images/gallery/50.png" alt="Praxis Willruth - Moderne Zahnarztpraxis in Lübeck" width="600" height="400">
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <section class="trust-strip">
+        <div class="trust-inner">
+            <div class="trust-item">
+                <div class="trust-icon">✓</div>
+                <span class="trust-text">Qualitätssicherung</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">⭐</div>
+                <span class="trust-text">Zertifizierte Praxis</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔬</div>
+                <span class="trust-text">Moderne Diagnostik</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📍</div>
+                <span class="trust-text">Zentral in Lübeck</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>Unsere Leistungsschwerpunkte</h2>
+                <p>Kompetente Zahnheilkunde für Ihre Gesundheit und ein strahlendes Lächeln.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>01 Diagnose</h3>
+                    <p>Präzise Diagnostik mit modernster Bildgebung und professioneller Begutachtung für fundierte Behandlungspläne.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🦷</div>
+                    <h3>02 Funktionstherapie</h3>
+                    <p>Behandlung von Kiefergelenk- und Bissproblemen zur Wiederherstellung der normalen Kieferfunktion.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💎</div>
+                    <h3>03 Implantologie</h3>
+                    <p>Stabile und ästhetische Zahnersatzlösungen durch moderne Implantat-Technologie.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌿</div>
+                    <h3>04 Parodontologie</h3>
+                    <p>Behandlung von Zahnfleischerkrankungen zum Schutz Ihrer Zähne und Ihres Zahnhalteapparats.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>05 Zahnreinigung</h3>
+                    <p>Professionelle Zahnreinigung für gesundes Zahnfleisch und ein strahlendes Lächeln.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📞</div>
+                    <h3>Kontakt aufnehmen</h3>
+                    <p>Wir beraten Sie gerne persönlich zu unseren Leistungen und Terminmöglichkeiten.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking -->
+    <section class="booking" id="booking">
+        <div class="booking-inner">
+            <div class="booking-card">
+                <h2>Vereinbaren Sie einen Termin</h2>
+                <form class="booking-form" action="mailto:info@willruth.de" method="post" enctype="text/plain">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+49 ..." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">E-Mail</label>
+                            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Gewünschte Leistung</label>
+                            <select id="service" name="service">
+                                <option value="">Bitte wählen...</option>
+                                <option value="diagnose">Diagnose</option>
+                                <option value="funktionstherapie">Funktionstherapie</option>
+                                <option value="implantologie">Implantologie</option>
+                                <option value="parodontologie">Parodontologie</option>
+                                <option value="zahnreinigung">Zahnreinigung</option>
+                                <option value="andere">Andere Anfrage</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Nachricht</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Ihre Nachricht an uns..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Termin anfragen</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>Ihr Weg zu uns</h2>
+                <p>Eine moderne Praxis, die Wohlbefinden und Professionalität verbindet.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://www.willruth.de/images/gallery/50.png" alt="Praxisraum Willruth" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.willruth.de/images/gallery/51.png" alt="Empfangsbereich" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.willruth.de/images/gallery/52.png" alt="Behandlungsbereich" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="cta-band-inner">
+            <h2>Bereit für ein gesundes Lächeln?</h2>
+            <p>Vereinbaren Sie noch heute Ihren Termin bei Praxisgemeinschaft Willruth.</p>
+            <a href="#booking" class="btn-primary">📅 Jetzt Termin vereinbaren</a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div class="contact-info">
+                <h3>Kontakt & Anfahrt</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">
+                        <h4>Adresse</h4>
+                        <p>Lübeck</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <h4>Telefon</h4>
+                        <a href="tel:+49451791109">+49 451 791109</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-text">
+                        <h4>E-Mail</h4>
+                        <a href="mailto:info@willruth.de">info@willruth.de</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div class="contact-text">
+                        <h4>Termin nach Vereinbarung</h4>
+                        <p>Wir freuen uns auf Ihren Besuch.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Schnellkontakt</h3>
+                <form action="mailto:info@willruth.de" method="post" enctype="text/plain">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="quick-name">Name</label>
+                        <input type="text" id="quick-name" name="name" placeholder="Ihr Name" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="quick-phone">Telefon</label>
+                        <input type="tel" id="quick-phone" name="phone" placeholder="+49 ..." required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="quick-message">Nachricht</label>
+                        <textarea id="quick-message" name="message" rows="3" placeholder="Ihre Nachricht..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Nachricht senden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Concept Preview · MZ.9</p>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="#booking" class="btn-primary">📅 Termin vereinbaren</a>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-fab" id="chatFab">
+        <div class="chat-avatar"></div>
+    </div>
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+            <h4>💬 Chat mit Maik</h4>
+            <button class="chat-close" id="chatClose">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-bubble maik" id="firstMessage"></div>
+        </div>
+        <div class="chat-input" id="chatInputArea" style="display:none;">
+            <input type="text" id="chatInput" placeholder="Ihre Nachricht...">
+            <button class="chat-btn" id="chatSend">Senden</button>
+        </div>
+    </div>
+
+    <script>
+        // Before/After toggle tracking
+        const baToggle = document.querySelector('.ba-toggle a.ba-before');
+        if (baToggle) {
+            baToggle.addEventListener('click', () => {
+                baToggle.style.background = 'var(--bg-light)';
+            });
+        }
+
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Chat Widget
+        const chatFab = document.getElementById('chatFab');
+        const chatPanel = document.getElementById('chatPanel');
+        const chatClose = document.getElementById('chatClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const firstMessage = document.getElementById('firstMessage');
+        const chatInputArea = document.getElementById('chatInputArea');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+
+        let chatState = 0;
+        let chatTimer;
+
+        const problems = [
+            "Kein Kontaktformular – Interessenten können keine direkte Nachricht über die Website senden und müssen telefonisch kontaktiert werden."
+        ];
+
+        function openChat() {
+            chatPanel.classList.add('open');
+            chatFab.style.display = 'none';
+        }
+
+        function closeChat() {
+            chatPanel.classList.remove('open');
+            chatFab.style.display = 'block';
+        }
+
+        function addMaikMessage(text, withOptions = false, options = []) {
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble maik';
+            bubble.textContent = text;
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (withOptions && options.length > 0) {
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'chat-options';
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chat-option';
+                    btn.textContent = opt.label;
+                    btn.onclick = () => handleChatOption(opt.value);
+                    optionsDiv.appendChild(btn);
+                });
+                chatMessages.appendChild(optionsDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function addUserMessage(text) {
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble user';
+            bubble.textContent = text;
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleChatOption(value) {
+            addUserMessage(value);
+
+            setTimeout(() => {
+                if (chatState === 1) {
+                    if (value.includes('besser')) {
+                        chatState = 2;
+                        addMaikMessage('Danke für das Feedback! Welche Verbesserung wäre für euch aktuell am interessantesten?', true, [
+                            { label: 'Mehr Anfragen', value: 'anfragen' },
+                            { label: 'Mehr Terminbuchungen', value: 'terminbuchungen' },
+                            { label: 'Moderneres Erscheinungsbild', value: 'design' },
+                            { label: 'Bessere mobile Darstellung', value: 'mobile' },
+                            { label: 'Etwas anderes', value: 'anderes' }
+                        ]);
+                    } else {
+                        chatState = 2;
+                        addMaikMessage('Danke für ehrliches Feedback. Gibt es einen bestimmten Bereich, der euch besonders wichtig wäre?', true, [
+                            { label: 'Mehr Anfragen', value: 'anfragen' },
+                            { label: 'Mehr Terminbuchungen', value: 'terminbuchungen' },
+                            { label: 'Moderneres Erscheinungsbild', value: 'design' },
+                            { label: 'Bessere mobile Darstellung', value: 'mobile' },
+                            { label: 'Etwas anderes', value: 'anderes' }
+                        ]);
+                    }
+                } else if (chatState === 2) {
+                    chatState = 3;
+                    if (value === 'anfragen') {
+                        addMaikMessage('Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?');
+                    } else if (value === 'terminbuchungen') {
+                        addMaikMessage('Werden Termine derzeit meistens telefonisch oder in der Praxis vereinbart?');
+                    } else if (value === 'design') {
+                        addMaikMessage('Gibt es Websites von anderen Zahnarztpraxen, die euch gut gefallen?');
+                    } else if (value === 'mobile') {
+                        addMaikMessage('Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?');
+                    } else {
+                        addMaikMessage('Können Sie mir etwas mehr über Ihre Ziele für die neue Website erzählen?');
+                    }
+                } else if (chatState === 3) {
+                    chatState = 4;
+                    addMaikMessage('Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+                    chatInputArea.style.display = 'flex';
+                }
+            }, 500);
+        }
+
+        function showFirstMessage() {
+            let msg = 'Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:\n\n';
+            problems.forEach(p => msg += '• ' + p + '\n');
+            msg += '\nMit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.';
+            addMaikMessage(msg, true, [
+                { label: '👍 Deutlich besser', value: 'besser' },
+                { label: '😐 Etwas besser', value: 'etwas_besser' },
+                { label: '👎 Kein großer Unterschied', value: 'kein_unterschied' }
+            ]);
+            chatState = 1;
+        }
+
+        // Trigger after 2 seconds or 30% scroll
+        function triggerChat() {
+            if (!chatPanel.classList.contains('open') && chatState === 0) {
+                showFirstMessage();
+            }
+        }
+
+        setTimeout(triggerChat, 2000);
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 30 && chatState === 0) {
+                clearTimeout(chatTimer);
+                chatTimer = setTimeout(triggerChat, 500);
+            }
+        });
+
+        chatFab.addEventListener('click', () => {
+            if (chatState === 0) {
+                showFirstMessage();
+            }
+            openChat();
+        });
+
+        chatClose.addEventListener('click', closeChat);
+
+        chatSend.addEventListener('click', () => {
+            const text = chatInput.value.trim();
+            if (text) {
+                addUserMessage(text);
+                chatInput.value = '';
+                setTimeout(() => {
+                    addMaikMessage('Vielen Dank für Ihre Nachricht! Ich werde mich kurz fassen und Ihnen konkrete Vorschläge machen.');
+                }, 500);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                chatSend.click();
+            }
+        });
+    </script>
+</body>
+</html>
