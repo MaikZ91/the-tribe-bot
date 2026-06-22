@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Malermeisterbetrieb Liliental – Professionelle Malerarbeiten in Wuppertal</title>
+    <meta name="description" content="Ihr Malermeisterbetrieb in Wuppertal: Malerei, Lackierungen, Innen- und Außenarbeiten. Qualität aus Handwerkstradition. Jetzt kostenloses Beratungsgespräch vereinbaren.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2C5F2D;
+            --primary-dark: #1E421F;
+            --secondary: #97BC62;
+            --accent: #E07A5F;
+            --bg: #FAF9F6;
+            --bg-alt: #F0EFE9;
+            --text: #2D3748;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(44, 95, 45, 0.1);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 249, 246, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 0.75rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.6rem 1.4rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://liliental.com/wp-content/themes/greentech-lite/images/bg_breadcrumb.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            mix-blend-mode: overlay;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* USP Strip */
+        .usp-strip {
+            background: var(--bg-alt);
+            padding: 3rem 2rem;
+        }
+
+        .usp-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .usp-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .usp-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .usp-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .usp-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Leistungen */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(44, 95, 45, 0.15);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Terminanfrage */
+        .booking-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+        }
+
+        .booking-section h2 {
+            color: var(--white);
+        }
+
+        .booking-section p {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .booking-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .booking-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        /* CTA Band */
+        .cta-band {
+            position: relative;
+            padding: 4rem 2rem;
+            background-image: url('https://liliental.com/wp-content/themes/greentech-lite/images/cta-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-band::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(44, 95, 45, 0.9), rgba(151, 188, 98, 0.85));
+        }
+
+        .cta-band-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-band h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        /* Kontakt */
+        .contact-section {
+            background: var(--bg-alt);
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            color: var(--accent);
+        }
+
+        .website-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            padding: 1rem 2rem;
+            z-index: 1001;
+        }
+
+        .mobile-cta .btn {
+            width: 100%;
+            text-align: center;
+            padding: 0.9rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .header-cta {
+                display: none;
+            }
+
+            .hero {
+                padding: 5rem 1.5rem 3rem;
+            }
+
+            .section {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .booking-form {
+                padding: 1.5rem;
+            }
+
+            .mobile-cta {
+                display: block;
+            }
+
+            .footer {
+                padding-bottom: 5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="logo">Malermeister<span>Liliental</span></div>
+        <a href="#termin" class="header-cta">Termin vereinbaren</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Farbe trifft Handwerk</h1>
+            <p>Professionelle Malerarbeiten in Wuppertal und Umgebung. Qualität, die sichtbar ist – von innen wie außen.</p>
+            <div class="hero-ctas">
+                <a href="#termin" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+                <a href="#leistungen" class="btn btn-secondary">Unsere Leistungen</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="usp-strip">
+        <div class="usp-grid">
+            <div class="usp-item reveal">
+                <div class="usp-icon">✓</div>
+                <h3>Meisterbetrieb</h3>
+                <p>Ausgezeichnetes Handwerk mit über 25 Jahren Erfahrung</p>
+            </div>
+            <div class="usp-item reveal">
+                <div class="usp-icon">🎨</div>
+                <h3>Farbberatung</h3>
+                <p>Individuelle Beratung für Ihr perfektes Farbkonzept</p>
+            </div>
+            <div class="usp-item reveal">
+                <div class="usp-icon">📍</div>
+                <h3>Regional & Nah</h3>
+                <p>Fest in Wuppertal verwurzelt, im Bergischen Land zu Hause</p>
+            </div>
+            <div class="usp-item reveal">
+                <div class="usp-icon">⭐</div>
+                <h3>Zufriedenheit</h3>
+                <p>Präzise Ausführung, saubere Arbeitsstelle, pünktlich</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="leistungen">
+        <div class="section-header reveal">
+            <h2>Unsere Leistungen</h2>
+            <p>Alles aus einer Hand – von der Beratung bis zur finalen Abnahme</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">🏠</div>
+                <h3>Innenmalerei</h3>
+                <p>Wand- und Deckenarbeiten, Tapetenwechsel, Lasuren und Spezialtechniken für ein wohlfühlendes Zuhause</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🏢</div>
+                <h3> Außenarbeiten</h3>
+                <p>Fassadenanstriche, Putzarbeiten, Schutz vor Witterung – Ihr Gebäude im besten Licht</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🎯</div>
+                <h3>Lackierarbeiten</h3>
+                <p>Hochwertige Lackierungen für Türen, Fenster, Treppengeländer und alle Holz- und Metallflächen</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">📋</div>
+                <h3>Kostenlose Beratung</h3>
+                <p>Farbberatung vor Ort, Musteranstriche, Angebote – unverbindlich und persönlich</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🔧</div>
+                <h3>Sanierung & Renovierung</h3>
+                <p>Komplettsanierung nach Wasserschäden, Altbau-Restaurierung, Schimmelprävention</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🏭</div>
+                <h3>Gewerbe & Objekt</h3>
+                <p>Büro-, Laden- und Praxisgestaltung – professionelle Lösungen für Ihren Geschäftsbetrieb</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section booking-section" id="termin">
+        <div class="section-header reveal">
+            <h2>Kostenloses Erstgespräch vereinbaren</h2>
+            <p>Schildern Sie Ihr Projekt – wir melden uns für einen unverbindlichen Besprechungstermin</p>
+        </div>
+        <div class="booking-container reveal">
+            <form class="booking-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Ihr Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" name="email" required placeholder="max@beispiel.de">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon (für Rückruf)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="0202 123456">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="service">Gewünschte Leistung</label>
+                    <select id="service" name="service">
+                        <option value="">Bitte wählen...</option>
+                        <option value="innen">Innenmalerei / Renovierung</option>
+                        <option value="aussen">Außenarbeiten / Fassade</option>
+                        <option value="lack">Lackierarbeiten</option>
+                        <option value="sanierung">Sanierung</option>
+                        <option value="gewerbe">Gewerbe / Objekt</option>
+                        <option value="beratung">Nur Beratung</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Ihre Nachricht</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Kurzbeschreibung Ihres Projekts (Raumgröße, gewünschter Zeitraum, ...)"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Anfrage absenden</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="cta-band reveal">
+        <div class="cta-band-content">
+            <h2>Bereit für neuen Glanz?</h2>
+            <p>Vereinbaren Sie jetzt Ihren Beratungstermin – kostenlos und unverbindlich.</p>
+        </div>
+    </section>
+
+    <section class="section contact-section">
+        <div class="section-header reveal">
+            <h2>Kontakt & Anfahrt</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <h3>📍 Adresse</h3>
+                <p>Hinsbergstraße 14</p>
+                <p>42287 Wuppertal</p>
+            </div>
+            <div class="contact-card reveal">
+                <h3>📞 Telefon</h3>
+                <p><a href="tel:+492029460332">+49 202 9460332</a></p>
+            </div>
+            <div class="contact-card reveal">
+                <h3>✉️ E-Mail</h3>
+                <p><a href="mailto:energie@liliental.com">energie@liliental.com</a></p>
+                <a href="https://liliental.com" target="_blank" class="website-link">www.liliental.com →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Konzept-Vorschau · MZ.9</p>
+    </footer>
+
+    <div class="mobile-cta">
+        <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+    </div>
+
+    <script>
+        // Header scrolled state
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Form handling
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const service = formData.get('service');
+            const message = formData.get('message');
+
+            const subject = encodeURIComponent(`Anfrage: ${service || 'Allgemein'} - ${name}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `E-Mail: ${email}\n` +
+                `Telefon: ${formData.get('phone') || '–'}\n` +
+                `Leistung: ${service || '–'}\n\n` +
+                `Nachricht:\n${message}`
+            );
+
+            window.location.href = `mailto:energie@liliental.com?subject=${subject}&body=${body}`;
+        });
+    </script>
+</body>
+</html>
