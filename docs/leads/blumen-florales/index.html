@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Florales » Ihr Florist in Lübeck » Hochzeit, Trauer, Büro & Event</title>
+  <meta name="description" content="Wir sind Ihr Florist in Lübeck und bieten Ihnen Floristik in ihrer ganzen faszinierenden Vielfalt für Hochzeit, Trauer, Büro und Event.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --palette-bg: #f9f7f4;
+      --palette-surface: #ffffff;
+      --palette-primary: #2d5a27;
+      --palette-accent: #d4a5a5;
+      --palette-accent-soft: #f5e6e6;
+      --palette-text: #2c2c2c;
+      --palette-text-light: #5a5a5a;
+      --palette-gold: #c9a86c;
+      --palette-green-light: #8fb573;
+      --shadow-soft: 0 4px 20px rgba(45, 90, 39, 0.08);
+      --shadow-card: 0 8px 30px rgba(45, 90, 39, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition: all 0.3s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--palette-bg);
+      color: var(--palette-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(45, 90, 39, 0.1);
+      padding: 16px 0;
+      transition: var(--transition);
+    }
+
+    .header.scrolled {
+      padding: 10px 0;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--palette-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .header-nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--palette-text);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .header-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--palette-accent);
+      transition: var(--transition);
+    }
+
+    .header-nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--palette-primary);
+    }
+
+    .header-phone svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .header-cta {
+      background: var(--palette-primary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .header-cta:hover {
+      background: var(--palette-green-light);
+      transform: translateY(-2px);
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--palette-primary);
+      transition: var(--transition);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, var(--palette-bg) 0%, var(--palette-accent-soft) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 140%;
+      background: radial-gradient(ellipse, rgba(143, 181, 115, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-content {
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--palette-accent-soft);
+      color: var(--palette-primary);
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--palette-text-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--palette-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--palette-green-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(45, 90, 39, 0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--palette-primary);
+      border: 2px solid var(--palette-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--palette-primary);
+      color: white;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 100%;
+      height: 100%;
+      border: 3px solid var(--palette-accent);
+      border-radius: var(--radius-lg);
+      z-index: -1;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--palette-gold);
+      color: white;
+      padding: 20px 28px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      font-weight: 600;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--palette-surface);
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(45, 90, 39, 0.08);
+    }
+
+    .trust-strip-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--palette-accent-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--palette-primary);
+    }
+
+    .trust-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .trust-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--palette-text);
+    }
+
+    /* Services */
+    .services {
+      padding: 100px 0;
+      background: var(--palette-bg);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--palette-text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .service-card {
+      background: var(--palette-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .service-content {
+      padding: 28px;
+    }
+
+    .service-content h3 {
+      font-size: 1.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 12px;
+    }
+
+    .service-content p {
+      color: var(--palette-text-light);
+      margin-bottom: 20px;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--palette-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .service-link:hover {
+      gap: 12px;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+      background: var(--palette-surface);
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .gallery-header h2 {
+      font-size: 2.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 16px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-card);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(45, 90, 39, 0.8), transparent);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay span {
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--palette-accent-soft) 0%, var(--palette-bg) 100%);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-size: 2.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      font-size: 1.1rem;
+      color: var(--palette-text-light);
+      margin-bottom: 32px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .contact-item-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--palette-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .contact-item-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .contact-item-text h4 {
+      font-size: 0.95rem;
+      color: var(--palette-primary);
+      margin-bottom: 4px;
+    }
+
+    .contact-item-text p {
+      font-size: 0.95rem;
+      color: var(--palette-text);
+      margin: 0;
+    }
+
+    .contact-form-wrapper {
+      background: var(--palette-surface);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    .contact-form-wrapper h3 {
+      font-size: 1.5rem;
+      color: var(--palette-primary);
+      margin-bottom: 8px;
+    }
+
+    .contact-form-wrapper p {
+      font-size: 0.9rem;
+      color: var(--palette-text-light);
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--palette-text);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid rgba(45, 90, 39, 0.15);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--palette-primary);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--palette-primary);
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover {
+      background: var(--palette-green-light);
+      transform: translateY(-2px);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--palette-primary);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-2.webp") center/cover;
+      opacity: 0.15;
+    }
+
+    .cta-band-inner {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .cta-band h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .btn {
+      background: var(--palette-gold);
+      color: white;
+    }
+
+    .cta-band .btn:hover {
+      background: #d4b37c;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a3a16;
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .footer-nav h4 {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--palette-accent);
+    }
+
+    .footer-nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav a {
+      opacity: 0.8;
+      transition: var(--transition);
+    }
+
+    .footer-nav a:hover {
+      opacity: 1;
+    }
+
+    .footer-contact p {
+      opacity: 0.8;
+      margin-bottom: 12px;
+    }
+
+    .footer-contact a {
+      color: var(--palette-accent);
+      transition: var(--transition);
+    }
+
+    .footer-contact a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    .footer-bottom a {
+      color: var(--palette-accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--palette-surface);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta-bar .btn {
+      width: 100%;
+      padding: 14px;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 120px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .hero-image::before {
+        display: none;
+      }
+
+      .hero-badge {
+        bottom: 10px;
+        left: 10px;
+        padding: 12px 20px;
+      }
+
+      .trust-strip-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+      }
+
+      .trust-strip-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header h2,
+      .gallery-header h2,
+      .contact-info h2,
+      .cta-band h2 {
+        font-size: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: 1;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form-wrapper {
+        padding: 24px;
+      }
+
+      .mobile-cta-bar {
+        display: block;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="header-logo">Florales</div>
+        <nav class="header-nav">
+          <a href="#services">Leistungen</a>
+          <a href="#gallery">Galerie</a>
+          <a href="#contact">Kontakt</a>
+          <a class="header-phone" href="tel:+4945171878">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            +49 451 71878
+          </a>
+          <a class="header-cta" href="#contact">Anfrage senden</a>
+        </nav>
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content reveal">
+          <span class="hero-tag">Ihr Florist in Lübeck</span>
+          <h1>Floristik in ihrer ganzen faszinierenden Vielfalt</h1>
+          <p>Ob Hochzeit, Trauer, Büro oder Event — wir gestalten individuelle florale Werke, die begeistern und berühren.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Jetzt anfragen
+            </a>
+            <a href="#gallery" class="btn btn-outline">Galerie ansehen</a>
+          </div>
+        </div>
+        <div class="hero-image reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-2.webp" alt="Florales — Ihr Florist in Lübeck" width="600" height="500">
+          <div class="hero-badge">Seit über 20 Jahren</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-strip-inner">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <span class="trust-text">Premium-Qualität</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <span class="trust-text">Schnelle Lieferung</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <span class="trust-text">Mit Herz gefertigt</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </div>
+          <span class="trust-text">Individuelle Beratung</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Floristik für jeden Anlass — gestaltet mit Liebe zum Detail und jahrelanger Erfahrung.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/blumen-hochzeit-2.webp" alt="Hochzeitsfloristik" loading="lazy" width="600" height="240">
+          <div class="service-content">
+            <h3>Hochzeitsfloristik</h3>
+            <p>Vom Brautstrauß bis zur Tischdekoration — wir machen Ihren unvergesslichen Tag noch schöner.</p>
+            <a href="#contact" class="service-link">
+              Anfrage senden
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-luebeck-blumen-trauer.webp" alt="Trauerfloristik" loading="lazy" width="600" height="240">
+          <div class="service-content">
+            <h3>Trauerfloristik</h3>
+            <p>Würdevolle Gestaltungen für den letzten Abschied — mitfühlend und individuell.</p>
+            <a href="#contact" class="service-link">
+              Anfrage senden
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-luebeck-blumen-buero.webp" alt="Büro-Floristik" loading="lazy" width="600" height="240">
+          <div class="service-content">
+            <h3>Büro & Geschäft</h3>
+            <p>Regelmäßige Pflanzenpflege und florale Akzente — für eine angenehme Arbeitsatmosphäre.</p>
+            <a href="#contact" class="service-link">
+              Anfrage senden
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-luebeck-blumen-event.webp" alt="Event-Floristik" loading="lazy" width="600" height="240">
+          <div class="service-content">
+            <h3>Event & Party</h3>
+            <p>Auffällige Dekorationen für Firmenfeiern, Jubiläen und private Events.</p>
+            <a href="#contact" class="service-link">
+              Anfrage senden
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <h2>Unsere Arbeiten</h2>
+        <p>Ein Einblick in unsere florale Vielfalt.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-1.webp" alt="Florales Blumenwerk" loading="lazy">
+          <div class="gallery-overlay"><span>Blumenwerk</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-3.webp" alt="Saisonale Arrangements" loading="lazy">
+          <div class="gallery-overlay"><span>Saisonal</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-4.webp" alt="Straußvariationen" loading="lazy">
+          <div class="gallery-overlay"><span>Sträuße</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-5.webp" alt="Tischdekoration" loading="lazy">
+          <div class="gallery-overlay"><span>Tischdeko</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-7.webp" alt="Gestecke" loading="lazy">
+          <div class="gallery-overlay"><span>Gestecke</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-8.webp" alt="Sonderanfertigungen" loading="lazy">
+          <div class="gallery-overlay"><span>Individuell</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.florales-luebeck.de/wp-content/uploads/2022/10/florales-blumen-luebeck-9.webp" alt="Frische Blumen" loading="lazy">
+          <div class="gallery-overlay"><span>Frisch vom Markt</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info reveal">
+          <h2>Kontaktieren Sie uns</h2>
+          <p>Wir freuen uns auf Ihre Anfrage — ob für eine Hochzeit, Trauerfloristik oder einfach für einen schönen Strauß.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <h4>Telefon</h4>
+                <p><a href="tel:+4945171878">+49 451 71878</a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <path d="M22 6l-10 7L2 6"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <h4>E-Mail</h4>
+                <p><a href="mailto:info@florales-luebeck.de">info@florales-luebeck.de</a></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="contact-item-text">
+                <h4>Standort</h4>
+                <p>Lübeck</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-wrapper reveal">
+          <h3>Unverbindliche Anfrage</h3>
+          <p>Erzählen Sie uns, was Sie benötigen — wir melden uns schnell zurück.</p>
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Anfrage! Wir melden uns in Kürze bei Ihnen.');">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label for="service">Interesse an</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="hochzeit">Hochzeitsfloristik</option>
+                <option value="trauer">Trauerfloristik</option>
+                <option value="buero">Büro & Geschäft</option>
+                <option value="event">Event & Party</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" required placeholder="Erzählen Sie uns mehr über Ihre Wünsche..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-band-inner reveal">
+        <h2>Bereit für blühende Momente?</h2>
+        <p>Kontaktieren Sie uns noch heute — wir gestalten Ihre floralen Wünsche in Wirklichkeit.</p>
+        <a href="#contact" class="btn">Jetzt anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h3>Florales</h3>
+          <p>Ihr Florist in Lübeck — Floristik in ihrer ganzen faszinierenden Vielfalt.</p>
+        </div>
+        <nav class="footer-nav">
+          <h4>Leistungen</h4>
+          <ul>
+            <li><a href="#services">Hochzeitsfloristik</a></li>
+            <li><a href="#services">Trauerfloristik</a></li>
+            <li><a href="#services">Büro & Geschäft</a></li>
+            <li><a href="#services">Event & Party</a></li>
+          </ul>
+        </nav>
+        <div class="footer-contact">
+          <h4>Kontakt</h4>
+          <p><a href="tel:+4945171878">+49 451 71878</a></p>
+          <p><a href="mailto:info@florales-luebeck.de">info@florales-luebeck.de</a></p>
+          <p>Lübeck</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Konzept-Vorschau · MZ.9 · <a href="http://www.florales-luebeck.de" target="_blank" rel="noopener">www.florales-luebeck.de</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="#contact" class="btn btn-primary">Jetzt anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const headerNav = document.querySelector('.header-nav');
+
+    menuToggle.addEventListener('click', () => {
+      headerNav.style.display = headerNav.style.display === 'flex' ? 'none' : 'flex';
+      if (headerNav.style.display === 'flex') {
+        headerNav.style.position = 'absolute';
+        headerNav.style.top = '100%';
+        headerNav.style.left = '0';
+        headerNav.style.right = '0';
+        headerNav.style.background = 'white';
+        headerNav.style.flexDirection = 'column';
+        headerNav.style.padding = '20px';
+        headerNav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+      }
+    });
+  </script>
+</body>
+</html>
