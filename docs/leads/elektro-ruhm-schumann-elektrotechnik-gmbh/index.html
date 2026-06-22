@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Ruhm-Schumann Elektrotechnik GmbH — Ihr Elektriker für Braunschweig und Umgebung</title>
+  <meta name="description" content="Ruhm-Schumann Elektrotechnik GmbH — Ihr zuverlässiger Elektriker für Braunschweig und Umgebung. Gebäudeinstallation, Reparaturen, E-Mobilität und mehr.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2A4B3C;
+      --primary-dark: #1A3127;
+      --accent: #F59E0B;
+      --accent-light: #FCD34D;
+      --accent-hover: #D97706;
+      --steel: #64748B;
+      --steel-light: #94A3B8;
+      --white: #FFFFFF;
+      --off-white: #FAFAF9;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--gray-800);
+      background: var(--off-white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Before/After Toggle */
+    .before-after-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--white);
+      border-radius: 9999px;
+      padding: 6px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      gap: 4px;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .toggle-btn.vorher {
+      color: var(--steel);
+      background: transparent;
+    }
+
+    .toggle-btn.vorher:hover {
+      background: var(--gray-100);
+    }
+
+    .toggle-btn.nachher {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .toggle-btn.nachher:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      border-bottom: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .header-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .header-logo span {
+      color: var(--accent);
+    }
+
+    .header-nav {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-nav {
+        display: flex;
+        gap: 32px;
+      }
+
+      .header-nav a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gray-700);
+        transition: color 0.2s;
+      }
+
+      .header-nav a:hover {
+        color: var(--primary);
+      }
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-cta {
+        display: flex;
+        gap: 12px;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-cta {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #3A5F4D 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero-logo {
+      max-width: 280px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-cta {
+        flex-direction: row;
+      }
+    }
+
+    .hero-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 40px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .trust-strip-inner {
+      display: grid;
+      gap: 24px;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .trust-strip-inner {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .trust-item {
+      padding: 16px;
+    }
+
+    .trust-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .trust-text {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .trust-sub {
+      font-size: 13px;
+      color: var(--steel);
+    }
+
+    /* Services */
+    .services {
+      padding: 80px 0;
+      background: var(--off-white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--primary-dark);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--steel);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-size: 16px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 13px;
+      color: var(--steel);
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .contact-info {
+      padding: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 16px;
+      color: var(--white);
+    }
+
+    .contact-info h3 {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .contact-item-content h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      opacity: 0.9;
+    }
+
+    .contact-item-content p {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    .contact-item-content a {
+      color: var(--accent-light);
+    }
+
+    .contact-form {
+      padding: 32px;
+      background: var(--gray-100);
+      border-radius: 16px;
+    }
+
+    .contact-form h3 {
+      font-size: 20px;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-submit {
+      margin-top: 24px;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 60px 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      text-align: center;
+      color: var(--primary-dark);
+    }
+
+    .cta-band h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      background: var(--gray-800);
+      color: var(--white);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray-200);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      font-size: 12px;
+      color: var(--steel-light);
+      text-align: center;
+    }
+
+    .concept-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 998;
+    }
+
+    @media (max-width: 767px) {
+      .mobile-cta {
+        display: flex;
+        gap: 12px;
+      }
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+    }
+
+    /* Maik Chat Widget */
+    .chat-fab {
+      position: fixed;
+      bottom: 100px;
+      right: 22px;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    @media (max-width: 767px) {
+      .chat-fab {
+        bottom: 80px;
+      }
+    }
+
+    .chat-fab:hover {
+      transform: scale(1.02);
+    }
+
+    .chat-fab-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2A4B3C, #1A3127);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      position: relative;
+    }
+
+    .chat-fab-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid #22C55E;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.1); }
+    }
+
+    .chat-fab-text {
+      background: var(--white);
+      padding: 12px 16px;
+      border-radius: 20px 20px 20px 4px;
+      box-shadow: var(--shadow-lg);
+      max-width: 280px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-800);
+      line-height: 1.4;
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 22px;
+      width: 360px;
+      max-width: calc(100vw - 44px);
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      z-index: 1002;
+      overflow: hidden;
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      .chat-panel {
+        bottom: 80px;
+        width: calc(100vw - 44px);
+      }
+    }
+
+    .chat-panel.open {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+    }
+
+    .chat-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .chat-header-content h4 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .chat-header-content span {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .chat-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .chat-close:hover {
+      opacity: 1;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      background: var(--gray-100);
+    }
+
+    .message {
+      margin-bottom: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.maik {
+      display: flex;
+      gap: 10px;
+    }
+
+    .message-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .message-bubble {
+      background: var(--white);
+      padding: 12px 16px;
+      border-radius: 16px 16px 16px 4px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--gray-800);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .message-bubble ul {
+      margin: 8px 0;
+      padding-left: 16px;
+    }
+
+    .message-bubble li {
+      margin-bottom: 4px;
+    }
+
+    .message-bubble .after-value {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .message-bubble .link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .message.user {
+      text-align: right;
+    }
+
+    .message.user .message-bubble {
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 16px 16px 4px 16px;
+    }
+
+    .chat-input {
+      padding: 12px 16px;
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .chat-input button {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border: none;
+      border-radius: 50%;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .chat-input button:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Before/After Toggle -->
+  <div class="before-after-toggle">
+    <a href="https://www.ruhm-schumann.de/" target="_blank" class="toggle-btn vorher">Vorher</a>
+    <span class="toggle-btn nachher">Nachher</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="header-logo">
+          Ruhm<span>+</span>Schumann
+        </div>
+        <nav class="header-nav">
+          <a href="#services">Leistungen</a>
+          <a href="#about">Über uns</a>
+          <a href="#contact">Kontakt</a>
+        </nav>
+        <div class="header-cta">
+          <button class="btn btn-primary" onclick="scrollToContact()">Angebot anfordern</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Ihr Elektriker für Braunschweig und Umgebung</h1>
+          <p>Zuverlässige Elektrotechnik aus Leidenschaft. Von der Gebäudeinstallation bis zur E-Mobilität — wir sind für Sie da.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" onclick="scrollToContact()">Jetzt Kontakt aufnehmen</button>
+            <button class="btn btn-secondary" onclick="scrollToServices()">Leistungen ansehen</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://ruhm-schumann.de/wp-content/uploads/2025/03/cropped-RS_elektro1-1024x248.png" alt="Ruhm-Schumann Elektrotechnik GmbH Logo" width="400" height="100">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-strip-inner">
+        <div class="trust-item reveal">
+          <div class="trust-icon">⚡</div>
+          <div class="trust-text">Über 25 Jahre Erfahrung</div>
+          <div class="trust-sub">Kompetenz aus Braunschweig</div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">🏠</div>
+          <div class="trust-text">Alles aus einer Hand</div>
+          <div class="trust-sub">Planung bis Ausführung</div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">📞</div>
+          <div class="trust-text">Persönliche Beratung</div>
+          <div class="trust-sub">Individuelle Lösungen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Unsere Leistungen</span>
+        <h2>Komplexe Aufgaben. Einfache Lösungen.</h2>
+        <p>Wir bieten Ihnen das gesamte Spektrum der Elektrotechnik — fachgerecht, zuverlässig und fair.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🏠</div>
+          <h3>Gebäudeinstallation</h3>
+          <p>Neubau und Modernisierung — wir planen und installieren Ihre elektrische Anlage.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3>Reparaturen & Service</h3>
+          <p>Schnelle Hilfe bei Störungen. Kundendienst, der verlässlich ist.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🚪</div>
+          <h3>Türkommunikation</h3>
+          <p>Moderne Sprechanlagen und Zutrittskontrolle für Ihr Objekt.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌐</div>
+          <h3>Daten & Netzwerk</h3>
+          <p>Strukturierte Verkabelung, Netzwerktechnik und Internetanbindung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔋</div>
+          <h3>E-Mobilität</h3>
+          <p>Ladeinfrastruktur für Elektrofahrzeuge — Wallboxen und Ladestationen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">✓</div>
+          <h3>E-Check & Geräteprüfung</h3>
+          <p>Sicherheit durch regelmäßige Überprüfung Ihrer elektrischen Anlagen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📋</div>
+          <h3>Freistellungsbescheinigung</h3>
+          <p>Offizielle Bescheinigungen für Ihre Elektroinstallationen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔒</div>
+          <h3>Datenschutz</h3>
+          <p>Wir arbeiten datenschutzkonform und vertrauensvoll.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Kontakt</span>
+        <h2>Sprechen Sie uns an</h2>
+        <p>Wir freuen uns auf Ihre Anfrage — einfach, direkt und unverbindlich.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Ruhm-Schumann Elektrotechnik GmbH</h3>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-content">
+              <h4>Adresse</h4>
+              <p>Hopfengarten 20, 38102 Braunschweig</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-content">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@ruhm-schumann.de">info@ruhm-schumann.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">⚡</div>
+            <div class="contact-item-content">
+              <h4>Web</h4>
+              <p><a href="https://www.ruhm-schumann.de/" target="_blank">www.ruhm-schumann.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>Ihre Anfrage</h3>
+          <form id="inquiryForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+              </div>
+              <div class="form-group">
+                <label for="service">Interesse an</label>
+                <select id="service" name="service">
+                  <option value="">Bitte wählen...</option>
+                  <option value="installation">Gebäudeinstallation</option>
+                  <option value="reparatur">Reparatur / Service</option>
+                  <option value="turkommunikation">Türkommunikation</option>
+                  <option value="daten">Daten & Netzwerk</option>
+                  <option value="emobilitaet">E-Mobilität</option>
+                  <option value="echeck">E-Check & Geräteprüfung</option>
+                  <option value="sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht *</label>
+              <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-cta" style="width: 100%;">Anfrage senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Bereit für Ihre nächste Elektroinstallation?</h2>
+      <p>Kontaktieren Sie uns jetzt — wir melden uns innerhalb von 24 Stunden zurück.</p>
+      <button class="btn btn-cta" onclick="scrollToContact()">Anfrage starten</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Ruhm+Schumann Elektrotechnik GmbH</div>
+        <div class="footer-links">
+          <a href="#services">Leistungen</a>
+          <a href="#contact">Kontakt</a>
+          <a href="https://www.ruhm-schumann.de/" target="_blank">Original-Website</a>
+        </div>
+        <div class="footer-bottom">
+          Concept Preview · <span class="concept-badge">MZ.9 by Maik Zschach</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <button class="btn btn-secondary" onclick="scrollToServices()">Leistungen</button>
+    <button class="btn btn-primary" onclick="scrollToContact()">Kontaktieren</button>
+  </div>
+
+  <!-- Maik Chat Widget -->
+  <div class="chat-fab" id="chatFab">
+    <div class="chat-fab-avatar">M</div>
+    <div class="chat-fab-text">Soll ich euch die 2-3 größten Probleme eurer aktuellen Website kurz aufzeigen?</div>
+  </div>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-avatar">M</div>
+      <div class="chat-header-content">
+        <h4>Maik</h4>
+        <span>Online · Antworten sofort</span>
+      </div>
+      <button class="chat-close" onclick="closeChat()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message maik">
+        <div class="message-avatar">M</div>
+        <div class="message-bubble">
+          Echt — ich hab mir eure aktuelle Website angeschaut. Hier sind die 2-3 größten Probleme, die euch Anfragen kosten:
+          <ul>
+            <li><strong>Kein Kontaktformular</strong> — Interessierte müssen sich die E-Mail-Adresse suchen und manuell schreiben. Das ist eine Hürde, die viele nicht nehmen.</li>
+            <li><strong>Veraltete WordPress-Struktur</strong> — Potentielle Sicherheitslücken, langsame Ladezeiten und kein modernes Mobile-First-Erlebnis.</li>
+          </ul>
+          <div class="after-value">Lösung: Modernes, schnelles Design mit integriertem Kontaktformular und direkten Call-to-Actions — so wie auf dieser Konzeptseite.</div>
+          <div class="link"><a href="https://www.ruhm-schumann.de/" target="_blank">Ruhm-Schumann Original ansehen →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Schreiben Sie eine Nachricht...">
+      <button onclick="sendChatMessage()">→</button>
+    </div>
+  </div>
+
+  <script>
+    // Scroll functions
+    function scrollToContact() {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToServices() {
+      document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chat functionality
+    const chatFab = document.getElementById('chatFab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    let chatOpened = false;
+
+    // Show chat after delay
+    setTimeout(() => {
+      if (!chatOpened) {
+        chatFab.style.opacity = '1';
+        chatFab.style.transform = 'translateY(0)';
+      }
+    }, 2000);
+
+    // Also show on scroll
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent >= 30 && !chatOpened) {
+        chatFab.style.opacity = '1';
+        chatFab.style.transform = 'translateY(0)';
+      }
+    });
+
+    chatFab.addEventListener('click', () => {
+      chatPanel.classList.add('open');
+      chatFab.style.display = 'none';
+      chatOpened = true;
+    });
+
+    function closeChat() {
+      chatPanel.classList.remove('open');
+      chatFab.style.display = 'flex';
+    }
+
+    function sendChatMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user';
+      userMessage.innerHTML = `<div class="message-bubble">${escapeHtml(message)}</div>`;
+      chatMessages.appendChild(userMessage);
+      chatInput.value = '';
+
+      // Auto-response from Maik
+      setTimeout(() => {
+        const maikResponse = document.createElement('div');
+        maikResponse.className = 'message maik';
+        maikResponse.innerHTML = `
+          <div class="message-avatar">M</div>
+          <div class="message-bubble">
+            Danke für Ihre Nachricht! Gerne bespreche ich mit Ihnen, wie wir diese Probleme für Ruhm-Schumann lösen können. Schreiben Sie mir einfach: maik@the-tribe-bot.de
+          </div>
+        `;
+        chatMessages.appendChild(maikResponse);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendChatMessage();
+      }
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Form submission
+    document.getElementById('inquiryForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const params = new URLSearchParams(formData).toString();
+      const mailtoLink = `mailto:info@ruhm-schumann.de?subject=Anfrage über Website&body=${encodeURIComponent(formData.get('message'))}`;
+      window.location.href = mailtoLink;
+    });
+
+    // Initialize chatFab hidden
+    chatFab.style.opacity = '0';
+    chatFab.style.transform = 'translateY(20px)';
+    chatFab.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  </script>
+</body>
+</html>

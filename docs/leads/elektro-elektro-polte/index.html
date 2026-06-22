@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Elektro Polte - Elektroinstallationen in Braunschweig</title>
+  <meta name="description" content="Modernes Handwerk, Elektroinstallationen, echte Verbindungen und elektrische Lösungen mit Herz und Haltung. Ihr zuverlässiger Elektriker in Braunschweig und Umgebung.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --primary: #2c3e50;
+      --primary-dark: #1a252f;
+      --accent: #00b4d8;
+      --accent-dark: #0077b6;
+      --warm: #f39c12;
+      --bg-light: #f8f9fa;
+      --bg-white: #ffffff;
+      --text: #333333;
+      --text-light: #6c757d;
+      --border: #dee2e6;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .logo span {
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    /* Before/After Toggle */
+    .ba-toggle {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 99;
+      display: flex;
+      background: var(--bg-white);
+      border-radius: 50px;
+      padding: 4px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .ba-toggle a {
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .ba-toggle .ba-before {
+      color: var(--text-light);
+    }
+    .ba-toggle .ba-after {
+      background: var(--accent);
+      color: white;
+    }
+    /* Hero */
+    .hero {
+      padding-top: 80px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background: url('https://elektro-polte.de/wp-content/uploads/2025/04/soporteia360_A_high-resolution_bright_and_vibrant_photograph__17963061-d67b-4de9-a52c-9c6dd63afb49_3-e1744551716500.png') center/cover no-repeat;
+    }
+    .hero-inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    /* Before/After Block */
+    .ba-block {
+      max-width: 1000px;
+      margin: -40px auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .ba-inner {
+      background: var(--bg-white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .ba-side h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ba-before h3 {
+      color: var(--text-light);
+    }
+    .ba-after h3 {
+      color: var(--accent);
+    }
+    .ba-list {
+      list-style: none;
+      padding: 0;
+    }
+    .ba-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .ba-list li:last-child {
+      border-bottom: none;
+    }
+    .ba-after .ba-list li {
+      position: relative;
+      padding-left: 24px;
+    }
+    .ba-after .ba-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .ba-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--text-light);
+      transition: color 0.2s;
+    }
+    .ba-link:hover {
+      color: var(--accent);
+    }
+    .ba-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg-white);
+      padding: 40px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .trust-icon {
+      font-size: 1.5rem;
+    }
+    /* Services */
+    .services {
+      padding: 80px 20px;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.9375rem;
+    }
+    /* Gallery */
+    .gallery {
+      background: var(--primary);
+      padding: 80px 20px;
+    }
+    .gallery h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.125rem;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .btn {
+      background: white;
+      color: var(--accent-dark);
+    }
+    /* Contact */
+    .contact {
+      padding: 80px 20px;
+      background: var(--bg-white);
+    }
+    .contact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .contact-info h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--bg-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+    .contact-details h4 {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .contact-details p, .contact-details a {
+      color: var(--text-light);
+    }
+    .contact-details a:hover {
+      color: var(--accent);
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 0.9375rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    .footer a {
+      color: rgba(255,255,255,0.7);
+    }
+    .footer a:hover {
+      color: white;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      padding: 12px 20px;
+      display: none;
+      z-index: 98;
+    }
+    .mobile-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 12px;
+    }
+    /* Chat Bubble */
+    .chat-container {
+      position: fixed;
+      bottom: 100px;
+      right: 22px;
+      z-index: 100;
+    }
+    .fab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 50px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      max-width: 300px;
+    }
+    .fab::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50px;
+      border: 2px solid var(--accent);
+      opacity: 0;
+      animation: pulse-ring 2s infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.1); opacity: 0; }
+    }
+    .fab:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+    }
+    .fab-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .fab-text {
+      font-size: 0.875rem;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+    /* Chat Modal */
+    .chat-modal {
+      display: none;
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 320px;
+      background: var(--bg-white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .chat-modal.active {
+      display: block;
+    }
+    .chat-modal h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .chat-problems {
+      list-style: none;
+      padding: 0;
+    }
+    .chat-problems li {
+      padding: 12px 16px;
+      background: var(--bg-light);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+    .chat-problems li::before {
+      content: '⚠️ ';
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-white);
+        padding: 20px;
+        flex-direction: column;
+        gap: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-btns {
+        justify-content: center;
+      }
+      .ba-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .mobile-cta {
+        display: block;
+      }
+      .chat-container {
+        bottom: 80px;
+      }
+      .ba-toggle {
+        top: auto;
+        bottom: 140px;
+        right: 20px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Elektro<span>Polte</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#services">Leistungen</a>
+        <a href="#gallery">Projekte</a>
+        <a href="#contact">Kontakt</a>
+        <a href="tel:+495311206290" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.875rem;">📞 Anrufen</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Before/After Toggle -->
+  <div class="ba-toggle">
+    <a href="https://elektro-polte.de" target="_blank" rel="noopener" class="ba-before">Vorher →</a>
+    <a href="#" class="ba-after">Nachher ✓</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Elektroinstallationen<br>mit Herz & Haltung</h1>
+        <p>Modernes Handwerk in Braunschweig. Wir bieten zuverlässige elektrische Lösungen für Privat und Gewerbe — mit Teamgeist und Perspektive.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary">📞 Jetzt anrufen</a>
+          <a href="#services" class="btn btn-secondary">Leistungen ansehen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://elektro-polte.de/wp-content/uploads/2025/04/soporteia360_A_high-resolution_bright_and_vibrant_photograph__17963061-d67b-4de9-a52c-9c6dd63afb49_3-e1744551716500.png" alt="Elektro Polte - Professionelle Elektroinstallationen" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Block -->
+  <div class="ba-block">
+    <div class="ba-inner">
+      <div class="ba-side ba-before">
+        <h3>⚠️ VORHER — Was fehlt</h3>
+        <ul class="ba-list">
+          <li>WordPress-Seite (potenziell veraltbar)</li>
+          <li>Keine direkte Terminanfrage</li>
+          <li>Mobile nicht optimal optimiert</li>
+        </ul>
+        <a href="https://elektro-polte.de" target="_blank" rel="noopener" class="ba-link">Original ansehen →</a>
+      </div>
+      <div class="ba-side ba-after">
+        <h3>✅ NACHHER — Neuer Value</h3>
+        <ul class="ba-list">
+          <li>Schnelle, moderne Ladezeiten</li>
+          <li>Terminanfrage direkt online</li>
+          <li>Mobile-first & Google-optimiert</li>
+        </ul>
+        <span class="ba-badge">Concept Preview · MZ.9</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <span class="trust-icon">⚡</span>
+        <span>Schnelle Reaktion</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🏆</span>
+        <span>25+ Jahre Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">📍</span>
+        <span>Braunschweig & Region</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🤝</span>
+        <span>Familienbetrieb</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Unsere Leistungen</h2>
+        <p>Maßgeschneiderte Elektrolösungen für Ihr Zuhause und Geschäft</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>Elektroinstallation</h3>
+          <p>Neuanlagen, Erweiterungen und Modernisierung für Wohnräume aller Art.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💡</div>
+          <h3>Beleuchtungssysteme</h3>
+          <p>Individuelle Lichtkonzepte — von Grundbeleuchtung bis Ambiente.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔌</div>
+          <h3>Steckdosen & Schalter</h3>
+          <p>Installation und Austausch für mehr Komfort und Sicherheit.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3>Gewerbe & Industrie</h3>
+          <p>Planung und Umfang von elektrischen Anlagen für Betriebe.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <h3>Fehlersuche</h3>
+          <p>Schnelle Diagnose und Beseitigung von elektrischen Problemen.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <h3>Ausbildung & Karriere</h3>
+          <p>Starte deine Ausbildung bei uns — mit Zukunft und Teamgeist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <h2>Unsere Projekte</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2024/01/IMG_3025-scaled-e1704313670429.jpg" alt="Elektro Polte Projekt 1" loading="lazy" width="400" height="300">
+      </div>
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2020/08/box02-img06.jpg" alt="Elektro Polte Projekt 2" loading="lazy" width="400" height="300">
+      </div>
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2020/08/box02-img04.jpg" alt="Elektro Polte Projekt 3" loading="lazy" width="400" height="300">
+      </div>
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2020/08/box02-img03.jpg" alt="Elektro Polte Projekt 4" loading="lazy" width="400" height="300">
+      </div>
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2020/08/box02-img05.jpg" alt="Elektro Polte Projekt 5" loading="lazy" width="400" height="300">
+      </div>
+      <div class="gallery-item">
+        <img src="https://elektro-polte.de/wp-content/uploads/2020/07/gallery01-01.jpg" alt="Elektro Polte Projekt 6" loading="lazy" width="400" height="300">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für Ihr Elektriker-Projekt?</h2>
+    <p>Kontaktieren Sie uns für eine unverbindliche Beratung — wir stehen bereit.</p>
+    <a href="#contact" class="btn">📞 Jetzt Kontakt aufnehmen</a>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <h3>Kontaktieren Sie uns</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h4>Adresse</h4>
+            <p>Heesfeld 5, 38112 Braunschweig</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-details">
+            <h4>Telefon</h4>
+            <a href="tel:+495311206290">+49 531 1206290</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details">
+            <h4>E-Mail</h4>
+            <a href="mailto:info@elektro-polte.de">info@elektro-polte.de</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-details">
+            <h4>Bereich</h4>
+            <p>Braunschweig und Umgebung</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form action="mailto:info@elektro-polte.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon (optional)</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="Für Rückruf">
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Wie können wir Ihnen helfen?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · <a href="https://mz9.digital">MZ.9</a> · © 2026 Elektro Polte</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="tel:+495311206290" class="btn btn-primary">📞 Anrufen</a>
+      <a href="#contact" class="btn btn-secondary" style="color: var(--primary); border-color: var(--border);">💬 Anfrage</a>
+    </div>
+  </div>
+
+  <!-- Chat Bubble -->
+  <div class="chat-container">
+    <div class="chat-modal" id="chatModal">
+      <h4>Website-Analyse</h4>
+      <ul class="chat-problems">
+        <li>WordPress-Seite (potenziell veraltbar)</li>
+      </ul>
+    </div>
+    <div class="fab" id="chatFab">
+      <div class="fab-avatar">💬</div>
+      <div class="fab-text">Soll ich euch die 2-3 größten Probleme eurer aktuellen Website kurz aufzeigen?</div>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Chat bubble toggle
+    const chatFab = document.getElementById('chatFab');
+    const chatModal = document.getElementById('chatModal');
+    chatFab.addEventListener('click', () => {
+      chatModal.classList.toggle('active');
+    });
+
+    // Close chat when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.chat-container')) {
+        chatModal.classList.remove('active');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
