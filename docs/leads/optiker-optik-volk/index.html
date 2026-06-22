@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Optik Volk | Ihr echter Optiker in Mainz & Gustavsburg</title>
+  <meta name="description" content="Optik Volk — Ihr echter Optiker in Mainz & Gustavsburg. Individuelle Brillenberatung, Augenoptik, Kontaktlinsen und Sehtests. Jetzt Termin vereinbaren.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a5f;
+      --primary-light: #2d5a87;
+      --accent: #d4a574;
+      --accent-light: #e8c9a8;
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --text: #2c2c2c;
+      --text-light: #666666;
+      --border: #e5e0d8;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #c49362;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      padding: 10px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav a {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-cta {
+        display: flex;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      background: linear-gradient(135deg, var(--bg) 0%, #fff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+      opacity: 0.3;
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .hero-image:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    @media (min-width: 768px) {
+      .hero-image img {
+        height: 500px;
+      }
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--primary);
+      color: #fff;
+      padding: 40px 0;
+    }
+
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .usp-item {
+      text-align: center;
+    }
+
+    .usp-icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 15px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .usp-item h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    /* Services */
+    .services {
+      background: var(--surface);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--bg);
+      padding: 30px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .service-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Booking Section */
+    .booking {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: 0.2;
+      border-radius: 50%;
+    }
+
+    .booking-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .booking-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .booking-content h2 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .booking-content p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .booking-card {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .booking-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .booking-step {
+      margin-bottom: 20px;
+    }
+
+    .booking-step label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .booking-step input,
+    .booking-step select,
+    .booking-step textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .booking-step input:focus,
+    .booking-step select:focus,
+    .booking-step textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .booking-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .booking-submit:hover {
+      background: #c49362;
+      transform: translateY(-2px);
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--surface);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .cta-band-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-band h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-band p {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .cta-band img {
+      border-radius: 15px;
+      margin: 0 auto 30px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Contact */
+    .contact {
+      background: var(--surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .contact-item {
+      text-align: center;
+      padding: 30px;
+      background: var(--bg);
+      border-radius: 15px;
+      transition: all 0.3s;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    .contact-item h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-item p,
+    .contact-item a {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.7);
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: #fff;
+      padding: 15px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 10px;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.9rem;
+      padding: 12px 20px;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta {
+        display: none;
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(30,58,95,0.3));
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="logo">Optik <span>Volk</span></div>
+      <nav class="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#booking">Termin</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+      <a href="#booking" class="btn btn-accent header-cta">Termin buchen</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <h1>Ihr echter Optiker in Mainz & Gustavsburg</h1>
+        <p class="hero-tagline">Individuelle Brillenberatung, professionelle Augenoptik und Kontaktlinsen — ganz in Ihrer Nähe.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-accent">Jetzt Termin vereinbaren</a>
+          <a href="#services" class="btn btn-secondary">Leistungen entdecken</a>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.optik-volk.de/wp-content/uploads/sites/20/2025/02/termin.png" alt="Terminvereinbarung bei Optik Volk" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item reveal">
+          <div class="usp-icon">👓</div>
+          <h3>Individuelle Beratung</h3>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">👁️</div>
+          <h3>Sehtests vor Ort</h3>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">🔧</div>
+          <h3>Reparaturservice</h3>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">⭐</div>
+          <h3>Lokal & Vertraut</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Komplette Augenoptik aus einer Hand — von der Beratung bis zur perfekten Brille.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">👓</div>
+          <h3>Brillenberatung</h3>
+          <p>Finden Sie die perfekte Brille für Ihr Gesicht und Ihre Sehanforderungen. Wir beraten Sie individuell.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3>Sehtests</h3>
+          <p>Professionelle Sehtests direkt vor Ort. Wir ermitteln Ihre Werte und finden die optimale Korrektur.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">👁️</div>
+          <h3>Kontaktlinsen</h3>
+          <p>Weiche, harte und multifokale Kontaktlinsen — mit Anpassung und Einweisung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3>Reparaturen</h3>
+          <p>Schnelle Reparaturen und Einstellungen für Ihre Brille. Wir kümmern uns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="section booking" id="booking">
+    <div class="container booking-inner">
+      <div class="booking-content reveal">
+        <h2>Einfach Termin vereinbaren</h2>
+        <p>Buchen Sie Ihren Wunschtermin online — für Beratung, Sehtest oder Kontaktlinsenanpassung.</p>
+        <div class="hero-actions">
+          <a href="tel:+496131225836" class="btn btn-accent">📞 Jetzt anrufen</a>
+        </div>
+      </div>
+      <div class="booking-card reveal">
+        <h3>Ihr Termin</h3>
+        <form action="mailto:mail@optik-volk.de" method="post" enctype="text/plain">
+          <div class="booking-step">
+            <label for="service">Leistung</label>
+            <select id="service" name="Leistung">
+              <option value="">Bitte wählen...</option>
+              <option value="Brillenberatung">Brillenberatung</option>
+              <option value="Sehtest">Sehtest</option>
+              <option value="Kontaktlinsen">Kontaktlinsen-Anpassung</option>
+              <option value="Reparatur">Reparatur</option>
+            </select>
+          </div>
+          <div class="booking-step">
+            <label for="date">Wunschtermin</label>
+            <input type="date" id="date" name="Wunschtermin">
+          </div>
+          <div class="booking-step">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="Name" placeholder="Ihr Name" required>
+          </div>
+          <div class="booking-step">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="Telefon" placeholder="Für Rückruf">
+          </div>
+          <div class="booking-step">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="Nachricht" rows="3" placeholder="Ihre Anfrage..."></textarea>
+          </div>
+          <button type="submit" class="booking-submit">Termin anfragen</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Ihr Optiker vor Ort</h2>
+        <p>Optik Volk in Mainz — leicht erreichbar und persönlich.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://optik-volk.de/wp-content/uploads/sites/20/2022/07/optik-volk-karte.jpg" alt="Standort Optik Volk Mainz" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://optik-volk.de/wp-content/uploads/sites/20/2022/07/optik-volk-karte-1280x531.jpg" alt="Lageplan Optik Volk" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://optik-volk.de/wp-content/uploads/sites/20/2022/07/optik-volk-karte-980x407.jpg" alt="Anfahrt Optik Volk" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="section cta-band">
+    <div class="container cta-band-inner reveal">
+      <img src="https://www.optik-volk.de/wp-content/uploads/sites/20/2025/02/termin.png" alt="Termin buchen bei Optik Volk" loading="lazy" width="400">
+      <h2>Bereit für besseres Sehen?</h2>
+      <p>Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin bei Optik Volk in Mainz.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn btn-accent">Termin buchen</a>
+        <a href="tel:+496131225836" class="btn btn-secondary">📞 Anrufen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item reveal">
+          <div class="contact-icon">📍</div>
+          <h3>Adresse</h3>
+          <p>Mainz</p>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">📞</div>
+          <h3>Telefon</h3>
+          <a href="tel:+496131225836">+49 6131 225836</a>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">✉️</div>
+          <h3>E-Mail</h3>
+          <a href="mailto:mail@optik-volk.de">mail@optik-volk.de</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · <a href="https://maikz91.github.io/the-tribe-bot/">MZ.9</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#booking" class="btn btn-accent">Termin</a>
+    <a href="tel:+496131225836" class="btn btn-primary">📞 Anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
