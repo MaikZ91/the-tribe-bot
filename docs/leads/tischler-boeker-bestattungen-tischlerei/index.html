@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Böker Bestattungen & Tischlerei — Würdevolle Handwerkskunst in Hannover</title>
+  <meta name="description" content="Bestattungen und Tischlerei in Hannover. Würdevolle Begleitung in schweren Stunden, handwerkliche Präzision mit Herz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --boden: #f5f1ed;
+      --prim: #5c4a3d;
+      --akzent: #8b7355;
+      --text: #2a2420;
+      --weiss: #ffffff;
+      --schatten: rgba(44, 36, 32, 0.08);
+      --gradient: linear-gradient(135deg, #5c4a3d 0%, #8b7355 100%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--boden);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px var(--schatten);
+      z-index: 1000;
+      padding: 0.75rem 1.5rem;
+      transition: padding 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.5rem 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: Playfair Display, serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--prim);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .header-cta {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .header-phone {
+      display: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--prim);
+    }
+
+    .btn-mini {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .btn-mini-primary {
+      background: var(--prim);
+      color: var(--weiss);
+    }
+
+    .btn-mini-primary:hover {
+      background: #4a3d33;
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text);
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--akzent);
+      }
+
+      .header-phone {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://www.boeker-hannover.de/gfx/hauseingang.jpg') center/cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(44, 36, 32, 0.7) 0%, rgba(44, 36, 32, 0.5) 50%, rgba(92, 74, 61, 0.9) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--weiss);
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero h1 {
+      font-family: Playfair Display, serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--weiss);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 800px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--weiss);
+      color: var(--prim);
+    }
+
+    .btn-primary:hover {
+      background: #f8f5f1;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--weiss);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--weiss);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero-buttons {
+        flex-direction: row;
+      }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--weiss);
+      padding: 2rem 1.5rem;
+      margin-top: -3rem;
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 4px 30px var(--schatten);
+    }
+
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .trust-item {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 0.75rem;
+      color: var(--akzent);
+    }
+
+    .trust-item h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .trust-item p {
+      font-size: 0.8rem;
+      color: #6b5f57;
+    }
+
+    @media (min-width: 768px) {
+      .trust-inner {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Section Base */
+    section {
+      padding: 4rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(92, 74, 61, 0.1);
+      color: var(--prim);
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-family: Playfair Display, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--prim);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      color: #6b5f57;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .section-header h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Leistungen */
+    .leistungen {
+      background: var(--weiss);
+    }
+
+    .leistungen-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .leistung-card {
+      background: var(--boden);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--akzent);
+    }
+
+    .leistung-card h3 {
+      font-family: Playfair Display, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--prim);
+      margin-bottom: 1rem;
+    }
+
+    .leistung-card p {
+      color: #6b5f57;
+      margin-bottom: 1.5rem;
+    }
+
+    .leistung-list {
+      list-style: none;
+    }
+
+    .leistung-list li {
+      padding: 0.6rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .leistung-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--akzent);
+      font-weight: bold;
+    }
+
+    @media (min-width: 768px) {
+      .leistungen-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Kontaktformular */
+    .kontakt-section {
+      background: var(--prim);
+      color: var(--weiss);
+    }
+
+    .kontakt-section .section-header h2 {
+      color: var(--weiss);
+    }
+
+    .kontakt-section .section-header p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .kontakt-container {
+      display: grid;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .kontakt-info h3 {
+      font-family: Playfair Display, serif;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .kontakt-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .kontakt-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: var(--akzent);
+    }
+
+    .kontakt-item p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .kontakt-item a {
+      text-decoration: underline;
+    }
+
+    .kontakt-form {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--weiss);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--akzent);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-group select option {
+      background: var(--prim);
+      color: var(--weiss);
+    }
+
+    .btn-form {
+      width: 100%;
+      padding: 1rem;
+      background: var(--weiss);
+      color: var(--prim);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-form:hover {
+      background: #f8f5f1;
+      transform: translateY(-2px);
+    }
+
+    .form-note {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .kontakt-container {
+        grid-template-columns: 1fr 1.2fr;
+      }
+    }
+
+    /* Galerie (Einzelbild prominent) */
+    .galerie {
+      background: var(--boden);
+    }
+
+    .galerie-hero {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .galerie-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px var(--schatten);
+    }
+
+    .galerie-caption {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #6b5f57;
+      font-style: italic;
+    }
+
+    @media (min-width: 768px) {
+      .galerie-img {
+        height: 600px;
+      }
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--weiss);
+      text-align: center;
+      padding: 5rem 1.5rem;
+    }
+
+    .cta-band h2 {
+      font-family: Playfair Display, serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--prim);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-band p {
+      color: #6b5f57;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 3rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .footer-inner p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--weiss);
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 -4px 20px var(--schatten);
+      display: flex;
+      gap: 0.75rem;
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .mobile-cta .btn-primary {
+      background: var(--prim);
+      color: var(--weiss);
+    }
+
+    .mobile-cta .btn-primary:hover {
+      background: #4a3d33;
+    }
+
+    .mobile-cta .btn-outline {
+      background: transparent;
+      color: var(--prim);
+      border: 2px solid var(--prim);
+    }
+
+    .mobile-cta .btn-outline:hover {
+      background: rgba(92, 74, 61, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta {
+        display: none;
+      }
+
+      body {
+        padding-bottom: 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 70px;
+      }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">Böker</div>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#galerie">Impressionen</a>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:+49511421717" class="header-phone">+49 511 421717</a>
+        <a href="#kontakt" class="btn btn-mini btn-mini-primary">Anfrage</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-tag">Seit Generationen in Hannover</span>
+      <h1>Böker Bestattungen & Tischlerei</h1>
+      <p>Würdevolle Begleitung in schweren Stunden. Handwerkliche Präzision mit Herz — für Abschied, der spürbar gemacht wird.</p>
+      <div class="hero-buttons">
+        <a href="#kontakt" class="btn btn-primary">
+          <span>Unverbindliche Anfrage</span>
+        </a>
+        <a href="tel:+49511421717" class="btn btn-outline">
+          <span>Telefonisch kontaktieren</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip reveal">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg class="trust-icon" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <h3>Handwerkstradition</h3>
+        <p>Jahrzehnte Erfahrung</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+        </svg>
+        <h3>Würde & Empathie</h3>
+        <p>Menschliche Begleitung</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+        </svg>
+        <h3>Verlässlichkeit</h3>
+        <p>24/7 Erreichbarkeit</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16z"></path>
+        </svg>
+        <h3>Lokal verwurzelt</h3>
+        <p>In Hannover zu Hause</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section id="leistungen" class="leistungen reveal">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Was wir bieten</span>
+        <h2>Leistungen aus einer Hand</h2>
+        <p>Zwei Handwerke, eine Philosophie: Würde, Präzision und persönliche Zuwendung.</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card">
+          <h3>Bestattungen</h3>
+          <p>Wir begleiten Sie und Ihre Angehörigen mit einfühlsamer Unterstützung durch alle Schritte der Trauerfeier.</p>
+          <ul class="leistung-list">
+            <li>Übernahme und Pflege des Verstorbenen</li>
+            <li>Organisation der Trauerfeier</li>
+            <li>Wahl des Sarges und der Urne</li>
+            <li>Friedhofswesen und Grabpflege</li>
+            <li>Persönliche Trauerbegleitung</li>
+          </ul>
+        </div>
+        <div class="leistung-card">
+          <h3>Tischlerei</h3>
+          <p>Handwerkliche Präzision für individuelle Wünsche — von Bestattungsinventar bis zu Holzarbeiten.</p>
+          <ul class="leistung-list">
+            <li>Individuelle Sarg- und Urnenfertigung</li>
+            <li>Bestattungsinventar nach Wunsch</li>
+            <li>Holzarbeiten in traditioneller Handwerkskunst</li>
+            <li>Reparaturen und Instandsetzung</li>
+            <li>Beratung bei Materialwahl</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt" class="kontakt-section reveal">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Sprechen Sie uns an</span>
+        <h2>Wir sind für Sie da</h2>
+        <p>In schweren Stunden bieten wir unverbindliche Beratung und persönliche Unterstützung.</p>
+      </div>
+      <div class="kontakt-container">
+        <div class="kontakt-info">
+          <h3>Kontaktinformationen</h3>
+          <div class="kontakt-item">
+            <svg class="kontakt-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+            </svg>
+            <p><a href="mailto:bestattungen@boeker-hannover.de">bestattungen@boeker-hannover.de</a></p>
+          </div>
+          <div class="kontakt-item">
+            <svg class="kontakt-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+            </svg>
+            <p><a href="tel:+49511421717">+49 511 421717</a></p>
+          </div>
+          <div class="kontakt-item">
+            <svg class="kontakt-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+            </svg>
+            <p>Beekestraße 66<br>30459 Hannover</p>
+          </div>
+          <div class="kontakt-item">
+            <svg class="kontakt-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path>
+            </svg>
+            <p>Nach Vereinbarung<br>24/7 Notfallnummer verfügbar</p>
+          </div>
+        </div>
+        <div class="kontakt-form">
+          <form action="mailto:bestattungen@boeker-hannover.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Ihr Name</label>
+              <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail-Adresse</label>
+              <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefonnummer (für Rückruf)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+49 ...">
+            </div>
+            <div class="form-group">
+              <label for="category">Ihre Anfrage betrifft</label>
+              <select id="category" name="category">
+                <option value="bestattung">Bestattung / Trauerfeier</option>
+                <option value="vorsorge">Vorsorgevertrag</option>
+                <option value="tischlerei">Tischlerarbeiten / Sargfertigung</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" name="message" placeholder="Beschreiben Sie Ihre Anfrage..."></textarea>
+            </div>
+            <button type="submit" class="btn-form">Anfrage absenden</button>
+            <p class="form-note">Ihre Anfrage wird direkt per E-Mail versandt. Wir melden uns zeitnah bei Ihnen.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section id="galerie" class="galerie reveal">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Unser Ort</span>
+        <h2>Impressionen</h2>
+        <p>Willkommen in der Beekestraße 66 — ein Ort der Ruhe und Würde.</p>
+      </div>
+      <div class="galerie-hero">
+        <img src="https://www.boeker-hannover.de/gfx/hauseingang.jpg" alt="Hauseingang Böker Bestattungen & Tischlerei, Hannover" class="galerie-img">
+        <p class="galerie-caption">Unser traditionsreiches Haus in Hannover</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band reveal">
+    <div class="section-inner">
+      <h2>Haben Sie Fragen oder benötigen Unterstützung?</h2>
+      <p>Wir stehen Ihnen mit einfühlsamer Beratung und handwerklicher Präzision zur Seite.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="tel:+49511421717" class="btn btn-primary">Jetzt anrufen</a>
+        <a href="#kontakt" class="btn btn-outline" style="border-color: var(--prim); color: var(--prim);">Nachricht schreiben</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-badge">Konzept-Vorschau · MZ.9</span>
+      <p>Böker Bestattungen & Tischlerei · Beekestraße 66 · 30459 Hannover</p>
+      <p>Telefon: +49 511 421717 · E-Mail: bestattungen@boeker-hannover.de</p>
+      <p style="margin-top: 1rem; opacity: 0.5;">Diese Seite ist eine unverbindliche Konzept-Vorschau.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49511421717" class="btn btn-primary">Anrufen</a>
+    <a href="#kontakt" class="btn btn-outline">Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(reveal => observer.observe(reveal));
+  </script>
+
+</body>
+</html>
