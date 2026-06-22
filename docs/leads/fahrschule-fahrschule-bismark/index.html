@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Fahrschule Bismark – Dein Weg zum Führerschein in Regensburg</title>
+  <meta name="description" content="Fahrschule Bismark in Regensburg – Zuverlässige Fahrerausbildung, persönliche Betreuung und faire Preise. Jetzt kostenloses Erstgespräch vereinbaren.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: color 0.2s; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    /* Palette: Verkehrs-Orange Akzent, Vertrauens-Blau, Sauberes Weiß */
+    :root {
+      --orange: #ff6b00;
+      --orange-dark: #e65100;
+      --blue: #1e3a8a;
+      --blue-light: #3b82f6;
+      --gray-50: #f8f9fa;
+      --gray-100: #e5e7eb;
+      --gray-200: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-100);
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: box-shadow 0.3s, padding 0.3s;
+    }
+    header.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 0.75rem 0;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--blue);
+    }
+    .logo span { color: var(--orange); }
+    nav { display: none; }
+    nav a {
+      margin-left: 2rem;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+    nav a:hover { color: var(--orange); }
+    .header-cta {
+      background: var(--orange);
+      color: white;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .header-cta:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    @media (min-width: 768px) { nav { display: flex; } }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+      padding-top: 80px;
+    }
+    @media (min-width: 992px) {
+      .hero { grid-template-columns: 1fr 1fr; gap: 4rem; padding-top: 100px; }
+    }
+    .hero-content {
+      padding: 3rem 1.5rem;
+      max-width: 600px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 107, 0, 0.1);
+      color: var(--orange-dark);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--gray-900);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      background: white;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+      padding: 0.8rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { background: var(--blue-light); border-color: var(--blue-light); color: white; }
+    .hero-image {
+      position: relative;
+      padding: 2rem;
+    }
+    .hero-image img {
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: transform 0.5s;
+    }
+    .hero-image:hover img { transform: perspective(1000px) rotateY(0deg); }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--blue);
+      color: white;
+      padding: 2.5rem 1.5rem;
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .trust-item .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .trust-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .trust-item p { font-size: 0.9rem; opacity: 0.9; }
+
+    /* Section Styles */
+    section { padding: 5rem 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 0.75rem;
+    }
+    .section-header p { color: var(--gray-600); font-size: 1.1rem; }
+
+    /* Leistungen */
+    .leistungen { background: white; }
+    .leistungen-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .leistung-card {
+      background: var(--gray-50);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--gray-100);
+    }
+    .leistung-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      border-color: var(--orange);
+    }
+    .leistung-card .icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      margin-bottom: 1.25rem;
+    }
+    .leistung-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--gray-900); }
+    .leistung-card p { color: var(--gray-600); font-size: 0.95rem; }
+    .leistung-card .highlight { color: var(--orange-dark); font-weight: 600; font-size: 0.85rem; margin-top: 0.5rem; }
+
+    /* Terminbuchung Premium Feature */
+    .termin-section { background: linear-gradient(135deg, var(--blue) 0%, #1e40af 100%); color: white; }
+    .termin-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 3rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .termin-form { display: grid; gap: 1.5rem; margin-top: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 600px) { .form-row { grid-template-columns: 1fr 1fr; } }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.95);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--gray-900);
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+    .form-submit {
+      background: var(--orange);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 1rem;
+    }
+    .form-submit:hover { background: var(--orange-dark); transform: translateY(-2px); }
+
+    /* Kontaktformular Premium Feature */
+    .kontakt-section { background: white; }
+    .kontakt-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) { .kontakt-grid { grid-template-columns: 1fr 1fr; } }
+    .kontakt-info h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--gray-900); }
+    .kontakt-info p { color: var(--gray-600); margin-bottom: 1.5rem; }
+    .kontakt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .kontakt-item .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 107, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .kontakt-item div h4 { font-weight: 600; color: var(--gray-900); margin-bottom: 0.25rem; }
+    .kontakt-item div p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 0; }
+    .kontakt-item a:hover { color: var(--orange); }
+    .kontakt-form {
+      background: var(--gray-50);
+      padding: 2rem;
+      border-radius: 16px;
+    }
+    .kontakt-form .form-group input, .kontakt-form .form-group textarea {
+      background: white;
+      border: 1px solid var(--gray-200);
+    }
+    .kontakt-form .form-group input:focus, .kontakt-form .form-group textarea:focus {
+      border-color: var(--orange);
+    }
+
+    /* Galerie */
+    .galerie { background: var(--gray-50); }
+    .galerie-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .galerie-item {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16/9;
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .galerie-item:hover img { transform: scale(1.05); }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      color: white;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .cta-band h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; }
+    .cta-band p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-band .btn-white {
+      background: white;
+      color: var(--orange-dark);
+      padding: 1rem 2.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: transform 0.15s;
+    }
+    .cta-band .btn-white:hover { transform: translateY(-2px); }
+
+    /* Footer */
+    footer {
+      background: var(--gray-900);
+      color: var(--gray-200);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.9rem; opacity: 0.7; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem;
+      border-top: 1px solid var(--gray-200);
+      z-index: 999;
+      display: block;
+    }
+    .mobile-cta .btn-mobile {
+      width: 100%;
+      background: var(--orange);
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .mobile-cta .btn-mobile:hover { background: var(--orange-dark); }
+    @media (min-width: 768px) { .mobile-cta { display: none; } }
+
+    /* Chatbot Widget */
+    .chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 1.5rem;
+      z-index: 998;
+      display: block;
+    }
+    .chatbot-btn {
+      width: 60px;
+      height: 60px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .chatbot-btn:hover { transform: scale(1.1); }
+    .chatbot-bubble {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      width: 220px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .chatbot-bubble.show { display: block; animation: fadeIn 0.3s; }
+    @media (min-width: 768px) { .chatbot { bottom: 2rem; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">Fahrschule <span>Bismark</span></div>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin anfragen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#kontakt" class="header-cta">Jetzt anrufen</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <span class="hero-badge">📍 In Regensburg</span>
+      <h1>Dein Weg zum <span>Führerschein</span> – sicher & erfolgreich</h1>
+      <p>Seit über 30 Jahren bringen wir Fahrschüler sicher ans Ziel. Persönliche Betreuung, moderne Fahrzeuge und faire Preise in Regensburg.</p>
+      <div class="hero-ctas">
+        <a href="#termin" class="btn-primary">Kostenlose Erstberatung</a>
+        <a href="#leistungen" class="btn-secondary">Unsere Leistungen</a>
+      </div>
+    </div>
+    <div class="hero-image reveal">
+      <img src="https://www.fahrschule-bismark.de/s/cc_images/cache_2498160667.png?t=1769001266" alt="Fahrschule Bismark – Moderne Fahrschule in Regensburg" width="600" height="450">
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="icon">🎓</div>
+        <h3>30+ Jahre Erfahrung</h3>
+        <p>Bewährte Ausbildungsmethoden</p>
+      </div>
+      <div class="trust-item">
+        <div class="icon">🚗</div>
+        <h3>Neue Fahrzeuge</h3>
+        <p>Modernste Flotte</p>
+      </div>
+      <div class="trust-item">
+        <div class="icon">📍</div>
+        <h3>In Regensburg</h3>
+        <p>Deine Fahrschule vor Ort</p>
+      </div>
+      <div class="trust-item">
+        <div class="icon">💬</div>
+        <h3>Persönlich</h3>
+        <p>Individuelle Betreuung</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section id="leistungen" class="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Führerscheinklassen</h2>
+      <p>Vom Moped bis zum Lkw – wir bilden dich für alle Klassen aus</p>
+    </div>
+    <div class="leistungen-grid">
+      <div class="leistung-card reveal">
+        <div class="icon">🚗</div>
+        <h3>Klasse B – Pkw</h3>
+        <p>Der klassische Führerschein für Personenkraftwagen. Theorie und Praxis aus einer Hand.</p>
+        <div class="highlight">⭐ Unsere Hauptleistung</div>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="icon">🏍️</div>
+        <h3>Klasse A – Motorrad</h3>
+        <p>Auf zwei Rollen sicher unterwegs. Alle Unterklassen verfügbar.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="icon">🛵</div>
+        <h3>Klasse AM – Moped</h3>
+        <p>Der Start in die Mobilität ab 15 Jahren. Theorie und Praxis.</p>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="icon">🚚</div>
+        <h3>Klasse C/E – Lkw & Anhänger</h3>
+        <p>Für Berufskraftfahrer und alle, die mehr ziehen wollen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminbuchung Premium Feature -->
+  <section id="termin" class="termin-section">
+    <div class="section-header">
+      <h2>Termin vereinbaren</h2>
+      <p>Wunschtermin angeben – wir melden uns bei dir</p>
+    </div>
+    <div class="termin-inner reveal">
+      <form class="termin-form" onsubmit="alert('Vielen Dank! Deine Terminanfrage wurde gesendet. Wir melden uns kurzfristig.'); return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Dein Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefonnummer *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+49 171 12345678">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="klasse">Führerscheinklasse</label>
+            <select id="klasse" name="klasse">
+              <option value="">Bitte wählen...</option>
+              <option value="B">Klasse B (Pkw)</option>
+              <option value="A">Klasse A (Motorrad)</option>
+              <option value="AM">Klasse AM (Moped)</option>
+              <option value="C">Klasse C (Lkw)</option>
+              <option value="sonstige">Sonstige</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wunschtermin">Wunschtermin</label>
+            <input type="date" id="wunschtermin" name="wunschtermin">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nachricht">Nachricht (optional)</label>
+          <textarea id="nachricht" name="nachricht" rows="3" placeholder="Fragen oder Wünsche?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Termin anfragen</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="galerie">
+    <div class="section-header reveal">
+      <h2>Unsere Fahrschule</h2>
+      <p>Ein Blick auf unsere Fahrzeuge und Ausbildungsräume</p>
+    </div>
+    <div class="galerie-grid">
+      <div class="galerie-item reveal">
+        <img src="https://www.fahrschule-bismark.de/s/cc_images/cache_2498160667.png?t=1769001266" alt="Fahrschulfahrzeug bei der Fahrschule Bismark" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt Premium Feature -->
+  <section id="kontakt" class="kontakt-section">
+    <div class="section-header reveal">
+      <h2>Kontakt aufnehmen</h2>
+      <p>Wir sind für dich da – persönlich oder digital</p>
+    </div>
+    <div class="kontakt-grid">
+      <div class="kontakt-info reveal">
+        <h3>Sprich uns an</h3>
+        <p>Hast du Fragen? Wir freuen uns auf deinen Anruf oder Nachricht.</p>
+        <div class="kontakt-item">
+          <div class="icon">📞</div>
+          <div>
+            <h4>Telefon</h4>
+            <p><a href="tel:+4994148716">+49 941 48716</a></p>
+          </div>
+        </div>
+        <div class="kontakt-item">
+          <div class="icon">📧</div>
+          <div>
+            <h4>E-Mail</h4>
+            <p><a href="mailto:braydo-bismark@t-online.de">braydo-bismark@t-online.de</a></p>
+          </div>
+        </div>
+        <div class="kontakt-item">
+          <div class="icon">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Isarstraße 17 a<br>93057 Regensburg</p>
+          </div>
+        </div>
+      </div>
+      <form class="kontakt-form reveal" onsubmit="alert('Vielen Dank! Deine Nachricht wurde gesendet.'); return false;">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label for="kontakt-name">Name *</label>
+          <input type="text" id="kontakt-name" required placeholder="Dein Name">
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label for="kontakt-email">E-Mail *</label>
+          <input type="email" id="kontakt-email" required placeholder="deine@email.de">
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label for="kontakt-nachricht">Nachricht *</label>
+          <textarea id="kontakt-nachricht" rows="4" required placeholder="Wie können wir dir helfen?"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Nachricht senden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit durchzustarten?</h2>
+    <p>Vereinbare jetzt dein kostenloses Erstgespräch und erfahre alles über deine Führerscheinausbildung.</p>
+    <a href="#termin" class="btn-white">Kostenlos beraten lassen</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Konzept-Vorschau · MZ.9</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;">Diese Seite ist eine unverbindliche Design-Vorschau für die Fahrschule Bismark.</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn-mobile">Termin vereinbaren</a>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot">
+    <div class="chatbot-bubble" id="chatBubble">
+      <strong>👋 Hallo!</strong><br>
+      Du hast Fragen zum Führerschein? Schreib uns einfach!
+    </div>
+    <button class="chatbot-btn" onclick="document.getElementById('chatBubble').classList.toggle('show');">💬</button>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chat bubble auto-show after 3s
+    setTimeout(() => {
+      document.getElementById('chatBubble').classList.add('show');
+    }, 3000);
+  </script>
+
+</body>
+</html>
