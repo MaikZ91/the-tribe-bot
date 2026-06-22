@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Stoewer Holzstil-Berlin — Handwerk aus Berlin</title>
+  <meta name="description" content="Holzstil-Berlin: Ihr Schreinermeister in Berlin. Maßgefertigte Türen, Innenausbau und Möbel aus edlem Holz. Triftstraße 6, 13127 Berlin.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #8B5A2B;
+      --color-primary-dark: #6B4423;
+      --color-accent: #2C3E50;
+      --color-bg: #FDF8F3;
+      --color-bg-alt: #F5EDE4;
+      --color-text: #2D2D2D;
+      --color-text-light: #6B6B6B;
+      --color-white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+      background: transparent;
+    }
+
+    .header.scrolled {
+      background: rgba(253, 248, 243, 0.98);
+      box-shadow: var(--shadow-sm);
+      padding: 0.75rem 5%;
+    }
+
+    .header-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .header-nav {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-nav {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .header-nav a {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--color-accent);
+        transition: var(--transition);
+      }
+
+      .header-nav a:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    .header-cta {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .header-cta:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 5% 4rem;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+                  url('https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/0e/IMG_8206_2000-0ed1e68f.jpeg') center/cover no-repeat;
+      color: var(--color-white);
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      animation: fadeUp 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      color: var(--color-white);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* USPs */
+    .usps {
+      padding: 4rem 5%;
+      background: var(--color-white);
+    }
+
+    .usps-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .usp-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .usp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .usp-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .usp-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-accent);
+    }
+
+    /* Leistungen */
+    .leistungen {
+      padding: 5rem 5%;
+      background: var(--color-bg-alt);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--color-text-light);
+      font-size: 1.1rem;
+    }
+
+    .leistungen-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .leistung-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .leistung-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .leistung-img {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .leistung-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .leistung-card:hover .leistung-img img {
+      transform: scale(1.05);
+    }
+
+    .leistung-content {
+      padding: 1.5rem;
+    }
+
+    .leistung-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .leistung-content p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Formular */
+    .form-section {
+      padding: 5rem 5%;
+      background: var(--color-white);
+    }
+
+    .form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem;
+      border: 1px solid #E0D5C8;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+      background: var(--color-white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Galerie */
+    .gallery {
+      padding: 5rem 5%;
+      background: var(--color-bg);
+    }
+
+    .gallery-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 5%;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+                  url('https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/95/IMG_8200_2000-95c67175.jpeg') center/cover no-repeat;
+      text-align: center;
+      color: var(--color-white);
+    }
+
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-band p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    /* Kontakt */
+    .contact {
+      padding: 5rem 5%;
+      background: var(--color-white);
+    }
+
+    .contact-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .contact-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-card a {
+      color: var(--color-primary);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .contact-card a:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+
+    .contact-card p {
+      color: var(--color-text-light);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 2rem 5%;
+      background: var(--color-accent);
+      color: var(--color-white);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer p {
+      opacity: 0.8;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      padding: 1rem 5%;
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta {
+        display: flex;
+        justify-content: center;
+      }
+
+      .mobile-cta .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      body {
+        padding-bottom: 80px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .hero-content, .usp-card, .leistung-card, .gallery-item {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-logo">Holzstil-Berlin</div>
+    <nav class="header-nav">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#anfrage" class="header-cta">Anfrage</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Handwerk aus Berlin</h1>
+      <p>Mäßgefertigte Türen, Innenausbau und Möbel aus edlem Holz — mit Liebe zum Detail seit Generationen.</p>
+      <div class="hero-cta">
+        <a href="#anfrage" class="btn btn-primary">Kostenlose Anfrage</a>
+        <a href="#leistungen" class="btn btn-secondary">Unsere Leistungen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="usps">
+    <div class="usps-grid">
+      <div class="usp-card reveal">
+        <div class="usp-icon">🪵</div>
+        <h3>Echtes Holz</h3>
+        <p>Naturmaterial mit Charakter — von der Tür bis zur Einrichtung.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">📐</div>
+        <h3>Maßgefertigt</h3>
+        <p>Kein Standard — jedes Stück wird nach Ihren Wünschen gefertigt.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">🏠</div>
+        <h3>Aus Berlin</h3>
+        <p>Immer vor Ort — persönlich, verlässlich, aus der Nachbarschaft.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">🔧</div>
+        <h3>Vollservice</h3>
+        <p>Von der Planung bis zur Montage — alles aus einer Hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="leistungen" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Hier sind wir für Sie vor Ort da — mit Herz, Handwerk und Erfahrung.</p>
+    </div>
+    <div class="leistungen-grid">
+      <div class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://holzstil-berlin.de/wp-content/uploads/2021/12/Doppeltuer.jpeg" alt="Maßgefertigte Doppeltür aus Eichenholz" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Türen nach Maß</h3>
+          <p>Einzeln oder doppelt, mit Glaselement oder vollmassiv — Ihre Eingangstür, ganz nach Ihrem Geschmack.</p>
+        </div>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://holzstil-berlin.de/wp-content/uploads/2021/12/Tuerrohling-rotated.jpeg" alt="Türenrohling in der Werkstatt" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Innenausbau</h3>
+          <p>Treppen, Wandverkleidungen, Raumteiler — Holz brings Wärme und Charakter in Ihr Zuhause.</p>
+        </div>
+      </div>
+      <div class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/a1/IMG_8201_2000-a1f1985c.webp" alt="Holzarbeiten in der Werkstatt" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Möbel nach Maß</h3>
+          <p>Von der Kommode bis zum Einbauschrank — wir bauen, was Sie brauchen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="anfrage">
+    <div class="section-header reveal">
+      <h2>Kostenlose Anfrage</h2>
+      <p>Erzählen Sie uns von Ihrem Projekt — wir melden uns schnell zurück.</p>
+    </div>
+    <div class="form-container reveal">
+      <form action="mailto:post@holzstil-berlin.de" method="post" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="service">Interesse an</label>
+          <select id="service" name="service">
+            <option value="">Bitte wählen</option>
+            <option value="tuer">Tür nach Maß</option>
+            <option value="innenausbau">Innenausbau</option>
+            <option value="moebel">Möbel nach Maß</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Beschreiben Sie kurz Ihr Projekt..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="section-header reveal">
+      <h2>Aus unserer Werkstatt</h2>
+      <p>Ein Einblick in unsere Arbeit — Qualität, die sich sehen lässt.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/0e/IMG_8206_2000-0ed1e68f.jpeg" alt="Holzarbeiten in der Werkstatt" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/95/IMG_8200_2000-95c67175.jpeg" alt="Detailarbeit am Holz" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/2020/07/IMG_8201_2000.jpeg" alt="Werkstattansicht" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/2020/07/IMG_8202_2000.jpeg" alt="Holzbearbeitung" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/2021/12/Tuerrohling-rotated.jpeg" alt="Türenrohling" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/2021/12/Doppeltuer.jpeg" alt="Doppeltür" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/b6/IMG_8206_2000-b63e0d8c.webp" alt="Werkstatt" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://holzstil-berlin.de/wp-content/uploads/yootheme/cache/86/Tuerrohling-rotated-864f5ce8.webp" alt="Türenfertigung" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Ready for Holz?</h2>
+    <p>Vom ersten Entwurf bis zur fertigen Installation — wir begleiten Ihr Projekt.</p>
+    <a href="#anfrage" class="btn btn-primary">Jetzt anfragen</a>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="section-header reveal">
+      <h2>Kontakt & Anfahrt</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <h3>Telefon</h3>
+        <a href="tel:+493081496000">+49 30 814 96 000</a>
+      </div>
+      <div class="contact-card reveal">
+        <h3>E-Mail</h3>
+        <a href="mailto:post@holzstil-berlin.de">post@holzstil-berlin.de</a>
+      </div>
+      <div class="contact-card reveal">
+        <h3>Adresse</h3>
+        <p>Triftstraße 6<br>13127 Berlin</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#anfrage" class="btn btn-primary">Kostenlose Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
