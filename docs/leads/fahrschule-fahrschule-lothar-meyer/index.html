@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Fahrschule Lothar Meyer – Wiesbaden seit 1984 | MZ.9 Konzept</title>
+  <meta name="description" content="Die Fahrschule Meyer besteht bereits seit 1984 und ist seit dem in Wiesbaden ansässig. Fahrlehrer aller Klassen, lehrgerechte Ausbildung auf hohem Niveau, Behindertenausbildung.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #22c55e;
+      --primary-dark: #16a34a;
+      --secondary: #0ea5e9;
+      --dark: #0f172a;
+      --gray: #475569;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav a {
+      color: var(--gray);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--primary); }
+    .btn-nav {
+      background: var(--primary);
+      color: white !important;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.7) 50%, rgba(15,23,42,0.4) 100%);
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34,197,94,0.2);
+      color: #86efac;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(34,197,94,0.3);
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: white;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span {
+      color: var(--primary);
+    }
+    .hero-desc {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(34,197,94,0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .btn-outline:hover {
+      background: white;
+      color: var(--dark);
+      border-color: white;
+    }
+    /* Trust Strip */
+    .trust-strip {
+      background: white;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+    /* Services */
+    .services {
+      padding: 5rem 0;
+      background: white;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .section-label {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: var(--gray);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      background: white;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(14,165,233,0.15));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .service-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--primary);
+    }
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+    }
+    .service-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    /* Booking Section */
+    .booking {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--light) 0%, rgba(34,197,94,0.05) 100%);
+    }
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .booking-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .booking-info h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .booking-info p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+    .booking-benefits {
+      list-style: none;
+    }
+    .booking-benefits li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .booking-benefits svg {
+      width: 20px;
+      height: 20px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .booking-form {
+      background: var(--light);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 2px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .btn-block {
+      width: 100%;
+      justify-content: center;
+    }
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 1rem;
+      text-align: center;
+    }
+    /* Gallery */
+    .gallery {
+      padding: 5rem 0;
+      background: white;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: var(--light);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      text-align: center;
+    }
+    .cta-band h2 {
+      color: white;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .cta-band .btn {
+      background: white;
+      color: var(--primary);
+    }
+    .cta-band .btn:hover {
+      background: var(--light);
+    }
+    /* Contact */
+    .contact {
+      padding: 5rem 0;
+      background: var(--light);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .contact-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(34,197,94,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+    .contact-card h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    .contact-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    .contact-card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      padding: 1rem 1.5rem;
+      background: white;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      gap: 1rem;
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 0.85rem;
+    }
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .booking-card {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .hero { min-height: 80vh; }
+      .hero h1 { font-size: 2.25rem; }
+      .hero-desc { font-size: 1rem; }
+      .mobile-cta { display: flex; }
+      .btn-nav.mobile-only { display: none; }
+      footer { padding-bottom: 5rem; }
+      .services, .booking, .gallery, .contact { padding: 3.5rem 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">LM</div>
+        Fahrschule Lothar Meyer
+      </a>
+      <nav class="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#booking">Termin anfragen</a>
+        <a href="#gallery">Bilder</a>
+        <a href="#contact">Kontakt</a>
+        <a href="tel:+49611442335" class="btn-nav">📞 Anrufen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.lm-fahrschule.de/wp-content/uploads/2013/10/fahrschule-meyer-wiesbaden-banner10.jpg" alt="Fahrschule Lothar Meyer Wiesbaden">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Seit 1984 in Wiesbaden · Alle Klassen
+      </div>
+      <h1>Dein Weg zum <span>Führerschein</span> – mit Leichtigkeit</h1>
+      <p class="hero-desc">Fahrschule Lothar Meyer bildet seit über 40 Jahren nach lehrgerechten, methodischen Grundsätzen auf hohem Niveau aus. Inklusive Behindertenausbildung.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Termin anfragen
+        </a>
+        <a href="#services" class="btn btn-outline">Leistungen ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Seit 1984
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Flexible Termine
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Individuelle Betreuung
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Wiesbaden
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section id="services" class="services">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">Unsere Leistungen</span>
+        <h2 class="section-title">Alles für deinen Führerschein</h2>
+        <p class="section-desc">Von der Theorie bis zur Praxis – wir begleiten dich auf dem gesamten Weg zur Fahrerlaubnis.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 16V8"/></svg>
+          </div>
+          <h3>Klasse B – PKW</h3>
+          <p>Der Klassiker für die meisten. Moderne Fahrzeuge, geduldige Lehrer, realistische Vorbereitung auf die Prüfung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Alle Führerscheinklassen</h3>
+          <p>Inhaber Lothar Meyer ist Fahrlehrer aller Klassen – von Motorrad bis LKW. Alles aus einer Hand.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Behindertenausbildung</h3>
+          <p>Seit 20 Jahren spezialisiert auf die Ausbildung von Menschen mit Behinderung. Mit Verständnis und Erfahrung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h3>Theorie & Praxis</h3>
+          <p>Lehrgerechte, methodische Ausbildung – sowohl in der Theorie als auch in der Praxis auf höchstem Niveau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="booking" class="booking">
+    <div class="booking-inner">
+      <div class="booking-card reveal">
+        <div class="booking-info">
+          <h2>Termin für Erstgespräch anfragen</h2>
+          <p>Vereinbare ein unverbindliches Erstgespräch – wir klären alle Fragen zu deinem Führerschein-Projekt.</p>
+          <ul class="booking-benefits">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Persönliche Beratung vor Ort
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Transparente Aufklärung über Ablauf & Kosten
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Individuelle Planung deiner Fahrstunden
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Keine versteckten Kosten
+            </li>
+          </ul>
+        </div>
+        <div class="booking-form">
+          <form action="mailto:info@lm-fahrschule.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label class="form-label" for="name">Dein Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">E-Mail</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="max@beispiel.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="license">Gewünschte Führerscheinklasse</label>
+              <select id="license" name="license" class="form-select">
+                <option value="">Bitte wählen …</option>
+                <option value="B">Klasse B (PKW)</option>
+                <option value="A">Klasse A (Motorrad)</option>
+                <option value="andere">Andere</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Nachricht (optional)</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="Wann kannst du gerne vorbeikommen?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Anfrage senden
+            </button>
+            <p class="form-note">Wir melden uns innerhalb von 24 Stunden bei dir.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="gallery">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">Einblicke</span>
+        <h2 class="section-title">Unsere Fahrschule in Wiesbaden</h2>
+        <p class="section-desc">Bilder aus dem Alltag bei Fahrschule Lothar Meyer.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.lm-fahrschule.de/wp-content/uploads/2013/10/fahrschule-meyer-wiesbaden-banner10.jpg" loading="lazy" alt="Fahrschule Lothar Meyer Außenansicht">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.lm-fahrschule.de/wp-content/uploads/2011/12/alle-zeichen-auf-gruen.jpg" loading="lazy" alt="Alle Zeichen auf Grün – erfolgreiche Fahrprüfung">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="section-inner reveal">
+      <h2>Bereit für deinen Führerschein?</h2>
+      <p>Vereinbare jetzt dein Erstgespräch und starte den Weg zur Freiheit auf vier Rädern.</p>
+      <a href="tel:+49611442335" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Jetzt anrufen: +49 611 442335
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-label">Kontakt</span>
+        <h2 class="section-title">Wir sind für dich da</h2>
+        <p class="section-desc">Erreichbar in Wiesbaden, Bleichstraße 16.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Telefon</h3>
+          <p><a href="tel:+49611442335">+49 611 442335</a></p>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>E-Mail</h3>
+          <p><a href="mailto:info@lm-fahrschule.de">info@lm-fahrschule.de</a></p>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Adresse</h3>
+          <p>Bleichstraße 16<br>65183 Wiesbaden</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="section-inner">
+      <p>Konzept-Vorschau · <a href="#">MZ.9</a> · <a href="https://www.lm-fahrschule.de">lm-fahrschule.de</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49611442335" class="btn btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Anrufen
+    </a>
+    <a href="#booking" class="btn btn-outline" style="border-color: var(--primary); color: var(--primary);">
+      Termin anfragen
+    </a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
