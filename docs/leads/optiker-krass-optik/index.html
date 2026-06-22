@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>KRASS Optik — Premium Brillen & Sportoptik in Wiesbaden</title>
+  <meta name="description" content="KRASS Optik: Ihr Optiker in Wiesbaden für individuelle Brillenberatung, Sportbrillen und FRÜHLINGS-KOLLEKTION. Persönliche Beratung in der Kirchgasse 6.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --primary-dark: #102a4a;
+      --accent: #c9a227;
+      --accent-light: #e8c547;
+      --bg-light: #f8faf9;
+      --bg-white: #ffffff;
+      --text-dark: #1a202c;
+      --text-muted: #5a6b7c;
+      --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(26,54,93,0.08);
+      --shadow-md: 0 4px 16px rgba(26,54,93,0.12);
+      --shadow-lg: 0 8px 32px rgba(26,54,93,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif { font-family: 'Playfair Display', serif; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      padding: 0.8rem 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    .nav-cta {
+      display: none;
+      padding: 0.6rem 1.4rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta { display: block; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-light) 0%, #e8edf5 100%);
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: rgba(26,54,93,0.08);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 14px rgba(26,54,93,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26,54,93,0.35);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background: var(--bg-light);
+    }
+
+    .hero-image {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      max-width: 700px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px 0 0 20px;
+      box-shadow: -20px 20px 60px rgba(26,54,93,0.15);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-image {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        transform: none;
+        margin: 3rem auto 0;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+      }
+      .hero {
+        text-align: center;
+        justify-content: center;
+      }
+      .hero-content { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero p { margin: 1.2rem auto 2rem; }
+      .hero::before { right: -50%; }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg-white);
+      padding: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(201,162,39,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .trust-item strong {
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .trust-item span {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Services */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+    }
+
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .section p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    /* Collection */
+    .collection-section {
+      background: var(--bg-light);
+      padding: 5rem 2rem;
+    }
+
+    .collection-section .section { max-width: 1200px; margin: 0 auto; padding: 0; }
+
+    .collection-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .collection-tab {
+      padding: 0.7rem 1.6rem;
+      border: 2px solid var(--border);
+      border-radius: 30px;
+      background: var(--bg-white);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .collection-tab:hover, .collection-tab.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .collection-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-white);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      group: cursor;
+    }
+
+    .collection-item:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+    }
+
+    .collection-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .collection-info {
+      padding: 1.2rem;
+    }
+
+    .collection-info h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .collection-info span {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Booking Feature */
+    .booking-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 5rem 2rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .booking-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .booking-text h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .booking-text p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .booking-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .booking-features span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .booking-features span::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .booking-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .booking-card h3 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group.full { grid-column: span 2; }
+
+    .btn-submit {
+      background: var(--accent);
+      color: var(--primary-dark);
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 900px) {
+      .booking-content { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+    }
+
+    /* Gift Card */
+    .gift-section {
+      padding: 5rem 2rem;
+      background: var(--bg-white);
+      text-align: center;
+    }
+
+    .gift-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .gift-image {
+      max-width: 300px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Reviews */
+    .reviews-section {
+      background: var(--bg-light);
+      padding: 5rem 2rem;
+    }
+
+    .reviews-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .review-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-stars {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .review-card p {
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .review-author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .review-note {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: normal;
+      margin-top: 0.5rem;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      color: var(--primary-dark);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: var(--primary-dark);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .btn-primary {
+      background: var(--primary-dark);
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 5rem 2rem;
+      background: var(--bg-white);
+    }
+
+    .contact-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .contact-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(26,54,93,0.08);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1.2rem;
+    }
+
+    .contact-card h3 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-card p, .contact-card a {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .contact-card a:hover { color: var(--primary); }
+
+    .contact-map {
+      grid-column: span 2;
+      background: var(--bg-light);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .contact-map { grid-column: span 1; }
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      padding: 1rem;
+      z-index: 999;
+    }
+
+    .mobile-cta a {
+      display: block;
+      text-align: center;
+      background: var(--accent);
+      color: var(--primary-dark);
+      padding: 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+      body { padding-bottom: 80px; }
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      * { animation: none !important; }
+    }
+
+    /* Chatbot Widget */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      z-index: 998;
+    }
+
+    @media (max-width: 768px) {
+      .chatbot-widget { bottom: 90px; }
+    }
+
+    .chatbot-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(26,54,93,0.3);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    .chatbot-tooltip {
+      position: absolute;
+      right: 70px;
+      bottom: 10px;
+      background: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      font-size: 0.85rem;
+      color: var(--primary);
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-widget:hover .chatbot-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo serif">KRASS<span>Optik</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#services">Leistungen</a></li>
+        <li><a href="#collection">Kollektion</a></li>
+        <li><a href="#booking">Termin</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+    <a href="tel:+496111667393" class="nav-cta">📞 Anrufen</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <span class="hero-badge">✨ FRÜHLINGS-KOLLEKTION 2026</span>
+      <h1>Ihre Vision.<br>Ihr Stil.</h1>
+      <p>Individuelle Brillenberatung in Wiesbaden. Finden Sie die perfekte Brille — von der klassischen Fassung bis zur Sportbrille.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-primary">Beratungstermin buchen</a>
+        <a href="#collection" class="btn-secondary">Kollektion ansehen</a>
+      </div>
+    </div>
+    <img src="https://www.krass-optik.com/cdn/shop/files/1152657_01_small.jpg?v=1773721922" alt="Premium Brillenfassung KRASS Optik" class="hero-image">
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-grid reveal">
+      <div class="trust-item">
+        <div class="trust-icon">👓</div>
+        <strong>Über 30 Jahre Erfahrung</strong>
+        <span>In der Brillenoptik</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⭐</div>
+        <strong>5-Sterne-Bewertung</strong>
+        <span>Zufriedene Kunden</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🎯</div>
+        <strong>Persönliche Beratung</strong>
+        <span>Individuell auf Sie abgestimmt</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🏆</div>
+        <strong>KRASSe PREISE</strong>
+        <span>Faire Preise, hohe Qualität</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="section-header reveal">
+      <p class="section-tag">Unsere Leistungen</p>
+      <h2 class="serif">Alles für Ihre Augen</h2>
+      <p>Umfassende Serviceangebote — von der Sehtestung bis zur perfekten Anpassung.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">👁️</div>
+        <h3>Sehtestung</h3>
+        <p>Professionelle Überprüfung Ihrer Sehkraft mit modernster Messtechnik.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎨</div>
+        <h3>Fassungsberatung</h3>
+        <p>Persönliche Auswahl der perfekten Fassung — passend zu Ihrem Gesicht und Stil.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🏃</div>
+        <h3>Sportbrillen</h3>
+        <p>Spezialgläser für Sport — perfekt für Aktivitäten mit klarem Sichtfeld.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔧</div>
+        <h3>Reparatur & Service</h3>
+        <p>Schnelle Hilfe bei Problemen — Einstellung, Reparatur und Pflege.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎁</div>
+        <h3>Gutscheine</h3>
+        <p>Schenken Sie Sehvergnügen — unsere Gutscheine für jeden Anlass.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👥</div>
+        <h3>Kundenbetreuung</h3>
+        <p>Nachkaufliche Betreuung — wir sind auch nach dem Kauf für Sie da.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection -->
+  <section class="collection-section" id="collection">
+    <div class="section">
+      <div class="section-header reveal">
+        <p class="section-tag">Neuheiten & Bestseller</p>
+        <h2 class="serif">Unsere Kollektion</h2>
+        <p>Entdecken Sie aktuelle Modelle — von elegant bis sportlich.</p>
+      </div>
+      <div class="collection-tabs reveal">
+        <button class="collection-tab active">Alle</button>
+        <button class="collection-tab">FRÜHLING</button>
+        <button class="collection-tab">Sport</button>
+        <button class="collection-tab">Klassik</button>
+      </div>
+      <div class="collection-grid">
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/files/1161298_01_small.jpg?v=1773722582" alt="Moderne Brillenfassung KRASS Optik">
+          <div class="collection-info">
+            <h4>Elegante Fassung</h4>
+            <span>FRÜHLINGS-KOLLEKTION</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/Iman_Ike__023_2x_5512b290-8045-4829-b46c-a07daa001da4.jpg?v=1769758063" alt="Designer-Brille KRASS Optik">
+          <div class="collection-info">
+            <h4>Iman Ike Edition</h4>
+            <span>Bestseller</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/xaver_roppett0129_2x_ab111d71-77ba-4299-882f-96cdf9513a7f.jpg?v=1769758029" alt="Sportbrille KRASS Optik">
+          <div class="collection-info">
+            <h4>Xaver Roppett Sport</h4>
+            <span>SPORTBRILLEN</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/IMG_8029_1_2x_7acbf446-6275-4a8a-a6bd-2da6ebd8a8b2.jpg?v=1773333869" alt="Klassische Fassung KRASS Optik">
+          <div class="collection-info">
+            <h4>Klassische Linie</h4>
+            <span>Zeitlos elegant</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/1_4fa36c94-5e1a-4a4b-9ceb-9c149d4a938d.jpg?v=1770107633" alt="Moderne Fassung KRASS Optik">
+          <div class="collection-info">
+            <h4>Modern Acetat</h4>
+            <span>FRÜHLINGS-KOLLEKTION</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/2_70348af4-ebdf-4663-93a3-c23cf355d79e.jpg?v=1770107648" alt="Brillenglas-Detail KRASS Optik">
+          <div class="collection-info">
+            <h4>Hochwertige Gläser</h4>
+            <span>Premium Qualität</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/collections/3_a430d6c0-f921-4630-8435-c17fef2a280e.jpg?v=1770107664" alt="Fassungs-Detail KRASS Optik">
+          <div class="collection-info">
+            <h4>Präzision</h4>
+            <span>Handwerklich perfekt</span>
+          </div>
+        </div>
+        <div class="collection-item reveal">
+          <img src="https://www.krass-optik.com/cdn/shop/files/1152657_01_small.jpg?v=1773721922" alt="Premium-Brille KRASS Optik">
+          <div class="collection-info">
+            <h4>Premium Auswahl</h4>
+            <span>KRASSe PREISE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Feature -->
+  <section class="booking-section" id="booking">
+    <div class="booking-content">
+      <div class="booking-text reveal">
+        <h2 class="serif">Termin vereinbaren</h2>
+        <p>Buchen Sie jetzt Ihre persönliche Brillenberatung — wir nehmen uns Zeit für Sie und Ihre Vision.</p>
+        <div class="booking-features">
+          <span>Kostenlose Beratung</span>
+          <span>Keine Wartezeit</span>
+          <span>Individuelle Termine</span>
+          <span>Professionelle Sehtestung</span>
+        </div>
+      </div>
+      <div class="booking-card reveal">
+        <h3 class="serif">Ihr Wunschtermin</h3>
+        <form class="booking-form" action="mailto:karriere@krass-optik.com" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="Für Rückruf">
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="service">Gewünschter Service</label>
+            <select id="service" name="service">
+              <option value="beratung">Brillenberatung</option>
+              <option value="sehtest">Sehtestung</option>
+              <option value="sport">Sportbrillen-Beratung</option>
+              <option value="reparatur">Reparatur / Service</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Bevorzugtes Datum</label>
+              <input type="date" id="date" name="date">
+            </div>
+            <div class="form-group">
+              <label for="time">Uhrzeit</label>
+              <select id="time" name="time">
+                <option value="">-- Uhrzeit wählen --</option>
+                <option value="09:00">09:00 - 10:00</option>
+                <option value="10:00">10:00 - 11:00</option>
+                <option value="11:00">11:00 - 12:00</option>
+                <option value="14:00">14:00 - 15:00</option>
+                <option value="15:00">15:00 - 16:00</option>
+                <option value="16:00">16:00 - 17:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="message">Nachricht (optional)</label>
+            <input type="text" id="message" name="message" placeholder="Ihre Wünsche oder Fragen...">
+          </div>
+          <button type="submit" class="btn-submit">Termin anfordern</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gift Card -->
+  <section class="gift-section reveal">
+    <div class="gift-content">
+      <p class="section-tag">Das perfekte Geschenk</p>
+      <h2 class="serif">Gutscheine bei KRASS Optik</h2>
+      <p style="margin: 1rem auto 2rem;">Verschenken Sie Sehvergnügen — unsere Gutscheine sind die ideale Geschenkidee für jeden Anlass.</p>
+      <img src="https://www.krass-optik.com/cdn/shop/files/gutschein_neu_small.png?v=1774353813" alt="KRASS Optik Gutschein" class="gift-image">
+      <a href="#contact" class="btn-primary">Gutschein anfragen</a>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section">
+    <div class="section-header reveal">
+      <p class="section-tag">Kundenstimmen</p>
+      <h2 class="serif">Das sagen unsere Kunden</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>„Super Beratung! Die Fassung sitzt perfekt und ich habe mich rundum wohl gefühlt. KRASS Optik ist meine Nummer eins in Wiesbaden.“</p>
+        <div class="review-author">Sarah M.</div>
+        <span class="review-note">(Beispielstimme)</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>„Endlich eine Optik, die sich Zeit nimmt. Die Auswahl ist groß und die Beratung ist ehrlich — kein übereilter Verkauf.“</p>
+        <div class="review-author">Thomas K.</div>
+        <span class="review-note">(Beispielstimme)</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>„Beste Sportbrille, die ich je hatte. Passt perfekt, sitzt sicher und der Blick ist klar. Danke für die tolle Beratung!“</p>
+        <div class="review-author">Michael R.</div>
+        <span class="review-note">(Beispielstimme)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band reveal">
+    <h2 class="serif">Bereit für Ihre neue Brille?</h2>
+    <p>Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin — wir freuen uns auf Sie!</p>
+    <a href="#booking" class="btn-primary">Jetzt Termin buchen</a>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <div class="section-header reveal">
+      <p class="section-tag">Kontakt & Anfahrt</p>
+      <h2 class="serif">Besuchen Sie uns</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="contact-icon">📍</div>
+        <h3>Adresse</h3>
+        <p>Kirchgasse 6<br>65185 Wiesbaden</p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">📞</div>
+        <h3>Telefon</h3>
+        <a href="tel:+496111667393">+49 611 1667393</a>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">✉️</div>
+        <h3>E-Mail</h3>
+        <a href="mailto:karriere@krass-optik.com">karriere@krass-optik.com</a>
+      </div>
+      <div class="contact-map reveal">
+        <h3 class="serif" style="color: var(--primary); margin-bottom: 1rem;">🏬 So finden Sie uns</h3>
+        <p style="margin-bottom: 1rem;">Wir befinden uns in der Wiesbadener Innenstadt in der Kirchgasse — zentral und gut erreichbar.</p>
+        <a href="https://maps.google.com/?q=Kirchgasse+6+Wiesbaden" target="_blank" class="btn-secondary" style="display: inline-block;">📍 In Google Maps öffnen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · MZ.9 · <a href="https://krass-optik.com" target="_blank">krass-optik.com</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+496111667393">📞 Jetzt anrufen</a>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-widget">
+    <button class="chatbot-btn" onclick="alert('Chat-Konzept: Schreiben Sie uns für eine schnelle Anfrage oder Terminvereinbarung!')">💬</button>
+    <div class="chatbot-tooltip">Nachricht schreiben</div>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Collection tabs
+    const tabs = document.querySelectorAll('.collection-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
