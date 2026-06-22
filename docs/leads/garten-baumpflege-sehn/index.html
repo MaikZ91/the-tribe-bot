@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Baumpflege Sehn – Ihr Baumspezialist in Mainz</title>
+  <meta name="description" content="Professionelle Baumpflege in Mainz und Umgebung. Ihr zuverlässiger Partner für Baumschnitt, Kronenpflege, Baumfällung und mehr. Jetzt kostenlose Beratung anfragen!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #5A3A22;
+      --primary-light: #7D5A3E;
+      --secondary: #2D5A3D;
+      --accent: #4A7C9B;
+      --bg: #F9F7F4;
+      --surface: #FFFFFF;
+      --text: #2C2C2C;
+      --text-light: #6B6B6B;
+      --border: #E8E4DF;
+      --shadow: 0 4px 20px rgba(90, 58, 34, 0.1);
+      --shadow-hover: 0 8px 30px rgba(90, 58, 34, 0.15);
+      --radius: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .serif { font-family: 'DM Serif Display', serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    button { font-family: inherit; border: none; cursor: pointer; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(249, 247, 244, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      transition: 0.3s;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .logo span { color: var(--secondary); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .header-cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .header-cta:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://baumpflege-sehn.de/wp-content/uploads/2023/08/20210422_091839_HDR-scaled.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45, 90, 61, 0.85) 0%, rgba(90, 58, 34, 0.75) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      color: white;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--surface);
+      color: var(--primary);
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 1rem 2rem;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .btn-secondary:hover {
+      border-color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--surface);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+    .trust-text {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    /* Services */
+    .services {
+      padding: 5rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-tag {
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+      border: 1px solid var(--border);
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, rgba(90, 58, 34, 0.1), rgba(45, 90, 61, 0.1));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Contact Form */
+    .contact {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      color: white;
+    }
+    .contact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .contact-info h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .contact-info p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-icon {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-item span {
+      font-weight: 500;
+    }
+    .contact-form {
+      background: var(--surface);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--bg);
+      transition: 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(90, 58, 34, 0.1);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    .form-submit:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 5rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(90, 58, 34, 0.8), transparent);
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--bg);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+    .cta-band-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 3rem;
+      border-radius: 16px;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .cta-band h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      background: #1A1A1A;
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 1.5rem 1rem;
+      text-align: center;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .footer-col a {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .footer-col a:hover {
+      color: white;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      font-size: 0.85rem;
+    }
+    .concept-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: none;
+    }
+    .mobile-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+    }
+    .mobile-cta a {
+      flex: 1;
+      text-align: center;
+      padding: 0.875rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .mobile-cta .primary {
+      background: var(--primary);
+      color: white;
+    }
+    .mobile-cta .secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .contact-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { text-align: center; }
+      .hero-ctas { justify-content: center; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 5rem; }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.6s ease-out;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">Baumpflege <span>Sehn</span></a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#anfrage" class="header-cta">Anfrage senden</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-tag">Ihr Baumspezialist in Mainz</span>
+      <h1 class="serif">Für gesunde Bäume<br>& sichere Gärten</h1>
+      <p>Professionelle Baumpflege mit jahrelanger Erfahrung. Wir kümmern uns um Ihre Bäume – von der fachgerechten Pflege bis zur sicheren Fällung.</p>
+      <div class="hero-ctas">
+        <a href="#anfrage" class="btn-primary">
+          <span>Kostenlose Beratung</span>
+          →
+        </a>
+        <a href="tel:+4915906439113" class="btn-secondary">
+          📞 +49 159 064 39113
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">Zertifizierte Fachkraft</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌳</div>
+        <div class="trust-text">Jahrelange Erfahrung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📍</div>
+        <div class="trust-text">Region Mainz & Umgebung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🛡️</div>
+        <div class="trust-text">Versichert & zuverlässig</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="leistungen" class="services reveal">
+    <div class="section-header">
+      <span class="section-tag">Unsere Expertise</span>
+      <h2 class="serif">BAUMPFLEGE</h2>
+      <p>Umfassende Leistungen für die Gesundheit und Sicherheit Ihrer Bäume</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✂️</div>
+        <h3>Baumschnitt & Kronenpflege</h3>
+        <p>Fachgerechter Schnitt zur Gesunderhaltung und Formgebung. Wir schneiden nach den neuesten Standards.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪓</div>
+        <h3>Baumfällung</h3>
+        <p>Sichere Entfernung von gefährdeten oder kranken Bäumen – auch in beengten Situationen.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔬</div>
+        <h3>Baumuntersuchung</h3>
+        <p>Gutachterliche Prüfung der Baumgesundheit und Standsicherheit für Ihre Sicherheit.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Pflanzung & Pflege</h3>
+        <p>Professionelle Neupflanzung mit dauerhafter Pflegeanleitung für gesundes Wachstum.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Sturmschaden-Sanierung</h3>
+        <p>Schnelle Hilfe bei Sturmschäden – 24/7 erreichbar für Notfälle.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧹</div>
+        <h3>Wurzelraum & Boden</h3>
+        <p>Bodenverbesserung und Wurzelraummanagement für optimales Baumwachstum.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="anfrage" class="contact reveal">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <span class="section-tag" style="color: rgba(255,255,255,0.7);">Kostenlose Erstberatung</span>
+        <h2 class="serif">Sprechen Sie mit uns!</h2>
+        <p>Erzählen Sie uns von Ihrem Projekt. Wir melden uns schnellstmöglich zurück und geben Ihnen eine fundierte Einschätzung.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <span><a href="tel:+4915906439113">+49 159 064 39113</a></span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <span><a href="mailto:info@baumpflege-sehn.de">info@baumpflege-sehn.de</a></span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <span>Binger Straße, 55116 Mainz</span>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" id="leadForm">
+        <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Anfrage senden</h3>
+        <div class="form-group">
+          <label for="name">Ihr Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail *</label>
+          <input type="email" id="email" name="email" required placeholder="max@beispiel.de">
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefon (für Rückruf)</label>
+          <input type="tel" id="phone" name="phone" placeholder="+49 123 456789">
+        </div>
+        <div class="form-group">
+          <label for="service">Interesse an *</label>
+          <select id="service" name="service" required>
+            <option value="">Bitte wählen...</option>
+            <option value="baumschnitt">Baumschnitt / Kronenpflege</option>
+            <option value="faellung">Baumfällung</option>
+            <option value="untersuchung">Baumuntersuchung</option>
+            <option value="pflanzung">Neupflanzung</option>
+            <option value="notfall">Notfall / Sturmschaden</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Beschreiben Sie kurz Ihr Anliegen..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="galerie" class="gallery reveal">
+    <div class="section-header">
+      <span class="section-tag">Unsere Arbeit</span>
+      <h2 class="serif">Über uns</h2>
+      <p>Ein Einblick in unsere Projekte – Qualität, die man sieht</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://baumpflege-sehn.de/wp-content/uploads/2023/08/20210422_091839_HDR-768x1024.jpg" alt="Baumpflege in Mainz – fachgerechter Baumschnitt">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://baumpflege-sehn.de/wp-content/uploads/2023/08/WhatsApp-Bild-2023-08-18-um-10.11.49-768x1024.jpg" alt="Kronenpflege und Baumaufbau">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://baumpflege-sehn.de/wp-content/uploads/2023/08/WhatsApp-Bild-2023-08-18-um-10.11.4-768x1024.jpg" alt="Baumpflege im Einsatz">
+        <div class="gallery-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="cta-band-inner">
+      <h2 class="serif">Bereit für gesunde Bäume?</h2>
+      <p>Kontaktieren Sie uns jetzt – wir beraten Sie unverbindlich und kostenlos.</p>
+      <a href="#anfrage" class="btn-primary" style="display: inline-flex; color: var(--primary);">
+        <span>Kostenlose Beratung anfragen</span>
+        →
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Baumpflege Sehn</h4>
+        <p style="opacity: 0.7; font-size: 0.9rem;">Ihr zuverlässiger Partner für professionelle Baumpflege in Mainz und Umgebung.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Leistungen</h4>
+        <a href="#leistungen">Baumschnitt & Kronenpflege</a>
+        <a href="#leistungen">Baumfällung</a>
+        <a href="#leistungen">Baumuntersuchung</a>
+        <a href="#leistungen">Neupflanzung</a>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <a href="tel:+4915906439113">+49 159 064 39113</a>
+        <a href="mailto:info@baumpflege-sehn.de">info@baumpflege-sehn.de</a>
+        <span style="opacity: 0.7; font-size: 0.9rem;">Binger Straße, 55116 Mainz</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Baumpflege Sehn. Alle Rechte vorbehalten.</p>
+      <span class="concept-badge">Konzept-Vorschau · MZ.9</span>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="#anfrage" class="primary">Anfrage senden</a>
+      <a href="tel:+4915906439113" class="secondary">📞 Anrufen</a>
+    </div>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Form handler (demo)
+    document.getElementById('leadForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      window.location.href = `mailto:info@baumpflege-sehn.de?subject=Baumpflege-Anfrage: ${data.service}&body=Name: ${data.name}%0AE-Mail: ${data.email}%0ATelefon: ${data.phone || 'Nicht angegeben'}%0A%0ANachricht:%0A${data.message}`;
+    });
+  </script>
+</body>
+</html>
