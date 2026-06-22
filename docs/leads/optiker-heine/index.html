@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heine Optik | Hannover — Über 40 Jahre Augenoptik-Expertise</title>
+  <meta name="description" content="Benötigen Sie eine Brille oder suchen nach Abwechslung? Seit mehr als 40 Jahren ist Heine Optik in Hannover Ihr Partner rund um die Augenoptik. Professionelle Stilberatung und perfekte Handwerkskunst.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #faf9f8; color: #1a1a1a; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    @media (min-width: 768px) { .container { padding: 0 3rem; } }
+
+    /* HEADER */
+    .header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #e5e0dd; transition: all 0.3s; }
+    .header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo { font-size: 1.5rem; font-weight: 600; color: #0a2430; letter-spacing: -0.02em; }
+    .logo span { color: #c49a6c; }
+    .nav { display: none; gap: 2rem; }
+    .nav a { font-size: 0.9rem; color: #4a4a4a; font-weight: 500; }
+    .nav a:hover { color: #c49a6c; }
+    .nav-cta { display: none; }
+    @media (min-width: 768px) { .nav { display: flex; } .nav-cta { display: block; } }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.85rem 1.75rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; transition: all 0.25s; text-align: center; }
+    .btn-primary { background: #0a2430; color: #fff; }
+    .btn-primary:hover { background: #0f3244; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(10,36,48,0.25); }
+    .btn-accent { background: #c49a6c; color: #fff; }
+    .btn-accent:hover { background: #d4a976; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(196,154,108,0.3); }
+    .btn-outline { border: 1.5px solid #0a2430; color: #0a2430; }
+    .btn-outline:hover { background: #0a2430; color: #fff; }
+
+    /* HERO */
+    .hero { position: relative; min-height: 90vh; display: flex; align-items: center; overflow: hidden; padding-top: 70px; }
+    .hero-bg { position: absolute; inset: 0; z-index: -1; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(250,249,248,0.92) 0%, rgba(250,249,248,0.7) 50%, transparent 100%); }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-content { max-width: 580px; position: relative; z-index: 1; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(196,154,108,0.15); color: #9a7a55; font-size: 0.85rem; font-weight: 600; border-radius: 20px; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.15; color: #0a2430; margin-bottom: 1rem; font-weight: 500; letter-spacing: -0.02em; }
+    .hero p { font-size: 1.15rem; color: #555; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-trust { display: flex; align-items: center; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e0dd; }
+    .hero-trust-item { display: flex; flex-direction: column; }
+    .hero-trust-num { font-size: 2rem; font-weight: 600; color: #0a2430; }
+    .hero-trust-label { font-size: 0.85rem; color: #777; }
+
+    /* TRUST STRIP */
+    .trust-strip { background: #0a2430; color: #fff; padding: 2rem 0; }
+    .trust-strip-inner { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .trust-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
+    .trust-icon { width: 24px; height: 24px; flex-shrink: 0; background: rgba(196,154,108,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+
+    /* SECTIONS */
+    .section { padding: 5rem 0; }
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+    .section-label { display: block; font-size: 0.85rem; font-weight: 600; color: #c49a6c; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); color: #0a2430; font-weight: 500; line-height: 1.2; margin-bottom: 1rem; }
+    .section-desc { font-size: 1.05rem; color: #555; }
+
+    /* SERVICES */
+    .services { background: #fff; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .service-card { background: #faf9f8; border-radius: 12px; overflow: hidden; transition: all 0.3s; }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+    .service-img { height: 200px; width: 100%; object-fit: cover; }
+    .service-content { padding: 1.5rem; }
+    .service-title { font-size: 1.25rem; color: #0a2430; margin-bottom: 0.75rem; font-weight: 600; }
+    .service-desc { font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+    /* CONTACT FORM - PREMIUM FEATURE */
+    .contact-section { background: linear-gradient(135deg, #0a2430 0%, #163a4d 100%); color: #fff; }
+    .contact-layout { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+    @media (min-width: 768px) { .contact-layout { grid-template-columns: 1fr 1.2fr; } }
+    .contact-info h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .contact-info p { color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; font-size: 1rem; }
+    .contact-detail-icon { width: 40px; height: 40px; background: rgba(196,154,108,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .contact-form-wrapper { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    .form-row { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (min-width: 480px) { .form-row { grid-template-columns: 1fr 1fr; } }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: rgba(255,255,255,0.85); }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 0.85rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.95rem; transition: all 0.2s; }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #c49a6c; background: rgba(255,255,255,0.15); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-submit { width: 100%; padding: 1rem; margin-top: 1rem; }
+
+    /* GALLERY */
+    .gallery { background: #faf9f8; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 768px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+    .gallery-item { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 8px; }
+    .gallery-item:first-child { grid-column: span 2; aspect-ratio: 16/10; }
+    @media (min-width: 768px) { .gallery-item:first-child { grid-row: span 2; aspect-ratio: 4/5; } }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* CTA BAND */
+    .cta-band { background: url('https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/brillenBg-1920w.jpg') center/cover no-repeat; position: relative; padding: 6rem 0; }
+    .cta-band::after { content: ''; position: absolute; inset: 0; background: rgba(10,36,48,0.85); }
+    .cta-band-inner { position: relative; z-index: 1; text-align: center; color: #fff; max-width: 700px; margin: 0 auto; }
+    .cta-band h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 500; }
+    .cta-band p { font-size: 1.15rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+
+    /* CONTACT BAR */
+    .contact-bar { background: #0a2430; color: #fff; padding: 4rem 0; }
+    .contact-bar-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+    .contact-bar-block h3 { font-size: 1.1rem; margin-bottom: 1rem; color: #c49a6c; }
+    .contact-bar-block p { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
+    .contact-bar-block a { display: block; color: #fff; margin-bottom: 0.5rem; }
+    .contact-bar-block a:hover { color: #c49a6c; }
+
+    /* FOOTER */
+    .footer { background: #06151c; color: rgba(255,255,255,0.5); padding: 2rem 0; text-align: center; font-size: 0.85rem; }
+    .footer span { color: #c49a6c; }
+
+    /* MOBILE CTA BAR */
+    .mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 0.75rem 1rem; border-top: 1px solid #e5e0dd; z-index: 99; display: none; }
+    .mobile-cta .btn { width: 100%; }
+    @media (max-width: 767px) { .mobile-cta { display: block; } .hero { min-height: 80vh; padding-bottom: 80px; } }
+
+    /* REVEAL ANIMATION */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { transition: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="logo serif">Heine<span>Optik</span></div>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#kontakt" class="btn btn-primary">Termin vereinbaren</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/brillenliebe-by-foth-ueber-uns-01-1920w.jpg" alt="Heine Optik Hannover - Moderne Brillenauswahl">
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">✓ Über 40 Jahre Erfahrung</div>
+        <h1 class="serif">Heine Optik in Hannover</h1>
+        <p>Benötigen Sie eine Brille oder suchen nach Abwechslung? Seit mehr als 40 Jahren ist Heine Optik in Hannover Ihr Partner rund um die Augenoptik.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-accent">Beratungstermin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <span class="hero-trust-num serif">40+</span>
+            <span class="hero-trust-label">Jahre Erfahrung</span>
+          </div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-num serif">∞</span>
+            <span class="hero-trust-label">Stilberatungen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="container trust-strip-inner">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Professionelle Stilberatung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Perfekte Handwerkskunst</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Persönlicher Sehtest</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Hannover, Breithauptstraße</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section class="section services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Unser Angebot</span>
+        <h2 class="section-title serif">Mehr als einfach nur ein Brillengeschäft</h2>
+        <p class="section-desc">Von der professionellen Sehtestung bis zur individuellen Brillenanpassung — wir begleiten Sie auf dem Weg zu besserem Sehen und stilvollem Auftreten.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/brille-1920w.jpg" alt="Individuelle Brillen" class="service-img" loading="lazy">
+          <div class="service-content">
+            <h3 class="service-title">Individuelle Brillen</h3>
+            <p class="service-desc">Moderne und klassische Modelle, perfekt auf Ihr Gesicht und Ihre Sehbedürfnisse abgestimmt.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/sonnenbrillen-1920w.jpg" alt="Sonnenbrillen" class="service-img" loading="lazy">
+          <div class="service-content">
+            <h3 class="service-title">Sonnenbrillen</h3>
+            <p class="service-desc">Stilvoller Schutz mit UV-Filter — von sportlich bis elegant.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/sehtest-1920w.jpg" alt="Sehtest" class="service-img" loading="lazy">
+          <div class="service-content">
+            <h3 class="service-title">Sehtest</h3>
+            <p class="service-desc">Professionelle Sehtestung zur Ermittlung Ihrer optimalen Korrekturwerte.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/kontaktlinsen-1920w.jpg" alt="Kontaktlinsen" class="service-img" loading="lazy">
+          <div class="service-content">
+            <h3 class="service-title">Kontaktlinsen</h3>
+            <p class="service-desc">Weiche und formstabile Kontaktlinsen — inklusive Einweisung und Nachsorge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKTFORMULAR - PREMIUM FEATURE -->
+  <section class="section contact-section" id="kontakt">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-info reveal">
+          <span class="section-label">Jetzt Kontakt aufnehmen</span>
+          <h2 class="serif">Beratungstermin vereinbaren</h2>
+          <p>Wir nehmen uns Zeit für eine persönliche Beratung. Vereinbaren Sie einen Termin oder schicken Sie uns Ihre Anfrage — wir melden uns zeitnah zurück.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <span class="contact-detail-icon">📍</span>
+              <span>Breithauptstraße, 30625 Hannover</span>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail-icon">📞</span>
+              <a href="tel:+49511559355">+49 511 559355</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-wrapper reveal">
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" class="form-input" placeholder="Ihr Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail *</label>
+                <input type="email" id="email" class="form-input" placeholder="Ihre E-Mail-Adresse" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" class="form-input" placeholder="Für Rückrufe (optional)">
+              </div>
+              <div class="form-group">
+                <label for="service">Interesse</label>
+                <select id="service" class="form-select">
+                  <option value="">Bitte wählen...</option>
+                  <option value="brille">Neue Brille</option>
+                  <option value="sonnenbrille">Sonnenbrille</option>
+                  <option value="sehtest">Sehtest</option>
+                  <option value="kontaktlinsen">Kontaktlinsen</option>
+                  <option value="anderes">Anderes</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht *</label>
+              <textarea id="message" class="form-textarea" placeholder="Wie können wir Ihnen helfen? Wann passt Ihnen ein Termin?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent form-submit">Anfrage absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Einblicke</span>
+        <h2 class="section-title serif">Unser Studio in Hannover</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/Heine-Optik_Team-1920w.jpg" alt="Heine Optik Team" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/branding-67c4f89c-1920w.jpg" alt="Markenauswahl" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/md/dmtmpl/8f7eae3b-6683-4a9e-9c02-3b153e04e571/dms3rep/multi/opt/landing_page_white_background_vertical-1920w.png" alt="Brillenauswahl" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/HG-Welle_heine_02-2880w.png" alt="Premium-Kollektion" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/ZA8_6827_1920_opt_Augenoptik_Schaper_Rita_Foth_Lehrte-1920w.jpg" alt="Kundenauswahl" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://le-de.cdn-website.com/ffa4f6b560bf48c88a2e7b27363651b1/dms3rep/multi/opt/IMG_7910+(1)_1920_opt_Augenoptik_Schaper_Rita_Foth_Lehrte-2880w.jpg" alt="Detailansicht" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container cta-band-inner">
+      <h2 class="serif">Professionelle Stilberatung und perfekte Handwerkskunst</h2>
+      <p>Lassen Sie sich von über 40 Jahren Erfahrung überzeugen — vereinbaren Sie noch heute Ihren persönlichen Beratungstermin in Hannover.</p>
+      <a href="#kontakt" class="btn btn-accent">Jetzt Termin anfragen</a>
+    </div>
+  </section>
+
+  <!-- KONTAKT BAR -->
+  <section class="contact-bar">
+    <div class="container contact-bar-inner">
+      <div class="contact-bar-block">
+        <h3>Heine Optik</h3>
+        <p>Ihr Partner rund um die Augenoptik in Hannover seit über 40 Jahren.</p>
+      </div>
+      <div class="contact-bar-block">
+        <h3>Kontakt</h3>
+        <a href="tel:+49511559355">+49 511 559355</a>
+        <a href="#kontakt">Termin anfragen</a>
+      </div>
+      <div class="contact-bar-block">
+        <h3>Adresse</h3>
+        <p>Breithauptstraße<br>30625 Hannover</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · MZ.9<span> Lead-Agent</span></p>
+    </div>
+  </footer>
+
+  <!-- MOBILE CTA BAR -->
+  <div class="mobile-cta">
+    <a href="#kontakt" class="btn btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form handler (frontend demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value || 'nicht angegeben';
+      const service = document.getElementById('service').value || 'Allgemein';
+      const message = document.getElementById('message').value;
+
+      // Build mailto link (fallback to phone)
+      const subject = encodeURIComponent(`Terminanfrage Heine Optik - ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone}\nInteresse: ${service}\n\nNachricht:\n${message}`);
+
+      window.location.href = `mailto:+49511559355?subject=${subject}&body=${body}`;
+
+      alert('Anfrage wird geöffnet! (Demo: mailto öffnet Ihren E-Mail-Client)');
+    }
+  </script>
+</body>
+</html>
