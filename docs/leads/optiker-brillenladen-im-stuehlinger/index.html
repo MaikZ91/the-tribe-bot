@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Brillenladen im Stühlinger — Ihr kompetenter Optiker in Freiburg. Fassungen, Gläser, Sonnenbrillen, Kontaktlinsen und professionelle Sehtests.">
+  <title>Brillenladen im Stühlinger | Ihr Optiker in Freiburg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:#f8f6f1;color:#2c3e50;line-height:1.6}
+    :root{--primary:#1e3a5f;--primary-dark:#152a47;--accent:#d4a574;--accent-dark:#b88a5e;--light:#ffffff;--bg:#f8f6f1;--text:#2c3e50;--text-light:#5a6b7c}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:8px;font-weight:600;font-size:16px;transition:all .3s ease;gap:8px}
+    .btn-primary{background:var(--accent);color:var(--primary)}
+    .btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,165,116,.4)}
+    .btn-secondary{border:2px solid var(--accent);color:var(--accent);background:transparent}
+    .btn-secondary:hover{background:var(--accent);color:var(--primary)}
+    .btn-cta{background:var(--primary);color:var(--light)}
+    .btn-cta:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,58,95,.4)}
+
+    /* Header */
+    header{position:fixed;top:0;left:0;right:0;background:rgba(30,58,95,.95);backdrop-filter:blur(10px);z-index:1000;transition:all .3s ease;box-shadow:0 2px 20px rgba(0,0,0,.1)}
+    header.scrolled{padding:8px 0;background:rgba(30,58,95,.98)}
+    header .container{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
+    header.scrolled .container{padding:12px 20px}
+    .logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--light)}
+    .logo span{color:var(--accent)}
+    nav{display:flex;gap:32px;align-items:center}
+    nav a{color:var(--light);font-size:15px;font-weight:500;transition:color .3s}
+    nav a:hover{color:var(--accent)}
+    .mobile-menu-btn{display:none;color:var(--light);font-size:24px;background:none;border:none;cursor:pointer}
+    @media(max-width:768px){
+      nav{display:none}
+      .mobile-menu-btn{display:block}
+    }
+
+    /* Hero */
+    .hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;margin-top:60px}
+    .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1}
+    .hero-bg img{width:100%;height:100%;object-fit:cover}
+    .hero-bg::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(30,58,95,.85) 0%,rgba(30,58,95,.6) 100%)}
+    .hero-content{position:relative;z-index:1;color:var(--light);max-width:700px}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1.2;margin-bottom:20px}
+    .hero p{font-size:18px;opacity:.95;margin-bottom:32px;max-width:550px}
+    .hero-features{display:flex;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+    .hero-feature{display:flex;align-items:center;gap:8px;font-size:14px;opacity:.9}
+    .hero-feature svg{width:20px;height:20px;color:var(--accent)}
+
+    /* Trust Strip */
+    .trust-strip{background:var(--light);padding:32px 0;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+    .trust-strip .container{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:24px}
+    .trust-item{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;color:var(--text)}
+    .trust-item svg{width:24px;height:24px;color:var(--primary)}
+    @media(max-width:768px){
+      .trust-strip .container{justify-content:center}
+    }
+
+    /* Section */
+    section{padding:80px 0}
+    .section-header{text-align:center;margin-bottom:60px}
+    .section-header h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--primary);margin-bottom:16px}
+    .section-header p{font-size:18px;color:var(--text-light);max-width:600px;margin:0 auto}
+
+    /* Services Grid */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px}
+    .service-card{background:var(--light);border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);transition:all .3s ease}
+    .service-card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
+    .service-card img{width:100%;height:220px;object-fit:cover}
+    .service-card-content{padding:24px}
+    .service-card h3{font-size:20px;font-weight:600;color:var(--primary);margin-bottom:12px}
+    .service-card p{font-size:15px;color:var(--text-light);line-height:1.6}
+
+    /* Services Extended */
+    .services-extended{background:var(--light)}
+    .services-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:40px;align-items:center;margin-bottom:60px}
+    .services-row:nth-child(even){direction:rtl}
+    .services-row:nth-child(even) > *{direction:ltr}
+    .services-row img{border-radius:12px;width:100%;height:300px;object-fit:cover;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+    .services-row-content h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--primary);margin-bottom:16px}
+    .services-row-content p{font-size:16px;color:var(--text-light);line-height:1.8;margin-bottom:20px}
+    .services-row-content ul{list-style:none}
+    .services-row-content li{display:flex;align-items:center;gap:12px;padding:8px 0;color:var(--text);font-size:15px}
+    .services-row-content li svg{width:20px;height:20px;color:var(--accent);flex-shrink:0}
+    @media(max-width:768px){
+      .services-row{grid-template-columns:1fr}
+      .services-row img{height:250px}
+    }
+
+    /* Booking Form */
+    .booking-section{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);color:var(--light)}
+    .booking-section .section-header h2,.booking-section .section-header p{color:var(--light)}
+    .booking-section .section-header p{opacity:.9}
+    .booking-container{max-width:800px;margin:0 auto;background:var(--light);border-radius:20px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+    .booking-form{display:grid;gap:24px}
+    .booking-form label{display:block;font-weight:600;color:var(--text);margin-bottom:8px;font-size:14px}
+    .booking-form input,.booking-form select,.booking-form textarea{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:16px;font-family:'Inter',sans-serif;transition:border-color .3s;color:var(--text);background:#fff}
+    .booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{outline:none;border-color:var(--accent)}
+    .booking-form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+    .booking-type-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+    .booking-type-option{position:relative}
+    .booking-type-option input{position:absolute;opacity:0}
+    .booking-type-option label{display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all .3s;text-align:center;font-weight:500;color:var(--text)}
+    .booking-type-option label svg{width:32px;height:32px;color:var(--primary)}
+    .booking-type-option input:checked + label{border-color:var(--accent);background:rgba(212,165,116,.1)}
+    .booking-type-option:hover label{border-color:var(--accent)}
+    .booking-note{font-size:13px;color:var(--text-light);text-align:center;padding:12px;background:rgba(212,165,116,.15);border-radius:8px}
+    @media(max-width:768px){
+      .booking-container{padding:24px}
+    }
+
+    /* Team Grid */
+    .team-section{background:var(--light)}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;max-width:900px;margin:0 auto}
+    .team-card{text-align:center}
+    .team-card img{width:100%;height:280px;object-fit:cover;border-radius:12px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+    .team-card h4{font-size:18px;font-weight:600;color:var(--primary);margin-bottom:4px}
+    .team-card p{font-size:14px;color:var(--text-light)}
+
+    /* Gallery */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .gallery-item{border-radius:12px;overflow:hidden;aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .gallery-item:hover img{transform:scale(1.05)}
+
+    /* CTA Band */
+    .cta-band{background:var(--primary);color:var(--light);text-align:center;padding:80px 20px}
+    .cta-band h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:20px}
+    .cta-band p{font-size:18px;opacity:.9;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+    .cta-band-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+    /* Contact */
+    .contact-section{background:var(--light)}
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px}
+    .contact-card h3{font-size:20px;font-weight:600;color:var(--primary);margin-bottom:20px}
+    .contact-item{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+    .contact-item svg{width:24px;height:24px;color:var(--accent);flex-shrink:0;margin-top:2px}
+    .contact-item p{font-size:15px;color:var(--text)}
+    .contact-item a{color:var(--accent);font-weight:500}
+    .contact-item a:hover{text-decoration:underline}
+    .contact-map{border-radius:12px;overflow:hidden;height:300px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;color:var(--text-light)}
+
+    /* Footer */
+    footer{background:var(--primary-dark);color:rgba(255,255,255,.7);padding:40px 20px;text-align:center;font-size:14px}
+    footer p{margin-bottom:8px}
+    footer a{color:var(--accent);font-weight:500}
+    footer a:hover{color:var(--light)}
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar{position:fixed;bottom:0;left:0;right:0;background:var(--light);padding:12px 20px;box-shadow:0 -4px 20px rgba(0,0,0,.15);display:none;z-index:999}
+    .mobile-cta-bar .btn{width:100%}
+    @media(max-width:768px){
+      .mobile-cta-bar{display:block}
+      .cta-band{padding:40px 20px;padding-bottom:100px}
+    }
+
+    /* Reveal Animation */
+    .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){
+      .reveal{transition:none;opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <div class="logo">Brillenladen <span>Stühlinger</span></div>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#beratung">Beratungstermin</a>
+        <a href="#team">Team</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.brillenladen.net/assets/Uploads/Willkommen-beim-Brillenladen-im-Stuehlinger__FillWzk2MCw5NjBd.jpg" alt="Brillenladen im Stühlinger Eingangsbereich">
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Ihr Brillen-Spezialist im Freiburger Stühlinger</h1>
+        <p>Seit über 25 Jahren Ihr Partner für perfekte Brille, hochwertige Gläser und kompetente Beratung. Mit Herz und Handwerk.</p>
+        <div class="hero-features">
+          <div class="hero-feature">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Kostenlose Sichtprüfung</span>
+          </div>
+          <div class="hero-feature">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Individuelle Terminvereinbarung</span>
+          </div>
+          <div class="hero-feature">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>Nachhaltige Reparaturen</span>
+          </div>
+        </div>
+        <a href="#beratung" class="btn btn-primary">Beratungstermin vereinbaren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        <span>25+ Jahre Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span>Experten-Team</span>
+      </div>
+      <div class="trust-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        <span>Mit Herz für Details</span>
+      </div>
+      <div class="trust-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+        <span>Lokal & persönlich</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Grid -->
+  <section id="leistungen" class="reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Unser Angebot</h2>
+        <p>Alles rund um gutes Sehen — von klassischen Fassungen bis zu modernen Kontaktlinsen</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Fassungen-und-Glaeser.png" alt="Auswahl an Brillenfassungen und Gläsern" loading="lazy">
+          <div class="service-card-content">
+            <h3>Fassungen & Gläser</h3>
+            <p>Riesige Auswahl an modernen Fassungen — von schlicht bis auffällig. Mit hochwertigen Brillengläsern genau auf Ihre Sehstärke angepasst.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Sonnen-und-Sportbrillen-v2.png" alt="Sonnen- und Sportbrillen" loading="lazy">
+          <div class="service-card-content">
+            <h3>Sonnenbrillen</h3>
+            <p>Stylischer Sonnenschutz mit UV-Filter. Von klassisch bis sportlich — für jeden Anlass die passende Brille.</p>
+          </div>
+        </div>
+        <div class="service-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Kontaktlinsen-und-Zubehoer.png" alt="Kontaktlinsen und Zubehör" loading="lazy">
+          <div class="service-card-content">
+            <h3>Kontaktlinsen</h3>
+            <p>Weiche, harte oder torische Kontaktlinsen. Mit passendem Zubehör und Beratung zur Handhabung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Extended -->
+  <section class="services-extended reveal">
+    <div class="container">
+      <div class="services-row">
+        <img src="https://www.brillenladen.net/assets/Uploads/Sonnen-und-Sportbrillen-im-Brillenladen-im-Freiburger-Stuehlinger-v2__FillWzk2MCw5NjBd.jpg" alt="Sonnenbrillen Auswahl im Brillenladen" loading="lazy">
+        <div class="services-row-content">
+          <h3>Sonnenbrillen mit Stil</h3>
+          <p>Entdecken Sie unsere große Auswahl an Sonnenbrillen — ob für den Alltag, den Sport oder den Urlaub. Alle Modelle bieten zuverlässigen UV-Schutz und sind in verschiedenen Tönungen erhältlich.</p>
+          <ul>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Polarisationsgläser gegen Blendung</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Kratzfeste Beschichtungen</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Auch als Gleitsicht verfügbar</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="services-row">
+        <img src="https://www.brillenladen.net/assets/Banner/Brillenfassung-Reperatur__FillWzI1NjAsODg5XQ.jpg" alt="Brillenfassungen-Reparatur" loading="lazy">
+        <div class="services-row-content">
+          <h3>Fachgerechte Reparatur</h3>
+          <p>Geht Ihre Brille kaputt? Wir reparieren sie! Ob gebrochene Bügel, lose Schrauben oder beschädigte Fassungen — wir bringen Ihre Brille wieder in Form.</p>
+          <ul>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Schnelle Reparaturen vor Ort</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Nachhaltig statt neu kaufen</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Auch bei Fremdmarken</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="services-row">
+        <img src="https://www.brillenladen.net/assets/Uploads/Brillenglaszentrierung-mit-dem-Visioffice-Geraet.png" alt="Brillenglaszentrierung mit Visioffice" loading="lazy">
+        <div class="services-row-content">
+          <h3>Präzise Zentrierung</h3>
+          <p>Mit modernster Messtechnik wie dem Visioffice-Gerät zentrieren wir Ihre Brillengläser exakt auf Ihre Augen. So sitzen Ihre Gläser perfekt und sorgen für maximale Sehschärfe.</p>
+          <ul>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>State-of-the-art Messtechnik</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Individuelle Anpassung</span>
+            </li>
+            <li>
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Komfortables Sehen garantiert</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Form -->
+  <section id="beratung" class="booking-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Persönliche Beratungstermin</h2>
+        <p>Vereinbaren Sie einen kostenlosen Beratungstermin — wir nehmen uns Zeit für Ihre Sehbedürfnisse</p>
+      </div>
+      <div class="booking-container">
+        <form class="booking-form" onsubmit="handleBooking(event)">
+          <label style="font-size:16px;color:var(--primary);margin-bottom:12px">Wofür möchten Sie einen Termin?</label>
+          <div class="booking-type-options">
+            <div class="booking-type-option">
+              <input type="radio" name="bookingType" id="brille" value="brille" checked>
+              <label for="brille">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <span>Neue Brille</span>
+              </label>
+            </div>
+            <div class="booking-type-option">
+              <input type="radio" name="bookingType" id="reparatur" value="reparatur">
+              <label for="reparatur">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>Reparatur</span>
+              </label>
+            </div>
+            <div class="booking-type-option">
+              <input type="radio" name="bookingType" id="kontaktlinsen" value="kontaktlinsen">
+              <label for="kontaktlinsen">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <span>Kontaktlinsen</span>
+              </label>
+            </div>
+            <div class="booking-type-option">
+              <input type="radio" name="bookingType" id="sichtpruefung" value="sichtpruefung">
+              <label for="sichtpruefung">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Sichtprüfung</span>
+              </label>
+            </div>
+          </div>
+          <div class="booking-note">Dies ist eine unverbindliche Anfrage — wir melden uns schnellstmöglich zurück</div>
+          <div class="booking-form-row">
+            <div>
+              <label for="name">Ihr Name</label>
+              <input type="text" id="name" name="name" placeholder="Ihr Vor- und Nachname" required>
+            </div>
+            <div>
+              <label for="phone">Telefonnummer</label>
+              <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe" required>
+            </div>
+          </div>
+          <div>
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="name@beispiel.de" required>
+          </div>
+          <div class="booking-form-row">
+            <div>
+              <label for="preferredDate">Bevorzugtes Datum</label>
+              <input type="date" id="preferredDate" name="preferredDate">
+            </div>
+            <div>
+              <label for="preferredTime">Bevorzugte Uhrzeit</label>
+              <select id="preferredTime" name="preferredTime">
+                <option value="">Egal</option>
+                <option value="vormittags">Vormittags (9–12 Uhr)</option>
+                <option value="nachmittags">Nachmittags (13–18 Uhr)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="message">Ihre Nachricht (optional)</label>
+            <textarea id="message" name="message" rows="3" placeholder="Besondere Wünsche oder Fragen?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Anfrage absenden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="team-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Unser Team</h2>
+        <p>Getragen von Leidenschaft für gutes Sehen und persönlichem Service</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Christiane-Belledin-qhd__FocusFillWyIwLjAwIiwiMC4wMCIsNDAwLDQwMF0.jpg" alt="Christiane Belledin" loading="lazy">
+          <h4>Christiane Belledin</h4>
+          <p>Augenoptikermeisterin</p>
+        </div>
+        <div class="team-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Joachim-Horn-qhd__FocusFillWyIwLjAwIiwiMC4wMCIsNDAwLDQwMF0.jpg" alt="Joachim Horn" loading="lazy">
+          <h4>Joachim Horn</h4>
+          <p>Optikermeister</p>
+        </div>
+        <div class="team-card">
+          <img src="https://www.brillenladen.net/assets/Uploads/Ursula-Rhein-qhd__FocusFillWyIwLjAwIiwiMC4wMCIsNDAwLDQwMF0.jpg" alt="Ursula Rhein" loading="lazy">
+          <h4>Ursula Rhein</h4>
+          <p>Augenoptikerin</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Eindrücke</h2>
+        <p>So sieht es bei uns aus</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://www.brillenladen.net/assets/Uploads/Silvia-Loh-Brillenglaeser-schleifen-qhd__FillWzk2MCw5NjBd.jpg" alt="Brillengläser schleifen" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.brillenladen.net/assets/Uploads/Brillenladen-im-Stuehlinger-Team2-qhd__FillWzk2MCw5NjBd.jpg" alt="Team im Brillenladen" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.brillenladen.net/assets/Uploads/Fassungen-und-Glaeser.png" alt="Fassungen und Gläser" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.brillenladen.net/assets/Uploads/Sonnen-und-Sportbrillen-v2.png" alt="Sonnenbrillen" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band reveal">
+    <h2>Bereit für besseres Sehen?</h2>
+    <p>Kommen Sie vorbei — wir freuen uns auf Sie im Stühlinger</p>
+    <div class="cta-band-actions">
+      <a href="#beratung" class="btn btn-primary">Beratungstermin buchen</a>
+      <a href="tel:+49761280537" class="btn btn-cta">📞 +49 761 280537</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="kontakt" class="contact-section reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Kontakt & Anfahrt</h2>
+        <p>Wir sind für Sie da</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>So erreichen Sie uns</h3>
+          <div class="contact-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <p><a href="tel:+49761280537">+49 761 280537</a></p>
+          </div>
+          <div class="contact-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <p><a href="mailto:info@brillenladen.net">info@brillenladen.net</a></p>
+          </div>
+          <div class="contact-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <p>Freiburg im Breisgau, Stühlinger</p>
+          </div>
+        </div>
+        <div class="contact-map">
+          <span>Karte — <a href="http://www.brillenladen.net/" target="_blank" style="color:var(--accent)">www.brillenladen.net</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Konzept-Vorschau · MZ.9</p>
+    <p>Brillenladen im Stühlinger · <a href="http://www.brillenladen.net/" target="_blank">brillenladen.net</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="#beratung" class="btn btn-primary">Beratungstermin</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Booking form handler
+    function handleBooking(e) {
+      e.preventDefault();
+      const form = e.target;
+      const type = form.bookingType.value;
+      const name = form.name.value;
+      const phone = form.phone.value;
+      const email = form.email.value;
+      const date = form.preferredDate.value || 'Flexibel';
+      const time = form.preferredTime.value ? form.preferredTime.options[form.preferredTime.selectedIndex].text : 'Egal';
+      const message = form.message.value;
+
+      const subject = encodeURIComponent(`Beratungsanfrage: ${type} — ${name}`);
+      const body = encodeURIComponent(
+        `Art der Beratung: ${type}\n` +
+        `Name: ${name}\n` +
+        `Telefon: ${phone}\n` +
+        `E-Mail: ${email}\n` +
+        `Bevorzugtes Datum: ${date}\n` +
+        `Bevorzugte Uhrzeit: ${time}\n` +
+        `Nachricht: ${message || 'Keine'}`
+      );
+
+      window.location.href = `mailto:info@brillenladen.net?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
