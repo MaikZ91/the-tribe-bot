@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Blumen- und Gartenkunst GmbH Tunger-Schnur — Sommerliche Blumenkunst in Berlin</title>
+  <meta name="description" content="Individuelle Blumenkunst und saisonale Arrangements in Berlin-Moabit. Hochzeit, Trauer, Events & persönliche Beratung.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fdfaf8;
+      --text: #2a2a2a;
+      --accent: #4a7c59;
+      --accent-light: #7cb58a;
+      --accent-dark: #2d5a3e;
+      --accent-bloom: #e87d7d;
+      --surface: #fff;
+      --border: #e8ddd5;
+      --shadow-sm: 0 2px 8px rgba(74,124,89,0.08);
+      --shadow-md: 0 8px 24px rgba(74,124,89,0.12);
+      --shadow-lg: 0 16px 40px rgba(74,124,89,0.16);
+      --font-head: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+
+    button { font-family: inherit; border: none; cursor: pointer; }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(253,250,248,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: var(--shadow-md);
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      font-style: italic;
+    }
+
+    .logo span { color: var(--accent-bloom); }
+
+    .nav {
+      display: none;
+      gap: 2rem;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .nav a:hover { color: var(--accent); }
+
+    .header-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .header-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+    @media (min-width: 768px) {
+      .nav { display: flex; }
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://blumen-und-gartenkunst.de/assets/img/preview/00_sommer_26.jpg') center/cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45,90,62,0.75) 0%, rgba(74,124,89,0.55) 50%, rgba(232,125,125,0.3) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.95;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff;
+      color: var(--accent-dark);
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    }
+
+    /* STRIP USP */
+    .strip {
+      background: var(--surface);
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem 3rem;
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .strip-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.7rem;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600;
+      color: var(--accent-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header p {
+      color: #666;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* LEISTUNGEN */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent-dark);
+    }
+
+    .service-card p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* PREMIUM: BUCHUNG */
+    .booking-section {
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+      color: #fff;
+    }
+
+    .booking-section .section-header h2,
+    .booking-section .section-header p {
+      color: #fff;
+    }
+
+    .booking-section .section-header p {
+      opacity: 0.9;
+    }
+
+    .booking-ui {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .booking-step {
+      display: none;
+    }
+
+    .booking-step.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .booking-options {
+      display: grid;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .booking-option {
+      background: rgba(255,255,255,0.95);
+      padding: 1rem 1.3rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+    }
+
+    .booking-option:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .booking-option.selected {
+      background: #fff;
+      box-shadow: 0 0 0 2px var(--accent-bloom);
+    }
+
+    .booking-option-label {
+      font-weight: 500;
+    }
+
+    .booking-option-icon { font-size: 1.2rem; }
+
+    .booking-form {
+      display: grid;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .booking-input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.95);
+      color: var(--text);
+    }
+
+    .booking-input::placeholder { color: #999; }
+
+    .booking-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .booking-btn {
+      flex: 1;
+      padding: 1rem;
+      border-radius: 100px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .booking-btn-primary {
+      background: var(--accent-bloom);
+      color: #fff;
+    }
+
+    .booking-btn-primary:hover {
+      background: #d66a6a;
+      transform: translateY(-1px);
+    }
+
+    .booking-btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    .booking-btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* GALERIE */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/7;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      padding: 1.5rem 1rem 0.8rem;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-label {
+      opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .gallery-item:first-child {
+        grid-column: span 2;
+        aspect-ratio: 16/9;
+      }
+    }
+
+    /* REVIEWS */
+    .reviews-section {
+      background: #f5f2ef;
+    }
+
+    .reviews-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .review-card {
+      background: var(--surface);
+      padding: 1.8rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .review-stars {
+      color: #f4b942;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .review-author {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--accent-dark);
+    }
+
+    .review-note {
+      font-size: 0.7rem;
+      color: #999;
+      margin-top: 0.3rem;
+    }
+
+    /* CTA BAND */
+    .cta-band {
+      background: url('https://blumen-und-gartenkunst.de/assets/img/preview/02_sommer_26.jpg') center/cover no-repeat;
+      position: relative;
+    }
+
+    .cta-band-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(45,90,62,0.8);
+    }
+
+    .cta-band-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 4rem 1.5rem;
+    }
+
+    .cta-band h3 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
+    }
+
+    /* KONTAKT */
+    .contact-section {
+      background: var(--surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1.5fr;
+      }
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: var(--accent-dark);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-icon {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-top: 0.1rem;
+    }
+
+    .contact-link {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .contact-link:hover { text-decoration: underline; }
+
+    .contact-form {
+      background: #f8f5f2;
+      padding: 2rem;
+      border-radius: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .form-submit:hover { background: var(--accent-dark); }
+
+    /* FOOTER */
+    .footer {
+      background: var(--text);
+      color: #999;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .footer a { color: var(--accent-light); }
+
+    .footer a:hover { color: #fff; }
+
+    /* MOBILE CTA */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 0.8rem 1rem;
+      border-top: 1px solid var(--border);
+      z-index: 999;
+    }
+
+    .mobile-cta-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.9rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 767px) {
+      .mobile-cta { display: block; }
+      .section { padding: 3.5rem 1.5rem; }
+      .section:last-child { padding-bottom: 6rem; }
+    }
+
+    /* REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Blumen<span>&</span>Gartenkunst</div>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#beratung">Beratung</a>
+        <a href="#galerie">Sommer</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#beratung" class="header-cta">Termin buchen</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-tag">Sommer 2026</span>
+      <h1>Wir wünschen Ihnen einen angenehmen Sommer.</h1>
+      <p>Individuelle Blumenarrangements, saisonale Gartenkunst und persönliche Beratung in Berlin-Moabit.</p>
+      <a href="#beratung" class="hero-cta">
+        <span>✨</span> Beratungstermin sichern
+      </a>
+    </div>
+  </section>
+
+  <!-- USP STRIP -->
+  <div class="strip">
+    <div class="strip-inner">
+      <div class="strip-item">
+        <span class="strip-icon">✓</span>
+        Individuelle Gestecke
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">✓</span>
+        Tägliche Frische
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">✓</span>
+        Persönliche Beratung
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">✓</span>
+        Seit Jahrzehnten in Berlin
+      </div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section class="section" id="leistungen">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unser Angebot</h2>
+        <p>Von feinsten Hochzeitssträußen bis zu stilvollen Trauerfloristik – wir gestalten mit Herz und Hand.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">💐</div>
+          <h3>Hochzeitsfloristik</h3>
+          <p>Maßgeschneiderte Brautsträuße, Tischdekorationen und Kirchen-Schmuck für Ihren perfekten Tag.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌿</div>
+          <h3>Gartenkunst</h3>
+          <p>Saisonale Pflanzungen, Kübelarrangements und ganzjährige Gartenpflege nach Ihren Wünschen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🕯️</div>
+          <h3>Trauerfloristik</h3>
+          <p>Würdevolle Gestecke, Kränze und Arrangements – mit Empathie und Sorgfalt gestaltet.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎉</div>
+          <h3>Event & Dekoration</h3>
+          <p>Firmenevents, private Feiern, Weihnachtsdeko – wir bringen Blumen in jeden Raum.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌸</div>
+          <h3>Saisonale Kollektionen</h3>
+          <p>Frische Frühblüher, sommerliche Schnittblumen, herbstliche Töne & winterliche Akzente.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏠</div>
+          <h3>Pflanzenberatung</h3>
+          <p>Die passende Pflanze für jeden Standort – wir helfen bei Auswahl & Pflege.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUCHUNG -->
+  <section class="section booking-section" id="beratung">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Persönliche Beratung</h2>
+        <p>Buchen Sie Ihren kostenlosen Beratungstermin – wir nehmen uns Zeit für Ihre Wünsche.</p>
+      </div>
+      <div class="booking-ui reveal">
+        <div class="booking-step active" id="step-1">
+          <p style="text-align:center;margin-bottom:0.5rem">Wofür interessieren Sie sich?</p>
+          <div class="booking-options">
+            <div class="booking-option" onclick="selectOption(this, 'hochzeit')">
+              <span class="booking-option-label">Hochzeit / Event</span>
+              <span class="booking-option-icon">💐</span>
+            </div>
+            <div class="booking-option" onclick="selectOption(this, 'trauer')">
+              <span class="booking-option-label">Trauerfloristik</span>
+              <span class="booking-option-icon">🕯️</span>
+            </div>
+            <div class="booking-option" onclick="selectOption(this, 'garten')">
+              <span class="booking-option-label">Garten / Pflanzen</span>
+              <span class="booking-option-icon">🌿</span>
+            </div>
+            <div class="booking-option" onclick="selectOption(this, 'geschenk')">
+              <span class="booking-option-label">Geschenk / Strauß</span>
+              <span class="booking-option-icon">🎁</span>
+            </div>
+          </div>
+          <div class="booking-actions">
+            <button class="booking-btn booking-btn-secondary" onclick="goToStep(2)" disabled id="next-1">Weiter</button>
+          </div>
+        </div>
+
+        <div class="booking-step" id="step-2">
+          <p style="text-align:center;margin-bottom:0.5rem">Wie möchten wir Sie kontaktieren?</p>
+          <div class="booking-options">
+            <div class="booking-option" onclick="selectOption(this, 'telefon')">
+              <span class="booking-option-label">Rückruf</span>
+              <span class="booking-option-icon">📞</span>
+            </div>
+            <div class="booking-option" onclick="selectOption(this, 'email')">
+              <span class="booking-option-label">E-Mail</span>
+              <span class="booking-option-icon">✉️</span>
+            </div>
+            <div class="booking-option" onclick="selectOption(this, 'besuch')">
+              <span class="booking-option-label">Besuch im Geschäft</span>
+              <span class="booking-option-icon">📍</span>
+            </div>
+          </div>
+          <div class="booking-actions">
+            <button class="booking-btn booking-btn-secondary" onclick="goToStep(1)">Zurück</button>
+            <button class="booking-btn booking-btn-secondary" onclick="goToStep(3)" disabled id="next-2">Weiter</button>
+          </div>
+        </div>
+
+        <div class="booking-step" id="step-3">
+          <p style="text-align:center;margin-bottom:0.5rem">Ihre Kontaktdaten</p>
+          <div class="booking-form">
+            <input type="text" class="booking-input" placeholder="Ihr Name">
+            <input type="tel" class="booking-input" placeholder="Telefonnummer">
+            <input type="email" class="booking-input" placeholder="E-Mail-Adresse">
+          </div>
+          <div class="booking-actions">
+            <button class="booking-btn booking-btn-secondary" onclick="goToStep(2)">Zurück</button>
+            <button class="booking-btn booking-btn-primary" onclick="submitBooking()">Anfrage senden</button>
+          </div>
+        </div>
+
+        <div class="booking-step" id="step-success">
+          <div style="text-align:center;padding:1rem">
+            <div style="font-size:3rem;margin-bottom:1rem">✓</div>
+            <h3 style="font-family:var(--font-head);font-size:1.5rem;margin-bottom:0.5rem">Vielen Dank!</h3>
+            <p style="opacity:0.9">Wir melden uns zeitnah bei Ihnen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section" id="galerie">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Sommerkollektion 2026</h2>
+        <p>Ein Blick in unser Sortiment – frisch, farbenfroh und handverlesen.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://blumen-und-gartenkunst.de/assets/img/preview/01_sommer_26.jpg" alt="Sommerblumen Arrangement" loading="lazy">
+          <span class="gallery-label">Sommerstrauß</span>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://blumen-und-gartenkunst.de/assets/img/preview/02_sommer_26.jpg" alt="Gartenkunst Detail" loading="lazy">
+          <span class="gallery-label">Gartenakzent</span>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://blumen-und-gartenkunst.de/assets/img/preview/03_sommer_26.jpg" alt="Saisonale Dekoration" loading="lazy">
+          <span class="gallery-label">Saisonal</span>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://blumen-und-gartenkunst.de/assets/img/preview/04_sommer_26.jpg" alt="Blumenladen Ansicht" loading="lazy">
+          <span class="gallery-label">Unser Laden</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews-section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Das sagen unsere Kunden</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Der Hochzeitsstrauß war ein Traum – genau wie besprochen. Tolles Team, tolle Beratung!"</p>
+          <div class="review-author">Sandra M., Berlin-Mitte</div>
+          <div class="review-note">※ Beispiel-Bewertung</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Seit Jahren Kunde hier. Die Frische der Blumen ist unschlagbar, und die Beratung ist immer herzlich."</p>
+          <div class="review-author">Thomas K., Moabit</div>
+          <div class="review-note">※ Beispiel-Bewertung</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-text">"Schöne Auswahl, freundlich, kompetent. Für Trauerfloristik kann ich die Firma nur empfehlen."</p>
+          <div class="review-author">Barbara W., Tiergarten</div>
+          <div class="review-note">※ Beispiel-Bewertung</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="cta-band-overlay"></div>
+    <div class="cta-band-content reveal">
+      <h3>Blumen sprechen lassen.</h3>
+      <p>Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin.</p>
+      <a href="#beratung" class="hero-cta" style="background:var(--accent-bloom);color:#fff">
+        <span>📅</span> Jetzt Termin sichern
+      </a>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section contact-section" id="kontakt">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Kontakt & Anfahrt</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Wir freuen uns auf Sie</h3>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <strong>Adresse</strong><br>
+              Alt-Moabit 21/22<br>
+              10559 Berlin
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>
+              <strong>Telefon</strong><br>
+              <a href="tel:+493039030088" class="contact-link">+49 30 39030088</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <strong>E-Mail</strong><br>
+              <a href="mailto:info@blumen-und-gartenkunst.de" class="contact-link">info@blumen-und-gartenkunst.de</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">🌐</span>
+            <div>
+              <strong>Website</strong><br>
+              <a href="https://blumen-und-gartenkunst.de" class="contact-link" target="_blank">blumen-und-gartenkunst.de</a>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" onsubmit="event.preventDefault();alert('Dies ist eine Konzept-Vorschau. Die Anfrage wird nicht wirklich gesendet.');">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-input" placeholder="E-Mail-Adresse" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="tel" class="form-input" placeholder="Telefonnummer (optional)">
+          </div>
+          <div class="form-group">
+            <textarea class="form-textarea" placeholder="Ihre Nachricht oder Anliegen..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9</p>
+    <p style="margin-top:0.5rem;opacity:0.7">
+      <a href="https://blumen-und-gartenkunst.de" target="_blank">Original-Website besuchen</a>
+    </p>
+  </footer>
+
+  <!-- MOBILE CTA -->
+  <div class="mobile-cta">
+    <a href="#beratung" class="mobile-cta-btn">Beratungstermin buchen</a>
+  </div>
+
+  <script>
+    // HEADER SCROLL
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // REVEAL ANIMATION
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // BOOKING UI
+    let selectedTopic = null;
+    let selectedContact = null;
+
+    function selectOption(el, value) {
+      const parent = el.closest('.booking-step');
+      const options = parent.querySelectorAll('.booking-option');
+      options.forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+
+      if (parent.id === 'step-1') selectedTopic = value;
+      if (parent.id === 'step-2') selectedContact = value;
+
+      const nextBtn = document.querySelector(`#${parent.id} .booking-btn-secondary`);
+      if (nextBtn && nextBtn.textContent === 'Weiter') {
+        nextBtn.disabled = false;
+        nextBtn.style.background = 'rgba(255,255,255,0.3)';
+      }
+    }
+
+    function goToStep(step) {
+      document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step-${step}`).classList.add('active');
+    }
+
+    function submitBooking() {
+      const inputs = document.querySelectorAll('#step-3 input');
+      let filled = true;
+      inputs.forEach(inp => { if (!inp.value.trim()) filled = false; });
+
+      if (!filled) {
+        inputs.forEach(inp => inp.style.borderColor = '#e87d7d');
+        return;
+      }
+
+      document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-success').classList.add('active');
+    }
+  </script>
+</body>
+</html>
