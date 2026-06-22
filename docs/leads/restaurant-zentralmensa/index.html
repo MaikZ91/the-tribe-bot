@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Zentralmensa — Modernes Catering für Studierende · Konzept-Vorschau</title>
+  <meta name="description" content="Wir sind für Dich da! Frische, vielfältige Gerichte und ein herzliches Ambiente in der Zentralmensa Siegen. Konzept-Vorschau von MZ.9">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #E65100;
+      --primary-dark: #BF360C;
+      --secondary: #D84315;
+      --accent: #C62828;
+      --gold: #FFB300;
+      --cream: #FFF8E1;
+      --light: #FAFAFA;
+      --text: #2D2D2D;
+      --text-light: #6B6B6B;
+      --shadow: 0 8px 32px rgba(0,0,0,0.1);
+      --radius: 12px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.2;
+      color: var(--primary-dark);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 248, 225, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px 0;
+      transition: all 0.3s;
+    }
+
+    .header.scrolled {
+      padding: 12px 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(230, 81, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+
+    .hero-content {
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(230, 81, 0, 0.1);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .hero-image {
+      position: relative;
+      animation: fadeInRight 0.8s ease 0.2s backwards;
+    }
+
+    .hero-image img {
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: -15px;
+      background: var(--gold);
+      border-radius: 30px;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--primary-dark);
+      color: white;
+      padding: 40px 0;
+    }
+
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .usp-item {
+      text-align: center;
+    }
+
+    .usp-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .usp-item h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .usp-item p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* Menu Preview */
+    .menu-section {
+      padding: 100px 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .menu-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 30px;
+      transition: all 0.3s;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--gold);
+    }
+
+    .menu-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .menu-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-name {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .menu-price {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .menu-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* Gallery */
+    .gallery-section {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Features */
+    .features-section {
+      padding: 100px 0;
+      background: white;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .feature-card {
+      display: flex;
+      gap: 20px;
+      padding: 30px;
+      background: var(--light);
+      border-radius: var(--radius);
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(230, 81, 0, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .feature-content p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .contact-content h2 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .contact-content p {
+      opacity: 0.9;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .contact-link-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .contact-form {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px;
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-white:hover {
+      background: var(--cream);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      padding: 14px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        margin: 0 auto 30px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-image img {
+        max-height: 350px;
+      }
+
+      .usp-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: 16/10;
+      }
+
+      .gallery-item {
+        aspect-ratio: 4/3;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      .header {
+        padding: 15px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .usp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        padding: 25px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">Zentralmensa</div>
+      <nav class="nav-links">
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:+49217400" class="btn btn-primary">Anrufen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">🍽️ Frisch serviert in Siegen</span>
+        <h1>Wir sind für Dich da!</h1>
+        <p>Frische, vielfältige Gerichte und ein herzliches Ambiente — deine Zentralmensa in Siegen. Täglich für dich da mit Qualität und Geschmack.</p>
+        <div class="hero-buttons">
+          <a href="#speisekarte" class="btn btn-primary">Speisekarte ansehen</a>
+          <a href="#kontakt" class="btn btn-secondary">Kontakt aufnehmen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2021/11/gastro_cat.jpg" alt="Gastro - Frische Gerichte in der Mensa" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item">
+          <div class="usp-icon">🌿</div>
+          <h4>Frische Zutaten</h4>
+          <p>Täglich regional & saisonal</p>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">🥗</div>
+          <h4>Vielfalt</h4>
+          <p>Für jeden Geschmack was dabei</p>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">💚</div>
+          <h4>Nachhaltig</h4>
+          <p>Umweltbewusst essen</p>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">⏱️</div>
+          <h4>Schnell & Einfach</h4>
+          <p>Keine langen Wartezeiten</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Speisekarte Preview -->
+  <section id="speisekarte" class="menu-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unser Tagesangebot</h2>
+        <p>Jeden Tag frisch zubereitet — von klassischen Gerichten bis zu veganen Highlights.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <div class="menu-icon">🍝</div>
+          <h3>Hauptgerichte</h3>
+          <div class="menu-item">
+            <span class="menu-name">Schnitzel mit Pommes</span>
+            <span class="menu-price">4,50 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Vegetarische Lasagne</span>
+            <span class="menu-price">4,20 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Rinderbraten mit Klößen</span>
+            <span class="menu-price">5,10 €</span>
+          </div>
+          <p class="menu-note">* Beispiel-Preise — Änderungen vorbehalten</p>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-icon">🥗</div>
+          <h3>Salate & Beilagen</h3>
+          <div class="menu-item">
+            <span class="menu-name">Gemischter Salat</span>
+            <span class="menu-price">1,80 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Kartoffelsalat</span>
+            <span class="menu-price">1,50 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Reis-Beilage</span>
+            <span class="menu-price">1,20 €</span>
+          </div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="menu-icon">🍰</div>
+          <h3>Desserts</h3>
+          <div class="menu-item">
+            <span class="menu-name">Apfelkuchen</span>
+            <span class="menu-price">1,90 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Pudding</span>
+            <span class="menu-price">1,30 €</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-name">Obstsalat</span>
+            <span class="menu-price">1,50 €</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Warum Zentralmensa?</h2>
+        <p>Mehr als nur Essen — ein Ort der Gemeinschaft und des Genusses.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">📱</div>
+          <div class="feature-content">
+            <h3>Digitale Speisekarte</h3>
+            <p>Immer das aktuelle Angebot auf einen Blick — direkt auf deinem Smartphone.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🌱</div>
+          <div class="feature-content">
+            <h3>Vegane & Vegetarische Optionen</h3>
+            <p>Breite Auswahl an pflanzlichen Gerichten für bewusste Ernährung.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">💬</div>
+          <div class="feature-content">
+            <h3>Schneller Kontakt</h3>
+            <p>Feedback, Anfragen oder Wünsche — wir sind schnell erreichbar.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-content">
+            <h3>Studierendenfreundliche Preise</h3>
+            <p>Qualität zu fairen Preisen — für jeden Geldbeutel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="galerie" class="gallery-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Einblicke</h2>
+        <p>Unsere Atmosphäre und das, was wir für dich tun.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2021/11/youngsters.jpg" alt="Studenten genießen das Mensa-Angebot" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2022/05/Foto-ueber-uns-scaled.jpg" alt="Über uns — Das Team" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2021/11/wohnen_cat.jpg" alt="Campus-Umgebung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2022/05/Foto-BAfoeG-scaled.jpg" alt="Beratung & Unterstützung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.studierendenwerk-siegen.de/wp-content/uploads/2021/11/kinder_cat.jpg" alt="Familienfreundlich" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="kontakt" class="contact-section">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-content reveal">
+          <h2>Du hast Fragen?</h2>
+          <p>Wir sind gerne für dich da. Schreib uns eine Nachricht oder ruf direkt an — wir helfen dir weiter.</p>
+          <div class="contact-links">
+            <a href="tel:+49217400" class="contact-link">
+              <span class="contact-link-icon">📞</span>
+              <span>+49 271 7400</span>
+            </a>
+            <a href="mailto:info@studierendenwerk.uni-siegen.de" class="contact-link">
+              <span class="contact-link-icon">✉️</span>
+              <span>info@studierendenwerk.uni-siegen.de</span>
+            </a>
+            <a href="https://www.studierendenwerk-siegen.de/" target="_blank" class="contact-link">
+              <span class="contact-link-icon">🌐</span>
+              <span>www.studierendenwerk-siegen.de</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <form action="mailto:info@studierendenwerk.uni-siegen.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Dein Name</label>
+              <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" placeholder="deine@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Deine Nachricht</label>
+              <textarea id="message" name="message" placeholder="Wie können wir dir helfen?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · <a href="https://maikz91.github.io/the-tribe-bot/">MZ.9</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA -->
+  <div class="mobile-cta">
+    <a href="tel:+49217400" class="btn btn-primary">Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
