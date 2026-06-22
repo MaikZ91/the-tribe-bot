@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dachdecker Bonn | Momper & Sohn GmbH - Dachdeckermeisterbetrieb</title>
+  <meta name="description" content="Momper & Sohn GmbH - Ihr Dachdeckermeisterbetrieb in Bonn. Dachsanierung, Photovoltaik & Flachdach. Meisterbetrieb mit über 20 Jahre Erfahrung. Jetzt anfragen!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8B4513;
+      --primary-dark: #5D2E0C;
+      --primary-light: #A0522D;
+      --accent: #DAA520;
+      --bg: #F5F1EB;
+      --bg-warm: #FFF8F0;
+      --text: #2C2C2C;
+      --text-muted: #6B6B6B;
+      --white: #FFFFFF;
+      --shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+      --shadow-lg: 0 10px 40px rgba(139, 69, 19, 0.15);
+      --radius: 8px;
+      --radius-lg: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+
+    /* Header */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255, 248, 240, 0.95); backdrop-filter: blur(10px); transition: 0.3s; padding: 16px 24px; }
+    header.scrolled { box-shadow: var(--shadow); padding: 12px 24px; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .logo span { color: var(--text); }
+    .nav-cta { background: var(--primary); color: var(--white); padding: 10px 20px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; }
+    .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* Hero */
+    .hero { position: relative; min-height: 90vh; display: flex; align-items: center; padding-top: 80px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://static.wixstatic.com/media/268bdc_f9e8e07477eb4d86b0ed01904441c4a7~mv2.jpg/v1/fill/w_2500,h_1666,al_c/268bdc_f9e8e07477eb4d86b0ed01904441c4a7~mv2.jpg'); background-size: cover; background-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44, 44, 44, 0.85) 0%, rgba(44, 44, 44, 0.6) 100%); }
+    .hero-content { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 24px; color: var(--white); text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 16px; letter-spacing: 2px; }
+    .hero p { font-size: clamp(1rem, 2vw, 1.25rem); opacity: 0.9; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-cta { display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { background: var(--accent); color: var(--text); padding: 14px 32px; border-radius: var(--radius); font-weight: 600; font-size: 1rem; border: none; cursor: pointer; transition: 0.3s; }
+    .btn-primary:hover { background: #B8962D; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(218, 165, 32, 0.3); }
+    .btn-secondary { background: transparent; color: var(--white); padding: 14px 32px; border-radius: var(--radius); font-weight: 600; font-size: 1rem; border: 2px solid var(--white); cursor: pointer; transition: 0.3s; }
+    .btn-secondary:hover { background: var(--white); color: var(--text); }
+
+    /* Trust Strip */
+    .trust-strip { background: var(--primary); padding: 24px; }
+    .trust-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; color: var(--white); font-weight: 500; }
+    .trust-icon { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+    /* Services */
+    .services { padding: 80px 24px; background: var(--bg-warm); }
+    .section-title { text-align: center; margin-bottom: 48px; }
+    .section-title h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--primary); margin-bottom: 12px; }
+    .section-title p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .services-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .service-card { background: var(--white); padding: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow); transition: 0.3s; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .service-icon { width: 56px; height: 56px; background: var(--bg); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; color: var(--primary); }
+    .service-card h3 { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1.25rem; margin-bottom: 12px; color: var(--text); }
+    .service-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Booking Form */
+    .booking { padding: 80px 24px; background: var(--bg); }
+    .booking-inner { max-width: 900px; margin: 0 auto; }
+    .booking-card { background: var(--white); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+    .booking-header { text-align: center; margin-bottom: 32px; }
+    .booking-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--primary); margin-bottom: 12px; }
+    .booking-header p { color: var(--text-muted); }
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #E0E0E0; border-radius: var(--radius); font-family: 'Barlow', sans-serif; font-size: 1rem; transition: 0.3s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1); }
+    .form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+    .form-back { background: transparent; color: var(--text-muted); padding: 12px 24px; border-radius: var(--radius); border: 1px solid #E0E0E0; cursor: pointer; font-weight: 500; }
+    .form-back:hover { background: #F5F5F5; }
+    .form-next { background: var(--primary); color: var(--white); padding: 12px 32px; border-radius: var(--radius); border: none; cursor: pointer; font-weight: 600; }
+    .form-next:hover { background: var(--primary-dark); }
+    .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .step-dot { width: 32px; height: 32px; border-radius: 50%; background: #E0E0E0; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem; color: var(--text-muted); transition: 0.3s; }
+    .step-dot.active { background: var(--primary); color: var(--white); }
+    .step-dot.completed { background: var(--accent); color: var(--text); }
+
+    /* Gallery */
+    .gallery { padding: 80px 24px; background: var(--bg-warm); }
+    .gallery-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .gallery-item { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44, 44, 44, 0.7) 0%, transparent 50%); opacity: 0; transition: 0.3s; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-label { position: absolute; bottom: 16px; left: 16px; right: 16px; color: var(--white); font-weight: 600; }
+
+    /* CTA Band */
+    .cta-band { padding: 80px 24px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); text-align: center; }
+    .cta-band h2 { color: var(--white); margin-bottom: 16px; }
+    .cta-band p { color: rgba(255, 255, 255, 0.9); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-band .btn-primary { background: var(--accent); color: var(--text); }
+
+    /* Contact */
+    .contact { padding: 80px 24px; background: var(--bg); }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+    .contact-info h3 { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1.5rem; margin-bottom: 24px; color: var(--primary); }
+    .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .contact-icon { width: 44px; height: 44px; background: var(--bg-warm); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary); flex-shrink: 0; }
+    .contact-text h4 { font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+    .contact-text p { color: var(--text-muted); font-size: 0.95rem; }
+    .contact-text a { color: var(--primary); }
+    .contact-text a:hover { color: var(--primary-light); }
+    .map-frame { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: #E8E8E8; min-height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+
+    /* Footer */
+    footer { background: var(--text); padding: 32px 24px; text-align: center; }
+    footer p { color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
+    footer a { color: var(--accent); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; background: var(--white); padding: 12px 24px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1); display: none; }
+    .mobile-cta .btn-primary { width: 100%; text-align: center; }
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+      body { padding-bottom: 70px; }
+      .booking-card { padding: 24px; }
+      .hero { min-height: 80vh; }
+    }
+
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal.lift { transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">Momper <span>& Sohn GmbH</span></div>
+      <a href="#anfrage" class="nav-cta">Anfrage senden</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>ZUVERLÄSSIG. FACHGERECHT. MEISTERHAFT.</h1>
+      <p>Ihr Dachdeckermeisterbetrieb in Bonn mit über 20 Jahren Erfahrung. Dachsanierung, Photovoltaik & Flachdach.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="location.href='#anfrage'">Kostenlose Anfrage</button>
+        <button class="btn-secondary" onclick="location.href='tel:+4922839020700'">Jetzt anrufen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="trust-icon">✓</span> Meisterbetrieb</div>
+      <div class="trust-item"><span class="trust-icon">✓</span> 20+ Jahre Erfahrung</div>
+      <div class="trust-item"><span class="trust-icon">✓</span> Bonn & Region</div>
+      <div class="trust-item"><span class="trust-icon">✓</span> Gratis Beratung</div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="section-title reveal">
+      <h2>Leistungen</h2>
+      <p>Umfassende Dacharbeiten aus einer Hand – von der Sanierung bis zur Photovoltaik.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal lift">
+        <div class="service-icon">🏠</div>
+        <h3>Dachsanierung</h3>
+        <p>Professionelle Erneuerung Ihres Daches mit hochwertigen Materialien und sorgfältiger Ausführung.</p>
+      </div>
+      <div class="service-card reveal lift">
+        <div class="service-icon">☀️</div>
+        <h3>Photovoltaik</h3>
+        <p>Modernste Solaranlagen auf Ihrem Dach – nachhaltige Energie und langfristige Einsparungen.</p>
+      </div>
+      <div class="service-card reveal lift">
+        <div class="service-icon">📐</div>
+        <h3>Flachdach</h3>
+        <p>Spezialisiert auf Flachdächer: Abdichtung, Dämmung und Begrünung nach aktuellen Standards.</p>
+      </div>
+      <div class="service-card reveal lift">
+        <div class="service-icon">🔧</div>
+        <h3>Instandsetzung</h3>
+        <p>Schnelle und zuverlässige Reparaturen bei Schäden – Ihr Dach bleibt dauerhaft sicher.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Form -->
+  <section class="booking" id="anfrage">
+    <div class="booking-inner">
+      <div class="booking-card reveal">
+        <div class="booking-header">
+          <h2>Kostenlose Anfrage</h2>
+          <p>In 3 Schritten zu Ihrem persönlichen Angebot</p>
+        </div>
+        <div class="step-indicator">
+          <div class="step-dot active" data-step="1">1</div>
+          <div class="step-dot" data-step="2">2</div>
+          <div class="step-dot" data-step="3">3</div>
+        </div>
+        <form id="bookingForm">
+          <!-- Step 1: Service -->
+          <div class="form-step active" data-step="1">
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label>Welche Leistung benötigen Sie?</label>
+              <select id="serviceSelect" required>
+                <option value="">Bitte wählen...</option>
+                <option value="dachsanierung">Dachsanierung</option>
+                <option value="photovoltaik">Photovoltaik</option>
+                <option value="flachdach">Flachdach</option>
+                <option value="instandsetzung">Instandsetzung / Reparatur</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label>Kurze Beschreibung Ihres Anliegens</label>
+              <textarea id="description" rows="3" placeholder="z.B. Altes Dach soll erneuert werden, ca. 120 m²..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="form-next" onclick="nextStep(2)">Weiter</button>
+            </div>
+          </div>
+          <!-- Step 2: Contact -->
+          <div class="form-step" data-step="2">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="name" placeholder="Ihr Name" required>
+              </div>
+              <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" id="phone" placeholder="Für Rückrufe">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label>E-Mail</label>
+              <input type="email" id="email" placeholder="Ihre E-Mail-Adresse" required>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="form-back" onclick="prevStep(1)">Zurück</button>
+              <button type="button" class="form-next" onclick="nextStep(3)">Weiter</button>
+            </div>
+          </div>
+          <!-- Step 3: Confirm -->
+          <div class="form-step" data-step="3">
+            <div style="background: var(--bg); padding: 20px; border-radius: var(--radius); margin-bottom: 20px;">
+              <p style="margin-bottom: 12px;"><strong>Ihre Anfrage:</strong></p>
+              <p id="summary" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                <input type="checkbox" required style="margin-top: 4px;">
+                <span style="font-size: 0.9rem; color: var(--text-muted);">Ich stimme zu, dass meine Angaben zur Kontaktaufnahme verwendet werden.</span>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="form-back" onclick="prevStep(2)">Zurück</button>
+              <button type="submit" class="form-next">Anfrage absenden</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="section-title reveal">
+      <h2>Referenzen</h2>
+      <p>Ausgewählte Projekte aus über 20 Jahren Meisterbetrieb.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_df0cfdb34c5d489184123e273afef48b~mv2.jpg/v1/fill/w_147,h_114,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_df0cfdb34c5d489184123e273afef48b~mv2.jpg" alt="Dacharbeiten Projekt 1" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Dacherneuerung</div>
+      </div>
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_cdd1d8574b674ff59a280c566cacda0d~mv2.jpg/v1/fill/w_147,h_84,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_cdd1d8574b674ff59a280c566cacda0d~mv2.jpg" alt="Dacharbeiten Projekt 2" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Flachdachabdichtung</div>
+      </div>
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_adb6c8eca3874559b0d7ab8feb1fcd4f~mv2.jpg/v1/fill/w_147,h_98,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_adb6c8eca3874559b0d7ab8feb1fcd4f~mv2.jpg" alt="Dacharbeiten Projekt 3" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Sanierung</div>
+      </div>
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_4f20bd51602146e99592485d19a9ce50~mv2.jpg/v1/fill/w_147,h_98,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_4f20bd51602146e99592485d19a9ce50~mv2.jpg" alt="Dacharbeiten Projekt 4" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Neubau</div>
+      </div>
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_22dca24bfb7c49a6aa91f13fda71f085~mv2.jpg/v1/fill/w_147,h_110,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_22dca24bfb7c49a6aa91f13fda71f085~mv2.jpg" alt="Dacharbeiten Projekt 5" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Dacheindeckung</div>
+      </div>
+      <div class="gallery-item reveal lift">
+        <img src="https://static.wixstatic.com/media/268bdc_5998d81465394d84977c498e36f92fed~mv2.jpg/v1/fill/w_147,h_110,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/268bdc_5998d81465394d84977c498e36f92fed~mv2.jpg" alt="Dacharbeiten Projekt 6" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-label">Photovoltaik</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="reveal">
+      <h2>Bereit für ein sicheres Dach?</h2>
+      <p>Holen Sie sich jetzt Ihr kostenloses Angebot von unseren Meistern.</p>
+      <button class="btn-primary" onclick="location.href='#anfrage'">Anfrage starten</button>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Kontakt</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Adresse</h4>
+            <p>Rochusstraße 62<br>53123 Bonn</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <h4>Telefon</h4>
+            <p><a href="tel:+4922839020700">+49 228 39020700</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:info@dachdecker-mus.de">info@dachdecker-mus.de</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame reveal lift">
+        <p>Karte: Rochusstraße 62, 53123 Bonn</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Konzept-Vorschau · <a href="https://www.bedachungen-bonn.de/">www.bedachungen-bonn.de</a> · MZ.9</p>
+  </footer>
+
+  <!-- Mobile CTA -->
+  <div class="mobile-cta">
+    <button class="btn-primary" onclick="location.href='#anfrage'">Kostenlose Anfrage</button>
+  </div>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => observer.observe(el));
+
+    // Form steps
+    let currentStep = 1;
+    function nextStep(step) {
+      const serviceSelect = document.getElementById('serviceSelect');
+      if (step === 2 && !serviceSelect.value) {
+        serviceSelect.focus();
+        return;
+      }
+      if (step === 3) {
+        updateSummary();
+      }
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+      updateStepIndicator(step);
+      currentStep = step;
+    }
+    function prevStep(step) {
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+      updateStepIndicator(step);
+      currentStep = step;
+    }
+    function updateStepIndicator(step) {
+      document.querySelectorAll('.step-dot').forEach((dot, i) => {
+        dot.classList.remove('active', 'completed');
+        if (i + 1 < step) dot.classList.add('completed');
+        if (i + 1 === step) dot.classList.add('active');
+      });
+    }
+    function updateSummary() {
+      const service = document.getElementById('serviceSelect');
+      const desc = document.getElementById('description');
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const serviceName = service.options[service.selectedIndex].text;
+      document.getElementById('summary').innerHTML =
+        `<strong>Leistung:</strong> ${serviceName}<br>` +
+        `<strong>Beschreibung:</strong> ${desc.value || 'Keine Angabe'}<br>` +
+        `<strong>Name:</strong> ${name.value || 'Keine Angabe'}<br>` +
+        `<strong>E-Mail:</strong> ${email.value || 'Keine Angabe'}<br>` +
+        `<strong>Telefon:</strong> ${phone.value || 'Keine Angabe'}`;
+    }
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Vielen Dank für Ihre Anfrage! Wir melden uns schnellstmöglich bei Ihnen.');
+      window.location.href = 'mailto:info@dachdecker-mus.de?subject=Anfrage über Website&body=' + encodeURIComponent(document.getElementById('summary').innerText.replace(/<br>/g, '\n'));
+    });
+  </script>
+</body>
+</html>

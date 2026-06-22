@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Grabpflege Brumm | Grabpflege in und um München</title>
+  <meta name="description" content="Professionelle Grabpflege in München und Umgebung. Dauergrabpflege, Saisonbepflanzung, Einzelgrabpflege – damit Sie ans Grab gehen, wann Sie möchten.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #faf9f6;
+      --color-bg-dark: #f4f3ef;
+      --color-text: #2d3a32;
+      --color-text-light: #5a665e;
+      --color-primary: #4a6b4f;
+      --color-primary-dark: #3a553f;
+      --color-accent: #c7b299;
+      --color-accent-light: #e8e0d7;
+      --color-white: #ffffff;
+      --color-shadow: rgba(45, 58, 50, 0.1);
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2.5rem;
+      --spacing-xl: 4rem;
+      --radius: 8px;
+      --radius-lg: 16px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: var(--spacing-sm); }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+    p { margin-bottom: var(--spacing-sm); }
+
+    a { text-decoration: none; color: inherit; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-sm);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--color-shadow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-full { width: 100%; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: transparent;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      padding: var(--spacing-md) 0;
+    }
+
+    .header.scrolled {
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px var(--color-shadow);
+      padding: var(--spacing-sm) 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .nav {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: center;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .nav { display: none; }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-dark) 100%);
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      margin-bottom: var(--spacing-md);
+      color: var(--color-primary);
+    }
+
+    .hero-text p {
+      font-size: 1.125rem;
+      color: var(--color-text-light);
+      margin-bottom: var(--spacing-lg);
+      max-width: 500px;
+    }
+
+    .hero-quote {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--color-accent);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 60px var(--color-shadow);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: var(--spacing-md);
+      right: var(--spacing-md);
+      background: var(--color-white);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px var(--color-shadow);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-text p { margin: 0 auto var(--spacing-lg); }
+      .hero-quote { font-size: 1.25rem; }
+      .hero-image img { height: 350px; }
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      background: var(--color-primary);
+      padding: var(--spacing-md) 0;
+    }
+
+    .trust-strip-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--color-white);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 600px) {
+      .trust-strip-inner { flex-direction: column; gap: var(--spacing-sm); }
+    }
+
+    /* SECTION BASE */
+    .section {
+      padding: var(--spacing-xl) 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--spacing-lg);
+    }
+
+    .section-header p {
+      color: var(--color-text-light);
+    }
+
+    .section-alt {
+      background: var(--color-bg-dark);
+    }
+
+    /* LEISTUNGEN */
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .leistung-card {
+      background: var(--color-white);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 20px var(--color-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .leistung-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px var(--color-shadow);
+    }
+
+    .leistung-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-md);
+      font-size: 1.5rem;
+    }
+
+    .leistung-card h3 {
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-primary);
+    }
+
+    .leistung-card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+
+    /* TERMIN BUCHUNG (PREMIUM FEATURE) */
+    .termin-section {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: var(--color-white);
+      padding: var(--spacing-xl) 0;
+    }
+
+    .termin-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+      align-items: center;
+    }
+
+    .termin-text h2, .termin-text h3, .termin-text p {
+      color: var(--color-white);
+    }
+
+    .termin-text h2 { margin-bottom: var(--spacing-md); }
+    .termin-text p { color: rgba(255,255,255,0.9); }
+
+    .termin-form {
+      background: var(--color-white);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      color: var(--color-text);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    @media (max-width: 900px) {
+      .termin-inner { grid-template-columns: 1fr; }
+    }
+
+    /* GALERIE */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .galerie-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .galerie-item:hover {
+      transform: scale(1.02);
+    }
+
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .galerie-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .galerie-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--spacing-sm);
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: var(--color-white);
+      font-size: 0.875rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .galerie-item:hover .galerie-caption {
+      transform: translateY(0);
+    }
+
+    /* CTA BAND */
+    .cta-band {
+      background: var(--color-accent);
+      padding: var(--spacing-xl) 0;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-text);
+    }
+
+    .cta-band p {
+      max-width: 600px;
+      margin: 0 auto var(--spacing-md);
+      color: var(--color-text-light);
+    }
+
+    .cta-band-image {
+      margin: var(--spacing-lg) auto;
+      max-width: 600px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 40px var(--color-shadow);
+    }
+
+    .cta-band-image img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    /* KONTAKT */
+    .kontakt-section {
+      background: var(--color-bg-dark);
+    }
+
+    .kontakt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    .kontakt-info {
+      background: var(--color-white);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+    }
+
+    .kontakt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .kontakt-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .kontakt-item h4 {
+      margin-bottom: var(--spacing-xs);
+      font-size: 1rem;
+    }
+
+    .kontakt-item p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .kontakt-map {
+      background: var(--color-accent-light);
+      border-radius: var(--radius-lg);
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+    }
+
+    @media (max-width: 768px) {
+      .kontakt-grid { grid-template-columns: 1fr; }
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--color-text);
+      color: var(--color-white);
+      padding: var(--spacing-lg) 0 var(--spacing-md);
+      text-align: center;
+    }
+
+    .footer p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.875rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .footer-note {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: var(--spacing-md);
+      margin-top: var(--spacing-md);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* MOBILE CTA BAR */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      padding: var(--spacing-sm);
+      box-shadow: 0 -4px 20px var(--color-shadow);
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+      .section { padding-bottom: calc(var(--spacing-xl) + 60px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="logo">Grabpflege Brumm</div>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#termin" class="btn btn-primary">Anfrage senden</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text reveal">
+        <h1>Grabpflege mit Herz in München</h1>
+        <p class="hero-quote">„Gehen Sie ans Grab, wenn Sie möchten. Nicht, wenn Sie es müssen!"</p>
+        <p>Professionelle Grabpflege in München und Umgebung. Damit die Gräber Ihrer Liebsten jederzeit gepflegt und würdevoll wirken.</p>
+        <a href="#termin" class="btn btn-primary">Kostenlose Anfrage</a>
+        <a href="#leistungen" class="btn btn-secondary">Mehr erfahren</a>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/jahres-grabpflege-michael-brumm-muenchen-bayern-300x300.png" alt="Grabpflege Brumm München">
+        <div class="hero-badge">✓ Überprüfter Fachbetrieb</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="container trust-strip-inner">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Überprüfter Fachbetrieb</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🌿</span>
+        <span>Jahrzehnte Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">📍</span>
+        <span>München & Umgebung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🤝</span>
+        <span>Städtische Bestattung Partner</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section class="section" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Umfassende Grabpflege-Pakete für jede Saison und jedes Budget – ganz nach Ihren Wünschen.</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🌸</div>
+          <h3>Saisonbepflanzung</h3>
+          <p>Jahreszeitlich passende Bepflanzung für Frühling, Sommer, Herbst und Winter. Blühende Akzente zu jeder Zeit.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">📅</div>
+          <h3>Jahresgrabpflege</h3>
+          <p>Komplette Pflege über das gesamte Jahr. Schnitt, Bewässerung, Bepflanzung und Reinigung – aus einer Hand.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">♾️</div>
+          <h3>Dauergrabpflege</h3>
+          <p>Langfristige Pflege ohne Sorgen. Wir kümmern uns dauerhaft um das Grab – generationenübergreifend.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">✂️</div>
+          <h3>Einzelgrabpflege</h3>
+          <p>Gezielte Pflege auf Abruf. Schnitt, Gießen, Aufräumen – wann immer Sie es wünschen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMIN BUCHUNG -->
+  <section class="termin-section" id="termin">
+    <div class="container termin-inner">
+      <div class="termin-text reveal">
+        <h2>Unverbindliche Anfrage</h2>
+        <p>Erzählen Sie uns von Ihren Wünschen. Wir melden uns schnellstmöglich mit einem persönlichen Angebot.</p>
+        <br>
+        <h3>Kontakt direkt</h3>
+        <p>📞 <a href="tel:+49896084853" style="text-decoration: underline;">+49 89 6084853</a></p>
+        <p>✉️ <a href="mailto:info@grabpflege-brumm.de" style="text-decoration: underline;">info@grabpflege-brumm.de</a>
+      </div>
+      <div class="termin-form reveal">
+        <form action="mailto:info@grabpflege-brumm.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" name="name" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-Mail</label>
+            <input type="email" class="form-input" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gewünschte Leistung</label>
+            <select class="form-select" name="leistung">
+              <option value="">Bitte wählen...</option>
+              <option value="saison">Saisonbepflanzung</option>
+              <option value="jahres">Jahresgrabpflege</option>
+              <option value="dauer">Dauergrabpflege</option>
+              <option value="einzel">Einzelgrabpflege</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ihre Nachricht</label>
+            <textarea class="form-textarea" name="nachricht" placeholder="Friedhof, Grabnummer, besondere Wünsche..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section section-alt" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Arbeit</h2>
+        <p>Bilder aus Münchner Friedhöfen – Einblick in unsere tägliche Arbeit.</p>
+      </div>
+      <div class="galerie-grid">
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/ueber-uns-grapflege-michael-brumm-friedhoefe-muenchen-480x361.jpg" alt="Über uns" loading="lazy">
+          <div class="galerie-caption">Über uns</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/grabpflege-leistungen-grabpflege-michael-brumm-muenchen-480x360.jpg" alt="Leistungen" loading="lazy">
+          <div class="galerie-caption">Leistungen</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/friedhof-uebersicht-muenchener-friehoefe-grabpflege-brumm-480x361.jpg" alt="Friedhof Übersicht" loading="lazy">
+          <div class="galerie-caption">Münchner Friedhöfe</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/einzel-grabpflege-michael-brumm-muenchen-420x315.jpg" alt="Einzelgrabpflege" loading="lazy">
+          <div class="galerie-caption">Einzelgrabpflege</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/jahres-grabpflege-michael-brumm-420x315.jpg" alt="Jahresgrabpflege" loading="lazy">
+          <div class="galerie-caption">Jahresgrabpflege</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/dauer-grabpflege-grabpflege-michael-brumm-muenchen-420x315.jpg" alt="Dauergrabpflege" loading="lazy">
+          <div class="galerie-caption">Dauergrabpflege</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/saison-bepflanzung-jahreszeiten-grabpflege-brumm-muenchen-420x315.jpg" alt="Saisonbepflanzung" loading="lazy">
+          <div class="galerie-caption">Saisonbepflanzung</div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2015/06/einmal-grabpflege-brumm-region-muenchen-bayern-300x300.png" alt="Region München Bayern" loading="lazy">
+          <div class="galerie-caption">Region München & Bayern</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Weniger Sorgen, mehr Zeit</h2>
+      <p>Überlassen Sie die Grabpflege den Profis. Wir sorgen dafür, dass das Grab Ihrer Liebsten jederzeit würdevoll gepflegt ist.</p>
+      <div class="cta-band-image">
+        <img src="https://www.grabpflege-brumm.de/wp-content/uploads/2014/12/jahres-grabpflege-michael-brumm-muenchen-420x315.jpg" alt="Gepflegtes Grab" loading="lazy">
+      </div>
+      <a href="#termin" class="btn btn-primary">Jetzt unverbindlich anfragen</a>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section kontakt-section" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt & Anfahrt</h2>
+      </div>
+      <div class="kontakt-grid">
+        <div class="kontakt-info reveal">
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📍</div>
+            <div>
+              <h4>Adresse</h4>
+              <p>Zugspitzstraße 2<br>81541 München</p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <p><a href="tel:+49896084853">+49 89 6084853</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@grabpflege-brumm.de">info@grabpflege-brumm.de</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">🌐</div>
+            <div>
+              <h4>Website</h4>
+              <p><a href="https://www.grabpflege-brumm.de/" target="_blank">www.grabpflege-brumm.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="kontakt-map reveal">
+          <p>Karte wird geladen...</p>
+          <p style="font-size: 0.875rem; margin-top: var(--spacing-sm);">Zugspitzstraße 2, 81541 München</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>Grabpflege Brumm – Professionelle Grabpflege in München</p>
+      <p>Überprüfter Fachbetrieb | Mitglied Bayerischer Gärtner-Verband</p>
+      <div class="footer-note">
+        Konzept-Vorschau · MZ.9
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE CTA BAR -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn btn-primary">Anfrage senden</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const body = Object.fromEntries(formData);
+      const mailto = `mailto:info@grabpflege-brumm.de?subject=Grabpflege Anfrage&body=${encodeURIComponent(JSON.stringify(body, null, 2))}`;
+      window.location.href = mailto;
+    });
+  </script>
+</body>
+</html>
