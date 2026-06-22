@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>andersartig Wohnkultur — Schreinerei Regensburg | Wohnkultur ist Ansichtssache</title>
+    <meta name="description" content="andersartig Wohnkultur — Ihre Schreinerei in Regensburg. Küchen, Ladenbau, Möbelbau und Sanitär. Gemeinsam mit Ihnen: Wohnkultur ist Ansichtssache.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --wood: #C48A5E;
+            --wood-dark: #9A6B46;
+            --steel: #5A6B7A;
+            --steel-dark: #3D4A56;
+            --cream: #FDF8F3;
+            --paper: #F4EDE6;
+            --charcoal: #2A2A2A;
+            --text: #3D3D3D;
+            --text-light: #6A6A6A;
+        }
+        body {
+            font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(196, 138, 94, 0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        header.scrolled {
+            box-shadow: 0 2px 20px rgba(90, 107, 122, 0.1);
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--charcoal);
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--wood); }
+        .nav { display: flex; gap: 2rem; align-items: center; }
+        .nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav a:hover { color: var(--wood); }
+        .cta-btn {
+            background: var(--wood);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn:hover { background: var(--wood-dark); transform: translateY(-1px); }
+        .cta-btn-outline {
+            background: transparent;
+            border: 2px solid var(--wood);
+            color: var(--wood);
+        }
+        .cta-btn-outline:hover {
+            background: var(--wood);
+            color: white;
+        }
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 1.5rem 3rem;
+            background: linear-gradient(135deg, var(--paper) 0%, var(--cream) 100%);
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            object-fit: cover;
+            mask-image: linear-gradient(to left, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+        }
+        .hero-inner {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            z-index: 1;
+        }
+        .hero-content {
+            max-width: 550px;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(196, 138, 94, 0.15);
+            color: var(--wood-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 span { color: var(--wood); }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        /* USPs */
+        .usps {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 1.5rem;
+        }
+        .usps-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .usp-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .usp-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(196, 138, 94, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.3rem;
+        }
+        .usp-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--wood);
+        }
+        .usp-content p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        /* Leistungen */
+        .services {
+            padding: 5rem 1.5rem;
+            background: var(--cream);
+        }
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--charcoal);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(90, 107, 122, 0.08);
+            transition: all 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(90, 107, 122, 0.15);
+        }
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .service-content {
+            padding: 1.5rem;
+        }
+        .service-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+        .service-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        .service-link {
+            color: var(--wood);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        /* Galerie */
+        .gallery {
+            padding: 5rem 1.5rem;
+            background: var(--paper);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        @media (max-width: 768px) {
+            .gallery-item.large { grid-column: span 1; grid-row: span 1; }
+        }
+        /* Kontaktformular */
+        .contact {
+            padding: 5rem 1.5rem;
+            background: var(--cream);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+        .contact-info p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+        .contact-details {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(90, 107, 122, 0.08);
+        }
+        .contact-row {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--paper);
+        }
+        .contact-row:last-child { border-bottom: none; }
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(196, 138, 94, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--wood);
+        }
+        .contact-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.2rem;
+        }
+        .contact-value {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+        .contact-value a {
+            color: var(--wood);
+            text-decoration: none;
+        }
+        .contact-value a:hover { text-decoration: underline; }
+        /* Formular */
+        .form-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 25px rgba(90, 107, 122, 0.1);
+        }
+        .form-box h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #E0D5CC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--wood);
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--wood);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .form-submit:hover {
+            background: var(--wood-dark);
+        }
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 1.5rem 1rem;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-brand {
+            font-weight: 700;
+            color: white;
+        }
+        .footer-note {
+            font-size: 0.85rem;
+        }
+        /* Mobile CTA */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        .mobile-cta .cta-btn {
+            width: 100%;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .mobile-cta { display: block; }
+            .nav { display: none; }
+            .hero { min-height: 80vh; padding-top: 5rem; }
+            .hero-bg { width: 100%; opacity: 0.3; }
+            .hero h1 { font-size: 2.5rem; }
+            .usps-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+            .section-header h2 { font-size: 2rem; }
+            .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+            body { padding-bottom: 80px; }
+        }
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-inner">
+            <div class="logo">andersartig<span>.</span></div>
+            <nav class="nav">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#galerie">Projekte</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#kontakt" class="cta-btn">Beratungstermin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/3/7/csm_Kueche_Gruener_2_e32dc147f8.webp" alt="Moderne Küche" class="hero-bg">
+        <div class="hero-inner">
+            <div class="hero-content reveal">
+                <span class="hero-tag">Schreinerei Regensburg</span>
+                <h1>Wohnkultur ist <span>Ansichtssache</span></h1>
+                <p>Gemeinsam mit Ihnen gestalten wir Räume, die您的 Leben widerspiegeln. Küchen, Ladenbau, Möbelbau — handwerkliche Qualität aus Regensburg.</p>
+                <div class="hero-ctas">
+                    <a href="#kontakt" class="cta-btn">Beratung anfragen</a>
+                    <a href="#leistungen" class="cta-btn cta-btn-outline">Leistungen entdecken</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="usps">
+        <div class="usps-inner">
+            <div class="usp-item">
+                <div class="usp-icon">🔨</div>
+                <div class="usp-content">
+                    <h3>Handwerk aus Leidenschaft</h3>
+                    <p>Über 30 Jahre Erfahrung im Tischlerhandwerk.</p>
+                </div>
+            </div>
+            <div class="usp-item">
+                <div class="usp-icon">🎨</div>
+                <div class="usp-content">
+                    <h3>Individuelle Gestaltung</h3>
+                    <p>Jedes Projekt ist einzigartig — wie Sie.</p>
+                </div>
+            </div>
+            <div class="usp-item">
+                <div class="usp-icon">🤝</div>
+                <div class="usp-content">
+                    <h3>Gemeinsam mit Ihnen</h3>
+                    <p>Entscheidend ist Ihr persönlicher Wohnbedarf.</p>
+                </div>
+            </div>
+            <div class="usp-item">
+                <div class="usp-icon">📍</div>
+                <div class="usp-content">
+                    <h3>Aus Regensburg</h3>
+                    <p>Regional verankert, persönlich verfügbar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="leistungen">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <h2>Unsere Leistungen</h2>
+                <p>Entscheidend ist Ihr persönlicher Wohnbedarf — wir machen es möglich.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/1/3/csm_Kueche_Gruener_3_49e1a7af6b.webp" alt="Küchenplanung und Bau">
+                    <div class="service-content">
+                        <h3>Küchen</h3>
+                        <p>Individuelle Küchenplanung und Bau — von der ersten Skizze bis zur Montage. Form, Material und Farbe ganz nach Ihrem Geschmack.</p>
+                        <a href="#kontakt" class="service-link">Küche planen →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/8/a/csm_Ladenbau_01_klein_852ac18589.webp" alt="Ladenbau">
+                    <div class="service-content">
+                        <h3>Ladenbau</h3>
+                        <p>Gestaltung von Geschäfts- und Verkaufsräumen. Wir schaffen Atmosphäre, die Ihre Kunden begeistert.</p>
+                        <a href="#kontakt" class="service-link">Ladenbau anfragen →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/0/e/csm_Bad_Neudecker_1_klein_650ce2c4c0.webp" alt="Badmöbel">
+                    <div class="service-content">
+                        <h3>Bad & Sanitär</h3>
+                        <p>Möbel und Ausstattung für Ihr Badezimmer. Funktional, langlebig, schön.</p>
+                        <a href="#kontakt" class="service-link">Bad gestalten →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/a/5/csm_Kueche_01_klein_e32a2bc8f1.webp" alt="Möbelbau">
+                    <div class="service-content">
+                        <h3>Möbelbau</h3>
+                        <p>Maßgefertigte Möbel für jeden Raum. Regale, Tische, Schränke — genau das, was Sie brauchen.</p>
+                        <a href="#kontakt" class="service-link">Möbel anfragen →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="galerie">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <h2>Unsere Projekte</h2>
+                <p>Ein Einblick in unsere Arbeit — Wohnkultur ist Ansichtssache.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/5/f/csm_Kueche_Gruener_1_62ca200f65.webp" alt="Küchenprojekt Grüner" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/4/e/csm_Kueche_Michal_1_ea52ec254f.webp" alt="Küchenprojekt Michal" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/6/f/csm_Kueche_Michal_2_707e065429.webp" alt="Küchenprojekt Michal Detail" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/8/8/csm_Kueche_Michal_3_5f17bc9d77.webp" alt="Küchenprojekt Michal" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/9/c/csm_Kueche_Michal_4_6c12b04c00.webp" alt="Küchenprojekt Michal" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/a/8/csm_Kueche_Michal_5_dd194d3952.webp" alt="Küchenprojekt Michal" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://www.schreinerei-regensburg.de/fileadmin/_processed_/f/4/csm_Kueche_Bauer_1_3f1b626038.webp" alt="Küchenprojekt Bauer" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="kontakt">
+        <div class="section-inner">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <h3>Beratungstermin vereinbaren</h3>
+                    <p>Gemeinsam mit Ihnen finden wir die perfekte Lösung für Ihren Wohnraum. Rufen Sie uns an oder senden Sie uns eine Nachricht — wir melden uns schnell zurück.</p>
+                    <div class="contact-details">
+                        <div class="contact-row">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <div class="contact-label">Telefon</div>
+                                <div class="contact-value"><a href="tel:+499414612867">0941 4612867</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-icon">✉️</div>
+                            <div>
+                                <div class="contact-label">E-Mail</div>
+                                <div class="contact-value"><a href="mailto:info@schreinerei-regensburg.de">info@schreinerei-regensburg.de</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <div class="contact-label">Adresse</div>
+                                <div class="contact-value">Wernberger Straße 2<br>93057 Regensburg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-box reveal">
+                    <h3>Anfrage senden</h3>
+                    <form action="mailto:info@schreinerei-regensburg.de" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label for="name">Ihr Name</label>
+                            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail-Adresse</label>
+                            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon (für Rückruf)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Interesse an</label>
+                            <select id="service" name="service">
+                                <option value="">Bitte wählen...</option>
+                                <option value="kueche">Küche</option>
+                                <option value="ladenbau">Ladenbau</option>
+                                <option value="bad">Bad & Sanitär</option>
+                                <option value="moebel">Möbelbau</option>
+                                <option value="sonstiges">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Ihre Nachricht</label>
+                            <textarea id="message" name="message" placeholder="Erzählen Sie uns von Ihrem Projekt..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">Anfrage senden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">andersartig. Wohnkultur</div>
+            <div class="footer-note">Konzept-Vorschau · MZ.9</div>
+        </div>
+    </footer>
+
+    <div class="mobile-cta">
+        <a href="#kontakt" class="cta-btn">Beratungstermin anfragen</a>
+    </div>
+
+    <script>
+        // Header scrolled state
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(reveal => observer.observe(reveal));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
