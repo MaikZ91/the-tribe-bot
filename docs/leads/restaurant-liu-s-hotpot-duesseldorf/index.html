@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liu's Hotpot Düsseldorf 刘一手 | Chinesisches Hotpot Restaurant</title>
+  <meta name="description" content="Erleben Sie authentischen chinesischen Feuertopf in Düsseldorf bei Liu's Hotpot – dem beliebten chinesischen Restaurant mit gemütlicher Atmosphäre. Jetzt Tisch reservieren!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8B0000;
+      --primary-light: #A52A2A;
+      --accent: #D4AF37;
+      --bg-warm: #FAF8F5;
+      --bg-white: #FFFFFF;
+      --text-dark: #2C1810;
+      --text-light: #6B4423;
+      --shadow: 0 4px 20px rgba(139, 0, 0, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    header .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav { display: flex; gap: 2rem; }
+
+    nav a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--primary); }
+
+    .btn-reserve {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-reserve:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(139, 0, 0, 0.5)),
+                  url('https://liushotpot-dus.de/wp-content/uploads/2025/05/0.webp') center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      border: 2px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: 2px solid white;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-white);
+      padding: 2rem 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .usp-strip .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .usp-item {
+      padding: 1rem;
+    }
+
+    .usp-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .usp-item h4 {
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .usp-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    section .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .accent-bar {
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+      margin: 1rem auto;
+    }
+
+    /* Hotpot Erlebnis */
+    .experience {
+      background: var(--bg-white);
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .experience-card {
+      background: var(--bg-warm);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .experience-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .experience-card-content {
+      padding: 1.5rem;
+    }
+
+    .experience-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Speisekarte */
+    .menu {
+      background: var(--bg-warm);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .menu-category {
+      background: var(--bg-white);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--accent);
+    }
+
+    .menu-category h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed rgba(0,0,0,0.1);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-item-name {
+      font-weight: 500;
+    }
+
+    .menu-item-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+
+    .menu-item-price {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .menu-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 2rem;
+      font-style: italic;
+    }
+
+    /* Galerie */
+    .gallery {
+      background: var(--bg-white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 1;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 2; }
+
+    /* Reservierung */
+    .reservation {
+      background: linear-gradient(135deg, var(--primary), #5a0000);
+      color: white;
+    }
+
+    .reservation .section-header h2,
+    .reservation .section-header p {
+      color: white;
+    }
+
+    .reservation .accent-bar {
+      background: var(--accent);
+    }
+
+    .reservation-form {
+      background: var(--bg-white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text-dark);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border: 2px solid #E8E0D8;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent);
+      color: var(--text-dark);
+    }
+
+    /* Kontakt */
+    .contact {
+      background: var(--bg-warm);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-item h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-item a {
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: #1a0f0a;
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 1.5rem 1rem;
+      text-align: center;
+    }
+
+    footer .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-concept {
+      font-size: 0.85rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      padding: 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta a {
+      display: block;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .btn-reserve { display: none; }
+      .gallery-item:nth-child(1) { grid-column: span 1; aspect-ratio: 1; }
+      .form-row { grid-template-columns: 1fr; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <a href="#" class="logo">Liu's<span>Hotpot</span></a>
+      <nav>
+        <a href="#erlebnis">Erlebnis</a>
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#reservierung" class="btn-reserve">Tisch reservieren</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Liu's Hotpot Düsseldorf</h1>
+      <p>Authentischer chinesischer Feuertopf • Frische Zutaten • Gemütliche Atmosphäre</p>
+      <div class="hero-cta">
+        <a href="#reservierung" class="btn-primary">Tisch reservieren</a>
+        <a href="#speisekarte" class="btn-secondary">Speisekarte ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <div class="usp-strip">
+    <div class="container">
+      <div class="usp-item">
+        <div class="usp-icon">🥘</div>
+        <h4>Authentisch</h4>
+        <p>Echter chinesischer Feuertopf nach traditionellem Rezept</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🌿</div>
+        <h4>Frisch</h4>
+        <p>Täglich frische Zutaten vom besten Anbieter</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🍲</div>
+        <h4>Viel Auswahl</h4>
+        <p>Verschiedene Brühen, Fleisch, Gemüse & Beilagen</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">❤️</div>
+        <h4>Gemütlich</h4>
+        <p>Einladende Atmosphäre für gemeinsame Stunden</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Erlebnis -->
+  <section class="experience" id="erlebnis">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Das Hotpot Erlebnis</h2>
+        <div class="accent-bar"></div>
+        <p>Mehr als nur Essen — ein Erlebnis für alle Sinne</p>
+      </div>
+      <div class="experience-grid">
+        <div class="experience-card reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/1.webp" alt="Hotpot Brühe" loading="lazy">
+          <div class="experience-card-content">
+            <h3>Unsere Brühen</h3>
+            <p>Wählen Sie Ihre Lieblingsbrühe — von mild bis scharf, klassisch oder kreativ. Jede Brühe wird frisch zubereitet.</p>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/3.webp" alt="Frische Zutaten" loading="lazy">
+          <div class="experience-card-content">
+            <h3>Frische Zutaten</h3>
+            <p>Hochwertiges Fleisch, Meeresfrüchte, frisches Gemüse und viel mehr. Alles sorgfältig ausgewählt.</p>
+          </div>
+        </div>
+        <div class="experience-card reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/4.webp" alt="Gemeinsam genießen" loading="lazy">
+          <div class="experience-card-content">
+            <h3>Gemeinsam Kochen</h3>
+            <p>Hotpot ist gesellig. Zusammen kochen, zusammen genießen, zusammen lachen. Ein Erlebnis für die ganze Gruppe.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Speisekarte -->
+  <section class="menu" id="speisekarte">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Speisekarte</h2>
+        <div class="accent-bar"></div>
+        <p>Entdecken Sie unsere Vielfalt</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-category reveal">
+          <h3>🍲 Brühen</h3>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Klassische Rinderbrühe</div>
+              <div class="menu-item-desc">Mild und herzhaft</div>
+            </div>
+            <div class="menu-item-price">ab 6,50€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Scharfe Szechuan-Brühe</div>
+              <div class="menu-item-desc">Für die waghalsigen</div>
+            </div>
+            <div class="menu-item-price">ab 6,50€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Tomaten-Hühnerbrühe</div>
+              <div class="menu-item-desc">Fruchtig und mild</div>
+            </div>
+            <div class="menu-item-price">ab 6,50€</div>
+          </div>
+        </div>
+        <div class="menu-category reveal">
+          <h3>🥩 Fleisch</h3>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Rinderfilet</div>
+              <div class="menu-item-desc">Hauchdünn geschnitten</div>
+            </div>
+            <div class="menu-item-price">12,50€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Lammkoteletts</div>
+              <div class="menu-item-desc">Zart und aromatisch</div>
+            </div>
+            <div class="menu-item-price">11,00€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Hähnchenbrust</div>
+              <div class="menu-item-desc">Mager und saftig</div>
+            </div>
+            <div class="menu-item-price">9,00€</div>
+          </div>
+        </div>
+        <div class="menu-category reveal">
+          <h3>🦐 Meeresfrüchte</h3>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Tigergarnelen</div>
+              <div class="menu-item-desc">Frisch und groß</div>
+            </div>
+            <div class="menu-item-price">14,00€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Muscheln</div>
+              <div class="menu-item-desc">Vorsichtshalber abgekocht</div>
+            </div>
+            <div class="menu-item-price">10,00€</div>
+          </div>
+        </div>
+        <div class="menu-category reveal">
+          <h3>🥬 Gemüse & Beilagen</h3>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Gemüse-Mix</div>
+              <div class="menu-item-desc">Saisonale Auswahl</div>
+            </div>
+            <div class="menu-item-price">5,00€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Tofu & Pilze</div>
+              <div class="menu-item-desc">Vegetarisch lecker</div>
+            </div>
+            <div class="menu-item-price">4,50€</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Nudeln & Reisschalen</div>
+              <div class="menu-item-desc">Als Beilage</div>
+            </div>
+            <div class="menu-item-price">3,00€</div>
+          </div>
+        </div>
+      </div>
+      <p class="menu-note">* Preise sind beispielhaft. Aktuelle Preise bitte im Restaurant erfragen.</p>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Einblicke</h2>
+        <div class="accent-bar"></div>
+        <p>Impressionen aus unserem Restaurant</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/03/oFnFfjCTcA7wGosLK.png" alt="Liu's Hotpot Restaurant" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/5.webp" alt="Hotpot Gericht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/6.webp" alt="Zutaten" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/7.webp" alt="Restaurant Atmosphäre" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/05/23.webp" alt="Hotpot Detail" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/11/IMG_4146-1-1024x1024.jpg" alt="Gericht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/04/%E8%94%AC%E8%8F%9C1-scaled-e1764332092616-1024x1024.jpg" alt="Frisches Gemüse" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://liushotpot-dus.de/wp-content/uploads/2025/03/%E7%81%AB%E9%94%85%E7%B4%A0%E6%9D%90%E5%9B%BE-5-scaled-e1764331741876-1024x1024.webp" alt="Hotpot Zutaten" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservierung -->
+  <section class="reservation" id="reservierung">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Tisch reservieren</h2>
+        <div class="accent-bar"></div>
+        <p>Sichern Sie sich Ihren Platz für ein unvergessliches Hotpot-Erlebnis</p>
+      </div>
+      <form class="reservation-form reveal" onsubmit="event.preventDefault(); alert('Vielen Dank! Ihre Reservierungsanfrage wurde gesendet. Wir melden uns schnellstmöglich bei Ihnen.');">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" required placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" required placeholder="ihre@email.de">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Telefon *</label>
+            <input type="tel" id="phone" required placeholder="+49 ...">
+          </div>
+          <div class="form-group">
+            <label for="guests">Personen *</label>
+            <select id="guests" required>
+              <option value="">Bitte wählen</option>
+              <option value="2">2 Personen</option>
+              <option value="3">3 Personen</option>
+              <option value="4">4 Personen</option>
+              <option value="5">5 Personen</option>
+              <option value="6+">6+ Personen</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Datum *</label>
+            <input type="date" id="date" required>
+          </div>
+          <div class="form-group">
+            <label for="time">Uhrzeit *</label>
+            <select id="time" required>
+              <option value="">Bitte wählen</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+              <option value="20:00">20:00</option>
+              <option value="21:00">21:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht (optional)</label>
+          <textarea id="message" rows="3" placeholder="Besondere Wünsche?"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Reservierung anfragen</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <div class="accent-bar"></div>
+        <p>Wir freuen uns auf Ihren Besuch</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item reveal">
+          <div class="contact-icon">📍</div>
+          <h4>Adresse</h4>
+          <p>Worringer Straße 142<br>40210 Düsseldorf</p>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">📞</div>
+          <h4>Telefon</h4>
+          <p><a href="tel:+4921186815673">+49 211 86815673</a></p>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">✉️</div>
+          <h4>E-Mail</h4>
+          <p><a href="mailto:info@liushotpot-dus.de">info@liushotpot-dus.de</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">Liu's Hotpot Düsseldorf</div>
+      <p>Authentischer chinesischer Feuertopf in Düsseldorf</p>
+      <div class="footer-concept">
+        Konzept-Vorschau · MZ.9
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#reservierung">Tisch reservieren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Set min date for reservation to today
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.setAttribute('min', today);
+    }
+  </script>
+</body>
+</html>
