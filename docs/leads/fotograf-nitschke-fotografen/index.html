@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Nitschke Fotografen Bielefeld – Meisterbetrieb in 3. Generation</title>
+  <meta name="description" content="Nitschke Fotografen Bielefeld – Meisterbetrieb in 3. Generation. Tradition trifft Moderne. Hochwertige Fotografie in Bielefeld.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, .serif { font-family: 'Cormorant Garamond', serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+    .btn-outline:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,250,250,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e5e5;
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+    .logo span { color: #666; font-size: 14px; margin-left: 8px; font-weight: 400; }
+    nav { display: flex; gap: 32px; }
+    nav a {
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+    nav a:hover { color: #1a1a1a; }
+    .mobile-nav-btn { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
+    @media (max-width: 768px) {
+      nav { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fafafa; flex-direction: column; padding: 20px; gap: 16px; border-bottom: 1px solid #e5e5e5; }
+      nav.open { display: flex; }
+      .mobile-nav-btn { display: block; }
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 300;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+    .hero .btn-primary { background: #fff; color: #1a1a1a; }
+    .hero .btn-primary:hover { background: #f0f0f0; }
+    /* USPs */
+    .usps {
+      padding: 60px 0;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .usps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+    .usp-item h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+    .usp-item p { font-size: 14px; color: #666; }
+    .usp-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      color: #666;
+    }
+    /* Section */
+    section { padding: 80px 0; }
+    section.alt { background: #f5f5f5; }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+    .section-header p {
+      font-size: 16px;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* Leistungen */
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .leistung-card {
+      background: #fff;
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .leistung-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .leistung-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+    .leistung-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+    }
+    .leistung-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: #e5e5e5;
+      margin-bottom: 16px;
+    }
+    /* Galerie */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .galerie-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+    }
+    .galerie-item {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e5e5e5;
+    }
+    .galerie-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    @media (max-width: 768px) {
+      .galerie-item:first-child { grid-column: span 1; aspect-ratio: 16/9; }
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .galerie-item:hover img { transform: scale(1.05); }
+    /* Kontaktformular */
+    .kontakt-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+    @media (min-width: 768px) {
+      .kontakt-layout { grid-template-columns: 1fr 1fr; }
+    }
+    .kontakt-info h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #1a1a1a;
+    }
+    .kontakt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kontakt-icon {
+      font-size: 20px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .kontakt-item h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+    .kontakt-item p { font-size: 14px; color: #666; }
+    .kontakt-item a {
+      color: #1a1a1a;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .kontakt-item a:hover { color: #333; }
+    .kontakt-form {
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #1a1a1a;
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-submit { width: 100%; }
+    /* CTA Band */
+    .cta-band {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .cta-band h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .cta-band p {
+      font-size: 16px;
+      color: #999;
+      margin-bottom: 32px;
+    }
+    .cta-band .btn-primary { background: #fff; color: #1a1a1a; }
+    .cta-band .btn-primary:hover { background: #f0f0f0; }
+    /* Footer */
+    footer {
+      background: #f5f5f5;
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    footer a { color: #1a1a1a; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 12px 20px;
+      border-top: 1px solid #e5e5e5;
+      z-index: 99;
+    }
+    .mobile-cta-bar .btn-primary { width: 100%; }
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: block; }
+      body { padding-bottom: 70px; }
+    }
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <a href="#" class="logo">Nitschke<span>Fotografen</span></a>
+      <nav id="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="mobile-nav-btn" onclick="toggleNav()" aria-label="Menü">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="https://nitschke-fotografen.de/wp-content/uploads/2021/05/Drei.jpg" alt="Fotografie-Atmosphäre" loading="eager">
+    <div class="hero-content">
+      <span class="hero-tag reveal">Meisterbetrieb in 3. Generation</span>
+      <h1 class="reveal">Nitschke Fotografen Bielefeld</h1>
+      <p class="reveal">Tradition trifft Moderne – Wir sind für Sie da</p>
+      <a href="#kontakt" class="btn btn-primary reveal">Kostenlose Anfrage</a>
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <div class="usps">
+    <div class="container">
+      <div class="usps-grid">
+        <div class="usp-item reveal">
+          <div class="usp-icon">✓</div>
+          <h3>Meisterbetrieb</h3>
+          <p>Seit 3 Generationen in Bielefeld</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">◐</div>
+          <h3>Premium-Qualität</h3>
+          <p>Hochwertige Bildsprache & Ausstattung</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">♥</div>
+          <h3>Individuell</h3>
+          <p>Auf Ihre Wünsche zugeschnitten</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Über uns</h2>
+        <p>Willkommen bei Nitschke Fotografen – wo Tradition auf Moderne trifft</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="leistung-number">01</div>
+          <h3>Portraitfotografie</h3>
+          <p>Professionelle Portraits für Business, Privat und besondere Anlässe. Natürlich, authentisch, ausdrucksstark.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-number">02</div>
+          <h3>Hochzeit & Events</h3>
+          <p>Ihre schönsten Momente festgehalten. Diskret, kreativ, mit Blick für Details und Emotionen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-number">03</div>
+          <h3>Produkt & Commercial</h3>
+          <p>Ihre Produkte im besten Licht. Für Kataloge, Web und Print – perfekt inszeniert.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-number">04</div>
+          <h3>Familie & Kinder</h3>
+          <p>Lachende Gesichter für die Ewigkeit. Entspannte Atmosphäre, geduldige Aufnahmen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section id="galerie" class="alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Aus unserer Arbeit</h2>
+        <p>Ein Einblick in unsere Bildsprache</p>
+      </div>
+      <div class="galerie-grid">
+        <div class="galerie-item reveal">
+          <img src="https://nitschke-fotografen.de/wp-content/uploads/2021/05/Drei-1024x576.jpg" alt="Fotografie-Portfolio 1" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://nitschke-fotografen.de/wp-content/uploads/2021/05/Fuenf.jpg" alt="Fotografie-Portfolio 2" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://nitschke-fotografen.de/wp-content/uploads/2021/05/Drei-768x432.jpg" alt="Fotografie-Portfolio 3" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://nitschke-fotografen.de/wp-content/uploads/2021/05/Drei-1536x864.jpg" alt="Fotografie-Portfolio 4" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt & Termin</h2>
+        <p>Sprechen Sie uns an – wir freuen uns auf Ihre Anfrage</p>
+      </div>
+      <div class="kontakt-layout">
+        <div class="kontakt-info reveal">
+          <h3>Hier finden Sie uns</h3>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📍</div>
+            <div>
+              <h4>Adresse</h4>
+              <p>Muerfeldstraße 19<br>33719 Bielefeld</p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <p><a href="tel:+49521332760">+49 521 332760</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <p><a href="mailto:nitschke@nitschke-fotografen.de">nitschke@nitschke-fotografen.de</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">🌐</div>
+            <div>
+              <h4>Website</h4>
+              <p><a href="https://nitschke-fotografen.de/" target="_blank" rel="noopener">nitschke-fotografen.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="kontakt-form reveal">
+          <h3 style="margin-bottom: 24px; color: #1a1a1a; font-size: 20px; font-weight: 600;">Ihre Anfrage</h3>
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Ihr Name">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+            </div>
+            <div class="form-group">
+              <label for="service">Interesse an</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="portrait">Portraitfotografie</option>
+                <option value="hochzeit">Hochzeit / Event</option>
+                <option value="produkt">Produkt / Commercial</option>
+                <option value="familie">Familie / Kinder</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" required placeholder="Erzählen Sie uns von Ihrem Projekt..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihre Aufnahmen?</h2>
+      <p>Wir sind für Sie da – Tradition trifft Moderne</p>
+      <a href="#kontakt" class="btn btn-primary">Jetzt kostenlos anfragen</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Konzept-Vorschau · MZ.9</p>
+      <p><a href="https://nitschke-fotografen.de/" target="_blank" rel="noopener">Zur Original-Website</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    function toggleNav() {
+      document.getElementById('nav').classList.toggle('open');
+    }
+
+    // Close nav on link click
+    document.querySelectorAll('#nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav').classList.remove('open');
+      });
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submit (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const params = new URLSearchParams(formData).toString();
+      window.location.href = `mailto:nitschke@nitschke-fotografen.de?subject=Anfrage über Konzeptseite&body=${encodeURIComponent(
+        'Name: ' + formData.get('name') + '\n' +
+        'E-Mail: ' + formData.get('email') + '\n' +
+        'Telefon: ' + (formData.get('phone') || 'keine Angabe') + '\n' +
+        'Interesse: ' + (formData.get('service') || 'nicht angegeben') + '\n\n' +
+        'Nachricht:\n' + formData.get('message')
+      )}`;
+    }
+  </script>
+</body>
+</html>

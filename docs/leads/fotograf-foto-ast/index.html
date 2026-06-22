@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Foto Ast — Passfotos, Fotolabor, Studiofotografie in Bielefeld</title>
+  <meta name="description" content="Foto Ast in Bielefeld: Pass- und Bewerbungsbilder nach Ihren Wünschen, professionelle Fotolabor-Dienstleistungen, Studiofotografie und Fotogeschenke. Braker Straße 52, 33729 Bielefeld.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #fafafa;
+      --bg-secondary: #ffffff;
+      --bg-accent: #1a1a1a;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555555;
+      --text-light: #888888;
+      --accent: #2563eb;
+      --accent-light: #3b82f6;
+      --border: #e5e5e5;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --container: 1200px;
+      --header-height: 70px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    h3 { font-size: 1.5rem; font-weight: 600; }
+    p { color: var(--text-secondary); margin-bottom: 1rem; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(255,255,255,0.98);
+      border-bottom-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .header-actions { display: flex; gap: 12px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: var(--font-body);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    .btn-outline {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover { background: var(--text-primary); color: white; }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--header-height);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.85);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    }
+
+    .hero-content {
+      position: relative;
+      color: white;
+      max-width: 700px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 { margin-bottom: 1.5rem; }
+    .hero p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero .btn-primary {
+      background: white;
+      color: var(--text-primary);
+    }
+
+    .hero .btn-primary:hover {
+      background: var(--bg-secondary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      padding: 3rem 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-primary);
+      border-radius: 50%;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .trust-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* Services */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-header p { font-size: 1.1rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      border-radius: 12px;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      margin-bottom: 0.75rem;
+      font-family: var(--font-display);
+    }
+
+    .service-card p { font-size: 0.95rem; }
+
+    /* Gallery */
+    .gallery-section {
+      padding: 5rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-label {
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+    }
+
+    .cta-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .cta-content h2 { color: white; margin-bottom: 0.5rem; }
+    .cta-content p { color: rgba(255,255,255,0.9); margin-bottom: 0; }
+
+    .cta-content .btn {
+      background: white;
+      color: var(--accent);
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+
+    .cta-content .btn:hover {
+      background: var(--bg-secondary);
+      transform: translateY(-2px);
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 5rem 0;
+      background: var(--bg-primary);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-details h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-details p { color: var(--text-secondary); margin-bottom: 0; font-size: 0.95rem; }
+
+    .contact-details a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-details a:hover { text-decoration: underline; }
+
+    /* Contact Form */
+    .contact-form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .form-textarea { min-height: 120px; resize: vertical; }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px 24px;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 0;
+      background: var(--bg-accent);
+      color: white;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+
+    .footer-legal {
+      text-align: right;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: none;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .mobile-cta .btn { flex: 1; padding: 12px 16px; }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.25rem; }
+      h2 { font-size: 1.75rem; }
+
+      .header-actions { display: none; }
+
+      .hero { min-height: 85vh; }
+      .hero-content { padding-top: 2rem; }
+      .hero p { font-size: 1rem; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-form { padding: 1.75rem; }
+
+      .cta-content { grid-template-columns: 1fr; text-align: center; }
+      .cta-content .btn { width: 100%; }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-legal { text-align: center; margin-top: 1rem; }
+
+      .mobile-cta { display: flex; }
+      body { padding-bottom: 70px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .service-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Foto <span>Ast</span></a>
+      <nav class="header-actions">
+        <a href="tel:+49521762289" class="btn btn-outline">📞 +49 521 762289</a>
+        <a href="#kontakt" class="btn btn-primary">Termin anfragen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/sonstige/imageproxy1.jpg&size=747,100000&crop=fill" alt="Foto Ast Studio">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content reveal">
+      <span class="hero-tag">Ihr Fotostudio in Bielefeld</span>
+      <h1>Professionelle Fotografie nach Ihren Wünschen</h1>
+      <p>Pass- und Bewerbungsbilder, Fotolabor-Dienstleistungen, Studiofotografie und Fotogeschenke — alles aus einer Hand.</p>
+      <div class="hero-cta">
+        <a href="tel:+49521762289" class="btn btn-primary">📞 Jetzt anrufen</a>
+        <a href="#galerie" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(10px);">Portfolio ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <span class="trust-icon">✓</span>
+          <span class="trust-text">Über 25 Jahre Erfahrung</span>
+        </div>
+        <div class="trust-item reveal">
+          <span class="trust-icon">⚡</span>
+          <span class="trust-text">Superschnell & fair</span>
+        </div>
+        <div class="trust-item reveal">
+          <span class="trust-icon">📍</span>
+          <span class="trust-text">Zentral in Bielefeld</span>
+        </div>
+        <div class="trust-item reveal">
+          <span class="trust-icon">💎</span>
+          <span class="trust-text">Premium Qualität</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Umfassende Foto-Dienstleistungen aus einer Hand — von Passfotos bis zur professionellen Studiofotografie.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">👤</div>
+          <h3>Pass- & Bewerbungsfotos</h3>
+          <p>Passbilder nach Ihren Wünschen und aktuellen Vorgaben. Schnell, professionell und in bester Qualität.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🖼️</div>
+          <h3>Fotolabor</h3>
+          <p>Professionelle Abzüge und Vergrößerungen aus unserem Fotolabor. Ihre Erinnerungen in bester Bildqualität.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎁</div>
+          <h3>Fotogeschenke</h3>
+          <p>Persönliche Geschenkideen: Fotobücher, Kalender und mehr. Einzigartige Geschenke mit Ihren Fotos.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📸</div>
+          <h3>Studiofotografie</h3>
+          <p>Professionelle Porträt-, Familien- und Businessfotografie in unserem Studio oder auf Wunsch vor Ort.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎨</div>
+          <h3>Fotoleinwände</h3>
+          <p>Superschnell zu fairen Preisen: Wandbilder, die Ihre Fotos in Szene setzen. Hervorragend als Geschenk.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🖨️</div>
+          <h3>Digitaldruck</h3>
+          <p>Hochwertiger Digitaldruck für alle Anwendungen. Von Visitenkarten bis zu Plakaten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery-section" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Portfolio</h2>
+        <p>Eine Auswahl unserer Arbeiten. Von Porträts bis zu kreativen Projekten.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/sonstige/ipsbilder.jpg&size=747,100000&crop=fill" alt="IPS Bilder">
+          <div class="gallery-overlay"><span class="gallery-label">IPS Bilder</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/sonstige/looxis1.jpg&amp;size=870,100000&crop=fill" alt="Looxis">
+          <div class="gallery-overlay"><span class="gallery-label">Looxis</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/blumr_52swaussch-kopie.jpg&size=870,100000&crop=fit" alt="Studioaufnahme">
+          <div class="gallery-overlay"><span class="gallery-label">Studioaufnahme</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/kehler_003-kopie.jpg&size=870,100000&crop=fit" alt="Porträt">
+          <div class="gallery-overlay"><span class="gallery-label">Porträt</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/lizo-055.jpg&size=870,100000&crop=fit" alt="Porträtaufnahme">
+          <div class="gallery-overlay"><span class="gallery-label">Porträtaufnahme</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/mecklen-013-1.jpg&size=870,100000&crop=fit" alt="Kreatives Projekt">
+          <div class="gallery-overlay"><span class="gallery-label">Kreatives Projekt</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/presch-019sw.jpg&size=870,100000&crop=fit" alt="Schwarz-Weiß">
+          <div class="gallery-overlay"><span class="gallery-label">Schwarz-Weiß</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/sahver_002.jpg&size=870,100000&crop=fit" alt="Portrait Session">
+          <div class="gallery-overlay"><span class="gallery-label">Portrait Session</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/sahver_027.jpg&size=870,100000&crop=fit" alt="Studio Lighting">
+          <div class="gallery-overlay"><span class="gallery-label">Studio Lighting</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/stoll-022.jpg&size=870,100000&crop=fit" alt="Natural Light">
+          <div class="gallery-overlay"><span class="gallery-label">Natural Light</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://fotoast.rf-webworld.de/imageproxy.dll?name=cccfcebc-199d-4f06-84fd-4db8f75e113b/bilder/galerien/startseite/will-hz_48.jpg&size=870,100000&crop=fit" alt="Environmental Portrait">
+          <div class="gallery-overlay"><span class="gallery-label">Environmental Portrait</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container cta-content reveal">
+      <div>
+        <h2>Bereit für Ihre Fotosession?</h2>
+        <p>Vereinbaren Sie jetzt Ihren Termin oder kontaktieren Sie uns für eine unverbindliche Anfrage.</p>
+      </div>
+      <a href="tel:+49521762289" class="btn">📞 +49 521 762289</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="kontakt">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <p style="margin-bottom:2rem;">Wir freuen uns auf Ihre Anfrage. Rufen Sie uns an, senden Sie eine E-Mail oder nutzen Sie unser Kontaktformular.</p>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-details">
+              <h4>Adresse</h4>
+              <p>Braker Straße 52<br>33729 Bielefeld</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-details">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49521762289">+49 521 762289</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-details">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@fotoast.de">info@fotoast.de</a></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-details">
+              <h4>Website</h4>
+              <p><a href="http://www.fotoast.de/" target="_blank">www.fotoast.de</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form reveal">
+          <form action="mailto:info@fotoast.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label class="form-label" for="name">Name *</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="+49 ...">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="service">Interesse</label>
+              <select id="service" name="service" class="form-input">
+                <option value="">Bitte wählen...</option>
+                <option value="passbilder">Pass- & Bewerbungsfotos</option>
+                <option value="fotolabor">Fotolabor / Abzüge</option>
+                <option value="studio">Studiofotografie</option>
+                <option value="geschenke">Fotogeschenke</option>
+                <option value="leinwaende">Fotoleinwände</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Nachricht *</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="Ihre Nachricht..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Nachricht senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <div class="footer-logo">Foto Ast</div>
+        <div class="footer-tagline">Ihr Fotostudio in Bielefeld</div>
+      </div>
+      <div class="footer-legal">
+        Konzept-Vorschau · MZ.9
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49521762289" class="btn btn-primary">📞 Anrufen</a>
+    <a href="#kontakt" class="btn btn-outline">Termin</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScroll = currentScroll;
+    }, { passive: true });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
