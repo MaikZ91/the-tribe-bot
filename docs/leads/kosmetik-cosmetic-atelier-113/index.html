@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Cosmetic Atelier 113 – Premium-Kosmetik in Mönchengladbach</title>
+  <meta name="description" content="Exklusive Kosmetikbehandlungen in Mönchengladbach. Persönliche Beratung, hochwertige Produkte, Wohlfühlatmosphäre bei Cosmetic Atelier 113.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FDF8F5;
+      --bg-alt: #FFF5F0;
+      --text: #3E3A3A;
+      --text-light: #7A7474;
+      --accent: #C49068;
+      --accent-dark: #A8754E;
+      --gold: #D4AF77;
+      --white: #FFFFFF;
+      --shadow: 0 8px 32px rgba(196, 144, 104, 0.15);
+      --radius: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+
+    button, .btn {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 20px rgba(196, 144, 104, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(196, 144, 104, 0.5);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: 0.4s;
+      background: transparent;
+    }
+
+    .header.scrolled {
+      background: rgba(253, 248, 245, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px 0;
+      box-shadow: 0 2px 20px rgba(196, 144, 104, 0.1);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+    }
+
+    .logo span { color: var(--gold); }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-cta { display: block; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://www.cosmetic-atelier.com/wp-content/uploads/Cosmetic-Atelier_Empfang-9.jpg') center/cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(253, 248, 245, 0.92) 0%, rgba(255, 245, 240, 0.85) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--white);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* USPs */
+    .usps {
+      padding: 60px 0;
+      background: var(--bg-alt);
+    }
+
+    .usps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .usp-card {
+      background: var(--white);
+      padding: 32px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .usp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(196, 144, 104, 0.25);
+    }
+
+    .usp-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      background: var(--bg-alt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .usp-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--accent-dark);
+    }
+
+    .usp-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Leistungen */
+    .services {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-img {
+      height: 200px;
+      background: var(--bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .service-content {
+      padding: 28px;
+    }
+
+    .service-content h3 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      color: var(--accent-dark);
+    }
+
+    .service-content p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .service-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--bg-alt);
+    }
+
+    .service-duration {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .service-link {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Terminbuchung */
+    .booking {
+      padding: 100px 0;
+      background: var(--bg-alt);
+    }
+
+    .booking-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .booking-wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .booking-info h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 20px;
+      color: var(--accent-dark);
+    }
+
+    .booking-info p {
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .booking-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .booking-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      color: var(--text);
+      border-bottom: 1px solid rgba(196, 144, 104, 0.2);
+    }
+
+    .booking-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .booking-form {
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .booking-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      text-align: center;
+      color: var(--accent-dark);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--bg-alt);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: var(--bg);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--white);
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(62, 58, 58, 0.8), transparent);
+      opacity: 0;
+      transition: 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-caption {
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .btn-white {
+      background: var(--white);
+      color: var(--accent-dark);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-band .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Kontakt */
+    .contact {
+      padding: 80px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: var(--bg-alt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .contact-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--accent-dark);
+    }
+
+    .contact-item a, .contact-item p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .contact-item a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--bg-alt);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: var(--white);
+      box-shadow: 0 -4px 20px rgba(196, 144, 104, 0.2);
+      display: none;
+      z-index: 99;
+    }
+
+    .mobile-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 767px) {
+      .mobile-cta { display: block; }
+      .hero { min-height: 80vh; padding-top: 80px; }
+      .booking { padding-bottom: 40px; }
+      .booking-form { padding: 28px; }
+      footer { padding-bottom: 80px; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">Cosmetic<span>Atelier</span> 113</div>
+      <a href="#termin" class="btn-primary header-cta">Termin vereinbaren</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Premium-Kosmetikstudio</span>
+        <h1>Schönheit & Entspannung <br><em>in Mönchengladbach</em></h1>
+        <p class="hero-desc">Exklusive Kosmetikbehandlungen in entspannter Atmosphäre. Persönliche Beratung, hochwertige Produkte, einzigartige Momente.</p>
+        <div class="hero-btns">
+          <a href="#termin" class="btn-primary">Jetzt Termin buchen</a>
+          <a href="#leistungen" class="btn-outline">Unsere Leistungen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="usps">
+    <div class="container">
+      <div class="usps-grid">
+        <div class="usp-card reveal">
+          <div class="usp-icon">✨</div>
+          <h3>Premium-Qualität</h3>
+          <p>Hochwertige Produkte & professionelle Behandlung für sichtbare Ergebnisse.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">🌸</div>
+          <h3>Wohlfühlatmosphäre</h3>
+          <p>Entspannte Umgebung, individuelle Zuwendung & Zeit für Sie.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">💎</div>
+          <h3>Expertenberatung</h3>
+          <p>Jahre Erfahrung & kontinuierliche Fortbildung für beste Ergebnisse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Behandlungen</span>
+        <h2>Unsere Leistungen</h2>
+        <p>Maßgeschneiderte Kosmetikbehandlungen für Ihre individuellen Bedürfnisse.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-img">🧴</div>
+          <div class="service-content">
+            <h3>Gesichtsbehandlung</h3>
+            <p>Intensive Pflege für strahlende, frische Haut. Reinigung, Peeling & Maske.</p>
+            <div class="service-meta">
+              <span class="service-duration">ca. 60 Min.</span>
+              <a href="#termin" class="service-link">Termin anfragen →</a>
+            </div>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-img">💅</div>
+          <div class="service-content">
+            <h3>Maniküre & Pediküre</h3>
+            <p>Perfekt gepflegte Hände & Füße mit Nail-Lack oder natürlichem Finish.</p>
+            <div class="service-meta">
+              <span class="service-duration">ab 45 Min.</span>
+              <a href="#termin" class="service-link">Termin anfragen →</a>
+            </div>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-img">🌿</div>
+          <div class="service-content">
+            <h3>Anti-Aging Pflege</h3>
+            <p>Spezielle Behandlungen zur Reduzierung feiner Linien & Falten.</p>
+            <div class="service-meta">
+              <span class="service-duration">ca. 75 Min.</span>
+              <a href="#termin" class="service-link">Termin anfragen →</a>
+            </div>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-img">✨</div>
+          <div class="service-content">
+            <h3>Make-Up & Styling</h3>
+            <p>Professionelles Make-Up für besondere Anlässe oder den perfekten Alltag-Look.</p>
+            <div class="service-meta">
+              <span class="service-duration">ab 30 Min.</span>
+              <a href="#termin" class="service-link">Termin anfragen →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="termin">
+    <div class="container">
+      <div class="booking-wrapper">
+        <div class="booking-info reveal">
+          <span class="section-label">Online-Termin</span>
+          <h2>Jetzt Ihren Wunschtermin sichern</h2>
+          <p>Vereinbaren Sie bequem online Ihren nächsten Kosmetik-Termin. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+          <ul class="booking-features">
+            <li>Einfach & schnell in 3 Schritten</li>
+            <li>Kostenfreie Terminvereinbarung</li>
+            <li>Individuelle Behandlung nach Wahl</li>
+            <li>Erinnerung vor dem Termin</li>
+          </ul>
+          <p><strong>Per Telefon:</strong> <a href="tel:+4921618283445">+49 2161 8283445</a></p>
+        </div>
+        <div class="booking-form reveal">
+          <h3>Ihre Terminanfrage</h3>
+          <form action="mailto:info@cosmetic-atelier.com" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Ihr Name *</label>
+              <input type="text" id="name" name="Name" required placeholder="Ihr vollständiger Name">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="E-Mail" required placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="Telefon" placeholder="Für Rückfragen">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschte Behandlung</label>
+              <select id="service" name="Behandlung">
+                <option value="">Bitte auswählen...</option>
+                <option value="Gesichtsbehandlung">Gesichtsbehandlung</option>
+                <option value="Maniküre">Maniküre</option>
+                <option value="Pediküre">Pediküre</option>
+                <option value="Anti-Aging">Anti-Aging Pflege</option>
+                <option value="Make-Up">Make-Up & Styling</option>
+                <option value="Sonstiges">Sonstiges / Beratung</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Wunschtermin</label>
+              <input type="text" id="date" name="Wunschtermin" placeholder="z.B. Freitag, 15 Uhr">
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="Nachricht" rows="3" placeholder="Weitere Wünsche oder Fragen..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary form-submit">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Einblicke</span>
+        <h2>Unser Studio</h2>
+        <p>Ebenerdig & barrierefrei in Mönchengladbach — Willkommen bei Cosmetic Atelier 113.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.cosmetic-atelier.com/wp-content/uploads/Cosmetic-Atelier_Empfang-9.jpg" alt="Empfangsbereich Cosmetic Atelier 113" loading="lazy">
+          <div class="gallery-overlay"><span class="gallery-caption">Unser Empfang</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.cosmetic-atelier.com/wp-content/uploads/Sabine-Baum.jpg" alt="Inhaberin Sabine Baum" loading="lazy">
+          <div class="gallery-overlay"><span class="gallery-caption">Ihre Kosmetikerin</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.cosmetic-atelier.com/wp-content/uploads/Cosmetic-Atelier_Empfang-9-773x1030.jpg" alt="Wohlfühlatmosphäre im Studio" loading="lazy">
+          <div class="gallery-overlay"><span class="gallery-caption">Entspannte Atmosphäre</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihren Wohlfühlmoment?</h2>
+      <p>Vereinbaren Sie jetzt Ihren persönlichen Termin bei Cosmetic Atelier 113.</p>
+      <a href="#termin" class="btn btn-white">Termin sichern</a>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-item reveal">
+          <div class="contact-icon">📍</div>
+          <h4>Adresse</h4>
+          <p>Moosheide 113<br>41068 Mönchengladbach</p>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">📞</div>
+          <h4>Telefon</h4>
+          <a href="tel:+4921618283445">+49 2161 8283445</a>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">✉️</div>
+          <h4>E-Mail</h4>
+          <a href="mailto:info@cosmetic-atelier.com">info@cosmetic-atelier.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · <a href="https://maikz91.github.io/the-tribe-bot/">MZ.9</a> · Cosmetic Atelier 113 · Mönchengladbach</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
