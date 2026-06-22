@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Tischlerteam Düsseldorf · Möbelbau aus Meisterhand</title>
+<meta name="description" content="Tischler Team Düsseldorf GbR – individueller Möbelbau, Einbaumöbel, Küchen & Badezimmer aus Düsseldorf. Handwerk auf den Millimeter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Spectral:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wood:#7a4a24;--wood-d:#52301a;--amber:#c8862f;--amber-l:#e0a84e;
+  --steel:#3a3f44;--cream:#f7f1e8;--paper:#fbf7f0;--ink:#241b13;--muted:#6c5d4d;
+  --line:#e7dcc9;--ok:#27c281;--shadow:0 18px 50px -22px rgba(60,38,15,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;overflow-x:hidden}
+h1,h2,h3{line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.serif{font-family:'Spectral',serif;font-weight:500;font-style:italic}
+img{max-width:100%;display:block}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-weight:700;font-size:.98rem;padding:.85em 1.5em;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:.25s}
+.btn-primary{background:var(--amber);color:#2a1a08;box-shadow:0 10px 26px -10px rgba(200,134,47,.7)}
+.btn-primary:hover{background:var(--amber-l);transform:translateY(-2px)}
+.btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.3s;padding:16px 0}
+header.scrolled{background:rgba(251,247,240,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:9px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em}
+.brand img{height:40px;width:auto;background:#fff;border-radius:8px;padding:3px}
+.brand b{color:#fff;transition:.3s}
+header.scrolled .brand b{color:var(--ink)}
+.nav-links{display:flex;gap:26px;font-size:.93rem;font-weight:600}
+.nav-links a{color:#fff;opacity:.92;transition:.3s}
+header.scrolled .nav-links a{color:var(--ink)}
+.nav-links a:hover{color:var(--amber-l)}
+.nav .btn{padding:.6em 1.1em}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* before/after toggle */
+.ba-toggle{position:fixed;top:84px;right:18px;z-index:55;display:inline-flex;background:rgba(36,27,19,.82);backdrop-filter:blur(6px);border-radius:999px;padding:4px;font-size:.8rem;font-weight:700;box-shadow:var(--shadow)}
+.ba-toggle a{padding:.45em 1em;border-radius:999px;color:#e9dcc7;transition:.2s}
+.ba-toggle .on{background:var(--amber);color:#2a1a08}
+.ba-toggle a:not(.on):hover{color:#fff}
+@media(max-width:560px){.ba-toggle{top:auto;bottom:78px;right:12px;font-size:.74rem}}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;
+  background:linear-gradient(125deg,#2c1c10 0%,#52301a 48%,#7a4a24 100%);color:#fff;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.12;
+  background-image:repeating-linear-gradient(95deg,#000 0 2px,transparent 2px 26px);mix-blend-mode:overlay}
+.hero-logo{position:absolute;right:-40px;bottom:-30px;width:min(46vw,520px);opacity:.16;filter:saturate(0) brightness(2);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:60px}
+.eyebrow{display:inline-flex;align-items:center;gap:.5em;font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-l);margin-bottom:18px}
+.eyebrow::before{content:"";width:30px;height:2px;background:var(--amber-l)}
+.hero h1{font-size:clamp(2.4rem,6vw,4.3rem);max-width:14ch}
+.hero h1 span{color:var(--amber-l)}
+.hero p.lead{font-size:clamp(1.05rem,2vw,1.3rem);max-width:46ch;margin:22px 0 32px;color:#f0e4d3}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;font-size:.9rem;color:#e7d8c3}
+.hero-meta b{display:block;font-size:1.5rem;color:#fff;font-weight:800}
+
+/* trust strip */
+.trust{background:var(--ink);color:#e8dccb;padding:18px 0}
+.trust .wrap{display:flex;flex-wrap:wrap;gap:14px 38px;justify-content:center;font-size:.9rem;font-weight:600}
+.trust span{display:inline-flex;align-items:center;gap:.5em}
+.trust i{color:var(--amber-l);font-style:normal}
+
+/* sections */
+section{padding:88px 0}
+.shead{max-width:60ch;margin-bottom:46px}
+.shead .eyebrow{color:var(--wood)}
+.shead .eyebrow::before{background:var(--wood)}
+.shead h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+.shead p{color:var(--muted);margin-top:14px;font-size:1.08rem}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:.3s}
+.svc:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--amber)}
+.svc .ic{width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--amber),var(--wood));font-size:1.5rem;margin-bottom:16px}
+.svc h3{font-size:1.25rem;margin-bottom:8px}
+.svc p{color:var(--muted);font-size:.96rem}
+
+/* booking feature */
+.book{background:linear-gradient(160deg,#3a2415,#52301a);color:#fff;border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:780px){.book-grid{grid-template-columns:1fr}}
+.book-info{padding:46px 40px}
+.book-info h2{font-size:2rem}
+.book-info p{color:#ecdcc6;margin:14px 0 24px}
+.book-info .chk{display:flex;gap:11px;margin:10px 0;font-size:.96rem;color:#f2e6d4}
+.book-info .chk b{color:var(--amber-l)}
+.book-form{background:var(--paper);color:var(--ink);padding:42px 38px}
+.book-form h3{font-size:1.15rem;margin-bottom:4px}
+.book-form .sub{color:var(--muted);font-size:.88rem;margin-bottom:22px}
+.steps{display:flex;gap:8px;margin-bottom:20px}
+.steps div{flex:1;height:5px;border-radius:99px;background:var(--line)}
+.steps div.act{background:var(--amber)}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:13px 12px;font-size:.9rem;font-weight:600;cursor:pointer;text-align:center;transition:.2s;background:#fff}
+.opt:hover{border-color:var(--amber)}
+.opt.sel{border-color:var(--amber);background:#fdf3e2;color:var(--wood-d)}
+.book-form label{display:block;font-size:.82rem;font-weight:700;margin:12px 0 5px;color:var(--muted)}
+.book-form input,.book-form textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;font:inherit;font-size:.95rem;background:#fff}
+.book-form input:focus,.book-form textarea:focus{outline:none;border-color:var(--amber)}
+.book-form .btn{width:100%;justify-content:center;margin-top:16px}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:680px){.gal{grid-template-columns:1fr 1fr}}
+.gal figure{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#efe4d2,#e3d2b8);aspect-ratio:4/3;display:grid;place-items:center;border:1px solid var(--line)}
+.gal figure img{width:62%;height:auto;mix-blend-mode:multiply;transition:.4s}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;font-size:.85rem;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(36,27,19,.8))}
+
+/* reviews */
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+.rev .stars{color:var(--amber);letter-spacing:2px;margin-bottom:10px}
+.rev p{font-size:.97rem;color:#43382c}
+.rev .who{margin-top:14px;font-size:.86rem;color:var(--muted);font-weight:600}
+.ex-note{font-size:.78rem;color:var(--muted);margin-top:14px;font-style:italic}
+
+/* cta band */
+.cta-band{position:relative;background:linear-gradient(120deg,#52301a,#7a4a24);color:#fff;border-radius:26px;overflow:hidden;padding:60px 44px;text-align:center}
+.cta-band img{position:absolute;right:-20px;top:-20px;width:240px;opacity:.14;filter:saturate(0) brightness(2)}
+.cta-band h2{font-size:clamp(1.8rem,4vw,2.6rem);position:relative}
+.cta-band p{color:#eedcc6;margin:14px auto 26px;max-width:48ch;position:relative}
+.cta-band .btn{position:relative}
+
+/* contact */
+.con-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px}
+@media(max-width:760px){.con-grid{grid-template-columns:1fr}}
+.con-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px}
+.con-row{display:flex;gap:13px;align-items:flex-start;margin:16px 0}
+.con-row .ic{width:42px;height:42px;flex:none;border-radius:11px;background:#fdf3e2;color:var(--wood);display:grid;place-items:center;font-size:1.2rem}
+.con-row b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.con-row a,.con-row span{font-weight:600;font-size:1.02rem}
+.map{border-radius:18px;overflow:hidden;border:1px solid var(--line);min-height:320px}
+.map iframe{width:100%;height:100%;min-height:320px;border:0}
+
+/* footer */
+footer{background:var(--ink);color:#c9b9a4;padding:46px 0 110px;text-align:center;font-size:.88rem}
+footer .badge{display:inline-block;border:1px solid #5a4836;border-radius:999px;padding:.4em 1em;font-weight:700;color:var(--amber-l);margin-bottom:14px;font-size:.78rem;letter-spacing:.1em}
+
+/* mobile cta bar */
+.mbar{position:fixed;bottom:0;left:0;right:0;z-index:58;display:none;gap:10px;padding:10px 14px;background:rgba(36,27,19,.96);backdrop-filter:blur(8px)}
+.mbar a{flex:1;justify-content:center}
+@media(max-width:720px){.mbar{display:flex}}
+
+/* chat fab */
+.fab{position:fixed;right:22px;bottom:22px;z-index:70;cursor:pointer}
+@media(max-width:720px){.fab{bottom:80px}}
+.fab .ava{width:62px;height:62px;border-radius:50%;border:3px solid #fff;overflow:hidden;box-shadow:var(--shadow)}
+.fab .ava img{width:100%;height:100%;object-fit:cover}
+.fab .ring{position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
+.fab .dot{position:absolute;right:2px;bottom:2px;width:15px;height:15px;border-radius:50%;background:var(--ok);border:2px solid #fff}
+.chat{position:fixed;right:22px;bottom:98px;z-index:71;width:min(360px,calc(100vw - 28px));background:#fff;border-radius:20px;box-shadow:0 30px 70px -20px rgba(40,25,10,.55);overflow:hidden;display:none;flex-direction:column;max-height:74vh}
+@media(max-width:720px){.chat{bottom:150px}}
+.chat.open{display:flex}
+.chat-h{background:linear-gradient(135deg,var(--wood),var(--amber));color:#fff;padding:15px 18px;display:flex;align-items:center;gap:12px}
+.chat-h img{width:40px;height:40px;border-radius:50%;border:2px solid #fff;object-fit:cover}
+.chat-h b{font-size:.98rem}.chat-h small{opacity:.9;font-size:.76rem;display:block}
+.chat-h .x{margin-left:auto;cursor:pointer;font-size:1.3rem;opacity:.9}
+.chat-body{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.msg{max-width:85%;padding:10px 13px;border-radius:14px;font-size:.88rem;line-height:1.5}
+.msg.m{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.u{background:var(--amber);color:#2a1a08;border-bottom-right-radius:4px;align-self:flex-end;font-weight:600}
+.msg ul{margin:6px 0 2px;padding-left:18px}.msg li{margin:4px 0}
+.qbtns{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 14px;background:var(--paper)}
+.qbtns button{background:#fff;border:1.5px solid var(--amber);color:var(--wood-d);border-radius:999px;padding:7px 13px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:.2s}
+.qbtns button:hover{background:var(--amber);color:#2a1a08}
+.chat-in{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);background:#fff}
+.chat-in input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;font:inherit;font-size:.86rem}
+.chat-in input:focus{outline:none;border-color:var(--amber)}
+.chat-in button{background:var(--amber);border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.05rem}
+
+.reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.fab .ring{animation:none}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2025/04/Zeichenflaeche-1@4x.png" alt="Logo Tischler Team Düsseldorf">
+      <b>Tischlerteam&nbsp;Düsseldorf</b>
+    </a>
+    <nav class="nav-links">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#anfrage">Termin</a>
+      <a href="#galerie">Arbeiten</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn btn-primary" href="tel:+4921116012220">Anrufen</a>
+  </div>
+</header>
+
+<div class="ba-toggle">
+  <a href="https://www.tischlerteam-duesseldorf.de" target="_blank" rel="noopener">Vorher</a>
+  <a class="on" href="#top">Nachher</a>
+</div>
+
+<div id="top"></div>
+<section class="hero">
+  <img class="hero-logo" src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2024/05/Zeichenflaeche-1.png" alt="Tischler Team Düsseldorf Markenzeichen">
+  <div class="wrap">
+    <span class="eyebrow">Tischlerei · Düsseldorf-Bilk</span>
+    <h1>Möbel, die <span>millimetergenau</span> zu Ihrem Zuhause passen.</h1>
+    <p class="lead">Vom Einbauschrank über die Küche bis zum Badezimmer – das Tischler Team Düsseldorf fertigt individuelle Möbel aus Massivholz, geplant und gebaut in der eigenen Werkstatt.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#anfrage">Unverbindlich anfragen</a>
+      <a class="btn btn-ghost" href="#galerie">Arbeiten ansehen</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>4</b>Gewerke unter einem Dach</div>
+      <div><b>100&nbsp;%</b>Maßanfertigung</div>
+      <div><b>Bilk</b>Werkstatt in Düsseldorf</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <span><i>✦</i> Maßgefertigt in der eigenen Werkstatt</span>
+    <span><i>✦</i> Massivholz & Qualitätsmaterialien</span>
+    <span><i>✦</i> Persönliche Beratung vor Ort</span>
+    <span><i>✦</i> Ein Ansprechpartner: Tobias Hück</span>
+  </div>
+</div>
+
+<section id="leistungen">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Leistungen</span>
+      <h2>Handwerk für jeden Raum</h2>
+      <p>Geplant, gefertigt und montiert – vier Schwerpunkte, in denen das Tischler Team Düsseldorf zuhause ist.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="ic">🪑</div><h3>Möbelbau</h3><p>Individuelle Möbelstücke aus Massivholz – vom Sideboard bis zum Esstisch, gefertigt nach Ihren Vorstellungen.</p></div>
+      <div class="svc reveal"><div class="ic">📐</div><h3>Einbaumöbel</h3><p>Schränke und Stauraumlösungen, die jede Nische, Dachschräge und Ecke perfekt ausnutzen.</p></div>
+      <div class="svc reveal"><div class="ic">🍳</div><h3>Küchenbau</h3><p>Maßgeschneiderte Küchen mit durchdachter Aufteilung, hochwertigen Fronten und sauberer Montage.</p></div>
+      <div class="svc reveal"><div class="ic">🛁</div><h3>Badezimmer</h3><p>Feuchtraumgeeignete Möbel und Ausbauten – funktional, langlebig und passgenau für Ihr Bad.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="anfrage" style="background:#f1e7d6">
+  <div class="wrap">
+    <div class="book reveal">
+      <div class="book-grid">
+        <div class="book-info">
+          <h2>Projekt anfragen –<br><span class="serif">in drei Schritten.</span></h2>
+          <p>Ihre aktuelle Website hat kein Kontaktformular. So sieht eine geführte Terminanfrage aus, die aus Besuchern echte Anfragen macht.</p>
+          <div class="chk"><b>✓</b> Sie wählen Gewerk &amp; Wunschtermin</div>
+          <div class="chk"><b>✓</b> Kurze Beschreibung Ihres Projekts</div>
+          <div class="chk"><b>✓</b> Tobias Hück meldet sich persönlich</div>
+        </div>
+        <form class="book-form" onsubmit="return sendReq(event)">
+          <h3>Terminanfrage</h3>
+          <div class="sub">Kostenlos &amp; unverbindlich</div>
+          <div class="steps"><div class="act"></div><div class="act"></div><div></div></div>
+          <label>1 · Welches Gewerk?</label>
+          <div class="opt-grid" id="svcOpts">
+            <div class="opt" onclick="pick(this,'svc')">Möbelbau</div>
+            <div class="opt" onclick="pick(this,'svc')">Einbaumöbel</div>
+            <div class="opt" onclick="pick(this,'svc')">Küchenbau</div>
+            <div class="opt" onclick="pick(this,'svc')">Badezimmer</div>
+          </div>
+          <label>2 · Wunschzeitraum</label>
+          <input type="text" id="when" placeholder="z. B. in den nächsten 4 Wochen">
+          <label>3 · Ihr Kontakt &amp; kurze Beschreibung</label>
+          <textarea id="msg" rows="3" placeholder="Name, Telefon und worum es geht…"></textarea>
+          <button class="btn btn-primary" type="submit">Anfrage senden →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Unser gemeinsames Projekt</span>
+      <h2>Aus der Werkstatt</h2>
+      <p>Jedes Stück entsteht in Handarbeit. Eine moderne Galerie zeigt Ihre Referenzen so, wie sie es verdienen.</p>
+    </div>
+    <div class="gal">
+      <figure class="reveal"><img src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2025/04/Zeichenflaeche-1@4x.png" alt="Tischler Team Düsseldorf – Möbelbau"><figcaption>Möbelbau · Massivholz</figcaption></figure>
+      <figure class="reveal"><img src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2024/05/Zeichenflaeche-1.png" alt="Tischler Team Düsseldorf – Einbaumöbel"><figcaption>Einbaumöbel · maßgefertigt</figcaption></figure>
+      <figure class="reveal"><img src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2025/04/Zeichenflaeche-1@4x.png" alt="Tischler Team Düsseldorf – Küchenbau"><figcaption>Küchen &amp; Bad</figcaption></figure>
+    </div>
+    <p class="ex-note">Platzhalter mit dem Markenzeichen Ihres Betriebs – in der finalen Version stehen hier Originalfotos Ihrer Projekte.</p>
+  </div>
+</section>
+
+<section style="background:#f1e7d6">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Stimmen</span>
+      <h2>Was Kunden sagen</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Unser Einbauschrank nutzt jede Dachschräge perfekt aus. Saubere Arbeit, pünktliche Montage."</p><div class="who">— Beispielstimme</div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Die neue Küche ist genau nach Maß. Ehrliche Beratung und ein Ergebnis, das überzeugt."</p><div class="who">— Beispielstimme</div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Vom Entwurf bis zur Übergabe alles aus einer Hand. Sehr empfehlenswert."</p><div class="who">— Beispielstimme</div></div>
+    </div>
+    <p class="ex-note">Beispielhafte Platzhalter-Stimmen – in der finalen Version Ihre echten Google-Bewertungen.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <img src="https://tischlerteam-duesseldorf.de/wp-content/uploads/2024/05/Zeichenflaeche-1.png" alt="Tischler Team Düsseldorf Logo">
+      <h2>Lassen Sie uns über Ihr Projekt sprechen.</h2>
+      <p>Ob ein einzelnes Möbelstück oder die komplette Küche – wir beraten Sie persönlich und unverbindlich.</p>
+      <a class="btn btn-primary" href="tel:+4921116012220">📞 +49 211 16012220</a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" style="background:#f1e7d6">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Kontakt</span>
+      <h2>Tischler Team Düsseldorf GbR</h2>
+    </div>
+    <div class="con-grid">
+      <div class="con-card reveal">
+        <div class="con-row"><div class="ic">📍</div><div><b>Werkstatt</b><span>Fringsstraße 5, 40221 Düsseldorf</span></div></div>
+        <div class="con-row"><div class="ic">📞</div><div><b>Telefon</b><a href="tel:+4921116012220">+49 211 16012220</a></div></div>
+        <div class="con-row"><div class="ic">✉️</div><div><b>E-Mail</b><a href="mailto:info@tischlerteam-duesseldorf.de">info@tischlerteam-duesseldorf.de</a></div></div>
+        <div class="con-row"><div class="ic">👤</div><div><b>Ansprechpartner</b><span>Tobias Hück</span></div></div>
+        <a class="btn btn-primary" href="#anfrage" style="margin-top:8px">Termin anfragen</a>
+      </div>
+      <div class="map reveal">
+        <iframe loading="lazy" title="Standort Fringsstraße 5 Düsseldorf" src="https://maps.google.com/maps?q=Fringsstra%C3%9Fe%205%2C%2040221%20D%C3%BCsseldorf&z=15&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="badge">CONCEPT PREVIEW · MZ.9</div>
+    <p><b>Tischler Team Düsseldorf GbR</b> · Fringsstraße 5, 40221 Düsseldorf · +49 211 16012220</p>
+    <p style="margin-top:8px;opacity:.7">Unverbindliche Konzeptvorschau, erstellt auf Basis Ihrer Website. Keine offizielle Seite des Betriebs.</p>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-primary" href="#anfrage">Termin anfragen</a>
+  <a class="btn btn-ghost" style="border-color:var(--amber);color:var(--amber-l)" href="tel:+4921116012220">Anrufen</a>
+</div>
+
+<!-- Chat -->
+<div class="fab" id="fab" onclick="toggleChat()">
+  <div class="ring"></div>
+  <div class="ava"><img src="../../assets/mz9/maik.jpg" alt="Maik"></div>
+  <div class="dot"></div>
+</div>
+<div class="chat" id="chat">
+  <div class="chat-h">
+    <img src="../../assets/mz9/maik.jpg" alt="Maik">
+    <div><b>Maik · MZ.9</b><small>Antwortet meist sofort</small></div>
+    <div class="x" onclick="toggleChat()">×</div>
+  </div>
+  <div class="chat-body" id="cbody"></div>
+  <div class="qbtns" id="cbtns"></div>
+  <div class="chat-in">
+    <input id="cin" placeholder="Nachricht schreiben…" onkeydown="if(event.key==='Enter')userSend()">
+    <button onclick="userSend()">➤</button>
+  </div>
+</div>
+
+<script>
+// header + reveal
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+// booking
+function pick(el,g){el.parentElement.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel')}
+function sendReq(e){e.preventDefault();
+  const svc=document.querySelector('#svcOpts .sel')?.textContent||'Projekt';
+  const when=document.getElementById('when').value||'';
+  const msg=document.getElementById('msg').value||'';
+  const body=encodeURIComponent(`Gewerk: ${svc}\nWunschzeitraum: ${when}\n\n${msg}`);
+  location.href=`mailto:info@tischlerteam-duesseldorf.de?subject=${encodeURIComponent('Terminanfrage: '+svc)}&body=${body}`;
+  return false;
+}
+
+// chat
+const chat=document.getElementById('chat'),cbody=document.getElementById('cbody'),cbtns=document.getElementById('cbtns');
+let opened=false;
+function toggleChat(){chat.classList.toggle('open');if(chat.classList.contains('open')&&!opened){opened=true;flowStart()}}
+function bot(html){const d=document.createElement('div');d.className='msg m';d.innerHTML=html;cbody.appendChild(d);cbody.scrollTop=cbody.scrollHeight}
+function me(t){const d=document.createElement('div');d.className='msg u';d.textContent=t;cbody.appendChild(d);cbody.scrollTop=cbody.scrollHeight}
+function btns(arr){cbtns.innerHTML='';arr.forEach(b=>{const x=document.createElement('button');x.textContent=b.t;x.onclick=()=>{me(b.t);cbtns.innerHTML='';b.f()};cbtns.appendChild(x)})}
+function flowStart(){
+  bot("Hallo! Ich habe mir Ihre aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:");
+  setTimeout(()=>{bot("<ul><li>Keine direkte Terminanfrage – Interessenten müssen anrufen, statt sofort eine Anfrage zu hinterlassen.</li><li>Wenig Bildmaterial – Ihre Arbeit ist Ihr stärkstes Verkaufsargument, wird aber kaum gezeigt.</li><li>Veralteter Gesamteindruck – Vertrauen und Professionalität leiden im Vergleich zu moderneren Wettbewerbern.</li></ul>");
+    setTimeout(()=>{bot("Diese Concept Preview zeigt, wie eine moderne Version aussehen könnte – optimiert auf Smartphones, Vertrauen und mehr Anfragen.");
+      bot("Wie gefällt Ihnen die neue Version im Vergleich zur aktuellen Website?");
+      btns([{t:'👍 Deutlich besser',f:s2},{t:'😐 Etwas besser',f:s2},{t:'👎 Kein Unterschied',f:s2}]);
+    },900);
+  },800);
+}
+function s2(){bot("Danke für das Feedback! Welche Verbesserung wäre für Sie aktuell am interessantesten?");
+  btns([{t:'Mehr Anfragen',f:()=>s3('Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?')},
+        {t:'Mehr Terminbuchungen',f:()=>s3('Wie nehmen Kunden aktuell Kontakt auf – telefonisch oder online?')},
+        {t:'Moderneres Erscheinungsbild',f:()=>s3('Soll der neue Auftritt eher klassisch-handwerklich oder modern wirken?')},
+        {t:'Bessere mobile Darstellung',f:()=>s3('Haben Sie schon Rückmeldungen von Kunden zur Nutzung auf dem Smartphone bekommen?')},
+        {t:'Bessere Google-Sichtbarkeit',f:()=>s3('Sind Sie aktuell zufrieden damit, wie gut Sie bei Google gefunden werden?')}]);
+}
+function s3(q){bot(q);btns([{t:'Erzähl mir mehr',f:sEnd},{t:'Passt so',f:sEnd}])}
+function sEnd(){bot("Auf Basis Ihrer aktuellen Website sehe ich einige konkrete Möglichkeiten, mehr Anfragen und Kundengewinnung zu erreichen. Wenn Sie möchten, hinterlassen Sie einfach eine kurze Terminanfrage – ich zeige Ihnen dann, welche Änderungen den größten Effekt hätten.");
+  btns([{t:'Zur Terminanfrage',f:()=>{document.getElementById('anfrage').scrollIntoView({behavior:'smooth'});toggleChat()}}]);
+}
+function userSend(){const i=document.getElementById('cin');if(!i.value.trim())return;me(i.value.trim());i.value='';setTimeout(()=>bot("Danke! Am schnellsten geht es über die kurze Terminanfrage – oder rufen Sie Tobias Hück direkt an: +49 211 16012220."),500)}
+setTimeout(()=>{if(!opened&&!chat.classList.contains('open')){document.getElementById('fab').animate([{transform:'scale(1)'},{transform:'scale(1.12)'},{transform:'scale(1)'}],{duration:600})}},3000);
+</script>
+</body>
+</html>

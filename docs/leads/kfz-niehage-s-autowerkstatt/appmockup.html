@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>App-Konzept „MeinAuto" — Niehage´s Autowerkstatt</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0E1420" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Source+Sans+3:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0E1420;--card:#161E2C;--ink:#F6F7F9;--ink-2:#AEB6C6;--mut:#7E879B;--blue:#60A0F0;--cta:#1D4ED8;
+    --ok:#34D399;--warn:#FBBF24;--line:#F6F7F91A;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Source Sans 3",system-ui,sans-serif;--ease:cubic-bezier(.22,.61,.36,1)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(120% 80% at 80% -10%,#1D4ED830,transparent 55%),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto;padding:clamp(36px,8vh,80px) clamp(20px,5vw,40px)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--blue)}
+  h1{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:600;line-height:1.06;margin:14px 0 0}
+  h1 em{font-style:italic;color:var(--blue)}
+  .sub{color:var(--ink-2);max-width:58ch;margin-top:16px;font-size:1.08rem}
+  .back{display:inline-block;margin-bottom:24px;font-size:13px;color:var(--mut);text-decoration:none}.back:hover{color:var(--blue)}
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 0}
+  .why .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .why .c b{color:var(--blue);font-size:14px} .why .c p{font-size:13px;color:var(--ink-2);margin-top:4px}
+  /* phones */
+  .phones{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:54px}
+  .phone{width:288px;flex:none;background:#05080F;border-radius:42px;padding:12px;box-shadow:0 40px 80px -30px #000,inset 0 0 0 2px #ffffff14}
+  .scr{background:#0B1018;border-radius:32px;overflow:hidden;height:600px;position:relative;display:flex;flex-direction:column}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#05080F;border-radius:0 0 16px 16px;z-index:5}
+  .stat{display:flex;justify-content:space-between;padding:9px 22px 4px;font-size:11px;color:#fff;font-weight:600}
+  .app-h{padding:8px 18px 14px;display:flex;align-items:center;gap:10px}
+  .app-h .mk{width:34px;height:34px;border-radius:10px;background:#161E2C;border:1px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600}
+  .app-h .t{font-weight:800;font-size:15px} .app-h .t span{color:var(--blue)}
+  .app-h .s{font-size:10.5px;color:var(--mut)}
+  .body{flex:1;overflow:hidden;padding:4px 16px 16px;display:flex;flex-direction:column;gap:12px}
+  .label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);font-weight:700;margin-top:4px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px}
+  .hu{background:linear-gradient(135deg,#1D4ED8,#163AA0);border:none}
+  .hu .k{font-size:11px;color:#cfe0ff;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+  .hu .big{font-family:var(--serif);font-size:2.3rem;font-weight:600;line-height:1;margin:6px 0 2px}
+  .hu .d{font-size:12px;color:#dbe6fb} .hu .bar{height:6px;background:#ffffff33;border-radius:4px;margin-top:12px;overflow:hidden}
+  .hu .bar i{display:block;height:100%;width:78%;background:#fff;border-radius:4px}
+  .hu .btn{display:block;text-align:center;background:#fff;color:#1D4ED8;font-weight:800;font-size:13px;padding:11px;border-radius:10px;margin-top:13px}
+  .row{display:flex;gap:10px}.row .tile{flex:1;text-align:center}
+  .row .n{font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--blue);line-height:1}
+  .row .l{font-size:10.5px;color:var(--mut);margin-top:3px}
+  .li{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .li:last-child{border:none} .li .ic{width:34px;height:34px;border-radius:10px;background:#1D4ED81f;color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+  .li b{font-size:13.5px} .li .sub2{font-size:11px;color:var(--mut)} .li .meta{margin-left:auto;font-size:11px;font-weight:700}
+  .chip{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px}
+  .chip.ok{background:#34D39922;color:var(--ok)} .chip.warn{background:#FBBF2422;color:var(--warn)}
+  .nav{display:flex;justify-content:space-around;padding:11px 8px 16px;background:#0B1018;border-top:1px solid var(--line)}
+  .nav div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--mut);font-weight:600}
+  .nav div.on{color:var(--blue)} .nav .d{font-size:17px}
+  .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#05080F;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:6}
+  .phwrap{position:relative}
+  .foot{margin-top:54px;font-size:12.5px;color:var(--mut)}
+  /* service-book screen */
+  .timeline .li .ic{background:#34D39920;color:var(--ok)}
+  .push{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:12px;padding:12px 14px}
+  .push .k{font-size:10px;color:var(--blue);font-weight:700} .push b{font-size:13px} .push p{font-size:11.5px;color:var(--ink-2)}
+  @media(max-width:680px){.why{grid-template-columns:1fr}.phone{width:270px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="kit.html">← zurück zum Business-Kit</a>
+  <div class="eyebrow">App-Konzept · Mockup</div>
+  <h1>„MeinAuto" — die <em>Werkstatt in der Tasche.</em></h1>
+  <p class="sub">Eine schlanke Kunden-App, die genau das löst, was eine Werkstatt am meisten kostet: vergessene TÜV-Termine, verlorene Reifen-Einlagerer und Kunden, die zur nächsten Werkstatt abwandern. Niehage´s bleibt das ganze Jahr präsent — automatisch.</p>
+
+  <div class="why">
+    <div class="c"><b>Wiederkehr sichern</b><p>Push-Erinnerung zu HU/AU &amp; Inspektion bringt Kunden planbar zurück — statt sie an die Konkurrenz zu verlieren.</p></div>
+    <div class="c"><b>Reifen-Einlagerung digital</b><p>Kunde sieht, dass seine Räder eingelagert sind — und bucht den Wechsel mit einem Tipp. Starker Bindungs-Anker.</p></div>
+    <div class="c"><b>Termine ohne Telefon</b><p>Buchung rund um die Uhr, auch nach Feierabend — die Anfrage landet direkt im Werkstatt-Kalender.</p></div>
+  </div>
+
+  <div class="phones">
+
+    <!-- Screen 1: Dashboard -->
+    <div class="phwrap">
+      <span class="tag">Start / Dashboard</span>
+      <div class="phone"><div class="scr">
+        <div class="notch"></div>
+        <div class="stat"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="app-h"><div class="mk">N</div><div><div class="t">Mein<span>Auto</span></div><div class="s">Niehage´s · VW Golf · WI-NA 123</div></div></div>
+        <div class="body">
+          <div class="tile hu">
+            <div class="k">Nächste Hauptuntersuchung</div>
+            <div class="big">in 47 Tagen</div>
+            <div class="d">Fällig: 08/2026 · HU &amp; AU</div>
+            <div class="bar"><i></i></div>
+            <span class="btn">Jetzt TÜV-Termin sichern</span>
+          </div>
+          <div class="row">
+            <div class="tile"><div class="n">2</div><div class="l">Räder eingelagert</div></div>
+            <div class="tile"><div class="n">12.480</div><div class="l">km bis Inspektion</div></div>
+          </div>
+          <div class="label">Schnellzugriff</div>
+          <div class="tile" style="padding:6px 15px">
+            <div class="li"><div class="ic">📅</div><div><b>Termin buchen</b><div class="sub2">Inspektion · HU · Reifen · Klima</div></div><div class="meta" style="color:var(--blue)">›</div></div>
+            <div class="li"><div class="ic">💬</div><div><b>Werkstatt fragen</b><div class="sub2">Direkt ans Team schreiben</div></div><div class="meta" style="color:var(--blue)">›</div></div>
+          </div>
+        </div>
+        <div class="nav"><div class="on"><span class="d">🏠</span>Start</div><div><span class="d">📅</span>Termin</div><div><span class="d">🚗</span>Auto</div><div><span class="d">⚙️</span>Mehr</div></div>
+      </div></div>
+    </div>
+
+    <!-- Screen 2: Booking -->
+    <div class="phwrap">
+      <span class="tag">Termin buchen</span>
+      <div class="phone"><div class="scr">
+        <div class="notch"></div>
+        <div class="stat"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="app-h"><div class="mk">N</div><div><div class="t">Termin buchen</div><div class="s">In 3 Schritten · 24/7</div></div></div>
+        <div class="body">
+          <div class="label">1 · Leistung wählen</div>
+          <div class="tile" style="padding:6px 15px">
+            <div class="li"><div class="ic">🛡️</div><div><b>Inspektion</b><div class="sub2">inkl. Mobilitätsgarantie</div></div><span class="chip ok">gewählt</span></div>
+            <div class="li"><div class="ic">🔍</div><div><b>HU &amp; AU</b><div class="sub2">empfohlen — fällig 08/2026</div></div><span class="chip warn">bald fällig</span></div>
+            <div class="li"><div class="ic">🛞</div><div><b>Reifenwechsel</b><div class="sub2">Ihre Räder liegen bereit</div></div><div class="meta" style="color:var(--mut)">+</div></div>
+            <div class="li"><div class="ic">❄️</div><div><b>Klimaservice</b><div class="sub2">Wartung &amp; Befüllung</div></div><div class="meta" style="color:var(--mut)">+</div></div>
+          </div>
+          <div class="label">2 · Wunschtermin</div>
+          <div class="row">
+            <div class="tile" style="border-color:var(--blue)"><b style="font-size:13px;color:var(--blue)">Di, 24.06.</b><div class="l">08:00 Uhr</div></div>
+            <div class="tile"><b style="font-size:13px">Mi, 25.06.</b><div class="l">10:30 Uhr</div></div>
+          </div>
+          <div class="tile hu" style="padding:13px"><span class="btn" style="margin:0">Weiter zu Schritt 3 →</span></div>
+        </div>
+        <div class="nav"><div><span class="d">🏠</span>Start</div><div class="on"><span class="d">📅</span>Termin</div><div><span class="d">🚗</span>Auto</div><div><span class="d">⚙️</span>Mehr</div></div>
+      </div></div>
+    </div>
+
+    <!-- Screen 3: Vehicle / digital service book -->
+    <div class="phwrap">
+      <span class="tag">Mein Auto · Scheckheft</span>
+      <div class="phone"><div class="scr">
+        <div class="notch"></div>
+        <div class="stat"><span>9:41</span><span>📶 🔋</span></div>
+        <div class="app-h"><div class="mk">N</div><div><div class="t">Mein Auto</div><div class="s">Digitales Scheckheft</div></div></div>
+        <div class="body">
+          <div class="push"><div class="k">🔔 PUSH-ERINNERUNG</div><b>TÜV in 47 Tagen fällig</b><p>Sichern Sie sich jetzt Ihren Wunschtermin bei Niehage´s.</p></div>
+          <div class="label">Reifen-Einlagerung</div>
+          <div class="tile" style="padding:6px 15px">
+            <div class="li"><div class="ic">🛞</div><div><b>Winterräder 205/55 R16</b><div class="sub2">Lagerplatz B-14 · profiltief 6 mm</div></div><span class="chip ok">eingelagert</span></div>
+          </div>
+          <div class="label">Service-Historie</div>
+          <div class="tile timeline" style="padding:6px 15px">
+            <div class="li"><div class="ic">✓</div><div><b>Inspektion</b><div class="sub2">04/2025 · 38.200 km</div></div></div>
+            <div class="li"><div class="ic">✓</div><div><b>Reifenwechsel</b><div class="sub2">10/2024 · Sommer → Winter</div></div></div>
+            <div class="li"><div class="ic">✓</div><div><b>HU &amp; AU bestanden</b><div class="sub2">08/2024 · ohne Mängel</div></div></div>
+          </div>
+        </div>
+        <div class="nav"><div><span class="d">🏠</span>Start</div><div><span class="d">📅</span>Termin</div><div class="on"><span class="d">🚗</span>Auto</div><div><span class="d">⚙️</span>Mehr</div></div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <p class="foot">App-Konzept &amp; Mockup, unverbindlich · Beispieldaten zur Veranschaulichung · MZ.9 — Media Engineering.AI für Niehage´s Autowerkstatt.</p>
+</div>
+</body>
+</html>

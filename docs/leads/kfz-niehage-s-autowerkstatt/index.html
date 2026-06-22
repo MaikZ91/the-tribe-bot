@@ -133,9 +133,42 @@
   .check .res .pr{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--cta);line-height:1.2}
   .check .res .nt{font-size:12.5px;color:var(--ink-mut)} .check .cta{margin-top:14px;display:none} .check .cta.on{display:inline-flex}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
+  /* Before/After Toggle */
+  .ba-toggle{position:fixed;top:38px;right:14px;z-index:1000;display:flex;gap:4px;background:#FFFFFFF2;backdrop-filter:blur(10px);padding:6px;border-radius:24px;box-shadow:0 6px 20px -6px #0E142055;font-size:12.5px;font-weight:700}
+  .ba-toggle a,.ba-toggle span{padding:6px 14px;border-radius:18px;transition:.2s}
+  .ba-toggle .before{color:var(--ink-mut)} .ba-toggle .before:hover{background:var(--bg-2)}
+  .ba-toggle .after{background:var(--cta);color:#fff}
+  /* MZ.9 Maik Chat */
+  .fab{position:fixed;bottom:22px;right:22px;width:62px;height:62px;background:#fff;border-radius:50%;box-shadow:0 8px 28px -6px #0E142066;cursor:pointer;z-index:1001;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+  .fab:hover{transform:scale(1.06)}
+  .fab-avatar{width:54px;height:54px;border-radius:50%;background:var(--dunkel) url('../../assets/mz9/maik.jpg') center/cover;position:relative}
+  .fab-avatar::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #10b981;animation:fpulse 2s infinite}
+  @keyframes fpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.12)}}
+  .chat-panel{position:fixed;bottom:96px;right:22px;width:380px;max-height:520px;background:#fff;border-radius:18px;box-shadow:0 16px 54px -10px #0E142080;z-index:1001;display:none;flex-direction:column;overflow:hidden}
+  .chat-panel.open{display:flex}
+  .chat-head{background:var(--dunkel);color:#fff;padding:15px 18px;display:flex;justify-content:space-between;align-items:center}
+  .chat-head h3{font-family:var(--sans);font-size:15px;font-weight:700;margin:0}
+  .chat-head .cl{width:28px;height:28px;background:#FFFFFF22;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+  .chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px}
+  .cmsg{max-width:86%;padding:11px 15px;border-radius:13px;font-size:14px;line-height:1.5}
+  .cmsg.maik{background:var(--bg-2);color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px}
+  .cmsg.user{background:var(--cta);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .chat-btns{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+  .chat-btns button{padding:8px 12px;background:#DBEAFE;color:#1D4ED8;border:none;border-radius:7px;font-size:13px;cursor:pointer;font-family:inherit;transition:.2s}
+  .chat-btns button:hover{background:#BFDBFE}
+  .chat-in{padding:12px;border-top:1px solid var(--line);display:flex;gap:8px}
+  .chat-in input{flex:1;padding:10px 13px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:inherit}
+  .chat-in input:focus{outline:none;border-color:var(--cta)}
+  .chat-in button{background:var(--cta);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit}
+  @media(max-width:600px){.ba-toggle{top:36px}.fab{bottom:74px}.chat-panel{width:calc(100% - 28px);right:14px;bottom:84px;max-height:calc(100vh - 130px)}}
 </style>
 </head>
 <body>
+
+<div class="ba-toggle">
+  <a class="before" href="https://www.niehages-autowerkstatt.de/" target="_blank" rel="noopener">Vorher</a>
+  <span class="after">Nachher</span>
+</div>
 
 <div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Niehage´s Autowerkstatt</div>
 
@@ -236,12 +269,12 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow rv">Einblicke</div>
-      <h2 class="rv" style="transition-delay:.05s">Impressionen</h2>
+      <h2 class="rv" style="transition-delay:.05s">Das Team vor Ort</h2>
+      <p class="rv" style="transition-delay:.1s">Persönlich, erfahren und immer ein offenes Ohr — Ihr Auto ist bei uns in guten Händen.</p>
     </div>
-    <div class="gal rv">
-      <figure><img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/09/Autoglas.webp" alt="Niehage´s Autowerkstatt — Impression 1" loading="lazy" onerror="this.parentElement.style.display='none'"></figure>
-      <figure><img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/09/Inspektion.webp" alt="Niehage´s Autowerkstatt — Impression 2" loading="lazy" onerror="this.parentElement.style.display='none'"></figure>
-      <figure><img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/09/Motordiagnose.webp" alt="Niehage´s Autowerkstatt — Impression 3" loading="lazy" onerror="this.parentElement.style.display='none'"></figure>
+    <div class="gal rv" style="grid-template-columns:1.5fr 1fr;grid-template-rows:1fr">
+      <figure style="grid-row:auto"><img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/10/Team-Niehage-1024x768.webp" alt="Das Team von Niehage´s Autowerkstatt" loading="lazy" onerror="this.parentElement.style.display='none'"></figure>
+      <figure style="grid-row:auto"><img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/09/Winterraeder_2025.jpg" alt="Reifenservice &amp; Winterräder bei Niehage´s Autowerkstatt" loading="lazy" onerror="this.parentElement.style.display='none'"></figure>
     </div>
   </div>
 </section>
@@ -266,7 +299,7 @@
   <div class="wrap">
     
     <div class="band rv">
-      <img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/09/Motordiagnose.webp" alt="" aria-hidden="true" onerror="this.style.display='none'">
+      <img src="https://www.niehages-autowerkstatt.de/wp-content/uploads/2025/10/Team-Niehage-1536x1152.webp" alt="" aria-hidden="true" onerror="this.style.display='none'">
       <div class="sc"></div>
       <div class="in">
         <div class="eyebrow" style="color:var(--accent-gold)">Jetzt anfragen</div>
@@ -322,6 +355,16 @@
   <a class="cta-mob" href="#kontakt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Jetzt anfragen</a>
 </nav>
 
+<div class="fab" id="fab" onclick="toggleChat()"><div class="fab-avatar"></div></div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head"><h3>MZ.9 · Concept Preview</h3><div class="cl" onclick="toggleChat()">×</div></div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-in" id="chatIn" style="display:none">
+    <input type="text" id="chatInput" placeholder="Ihre Nachricht…" onkeypress="chatKey(event)">
+    <button onclick="chatSend()">Senden</button>
+  </div>
+</div>
+
 <script>
 (function(){
   var h=document.getElementById("header");
@@ -337,6 +380,36 @@
     if(hb) addEventListener("scroll",function(){ if(scrollY<innerHeight) hb.style.transform="translateY("+(scrollY*.16)+"px) scale(1.06)"; },{passive:true});
   }
   var bs=document.getElementById("bsSel"), bsr=document.getElementById("bsRes"), bsc=document.getElementById("bsCta");
+  // MZ.9 Maik chat
+  window.toggleChat=function(){
+    var p=document.getElementById("chatPanel"); p.classList.toggle("open");
+    if(p.classList.contains("open") && cState==="init"){ setTimeout(initChat,300); }
+  };
+  var cState="init";
+  function addMsg(t,u){ var c=document.getElementById("chatMsgs"),m=document.createElement("div"); m.className="cmsg "+(u?"user":"maik"); m.innerHTML=t; c.appendChild(m); c.scrollTop=c.scrollHeight; }
+  function cBtns(arr){ var c=document.getElementById("chatMsgs"),w=document.createElement("div"); w.className="chat-btns"; arr.forEach(function(t){var b=document.createElement("button");b.textContent=t;b.onclick=function(){cResp(t);};w.appendChild(b);}); c.appendChild(w); c.scrollTop=c.scrollHeight; }
+  function initChat(){
+    cState="analysis";
+    addMsg("Ich habe mir Ihre aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<br><br>• <strong>Keine Online-Terminanfrage</strong> – wer abends ein Problem am Auto hat, kann nicht buchen, sondern muss anrufen, wenn die Werkstatt zu ist. Anfragen gehen verloren.<br>• <strong>Veralteter Auftritt</strong> – die Seite wirkt auf dem Smartphone langsam und unübersichtlich, viele springen ab, bevor sie Kontakt aufnehmen.<br><br>Diese Konzept-Vorschau zeigt, wie eine moderne Version aussehen könnte – optimiert auf Mobil, Vertrauen und mehr Anfragen.");
+    setTimeout(function(){ addMsg("Wie gefällt Ihnen die neue Version im Vergleich zur aktuellen Website?"); cBtns(["👍 Deutlich besser","😐 Etwas besser","👎 Kein großer Unterschied"]); },500);
+  }
+  function cResp(r){
+    var b=document.querySelector(".chat-btns"); if(b) b.remove(); addMsg(r,true);
+    if(r.indexOf("besser")>-1 && r.indexOf("Kein")===-1){
+      cState="interest";
+      setTimeout(function(){ addMsg("Danke für das Feedback. Welche Verbesserung wäre für Sie aktuell am interessantesten?"); cBtns(["Mehr Anfragen","Mehr Terminbuchungen","Moderneres Erscheinungsbild","Bessere mobile Darstellung","Bessere Google-Sichtbarkeit"]); },400);
+    } else if(cState==="interest"){
+      setTimeout(function(){ addMsg("Basierend auf Ihrer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn Sie möchten, zeige ich Ihnen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten."); document.getElementById("chatIn").style.display="flex"; },400);
+    } else {
+      setTimeout(function(){ addMsg("Verstanden – danke für die ehrliche Rückmeldung. Schreiben Sie mir gern, was wir besser machen könnten:"); document.getElementById("chatIn").style.display="flex"; },400);
+    }
+  }
+  window.chatKey=function(e){ if(e.key==="Enter") chatSend(); };
+  window.chatSend=function(){ var i=document.getElementById("chatInput"),t=i.value.trim(); if(!t)return; addMsg(t,true); i.value=""; setTimeout(function(){ addMsg("Vielen Dank! Ich melde mich mit konkreten Vorschlägen – oder rufen Sie uns direkt an unter <a href='tel:+4961222454' style='color:var(--cta);font-weight:700'>06122 · 2454</a>."); },400); };
+  var cShown=false; function pulseFab(){ if(cShown)return; var f=document.getElementById("fab"); if(f){f.style.animation="fpulse .5s";setTimeout(function(){f.style.animation="";},500);} cShown=true; }
+  setTimeout(pulseFab,2500);
+  addEventListener("scroll",function(){ if(scrollY>innerHeight*.3) pulseFab(); },{once:true,passive:true});
+
   if(bs) bs.addEventListener("change",function(){
     var o=bs.options[bs.selectedIndex], r=o.getAttribute("data-r");
     if(!r){ bsr.innerHTML='<span class="pr" style="color:var(--ink-mut);font-size:1.1rem">&mdash;</span><span class="nt">Wählen Sie eine Option</span>'; bsc.classList.remove("on"); return; }
