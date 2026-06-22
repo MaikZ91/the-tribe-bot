@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dachdecker & Zimmerei | Peter Kühlem jun. GmbH | Bonn</title>
+  <meta name="description" content="Die Peter Kühlem jun. GmbH bietet Dachdecker- & Zimmererarbeiten mit über 35 Jahren Erfahrung. Kontaktieren Sie uns für individuelle Lösungen!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --accent: #C04824;
+      --accent-dark: #9A381C;
+      --slate: #2C3E50;
+      --slate-light: #5A6A7A;
+      --warm-white: #FAF8F5;
+      --white: #FFFFFF;
+      --light: #E8E4DF;
+      --shadow-soft: 0 4px 20px rgba(44, 62, 80, 0.08);
+      --shadow-medium: 0 8px 30px rgba(44, 62, 80, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 18px;
+      --container: 1200px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--slate);
+      background: var(--warm-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(44, 62, 80, 0.08);
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      padding: 0.75rem 0;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .header__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .header__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--slate);
+    }
+
+    .header__logo span {
+      color: var(--accent);
+    }
+
+    .header__nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .header__link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--slate-light);
+      transition: color 0.2s;
+    }
+
+    .header__link:hover {
+      color: var(--accent);
+    }
+
+    .header__cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header__cta {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header__nav {
+        display: none;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .btn--primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(192, 72, 36, 0.35);
+    }
+
+    .btn--primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(192, 72, 36, 0.45);
+    }
+
+    .btn--secondary {
+      background: var(--white);
+      color: var(--slate);
+      border: 2px solid var(--light);
+    }
+
+    .btn--secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn--large {
+      padding: 1.1rem 2.25rem;
+      font-size: 1.05rem;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 90svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(44, 62, 80, 0.65) 100%);
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(192, 72, 36, 0.95);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      max-width: 800px;
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Trust Strip */
+    .trust {
+      background: var(--white);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--light);
+    }
+
+    .trust__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem 3rem;
+    }
+
+    .trust__item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      color: var(--slate);
+      font-size: 0.95rem;
+    }
+
+    .trust__icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    /* Services */
+    .services {
+      padding: 5rem 0;
+      background: var(--warm-white);
+    }
+
+    .services__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section__header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section__overline {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 1rem;
+    }
+
+    .section__desc {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--slate-light);
+      font-size: 1.05rem;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+      border: 1px solid var(--light);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+      border-color: rgba(192, 72, 36, 0.2);
+    }
+
+    .service-card__icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(192, 72, 36, 0.1), rgba(192, 72, 36, 0.05));
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .service-card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--slate);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card__list {
+      list-style: none;
+      color: var(--slate-light);
+      font-size: 0.95rem;
+    }
+
+    .service-card__list li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card__list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Request Form */
+    .request {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--slate), #1A252F);
+      color: var(--white);
+    }
+
+    .request__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .request__inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .request__content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 1rem;
+    }
+
+    .request__content p {
+      opacity: 0.85;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .request__form {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      color: var(--slate);
+    }
+
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .form__row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form__group {
+      margin-bottom: 1rem;
+    }
+
+    .form__label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--slate);
+    }
+
+    .form__input,
+    .form__select,
+    .form__textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--light);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form__input:focus,
+    .form__select:focus,
+    .form__textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form__textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form__submit {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 5rem 0;
+      background: var(--white);
+    }
+
+    .gallery__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery__item {
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery__item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      padding: 4rem 1.5rem;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .cta-band__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-band__text {
+      opacity: 0.9;
+      margin-bottom: 1.75rem;
+      font-size: 1.05rem;
+    }
+
+    .cta-band__phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 5rem 0;
+      background: var(--warm-white);
+    }
+
+    .contact__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-card__icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(192, 72, 36, 0.1), rgba(192, 72, 36, 0.05));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-card__label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-card__value {
+      font-weight: 600;
+      color: var(--slate);
+      font-size: 1.05rem;
+    }
+
+    .contact-card__value a {
+      color: inherit;
+    }
+
+    .contact-card__value a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--slate);
+      color: var(--white);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .footer__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .footer__text {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: var(--white);
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--light);
+      display: none;
+    }
+
+    .mobile-cta__btn {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta {
+        display: block;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+
+      .cta-band {
+        padding: 3rem 1.5rem 5rem;
+      }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo">Dachdecker<span>Kühlem</span></a>
+      <nav class="header__nav">
+        <a href="#leistungen" class="header__link">Leistungen</a>
+        <a href="#referenzen" class="header__link">Referenzen</a>
+        <a href="#kontakt" class="header__link">Kontakt</a>
+      </nav>
+      <a href="#anfrage" class="btn btn--primary header__cta">Anfrage senden</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__bg">
+      <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/dachdecker_kuehlem_1-1920w.jpg" alt="Dacharbeiten durch Dachdecker Kühlem Bonn" loading="eager">
+    </div>
+    <div class="hero__inner">
+      <div class="hero__badge">
+        <span>🏆</span>
+        <span>Über 35 Jahre Erfahrung</span>
+      </div>
+      <h1 class="hero__title">Dachdecker Kühelem – Ihr Meisterbetrieb in Bonn</h1>
+      <p class="hero__subtitle">Dachdecker- & Zimmererarbeiten aus einer Hand. Qualität, die seit Generationen überdauert.</p>
+      <div class="hero__actions">
+        <a href="#anfrage" class="btn btn--primary btn--large">Jetzt kostenlose Beratung anfordern</a>
+        <a href="tel:+492289780500" class="btn btn--secondary btn--large" style="background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);">
+          📞 +49 228 9780500
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="trust__inner">
+      <div class="trust__item">
+        <span class="trust__icon">🔧</span>
+        <span>Meisterbetrieb</span>
+      </div>
+      <div class="trust__item">
+        <span class="trust__icon">📅</span>
+        <span>35+ Jahre Erfahrung</span>
+      </div>
+      <div class="trust__item">
+        <span class="trust__icon">📍</span>
+        <span>Bonn & Region</span>
+      </div>
+      <div class="trust__item">
+        <span class="trust__icon">🏠</span>
+        <span>Dach & Zimmerei</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="services__inner">
+      <div class="section__header reveal">
+        <span class="section__overline">Unser Angebot</span>
+        <h2 class="section__title">Leistungen aus einer Hand</h2>
+        <p class="section__desc">Von der ersten Beratung bis zur fertigen Ausführung – wir begleiten Ihr Bauprojekt kompetent und zuverlässig.</p>
+      </div>
+      <div class="services__grid">
+        <article class="service-card reveal">
+          <div class="service-card__icon">🏠</div>
+          <h3 class="service-card__title">Dachdeckerarbeiten</h3>
+          <ul class="service-card__list">
+            <li>Neubau & Sanierung</li>
+            <li>DachEindeckungen aller Arten</li>
+            <li>Dachsanierung & Modernisierung</li>
+            <li>Dachabdichtung</li>
+          </ul>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-card__icon">🪚</div>
+          <h3 class="service-card__title">Zimmereiarbeiten</h3>
+          <ul class="service-card__list">
+            <li>Dachstuhlbau</li>
+            <li>Holzbaukonstruktionen</li>
+            <li>Ausbau & Innenausbau</li>
+            <li>An- & Aufbauten</li>
+          </ul>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-card__icon">🛡️</div>
+          <h3 class="service-card__title">Dachergänzungen</h3>
+          <ul class="service-card__list">
+            <li>Dachfenster & Lichtbänder</li>
+            <li>Dachbegrünung</li>
+            <li>Solarmontage</li>
+            <li>Gauben & Dachaufstockungen</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="request" id="anfrage">
+    <div class="request__inner">
+      <div class="request__content reveal">
+        <h2>Kostenlose Anfrage senden</h2>
+        <p>Erzählen Sie uns von Ihrem Projekt. Wir melden uns innerhalb von 24 Stunden mit einem ersten Vorschlag bei Ihnen.</p>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <div>
+            <strong>📞 Telefon</strong><br>
+            <span style="opacity: 0.85;">+49 228 9780500</span>
+          </div>
+          <div>
+            <strong>📧 E-Mail</strong><br>
+            <span style="opacity: 0.85;">info@dachdecker-kuehlem.de</span>
+          </div>
+        </div>
+      </div>
+      <form class="request__form reveal" action="mailto:info@dachdecker-kuehlem.de" method="post" enctype="text/plain">
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label">Name *</label>
+            <input type="text" name="name" class="form__input" required placeholder="Ihr Name">
+          </div>
+          <div class="form__group">
+            <label class="form__label">Telefon</label>
+            <input type="tel" name="phone" class="form__input" placeholder="Für Rückrufe">
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label">E-Mail *</label>
+            <input type="email" name="email" class="form__input" required placeholder="ihre@email.de">
+          </div>
+          <div class="form__group">
+            <label class="form__label">Leistung</label>
+            <select name="service" class="form__select">
+              <option value="">Bitte wählen...</option>
+              <option value="dachdecker">Dachdeckerarbeiten</option>
+              <option value="zimmerei">Zimmereiarbeiten</option>
+              <option value="sanierung">Dachsanierung</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label">Ihre Nachricht *</label>
+          <textarea name="message" class="form__textarea" required placeholder="Beschreiben Sie Ihr Projekt..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary form__submit">Anfrage absenden →</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="gallery" id="referenzen">
+    <div class="gallery__inner">
+      <div class="section__header reveal">
+        <span class="section__overline">Referenzen</span>
+        <h2 class="section__title">Ausgewählte Projekte</h2>
+        <p class="section__desc">Ein Einblick in unsere Arbeit in Bonn und Umgebung.</p>
+      </div>
+      <div class="gallery__grid">
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/dachdecker_kuehlem_5_small-1920w.webp" alt="Dacharbeiten Projekt Bonn" loading="lazy">
+        </div>
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/AdobeStock_354730325_small-1920w.webp" alt="Dacheindeckung Details" loading="lazy">
+        </div>
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/AdobeStock_118302139_small-1920w.webp" alt="Professionelle Dacharbeiten" loading="lazy">
+        </div>
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/AdobeStock_299272820_small-1920w.webp" alt="Dachsanierung Bonn" loading="lazy">
+        </div>
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/dachdecker-kuehlem_firmengebaeude_front-786w.png" alt="Firmengebäude Dachdecker Kühlem" loading="lazy">
+        </div>
+        <div class="gallery__item reveal">
+          <img src="https://le-de.cdn-website.com/7ea66ebdb261413cbc24705f56d75ad4/dms3rep/multi/opt/AdobeStock_623589880-769w.webp" alt="Qualitätsarbeit am Dach" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2 class="cta-band__title">Bereit für Ihr Dach-Projekt?</h2>
+    <p class="cta-band__text">Lassen Sie uns gemeinsam die beste Lösung für Ihr Gebäude finden.</p>
+    <a href="tel:+492289780500" class="cta-band__phone">📞 +49 228 9780500</a>
+    <a href="#anfrage" class="btn btn--secondary" style="border-color: white; color: white;">Zur Online-Anfrage →</a>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="contact__inner">
+      <div class="contact-card reveal">
+        <div class="contact-card__icon">📍</div>
+        <div class="contact-card__label">Adresse</div>
+        <div class="contact-card__value">Saime-Genc-Ring 17<br>53121 Bonn</div>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-card__icon">📞</div>
+        <div class="contact-card__label">Telefon</div>
+        <div class="contact-card__value"><a href="tel:+492289780500">+49 228 9780500</a></div>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-card__icon">📧</div>
+        <div class="contact-card__label">E-Mail</div>
+        <div class="contact-card__value"><a href="mailto:info@dachdecker-kuehlem.de">info@dachdecker-kuehlem.de</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__text">Konzept-Vorschau · MZ.9 · Peter Kühlem jun. GmbH · Bonn</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#anfrage" class="btn btn--primary mobile-cta__btn">Jetzt Anfrage senden</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
