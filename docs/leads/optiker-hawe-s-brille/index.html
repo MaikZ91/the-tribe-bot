@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>HAWE'S Brille - Ihr Qualitätsoptiker in Hannover</title>
+  <meta name="description" content="Eulen Optik – Ihr Qualitätsoptiker in Hannover. Brillen, Kontaktlinsen und mehr. Wir beraten Sie gerne.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2c5282;
+      --accent: #d4a574;
+      --accent-light: #e8c9a8;
+      --bg: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px rgba(0,0,0,0.07);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+      --radius: 8px;
+      --radius-lg: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+    h3 { font-size: 1.25rem; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover { background: var(--primary-light); border-color: var(--primary-light); }
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .btn-accent:hover { background: #c09a65; border-color: #c09a65; }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-outline:hover { background: var(--primary); color: white; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+    .header.scrolled { box-shadow: var(--shadow); }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    .nav { display: none; gap: 2rem; }
+    .nav a { font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: color 0.2s; }
+    .nav a:hover { color: var(--primary); }
+    @media (min-width: 768px) { .nav { display: flex; } }
+    .header-cta { display: none; }
+    @media (min-width: 768px) { .header-cta { display: inline-flex; } }
+
+    /* Hero */
+    .hero {
+      padding: 140px 0 80px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 80%;
+      height: 150%;
+      background: radial-gradient(ellipse at center, var(--accent-light) 0%, transparent 60%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; gap: 5rem; }
+      .hero-content { order: -1; }
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--accent-light);
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      padding: 3rem 0;
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .trust-item { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-light);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+    .trust-text { font-weight: 500; color: var(--primary); }
+    .trust-sub { font-size: 0.85rem; color: var(--text-light); }
+
+    /* Services */
+    .services { padding: 80px 0; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { color: var(--primary); margin-bottom: 0.75rem; }
+    .section-header p { color: var(--text-light); max-width: 600px; margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent-light) 0%, #fff 100%);
+      border-radius: var(--radius);
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .service-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.95rem; color: var(--text-light); }
+
+    /* Booking */
+    .booking {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+    }
+    .booking-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 960px) { .booking-inner { grid-template-columns: 1fr 1fr; } }
+    .booking-content h2 { color: white; margin-bottom: 1rem; }
+    .booking-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .booking-features { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .booking-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .booking-feature-check {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .booking-form {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .booking-form h3 { color: var(--primary); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
+    .booking-form p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .booking-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Gallery */
+    .gallery { padding: 80px 0; background: var(--bg-alt); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 960px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: 16/9;
+    }
+    @media (min-width: 640px) { .gallery-item:first-child { grid-column: span 2; grid-row: span 2; } }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* Reviews */
+    .reviews { padding: 80px 0; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+    }
+    .review-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .review-name { font-weight: 500; color: var(--primary); }
+    .review-stars { color: var(--accent); font-size: 0.9rem; }
+    .review-text { color: var(--text-light); font-size: 0.95rem; font-style: italic; }
+    .review-note {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 0.75rem;
+      font-style: normal;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 60px 0;
+      background: var(--accent);
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 { color: white; margin-bottom: 0.75rem; font-family: 'Cormorant Garamond', serif; }
+    .cta-band p { opacity: 0.95; margin-bottom: 1.75rem; }
+    .cta-band .btn { background: white; color: var(--accent); border-color: white; }
+    .cta-band .btn:hover { background: var(--bg-alt); }
+
+    /* Contact */
+    .contact { padding: 80px 0; }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) { .contact-inner { grid-template-columns: 1fr 1fr; } }
+    .contact-info h3 { color: var(--primary); margin-bottom: 1.5rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .contact-details p { font-weight: 500; color: var(--primary); }
+    .contact-details span { color: var(--text-light); font-size: 0.95rem; }
+    .contact-details a { color: var(--primary); transition: color 0.2s; }
+    .contact-details a:hover { color: var(--accent); }
+
+    /* Footer */
+    .footer {
+      padding: 2rem 0;
+      background: var(--primary);
+      color: white;
+      text-align: center;
+    }
+    .footer p { font-size: 0.85rem; opacity: 0.8; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      padding: 0.75rem 1.5rem;
+      background: white;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    @media (max-width: 767px) { .mobile-cta { display: block; } }
+    .mobile-cta-spacer { display: none; height: 70px; }
+    @media (max-width: 767px) { .mobile-cta-spacer { display: block; } }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">HAWE'S <span>Brille</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#termin" class="btn btn-primary header-cta">Termin vereinbaren</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Ihr Qualitätsoptiker in Hannover</span>
+        <h1>Mein Augenoptiker des Vertrauens</h1>
+        <p>Persönliche Beratung, hochwertige Brillen und fundierte Sehtests – bei Hawe's Brille finden Sie genau das, was Ihre Augen verdienen.</p>
+        <div class="hero-ctas">
+          <a href="#termin" class="btn btn-accent">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.eulen-optik.de/content/article_267181_img_1656674053_source.jpg" alt="Moderne Brillenvitrine bei Hawe's Brille in Hannover" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-icon">✓</div>
+        <span class="trust-text">Über 30 Jahre Erfahrung</span>
+        <span class="trust-sub">Kompetenz & Tradition</span>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">★</div>
+        <span class="trust-text">Premium-Marken</span>
+        <span class="trust-sub">Exklusive Brillenkollektionen</span>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">♥</div>
+        <span class="trust-text">Persönliche Beratung</span>
+        <span class="trust-sub">Individuelle Betreuung</span>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">⚡</div>
+        <span class="trust-text">Schnelle Fertigung</span>
+        <span class="trust-sub">Express-Service verfügbar</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Top Leistungen für Ihr gutes Sehen</h2>
+        <p>Kompetente Beratung, moderne Technologien und hochwertige Produkte – alles aus einer Hand.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">👓</div>
+          <h3>Brillenberatung</h3>
+          <p>Finden Sie die perfekte Brille für Ihr Gesicht und Ihre Sehanforderungen. Wir beraten Sie individuell.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">👁️</div>
+          <h3>Sehtest & Refraktion</h3>
+          <p>Präzise Augenmessungen mit modernster Technik für eine exakte Brillenbestimmung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔍</div>
+          <h3>Kontaktlinsen</h3>
+          <p>Weiche und formstabile Kontaktlinsen – mit Anpassung, Einweisung und Nachsorge.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3>Brillen-Reparatur</h3>
+          <p>Schnelle Hilfe bei beschädigten Brillen. Wir reparieren fast alle Modelle vor Ort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking" id="termin">
+    <div class="container booking-inner">
+      <div class="booking-content reveal">
+        <h2>Jetzt Wunschtermin vereinbaren!</h2>
+        <p>Wir beraten Sie gerne – ob für eine neue Brille, Kontaktlinsen oder einen Sehtest. Vereinbaren Sie Ihren persönlichen Termin ganz einfach online.</p>
+        <div class="booking-features">
+          <div class="booking-feature">
+            <div class="booking-feature-check">✓</div>
+            <span>Keine Wartezeiten – Planbar zu Ihrer Zeit</span>
+          </div>
+          <div class="booking-feature">
+            <div class="booking-feature-check">✓</div>
+            <span>Umfassende Beratung ohne Zeitdruck</span>
+          </div>
+          <div class="booking-feature">
+            <div class="booking-feature-check">✓</div>
+            <span>Erinnerung vor Ihrem Termin</span>
+          </div>
+        </div>
+        <a href="tel:+49511662222" class="btn btn-accent" style="background: white; color: var(--accent); border-color: white;">
+          📞 +49 511 662 222
+        </a>
+      </div>
+      <div class="booking-form reveal">
+        <h3>Kostenlose Terminanfrage</h3>
+        <p>Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+        <form action="mailto:info@eulen-optik.de" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="Für Rückruf" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="ihre@email.de">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" name="service" class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option value="brillenberatung">Brillenberatung</option>
+                <option value="sehtest">Sehtest</option>
+                <option value="kontaktlinsen">Kontaktlinsen-Anpassung</option>
+                <option value="reparatur">Brillen-Reparatur</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Wunschtermin</label>
+              <input type="date" id="date" name="date" class="form-input">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht (optional)</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Ihre Nachricht an uns..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent booking-btn">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Einblicke in unser Geschäft</h2>
+        <p>Moderne Brillen, freundliche Atmosphäre – laden Sie sich ein, uns vor Ort zu besuchen.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267181_img_1656674056_source.jpg" alt="Große Brillenauswahl bei Hawe's Brille" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267181_img_1656686854_source.jpg" alt="Premium-Brillenmarken in der Vitrine" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267181_img_1656674061_source.jpg" alt="Beratungsplatz bei Hawe's Brille" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267181_img_1657192528_source.jpg" alt="Moderne Shop-Atmosphäre" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_105910_img_1.jpg" alt="Brillen-Details" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267194_img_1750846172.jpg" alt="Kollektionsschau" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267194_img_1750846191.jpg" alt="Design-Brillen" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_267194_img_1750846220.jpg" alt="Auswahl an Kinderbrillen" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_2265_img_1749714947_source.jpg" alt="Kinderbrillen-Auswahl" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_2265_img_1749715024_source.jpg" alt="Farbenfrohe Brillen" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eulen-optik.de/content/article_2265_img_1749715068_source.jpg" alt="Stilvolle Rahmen" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Das sagen unsere Kunden</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">MK</div>
+            <div>
+              <div class="review-name">Michael K.</div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+          </div>
+          <p class="review-text">"Super Beratung! Endlich eine Brille, die perfekt sitzt und auch noch gut aussieht. Kann ich nur empfehlen."</p>
+          <p class="review-note">* Beispielstimme</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">SH</div>
+            <div>
+              <div class="review-name">Sabine H.</div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+          </div>
+          <p class="review-text">"Sehr freundliches Team und tolle Auswahl. Ich war schon mehrfach da und bleibe treu."</p>
+          <p class="review-note">* Beispielstimme</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-header">
+            <div class="review-avatar">TW</div>
+            <div>
+              <div class="review-name">Thomas W.</div>
+              <div class="review-stars">★★★★★</div>
+            </div>
+          </div>
+          <p class="review-text">"Schnelle Reparatur meiner Brille – innerhalb von 30 Minuten war alles wieder gut. Top Service!"</p>
+          <p class="review-note">* Beispielstimme</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für besseres Sehen?</h2>
+      <p>Vereinbaren Sie jetzt Ihren kostenlosen Beratungstermin.</p>
+      <a href="#termin" class="btn btn-accent">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="kontakt">
+    <div class="container contact-inner">
+      <div class="contact-info reveal">
+        <h3>Kontakt & Anfahrt</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <p>Adresse</p>
+            <span>Hannover</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-details">
+            <p>Telefon</p>
+            <span><a href="tel:+49511662222">+49 511 662 222</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details">
+            <p>E-Mail</p>
+            <span><a href="mailto:info@eulen-optik.de">info@eulen-optik.de</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-details">
+            <p>Website</p>
+            <span><a href="https://www.eulen-optik.de/" target="_blank">www.eulen-optik.de</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-image reveal">
+        <img src="https://www.eulen-optik.de/content/article_267181_img_1656674053_source.jpg" alt="Hawe's Brille Geschäft in Hannover" style="border-radius: var(--radius-lg); box-shadow: var(--shadow);" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#termin" class="btn btn-accent">Termin vereinbaren</a>
+  </div>
+  <div class="mobile-cta-spacer"></div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
