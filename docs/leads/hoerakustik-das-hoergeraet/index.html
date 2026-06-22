@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Das Hörgerät – Klar hören. Gut leben. | Ihr Hörgeräte-Akustiker in Duisburg-Buchholz</title>
+    <meta name="description" content="Das Hörgerät – Ihr Hörgeräte-Akustiker in Duisburg-Buchholz. Gutes Hören ist Lebensqualität – wir helfen Ihnen dabei. Moderne Hörsysteme von Beltone, Bernafon, Hansaton & Interton.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --secondary: #0f172a;
+            --accent: #f97316;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-white);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--secondary);
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .header-nav {
+            display: none;
+        }
+
+        .header-nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover {
+            color: var(--primary);
+        }
+
+        .header-cta {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .header-nav, .header-cta {
+                display: block;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            z-index: -1;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 992px) {
+            .hero-inner {
+                grid-template-columns: 1fr 1fr;
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem;
+        }
+
+        .trust-strip-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+        }
+
+        /* USPs */
+        .usps {
+            padding: 5rem 1.5rem;
+            background: var(--bg-white);
+        }
+
+        .usps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .usp-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .usp-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #38bdf8);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .usp-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .usp-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .usp-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 1.5rem;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.25rem;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Brands */
+        .brands {
+            padding: 4rem 1.5rem;
+            background: white;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .brands-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .brand-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+
+        .brand-item:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .brand-item img {
+            max-width: 120px;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        /* Booking Form */
+        .booking {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+        }
+
+        .booking-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .booking-inner {
+                grid-template-columns: 1fr 1.5fr;
+            }
+        }
+
+        .booking-content h2 {
+            color: white;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .booking-content p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-features {
+            list-style: none;
+        }
+
+        .booking-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .booking-features svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            color: var(--text-dark);
+        }
+
+        .booking-form h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 5rem 1.5rem;
+            background: var(--bg-white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* CTA Band */
+        .cta-band {
+            padding: 5rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-band h2 {
+            color: white;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            margin-bottom: 1rem;
+        }
+
+        .cta-band p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 1.5rem;
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #38bdf8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .contact-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p, .contact-card a {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 1.5rem;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer .concept {
+            display: inline-block;
+            background: var(--bg-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 999;
+        }
+
+        @media (min-width: 640px) {
+            .mobile-cta {
+                display: none;
+            }
+        }
+
+        .mobile-cta .btn {
+            flex: 1;
+        }
+
+        /* Chatbot Widget */
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 1.5rem;
+            z-index: 998;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .chatbot {
+                display: block;
+                bottom: 1.5rem;
+            }
+        }
+
+        .chatbot-button {
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .chatbot-button svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .chatbot-tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            width: 250px;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-tooltip h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chatbot-tooltip p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">Das <span>Hörgerät</span></a>
+            <nav class="header-nav">
+                <a href="#services">Leistungen</a>
+                <a href="#brands">Marken</a>
+                <a href="#gallery">Galerie</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+            <a href="#booking" class="btn btn-primary header-cta">Termin vereinbaren</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <span class="hero-tag">Hörgeräte-Akustiker in Duisburg-Buchholz</span>
+                <h1>Klar hören. Gut leben.</h1>
+                <p>Gutes Hören ist Lebensqualität – wir helfen Ihnen dabei. Moderne Hörsysteme und persönliche Beratung für ein besseres Alltagserleben.</p>
+                <div class="hero-ctas">
+                    <a href="#booking" class="btn btn-primary">Kostenlose Beratung</a>
+                    <a href="#services" class="btn btn-secondary">Unsere Leistungen</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/08_smartric_kamp_img.jpg" alt="Moderne Hörgeräte-Technologie" width="600" height="400">
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+        <div class="trust-strip-inner">
+            <div class="trust-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Kostenlose Hörprüfung</span>
+            </div>
+            <div class="trust-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Zentral in Duisburg-Buchholz</span>
+            </div>
+            <div class="trust-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Schnelle Termine</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- USPs -->
+    <section class="usps">
+        <div class="usps-grid">
+            <div class="usp-card reveal">
+                <div class="usp-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+                <h3>Persönliche Beratung</h3>
+                <p>Individuelle Beratung in ruhiger Atmosphäre – wir nehmen uns Zeit für Ihre Bedürfnisse.</p>
+            </div>
+            <div class="usp-card reveal">
+                <div class="usp-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <h3>Neueste Technologie</h3>
+                <p>Moderne Hörsysteme mit Streaming, Bluetooth und intelligenten Features für jeden Alltag.</p>
+            </div>
+            <div class="usp-card reveal">
+                <div class="usp-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </div>
+                <h3>Nachsorge & Service</h3>
+                <p>Wir begleiten Sie langfristig – von der Anpassung bis zum Service für Ihre Hörsysteme.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <h2>Unsere Hörsysteme</h2>
+            <p>Für Ihr besseres Hören – und Ihr gutes Gefühl. Moderne Lösungen für jeden Anspruch.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/RS_NX_Silve_Android_4737.jpg" alt="Hörgerät mit Android-Smartphone-Verbindung" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Smartphone-Integration</h3>
+                    <p>Nahtlose Verbindung zu Ihrem Android oder iOS Gerät. Telefonieren, Musik hören und mehr – direkt über Ihr Hörgerät.</p>
+                    <a href="#booking" class="service-link">
+                        Mehr erfahren
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/RS_VI_Streaming-iPhone_01_1012_00Simple_PUBLICH.jpg" alt="Hörgerät Streaming mit iPhone" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Streaming & Bluetooth</h3>
+                    <p>Genießen Sie Musik, Podcasts und TV-Töne in brillanter Qualität – direkt in Ihren Ohren ohne externe Zubehörteile.</p>
+                    <a href="#booking" class="service-link">
+                        Mehr erfahren
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-image">
+                    <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/RS_VI_Portr%E2%80%98t_2338_HIGH.jpg" alt="Diskretes Hörgerät-Design" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Diskrete Designs</h3>
+                    <p>Vom nahezu unsichtbaren Im-Ohr-Hörgerät bis zum eleganten Hinter-dem-Ohr-Modell – wir finden die passende Lösung.</p>
+                    <a href="#booking" class="service-link">
+                        Mehr erfahren
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="brands" id="brands">
+        <div class="section-header reveal">
+            <h2>Unsere Premium-Marken</h2>
+            <p>Wir arbeiten mit führenden Herstellern für höchste Qualität und Zuverlässigkeit.</p>
+        </div>
+        <div class="brands-grid">
+            <div class="brand-item">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/beltone.png" alt="Beltone Hörgeräte" loading="lazy">
+            </div>
+            <div class="brand-item">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/bernafon.png" alt="Bernafon Hörgeräte" loading="lazy">
+            </div>
+            <div class="brand-item">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/hansaton.png" alt="Hansaton Hörgeräte" loading="lazy">
+            </div>
+            <div class="brand-item">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/interton.png" alt="Interton Hörgeräte" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="booking" id="booking">
+        <div class="booking-inner">
+            <div class="booking-content reveal">
+                <h2>Kostenlose Beratung vereinbaren</h2>
+                <p>Vereinbaren Sie einen unverbindlichen Termin für eine persönliche Hörberatung. Wir freuen uns auf Sie!</p>
+                <ul class="booking-features">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Kostenlose Hörprüfung
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Persönliche Beratung
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Unverbindlich & kostenlos
+                    </li>
+                </ul>
+            </div>
+            <form class="booking-form reveal" action="mailto:info@dashoergeraet.eu" method="post" enctype="text/plain">
+                <h3>Ihr Terminwunsch</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Wunschdatum</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Wunschzeit</label>
+                        <select id="time" name="time">
+                            <option value="">Bitte wählen</option>
+                            <option value="vormittags">Vormittags</option>
+                            <option value="nachmittags">Nachmittags</option>
+                            <option value="abends">Abends</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Ihre Anliegen oder Wünsche..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Termin anfordern</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="section-header reveal">
+            <h2>Eindrücke</h2>
+            <p>Modernste Hörgerätetechnologie in Aktion.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/03_smartric_kamp_img.jpg" alt="Hörgerät-Technologie" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/04_smartric_kamp_img.jpg" alt="Hörgerät im Einsatz" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/15_smartric_kamp_img.jpg" alt="Hörgerät-Design" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://www.dashoergeraet.de/wp-content/uploads/2025/07/RS_VI_Streaming-Samsung_03_2654_HIGH.jpg" alt="Streaming-Funktion" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="container reveal">
+            <h2>Wussten Sie …?</h2>
+            <p>Unbehandeltes Hörverlust kann die Lebensqualität erheblich beeinträchtigen. Wir helfen Ihnen, wieder klar zu hören und gut zu leben.</p>
+            <a href="#booking" class="btn btn-secondary" style="background: white; border-color: white; color: var(--secondary);">Jetzt beraten lassen</a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-header reveal">
+            <h2>Kontakt & Anfahrt</h2>
+            <p>Wir sind für Sie da – persönlich und vor Ort.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card reveal">
+                <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                </div>
+                <h3>Telefon</h3>
+                <a href="tel:+492038050016">+49 203 8050016</a>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3>E-Mail</h3>
+                <a href="mailto:info@dashoergeraet.eu">info@dashoergeraet.eu</a>
+            </div>
+            <div class="contact-card reveal">
+                <div class="contact-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h3>Adresse</h3>
+                <p>Münchener Straße 55<br>47249 Duisburg-Buchholz</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Das Hörgerät – Ihr Hörgeräte-Akustiker in Duisburg-Buchholz</p>
+        <span class="concept">Konzeptvorschau · MZ.9</span>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="tel:+492038050016" class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; margin-right: 0.5rem;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Anrufen
+        </a>
+        <a href="#booking" class="btn btn-primary">Termin buchen</a>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot">
+        <div class="chatbot-tooltip">
+            <h4>Haben Sie Fragen?</h4>
+            <p>Wir helfen Ihnen gerne weiter. Schreiben Sie uns!</p>
+            <a href="mailto:info@dashoergeraet.eu" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Nachricht senden</a>
+        </div>
+        <div class="chatbot-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

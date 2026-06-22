@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Konzept-Vorschlag | SPITTLER Immobiliendienste GmbH</title>
+  <meta name="description" content="Professionelle Immobiliendienste in Freiburg: Bewertung, Vermietung, Verkauf und Hausverwaltung. Ihr zuverlässiger Partner für Immobilien.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --primary-dark: #0f2439;
+      --accent: #c9a227;
+      --accent-light: #e0b83f;
+      --bg-light: #f8f9fa;
+      --bg-white: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-muted: #6b7280;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background: var(--bg-white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .header-cta {
+        display: flex;
+        gap: 0.75rem;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    @media (min-width: 768px) {
+      .mobile-menu-btn { display: none; }
+      .nav-links { display: flex; }
+    }
+
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1.5rem;
+      gap: 1rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(15,36,57,0.9) 0%, rgba(15,36,57,0.6) 50%, transparent 100%);
+    }
+
+    .hero-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 3rem;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,162,39,0.2);
+      color: var(--accent-light);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: white;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      max-width: 550px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-ctas .btn-primary {
+      background: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    .hero-ctas .btn-primary:hover {
+      background: var(--accent-light);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg-light);
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1rem;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .trust-item h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .trust-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Services */
+    .services {
+      padding: 6rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-icon svg {
+      width: 28px;
+      height: 28px;
+      color: white;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 45%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.15;
+    }
+
+    .cta-band-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta-band-inner {
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+    }
+
+    .cta-band-content h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band-content p {
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    /* Contact Form */
+    .contact-form-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-form-card h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .form-row {
+      margin-bottom: 1rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .form-row input:focus,
+    .form-row select:focus,
+    .form-row textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26,58,92,0.1);
+    }
+
+    .form-row textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row small {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 6rem 1.5rem;
+      background: var(--bg-light);
+    }
+
+    .gallery-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+      padding: 1.5rem;
+      color: white;
+    }
+
+    .gallery-caption h4 {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 6rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-light);
+      border-radius: 12px;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .contact-card h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-card a {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .contact-card a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 3rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+
+    .concept-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 0.75rem;
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      .reveal.in { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">SPITTLER<span>.</span></div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#about">Über uns</a>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:+4990436196" class="btn btn-secondary">📞 Anrufen</a>
+        <a href="#kontakt" class="btn btn-primary">Anfrage senden</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <img src="https://www.spittler.immo/upload/C56056e1aX14b6b49cb0bX5fc6/1423434848353/grundstueck_schluessel_neu.jpg" alt="Immobilien mit Schlüssel" class="hero-image">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>🏠</span> Ihr Immobiliendienstleister in Freiburg
+      </div>
+      <h1>Professionelle Immobilien-Lösungen aus einer Hand</h1>
+      <p>Bewertung, Vermietung, Verkauf und Hausverwaltung — wir begleiten Sie sicher zu Ihrem Ziel. Vertrauen Sie auf unsere jahrelange Erfahrung in Freiburg und Umgebung.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung</a>
+        <a href="#leistungen" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.3); color: white;">Unsere Leistungen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item reveal">
+        <div class="trust-icon">✓</div>
+        <h4>Lokal & Erfahren</h4>
+        <p>Jahrelange Expertise in Freiburg und Baden</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">🎯</div>
+        <h4>Maßgeschneidert</h4>
+        <p>Individuelle Lösungen für Ihre Immobilie</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">🤝</div>
+        <h4>Transparent</h4>
+        <p>Klare Kommunikation, keine versteckten Kosten</p>
+      </div>
+      <div class="trust-item reveal">
+        <div class="trust-icon">⚡</div>
+        <h4>Schnell & Zuverlässig</h4>
+        <p>Effiziente Abläufe, kurze Reaktionszeiten</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Umfassende Immobilien-Dienstleistungen aus einer Hand — von der ersten Beratung bis zum erfolgreichen Abschluss.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+        </div>
+        <h3>Immobilienbewertung</h3>
+        <p>Professionelle Marktwert-Ermittlung Ihrer Immobilie nach aktuellen Standards. Fundiert, objektiv und verlässlich.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        </div>
+        <h3>Vermietung & Verkauf</h3>
+        <p>Vermarktung Ihrer Immobilie mit professionellen Exposés, qualifizierten Interessenten und erfolgreicher Abschlussabwicklung.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        </div>
+        <h3>Hausverwaltung</h3>
+        <p>Entlastung im Alltag: wir übernehmen die Verwaltung Ihrer Immobilie — von Mieteinnahmen bis Instandhaltung.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <h3>Beratung</h3>
+        <p>Umfassende Beratung zu allen Fragen rund um Immobilien — individuell auf Ihre Bedürfnisse zugeschnitten.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band with Contact Form -->
+  <section class="cta-band" id="kontakt">
+    <img src="https://www.spittler.immo/upload/C487c8288X137310deb4cX799/1336566350204/buero.jpg" alt="Büro SPITTLER Immobiliendienste" class="cta-band-bg">
+    <div class="cta-band-inner">
+      <div class="cta-band-content reveal">
+        <h2>Lassen Sie uns sprechen</h2>
+        <p>Erzählen Sie uns von Ihrem Projekt. Wir melden uns schnellstmöglich zurück für ein unverbindliches Erstgespräch.</p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="tel:+4990436196" class="btn btn-primary" style="background: var(--accent); color: var(--primary-dark);">📞 0904 36196</a>
+        </div>
+      </div>
+      <div class="contact-form-card reveal">
+        <h3>📬 Nachricht senden</h3>
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <label>Ihr Name</label>
+            <input type="text" name="name" placeholder="Max Mustermann" required>
+          </div>
+          <div class="form-row">
+            <label>E-Mail-Adresse</label>
+            <input type="email" name="email" placeholder="max@beispiel.de" required>
+          </div>
+          <div class="form-row">
+            <label>Betreff</label>
+            <select name="subject">
+              <option value="bewertung">Immobilienbewertung</option>
+              <option value="verkauf">Verkauf</option>
+              <option value="vermietung">Vermietung</option>
+              <option value="verwaltung">Hausverwaltung</option>
+              <option value="beratung">Allgemeine Beratung</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Ihre Nachricht</label>
+            <textarea name="message" placeholder="Wie können wir Ihnen helfen?"></textarea>
+            <small>Ihre Anfrage wird direkt per E-Mail an info@spittler.immo gesendet.</small>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="gallery-inner">
+      <div class="section-header reveal">
+        <h2>Eindrücke</h2>
+        <p>Ein Blick in unsere Arbeit und unser Büro in Freiburg.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.spittler.immo/upload/C56056e1aX14b6b49cb0bX5fc6/1423434848353/grundstueck_schluessel_neu.jpg" alt="Immobilien mit Schlüssel" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Schlüsselübergabe</h4>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.spittler.immo/upload/C487c8288X137310deb4cX799/1336566350204/buero.jpg" alt="Unser Büro" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Unser Büro in Freiburg</h4>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.spittler.immo/upload/C686496ffX137075b5655XY781d/1335860956061/Service.png" alt="Service-Icon" loading="lazy" style="object-fit: contain; padding: 2rem; background: white;">
+          <div class="gallery-caption">
+            <h4>Unser Service</h4>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.spittler.immo/upload/a9u25da1hksr6o8sveeolf4j082/1546808184016/SID_Header_Vorlage3.png" alt="Header-Bild" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Professionelle Präsentation</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="about">
+    <div class="section-header reveal">
+      <h2>Kontakt & Standort</h2>
+      <p>Wir sind für Sie da — persönlich in Freiburg und digital jederzeit erreichbar.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="contact-icon">📍</div>
+        <h4>Standort</h4>
+        <p>Freiburg im Breisgau</p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">📞</div>
+        <h4>Telefon</h4>
+        <p><a href="tel:+4990436196">0904 36196</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">✉️</div>
+        <h4>E-Mail</h4>
+        <p><a href="mailto:info@spittler.immo">info@spittler.immo</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="concept-badge">🎨 Konzept-Vorschlag</div>
+    <p>Diese Seite ist ein unverbindliches Konzept von MZ.9 für die SPITTLER Immobiliendienste GmbH.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.5;">© 2024 SPITTLER Immobiliendienste GmbH</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+4990436196" class="btn btn-secondary" style="justify-content: center;">📞 Anrufen</a>
+    <a href="#kontakt" class="btn btn-primary" style="justify-content: center;">Anfrage senden</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('mobile-open');
+    }
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('mobile-open');
+      });
+    });
+
+    // Form submission - creates mailto link
+    function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value;
+      const email = form.email.value;
+      const subject = form.subject.options[form.subject.selectedIndex].text;
+      const message = form.message.value;
+
+      const subjectLine = encodeURIComponent(`Anfrage via Website: ${subject}`);
+      const body = encodeURIComponent(`Name: ${name}\nE-Mail: ${email}\nBetreff: ${subject}\n\nNachricht:\n${message}`);
+
+      window.location.href = `mailto:info@spittler.immo?subject=${subjectLine}&body=${body}`;
+    }
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>

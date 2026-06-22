@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Ray Ban Meta — Brillen Galerie Lübeck</title>
+  <meta name="description" content="Ray Ban Meta. Die zweite Generation mit neuen und verbesserten Funktionen. Bessere Tonqualität, Kameratechnik und Livestream-Fähigkeit.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a2a3a;
+      --primary-light: #2d4156;
+      --accent: #c9a962;
+      --accent-hover: #b89851;
+      --bg: #f8f6f3;
+      --bg-white: #ffffff;
+      --text: #2c2c2c;
+      --text-light: #666666;
+      --text-lighter: #999999;
+      --border: #e8e6e3;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+    a:hover { color: var(--accent); }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      transition: padding 0.3s ease;
+    }
+
+    .header.scrolled { padding: 0.75rem 2rem; }
+
+    .header-logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .header-nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .header-cta {
+      background: var(--primary);
+      color: white !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Mobile menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg) 0%, #fff 50%, var(--bg) 100%);
+    }
+
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content { max-width: 550px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .hero-feature-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.7rem;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-image-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: var(--bg-white);
+      padding: 1.2rem 1.8rem;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image-badge .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-lighter);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-image-badge .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg-white);
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-strip-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-item-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .trust-item-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-lighter);
+    }
+
+    /* Features */
+    .features {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--bg-white);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* Models Gallery */
+    .models {
+      padding: 6rem 2rem;
+      background: var(--bg-white);
+    }
+
+    .models-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .model-card {
+      background: var(--bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .model-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .model-image {
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .model-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .model-card:hover .model-image img {
+      transform: scale(1.05);
+    }
+
+    .model-info {
+      padding: 1.5rem;
+    }
+
+    .model-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .model-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Store Gallery */
+    .store-gallery {
+      padding: 6rem 2rem;
+      background: var(--bg);
+    }
+
+    .store-gallery-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 280px);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Booking Section */
+    .booking {
+      padding: 6rem 2rem;
+      background: var(--primary);
+      color: white;
+    }
+
+    .booking-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .booking-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .booking-content p {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .booking-form {
+      background: var(--bg-white);
+      padding: 2.5rem;
+      border-radius: 20px;
+      color: var(--text);
+    }
+
+    .booking-form h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 6rem 2rem;
+      background: var(--bg-white);
+    }
+
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-lighter);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .contact-value a:hover {
+      text-decoration: underline;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-band-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-band h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-band p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+
+    .cta-band .btn-primary {
+      background: var(--accent);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-content { margin: 0 auto; }
+
+      .hero-features {
+        justify-content: center;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      .booking-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero {
+        padding-top: 70px;
+        min-height: auto;
+      }
+
+      .hero-container {
+        padding: 3rem 1.5rem;
+        gap: 2rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-features {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .models-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 1;
+      }
+
+      .gallery-item {
+        height: 250px;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+
+      .booking-form {
+        padding: 1.5rem;
+      }
+
+      .booking-content h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo serif">Brillen Galerie</div>
+    <nav class="header-nav">
+      <a href="#features">Features</a>
+      <a href="#models">Modelle</a>
+      <a href="#store">Unser Geschäft</a>
+      <a href="#contact" class="header-cta">Termin vereinbaren</a>
+    </nav>
+    <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">Neue Generation</span>
+        <h1 class="hero-title serif">Ray Ban Meta</h1>
+        <p class="hero-subtitle">
+          Die zweite Generation mit neuen und verbesserten Funktionen.
+          Bessere Tonqualität, Kameratechnik und Livestream-Fähigkeit —
+          jetzt bei Brillen Galerie Lübeck.
+        </p>
+        <div class="hero-features">
+          <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            Verbesserte Audioqualität
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            12MP Kamera
+          </div>
+          <div class="hero-feature">
+            <span class="hero-feature-icon">✓</span>
+            Livestream möglich
+          </div>
+        </div>
+        <div class="hero-ctas">
+          <a href="#booking" class="btn btn-primary">Beratungstermin</a>
+          <a href="#models" class="btn btn-secondary">Modelle ansehen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://www.brillengalerie.biz/wp-content/uploads/Ray-Ban-Meta-Headliner-braun.jpg" alt="Ray Ban Meta Headliner in Braun">
+        <div class="hero-image-badge">
+          <div class="label">Verfügbarkeit</div>
+          <div class="value">Jetzt vor Ort</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-strip-container">
+      <div class="trust-item">
+        <div class="trust-item-icon">🏆</div>
+        <div class="trust-item-label">Premium Qualität</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-item-icon">👁️</div>
+        <div class="trust-item-label">Persönliche Beratung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-item-icon">📍</div>
+        <div class="trust-item-label">Lübeck Zentrum</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🔧</div>
+        <div class="trust-item-label">Service vor Ort</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <div class="section-header reveal">
+        <span class="section-label">Warum Ray Ban Meta?</span>
+        <h2 class="section-title serif">Intelligente Brillentechnik</h2>
+        <p class="section-subtitle">
+          Die perfekte Verbindung aus ikonischem Design und modernster Technologie.
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎵</div>
+          <h3 class="feature-title">Superiore Audioqualität</h3>
+          <p class="feature-desc">
+            Immersiver Sound mit offenen Ohrhörern — hören Sie Musik und Podcasts
+            bei vollem Bewusstsein Ihrer Umgebung.
+          </p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📸</div>
+          <h3 class="feature-title">12MP Ultra Kamera</h3>
+          <p class="feature-desc">
+            Erleben Sie hochauflösende Fotos und Videos. Teilen Sie Ihre
+            Perspektive direkt mit der Welt.
+          </p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎥</div>
+          <h3 class="feature-title">Livestream-Fähigkeit</h3>
+          <p class="feature-desc">
+            Streamen Sie direkt von Ihrer Brille auf Instagram und Facebook —
+            handsfree und in Echtzeit.
+          </p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🗣️</div>
+          <h3 class="feature-title">Meta AI Assistent</h3>
+          <p class="feature-desc">
+            Fragen Sie Meta AI einfach per Sprache — Information, Navigation
+            und mehr, ohne Ihr Smartphone anzufassen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models -->
+  <section class="models" id="models">
+    <div class="models-container">
+      <div class="section-header reveal">
+        <span class="section-label">Die Kollektion</span>
+        <h2 class="section-title serif">Entdecken Sie die Modelle</h2>
+        <p class="section-subtitle">
+          Der Ray Ban Meta Headliner in verschiedenen Ausführungen —
+          für jeden Stil die richtige Wahl.
+        </p>
+      </div>
+      <div class="models-grid">
+        <div class="model-card reveal">
+          <div class="model-image">
+            <img src="https://www.brillengalerie.biz/wp-content/uploads/Ray-Ban-Meta-Headliner-braun.jpg" alt="Ray Ban Meta Headliner Braun" loading="lazy">
+          </div>
+          <div class="model-info">
+            <h3 class="model-name">Headliner — Braun</h3>
+            <p class="model-desc">Klassische Wärme für natürliche Looks.</p>
+          </div>
+        </div>
+        <div class="model-card reveal">
+          <div class="model-image">
+            <img src="https://www.brillengalerie.biz/wp-content/uploads/Ray-Ban-Meta-Headliner-Clear.jpg" alt="Ray Ban Meta Headliner Clear" loading="lazy">
+          </div>
+          <div class="model-info">
+            <h3 class="model-name">Headliner — Clear</h3>
+            <p class="model-desc">Transparenter Rahmen für moderne Ästhetik.</p>
+          </div>
+        </div>
+        <div class="model-card reveal">
+          <div class="model-image">
+            <img src="https://www.brillengalerie.biz/wp-content/uploads/Ray-Ban-Meta-Headliner-grau.jpg" alt="Ray Ban Meta Headliner Grau" loading="lazy">
+          </div>
+          <div class="model-info">
+            <h3 class="model-name">Headliner — Grau</h3>
+            <p class="model-desc">Minimalistisch und vielseitig einsetzbar.</p>
+          </div>
+        </div>
+        <div class="model-card reveal">
+          <div class="model-image">
+            <img src="https://www.brillengalerie.biz/wp-content/uploads/Ray-Ban-Meta-Headliner-Transitions.jpg" alt="Ray Ban Meta Headliner Transitions" loading="lazy">
+          </div>
+          <div class="model-info">
+            <h3 class="model-name">Headliner — Transitions</h3>
+            <p class="model-desc">Selbsttönende Gläser für alle Lichtverhältnisse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Store Gallery -->
+  <section class="store-gallery" id="store">
+    <div class="store-gallery-container">
+      <div class="section-header reveal">
+        <span class="section-label">Unser Geschäft</span>
+        <h2 class="section-title serif">Brillen Galerie Lübeck</h2>
+        <p class="section-subtitle">
+          Kommen Sie vorbei und erleben Sie die Ray Ban Meta Brille
+          in entspannter Atmosphäre — mit persönlicher Beratung.
+        </p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.brillengalerie.biz/wp-content/uploads/Brillen-Galerie-Bild-1.jpg" alt="Brillen Galerie Lübeck — Innenansicht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.brillengalerie.biz/wp-content/uploads/Brillen-Galerie-Bild-2.jpg" alt="Brillen Galerie Lübeck — Vitrine" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.brillengalerie.biz/wp-content/uploads/Brillen-Galerie-Bild-3.jpg" alt="Brillen Galerie Lübeck — Beratungsbereich" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.brillengalerie.biz/wp-content/uploads/Brillen-Galerie-Bild-4.jpg" alt="Brillen Galerie Lübeck — Ausstellung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.brillengalerie.biz/wp-content/uploads/Brillen-Galerie-Bild-5.jpg" alt="Brillen Galerie Lübeck — Showroom" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking" id="booking">
+    <div class="booking-container">
+      <div class="booking-content reveal">
+        <h2 class="serif">Persönliche Beratung</h2>
+        <p>
+          Vereinbaren Sie einen Termin für eine individuelle Beratung.
+          Wir nehmen uns Zeit für Ihre Fragen und lassen Sie die Ray Ban Meta
+          Brille in Ruhe ausprobieren.
+        </p>
+        <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+          <div>
+            <div style="font-size: 2rem;">📞</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">Direkt anrufen</div>
+            <a href="tel:01274873827" style="font-size: 1.2rem; font-weight: 600;">01274 873 827</a>
+          </div>
+          <div>
+            <div style="font-size: 2rem;">✉️</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">E-Mail schreiben</div>
+            <a href="mailto:service@brillengalerie.biz" style="font-size: 1rem; font-weight: 600;">service@brillengalerie.biz</a>
+          </div>
+        </div>
+      </div>
+      <form class="booking-form reveal" action="mailto:service@brillengalerie.biz" method="post" enctype="text/plain">
+        <h3>Kostenloses Beratungsgespräch</h3>
+        <div class="form-group">
+          <label for="name">Ihr Name</label>
+          <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail-Adresse</label>
+          <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefonnummer (für Rückruf)</label>
+          <input type="tel" id="phone" name="phone" placeholder="01234 567 890">
+        </div>
+        <div class="form-group">
+          <label for="interest">Interesse an</label>
+          <select id="interest" name="interest">
+            <option value="ray-ban-meta">Ray Ban Meta Beratung</option>
+            <option value="termin">Terminvereinbarung</option>
+            <option value="allgemein">Allgemeine Anfrage</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht</label>
+          <textarea id="message" name="message" rows="4" placeholder="Teilen Sie uns Ihre Fragen mit..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage senden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <div class="contact-item reveal">
+        <div class="contact-icon">📍</div>
+        <div class="contact-label">Adresse</div>
+        <div class="contact-value">Brillen Galerie Lübeck</div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">📞</div>
+        <div class="contact-label">Telefon</div>
+        <div class="contact-value"><a href="tel:01274873827">01274 873 827</a></div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-label">E-Mail</div>
+        <div class="contact-value"><a href="mailto:service@brillengalerie.biz">service@brillengalerie.biz</a></div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">🌐</div>
+        <div class="contact-label">Website</div>
+        <div class="contact-value"><a href="https://www.brillengalerie.biz/" target="_blank">brillengalerie.biz</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-container reveal">
+      <h2 class="serif">Erleben Sie die Zukunft der Brillen</h2>
+      <p>Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin.</p>
+      <a href="#booking" class="btn btn-primary">Termin buchen</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · MZ.9 · <a href="https://www.brillengalerie.biz/" target="_blank">brillengalerie.biz</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#booking" class="btn btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Mobile menu toggle (simple)
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    mobileMenuBtn.addEventListener('click', () => {
+      const nav = document.querySelector('.header-nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      if (nav.style.display === 'flex') {
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.padding = '1rem';
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Close mobile menu if open
+          const nav = document.querySelector('.header-nav');
+          if (window.innerWidth <= 768) {
+            nav.style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

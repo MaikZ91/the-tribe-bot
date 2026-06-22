@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Eikmeyer Akustik - Ihr Hörakustiker in Duisburg-Meiderich</title>
+  <meta name="description" content="Eikmeyer Akustik GmbH - Ihr kompetenter Hörakustiker in Duisburg-Meiderich. Professionelle Hörberatung, Hörgeräte und individuelle Lösungen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0891b2;
+      --primary-dark: #0e7490;
+      --secondary: #0d9488;
+      --bg-light: #f0fdfa;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --accent: #f59e0b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background: var(--white);
+    }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      z-index: 1000;
+      transition: 0.3s;
+    }
+    header.scrolled { box-shadow: 0 4px 25px rgba(0,0,0,0.12); }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .nav { display: flex; gap: 2rem; align-items: center; }
+    .nav a {
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+    .nav a:hover { color: var(--primary); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .mobile-menu { display: none; cursor: pointer; font-size: 1.5rem; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      background: var(--bg-light);
+      color: var(--secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 2rem 1.5rem;
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .trust-item { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .trust-icon { font-size: 2.5rem; }
+    .trust-text { font-weight: 600; font-size: 1.1rem; }
+    .trust-sub { font-size: 0.9rem; opacity: 0.9; }
+
+    /* Services */
+    .services { padding: 5rem 1.5rem; background: var(--bg-light); }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header h2 { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 1rem; }
+    .section-header p { font-size: 1.15rem; color: var(--text-light); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: 0.3s;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 0.75rem; }
+    .service-card p { color: var(--text-light); font-size: 0.95rem; }
+
+    /* Contact Form - Premium Feature */
+    .contact-section { padding: 5rem 1.5rem; background: var(--white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info h3 { font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 1.5rem; }
+    .contact-info p { color: var(--text-light); margin-bottom: 2rem; }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: start;
+    }
+    .contact-item-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--bg-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .contact-item-text strong { display: block; color: var(--text-dark); margin-bottom: 0.25rem; }
+    .contact-item-text { color: var(--text-light); font-size: 0.95rem; }
+    .contact-form {
+      background: var(--bg-light);
+      padding: 2.5rem;
+      border-radius: 16px;
+    }
+    .form-title { font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 0.5rem; }
+    .form-sub { color: var(--text-light); margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .form-submit:hover { background: var(--primary-dark); }
+
+    /* Gallery */
+    .gallery { padding: 5rem 1.5rem; background: var(--bg-light); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      aspect-ratio: 16/10;
+      background: var(--white);
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* CTA Band */
+    .cta-band {
+      position: relative;
+      padding: 5rem 1.5rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      object-fit: cover;
+      opacity: 0.15;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+    }
+    .cta-content h2 { font-size: 2.5rem; color: var(--text-dark); margin-bottom: 1rem; }
+    .cta-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem; }
+
+    /* Footer */
+    footer {
+      background: var(--text-dark);
+      color: var(--white);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-logo { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+    .footer-note { color: #94a3b8; font-size: 0.9rem; margin-top: 1.5rem; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta-btn {
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 5rem 1.5rem 3rem; }
+      .hero-bg { width: 100%; opacity: 0.3; }
+      .hero-content h1 { font-size: 2.5rem; }
+      .trust-strip { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .mobile-cta { display: block; }
+      .nav { display: none; }
+      .mobile-menu { display: block; }
+      body { padding-bottom: 80px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">Eikmeyer Akustik</div>
+      <nav class="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#about">Über uns</a>
+        <a href="#contact">Kontakt</a>
+        <a href="tel:0203934769" class="btn-primary">📞 0203 934769</a>
+      </nav>
+      <div class="mobile-menu">☰</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="https://www.eikmeyer-akustik.de/Bilder/Eikmeyer_Akustik_Startseite_2.png" alt="Eikmeyer Akustik - Ihr Hörakustiker in Duisburg-Meiderich" class="hero-bg">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Wieder gut hören<br>wieder gut leben</h1>
+        <p>Ihr kompetenter Hörakustiker in Duisburg-Meiderich. Wir finden die perfekte Lösung für Ihr Gehör.</p>
+        <div class="hero-badges">
+          <span class="badge">✓ Kostenlos Beratung</span>
+          <span class="badge">✓ Alle Marken</span>
+          <span class="badge">✓ Vor-Ort-Service</span>
+        </div>
+        <a href="#contact" class="btn-primary">Termin vereinbaren →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">👂</div>
+        <div class="trust-text">Hörtests</div>
+        <div class="trust-sub">Kostenlose Analyse</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🎧</div>
+        <div class="trust-text">Hörgeräte</div>
+        <div class="trust-sub">Alle führenden Marken</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔧</div>
+        <div class="trust-text">Service</div>
+        <div class="trust-sub">Vor-Ort-Anpassung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📍</div>
+        <div class="trust-text">Duisburg</div>
+        <div class="trust-sub">Meiderich & Umgebung</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Kompetente Beratung und individuelle Lösungen für Ihre Hörgesundheit</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🔬</div>
+          <h3>Hörtest & Diagnostik</h3>
+          <p>Professionelle Hörprüfung zur exakten Bestimmung Ihres Hörvermögens.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎧</div>
+          <h3>Hörgeräte-Beratung</h3>
+          <p>Individuelle Auswahl passender Hörgeräte aller führenden Hersteller.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚙️</div>
+          <h3>Anpassung & Feinjustierung</h3>
+          <p>Persönliche Einstellung Ihres Hörgeräts für optimale Ergebnisse.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🛡️</div>
+          <h3>Ohrpassstücke</h3>
+          <p>Maßgefertigte Otoplastik für maximale Tragekomfort.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔄</div>
+          <h3>Reparatur & Wartung</h3>
+          <p>Schnelle Hilfe bei Problemen und regelmäßige Wartung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💬</div>
+          <h3>Hörtraining</h3>
+          <p>Gezieltes Training zur Gewöhnung an neue Hörgeräte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section with Form -->
+  <section class="contact-section" id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <p>Vereinbaren Sie einen kostenlosen Beratungstermin oder kontaktieren Sie uns bei Fragen.</p>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Adresse</strong>
+              Von-der-Mark-Straße 34<br>47137 Duisburg
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-text">
+              <strong>Telefon</strong>
+              <a href="tel:0203934769">0203 934769</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-text">
+              <strong>E-Mail</strong>
+              <a href="mailto:info@eikmeyer-akustik.de">info@eikmeyer-akustik.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h4 class="form-title">Beratungstermin anfragen</h4>
+          <p class="form-sub">Kostenlos & unverbindlich</p>
+          <form action="mailto:info@eikmeyer-akustik.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschter Service</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="hoertest">Kostenloser Hörtest</option>
+                <option value="beratung">Hörgeräte-Beratung</option>
+                <option value="anpassung">Anpassung / Nachsorge</option>
+                <option value="reparatur">Reparatur</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" name="message" rows="4" placeholder="Wunschtermin oder Ihre Frage..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage absenden →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unser Praxisraum</h2>
+        <p>Moderne Ausstattung für professionelle Hörberatung</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.eikmeyer-akustik.de/Bilder/Eikmeyer_Akustik_Startseite_2.png" alt="Praxisbereich Eikmeyer Akustik" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eikmeyer-akustik.de/Bilder/Eikmeyer_Akustik_Startseite_2.png" alt="Beratungsbereich" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.eikmeyer-akustik.de/Bilder/Eikmeyer_Akustik_Startseite_2.png" alt="Hörtest-Bereich" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <img src="https://www.eikmeyer-akustik.de/Bilder/Eikmeyer_Akustik_Startseite_2.png" alt="" class="cta-bg">
+    <div class="cta-content reveal">
+      <h2>Bereit für besseres Hören?</h2>
+      <p>Vereinbaren Sie noch heute Ihren kostenlosen Beratungstermin in Duisburg-Meiderich.</p>
+      <a href="#contact" class="btn-primary" style="font-size: 1.2rem; padding: 1rem 2rem;">Jetzt Termin vereinbaren →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Eikmeyer Akustik GmbH</div>
+      <p>Ihr Hörakustiker in Duisburg-Meiderich</p>
+      <p class="footer-note">Concept Preview · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#contact" class="mobile-cta-btn">📞 Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu')?.addEventListener('click', () => {
+      document.querySelector('.nav').style.display =
+        document.querySelector('.nav').style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Trauringschmiede Aachen | Exklusive Trauringe & Beratung</title>
+  <meta name="description" content="Exklusive Trauringe, Eheringe und Verlobungsringe finden Sie in der Trauringschmiede in ♥ Aachen ♥ Kommen Sie vorbei!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --rose-gold: #B76E79;
+      --rose-gold-light: #E8B4B8;
+      --champagne: #F7E8D4;
+      --cream: #FAF8F5;
+      --charcoal: #2C2C2C;
+      --charcoal-light: #5A5A5A;
+      --gold-accent: #D4AF37;
+      --shadow: 0 4px 20px rgba(183, 110, 121, 0.15);
+      --shadow-lg: 0 10px 40px rgba(183, 110, 121, 0.2);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+    }
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: padding 0.3s, box-shadow 0.3s;
+    }
+    .header.scrolled {
+      padding: 0.75rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span { color: var(--rose-gold); }
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav a {
+      color: var(--charcoal-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav a:hover { color: var(--rose-gold); }
+    .header-cta {
+      background: var(--rose-gold);
+      color: white !important;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem !important;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .header-cta:hover { background: var(--rose-gold-light); transform: translateY(-1px); }
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--champagne) 100%);
+      position: relative;
+      padding: 6rem 2rem 4rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('https://www.trauringschmiede.de/media/image/55/bc/49/Faehnchen_Leonardo-1.png') no-repeat center;
+      background-size: contain;
+      opacity: 0.1;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+    .hero-content h1 .accent {
+      color: var(--rose-gold);
+      font-style: italic;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--charcoal-light);
+      margin-bottom: 2rem;
+      max-width: 450px;
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--rose-gold);
+      color: white;
+      box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4);
+    }
+    .btn-primary:hover {
+      background: var(--rose-gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(183, 110, 121, 0.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1.5px solid var(--charcoal-light);
+    }
+    .btn-secondary:hover {
+      border-color: var(--rose-gold);
+      color: var(--rose-gold);
+    }
+    /* Trust Strip */
+    .trust-strip {
+      background: white;
+      padding: 3rem 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--champagne);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .trust-item span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal-light);
+    }
+    /* Sections */
+    .section {
+      padding: 6rem 2rem;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+      color: var(--charcoal);
+    }
+    .section-title p {
+      color: var(--charcoal-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* Services */
+    .services {
+      background: white;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .service-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--champagne);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+    }
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .service-card p {
+      color: var(--charcoal-light);
+      font-size: 0.95rem;
+    }
+    /* Booking Section */
+    .booking {
+      background: linear-gradient(135deg, var(--rose-gold) 0%, var(--rose-gold-light) 100%);
+      color: white;
+    }
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .booking-content h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1.5rem;
+    }
+    .booking-content p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .booking-form {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .booking-form h3 {
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--charcoal-light);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid #E8E8E8;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--rose-gold);
+    }
+    .booking-form .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    /* Gallery */
+    .gallery {
+      background: var(--cream);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--champagne);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      background: var(--charcoal);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    /* Contact */
+    .contact {
+      background: white;
+    }
+    .contact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .contact-info h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-item .icon {
+      width: 40px;
+      height: 40px;
+      background: var(--champagne);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item a {
+      color: var(--rose-gold);
+      text-decoration: none;
+    }
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+    .contact-map img {
+      width: 100%;
+      border-radius: 16px;
+    }
+    /* Footer */
+    .footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+    }
+    .footer a:hover { color: var(--rose-gold); }
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .payment-methods span {
+      background: rgba(255,255,255,0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+    .footer-note {
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -2px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    /* Chatbot */
+    .chatbot {
+      position: fixed;
+      bottom: 80px;
+      right: 1.5rem;
+      background: var(--rose-gold);
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.3s;
+      z-index: 999;
+    }
+    .chatbot:hover {
+      transform: scale(1.1);
+    }
+    .chatbot-window {
+      position: fixed;
+      bottom: 150px;
+      right: 1.5rem;
+      width: 320px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: none;
+      z-index: 999;
+    }
+    .chatbot-window.open {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+    .chat-header {
+      background: var(--rose-gold);
+      color: white;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+    }
+    .chat-body {
+      padding: 1.5rem;
+    }
+    .chat-body p {
+      color: var(--charcoal-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .chat-actions a {
+      display: block;
+      padding: 0.8rem;
+      border: 1.5px solid var(--rose-gold);
+      border-radius: 10px;
+      color: var(--rose-gold);
+      text-decoration: none;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .chat-actions a:hover {
+      background: var(--rose-gold);
+      color: white;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .booking-inner,
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .hero::before { display: none; }
+      .nav { display: none; }
+      .mobile-cta { display: block; }
+      .chatbot { bottom: 90px; }
+      .hero-image { order: -1; }
+      .hero-image img { max-width: 400px; margin: 0 auto; display: block; }
+      .hero-content { text-align: center; }
+      .hero-content p { margin: 0 auto 2rem; }
+      .hero-content .btn { display: none; }
+      .booking-form { padding: 2rem 1.5rem; }
+      .chatbot-window {
+        right: 0.75rem;
+        left: 0.75rem;
+        width: auto;
+        bottom: 160px;
+      }
+    }
+    @media (max-width: 600px) {
+      .trust-strip { padding: 2rem 1rem; }
+      .trust-item { flex-direction: column; text-align: center; }
+      .section { padding: 4rem 1.5rem; }
+      .section-title h2 { font-size: 1.8rem; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Trauring<span>schmiede</span></a>
+      <nav class="nav">
+        <a href="#services">Angebote</a>
+        <a href="#booking">Termin</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#contact">Kontakt</a>
+        <a href="https://www.trauringschmiede.de/termine" class="header-cta">Termin buchen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content reveal">
+        <h1>Ihre <span class="accent">Trauringe</span>, für die Ewigkeit gemacht</h1>
+        <p>Exklusive Trauringe, Eheringe und Verlobungsringe in persönlicher Beratung in Aachen. Finden Sie gemeinsam mit uns die Ringe, die Ihre Geschichte erzählen.</p>
+        <a href="#booking" class="btn btn-primary">Kostenlose Beratung</a>
+        <a href="#services" class="btn btn-secondary">Mehr erfahren</a>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.trauringschmiede.de/media/image/55/bc/49/Faehnchen_Leonardo-1.png" alt="Trauringschmiede Auszeichnung">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Über 20 Jahre Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">♥</div>
+        <span>Persönliche Beratung vor Ort</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">★</div>
+        <span>Exklusive Handarbeit</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💎</div>
+        <span>Höchste Qualität</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="section services" id="services">
+    <div class="section-inner">
+      <div class="section-title reveal">
+        <h2>Unser Service für Sie</h2>
+        <p>Entdecken Sie unsere umfangreichen Angebote rund um Ihre Trauringe – von der ersten Beratung bis zur perfekten Anprobe.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">💍</div>
+          <h3>Persönliche Beratung</h3>
+          <p>Individuelle Terminberatung in unseren Räumlichkeiten. Wir nehmen uns Zeit für Ihre Wünsche und Vorstellungen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">✨</div>
+          <h3>Eigene Gravur</h3>
+          <p>Personalisieren Sie Ihre Ringe mit einer individuellen Gravur – ein bleibendes Zeichen Ihrer Liebe.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3>Größenanpassung</h3>
+          <p>Ringgröße ändert sich? Wir passen Ihre Trauringe professionell und vor Ort an.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🛡️</div>
+          <h3>Lebenslange Garantie</h3>
+          <p>Auf alle Trauringe gewähren wir eine lebenslange Garantie bei entsprechender Pflege.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="section booking" id="booking">
+    <div class="section-inner">
+      <div class="booking-inner">
+        <div class="booking-content reveal">
+          <h2>Jetzt Beratungstermin vereinbaren</h2>
+          <p>Vereinbaren Sie einen kostenlosen Beratungstermin und finden Sie gemeinsam mit unseren Experten die perfekten Trauringe für Ihren großen Tag.</p>
+          <p><strong>Öffnungszeiten:</strong><br>Mo–Fr: 10:00–19:00 Uhr<br>Sa: 10:00–18:00 Uhr</p>
+        </div>
+        <div class="booking-form reveal">
+          <h3>Ihr Anliegen</h3>
+          <form action="mailto:aachen@trauringschmiede.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschter Service</label>
+              <select id="service" name="service">
+                <option>Beratungstermin Trauringe</option>
+                <option>Beratungstermin Verlobungsringe</option>
+                <option>Größenanpassung</option>
+                <option>Gravur</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" rows="3" placeholder="Ihre Nachricht..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section gallery" id="gallery">
+    <div class="section-inner">
+      <div class="section-title reveal">
+        <h2>Unsere Kollektion</h2>
+        <p>Lassen Sie sich von unserer Auswahl inspirieren – klassisch elegant bis modern und individuell.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.trauringschmiede.de/media/image/6f/b3/2b/vor-ort.png" loading="lazy" alt="Beratung vor Ort">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.trauringschmiede.de/media/image/55/bc/49/Faehnchen_Leonardo-1.png" loading="lazy" alt="Trauringe Auswahl">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.trauringschmiede.de/media/image/c2/f4/0c/phone.png" loading="lazy" alt="Kontakt">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.trauringschmiede.de/media/image/6f/f5/96/chat.png" loading="lazy" alt="Persönlicher Service">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für Ihre Trauringe?</h2>
+    <p>Vereinbaren Sie noch heute Ihren kostenlosen Beratungstermin in Aachen.</p>
+    <a href="https://www.trauringschmiede.de/termine" class="btn btn-primary" style="background: white; color: var(--rose-gold);">Termin buchen</a>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+        <div class="contact-info reveal">
+          <h3>Kontakt & Anfahrt</h3>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <strong>Trauringschmiede Aachen</strong><br>
+              Großkölnstraße 48<br>
+              52062 Aachen
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📞</div>
+            <div>
+              <strong>Telefon</strong><br>
+              <a href="tel:+4924194316970">+49 241 94316970</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">✉️</div>
+            <div>
+              <strong>E-Mail</strong><br>
+              <a href="mailto:aachen@trauringschmiede.de">aachen@trauringschmiede.de</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">🕐</div>
+            <div>
+              <strong>Öffnungszeiten</strong><br>
+              Mo–Fr: 10:00–19:00 Uhr<br>
+              Sa: 10:00–18:00 Uhr
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <img src="https://www.trauringschmiede.de/media/image/26/8f/89/footer-mapPnTy5vu3Kj1Zn.png" loading="lazy" alt="Karte Standort Aachen">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="payment-methods">
+      <span>Barzahlung</span>
+      <span>Karte vor Ort</span>
+      <span>Finanzierung möglich</span>
+    </div>
+    <p>© 2024 Trauringschmiede – <a href="https://www.trauringschmiede.de/trauringe-aachen">www.trauringschmiede.de</a></p>
+    <p class="footer-note">Konzeptvorschau · MZ.9</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="https://www.trauringschmiede.de/termine" class="btn btn-primary">Jetzt Termin buchen</a>
+  </div>
+
+  <!-- Chatbot -->
+  <div class="chatbot" onclick="toggleChat()">
+    💬
+  </div>
+  <div class="chatbot-window" id="chatWindow">
+    <div class="chat-header">
+      Trauringschmiede Support
+    </div>
+    <div class="chat-body">
+      <p>Hallo! Wie können wir Ihnen helfen?</p>
+      <div class="chat-actions">
+        <a href="tel:+4924194316970">📞 Anrufen</a>
+        <a href="mailto:aachen@trauringschmiede.de">✉️ E-Mail schreiben</a>
+        <a href="#booking">📅 Termin buchen</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Chatbot toggle
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      chatWindow.classList.toggle('open');
+    }
+
+    // Close chat when clicking outside
+    document.addEventListener('click', (e) => {
+      const chatWindow = document.getElementById('chatWindow');
+      const chatbot = document.querySelector('.chatbot');
+      if (!chatWindow.contains(e.target) && !chatbot.contains(e.target)) {
+        chatWindow.classList.remove('open');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

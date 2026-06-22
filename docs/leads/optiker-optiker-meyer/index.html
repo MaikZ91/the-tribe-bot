@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Optiker Meyer & Akustikwelt — Ihr Augenoptiker und Hörakustiker in Lübeck</title>
+  <meta name="description" content="Optiker Meyer in Lübeck: Wir führen eine große Auswahl angesagter Brillen, Sonnenbrillen und Kontaktlinsen. Kommen Sie vorbei – wir beraten Sie gern. Jetzt Wunschtermin vereinbaren!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-primary: #1a3a5c;
+      --color-secondary: #0a1f33;
+      --color-accent: #c9a96e;
+      --color-accent-light: #e8d5b5;
+      --color-text: #1a1a1a;
+      --color-text-light: #666;
+      --color-bg: #fafbf9;
+      --color-white: #ffffff;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: var(--transition);
+    }
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--color-accent); }
+    .nav { display: none; }
+    .nav a {
+      color: var(--color-text-light);
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 2rem;
+      transition: var(--transition);
+    }
+    .nav a:hover { color: var(--color-primary); }
+    .btn-header {
+      padding: 0.6rem 1.2rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-header:hover { background: var(--color-secondary); }
+    @media (min-width: 768px) {
+      .nav { display: flex; }
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0.15;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .hero-content { grid-template-columns: 1.2fr 1fr; }
+    }
+    .hero-text {
+      color: var(--color-white);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--color-white);
+    }
+    .hero-visual {
+      position: relative;
+      display: none;
+    }
+    @media (min-width: 900px) {
+      .hero-visual { display: block; }
+    }
+    .hero-visual img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      transform: rotate(-2deg);
+    }
+    /* Trust Strip */
+    .trust {
+      background: var(--color-white);
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+    }
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--color-accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 0.7rem;
+    }
+    /* Services */
+    .services {
+      padding: 5rem 1.5rem;
+      background: var(--color-bg);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3.5rem;
+    }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      color: var(--color-text-light);
+      font-size: 1.1rem;
+    }
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--color-white);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      text-align: center;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .service-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: var(--color-accent);
+      font-size: 1.8rem;
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-primary);
+    }
+    .service-card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+    }
+    /* Booking Section */
+    .booking {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+      padding: 5rem 1.5rem;
+      color: var(--color-white);
+    }
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .booking-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .booking-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+    .booking-text p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .booking-form {
+      background: var(--color-white);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      color: var(--color-text);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(26, 58, 92, 0.1);
+    }
+    .btn-book {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-book:hover {
+      background: var(--color-secondary);
+    }
+    /* Gallery */
+    .gallery {
+      padding: 5rem 1.5rem;
+      background: var(--color-bg);
+    }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #f0f0f0;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+    @media (min-width: 900px) {
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+    /* Contact */
+    .contact {
+      background: var(--color-white);
+      padding: 5rem 1.5rem;
+    }
+    .contact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) {
+      .contact-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .contact-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+    }
+    .contact-detail {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-accent-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-text h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    .contact-text a {
+      color: var(--color-text-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .contact-text a:hover { color: var(--color-primary); }
+    .map-preview {
+      background: #f0f0f0;
+      border-radius: var(--radius-lg);
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+    }
+    /* CTA Band */
+    .cta-band {
+      background: var(--color-accent);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      color: var(--color-primary);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+    /* Footer */
+    footer {
+      background: var(--color-secondary);
+      color: var(--color-white);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    footer p {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      padding: 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: none;
+    }
+    @media (max-width: 767px) {
+      .mobile-cta { display: block; }
+      .cta-band { padding-bottom: 5rem; }
+    }
+    .mobile-cta-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    /* Chatbot */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 1000;
+    }
+    @media (min-width: 768px) {
+      .chatbot-widget { bottom: 20px; }
+    }
+    .chatbot-btn {
+      width: 56px;
+      height: 56px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .chatbot-btn:hover {
+      transform: scale(1.05);
+      background: var(--color-secondary);
+    }
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">Optiker Meyer <span>& Akustikwelt</span></a>
+      <nav class="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#booking">Termin</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+      <button class="btn-header" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Termin buchen</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img class="hero-img" src="https://www.optiker-meyer.de/content/article_268537_img_1657786188_source.jpg" alt="Optiker Meyer Boutique">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Ihr Augenoptiker und Hörakustiker in Lübeck</h1>
+        <p>Wir führen eine große Auswahl angesagter Brillen, Sonnenbrillen und Kontaktlinsen. Kommen Sie vorbei – wir beraten Sie gern.</p>
+        <div class="hero-buttons">
+          <a href="#booking" class="btn btn-primary">Wunschtermin vereinbaren</a>
+          <a href="#services" class="btn btn-outline">Unsere Leistungen</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://www.optiker-meyer.de/content/article_268537_img_1657786192_source.jpg" alt="Premium Brillenauswahl bei Optiker Meyer">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <span>Über 25 Jahre Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">★</div>
+        <span>Persönliche Beratung</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">♥</div>
+        <span>Augen & Hören aus einer Hand</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <span>Schnelle Brillenanpassung</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <h2>Unsere Top-Leistungen</h2>
+      <p>Für Ihr gutes Sehen und Hören – alles aus kompetenter Hand</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">👓</div>
+        <h3>Brillen</h3>
+        <p>Modische Brillenframe, hochwertige Gläser, perfekte Anpassung</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🕶️</div>
+        <h3>Sonnenbrillen</h3>
+        <p>Stilvoller Sonnenschutz mit UV-Filter, Designermodelle</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👁️</div>
+        <h3>Kontaktlinsen</h3>
+        <p>Weiche und harte Linsen, Tages- & Monatslinsen, Beratung</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👂</div>
+        <h3>Hörakustik</h3>
+        <p>Hörgeräteberatung, Anpassung, Service aus einer Hand</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking" id="booking">
+    <div class="booking-inner">
+      <div class="booking-text reveal">
+        <h2>Wir beraten Sie gerne.</h2>
+        <p>Vereinbaren Sie jetzt Ihren persönlichen Wunschtermin. Unser Team freut sich auf Sie!</p>
+        <p style="font-size: 0.95rem; opacity: 0.8;">Oder rufen Sie uns an: +49 451 41740</p>
+      </div>
+      <div class="booking-form reveal">
+        <form onsubmit="handleBooking(event)">
+          <div class="form-group">
+            <label>Ihr Name</label>
+            <input type="text" placeholder="Ihr vollständiger Name" required>
+          </div>
+          <div class="form-group">
+            <label>E-Mail-Adresse</label>
+            <input type="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label>Telefonnummer</label>
+            <input type="tel" placeholder="Für Rückrufe">
+          </div>
+          <div class="form-group">
+            <label>Gewünschter Termin</label>
+            <select>
+              <option value="">Bevorzugter Zeitraum wählen</option>
+              <option value="vormittag">Vormittags (9–12 Uhr)</option>
+              <option value="nachmittag">Nachmittags (13–18 Uhr)</option>
+              <option value="abend">Abends (nach 18 Uhr)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Interesse an</label>
+            <select>
+              <option value="">Bitte wählen</option>
+              <option value="brillen">Neue Brille</option>
+              <option value="sonnenbrillen">Sonnenbrillen</option>
+              <option value="kontaktlinsen">Kontaktlinsen</option>
+              <option value="hoerakustik">Hörgeräteberatung</option>
+              <option value="allgemein">Allgemeine Beratung</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-book">Termin anfragen</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="section-header reveal">
+      <h2>Unsere Ausstattung</h2>
+      <p>Einblick in unser Geschäft und unsere Auswahl</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_268537_img_1657786194_source.jpg" alt="Optiker Meyer Innenansicht" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_268537_img_1657786197_source.jpg" alt="Brillenauswahl" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_268537_img_1657786201_source.jpg" alt="Sonnenbrillen Vitrine" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_338128_img_1_source.jpg" alt="Hörakustik Bereich" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_338128_img_2_source.jpg" alt="Kundenberatung" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_2288_img_1750250178_source.jpg" alt="Optik Werkstatt" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_2288_img_1750250315_source.jpg" alt="Premium Brillen" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.optiker-meyer.de/content/article_2288_img_1750251398_source.jpg" alt="Gesichtsanalyse" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Example -->
+  <section class="services" style="background: var(--color-white);">
+    <div class="section-header reveal">
+      <h2>Das sagen unsere Kunden</h2>
+      <p>Beispiel-Stimmen – echte Bewertungen bei Google finden</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="text-align: left;">
+        <div style="color: #FFD700; margin-bottom: 1rem;">★★★★★</div>
+        <p style="font-style: italic; color: var(--color-text); margin-bottom: 1rem;">"Super Beratung! Endlich eine Brille, die perfekt sitzt und gut aussieht."</p>
+        <p style="font-size: 0.9rem; color: var(--color-text-light);">— Maria S., Lübeck</p>
+      </div>
+      <div class="service-card reveal" style="text-align: left;">
+        <div style="color: #FFD700; margin-bottom: 1rem;">★★★★★</div>
+        <p style="font-style: italic; color: var(--color-text); margin-bottom: 1rem;">"Kompetente Hörakustik-Beratung. Mein Hörgerät passt perfekt."</p>
+        <p style="font-size: 0.9rem; color: var(--color-text-light);">— Hans-Peter K., Lübeck</p>
+      </div>
+      <div class="service-card reveal" style="text-align: left;">
+        <div style="color: #FFD700; margin-bottom: 1rem;">★★★★☆</div>
+        <p style="font-style: italic; color: var(--color-text); margin-bottom: 1rem;">"Große Auswahl, faire Preise. Werde wiederkommen!"</p>
+        <p style="font-size: 0.9rem; color: var(--color-text-light);">— Sandra M., Bad Schwartau</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für besseres Sehen?</h2>
+    <p>Vereinbaren Sie jetzt Ihren kostenlosen Beratungstermin</p>
+    <a href="#booking" class="btn btn-primary" style="background: var(--color-primary); color: var(--color-white);">Jetzt Termin vereinbaren</a>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Kontakt & Anfahrt</h3>
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Adresse</h4>
+            <a href="https://maps.google.com/?q=Optiker+Meyer+L%C3%BCbeck" target="_blank">Lübeck</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <h4>Telefon</h4>
+            <a href="tel:+4945141740">+49 451 41740</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <h4>E-Mail</h4>
+            <a href="mailto:info@optiker-meyer.de">info@optiker-meyer.de</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-text">
+            <h4>Website</h4>
+            <a href="https://www.optiker-meyer.de/" target="_blank">www.optiker-meyer.de</a>
+          </div>
+        </div>
+      </div>
+      <div class="map-preview reveal">
+        <a href="https://maps.google.com/?q=Optiker+Meyer+L%C3%BCbeck" target="_blank" style="text-decoration: none; color: inherit;">
+          <span style="font-size: 2rem; display: block; margin-bottom: 0.5rem;">🗺️</span>
+          <span>Karte öffnen</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Konzept-Vorschau von <a href="#">MZ.9</a> — Keine offizielle Seite von Optiker Meyer</p>
+  </footer>
+
+  <!-- Mobile CTA -->
+  <div class="mobile-cta">
+    <button class="mobile-cta-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Termin vereinbaren</button>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-widget">
+    <div class="chatbot-btn" onclick="toggleChat()" title="Mit uns chatten">💬</div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Booking form handler
+    function handleBooking(e) {
+      e.preventDefault();
+      const name = e.target.querySelector('input[type="text"]').value;
+      const email = e.target.querySelector('input[type="email"]').value;
+      const interest = e.target.querySelector('select:nth-of-type(2)').value || 'Allgemeine Beratung';
+
+      const subject = encodeURIComponent(`Terminanfrage: ${interest}`);
+      const body = encodeURIComponent(`Name: ${name}\nE-Mail: ${email}\nInteresse: ${interest}\n\nIch möchte einen Termin vereinbaren.`);
+      window.location.href = `mailto:info@optiker-meyer.de?subject=${subject}&body=${body}`;
+
+      alert('Vielen Dank! Ihre E-Mail-App öffnet sich nun, um die Anfrage zu senden.');
+    }
+
+    // Chatbot toggle
+    function toggleChat() {
+      alert('Chat-Konzept: Hier würde ein Chat-Assistent erscheinen, der Fragen zu Brillen, Kontaktlinsen und Terminen beantwortet.\n\nIm Live-Betrieb: Verbindung zu WhatsApp oder E-Mail.');
+    }
+  </script>
+</body>
+</html>
