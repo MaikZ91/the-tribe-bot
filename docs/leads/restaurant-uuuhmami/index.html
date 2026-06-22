@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>uuuhmami: Sharing-Restaurant Heidelberg | Mediterrane Küche zum Teilen</title>
+  <meta name="description" content="Sharing-Restaurant in Heidelberg: kleine Gerichte zum Teilen, mediterrane Küche, saisonal. uuuhmami in der Alten Eppelheimer Straße 50. Ab 09.06.2026 auch mittags: Lunch wie Dinner. Aber schnell.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #E85D5D;
+      --primary-dark: #C44D4D;
+      --accent: #F4A261;
+      --dark: #2D2D2D;
+      --light: #FAF8F5;
+      --cream: #FDF9F3;
+      --gold: #D4A574;
+      --gray: #666;
+      --gray-light: #EEE;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(253, 249, 243, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      padding: 12px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--primary); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* Before/After Toggle */
+    .before-after-toggle {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: white;
+      border-radius: 50px;
+      padding: 4px;
+      box-shadow: var(--shadow-sm);
+      z-index: 99;
+      display: flex;
+      gap: 4px;
+    }
+    .before-after-toggle a {
+      padding: 8px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .before-after-toggle .before {
+      color: var(--gray);
+    }
+    .before-after-toggle .before:hover {
+      background: var(--gray-light);
+    }
+    .before-after-toggle .after {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, var(--cream) 0%, rgba(232, 93, 93, 0.05) 100%);
+    }
+    .hero-img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to right, var(--cream) 60%, transparent);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      max-width: 580px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212, 165, 116, 0.15);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary);
+      color: white;
+      padding: 16px 32px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .hero-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--dark);
+      font-weight: 500;
+      margin-left: 16px;
+      text-decoration: none;
+    }
+    .hero-secondary:hover { color: var(--primary); }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: white;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(212, 165, 116, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .trust-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    /* Concept Preview Banner */
+    .preview-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+      color: white;
+      padding: 32px 0;
+      text-align: center;
+    }
+    .preview-banner h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .preview-banner p {
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+    }
+    .preview-banner .highlight { color: var(--accent); }
+
+    /* Concept Value */
+    .concept-value {
+      padding: 80px 0;
+      background: var(--cream);
+    }
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .concept-card {
+      background: white;
+      padding: 40px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+    .concept-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .concept-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+    .concept-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .concept-card p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      padding: 100px 0;
+      background: white;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-header h2 {
+      font-size: 42px;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .section-header p {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .menu-note {
+      display: inline-block;
+      background: rgba(232, 93, 93, 0.1);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .menu-category {
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: var(--light);
+      color: var(--dark);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+    .menu-category:hover,
+    .menu-category.active {
+      background: var(--primary);
+      color: white;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .menu-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      background: var(--light);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .menu-item:hover {
+      background: var(--cream);
+    }
+    .menu-img {
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .menu-item-content {
+      flex: 1;
+    }
+    .menu-item h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-price {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .menu-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+    .menu-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .menu-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      background: rgba(212, 165, 116, 0.2);
+      color: var(--gold);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+      background: var(--dark);
+      color: white;
+    }
+    .gallery h2 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 64px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item.large {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* Contact Form Section */
+    .contact-section {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info h2 {
+      font-size: 42px;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+    .contact-info p {
+      font-size: 16px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(232, 93, 93, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--primary);
+    }
+    .contact-item-content h4 {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .contact-item-content p {
+      font-size: 16px;
+      color: var(--dark);
+      font-weight: 600;
+      margin: 0;
+    }
+    .contact-item-content a {
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .contact-item-content a:hover { color: var(--primary); }
+    .contact-form {
+      background: white;
+      padding: 48px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+    .contact-form h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .contact-form p {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .form-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+    .cta-band p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      color: var(--primary);
+      padding: 18px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .cta-band .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 0;
+      text-align: center;
+    }
+    .footer a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+    .footer a:hover { color: white; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 20px;
+      border-top: 1px solid var(--gray-light);
+      z-index: 98;
+      display: none;
+    }
+    .mobile-cta button {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Maik Chat Widget */
+    .fab {
+      position: fixed;
+      bottom: 90px;
+      right: 22px;
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .fab:hover { transform: scale(1.05); }
+    .fab-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+    }
+    .fab-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 14px;
+      height: 14px;
+      background: #22C55E;
+      border-radius: 50%;
+      border: 3px solid white;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .chat-panel {
+      position: fixed;
+      bottom: 160px;
+      right: 22px;
+      width: 380px;
+      height: 520px;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-panel.open { display: flex; }
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: var(--light);
+    }
+    .message {
+      margin-bottom: 16px;
+    }
+    .message.maik {
+      text-align: left;
+    }
+    .message.user {
+      text-align: right;
+    }
+    .message-bubble {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 85%;
+      text-align: left;
+    }
+    .message.maik .message-bubble {
+      background: white;
+      color: var(--dark);
+      border-bottom-left-radius: 4px;
+    }
+    .message.user .message-bubble {
+      background: var(--primary);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .message-bubble ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .message-bubble li {
+      margin-bottom: 8px;
+    }
+    .chat-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .chat-btn {
+      padding: 8px 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-btn:hover {
+      background: var(--primary-dark);
+    }
+    .chat-input-area {
+      padding: 16px;
+      background: white;
+      border-top: 1px solid var(--gray-light);
+      display: flex;
+      gap: 10px;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid var(--gray-light);
+      border-radius: 50px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .chat-send {
+      padding: 12px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero { min-height: auto; padding: 120px 0 60px; }
+      .hero-img { position: relative; width: 100%; height: 400px; margin-top: 40px; }
+      .hero-overlay { background: none; }
+      .hero-content { max-width: 100%; }
+      .hero h1 { font-size: 42px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .concept-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.large { grid-column: span 2; }
+      .contact-wrapper { grid-template-columns: 1fr; gap: 48px; }
+      .nav-links { display: none; }
+      .mobile-cta { display: block; }
+      .fab { bottom: 80px; }
+      .chat-panel { bottom: 140px; right: 10px; left: 10px; width: auto; height: 60vh; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .hero-cta { width: 100%; justify-content: center; }
+      .hero-secondary { display: none; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 32px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.large { aspect-ratio: 4/3; }
+      .cta-band h2 { font-size: 28px; }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">uuu<span>h</span>mami</a>
+      <nav class="nav-links">
+        <a href="#konzept">Konzept</a>
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:+4962217254796" class="nav-cta">Reservieren</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Before/After Toggle -->
+  <div class="before-after-toggle">
+    <a href="https://www.uuuhmami.com" target="_blank" class="before">Vorher</a>
+    <span class="after">Nachher</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="https://www.uuuhmami.com/assets/images/strip_0_lunch.webp" alt="uuuhmami Lunch" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="hero-badge">Sharing-Restaurant Heidelberg</span>
+      <h1 class="serif">Das Lagerfeuer, um das Menschen sich versammeln.</h1>
+      <p>Kleine Gerichte zum Teilen. Mediterrane Küche, saisonal. Ab 09.06.2026 auch mittags: Lunch wie Dinner. Aber schnell.</p>
+      <a href="tel:+4962217254796" class="hero-cta">
+        <span>📞</span> Jetzt Tisch reservieren
+      </a>
+      <a href="#speisekarte" class="hero-secondary">Speisekarte ansehen →</a>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🥘</div>
+        <span class="trust-text">Mediterrane Küche</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🍽️</div>
+        <span class="trust-text">Zum Teilen</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌿</div>
+        <span class="trust-text">Saisonal</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📍</div>
+        <span class="trust-text">Heidelberg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concept Preview Banner -->
+  <section class="preview-banner">
+    <div class="container">
+      <h2 class="serif">Concept Preview für uuuhmami</h2>
+      <p>Erste Verbesserungsideen basierend auf <span class="highlight">kein Kontaktformular</span> & <span class="highlight">wenig Bildmaterial</span></p>
+    </div>
+  </section>
+
+  <!-- Concept Value -->
+  <section class="concept-value" id="konzept">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="serif">Was wir verbessert haben</h2>
+        <p>Kleine Änderungen mit großer Wirkung für mehr Anfragen</p>
+      </div>
+      <div class="concept-grid">
+        <div class="concept-card reveal">
+          <div class="concept-icon">📝</div>
+          <h3>Kontaktformular</h3>
+          <p>Neu: Einfaches Kontaktformular für Anfragen – Gäste können direkt Nachrichten schicken, ohne telefonieren zu müssen.</p>
+        </div>
+        <div class="concept-card reveal">
+          <div class="concept-icon">📸</div>
+          <h3>Mehr Bildmaterial</h3>
+          <p>Deutlich sichtbarere Galerie mit appetitlichen Bildern der Küche und Gerichte – schafft sofort Appetit und Vertrauen.</p>
+        </div>
+        <div class="concept-card reveal">
+          <div class="concept-icon">🎯</div>
+          <h3>Klarere CTAs</h3>
+          <p>Auffällige Handlungsaufforderungen für Reservierungen und Anfragen – leitet Besucher aktiv zur Kontaktaufnahme.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="speisekarte">
+    <div class="container">
+      <div class="section-header">
+        <span class="menu-note">Beispiel · Nicht original</span>
+        <h2 class="serif">Unsere Gerichte</h2>
+        <p>Kleine Portitionen zum Teilen – mehr probieren, mehr erleben</p>
+      </div>
+      <div class="menu-categories">
+        <span class="menu-category active">Alle</span>
+        <span class="menu-category">Vorspeisen</span>
+        <span class="menu-category">Hauptgerichte</span>
+        <span class="menu-category">Desserts</span>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item reveal">
+          <img src="https://www.uuuhmami.com/assets/images/strip_1_kroketten.webp" alt="Kroketten" class="menu-img">
+          <div class="menu-item-content">
+            <h3>Kroketten <span class="menu-price">8,50 €</span></h3>
+            <p class="menu-desc">Knusprige Kroketten mit Kräuter-Dip</p>
+            <div class="menu-tags">
+              <span class="menu-tag">Vegetarisch</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item reveal">
+          <img src="https://www.uuuhmami.com/assets/images/strip_3_gericht.webp" alt="Mediterranes Gericht" class="menu-img">
+          <div class="menu-item-content">
+            <h3>Mediterranes Gericht <span class="menu-price">14,50 €</span></h3>
+            <p class="menu-desc">Saisonales Gemüse mit Olivenöl und Kräutern</p>
+            <div class="menu-tags">
+              <span class="menu-tag">Saisonal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <h2 class="serif">Einblicke</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item large reveal">
+          <img src="https://www.uuuhmami.com/assets/images/strip_4_koch.webp" alt="Koch bei der Arbeit" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.uuuhmami.com/assets/images/strip_2_frau.webp" alt="Gast" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.uuuhmami.com/assets/images/strip_5_cocktail.webp" alt="Cocktail" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="kontakt">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <h2 class="serif">Kontaktieren Sie uns</h2>
+          <p>Reservieren Sie Ihren Tisch oder schreiben Sie uns eine Nachricht</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-item-content">
+                <h4>Adresse</h4>
+                <p>Alte Eppelheimer Straße 50, 69115 Heidelberg</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-item-content">
+                <h4>Telefon</h4>
+                <a href="tel:+4962217254796">+49 6221 7254796</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-item-content">
+                <h4>E-Mail</h4>
+                <a href="mailto:mamiknows@uuuhmami.com">mamiknows@uuuhmami.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form reveal" action="mailto:mamiknows@uuuhmami.com" method="post" enctype="text/plain">
+          <h3 class="serif">Nachricht senden</h3>
+          <p>Wir antworten Ihnen so schnell wie möglich</p>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" required placeholder="Ihre Nachricht an uns..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2 class="serif">Bereit für gemeinsames Essen?</h2>
+      <p>Reservieren Sie jetzt Ihren Tisch im uuuhmami</p>
+      <a href="tel:+4962217254796" class="cta-button">
+        <span>📞</span> Jetzt anrufen
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Concept Preview · <a href="#">MZ.9</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+4962217254796" style="text-decoration:none;">
+      <button>📞 Tisch reservieren</button>
+    </a>
+  </div>
+
+  <!-- Maik Chat Widget -->
+  <div class="fab" id="fab" style="display:none;">
+    <img src="/assets/mz9/maik.jpg" alt="Maik" class="fab-avatar">
+  </div>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h3>
+        <img src="/assets/mz9/maik.jpg" alt="Maik" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+        Chat mit Maik
+      </h3>
+      <button class="chat-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Schreiben Sie eine Nachricht...">
+      <button class="chat-send" id="chatSend">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Maik Chat Widget
+    const fab = document.getElementById('fab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatClose = document.getElementById('chatClose');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+
+    let chatOpen = false;
+    let chatStep = 0;
+    let chatShown = false;
+
+    // Show fab after 2 seconds or 30% scroll
+    const showFab = () => {
+      if (!chatShown) {
+        chatShown = true;
+        fab.style.display = 'flex';
+      }
+    };
+    setTimeout(showFab, 2000);
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > document.body.scrollHeight * 0.3) {
+        showFab();
+      }
+    });
+
+    // Toggle chat panel
+    fab.addEventListener('click', () => {
+      chatOpen = !chatOpen;
+      if (chatOpen) {
+        chatPanel.classList.add('open');
+        startChat();
+      } else {
+        chatPanel.classList.remove('open');
+      }
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatOpen = false;
+      chatPanel.classList.remove('open');
+    });
+
+    function startChat() {
+      if (chatStep === 0) {
+        addMaikMessage("Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:");
+        addMaikMessage(`
+          <ul>
+            <li>Kein Kontaktformular – Besucher müssen anrufen oder E-Mail schreiben, was zusätzliche Hürden schafft.</li>
+            <li>Wenig Bildmaterial – Appetit wird nicht geweckt, Gäste bekommen kein Gefühl für Atmosphäre und Gerichte.</li>
+          </ul>
+          <p style="margin-top:10px;">Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mehr Anfragen und bessere Präsentation optimiert ist.</p>
+        `);
+        chatStep = 1;
+      }
+    }
+
+    function addMaikMessage(text) {
+      const div = document.createElement('div');
+      div.className = 'message maik';
+      div.innerHTML = `<div class="message-bubble">${text}</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addUserMessage(text) {
+      const div = document.createElement('div');
+      div.className = 'message user';
+      div.innerHTML = `<div class="message-bubble">${text}</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addButtons(buttons) {
+      const div = document.createElement('div');
+      div.className = 'message maik';
+      const buttonsHtml = buttons.map(btn =>
+        `<button class="chat-btn" data-action="${btn.action}">${btn.label}</button>`
+      ).join('');
+      div.innerHTML = `<div class="message-bubble">${buttonsHtml}</div>`;
+      chatMessages.appendChild(div);
+
+      div.querySelectorAll('.chat-btn').forEach(btn => {
+        btn.addEventListener('click', () => handleChatButton(btn.dataset.action, btn.textContent));
+      });
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function handleChatButton(action, label) {
+      addUserMessage(label);
+
+      setTimeout(() => {
+        if (chatStep === 1 && action === 'better') {
+          addMaikMessage("Danke für das Feedback! Welche Verbesserung wäre für euch aktuell am interessantesten?");
+          addButtons([
+            { action: 'more_inquiries', label: 'Mehr Anfragen' },
+            { action: 'more_reservations', label: 'Mehr Reservierungen' },
+            { action: 'better_images', label: 'Bessere Bildpräsentation' },
+            { action: 'better_mobile', label: 'Bessere mobile Darstellung' },
+            { action: 'better_google', label: 'Bessere Google-Sichtbarkeit' },
+            { action: 'other', label: 'Etwas anderes' }
+          ]);
+          chatStep = 2;
+        } else if (chatStep === 2) {
+          if (action === 'more_inquiries') {
+            addMaikMessage("Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?");
+            addButtons([
+              { action: 'recommendations', label: 'Empfehlungen' },
+              { action: 'website', label: 'Website' },
+              { action: 'mixed', label: 'Beides ähnlich' }
+            ]);
+            chatStep = 3;
+          } else if (action === 'better_google') {
+            addMaikMessage("Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?");
+            addButtons([
+              { action: 'yes_google', label: 'Ja, zufrieden' },
+              { action: 'no_google', label: 'Nein, könnte besser' },
+              { action: 'unsure_google', label: 'Unsicher' }
+            ]);
+            chatStep = 3;
+          } else if (action === 'better_mobile') {
+            addMaikMessage("Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?");
+            addButtons([
+              { action: 'yes_mobile', label: 'Ja, positive Rückmeldung' },
+              { action: 'no_mobile', label: 'Ja, negative Rückmeldung' },
+              { action: 'no_feedback_mobile', label: 'Keine Rückmeldung' }
+            ]);
+            chatStep = 3;
+          } else {
+            addMaikMessage("Verstanden. Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.");
+            chatStep = 4;
+          }
+        } else if (chatStep === 3) {
+          addMaikMessage("Danke für die Einordnung! Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.");
+          chatStep = 4;
+        }
+      }, 600);
+    }
+
+    chatSend.addEventListener('click', sendUserMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendUserMessage();
+    });
+
+    function sendUserMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      addUserMessage(text);
+      chatInput.value = '';
+
+      setTimeout(() => {
+        addMaikMessage("Danke für deine Nachricht! Ich bin hier, um dir bei Fragen zum Concept Preview oder zu möglichen Verbesserungen zu helfen. Wie kann ich weiterhelfen?");
+      }, 600);
+    }
+  </script>
+
+</body>
+</html>

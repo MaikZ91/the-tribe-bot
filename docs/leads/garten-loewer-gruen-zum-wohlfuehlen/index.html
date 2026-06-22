@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Löwer Grün zum Wohlfühlen | Baumkontrolle - Baumkataster - Baumfällungen</title>
+  <meta name="description" content="Willkommen bei Löwer-Baumpflege. Ständig steigende Sicherheitsanforderungen zwingen Grundstückseigentümer zu regelmäßigen Baumkontrollen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d5a27;
+      --primary-light: #3d7a35;
+      --accent: #d48c1e;
+      --accent-light: #e8a842;
+      --bg: #f8f6f3;
+      --bg-warm: #f4f1ec;
+      --text: #2c2a26;
+      --text-light: #5a574f;
+      --white: #ffffff;
+      --border: #dcd8d0;
+      --border-light: #ebe7e0;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      color: var(--primary-light);
+    }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border-light);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow);
+      padding: 10px 24px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 18px;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .header-nav a:hover {
+      color: var(--primary);
+    }
+
+    .header-btn {
+      background: var(--primary);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .header-btn:hover {
+      background: var(--primary-light);
+      color: var(--white);
+    }
+
+    /* ===== Before/After Toggle ===== */
+    .before-after {
+      position: fixed;
+      top: 70px;
+      right: 24px;
+      z-index: 99;
+      display: flex;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 4px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-light);
+    }
+
+    .before-after button {
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-light);
+    }
+
+    .before-after button.before:hover {
+      color: var(--primary);
+    }
+
+    .before-after button.after {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .before-after button.after:hover {
+      background: var(--primary-light);
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2d5a27 0%, #1a3a18 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.loewer-baumpflege.de/wp-content/uploads/2014/07/Hans-L%C3%B6wer-Baumpflege.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.4;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45, 90, 39, 0.85) 0%, rgba(26, 58, 24, 0.9) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
+      width: 100%;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 140, 30, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== Trust Strip ===== */
+    .trust-strip {
+      background: var(--white);
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .trust-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .trust-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--primary);
+    }
+
+    /* ===== Services ===== */
+    .services {
+      padding: 80px 24px;
+      background: var(--bg-warm);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-img {
+      height: 200px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .service-content {
+      padding: 24px;
+    }
+
+    .service-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .service-content p {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      padding: 4px 0;
+    }
+
+    .service-features li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ===== Gallery ===== */
+    .gallery {
+      padding: 80px 24px;
+      background: var(--white);
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-item {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    /* ===== Inquiry Form ===== */
+    .inquiry {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--bg-warm) 0%, var(--bg) 100%);
+    }
+
+    .inquiry-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .inquiry-header {
+      background: var(--primary);
+      padding: 32px;
+      color: var(--white);
+    }
+
+    .inquiry-header h2 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+    }
+
+    .inquiry-header p {
+      opacity: 0.9;
+    }
+
+    .inquiry-form {
+      padding: 32px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(45, 90, 39, 0.3);
+    }
+
+    /* ===== Contact ===== */
+    .contact {
+      padding: 80px 24px;
+      background: var(--white);
+    }
+
+    .contact-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 32px;
+      border-radius: 12px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      border-radius: 12px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .contact-card a {
+      font-weight: 500;
+    }
+
+    /* ===== CTA Band ===== */
+    .cta-band {
+      padding: 60px 24px;
+      background: var(--primary);
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 40px 24px;
+      background: var(--text);
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ===== Mobile CTA Bar ===== */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      display: none;
+      background: var(--white);
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-light);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 12px 20px;
+    }
+
+    /* ===== Chat Widget ===== */
+    @keyframes fab-ring {
+      0% { box-shadow: 0 0 0 0 rgba(45, 90, 39, 0.55); }
+      70%, 100% { box-shadow: 0 0 0 14px rgba(45, 90, 39, 0); }
+    }
+
+    @keyframes fab-in {
+      0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+      100% { opacity: 1; transform: none; }
+    }
+
+    .fab {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 22px 9px 9px;
+      border-radius: 44px;
+      border: 1px solid var(--border-light);
+      background: var(--white);
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      animation: fab-in 0.6s 2s both;
+    }
+
+    .fab:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .fab .av {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex: none;
+      animation: fab-ring 2.6s ease-out infinite;
+    }
+
+    .fab .av img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .fab .dot {
+      position: absolute;
+      right: 1px;
+      bottom: 1px;
+      z-index: 2;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10b981;
+      border: 2.5px solid var(--white);
+    }
+
+    .fab .ftxt {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      text-align: left;
+    }
+
+    .fab .ftxt b {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .fab .ftxt small {
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--primary);
+      letter-spacing: 0.14em;
+    }
+
+    .chat-panel {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 201;
+      width: min(380px, calc(100vw - 28px));
+      max-height: min(620px, calc(100vh - 44px));
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transform: translateY(14px) scale(0.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .chat-panel.open {
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .chat-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .chat-head .who {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-head .av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .chat-head .ti {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .chat-head button {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.9);
+      font-size: 22px;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .chat-head button:hover {
+      color: var(--white);
+    }
+
+    .chat-log {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bub {
+      max-width: 84%;
+      padding: 12px 15px;
+      font-size: 14px;
+      line-height: 1.5;
+      border-radius: 12px;
+    }
+
+    .bub.bot {
+      align-self: flex-start;
+      background: var(--bg-warm);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+
+    .bub.me {
+      align-self: flex-end;
+      background: var(--primary);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-self: flex-start;
+      max-width: 92%;
+    }
+
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: var(--white);
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chip:hover {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 8px;
+      padding: 14px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .chat-input textarea {
+      flex: 1;
+      resize: none;
+      height: 42px;
+      max-height: 90px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      padding: 11px 12px;
+      border-radius: 8px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .chat-input textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .chat-input button {
+      border: none;
+      background: var(--primary);
+      color: var(--white);
+      width: 44px;
+      min-height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .chat-input button:hover {
+      background: var(--primary-light);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+
+      .before-after {
+        right: 16px;
+        top: 60px;
+      }
+
+      .before-after button {
+        padding: 5px 12px;
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 80vh;
+      }
+
+      .hero-content {
+        padding: 80px 16px 40px;
+      }
+
+      .services,
+      .gallery,
+      .inquiry,
+      .contact {
+        padding: 60px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      .fab {
+        bottom: 76px;
+      }
+
+      .chat-panel {
+        bottom: 76px;
+        max-height: calc(100vh - 120px);
+      }
+    }
+
+    /* ===== Reveal Animation ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo">
+      <div class="logo-icon">🌳</div>
+      <span>Löwer Grün zum Wohlfühlen</span>
+    </div>
+    <nav class="header-nav">
+      <a href="#services">Leistungen</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#contact">Kontakt</a>
+      <a href="#inquiry" class="header-btn">Anfrage senden</a>
+    </nav>
+  </header>
+
+  <!-- Before/After Toggle -->
+  <div class="before-after">
+    <button class="before" onclick="window.open('https://www.loewer-baumpflege.de/', '_blank')">Vorher</button>
+    <button class="after">Nachher</button>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Ihr Partner für professionelle Baumpflege in Mannheim</h1>
+      <p>Ständig steigende Sicherheitsanforderungen zwingen Grundstückseigentümer zu regelmäßigen Baumkontrollen. Wir sorgen für Sicherheit, Gesundheit und Schönheit Ihrer Bäume.</p>
+      <div class="hero-cta">
+        <a href="#inquiry" class="btn btn-primary">📞 Jetzt anrufen</a>
+        <a href="#services" class="btn btn-secondary">Leistungen ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Über 30 Jahre Erfahrung</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Geprüfter Baumsachverständiger</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Regionale Experten aus Mannheim</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <span>Sicherheit durch Fachwissen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Kompetente Baumpflege nach höchsten Standards – von der Kontrolle bis zur Fällung.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-img">🔍</div>
+        <div class="service-content">
+          <h3>Baumkontrolle</h3>
+          <p>Regelmäßige Kontrollen nach VTV und FLL-Richtlinien für Ihre Sicherheit.</p>
+          <ul class="service-features">
+            <li>Visuelle Baumkontrolle</li>
+            <li>Gefährdungsbeurteilung</li>
+            <li>Dokumentation mit Bericht</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-img">📋</div>
+        <div class="service-content">
+          <h3>Baumkataster</h3>
+          <p>Umfassende Bestandsaufnahme aller Bäume auf Ihrem Grundstück.</p>
+          <ul class="service-features">
+            <li>Digitaler Baumkataster</li>
+            <li>Kartenunterlagen</li>
+            <li>Pflegeempfehlungen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-img">🪚</div>
+        <div class="service-content">
+          <h3>Baumfällungen</h3>
+          <p>Sichere und professionelle Fällung auch in schwierigen Lagen.</p>
+          <ul class="service-features">
+            <li>Sichere Fälltechnik</li>
+            <li>Seilklettertechnik</li>
+            <li>Entsorgung des Holzes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="section-header reveal">
+      <h2>Unsere Arbeiten</h2>
+      <p>Ein Blick auf unsere Projekte und die Ergebnisse unserer Arbeit.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.loewer-baumpflege.de/wp-content/uploads/2014/07/cropped-gruenflaechen1.jpg" alt="Grünflächenpflege" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.loewer-baumpflege.de/wp-content/uploads/2018/10/Hans-Loewer-l-e1540054133921-788x1024.jpg" alt="Hans Löwer bei der Arbeit" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.loewer-baumpflege.de/wp-content/uploads/2021/01/Cover-Baumkataster-Kopie-750x400.jpg" alt="Baumkataster" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry Form -->
+  <section class="inquiry" id="inquiry">
+    <div class="inquiry-container reveal">
+      <div class="inquiry-header">
+        <h2>Kostenlose Ersteinschätzung</h2>
+        <p>Senden Sie uns Ihre Anfrage – wir melden uns schnellstmöglich zurück.</p>
+      </div>
+      <form class="inquiry-form" action="mailto:info@deingruen.de" method="post" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschte Leistung</label>
+            <select id="service" name="service">
+              <option value="">Bitte auswählen...</option>
+              <option value="baumkontrolle">Baumkontrolle</option>
+              <option value="baumkataster">Baumkataster</option>
+              <option value="faellung">Baumfällung</option>
+              <option value="pflege">Baumpflege</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht *</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="section-header reveal">
+      <h2>Kontakt</h2>
+      <p>Wir erreichen Sie schnell und persönlich.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="contact-icon">📞</div>
+        <h3>Telefon</h3>
+        <p><a href="tel:+496217990167">+49 621 7990167</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">📧</div>
+        <h3>E-Mail</h3>
+        <p><a href="mailto:info@deingruen.de">info@deingruen.de</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon">📍</div>
+        <h3>Standort</h3>
+        <p>Mannheim</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <h2>Bereit für sichere und gesunde Bäume?</h2>
+    <p>Kontaktieren Sie uns jetzt für eine professionelle Beratung.</p>
+    <a href="tel:+496217990167" class="btn btn-primary" style="background: var(--white); color: var(--primary);">📞 Jetzt anrufen</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Concept Preview · MZ.9 · <a href="https://www.loewer-baumpflege.de/" target="_blank">Original-Website ansehen</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+496217990167" class="btn btn-primary">📞 Jetzt anrufen</a>
+  </div>
+
+  <!-- Chat Widget -->
+  <div class="fab" id="fab" onclick="toggleChat()">
+    <div class="av">
+      <img src="docs/assets/mz9/maik.jpg" alt="Maik" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 48 48\'%3E%3Ccircle cx=\'24\' cy=\'24\' r=\'24\' fill=\'%232d5a27\'/%3E%3Ctext x=\'24\' y=\'30\' text-anchor=\'middle\' fill=\'white\' font-size=\'20\'%3EM%3C/text%3E%3C/svg%3E'">
+    </div>
+    <div class="dot"></div>
+    <div class="ftxt">
+      <b>Maik</b>
+      <small>Ihre Website-Analyse</small>
+    </div>
+  </div>
+
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-head">
+      <div class="who">
+        <img src="docs/assets/mz9/maik.jpg" alt="Maik" class="av" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 48 48\'%3E%3Ccircle cx=\'24\' cy=\'24\' r=\'24\' fill=\'white\'/%3E%3Ctext x=\'24\' y=\'30\' text-anchor=\'middle\' fill=\'%232d5a27\' font-size=\'20\'%3EM%3C/text%3E%3C/svg%3E'">
+        <div>
+          <div class="ti">Maik</div>
+        </div>
+      </div>
+      <button onclick="toggleChat()">×</button>
+    </div>
+    <div class="chat-log" id="chat-log">
+      <!-- Messages will be added here -->
+    </div>
+    <div class="chat-input">
+      <textarea id="chat-input" placeholder="Schreiben Sie eine Nachricht..." onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+      <button onclick="sendMessage()">→</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chat functionality
+    let chatOpen = false;
+    let chatStep = 0;
+    const problems = [
+      "WordPress-Seite wirkt veraltet – viele Kunden suchen heute nach modernen, professionellen Auftritten.",
+      "Keine klaren Handlungsaufforderungen – Besucher werden nicht aktiv zur Kontaktaufnahme geführt."
+    ];
+
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      const panel = document.getElementById('chat-panel');
+      if (chatOpen) {
+        panel.classList.add('open');
+        if (chatStep === 0) {
+          setTimeout(() => startChat(), 300);
+        }
+      } else {
+        panel.classList.remove('open');
+      }
+    }
+
+    function addBotMessage(text) {
+      const log = document.getElementById('chat-log');
+      const bub = document.createElement('div');
+      bub.className = 'bub bot';
+      bub.innerHTML = text;
+      log.appendChild(bub);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function addChips(options) {
+      const log = document.getElementById('chat-log');
+      const row = document.createElement('div');
+      row.className = 'chip-row';
+      options.forEach(opt => {
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.textContent = opt.label;
+        chip.onclick = () => handleChipClick(opt.value, opt.label);
+        row.appendChild(chip);
+      });
+      log.appendChild(row);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function startChat() {
+      chatStep = 1;
+      let problemText = problems.map(p => `• ${p}`).join('<br><br>');
+      addBotMessage(`Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<br><br>${problemText}<br><br>Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.`);
+      setTimeout(() => {
+        addBotMessage("Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?");
+        addChips([
+          { label: "👍 Deutlich besser", value: "positive" },
+          { label: "😐 Etwas besser", value: "neutral" },
+          { label: "👎 Kein großer Unterschied", value: "negative" }
+        ]);
+      }, 800);
+    }
+
+    function handleChipClick(value, label) {
+      const log = document.getElementById('chat-log');
+      const bub = document.createElement('div');
+      bub.className = 'bub me';
+      bub.textContent = label;
+      log.appendChild(bub);
+
+      if (chatStep === 1) {
+        if (value === 'positive' || value === 'neutral') {
+          chatStep = 2;
+          setTimeout(() => {
+            addBotMessage("Danke für das Feedback. Welche Verbesserung wäre für euch aktuell am interessantesten?");
+            addChips([
+              { label: "Mehr Anfragen", value: "inquiries" },
+              { label: "Mehr Terminbuchungen", value: "bookings" },
+              { label: "Moderneres Erscheinungsbild", value: "design" },
+              { label: "Bessere mobile Darstellung", value: "mobile" },
+              { label: "Bessere Google-Sichtbarkeit", value: "seo" },
+              { label: "Etwas anderes", value: "other" }
+            ]);
+          }, 600);
+        } else {
+          chatStep = 99;
+          setTimeout(() => {
+            addBotMessage("Verstanden. Was gefällt euch an der aktuellen Version besonders gut?");
+          }, 600);
+        }
+      } else if (chatStep === 2) {
+        chatStep = 3;
+        setTimeout(() => {
+          let followUp = "";
+          switch(value) {
+            case "inquiries":
+              followUp = "Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?";
+              break;
+            case "seo":
+              followUp = "Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?";
+              break;
+            case "mobile":
+              followUp = "Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?";
+              break;
+            default:
+              followUp = "Das ist ein wichtiger Punkt. Würdet ihr gerne mehr darüber erfahren, wie wir das umsetzen könnten?";
+          }
+          addBotMessage(followUp);
+          addChips([
+            { label: "Ja, gerne mehr Infos", value: "more" },
+            { label: "Erst mal überlegen", value: "think" }
+          ]);
+        }, 600);
+      } else if (chatStep === 3) {
+        if (value === 'more') {
+          chatStep = 4;
+          setTimeout(() => {
+            addBotMessage("Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.");
+            addChips([
+              { label: "Ja, das interessiert mich", value: "interested" },
+              { label: "Danke, erst mal genug", value: "thanks" }
+            ]);
+          }, 600);
+        }
+      } else if (chatStep === 4 && value === 'interested') {
+        setTimeout(() => {
+          addBotMessage("Super! Ich empfehle ein kurzes Telefonat – so kann ich euch konkrete Beispiele zeigen, die auf eure Situation zugeschnitten sind. Wann würde es euch am besten passen?");
+        }, 600);
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const log = document.getElementById('chat-log');
+      const bub = document.createElement('div');
+      bub.className = 'bub me';
+      bub.textContent = text;
+      log.appendChild(bub);
+      input.value = '';
+
+      setTimeout(() => {
+        addBotMessage("Danke für Ihre Nachricht! Ich kümmere mich so schnell wie möglich um Ihre Anfrage.");
+      }, 600);
+    }
+
+    // Show chat after delay or scroll
+    let chatShown = false;
+    function showChat() {
+      if (chatShown) return;
+      chatShown = true;
+      const fab = document.getElementById('fab');
+      fab.style.animation = 'fab-in 0.6s both';
+    }
+
+    setTimeout(showChat, 3000);
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 30) showChat();
+    }, { once: true });
+  </script>
+</body>
+</html>

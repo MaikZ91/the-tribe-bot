@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Weidner Garten- und Landschaftsbau – Reitbodenbau vom Profi</title>
+  <meta name="description" content="Weidner Reitboden – Profi für Reitbodenbau in Mannheim. Qualität, Erfahrung und Liebe zum Detail für Ihren Traumreitplatz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d5a3d;
+      --primary-dark: #1e3d2a;
+      --accent: #d4a574;
+      --accent-light: #e8c9a0;
+      --earth: #8b7355;
+      --stone: #4a5568;
+      --light: #f7f8f3;
+      --white: #ffffff;
+      --text: #2d3748;
+      --text-light: #718096;
+      --shadow: 0 4px 20px rgba(45, 90, 61, 0.15);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --radius: 8px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Merriweather', serif;
+      color: var(--primary-dark);
+      line-height: 1.3;
+    }
+
+    h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+    h3 { font-size: 1.3rem; }
+
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    img { max-width: 100%; height: auto; display: block; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Before/After Toggle */
+    .before-after {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      background: var(--white);
+      border-radius: 30px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      border: 2px solid var(--primary);
+    }
+
+    .before-after a {
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .before-after .before {
+      color: var(--text-light);
+    }
+
+    .before-after .before:hover {
+      background: var(--light);
+      color: var(--primary);
+    }
+
+    .before-after .after {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: transparent;
+      padding: 80px 20px 20px;
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      padding: 15px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      font-family: 'Merriweather', serif;
+    }
+
+    header.scrolled .logo { color: var(--primary); }
+
+    .nav-phone {
+      color: var(--white);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header.scrolled .nav-phone { color: var(--primary); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(30, 61, 42, 0.85), rgba(30, 61, 42, 0.7)),
+        url('https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/12/weidner-startbild.jpg') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      padding-top: 60px;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: lift 0.8s ease forwards;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--accent-light);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: lift 0.8s ease 0.2s forwards;
+    }
+
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: var(--primary-dark);
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+    }
+
+    .cta-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 165, 116, 0.5);
+    }
+
+    @keyframes lift {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 30px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .trust-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Services */
+    .services {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      margin-bottom: 15px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--light);
+      padding: 30px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--primary);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 80px 0;
+      background: var(--light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Inquiry Form */
+    .inquiry {
+      padding: 80px 0;
+      background: var(--primary-dark);
+      color: var(--white);
+    }
+
+    .inquiry h2 {
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .inquiry-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--radius);
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding: 60px 0;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/11/121-home.jpg') center/cover;
+      opacity: 0.15;
+    }
+
+    .cta-band-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-band h2 {
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .cta-band p {
+      color: var(--accent-light);
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .cta-primary {
+      background: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    /* Contact */
+    .contact {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 30px;
+      background: var(--light);
+      border-radius: var(--radius);
+    }
+
+    .contact-card h3 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-item a {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 30px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 40;
+    }
+
+    .mobile-cta .cta-primary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Maik Chat */
+    .fab {
+      position: fixed;
+      bottom: 90px;
+      right: 22px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(45, 90, 61, 0.4);
+      z-index: 90;
+      transition: var(--transition);
+    }
+
+    .fab:hover {
+      transform: scale(1.05);
+    }
+
+    .fab img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .fab-ring {
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.5; }
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 22px;
+      width: 350px;
+      max-width: calc(100vw - 44px);
+      max-height: 500px;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      z-index: 89;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-panel.open {
+      display: flex;
+    }
+
+    .chat-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h3 {
+      color: var(--white);
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-header h3 img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    .chat-close {
+      background: transparent;
+      color: var(--white);
+      font-size: 1.5rem;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      max-height: 350px;
+      background: var(--light);
+    }
+
+    .chat-message {
+      margin-bottom: 16px;
+    }
+
+    .chat-message.maik {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-message.maik .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .chat-message.maik .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chat-message.maik .bubble {
+      background: var(--white);
+      padding: 12px 16px;
+      border-radius: 12px 12px 12px 4px;
+      max-width: calc(100% - 48px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chat-message.user {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .chat-message.user .bubble {
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 16px;
+      border-radius: 12px 12px 4px 12px;
+      max-width: 80%;
+    }
+
+    .chat-input {
+      padding: 12px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      font-family: inherit;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .chat-input button {
+      background: var(--primary);
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chat-btn {
+      background: var(--white);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .chat-btn:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .before-after {
+        top: auto;
+        bottom: 80px;
+        right: 20px;
+        font-size: 0.8rem;
+      }
+
+      .before-after a {
+        padding: 6px 14px;
+      }
+
+      h1 { font-size: 1.8rem; }
+
+      .hero-content {
+        padding-top: 80px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      .fab {
+        bottom: 100px;
+      }
+
+      .chat-panel {
+        bottom: 110px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: calc(100vh - 170px);
+      }
+
+      .inquiry-form {
+        padding: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Before/After Toggle -->
+  <div class="before-after">
+    <a href="https://www.weidner-reitboden.de/" target="_blank" class="before">Vorher</a>
+    <span class="after">Nachher</span>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <div class="logo">Weidner Reitboden</div>
+      <a href="tel:+4997318822" class="nav-phone">
+        📞 09731 8822
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Herzlich Willkommen bei Weidner Reitboden – Mannheim</h1>
+        <p class="hero-tagline">Reitbodenbau vom Profi – Qualität für Ihr Traumreitplatz</p>
+        <a href="#kontakt" class="cta-primary">
+          Kostenlose Beratung anfragen
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <span class="trust-text">Über 25 Jahre Erfahrung</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🌿</div>
+          <span class="trust-text">Nachhaltige Materialien</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏆</div>
+          <span class="trust-text">Premium Qualität</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📍</div>
+          <span class="trust-text">Regional aus Mannheim</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Professionelle Lösungen für Reitplätze, Gärten und Landschaftsbau aus einer Hand.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🐴</div>
+          <h3>Reitbodenbau</h3>
+          <p>Professionelle Planung und Bau von Reitplätzen. Wir sorgen für den perfekten Untergrund für Sie und Ihr Pferd.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌱</div>
+          <h3>Landschaftsbau</h3>
+          <p>Garten- und Landschaftsgestaltung nach Ihren Wünschen. Von der Planung bis zur Umsetzung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏗️</div>
+          <h3>Erdbauarbeiten</h3>
+          <p>Professionelle Erdbauarbeiten für Neubauten, Umgestaltungen und Erweiterungen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💧</div>
+          <h3>Drainage & Bewässerung</h3>
+          <p>Intelligente Drainage- und Bewässerungssysteme für einen optimalen Wasserhaushalt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Projekte</h2>
+        <p>Ein Einblick in unsere vergangene Arbeit – Qualität, die sich sehen lässt.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/11/home-header-gruen-300.png" alt="Reitplatz Projekt Weidner" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/11/home-header-gruen-300-neu.png" alt="Neuer Reitplatz Weidner" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/12/weidner-startbild.jpg" alt="Weidner Startbild" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.weidner-reitboden.de/cm/wp-content/uploads/2018/11/121-home.jpg" alt="Weidner Gartenprojekt" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry Form -->
+  <section class="inquiry">
+    <div class="container">
+      <h2>Kostenlose Anfrage senden</h2>
+      <form class="inquiry-form reveal">
+        <div class="form-group">
+          <label for="name">Ihr Name</label>
+          <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail-Adresse</label>
+          <input type="email" id="email" name="email" required placeholder="max@beispiel.de">
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefonnummer</label>
+          <input type="tel" id="phone" name="phone" placeholder="0621 12345678">
+        </div>
+        <div class="form-group">
+          <label for="service">Interesse an</label>
+          <select id="service" name="service">
+            <option value="">Bitte wählen...</option>
+            <option value="reitboden">Reitbodenbau</option>
+            <option value="landschaft">Landschaftsbau</option>
+            <option value="erdbau">Erdbauarbeiten</option>
+            <option value="drainage">Drainage & Bewässerung</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht</label>
+          <textarea id="message" name="message" placeholder="Beschreiben Sie Ihr Projekt oder Ihre Frage..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-content">
+      <h2>Bereit für Ihren Traumreitplatz?</h2>
+      <p>Kontaktieren Sie uns noch heute für ein unverbindliches Beratungsgespräch.</p>
+      <a href="#kontakt" class="cta-primary">Jetzt kostenlos beraten lassen →</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <p>Wir freuen uns auf Ihre Anfrage.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <h3>📞 Telefon</h3>
+          <div class="contact-item">
+            <a href="tel:+4997318822">09731 8822</a>
+          </div>
+        </div>
+        <div class="contact-card reveal">
+          <h3>✉️ E-Mail</h3>
+          <div class="contact-item">
+            <a href="mailto:info@weidner-reitboden.de">info@weidner-reitboden.de</a>
+          </div>
+        </div>
+        <div class="contact-card reveal">
+          <h3>📍 Standort</h3>
+          <div class="contact-item">
+            <span>Mannheim</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Concept Preview · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#kontakt" class="cta-primary">Kostenlose Beratung anfragen →</a>
+  </div>
+
+  <!-- Maik Chat FAB -->
+  <div class="fab" id="chatFab">
+    <div class="fab-ring"></div>
+    <img src="../../assets/mz9/maik.jpg" alt="Maik">
+  </div>
+
+  <!-- Maik Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h3>
+        <img src="../../assets/mz9/maik.jpg" alt="Maik">
+        Maik
+      </h3>
+      <button class="chat-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Schreiben Sie eine Nachricht...">
+      <button id="chatSend">➤</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Chat functionality
+    const chatFab = document.getElementById('chatFab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatClose = document.getElementById('chatClose');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+
+    let chatStep = 0;
+    let chatVisible = false;
+
+    const originalProblems = [
+      { tech: "WordPress (potenziell veraltbar)", impact: "Veraltete Technik – langsame Ladezeiten und Sicherheitsrisiken." },
+      { tech: "Wenig Bildmaterial", impact: "Wenig visuelle Inspiration – Kunden können die Qualität nicht gut einschätzen." }
+    ];
+
+    function addMessage(content, sender = 'maik') {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-message ${sender}`;
+
+      if (sender === 'maik') {
+        msgDiv.innerHTML = `
+          <div class="avatar">
+            <img src="../../assets/mz9/maik.jpg" alt="Maik">
+          </div>
+          <div class="bubble">${content}</div>
+        `;
+      } else {
+        msgDiv.innerHTML = `<div class="bubble">${content}</div>`;
+      }
+
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addButtons(buttons) {
+      const btnDiv = document.createElement('div');
+      btnDiv.className = 'chat-buttons';
+
+      buttons.forEach(btn => {
+        const button = document.createElement('button');
+        button.className = 'chat-btn';
+        button.textContent = btn.label;
+        button.onclick = () => {
+          addMessage(btn.label, 'user');
+          btnDiv.remove();
+          if (btn.response) {
+            setTimeout(() => addMessage(btn.response), 500);
+          }
+          if (btn.action) {
+            btn.action();
+          }
+        };
+        btnDiv.appendChild(button);
+      });
+
+      chatMessages.appendChild(btnDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function toggleChat() {
+      chatVisible = !chatVisible;
+      chatPanel.classList.toggle('open', chatVisible);
+
+      if (chatVisible && chatStep === 0) {
+        setTimeout(() => startChat(), 300);
+      }
+    }
+
+    function startChat() {
+      chatStep = 1;
+
+      let problemText = '<ul style="margin: 10px 0; padding-left: 20px;">';
+      originalProblems.forEach(p => {
+        problemText += `<li>${p.impact}</li>`;
+      });
+      problemText += '</ul>';
+
+      addMessage(`Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:${problemText}<br><br>Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.`);
+
+      setTimeout(() => {
+        addButtons([
+          { label: '👍 Deutlich besser', response: 'Danke für das Feedback! Welche Verbesserung wäre für euch aktuell am interessantesten?', action: () => { chatStep = 3; setTimeout(() => showImprovementButtons(), 500); } },
+          { label: '😐 Etwas besser', response: 'Danke für das Feedback! Welche Verbesserung wäre für euch aktuell am interessantesten?', action: () => { chatStep = 3; setTimeout(() => showImprovementButtons(), 500); } },
+          { label: '👎 Kein großer Unterschied', response: 'Verstehe – danke für die ehrliche Rückmeldung. Was genau vermissen Sie noch?' }
+        ]);
+      }, 1000);
+    }
+
+    function showImprovementButtons() {
+      addButtons([
+        { label: 'Mehr Anfragen', response: 'Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?' },
+        { label: 'Mehr Terminbuchungen', response: 'Wären Sie an einer einfachen Online-Terminbuchung interessiert?' },
+        { label: 'Moderneres Erscheinungsbild', response: 'Ein modernes Design schafft Vertrauen und Professionalität – genau das wollen wir erreichen.' },
+        { label: 'Bessere mobile Darstellung', response: 'Haben Sie schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?' },
+        { label: 'Bessere Google-Sichtbarkeit', response: 'Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?' },
+        { label: 'Etwas anderes', response: 'Erzählen Sie mir gerne, was Sie sich vorstellen – ich helfe gerne weiter.' }
+      ]);
+    }
+
+    function showClosingMessage() {
+      setTimeout(() => {
+        addMessage('Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+        chatStep = 5;
+      }, 800);
+    }
+
+    chatFab.addEventListener('click', toggleChat);
+    chatClose.addEventListener('click', () => {
+      chatVisible = false;
+      chatPanel.classList.remove('open');
+    });
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      chatInput.value = '';
+
+      if (chatStep >= 2 && chatStep < 5) {
+        setTimeout(() => showClosingMessage(), 1000);
+      } else if (chatStep === 5) {
+        setTimeout(() => addMessage('Vielen Dank für Ihre Nachricht! Ich kümmere mich um eine Rückmeldung.'), 500);
+      }
+    }
+
+    // Show chat after delay or scroll
+    setTimeout(() => {
+      if (!chatVisible) {
+        chatFab.style.opacity = '1';
+        chatFab.style.transform = 'scale(1)';
+      }
+    }, 3000);
+
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent > 30 && !chatVisible) {
+        chatFab.style.opacity = '1';
+        chatFab.style.transform = 'scale(1)';
+      }
+    });
+
+    // Form submission
+    document.querySelector('.inquiry-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const params = new URLSearchParams(formData).toString();
+      window.location.href = `mailto:info@weidner-reitboden.de?subject=Anfrage über Website&body=${encodeURIComponent(params)}`;
+    });
+  </script>
+
+</body>
+</html>
