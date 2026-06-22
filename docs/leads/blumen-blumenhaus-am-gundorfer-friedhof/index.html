@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Englers Landgärtnerei — Traditionsgärtnerei seit 1908 in Leipzig. Frische Blumen, Grabschmuck, Trauerfloristik & persönliche Beratung.">
+  <title>Englers Landgärtnerei — Traditionsgärtnerei seit 1908 | Leipzig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d5a3e;
+      --primary-dark: #1a3a25;
+      --accent: #c9a86c;
+      --accent-light: #e8d5b5;
+      --cream: #faf8f3;
+      --sand: #f0ebe2;
+      --text-dark: #2c2c2c;
+      --text-light: #6b6b6b;
+      --white: #ffffff;
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 248, 243, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(201, 168, 108, 0.2);
+      transition: 0.3s;
+    }
+
+    header.scrolled {
+      padding: 0.7rem 5%;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .header-cta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .phone-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .phone-link:hover { color: var(--accent); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1rem; }
+      .logo { font-size: 1.2rem; }
+      .phone-link { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 5% 4rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite4.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.85);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(42, 69, 51, 0.85) 0%, rgba(42, 69, 51, 0.5) 50%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      color: var(--white);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201, 168, 108, 0.3);
+      color: var(--accent-light);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(201, 168, 108, 0.5);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      opacity: 0.95;
+      margin-bottom: 2rem;
+      color: var(--accent-light);
+    }
+
+    .hero-text {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-ctas .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary-dark);
+    }
+
+    .hero-ctas .btn-primary:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: var(--white);
+      opacity: 0.8;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--white);
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .usp-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .usp-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .usp-strip { gap: 1.5rem; }
+      .usp-item { font-size: 0.9rem; }
+    }
+
+    /* Section Base */
+    section {
+      padding: 5rem 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Services */
+    .services {
+      background: var(--sand);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      transition: 0.3s;
+      border: 1px solid rgba(45, 90, 62, 0.08);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .service-card h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow-card);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(45, 90, 62, 0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-caption {
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+    }
+
+    /* Contact Form */
+    .contact {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .contact-info h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .contact-info p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-form {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--text-dark);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--sand);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: var(--cream);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--white);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent-light);
+      padding: 4rem 5%;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: var(--text-dark);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 5% 1.5rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-section p {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      gap: 0.5rem;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta { display: flex; }
+      footer { padding-bottom: 5rem; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      .scroll-cue { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="logo">Englers<span>.</span></div>
+    <div class="header-cta">
+      <a href="tel:01104112752" class="phone-link">📞 01104112752</a>
+      <a href="#kontakt" class="btn btn-primary">Termin vereinbaren</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <span class="hero-tag">✨ Seit 1908</span>
+      <h1>Englers Landgärtnerei</h1>
+      <h2>Traditionsgärtnerei in Leipzig</h2>
+      <p class="hero-text">Frische Blumen, liebevoll gestalteter Grabschmuck und persönliche Beratung — mit Leidenschaft für Blumen seit über 115 Jahren.</p>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">🌸 Jetzt anfragen</a>
+        <a href="#galerie" class="btn btn-outline">Galerie ansehen</a>
+      </div>
+    </div>
+    <div class="scroll-cue">↓</div>
+  </section>
+
+  <div class="usp-strip">
+    <div class="usp-item"><span class="usp-icon">🌷</span> Frische Blumen täglich</div>
+    <div class="usp-item"><span class="usp-icon">🤝</span> Persönliche Beratung</div>
+    <div class="usp-item"><span class="usp-icon">🏆</span> Seit 1908</div>
+    <div class="usp-item"><span class="usp-icon">📍</span> Leipzig</div>
+  </div>
+
+  <section class="services">
+    <div class="section-header reveal">
+      <h2>Unser Angebot</h2>
+      <p>Von frischen Blumensträußen bis hin zum liebevollen Grabschmuck — wir gestalten mit Herz.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">💐</div>
+        <h3>Blumensträuße</h3>
+        <p>Frisch gebundene Sträuße nach Ihren Wünschen — für jeden Anlass die passende Blumenwahl.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⚰️</div>
+        <h3>Grabschmuck</h3>
+        <p>Würdevolle Gestaltung von Grabstätten mit saisonalen Pflanzen, Gestecken und Blumen.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🪴</div>
+        <h3>Pflanzen & Gartentipps</h3>
+        <p>Umfangreiches Sortiment an Zimmer- und Gartenpflanzen mit persönlicher Beratung.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">💒</div>
+        <h3>Event-Floristik</h3>
+        <p>Individuelle Blumengestaltung für Hochzeiten, Taufen und besondere Anlässe.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="section-header reveal">
+      <h2>Einblicke</h2>
+      <p>Impressionen aus unserer Gärtnerei und unserer Arbeit.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite4.jpg" alt="Landgärtnerei Außenansicht" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Unsere Gärtnerei</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/20200426_131726.jpg" alt="Blumenarrangement" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Blumenpracht</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite5.jpg" alt="Pflanzenbestand" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Pflanzenwelt</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite2.jpg" alt="Gestaltung" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Gestaltung</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite3.jpg" alt="Frühlingsblumen" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Frühlingserwachen</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/20200426_131122.jpg" alt="Detailaufnahme" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Im Detail</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/20200426_132003.jpg" alt="Blumenkübel" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Kübel & Töpfe</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/Startseite6.jpg" alt="Saisonale Pflanzen" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Saisonale Schönheit</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.englers-landgaertnerei.de/image/bilder/slide/01.jpg" alt="Gärtnerei Atmo" loading="lazy">
+        <div class="gallery-overlay"><span class="gallery-caption">Atmosphäre</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="contact-wrapper">
+      <div class="contact-info reveal">
+        <h2>Kontaktieren Sie uns</h2>
+        <p>Wir beraten Sie gerne persönlich — ob für einen besonderen Blumenstrauß, Grabschmuck oder Pflanzen für Ihr Zuhause.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <strong>Adresse:</strong><br>
+              Burghausener Straße 21<br>
+              04178 Leipzig
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div>
+              <strong>Telefon:</strong><br>
+              01104112752
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <strong>E-Mail:</strong><br>
+              info@englers-landgaertnerei.de
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <form action="mailto:info@englers-landgaertnerei.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Ihr Name</label>
+            <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Interesse an</label>
+            <select id="service" name="service">
+              <option value="">Bitte wählen...</option>
+              <option value="strauß">Blumenstrauß</option>
+              <option value="grab">Grabschmuck</option>
+              <option value="pflanzen">Pflanzenberatung</option>
+              <option value="event">Event-Floristik</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" name="message" placeholder="Erzählen Sie uns von Ihrem Anliegen..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Lassen Sie uns gemeinsam etwas Schönes gestalten</h2>
+    <p>Kommen Sie vorbei in unsere Landgärtnerei oder kontaktieren Sie uns — wir freuen uns auf Sie!</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="tel:01104112752" class="btn btn-primary">📞 Jetzt anrufen</a>
+      <a href="mailto:info@englers-landgaertnerei.de" class="btn btn-outline">✉️ E-Mail schreiben</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Englers Landgärtnerei</h4>
+        <p>Traditionsgärtnerei seit 1908</p>
+        <p>Leipzig</p>
+      </div>
+      <div class="footer-section">
+        <h4>Kontakt</h4>
+        <p>📍 Burghausener Straße 21</p>
+        <p>📞 01104112752</p>
+        <p>✉️ info@englers-landgaertnerei.de</p>
+      </div>
+      <div class="footer-section">
+        <h4>Angebot</h4>
+        <p>Blumensträuße</p>
+        <p>Grabschmuck</p>
+        <p>Pflanzen & Beratung</p>
+        <p>Event-Floristik</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Konzept-Vorschau · MZ.9 · <a href="https://www.englers-landgaertnerei.de/" target="_blank">www.englers-landgaertnerei.de</a>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:01104112752" class="btn btn-primary">📞 Anrufen</a>
+    <a href="#kontakt" class="btn btn-outline">✉️ Kontakt</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
