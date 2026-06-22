@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Augusta Physiotherapie & Liebscher&Bracht Schmerztherapiezentrum | Mannheim</title>
+  <meta name="description" content="Augusta Physiotherapie und Liebscher&Bracht Schmerztherapiezentrum in Mannheim – Schmerzfrei. Beweglich. Belastbar. Jetzt Termin vereinbaren.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#0EA5E9;
+      --primary-dark:#0284C7;
+      --secondary:#64748B;
+      --accent:#14B8A6;
+      --bg:#F8FAFC;
+      --white:#FFFFFF;
+      --text:#1E293B;
+      --text-light:#64748B;
+      --border:#E2E8F0;
+      --shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg)}
+    a{text-decoration:none;color:inherit;transition:color 0.2s}
+    img{max-width:100%;height:auto;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;font-size:15px}
+    .btn-primary{background:var(--primary);color:var(--white)}
+    .btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+    .btn-secondary{background:transparent;color:var(--text);border:2px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--primary);color:var(--primary)}
+
+    /* Before/After Toggle */
+    .before-after-toggle{position:fixed;top:16px;right:20px;z-index:1000;background:var(--white);border-radius:50px;padding:4px;box-shadow:var(--shadow);display:flex;gap:4px}
+    .toggle-btn{padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;background:transparent;color:var(--text-light)}
+    .toggle-btn.active{background:var(--primary);color:var(--white)}
+    .toggle-btn:not(.active):hover{background:var(--bg)}
+
+    /* Header */
+    .header{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:900;padding:16px 0;transition:transform 0.3s}
+    .header.hidden{transform:translateY(-100%)}
+    .header-inner{display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:20px;font-weight:700;color:var(--text)}
+    .logo span{color:var(--primary)}
+    .header-cta{display:none}
+    @media(min-width:768px){.header-cta{display:flex}}
+
+    /* Hero */
+    .hero{padding-top:120px;padding-bottom:80px;background:linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);min-height:90vh;display:flex;align-items:center}
+    .hero-inner{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+    @media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr}}
+    .hero-content{padding-top:20px}
+    .hero-tag{display:inline-block;padding:6px 14px;background:rgba(14,165,233,0.1);color:var(--primary);border-radius:50px;font-size:13px;font-weight:600;margin-bottom:16px}
+    .hero h1{font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.2;margin-bottom:20px;color:var(--text)}
+    .hero p{font-size:18px;color:var(--text-light);margin-bottom:32px;max-width:500px}
+    .hero-cta{display:flex;flex-direction:column;gap:12px}
+    @media(min-width:480px){.hero-cta{flex-direction:row}}
+    .hero-image{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg)}
+    .hero-image img{width:100%;height:100%;object-fit:cover}
+    .hero-badge{position:absolute;bottom:20px;left:20px;background:var(--white);padding:16px 20px;border-radius:12px;box-shadow:var(--shadow)}
+    .hero-badge h4{font-size:14px;color:var(--text-light);margin-bottom:4px}
+    .hero-badge p{font-size:18px;font-weight:700;color:var(--primary)}
+
+    /* Trust Strip */
+    .trust-strip{background:var(--white);padding:40px 0;border-bottom:1px solid var(--border)}
+    .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    @media(min-width:600px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
+    .trust-item{text-align:center}
+    .trust-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:var(--white)}
+    .trust-item h4{font-size:15px;font-weight:600;margin-bottom:4px}
+    .trust-item p{font-size:13px;color:var(--text-light)}
+
+    /* Services */
+    .section{padding:80px 0}
+    .section-header{text-align:center;margin-bottom:48px}
+    .section-header h2{font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:12px}
+    .section-header p{font-size:18px;color:var(--text-light);max-width:600px;margin:0 auto}
+    .services-grid{display:grid;grid-template-columns:1fr;gap:24px}
+    @media(min-width:600px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+    .service-card{background:var(--white);padding:32px;border-radius:16px;border:1px solid var(--border);transition:all 0.3s}
+    .service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary)}
+    .service-icon{width:56px;height:56px;background:linear-gradient(135deg,rgba(14,165,233,0.1),rgba(20,184,166,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:28px}
+    .service-card h3{font-size:18px;font-weight:600;margin-bottom:8px}
+    .service-card p{font-size:14px;color:var(--text-light);line-height:1.6}
+    .service-note{font-size:12px;color:var(--text-light);font-style:italic;margin-top:12px}
+
+    /* Booking Feature */
+    .booking-section{background:linear-gradient(135deg,#0EA5E9 0%,#0284C7 100%);color:var(--white)}
+    .booking-section .section-header h2{color:var(--white)}
+    .booking-section .section-header p{color:rgba(255,255,255,0.9)}
+    .booking-ui{background:var(--white);border-radius:20px;padding:40px;max-width:700px;margin:0 auto;box-shadow:var(--shadow-lg);color:var(--text)}
+    .booking-step{margin-bottom:24px}
+    .booking-step:last-child{margin-bottom:0}
+    .booking-label{font-size:14px;font-weight:600;color:var(--text-light);margin-bottom:8px;display:block}
+    .booking-select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-size:16px;font-family:inherit;transition:border-color 0.2s;background:var(--white)}
+    .booking-select:focus{outline:none;border-color:var(--primary)}
+    .booking-dates{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+    .booking-date{min-width:80px;padding:16px 12px;border:2px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--white)}
+    .booking-date:hover{border-color:var(--primary)}
+    .booking-date.selected{border-color:var(--primary);background:rgba(14,165,233,0.1)}
+    .booking-date .day{font-size:13px;color:var(--text-light);display:block}
+    .booking-date .date{font-size:20px;font-weight:700;display:block;margin-top:4px}
+    .booking-time{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-size:16px;font-family:inherit;transition:border-color 0.2s;background:var(--white)}
+    .booking-time:focus{outline:none;border-color:var(--primary)}
+    .booking-note{font-size:12px;color:var(--text-light);text-align:center;margin-top:16px;font-style:italic}
+
+    /* Gallery */
+    .gallery-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+    .gallery-item{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;background:var(--border)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+    .gallery-item:hover img{transform:scale(1.05)}
+
+    /* Contact Form */
+    .contact-section{background:var(--white)}
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:40px}
+    @media(min-width:800px){.contact-grid{grid-template-columns:1fr 1fr}}
+    .contact-info h3{font-size:22px;font-weight:700;margin-bottom:20px}
+    .contact-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px}
+    .contact-icon{width:40px;height:40px;background:rgba(14,165,233,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--primary);flex-shrink:0}
+    .contact-item h4{font-size:15px;font-weight:600;margin-bottom:2px}
+    .contact-item p{font-size:14px;color:var(--text-light)}
+    .contact-form{background:var(--bg);padding:32px;border-radius:16px}
+    .form-group{margin-bottom:16px}
+    .form-label{display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:var(--text)}
+    .form-input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;transition:border-color 0.2s}
+    .form-input:focus{outline:none;border-color:var(--primary)}
+    .form-textarea{min-height:120px;resize:vertical}
+    .form-note{font-size:12px;color:var(--text-light);margin-top:8px;font-style:italic}
+
+    /* CTA Band */
+    .cta-band{background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);padding:80px 0;text-align:center;color:var(--white)}
+    .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:16px}
+    .cta-band p{font-size:18px;color:rgba(255,255,255,0.8);max-width:500px;margin:0 auto 32px}
+
+    /* Footer */
+    .footer{background:var(--white);border-top:1px solid var(--border);padding:32px 0;text-align:center}
+    .footer p{font-size:14px;color:var(--text-light)}
+
+    /* Mobile CTA Bar */
+    .mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--border);padding:12px 20px;z-index:800;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}
+    @media(max-width:767px){.mobile-cta{display:flex;gap:8px}}
+    .mobile-cta .btn{flex:1;padding:12px}
+
+    /* Maik Chat FAB */
+    .fab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;background:var(--white);border-radius:50%;box-shadow:var(--shadow-lg);cursor:pointer;z-index:999;display:flex;align-items:center;justify-content:center;transition:transform 0.2s;border:none}
+    .fab:hover{transform:scale(1.05)}
+    .fab-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;position:relative}
+    .fab-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--accent);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.1)}}
+    @media(max-width:767px){.fab{bottom:80px;right:22px}}
+
+    /* Chat Panel */
+    .chat-panel{position:fixed;bottom:90px;right:22px;width:340px;max-width:calc(100vw - 44px);background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);z-index:999;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--border)}
+    .chat-panel.open{display:flex}
+    @media(max-width:767px){.chat-panel{bottom:100px}}
+    .chat-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);padding:16px;display:flex;justify-content:space-between;align-items:center}
+    .chat-header h3{font-size:16px;font-weight:600}
+    .chat-close{background:none;border:none;color:var(--white);cursor:pointer;font-size:20px;padding:4px}
+    .chat-messages{flex:1;max-height:350px;overflow-y:auto;padding:16px;background:var(--bg)}
+    .message{margin-bottom:12px;display:flex;gap:8px}
+    .message.user{flex-direction:row-reverse}
+    .message-bubble{padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.5;max-width:85%}
+    .message.maik .message-bubble{background:var(--white);border:1px solid var(--border)}
+    .message.user .message-bubble{background:var(--primary);color:var(--white)}
+    .message-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0}
+    .message.maik .message-avatar{margin-top:2px}
+    .message-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .message-btn{padding:8px 14px;border:1px solid var(--border);border-radius:20px;font-size:13px;font-weight:500;background:var(--white);cursor:pointer;transition:all 0.2s}
+    .message-btn:hover{border-color:var(--primary);color:var(--primary)}
+    .chat-input{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--white)}
+    .chat-input input{flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit}
+    .chat-input input:focus{outline:none;border-color:var(--primary)}
+    .chat-input button{background:var(--primary);color:var(--white);border:none;padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
+    .chat-input button:hover{background:var(--primary-dark)}
+
+    /* Reveal Animation */
+    .reveal{opacity:0;transform:translateY(20px);transition:all 0.6s ease-out}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+
+    /* Location for mobile chat */
+    @media(max-width:767px){.chat-panel{right:20px;bottom:90px}}
+  </style>
+</head>
+<body>
+  <!-- Before/After Toggle -->
+  <div class="before-after-toggle">
+    <a href="https://www.augusta-physiotherapie.de" target="_blank" class="toggle-btn">Vorher</a>
+    <button class="toggle-btn active">Nachher</button>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <div class="logo">Augusta<span>Physio</span></div>
+      <a href="tel:+49621406618" class="btn btn-primary header-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +49 621 406618
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Liebscher&Bracht Schmerztherapiezentrum</span>
+        <h1>Herzlich Willkommen in der Augusta Physiotherapie und dem Liebscher&Bracht Schmerztherapiezentrum in Mannheim</h1>
+        <p>Schmerzfrei. Beweglich. Belastbar. Spezialisierte Therapie für Ihre individuelle Genesung.</p>
+        <div class="hero-cta">
+          <a href="#booking" class="btn btn-primary">Termin vereinbaren</a>
+          <a href="#contact" class="btn btn-secondary">Kontakt aufnehmen</a>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://www.augusta-physiotherapie.de/wp-content/uploads/2022/12/cropped-Team-scaled-1-1024x614.jpeg" alt="Team der Augusta Physiotherapie Mannheim" width="1024" height="614" loading="eager">
+        <div class="hero-badge">
+          <h4>Ihr Ansprechpartner</h4>
+          <p>Für Mannheim & Umgebung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="trust-icon">✓</div>
+          <h4>Erfahrene Therapeuten</h4>
+          <p>Fachkundige Betreuung</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">★</div>
+          <h4>Liebscher&Bracht</h4>
+          <p>Original-Methode</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">⚡</div>
+          <h4>Schnelle Termine</h4>
+          <p>Aktuell verfügbar</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-icon">♥</div>
+          <h4>Individuell</h4>
+          <p>Auf Sie zugeschnitten</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Spezialisierte Therapieformen für Ihre Beschwerden</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🏥</div>
+          <h3>Liebscher&Bracht Schmerztherapie</h3>
+          <p>Ganzheitliche Behandlung von Schmerzen an Bewegungsapparat und Wirbelsäule durch gezielte Übungen und manuelle Techniken.</p>
+          <p class="service-note">(Beispiel – genaue Leistungen bitte erfragen)</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💆</div>
+          <h3>Klassische Physiotherapie</h3>
+          <p>Individuelle Behandlung nach ärztlicher Verordnung zur Wiederherstellung der Beweglichkeit und Schmerzlinderung.</p>
+          <p class="service-note">(Beispiel – genaue Leistungen bitte erfragen)</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🎯</div>
+          <h3>Manuelle Therapie</h3>
+          <p>Gezielte Handgriffe zur Besserung von Gelenkfunktionen und Schmerzlinderung bei Funktionsstörungen.</p>
+          <p class="service-note">(Beispiel – genaue Leistungen bitte erfragen)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="section booking-section" id="booking">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Termin online vereinbaren</h2>
+        <p>Einfach, schnell und bequem – Ihren Wunschtermin wählen</p>
+      </div>
+      <div class="booking-ui reveal">
+        <div class="booking-step">
+          <label class="booking-label">Behandlung wählen</label>
+          <select class="booking-select">
+            <option>Bitte wählen …</option>
+            <option>Ersttermin / Beratung</option>
+            <option>Folgebehandlung Physiotherapie</option>
+            <option>Liebscher&Bracht Therapie</option>
+            <option>Schmerztherapie</option>
+          </select>
+        </div>
+        <div class="booking-step">
+          <label class="booking-label">Bevorzugtes Datum</label>
+          <div class="booking-dates">
+            <div class="booking-date">
+              <span class="day">Mo</span>
+              <span class="date">23</span>
+            </div>
+            <div class="booking-date selected">
+              <span class="day">Di</span>
+              <span class="date">24</span>
+            </div>
+            <div class="booking-date">
+              <span class="day">Mi</span>
+              <span class="date">25</span>
+            </div>
+            <div class="booking-date">
+              <span class="day">Do</span>
+              <span class="date">26</span>
+            </div>
+            <div class="booking-date">
+              <span class="day">Fr</span>
+              <span class="date">27</span>
+            </div>
+          </div>
+        </div>
+        <div class="booking-step">
+          <label class="booking-label">Uhrzeit wählen</label>
+          <select class="booking-time">
+            <option>Bitte wählen …</option>
+            <option>08:30 – 09:00 Uhr</option>
+            <option>09:00 – 09:30 Uhr</option>
+            <option>09:30 – 10:00 Uhr</option>
+            <option>10:00 – 10:30 Uhr</option>
+            <option>10:30 – 11:00 Uhr</option>
+            <option>14:00 – 14:30 Uhr</option>
+            <option>14:30 – 15:00 Uhr</option>
+            <option>15:00 – 15:30 Uhr</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width:100%">Termin anfragen</button>
+        <p class="booking-note">(Beispiel-UI – reine Konzept-Darstellung ohne Backend)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Praxis</h2>
+        <p>Ein Blick in unser Behandlungszentrum in Mannheim</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.augusta-physiotherapie.de/wp-content/uploads/2016/01/augusta-praxis-gang-1024x422.jpg" alt="Praxisgang Augusta Physiotherapie Mannheim" width="1024" height="422" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.augusta-physiotherapie.de/wp-content/uploads/2022/12/cropped-Team-scaled-1-1536x922.jpeg" alt="Team Augusta Physiotherapie Mannheim" width="1536" height="922" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontakt aufnehmen</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Adresse</h4>
+              <p>Mannheim</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <p><a href="tel:+49621406618">+49 621 406618</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@augusta-physiotherapie.de">info@augusta-physiotherapie.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div>
+              <h4>Aktuelle Website</h4>
+              <p><a href="https://www.augusta-physiotherapie.de" target="_blank">augusta-physiotherapie.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <form>
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input type="text" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-Mail *</label>
+              <input type="email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon</label>
+              <input type="tel" class="form-input" placeholder="Für Rückrufe">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nachricht *</label>
+              <textarea class="form-input form-textarea" placeholder="Ihre Anfrage …" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+            <p class="form-note">(Beispiel-Formular – ohne Backend)</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für schmerzfreie Bewegung?</h2>
+      <p>Vereinbaren Sie jetzt Ihren Termin bei der Augusta Physiotherapie in Mannheim.</p>
+      <a href="#booking" class="btn btn-primary" style="background:var(--white);color:var(--text)">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Concept Preview · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49621406618" class="btn btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Anrufen
+    </a>
+    <a href="#booking" class="btn btn-primary">Termin buchen</a>
+  </div>
+
+  <!-- Maik Chat FAB -->
+  <button class="fab" id="chatFab" aria-label="Chat mit Maik öffnen">
+    <img src="/assets/mz9/maik.jpg" alt="Maik" class="fab-avatar">
+  </button>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h3>Chat mit Maik</h3>
+      <button class="chat-close" id="chatClose">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message maik">
+        <img src="/assets/mz9/maik.jpg" alt="Maik" class="message-avatar">
+        <div class="message-bubble">
+          Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<br><br>
+          • Kein Kontaktformular – Interessenten können nur telefonisch oder per E-Mail Kontakt aufnehmen, was vielen zu umständlich ist.<br>
+          • WordPress (potenziell veraltbar) – Kann bei fehlenden Updates zu Sicherheits- und Performance-Problemen führen.<br><br>
+          Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Nachricht schreiben …">
+      <button id="chatSend">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll state
+    let lastScroll=0,headerHidden=false;
+    window.addEventListener('scroll',()=>{
+      const y=window.scrollY;
+      const header=document.getElementById('header');
+      if(y>lastScroll&&y>80){header.classList.add('hidden');headerHidden=true}
+      else if(y<lastScroll||y<50){header.classList.remove('hidden');headerHidden=false}
+      lastScroll=y;
+    });
+
+    // Reveal animations
+    const observer=new IntersectionObserver(e=>e.forEach(el=>el.isIntersecting&&el.target.classList.add('in')),{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Booking date selection
+    document.querySelectorAll('.booking-date').forEach(el=>el.addEventListener('click',()=>{
+      document.querySelectorAll('.booking-date').forEach(d=>d.classList.remove('selected'));
+      el.classList.add('selected');
+    }));
+
+    // Chat functionality
+    const fab=document.getElementById('chatFab'),panel=document.getElementById('chatPanel'),closeBtn=document.getElementById('chatClose'),messages=document.getElementById('chatMessages'),input=document.getElementById('chatInput'),sendBtn=document.getElementById('chatSend');
+    let chatStep=1;
+    fab.addEventListener('click',()=>panel.classList.add('open'));
+    closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
+
+    function addMessage(text,isUser=false){
+      const div=document.createElement('div');
+      div.className=`message ${isUser?'user':'maik'}`;
+      div.innerHTML=`
+        ${!isUser?'<img src="/assets/mz9/maik.jpg" alt="Maik" class="message-avatar">':''}
+        <div class="message-bubble">${text}</div>
+      `;
+      messages.appendChild(div);
+      messages.scrollTop=messages.scrollHeight;
+    }
+
+    function addButtons(buttons){
+      const div=document.createElement('div');
+      div.className='message-buttons';
+      buttons.forEach(btn=>{
+        const b=document.createElement('button');
+        b.className='message-btn';
+        b.textContent=btn.label;
+        b.addEventListener('click',()=>{
+          document.querySelectorAll('.message-buttons').forEach(el=>el.remove());
+          btn.action();
+        });
+        div.appendChild(b);
+      });
+      messages.appendChild(div);
+      messages.scrollTop=messages.scrollHeight;
+    }
+
+    function handleUserMessage(msg){
+      addMessage(msg,true);
+      input.value='';
+      setTimeout(()=>handleChatResponse(msg),800);
+    }
+
+    function handleChatResponse(msg){
+      if(chatStep===2){
+        if(msg.includes('besser')||msg.includes('gut')||msg.includes('danke')){
+          chatStep=3;
+          addMessage('Danke für das Feedback. Welche Verbesserung wäre für euch aktuell am interessantesten?');
+          addButtons([
+            {label:'Mehr Anfragen',action:()=>{
+              chatStep=4;
+              addMessage('Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?');
+            }},
+            {label:'Moderneres Erscheinungsbild',action:()=>{
+              chatStep=5;
+              addMessage('Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+            }},
+            {label:'Bessere mobile Darstellung',action:()=>{
+              chatStep=4;
+              addMessage('Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?');
+            }},
+            {label:'Etwas anderes',action:()=>{
+              chatStep=5;
+              addMessage('Interessant – woran liegt euch am meisten? Ich kann gerne Details erklären.');
+            }}
+          ]);
+        }else{
+          addMessage('Verstehe. Möchtet ihr mehr darüber erfahren, wie ein moderner Webauftritt für Physiotherapiepraxen aussehen kann?');
+        }
+      }else if(chatStep===4||chatStep===5){
+        addMessage('Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+      }else{
+        addMessage('Danke für Ihre Nachricht. Ich bin hier, um Ihnen Fragen zu diesem Concept Preview zu beantworten. Was möchten Sie wissen?');
+      }
+    }
+
+    sendBtn.addEventListener('click',()=>{
+      if(input.value.trim())handleUserMessage(input.value.trim());
+    });
+    input.addEventListener('keypress',e=>{if(e.key==='Enter'&&input.value.trim())handleUserMessage(input.value.trim())});
+
+    // Initial question
+    setTimeout(()=>{
+      addMessage('Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?');
+      addButtons([
+        {label:'👍 Deutlich besser',action:()=>{
+          chatStep=2;
+          addMessage('Schön zu hören! Was gefällt euch besonders gut?');
+        }},
+        {label:'😐 Etwas besser',action:()=>{
+          chatStep=2;
+          addMessage('Danke für das ehrliche Feedback. Was könnte noch verbessert werden?');
+        }},
+        {label:'👎 Kein großer Unterschied',action:()=>{
+          chatStep=2;
+          addMessage('Verstehe. Was fehlt euch, damit es sich deutlich verbessert anfühlt?');
+        }}
+      ]);
+    },2500);
+
+    // Close chat when clicking outside
+    document.addEventListener('click',e=>{
+      if(!fab.contains(e.target)&&!panel.contains(e.target))panel.classList.remove('open');
+    });
+  </script>
+</body>
+</html>

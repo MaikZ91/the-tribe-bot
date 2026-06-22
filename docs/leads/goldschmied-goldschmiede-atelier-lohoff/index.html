@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Goldschmiede Atelier Lohoff – Handgefertigte Schmuckstücke in Mannheim</title>
+  <meta name="description" content="Goldschmiede Atelier Lohoff in Mannheim – handgefertigte Schmuckstücke, persönliche Beratung und exklusive Unikate. Vereinbaren Sie jetzt Ihren Beratungstermin.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #C9A962;
+      --gold-light: #E8D5A3;
+      --cream: #FAF7F2;
+      --charcoal: #2C2C2C;
+      --charcoal-light: #4A4A4A;
+      --white: #FFFFFF;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: 0.3s;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+    header .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    header nav { display: none; }
+    @media(min-width: 768px) {
+      header nav { display: flex; gap: 32px; font-size: 0.95rem; font-weight: 500; }
+      header nav a:hover { color: var(--gold); }
+    }
+    header .tel { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--gold); }
+
+    /* Before/After Toggle */
+    .before-after {
+      position: fixed;
+      top: 72px;
+      right: 24px;
+      z-index: 99;
+      display: flex;
+      background: var(--white);
+      border-radius: 50px;
+      padding: 6px;
+      box-shadow: var(--shadow);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    @media(max-width: 767px) {
+      .before-after { top: auto; bottom: 80px; right: 16px; }
+    }
+    .before-after a {
+      padding: 8px 20px;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+    .before-after .before { color: var(--charcoal-light); }
+    .before-after .before:hover { background: #f5f5f5; }
+    .before-after .after {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('http://goldschmiede-mannheim.de/trollbeads.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+    }
+    .hero .inner {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--gold); font-style: italic; }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: #B8944D;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201, 169, 98, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
+      margin-left: 12px;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* Trust Strip */
+    .trust {
+      background: var(--white);
+      padding: 48px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    @media(max-width: 767px) {
+      .trust-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .trust-item h4 {
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .trust-item p {
+      font-size: 0.9rem;
+      color: var(--charcoal-light);
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    /* Services */
+    .services {
+      padding: 96px 0;
+      background: var(--cream);
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .section-title span {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .section-title p {
+      font-size: 1rem;
+      color: var(--charcoal-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .service-card h3 {
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--charcoal-light);
+      line-height: 1.7;
+    }
+    .service-card .icon {
+      width: 56px;
+      height: 56px;
+      background: var(--cream);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media(max-width: 767px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+      opacity: 0;
+      transition: 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
+    .gallery-item .overlay span {
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--charcoal) 0%, #3a3a3a 100%);
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band img {
+      width: 100%;
+      max-width: 800px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 0 auto 32px;
+      opacity: 0.9;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 96px 0;
+      background: var(--cream);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    @media(max-width: 767px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .contact-info h3 {
+      font-size: 1.6rem;
+      margin-bottom: 32px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-item .icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .contact-item h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .contact-item p, .contact-item a {
+      color: var(--charcoal-light);
+      font-size: 0.95rem;
+    }
+    .contact-item a:hover { color: var(--gold); }
+    .contact-form {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+    .contact-form h3 {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media(max-width: 767px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--charcoal-light);
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    footer span { color: var(--gold); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 24px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 98;
+      display: flex;
+      justify-content: center;
+    }
+    @media(min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+    .mobile-cta .btn {
+      padding: 12px 28px;
+      font-size: 0.95rem;
+    }
+
+    /* Maik Chat */
+    .fab {
+      position: fixed;
+      bottom: 90px;
+      right: 22px;
+      z-index: 1000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    @media(min-width: 768px) {
+      .fab { bottom: 22px; }
+    }
+    .fab-inner {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .fab-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fab-ring {
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 160px;
+      right: 22px;
+      width: 360px;
+      max-width: calc(100vw - 44px);
+      height: 500px;
+      max-height: calc(100vh - 200px);
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    @media(min-width: 768px) {
+      .chat-panel { bottom: 92px; }
+    }
+    .chat-panel.open { display: flex; }
+    .chat-header {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chat-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .chat-header-info h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; }
+    .chat-header-info span { font-size: 0.8rem; color: var(--gold); }
+    .chat-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .message {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .message.maik {
+      background: var(--cream);
+      color: var(--charcoal);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .message.user {
+      background: var(--gold);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .message ul {
+      margin: 12px 0;
+      padding-left: 20px;
+    }
+    .message li {
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+    }
+    .message-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .message-btn {
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .message-btn:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .chat-input {
+      padding: 16px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+    .chat-input input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .chat-input button {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border: none;
+      border-radius: 50%;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.2s;
+    }
+    .chat-input button:hover {
+      background: #B8944D;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.6s ease-out;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container inner">
+      <a href="#" class="logo">Goldschmiede Lohoff</a>
+      <nav>
+        <a href="#services">Leistungen</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+      <a href="tel:+496211224424" class="tel">
+        <span>📞</span>
+        +49 621 1224424
+      </a>
+    </div>
+  </header>
+
+  <!-- Before/After Toggle -->
+  <div class="before-after">
+    <a href="http://www.goldschmiede-mannheim.de" target="_blank" class="before">Vorher</a>
+    <a href="#" class="after">Nachher</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container inner">
+      <h1>Handgefertigter Schmuck aus <span>Mannheim</span></h1>
+      <p>Einzigartige Unikate, die Geschichte erzählen. Persönliche Beratung in unserem Atelier – von der ersten Skizze bis zum fertigen Schmuckstück.</p>
+      <div>
+        <a href="#contact" class="btn btn-primary">Beratungstermin vereinbaren</a>
+        <a href="#gallery" class="btn btn-outline">Galerie ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">💎</div>
+        <h4>Handgefertigt</h4>
+        <p>Jedes Stück wird mit Liebe zum Detail in unserer Mannheimer Werkstatt gefertigt.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🤝</div>
+        <h4>Persönliche Beratung</h4>
+        <p>Wir nehmen uns Zeit für Ihre Wünsche und finden gemeinsam den perfekten Schmuck.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✨</div>
+        <h4>Hochwertige Materialien</h4>
+        <p>Arbeiten wir ausschließlich mit edlen Metallen und ausgewählten Steinen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Unsere <span>Leistungen</span></h2>
+        <p>Von der individuellen Anfertigung bis zur liebevollen Reparatur – wir sind Ihr Partner für alles rund um Schmuck.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="icon">⚒️</div>
+          <h3>Individuelle Anfertigung</h3>
+          <p>Lassen Sie Ihren Traum schmuck von uns verwirklichen. Trauringe, Anhänger oder Ringe – wir gestalten genau das, was Sie sich wünschen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="icon">🔧</div>
+          <h3>Reparatur & Pflege</h3>
+          <p>Schmuck vergisst man nicht. Wir reparieren Ihre Lieblingsstücke fachgerecht und bringen alten Glanz zurück.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="icon">💍</div>
+          <h3>Beratung</h3>
+          <p>Ob für einen besonderen Anlass oder den Alltag – wir beraten Sie ganzheitlich und finden den passenden Schmuck.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Unsere <span>Galerie</span></h2>
+        <p>Ein Auszug unserer Arbeit – jedes Stück ein Unikat, erzählt eine eigene Geschichte.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/becker.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Unikat</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/4223klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Handgefertigt</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/5236klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Unikat</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/5229klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Exklusiv</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/5232klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Handgefertigt</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/5233klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Unikat</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/5235klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Exklusiv</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://goldschmiede-mannheim.de/6003klein.jpg" alt="Schmuckstück von Goldschmiede Lohoff" loading="lazy">
+          <div class="overlay"><span>Handgefertigt</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Bereit für Ihren perfekten Schmuck?</h2>
+      <p>Vereinbaren Sie einen kostenlosen Beratungstermin in unserem Atelier in Mannheim. Wir freuen uns auf Sie!</p>
+      <img src="http://goldschmiede-mannheim.de/trollbeads.jpg" alt="Atelieransicht" loading="lazy">
+      <a href="#contact" class="btn btn-primary">Jetzt Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Adresse</h4>
+              <p>Mannheim</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <a href="tel:+496211224424">+49 621 1224424</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <a href="mailto:mail@goldschmiede-mannheim.de">mail@goldschmiede-mannheim.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <h3>Beratungstermin anfragen</h3>
+          <form id="inquiry-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" placeholder="Für Rückrufe">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" required placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label for="interest">Interesse an</label>
+              <select id="interest">
+                <option value="">Bitte wählen...</option>
+                <option value="anfertigung">Individuelle Anfertigung</option>
+                <option value="reparatur">Reparatur / Pflege</option>
+                <option value="beratung">Allgemeine Beratung</option>
+                <option value="anderes">Anderes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht *</label>
+              <textarea id="message" required placeholder="Erzählen Sie uns von Ihrem Projekt oder Ihrer Frage..."></textarea>
+            </div>
+            <p class="form-note">Dies ist ein Konzept-Preview. Das Formular demonstriert die Funktionalität.</p>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      Concept Preview · MZ.9 <span>·</span> Keine offizielle Seite von Goldschmiede Atelier Lohoff
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#contact" class="btn btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <!-- Maik Chat -->
+  <div class="fab" id="fab" style="display: none;">
+    <div class="fab-inner">
+      <img src="../assets/mz9/maik.jpg" alt="Maik">
+      <div class="fab-ring"></div>
+    </div>
+  </div>
+
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-header">
+      <img src="../assets/mz9/maik.jpg" alt="Maik">
+      <div class="chat-header-info">
+        <h4>Maik</h4>
+        <span>Online</span>
+      </div>
+      <button class="chat-close" id="chat-close">×</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="chat-input" placeholder="Nachricht schreiben...">
+      <button id="chat-send">→</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Chat functionality
+    const fab = document.getElementById('fab');
+    const chatPanel = document.getElementById('chat-panel');
+    const chatClose = document.getElementById('chat-close');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+
+    const problems = [
+      { text: "Ohne sichere Verbindung (HTTPS) wirkt die Seite nicht vertrauenswürdig – Kunden zögern, persönliche Daten zu hinterlassen." },
+      { text: "Schlechte Darstellung auf Smartphones – viele Besucher springen ab, bevor sie Kontakt aufnehmen." },
+      { text: "Kein einfacher Weg für Anfragen – Kunden müssen telefonieren, was viele scheuen." }
+    ];
+
+    let chatStep = 0;
+    let chatStarted = false;
+
+    function addMessage(text, isMaik = true, buttons = null) {
+      const msg = document.createElement('div');
+      msg.className = `message ${isMaik ? 'maik' : 'user'}`;
+      msg.innerHTML = text + (buttons ? `<div class="message-buttons">${buttons.map(b => `<button class="message-btn" data-action="${b.action}">${b.label}</button>`).join('')}</div>` : '');
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      if (buttons) {
+        msg.querySelectorAll('.message-btn').forEach(btn => {
+          btn.addEventListener('click', () => handleChatAction(btn.dataset.action, btn.dataset.label));
+        });
+      }
+    }
+
+    function startChat() {
+      if (chatStarted) return;
+      chatStarted = true;
+
+      addMessage(`Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<ul>${problems.map(p => `<li>${p.text}</li>`).join('')}</ul>Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.`);
+
+      setTimeout(() => {
+        addMessage('Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?', true, [
+          { label: '👍 Deutlich besser', action: 'positive' },
+          { label: '😐 Etwas besser', action: 'neutral' },
+          { label: '👎 Kein großer Unterschied', action: 'negative' }
+        ]);
+      }, 800);
+    }
+
+    function handleChatAction(action, label) {
+      if (chatStep === 1) {
+        if (action === 'positive' || action === 'neutral') {
+          addMessage(label, false);
+          chatStep = 2;
+          setTimeout(() => {
+            addMessage('Danke für das Feedback. Welche Verbesserung wäre für euch aktuell am interessantesten?', true, [
+              { label: 'Mehr Anfragen', action: 'more-requests' },
+              { label: 'Mehr Terminbuchungen', action: 'more-bookings' },
+              { label: 'Moderneres Erscheinungsbild', action: 'modern-look' },
+              { label: 'Bessere mobile Darstellung', action: 'better-mobile' },
+              { label: 'Bessere Google-Sichtbarkeit', action: 'better-seo' },
+              { label: 'Etwas anderes', action: 'other' }
+            ]);
+          }, 500);
+        } else {
+          addMessage(label, false);
+          addMessage('Verstehe. Ich bin da, falls ihr Fragen oder Feedback habt – schreibt mir einfach!');
+        }
+      } else if (chatStep === 2) {
+        addMessage(label, false);
+        chatStep = 3;
+        setTimeout(() => {
+          let followUp = '';
+          if (action === 'more-requests') {
+            followUp = 'Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?';
+          } else if (action === 'better-seo') {
+            followUp = 'Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?';
+          } else if (action === 'better-mobile') {
+            followUp = 'Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?';
+          } else {
+            followUp = 'Interessant! Was wäre euch da am wichtigsten?';
+          }
+          addMessage(followUp, true);
+        }, 500);
+      } else if (chatStep === 3) {
+        addMessage(label, false);
+        setTimeout(() => {
+          addMessage('Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.');
+        }, 500);
+      }
+    }
+
+    // Show FAB after delay
+    setTimeout(() => {
+      fab.style.display = 'block';
+      startChat();
+    }, 2500);
+
+    fab.addEventListener('click', () => {
+      chatPanel.classList.toggle('open');
+      if (chatPanel.classList.contains('open')) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatPanel.classList.remove('open');
+    });
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addMessage(text, false);
+      chatInput.value = '';
+      if (!chatStarted) {
+        chatStarted = true;
+        chatStep = 1;
+        setTimeout(() => {
+          addMessage(`Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<ul>${problems.map(p => `<li>${p.text}</li>`).join('')}</ul>Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mobile Nutzer, Vertrauen und mehr Anfragen optimiert ist.`);
+          setTimeout(() => {
+            addMessage('Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?', true, [
+              { label: '👍 Deutlich besser', action: 'positive' },
+              { label: '😐 Etwas besser', action: 'neutral' },
+              { label: '👎 Kein großer Unterschied', action: 'negative' }
+            ]);
+          }, 800);
+        }, 500);
+      } else {
+        setTimeout(() => {
+          addMessage('Danke für deine Nachricht! Ich melde mich so schnell wie möglich zurück.');
+        }, 500);
+      }
+    }
+
+    // Form submission (demo)
+    document.getElementById('inquiry-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Dies ist ein Konzept-Preview. In der fertigen Version würde Ihre Anfrage per E-Mail an mail@goldschmiede-mannheim.de gesendet werden.');
+    });
+  </script>
+</body>
+</html>
