@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Goldankauf in Münster | Goldfried – Konzept-Vorschau</title>
+  <meta name="description" content="Gold einfach & sicher verkaufen in Münster. Wir beraten Sie rund um Ihren Edelmetall-Ankauf und Verkauf. Vertrauen Sie auf jahrelange Expertise.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A227;
+      --gold-dark: #A78823;
+      --navy: #1A1A2E;
+      --navy-light: #2A2A3E;
+      --cream: #FAFAFA;
+      --text: #2C2C2C;
+      --text-light: #6A6A6A;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; color: var(--navy); }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: color 0.2s; }
+
+    /* Header */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); transition: all 0.3s; }
+    .header.scrolled { background: rgba(255,255,255,0.98); box-shadow: var(--shadow-md); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--navy); }
+    .logo span { color: var(--gold); }
+    .nav-link { font-weight: 500; color: var(--navy); padding: 0.5rem 1rem; }
+    .nav-link:hover { color: var(--gold); }
+    .btn-cta { background: var(--gold); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 600; transition: all 0.2s; }
+    .btn-cta:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero { position: relative; min-height: 85vh; display: flex; align-items: center; background: var(--navy); color: var(--white); overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); }
+    .hero-image { position: absolute; right: 0; top: 0; bottom: 0; width: 55%; object-fit: cover; opacity: 0.9; mask-image: linear-gradient(to right, transparent, black 30%); -webkit-mask-image: linear-gradient(to right, transparent, black 30%); }
+    .hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; width: 100%; }
+    .hero-text { max-width: 550px; }
+    .hero-tag { display: inline-block; background: rgba(201,162,39,0.2); color: var(--gold); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero p { font-size: 1.125rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-hero { background: var(--gold); color: var(--white); padding: 1rem 2rem; border-radius: 999px; font-weight: 600; font-size: 1.0625rem; transition: all 0.3s; }
+    .btn-hero:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,39,0.4); }
+    .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.3); color: var(--white); padding: 1rem 2rem; border-radius: 999px; font-weight: 600; font-size: 1.0625rem; transition: all 0.3s; }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    /* Trust Strip */
+    .trust-strip { background: var(--white); padding: 2rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .trust-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .trust-item { text-align: center; padding: 1rem; }
+    .trust-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .trust-item h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+    .trust-item p { font-size: 0.875rem; color: var(--text-light); }
+
+    /* Process Section */
+    .process { background: var(--cream); padding: 5rem 0; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { display: inline-block; background: rgba(201,162,39,0.1); color: var(--gold); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; margin-bottom: 1rem; letter-spacing: 0.05em; }
+    .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .section-header p { font-size: 1.125rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .process-card { background: var(--white); border-radius: 16px; padding: 2rem 1.5rem; text-align: center; box-shadow: var(--shadow-sm); transition: all 0.3s; border: 1px solid rgba(0,0,0,0.04); }
+    .process-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+    .process-step { width: 48px; height: 48px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; margin: 0 auto 1.5rem; }
+    .process-card h3 { font-family: 'Inter', sans-serif; font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .process-card p { font-size: 0.875rem; color: var(--text-light); line-height: 1.5; }
+
+    /* Gallery */
+    .gallery { background: var(--white); padding: 5rem 0; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .gallery-item { position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); }
+    .gallery-item img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,46,0.7), transparent); display: flex; align-items: flex-end; padding: 1.5rem; opacity: 0; transition: opacity 0.3s; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay h3 { color: var(--white); font-family: 'Inter', sans-serif; font-size: 1.0625rem; font-weight: 600; }
+
+    /* Consultation / CTA Band */
+    .consultation { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); padding: 5rem 0; color: var(--white); }
+    .consultation-inner { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; text-align: center; }
+    .consultation h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--white); margin-bottom: 1.5rem; }
+    .consultation p { font-size: 1.125rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+    .consultation-btn { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--gold); color: var(--white); padding: 1rem 2rem; border-radius: 999px; font-weight: 600; font-size: 1.0625rem; transition: all 0.3s; }
+    .consultation-btn:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,39,0.4); }
+
+    /* Contact */
+    .contact { background: var(--cream); padding: 5rem 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-info h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-icon { width: 44px; height: 44px; background: rgba(201,162,39,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .contact-text h4 { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; color: var(--text-light); margin-bottom: 0.25rem; }
+    .contact-text p { font-size: 1rem; font-weight: 500; }
+    .contact-text a { color: var(--gold); }
+    .contact-text a:hover { text-decoration: underline; }
+
+    /* Chatbot Widget */
+    .chatbot { position: fixed; bottom: 100px; right: 1.5rem; z-index: 999; }
+    .chatbot-btn { width: 56px; height: 56px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); cursor: pointer; transition: all 0.3s; }
+    .chatbot-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(201,162,39,0.5); }
+    .chatbot-panel { position: absolute; bottom: 70px; right: 0; width: 320px; background: var(--white); border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s; }
+    .chatbot-panel.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .chatbot-header { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--white); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+    .chatbot-header h4 { font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 600; }
+    .chatbot-close { cursor: pointer; font-size: 1.25rem; opacity: 0.8; }
+    .chatbot-close:hover { opacity: 1; }
+    .chatbot-body { padding: 1.25rem; }
+    .chatbot-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-size: 0.875rem; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .chatbot-input:focus { border-color: var(--gold); }
+    .chatbot-actions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .chatbot-action { background: rgba(201,162,39,0.1); color: var(--gold-dark); padding: 0.625rem 1rem; border-radius: 10px; font-size: 0.8125rem; font-weight: 500; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .chatbot-action:hover { background: var(--gold); color: var(--white); }
+
+    /* Footer */
+    .footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 2rem 0; text-align: center; font-size: 0.8125rem; }
+    .footer a { color: var(--gold); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; background: var(--white); padding: 1rem 1.5rem; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
+    .mobile-cta-btn { width: 100%; background: var(--gold); color: var(--white); padding: 1rem; border-radius: 999px; font-weight: 600; font-size: 1rem; text-align: center; display: block; }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .trust-inner, .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-image { width: 70%; opacity: 0.7; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 70vh; align-items: flex-start; padding-top: 80px; }
+      .hero-image { width: 100%; height: 50%; top: auto; bottom: 0; mask-image: linear-gradient(to bottom, transparent, black 30%); -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%); }
+      .hero-content { padding: 2rem 1.5rem; }
+      .trust-inner, .gallery-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .chatbot { bottom: 80px; right: 1rem; }
+      .chatbot-panel { width: 280px; }
+      .mobile-cta { display: block; }
+      .btn-outline { width: 100%; text-align: center; }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="logo">Gold<span>fried</span></div>
+      <nav style="display: flex; gap: 0.5rem; align-items: center;">
+        <a href="#process" class="nav-link">Ablauf</a>
+        <a href="#gallery" class="nav-link">Galerie</a>
+        <a href="#contact" class="nav-link">Kontakt</a>
+        <a href="tel:+4925114474211" class="btn-cta">Anrufen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="https://www.goldfried.de/wp-content/uploads/2025/02/Goldankauf-Muenster.png" alt="Goldankauf in Münster – Goldfried" class="hero-image" loading="eager">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-tag">Goldankauf in Münster</span>
+        <h1>Gold einfach &<br>sicher verkaufen!</h1>
+        <p>Wir beraten Sie rund um Ihren Edelmetall-Ankauf und Verkauf. Vertrauen Sie auf jahrelange Expertise und faire Preise.</p>
+        <div class="hero-btns">
+          <a href="#consultation" class="btn-hero">Beratungstermin</a>
+          <a href="#process" class="btn-outline">So geht's</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">🛡️</div>
+        <h3>Höhere Sicherheit</h3>
+        <p>Geprüfter Ankaufprozess</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚖️</div>
+        <h3>Faire Preise</h3>
+        <p>Transparente Bewertung</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💳</div>
+        <h3>Schnelle Auszahlung</h3>
+        <p>Sofort nach Prüfung</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="process">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">UNKOMPLIZIERT</span>
+        <h2>So funktioniert der Ankaufprozess</h2>
+        <p>In 4 einfachen Schritten zu Ihrem Geld – schnell, sicher und transparent.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-card reveal">
+          <div class="process-step">1</div>
+          <h3>Termin vereinbaren</h3>
+          <p>Wählen Sie Ihren Wunschtermin für eine persönliche Beratung vor Ort.</p>
+        </div>
+        <div class="process-card reveal">
+          <div class="process-step">2</div>
+          <h3>Prüfung vor Ort</h3>
+          <p>Wir prüfen Ihr Gold professionell und direkt bei Ihnen vor Ort.</p>
+        </div>
+        <div class="process-card reveal">
+          <div class="process-step">3</div>
+          <h3>Preisermittlung</h3>
+          <p>Basierend auf dem aktuellen Tageskurs erhalten Sie ein faires Angebot.</p>
+        </div>
+        <div class="process-card reveal">
+          <div class="process-step">4</div>
+          <h3>Auszahlung</h3>
+          <p>Nach Ihrer Zustimmung erhalten Sie sofort Ihr Geld – unkompliziert.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">EINBLICKE</span>
+        <h2>Unser Service in Bildern</h2>
+        <p>Von der Beratung bis zur Auszahlung – so arbeiten wir.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.goldfried.de/wp-content/uploads/2025/07/Goldfried-Hoehere-Sicherheit.webp" alt="Höhere Sicherheit beim Goldankauf" loading="lazy">
+          <div class="gallery-overlay"><h3>Sicherheit</h3></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.goldfried.de/wp-content/uploads/2025/07/Goldfried-Faire-Preise.webp" alt="Faire Preise für Ihr Gold" loading="lazy">
+          <div class="gallery-overlay"><h3>Faire Preise</h3></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.goldfried.de/wp-content/uploads/2025/07/Goldfried-Schnelle-Auszahlung.webp" alt="Schnelle Auszahlung nach Prüfung" loading="lazy">
+          <div class="gallery-overlay"><h3>Auszahlung</h3></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consultation CTA -->
+  <section class="consultation" id="consultation">
+    <div class="consultation-inner reveal">
+      <h2>Sie wünschen eine persönliche Beratung?</h2>
+      <p>Vertrauen Sie auf jahrelange Expertise. Wir beraten Sie gerne zu Ihrem Edelmetall-Ankauf und Verkauf.</p>
+      <a href="tel:+4925114474211" class="consultation-btn">
+        <span>📞</span>
+        <span>Jetzt anrufen: +49 251 14474211</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <span class="section-tag">KONTAKT</span>
+          <h3>Kontaktieren Sie uns</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Münster</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <p><a href="tel:+4925114474211">+49 251 14474211</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@goldfried.de">info@goldfried.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="section-tag">BERATUNG</span>
+          <h3>Antworten auf Ihre Fragen</h3>
+          <p style="color: var(--text-light); margin-bottom: 1.5rem;">Sie haben Fragen zum Ankaufprozess, den Preisen oder unseren Leistungen? Wir antworten Ihnen gerne.</p>
+          <a href="tel:+4925114474211" class="btn-hero" style="display: inline-block;">Rufen Sie uns an</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot">
+    <div class="chatbot-panel" id="chatbotPanel">
+      <div class="chatbot-header">
+        <h4>Hilfe & Beratung</h4>
+        <span class="chatbot-close" onclick="toggleChatbot()">✕</span>
+      </div>
+      <div class="chatbot-body">
+        <input type="text" class="chatbot-input" placeholder="Ihre Nachricht...">
+        <div class="chatbot-actions">
+          <div class="chatbot-action" onclick="window.location.href='tel:+4925114474211'">📞 Sofort anrufen</div>
+          <div class="chatbot-action" onclick="window.location.href='mailto:info@goldfried.de'">✉️ E-Mail schreiben</div>
+          <div class="chatbot-action" onclick="window.location.href='#consultation'">📅 Termin vereinbaren</div>
+        </div>
+      </div>
+    </div>
+    <div class="chatbot-btn" onclick="toggleChatbot()">💬</div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9 · <a href="https://www.goldfried.de/">goldfried.de</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <a href="tel:+4925114474211" class="mobile-cta-btn">Jetzt anrufen</a>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Chatbot toggle
+    function toggleChatbot() {
+      const panel = document.getElementById('chatbotPanel');
+      panel.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>

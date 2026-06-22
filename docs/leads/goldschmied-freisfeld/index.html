@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juwelier Freisfeld Münster — Schmuckideen und Zeitikonen</title>
+    <meta name="description" content="Juwelier Freisfeld am Prinzipalmarkt in Münster. Exklusive Schmuckideen und Zeitikonen von Cartier, IWC, TUDOR, Omega und mehr. Persönliche Beratung seit Jahrzehnten.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --gold-dark: #9A7B3A;
+            --charcoal: #1A1A1A;
+            --charcoal-light: #2A2A2A;
+            --off-white: #F8F7F4;
+            --off-white-dark: #E8E6E0;
+            --text: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--off-white);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            padding: 1.2rem 2rem;
+        }
+
+        header.scrolled {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            padding: 0.8rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        header.scrolled .logo {
+            color: var(--charcoal);
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        header.scrolled nav a {
+            color: var(--text-light);
+        }
+
+        nav a:hover {
+            color: var(--gold-light);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://www.freisfeld.com/wp-content/uploads/2026/05/Titel-Wechsel_10.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.6) 50%, rgba(26,26,26,0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            padding: 0 2rem;
+            text-align: left;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 650px;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            border-color: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(201,169,98,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--white);
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
+
+        .trust-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .trust-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--gold);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Highlights */
+        .highlights {
+            background: var(--white);
+        }
+
+        .highlights-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .highlight-card {
+            background: var(--off-white);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .highlight-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .highlight-content {
+            padding: 1.5rem;
+        }
+
+        .highlight-tag {
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .highlight-link {
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .highlight-link:hover {
+            color: var(--gold);
+        }
+
+        /* Brands */
+        .brands {
+            background: var(--off-white);
+        }
+
+        .brands-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .brand-card {
+            background: var(--white);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-radius: 2px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--off-white-dark);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold);
+        }
+
+        .brand-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .brand-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--charcoal);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 250px);
+            gap: 0.5rem;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Reviews */
+        .reviews {
+            background: var(--white);
+        }
+
+        .reviews-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--off-white);
+            padding: 2rem;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .review-stars {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .review-author {
+            font-weight: 500;
+            color: var(--charcoal);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Band */
+        .cta-band {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .cta-band h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-band p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-band .btn {
+            background: var(--white);
+            color: var(--gold-dark);
+            border: none;
+            padding: 1rem 3rem;
+        }
+
+        .cta-band .btn:hover {
+            background: var(--off-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--off-white);
+        }
+
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--gold);
+            margin-top: 3px;
+        }
+
+        .contact-item p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--off-white-dark);
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact-form button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .mobile-cta a {
+            display: block;
+            text-align: center;
+            padding: 0.9rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Nav Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled .mobile-nav-toggle span {
+            background: var(--charcoal);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--charcoal);
+            z-index: 999;
+            padding: 4rem 2rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: var(--white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 200px);
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .nav-links,
+            header .header-cta {
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brands-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-item {
+                aspect-ratio: 4/3;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .mobile-cta {
+                display: block;
+            }
+
+            footer {
+                padding-bottom: 5rem;
+            }
+
+            .trust-content {
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">FREISFELD</a>
+            <nav class="nav-links">
+                <a href="#marken">Marken</a>
+                <a href="#highlights">Highlights</a>
+                <a href="#kontakt">Kontakt</a>
+            </nav>
+            <a href="#kontakt" class="header-cta">Beratungstermin</a>
+            <button class="mobile-nav-toggle" aria-label="Menü">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <button class="mobile-nav-close">&times;</button>
+        <a href="#marken">Marken</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#kontakt" style="color: var(--gold);">Beratungstermin</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tag reveal">Seit 1983 in Münster</span>
+            <h1 class="reveal">Schmuckideen und Zeitikonen</h1>
+            <p class="reveal">Exklusive Uhren und Schmuck von Cartier, IWC, TUDOR, Omega und weiteren renommierten Marken. Persönliche Beratung am Prinzipalmarkt.</p>
+            <div class="reveal">
+                <a href="#kontakt" class="btn btn-primary">Beratung vereinbaren</a>
+                <a href="#highlights" class="btn btn-outline">Highlights entdecken</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+        <div class="trust-content">
+            <div class="trust-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                <span>Tradition seit 1983</span>
+            </div>
+            <div class="trust-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z"/></svg>
+                <span>Offizieller Fachhändler</span>
+            </div>
+            <div class="trust-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/></svg>
+                <span>Persönliche Beratung</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlights -->
+    <section class="highlights" id="highlights">
+        <div class="section-header reveal">
+            <span class="section-tag">Highlights</span>
+            <h2>Neuheiten & Zeitikonen</h2>
+            <p>Entdecken Sie aktuelle Highlights und zeitlose Klassiken aus unserer Kollektion.</p>
+        </div>
+        <div class="highlights-grid">
+            <div class="highlight-card reveal">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2026/06/IWC_Banner_Startseite.jpg" alt="IWC Highlights" class="highlight-image" loading="lazy">
+                <div class="highlight-content">
+                    <span class="highlight-tag">IWC Schaffhausen</span>
+                    <h3>IWC Neuheiten</h3>
+                    <p>Entdecken Sie die aktuellen Kollektionen von IWC Schaffhausen. Ingenieurskunst trifft auf Tradition.</p>
+                    <a href="#kontakt" class="highlight-link">Beratung anfragen →</a>
+                </div>
+            </div>
+            <div class="highlight-card reveal">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2025/04/Freisfeld_Start_TudorNeuheiten.jpg" alt="TUDOR Black Bay Chrono" class="highlight-image" loading="lazy">
+                <div class="highlight-content">
+                    <span class="highlight-tag">TUDOR</span>
+                    <h3>Black Bay Chrono "Carbon 26"</h3>
+                    <p>Die legendäre Taucheruhr in limitierter Carbon-Edition. Ein Statement für Kenner.</p>
+                    <a href="#kontakt" class="highlight-link">Informationen anfragen →</a>
+                </div>
+            </div>
+            <div class="highlight-card reveal">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2025/11/Banner-Startseite-Edition44.jpg" alt="Edition 44" class="highlight-image" loading="lazy">
+                <div class="highlight-content">
+                    <span class="highlight-tag">Spezialität</span>
+                    <h3>Edition 44</h3>
+                    <p>Oh, what a day! Die exklusive Edition 44 — ein Unikat für besondere Momente.</p>
+                    <a href="#kontakt" class="highlight-link">Details erfahren →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="brands" id="marken">
+        <div class="section-header reveal">
+            <span class="section-tag">Unsere Marken</span>
+            <h2>Exklusive Partner</h2>
+            <p>Wir sind stolz darauf, exklusiver Fachhändler für diese renommierten Marken zu sein.</p>
+        </div>
+        <div class="brands-grid">
+            <div class="brand-card reveal">
+                <h3>CARTIER</h3>
+                <p>Haute Joaillerie & Uhren</p>
+            </div>
+            <div class="brand-card reveal">
+                <h3>IWC</h3>
+                <p>Swiss Luxury Watches</p>
+            </div>
+            <div class="brand-card reveal">
+                <h3>TUDOR</h3>
+                <p>Watches Born to Dare</p>
+            </div>
+            <div class="brand-card reveal">
+                <h3>OMEGA</h3>
+                <p>Swiss Watch Excellence</p>
+            </div>
+            <div class="brand-card reveal">
+                <h3>BLANCPAIN</h3>
+                <p>Timeless Swiss Watchmaking</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2021/08/Freisfeld_Cartier_08-2021.jpg" alt="Cartier Kollektion" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2026/03/Titel-Wechsel_7-1.jpg" alt="Freisfeld Vitrine" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2020/08/Freisfeld-Omega-Header.jpg" alt="Omega Uhren" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2026/05/Freisfeld_Bricks_Vorschau-Startseite.jpg" alt="Freisfeld Geschäftsansicht" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.freisfeld.com/wp-content/uploads/2021/06/BLANCPAIN_Startseite_web.jpg" alt="Blancpain Uhr" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews">
+        <div class="section-header reveal">
+            <span class="section-tag">Kundenstimmen</span>
+            <h2>Was unsere Kunden sagen</h2>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Hervorragende Beratung beim Kauf meiner ersten TUDOR. Das Team nimmt sich wirklich Zeit und kennt sich perfekt aus."</p>
+                <p class="review-author">— Michael K., Münster</p>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Ein wunderschönes Geschäft am Prinzipalmarkt. Die Auswahl an Cartier-Schmuck ist traumhaft und der Service erstklassig."</p>
+                <p class="review-author">— Sandra M., Coesfeld</p>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Seit Jahren treuer Kunde. Freisfeld verkauft nicht einfach Uhren — sie verkaufen Leidenschaft und Expertise."</p>
+                <p class="review-author">— Thomas R., Münster</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <h2 class="reveal">Persönliche Beratung erleben</h2>
+        <p class="reveal">Vereinbaren Sie einen Termin oder kommen Sie vorbei am Prinzipalmarkt in Münster.</p>
+        <a href="#kontakt" class="btn reveal">Jetzt Termin vereinbaren</a>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="kontakt">
+        <div class="contact-wrapper">
+            <div class="contact-info reveal">
+                <h3>Kontaktieren Sie uns</h3>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"/></svg>
+                    <p>Prinzipalmarkt 20<br>48143 Münster</p>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z"/></svg>
+                    <p><a href="tel:+49251482250">+49 251 482250</a></p>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 18H4V8L12 13L20 8V18ZM12 11L4 6H20L12 11Z"/></svg>
+                    <p><a href="mailto:welcome@freisfeld.de">welcome@freisfeld.de</a></p>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z"/></svg>
+                    <p>Montag — Freitag: 10:00 — 18:30 Uhr<br>Samstag: 10:00 — 16:00 Uhr</p>
+                </div>
+            </div>
+            <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.');">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Ihr Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+                </div>
+                <div class="form-group">
+                    <label for="topic">Interesse</label>
+                    <select id="topic" name="topic">
+                        <option value="">Bitte wählen...</option>
+                        <option value="termin">Beratungstermin</option>
+                        <option value="uhr">Uhren</option>
+                        <option value="schmuck">Schmuck</option>
+                        <option value="sonstiges">Sonstiges</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" placeholder="Ihre Nachricht an uns"></textarea>
+                </div>
+                <button type="submit">Nachricht senden</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">FREISFELD</div>
+            <p class="footer-tagline">Konzept-Vorschau · MZ.9</p>
+            <div class="footer-links">
+                <a href="#">Impressum</a>
+                <a href="#">Datenschutz</a>
+                <a href="https://www.freisfeld.com">Besuchen Sie uns</a>
+            </div>
+            <p class="footer-bottom">© 2026 Juwelier Freisfeld · Prinzipalmarkt 20 · 48143 Münster</p>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="tel:+49251482250">☎ Jetzt anrufen</a>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile navigation
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileNavClose = document.querySelector('.mobile-nav-close');
+
+        mobileNavToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+        });
+
+        mobileNavClose.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
