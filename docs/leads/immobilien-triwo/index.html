@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>TRIWO | Projektentwickler von Gewerbe-, Industrie- und Sonderimmobilien</title>
+  <meta name="description" content="Seit 1972 sind wir als Projektentwickler und Bestandshalter von Gewerbe-, Industrie- und Sonderimmobilien bundesweit an über 25 Standorten tätig.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #1a3a5e;
+      --primary-dark: #0f2540;
+      --accent: #3b7dd8;
+      --accent-light: #5a9ae8;
+      --gold: #c9a227;
+      --gold-light: #d4b54a;
+      --white: #ffffff;
+      --off-white: #f8f9fb;
+      --light-gray: #e8eef5;
+      --text-dark: #1a1a2e;
+      --text-gray: #4a5568;
+      --text-light: #718096;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --transition: all 0.3s ease;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    .header.scrolled { padding: 0; }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .nav { display: flex; gap: 32px; }
+    .nav-link {
+      font-weight: 500;
+      color: var(--text-gray);
+      font-size: 15px;
+    }
+    .nav-link:hover { color: var(--primary); }
+    .nav-link.active { color: var(--primary); font-weight: 600; }
+    .header-cta {
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+    .header-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .mobile-menu-btn { display: none; font-size: 24px; background: none; border: none; cursor: pointer; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.triwo.de/inhalte/uploads/2021/01/01-7.jpg') center/cover no-repeat;
+      opacity: 0.4;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(15,37,64,0.95) 0%, rgba(15,37,64,0.7) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      padding-top: 80px;
+    }
+    .hero-label {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--primary-dark);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .stat {
+      text-align: left;
+    }
+    .stat-number {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 4px;
+    }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 16px;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59,125,216,0.4);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--white);
+    }
+
+    /* Trust Bar */
+    .trust-bar {
+      background: var(--off-white);
+      padding: 40px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: var(--shadow);
+      color: var(--primary);
+    }
+    .trust-text h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+    .trust-text p {
+      font-size: 12px;
+      color: var(--text-gray);
+    }
+
+    /* Services */
+    .services {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .section-tag {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 17px;
+      color: var(--text-gray);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--off-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .service-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .service-card.featured .service-image {
+      height: 100%;
+      min-height: 350px;
+    }
+    .service-card.featured .service-content {
+      padding: 48px;
+    }
+    .service-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+    }
+    .service-content {
+      padding: 32px;
+    }
+    .service-card.featured .service-label {
+      background: var(--gold);
+      color: var(--primary-dark);
+    }
+    .service-label {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      background: var(--light-gray);
+      color: var(--primary);
+    }
+    .service-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 15px;
+      color: var(--text-gray);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .service-link {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .service-link:hover { gap: 10px; }
+
+    /* Mietangebote Feature */
+    .offers-section {
+      background: var(--primary);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .offers-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('https://www.triwo.de/inhalte/uploads/2024/03/Flughafen-Oberpfaffenhofen.jpg') center/cover no-repeat;
+      opacity: 0.2;
+    }
+    .offers-content {
+      position: relative;
+      z-index: 1;
+      max-width: 550px;
+    }
+    .offers-content .section-header {
+      text-align: left;
+      margin: 0 0 40px;
+    }
+    .offers-content .section-tag { color: var(--gold); }
+    .offers-content h2 { color: var(--white); font-size: 40px; }
+    .offers-content p { color: rgba(255,255,255,0.85); }
+    .offer-types {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .offer-type {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .offer-type:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+    }
+    .offer-type-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--primary-dark);
+    }
+    .offer-type-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .offer-type-content p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item.large {
+      grid-column: 1 / 3;
+      aspect-ratio: 2/1;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gallery-overlay h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .gallery-overlay p {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--primary-dark);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .contact-item-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .contact-item-content p {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+    .contact-item-content a {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .contact-item-content a:hover { color: var(--primary); }
+    .contact-form {
+      background: var(--off-white);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--light-gray);
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--white);
+    }
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59,125,216,0.1);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .form-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      padding: 60px 0 30px;
+      color: var(--white);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand h4 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      max-width: 280px;
+    }
+    .footer-column h5 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    .concept-badge {
+      background: rgba(201,162,39,0.2);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 16px 24px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      padding: 14px;
+    }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      .hero-stats { gap: 24px; }
+      .stat-number { font-size: 32px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.featured { grid-template-columns: 1fr; }
+      .service-card.featured .service-image { height: 220px; min-height: auto; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.large { grid-column: 1; aspect-ratio: 16/10; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav, .header-cta { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero { height: auto; min-height: auto; padding: 120px 0 60px; }
+      .hero-content { padding-top: 0; }
+      .hero h1 { font-size: 30px; }
+      .hero-stats { flex-direction: column; gap: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .mobile-cta { display: block; }
+      body { padding-bottom: 80px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .offers-section::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">TRIWO<span>.</span></a>
+      <nav class="nav">
+        <a href="#leistungen" class="nav-link">Leistungen</a>
+        <a href="#mietangebote" class="nav-link">Mietangebote</a>
+        <a href="#projekte" class="nav-link">Projekte</a>
+        <a href="#kontakt" class="nav-link">Kontakt</a>
+      </nav>
+      <a href="tel:+49651938220" class="header-cta">Jetzt anrufen</a>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="hero-label">Seit 1972</span>
+      <h1>Immobilienkompetenz aus einer Hand</h1>
+      <p>Projektentwicklung und Bestandshalter von Gewerbe-, Industrie- und Sonderimmobilien bundesweit an über 25 Standorten.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Jahre Erfahrung</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Standorte</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">DE</div>
+          <div class="stat-label">Bundesweit</div>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#mietangebote" class="btn btn-primary">Mietangebote ansehen</a>
+        <a href="#kontakt" class="btn btn-secondary">Kontakt aufnehmen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">✓</div>
+          <div class="trust-text">
+            <h3>Qualität</h3>
+            <p>Slüsselfertige Realisierung</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🤝</div>
+          <div class="trust-text">
+            <h3>Vertrauen</h3>
+            <p>Langfristige Partnerschaften</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏗️</div>
+          <div class="trust-text">
+            <h3>Kompetenz</h3>
+            <p>Industrie & Gewerbe</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🌍</div>
+          <div class="trust-text">
+            <h3>Standorte</h3>
+            <p>Bundesweit präsent</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Unsere Leistungen</span>
+        <h2>Ganzheitliche Immobilienlösungen</h2>
+        <p>Wir entwickeln und bewirtschaften Gewerbe- und Industrieparks im gesamten Bundesgebiet — von der Planung bis zur Realisierung.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card featured reveal">
+          <div class="service-image" style="background-image: url('https://www.triwo.de/inhalte/uploads/2022/01/Collage-neu.jpg')"></div>
+          <div class="service-content">
+            <span class="service-label">Kernkompetenz</span>
+            <h3>Industrie- & Gewerbeparks</h3>
+            <p>Wir entwickeln und bewirtschaften unsere Gewerbe- und Industrieimmobilien deutschlandweit. Derzeit unterstützen wir Unternehmen an über 25 Standorten bei Ihrem Wachstum.</p>
+            <a href="https://www.triwo.de/industrie-gewerbeparks/" class="service-link">Mehr erfahren →</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image" style="background-image: url('https://www.triwo.de/inhalte/uploads/2021/02/FCA_Alfa_Romeo-Pista_Piloti_2020_So_915_geeditet_Richtige-Groesse.png')"></div>
+          <div class="service-content">
+            <span class="service-label">Spezialbereich</span>
+            <h3>Automotive Testing</h3>
+            <p>In unseren herstellerunabhängigen Testzentren unterstützen wir Kunden aus der Automobilindustrie bei der Produktentwicklung mit verschiedenen Teststrecken.</p>
+            <a href="https://www.triwo.de/automotive-testing/" class="service-link">Mehr erfahren →</a>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image" style="background-image: url('https://www.triwo.de/inhalte/uploads/2024/03/Flughafen-Oberpfaffenhofen.jpg')"></div>
+          <div class="service-content">
+            <span class="service-label">Luftfahrt</span>
+            <h3>Flugplatz- & Flughafenliegenschaften</h3>
+            <p>Wir betreiben und entwickeln unsere Flugplatz- und Flughafenliegenschaften langfristig mit ganzheitlichem Serviceangebot.</p>
+            <a href="https://www.triwo.de/flugplaetze/" class="service-link">Mehr erfahren →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mietangebote Feature -->
+  <section class="offers-section" id="mietangebote">
+    <div class="container">
+      <div class="offers-content reveal">
+        <div class="section-header">
+          <span class="section-tag">Aktuelle Angebote</span>
+          <h2>Attraktive Flächen für Ihr Wachstum</h2>
+          <p>Wir bieten Ihnen eine Vielzahl attraktiver Gewerbe-, Industrie- und Sonderimmobilien an bundesweiten Standorten.</p>
+        </div>
+        <div class="offer-types">
+          <div class="offer-type">
+            <div class="offer-type-icon">🏭</div>
+            <div class="offer-type-content">
+              <h4>Produktionsflächen</h4>
+              <p>Industriehallen und Fertigungsbereiche</p>
+            </div>
+          </div>
+          <div class="offer-type">
+            <div class="offer-type-icon">📦</div>
+            <div class="offer-type-content">
+              <h4>Lager- & Logistik</h4>
+              <p>Moderne Lagerhallen und Logistikzentren</p>
+            </div>
+          </div>
+          <div class="offer-type">
+            <div class="offer-type-icon">🔬</div>
+            <div class="offer-type-content">
+              <h4>Labor- & Technikkäum</h4>
+              <p>Spezialflächen für Forschung & Entwicklung</p>
+            </div>
+          </div>
+          <div class="offer-type">
+            <div class="offer-type-icon">🏢</div>
+            <div class="offer-type-content">
+              <h4>Büroflächen</h4>
+              <p>Repräsentative Büro- und Verwaltungsbereiche</p>
+            </div>
+          </div>
+        </div>
+        <a href="https://www.triwo.de/mietangebote/" class="btn btn-primary">Alle Mietangebote ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="projekte">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Unsere Projekte</span>
+        <h2>Ausgewählte Standorte</h2>
+        <p>Ein Einblick in unsere Immobilien an bundesweiten Standorten.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item large reveal">
+          <img src="https://www.triwo.de/inhalte/uploads/2021/01/02-8.jpg" alt="Gewerbepark" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Gewerbepark</h4>
+            <p>Moderne Industrieimmobilien</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.triwo.de/inhalte/uploads/2023/04/HHN.jpg" alt="Flughafenstandort" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Flughafenstandort</h4>
+            <p>Hahn/Nidersheim</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.triwo.de/inhalte/uploads/2021/01/02-10.jpg" alt="Testzentrum" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Testzentrum</h4>
+            <p>Automotive Testing</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.triwo.de/inhalte/uploads/2021/01/04.jpg" alt="Industriehalle" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Industriehalle</h4>
+            <p>Produktionsflächen</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.triwo.de/inhalte/uploads/2021/01/05-1.jpg" alt="Logistikzentrum" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Logistikzentrum</h4>
+            <p>Lager- & Umschlagflächen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihre Immobilienlösung?</h2>
+      <p>Sprechen Sie uns an — wir finden gemeinsam die passenden Flächen für Ihr Wachstum.</p>
+      <a href="#kontakt" class="btn btn-primary">Jetzt Kontakt aufnehmen</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-content">
+              <h4>Adresse</h4>
+              <p>Römerstraße 100<br>54293 Trier</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-content">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49651938220">+49 651 93822-0</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-content">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:zentrale@triwo.de">zentrale@triwo.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div class="contact-item-content">
+              <h4>Öffnungszeiten</h4>
+              <p>Mo–Do: 8:00–17:00 Uhr<br>Fr: 8:00–16:00 Uhr</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Nachricht! Wir melden uns schnellstmöglich bei Ihnen.');">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Vorname</label>
+              <input type="text" class="form-input" placeholder="Ihr Vorname">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nachname</label>
+              <input type="text" class="form-input" placeholder="Ihr Nachname">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">E-Mail</label>
+              <input type="email" class="form-input" placeholder="ihre@email.de">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon</label>
+              <input type="tel" class="form-input" placeholder="+49 ...">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Interesse an</label>
+            <select class="form-input">
+              <option>Bitte wählen...</option>
+              <option>Mietangebote</option>
+              <option>Industrie- & Gewerbeparks</option>
+              <option>Automotive Testing</option>
+              <option>Luftfahrt</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ihre Nachricht</label>
+            <textarea class="form-textarea" placeholder="Wie können wir Ihnen helfen?"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>TRIWO AG</h4>
+          <p>Projektentwickler und Bestandshalter von Gewerbe-, Industrie- und Sonderimmobilien seit 1972.</p>
+        </div>
+        <div class="footer-column">
+          <h5>Leistungen</h5>
+          <div class="footer-links">
+            <a href="https://www.triwo.de/industrie-gewerbeparks/">Industrie- & Gewerbeparks</a>
+            <a href="https://www.triwo.de/automotive-testing/">Automotive Testing</a>
+            <a href="https://www.triwo.de/flugplaetze/">Luftfahrt</a>
+            <a href="https://www.triwo.de/maschinenbau/">Maschinenbau</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h5>Unternehmen</h5>
+          <div class="footer-links">
+            <a href="https://www.triwo.de/mietangebote/">Mietangebote</a>
+            <a href="https://www.triwo.de/karriere/">Karriere</a>
+            <a href="https://www.triwo.de/impressum/">Impressum</a>
+            <a href="https://www.triwo.de/datenschutz">Datenschutz</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h5>Kontakt</h5>
+          <div class="footer-links">
+            <a href="tel:+49651938220">+49 651 93822-0</a>
+            <a href="mailto:zentrale@triwo.de">zentrale@triwo.de</a>
+            <a href="#">Römerstraße 100, Trier</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 TRIWO AG. Alle Rechte vorbehalten.</p>
+        <span class="concept-badge">Konzept-Vorschau · MZ.9</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49651938220" class="btn btn-primary">Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

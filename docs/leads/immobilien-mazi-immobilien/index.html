@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ihr Immobilienpartner aus Trier – Marzi Immobilien GmbH</title>
+  <meta name="description" content="Wir begleiten Eigentümer, Käufer und Investoren beim Verkauf, Kauf und der Entwicklung von Immobilien in Trier und Umgebung – mit klarer Strategie, fundierter Immobilienbewertung, starker Vermarktung und persönlicher Betreuung.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#1a365d;--primary-light:#2c5282;--accent:#c9a227;--sand:#f7f3e8;--white:#ffffff;--text:#2d3748;--text-light:#4a5568;--gray:#e2e8f0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--sand)}
+    h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.2;color:var(--primary)}
+    img{max-width:100%;height:auto;display:block}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit;cursor:pointer;border:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2rem;border-radius:4px;font-weight:600;font-size:1rem;transition:all .3s ease}
+    .btn-primary{background:var(--primary);color:var(--white)}
+    .btn-primary:hover{background:var(--primary-light);transform:translateY(-2px)}
+    .btn-outline{border:2px solid var(--primary);color:var(--primary);background:transparent}
+    .btn-outline:hover{background:var(--primary);color:var(--white)}
+    /* Header */
+    header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray);transition:all .3s ease}
+    header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;max-width:1200px;margin:0 auto}
+    .logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--primary)}
+    .logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:2rem;align-items:center}
+    .nav-links a{color:var(--text-light);font-weight:500;transition:color .3s}
+    .nav-links a:hover{color:var(--primary)}
+    .nav-links .phone{font-weight:600;color:var(--primary)}
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .mobile-menu-btn{display:flex;flex-direction:column;gap:5px;background:none;padding:10px}
+      .mobile-menu-btn span{width:25px;height:2px;background:var(--primary);transition:all .3s}
+    }
+    @media(min-width:769px){.mobile-menu-btn{display:none}}
+    /* Hero */
+    .hero{min-height:90vh;display:flex;align-items:center;position:relative;padding-top:80px;background:linear-gradient(135deg,var(--primary) 0%,#2d3748 100%);overflow:hidden}
+    .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('https://i0.wp.com/marzi-immobilien.de/wp-content/uploads/2026/04/Trierimmobilien.webp?fit=1536%2C1152&ssl=1') center/cover no-repeat;opacity:.3}
+    .hero-content{position:relative;z-index:1;color:var(--white);max-width:700px}
+    .hero h1{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:1.5rem;color:var(--white)}
+    .hero p{font-size:1.25rem;margin-bottom:2rem;color:rgba(255,255,255,.9)}
+    .hero-badge{display:inline-block;background:var(--accent);color:var(--primary);padding:.5rem 1rem;border-radius:50px;font-weight:600;font-size:.875rem;margin-bottom:1rem}
+    /* USPs */
+    .usps{background:var(--white);padding:3rem 0}
+    .usps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem}
+    .usp-card{text-align:center;padding:2rem;border-radius:8px;background:var(--sand);transition:transform .3s}
+    .usp-card:hover{transform:translateY(-5px)}
+    .usp-icon{font-size:2.5rem;margin-bottom:1rem}
+    .usp-card h3{font-size:1.25rem;margin-bottom:.5rem}
+    .usp-card p{color:var(--text-light);font-size:.95rem}
+    /* Wertermittlung */
+    .valuation{background:var(--primary);color:var(--white);padding:5rem 0}
+    .valuation-inner{max-width:600px;margin:0 auto;text-align:center}
+    .valuation h2{color:var(--white);font-size:2.5rem;margin-bottom:1rem}
+    .valuation p{margin-bottom:2rem;color:rgba(255,255,255,.9);font-size:1.1rem}
+    .valuation-form{background:var(--white);border-radius:12px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.2)}
+    .form-group{margin-bottom:1.5rem;text-align:left}
+    .form-group label{display:block;font-weight:600;color:var(--text);margin-bottom:.5rem;font-size:.9rem}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:1rem;border:1px solid var(--gray);border-radius:4px;font-size:1rem;font-family:inherit;color:var(--text);background:var(--white)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,54,93,.1)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:600px){.form-row{grid-template-columns:1fr}}
+    /* Leistungen */
+    .services{padding:5rem 0;background:var(--sand)}
+    .section-header{text-align:center;margin-bottom:4rem}
+    .section-header h2{font-size:2.5rem;margin-bottom:1rem}
+    .section-header p{color:var(--text-light);font-size:1.1rem;max-width:600px;margin:0 auto}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+    .service-card{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:all .3s}
+    .service-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.1);transform:translateY(-3px)}
+    .service-card h3{font-size:1.5rem;padding:1.5rem 1.5rem .5rem}
+    .service-card p{padding:0 1.5rem 1.5rem;color:var(--text-light)}
+    .service-card .cta-link{padding:0 1.5rem 1.5rem;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:.5rem}
+    /* Galerie */
+    .gallery{padding:5rem 0;background:var(--white)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .gallery-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .gallery-item:hover img{transform:scale(1.05)}
+    .gallery-item .overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));padding:1.5rem;color:var(--white)}
+    .gallery-item .overlay span{font-weight:600}
+    /* CTA Band */
+    .cta-band{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:var(--white);padding:4rem 0;text-align:center}
+    .cta-band h2{color:var(--white);font-size:2.5rem;margin-bottom:1rem}
+    .cta-band p{margin-bottom:2rem;font-size:1.2rem;opacity:.9}
+    .cta-band .btn{background:var(--accent);color:var(--primary);padding:1.25rem 2.5rem;font-size:1.1rem}
+    .cta-band .btn:hover{background:#d4af37}
+    /* Kontakt */
+    .contact{padding:5rem 0;background:var(--sand)}
+    .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+    @media(max-width:900px){.contact-inner{grid-template-columns:1fr}}
+    .contact-info h3{font-size:2rem;margin-bottom:1.5rem}
+    .contact-item{display:flex;gap:1rem;margin-bottom:1.5rem}
+    .contact-item .icon{font-size:1.5rem;color:var(--accent)}
+    .contact-item h4{font-weight:600;margin-bottom:.25rem}
+    .contact-item p{color:var(--text-light)}
+    .contact-form{background:var(--white);border-radius:12px;padding:2rem}
+    /* Footer */
+    footer{background:var(--primary);color:var(--white);padding:3rem 0}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center}
+    @media(max-width:600px){.footer-inner{flex-direction:column;gap:1rem;text-align:center}}
+    .footer-note{font-size:.875rem;opacity:.7}
+    /* Mobile CTA Bar */
+    .mobile-cta{position:fixed;bottom:0;left:0;right:0;background:var(--white);padding:1rem;box-shadow:0 -4px 20px rgba(0,0,0,.1);display:none;z-index:999}
+    @media(max-width:768px){
+      .mobile-cta{display:flex;gap:.5rem}
+      .mobile-cta .btn{flex:1;justify-content:center;padding:.75rem;font-size:.9rem}
+    }
+    /* Reveal Animation */
+    .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Marzi<span>Immobilien</span></a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#wertermittlung">Wertermittlung</a>
+        <a href="#galerie">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:065191899611" class="phone">0651 918 996 11</a>
+        <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">✓ Regional stark. Persönlich nah.</span>
+        <h1>Ihr Immobilienpartner aus Trier</h1>
+        <p>Wir begleiten Eigentümer, Käufer und Investoren beim Verkauf, Kauf und der Entwicklung von Immobilien in Trier und Umgebung – mit klarer Strategie, fundierter Immobilienbewertung und persönlicher Betreuung.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="#wertermittlung" class="btn btn-primary">Wert ermitteln</a>
+          <a href="#leistungen" class="btn btn-outline" style="color:var(--white);border-color:var(--white)">Leistungen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="usps">
+    <div class="container">
+      <div class="usps-grid">
+        <div class="usp-card reveal">
+          <div class="usp-icon">📍</div>
+          <h3>Regional stark</h3>
+          <p>Fundierte Marktkenntnis in Trier und Umgebung – wir kennen die Nachbarschaft.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">🤝</div>
+          <h3>Persönlich nah</h3>
+          <p>Klare Ansprechpartner mit persönlicher Betreuung statt Callcenter.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">📊</div>
+          <h3>Fundierte Bewertung</h3>
+          <p>Datengestützte Immobilienwertermittlung mit regionaler Expertise.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">🚀</div>
+          <h3>Starke Vermarktung</h3>
+          <p>Professionelle Präsentation für den besten Verkaufspreis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Immobilien in Trier erfolgreich verkaufen, kaufen und entwickeln – mit einem Partner, der die Region kennt.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <h3>Immobilienverkauf</h3>
+          <p>Professionelle Vermarktung Ihrer Immobilie mit fundierter Preisfindung und persönlichem Betreuungsansprechen.</p>
+          <a href="#kontakt" class="cta-link">Verkauf anfragen →</a>
+        </div>
+        <div class="service-card reveal">
+          <h3>Immobilienbewertung</h3>
+          <p>Objektive Wertermittlung für Eigentümer, Käufer und Investoren – transparent und datenbasiert.</p>
+          <a href="#wertermittlung" class="cta-link">Jetzt bewerten →</a>
+        </div>
+        <div class="service-card reveal">
+          <h3>Grundstücke & Projekte</h3>
+          <p>Begleitung bei der Entwicklung von Grundstücken und Immobilienprojekten von der Idee bis zur Realisierung.</p>
+          <a href="#kontakt" class="cta-link">Projekt besprechen →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="valuation" id="wertermittlung">
+    <div class="container">
+      <div class="valuation-inner reveal">
+        <h2>Wert Ihrer Immobilie ermitteln</h2>
+        <p>Erhalten Sie eine erste Einschätzung – unverbindlich und innerhalb von 24 Stunden.</p>
+        <form class="valuation-form" action="mailto:info@marzi-immobilien.de" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="Für Rückruf" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="type">Immobilienart</label>
+              <select id="type" name="type">
+                <option value="">Bitte wählen</option>
+                <option value="einzel">Einzelhaus</option>
+                <option value="doppel">Doppelhaushälfte</option>
+                <option value="mehrfamilie">Mehrfamilienhaus</option>
+                <option value="wohnung">Wohnung</option>
+                <option value="grundstueck">Grundstück</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="location">Ort/PLZ</label>
+              <input type="text" id="location" name="location" placeholder="Trier oder Umgebung">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="3" placeholder="Besonderheiten Ihrer Immobilie..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Bewertung anfragen</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Immobilien & Projekte</h2>
+        <p>Ein Einblick in unsere Arbeit und die Region Trier.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://i0.wp.com/marzi-immobilien.de/wp-content/uploads/2026/04/immobilientrier-e1776019780679.webp?fit=377%2C1024&ssl=1" alt="Immobilien Trier" loading="lazy">
+          <div class="overlay"><span>Immobilien Trier</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://i0.wp.com/marzi-immobilien.de/wp-content/uploads/2026/04/immobilientrier-1-e1776019839150.webp?fit=380%2C1024&ssl=1" alt="Immobilien Trier" loading="lazy">
+          <div class="overlay"><span>Immobilien Trier</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://i0.wp.com/marzi-immobilien.de/wp-content/uploads/2026/04/immobilientrier-2-e1776019894210.webp?fit=380%2C1024&ssl=1" alt="Immobilien Trier" loading="lazy">
+          <div class="overlay"><span>Immobilien Trier</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://i0.wp.com/marzi-immobilien.de/wp-content/uploads/2026/04/immobilientrier-3-e1776019928123.webp?fit=397%2C1024&ssl=1" alt="Immobilien Trier" loading="lazy">
+          <div class="overlay"><span>Immobilien Trier</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://marzi-immobilien.de/wp-content/uploads/2026/03/1-3.png" alt="Projekt" loading="lazy">
+          <div class="overlay"><span>Projektentwicklung</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://marzi-immobilien.de/wp-content/uploads/2026/03/3-4.png" alt="Projekt" loading="lazy">
+          <div class="overlay"><span>Projektentwicklung</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für den nächsten Schritt?</h2>
+      <p>Wir beraten Sie unverbindlich – telefonisch oder vor Ort in Trier.</p>
+      <a href="tel:065191899611" class="btn">0651 918 996 11 anrufen</a>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <p style="margin-bottom:2rem;color:var(--text-light)">Marzi Immobilien begleitet Eigentümer, Käufer, Investoren und Projektpartner in Trier und Umgebung.</p>
+          <div class="contact-item">
+            <div class="icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <p><a href="tel:065191899611">0651 918 996 11</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@marzi-immobilien.de">info@marzi-immobilien.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Standort</h4>
+              <p>Trier</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <form action="mailto:info@marzi-immobilien.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" name="name" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">E-Mail</label>
+              <input type="email" id="contact-email" name="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Nachricht</label>
+              <textarea id="contact-message" name="message" rows="4" placeholder="Wie können wir Ihnen helfen?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Nachricht senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="logo" style="color:var(--white);font-size:1.25rem">Marzi<span>Immobilien</span></span>
+        <span class="footer-note">Konzept-Vorschau · MZ.9</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:065191899611" class="btn btn-primary">📞 Anrufen</a>
+    <a href="#wertermittlung" class="btn btn-outline">Wert ermitteln</a>
+  </div>
+
+  <script>
+    (function(){const header=document.getElementById('header');const reveals=document.querySelectorAll('.reveal');const revealObserver=new IntersectionObserver(e=>{e.forEach(t=>{t.isIntersecting&&t.target.classList.add('in')})},{threshold:.1});reveals.forEach(e=>revealObserver.observe(e));window.addEventListener('scroll',()=>{window.scrollY>50?header.classList.add('scrolled'):header.classList.remove('scrolled')},{passive:!0})})();
+  </script>
+</body>
+</html>

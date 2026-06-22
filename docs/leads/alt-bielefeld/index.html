@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Alt-Bielefeld — Restaurant & Bierstube im Herzen der Altstadt</title>
+<title>Alt-Bielefeld — Restaurant &amp; Bierstube im Herzen der Altstadt</title>
 <meta name="description" content="Gutbürgerlich speisen mitten in der Bielefelder Altstadt. Jetzt online Tisch reservieren, Speisekarte ansehen oder anrufen — Restaurant & Bierstube Alt-Bielefeld." />
 <meta name="robots" content="noindex" />
 <meta name="theme-color" content="#1A1310" />
@@ -82,6 +82,15 @@
   .sec-head h2{font-size:clamp(2.4rem,5vw,3.6rem);margin-top:10px}
   .sec-head p{margin:14px auto 0;color:var(--ink-2);max-width:50ch}
 
+  /* anlass-check */
+  .check-sec{background:var(--bg-2)}
+  .check{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);padding:clamp(22px,4vw,34px);text-align:center}
+  .check h2{font-size:clamp(1.7rem,4vw,2.4rem)} .check p{color:var(--ink-2);margin:8px 0 18px;font-size:15px}
+  .check select{width:100%;max-width:400px;padding:13px 15px;border:1px solid var(--line);border-radius:50px;font-family:inherit;font-size:15px;background:#fff;color:var(--ink);text-align:center}
+  .check .res{margin:18px 0 0;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+  .check .res .pr{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--wine);line-height:1.2}
+  .check .res .nt{font-size:12.5px;color:var(--ink-mut)} .check .cta{margin-top:14px;display:none} .check .cta.on{display:inline-flex}
+
   /* menu */
   .menu-sec{background:var(--bg-2)}
   .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px)}
@@ -91,14 +100,21 @@
   .dish .pr{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--brass-2);white-space:nowrap}
   .dish .ds{grid-column:1 / -1;font-size:13.5px;color:var(--ink-mut)}
   .menu-note{text-align:center;margin-top:34px;color:var(--ink-2)}
+  .menu-photo{margin-top:46px;display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(20px,4vw,48px);align-items:center;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+  .menu-photo img{width:100%;height:100%;min-height:280px;object-fit:cover}
+  .menu-photo .txt{padding:clamp(24px,4vw,40px)}
+  .menu-photo .txt h3{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.2rem);margin:6px 0 0}
+  .menu-photo .txt p{margin:14px 0 0;color:var(--ink-2)}
+  .menu-photo .txt .badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-2);background:rgba(192,136,60,.1);padding:6px 12px;border-radius:50px}
 
   /* gallery */
-  .gal{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:14px;height:clamp(360px,60vh,560px)}
+  .gal{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;height:clamp(420px,68vh,620px)}
   .gal figure{margin:0;overflow:hidden;border-radius:12px;position:relative}
-  .gal figure:first-child{grid-row:1 / span 2}
+  .gal figure.big{grid-row:1 / span 2;grid-column:1}
   .gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
   .gal figure:hover img{transform:scale(1.05)}
-  .gal .ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#3A2C22,#241A14);color:rgba(247,241,231,.5);font-size:13px}
+  .gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 16px 12px;color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;background:linear-gradient(transparent,rgba(20,15,12,.78));opacity:0;transition:opacity .4s}
+  .gal figure:hover figcaption{opacity:1}
 
   /* reviews */
   .rev-sec{background:var(--espresso);color:var(--cream)}
@@ -139,8 +155,8 @@
   .actionbar a.res{background:var(--wine);color:#fff}
   .actionbar svg{width:19px;height:19px}
 
-  @media (max-width:860px){ .menu-grid,.info{grid-template-columns:1fr} .reviews{grid-template-columns:1fr} .gal{grid-template-columns:1fr;grid-template-rows:none;height:auto} .gal figure{height:240px} .gal figure:first-child{grid-row:auto} }
-  @media (max-width:600px){ body{font-size:16px} .nav .lk,.nav .ph{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} .hero-cta{align-self:stretch} }
+  @media (max-width:860px){ .menu-grid,.info{grid-template-columns:1fr} .menu-photo{grid-template-columns:1fr} .reviews{grid-template-columns:1fr} .gal{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto} .gal figure{height:200px} .gal figure.big{grid-row:auto;grid-column:auto} }
+  @media (max-width:600px){ body{font-size:16px} .nav .lk,.nav .ph{display:none} .header{top:28px} .actionbar{display:flex} .footer{padding-bottom:88px} .btn{width:100%} .hero-cta{align-self:stretch} .gal{grid-template-columns:1fr} }
   /* ---- premium layer ---- */
   body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .rv{filter:blur(8px)} .rv.in{filter:blur(0)}
@@ -153,13 +169,6 @@
   .btn-wine:hover::after,.btn-brass:hover::after{left:130%}
   .review{transition:transform .4s var(--ease)} .review:hover{transform:translateY(-6px)}
   .gal figure{transition:transform .5s var(--ease)} .gal figure:hover{transform:translateY(-4px)}
-  .check-sec{background:var(--bg-2)}
-  .check{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);padding:clamp(22px,4vw,34px);text-align:center}
-  .check h2{font-size:clamp(1.7rem,4vw,2.4rem)} .check p{color:var(--ink-2);margin:8px 0 18px;font-size:15px}
-  .check select{width:100%;max-width:400px;padding:13px 15px;border:1px solid var(--line);border-radius:50px;font-family:inherit;font-size:15px;background:#fff;color:var(--ink);text-align:center}
-  .check .res{margin:18px 0 0;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-  .check .res .pr{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--wine);line-height:1.2}
-  .check .res .nt{font-size:12.5px;color:var(--ink-mut)} .check .cta{margin-top:14px;display:none} .check .cta.on{display:inline-flex}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}.hero .glow{display:none}}
 </style>
 </head>
@@ -253,6 +262,16 @@
         <div class="dish"><span class="nm">Apfelstrudel</span><span class="pr">7,50 €</span><span class="ds">Warm, mit Vanillesoße</span></div>
       </div>
     </div>
+
+    <div class="menu-photo rv">
+      <img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/speisekarte.jpg" alt="Original-Speisekarte des Restaurants Alt-Bielefeld" loading="lazy">
+      <div class="txt">
+        <span class="badge">✦ Am Tisch</span>
+        <h3>Die volle Karte liegt bei uns</h3>
+        <p>Klassiker, Tellergerichte, Suppen &amp; Salate, traditionelle Gerichte vom Schwein, Rind &amp; Fisch, Desserts, Heißgetränke — dazu Weine, Biere und Spirituosen. Unsere Gäst:innen schätzen die Auswahl am Tisch. Allergene &amp; Tageskarte erfragen Sie gern beim Service.</p>
+      </div>
+    </div>
+
     <div class="menu-note rv">Allergene &amp; Tageskarte erfragen Sie gern — oder <a href="#reservieren" style="color:var(--wine);font-weight:700">reservieren Sie direkt einen Tisch</a>.</div>
   </div>
 </section>
@@ -263,11 +282,14 @@
     <div class="sec-head">
       <div class="eyebrow rv">Ambiente</div>
       <h2 class="rv" style="transition-delay:.05s">Ein Blick in die Stube</h2>
+      <p class="rv" style="transition-delay:.1s">Originalaufnahmen aus dem Restaurant Alt-Bielefeld — Gaststube, Speisen und Ambiente.</p>
     </div>
     <div class="gal rv">
-      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/ab-1.jpg" alt="Gaststube Alt-Bielefeld" loading="lazy"></figure>
-      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/2.jpg" alt="Speisen im Alt-Bielefeld" loading="lazy"></figure>
-      <figure class="ph"><span>▦ Platz für weitere Foto-Eindrücke (Speisen · Biergarten)</span></figure>
+      <figure class="big"><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/ab-1.jpg" alt="Gemütliche Gaststube des Alt-Bielefeld mit Holztischen" loading="lazy"><figcaption>Gaststube · Alt-Bielefeld</figcaption></figure>
+      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/2.jpg" alt="Speisen und Tischkultur im Alt-Bielefeld" loading="lazy"><figcaption>Speisen &amp; Tischkultur</figcaption></figure>
+      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/1.jpg" alt="Ansicht des Restaurants Alt-Bielefeld" loading="lazy"><figcaption>Restaurantansicht</figcaption></figure>
+      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/7.jpg" alt="Ambiente und Gäste im Alt-Bielefeld" loading="lazy"><figcaption>Bei uns zu Gast</figcaption></figure>
+      <figure><img src="https://www.alt-bielefeld.com/wp-content/uploads/2015/08/speisekarte.jpg" alt="Original-Speisekarte des Alt-Bielefeld" loading="lazy"><figcaption>Unsere Speisekarte</figcaption></figure>
     </div>
   </div>
 </section>
@@ -299,7 +321,7 @@
         <h2 style="margin-top:10px">Heute schon einen Platz sichern?</h2>
         <p>Reservieren Sie in 30 Sekunden online — oder rufen Sie uns an. Für Feiern &amp; Gruppen beraten wir Sie gern persönlich.</p>
         <div class="hero-cta">
-          <a class="btn btn-brass" href="#">Online reservieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-brass" href="#anlasscheck">Online reservieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-ol" href="tel:+4952166940"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0521 · 66940</a>
         </div>
       </div>
@@ -375,7 +397,5 @@
   });
 })();
 </script>
-<script>window.MZ9CHAT={mode:"lead",name:"Alt Bielefeld",accent:"#7C2F33",cta:"#reservieren"};</script>
-<script src="../chat.js" defer></script>
 </body>
 </html>
