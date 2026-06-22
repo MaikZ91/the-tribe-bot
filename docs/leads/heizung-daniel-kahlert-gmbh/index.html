@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daniel Kahlert GmbH — Heizungs- und Sanitärtechnik Leipzig</title>
+  <meta name="description" content="Daniel Kahlert GmbH (Leipzig) Heizungs- und Sanitär: Heizungstechnik | Sanitärtechnik | Gasanlagen | Wärmepumpenanlagen | Solar | Regenwassernutzung">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #1e3a5f;
+      --primary-dark: #0f2845;
+      --accent: #e67e32;
+      --accent-hover: #d06b1f;
+      --accent-light: #fff3eb;
+      --bg-light: #f8f9fa;
+      --bg-white: #ffffff;
+      --text-dark: #1a1a2e;
+      --text-muted: #5c6b7f;
+      --border: #e1e8ed;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --max-width: 1200px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background: var(--bg-light);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+      }
+
+      .nav a:hover {
+        color: var(--primary);
+      }
+    }
+
+    .btn-header {
+      display: none;
+      padding: 0.6rem 1.4rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .btn-header:hover {
+      background: var(--accent-hover);
+    }
+
+    @media (min-width: 640px) {
+      .btn-header {
+        display: inline-block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    }
+
+    .hero-bg img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    @media (min-width: 480px) {
+      .hero-cta {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg-white);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-grid {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .trust-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Section */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Services */
+    .services {
+      background: var(--bg-white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--border);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-image {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .service-card:hover .service-image img {
+      transform: scale(1.05);
+    }
+
+    .service-content {
+      padding: 1.5rem;
+    }
+
+    .service-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Request Form */
+    .request-section {
+      background: linear-gradient(135deg, var(--accent-light) 0%, white 100%);
+    }
+
+    .request-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .request-header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .request-header h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .request-header p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .request-form {
+      padding: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(230, 126, 50, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--bg-white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 1.5rem;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .cta-band h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Contact */
+    .contact {
+      background: var(--bg-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin: 0 auto 1rem;
+    }
+
+    .contact-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-card a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .contact-card a:hover {
+      color: var(--accent);
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: var(--bg-white);
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 767px) {
+      .mobile-cta {
+        display: block;
+      }
+
+      body {
+        padding-bottom: 80px;
+      }
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      .btn:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Kahlert<span>.</span></a>
+      <ul class="nav">
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#anfrage">Anfrage</a></li>
+        <li><a href="#galerie">Projekte</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <a href="tel:+493414924934" class="btn-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:0.5rem">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        0341 492 493 4
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.kahlert-heizung.de/inhalte/uploads/heizungstechnik.jpg" alt="">
+    </div>
+    <div class="hero-content reveal">
+      <div class="hero-badge">Tradition seit 1874 · Leipzig</div>
+      <h1>Herzlich willkommen bei der<br>Daniel Kahlert GmbH</h1>
+      <p>Ihr zuverlässiger Partner für Heizungs- und Sanitärtechnik in Leipzig. Qualität aus Tradition — wir sind für Sie da!</p>
+      <div class="hero-cta">
+        <a href="#anfrage" class="btn btn-primary">Jetzt unverbindlich anfragen</a>
+        <a href="tel:+493414924934" class="btn btn-secondary">0341 492 493 4</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-grid reveal">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span>Seit 1874</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <span>Meisterbetrieb</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        </div>
+        <span>Aus Leipzig</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>Zuverlässig & erfahren</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="leistungen" class="section services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Komplette Lösung aus einer Hand — von der Beratung bis zur Wartung.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/heizungstechnik.jpg" alt="Heizungstechnik" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Heizungstechnik</h3>
+            <p>Moderne Heizsysteme für effiziente Wärme und niedrige Energiekosten.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/sanitaertechnik.jpg" alt="Sanitärtechnik" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Sanitärtechnik</h3>
+            <p>Badplanung, Installation und Reparatur — alles rund um Wasser.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/waermepumpen.jpg" alt="Wärmepumpen" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Wärmepumpen</h3>
+            <p>Nachhaltige Heizlösungen mit Umweltwärme für Ihre Immobilie.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/photovoltaik.jpg" alt="Photovoltaik" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Photovoltaik</h3>
+            <p>Solarstrom für Eigenverbrauch und Unabhängigkeit vom Stromnetz.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/solarthermie.jpg" alt="Solarthermie" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Solarthermie</h3>
+            <p>Sonne zur Warmwasserbereitung und Heizungsunterstützung nutzen.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image">
+            <img src="https://www.kahlert-heizung.de/inhalte/uploads/wartung.jpg" alt="Wartung" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Wartung & Service</h3>
+            <p>Regelmäßige Wartung für Langlebigkeit und Sicherheit Ihrer Anlagen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="anfrage" class="section request-section">
+    <div class="container">
+      <div class="request-container reveal">
+        <div class="request-header">
+          <h2>Unverbindliche Anfrage</h2>
+          <p>Erzählen Sie uns von Ihrem Projekt — wir melden uns schnell zurück.</p>
+        </div>
+        <form class="request-form" action="mailto:info@kahlert-heizung.de" method="post" enctype="text/plain">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="service">Interesse an</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="heizung">Heizungstechnik</option>
+                <option value="sanitaer">Sanitärtechnik</option>
+                <option value="waermepumpe">Wärmepumpe</option>
+                <option value="solar">Photovoltaik / Solarthermie</option>
+                <option value="wartung">Wartung / Service</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Ihre Nachricht *</label>
+              <textarea id="message" name="message" required placeholder="Beschreiben Sie kurz Ihr Anliegen..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="form-submit">Anfrage absenden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie" class="section gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Aus unseren Projekten</h2>
+        <p>Ein Einblick in unsere Arbeit — Qualität aus Tradition.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.kahlert-heizung.de/inhalte/uploads/gasanlage.jpg" alt="Gasanlagen" loading="lazy">
+          <div class="gallery-overlay">Gasanlagen</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kahlert-heizung.de/inhalte/uploads/regenwassernutzung.jpg" alt="Regenwassernutzung" loading="lazy">
+          <div class="gallery-overlay">Regenwassernutzung</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kahlert-heizung.de/inhalte/uploads/photovoltaik.jpg" alt="Photovoltaik-Anlage" loading="lazy">
+          <div class="gallery-overlay">Photovoltaik-Anlage</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kahlert-heizung.de/inhalte/uploads/waermepumpen.jpg" alt="Wärmepumpen-Installation" loading="lazy">
+          <div class="gallery-overlay">Wärmepumpen-Installation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Qualität aus Tradition — wir sind für Sie da!</h2>
+      <p>Seit 1874 begleiten wir Leipziger Haushalte und Unternehmen mit Kompetenz und Verlässlichkeit.</p>
+      <a href="#anfrage" class="btn btn-primary" style="background: white; color: var(--accent);">Jetzt anfragen</a>
+    </div>
+  </section>
+
+  <section id="kontakt" class="section contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <p>Wir freuen uns auf Ihre Nachricht oder Ihren Anruf.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Telefon</h3>
+          <a href="tel:+493414924934">0341 492 493 4</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <h3>E-Mail</h3>
+          <a href="mailto:info@kahlert-heizung.de">info@kahlert-heizung.de</a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Adresse</h3>
+          <p>Karl-Heine-Straße 39<br>04179 Leipzig</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9 · <a href="https://www.kahlert-heizung.de" target="_blank">www.kahlert-heizung.de</a></p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+493414924934" class="btn btn-primary">0341 492 493 4 anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
