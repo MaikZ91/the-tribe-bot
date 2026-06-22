@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>BellaBrasil – Brazilian Waxing & Beauty in Berlin, Potsdam & Nürnberg</title>
+  <meta name="description" content="BellaBrasil Waxingstudio für Brazilian Waxing und Beauty-Behandlungen in Berlin (Mitte, Steglitz, Neukölln, Wittenau), Potsdam und Nürnberg.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose-gold: #b76e79;
+      --rose-gold-dark: #9a5a64;
+      --nude-light: #f5e6e8;
+      --nude: #ecd8dc;
+      --nude-dark: #d4babe;
+      --charcoal: #2a2a2a;
+      --charcoal-light: #4a4a4a;
+      --warm-white: #fffcfb;
+      --white: #ffffff;
+      --shadow-soft: 0 8px 32px rgba(183, 110, 121, 0.12);
+      --shadow-hover: 0 12px 40px rgba(183, 110, 121, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 252, 251, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-soft);
+      border-bottom-color: var(--nude-dark);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .logo span {
+      color: var(--rose-gold);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--charcoal-light);
+    }
+
+    .nav a:hover {
+      color: var(--rose-gold);
+    }
+
+    .nav-cta {
+      background: var(--rose-gold);
+      color: var(--white) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--rose-gold-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-toggle span {
+      width: 25px;
+      height: 2px;
+      background: var(--charcoal);
+      transition: all 0.3s ease;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,252,251,0.92) 0%, rgba(236,216,220,0.85) 100%);
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--rose-gold);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--charcoal-light);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--rose-gold);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--rose-gold-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--rose-gold);
+      color: var(--rose-gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--rose-gold);
+      color: var(--white);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--nude-light);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--rose-gold-dark);
+    }
+
+    .badge svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--nude);
+      padding: 3rem 1.5rem;
+    }
+
+    .usp-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .usp-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .usp-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .usp-icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 1rem;
+      background: var(--nude-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--rose-gold);
+    }
+
+    .usp-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .usp-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+    }
+
+    .usp-item p {
+      font-size: 0.9rem;
+      color: var(--charcoal-light);
+    }
+
+    /* Services */
+    .services {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--charcoal-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-image {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .service-image img {
+      transform: scale(1.05);
+    }
+
+    .service-content {
+      padding: 1.5rem;
+    }
+
+    .service-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+    }
+
+    .service-content p {
+      font-size: 0.95rem;
+      color: var(--charcoal-light);
+      margin-bottom: 1rem;
+    }
+
+    .service-link {
+      color: var(--rose-gold);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Booking Section */
+    .booking {
+      background: linear-gradient(135deg, var(--nude-light) 0%, var(--nude) 100%);
+      padding: 5rem 1.5rem;
+    }
+
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .booking-header h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+    }
+
+    .booking-header p {
+      color: var(--charcoal-light);
+    }
+
+    .booking-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    .form-input,
+    .form-select {
+      padding: 1rem;
+      border: 1px solid var(--nude-dark);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--warm-white);
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--rose-gold);
+      box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.1);
+    }
+
+    .booking-submit {
+      grid-column: span 2;
+      margin-top: 0.5rem;
+    }
+
+    /* Locations */
+    .locations {
+      padding: 5rem 1.5rem;
+    }
+
+    .locations-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .location-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+
+    .location-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .location-image {
+      height: 150px;
+      overflow: hidden;
+    }
+
+    .location-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .location-content {
+      padding: 1rem;
+    }
+
+    .location-content h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: var(--charcoal);
+    }
+
+    .location-content p {
+      font-size: 0.85rem;
+      color: var(--charcoal-light);
+    }
+
+    .new-badge {
+      display: inline-block;
+      background: var(--rose-gold);
+      color: var(--white);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 5rem 1.5rem;
+      background: var(--nude-light);
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item.large {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 4rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(183,110,121,0.15) 0%, transparent 50%, rgba(183,110,121,0.15) 100%);
+    }
+
+    .cta-band-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    .cta-band p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band-image {
+      max-width: 400px;
+      margin: 2rem auto 0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .cta-band-image img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 5rem 1.5rem;
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .contact-info h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--charcoal);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--charcoal-light);
+    }
+
+    .contact-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--rose-gold);
+      flex-shrink: 0;
+    }
+
+    .contact-item a {
+      color: var(--rose-gold);
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      color: var(--rose-gold-dark);
+    }
+
+    .chatbot-notice {
+      background: var(--nude-light);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .chatbot-notice h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chatbot-notice p {
+      font-size: 0.9rem;
+      color: var(--charcoal-light);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 0.8rem 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta-bar .btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .locations-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-item.large {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-badges {
+        justify-content: center;
+      }
+
+      .hero-image {
+        order: -1;
+      }
+
+      .usp-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-form {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+
+      .booking-submit {
+        grid-column: span 1;
+      }
+
+      .locations-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-cta-bar {
+        display: block;
+      }
+
+      body {
+        padding-bottom: 60px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Bella<span>Brasil</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#standorte">Standorte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#buchung" class="nav-cta">Termin buchen</a>
+      </nav>
+      <div class="mobile-toggle" aria-label="Menü">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://bellabrasil.de/wp-content/uploads/attractive-african-woman-enjoying-face-massage-spa-salon-scaled.jpg" alt="Bella Brasil Spa Salon">
+    </div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1><span>Brazilian Waxing</span> & Beauty</h1>
+        <p class="hero-subtitle">Sanfte Haarentfernung & Wohlfühl-Behandlungen in unseren Studios in Berlin, Potsdam und Nürnberg.</p>
+        <div class="hero-ctas">
+          <a href="#buchung" class="btn btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-outline">Leistungen</a>
+        </div>
+        <div class="hero-badges">
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Premium-Qualität
+          </div>
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            Flexible Termine
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://bellabrasil.de/wp-content/uploads/laser-hair-removal-device-selective-focus-scaled.jpg" alt="Waxing Behandlung">
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="usp-grid">
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+        </div>
+        <h3>Geschultes Team</h3>
+        <p>Professionelle Kosmetikerinnen mit Erfahrung</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Hochwertige Produkte</h3>
+        <p>Sanfte Wachse & Pflegeprodukte</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3>Mehrere Standorte</h3>
+        <p>7 Studios in Berlin, Potsdam & Nürnberg</p>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3>Entspannte Atmosphäre</h3>
+        <p>Wohlfühl-Ambiente in jedem Studio</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="leistungen" class="services">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Entdecken Sie unser Spektrum an professionellen Beauty-Behandlungen.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/women-s-legs-sauna-scaled.jpg" alt="Brazilian Waxing">
+        </div>
+        <div class="service-content">
+          <h3>Brazilian Waxing</h3>
+          <p>Sanfte Intim-Haarentfernung mit hochwertigem Warmwachs – schmerzarm & langanhaltend.</p>
+          <a href="#buchung" class="service-link">Termin buchen →</a>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/laser-hair-removal-device-selective-focus-scaled-600x400.jpg" alt="Körperwaxing">
+        </div>
+        <div class="service-content">
+          <h3>Körperwaxing</h3>
+          <p>Wachsepilation für Beine, Arme, Rücken & weitere Körperpartien – glatte Haut bis zu 4 Wochen.</p>
+          <a href="#buchung" class="service-link">Termin buchen →</a>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/eyelash-extensions-artificial-eyelashes-girl-salon-is-doing-eyelash-extension-procedure-close-up-scaled.jpg" alt="Wimpern-Verlängerung">
+        </div>
+        <div class="service-content">
+          <h3>Wimpern-Verlängerung</h3>
+          <p>Professionelles Lash-Lifting & Wimpern-Erweiterungen für ausdrucksstarke Augen.</p>
+          <a href="#buchung" class="service-link">Termin buchen →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="buchung" class="booking">
+    <div class="booking-inner reveal">
+      <div class="booking-header">
+        <h2>Termin online buchen</h2>
+        <p>Wählen Sie Ihren Wunschtermin – wir melden uns schnellstmöglich zur Bestätigung.</p>
+      </div>
+      <form class="booking-form" onsubmit="handleBooking(event)">
+        <div class="form-group">
+          <label class="form-label">Vorname *</label>
+          <input type="text" class="form-input" required placeholder="Ihr Vorname">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nachname *</label>
+          <input type="text" class="form-input" required placeholder="Ihr Nachname">
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-Mail *</label>
+          <input type="email" class="form-input" required placeholder="ihre@email.de">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon</label>
+          <input type="tel" class="form-input" placeholder="+49 ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gewünschte Behandlung *</label>
+          <select class="form-select" required>
+            <option value="">Bitte wählen...</option>
+            <option value="brazilian">Brazilian Waxing</option>
+            <option value="body">Körperwaxing</option>
+            <option value="lashes">Wimpern-Verlängerung</option>
+            <option value="other">Andere Behandlung</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bevorzugtes Studio *</label>
+          <select class="form-select" required>
+            <option value="">Bitte wählen...</option>
+            <option value="mitte">Berlin – Mitte</option>
+            <option value="steglitz">Berlin – Steglitz</option>
+            <option value="neukoelln">Berlin – Neukölln</option>
+            <option value="wittenau">Berlin – Wittenau</option>
+            <option value="potsdam">Potsdam</option>
+            <option value="nuernberg">Nürnberg</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gewünschtes Datum *</label>
+          <input type="date" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gewünschte Uhrzeit *</label>
+          <select class="form-select" required>
+            <option value="">Bitte wählen...</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label">Nachricht</label>
+          <textarea class="form-input" rows="3" placeholder="Weitere Wünsche oder Fragen..."></textarea>
+        </div>
+        <div class="booking-submit">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Termin anfragen</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section id="standorte" class="locations">
+    <div class="section-header reveal">
+      <h2>Unsere Studios</h2>
+      <p>Finden Sie das BellaBrasil Studio in Ihrer Nähe.</p>
+    </div>
+    <div class="locations-grid">
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/mitte-1.png" alt="Berlin Mitte">
+        </div>
+        <div class="location-content">
+          <h3>Berlin – Mitte</h3>
+          <p>Mitten im Herzen der Hauptstadt</p>
+        </div>
+      </div>
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/steglitz.png" alt="Berlin Steglitz">
+        </div>
+        <div class="location-content">
+          <h3>Berlin – Steglitz</h3>
+          <p>Im Südwesten Berlins</p>
+        </div>
+      </div>
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/neukoelln.png" alt="Berlin Neukölln">
+        </div>
+        <div class="location-content">
+          <h3>Berlin – Neukölln</h3>
+          <p>Trendiger Stadtteil</p>
+        </div>
+      </div>
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/wittenau.png" alt="Berlin Wittenau">
+        </div>
+        <div class="location-content">
+          <h3>Berlin – Wittenau</h3>
+          <span class="new-badge">Neue Adresse ab 01.02.2026!</span>
+        </div>
+      </div>
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/potsdam.png" alt="Potsdam">
+        </div>
+        <div class="location-content">
+          <h3>Potsdam</h3>
+          <p>Hauptstadt Brandenburgs</p>
+        </div>
+      </div>
+      <div class="location-card reveal">
+        <div class="location-image">
+          <img src="https://bellabrasil.de/wp-content/uploads/Bella-Brasil_nuernberg.jpg" alt="Nürnberg">
+        </div>
+        <div class="location-content">
+          <h3>Nürnberg</h3>
+          <p>Mittelfranken</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="galerie" class="gallery">
+    <div class="section-header reveal">
+      <h2>Eindrücke</h2>
+      <p>Blicken Sie hinter die Kulissen unserer Studios.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item large reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/attractive-african-woman-enjoying-face-massage-spa-salon-scaled.jpg" alt="Gesichtsmassage">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/women-s-legs-sauna-scaled.jpg" alt="Sauna">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/laser-hair-removal-device-selective-focus-scaled.jpg" alt="Waxing Gerät">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/eyelash-extensions-artificial-eyelashes-girl-salon-is-doing-eyelash-extension-procedure-close-up-scaled.jpg" alt="Wimpernbehandlung">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/bella-brasill.png" alt="Bella Brasil Logo">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/laser-hair-removal-device-selective-focus-scaled-600x400.jpg" alt="Haarentfernung">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-inner reveal">
+      <h2>Bereit für glatte, gepflegte Haut?</h2>
+      <p>Buchen Sie jetzt Ihren Termin und erleben Sie professionelle Beauty-Behandlungen in entspannter Atmosphäre.</p>
+      <a href="#buchung" class="btn btn-primary">Jetzt Termin buchen</a>
+      <div class="cta-band-image">
+        <img src="https://bellabrasil.de/wp-content/uploads/eyelash-extensions-artificial-eyelashes-girl-salon-is-doing-eyelash-extension-procedure-close-up-scaled.jpg" alt="Wimpern-Verlängerung">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="kontakt" class="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h2>Kontakt</h2>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <a href="tel:+493027581188">+49 30 275 81 188</a>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <a href="mailto:info@bellabrasil.de">info@bellabrasil.de</a>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>Berlin, Potsdam & Nürnberg</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20"/>
+          </svg>
+          <a href="https://www.bellabrasil.de/" target="_blank" rel="noopener">www.bellabrasil.de</a>
+        </div>
+        <div class="chatbot-notice">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Chat-Assistent
+          </h3>
+          <p>Haben Sie Fragen? Unser Team ist per E-Mail erreichbar und hilft Ihnen gerne weiter.</p>
+        </div>
+      </div>
+      <div class="contact-image reveal">
+        <img src="https://bellabrasil.de/wp-content/uploads/attractive-african-woman-enjoying-face-massage-spa-salon-scaled.jpg" alt="Bella Brasil Studio" style="border-radius: 20px; box-shadow: var(--shadow-soft);">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9</p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="#buchung" class="btn btn-primary">Termin buchen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Booking form handler
+    function handleBooking(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const params = new URLSearchParams();
+      params.append('subject', 'Terminanfrage BellaBrasil');
+      params.append('body', `
+Neue Terminanfrage:
+
+Vorname: ${e.target.querySelector('input[type="text"]').value}
+E-Mail: ${e.target.querySelector('input[type="email"]').value}
+Telefon: ${e.target.querySelectorAll('input[type="tel"]')[0]?.value || 'nicht angegeben'}
+Behandlung: ${e.target.querySelector('select').value}
+Studio: ${e.target.querySelectorAll('select')[1].value}
+Datum: ${e.target.querySelector('input[type="date"]').value}
+Uhrzeit: ${e.target.querySelectorAll('select')[2].value}
+Nachricht: ${e.target.querySelector('textarea').value || 'keine'}
+      `.trim());
+
+      window.location.href = `mailto:info@bellabrasil.de?${params.toString()}`;
+    }
+
+    // Mobile menu toggle (placeholder)
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    mobileToggle.addEventListener('click', () => {
+      alert('Mobile Navigation würde sich hier öffnen.');
+    });
+
+    // Set minimum date to today for booking
+    const dateInput = document.querySelector('input[type="date"]');
+    if (dateInput) {
+      dateInput.min = new Date().toISOString().split('T')[0];
+    }
+  </script>
+</body>
+</html>
