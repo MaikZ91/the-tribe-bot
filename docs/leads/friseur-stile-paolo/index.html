@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Stile Paolo — Hair Salon in Paderborn | Concept Preview</title>
+  <meta name="description" content="Ob strubbelig, glatt oder extravagant — eine Frisur sagt viel über die Person aus. Stile Paolo in Paderborn: Ihr Friseur, der nicht nur sein Handwerk, sondern auch Sie versteht.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-cream: #faf7f4;
+      --bg-white: #ffffff;
+      --bg-soft: #f5f2ef;
+      --text-dark: #2a2522;
+      --text-muted: #6b6560;
+      --accent-rose: #c9a88a;
+      --accent-rose-dark: #b8967a;
+      --accent-gold: #d4b896;
+      --border-soft: #e6e2de;
+      --shadow-subtle: 0 2px 12px rgba(42,37,34,0.06);
+      --shadow-card: 0 8px 28px rgba(42,37,34,0.08);
+      --shadow-hover: 0 12px 36px rgba(42,37,34,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .serif { font-family: 'Cormorant Garamond', serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-cream { background: var(--bg-cream); }
+    .section-white { background: var(--bg-white); }
+    .section-soft { background: var(--bg-soft); }
+    .section-rose { background: linear-gradient(135deg, var(--bg-soft) 0%, #f0ebe7 100%); }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(250,247,244,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow-subtle);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .logo span { color: var(--accent-rose); }
+    .nav { display: flex; gap: 32px; list-style: none; }
+    .nav a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav a:hover { color: var(--accent-rose-dark); }
+    .nav-btn {
+      padding: 10px 24px;
+      background: var(--accent-rose);
+      color: white;
+      border-radius: 24px;
+      font-weight: 500;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--accent-rose-dark);
+      transform: translateY(-1px);
+    }
+    .nav-btn-outline {
+      padding: 10px 24px;
+      background: transparent;
+      color: var(--accent-rose-dark);
+      border: 1px solid var(--accent-rose);
+      border-radius: 24px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn-outline:hover {
+      background: var(--accent-rose);
+      color: white;
+    }
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: var(--bg-cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-content { padding-top: 60px; }
+    .hero-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(201,168,138,0.15);
+      color: var(--accent-rose-dark);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+    .hero h1 .accent { color: var(--accent-rose); font-style: italic; }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--accent-rose);
+      color: white;
+      border: none;
+      border-radius: 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-rose-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,138,0.3);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: transparent;
+      color: var(--text-dark);
+      border: 1px solid var(--border-soft);
+      border-radius: 28px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-rose);
+      color: var(--accent-rose-dark);
+    }
+    .hero-image {
+      position: relative;
+      border-radius: 24px 24px 80px 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: rgba(255,255,255,0.95);
+      padding: 20px 28px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-subtle);
+    }
+    .hero-badge .number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent-rose);
+    }
+    .hero-badge .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      padding: 32px 0;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--bg-white);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .trust-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* Services */
+    .services-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 56px;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-rose-dark);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 40px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--bg-white);
+      padding: 40px 32px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-subtle);
+      transition: all 0.3s;
+      text-align: center;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-soft);
+    }
+    .service-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 24px;
+      background: var(--bg-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .service-card h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+    .service-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .booking-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .booking-content h2 {
+      font-size: 40px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+    .booking-content p {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+    .booking-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .booking-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 12px;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-rose);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .step-text {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    .booking-card {
+      background: var(--bg-white);
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .booking-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+      text-align: center;
+    }
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .form-select, .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      transition: all 0.2s;
+    }
+    .form-select:focus, .form-input:focus {
+      outline: none;
+      border-color: var(--accent-rose);
+      box-shadow: 0 0 0 3px rgba(201,168,138,0.1);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .booking-submit {
+      padding: 16px;
+      background: var(--accent-rose);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .booking-submit:hover {
+      background: var(--accent-rose-dark);
+    }
+    .booking-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    /* Gallery */
+    .gallery-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 280px);
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item.large { grid-column: span 2; grid-row: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(42,37,34,0.6) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: white;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* Reviews */
+    .reviews-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-card {
+      background: var(--bg-white);
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-subtle);
+      border: 1px solid var(--border-soft);
+    }
+    .review-stars {
+      color: #f5c542;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .review-text {
+      font-size: 15px;
+      color: var(--text-dark);
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-rose);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .review-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+    .review-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--text-dark) 0%, #3d3835 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 40px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .cta-band p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--text-dark);
+    }
+    .cta-band .btn-primary:hover {
+      background: var(--accent-rose);
+      color: white;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .contact-info h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--bg-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+    .contact-item-content a, .contact-item-content p {
+      font-size: 15px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .contact-item-content a:hover { color: var(--accent-rose-dark); }
+    .contact-map {
+      height: 300px;
+      background: var(--bg-soft);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .contact-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-white);
+      padding: 40px 0;
+      border-top: 1px solid var(--border-soft);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .footer-brand span { color: var(--accent-rose); }
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent-rose-dark); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-soft);
+      box-shadow: 0 -4px 20px rgba(42,37,34,0.08);
+      z-index: 999;
+    }
+    .mobile-cta-inner {
+      display: flex;
+      gap: 12px;
+    }
+    .mobile-cta .btn-primary, .mobile-cta .btn-secondary {
+      flex: 1;
+      justify-content: center;
+      padding: 14px 20px;
+      font-size: 14px;
+    }
+
+    /* Chatbot Widget */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      z-index: 998;
+    }
+    .chatbot-toggle {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-rose);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s;
+    }
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      background: var(--accent-rose-dark);
+    }
+    .chatbot-toggle svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+    .chatbot-bubble {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      background: white;
+      padding: 16px 20px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      max-width: 280px;
+      animation: fadeInUp 0.3s ease;
+    }
+    .chatbot-bubble h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+    .chatbot-bubble p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 48px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 240px); }
+      .gallery-item.large { grid-column: span 2; grid-row: span 1; }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .booking-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .menu-toggle { display: block; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-content { padding-top: 40px; }
+      .hero-actions { justify-content: center; }
+      .hero-image { display: none; }
+      .hero h1 { font-size: 36px; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 240px); }
+      .gallery-item.large { grid-column: span 1; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .mobile-cta { display: block; }
+      .chatbot-widget { bottom: 100px; right: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .booking-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Stile <span>Paolo</span></a>
+        <nav>
+          <ul class="nav">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#booking">Booking</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button class="nav-btn" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content reveal">
+          <span class="hero-tag">Established 1996 · Paderborn</span>
+          <h1>So wie <span class="accent">du bist</span><br>einzigartig stilvoll.</h1>
+          <p class="hero-desc">Eine Frisur sagt viel über die Person aus. Stile Paolo — Ihr Friseur in Paderborn, der nicht nur sein Handwerk, sondern auch Sie versteht.</p>
+          <div class="hero-actions">
+            <a href="#booking" class="btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Termin vereinbaren
+            </a>
+            <a href="#gallery" class="btn-secondary">Galerie ansehen</a>
+          </div>
+        </div>
+        <div class="hero-image reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/2018/04/IMG_2034-e1523798642439-1024x884.jpg" alt="Stile Paolo Salon Interior" loading="eager">
+          <div class="hero-badge">
+            <div class="number">24+</div>
+            <div class="label">Jahre Erfahrung</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">✂</div>
+          <span class="trust-text">Professionelle Schnitte</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">♔</div>
+          <span class="trust-text">Premium Farben</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">✤</div>
+          <span class="trust-text">Individuelle Beratung</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">♥</div>
+          <span class="trust-text">Herzlich Willkommen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="services" class="section section-white">
+    <div class="container">
+      <div class="services-header reveal">
+        <span class="section-label">Unsere Services</span>
+        <h2 class="section-title">Alles rund um Ihre Haare</h2>
+        <p class="section-desc">Von klassischen Schnitten bis zu modernen Styling-Techniken — wir verwirklichen Ihren Look.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">✂</div>
+          <h3>Damenschnitt & Styling</h3>
+          <p>Professionelle Schnitte, Waschen, Föhnen und Styling nach Ihren Wünschen.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">♛</div>
+          <h3>Herren & Kids</h3>
+          <p>Moderne Herrenfrisuren, Bartpflege und kindgerechte Schnitte.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">◈</div>
+          <h3>Färben & Tönen</h3>
+          <p>Intensivfarben, Strähnchen, Balayage und natürliche Nuancen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="section section-rose">
+    <div class="container">
+      <div class="booking-inner">
+        <div class="booking-content reveal">
+          <span class="section-label">Online Termin</span>
+          <h2>Ihr Termin bei Stile Paolo</h2>
+          <p>Vereinbaren Sie Ihren Wunschtermin ganz einfach online — wir melden uns bei Ihnen zur Bestätigung.</p>
+          <div class="booking-steps">
+            <div class="booking-step">
+              <div class="step-number">1</div>
+              <span class="step-text">Wählen Sie Ihren Service</span>
+            </div>
+            <div class="booking-step">
+              <div class="step-number">2</div>
+              <span class="step-text">Bevorzugter Zeitraum angeben</span>
+            </div>
+            <div class="booking-step">
+              <div class="step-number">3</div>
+              <span class="step-text">Kontaktdaten eintragen</span>
+            </div>
+          </div>
+          <a href="tel:+4952518719425" class="btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            05251 8719425 anrufen
+          </a>
+        </div>
+        <div class="booking-card reveal">
+          <h3>Termin anfragen</h3>
+          <form class="booking-form" action="mailto:stile-paolo@web.de?subject=Terminanfrage Stile Paolo" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="service">Service</label>
+              <select id="service" name="service" class="form-select" required>
+                <option value="">Bitte wählen...</option>
+                <option value="Damenschnitt">Damenschnitt</option>
+                <option value="Herrenschnitt">Herrenschnitt</option>
+                <option value="Kinderschnitt">Kinderschnitt</option>
+                <option value="Färben">Färben / Tönen</option>
+                <option value="Strähnchen">Strähnchen / Balayage</option>
+                <option value="Styling">Styling / Föhnen</option>
+                <option value="Beratung">Beratungsgespräch</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date">Bevorzugtes Datum</label>
+                <input type="date" id="date" name="date" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="time">Uhrzeit</label>
+                <select id="time" name="time" class="form-select">
+                  <option value="">Vormittag</option>
+                  <option value="nachmittag">Nachmittag</option>
+                  <option value="abend">Abend</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="Für Rückruf" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht (optional)</label>
+              <textarea id="message" name="message" class="form-input" rows="3" placeholder="Weitere Wünsche..."></textarea>
+            </div>
+            <button type="submit" class="booking-submit">Anfrage senden</button>
+            <p class="booking-note">Wir melden uns schnellstmöglich zur Bestätigung.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section section-white">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <span class="section-label">Galerie</span>
+        <h2 class="section-title">Unser Team & Unsere Arbeit</h2>
+        <p class="section-desc">Einblicke in den Salon und Ergebnisse unserer Arbeit.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item large reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/2019/05/Teamfoto-2-e1556886513174.jpeg" alt="Stile Paolo Team" loading="lazy">
+          <div class="gallery-overlay"><span>Unser Team</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/2020/08/IMG_2022-scaled-e1597068319391.jpeg" alt="Salon Atmosphäre" loading="lazy">
+          <div class="gallery-overlay"><span>Salon Atmosphäre</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/sb-instagram-feed-images/friseur_stile_paolo.jpg" alt="Styling Ergebnis" loading="lazy">
+          <div class="gallery-overlay"><span>Styling</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/2018/04/hairdresser-quotes.png" alt="Inspiration" loading="lazy">
+          <div class="gallery-overlay"><span>Inspiration</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://stilepaolo.de/wp-content/uploads/2019/05/Teamfoto-2-e1556886513174.jpeg" alt="Team" loading="lazy">
+          <div class="gallery-overlay"><span>Wir freuen uns auf Sie</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="reviews-header reveal">
+        <span class="section-label">Kundenstimmen</span>
+        <h2 class="section-title">Was unsere Kunden sagen</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Super Ergebnis und sehr freundliches Team. Fühle mich jedes Mal wohl verwöhnt!"</p>
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div>
+              <div class="review-name">Sabrina M.</div>
+              <span class="review-badge">Stammkundin</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Endlich ein Friseur, der genau weiß, was ich will. Kann ich nur weiterempfehlen."</p>
+          <div class="review-author">
+            <div class="review-avatar">T</div>
+            <div>
+              <div class="review-name">Thomas K.</div>
+              <span class="review-badge">Herrenschnitt</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Meine Tochter liebt es hier! Geduldig und kinderfreundlich — großartig."</p>
+          <div class="review-author">
+            <div class="review-avatar">J</div>
+            <div>
+              <div class="review-name">Julia W.</div>
+              <span class="review-badge">Mama von zwei</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Bereit für Ihren neuen Look?</h2>
+      <p>Vereinbaren Sie noch heute Ihren Termin bei Stile Paolo in Paderborn.</p>
+      <a href="#booking" class="btn-primary">Jetzt Termin buchen</a>
+    </div>
+  </section>
+
+  <section id="contact" class="section section-white">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <span class="section-label">Kontakt</span>
+          <h3>Kommen Sie vorbei</h3>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">📍</div>
+              <div class="contact-item-content">
+                <h4>Adresse</h4>
+                <p>Königstraße 38<br>33098 Paderborn</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">📞</div>
+              <div class="contact-item-content">
+                <h4>Telefon</h4>
+                <a href="tel:+4952518719425">05251 8719425</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">✉</div>
+              <div class="contact-item-content">
+                <h4>E-Mail</h4>
+                <a href="mailto:stile-paolo@web.de">stile-paolo@web.de</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=8.75%2C51.71%2C8.77%2C51.73&layer=mapnik&marker=51.715%2C8.755" loading="lazy" title="Standort"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          Stile <span>Paolo</span>
+          <span class="footer-tagline">— Ihr Friseur in Paderborn</span>
+        </div>
+        <div class="footer-tagline">Concept Preview · MZ.9</div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#booking">Booking</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="tel:+4952518719425" class="btn-secondary">Anrufen</a>
+      <a href="#booking" class="btn-primary">Termin buchen</a>
+    </div>
+  </div>
+
+  <div class="chatbot-widget">
+    <div class="chatbot-bubble">
+      <h4>Hilfe nodig?</h4>
+      <p>Schreiben Sie uns — wir antworten schnell!</p>
+    </div>
+    <a href="mailto:stile-paolo@web.de?subject=Anfrage über Website" class="chatbot-toggle" title="Nachricht schreiben">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Set minimum date for booking
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.setAttribute('min', today);
+    }
+  </script>
+</body>
+</html>
