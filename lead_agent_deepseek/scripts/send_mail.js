@@ -10,7 +10,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer, loadSent, recordSent, PREVIEW_DIR } = require('./rules');
+const { isValidEmail, isEmailAlreadySent, isKanzleiSteuer, loadSent, recordSent, resetEmailCache, PREVIEW_DIR } = require('./rules');
 
 const SCREENSHOT_SCRIPT = path.join(__dirname, 'screenshot-compare.js');
 const REPO = path.join(PREVIEW_DIR, '..', '..');
@@ -203,6 +203,11 @@ async function sendHtmlMail(lead, dryRun = false) {
   if (!to) { console.log(`  ⚠️  Keine E-Mail für ${lead.id}`); return { success: false }; }
   if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
   if (!SMTP.auth.pass) { console.log('  ❌ Kein SMTP-Passwort'); return { success: false }; }
+  // LETZTER Check direkt vor Versand (nach Screenshot-Wartezeit): Cache fresh
+  // lesen und prüfen, ob die Adresse in der Zwischenzeit bereits versendet
+  // wurde — verhindert Doppel-Mails absolut.
+  resetEmailCache();
+  if (isEmailAlreadySent(to)) { console.log(`  ⚠️  Kurz vor Versand blockiert — bereits gesendet: ${to}`); return { success: false }; }
   const attachments = [];
   if (lead.hasCompare) {
     const d = path.join(PREVIEW_DIR, lead.id);
@@ -237,7 +242,10 @@ async function main() {
     const lead = leads.find(l => l.id === targetId);
     if (!lead) { console.log(`❌ "${targetId}" nicht gefunden`); return; }
     if (isKanzleiSteuer(lead.id, lead.industry, lead.name)) { console.log('⛔  Kanzlei/Recht/Steuer — blockiert'); return; }
-    if (sent[targetId] && !dryRun) { console.log('⚠️  Bereits gesendet'); return; }
+    if (sent[targetId] && !dryRun) { console.log('⚠️  Bereits gesendet (id)'); return; }
+    // Defense-in-Depth: auch prüfen, ob die E-Mail-Adresse bereits unter einer
+    // anderen ID versendet wurde — verhindert Doppel-Mails bei gleicher Adresse.
+    if (!dryRun && lead.email && isEmailAlreadySent(lead.email)) { console.log(`⚠️  Bereits gesendet (email) — ${lead.email}`); return; }
     console.log(`→ ${lead.name}`);
     // Deterministische Staffelung: MAIL_DELAY_SEC (vom Loop vorgegeben, z. B.
     // 0/90/180s) → gleichmäßiger Abstand, kein Clustern. Fallback: Zufall 0–EMAIL_DELAY_MAX_MIN.
