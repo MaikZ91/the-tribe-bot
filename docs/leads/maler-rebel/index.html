@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Maler Rebel München — Mehrfach ausgezeichnetes Malerhandwerk seit 115 Jahren</title>
+    <meta name="description" content="Ihr Maler in München — seit über 115 Jahren traditionelles Malerhandwerk mit Qualität. Innenanstriche, Denkmalsanierung, Fassadenreinigungen und mehr.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #C15A3C;
+            --primary-dark: #A34830;
+            --secondary: #2C3E50;
+            --accent: #E8B87D;
+            --bg-warm: #FDF8F4;
+            --bg-light: #FFFFFF;
+            --text-main: #2C3E50;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            background: var(--bg-warm);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .header-nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(193,90,60,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(44,62,80,0.85) 0%, rgba(193,90,60,0.75) 100%);
+            padding: 8rem 1.5rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            background: var(--bg-light);
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trust-strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .trust-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .trust-text {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Section */
+        .section {
+            padding: 5rem 1.5rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services */
+        .services {
+            background: var(--bg-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-warm);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .service-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Form Feature */
+        .form-feature {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a252f 100%);
+            color: white;
+        }
+
+        .form-feature .section-label {
+            background: var(--accent);
+            color: var(--secondary);
+        }
+
+        .form-feature .section-title {
+            color: white;
+        }
+
+        .form-feature .section-desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .form-container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: var(--transition);
+        }
+
+        .step-dot.active {
+            background: var(--accent);
+        }
+
+        .step-dot.completed {
+            background: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .service-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .service-option:hover {
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .service-option.selected {
+            border-color: var(--accent);
+            background: rgba(232,184,125,0.1);
+        }
+
+        .service-option input {
+            accent-color: var(--accent);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-form-primary {
+            background: var(--accent);
+            color: var(--secondary);
+            flex: 1;
+        }
+
+        .btn-form-primary:hover {
+            background: #f5c99a;
+        }
+
+        .btn-form-secondary {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .btn-form-secondary:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .form-success {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .form-success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(46,204,113,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--bg-warm);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* CTA Band */
+        .cta-band {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 4rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-band h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .cta-band p {
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-band .btn {
+            background: white;
+            color: var(--primary);
+        }
+
+        .cta-band .btn:hover {
+            background: var(--bg-warm);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--bg-warm);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .contact-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .contact-value a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.875rem;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            z-index: 999;
+        }
+
+        .mobile-cta .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+
+            .hero {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .mobile-cta {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: 0.8s ease;
+            }
+
+            .reveal.in {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .lift {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: 0.6s ease;
+            }
+
+            .lift.in {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .lift {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">Maler Rebel</a>
+            <nav class="header-nav">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#anfrage">Anfrage</a>
+                <a href="#galerie">Galerie</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="tel:+49897415240" class="btn btn-primary">📞 Jetzt anrufen</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="https://maler-rebel.de/wp-content/uploads/2024/05/muenchen-denkmalschutz-maler.jpg" alt="Denkmalschutz Malerarbeiten in München" class="hero-bg" loading="eager">
+        <div class="hero-content reveal">
+            <div class="hero-badge">
+                <span>🏆</span> Mehrfach ausgezeichnet
+            </div>
+            <h1>Ihr Maler in München – weil's schön wird</h1>
+            <p>Traditionelles Malerhandwerk seit über 115 Jahren. Innenanstriche, Denkmalsanierung, Fassadenreinigungen und mehr – mit höchster Qualität.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="#anfrage" class="btn btn-primary">Kostenlose Anfrage</a>
+                <a href="#leistungen" class="btn btn-secondary">Unsere Leistungen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <section class="trust-strip">
+        <div class="trust-strip-inner lift">
+            <div class="trust-item">
+                <div class="trust-icon">📜</div>
+                <span class="trust-text">Seit über 115 Jahren</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🏆</div>
+                <span class="trust-text">Mehrfach ausgezeichnet</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📍</div>
+                <span class="trust-text">München & Umgebung</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">✅</div>
+                <span class="trust-text">Zertifiziert & zuverlässig</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section services" id="leistungen">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="section-label">Leistungen</span>
+                <h2 class="section-title">Unser vielfältiges Portfolio</h2>
+                <p class="section-desc">Vom Innenanstrich bis zur Denkmalsanierung – wir bieten Ihnen das komplette Spektrum des professionellen Malerhandwerks.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/11/muenchen-innenanstriche.jpg" alt="Innenanstriche in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Innenanstriche</h3>
+                        <p class="service-desc">Farbgestaltung und Innenputzarbeiten für Wohn- und Geschäftsräume.</p>
+                    </div>
+                </div>
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/05/muenchen-denkmalschutz-maler.jpg" alt="Denkmalsanierung in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Denkmalsanierung</h3>
+                        <p class="service-desc">Fachgerechte Restaurierung von historischen Gebäuden und Baudenkmälern.</p>
+                    </div>
+                </div>
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/05/nachhaltige-fassadenreinigung-muenchen.jpg" alt="Fassadenreinigung in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Fassadenreinigung</h3>
+                        <p class="service-desc">Nachhaltige Reinigung und Pflege von Fassaden aller Art.</p>
+                    </div>
+                </div>
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/11/baubiologische-anstriche-muenchen.jpg" alt="Baubiologische Anstriche in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Baubiologische Anstriche</h3>
+                        <p class="service-desc">Gesundheitlich unbedenkliche Farben und Materialien für ein besseres Raumklima.</p>
+                    </div>
+                </div>
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/11/tapezierarbeiten-muenchen.jpg" alt="Tapezierarbeiten in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Tapezierarbeiten</h3>
+                        <p class="service-desc">Professionelles Tapezieren mit modernen und klassischen Mustern.</p>
+                    </div>
+                </div>
+                <div class="service-card lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/06/betonkosmetik.jpg" alt="Betonkosmetik in München" class="service-image" loading="lazy">
+                    <div class="service-content">
+                        <h3 class="service-title">Betonkosmetik</h3>
+                        <p class="service-desc">Reparatur und optische Aufwertung von Betonflächen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Feature -->
+    <section class="section form-feature" id="anfrage">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="section-label">Kostenlose Anfrage</span>
+                <h2 class="section-title">Ihr Projekt, unsere Expertise</h2>
+                <p class="section-desc">In nur 3 Schritten zu Ihrem unverbindlichen Angebot. Wir melden uns zeitnah bei Ihnen.</p>
+            </div>
+            <div class="form-container lift">
+                <div class="step-indicator">
+                    <div class="step-dot active" data-step="1"></div>
+                    <div class="step-dot" data-step="2"></div>
+                    <div class="step-dot" data-step="3"></div>
+                </div>
+
+                <!-- Step 1: Leistungen -->
+                <div class="form-step active" id="step1">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Welche Leistung interessiert Sie?</h3>
+                    <div class="service-options">
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Innenanstriche">
+                            <span>Innenanstriche</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Denkmalsanierung">
+                            <span>Denkmalsanierung</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Fassadenreinigung">
+                            <span>Fassadenreinigung</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Baubiologische Anstriche">
+                            <span>Baubiologische Anstriche</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Tapezierarbeiten">
+                            <span>Tapezierarbeiten</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Betonkosmetik">
+                            <span>Betonkosmetik</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Lackierarbeiten">
+                            <span>Lackierarbeiten</span>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="services" value="Schimmelsanierung">
+                            <span>Schimmelsanierung</span>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-form-primary" onclick="nextStep(1)">Weiter →</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Termin -->
+                <div class="form-step" id="step2">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Wann passt es Ihnen am besten?</h3>
+                    <div class="form-group">
+                        <label class="form-label">Bevorzugter Zeitraum</label>
+                        <select class="form-select" id="timeframe">
+                            <option value="">Bitte wählen...</option>
+                            <option value="sofort">So schnell wie möglich</option>
+                            <option value="nächste-2-wochen">In den nächsten 2 Wochen</option>
+                            <option value="nächsten-monat">Im nächsten Monat</option>
+                            <option value="flexibel">Flexibel, keine Eile</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Projektgröße (ungefähr)</label>
+                        <select class="form-select" id="projectsize">
+                            <option value="">Bitte wählen...</option>
+                            <option value="klein">Klein (z.B. einzelner Raum)</option>
+                            <option value="mittel">Mittel (z.B. Wohnung/Etagen)</option>
+                            <option value="gross">Groß (z.B. komplettes Gebäude)</option>
+                            <option value="unbekannt">Noch nicht absehbar</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-form-secondary" onclick="prevStep(2)">← Zurück</button>
+                        <button type="button" class="btn btn-form-primary" onclick="nextStep(2)">Weiter →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Kontakt -->
+                <div class="form-step" id="step3">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Wie erreichen wir Sie?</h3>
+                    <div class="form-group">
+                        <label class="form-label">Ihr Name *</label>
+                        <input type="text" class="form-input" id="name" placeholder="Ihr vollständiger Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-Mail-Adresse *</label>
+                        <input type="email" class="form-input" id="email" placeholder="ihre@email.de" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefonnummer</label>
+                        <input type="tel" class="form-input" id="phone" placeholder="Für Rückrufe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Weitere Anmerkungen</label>
+                        <textarea class="form-textarea" id="notes" placeholder="Beschreiben Sie Ihr Projekt kurz..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-form-secondary" onclick="prevStep(3)">← Zurück</button>
+                        <button type="button" class="btn btn-form-primary" onclick="submitForm()">Anfrage absenden ✓</button>
+                    </div>
+                </div>
+
+                <!-- Success -->
+                <div class="form-step" id="success">
+                    <div class="form-success">
+                        <div class="form-success-icon">✓</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Vielen Dank!</h3>
+                        <p style="opacity: 0.9;">Ihre Anfrage wurde übermittelt. Wir melden uns zeitnah bei Ihnen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section gallery" id="galerie">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="section-label">Galerie</span>
+                <h2 class="section-title">Unsere Arbeiten</h2>
+                <p class="section-desc">Ein Einblick in unsere realisierten Projekte in München und Umgebung.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/06/marmor-spachtel-technik.jpg" alt="Marmor Spachtel Technik" loading="lazy">
+                    <div class="gallery-caption">Marmor-Spachtel-Technik</div>
+                </div>
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/11/lackierer-muenchen.jpg" alt="Lackiererarbeiten München" loading="lazy">
+                    <div class="gallery-caption">Lackiererarbeiten</div>
+                </div>
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/11/spachteltarbeiten-muenchen.jpg" alt="Spachtelarbeiten München" loading="lazy">
+                    <div class="gallery-caption">Spachtelarbeiten</div>
+                </div>
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/05/schimmelsanierung-muenchen.jpg" alt="Schimmelsanierung München" loading="lazy">
+                    <div class="gallery-caption">Schimmelsanierung</div>
+                </div>
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2023/09/muenchen-waermedaemmung.jpg" alt="Wärmedämmung München" loading="lazy">
+                    <div class="gallery-caption">Wärmedämmung</div>
+                </div>
+                <div class="gallery-item lift">
+                    <img src="https://maler-rebel.de/wp-content/uploads/2024/05/bodenmarkierungen-und-beschriftungen-muenchen.jpg" alt="Bodenmarkierungen München" loading="lazy">
+                    <div class="gallery-caption">Bodenmarkierungen & Beschriftungen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <h2>Bereit für Ihr Projekt?</h2>
+        <p>Über 115 Jahre Erfahrung sprechen für sich. Lassen Sie uns gemeinsam etwas Schönes schaffen.</p>
+        <a href="tel:+49897415240" class="btn">📞 +49 89 7415240</a>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="kontakt">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="section-label">Kontakt</span>
+                <h2 class="section-title">Wir sind für Sie da</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card lift">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-label">Telefon</div>
+                    <div class="contact-value"><a href="tel:+49897415240">+49 89 7415240</a></div>
+                </div>
+                <div class="contact-card lift">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-label">E-Mail</div>
+                    <div class="contact-value"><a href="mailto:info@maler-rebel.de">info@maler-rebel.de</a></div>
+                </div>
+                <div class="contact-card lift">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-label">Standort</div>
+                    <div class="contact-value">München</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Konzept-Vorschau · MZ.9</p>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="tel:+49897415240" class="btn btn-primary">📞 Jetzt anrufen</a>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal, .lift').forEach(el => observer.observe(el));
+
+        // Service option selection
+        document.querySelectorAll('.service-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT') {
+                    const checkbox = option.querySelector('input');
+                    checkbox.checked = !checkbox.checked;
+                }
+                option.classList.toggle('selected', option.querySelector('input').checked);
+            });
+        });
+
+        // Form steps
+        let currentStep = 1;
+
+        function updateStepIndicator(step) {
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index + 1 === step) {
+                    dot.classList.add('active');
+                } else if (index + 1 < step) {
+                    dot.classList.add('completed');
+                }
+            });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(step === 'success' ? 'success' : `step${step}`).classList.add('active');
+            if (step !== 'success') {
+                updateStepIndicator(step);
+            }
+            currentStep = step;
+        }
+
+        function nextStep(current) {
+            if (current === 1) {
+                const selected = document.querySelectorAll('.service-option input:checked');
+                if (selected.length === 0) {
+                    alert('Bitte wählen Sie mindestens eine Leistung aus.');
+                    return;
+                }
+            }
+            showStep(current + 1);
+        }
+
+        function prevStep(current) {
+            showStep(current - 1);
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !email) {
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+                return;
+            }
+
+            // Collect form data
+            const services = Array.from(document.querySelectorAll('.service-option input:checked')).map(el => el.value);
+            const timeframe = document.getElementById('timeframe').value;
+            const projectsize = document.getElementById('projectsize').value;
+            const phone = document.getElementById('phone').value;
+            const notes = document.getElementById('notes').value;
+
+            // Create email body
+            const subject = encodeURIComponent(`Anfrage: ${name} - Maler Rebel`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `E-Mail: ${email}\n` +
+                `Telefon: ${phone || 'Keine Angabe'}\n\n` +
+                `Leistungen: ${services.join(', ') || 'Keine Auswahl'}\n` +
+                `Zeitraum: ${timeframe || 'Keine Angabe'}\n` +
+                `Projektgröße: ${projectsize || 'Keine Angabe'}\n\n` +
+                `Anmerkungen:\n${notes || 'Keine'}`
+            );
+
+            // Open email client
+            window.location.href = `mailto:info@maler-rebel.de?subject=${subject}&body=${body}`;
+
+            showStep('success');
+        }
+    </script>
+</body>
+</html>
