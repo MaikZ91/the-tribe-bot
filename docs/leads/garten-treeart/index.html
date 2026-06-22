@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>TreeArt | Gartenbau & Baumpflege München</title>
+    <meta name="description" content="TreeArt Gartenbau und Baumpflege ist Ihr Unternehmen in und um München. Als professionelles, kompetentes und qualifiziertes Team verwandeln wir alles grün in Ihre persönliche Wohlfühloase.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2d5a3d;
+            --primary-dark: #1e3d2a;
+            --accent: #8fbc5a;
+            --accent-light: #b8d68f;
+            --sand: #f5f0e8;
+            --sand-light: #faf8f5;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(45, 90, 61, 0.12);
+            --shadow-lg: 0 8px 40px rgba(45, 90, 61, 0.18);
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text);
+            background: var(--sand-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(45, 90, 61, 0.1);
+            transition: all 0.3s ease;
+        }
+        header.scrolled {
+            box-shadow: var(--shadow);
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo img { height: 40px; width: auto; }
+        .header-cta {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .header-cta { display: block; }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(45, 90, 61, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 90, 61, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-large {
+            padding: 16px 36px;
+            font-size: 1.1rem;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(45, 90, 61, 0.85) 0%, rgba(30, 61, 42, 0.7) 100%);
+        }
+        .hero-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            color: var(--white);
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            opacity: 0.85;
+            margin-bottom: 40px;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* USPs */
+        .usps {
+            padding: 80px 24px;
+            background: var(--white);
+        }
+        .usps-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+        .usp-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--sand-light);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .usp-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+        }
+        .usp-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        .usp-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Leistungen */
+        .services {
+            padding: 100px 24px;
+            background: var(--sand);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .service-img {
+            height: 220px;
+            overflow: hidden;
+        }
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-img img {
+            transform: scale(1.05);
+        }
+        .service-content {
+            padding: 28px;
+        }
+        .service-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        .service-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .service-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .service-features li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .service-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Galerie */
+        .gallery {
+            padding: 100px 24px;
+            background: var(--white);
+        }
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-item::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(45, 90, 61, 0.3) 0%, transparent 50%);
+        }
+
+        /* Kontaktformular */
+        .contact-section {
+            padding: 100px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+        }
+        .contact-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        @media (min-width: 768px) {
+            .contact-wrapper { grid-template-columns: 1fr 1.5fr; }
+        }
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 20px;
+        }
+        .contact-info p {
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+        .contact-details {
+            list-style: none;
+        }
+        .contact-details li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .contact-details svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            opacity: 0.8;
+        }
+        .contact-details a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        .contact-details a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            color: var(--text);
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(143, 188, 90, 0.2);
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 600px) {
+            .form-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CTA Band */
+        .cta-band {
+            padding: 80px 24px;
+            background: var(--sand);
+            text-align: center;
+        }
+        .cta-band h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+        .cta-band p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            background: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+        }
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 12px 16px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 12px;
+            z-index: 99;
+        }
+        @media (min-width: 768px) {
+            .mobile-cta-bar { display: none; }
+        }
+        .mobile-cta-bar .btn {
+            flex: 1;
+            padding: 14px 20px;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        /* Siegel/Trust */
+        .trust-bar {
+            padding: 40px 24px;
+            background: var(--white);
+            border-top: 1px solid rgba(45, 90, 61, 0.1);
+        }
+        .trust-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .trust-item img {
+            height: 60px;
+            width: auto;
+            opacity: 0.7;
+        }
+
+        /* Accessibility */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-inner">
+            <div class="logo">
+                <span>🌳</span> TreeArt
+            </div>
+            <nav class="header-cta">
+                <a href="tel:+4917643563237" class="btn btn-outline">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    +49 176 43563237
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/02+Gartenbau+01-1920w.jpg?Expires=1784074960&Signature=E3xVV5WUZPLIlXrMCmvQ~xA~PzD73iWnAPj7CJiYcmQBp7moRzwZqAIWqo9JGfm7GMBGGPfvTHEd1-9IeqW1I5q7F78IfVhwyFM5yyAqlCchQCStqB82l74MG9K~wPNQfkrK7oQoFqHihHqrUURvUmLvPznTJNOxDgtCSCBbTp5AFadiujprS-cp7gVjv1hTHtQ~NuHsCRev~jFJ~LUL--14N41ZtvZIkkoH-sJhNB6US5EbDG4LElAlcCMASqepqKv9C0-Fv8r~mhP~HcOHuqzweY3E9yAWO68y9h9K-LXlbxrT1dmknSmkTeO68Xu8Xqpt75bn2xcMudwYNgmdiA__&Key-Pair-Id=K2NXBXLF010TJW" alt="Professioneller Gartenbau von TreeArt München" loading="eager">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="reveal">Gartenbau von A-Z</h1>
+            <p class="hero-quote reveal">„Weil in jedem von uns ein Kind wohnt...“</p>
+            <p class="hero-subtitle reveal">In und um München verwandeln wir alles Grün in Ihre persönliche Wohlfühloase.</p>
+            <div class="hero-ctas reveal">
+                <a href="#kontaktformular" class="btn btn-primary btn-large">
+                    Kostenlos anfragen
+                </a>
+                <a href="tel:+4917643563237" class="btn btn-outline btn-large" style="border-color: rgba(255,255,255,0.5); color: white;">
+                    Jetzt anrufen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USPs -->
+    <section class="usps">
+        <div class="usps-inner">
+            <div class="usp-card reveal">
+                <div class="usp-icon">✓</div>
+                <h3>Qualifiziertes Team</h3>
+                <p>Professionelle Gartenarbeit von erfahrenen Fachleuten</p>
+            </div>
+            <div class="usp-card reveal">
+                <div class="usp-icon">🌿</div>
+                <h3>Naturverbunden</h3>
+                <p>Grüne Oasen mit Liebe zur Natur gestalten</p>
+            </div>
+            <div class="usp-card reveal">
+                <div class="usp-icon">🏡</div>
+                <h3>Alles aus einer Hand</h3>
+                <p>Planung, Bau und Pflege – kompletter Service</p>
+            </div>
+            <div class="usp-card reveal">
+                <div class="usp-icon">⭐</div>
+                <h3>Regional in München</h3>
+                <p>Ihr zuverlässiger Partner vor Ort in 80687</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section class="services">
+        <div class="section-header reveal">
+            <h2>Unsere Leistungen</h2>
+            <p>Ob Neuanlage, Pflege oder Baumschnitt – wir machen Ihren Traumgarten wahr.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-img">
+                    <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/02+Gartenbau+02-1920w.webp?Expires=1784074960&Signature=BWhY8Oa5DB0KAQZJqTzeZFiJhDXMsZOcQD334hBZpzFzUh1KOdoCbuP-jVv5kwZb3wr4bQOfjZNZr5Owfm0aLMqrPgc09tF9qqQ7cRCElMirN7h-Dce~2Hml8Kyre1X-hLJ1-esXfDG~Jnv42S6uz1b8HFki0xSKKOFvMGi~aabVMoWdigZ9oQdQESdXVh4Riy0shThULcl1FuUxdu12ZHhUhke~Vil3WHmkW9uk1Y3Y1wBi6T1RHf0XFn7Ka0Ur5njiMhED2FNnM5D0mLzMBskX~KNd-vve3obfW3sbCoSofSJkx3yuzCxc20~m-jaxO9R0mJcMdB6ZrTIKMK4f8Q__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenbau Neuanlage" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Gartenbau</h3>
+                    <p>Komplette Neuanlage und Umgestaltung Ihres Außenbereichs nach Ihren Wünschen.</p>
+                    <ul class="service-features">
+                        <li>Neuanlagen & Umgestaltungen</li>
+                        <li>Beetpflanzungen & Rasen</li>
+                        <li>Weg- & Terrassenbau</li>
+                        <li>Wasser- & Steinelemente</li>
+                    </ul>
+                    <a href="#kontaktformular" class="btn btn-outline">Anfragen</a>
+                </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-img">
+                    <img src="https://le-cdn.website-editor.net/md/and1/dms3rep/multi/opt/112003-1920w.jpeg" alt="Baumpflege und Baumschnitt" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Baumpflege</h3>
+                    <p>Fachgerechter Schnitt und Pflege für gesunde, ästhetische Bäume.</p>
+                    <ul class="service-features">
+                        <li>Form- & Erhaltungsschnitt</li>
+                        <li>Kronensicherung</li>
+                        <li>Baumfällungen</li>
+                        <li>Wurzelraumarbeiten</li>
+                    </ul>
+                    <a href="#kontaktformular" class="btn btn-outline">Anfragen</a>
+                </div>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-img">
+                    <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/03+Gartenpflege+01-1920w.jpg?Expires=1784074960&Signature=F6K~98uGtbdXsRssHk2pyhoyKprvbrZZwwWalXdduajL7vG-IfTpTXxqnWlbHRECQKRFV6Tc102YpW6lLKP4DYaS6XOErVF-KSBw5vuAIv8C4U1O80OXNlW8~yOEcKyDGWylpc2KfBdAdKk7tZRnjoPXkwl1PVfmCdEGhLJ2Wr0XeuUk1wYcSrO0l9Dn3Wi1i4XJ1liZ~bkn91ROf8xYIQEWFezU0Z2rGym3SskBoePHTreNrVd00YbD-IYEQRgHQ2Jc6GpbPU8QFWl6DeGKOtONiaAQfWcHNLN1T1HUpmxsv~4KwKIqfFFtWMvzCrmDd6L206r7ie3rOxPo3N67Ng__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenpflege" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Gartenpflege</h3>
+                    <p>Regelmäßige Pflege, damit Ihr Garten das ganze Jahr über strahlt.</p>
+                    <ul class="service-features">
+                        <li>Rasenmähen & -pflege</li>
+                        <li>Heckenschnitt</li>
+                        <li>Saisonale Pflegearbeiten</li>
+                        <li>Düngen & Mulchen</li>
+                    </ul>
+                    <a href="#kontaktformular" class="btn btn-outline">Anfragen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="gallery">
+        <div class="section-header reveal">
+            <h2>Unsere Projekte</h2>
+            <p>Ein Einblick in unsere gelebte Gartenarbeit aus und um München.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/02+Gartenbau+01-1920w.jpg?Expires=1784074960&Signature=E3xVV5WUZPLIlXrMCmvQ~xA~PzD73iWnAPj7CJiYcmQBp7moRzwZqAIWqo9JGfm7GMBGGPfvTHEd1-9IeqW1I5q7F78IfVhwyFM5yyAqlCchQCStqB82l74MG9K~wPNQfkrK7oQoFqHihHqrUURvUmLvPznTJNOxDgtCSCBbTp5AFadiujprS-cp7gVjv1hTHtQ~NuHsCRev~jFJ~LUL--14N41ZtvZIkkoH-sJhNB6US5EbDG4LElAlcCMASqepqKv9C0-Fv8r~mhP~HcOHuqzweY3E9yAWO68y9h9K-LXlbxrT1dmknSmkTeO68Xu8Xqpt75bn2xcMudwYNgmdiA__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenbau Projekt" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/02+Gartenbau+02-1920w.webp?Expires=1784074960&Signature=BWhY8Oa5DB0KAQZJqTzeZFiJhDXMsZOcQD334hBZpzFzUh1KOdoCbuP-jVv5kwZb3wr4bQOfjZNZr5Owfm0aLMqrPgc09tF9qqQ7cRCElMirN7h-Dce~2Hml8Kyre1X-hLJ1-esXfDG~Jnv42S6uz1b8HFki0xSKKOFvMGi~aabVMoWdigZ9oQdQESdXVh4Riy0shThULcl1FuUxdu12ZHhUhke~Vil3WHmkW9uk1Y3Y1wBi6T1RHf0XFn7Ka0Ur5njiMhED2FNnM5D0mLzMBskX~KNd-vve3obfW3sbCoSofSJkx3yuzCxc20~m-jaxO9R0mJcMdB6ZrTIKMK4f8Q__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenbau Detail" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/md/and1/dms3rep/multi/opt/112003-1920w.jpeg" alt="Baumpflege Einsatz" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/03+Gartenpflege+01-1920w.jpg?Expires=1784074960&Signature=F6K~98uGtbdXsRssHk2pyhoyKprvbrZZwwWalXdduajL7vG-IfTpTXxqnWlbHRECQKRFV6Tc102YpW6lLKP4DYaS6XOErVF-KSBw5vuAIv8C4U1O80OXNlW8~yOEcKyDGWylpc2KfBdAdKk7tZRnjoPXkwl1PVfmCdEGhLJ2Wr0XeuUk1wYcSrO0l9Dn3Wi1i4XJ1liZ~bkn91ROf8xYIQEWFezU0Z2rGym3SskBoePHTreNrVd00YbD-IYEQRgHQ2Jc6GpbPU8QFWl6DeGKOtONiaAQfWcHNLN1T1HUpmxsv~4KwKIqfFFtWMvzCrmDd6L206r7ie3rOxPo3N67Ng__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenpflege Sommer" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/03+Gartenpflege+02-1920w.jpg?Expires=1784074960&Signature=apJXsgKNpKgc2XRBDbARduQCXeHGBn7IJlA593ZCBeo0DToJJnt1pfHxxeUQisEHdmHcbzmBHL4aLE~yHckNC32dAeZDDs~XYjxseZr3YcKOxjPn3ydFvORfKnIR2ivhhPtNoF9cSFTgGgjSwu0fUQFpYoHkiVYoIPPoYIzziHJ9hpDMgqgevJWiZWUhLdp5YSZgk-XKZGOm4LrvrasYn1Tq1iPY5yGmM~XwveEKZNzNPfI13KkT3o5triRrC2m2~aMKl5A7SHLGjQz31tGzMGHsjujXnCdef4KawmfhGR2fmZRxLSl2WRYARk-kZEmqI-NbwIS9afS1Z9lWuGBKqQ__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenpflege Detail" loading="lazy">
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/03+Gartenpflege+03-1920w.jpg?Expires=1784074960&Signature=Q0gaBeP0jPdaDogiQ4MC0i6e39GXWmJK0HMEd76LXdZDnJh7UGApee35f5Qn3cRPuMgM3O1Y5WRn2z0UNT-DEh5h2M-2RcghbS3Cb1BJCvXHJCDH8YI6kkVz-5CNVL4Pl2nHaqp5L9pccPwi1oKhX8t-ZEZ1HPqZ6B-s9fwJiAxsNf9S1c0pu4QKy12OR9t1gScyTTd3z3se0VVF2FBvmem7Q3Fns2d90YwPq-16Xsg8we~MWEbd2ahEIIzw8bVgF6D75rGr7IZAX2gZDpnkRCEaCLTtHWl9Q-EMn3IuybKK9xgNPRuMrDlTA1tZZf8AARR0RD4R5aMtbuNrmnmZL3A__&Key-Pair-Id=K2NXBXLF010TJW" alt="Gartenpflege Herbst" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="trust-inner">
+            <div class="trust-item">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/JR-AG-Siegel-RGB_MAIGR_2x-1920w.png?Expires=1784074960&Signature=LIlWKQ18rUa8e7RcYQgK0TQ7HMugCgEog6qU7ieltxFj6VjKrbuB7Y4nU0inPWhSqeFGuN6JNoZtZTO9rjaAh-LQ~tUGvy7GiGCCrng0DRVj19ADeGJstalnEZl~lqDQ69bJzTykmmtRfRr7BdLOd6chN1sC02YME6M0Lgqf5OewE5B2e1bqPp25cNI33ocZgG2AzgfR7gHvAOzImkta2CN3RAirXh4H~Zq3jMOTo1ciLdeT8v1BVdoQxDK~vzAKlDM-hNkqHzj3sKQNQzf1MOJO1VlaPXA59qyvr5mmzmfURhWwZMJNyxCgGUehRUSu4QujE4hVvN7JmmNGr4TgHA__&Key-Pair-Id=K2NXBXLF010TJW" alt="JR AG Siegel" loading="lazy">
+            </div>
+            <div class="trust-item">
+                <img src="https://le-cdn.website-editor.net/s/95d3004d1be84225bde0b8df1fe05bd7/dms3rep/multi/opt/TreeArt_anthrazit-1x-1920w.png?Expires=1784074960&Signature=bYxDJFyczdu3N8nzkNXaI9PUDp4XCZeZlOkhuT0faWSYQujkbfNHbo9dK~tG7zY86KMr-pmoLepOZJt8br7OnAbfW7t6X0Bk~I5zsqrnJ-pHcI5uv2Ww3ZeyA~Ml4P~LOivGih3iIk~i6B0RULafxgDRkXZzV5VadtcLRWTtjGea0dbtWglEAwdZDe~r1cO6q1H6oTz-S-DE6mcuYYm32yly0DftLdLLZUCtUc2plejXdh5yU27yvJfmaC2PGnUlxj8UZwplytEtRHmrgVVqo6B8X7H~naKCc8VIndSVYHtxd5mOZt1JXGbHOwDOpBkmay-3RzmF50fWBwRk7vcgYQ__&Key-Pair-Id=K2NXBXLF010TJW" alt="TreeArt Logo" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontaktformular -->
+    <section class="contact-section" id="kontaktformular">
+        <div class="contact-wrapper">
+            <div class="contact-info reveal">
+                <h2>Sprechen Sie uns an</h2>
+                <p>Für eine unverbindliche Beratung oder ein kostenloses Angebot kontaktieren Sie uns einfach.</p>
+                <ul class="contact-details">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <a href="tel:+4917643563237">+49 176 43563237</a>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <a href="mailto:info@treeart-galabau.de">info@treeart-galabau.de</a>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>Agricolastraße 14, 80687 München</span>
+                    </li>
+                </ul>
+            </div>
+            <form class="contact-form reveal" action="mailto:info@treeart-galabau.de" method="post" enctype="text/plain">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Ihr Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Interesse an</label>
+                        <select id="service" name="service">
+                            <option value="">Bitte wählen...</option>
+                            <option value="gartenbau">Gartenbau</option>
+                            <option value="baumpflege">Baumpflege</option>
+                            <option value="gartenpflege">Gartenpflege</option>
+                            <option value="sonstiges">Sonstiges</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Ihre Nachricht *</label>
+                    <textarea id="message" name="message" required placeholder="Erzählen Sie uns von Ihrem Projekt..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">
+                    Anfrage absenden
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <h2 class="reveal">Bereit für Ihren Traumgarten?</h2>
+        <p class="reveal">Kontaktieren Sie uns noch heute für ein kostenloses Erstgespräch!</p>
+        <div class="reveal">
+            <a href="#kontaktformular" class="btn btn-primary btn-large">
+                Jetzt anfragen
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Konzept-Vorschau · MZ.9</p>
+        <p style="margin-top: 8px; opacity: 0.5;">© TreeArt Gartenbau & Baumpflege · München</p>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta-bar">
+        <a href="tel:+4917643563237" class="btn btn-outline">
+            Anrufen
+        </a>
+        <a href="#kontaktformular" class="btn btn-primary">
+            Anfragen
+        </a>
+    </div>
+
+    <script>
+        // Header scrolled state
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
