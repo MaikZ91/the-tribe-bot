@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Die Kornblume · Blumenfachgeschäft Karlsruhe · Konzept-Vorschau</title>
+  <meta name="description" content="Blumenfachgeschäft Die Kornblume in Karlsruhe — naturnahe Blumenkunst, frische Sträuße, individuelle Gestecke. Fachberatung vor Ort.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #fafdf9;
+      --bg-secondary: #f4f7f2;
+      --accent: #c9a86c;
+      --accent-dark: #b8924d;
+      --text-primary: #1a2f1a;
+      --text-secondary: #4a5f4a;
+      --green-light: #d4e8d4;
+      --green: #2d6b2d;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(45,107,45,0.08);
+      --shadow-lg: 0 8px 30px rgba(45,107,45,0.12);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    header.scrolled { padding: 8px 0; }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+    }
+    .logo img { height: 48px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green);
+      color: var(--white);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--accent-dark); color: var(--white); }
+    /* HERO */
+    .hero {
+      padding-top: 100px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: url('https://www.diekornblume.de/_f/aussen/170915_115932_XT2B2812.jpg') center/cover;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      opacity: 0.8;
+    }
+    .hero-content {
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    .btn-outline {
+      border: 2px solid var(--green);
+      color: var(--green);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+    .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+    /* STRIP */
+    .strip {
+      background: var(--green);
+      color: var(--white);
+      padding: 20px 0;
+    }
+    .strip .container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .strip-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    /* SECTIONS */
+    section { padding: 80px 0; }
+    .section-title {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    .section-title p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* LEISTUNGEN */
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .leistung-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    .leistung-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .leistung-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .leistung-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .leistung-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    /* FORMULAR */
+    .form-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+    .form-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      box-shadow: var(--shadow-lg);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e0e8e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: 0.3s;
+      background: var(--bg-primary);
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--green);
+      background: var(--white);
+    }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-hint {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+    /* GALERIE */
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .galerie-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 4/3;
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+    .galerie-item:hover img { transform: scale(1.05); }
+    /* CTA BAND */
+    .cta-band {
+      background: linear-gradient(135deg, var(--green) 0%, #1e4a1e 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('https://www.diekornblume.de/_f/innen/170622_095426_XT2A3113.jpg') center/cover;
+      opacity: 0.15;
+    }
+    .cta-band .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .cta-band h2 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+    .cta-band p { font-size: 1.1rem; opacity: 0.9; }
+    .cta-band .btn {
+      background: var(--white);
+      color: var(--green);
+    }
+    .cta-band .btn:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    /* KONTAKT */
+    .kontakt-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .kontakt-info h3 {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+    .kontakt-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .kontakt-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .kontakt-text h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .kontakt-text p, .kontakt-text a {
+      color: var(--text-secondary);
+    }
+    .kontakt-text a:hover { color: var(--green); }
+    /* FOOTER */
+    footer {
+      background: var(--text-primary);
+      color: rgba(255,255,255,0.7);
+      padding: 40px 0 24px;
+      font-size: 0.9rem;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    footer a:hover { color: var(--white); }
+    /* MOBILE CTA BAR */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero::before { display: none; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+      .nav-links { display: none; }
+      .strip .container { flex-direction: column; align-items: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-wrapper { padding: 32px 24px; }
+      .kontakt-wrapper { grid-template-columns: 1fr; }
+      .cta-band .container { text-align: center; justify-content: center; }
+      .mobile-cta { display: block; }
+      section { padding: 56px 0; }
+    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .btn:hover, .leistung-card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="header">
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="https://www.diekornblume.de/u/die-kornblume-naturnahe-gestaltung-mit-blumen-250x58.png" alt="Die Kornblume Logo">
+      </a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#formular">Anfrage</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#formular" class="nav-cta">Anfrage senden</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content reveal">
+        <h1>Blumenfachgeschäft Die Kornblume</h1>
+        <p>Naturnahe Blumenkunst in Karlsruhe · Frische Sträuße · Individuelle Gestecke · Fachberatung vor Ort</p>
+        <div class="btn-group">
+          <a href="#formular" class="btn btn-primary">Anfrage senden</a>
+          <a href="tel:+497213860008" class="btn btn-outline">📞 +49 721 3860008</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="container">
+      <div class="strip-item">
+        <span class="strip-icon">🌸</span>
+        Täglich frische Blumen
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">💐</span>
+        Individuelle Gestecke
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">🏡</span>
+        Vor Ort in Karlsruhe
+      </div>
+      <div class="strip-item">
+        <span class="strip-icon">💚</span>
+        Naturnahe Gestaltung
+      </div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section id="leistungen">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Vom frischen Strauß bis zum individuellen Gesteck — wir gestalten mit Liebe zur Natur.</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">💐</div>
+          <h3>Blumensträuße</h3>
+          <p>Frische, saisonale Sträuße nach Wunsch — romantisch, klassisch oder modern.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🎀</div>
+          <h3>Gestecke & Arrangements</h3>
+          <p>Individuelle Gestecke für jeden Anlass — Tischschmuck, Wandarrangements, mehr.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🌿</div>
+          <h3>Pflanzen & Grünes</h3>
+          <p>Innen- und Außenpflanzen, die Ihr Zuhause oder Büro lebendig machen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🎉</div>
+          <h3>Event-Deko</h3>
+          <p>Blumenschmuck für Hochzeiten, Geburtstage und besondere Anlässe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAR -->
+  <section id="formular" class="form-section">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Unverbindliche Anfrage</h2>
+        <p>Erzählen Sie uns, was Sie suchen — wir melden uns schnell bei Ihnen.</p>
+      </div>
+      <div class="form-wrapper reveal">
+        <form action="mailto:info@diekornblume.de" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input type="text" name="name" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-Mail *</label>
+              <input type="email" name="email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Telefon</label>
+              <input type="tel" name="phone" class="form-input" placeholder="Für Rückrufe">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Interesse</label>
+              <select name="interest" class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option value="strauß">Blumenstrauß</option>
+                <option value="gesteck">Gesteck/Arrangement</option>
+                <option value="pflanze">Pflanze</option>
+                <option value="event">Event-Deko</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ihre Nachricht *</label>
+            <textarea name="message" class="form-textarea" placeholder="Was können wir für Sie tun?" required></textarea>
+            <p class="form-hint">Dieses Formular öffnet Ihr E-Mail-Programm — für direkten Kontakt auch telefonisch unter +49 721 3860008.</p>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage absenden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Einblicke</h2>
+        <p>So sieht es bei uns aus — natürlich, einladend, voller Leben.</p>
+      </div>
+      <div class="galerie-grid">
+        <div class="galerie-item reveal">
+          <img src="https://www.diekornblume.de/_f/aussen/170915_115932_XT2B2812.jpg" alt="Die Kornblume von außen" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diekornblume.de/_f/innen/170622_095426_XT2A3113.jpg" alt="Innenansicht mit frischen Blumen" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diekornblume.de/_f/innen/170622_094428_XT2B2353.jpg" alt="Blumenarrangement im Laden" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diekornblume.de/_f/innen/170626_164747_XT2B2461.jpg" alt="Saisonale Deko" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="reveal">
+        <h2>Blumen, die begeistern?</h2>
+        <p>Kommen Sie vorbei oder senden Sie uns eine Anfrage — wir freuen uns auf Sie.</p>
+      </div>
+      <a href="#formular" class="btn reveal">Jetzt anfragen</a>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Kontakt & Anfahrt</h2>
+      </div>
+      <div class="kontakt-wrapper reveal">
+        <div class="kontakt-info">
+          <h3>Wir sind für Sie da</h3>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📍</div>
+            <div class="kontakt-text">
+              <h4>Adresse</h4>
+              <p>Marie-Alexandra-Straße 32, 76135 Karlsruhe</p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📞</div>
+            <div class="kontakt-text">
+              <h4>Telefon</h4>
+              <a href="tel:+497213860008">+49 721 3860008</a>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">✉️</div>
+            <div class="kontakt-text">
+              <h4>E-Mail</h4>
+              <a href="mailto:info@diekornblume.de">info@diekornblume.de</a>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">🌐</div>
+            <div class="kontakt-text">
+              <h4>Website</h4>
+              <a href="http://www.diekornblume.de" target="_blank">www.diekornblume.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder" style="background: var(--bg-secondary); border-radius: var(--radius-lg); min-height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+          <div style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 12px;">🗺️</div>
+            <p>Karte mit Anfahrt<br>Marie-Alexandra-Straße 32<br>76135 Karlsruhe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div>© 2026 Die Kornblume · Blumenfachgeschäft Karlsruhe</div>
+      <div>Konzept-Vorschau · MZ.9</div>
+    </div>
+  </footer>
+
+  <!-- MOBILE CTA -->
+  <div class="mobile-cta">
+    <a href="#formular" class="btn btn-primary">Anfrage senden</a>
+  </div>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offset = window.innerWidth <= 768 ? 80 : 100;
+          const pos = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: pos, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
