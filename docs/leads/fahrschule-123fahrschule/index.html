@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>123 FAHRSCHULE Essen-Zentrum – Online anmelden | Führerschein jetzt starten</title>
+    <meta name="description" content="Melde dich online für die 123FAHRSCHULE Essen-Zentrum an. Innovatives Lernsystem, persÃ¶nliche Beratung – wir bringen dich easy zum Führerschein.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --accent: #00D4AA;
+            --text: #1A1A2E;
+            --text-light: #666680;
+            --bg: #FFFFFF;
+            --bg-alt: #F8F9FC;
+            --border: #E2E4EA;
+            --shadow: 0 4px 24px rgba(0, 102, 255, 0.1);
+            --shadow-hover: 0 8px 32px rgba(0, 102, 255, 0.15);
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: 0.2s ease; }
+
+        /* Header */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); transition: 0.3s ease; }
+        header.scrolled { box-shadow: var(--shadow); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+        .logo { font-size: 20px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo span { color: var(--text); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { font-weight: 500; font-size: 14px; color: var(--text-light); }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-cta { background: var(--primary); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 600; font-size: 14px; transition: 0.2s ease; }
+        .btn-cta:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
+
+        /* Hero */
+        .hero { min-height: 85vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 70px; }
+        .hero-bg { position: absolute; inset: 0; z-index: -1; }
+        .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,102,255,0.92) 0%, rgba(0,212,170,0.85) 100%); }
+        .hero-content { position: relative; z-index: 1; color: white; max-width: 600px; }
+        .hero h1 { font-size: clamp(32px,5vw,52px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero p { font-size: 18px; opacity: 0.95; margin-bottom: 32px; }
+        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn-primary { background: white; color: var(--primary); padding: 16px 32px; border-radius: 50px; font-weight: 700; font-size: 16px; transition: 0.2s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        .btn-secondary { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white; padding: 16px 32px; border-radius: 50px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.3); }
+
+        /* USP Strip */
+        .usp-strip { background: var(--bg-alt); padding: 60px 0; }
+        .usp-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 30px; }
+        .usp-item { text-align: center; padding: 30px; background: white; border-radius: 20px; transition: 0.3s ease; }
+        .usp-item:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .usp-icon { width: 60px; height: 60px; background: linear-gradient(135deg,var(--primary),var(--accent)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; }
+        .usp-item h3 { font-weight: 700; margin-bottom: 10px; font-size: 18px; }
+        .usp-item p { color: var(--text-light); font-size: 14px; }
+
+        /* Leistungen */
+        .section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: clamp(28px,4vw,40px); font-weight: 800; margin-bottom: 16px; color: var(--text); letter-spacing: -0.5px; }
+        .section-header p { color: var(--text-light); font-size: 18px; max-width: 600px; margin: 0 auto; }
+        .leistungen-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; }
+        .leistung-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 32px; transition: 0.3s ease; }
+        .leistung-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-3px); }
+        .leistung-card h3 { font-weight: 700; font-size: 20px; margin-bottom: 12px; }
+        .leistung-card p { color: var(--text-light); font-size: 15px; }
+        .leistung-tag { display: inline-block; background: var(--bg-alt); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 16px; }
+
+        /* Online Buchung Feature */
+        .booking-feature { background: linear-gradient(135deg,#F0F4FF 0%,#E0F9F5 100%); padding: 80px 0; }
+        .booking-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .booking-content h2 { font-size: 36px; font-weight: 800; margin-bottom: 20px; }
+        .booking-content p { color: var(--text-light); margin-bottom: 30px; font-size: 16px; }
+        .booking-steps { list-style: none; margin-bottom: 30px; }
+        .booking-steps li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,102,255,0.1); }
+        .booking-steps li:last-child { border-bottom: none; }
+        .step-num { width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .booking-form { background: white; padding: 40px; border-radius: 24px; box-shadow: var(--shadow); }
+        .booking-form h3 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; font-size: 15px; transition: 0.2s ease; font-family: inherit; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
+        .btn-submit { width: 100%; background: var(--primary); color: white; padding: 16px; border-radius: 12px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; transition: 0.2s ease; }
+        .btn-submit:hover { background: var(--primary-dark); }
+
+        /* Galerie */
+        .galerie-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); gap: 20px; }
+        .galerie-item { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 16/10; }
+        .galerie-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+        .galerie-item:hover img { transform: scale(1.05); }
+        .galerie-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 50%); opacity: 0; transition: 0.3s ease; display: flex; align-items: flex-end; padding: 24px; }
+        .galerie-item:hover .galerie-overlay { opacity: 1; }
+        .galerie-text { color: white; font-weight: 600; }
+
+        /* CTA Band */
+        .cta-band { background: linear-gradient(135deg,var(--primary) 0%,var(--accent) 100%); padding: 80px 0; text-align: center; color: white; }
+        .cta-band h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; }
+        .cta-band p { opacity: 0.95; margin-bottom: 32px; font-size: 18px; }
+
+        /* Kontakt */
+        .kontakt-section { padding: 80px 0; background: var(--bg-alt); }
+        .kontakt-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 30px; }
+        .kontakt-card { background: white; padding: 32px; border-radius: 20px; }
+        .kontakt-card h3 { font-weight: 700; margin-bottom: 20px; font-size: 20px; }
+        .kontakt-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+        .kontakt-icon { width: 44px; height: 44px; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .kontakt-item a { color: var(--text-light); }
+        .kontakt-item a:hover { color: var(--primary); }
+
+        /* Chatbot Widget */
+        .chatbot-widget { position: fixed; bottom: 100px; right: 20px; z-index: 999; }
+        .chat-btn { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s ease; box-shadow: var(--shadow); border: none; }
+        .chat-btn:hover { transform: scale(1.1); background: var(--primary-dark); }
+        .chat-btn span { font-size: 28px; }
+        .chat-window { position: absolute; bottom: 80px; right: 0; width: 320px; background: white; border-radius: 20px; box-shadow: var(--shadow-hover); overflow: hidden; display: none; }
+        .chat-window.open { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-header { background: var(--primary); color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .chat-header h4 { font-weight: 700; font-size: 16px; }
+        .chat-close { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        .chat-body { padding: 20px; height: 250px; overflow-y: auto; }
+        .chat-msg { background: var(--bg-alt); padding: 12px 16px; border-radius: 16px 16px 16px 4px; margin-bottom: 12px; font-size: 14px; max-width: 85%; }
+        .chat-input-area { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 20px; font-size: 14px; }
+        .chat-input-area button { background: var(--primary); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+
+        /* Mobile CTA Bar */
+        .mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: white; border-top: 1px solid var(--border); z-index: 998; display: none; }
+        .mobile-cta .btn-cta { width: 100%; text-align: center; padding: 14px; }
+
+        /* Footer */
+        footer { background: var(--text); color: white; padding: 40px 0; text-align: center; }
+        footer p { opacity: 0.6; font-size: 14px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .booking-inner { grid-template-columns: 1fr; }
+            .galerie-grid { grid-template-columns: 1fr; }
+            .hero { min-height: 75vh; }
+            .section { padding: 50px 0; }
+            .mobile-cta { display: block; }
+            .chatbot-widget { bottom: 90px; }
+        }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-inner">
+            <div class="logo">➊➋➌<span>fahrschule</span></div>
+            <nav class="nav-links">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#buchung">Online buchen</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="tel:022198259939" class="btn-cta">📞 0221 982 59 939</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://media.123fahrschule.de/wp-content/uploads/2023/09/29151206/Fahrschule_Filiale_Duisburg_Innen-scaled.jpg?format=webp" alt="123Fahrschule Innenraum modernes Lernumfeld" loading="eager">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Führerschein. Easy. Done.</h1>
+            <p>Melde dich jetzt online an. Innovatives Lernsystem, persönliche Beratung in Essen-Zentrum – wir bringen dich sicher ans Ziel.</p>
+            <div class="hero-btns">
+                <a href="#buchung" class="btn-primary">🚗 Jetzt online anmelden</a>
+                <a href="tel:022198259939" class="btn-secondary">📞 Gratis Beratung</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Strip -->
+    <section class="usp-strip reveal">
+        <div class="container">
+            <div class="usp-grid">
+                <div class="usp-item">
+                    <div class="usp-icon">🎯</div>
+                    <h3>Innovatives Lernsystem</h3>
+                    <p>Digital First – lerne wann und wo du willst mit modernen Apps.</p>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">💬</div>
+                    <h3>KI Chat Support</h3>
+                    <p>24/7 Fragen klären mit unserem intelligenten Chatbot.</p>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">📍</div>
+                    <h3>Central Lage</h3>
+                    <p>Huyssenallee 3, 45128 Essen – perfekt erreichbar.</p>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">⭐</div>
+                    <h3>Erfahrene Fahrlehrer</h3>
+                    <p>Professionelle Ausbildung mit Geduld und Fokus auf deinen Erfolg.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section id="leistungen" class="section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Deine Fahrschule. Dein Weg.</h2>
+                <p>Alles aus einer Hand – vom Theorieunterricht bis zur praktischen Prüfung.</p>
+            </div>
+            <div class="leistungen-grid">
+                <div class="leistung-card">
+                    <h3>📚 Theorieunterricht</h3>
+                    <p>Interaktiver Unterricht mit modernen Lernmaterialien und flexiblen Terminen.</p>
+                    <span class="leistung-tag">Klassen B, A, AM</span>
+                </div>
+                <div class="leistung-card">
+                    <h3>🚗 Fahrstunden</h3>
+                    <p>Individuelle Fahrstunden nach deinem Tempo – stressfrei und sicher lernen.</p>
+                    <span class="leistung-tag">Flexible Zeiten</span>
+                </div>
+                <div class="leistung-card">
+                    <h3>🎓 Prüfungsvorbereitung</h3>
+                    <p>Gezieltes Training vor der Prüfung – du kommst bestens vorbereitet.</p>
+                    <span class="leistung-tag">Hohe Erfolgsquote</span>
+                </div>
+                <div class="leistung-card">
+                    <h3>📱 Digital First</h3>
+                    <p>Lern-Apps, Online-Termine und KI-Support – Lernen, wie es heute geht.</p>
+                    <span class="leistung-tag">Modernste Tech</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Buchung Feature -->
+    <section id="buchung" class="booking-feature reveal">
+        <div class="container">
+            <div class="booking-inner">
+                <div class="booking-content">
+                    <h2>Online anmelden – in 3 Minuten</h2>
+                    <p>Vergiss lange Anrufe und Warteschlangen. Melde dich jetzt bequem von zu Hause aus an und starte deinen Weg zum Führerschein.</p>
+                    <ul class="booking-steps">
+                        <li><span class="step-num">1</span>Klasse wählen (B, A, AM, etc.)</li>
+                        <li><span class="step-num">2</span>Wunschtermin angeben</li>
+                        <li><span class="step-num">3</span>Kontaktdaten eintragen</li>
+                        <li><span class="step-num">4</span>Bestätigung erhalten</li>
+                    </ul>
+                    <p style="font-size: 14px; opacity: 0.7;">*Wir melden uns innerhalb von 24 Stunden bei dir.</p>
+                </div>
+                <div class="booking-form">
+                    <h3>📝 Jetzt kostenlos anmelden</h3>
+                    <form id="anmeldungForm" onsubmit="handleAnmeldung(event)">
+                        <div class="form-group">
+                            <label>Führerschein-Klasse</label>
+                            <select required>
+                                <option value="">Bitte wählen...</option>
+                                <option value="B">Klasse B (PKW)</option>
+                                <option value="A">Klasse A (Motorrad)</option>
+                                <option value="AM">Klasse AM (Moped)</option>
+                                <option value="BE">Klasse BE (Anhänger)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text" required placeholder="Dein Vorname">
+                        </div>
+                        <div class="form-group">
+                            <label>Nachname</label>
+                            <input type="text" required placeholder="Dein Nachname">
+                        </div>
+                        <div class="form-group">
+                            <label>E-Mail</label>
+                            <input type="email" required placeholder="deine@email.de">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon (optional)</label>
+                            <input type="tel" placeholder="Für Rückrufe">
+                        </div>
+                        <button type="submit" class="btn-submit">🚀 Jetzt anmelden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Deine neue Lernumgebung</h2>
+                <p>Moderne Räume, freundliche Atmosphäre – so macht Lernen Spaß.</p>
+            </div>
+            <div class="galerie-grid">
+                <div class="galerie-item">
+                    <img src="https://media.123fahrschule.de/wp-content/uploads/2023/11/27151117/Filiale_innen_nippes_2-scaled.jpg?format=webp" alt="Fahrschule Filiale Innenraum" loading="lazy">
+                    <div class="galerie-overlay"><span class="galerie-text">Modernes Lernumfeld</span></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="https://media.123fahrschule.de/wp-content/uploads/2023/10/23125021/Raum_innen_Pulheim-scaled.jpg?format=webp" alt="Fahrschule Unterrichtsraum" loading="lazy">
+                    <div class="galerie-overlay"><span class="galerie-text">Interaktiver Unterricht</span></div>
+                </div>
+                <div class="galerie-item">
+                    <img src="https://media.123fahrschule.de/wp-content/uploads/2024/12/17093627/Fahrschule_Filiale_Duesseldorf_Derendorf_innen-scaled.jpg?format=webp" alt="Fahrschule Derendorf Innen" loading="lazy">
+                    <div class="galerie-overlay"><span class="galerie-text">Zentral gelegen</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band reveal">
+        <div class="container">
+            <h2>Bereit loszulegen?</h2>
+            <p>Melde dich jetzt an und starte deinen Weg zum Führerschein – easy und stressfrei.</p>
+            <a href="#buchung" class="btn-primary">🚗 Jetzt online anmelden</a>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="kontakt-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>So erreichst du uns</h2>
+                <p>Persönliche Beratung, wie und wo du willst – telefonisch, vor Ort oder per Chat.</p>
+            </div>
+            <div class="kontakt-grid">
+                <div class="kontakt-card">
+                    <h3>📞 Telefonische Beratung</h3>
+                    <div class="kontakt-item">
+                        <div class="kontakt-icon">📱</div>
+                        <div><a href="tel:022198259939" style="font-size: 18px; font-weight: 600; color: var(--primary);">0221 982 59 939</a></div>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 14px;">Mo–Fr: 9–18 Uhr</p>
+                </div>
+                <div class="kontakt-card">
+                    <h3>📍 Vor Ort</h3>
+                    <div class="kontakt-item">
+                        <div class="kontakt-icon">🏢</div>
+                        <div>
+                            <p style="font-weight: 600;">123Fahrschule Essen-Zentrum</p>
+                            <p style="color: var(--text-light);">Huyssenallee 3<br>45128 Essen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kontakt-card">
+                    <h3>💬 KI Chat</h3>
+                    <div class="kontakt-item">
+                        <div class="kontakt-icon">🤖</div>
+                        <div><p style="color: var(--text-light);">24/7 verfügbar für all deine Fragen – unten rechts!</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Konzept-Vorschau · MZ.9 · <a href="https://www.123fahrschule.de" style="text-decoration: underline;">www.123fahrschule.de</a></p>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="#buchung" class="btn-cta">🚗 Jetzt anmelden</a>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <button class="chat-btn" onclick="toggleChat()" aria-label="Chat öffnen">
+            <span>💬</span>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4>🤖 123Fahrschule Chat</h4>
+                <button class="chat-close" onclick="toggleChat()">×</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-msg">Hallo! 👋 Wie kann ich dir beim Führerschein helfen? Frag mich alles zu Klassen, Terminen oder Preisen!</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Schreib etwas..." onkeypress="handleChatKey(event)">
+                <button onclick="sendChat()">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Chatbot
+        function toggleChat() {
+            document.getElementById('chatWindow').classList.toggle('open');
+        }
+        function handleChatKey(e) { if (e.key === 'Enter') sendChat(); }
+        function sendChat() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            const body = document.getElementById('chatBody');
+            body.innerHTML += `<div class="chat-msg" style="margin-left:auto;background:var(--primary);color:white;border-radius:16px 4px 16px 16px;">${msg}</div>`;
+            input.value = '';
+            setTimeout(() => {
+                const replies = [
+                    "Gute Frage! Melde dich online an, dann rufen wir dich zurück und klären alles persönlich.",
+                    "Für Führerschein-Klasse B brauchst du min. 18 Jahre. Willst du einen Beratungstermin?",
+                    "Unsere Preise sind fair und transparent – wir schicken dir gerne eine Übersicht!",
+                    "Ja, du kannst Theorie und Praxis parallel machen. Einfach anmelden und loslegen!"
+                ];
+                body.innerHTML += `<div class="chat-msg">${replies[Math.floor(Math.random()*replies.length)]}</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 800);
+        }
+
+        // Form handling
+        function handleAnmeldung(e) {
+            e.preventDefault();
+            alert('Danke! Wir melden uns innerhalb von 24 Stunden bei dir. 🚗');
+        }
+    </script>
+</body>
+</html>
