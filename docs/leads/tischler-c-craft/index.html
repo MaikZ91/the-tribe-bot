@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>C-Craftdesign – Tischler. Meister. Designer | Konzept-Vorschau</title>
+  <meta name="description" content="C-Craftdesign – Ihr Tischlermeister in Bonn. Maßgeschneiderte Möbel, Innenausbau und handwerkliche Premium-Qualität seit über 20 Jahren. Jetzt anfragen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-warm: #f5f2eb;
+      --bg-white: #ffffff;
+      --bg-dark: #2a2620;
+      --wood-primary: #a67c52;
+      --wood-dark: #7d5a3e;
+      --wood-light: #c9a67a;
+      --steel: #6b7280;
+      --steel-light: #9ca3af;
+      --text-main: #1f1a17;
+      --text-muted: #5a5550;
+      --text-light: #f5f2eb;
+      --accent: #c9a67a;
+      --shadow-soft: 0 4px 20px rgba(45, 41, 35, 0.08);
+      --shadow-card: 0 2px 12px rgba(45, 41, 35, 0.06);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 32px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid;
+    }
+    .btn-primary {
+      background: var(--wood-primary);
+      color: white;
+      border-color: var(--wood-primary);
+    }
+    .btn-primary:hover { background: var(--wood-dark); border-color: var(--wood-dark); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--wood-primary);
+    }
+    .btn-outline:hover { background: var(--wood-primary); color: white; }
+    .btn-cta {
+      background: var(--bg-dark);
+      color: white;
+      border-color: var(--bg-dark);
+    }
+    .btn-cta:hover { background: var(--wood-primary); border-color: var(--wood-primary); }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s ease;
+    }
+    .header.scrolled { padding: 12px 0; }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--bg-dark);
+      text-decoration: none;
+    }
+    .logo span { color: var(--wood-primary); }
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 32px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-link:hover { color: var(--wood-primary); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('http://c-craftdesign.de/wp-content/uploads/2020/09/DSC03245.jpg') center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(42, 38, 32, 0.85) 0%, rgba(42, 38, 32, 0.6) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      max-width: 700px;
+      padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(201, 166, 122, 0.2);
+      border: 1px solid var(--wood-light);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--wood-light);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .scroll-cue {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      opacity: 0.7;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* USPs */
+    .usps { padding: 80px 0; background: var(--bg-white); }
+    .usps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+    .usp-card {
+      text-align: center;
+      padding: 32px;
+      background: var(--bg-warm);
+      border-radius: var(--radius-md);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .usp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-soft); }
+    .usp-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--wood-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.5rem;
+    }
+    .usp-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    .usp-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Leistungen */
+    .services { padding: 100px 0; background: var(--bg-warm); }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+    .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--bg-white);
+      padding: 40px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s;
+      border-left: 4px solid var(--wood-primary);
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-soft); }
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .service-card p { color: var(--text-muted); margin-bottom: 20px; }
+    .service-list { list-style: none; }
+    .service-list li {
+      padding: 8px 0;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .service-list li::before {
+      content: '✓';
+      color: var(--wood-primary);
+      font-weight: 600;
+    }
+
+    /* Anfrage-Formular */
+    .inquiry { padding: 100px 0; background: var(--bg-white); }
+    .inquiry-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-warm);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      box-shadow: var(--shadow-soft);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background: white;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--wood-primary);
+      box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.1);
+    }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+    .form-hint { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+
+    /* Galerie */
+    .gallery { padding: 100px 0; background: var(--bg-dark); }
+    .gallery h2 { color: white; text-align: center; margin-bottom: 16px; }
+    .gallery-subtitle { text-align: center; color: var(--steel-light); margin-bottom: 60px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #3a3630;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--wood-primary) 0%, var(--wood-dark) 100%);
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 { margin-bottom: 20px; font-size: clamp(2rem, 4vw, 3rem); }
+    .cta-band p { margin-bottom: 40px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-band .btn-cta { background: white; color: var(--text-main); border-color: white; }
+    .cta-band .btn-cta:hover { background: var(--bg-dark); color: white; border-color: var(--bg-dark); }
+
+    /* Kontakt */
+    .contact { padding: 100px 0; background: var(--bg-white); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .contact-item h3 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-item p { color: var(--text-muted); }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--wood-primary);
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 12px;
+    }
+    .contact-link:hover { text-decoration: underline; }
+    .contact-address { line-height: 1.8; }
+
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      background: var(--bg-dark);
+      color: var(--steel-light);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .footer a { color: var(--wood-light); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: var(--bg-dark);
+      display: none;
+      z-index: 99;
+    }
+    .mobile-cta .btn { width: 100%; }
+
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-link { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .hero h1 { font-size: 2.25rem; }
+      .inquiry-wrapper { padding: 32px 24px; }
+      .mobile-cta { display: block; }
+      .cta-band { padding-bottom: 140px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">C-Craft<span>design</span></a>
+      <nav>
+        <a href="#leistungen" class="nav-link">Leistungen</a>
+        <a href="#anfrage" class="nav-link">Anfrage</a>
+        <a href="#galerie" class="nav-link">Galerie</a>
+        <a href="#kontakt" class="nav-link">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Tischlermeister · Designer</span>
+      <h1>Handwerk mit Präzision.<br>Design mit Seele.</h1>
+      <p>Maßgeschneiderte Möbel und Innenausbau aus Bonn. Seit über 20 Jahren verwirklichen wir Ihre Wohnvisionen mit handwerklicher Meisterqualität.</p>
+      <div class="hero-actions">
+        <a href="#anfrage" class="btn btn-primary">Kostenlose Erstberatung</a>
+        <a href="#leistungen" class="btn btn-outline">Leistungen</a>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <section class="usps">
+    <div class="container">
+      <div class="usps-grid">
+        <div class="usp-card reveal">
+          <div class="usp-icon">🪵</div>
+          <h3>Handwerk aus Tradition</h3>
+          <p>Über 20 Jahre Erfahrung als Tischlermeister. Jedes Stück wird mit Sorgfalt und Präzision in unserer Bonner Werkstatt gefertigt.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">📐</div>
+          <h3>Maßgeschneidert</h3>
+          <p>Keine Standardlösungen. Wir entwickeln individuelle Konzepte, die genau zu Ihrem Raum, Ihrem Stil und Ihren Anforderungen passen.</p>
+        </div>
+        <div class="usp-card reveal">
+          <div class="usp-icon">🏆</div>
+          <h3>Premium-Materialien</h3>
+          <p>Wir arbeiten ausschließlich mit ausgewählten Hölzern und hochwertigen Oberflächen. Langlebigkeit und Ästhetik vereint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Von der ersten Skizze bis zur fertigen Montage – wir begleiten Ihr Projekt umfassend.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <h3><span>🪑</span> Möbelbau</h3>
+          <p>Individuelle Möbelstücke nach Maß – von Design-Möbeln bis zu funktionalen Einbauten.</p>
+          <ul class="service-list">
+            <li>Esstische & Stühle</li>
+            <li>Schränke & Kommoden</li>
+            <li>Design-Möbel</li>
+            <li>Restaurierungen</li>
+          </ul>
+        </div>
+        <div class="service-card reveal">
+          <h3><span>🏠</span> Innenausbau</h3>
+          <p>Raumkonzepte, die Wohnen neu definieren – elegant, funktional und handwerklich perfekt.</p>
+          <ul class="service-list">
+            <li>Treppen & Geländer</li>
+            <li>Bodenbeläge</li>
+            <li>Türen & Zargen</li>
+            <li>Verkleidungen</li>
+          </ul>
+        </div>
+        <div class="service-card reveal">
+          <h3><span>🛋️</span> Küchen & Wohnen</h3>
+          <p>Moderne Küchen und Wohnräume – geplant nach Ihren Bedürfnissen, gebaut fürs Leben.</p>
+          <ul class="service-list">
+            <li>Einbauküchen</li>
+            <li>Wohnzimmer-Systeme</li>
+            <li>Schlafzimmer-Gestaltung</li>
+            <li>Büro-Einrichtung</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anfrage-Formular -->
+  <section class="inquiry" id="anfrage">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kostenlose Anfrage</h2>
+        <p>Erzählen Sie uns von Ihrem Projekt. Wir melden uns innerhalb von 24 Stunden.</p>
+      </div>
+      <div class="inquiry-wrapper reveal">
+        <form action="mailto:info@c-craftdesign.de" method="post" enctype="text/plain">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Ihr Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required placeholder="max@beispiel.de">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="+49 123 456789">
+            </div>
+            <div class="form-group">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="moebelbau">Möbelbau</option>
+                <option value="innenausbau">Innenausbau</option>
+                <option value="kueche">Küche</option>
+                <option value="restaurierung">Restaurierung</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Ihre Nachricht *</label>
+              <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Projekt..."></textarea>
+              <p class="form-hint">Je mehr Details Sie geben, desto besser können wir Ihnen helfen.</p>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <h2>Ausgewählte Projekte</h2>
+      <p class="gallery-subtitle">Ein Einblick in unsere handwerkliche Arbeit</p>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="http://c-craftdesign.de/wp-content/uploads/2020/09/DSC03245.jpg" alt="C-Craftdesign Projekt: Handwerkliche Möbelgestaltung">
+          <div class="gallery-caption">Präzision in jedem Detail</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://c-craftdesign.de/wp-content/uploads/2020/09/DSC03005-1.jpg" alt="C-Craftdesign Projekt: Maßgefertigte Innenausbau-Lösung">
+          <div class="gallery-caption">Maßgeschneiderte Perfektion</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihr Traumprojekt?</h2>
+      <p>Vereinbaren Sie noch heute Ihre kostenlose Erstberatung. Wir freuen uns auf Sie.</p>
+      <a href="#anfrage" class="btn btn-cta">Jetzt anfragen</a>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <p>Wir sind für Sie da – persönlich und vor Ort in Bonn.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item reveal">
+          <h3><span>📍</span> Adresse</h3>
+          <p class="contact-address">
+            C-Craftdesign<br>
+            Broichstraße 111<br>
+            53227 Bonn
+          </p>
+          <a href="https://maps.google.com/?q=Broichstraße+111+53227+Bonn" target="_blank" class="contact-link">
+            Route berechnen →
+          </a>
+        </div>
+        <div class="contact-item reveal">
+          <h3><span>📞</span> Telefon</h3>
+          <p>+49 228 24042151</p>
+          <a href="tel:+4922824042151" class="contact-link">Jetzt anrufen →</a>
+        </div>
+        <div class="contact-item reveal">
+          <h3><span>✉️</span> E-Mail</h3>
+          <p>info@c-craftdesign.de</p>
+          <a href="mailto:info@c-craftdesign.de" class="contact-link">E-Mail schreiben →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Konzept-Vorschau · <a href="https://c-craftdesign.de/" target="_blank">c-craftdesign.de</a></p>
+      <p style="margin-top: 8px; opacity: 0.6;">Dies ist eine unverbindliche Design-Demonstration.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#anfrage" class="btn btn-cta">Kostenlose Beratung</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
