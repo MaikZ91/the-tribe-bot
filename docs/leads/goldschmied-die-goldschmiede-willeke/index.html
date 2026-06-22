@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Die Goldschmiede Willeke — Einzigartige Eheringe & Schmuckkunst in Dortmund</title>
+  <meta name="description" content="Die Goldschmiede Willeke aus Dortmund/Ruhrgebiet. Grenzenlose Kreativität für einzigartige Eheringe, individuelle Schmuckstücke und Schmiedearbeiten">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #141414;
+      --bg-light: #1a1a1a;
+      --text-primary: #e8e4e0;
+      --text-secondary: #a8a4a0;
+      --text-muted: #686460;
+      --gold: #c9a962;
+      --gold-light: #dfc083;
+      --gold-dark: #a68b4a;
+      --bronze: #8b6f3c;
+      --white: #f5f0eb;
+      --border: rgba(201, 169, 98, 0.15);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-gold: 0 4px 24px rgba(201, 169, 98, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.75rem;
+      border-radius: 2px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+      color: var(--bg-dark);
+    }
+
+    .btn-primary:hover {
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--bg-dark);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: transparent;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .header.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .logo span { color: var(--gold); }
+
+    .nav { display: flex; gap: 2.5rem; }
+
+    .nav a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .nav a:hover { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .logo { font-size: 1.25rem; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://goldschmiedewilleke.de/images/Header_Slider/Header_370x368_Goldschmiedemeister_Wettbewerb.jpg') center/cover no-repeat;
+      opacity: 0.25;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.8) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      padding-top: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, var(--white) 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.25rem; }
+      .hero p { font-size: 1rem; }
+    }
+
+    /* Section */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-light { background: var(--bg-light); }
+    .section-dark { background: var(--bg-dark); }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .section-header h2 { font-size: 2rem; }
+      .section { padding: 3.5rem 0; }
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--bg-card);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      padding: 2.25rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--gold-light);
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .cta-band h3 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-band p {
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .contact-item strong {
+      color: var(--white);
+      min-width: 80px;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--white);
+      font-family: inherit;
+      transition: 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-card);
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 10, 0.95);
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      z-index: 99;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 769px) {
+      .mobile-cta { display: none; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Die Goldschmiede <span>Willeke</span></a>
+      <nav class="nav">
+        <a href="#galerie">Galerie</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#beratung">Beratung</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Einzigartige Schmuckkunst aus Dortmund</h1>
+        <p>Grenzenlose Kreativität für individuelle Eheringe, Schmuckstücke und handwerkliche Meisterwerke.</p>
+        <div class="hero-actions">
+          <a href="#beratung" class="btn btn-primary">Beratungstermin vereinbaren</a>
+          <a href="#galerie" class="btn btn-outline">Galerie ansehen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Meisterwerke in Gold & Edelstein</h2>
+        <p>Entdecken Sie unsere Handwerkskunst — von zeitlosen Eheringen bis zu einzigartigen Schmuckvisionen</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/Header_Slider/Header_370x368_Goldschmiedemeister_Wettbewerb.jpg" alt="Goldschmiedemeister Wettbewerbsarbeit" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/SliderStartseite/Header_370x368_schmuck_gleichgewicht_dynamik_s.jpg" alt="Gleichgewicht und Dynamik" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/Header_Slider/Header_370x368_schmuck_kleiner_prinz.jpg" alt="Der kleine Prinz — Inspiration" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/SliderStartseite/Header_370x368_schmuck_stein_s.jpg" alt="Edelstein in perfekter Fassung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/SliderStartseite/Header_370x368_schmuck_uhr_s.jpg" alt="Feinste Uhrmacherkunst" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://goldschmiedewilleke.de/images/SliderStartseite/Header_370x368_schmuck_altertum_moderne_s.jpg" alt="Zwischen Altertum und Moderne" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leidenschaft</h2>
+        <p>Handwerkliche Exzellenz und individuelle Beratung — seit Generationen</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <h3>Eheringe nach Maß</h3>
+          <p>Einzigartige Trauringe, die Ihre Liebe für die Ewigkeit festhalten — persönlich entworfen und handgefertigt.</p>
+        </div>
+        <div class="service-card reveal">
+          <h3>Individuelle Schmuckstücke</h3>
+          <p>Von der ersten Skizze bis zum fertigen Kunstwerk — wir verwandeln Ihre Visionen in tragbare Schätze.</p>
+        </div>
+        <div class="service-card reveal">
+          <h3>Edelsteine & Uhrwerke</h3>
+          <p>Feinste Edelsteine in perfekter Fassung und Uhrmacherkunst höchster Präzision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="beratung">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h3>Persönliche Beratung in Dortmund</h3>
+        <p>Vereinbaren Sie einen unverbindlichen Beratungstermin in unserer Werkstatt. Lassen Sie uns gemeinsam Ihr Traumstück erschaffen.</p>
+        <a href="#kontakt" class="btn btn-primary">Jetzt Termin anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt & Anfahrt</h2>
+        <p>Wir freuen uns auf Ihren Besuch in der Goldschmiede Willeke</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>So erreichen Sie uns</h3>
+          <div class="contact-item">
+            <strong>Adresse:</strong>
+            <span>Akazienstraße 83, 44143 Dortmund</span>
+          </div>
+          <div class="contact-item">
+            <strong>Telefon:</strong>
+            <a href="tel:+49231599942" style="color: var(--gold-light);">+49 231 59 99 42</a>
+          </div>
+          <div class="contact-item">
+            <strong>E-Mail:</strong>
+            <a href="mailto:reinhold@goldschmiedewilleke.de" style="color: var(--gold-light);">reinhold@goldschmiedewilleke.de</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" action="mailto:reinhold@goldschmiedewilleke.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Ihr Name</label>
+            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" name="message" placeholder="Erzählen Sie uns von Ihrem Wunsch..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">Die Goldschmiede Willeke</div>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">Akazienstraße 83, 44143 Dortmund</p>
+      <div class="footer-links">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </div>
+      <p class="footer-note">Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#kontakt" class="btn btn-primary">Beratungstermin anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('in');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

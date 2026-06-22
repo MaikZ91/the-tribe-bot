@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perlentaucher Leipzig – Schmuckdesign und Perlen</title>
+  <meta name="description" content="Im Perlentaucher in Leipzig tauchen Sie ein in eine bunte Vielfalt von 1000en von Perlen, Accessoires und Schmuckzubehör.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A962;
+      --gold-light: #E8D4A8;
+      --gold-dark: #A88B4A;
+      --charcoal: #1F1F1F;
+      --charcoal-light: #3A3A3A;
+      --cream: #FAF8F5;
+      --cream-dark: #F0EDE8;
+      --white: #FFFFFF;
+      --shadow: 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--gold-light);
+      transition: 0.3s;
+    }
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--charcoal-light);
+    }
+    .nav-links a:hover { color: var(--gold-dark); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--white);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .nav-cta:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .logo { font-size: 1.5rem; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+    }
+    .hero-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-top: 70px;
+      max-width: 600px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--charcoal);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--charcoal);
+    }
+    .hero h1 span { color: var(--gold-dark); }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--charcoal-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      transform: translateY(-3px);
+    }
+    .btn-secondary {
+      background: var(--white);
+      color: var(--charcoal);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 2px solid var(--gold-light);
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+    }
+    @media (max-width: 968px) {
+      .hero { padding: 100px 20px 60px; }
+      .hero-image { display: none; }
+      .hero-content { max-width: 100%; text-align: center; }
+      .hero-badge { margin-left: auto; margin-right: auto; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero-desc { margin: 0 auto 32px; }
+      .hero-ctas { justify-content: center; }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 40px 0;
+      border-bottom: 1px solid var(--gold-light);
+    }
+    .trust-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .trust-item h4 {
+      font-size: 1.4rem;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+    .trust-item p {
+      font-size: 0.9rem;
+      color: var(--charcoal-light);
+    }
+    @media (max-width: 768px) {
+      .trust-items { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    }
+
+    /* Services */
+    .services {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-header h2 {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      color: var(--charcoal);
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--charcoal-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 2rem;
+    }
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: var(--charcoal);
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--charcoal-light);
+    }
+    @media (max-width: 968px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 2.2rem; }
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+      background: var(--white);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: 1.5;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 20px;
+      color: var(--white);
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    @media (max-width: 968px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-item:first-child { grid-column: span 1; grid-row: span 1; aspect-ratio: 1; }
+    }
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+    }
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .contact-info h3 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--charcoal);
+    }
+    .contact-info p {
+      font-size: 1.05rem;
+      color: var(--charcoal-light);
+      margin-bottom: 32px;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .contact-row span {
+      font-size: 1rem;
+      color: var(--charcoal);
+    }
+    .contact-form-card {
+      background: var(--white);
+      padding: 48px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    .contact-form-card h4 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+    .contact-form-card p {
+      font-size: 0.9rem;
+      color: var(--charcoal-light);
+      margin-bottom: 32px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--charcoal);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--cream-dark);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: 0.3s;
+      background: var(--cream);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .submit-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--white);
+      padding: 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .submit-btn:hover {
+      background: var(--gold-dark);
+    }
+    @media (max-width: 968px) {
+      .contact-wrapper { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: 2.5rem;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .cta-band p {
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (max-width: 640px) {
+      .cta-band h2 { font-size: 2rem; }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--charcoal);
+      color: var(--gold-light);
+      padding: 60px 0 100px;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-brand .logo {
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-links a {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .footer-links a:hover { opacity: 1; color: var(--gold); }
+    .footer-meta {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta-btn {
+      width: 100%;
+      background: var(--gold);
+      color: var(--white);
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-align: center;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 90px; }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s ease-out;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Perlentaucher<span>.</span></a>
+        <nav class="nav-links">
+          <a href="#services">Leistungen</a>
+          <a href="#gallery">Galerie</a>
+          <a href="#contact">Kontakt</a>
+        </nav>
+        <a href="#contact" class="nav-cta">Termin vereinbaren</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <img src="http://perlentaucher-leipzig.net/img/gallery/hero-01_izx8ei_c_scale,w_1800.webp" alt="Perlentaucher Schmuckdesign Leipzig" class="hero-image">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Schmuckdesign & Perlen</span>
+        <h1>Tauchen Sie ein in die Welt der <span>Perlen</span></h1>
+        <p class="hero-desc">Im Perlentaucher in Leipzig tauchen Sie ein in eine bunte Vielfalt von 1000en von Perlen, Accessoires und Schmuckzubehör.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">
+            Beratungstermin buchen
+          </a>
+          <a href="#gallery" class="btn-secondary">
+            Galerie ansehen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip reveal">
+    <div class="container">
+      <div class="trust-items">
+        <div class="trust-item">
+          <h4>1000+</h4>
+          <p>Perlen & Accessoires</p>
+        </div>
+        <div class="trust-item">
+          <h4>Handmade</h4>
+          <p>Eigenes Schmuckdesign</p>
+        </div>
+        <div class="trust-item">
+          <h4>Reparatur</h4>
+          <p>Ihre Lieblingsstücke</p>
+        </div>
+        <div class="trust-item">
+          <h4>Leipzig</h4>
+          <p>Zentral in der Stadt</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Unsere Leistungen</h2>
+        <p>Entdecken Sie das vielfältige Angebot des Perlentauchers – von individuellem Schmuckdesign bis zur professionellen Reparatur.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">✦</div>
+          <h3>Schmuckdesign</h3>
+          <p>Gestalten Sie Ihren ganz persönlichen Schmuck aus unserer großen Auswahl an Perlen und Materialien.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Perlen & Accessoires</h3>
+          <p>Tausende von Perlen in allen Farben, Formen und Größen – für kreative Schmuckideen.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚙</div>
+          <h3>Reparatur-Service</h3>
+          <p>Lassen Sie Ihre Lieblingsstücke fachgerecht reparieren und erstrahlen sie wieder in neuem Glanz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery reveal">
+    <div class="container">
+      <div class="section-header">
+        <h2>Einblicke</h2>
+        <p>Lassen Sie sich von unserer Auswahl inspirieren.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/img/gallery/perlentaucher_visit_evmntw_c_scale,w_3840.webp" alt="Perlentaucher Ladenbesuch" loading="lazy">
+          <div class="gallery-overlay">Unser Laden in Leipzig</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_3840.webp" alt="Perlentaucher Schmuck" loading="lazy">
+          <div class="gallery-overlay">Schmuckdesign</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_3444.webp" alt="Perlentaucher Perlen" loading="lazy">
+          <div class="gallery-overlay">Perlen-Auswahl</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_2959.webp" alt="Perlentaucher Accessoires" loading="lazy">
+          <div class="gallery-overlay">Accessoires</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_2096.webp" alt="Perlentaucher Details" loading="lazy">
+          <div class="gallery-overlay">Details</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_1800.webp" alt="Perlentaucher Werkstatt" loading="lazy">
+          <div class="gallery-overlay">Werkstatt</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_1561.webp" alt="Perlentaucher Kreation" loading="lazy">
+          <div class="gallery-overlay">Kreationen</div>
+        </div>
+        <div class="gallery-item">
+          <img src="http://perlentaucher-leipzig.net/w_1271.webp" alt="Perlentaucher Inspiration" loading="lazy">
+          <div class="gallery-overlay">Inspiration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section reveal">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3>Kontakt & Beratung</h3>
+          <p>Vereinbaren Sie einen persönlichen Beratungstermin oder kontaktieren Sie uns für Anfragen und Reparaturen.</p>
+          <div class="contact-details">
+            <div class="contact-row">
+              <div class="contact-icon">📍</div>
+              <span>Karl-Liebknecht-Straße 51, 04107 Leipzig</span>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">📞</div>
+              <span><a href="tel:+493412601697">+49 341 260 169 7</a></span>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">✉</div>
+              <span><a href="mailto:info@perlentaucher-leipzig.de">info@perlentaucher-leipzig.de</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-card">
+          <h4>Beratungstermin anfragen</h4>
+          <p>Wir melden uns zeitnah bei Ihnen zurück.</p>
+          <form action="mailto:info@perlentaucher-leipzig.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Ihr Name</label>
+              <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail-Adresse</label>
+              <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+            </div>
+            <div class="form-group">
+              <label for="interest">Interesse an</label>
+              <select id="interest" name="interest">
+                <option value="beratung">Persönliche Beratung</option>
+                <option value="reparatur">Reparatur</option>
+                <option value="schmuckdesign">Eigenes Schmuckdesign</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Ihre Nachricht</label>
+              <textarea id="message" name="message" placeholder="Erzählen Sie uns von Ihrem Anliegen..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="container">
+      <h2>Bereit für Ihren neuen Schmuck?</h2>
+      <p>Kommen Sie vorbei und lassen Sie sich von unserer Auswahl inspirieren.</p>
+      <a href="#contact" class="btn-primary">
+        Jetzt Beratungstermin buchen
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">Perlentaucher<span>.</span></div>
+          <p>Schmuckdesign und Perlen in Leipzig</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Leistungen</a>
+          <a href="#gallery">Galerie</a>
+          <a href="#contact">Kontakt</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        Konzept-Vorschau · MZ.9
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#contact" class="mobile-cta-btn">Beratungstermin buchen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

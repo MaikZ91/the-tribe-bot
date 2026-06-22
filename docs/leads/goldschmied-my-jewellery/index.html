@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>My Jewellery Boutique Leipzig — Klein, fein & voller Highlights</title>
+  <meta name="description" content="Besuche uns in unserer Boutique in Leipzig! Wir freuen uns auf dich. My Jewellery Boutique Leipzig — Klein, fein & voller Highlights.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAFA;
+      --bg-alt: #F5F3F1;
+      --text: #1A1A1A;
+      --text-light: #666;
+      --accent: #C9A878;
+      --accent-hover: #B89668;
+      --gold: #D4AF37;
+      --gold-light: #F5E6C8;
+      --border: #E5E5E5;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'Lato', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: transparent;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.4s;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 0.8rem 2rem;
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+    .logo span { color: var(--accent); }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      position: relative;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: 0.3s;
+    }
+    nav a:hover::after { width: 100%; }
+    .header-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .header-cta:hover { background: var(--accent-hover); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://art.my-jewellery.com/m/3dbbeadac529010d/original/WEB-boutiques.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.5) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+    }
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .hero-tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.5);
+      margin-left: 1rem;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      padding: 3rem 2rem;
+      background: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-item {
+      text-align: center;
+      min-width: 150px;
+    }
+    .trust-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .trust-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* Section */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Collections Grid */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .collection-card {
+      background: #fff;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+    }
+    .collection-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .collection-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .collection-title {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .collection-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Booking Feature */
+    .booking-section {
+      background: var(--bg-alt);
+      padding: 6rem 2rem;
+    }
+    .booking-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .booking-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    .booking-header h3 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .booking-header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .booking-steps {
+      padding: 2rem;
+    }
+    .booking-step {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-step:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .step-number {
+      font-family: var(--font-head);
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+      min-width: 40px;
+    }
+    .step-content h4 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .step-content p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+    .booking-cta {
+      text-align: center;
+      padding-top: 1rem;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 5rem 2rem;
+      background: var(--text);
+      color: #fff;
+      text-align: center;
+      background-image: url('https://art.my-jewellery.com/m/3dbbeadac529010d/original/WEB-boutiques.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26,26,26,0.85);
+    }
+    .cta-band > * {
+      position: relative;
+      z-index: 1;
+    }
+    .cta-band .section-title { color: #fff; }
+    .cta-band .section-desc { color: rgba(255,255,255,0.8); }
+
+    /* Contact */
+    .contact-section {
+      background: #fff;
+      padding: 5rem 2rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .contact-block h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .contact-block p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+    .contact-block a {
+      color: var(--text);
+    }
+    .contact-block a:hover { color: var(--accent); }
+
+    /* Chatbot Widget */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 100px;
+      right: 2rem;
+      z-index: 999;
+    }
+    .chatbot-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+    .chatbot-btn:hover {
+      background: var(--accent-hover);
+      transform: scale(1.05);
+    }
+    .chatbot-panel {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 300px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+    .chatbot-panel.open { display: block; }
+    .chatbot-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chatbot-close {
+      background: none;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    .chatbot-body {
+      padding: 1.5rem;
+    }
+    .chatbot-body p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    .chatbot-btn-text {
+      background: var(--text);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      width: 100%;
+      text-align: center;
+    }
+    .chatbot-btn-text:hover { background: var(--text-light); }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 998;
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s ease-out;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
+      nav { display: none; }
+      .hero { min-height: 80vh; }
+      .hero-title { font-size: 2.2rem; }
+      .hero-subtitle { font-size: 0.75rem; letter-spacing: 2px; }
+      .btn-secondary { display: none; }
+      .trust-strip { gap: 2rem; padding: 2rem 1.5rem; }
+      .trust-item { min-width: 120px; }
+      section { padding: 4rem 1.5rem; }
+      .booking-section { padding: 4rem 1.5rem; }
+      .booking-step { flex-direction: column; gap: 1rem; }
+      .step-number { font-size: 2rem; }
+      .chatbot-widget { right: 1rem; bottom: 80px; }
+      .chatbot-panel { width: 280px; right: -10px; }
+      .mobile-cta { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
+      .reveal { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">My <span>Jewellery</span></div>
+    <nav>
+      <a href="#collections">Sortiment</a>
+      <a href="#beratung">Beratung</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#beratung" class="header-cta">Termin vereinbaren</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <p class="hero-subtitle">Boutique Leipzig</p>
+      <h1 class="hero-title">My Jewellery Boutique Leipzig</h1>
+      <p class="hero-tagline">Klein, fein & voller Highlights</p>
+      <div class="hero-ctas">
+        <a href="#beratung" class="btn btn-primary">Beratungstermin</a>
+        <a href="#collections" class="btn btn-secondary">Sortiment entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">💎</div>
+      <div class="trust-text">Exklusive Kollektionen</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">✨</div>
+      <div class="trust-text">Ohrlöcher stechen vor Ort</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🎓</div>
+      <div class="trust-text">15% Studierendenrabatt</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💬</div>
+      <div class="trust-text">Persönliche Beratung</div>
+    </div>
+  </div>
+
+  <section id="collections">
+    <div class="section-header reveal">
+      <span class="section-tag">Sortiment</span>
+      <h2 class="section-title">Highlights für jeden Tag</h2>
+      <p class="section-desc">Entdecke unsere sorgfältig kuratierten Kollektionen</p>
+    </div>
+    <div class="collections-grid">
+      <div class="collection-card reveal">
+        <div class="collection-icon">💍</div>
+        <h3 class="collection-title">Ringe</h3>
+        <p class="collection-desc">Von minimalistisch bis statement</p>
+      </div>
+      <div class="collection-card reveal">
+        <div class="collection-icon">✨</div>
+        <h3 class="collection-title">Ohrringe</h3>
+        <p class="collection-desc">Kreolen, Stecker & mehr</p>
+      </div>
+      <div class="collection-card reveal">
+        <div class="collection-icon">📿</div>
+        <h3 class="collection-title">Ketten</h3>
+        <p class="collection-desc">Elegante Halsketten für jeden Look</p>
+      </div>
+      <div class="collection-card reveal">
+        <div class="collection-icon">💫</div>
+        <h3 class="collection-title">Armreifen</h3>
+        <p class="collection-desc">Fein & filigran oder statement</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="booking-section" id="beratung">
+    <div class="section-header reveal">
+      <span class="section-tag">Persönliche Beratung</span>
+      <h2 class="section-title">Erlebe My Jewellery in Leipzig</h2>
+      <p class="section-desc">Vereinbare einen Termin für eine unverbindliche Beratung</p>
+    </div>
+    <div class="booking-container reveal">
+      <div class="booking-header">
+        <h3>Kostenlose Beratungstermine</h3>
+        <p>Ohrlöcher stechen · Geschenkberatung · Styling</p>
+      </div>
+      <div class="booking-steps">
+        <div class="booking-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Wunschtermin auswählen</h4>
+            <p>Teile uns deinen gewünschten Tag und Uhrzeit mit</p>
+          </div>
+        </div>
+        <div class="booking-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Deine Kontaktdaten</h4>
+            <p>Name und Telefonnummer für die Bestätigung</p>
+          </div>
+        </div>
+        <div class="booking-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Bestätigung erhalten</h4>
+            <p>Wir melden uns zeitnah bei dir</p>
+          </div>
+        </div>
+        <div class="booking-cta">
+          <a href="mailto:info@my-jewellery.com?subject=Beratungstermin My Jewellery Leipzig" class="btn btn-primary">Jetzt Termin anfragen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-band">
+    <h2 class="section-title reveal">Besuche uns in Leipzig</h2>
+    <p class="section-desc reveal">Wir freuen uns auf dich in der Grimmaischen Straße 21</p>
+    <div class="reveal" style="margin-top: 2rem;">
+      <a href="#kontakt" class="btn btn-primary">Route planen</a>
+    </div>
+  </section>
+
+  <section class="contact-section" id="kontakt">
+    <div class="section-header reveal">
+      <span class="section-tag">Kontakt</span>
+      <h2 class="section-title">So erreichst du uns</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-block reveal">
+        <h4>📍 Adresse</h4>
+        <p>Grimmaische Straße 21</p>
+        <p>04109 Leipzig</p>
+      </div>
+      <div class="contact-block reveal">
+        <h4>📞 Telefon</h4>
+        <p><a href="tel:+4918155826">0181 55 826</a></p>
+      </div>
+      <div class="contact-block reveal">
+        <h4>✉️ E-Mail</h4>
+        <p><a href="mailto:info@my-jewellery.com">info@my-jewellery.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="chatbot-widget">
+    <div class="chatbot-panel" id="chatbotPanel">
+      <div class="chatbot-header">
+        <span>Schreib uns</span>
+        <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+      </div>
+      <div class="chatbot-body">
+        <p>Du hast Fragen? Wir helfen dir gerne weiter!</p>
+        <a href="mailto:info@my-jewellery.com?subject=Frage aus Chatbot" class="chatbot-btn-text">Nachricht senden</a>
+      </div>
+    </div>
+    <button class="chatbot-btn" onclick="toggleChatbot()">💬</button>
+  </div>
+
+  <div class="mobile-cta">
+    <a href="#beratung" class="btn btn-primary">Termin vereinbaren</a>
+  </div>
+
+  <footer>
+    <p>Konzept-Vorschau · MZ.9</p>
+  </footer>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Chatbot toggle
+    function toggleChatbot() {
+      const panel = document.getElementById('chatbotPanel');
+      panel.classList.toggle('open');
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close chatbot if open
+          document.getElementById('chatbotPanel').classList.remove('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
