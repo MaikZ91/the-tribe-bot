@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Dachdeckerei Guido Langhammer | Meisterbetrieb in Hannover seit 60 Jahren</title>
+  <meta name="description" content="Meisterbetrieb Dachdeckerei Guido Langhammer in Hannover. Seit 60 Jahren Familienunternehmen in zweiter Generation. Dachdeckung, Klempner, Abdichtung, Fassaden. Zuverlässige Beratung & Ausführung.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2C3E50;
+      --primary-light: #34495E;
+      --accent: #D4A574;
+      --accent-hover: #C49664;
+      --warm: #8B7355;
+      --bg-light: #FAF8F5;
+      --bg-white: #FFFFFF;
+      --text-main: #2C3E50;
+      --text-muted: #5A6A7A;
+      --border: #E5DDD5;
+      --shadow-sm: 0 2px 8px rgba(44, 62, 80, 0.08);
+      --shadow-md: 0 4px 16px rgba(44, 62, 80, 0.12);
+      --shadow-lg: 0 8px 32px rgba(44, 62, 80, 0.16);
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-light);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-cta {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .btn-whatsapp:hover {
+      background: #20bd5a;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      background: linear-gradient(135deg, var(--bg-light) 0%, #F5F0EB 100%);
+      padding-top: 80px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 992px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+      }
+    }
+
+    .hero-content {
+      padding: 3rem 1.5rem 3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (min-width: 992px) {
+      .hero-content {
+        margin: 0;
+        padding: 4rem 3rem 4rem 5rem;
+      }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212, 165, 116, 0.15);
+      color: var(--warm);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    @media (min-width: 480px) {
+      .hero-cta {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    .hero-image {
+      position: relative;
+      min-height: 50vh;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1.5rem;
+    }
+
+    .trust-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .trust-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    .trust-item {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .trust-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .trust-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .trust-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 0.5rem;
+    }
+
+    /* Services */
+    .services {
+      padding: 5rem 1.5rem;
+      background: var(--bg-white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .service-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 5rem 1.5rem;
+      background: var(--bg-light);
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 16/10;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 5rem 1.5rem;
+      background: var(--bg-white);
+    }
+
+    .contact-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-layout {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(212, 165, 116, 0.15);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-details h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-details p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-details a {
+      color: var(--primary);
+    }
+
+    .form-box {
+      background: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    .form-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+      background: white;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      color: white;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .cta-band .btn {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 480px) {
+      .cta-band .btn {
+        flex-direction: row;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 3rem 1.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    .footer-brand h3 {
+      color: white;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      max-width: 300px;
+    }
+
+    .footer-column h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      text-align: center;
+    }
+
+    .concept-badge {
+      display: inline-block;
+      background: rgba(212, 165, 116, 0.2);
+      color: var(--accent);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 -4px 16px rgba(44, 62, 80, 0.1);
+      display: flex;
+      gap: 0.75rem;
+      z-index: 999;
+    }
+
+    .mobile-cta-bar .btn {
+      flex: 1;
+      font-size: 0.85rem;
+      padding: 0.6rem 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-cta-bar {
+        display: none;
+      }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">Dachdeckerei <span>Langhammer</span></div>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#referenzen">Referenzen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="tel:+495115499231" class="btn btn-primary nav-cta">☎ 0511 549 92 31</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">Meisterbetrieb in Hannover</span>
+      <h1>Ihr Dach in erfahrenen Händen</h1>
+      <p class="hero-subtitle">Dachdeckerei Guido Langhammer — seit 60 Jahren</p>
+      <p class="hero-text">Die erfolgreiche Arbeit an Ihrem Dach ist unsere Leidenschaft. Steildach, Satteldach, Walmdach, Flachdach oder Blechdach — bei uns ist Ihr Dach in erfahrenen Händen. Als Meisterbetrieb in zweiter Generation besteht das Familienunternehmen seit 60 Jahren.</p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn btn-primary">Anfrage stellen</a>
+        <a href="tel:+495115499231" class="btn btn-secondary">☎ Jetzt anrufen</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://guidolanghammer.de/wp-content/uploads/2026/02/header_1-3-2026.jpg" alt="Dachdeckerei Langhammer - professionelle Dacharbeiten in Hannover" width="800" height="600">
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-number">60</div>
+        <div class="trust-label">Jahre Erfahrung</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">2</div>
+        <div class="trust-label">Generationen</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🏆</div>
+        <div class="trust-label">Meisterbetrieb</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services reveal" id="leistungen">
+    <div class="section-header">
+      <h2>Unsere Leistungen</h2>
+      <p>Zuverlässige Beratung und Ausführung von Dacharbeiten aller Art — aus einer Hand.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <h3>Dachdeckung</h3>
+        <p>Steildach, Satteldach, Walmdach — wir decken Dächer mit allen gängigen Materialien professionell und dauerhaft.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Klempnerarbeiten</h3>
+        <p>Alles rund um Dachrinnen, Dachentwässerung und Blecharbeiten — präzise ausgeführt.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Abdichtung</h3>
+        <p>Flachdächer, Terrassen und Balkone zuverlässig abdichten — gegen Feuchtigkeit und Witterung.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3>Fassadenarbeiten</h3>
+        <p>Fassadensanierung und -gestaltung — wir verwandeln Ihr Haus optisch und energetisch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery reveal" id="referenzen">
+    <div class="section-header">
+      <h2>Referenzen</h2>
+      <p>Ausgewählte Beispiele unserer Arbeiten</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://guidolanghammer.de/wp-content/uploads/2026/02/header_2-3-2026.jpg" alt="Dachdeckerei Langhammer - Referenzprojekt" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://guidolanghammer.de/wp-content/uploads/2020/01/Z6A_3035_2020.jpg" alt="Dachdeckerei Langhammer - Arbeitsaufnahme" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://guidolanghammer.de/wp-content/uploads/2020/01/AdobeStock_258104353-sw_2020.jpg" alt="Dachdeckerei Langhammer - professionelle Dacharbeiten" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://guidolanghammer.de/wp-content/uploads/2019/12/header3.jpg" alt="Dachdeckerei Langhammer - Dachprojekt" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section reveal" id="kontakt">
+    <div class="section-header">
+      <h2>Kontakt & Anfrage</h2>
+      <p>Vereinbaren Sie einen unverbindlichen Beratungstermin oder schreiben Sie uns einfach an.</p>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3>Wir freuen uns auf Ihre Anfrage</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h4>Adresse</h4>
+            <p>Lister Damm 19<br>Hannover</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">☎</div>
+          <div class="contact-details">
+            <h4>Telefon</h4>
+            <p><a href="tel:+495115499231">+49 511 549 92 31</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:mail@guidolanghammer.de">mail@guidolanghammer.de</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="form-box">
+        <h3>Anfrage stellen</h3>
+        <form action="mailto:mail@guidolanghammer.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-input" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefon</label>
+            <input type="tel" name="telefon" class="form-input" placeholder="Für Rückrufe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Leistung</label>
+            <select name="leistung" class="form-input">
+              <option value="">Bitte wählen...</option>
+              <option value="Dachdeckung">Dachdeckung</option>
+              <option value="Klempnerarbeiten">Klempnerarbeiten</option>
+              <option value="Abdichtung">Abdichtung</option>
+              <option value="Fassadenarbeiten">Fassadenarbeiten</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nachricht</label>
+            <textarea name="nachricht" class="form-textarea" placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band reveal">
+    <h2>Bereit für Ihr neues Dach?</h2>
+    <p>Rufen Sie uns an oder vereinbaren Sie einen Beratungstermin vor Ort in Hannover.</p>
+    <a href="tel:+495115499231" class="btn btn-primary">☎ 0511 549 92 31</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Dachdeckerei Guido Langhammer</h3>
+        <p>Meisterbetrieb in Hannover — Dachdeckung, Klempner, Abdichtung, Fassadenarbeiten.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="#leistungen">Dachdeckung</a></li>
+          <li><a href="#leistungen">Klempnerarbeiten</a></li>
+          <li><a href="#leistungen">Abdichtung</a></li>
+          <li><a href="#leistungen">Fassaden</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Kontakt</h4>
+        <ul>
+          <li>☎ 0511 549 92 31</li>
+          <li><a href="mailto:mail@guidolanghammer.de">mail@guidolanghammer.de</a></li>
+          <li>Lister Damm 19, Hannover</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Dachdeckerei Guido Langhammer</p>
+      <span class="concept-badge">Konzept-Vorschau · MZ.9</span>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="tel:+495115499231" class="btn btn-primary">☎ Anrufen</a>
+    <a href="#kontakt" class="btn btn-secondary">Anfrage</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
