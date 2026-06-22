@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Pasit Thaimassage – Entspannung & Wellness in Stuttgart-Degerloch</title>
+    <meta name="description" content="Pasit Thaimassage in Stuttgart-Degerloch: Professionelle Thaimassage zur Entspannung und Regeneration. Terminvereinbarung einfach online.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary:#8B7355;
+            --primary-light:#C4A77D;
+            --primary-dark:#6B5344;
+            --accent:#E8D5C4;
+            --bg-soft:#FAF6F2;
+            --bg-white:#FFFFFF;
+            --text-dark:#2C2420;
+            --text-medium:#5C4A3F;
+            --text-light:#8B7D73;
+            --success:#6B8E4E;
+            --shadow-soft:0 8px 32px rgba(44,36,32,0.08);
+            --shadow-card:0 4px 24px rgba(44,36,32,0.06);
+            --radius-lg:16px;
+            --radius-md:12px;
+            --radius-sm:8px;
+            --transition:all 0.3s cubic-bezier(0.4,0,0.2,1)
+        }
+        html{scroll-behavior:smooth}
+        body{
+            font-family:'Nunito',system-ui,-apple-system,sans-serif;
+            background:var(--bg-soft);
+            color:var(--text-dark);
+            line-height:1.7;
+            font-weight:400;
+            overflow-x:hidden
+        }
+        h1,h2,h3,h4{
+            font-family:'Cormorant Garamond',Georgia,serif;
+            font-weight:600;
+            line-height:1.2;
+            color:var(--text-dark)
+        }
+        h1{font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:-0.02em}
+        h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-0.01em;margin-bottom:1rem}
+        h3{font-size:clamp(1.4rem,3vw,2rem)}
+        p{margin-bottom:1.2rem;color:var(--text-medium)}
+        a{text-decoration:none;color:inherit;transition:var(--transition)}
+        img{max-width:100%;height:auto;display:block}
+        .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+        .btn{
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            padding:0.9rem 1.8rem;
+            border-radius:var(--radius-lg);
+            font-family:'Nunito',sans-serif;
+            font-weight:600;
+            font-size:1rem;
+            cursor:pointer;
+            transition:var(--transition);
+            border:2px solid transparent;
+            white-space:nowrap
+        }
+        .btn-primary{
+            background:var(--primary);
+            color:#FFF
+        }
+        .btn-primary:hover{
+            background:var(--primary-dark);
+            transform:translateY(-2px);
+            box-shadow:0 8px 24px rgba(107,83,68,0.25)
+        }
+        .btn-outline{
+            background:transparent;
+            border-color:var(--primary);
+            color:var(--primary)
+        }
+        .btn-outline:hover{
+            background:var(--primary);
+            color:#FFF
+        }
+        .btn-large{padding:1.1rem 2.2rem;font-size:1.1rem}
+        .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.4,0,0.2,1)}
+        .reveal.in{opacity:1;transform:translateY(0)}
+        .lift{transition:var(--transition)}
+        .lift:hover{transform:translateY(-4px)}
+        /* Header */
+        header{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            z-index:1000;
+            background:rgba(250,246,242,0.95);
+            backdrop-filter:blur(12px);
+            border-bottom:1px solid rgba(139,115,85,0.1);
+            transition:var(--transition);
+            padding:1rem 0
+        }
+        header.scrolled{box-shadow:var(--shadow-soft)}
+        .header-inner{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:2rem
+        }
+        .logo{
+            font-family:'Cormorant Garamond',serif;
+            font-size:1.5rem;
+            font-weight:700;
+            color:var(--primary-dark)
+        }
+        .nav-links{
+            display:flex;
+            gap:2rem;
+            list-style:none
+        }
+        .nav-links a{
+            font-size:0.95rem;
+            font-weight:500;
+            color:var(--text-medium)
+        }
+        .nav-links a:hover{color:var(--primary)}
+        .header-cta{display:none}
+        @media (min-width:768px){
+            .header-cta{display:flex}
+        }
+        @media (max-width:768px){
+            .nav-links{display:none}
+        }
+        /* Hero */
+        .hero{
+            position:relative;
+            min-height:90vh;
+            display:flex;
+            align-items:center;
+            padding-top:80px;
+            overflow:hidden
+        }
+        .hero-bg{
+            position:absolute;
+            inset:0;
+            z-index:-1
+        }
+        .hero-bg img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            filter:brightness(0.7)
+        }
+        .hero-overlay{
+            position:absolute;
+            inset:0;
+            background:linear-gradient(135deg,rgba(250,246,242,0.92) 0%,rgba(250,246,242,0.75) 100%)
+        }
+        .hero-content{
+            position:relative;
+            max-width:700px;
+            padding:3rem;
+            background:rgba(255,255,255,0.95);
+            border-radius:var(--radius-lg);
+            box-shadow:var(--shadow-soft);
+            backdrop-filter:blur(8px)
+        }
+        .hero-badge{
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            padding:0.5rem 1rem;
+            background:var(--accent);
+            color:var(--primary-dark);
+            border-radius:var(--radius-sm);
+            font-size:0.85rem;
+            font-weight:600;
+            margin-bottom:1.5rem
+        }
+        .hero h1{color:var(--primary-dark);margin-bottom:1rem}
+        .hero-subtitle{
+            font-size:1.2rem;
+            color:var(--text-medium);
+            margin-bottom:2rem
+        }
+        .hero-actions{
+            display:flex;
+            flex-wrap:wrap;
+            gap:1rem
+        }
+        @media (max-width:640px){
+            .hero{min-height:85vh}
+            .hero-content{padding:2rem;margin:1rem}
+            .hero h1{font-size:2.2rem}
+        }
+        /* Trust Strip */
+        .trust-strip{
+            background:var(--bg-white);
+            padding:1.5rem 0;
+            border-bottom:1px solid rgba(139,115,85,0.08)
+        }
+        .trust-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+            gap:1.5rem;
+            align-items:center;
+            justify-items:center
+        }
+        .trust-item{
+            display:flex;
+            align-items:center;
+            gap:0.6rem;
+            font-size:0.9rem;
+            font-weight:500;
+            color:var(--text-medium)
+        }
+        .trust-icon{
+            width:36px;
+            height:36px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--accent);
+            border-radius:50%;
+            font-size:1.1rem
+        }
+        /* Services */
+        .services{
+            padding:5rem 0;
+            background:var(--bg-soft)
+        }
+        .section-header{
+            text-align:center;
+            max-width:700px;
+            margin:0 auto 3.5rem
+        }
+        .section-tag{
+            display:inline-block;
+            padding:0.4rem 1rem;
+            background:var(--accent);
+            color:var(--primary-dark);
+            border-radius:var(--radius-sm);
+            font-size:0.85rem;
+            font-weight:600;
+            margin-bottom:1rem
+        }
+        .services-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:1.8rem
+        }
+        .service-card{
+            background:var(--bg-white);
+            padding:2rem;
+            border-radius:var(--radius-lg);
+            box-shadow:var(--shadow-card);
+            transition:var(--transition);
+            border:1px solid rgba(139,115,85,0.06)
+        }
+        .service-card:hover{
+            transform:translateY(-6px);
+            box-shadow:var(--shadow-soft)
+        }
+        .service-icon{
+            width:56px;
+            height:56px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:linear-gradient(135deg,var(--primary-light),var(--accent));
+            border-radius:var(--radius-md);
+            font-size:1.5rem;
+            margin-bottom:1.3rem
+        }
+        .service-card h3{
+            font-family:'Nunito',sans-serif;
+            font-weight:600;
+            font-size:1.2rem;
+            margin-bottom:0.8rem;
+            color:var(--primary-dark)
+        }
+        .service-card p{
+            font-size:0.95rem;
+            margin-bottom:1rem
+        }
+        .service-duration{
+            display:inline-flex;
+            align-items:center;
+            gap:0.4rem;
+            font-size:0.85rem;
+            color:var(--primary);
+            font-weight:500
+        }
+        /* Booking Section */
+        .booking{
+            padding:5rem 0;
+            background:var(--bg-white);
+            position:relative;
+            overflow:hidden
+        }
+        .booking::before{
+            content:'';
+            position:absolute;
+            top:-50%;
+            right:-20%;
+            width:600px;
+            height:600px;
+            background:radial-gradient(circle,rgba(196,167,125,0.12) 0%,transparent 70%);
+            border-radius:50%
+        }
+        .booking-grid{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:3rem;
+            align-items:center
+        }
+        @media (min-width:900px){
+            .booking-grid{grid-template-columns:1fr 1fr}
+        }
+        .booking-content h2{color:var(--primary-dark)}
+        .booking-steps{
+            display:flex;
+            flex-direction:column;
+            gap:1.5rem;
+            margin:2rem 0
+        }
+        .booking-step{
+            display:flex;
+            gap:1.2rem;
+            align-items:flex-start
+        }
+        .step-number{
+            flex-shrink:0;
+            width:40px;
+            height:40px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--primary);
+            color:#FFF;
+            border-radius:50%;
+            font-weight:700;
+            font-size:1.1rem
+        }
+        .step-content h4{
+            font-family:'Nunito',sans-serif;
+            font-weight:600;
+            font-size:1rem;
+            margin-bottom:0.3rem
+        }
+        .step-content p{
+            font-size:0.9rem;
+            margin-bottom:0
+        }
+        .booking-form{
+            background:var(--bg-soft);
+            padding:2.5rem;
+            border-radius:var(--radius-lg);
+            box-shadow:var(--shadow-soft)
+        }
+        .booking-form h3{
+            font-family:'Nunito',sans-serif;
+            font-weight:600;
+            font-size:1.4rem;
+            margin-bottom:0.3rem;
+            color:var(--primary-dark)
+        }
+        .booking-form p{
+            font-size:0.9rem;
+            margin-bottom:1.8rem;
+            color:var(--text-light)
+        }
+        .form-group{margin-bottom:1.3rem}
+        .form-label{
+            display:block;
+            font-size:0.85rem;
+            font-weight:600;
+            margin-bottom:0.5rem;
+            color:var(--text-medium)
+        }
+        .form-input{
+            width:100%;
+            padding:0.9rem 1rem;
+            border:2px solid rgba(139,115,85,0.15);
+            border-radius:var(--radius-sm);
+            font-family:'Nunito',sans-serif;
+            font-size:0.95rem;
+            transition:var(--transition);
+            background:#FFF
+        }
+        .form-input:focus{
+            outline:none;
+            border-color:var(--primary);
+            box-shadow:0 0 0 4px rgba(139,115,85,0.1)
+        }
+        .form-select{
+            width:100%;
+            padding:0.9rem 1rem;
+            border:2px solid rgba(139,115,85,0.15);
+            border-radius:var(--radius-sm);
+            font-family:'Nunito',sans-serif;
+            font-size:0.95rem;
+            background:#FFF;
+            cursor:pointer;
+            transition:var(--transition)
+        }
+        .form-select:focus{
+            outline:none;
+            border-color:var(--primary);
+            box-shadow:0 0 0 4px rgba(139,115,85,0.1)
+        }
+        .form-row{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:1rem
+        }
+        @media (min-width:480px){
+            .form-row{grid-template-columns:1fr 1fr}
+        }
+        .form-submit{
+            width:100%;
+            margin-top:0.5rem
+        }
+        .form-note{
+            font-size:0.8rem;
+            color:var(--text-light);
+            text-align:center;
+            margin-top:1rem
+        }
+        /* Gallery */
+        .gallery{
+            padding:5rem 0;
+            background:var(--bg-soft)
+        }
+        .gallery-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:1.5rem
+        }
+        .gallery-item{
+            position:relative;
+            border-radius:var(--radius-lg);
+            overflow:hidden;
+            aspect-ratio:4/3;
+            box-shadow:var(--shadow-card);
+            transition:var(--transition)
+        }
+        .gallery-item:hover{
+            transform:scale(1.02);
+            box-shadow:var(--shadow-soft)
+        }
+        .gallery-item img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            transition:var(--transition)
+        }
+        .gallery-item:hover img{
+            transform:scale(1.05)
+        }
+        /* CTA Band */
+        .cta-band{
+            padding:4rem 0;
+            background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);
+            color:#FFF;
+            text-align:center
+        }
+        .cta-band h2{color:#FFF;margin-bottom:1rem}
+        .cta-band p{
+            color:rgba(255,255,255,0.9);
+            font-size:1.1rem;
+            max-width:600px;
+            margin:0 auto 2rem
+        }
+        .cta-band .btn-primary{
+            background:#FFF;
+            color:var(--primary-dark)
+        }
+        .cta-band .btn-primary:hover{
+            background:var(--accent)
+        }
+        /* Contact */
+        .contact{
+            padding:5rem 0;
+            background:var(--bg-white)
+        }
+        .contact-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:2rem;
+            max-width:900px;
+            margin:0 auto
+        }
+        .contact-card{
+            text-align:center;
+            padding:2rem;
+            background:var(--bg-soft);
+            border-radius:var(--radius-lg);
+            border:1px solid rgba(139,115,85,0.08)
+        }
+        .contact-icon{
+            width:56px;
+            height:56px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:var(--accent);
+            border-radius:50%;
+            font-size:1.4rem;
+            margin:0 auto 1.2rem
+        }
+        .contact-card h4{
+            font-family:'Nunito',sans-serif;
+            font-weight:600;
+            font-size:1rem;
+            margin-bottom:0.6rem;
+            color:var(--primary-dark)
+        }
+        .contact-card a{
+            color:var(--primary);
+            font-weight:500
+        }
+        .contact-card a:hover{
+            color:var(--primary-dark);
+            text-decoration:underline
+        }
+        /* Footer */
+        footer{
+            padding:2rem 0;
+            background:var(--text-dark);
+            color:rgba(255,255,255,0.6);
+            text-align:center;
+            font-size:0.85rem
+        }
+        footer a{color:rgba(255,255,255,0.8)}
+        footer a:hover{color:#FFF}
+        /* Mobile CTA */
+        .mobile-cta{
+            display:none;
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+            z-index:999;
+            padding:1rem;
+            background:var(--bg-white);
+            border-top:1px solid rgba(139,115,85,0.1);
+            box-shadow:0 -4px 20px rgba(44,36,32,0.1)
+        }
+        .mobile-cta .btn{width:100%;justify-content:center}
+        @media (max-width:768px){
+            .mobile-cta{display:block}
+            .contact{padding-bottom:6rem}
+        }
+        /* Reduced Motion */
+        @media (prefers-reduced-motion:reduce){
+            *,*::before,*::after{
+                animation-duration:0.01ms !important;
+                animation-iteration-count:1 !important;
+                transition-duration:0.01ms !important
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">Pasit Thaimassage</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#leistungen">Leistungen</a></li>
+                        <li><a href="#termin">Termin</a></li>
+                        <li><a href="#galerie">Galerie</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                    </ul>
+                </nav>
+                <div class="header-cta">
+                    <a href="#termin" class="btn btn-primary">Termin buchen</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="http://pasit-thaimassage.de/wp-content/uploads/2025/12/IMG_4260-1024x683.jpg" alt="Ruhige Atmosphäre bei Pasit Thaimassage in Stuttgart-Degerloch">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content reveal">
+                <div class="hero-badge">🌿 Authentische Thaimassage</div>
+                <h1>Entspannung pur in Stuttgart-Degerloch</h1>
+                <p class="hero-subtitle">Tauchen Sie ein in wohlige Ruhe und professionelle Thaimassage. Ihr Körper wird es Ihnen danken.</p>
+                <div class="hero-actions">
+                    <a href="#termin" class="btn btn-primary btn-large">📅 Termin vereinbaren</a>
+                    <a href="tel:+4971112151746" class="btn btn-outline">📞 Jetzt anrufen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="trust-strip">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <span class="trust-icon">🕐</span>
+                    <span>Flexibel buchbar</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">🌿</span>
+                    <span>Authentische Technik</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📍</span>
+                    <span>Degerloch, Stuttgart</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✨</span>
+                    <span>Ruhige Atmosphäre</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="services" id="leistungen">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Unsere Leistungen</span>
+                <h2>Ausgewogene Massage für Körper & Geist</h2>
+                <p>Entdecken Sie unsere traditionellen Thaimassage-Angebote – zugeschnitten auf Ihre Bedürfnisse.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal lift">
+                    <div class="service-icon">💆</div>
+                    <h3>Traditionelle Thaimassage</h3>
+                    <p>Klassische Ganzkörpermassage mit Druckpunktmassage und Dehnungen für tiefe Entspannung.</p>
+                    <span class="service-duration">⏱ 60–90 Min.</span>
+                </div>
+                <div class="service-card reveal lift">
+                    <div class="service-icon">🦶</div>
+                    <h3>Fußreflexzonenmassage</h3>
+                    <p>Gezielte Behandlung der Reflexzonen am Fuß – wohltuend und ausgleichend für den ganzen Körper.</p>
+                    <span class="service-duration">⏱ 30–45 Min.</span>
+                </div>
+                <div class="service-card reveal lift">
+                    <div class="service-icon">🌸</div>
+                    <h3>Ölmassage</h3>
+                    <p>Sanfte Ganzkörpermassage mit hochwertigen Ölen – ideal zum Loslassen und Wohlfühlen.</p>
+                    <span class="service-duration">⏱ 60–90 Min.</span>
+                </div>
+                <div class="service-card reveal lift">
+                    <div class="service-icon">💪</div>
+                    <h3>Rücken- & Nackenmassage</h3>
+                    <p>Fokussierte Behandlung verspannter Bereiche – perfekt nach langem Sitzen oder Stress.</p>
+                    <span class="service-duration">⏱ 30–45 Min.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking" id="termin">
+        <div class="container">
+            <div class="booking-grid">
+                <div class="booking-content reveal">
+                    <span class="section-tag">Einfach & Unverbindlich</span>
+                    <h2>Ihren Wunschtermin online anfragen</h2>
+                    <p>Kein Telefonieren nötig – senden Sie uns einfach Ihre Wunschtermine. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+                    <div class="booking-steps">
+                        <div class="booking-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h4>Wunschtermin wählen</h4>
+                                <p>Sagen Sie uns, wann Sie Zeit haben.</p>
+                            </div>
+                        </div>
+                        <div class="booking-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h4>Behandlung auswählen</h4>
+                                <p>Traditionelle Thaimassage, Ölmassage oder mehr.</p>
+                            </div>
+                        </div>
+                        <div class="booking-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h4>Absenden & Bestätigung abwarten</h4>
+                                <p>Wir bestätigen Ihren Termin per E-Mail oder Telefon.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-form reveal">
+                    <h3>Termin anfragen</h3>
+                    <p>Alle Felder mit * sind erforderlich</p>
+                    <form action="mailto:info@pasit-thaimassage.de?subject=Terminanfrage" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Name *</label>
+                            <input type="text" id="name" name="Name" class="form-input" placeholder="Ihr Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">E-Mail *</label>
+                            <input type="email" id="email" name="E-Mail" class="form-input" placeholder="ihre@email.de" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="Telefon" class="form-input" placeholder="Für Rückrufe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="service">Gewünschte Behandlung *</label>
+                            <select id="service" name="Behandlung" class="form-select" required>
+                                <option value="">Bitte wählen...</option>
+                                <option value="Traditionelle Thaimassage">Traditionelle Thaimassage</option>
+                                <option value="Ölmassage">Ölmassage</option>
+                                <option value="Fußreflexzonenmassage">Fußreflexzonenmassage</option>
+                                <option value="Rücken- & Nackenmassage">Rücken- & Nackenmassage</option>
+                                <option value="Beratung">Beratung gewünscht</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="date">Wunschdatum *</label>
+                                <input type="date" id="date" name="Wunschdatum" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="time">Uhrzeit (optional)</label>
+                                <input type="time" id="time" name="Wunschzeit" class="form-input">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">Nachricht</label>
+                            <textarea id="message" name="Nachricht" class="form-input" rows="3" placeholder="Weitere Wünsche oder Fragen..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large form-submit">📨 Anfrage senden</button>
+                        <p class="form-note">Ihre Anfrage wird per E-Mail versendet. Wir antworten innerhalb von 24 Stunden.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="galerie">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Einblicke</span>
+                <h2>Atmosphäre & Ambiente</h2>
+                <p>Ein kurzer Eindruck in unsere ruhigen Räume.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal lift">
+                    <img src="http://pasit-thaimassage.de/wp-content/uploads/2021/10/DSC06515b-scaled.jpg" alt="Behandlungsbereich bei Pasit Thaimassage" loading="lazy">
+                </div>
+                <div class="gallery-item reveal lift">
+                    <img src="http://pasit-thaimassage.de/wp-content/uploads/2025/12/IMG_4260-768x512.jpg" alt="Entspannte Atmosphäre" loading="lazy">
+                </div>
+                <div class="gallery-item reveal lift">
+                    <img src="http://pasit-thaimassage.de/wp-content/uploads/2021/10/cropped-cropped-cropped-cropped-P8133210sf-scaled-1-1.jpg" alt="Behandlungszimmer" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-band reveal">
+        <div class="container">
+            <h2>Bereit für echte Entspannung?</h2>
+            <p>Vereinbaren Sie jetzt Ihren Termin und gönnen Sie sich eine Auszeit vom Alltag.</p>
+            <a href="#termin" class="btn btn-primary btn-large">📅 Jetzt Termin anfragen</a>
+        </div>
+    </section>
+
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Kontakt</span>
+                <h2>So erreichen Sie uns</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card reveal lift">
+                    <div class="contact-icon">📍</div>
+                    <h4>Adresse</h4>
+                    <p>Julius-Hölder-Straße 48<br>70597 Stuttgart-Degerloch</p>
+                </div>
+                <div class="contact-card reveal lift">
+                    <div class="contact-icon">📞</div>
+                    <h4>Telefon</h4>
+                    <a href="tel:+4971112151746">+49 711 12151746</a>
+                </div>
+                <div class="contact-card reveal lift">
+                    <div class="contact-icon">✉️</div>
+                    <h4>E-Mail</h4>
+                    <a href="mailto:info@pasit-thaimassage.de">info@pasit-thaimassage.de</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Konzept-Vorschau · MZ.9 · <a href="http://www.pasit-thaimassage.de" target="_blank" rel="noopener">Original-Website</a></p>
+        </div>
+    </footer>
+
+    <div class="mobile-cta">
+        <a href="#termin" class="btn btn-primary">📅 Termin buchen</a>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reveal animations
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // Set minimum date to today for date picker
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+    </script>
+</body>
+</html>
