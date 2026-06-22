@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>GB Malerei e.K. | Malermeister in Magdeburg</title>
+    <meta name="description" content="GB Malerei Gordon Bernieck – Ihr Meisterbetrieb in Magdeburg seit 2005. Faszinierende Malertechniken, kreative Wandgestaltung & professionelle Malerarbeiten in Magdeburg und Umgebung.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --surface: #fafbfc;
+            --surface-dark: #1e293b;
+            --text: #334155;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--surface);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--surface-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .header-cta {
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 5rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://assets.coco-online.de/27321714495458-LLR5Yqzi/homeheader_full_w.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            color: var(--white);
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--surface-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            border: 2px solid var(--white);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--surface-dark);
+        }
+
+        /* USP Strip */
+        .usp-strip {
+            background: var(--surface-dark);
+            padding: 3rem 1.5rem;
+            color: var(--white);
+        }
+
+        .usp-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .usp-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .usp-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+
+        .usp-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .usp-content p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Services */
+        .services {
+            padding: 6rem 1.5rem;
+            background: var(--surface);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--surface-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--surface-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 6rem 1.5rem;
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--white);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 6rem 1.5rem;
+            background: linear-gradient(135deg, var(--surface-dark) 0%, #0f172a 100%);
+            color: var(--white);
+        }
+
+        .contact-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-detail-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--surface-dark);
+        }
+
+        .contact-detail a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-detail a:hover {
+            color: var(--accent);
+        }
+
+        .form-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--surface-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* CTA Band */
+        .cta-band {
+            background: var(--accent);
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .cta-band h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--surface-dark);
+            margin-bottom: 1rem;
+        }
+
+        .cta-band p {
+            color: var(--surface-dark);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-band .btn {
+            background: var(--surface-dark);
+            color: var(--white);
+        }
+
+        .cta-band .btn:hover {
+            background: #0f172a;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface-dark);
+            color: var(--white);
+            padding: 3rem 1.5rem 1.5rem;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.1);
+            z-index: 999;
+            display: none;
+        }
+
+        .mobile-cta .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .mobile-cta {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+
+            .header-cta {
+                display: none;
+            }
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                GB<span>Malerei</span>
+            </a>
+            <a href="#kontakt" class="header-cta">Anfrage senden</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="reveal">GB-Malerei Gordon Bernieck – Malermeister in Magdeburg</h1>
+            <p class="reveal">Faszinierende Malertechniken. Kreative Wandgestaltung. Ihr Meisterbetrieb seit 2005 – in Magdeburg und Umgebung.</p>
+            <div class="hero-ctas reveal">
+                <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+                <a href="tel:+493915066936" class="btn btn-secondary">📞 Jetzt anrufen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Strip -->
+    <section class="usp-strip">
+        <div class="usp-inner">
+            <div class="usp-item reveal">
+                <div class="usp-icon">✓</div>
+                <div class="usp-content">
+                    <h3>Meisterbetrieb</h3>
+                    <p>Seit 2005 geprüfte Qualität & Fachkompetenz</p>
+                </div>
+            </div>
+            <div class="usp-item reveal">
+                <div class="usp-icon">🎨</div>
+                <div class="usp-content">
+                    <h3>Kreative Techniken</h3>
+                    <p>Individuelle Wandgestaltung & Malertechniken</p>
+                </div>
+            </div>
+            <div class="usp-item reveal">
+                <div class="usp-icon">📍</div>
+                <div class="usp-content">
+                    <h3>Lokal & Zuverlässig</h3>
+                    <p>Mitglied der Malerinnung Magdeburg</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+        <div class="section-header reveal">
+            <h2>Unsere Leistungen</h2>
+            <p>Professionelle Malerarbeiten für Innenräume, Fassaden und kreative Wandgestaltung</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">🖌️</div>
+                <h3>Innenarbeiten</h3>
+                <p>Professionelles Streichen von Wänden, Decken und Böden – von klassisch bis kreativ gestaltet.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🏠</div>
+                <h3>Fassadengestaltung</h3>
+                <p>Wetterfeste Fassadenanstriche mit hochwertigen Materialien für langlebige Ergebnisse.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">✨</div>
+                <h3>Technik & Effekte</h3>
+                <p>Spachteltechniken, Kalkputze, Marmorierungen – individuelle Akzente für Ihre Räume.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🛠️</div>
+                <h3>Tapezierarbeiten</h3>
+                <p>Pflegeleichtes Tapezieren mit Vliestapeten, Strukturtapeten oder klassischen Mustern.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">🔄</div>
+                <h3>Renovierung</h3>
+                <p>Komplette Altbausanierung – von Schadstoffbeseitigung bis zum Neu-Anstrich.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">💼</div>
+                <h3>Gewerbe & Objekt</h3>
+                <p>Malerarbeiten für Büros, Gastronomie und öffentliche Gebäude – pünktlich & zuverlässig.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <div class="section-header reveal">
+            <h2>Unsere Arbeit</h2>
+            <p>Eindrücke aus unseren Projekten in Magdeburg und Umgebung</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item reveal">
+                <img src="https://assets.coco-online.de/27321714495458-LLR5Yqzi/homeheader_large_w.jpg" alt="Malerarbeiten Magdeburg - Innenraumgestaltung" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Innenraumgestaltung</h3>
+                </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://assets.coco-online.de/27321714495485-0RZTmA5Z/AdobeStock_233737084_large_w.jpeg" alt="Malertechnik - Spachteltechniken und Putz" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Malertechnik & Effekte</h3>
+                </div>
+            </div>
+            <div class="gallery-item reveal">
+                <img src="https://assets.coco-online.de/27321714495458-LLR5Yqzi/homeheader_full_w.jpg" alt="Professionelle Malerarbeiten" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3>Handwerkliche Präzision</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact" id="kontakt">
+        <div class="contact-inner">
+            <div class="contact-info reveal">
+                <h2>Kontaktieren Sie uns</h2>
+                <p>Erzählen Sie uns von Ihrem Projekt – wir melden uns schnellstmöglich für ein kostenloses Beratungsgespräch.</p>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">📞</div>
+                        <a href="tel:+493915066936">+49 391 5066936</a>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">✉️</div>
+                        <a href="mailto:info@magdeburger-maler.de">info@magdeburger-maler.de</a>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="contact-detail-icon">📍</div>
+                        <span>Johannes-R.-Becher-Straße 41a, 39128 Magdeburg</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-container reveal">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Ihr Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Vor- und Nachname">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail-Adresse *</label>
+                        <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefonnummer</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe optional">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Interesse an *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Bitte wählen...</option>
+                            <option value="innenarbeiten">Innenarbeiten</option>
+                            <option value="fassade">Fassadengestaltung</option>
+                            <option value="technik">Malertechnik & Effekte</option>
+                            <option value="tapezieren">Tapezierarbeiten</option>
+                            <option value="renovierung">Renovierung</option>
+                            <option value="gewerbe">Gewerbe & Objekt</option>
+                            <option value="sonstiges">Sonstiges</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Ihre Nachricht *</label>
+                        <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Projekt..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Anfrage senden</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <h2 class="reveal">Bereit für Ihre neuen Wände?</h2>
+        <p class="reveal">Holen Sie sich jetzt Ihre kostenlose Beratung – ohne Verpflichtung.</p>
+        <div class="reveal">
+            <a href="#kontakt" class="btn btn-primary">Jetzt Projekt anfragen</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-section">
+                <h4>GB Malerei e.K.</h4>
+                <p>Malermeister Gordon Bernieck</p>
+                <p>Mitglied der Malerinnung Magdeburg</p>
+            </div>
+            <div class="footer-section">
+                <h4>Kontakt</h4>
+                <a href="tel:+493915066936">+49 391 5066936</a>
+                <a href="mailto:info@magdeburger-maler.de">info@magdeburger-maler.de</a>
+            </div>
+            <div class="footer-section">
+                <h4>Standort</h4>
+                <p>Johannes-R.-Becher-Straße 41a</p>
+                <p>39128 Magdeburg</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links</h4>
+                <a href="https://www.magdeburger-maler.de/" target="_blank">Originale Website</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Konzept-Vorschau · MZ.9 · <a href="https://www.magdeburger-maler.de/" target="_blank">gb-malerei.de</a>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung anfragen</a>
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Form submission (demo)
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const service = formData.get('service');
+            const message = formData.get('message');
+
+            const mailtoLink = `mailto:info@magdeburger-maler.de?subject=Anfrage via Konzeptseite: ${service}&body=Name: ${name}%0AEmail: ${email}%0A%0A${encodeURIComponent(message)}`;
+            window.location.href = mailtoLink;
+        });
+    </script>
+</body>
+</html>
