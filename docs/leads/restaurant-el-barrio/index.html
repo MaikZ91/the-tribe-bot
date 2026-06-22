@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>El Barrio – Spanische & lateinamerikanische Küche | Köln-Neuehrenfeld</title>
+  <meta name="description" content="El Barrio Restaurant & Bar in Köln-Neuehrenfeld. Authentische spanische und lateinamerikanische Küche mit frischen Cocktails und gemütlicher Atmosphäre.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --terra: #C45A3B;
+      --terra-dark: #9E3E24;
+      --ochre: #D4A055;
+      --ochre-light: #E8C68A;
+      --cream: #FDF6EB;
+      --charcoal: #2A2520;
+      --sand: #F5EFE4;
+      --shadow: rgba(42, 37, 32, 0.12);
+      --shadow-hover: rgba(42, 37, 32, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+      transition: 0.4s ease;
+    }
+    .header.scrolled {
+      background: rgba(253, 246, 235, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px var(--shadow);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--terra);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+    .nav-links a:hover { color: var(--terra); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--charcoal);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://elbarrio-koeln.de/wp-content/uploads/go-x/u/d2375b65-9e55-4a6b-94e1-8b42045536df/image-1200x1245.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.6;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding: 2rem;
+      max-width: 800px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--terra);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--terra);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 15px rgba(196, 90, 59, 0.4);
+    }
+    .btn-primary:hover {
+      background: var(--terra-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(196, 90, 59, 0.5);
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      padding: 2rem 5%;
+      background: var(--ochre-light);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+    .trust-item span {
+      font-size: 1.3rem;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 5rem 5%;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      color: var(--charcoal);
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .section-header h2 span {
+      color: var(--terra);
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px var(--shadow-hover);
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--ochre-light);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* MENU SECTION */
+    .menu-section {
+      background: var(--sand);
+    }
+    .menu-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--terra);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .menu-tab {
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      background: white;
+      font-weight: 500;
+      transition: 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .menu-tab.active, .menu-tab:hover {
+      background: var(--terra);
+      color: white;
+    }
+    .menu-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: none;
+    }
+    .menu-content.active {
+      display: block;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      border-bottom: 1px dashed rgba(42, 37, 32, 0.15);
+    }
+    .menu-item-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+    .menu-item-info p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    .menu-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--terra);
+      margin-left: 1rem;
+      white-space: nowrap;
+    }
+
+    /* RESERVATION */
+    .reservation-section {
+      background: var(--terra);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .reservation-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .reservation-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .reservation-section h2 {
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .reservation-section p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .reservation-form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border: 2px solid var(--sand);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: 0.3s ease;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--terra);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--terra);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 10px;
+      transition: 0.3s ease;
+    }
+    .btn-submit:hover {
+      background: var(--terra-dark);
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(42,37,32,0.3), transparent);
+      opacity: 0;
+      transition: 0.3s ease;
+    }
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* CONTACT & CTA */
+    .contact-section {
+      background: var(--charcoal);
+      color: white;
+    }
+    .contact-section h2 { color: white; }
+    .contact-section p { opacity: 0.8; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .contact-card {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+    .contact-card:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .contact-card span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .contact-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .cta-band {
+      background: var(--ochre);
+      text-align: center;
+      padding: 3rem 5%;
+    }
+    .cta-band h3 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .cta-band .btn-white {
+      background: white;
+      color: var(--charcoal);
+    }
+    .cta-band .btn-white:hover {
+      background: var(--sand);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 2rem 5%;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .footer a { color: rgba(255,255,255,0.8); }
+    .footer a:hover { color: white; }
+
+    /* MOBILE CTA BAR */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem 5%;
+      box-shadow: 0 -4px 20px var(--shadow);
+      display: none;
+      gap: 1rem;
+      z-index: 99;
+    }
+    .mobile-cta a {
+      flex: 1;
+      text-align: center;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .mobile-cta .cta-primary {
+      background: var(--terra);
+      color: white;
+    }
+    .mobile-cta .cta-secondary {
+      background: var(--sand);
+      color: var(--charcoal);
+    }
+    @media (max-width: 768px) {
+      .mobile-cta { display: flex; }
+      body { padding-bottom: 70px; }
+    }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">El Barrio</div>
+    <nav class="nav-links">
+      <a href="#about">Über uns</a>
+      <a href="#menu">Speisekarte</a>
+      <a href="#reservation">Reservieren</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <span class="hero-badge">Spanisch & Lateinamerikanisch</span>
+      <h1>Willkommen im El Barrio in Köln</h1>
+      <p>Authentische Aromen, gemütliche Atmosphäre und crafted Cocktails – erleben Sie mediterrane Lebensart im Herzen von Neuehrenfeld.</p>
+      <a href="#reservation" class="btn-primary">
+        Tisch reservieren →
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item"><span>🍽️</span> Frische Küche</div>
+    <div class="trust-item"><span>🍸</span> Cocktails</div>
+    <div class="trust-item"><span>📍</span> Köln-Neuehrenfeld</div>
+    <div class="trust-item"><span>⭐</span> Gemütliches Ambiente</div>
+  </div>
+
+  <!-- ABOUT / FEATURES -->
+  <section class="section" id="about">
+    <div class="section-header reveal">
+      <h2>Unser <span>Konzept</span></h2>
+      <p>Mehr als nur ein Restaurant – ein Ort für Genussmomente und gute Gespräche.</p>
+    </div>
+    <div class="features">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🇪🇸</div>
+        <h3>Spanische Küche</h3>
+        <p>Echte spanische Rezepte mit frischen Zutaten und traditioneller Zubereitung – von Tapas bis Paella.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌮</div>
+        <h3>Lateinamerikanisch</h3>
+        <p>Würzige Gerichte aus Mittel- und Südamerika bringen Abenteuer auf Ihren Teller.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🍹</div>
+        <h3>Cocktail-Bar</h3>
+        <p>Handcrafted Cocktails, Longdrinks und eine große Auswahl an Spirituosen – perfekter Abschluss zum Abend.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">✨</div>
+        <h3>Atmosphäre</h3>
+        <p>Gemütlich, einladend und authentisch – bei uns fühlen sich Gäste zu Hause.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="section menu-section" id="menu">
+    <div class="section-header reveal">
+      <h2>Unsere <span>Speisekarte</span></h2>
+      <p>Kleine Auswahl unserer Signature-Gerichte (Beispiel – vollständige Karte im Restaurant)</p>
+    </div>
+    <div class="menu-note">* Diese Speisekarte ist ein Beispiel für das Konzept-Design. Echte Preise und Gerichte folgen nach Rücksprache.</div>
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" data-tab="tapas">Tapas</button>
+      <button class="menu-tab" data-tab="main">Hauptgerichte</button>
+      <button class="menu-tab" data-tab="drinks">Getränke</button>
+    </div>
+    <div class="menu-content active" id="tapas">
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Gambas al Ajillo</h4>
+          <p>Garnelen in Knoblauch-Öl, mit Chili und frischem Brot</p>
+        </div>
+        <span class="menu-price">12,50 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Patatas Bravas</h4>
+          <p>Knusprige Kartoffelwürfel mit pikanter Salsa Brava</p>
+        </div>
+        <span class="menu-price">6,50 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Queso Manchego</h4>
+          <p>Schafskäse aus La Mancha, serviert mit Quince-Marmelade</p>
+        </div>
+        <span class="menu-price">9,00 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Chorizo a la Plancha</h4>
+          <p>Gegrillte spanische Chorizo, serviert mit Oliven</p>
+        </div>
+        <span class="menu-price">8,50 €</span>
+      </div>
+    </div>
+    <div class="menu-content" id="main">
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Paella Valenciana</h4>
+          <p>Reis mit Huhn, Kaninchen, Bohnen und Safran (für 2 Pers.)</p>
+        </div>
+        <span class="menu-price">38,00 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Ceviche Clásico</h4>
+          <p>Marinierter Fisch mit Limette, Koriander und roter Zwiebel</p>
+        </div>
+        <span class="menu-price">16,00 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Arepas Rellenas</h4>
+          <p>Gefüllte Maisküchlein mit Käse, Avocado und Pulled Chicken</p>
+        </div>
+        <span class="menu-price">14,50 €</span>
+      </div>
+    </div>
+    <div class="menu-content" id="drinks">
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Mojito Clásico</h4>
+          <p>Weißer Rum, Limette, Minze, Soda und Rohrzucker</p>
+        </div>
+        <span class="menu-price">9,50 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Margarita</h4>
+          <p>Tequila Blanco, Cointreau, Limettensaft, Salzrand</p>
+        </div>
+        <span class="menu-price">10,00 €</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-info">
+          <h4>Sangría (0,5l)</h4>
+          <p>Rotwein, Fruchtsaft, frische Früchte und Spirituosen</p>
+        </div>
+        <span class="menu-price">24,00 €</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVATION -->
+  <section class="section reservation-section" id="reservation">
+    <div class="reservation-container reveal">
+      <div class="section-header">
+        <h2>Tisch <span>reservieren</span></h2>
+        <p>Sichern Sie sich Ihren Lieblingsplatz – schnell und unkompliziert.</p>
+      </div>
+      <form class="reservation-form" action="mailto:info@elbarrio-koeln.de?subject=Reservierungsanfrage" method="post" enctype="text/plain">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" name="phone" placeholder="Für Rückruf">
+          </div>
+          <div class="form-group">
+            <label>Datum</label>
+            <input type="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <label>Uhrzeit</label>
+            <input type="time" name="time" required>
+          </div>
+          <div class="form-group full">
+            <label>Anzahl Gäste</label>
+            <select name="guests">
+              <option value="1">1 Person</option>
+              <option value="2">2 Personen</option>
+              <option value="3">3 Personen</option>
+              <option value="4">4 Personen</option>
+              <option value="5">5 Personen</option>
+              <option value="6+">6+ Personen</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Nachricht (optional)</label>
+            <textarea name="message" rows="3" placeholder="Sonstige Wünsche..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Reservierung anfordern</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" id="gallery">
+    <div class="section-header reveal">
+      <h2>Einblicke</h2>
+      <p>Atmosphäre und Ambiente bei El Barrio</p>
+    </div>
+    <div class="gallery">
+      <div class="gallery-item reveal">
+        <img src="https://www.elbarrio-koeln.de/wp-content/uploads/go-x/u/748f1977-e52c-44cf-8a37-222101f4d8e9/image.png" alt="El Barrio Restaurant Atmosphäre" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.elbarrio-koeln.de/wp-content/uploads/go-x/u/748f1977-e52c-44cf-8a37-222101f4d8e9/image-640x326.png" alt="El Barrio Interieur" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.elbarrio-koeln.de/wp-content/uploads/go-x/u/748f1977-e52c-44cf-8a37-222101f4d8e9/image-455x232.png" alt="El Barrio Bar Bereich" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.elbarrio-koeln.de/wp-content/uploads/go-x/u/748f1977-e52c-44cf-8a37-222101f4d8e9/image-512x261.png" alt="El Barrio Gäste Bereich" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.elbarrio-koeln.de/wp-content/uploads/go-x/u/748f1977-e52c-44cf-8a37-222101f4d8e9/image-313x159.png" alt="El Barrio Details" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <h3>Bereit für spanische Genussmomente?</h3>
+    <a href="#reservation" class="btn-primary btn-white">Jetzt Tisch reservieren</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact-section" id="contact">
+    <div class="section-header reveal">
+      <h2>Kontakt</h2>
+      <p>Wir freuen uns auf Ihren Besuch in Köln-Neuehrenfeld</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <span>📍</span>
+        <h4>Adresse</h4>
+        <p>Köln-Neuehrenfeld</p>
+      </div>
+      <div class="contact-card reveal">
+        <span>📞</span>
+        <h4>Telefon</h4>
+        <p><a href="tel:+4922150601949">+49 221 50601949</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <span>✉️</span>
+        <h4>E-Mail</h4>
+        <p><a href="mailto:info@elbarrio-koeln.de">info@elbarrio-koeln.de</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <span>🌐</span>
+        <h4>Website</h4>
+        <p><a href="https://www.elbarrio-koeln.de/" target="_blank">elbarrio-koeln.de</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9 | <a href="https://www.elbarrio-koeln.de/" target="_blank">elbarrio-koeln.de</a></p>
+  </footer>
+
+  <!-- MOBILE CTA BAR -->
+  <div class="mobile-cta">
+    <a href="tel:+4922150601949" class="cta-secondary">📞 Anrufen</a>
+    <a href="#reservation" class="cta-primary">Reservieren</a>
+  </div>
+
+  <script>
+    // HEADER SCROLL
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // MENU TABS
+    const tabs = document.querySelectorAll('.menu-tab');
+    const contents = document.querySelectorAll('.menu-content');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // REVEAL ANIMATION
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
