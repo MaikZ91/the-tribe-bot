@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Zahren Gartenbau GmbH – Ihr Gartenbauer in München</title>
+  <meta name="description" content="Zahren Gartenbau GmbH – Professioneller Garten- und Landschaftsbau in München. Wassergärten, Steinarbeiten, Holzkonstruktionen, Pflanzungen und Pflege. Leidenschaft für grüne Lebensräume seit über 30 Jahren.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #2c3e30;
+      background: #fafcf9;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: #1a3a16; font-weight: 700; }
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2d5a27 0%, #1a3a16 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45, 90, 39, 0.4); }
+    .btn-outline {
+      border: 2px solid #2d5a27;
+      color: #2d5a27;
+      background: transparent;
+    }
+    .btn-outline:hover { background: #2d5a27; color: white; }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(45, 90, 39, 0.1);
+      transition: all 0.3s ease;
+      padding: 16px 0;
+    }
+    header.scrolled { padding: 10px 0; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2d5a27; }
+    .logo span { color: #8b7355; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-weight: 500; font-size: 0.95rem; color: #2c3e30; }
+    .nav-links a:hover { color: #2d5a27; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #2d5a27; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(45, 90, 39, 0.85) 0%, rgba(26, 58, 22, 0.75) 100%),
+                  url('https://www.zahren-gartenbau.de/images/home-hero-1.webp') center/cover no-repeat;
+      color: white;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(transparent, #fafcf9);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 24px; color: white; }
+    .hero p { font-size: 1.2rem; margin-bottom: 32px; opacity: 0.95; max-width: 550px; }
+    .hero-badges { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+    .badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      backdrop-filter: blur(5px);
+    }
+    .hero-leaf {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a9c3d' opacity='0.15'%3E%3Cpath d='M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z'/%3E%3C/svg%3E") center/contain no-repeat;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-leaf:nth-child(1) { top: 15%; right: 10%; animation-delay: 0s; transform: rotate(15deg); }
+    .hero-leaf:nth-child(2) { top: 60%; right: 5%; animation-delay: 2s; transform: rotate(-10deg); }
+    .hero-leaf:nth-child(3) { top: 30%; right: 25%; animation-delay: 4s; transform: rotate(5deg); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+      50% { transform: translateY(-20px) rotate(var(--r, 0deg)); }
+    }
+
+    /* USP Strip */
+    .usp-strip { background: #1a3a16; color: white; padding: 40px 0; }
+    .usp-strip .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+    .usp-item { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .usp-icon { width: 48px; height: 48px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .usp-item h4 { color: white; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 600; }
+    .usp-item p { font-size: 0.85rem; opacity: 0.8; }
+
+    /* Section Styles */
+    section { padding: 80px 0; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 16px; }
+    .section-header p { font-size: 1.1rem; color: #5a6a58; max-width: 600px; margin: 0 auto; }
+    .section-header::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #2d5a27, #4a9c3d);
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Leistungen */
+    .leistungen { background: white; }
+    .leistungen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .leistung-card {
+      background: #fafcf9;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    .leistung-card:hover { transform: translateY(-8px); box-shadow: 0 12px 40px rgba(45, 90, 39, 0.15); }
+    .leistung-img {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .leistung-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(45, 90, 39, 0.3));
+    }
+    .leistung-content { padding: 28px; }
+    .leistung-content h3 { font-size: 1.4rem; margin-bottom: 12px; }
+    .leistung-content p { color: #5a6a58; font-size: 0.95rem; margin-bottom: 16px; }
+    .leistung-link { color: #2d5a27; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .leistung-link::after { content: '→'; transition: 0.3s; }
+    .leistung-link:hover::after { transform: translateX(4px); }
+
+    /* Kontaktformular */
+    .kontakt { background: linear-gradient(135deg, #f0f4ed 0%, #e8efe5 100%); }
+    .kontakt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 60px; }
+    .kontakt-info { display: flex; flex-direction: column; gap: 24px; }
+    .kontakt-item { display: flex; align-items: flex-start; gap: 16px; }
+    .kontakt-icon {
+      width: 50px;
+      height: 50px;
+      background: #2d5a27;
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .kontakt-item h4 { font-family: 'Montserrat', sans-serif; font-size: 1rem; margin-bottom: 4px; }
+    .kontakt-item p { color: #5a6a58; }
+    .kontakt-item a { color: #2d5a27; font-weight: 600; }
+    .kontakt-form {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e0e8dc;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #fafcf9;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: #2d5a27;
+      background: white;
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-note { font-size: 0.85rem; color: #5a6a58; margin-top: 8px; }
+
+    /* Galerie */
+    .galerie { background: white; }
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .galerie-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+    .galerie-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .galerie-item:hover img { transform: scale(1.08); }
+    .galerie-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(26, 58, 22, 0.8));
+      opacity: 0;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .galerie-item:hover .galerie-overlay { opacity: 1; }
+    .galerie-tag {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1a3a16;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, #1a3a16 0%, #2d5a27 100%);
+      color: white;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.zahren-gartenbau.de/images/about-main.webp') center/cover;
+      opacity: 0.15;
+    }
+    .cta-band .container { position: relative; z-index: 2; text-align: center; }
+    .cta-band h2 { color: white; margin-bottom: 20px; }
+    .cta-band p { font-size: 1.2rem; margin-bottom: 32px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-band .btn { background: white; color: #2d5a27; }
+    .cta-band .btn:hover { background: #fafcf9; transform: translateY(-2px); }
+
+    /* Footer */
+    footer {
+      background: #1a3a16;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 40px 0 20px;
+    }
+    footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+    footer h4 { color: white; font-family: 'Montserrat', sans-serif; margin-bottom: 16px; }
+    footer p { font-size: 0.9rem; margin-bottom: 8px; }
+    footer a { color: rgba(255, 255, 255, 0.6); }
+    footer a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 32px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      border-top: 1px solid rgba(45, 90, 39, 0.1);
+    }
+    .mobile-cta .btn { width: 100%; padding: 12px 24px; }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .mobile-menu.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+      .hero { text-align: center; justify-content: center; }
+      .hero-content { margin: 0 auto; }
+      .hero-badges { justify-content: center; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 80px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="#" class="logo">Zahren<span>Gartenbau</span></a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:+4989831817" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;">
+          📞 +49 89 831817
+        </a>
+      </nav>
+      <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('mobile-menu');">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-leaf"></div>
+    <div class="hero-leaf"></div>
+    <div class="hero-leaf"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badges">
+          <span class="badge">🌿 Seit über 30 Jahren</span>
+          <span class="badge">📍 München & Umgebung</span>
+        </div>
+        <h1>Leidenschaft für grüne Lebensräume</h1>
+        <p>Professioneller Garten- und Landschaftsbau in München. Wir verwandeln Ihren Außenbereich in eine Oase.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#kontakt" class="btn btn-primary">Kostenlose Beratung</a>
+          <a href="#leistungen" class="btn btn-outline" style="color: white; border-color: white;">Unsere Leistungen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <div class="usp-strip">
+    <div class="container">
+      <div class="usp-item">
+        <div class="usp-icon">✓</div>
+        <h4>30+ Jahre Erfahrung</h4>
+        <p>Tradition & Fachkompetenz</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🏆</div>
+        <h4>Premium-Qualität</h4>
+        <p>Hochwertige Materialien</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🌱</div>
+        <h4>Naturverbunden</h4>
+        <p>Nachhaltige Gestaltung</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">📍</div>
+        <h4>München & Umgebung</h4>
+        <p>Ihr lokaler Partner</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section class="leistungen" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Maßgeschneiderte Gartenlösungen – von der Planung bis zur Pflege</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="leistung-img" style="background-image: url('https://www.zahren-gartenbau.de/images/wasser-hero.jpg');"></div>
+          <div class="leistung-content">
+            <h3>Wassergärten</h3>
+            <p>Teiche, Brunnen und Zisternen – harmonische Wasserlösungen für Ihren Garten.</p>
+            <a href="#kontakt" class="leistung-link">Beratung anfragen</a>
+          </div>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-img" style="background-image: url('https://www.zahren-gartenbau.de/images/stein-hero.jpg');"></div>
+          <div class="leistung-content">
+            <h3>Steinarbeiten</h3>
+            <p>Natursteinmauern, Terrassen und Wege – zeitlos schön und langlebig.</p>
+            <a href="#kontakt" class="leistung-link">Beratung anfragen</a>
+          </div>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-img" style="background-image: url('https://www.zahren-gartenbau.de/images/holz-hero.jpg');"></div>
+          <div class="leistung-content">
+            <h3>Holzkonstruktionen</h3>
+            <p>Pergolen, Zäune und Sitzplätze – natürliche Materialien, handwerkliche Qualität.</p>
+            <a href="#kontakt" class="leistung-link">Beratung anfragen</a>
+          </div>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-img" style="background-image: url('https://www.zahren-gartenbau.de/images/pflanze-hero.jpg');"></div>
+          <div class="leistung-content">
+            <h3>Pflanzungen & Pflege</h3>
+            <p>Staudenbeete, Hecken und ganzjährige Gartenpflege – blühendes Leben.</p>
+            <a href="#kontakt" class="leistung-link">Beratung anfragen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontaktformular -->
+  <section class="kontakt" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Ihr Traumgarten wartet auf Sie</h2>
+        <p>Vereinbaren Sie noch heute eine unverbindliche Beratung – wir kommen gerne zu Ihnen!</p>
+      </div>
+      <div class="kontakt-grid">
+        <div class="kontakt-info reveal">
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📍</div>
+            <div>
+              <h4>Adresse</h4>
+              <p>Pippinger Straße 49<br>81245 München</p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📞</div>
+            <div>
+              <h4>Telefon</h4>
+              <p><a href="tel:+4989831817">+49 89 831817</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">✉️</div>
+            <div>
+              <h4>E-Mail</h4>
+              <p><a href="mailto:info@zahren-gartenbau.de">info@zahren-gartenbau.de</a></p>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">🕐</div>
+            <div>
+              <h4>Beratungstermine</h4>
+              <p>Nach Vereinbarung – Montag bis Freitag</p>
+            </div>
+          </div>
+        </div>
+        <form class="kontakt-form reveal" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Anfrage! Wir melden uns schnellstmöglich bei Ihnen.');">
+          <div class="form-group">
+            <label for="name">Ihr Name *</label>
+            <input type="text" id="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse *</label>
+            <input type="email" id="email" required placeholder="max@beispiel.de">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefonnummer (für Rückruf)</label>
+            <input type="tel" id="phone" placeholder="+49 ...">
+          </div>
+          <div class="form-group">
+            <label for="service">Gewünschte Leistung</label>
+            <select id="service">
+              <option value="">Bitte wählen...</option>
+              <option value="wasser">Wassergarten / Teich</option>
+              <option value="stein">Steinarbeiten / Terrasse</option>
+              <option value="holz">Holzkonstruktionen</option>
+              <option value="pflanzung">Pflanzungen / Gestaltung</option>
+              <option value="pflege">Gartenpflege</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Ihre Nachricht</label>
+            <textarea id="message" placeholder="Beschreiben Sie kurz Ihr Projekt..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+          <p class="form-note">* Pflichtfelder. Ihre Daten werden vertraulich behandelt.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="galerie" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Projekte</h2>
+        <p>Einblicke in unsere Arbeit – von privaten Gärten bis hin zu Großprojekten</p>
+      </div>
+      <div class="galerie-grid">
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/home-hero-2.webp" alt="Gartenprojekt München" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Privatgarten</span></div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/home-hero-3.webp" alt="Wassergarten" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Wassergarten</span></div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/home-hero-4.webp" alt="Steinarbeiten" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Steinarbeiten</span></div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/home-hero-5.webp" alt="Holzpergola" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Holzkonstruktion</span></div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/home-hero-6.webp" alt="Pflanzung" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Pflanzung</span></div>
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.zahren-gartenbau.de/images/about-main.webp" alt="Gartenpflege" loading="lazy">
+          <div class="galerie-overlay"><span class="galerie-tag">Gartenpflege</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihren Traumgarten?</h2>
+      <p>Über 30 Jahre Erfahrung, hunderte zufriedene Kunden und eine Leidenschaft für grüne Lebensräume – wir machen Ihre Vision wahr.</p>
+      <a href="#kontakt" class="btn">Jetzt kostenlose Beratung vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div style="flex: 1; min-width: 250px;">
+        <h4>Zahren Gartenbau GmbH</h4>
+        <p>Ihr Gartenbauer in München</p>
+        <p>Seit über 30 Jahren Ihr Partner für Garten- und Landschaftsbau.</p>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <h4>Leistungen</h4>
+        <p><a href="#leistungen">Wassergärten</a></p>
+        <p><a href="#leistungen">Steinarbeiten</a></p>
+        <p><a href="#leistungen">Holzkonstruktionen</a></p>
+        <p><a href="#leistungen">Pflanzungen & Pflege</a></p>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <h4>Kontakt</h4>
+        <p>Pippinger Straße 49</p>
+        <p>81245 München</p>
+        <p><a href="tel:+4989831817">+49 89 831817</a></p>
+        <p><a href="mailto:info@zahren-gartenbau.de">info@zahren-gartenbau.de</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Konzept-Vorschau · MZ.9 · <a href="https://www.zahren-gartenbau.de/">www.zahren-gartenbau.de</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+4989831817" class="btn btn-primary">📞 Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
