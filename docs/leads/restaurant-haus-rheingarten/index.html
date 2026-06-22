@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haus Rheingarten · Restaurant & Lounge · Düsseldorf</title>
+  <meta name="description" content="Haus Rheingarten in Düsseldorf — Herzlich Willkommen im Restaurant mit Atmosphäre. Genießen Sie unsere Spezialitäten am Leuchtenberger Kirchweg.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #B83D3D;
+      --primary-dark: #8B2A2A;
+      --primary-light: #E8A5A5;
+      --accent: #D4A574;
+      --bg-warm: #F9F4F1;
+      --bg-white: #FFFFFF;
+      --bg-dark: #2C2523;
+      --text-dark: #2C2523;
+      --text-medium: #5A4F4D;
+      --text-light: #8B7F7D;
+      --shadow: 0 4px 20px rgba(44, 37, 35, 0.08);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(249, 244, 241, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 16px 24px;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(184, 61, 61, 0.1);
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow);
+      padding: 12px 24px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      position: relative;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-cta {
+      background: var(--primary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .header-cta:hover {
+      background: var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(44, 37, 35, 0.3),
+        rgba(44, 37, 35, 0.5)
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 0 24px;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(212, 165, 116, 0.9);
+      color: var(--bg-dark);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 20px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.95;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 20px rgba(184, 61, 61, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(184, 61, 61, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--bg-dark);
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: white;
+      opacity: 0.8;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-white);
+      padding: 40px 24px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .usp-strip-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+
+    .usp-item {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .usp-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .usp-item h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--primary-dark);
+    }
+
+    .usp-item p {
+      font-size: 0.85rem;
+      color: var(--text-medium);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 80px 24px;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin-bottom: 16px;
+      color: var(--bg-dark);
+    }
+
+    .section p {
+      color: var(--text-medium);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      background: var(--bg-white);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .menu-category {
+      background: var(--bg-warm);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .menu-category h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--primary-dark);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 12px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .menu-item-info h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .menu-item-info p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .menu-item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      margin-left: 16px;
+    }
+
+    .menu-example-note {
+      text-align: center;
+      margin-top: 32px;
+      padding: 16px;
+      background: rgba(212, 165, 116, 0.1);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      color: var(--text-medium);
+    }
+
+    /* Gallery */
+    .gallery-section {
+      background: var(--bg-dark);
+      color: white;
+    }
+
+    .gallery-section .section-header h2 {
+      color: white;
+    }
+
+    .gallery-section .section-header p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 250px);
+      gap: 12px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .gallery-item:first-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-item:first-child {
+        grid-column: span 1;
+      }
+    }
+
+    /* Reservation */
+    .reservation-section {
+      background: linear-gradient(135deg, var(--bg-warm) 0%, #F5EDE8 100%);
+    }
+
+    .reservation-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .reservation-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .reservation-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .reservation-form {
+      background: var(--bg-white);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .reservation-form h3 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      color: var(--bg-dark);
+    }
+
+    .reservation-form p {
+      color: var(--text-medium);
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #E8E3E0;
+      border-radius: var(--radius);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 16px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    .form-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .reservation-container {
+        grid-template-columns: 1fr;
+      }
+      .reservation-image {
+        height: 300px;
+      }
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--primary);
+      color: white;
+      padding: 60px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.haus-rheingarten.de/images/WhatsApp%20Image%202018-06-05%20at%2007.06.14%20(1).jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+    }
+
+    .cta-band-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-band h2 {
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+
+    .cta-band .btn-secondary {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* Contact */
+    .contact-section {
+      background: var(--bg-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 32px;
+      background: var(--bg-warm);
+      border-radius: var(--radius);
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.5rem;
+    }
+
+    .contact-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--bg-dark);
+    }
+
+    .contact-card p {
+      color: var(--text-medium);
+      font-size: 0.95rem;
+    }
+
+    .contact-card a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+
+    footer a {
+      color: var(--accent);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-white);
+      padding: 12px 24px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 99;
+    }
+
+    .mobile-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+    }
+
+    .mobile-cta .btn {
+      flex: 1;
+      justify-content: center;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-cta {
+        display: block;
+      }
+      body {
+        padding-bottom: 70px;
+      }
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Haus Rheingarten</a>
+      <nav class="nav">
+        <a href="#menu">Speisekarte</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#reservation">Reservieren</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+      <a href="#reservation" class="header-cta">Tisch sichern</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="https://www.haus-rheingarten.de/images/IMG_0292.jpg" alt="Haus Rheingarten Restaurant" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Herzlich Willkommen</span>
+      <h1>Das Team "Haus Rheingarten" heißt Sie herzlich willkommen!</h1>
+      <p>Genießen Sie in atmosphärischer Umgebung unsere kulinarischen Spezialitäten am Leuchtenberger Kirchweg in Düsseldorf.</p>
+      <div class="hero-cta-group">
+        <a href="#reservation" class="btn btn-primary">🍽️ Jetzt reservieren</a>
+        <a href="#menu" class="btn btn-secondary">Speisekarte ansehen</a>
+      </div>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="usp-strip-inner">
+      <div class="usp-item">
+        <div class="usp-icon">🌿</div>
+        <h3>Frische Zutaten</h3>
+        <p>Täglich frisch eingekauft</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🍷</div>
+        <h3>Feine Weine</h3>
+        <p>Ausgewählte Weinkarte</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">💫</div>
+        <h3>Atmosphäre</h3>
+        <p>Gemütliches Ambiente</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">👨‍👩‍👧‍👦</div>
+        <h3>Familienfreundlich</h3>
+        <p>Für kleine und große Gäste</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="section menu-section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">Unsere Küche</span>
+        <h2>Speisekarte</h2>
+        <p>Lassen Sie sich von unseren Köchen verwöhnen — klassisch, kreativ, frisch.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-category reveal">
+          <h3>Vorspeisen</h3>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Hausgemachte Suppe</h4>
+              <p>Täglich wechselnde Auswahl</p>
+            </div>
+            <span class="menu-item-price">8,50 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Gemüseplatte</h4>
+              <p>Seasonales Gemüse mit Kräuter-Dip</p>
+            </div>
+            <span class="menu-item-price">9,50 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Schinken-Teller</h4>
+              <p>Luftgetrockneter Schinken mit Oliven</p>
+            </div>
+            <span class="menu-item-price">12,00 €</span>
+          </div>
+        </div>
+
+        <div class="menu-category reveal">
+          <h3>Hauptgerichte</h3>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Schnitzel Wiener Art</h4>
+              <p>mit Pommes oder Salat</p>
+            </div>
+            <span class="menu-item-price">18,50 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Rumpsteak vom Grill</h4>
+              <p>mit Beilagen Ihrer Wahl (200 g)</p>
+            </div>
+            <span class="menu-item-price">28,00 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Frischer Fisch</h4>
+              <p>Täglich wechselnder Fisch</p>
+            </div>
+            <span class="menu-item-price">ab 24,00 €</span>
+          </div>
+        </div>
+
+        <div class="menu-category reveal">
+          <h3>Desserts</h3>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Hausgemachte Torte</h4>
+              <p>Täglich frisch gebacken</p>
+            </div>
+            <span class="menu-item-price">7,00 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Eisvariation</h4>
+              <p>Mit frischen Früchten</p>
+            </div>
+            <span class="menu-item-price">6,50 €</span>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <h4>Kaffee & Kuchen</h4>
+              <p>Classic Tasse + Torte</p>
+            </div>
+            <span class="menu-item-price">9,50 €</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="menu-example-note">
+        <em>Beispiel-Haushaltsspeisekarte — Preise und Gerichte können variieren. Bitte nachfragen!</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="section gallery-section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">Eindrücke</span>
+        <h2>Unsere Atmosphäre</h2>
+        <p>Ausstattung, Details und Stimmung — erleben Sie das Haus Rheingarten.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.haus-rheingarten.de/images/IMG_0302.jpg" alt="Restaurant Innenraum" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.haus-rheingarten.de/images/IMG_0295.jpg" alt="Gästebereich" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.haus-rheingarten.de/index.php?quix-image=media/quixnxt/storage/images/IMG_0292_3373.webp" alt="Tischdekoration" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.haus-rheingarten.de/index.php?quix-image=media/quixnxt/storage/images/IMG_0292_2822.webp" alt="Barbereich" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.haus-rheingarten.de/images/Angebote%20Specials.jpg" alt="Specials und Angebote" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation -->
+  <section id="reservation" class="section reservation-section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">Jetzt reservieren</span>
+        <h2>Ihr Tisch wartet</h2>
+        <p>Sichern Sie sich Ihren Platz ganz einfach online.</p>
+      </div>
+
+      <div class="reservation-container reveal">
+        <div class="reservation-image">
+          <img src="https://www.haus-rheingarten.de/index.php?quix-image=media/quixnxt/storage/images/IMG_0292_2361.webp" alt="Gastfreundschaft im Haus Rheingarten">
+        </div>
+
+        <div class="reservation-form">
+          <h3>Reservierungsanfrage</h3>
+          <p>Füllen Sie das Formular aus — wir melden uns schnellstmöglich bei Ihnen.</p>
+
+          <form id="reservationForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required placeholder="Ihr Name">
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" required placeholder="ihre@email.de">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="date">Datum</label>
+                <input type="date" id="date" required>
+              </div>
+              <div class="form-group">
+                <label for="time">Uhrzeit</label>
+                <input type="time" id="time" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="guests">Anzahl Gäste</label>
+              <select id="guests" required>
+                <option value="">Bitte wählen</option>
+                <option value="1">1 Person</option>
+                <option value="2">2 Personen</option>
+                <option value="3">3 Personen</option>
+                <option value="4">4 Personen</option>
+                <option value="5">5 Personen</option>
+                <option value="6">6 Personen</option>
+                <option value="7-10">7-10 Personen</option>
+                <option value="10+">10+ Personen</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Nachricht (optional)</label>
+              <textarea id="message" rows="3" placeholder="Besondere Wünsche?"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Anfrage senden</button>
+            <p class="form-note">Ihre Anfrage wird direkt per E-Mail an info@haus-rheingarten.de übermittelt.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-band-inner reveal">
+      <h2>Bereit für ein kulinarisches Erlebnis?</h2>
+      <p>Wir freuen uns auf Ihren Besuch im Haus Rheingarten!</p>
+      <a href="#reservation" class="btn btn-secondary">🍷 Jetzt reservieren</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact-section">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <span class="section-tag">Kontakt</span>
+        <h2>Wir sind für Sie da</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-icon">📍</div>
+          <h3>Adresse</h3>
+          <p>Leuchtenberger Kirchweg 86<br>40474 Düsseldorf</p>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-icon">📞</div>
+          <h3>Telefon</h3>
+          <p><a href="tel:014032598">0 14.032598</a></p>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-icon">✉️</div>
+          <h3>E-Mail</h3>
+          <p><a href="mailto:info@haus-rheingarten.de">info@haus-rheingarten.de</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Haus Rheingarten · Leuchtenberger Kirchweg 86 · 40474 Düsseldorf</p>
+    <p>Konzept-Vorschau · MZ.9 Lead-Akquise · <a href="https://maikz91.github.io/the-tribe-bot/" target="_blank">THE TRIBE</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <div class="mobile-cta-inner">
+      <a href="tel:014032598" class="btn btn-secondary">📞 Anrufen</a>
+      <a href="#reservation" class="btn btn-primary">🍽️ Reservieren</a>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Reservation form handler
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const guests = document.getElementById('guests').value;
+      const message = document.getElementById('message').value;
+
+      const subject = encodeURIComponent(`Reservierungsanfrage ${date} — ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\n` +
+        `E-Mail: ${email}\n` +
+        `Datum: ${date}\n` +
+        `Uhrzeit: ${time}\n` +
+        `Anzahl Gäste: ${guests}\n\n` +
+        `Nachricht:\n${message}`
+      );
+
+      window.location.href = `mailto:info@haus-rheingarten.de?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>

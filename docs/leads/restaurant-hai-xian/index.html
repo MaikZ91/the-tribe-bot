@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>China Restaurant Hai Xian | Traditionelle Chinesische Küche in Düsseldorf</title>
+  <meta name="description" content="China Restaurant in Düsseldorf – Authentische chinesische Küche genießen. Hai Xian bietet kulinarische Höhepunkte in der Graf-Adolf-Straße 65. Jetzt Tisch reservieren!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#8B1A1A;
+      --primary-light:#B83232;
+      --accent:#D4AF37;
+      --accent-light:#E5C157;
+      --bg-warm:#FAF7F2;
+      --bg-warm-light:#FFFBF5;
+      --text-dark:#1A1A1A;
+      --text-medium:#4A4A4A;
+      --text-light:#7A7A7A;
+      --white:#FFFFFF;
+      --shadow-sm:0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md:0 8px 24px rgba(0,0,0,0.12);
+      --shadow-lg:0 16px 48px rgba(139,26,26,0.15);
+      --radius-sm:8px;
+      --radius-md:12px;
+      --radius-lg:20px;
+      --transition:0.3s ease;
+      --container:1200px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg-warm);color:var(--text-dark);line-height:1.6;overflow-x:hidden}
+    h1,h2,h3,h4{font-family:'Noto Serif SC',serif;font-weight:600;color:var(--text-dark)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.875rem 1.75rem;border-radius:50px;font-weight:600;font-size:1rem;cursor:pointer;transition:var(--transition);text-decoration:none;border:2px solid transparent}
+    .btn-primary{background:var(--primary);color:var(--white);box-shadow:var(--shadow-sm)}
+    .btn-primary:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .btn-secondary{background:transparent;color:var(--primary);border-color:var(--primary)}
+    .btn-secondary:hover{background:var(--primary);color:var(--white)}
+    .btn-accent{background:var(--accent);color:var(--text-dark);box-shadow:var(--shadow-sm)}
+    .btn-accent:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .container{max-width:var(--container);margin:0 auto;padding:0 1.5rem}
+    .section{padding:5rem 0}
+    .section-title{text-align:center;margin-bottom:3rem}
+    .section-title h2{font-size:2.5rem;margin-bottom:0.75rem;color:var(--primary)}
+    .section-title p{color:var(--text-medium);font-size:1.125rem;max-width:600px;margin:0 auto}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+    @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+    header{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);z-index:1000;box-shadow:var(--shadow-sm);transition:var(--transition)}
+    header.scrolled{background:rgba(255,255,255,0.98);box-shadow:var(--shadow-md)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+    .logo{font-family:'Noto Serif SC',serif;font-size:1.5rem;font-weight:700;color:var(--primary);text-decoration:none}
+    .logo span{color:var(--accent)}
+    .nav{display:flex;align-items:center;gap:2rem}
+    .nav a{color:var(--text-medium);text-decoration:none;font-weight:500;transition:var(--transition)}
+    .nav a:hover{color:var(--primary)}
+    .mobile-menu-btn{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-dark)}
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,var(--bg-warm) 0%,var(--bg-warm-light) 100%)}
+    .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.15;z-index:0}
+    .hero-content{position:relative;z-index:1;text-align:center;padding:2rem 0}
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--accent-light);border-radius:50px;color:var(--text-dark);font-size:0.875rem;font-weight:600;margin-bottom:1.5rem}
+    .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.2;margin-bottom:1.5rem;color:var(--primary)}
+    .hero h1 span{color:var(--accent)}
+    .hero p{font-size:1.25rem;color:var(--text-medium);max-width:700px;margin:0 auto 2.5rem}
+    .hero-cta{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+    .hero-image{position:absolute;right:0;bottom:0;width:45%;height:85%;object-fit:cover;border-radius:var(--radius-lg) 0 0 0;box-shadow:var(--shadow-lg);z-index:0;opacity:0.9}
+    .trust-strip{background:var(--primary);padding:2rem 0}
+    .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .trust-item{text-align:center;color:var(--white)}
+    .trust-item .icon{font-size:2rem;margin-bottom:0.5rem}
+    .trust-item h4{color:var(--accent);font-size:1.125rem;margin-bottom:0.25rem}
+    .trust-item p{font-size:0.9375rem;opacity:0.9}
+    .specialties{background:var(--white)}
+    .specialties-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+    .specialty-card{background:var(--bg-warm-light);border-radius:var(--radius-md);padding:2rem;text-align:center;transition:var(--transition)}
+    .specialty-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-md)}
+    .specialty-icon{width:80px;height:80px;background:var(--accent-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem}
+    .specialty-card h3{font-size:1.25rem;margin-bottom:0.75rem;color:var(--primary)}
+    .specialty-card p{color:var(--text-medium)}
+    .reservation{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:var(--white);position:relative;overflow:hidden}
+    .reservation::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:0.2}
+    .reservation-content{position:relative;z-index:1;max-width:600px;margin:0 auto}
+    .reservation h2{color:var(--white);margin-bottom:1rem}
+    .reservation p{margin-bottom:2rem;opacity:0.9}
+    .reservation-form{background:var(--white);border-radius:var(--radius-lg);padding:2.5rem;color:var(--text-dark)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    .form-group{margin-bottom:1rem}
+    .form-group label{display:block;font-weight:600;margin-bottom:0.5rem;color:var(--text-medium)}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:0.875rem;border:2px solid #E0E0E0;border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;transition:var(--transition)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary)}
+    .menu-preview{background:var(--bg-warm-light)}
+    .menu-tabs{display:flex;justify-content:center;gap:0.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+    .menu-tab{padding:0.75rem 1.5rem;background:var(--white);border:2px solid #E0E0E0;border-radius:50px;font-weight:600;cursor:pointer;transition:var(--transition);color:var(--text-medium)}
+    .menu-tab.active,.menu-tab:hover{background:var(--primary);color:var(--white);border-color:var(--primary)}
+    .menu-content{display:none}
+    .menu-content.active{display:block}
+    .menu-item{display:flex;align-items:flex-start;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid rgba(0,0,0,0.05);max-width:800px;margin:0 auto}
+    .menu-item:last-child{border-bottom:none}
+    .menu-item-image{width:120px;height:120px;border-radius:var(--radius-sm);object-fit:cover}
+    .menu-item-content{flex:1}
+    .menu-item-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem}
+    .menu-item-title{font-weight:600;font-size:1.125rem;color:var(--text-dark)}
+    .menu-item-price{font-weight:700;color:var(--primary)}
+    .menu-item-desc{color:var(--text-medium);font-size:0.9375rem}
+    .gallery{background:var(--white)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .gallery-item{position:relative;border-radius:var(--radius-md);overflow:hidden;aspect-ratio:1;cursor:pointer}
+    .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:var(--transition)}
+    .gallery-item:hover img{transform:scale(1.05)}
+    .gallery-overlay{position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(transparent,rgba(0,0,0,0.7));color:var(--white);opacity:0;transition:var(--transition)}
+    .gallery-item:hover .gallery-overlay{opacity:1}
+    .cta-band{background:var(--accent);text-align:center;padding:4rem 0}
+    .cta-band h2{font-size:2rem;margin-bottom:0.5rem;color:var(--text-dark)}
+    .cta-band p{margin-bottom:2rem;color:var(--text-medium)}
+    .contact{background:var(--bg-warm-light)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .contact-info h3{font-size:1.75rem;margin-bottom:1.5rem;color:var(--primary)}
+    .contact-item{display:flex;gap:1rem;margin-bottom:1.5rem}
+    .contact-icon{width:48px;height:48px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:1.25rem;flex-shrink:0}
+    .contact-text h4{margin-bottom:0.25rem;font-size:1rem}
+    .contact-text p{color:var(--text-medium)}
+    .contact-text a{color:var(--primary);text-decoration:none}
+    .contact-map{background:var(--white);border-radius:var(--radius-lg);padding:1rem;box-shadow:var(--shadow-sm)}
+    .contact-map iframe{width:100%;height:300px;border-radius:var(--radius-sm)}
+    footer{background:var(--text-dark);color:var(--white);padding:3rem 0;text-align:center}
+    .footer-logo{font-family:'Noto Serif SC',serif;font-size:1.75rem;font-weight:700;margin-bottom:1rem}
+    .footer-logo span{color:var(--accent)}
+    .footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem}
+    .footer-links a{color:rgba(255,255,255,0.7);text-decoration:none;transition:var(--transition)}
+    .footer-links a:hover{color:var(--white)}
+    .footer-note{font-size:0.875rem;color:rgba(255,255,255,0.5)}
+    .mobile-cta{position:fixed;bottom:0;left:0;right:0;background:var(--white);padding:1rem;box-shadow:0 -4px 20px rgba(0,0,0,0.1);z-index:999;display:none}
+    .mobile-cta .btn{width:100%}
+    @media (max-width:1024px){
+      .hero-image{display:none}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery-item:nth-child(1){grid-column:span 1;grid-row:span 1}
+    }
+    @media (max-width:768px){
+      .section{padding:3.5rem 0}
+      .section-title h2{font-size:2rem}
+      .section-title p{font-size:1rem}
+      .trust-grid{grid-template-columns:1fr;gap:1.5rem}
+      .nav{display:none}
+      .mobile-menu-btn{display:block}
+      .reservation-form{padding:1.5rem}
+      .form-row{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .mobile-cta{display:block}
+      .hero h1{font-size:2.25rem}
+      .hero p{font-size:1.125rem}
+      .menu-item{flex-direction:column}
+      .menu-item-image{width:100%;height:200px}
+    }
+    @media (max-width:480px){
+      .menu-tabs{flex-direction:column}
+      .gallery-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">Hai <span>Xian</span></a>
+        <nav class="nav">
+          <a href="#specialties">Spezialitäten</a>
+          <a href="#menu">Speisekarte</a>
+          <a href="#gallery">Galerie</a>
+          <a href="#contact">Kontakt</a>
+          <a href="#reservation" class="btn btn-primary" style="padding:0.5rem 1.25rem;font-size:0.875rem">Tisch reservieren</a>
+        </nav>
+        <button class="mobile-menu-btn" aria-label="Menü öffnen">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/08/chines-2-1-1-1-1024x722.jpg" alt="Hai Xian Restaurant Atmosphäre" class="hero-bg" loading="eager">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge reveal">🏆 Authentische Chinesische Küche</div>
+        <h1 class="reveal">Traditionelles China Restaurant<br><span>Hai Xian</span></h1>
+        <p class="reveal">Das Meisterwerk von Küchenchef Xiaodong Fan: Ein Höchstgenuss für die Sinne. Entdecken Sie authentische chinesische Küche im Herzen von Düsseldorf.</p>
+        <div class="hero-cta reveal">
+          <a href="#reservation" class="btn btn-primary">📅 Jetzt Tisch reservieren</a>
+          <a href="#menu" class="btn btn-secondary">🍜 Zur Speisekarte</a>
+        </div>
+      </div>
+    </div>
+    <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/09/2-3-1024x768.jpg" alt="Hai Xian Restaurant Interior" class="hero-image" loading="lazy">
+  </section>
+
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="icon">🥢</div>
+          <h4>Authentisch</h4>
+          <p>Traditionelle Rezepte aus China</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="icon">👨‍🍳</div>
+          <h4>Meisterhaft</h4>
+          <p>Küchenchef Xiaodong Fan</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="icon">🌿</div>
+          <h4>Frisch</h4>
+          <p>Täglich frische Zutaten</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="specialties" class="section specialties">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Unsere Hingabe für Ihr Wohlgefühl</h2>
+        <p>Entdecken Sie die kulinarische Vielfalt unserer chinesischen Küche – liebevoll zubereitet nach traditionellen Rezepten.</p>
+      </div>
+      <div class="specialties-grid">
+        <div class="specialty-card reveal">
+          <div class="specialty-icon">🥡</div>
+          <h3>Dim Sum & Dumplings</h3>
+          <p>Handgemachte Teigtaschen mit feinen Füllungen – ein Genuss für jedes Auge.</p>
+        </div>
+        <div class="specialty-card reveal">
+          <div class="specialty-icon">🍜</div>
+          <h3>Authentische Nudeln</h3>
+          <p>Frische Handnudeln mit herzhaften Saucen und saisonalen Gemüsevariationen.</p>
+        </div>
+        <div class="specialty-card reveal">
+          <div class="specialty-icon">🦐</div>
+          <h3>Frisch vom Markt</h3>
+          <p>Höchste Qualität durch tägliche Auswahl frischer Zutaten vom lokalen Markt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservation" class="section reservation">
+    <div class="container">
+      <div class="reservation-content">
+        <h2 class="reveal">Ihren Tisch reservieren</h2>
+        <p class="reveal">Sichern Sie sich einen Platz für ein unvergessliches kulinarisches Erlebnis. Wir freuen uns auf Ihren Besuch!</p>
+        <form class="reservation-form reveal">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon *</label>
+              <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Datum *</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="time">Uhrzeit *</label>
+              <select id="time" name="time" required>
+                <option value="">Bitte wählen</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="21:00">21:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="guests">Anzahl Gäste *</label>
+            <select id="guests" name="guests" required>
+              <option value="">Bitte wählen</option>
+              <option value="1">1 Person</option>
+              <option value="2">2 Personen</option>
+              <option value="3">3 Personen</option>
+              <option value="4">4 Personen</option>
+              <option value="5">5 Personen</option>
+              <option value="6">6+ Personen</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Besondere Wünsche</label>
+            <textarea id="message" name="message" rows="3" placeholder="Allergien, Kinderstuhl, besondere Anlässe..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Reservierung anfragen</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="section menu-preview">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Eine Reise durch die Speisekarte</h2>
+        <p>Entdecken Sie unsere Vielfalt – von klassischen Gerichten bis hin zu spezialen Kreationen. (Beispiel-Speisekarte – Änderungen vorbehalten)</p>
+      </div>
+      <div class="menu-tabs reveal">
+        <button class="menu-tab active" data-tab="starters">Vorspeisen</button>
+        <button class="menu-tab" data-tab="mains">Hauptgerichte</button>
+        <button class="menu-tab" data-tab="specials">Spezialitäten</button>
+        <button class="menu-tab" data-tab="desserts">Desserts</button>
+      </div>
+      <div class="menu-content active" id="starters">
+        <div class="menu-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/08/IMG_51661.jpg" alt="Frühlingsrollen" class="menu-item-image" loading="lazy">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Crispy Frühlingsrollen</span>
+              <span class="menu-item-price">6,50 €</span>
+            </div>
+            <p class="menu-item-desc">Knusprig frittierte Teigrollen mit feiner Gemüsefüllung, serviert mit süß-saurer Sauce.</p>
+          </div>
+        </div>
+        <div class="menu-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/10/Untitled-design-2-1024x512.png" alt="Dim Sum" class="menu-item-image" loading="lazy">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Ha Kao (Garnelen-Dumplings)</span>
+              <span class="menu-item-price">9,80 €</span>
+            </div>
+            <p class="menu-item-desc">Zarte Teigtaschen mit Garnelenfüllung, gedämpft nach traditionellem Rezept.</p>
+          </div>
+        </div>
+      </div>
+      <div class="menu-content" id="mains">
+        <div class="menu-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/10/Untitled-design-3-1024x512.png" alt="Ente mit Pfirsichen" class="menu-item-image" loading="lazy">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Ente mit Pfirsichen</span>
+              <span class="menu-item-price">18,50 €</span>
+            </div>
+            <p class="menu-item-desc">Zarte Ente in süß-saure Pfirsichsauce, serviert mit Jasminreis.</p>
+          </div>
+        </div>
+        <div class="menu-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/08/98u9u8.png" alt="Garnelen mit Gemüse" class="menu-item-image" loading="lazy">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Garnelen mit buntem Gemüse</span>
+              <span class="menu-item-price">21,00 €</span>
+            </div>
+            <p class="menu-item-desc">Frische Garnelen in leichter Sauce mit saisonalem Gemüse, serviert mit Reis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="menu-content" id="specials">
+        <div class="menu-item reveal">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Peking-Ente (für 2 Personen)</span>
+              <span class="menu-item-price">48,00 €</span>
+            </div>
+            <p class="menu-item-desc">Signature-Gericht: Knusprige Entenhaut, feines Fleisch, frische Pfannkuchen, Frühlingszwiebeln und Pekingsauce.</p>
+          </div>
+        </div>
+      </div>
+      <div class="menu-content" id="desserts">
+        <div class="menu-item reveal">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Mango Pudding</span>
+              <span class="menu-item-price">6,50 €</span>
+            </div>
+            <p class="menu-item-desc">Cremiges Mangopudding mit frischer Mango und Kokosraspeln.</p>
+          </div>
+        </div>
+        <div class="menu-item reveal">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <span class="menu-item-title">Fünffarbige Suppe</span>
+              <span class="menu-item-price">5,50 €</span>
+            </div>
+            <p class="menu-item-desc">Süße Reissuppe mit roten Bohnen, Erdnüssen, Lotuswurzeln und Taro – ein klassischer Abschluss.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section gallery">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Hinter den Kulissen</h2>
+        <p>Einblick in unser Restaurant, unsere Küche und unsere Spezialitäten.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/09/2-3-1024x768.jpg" alt="Restaurant Interior" loading="lazy">
+          <div class="gallery-overlay">Ambiente</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/08/chines-2-1-1-1-1024x722.jpg" alt="Chinesische Küche" loading="lazy">
+          <div class="gallery-overlay">Küche</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/10/Untitled-design-3-2048x1024.png" alt="Gerichte" loading="lazy">
+          <div class="gallery-overlay">Spezialitäten</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/10/Untitled-design-2-1024x512.png" alt="Dim Sum" loading="lazy">
+          <div class="gallery-overlay">Dim Sum</div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://chinarestaurant-haixian.com/wp-content/uploads/2023/08/IMG_51661.jpg" alt="Frühlingsrollen" loading="lazy">
+          <div class="gallery-overlay">Vorspeisen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für kulinarische Highlights?</h2>
+      <p>Reservieren Sie jetzt Ihren Tisch oder rufen Sie uns an – wir freuen uns auf Sie!</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="#reservation" class="btn btn-primary">📅 Online reservieren</a>
+        <a href="tel:+49211363417" class="btn btn-secondary">📞 0211 363417</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Kontakt & Anfahrt</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Graf-Adolf-Straße 65, 40210 Düsseldorf</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49211363417">+49 211 363417</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:haixian68@163.com">haixian68@163.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-text">
+              <h4>Website</h4>
+              <p><a href="https://www.chinarestaurant-haixian.com/" target="_blank">www.chinarestaurant-haixian.com</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2496.123456789!2d6.789012!3d51.223456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTExJzIyLjQiTiA2wrA0NycyMC41IkU!5e0!3m2!1sde!2sde!4v1234567890" loading="lazy" title="Karte" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-logo">Hai <span>Xian</span></div>
+      <p style="margin-bottom:1.5rem;opacity:0.8">Traditionelle chinesische Küche im Herzen von Düsseldorf</p>
+      <div class="footer-links">
+        <a href="#specialties">Spezialitäten</a>
+        <a href="#menu">Speisekarte</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#reservation">Reservieren</a>
+      </div>
+      <p class="footer-note">Konzept-Vorschau · MZ.9 | Design © 2026</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#reservation" class="btn btn-primary">📅 Tisch reservieren</a>
+  </div>
+
+  <script>
+    (function() {
+      const header = document.getElementById('header');
+      const reveals = document.querySelectorAll('.reveal');
+      const menuTabs = document.querySelectorAll('.menu-tab');
+      const menuContents = document.querySelectorAll('.menu-content');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('in');
+        });
+      }, {threshold:0.1});
+
+      reveals.forEach(el => observer.observe(el));
+
+      menuTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabId = tab.dataset.tab;
+          menuTabs.forEach(t => t.classList.remove('active'));
+          menuContents.forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+
+      document.querySelector('.reservation-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const guests = document.getElementById('guests').value;
+        const message = document.getElementById('message').value;
+        const mailto = `mailto:haixian68@163.com?subject=Reservierungsanfrage: ${name}&body=Hallo Hai Xian,%0D%0A%0D%0AIch möchte gerne einen Tisch reservieren:%0D%0A%0D%0AName: ${name}%0D%0ADatum: ${date}%0D%0AUhrzeit: ${time}%0D%0AGäste: ${guests}%0D%0A${message ? 'Bemerkungen: ' + message : ''}%0D%0A%0D%0AVielen Dank!`;
+        window.location.href = mailto;
+        alert('Vielen Dank! Ihre E-Mail-Anwendung wird geöffnet, um die Reservierung zu senden.');
+      });
+    })();
+  </script>
+</body>
+</html>
