@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Die Stadtfelder – Wohnungsbaugenossenschaft Magdeburg-Stadtfeld eG | Konzept-Vorschau</title>
+  <meta name="description" content="Die Stadtfelder: Bezahlbarwohnen für alle Generationen. Genossenschaftlich gut umsorgt in Magdeburg-Stadtfeld. Jetzt Wohnung finden.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1e3a5f;
+      --primary-dark: #152a45;
+      --accent: #d4a853;
+      --accent-light: #e8c479;
+      --text: #2d3436;
+      --text-light: #636e72;
+      --bg: #fefefe;
+      --bg-alt: #f8f9fa;
+      --border: #e9ecef;
+      --success: #00b894;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --container: 1200px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.25; color: var(--primary-dark); }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.3rem, 3vw, 1.6rem); }
+    p { margin-bottom: 1rem; color: var(--text-light); }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.75rem; border-radius: 50px; font-weight: 600; font-size: 1rem;
+      cursor: pointer; border: none; transition: all 0.3s ease;
+    }
+    .btn-primary { background: var(--accent); color: var(--primary-dark); }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,168,83,0.3); }
+    .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Header */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border); padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    .header.scrolled { padding: 0.75rem 0; box-shadow: var(--shadow); }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-weight: 500; color: var(--text); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--accent); }
+    .mobile-cta { display: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-cta { display: block; font-size: 0.85rem; padding: 0.5rem 1rem; }
+      .logo { font-size: 1.1rem; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative; min-height: 95vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://www.diestadtfelder.de/wp-content/uploads/2024/06/regierungsstr-19-21-23-Astronaut_NACHHER-1024x267.jpg') center/cover;
+      opacity: 0.25;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 650px; }
+    .hero h1 { color: #fff; margin-bottom: 1.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    .hero-subtitle { font-size: clamp(1.1rem, 2.5vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
+    .hero-badges { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .badge {
+      padding: 0.5rem 1rem; background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(5px); border-radius: 30px; font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    @media (max-width: 768px) {
+      .hero { min-height: 85vh; text-align: center; }
+      .hero-content { margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .hero-badges { justify-content: center; }
+    }
+
+    /* Trust Strip */
+    .trust-strip { background: var(--bg-alt); padding: 2rem 0; border-bottom: 1px solid var(--border); }
+    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; }
+    .trust-item { display: flex; align-items: center; gap: 0.75rem; }
+    .trust-icon { width: 40px; height: 40px; background: var(--primary); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .trust-text { font-weight: 500; color: var(--primary-dark); font-size: 0.95rem; }
+
+    /* Wohnungen */
+    .section { padding: 5rem 0; }
+    .section-alt { background: var(--bg-alt); }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { margin-bottom: 0.75rem; }
+    .section-header p { max-width: 600px; margin: 0 auto; }
+    .wohnungen-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 2rem;
+    }
+    .wohnung-card {
+      background: #fff; border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: 0.3s;
+    }
+    .wohnung-card:hover { transform: translateY(-5px); box-shadow: 0 10px 35px rgba(0,0,0,0.12); }
+    .wohnung-img { height: 220px; overflow: hidden; position: relative; }
+    .wohnung-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .wohnung-card:hover .wohnung-img img { transform: scale(1.05); }
+    .wohnung-tag {
+      position: absolute; top: 1rem; right: 1rem;
+      padding: 0.4rem 0.8rem; background: var(--accent); color: var(--primary-dark);
+      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+    }
+    .wohnung-body { padding: 1.5rem; }
+    .wohnung-title { font-weight: 600; color: var(--primary-dark); margin-bottom: 0.5rem; font-size: 1.15rem; }
+    .wohnung-features { display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
+    .wohnung-feature { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--text-light); }
+    .wohnung-cta { width: 100%; margin-top: 1rem; }
+
+    /* Service-Zentrum */
+    .service-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem;
+    }
+    .service-card {
+      background: #fff; padding: 2rem; border-radius: var(--radius);
+      border: 2px solid var(--border); transition: 0.3s;
+    }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .service-icon {
+      width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--accent); border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.8rem; margin-bottom: 1.25rem;
+    }
+    .service-title { font-weight: 600; color: var(--primary-dark); margin-bottom: 0.5rem; font-size: 1.2rem; }
+    .service-desc { font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .service-link { color: var(--accent); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.35rem; }
+    .service-link:hover { gap: 0.6rem; }
+
+    /* Galerie */
+    .galerie-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.25rem;
+    }
+    .galerie-item {
+      border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/10;
+      box-shadow: var(--shadow);
+    }
+    .galerie-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .galerie-item:hover img { transform: scale(1.08); }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff; text-align: center; padding: 5rem 1.5rem;
+    }
+    .cta-band h2 { color: #fff; margin-bottom: 1rem; }
+    .cta-band p { color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto 2rem; }
+    .cta-band .btn-primary { background: #fff; color: var(--primary-dark); }
+    .cta-band .btn-primary:hover { background: var(--accent-light); }
+
+    /* Kontakt */
+    .kontakt-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 3rem;
+      align-items: start;
+    }
+    .kontakt-info h3 { margin-bottom: 1.25rem; }
+    .kontakt-item { display: flex; gap: 1rem; margin-bottom: 1.25rem; }
+    .kontakt-icon { width: 44px; height: 44px; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; flex-shrink: 0; }
+    .kontakt-text { font-weight: 500; color: var(--primary-dark); }
+    .kontakt-sub { color: var(--text-light); font-size: 0.9rem; }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 44px; height: 44px; background: var(--bg-alt); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary-dark); font-size: 1.2rem; transition: 0.3s;
+    }
+    .social-link:hover { background: var(--accent); transform: translateY(-3px); }
+
+    /* Kontaktformular */
+    .kontakt-form { background: #fff; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-weight: 500; color: var(--primary-dark); margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; padding: 0.875rem 1rem; border: 2px solid var(--border);
+      border-radius: 10px; font-family: inherit; font-size: 1rem; transition: 0.3s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(212,168,83,0.1);
+    }
+    .form-textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    .footer { background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 3rem 0 1.5rem; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 2.5rem; margin-bottom: 2rem; }
+    .footer h4 { color: #fff; font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .footer a { display: block; margin-bottom: 0.6rem; font-size: 0.9rem; }
+    .footer a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
+      text-align: center; font-size: 0.85rem;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+      background: #fff; padding: 0.75rem 1rem; border-top: 1px solid var(--border);
+      display: none; box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+    .mobile-cta-bar .btn { width: 100%; }
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: block; }
+      .section { padding: 3.5rem 0; }
+      .cta-band { padding: 3.5rem 1rem; }
+    }
+
+    /* Prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Die<span>Stadtfelder</span></a>
+      <nav class="nav-links">
+        <a href="#wohnungen">Wohnungen</a>
+        <a href="#service">Service</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:+49391568490" class="btn btn-primary" style="padding: 0.6rem 1.25rem; font-size: 0.9rem;">
+          📞 +49 391 568 49-0
+        </a>
+      </nav>
+      <a href="#kontakt" class="btn btn-primary mobile-cta">Kontakt</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="hero-badges">
+          <span class="badge">✓ Genossenschaft</span>
+          <span class="badge">✓ Bezahlbarwohnen</span>
+          <span class="badge">✓ Alle Generationen</span>
+        </div>
+        <h1>GenossenSCHAFtlich<br>gut umsorgt</h1>
+        <p class="hero-subtitle">Bezahlbarwohnen für alle Generationen in Magdeburg-Stadtfeld. Finden Sie Ihre neue Wohnung bei der Wohnungsbaugenossenschaft.</p>
+        <div class="hero-actions">
+          <a href="#wohnungen" class="btn btn-primary">Wohnung finden</a>
+          <a href="#kontakt" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.5);">Kontaktieren</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="trust-icon">🏠</span>
+          <span class="trust-text">Bezahlbare Mieten</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">👥</span>
+          <span class="trust-text">Alle Generationen</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🔧</span>
+          <span class="trust-text">Hausmeister-Service</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">🏆</span>
+          <span class="trust-text">Ausgezeichnet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wohnungen -->
+  <section class="section" id="wohnungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Wohnung in Magdeburg finden</h2>
+        <p>Entdecken Sie unsere Wohnungen im Herzen von Magdeburg-Stadtfeld. Moderne Ausstattung, zentrale Lage und faire Mieten.</p>
+      </div>
+      <div class="wohnungen-grid">
+        <div class="wohnung-card reveal">
+          <div class="wohnung-img">
+            <span class="wohnung-tag">Verfügbar</span>
+            <img src="https://www.diestadtfelder.de/wp-content/uploads/2022/03/Die-Stadtfelder-Regierungsstr.-21-5L-Matthias-Sasse-33.jpg" alt="Wohnung in der Regierungsstraße, Magdeburg-Stadtfeld">
+          </div>
+          <div class="wohnung-body">
+            <h3 class="wohnung-title">Regierungsstraße 21</h3>
+            <p>Zentrale 5-Zimmer-Wohnung im Magdeburger Stadtfeld</p>
+            <div class="wohnung-features">
+              <span class="wohnung-feature">🛏️ 5 Zimmer</span>
+              <span class="wohnung-feature">📍 Zentral</span>
+              <span class="wohnung-feature">🚇 Nahverkehr</span>
+            </div>
+            <a href="#kontakt" class="btn btn-outline wohnung-cta">Interesse melden</a>
+          </div>
+        </div>
+        <div class="wohnung-card reveal">
+          <div class="wohnung-img">
+            <span class="wohnung-tag">Modernisiert</span>
+            <img src="https://www.diestadtfelder.de/wp-content/uploads/immomakler/attachments/541b853123565167d49537ee832174af/5891_20231106043144_ba1a6d95.jpg" alt="Modernisierte Wohnung in Magdeburg-Stadtfeld">
+          </div>
+          <div class="wohnung-body">
+            <h3 class="wohnung-title">Stadtfelder-Süd</h3>
+            <p>Helle, modernisierte Wohnung mit Balkon</p>
+            <div class="wohnung-features">
+              <span class="wohnung-feature">🌿 Gartenblick</span>
+              <span class="wohnung-feature">☀️ Hell</span>
+              <span class="wohnung-feature">🏠 Saniert</span>
+            </div>
+            <a href="#kontakt" class="btn btn-outline wohnung-cta">Interesse melden</a>
+          </div>
+        </div>
+        <div class="wohnung-card reveal">
+          <div class="wohnung-img">
+            <span class="wohnung-tag">Familienfreundlich</span>
+            <img src="https://www.diestadtfelder.de/wp-content/uploads/2024/06/regierungsstr-19-21-23-Astronaut_NACHHER-1024x267.jpg" alt="Familienfreundliche Wohnung im Magdeburger Stadtfeld">
+          </div>
+          <div class="wohnung-body">
+            <h3 class="wohnung-title">Regierungsstraße 19-21-23</h3>
+            <p>Großzügige Wohnungen für Familien im Stadtfeld</p>
+            <div class="wohnung-features">
+              <span class="wohnung-feature">👨‍👩‍👧 Familie</span>
+              <span class="wohnung-feature">🏫 Nah zu Schulen</span>
+              <span class="wohnung-feature">🛒 Einkaufen</span>
+            </div>
+            <a href="#kontakt" class="btn btn-outline wohnung-cta">Interesse melden</a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="#kontakt" class="btn btn-primary">Alle Wohnungen anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service-Zentrum -->
+  <section class="section section-alt" id="service">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unser Service für Sie</h2>
+        <p>Als Genossenschaft sind wir für Sie da – rund um die Uhr.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🔧</div>
+          <h3 class="service-title">Schadensfall melden</h3>
+          <p class="service-desc">Melden Sie Reparaturen schnell und unkompliziert online. Unser Hausmeister-Service kümmert sich.</p>
+          <a href="#kontakt" class="service-link">Schaden melden →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🛠️</div>
+          <h3 class="service-title">Hausmeister-Service</h3>
+          <p class="service-desc">Unsere Hausmeister sind vor Ort und kümmern sich um das Wohlergehen des Hauses und der Mieter.</p>
+          <a href="tel:+49391568490" class="service-link">Anrufen →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📅</div>
+          <h3 class="service-title">Hausbesuche 3.0</h3>
+          <p class="service-desc">Moderne, transparente Hausbesuche mit digitaler Dokumentation für Ihre Sicherheit.</p>
+          <a href="#kontakt" class="service-link">Termin vereinbaren →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏆</div>
+          <h3 class="service-title">StadtHelden nominieren</h3>
+          <p class="service-desc">Schlagen Sie engagierte Nachbarn vor, die sich für unser Miteinander einsetzen.</p>
+          <a href="#kontakt" class="service-link">Vorschlagen →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="section" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Häuser</h2>
+        <p>Ein Einblick in die Wohnqualität im Magdeburger Stadtfeld.</p>
+      </div>
+      <div class="galerie-grid">
+        <div class="galerie-item reveal">
+          <img src="https://www.diestadtfelder.de/wp-content/uploads/2022/03/Die-Stadtfelder-Regierungsstr.-21-5L-Matthias-Sasse-33.jpg" alt="Die Stadtfelder Wohnanlage in der Regierungsstraße" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diestadtfelder.de/wp-content/uploads/immomakler/attachments/541b853123565167d49537ee832174af/5891_20231106043144_ba1a6d95.jpg" alt="Modernisierte Wohnung im Magdeburger Stadtfeld" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diestadtfelder.de/wp-content/uploads/2024/06/regierungsstr-19-21-23-Astronaut_NACHHER-1024x267.jpg" alt="Sanierter Gebäudekomplex in Magdeburg-Stadtfeld" loading="lazy">
+        </div>
+        <div class="galerie-item reveal">
+          <img src="https://www.diestadtfelder.de/wp-content/uploads/immomakler/attachments/541b853123565167d49537ee832174af/5891_20231106043144_ba1a6d95-900x600.webp" alt="Helle Wohnung im Erdgeschoss" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Wohnung in Magdeburg finden?</h2>
+      <p>Kontaktieren Sie uns – wir helfen Ihnen gerne bei der Suche nach Ihrer neuen Wohnung im Stadtfeld.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+        <a href="tel:+49391568490" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.5);">📞 Anrufen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section section-alt" id="kontakt">
+    <div class="container">
+      <div class="kontakt-grid">
+        <div class="kontakt-info reveal">
+          <h3>Kontaktieren Sie uns</h3>
+          <p style="margin-bottom: 1.5rem;">Wir stehen Ihnen gerne für Auskünfte, Wohnungssuche und alle Fragen rund um Ihr Mietverhältnis zur Verfügung.</p>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📍</div>
+            <div>
+              <div class="kontakt-text">Adresse</div>
+              <div class="kontakt-sub">Peter-Paul-Straße 32, 39106 Magdeburg</div>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">📞</div>
+            <div>
+              <div class="kontakt-text">Telefon</div>
+              <a href="tel:+49391568490" class="kontakt-sub" style="color: var(--accent);">+49 391 5 68 49 0</a>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">✉️</div>
+            <div>
+              <div class="kontakt-text">E-Mail</div>
+              <a href="mailto:vertreterinfo@diestadtfelder.de" class="kontakt-sub" style="color: var(--accent);">vertreterinfo@diestadtfelder.de</a>
+            </div>
+          </div>
+          <div class="kontakt-item">
+            <div class="kontakt-icon">🌐</div>
+            <div>
+              <div class="kontakt-text">Website</div>
+              <a href="http://www.diestadtfelder.de" class="kontakt-sub" style="color: var(--accent);">www.diestadtfelder.de</a>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="TikTok">♫</a>
+          </div>
+        </div>
+        <div class="kontakt-form reveal">
+          <form>
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input type="text" class="form-input" placeholder="Ihr Name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-Mail *</label>
+              <input type="email" class="form-input" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon</label>
+              <input type="tel" class="form-input" placeholder="+49 123 456789">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Anliegen *</label>
+              <select class="form-select" required>
+                <option value="">Bitte wählen...</option>
+                <option value="wohnungssuche">Wohnungssuche</option>
+                <option value="schadensmeldung">Schadensmeldung</option>
+                <option value="termin">Hausbesuch vereinbaren</option>
+                <option value="allgemein">Allgemeine Anfrage</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nachricht *</label>
+              <textarea class="form-textarea" placeholder="Ihre Nachricht an uns..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Absenden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <h4>Die Stadtfelder</h4>
+          <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Wohnungsbaugenossenschaft Magdeburg-Stadtfeld eG</p>
+          <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">Peter-Paul-Straße 32<br>39106 Magdeburg</p>
+        </div>
+        <div>
+          <h4>Schnellzugriff</h4>
+          <a href="#wohnungen">Wohnungen</a>
+          <a href="#service">Service</a>
+          <a href="#kontakt">Kontakt</a>
+          <a href="#galerie">Galerie</a>
+        </div>
+        <div>
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">Nutzungsbedingungen</a>
+        </div>
+        <div>
+          <h4>Genossenschaft</h4>
+          <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Mitglied werden, mitbestimmen, profitieren.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Konzept-Vorschau · MZ.9 · Nicht für den produktiven Einsatz bestimmt</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta-bar">
+    <a href="#kontakt" class="btn btn-primary">📞 Jetzt kontaktieren</a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

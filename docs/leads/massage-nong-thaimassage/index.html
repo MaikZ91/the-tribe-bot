@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Nong Thaimassage Stuttgart | Traditionelle Thai-Massage & Wellness</title>
+    <meta name="description" content="Thaimassage, Rückenmassage, Öl-Massage, Fußmassage, Kräuterstempel-Massage, Hot Stone Massage und Gutscheine in Stuttgart-Untere Querstraße 11. Entspannung für Körper und Geist.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8B6914;
+            --primary-light: #C9A227;
+            --primary-dark: #5C4510;
+            --secondary: #2C5F2D;
+            --bg-warm: #F9F5E8;
+            --bg-light: #FFFAF0;
+            --text-dark: #2C3E50;
+            --text-muted: #6B7B8C;
+            --white: #FFFFFF;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(139,105,20,0.2);
+            --transition: all 0.3s ease;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--bg-warm);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(249,245,232,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .header.scrolled {
+            padding: 0.6rem 5%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .nav { display: flex; gap: 2rem; align-items: center; }
+        .nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav a:hover { color: var(--primary); }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .nav a:hover::after { width: 100%; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: 'Lato', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-soft);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/IMG-20220519-WA0012-ca1a2699-1920w.jpg') center/cover no-repeat;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44,95,45,0.7) 0%, rgba(139,105,20,0.6) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            color: var(--white);
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 600;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        /* USPs */
+        .usps {
+            padding: 4rem 5%;
+            background: var(--white);
+        }
+        .usps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .usp-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-warm);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+        .usp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .usp-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .usp-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+        .usp-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        /* Leistungen */
+        .leistungen {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .leistungen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .leistung-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+        .leistung-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .leistung-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .leistung-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .leistung-content {
+            padding: 1.8rem;
+        }
+        .leistung-content h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        .leistung-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+        .leistung-price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        /* Buchung */
+        .buchung {
+            padding: 5rem 5%;
+            background: var(--white);
+        }
+        .buchung-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-soft);
+        }
+        .buchung-steps {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .step.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .step-title {
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .step-nav {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #E0D5C3;
+            border-radius: 12px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139,105,20,0.1);
+        }
+        .leistung-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .leistung-option:hover {
+            border-color: var(--primary-light);
+        }
+        .leistung-option.selected {
+            border-color: var(--primary);
+            background: rgba(139,105,20,0.05);
+        }
+        .leistung-option input {
+            margin-right: 1rem;
+            accent-color: var(--primary);
+        }
+        /* Galerie */
+        .galerie {
+            padding: 5rem 5%;
+            background: var(--bg-warm);
+        }
+        .galerie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .galerie-item {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+        .galerie-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        .galerie-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* CTA Band */
+        .cta-band {
+            position: relative;
+            padding: 6rem 5%;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+        .cta-band-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/bcfb23817e9f86086c4938610f9c0cd331d8dd9cf138a7d974b903635cd30568-1920w.jpeg') center/cover no-repeat;
+        }
+        .cta-band-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(44,95,45,0.85) 0%, rgba(139,105,20,0.75) 100%);
+        }
+        .cta-band-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-band h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-band p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        /* Kontakt */
+        .kontakt {
+            padding: 5rem 5%;
+            background: var(--white);
+        }
+        .kontakt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .kontakt-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--bg-light);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+        .kontakt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .kontakt-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+        }
+        .kontakt-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .kontakt-card a, .kontakt-card p {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .kontakt-card a:hover { color: var(--primary); }
+        /* Footer */
+        .footer {
+            padding: 3rem 5%;
+            background: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .footer-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        /* Mobile CTA */
+        .mobile-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 1rem 5%;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 999;
+            display: flex;
+            gap: 1rem;
+        }
+        .mobile-cta .btn {
+            flex: 1;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .section-title h2 { font-size: 2rem; }
+            .nav { display: none; }
+            .mobile-toggle { display: block; }
+            .buchung-container { padding: 1.5rem; }
+            .mobile-cta { display: flex; }
+            .kontakt-grid { gap: 1.5rem; }
+            .kontakt-card { padding: 1.5rem; }
+        }
+        @media (min-width: 769px) {
+            .mobile-cta { display: none; }
+        }
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <a href="#" class="logo">Nong Thaimassage</a>
+        <nav class="nav">
+            <a href="#leistungen">Leistungen</a>
+            <a href="#buchung">Termin buchen</a>
+            <a href="#galerie">Galerie</a>
+            <a href="#kontakt">Kontakt</a>
+            <a href="tel:+4971194568075" class="btn btn-primary">📞 Anrufen</a>
+        </nav>
+        <div class="mobile-toggle">☰</div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🌿 Traditionelle Thai-Wellness in Stuttgart</div>
+            <h1>Entspannung für Körper und Geist</h1>
+            <p>Erleben Sie authentische Thaimassage in ruhiger Atmosphäre. Lassen Sie den Alltag hinter sich und tauchen Sie ein in eine Welt der Entspannung.</p>
+            <div class="hero-buttons">
+                <a href="#buchung" class="btn btn-primary">Termin vereinbaren</a>
+                <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USPs -->
+    <section class="usps">
+        <div class="usps-grid">
+            <div class="usp-card">
+                <div class="usp-icon">🧘</div>
+                <h3>Authentische Tradition</h3>
+                <p>Ursprüngliche Thai-Techniken aus jahrhundertelanger Überlieferung</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">💆</div>
+                <h3>Individuelle Behandlung</h3>
+                <p>Auf Ihre Bedürfnisse abgestimmte Massagen für maximale Entspannung</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🌸</div>
+                <h3>Ruhige Atmosphäre</h3>
+                <p>Behagliches Ambiente für ganzheitliches Wohlbefinden</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">🎁</div>
+                <h3>Geschenk-Gutscheine</h3>
+                <p>Perfekt als Aufmerksamkeit für Liebste und Freunde</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section class="leistungen" id="leistungen">
+        <div class="section-title">
+            <h2>Unsere Behandlungen</h2>
+            <p>Von klassischer Thaimassage bis zu spezialisierten Wellness-Anwendungen</p>
+        </div>
+        <div class="leistungen-grid">
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/md/and1/dms3rep/multi/opt/125837-1920w.jpeg" alt="Thaimassage" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Traditionelle Thaimassage</h3>
+                    <p>Klassische Ganzkörpermassage mit Dehnungen und Druckpunkten</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/66D8AFC3-91D6-4D2D-952D-A4DC67D4B86C-1920w.jpeg" alt="Öl-Massage" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Öl-Massage</h3>
+                    <p>Sanfte Massage mit warmen ätherischen Ölen für tiefe Entspannung</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/c333fe8a9799e566311f0d397d4d543c525cf8495de142c01c64fad9eac74e14-1920w.jpeg" alt="Fußmassage" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Fußmassage</h3>
+                    <p>Reflexzonenmassage für Erholung und Durchblutung</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/42043968-1969-499F-B1AF-5F550B55AB0B-1920w.jpeg" alt="Rückenmassage" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Rückenmassage</h3>
+                    <p>Gezielte Entlastung für Verspannungen im Rückenbereich</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/8349bd1a9edae9c900cc00c8a9bf1957019edfb5415d47597c76c02e56b9988a-1920w.jpeg" alt="Kräuterstempel" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Kräuterstempel-Massage</h3>
+                    <p>Wärmebehandlung mit traditionellen Kräuterkissen</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+            <div class="leistung-card">
+                <div class="leistung-img">
+                    <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/import/clib/nong-thai-massage_de/dms3rep/multi/opt/cache_2441360837-237x158-1920w.jpg" alt="Hot Stone" loading="lazy">
+                </div>
+                <div class="leistung-content">
+                    <h3>Hot Stone Massage</h3>
+                    <p>Warme Steine lösen tiefe Verspannungen</p>
+                    <div class="leistung-price">Auf Anfrage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buchung -->
+    <section class="buchung" id="buchung">
+        <div class="section-title">
+            <h2>Einfach Termin buchen</h2>
+            <p>In nur drei Schritten zu Ihrem Wellness-Erlebnis</p>
+        </div>
+        <div class="buchung-container">
+            <div class="buchung-steps">
+                <!-- Schritt 1: Leistung -->
+                <div class="step active" id="step1">
+                    <div class="step-title">Schritt 1: Wählen Sie Ihre Behandlung</div>
+                    <label class="leistung-option selected">
+                        <input type="radio" name="leistung" value="thai" checked>
+                        <div>
+                            <strong>Traditionelle Thaimassage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Ganzkörpermassage mit Dehnungen</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="oel">
+                        <div>
+                            <strong>Öl-Massage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Sanfte Massage mit ätherischen Ölen</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="fuss">
+                        <div>
+                            <strong>Fußmassage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Reflexzonenmassage für Entspannung</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="ruecken">
+                        <div>
+                            <strong>Rückenmassage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Gezielte Entlastung</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="kraeuter">
+                        <div>
+                            <strong>Kräuterstempel-Massage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Wärmebehandlung mit Kräutern</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="hotstone">
+                        <div>
+                            <strong>Hot Stone Massage</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Warme Steine gegen Verspannungen</p>
+                        </div>
+                    </label>
+                    <label class="leistung-option">
+                        <input type="radio" name="leistung" value="gutschein">
+                        <div>
+                            <strong>Gutschein anfragen</strong>
+                            <p style="font-size:0.85rem;color:#6B7B8C;margin:0">Perfektes Geschenk</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Schritt 2: Termin -->
+                <div class="step" id="step2">
+                    <div class="step-title">Schritt 2: Ihr Wunschtermin</div>
+                    <div class="form-group">
+                        <label>Bevorzugtes Datum</label>
+                        <input type="date" id="termin-date" min="">
+                    </div>
+                    <div class="form-group">
+                        <label>Bevorzugte Uhrzeit</label>
+                        <select id="termin-time">
+                            <option value="">Bitte wählen...</option>
+                            <option value="10:00">10:00 Uhr</option>
+                            <option value="11:30">11:30 Uhr</option>
+                            <option value="14:00">14:00 Uhr</option>
+                            <option value="15:30">15:30 Uhr</option>
+                            <option value="17:00">17:00 Uhr</option>
+                            <option value="18:30">18:30 Uhr</option>
+                            <option value="20:00">20:00 Uhr</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Schritt 3: Kontakt -->
+                <div class="step" id="step3">
+                    <div class="step-title">Schritt 3: Ihre Kontaktdaten</div>
+                    <div class="form-group">
+                        <label>Ihr Name</label>
+                        <input type="text" id="kontakt-name" placeholder="Vor- und Nachname">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefonnummer</label>
+                        <input type="tel" id="kontakt-tel" placeholder="Für Rückrufe">
+                    </div>
+                    <div class="form-group">
+                        <label>E-Mail-Adresse</label>
+                        <input type="email" id="kontakt-email" placeholder="Zur Bestätigung">
+                    </div>
+                    <div class="form-group">
+                        <label>Nachricht (optional)</label>
+                        <textarea id="kontakt-nachricht" rows="3" placeholder="Besondere Wünsche oder Fragen..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Bestätigung -->
+                <div class="step" id="step4">
+                    <div class="step-title">✅ Vielen Dank!</div>
+                    <p style="text-align:center;font-size:1.1rem;color:#6B7B8C;margin-bottom:1.5rem">
+                        Ihre Terminanfrage wurde aufgenommen. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.
+                    </p>
+                    <div style="text-align:center">
+                        <a href="tel:+4971194568075" class="btn btn-primary">📞 Direkt anrufen</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-nav" id="stepNav">
+                <button class="btn btn-outline" id="prevBtn" style="display:none">Zurück</button>
+                <button class="btn btn-primary" id="nextBtn">Weiter</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="galerie" id="galerie">
+        <div class="section-title">
+            <h2>Einblicke</h2>
+            <p>Atmosphäre und Ambiente bei Nong Thaimassage</p>
+        </div>
+        <div class="galerie-grid">
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/IMG-20220519-WA0012-ca1a2699-1920w.jpg" alt="Studio Ambiente" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/66D8AFC3-91D6-4D2D-952D-A4DC67D4B86C-1920w.jpeg" alt="Behandlungsbereich" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/bcfb23817e9f86086c4938610f9c0cd331d8dd9cf138a7d974b903635cd30568-1920w.jpeg" alt="Entspannung" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/8349bd1a9edae9c900cc00c8a9bf1957019edfb5415d47597c76c02e56b9988a-1920w.jpeg" alt="Kräuterstempel" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/md/and1/dms3rep/multi/opt/125837-1920w.jpeg" alt="Thaimassage Umgebung" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/c333fe8a9799e566311f0d397d4d543c525cf8495de142c01c64fad9eac74e14-1920w.jpeg" alt="Fußmassage" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/import/clib/nong-thai-massage_de/dms3rep/multi/opt/cache_2441360837-237x158-1920w.jpg" alt="Hot Stone" loading="lazy">
+            </div>
+            <div class="galerie-item">
+                <img src="https://le-cdn.website-editor.net/s/efcc822db2224f74b60ac6400f3174bf/dms3rep/multi/opt/42043968-1969-499F-B1AF-5F550B55AB0B-1920w.jpeg" alt="Massagebereich" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="cta-band-bg"></div>
+        <div class="cta-band-overlay"></div>
+        <div class="cta-band-content">
+            <h2>Bereit für Entspannung?</h2>
+            <p>Vereinbaren Sie jetzt Ihren Termin und genießen Sie authentische Thaimassage in Stuttgart.</p>
+            <div class="hero-buttons">
+                <a href="#buchung" class="btn btn-primary">Termin buchen</a>
+                <a href="tel:+4971194568075" class="btn btn-outline">📞 Anrufen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="kontakt" id="kontakt">
+        <div class="section-title">
+            <h2>Kontakt & Anfahrt</h2>
+            <p>Wir freuen uns auf Sie</p>
+        </div>
+        <div class="kontakt-grid">
+            <div class="kontakt-card">
+                <div class="kontakt-icon">📍</div>
+                <h3>Adresse</h3>
+                <p>Untere Querstraße 11<br>70469 Stuttgart</p>
+            </div>
+            <div class="kontakt-card">
+                <div class="kontakt-icon">📞</div>
+                <h3>Telefon</h3>
+                <a href="tel:+4971194568075">+49 711 94568075</a>
+            </div>
+            <div class="kontakt-card">
+                <div class="kontakt-icon">✉️</div>
+                <h3>E-Mail</h3>
+                <a href="mailto:info@nong-thai-massage.de">info@nong-thai-massage.de</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Konzept-Vorschau · MZ.9 Lead-Agent</p>
+        <div class="footer-badge">Nong Thaimassage · Stuttgart</div>
+    </footer>
+
+    <!-- Mobile CTA -->
+    <div class="mobile-cta">
+        <a href="#buchung" class="btn btn-primary">Termin buchen</a>
+        <a href="tel:+4971194568075" class="btn btn-outline">📞</a>
+    </div>
+
+    <script>
+        // Header scroll state
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Buchungs-Steps
+        let currentStep = 1;
+        const totalSteps = 3;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const stepNav = document.getElementById('stepNav');
+
+        // Set min date to today
+        document.getElementById('termin-date').min = new Date().toISOString().split('T')[0];
+
+        // Leistung-Option selection
+        document.querySelectorAll('.leistung-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.leistung-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                option.querySelector('input').checked = true;
+            });
+        });
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+
+            prevBtn.style.display = step > 1 ? 'inline-block' : 'none';
+            nextBtn.textContent = step === totalSteps ? 'Anfrage senden' : 'Weiter';
+            nextBtn.style.display = step <= totalSteps ? 'inline-block' : 'none';
+
+            if (step > totalSteps) {
+                stepNav.style.display = 'none';
+            }
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            } else {
+                // Submit
+                const leistung = document.querySelector('input[name="leistung"]:checked').value;
+                const date = document.getElementById('termin-date').value;
+                const time = document.getElementById('termin-time').value;
+                const name = document.getElementById('kontakt-name').value;
+                const tel = document.getElementById('kontakt-tel').value;
+                const email = document.getElementById('kontakt-email').value;
+                const nachricht = document.getElementById('kontakt-nachricht').value;
+
+                const leistungNames = {
+                    'thai': 'Traditionelle Thaimassage',
+                    'oel': 'Öl-Massage',
+                    'fuss': 'Fußmassage',
+                    'ruecken': 'Rückenmassage',
+                    'kraeuter': 'Kräuterstempel-Massage',
+                    'hotstone': 'Hot Stone Massage',
+                    'gutschein': 'Gutscheinanfrage'
+                };
+
+                const subject = encodeURIComponent('Terminanfrage: ' + leistungNames[leistung]);
+                const body = encodeURIComponent(
+                    `Name: ${name}\n` +
+                    `Telefon: ${tel}\n` +
+                    `E-Mail: ${email}\n\n` +
+                    `Gewünschte Leistung: ${leistungNames[leistung]}\n` +
+                    `Datum: ${date || 'Nicht angegeben'}\n` +
+                    `Uhrzeit: ${time || 'Nicht angegeben'}\n\n` +
+                    `Nachricht: ${nachricht || 'Keine'}`
+                );
+
+                window.location.href = `mailto:info@nong-thai-massage.de?subject=${subject}&body=${body}`;
+                currentStep = 4;
+                showStep(4);
+            }
+        });
+    </script>
+</body>
+</html>
