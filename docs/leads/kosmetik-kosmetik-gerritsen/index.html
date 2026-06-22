@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kosmetik Gerritsen - Wellness & Schönheit in Mönchengladbach</title>
+  <meta name="description" content="Kosmetik Gerritsen: Ihre Adresse für Wellness und Schönheit in Mönchengladbach. Spezialisiert auf Podologie, Maniküre, Augenpflege & mehr. Buchen Sie Ihren Termin jetzt!">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #FAF8F5;
+      --bg-secondary: #FFFFFF;
+      --bg-tertiary: #F5EBE9;
+      --text-primary: #2C2A28;
+      --text-secondary: #5C5A58;
+      --text-light: #8C8A88;
+      --accent-rose: #D4A5A5;
+      --accent-rose-dark: #C08B8B;
+      --accent-gold: #C9B99D;
+      --accent-gold-dark: #B5A68B;
+      --line: #E8E4E2;
+      --shadow-soft: 0 8px 32px rgba(44, 42, 40, 0.06);
+      --shadow-hover: 0 12px 48px rgba(44, 42, 40, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 500; }
+    .accent { color: var(--accent-rose-dark); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent-rose);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--accent-rose-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--text-primary);
+    }
+    .btn-outline:hover {
+      background: var(--text-primary);
+      color: white;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    section { padding: 5rem 0; }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+    header.scrolled {
+      border-bottom-color: var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent-rose-dark); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--accent-rose-dark); }
+    .nav-cta { display: none; }
+    @media (min-width: 768px) {
+      .nav-cta { display: inline-flex; padding: 0.75rem 1.5rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.9);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(250, 248, 245, 0.85) 0%, rgba(250, 248, 245, 0.7) 50%, rgba(250, 248, 245, 0.3) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-lg);
+      margin-left: 5%;
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--accent-rose);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin: 1.5rem 0 2rem;
+    }
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-secondary);
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .usp-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .usp-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-tertiary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-rose-dark);
+      font-size: 1.2rem;
+    }
+    .usp-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    /* Leistungen */
+    .services {
+      background: var(--bg-primary);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .section-header p {
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-rose);
+    }
+    .service-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 {
+      margin-bottom: 0.75rem;
+    }
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    /* Terminbuchung */
+    .booking {
+      background: var(--bg-secondary);
+    }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .booking-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+    }
+    .booking-form {
+      background: var(--bg-primary);
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      background: white;
+      transition: var(--transition);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-rose);
+      box-shadow: 0 0 0 3px rgba(212, 165, 165, 0.2);
+    }
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    /* Galerie */
+    .gallery {
+      background: var(--bg-primary);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 250px);
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-item:nth-child(2) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--accent-rose) 0%, var(--accent-rose-dark) 100%);
+      padding: 4rem 0;
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 { color: white; margin-bottom: 1rem; }
+    .cta-band p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--accent-rose-dark);
+    }
+    .cta-band .btn-primary:hover {
+      background: var(--bg-secondary);
+    }
+    /* Kontakt */
+    .contact {
+      background: var(--bg-secondary);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .contact-info h3 { margin-bottom: 1.5rem; }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-tertiary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-rose-dark);
+      flex-shrink: 0;
+    }
+    .contact-details h4 {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .contact-details a, .contact-details p {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .contact-details a:hover { color: var(--accent-rose-dark); }
+    .contact-map {
+      width: 100%;
+      height: 300px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+    }
+    /* Footer */
+    footer {
+      background: var(--text-primary);
+      color: var(--text-light);
+      padding: 3rem 0;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    footer p { margin-bottom: 0.5rem; }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: white;
+      padding: 1rem;
+      border-top: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+    .mobile-cta .btn {
+      width: 100%;
+    }
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .lift { transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .lift.in { transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .lift { transition: none; }
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 200px);
+      }
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .gallery-item:nth-child(2) { grid-column: span 1; grid-row: span 1; }
+    }
+    @media (max-width: 768px) {
+      .hero-content {
+        margin: 0 1rem;
+        padding: 2rem;
+      }
+      .booking-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .booking-image { height: 250px; }
+      .form-row { grid-template-columns: 1fr; }
+      .mobile-cta { display: block; }
+      body { padding-bottom: 80px; }
+      section { padding: 3rem 0; }
+      .usp-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Kosmetik <span>Gerritsen</span></a>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#termin" class="btn btn-primary nav-cta">Termin buchen</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000004-17eb017eb2/700/images-pexels-com-photos-6663368-pexels-photo-6663368-auto-compress-cs-tinysrgb-dpr-2-h-650-w-940.jpeg?ph=dd771c6f59" alt="Kosmetikstudio Wellness" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <span class="hero-tag">Ihr Experte für Podologie</span>
+      <h1>Schönheit von Kopf bis Fuß</h1>
+      <p>Willkommen bei Kosmetik Gerritsen – Ihre Adresse für Wellness und Schönheit in Mönchengladbach. Entspannung für Körper und Seele.</p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+        <a href="#leistungen" class="btn btn-outline">Leistungen entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="usp-strip">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item">
+          <div class="usp-icon">✦</div>
+          <span class="usp-text">Podologie-Experte</span>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">✦</div>
+          <span class="usp-text">Wellness & Entspannung</span>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">✦</div>
+          <span class="usp-text">Individuelle Beratung</span>
+        </div>
+        <div class="usp-item">
+          <div class="usp-icon">✦</div>
+          <span class="usp-text">Zentrale Lage</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Von professioneller Podologie bis zur entspannenden Beauty-Behandlung – wir verwöhnen Sie ganzheitlich.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000035-9ee1f9ee22/manikuere-header-768x231.jpeg?ph=dd771c6f59" alt="Maniküre" class="service-image" loading="lazy">
+          <h3>Maniküre</h3>
+          <p>Professionelle Nagelpflege für gepflegte Hände. Von der klassischen Maniküre bis zur extravagantesten Nailart.</p>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000060-c6d05c6d08/augen-300x200.jpeg?ph=dd771c6f59" alt="Augenpflege" class="service-image" loading="lazy">
+          <h3>Augenpflege</h3>
+          <p>Wimpernfärben, Augenbrauen-Korrektur und Pflege – für einen ausdrucksstarken Blick.</p>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000427-7d78b7d78f/waxing-150x150.jpeg?ph=dd771c6f59" alt="Waxing" class="service-image" loading="lazy">
+          <h3>Waxing</h3>
+          <p>Gentile Haarentfernung für ein langanhaltend glattes Hautgefühl.</p>
+        </div>
+        <div class="service-card reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000008-ee3e7ee3ea/images-pexels-com-photos-932577-pexels-photo-932577-auto-compress-cs-tinysrgb-dpr-2-h-650-w-940.jpeg?ph=dd771c6f59" alt="Gesichtspflege" class="service-image" loading="lazy">
+          <h3>Gesichtspflege</h3>
+          <p>Reinigungs- und Pflegbehandlungen für strahlende Haut. Wir finden das passende Konzept für Sie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="termin">
+    <div class="container">
+      <div class="booking-grid">
+        <div class="reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000007-5e17c5e17e/images-pexels-com-photos-4041392-pexels-photo-4041392-auto-compress-cs-tinysrgb-dpr-2-h-650-w-940.jpeg?ph=dd771c6f59" alt="Wellness Behandlung" class="booking-image" loading="lazy">
+        </div>
+        <div class="booking-form reveal">
+          <span class="hero-tag">Online Termin</span>
+          <h2>Termin vereinbaren</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Wählen Sie Ihre Wunschbehandlung und einen passenden Zeitraum – wir melden uns bei Ihnen.</p>
+          <form id="bookingForm" onsubmit="handleBooking(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Vorname</label>
+                <input type="text" name="firstname" required placeholder="Ihr Vorname">
+              </div>
+              <div class="form-group">
+                <label>Nachname</label>
+                <input type="text" name="lastname" required placeholder="Ihr Nachname">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-Mail</label>
+                <input type="email" name="email" required placeholder="ihre@email.de">
+              </div>
+              <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" name="phone" placeholder="+49 ...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Behandlung</label>
+              <select name="service" required>
+                <option value="">Bitte wählen...</option>
+                <option value="podologie">Podologie</option>
+                <option value="manikuere">Maniküre</option>
+                <option value="augenpflege">Augenpflege</option>
+                <option value="waxing">Waxing</option>
+                <option value="gesichtspflege">Gesichtspflege</option>
+                <option value="wellness">Wellness-Behandlung</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Gewünschtes Datum</label>
+                <input type="date" name="date">
+              </div>
+              <div class="form-group">
+                <label>Uhrzeit (optional)</label>
+                <select name="time">
+                  <option value="">Flexible Zeit</option>
+                  <option value="vormittag">Vormittag</option>
+                  <option value="nachmittag">Nachmittag</option>
+                  <option value="abend">Abend</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nachricht (optional)</label>
+              <textarea name="message" rows="3" placeholder="Ihre Wünsche oder Fragen..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+            <p class="form-note">Dies ist eine unverbindliche Terminanfrage. Wir melden uns schnellstmöglich bei Ihnen zur Bestätigung.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Einblicke</h2>
+        <p>Bilder sagen mehr als Worte – entdecken Sie unser Studio und unsere Behandlungen.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000446-d9b30d9b34/kosmetik-gerritsen-6.png?ph=dd771c6f59" alt="Kosmetik Gerritsen Studio" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000043-ccdaaccdad/AdobeStock_75357430_Preview.jpeg?ph=dd771c6f59" alt="Gesichtsbehandlung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000009-226f5226f8/images-pexels-com-photos-4156300-pexels-photo-4156300-auto-compress-cs-tinysrgb-dpr-2-h-650-w-940.jpeg?ph=dd771c6f59" alt="Zufriedene Kundin" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000008-ee3e7ee3ea/images-pexels-com-photos-932577-pexels-photo-932577-auto-compress-cs-tinysrgb-dpr-2-h-650-w-940.jpeg?ph=dd771c6f59" alt="Maske" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://dd771c6f59.cbaul-cdnwnd.com/d306d3cdf324b2a9918a27c728197f76/200000459-c1828c182b/700/kosmetik-gerritsen-3.webp?ph=dd771c6f59" alt="Studio Details" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <div class="container">
+      <h2>Bereit für Ihren Wohlfühl-Moment?</h2>
+      <p>Entspannung für Körper und Seele – buchen Sie jetzt Ihren persönlichen Termin bei Kosmetik Gerritsen.</p>
+      <a href="#termin" class="btn btn-primary">Jetzt Termin buchen</a>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt</h2>
+        <p>Wir freuen uns auf Sie in Mönchengladbach.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>So erreichen Sie uns</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-details">
+              <h4>Adresse</h4>
+              <p>Lindenstraße 64<br>41063 Mönchengladbach</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-details">
+              <h4>Telefon</h4>
+              <a href="tel:+49216188329">+49 2161 88329</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-details">
+              <h4>E-Mail</h4>
+              <a href="mailto:info@kosmetik-gerritsen.de">info@kosmetik-gerritsen.de</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-details">
+              <h4>Website</h4>
+              <a href="https://kosmetik-gerritsen.de/" target="_blank" rel="noopener">kosmetik-gerritsen.de</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <span>Karte: Lindenstraße 64, 41063 Mönchengladbach</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Konzept-Vorschau · MZ.9</p>
+      <p style="color: var(--text-light); font-size: 0.75rem;">Dies ist eine unverbindliche Design-Präsentation.</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#termin" class="btn btn-primary">Termin buchen</a>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .lift').forEach(el => observer.observe(el));
+
+    function handleBooking(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const params = new URLSearchParams();
+      params.set('subject', 'Terminanfrage: Kosmetik Gerritsen');
+      params.set('body',
+        `Neue Terminanfrage über Website:\n\n` +
+        `Name: ${data.get('firstname')} ${data.get('lastname')}\n` +
+        `E-Mail: ${data.get('email')}\n` +
+        `Telefon: ${data.get('phone') || 'nicht angegeben'}\n` +
+        `Behandlung: ${data.get('service')}\n` +
+        `Datum: ${data.get('date') || 'flexibel'}\n` +
+        `Zeit: ${data.get('time') || 'flexibel'}\n\n` +
+        `Nachricht:\n${data.get('message') || 'keine'}`
+      );
+      window.location.href = `mailto:info@kosmetik-gerritsen.de?${params.toString()}`;
+    }
+  </script>
+</body>
+</html>
