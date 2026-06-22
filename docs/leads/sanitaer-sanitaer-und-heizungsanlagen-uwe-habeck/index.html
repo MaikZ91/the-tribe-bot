@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Uwe Habeck GmbH - Heizungsbau & Badsanierung im Raum Bonn | Konzept-Vorschau</title>
+  <meta name="description" content="Wir sind Ihr Partner für Badsanierung & Heizungsbau im Raum Bonn, Sankt Augustin, Königswinter. Über 30 Jahre Kompetenz. Jetzt Beratung anfordern!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sand: #E8DDD4;
+      --warm-gray: #9A8B7F;
+      --dark-steel: #2C3E50;
+      --slate: #34495E;
+      --accent-amber: #D97742;
+      --accent-amber-dark: #B85A2D;
+      --white: #FDFBF7;
+      --light-sand: #F4EFE8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--white);
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      color: var(--dark-steel);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(253, 251, 247, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(154, 139, 127, 0.15);
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 0.75rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark-steel);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent-amber); }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .phone-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--dark-steel);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .phone-link:hover { color: var(--accent-amber); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-amber), var(--accent-amber-dark));
+      color: white;
+      box-shadow: 0 4px 15px rgba(217, 119, 66, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 66, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--dark-steel);
+      color: var(--dark-steel);
+    }
+
+    .btn-outline:hover {
+      background: var(--dark-steel);
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(44, 62, 80, 0.85), rgba(52, 73, 94, 0.75)),
+                  url('https://habeck-gmbh.de/wp-content/uploads/2021/04/6l0a2937-1024x682.jpg') center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      color: white;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      margin-top: 0.25rem;
+    }
+
+    .hero-image {
+      display: none;
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--sand);
+      padding: 3rem 2rem;
+    }
+
+    .usp-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .usp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .usp-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-amber);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .usp-icon img { width: 28px; height: 28px; object-fit: contain; }
+
+    .usp-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark-steel);
+    }
+
+    .usp-content p { font-size: 0.95rem; color: var(--warm-gray); }
+
+    /* Leistungen */
+    .section { padding: 5rem 2rem; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .leistungen-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .leistung-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      border: 1px solid var(--light-sand);
+    }
+
+    .leistung-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+
+    .leistung-img {
+      height: 200px;
+      background: var(--light-sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .leistung-img img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .leistung-content { padding: 1.5rem; }
+
+    .leistung-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--dark-steel);
+    }
+
+    .leistung-content p {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      margin-bottom: 1rem;
+    }
+
+    .leistung-link {
+      color: var(--accent-amber);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .leistung-link:hover { gap: 0.75rem; }
+
+    /* Anfrageformular */
+    .anfrage-section {
+      background: linear-gradient(135deg, var(--dark-steel), var(--slate));
+      color: white;
+    }
+
+    .anfrage-section .section-header h2 { color: white; }
+    .anfrage-section .section-header p { color: rgba(255,255,255,0.8); }
+
+    .anfrage-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .anfrage-info h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .anfrage-info p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-item-icon img { width: 20px; height: 20px; }
+
+    .contact-item a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover { color: var(--accent-amber); }
+
+    .form-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: var(--dark-steel);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent-amber);
+    }
+
+    .form-group textarea { min-height: 100px; resize: vertical; }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* Galerie */
+    .gallery-section { background: var(--light-sand); }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(transparent, rgba(44,62,80,0.9));
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Partner */
+    .partner-section { padding: 3rem 2rem; background: white; }
+
+    .partner-logos {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .partner-logos img {
+      max-width: 150px;
+      height: auto;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .partner-logos img:hover { opacity: 1; }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--accent-amber);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      color: white;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-band p {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--accent-amber);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: var(--dark-steel);
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-steel);
+      color: rgba(255,255,255,0.7);
+      padding: 3rem 2rem 1rem;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo span { color: var(--accent-amber); }
+
+    .footer h4 {
+      font-family: 'Inter', sans-serif;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer a:hover { color: var(--accent-amber); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .concept-note {
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem;
+      display: none;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta-bar .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .hero-image { display: block; }
+      .hero-image img {
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-cta .phone-link { display: none; }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .hero-text p { margin-left: auto; margin-right: auto; }
+
+      .hero-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .usp-grid { grid-template-columns: 1fr; }
+
+      .anfrage-wrapper { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .mobile-cta-bar { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Uwe Habeck <span>GmbH</span></a>
+      <div class="header-cta">
+        <a href="tel:+49228430468" class="phone-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +49 228 430468
+        </a>
+        <a href="#anfrage" class="btn btn-primary">Beratung anfordern</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Über 30 Jahre Kompetenz in Heizungsbau & Badsanierung</h1>
+        <p>Ihr verlässlicher Partner im Raum Bonn, Sankt Augustin und Königswinter. Qualität aus Tradition.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:inherit;">
+          <a href="#anfrage" class="btn btn-primary">Unverbindliche Beratung</a>
+          <a href="#leistungen" class="btn btn-outline" style="border-color:white;color:white;">Leistungen ansehen</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-value">30+</div>
+            <div class="stat-label">Jahre Erfahrung</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Bonn</div>
+            <div class="stat-label">& Region</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/6l0a2917.jpg"
+             alt="Team der Uwe Habeck GmbH bei der Arbeit"
+             width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <div class="usp-strip">
+    <div class="usp-grid">
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/bathroom.png" alt="Badsanierung" loading="lazy">
+        </div>
+        <div class="usp-content">
+          <h3>Badsanierung</h3>
+          <p>Komplettsanierung nach Ihren Wünschen – von der Planung bis zur Fertigstellung.</p>
+        </div>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/heating-1.png" alt="Heizungsbau" loading="lazy">
+        </div>
+        <div class="usp-content">
+          <h3>Heizungsbau</h3>
+          <p>Moderne Heizsysteme, Wärmepumpen und effiziente Lösungen für Ihr Zuhause.</p>
+        </div>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/repair.png" alt="Service & Reparatur" loading="lazy">
+        </div>
+        <div class="usp-content">
+          <h3>Service & Reparatur</h3>
+          <p>Schnelle Hilfe bei Störungen – wir sind für Sie da.</p>
+        </div>
+      </div>
+      <div class="usp-item reveal">
+        <div class="usp-icon">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/pipe.png" alt="Rohrinstallation" loading="lazy">
+        </div>
+        <div class="usp-content">
+          <h3>Rohrinstallation</h3>
+          <p>Professionelle Wasser- und Abwasserinstallation nach DIN-Norm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="leistungen" class="section">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Komplett aus einer Hand – wir realisieren Ihr Projekt mit höchster Präzision und Zuverlässigkeit.</p>
+    </div>
+    <div class="leistungen-grid">
+      <article class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/bathroom.png" alt="Badsanierung" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Badsanierung</h3>
+          <p>Traumbad werden Wirklichkeit – wir kümmern uns um Fliesen, Sanitärkeramik, Armaturen und alle Installationen.</p>
+          <a href="#anfrage" class="leistung-link">
+            Angebot anfragen
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/heating-1.png" alt="Heizungsbau" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Heizungsbau & Modernisierung</h3>
+          <p>Neuanlagen, Tausch alter Heizungen, Wärmepumpen – effiziente Wärme für Ihr Zuhause.</p>
+          <a href="#anfrage" class="leistung-link">
+            Angebot anfragen
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+      <article class="leistung-card reveal">
+        <div class="leistung-img">
+          <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/repair.png" alt="Service" loading="lazy">
+        </div>
+        <div class="leistung-content">
+          <h3>Kundendienst & Reparatur</h3>
+          <p>Schnelle Reaktion bei Ausfällen. Wir sind Ihr Ansprechpartner für alle Wartungsarbeiten.</p>
+          <a href="#anfrage" class="leistung-link">
+            Termin vereinbaren
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="anfrage" class="section anfrage-section">
+    <div class="anfrage-wrapper">
+      <div class="anfrage-info reveal">
+        <h3>Planen Sie ein neues Projekt?</h3>
+        <p>Rufen Sie uns für eine unverbindliche Beratung an oder nutzen Sie unser Anfrageformular. Wir kommen gerne persönlich zu Ihnen vorbei.</p>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <a href="tel:+49228430468">+49 228 430468</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <a href="mailto:info@habeck-gmbh.de">info@habeck-gmbh.de</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <span>Windgassenstraße 38-40, 53229 Bonn</span>
+        </div>
+      </div>
+      <form class="form-box reveal" onsubmit="event.preventDefault(); alert('Vielen Dank für Ihre Anfrage! Diese ist eine Konzept-Vorschau – in der echten Version wird Ihre Nachricht per E-Mail versendet.');">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--dark-steel);margin-bottom:1rem;">Anfrage senden</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required placeholder="ihre@email.de">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+          </div>
+          <div class="form-group">
+            <label for="interest">Interesse an</label>
+            <select id="interest" name="interest">
+              <option value="">Bitte wählen...</option>
+              <option value="badsanierung">Badsanierung</option>
+              <option value="heizung">Heizungsbau</option>
+              <option value="service">Service / Reparatur</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht *</label>
+          <textarea id="message" name="message" required placeholder="Beschreiben Sie Ihr Projekt oder Anliegen..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section gallery-section">
+    <div class="section-header reveal">
+      <h2>Aus unserer Arbeit</h2>
+      <p>Einige Impressionen unserer Projekte – Qualität, die man sieht.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/6l0a2937-1024x682.jpg"
+             alt="Projektarbeit Uwe Habeck GmbH" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Projektrealisierung</h4>
+          <p>Premium-Qualität aus Bonn</p>
+        </div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/6l0a2917-1024x682.jpg"
+             alt="Team bei der Arbeit" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Unser Team</h4>
+          <p>Erfahrung und Kompetenz</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="partner-section">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <h3 style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--warm-gray);text-transform:uppercase;letter-spacing:1px;">Unsere Partner</h3>
+    </div>
+    <div class="partner-logos">
+      <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/hersteller-duravit-1024x423-1-768x317.png"
+           alt="Duravit Partner" loading="lazy">
+      <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/hersteller-hansgrohe-1024x423-1-768x317.png"
+           alt="Hansgrohe Partner" loading="lazy">
+      <img src="https://habeck-gmbh.de/wp-content/uploads/2021/04/hersteller-hsk-1024x423-1-768x317.png"
+           alt="HSK Partner" loading="lazy">
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Bereit für Ihr Projekt?</h2>
+    <p>Rufen Sie uns jetzt an oder fordern Sie ein unverbindliches Angebot an. Wir freuen uns auf Sie!</p>
+    <a href="tel:+49228430468" class="btn btn-primary" style="background:white;color:var(--accent-amber);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      Jetzt anrufen
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">Uwe Habeck <span>GmbH</span></div>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;max-width:300px;">
+          Ihr Partner für Heizungsbau und Badsanierung im Raum Bonn – über 30 Jahre Erfahrung und Kompetenz.
+        </p>
+      </div>
+      <div class="footer">
+        <h4>Kontakt</h4>
+        <a href="tel:+49228430468">+49 228 430468</a>
+        <a href="mailto:info@habeck-gmbh.de">info@habeck-gmbh.de</a>
+        <a href="#">Windgassenstraße 38-40</a>
+        <a href="#">53229 Bonn</a>
+      </div>
+      <div class="footer">
+        <h4>Leistungen</h4>
+        <a href="#leistungen">Badsanierung</a>
+        <a href="#leistungen">Heizungsbau</a>
+        <a href="#leistungen">Service & Reparatur</a>
+        <a href="#anfrage">Anfrage senden</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="concept-note">Dies ist eine Konzept-Vorschau von MZ.9 • In Zusammenarbeit mit The Tribe • <a href="https://habeck-gmbh.de" target="_blank" style="color:rgba(255,255,255,0.5);">Original-Website</a></p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta-bar">
+    <a href="tel:+49228430468" class="btn btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      Jetzt anrufen
+    </a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
