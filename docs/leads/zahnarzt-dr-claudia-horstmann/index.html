@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Zahnmedizinische Praxis | Dr. Claudia Horstmann | Münster</title>
+  <meta name="description" content="Zahnmedizinische Praxis Dr. Claudia Horstmann in Münster: Implantologie, Parodontologie, Ästhetische Zahnheilkunde. Vereinbaren Sie Ihren Termin online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --secondary: #0f172a;
+      --accent: #10b981;
+      --bg: #ffffff;
+      --bg-alt: #f0f9ff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+    }
+    a { color: inherit; text-decoration: none; transition: 0.2s; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      gap: 8px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-alt);
+    }
+    .btn-call {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+    .btn-call:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      padding: 12px 0;
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .logo span { color: var(--primary); }
+    .nav {
+      display: none;
+      gap: 32px;
+    }
+    .nav a {
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .nav a:hover { color: var(--primary); }
+    .header-cta {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .nav, .header-cta { display: flex; }
+    }
+    /* Hero */
+    .hero {
+      padding-top: 100px;
+      padding-bottom: 80px;
+      background: linear-gradient(180deg, var(--bg-alt) 0%, white 100%);
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; gap: 60px; }
+    }
+    .hero-content h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: white;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    .badge-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--bg-alt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+    /* Trust Strip */
+    .trust-strip {
+      padding: 40px 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (min-width: 640px) {
+      .trust-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .trust-item {
+      text-align: center;
+      padding: 20px;
+      background: var(--bg-alt);
+      border-radius: 12px;
+    }
+    .trust-item-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .trust-item-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .trust-item-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    /* Leistungen */
+    .services {
+      padding: 100px 0;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--secondary);
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .service-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-alt);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--secondary);
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+    /* Terminbuchung */
+    .booking {
+      padding: 100px 0;
+      background: var(--bg-alt);
+    }
+    .booking-inner {
+      display: grid;
+      gap: 60px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .booking-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .booking-content h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+    .booking-content p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    .booking-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .booking-step {
+      display: flex;
+      gap: 16px;
+      align-items: start;
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .step-content h4 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0;
+    }
+    .booking-form {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--secondary);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-row {
+      display: grid;
+      gap: 16px;
+    }
+    @media (min-width: 500px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+    /* Gallery */
+    .gallery {
+      padding: 100px 0;
+    }
+    .gallery-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cta-band p {
+      font-size: 1.15rem;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--primary);
+    }
+    .cta-band .btn-call {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    /* Kontakt */
+    .contact {
+      padding: 100px 0;
+      background: var(--bg-alt);
+    }
+    .contact-inner {
+      display: grid;
+      gap: 40px;
+    }
+    @media (min-width: 768px) {
+      .contact-inner { grid-template-columns: 1fr 1fr; }
+    }
+    .contact-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--secondary);
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: start;
+    }
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    .contact-item-content h4 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .contact-item-content p {
+      color: var(--text-light);
+    }
+    .contact-item-content a {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .contact-map {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      min-height: 300px;
+    }
+    .contact-map-placeholder {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      background: var(--secondary);
+      color: white;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .footer-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      display: flex;
+      gap: 12px;
+    }
+    .mobile-cta .btn {
+      flex: 1;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+    @media (min-width: 768px) {
+      .mobile-cta { display: none; }
+    }
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; }
+      .btn:hover { transform: none; }
+      .service-card:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">Dr. <span>Horstmann</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:+49251626566" class="btn btn-call">📞 0251 626566</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <h1>Ihr gesundes Lächeln in Münster</h1>
+        <p>Implantologie · Parodontologie · Ästhetische Zahnheilkunde</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-secondary">Leistungen</a>
+        </div>
+        <div class="hero-badges">
+          <div class="badge">
+            <span class="badge-icon">✓</span>
+            Moderne Ausstattung
+          </div>
+          <div class="badge">
+            <span class="badge-icon">✓</span>
+            Vertrauensvolle Behandlung
+          </div>
+        </div>
+      </div>
+      <div class="hero-image reveal">
+        <img src="http://www.claudia-horstmann.de/img/start-image.jpg" alt="Zahnmedizinische Praxis Dr. Claudia Horstmann in Münster" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal">
+          <div class="trust-item-icon">🦷</div>
+          <div class="trust-item-title">Implantologie</div>
+          <div class="trust-item-desc">Festsitzender Zahnersatz</div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-item-icon">🌿</div>
+          <div class="trust-item-title">Parodontologie</div>
+          <div class="trust-item-desc">Gesundes Zahnfleisch</div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-item-icon">✨</div>
+          <div class="trust-item-title">Ästhetik</div>
+          <div class="trust-item-desc">Natürliches Lächeln</div>
+        </div>
+        <div class="trust-item reveal">
+          <div class="trust-item-icon">💚</div>
+          <div class="trust-item-title">Vertrauen</div>
+          <div class="trust-item-desc">Individuelle Betreuung</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Kompetente Zahnmedizin mit Fokus auf Ihre Gesundheit und Ihr Wohlbefinden</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🦷</div>
+          <h3>Implantologie</h3>
+          <p>Wiederherstellung eines vollständigen Gebisses mit modernsten Implantaten. Fester Halt, natürliche Ästhetik.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌿</div>
+          <h3>Parodontologie</h3>
+          <p>Behandlung von Zahnfleischerkrankungen und Erhalt Ihres Zahnhalteapparats. Prävention und Therapie aus einer Hand.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">✨</div>
+          <h3>Ästhetische Zahnheilkunde</h3>
+          <p>Veneers, Bleaching und zahngerechte Kronen für ein strahlendes Lächeln. Ästhetik auf höchstem Niveau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminbuchung -->
+  <section class="booking" id="termin">
+    <div class="container">
+      <div class="booking-inner">
+        <div class="booking-content reveal">
+          <h2>Termin vereinbaren</h2>
+          <p>In wenigen Schritten zu Ihrem Wunschtermin. Wir melden uns zeitnah bei Ihnen.</p>
+          <div class="booking-steps">
+            <div class="booking-step">
+              <span class="step-number">1</span>
+              <div class="step-content">
+                <h4>Leistung wählen</h4>
+                <p>Erste Konsultation, Implantat-Planung oder Kontrolltermin</p>
+              </div>
+            </div>
+            <div class="booking-step">
+              <span class="step-number">2</span>
+              <div class="step-content">
+                <h4>Wunschtermin angeben</h4>
+                <p>Teilen Sie uns Ihre bevorzugte Uhrzeit mit</p>
+              </div>
+            </div>
+            <div class="booking-step">
+              <span class="step-number">3</span>
+              <div class="step-content">
+                <h4>Rückmeldung erhalten</h4>
+                <p>Wir bestätigen Ihren Termin telefonisch</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="booking-form reveal">
+          <h3 class="form-title">Anfrage senden</h3>
+          <form onsubmit="return false;">
+            <div class="form-group">
+              <label class="form-label">Ihr Name</label>
+              <input type="text" class="form-input" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Telefon</label>
+                <input type="tel" class="form-input" placeholder="0251 123456" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">E-Mail</label>
+                <input type="email" class="form-input" placeholder="max@beispiel.de" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gewünschte Leistung</label>
+              <select class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option value="konsultation">Erste Konsultation</option>
+                <option value="implantologie">Implantat-Beratung</option>
+                <option value="parodontologie">Parodontologie</option>
+                <option value="aesthetik">Ästhetische Behandlung</option>
+                <option value="kontrolle">Kontrolltermin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nachricht</label>
+              <textarea class="form-textarea" placeholder="Ihre Nachricht oder Wunschtermin..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Einblicke</h2>
+        <p>Moderne Praxisräume für Ihre комфорт Behandlung</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="http://www.claudia-horstmann.de/img/start-image.jpg" alt="Praxisübersicht" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="http://www.claudia-horstmann.de/img/ihr-laecheln-transparent.png" alt="Ihr Lächeln" loading="lazy" style="object-fit: contain; background: white;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihr gesundes Lächeln?</h2>
+      <p>Vereinbaren Sie jetzt Ihren Termin in unserer Praxis in Münster</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="#termin" class="btn btn-primary">📅 Termin vereinbaren</a>
+        <a href="tel:+49251626566" class="btn btn-call">📞 Jetzt anrufen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-info reveal">
+          <h3>Kontakt</h3>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-content">
+              <h4>Adresse</h4>
+              <p>Albersloher Weg 477<br>48167 Münster</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-content">
+              <h4>Telefon</h4>
+              <p><a href="tel:+49251626566">+49 251 626566</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-content">
+              <h4>E-Mail</h4>
+              <p><a href="mailto:drchorstmann@gmx.de">drchorstmann@gmx.de</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🌐</div>
+            <div class="contact-item-content">
+              <h4>Website</h4>
+              <p><a href="http://www.claudia-horstmann.de" target="_blank">www.claudia-horstmann.de</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map reveal">
+          <div class="contact-map-placeholder">
+            📍 Albersloher Weg 477, 48167 Münster
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">Dr. Claudia Horstmann</div>
+      <div class="footer-text">Konzept-Vorschau · MZ.9</div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+49251626566" class="btn btn-call">📞 Anrufen</a>
+    <a href="#termin" class="btn btn-primary">📅 Termin</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

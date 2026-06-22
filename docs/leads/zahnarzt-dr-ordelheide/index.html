@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Praxis Dr. Ordelheide - Ihre Zahnärzte in Münster-Gievenbeck seit 1969 | Konzept-Vorschau</title>
+    <meta name="description" content="Zahnarzt Praxis Dr. Karsten Ordelheide in Münster-Gievenbeck. Moderne Zahnheilkunde mit CEREC-Technik, Online-Terminbuchung und seit über 50 Jahren für Ihre Zahngesundheit.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2c5f8a;
+            --primary-dark: #1a3d5c;
+            --accent: #48a9a6;
+            --accent-light: #e0f2f1;
+            --bg-white: #ffffff;
+            --bg-off: #f8fbfc;
+            --text-dark: #1a2a33;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: var(--primary); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--primary-dark); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.875rem 1.75rem; border-radius: 50px; font-weight: 600; font-size: 1rem;
+            transition: all 0.3s ease; cursor: pointer; border: none;
+        }
+        .btn-primary {
+            background: var(--primary); color: white;
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(44, 95, 138, 0.3); }
+        .btn-outline {
+            background: transparent; color: var(--primary); border: 2px solid var(--primary);
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* Header */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .header.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08); }
+        .header-inner {
+            display: flex; justify-content: space-between; align-items: center;
+            height: 70px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .logo span { color: var(--accent); }
+        .header-nav { display: flex; gap: 2rem; align-items: center; }
+        .header-nav a { font-weight: 500; font-size: 0.9rem; color: var(--text-dark); }
+        .header-nav a:hover { color: var(--primary); }
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex; align-items: center;
+            background: linear-gradient(135deg, var(--accent-light) 0%, white 100%);
+            position: relative;
+            padding-top: 70px;
+        }
+        .hero-inner {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+            align-items: center;
+        }
+        .hero-content {
+            padding: 2rem 0;
+        }
+        .hero-badge {
+            display: inline-block; padding: 0.4rem 1rem; border-radius: 50px;
+            background: var(--accent-light); color: var(--primary); font-size: 0.8rem; font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 3rem; line-height: 1.2; color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+        .hero p {
+            font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        .hero-buttons {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+        }
+        .hero-image {
+            position: relative;
+        }
+        .hero-image img {
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(44, 95, 138, 0.2);
+        }
+        .hero-features {
+            position: absolute; bottom: -20px; left: -20px;
+            background: white; padding: 1.5rem; border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            display: flex; gap: 1.5rem; align-items: center;
+        }
+        .hero-feature-item {
+            display: flex; flex-direction: column; gap: 0.25rem;
+        }
+        .hero-feature-value {
+            font-size: 1.5rem; font-weight: 700; color: var(--primary);
+        }
+        .hero-feature-label {
+            font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        @media (max-width: 968px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .hero-buttons { justify-content: center; }
+            .hero-features { display: none; }
+            .hero h1 { font-size: 2.25rem; }
+            .hero p { margin: 0 auto 2rem; }
+        }
+
+        /* USPs */
+        .usps {
+            padding: 3rem 0; background: white;
+            border-bottom: 1px solid var(--border);
+        }
+        .usps-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .usp-item {
+            display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .usp-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: var(--accent-light); color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+        }
+        .usp-content h4 { font-size: 1rem; color: var(--text-dark); margin-bottom: 0.25rem; }
+        .usp-content p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Leistungen */
+        .services {
+            padding: 6rem 0; background: var(--bg-off);
+        }
+        .section-header {
+            text-align: center; margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-size: 2.25rem; color: var(--primary-dark); margin-bottom: 1rem;
+        }
+        .section-header p {
+            color: var(--text-muted); max-width: 600px; margin: 0 auto;
+        }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            background: white; border-radius: 20px; padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .service-card:hover {
+            transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+        .service-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, white 100%);
+            color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .service-card h3 { font-size: 1.25rem; color: var(--text-dark); margin-bottom: 0.75rem; }
+        .service-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+        .service-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.85rem; font-weight: 600; color: var(--primary);
+        }
+
+        /* Terminbuchung */
+        .booking {
+            padding: 6rem 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        .booking-inner {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .booking-content h2 {
+            font-size: 2.5rem; margin-bottom: 1rem;
+        }
+        .booking-content p {
+            font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;
+        }
+        .booking-features {
+            list-style: none; margin-bottom: 2rem;
+        }
+        .booking-features li {
+            display: flex; align-items: center; gap: 0.75rem;
+            margin-bottom: 0.75rem; font-size: 1rem;
+        }
+        .booking-features li::before {
+            content: "✓"; color: var(--accent); font-weight: 700; font-size: 1.1rem;
+        }
+        .booking-form {
+            background: white; border-radius: 24px; padding: 2.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+        .booking-form h3 {
+            font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.5rem;
+        }
+        .booking-form p {
+            color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;
+        }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label {
+            display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .form-input, .form-select {
+            width: 100%; padding: 0.875rem 1rem; border: 2px solid var(--border);
+            border-radius: 12px; font-size: 1rem; font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none; border-color: var(--accent);
+        }
+        @media (max-width: 968px) {
+            .booking-inner { grid-template-columns: 1fr; }
+        }
+
+        /* CEREC */
+        .cerec {
+            padding: 6rem 0; background: white;
+        }
+        .cerec-inner {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .cerec-content h2 {
+            font-size: 2.25rem; color: var(--primary-dark); margin-bottom: 1.25rem;
+        }
+        .cerec-content p {
+            color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem;
+        }
+        .cerec-points {
+            display: grid; gap: 1rem;
+        }
+        .cerec-point {
+            display: flex; gap: 1rem; align-items: center;
+            padding: 1rem; background: var(--bg-off); border-radius: 12px;
+        }
+        .cerec-point-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: var(--accent-light); color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .cerec-point span { font-size: 0.95rem; color: var(--text-dark); }
+        .cerec-image img {
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(44, 95, 138, 0.15);
+        }
+        @media (max-width: 968px) {
+            .cerec-inner { grid-template-columns: 1fr; }
+            .cerec-image { order: -1; }
+        }
+
+        /* Galerie */
+        .gallery {
+            padding: 6rem 0; background: var(--bg-off);
+        }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; border-radius: 12px;
+            aspect-ratio: 1;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item:first-child {
+            grid-column: span 2; grid-row: span 2; aspect-ratio: auto;
+        }
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+        }
+
+        /* Praxis */
+        .practice {
+            padding: 6rem 0; background: white;
+        }
+        .practice-inner {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .practice-image img {
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(44, 95, 138, 0.15);
+        }
+        .practice-content h2 {
+            font-size: 2.25rem; color: var(--primary-dark); margin-bottom: 1.25rem;
+        }
+        .practice-content p {
+            color: var(--text-muted); margin-bottom: 1.5rem;
+        }
+        .practice-info {
+            display: grid; gap: 1rem;
+        }
+        .practice-info-item {
+            display: flex; gap: 1rem; align-items: center;
+        }
+        .practice-info-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: var(--accent-light); color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .practice-info-text strong {
+            display: block; font-size: 0.9rem; color: var(--text-dark);
+        }
+        .practice-info-text span {
+            font-size: 0.9rem; color: var(--text-muted);
+        }
+        @media (max-width: 968px) {
+            .practice-inner { grid-template-columns: 1fr; }
+        }
+
+        /* CTA Band */
+        .cta-band {
+            padding: 4rem 0; background: var(--accent-light);
+            text-align: center;
+        }
+        .cta-band h2 {
+            font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem;
+        }
+        .cta-band p {
+            color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+
+        /* Kontakt */
+        .contact {
+            padding: 6rem 0; background: var(--bg-off);
+        }
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .contact-card {
+            background: white; border-radius: 16px; padding: 2rem;
+            text-align: center; border: 1px solid var(--border);
+        }
+        .contact-card-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            background: var(--accent-light); color: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; margin: 0 auto 1.25rem;
+        }
+        .contact-card h4 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .contact-card a, .contact-card span {
+            color: var(--text-muted); font-size: 0.95rem;
+        }
+        .contact-card a:hover { color: var(--primary); }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0; background: var(--primary-dark); color: white;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.85rem; opacity: 0.7;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; padding: 1rem; border-top: 1px solid var(--border);
+            display: none; z-index: 999;
+        }
+        @media (max-width: 768px) {
+            .mobile-cta { display: block; }
+            .services, .cerec, .practice { padding: 4rem 0; }
+        }
+
+        /* Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">Dr. Ordelheide<span>.</span></a>
+            <nav class="header-nav">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#termin">Termin buchen</a>
+                <a href="#praxis">Praxis</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="tel:+49251861842" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                    📞 +49 251 861842
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <span class="hero-badge">✨ Ihre Zahnärzte in Münster-Gievenbeck seit 1969</span>
+                <h1>Freundliche Zahnheilkunde <br>für die ganze Familie</h1>
+                <p>Wir kümmern uns seit über 50 Jahren um Ihr strahlendes Lächeln – mit modernster Technik, persönlichem Service und viel Zeit für Sie.</p>
+                <div class="hero-buttons">
+                    <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+                    <a href="#leistungen" class="btn btn-outline">Unsere Leistungen</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://image.jimcdn.com/app/cms/image/transf/none/path/s6ab7c005096f6b6d/backgroundarea/i271dcc0cd3c2d5ef/version/1695811724/image.jpg" alt="Praxis Dr. Ordelheide in Münster-Gievenbeck" width="600" height="450">
+                <div class="hero-features">
+                    <div class="hero-feature-item">
+                        <span class="hero-feature-value">50+</span>
+                        <span class="hero-feature-label">Jahre Erfahrung</span>
+                    </div>
+                    <div class="hero-feature-item">
+                        <span class="hero-feature-value">✓</span>
+                        <span class="hero-feature-label">CEREC-Technik</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USPs -->
+    <section class="usps">
+        <div class="container">
+            <div class="usps-grid">
+                <div class="usp-item">
+                    <div class="usp-icon">🦷</div>
+                    <div class="usp-content">
+                        <h4>Ganzheitliche Zahnheilkunde</h4>
+                        <p>Prävention, Therapie und Ästhetik aus einer Hand</p>
+                    </div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">⏱</div>
+                    <div class="usp-content">
+                        <h4>Termine auf Wunsch</h4>
+                        <p>Abstimmung auf Ihren persönlichen Zeitplan</p>
+                    </div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">💎</div>
+                    <div class="usp-content">
+                        <h4>High-Tech CEREC</h4>
+                        <p>Keramik-Inlays in nur einer Sitzung</p>
+                    </div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-icon">👨‍👩‍👧‍👦</div>
+                    <div class="usp-content">
+                        <h4>Für die ganze Familie</h4>
+                        <p>Erwachsene und Kinder sind uns herzlich willkommen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen -->
+    <section class="services" id="leistungen">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Unsere Leistungen für Sie</h2>
+                <p>Wir bieten Ihnen ein umfassendes Spektrum an zahnärztlichen Behandlungen – von der Prophylaxe bis zur ästhetischen Zahnmedizin.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon">🔬</div>
+                    <h3>Prophylaxe</h3>
+                    <p>Professionelle Zahnreinigung, Fissurenversiegelung und individuelle Beratung zur Kariesvorbeugung.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">🦷</div>
+                    <h3>Konservierende Therapie</h3>
+                    <p>Sanfte Kariesbehandlung, Füllungen und Inlays – mit höchstem Komfort und Präzision.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">💎</div>
+                    <h3>Ästhetik</h3>
+                    <p>Bleaching, Veneers und zahnfarbene Füllungen für Ihr natürlich strahlendes Lächeln.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">⚙️</div>
+                    <h3>CEREC-Keramik</h3>
+                    <p>Hochwertige Keramik-Restorationen in einer Sitzung – ohne Abformung und temporäre Versorgung.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">👶</div>
+                    <h3>Kinderzahnheilkunde</h3>
+                    <p>Sanfte Behandlung für unsere kleinen Patienten – spielerisch und angstfrei.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">📋</div>
+                    <h3>Parodontologie</h3>
+                    <p>Diagnostik und Behandlung von Zahnfleischerkrankungen zum Erhalt Ihrer Zähne.</p>
+                    <a href="#termin" class="service-link">Termin buchen →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminbuchung -->
+    <section class="booking" id="termin">
+        <div class="container">
+            <div class="booking-inner">
+                <div class="booking-content reveal">
+                    <h2>Termin direkt online buchen</h2>
+                    <p>Wählen Sie Ihren Wunschtermin – bequem von zu Hause aus, 24/7 verfügbar.</p>
+                    <ul class="booking-features">
+                        <li>Keine Telefonzeiten abwarten</li>
+                        <li>Wunschtage und -uhrzeiten wählen</li>
+                        <li>Sofortige Bestätigung per E-Mail</li>
+                        <li>Erinnerung vor dem Termin</li>
+                    </ul>
+                    <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.8;">
+                        * Dies ist eine Konzept-Darstellung. In der fertigen Version wird hier ein echtes Buchungssystem integriert.
+                    </p>
+                </div>
+                <div class="booking-form reveal">
+                    <h3>Ihren Wunschtermin wählen</h3>
+                    <p>In 3 einfachen Schritten</p>
+                    <form onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="form-label">Behandlungsanlass</label>
+                            <select class="form-select">
+                                <option>Bitte wählen...</option>
+                                <option>Kontrolle / Prophylaxe</option>
+                                <option>Zahnschmerzen</option>
+                                <option>Kariesbehandlung</option>
+                                <option>Ästhetik / Bleaching</option>
+                                <option>Kinderzahnheilkunde</option>
+                                <option>Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Wunschtermin</label>
+                            <select class="form-select">
+                                <option>Bitte wählen...</option>
+                                <option>Diese Woche</option>
+                                <option>Nächste Woche</option>
+                                <option>Diesen Monat</option>
+                                <option>Terminvorschläge anzeigen</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ihr Name</label>
+                            <input type="text" class="form-input" placeholder="Vor- und Nachname">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">E-Mail-Adresse</label>
+                            <input type="email" class="form-input" placeholder="ihre@email.de">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Termin anfragen
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEREC -->
+    <section class="cerec">
+        <div class="container">
+            <div class="cerec-inner">
+                <div class="cerec-content reveal">
+                    <h2>CEREC – diese Technik liegt uns am Herzen</h2>
+                    <p>Mit CEREC können wir Keramik-Inlays, Kronen und Veneers in nur einer einzigen Sitzung herstellen. Sie sparen Zeit und erhalten sofort ein dauerhaftes, ästhetisches Ergebnis.</p>
+                    <div class="cerec-points">
+                        <div class="cerec-point">
+                            <div class="cerec-point-icon">⚡</div>
+                            <span>In einer Sitzung fertig – keine zweite Visite nötig</span>
+                        </div>
+                        <div class="cerec-point">
+                            <div class="cerec-point-icon">🎯</div>
+                            <span>Präzise 3D-Messung statt herkömmlicher Abformung</span>
+                        </div>
+                        <div class="cerec-point">
+                            <div class="cerec-point-icon">💎</div>
+                            <span>Bioverträgliche Keramik in natürlichem Zahnfarbton</span>
+                        </div>
+                        <div class="cerec-point">
+                            <div class="cerec-point-icon">✨</div>
+                            <span>Langlebig und ästhetisch – wie Ihr eigener Zahn</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cerec-image reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=1050x10000:format=png/path/s6ab7c005096f6b6d/image/i1f1d3687c8a086a2/version/1695821267/image.png" alt="CEREC-Technologie in der Praxis Dr. Ordelheide" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Einblick in unsere Praxis</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/ib1030a98d348398e/version/1696956158/image.jpg" alt="Praxisraum" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/i51d81ae0278615c2/version/1696955964/image.jpg" alt="Behandlungsstuhl" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/i646f52757035b536/version/1696872992/image.jpg" alt="Empfang" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/i3a85032994845764/version/1696956083/image.jpg" alt="Technik" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/i1676e74d8878bbb6/version/1696955814/image.jpg" alt="Behandlung" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/ic5a7b9e9cdcba088/version/1696955798/image.jpg" alt="Praxisausstattung" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=341x2048:format=jpg/path/s6ab7c005096f6b6d/image/i0f4a6fa8b82c2967/version/1695811846/image.jpg" alt="Praxis" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=341x2048:format=jpg/path/s6ab7c005096f6b6d/image/i39aa40c4a3bfe2c0/version/1695811846/image.jpg" alt="Warteraum" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=341x2048:format=jpg/path/s6ab7c005096f6b6d/image/i441491b1713754b0/version/1695811846/image.jpg" alt="Behandlungsbereich" loading="lazy">
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=341x2048:format=jpg/path/s6ab7c005096f6b6d/image/i8c4fbb069dfe820a/version/1695811846/image.jpg" alt="Praxiseingang" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Praxis -->
+    <section class="practice" id="praxis">
+        <div class="container">
+            <div class="practice-inner">
+                <div class="practice-image reveal">
+                    <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=335x10000:format=jpg/path/s6ab7c005096f6b6d/image/i3a85032994845764/version/1696956083/image.jpg" alt="Praxis Dr. Ordelheide" loading="lazy">
+                </div>
+                <div class="practice-content reveal">
+                    <h2>Unsere Praxis in Münster</h2>
+                    <p>Seit 1969 sind wir als Zahnarztpraxis in Münster-Gievenbeck zu Hause. Unsere moderne Praxis combines jahrelange Erfahrung mit neuester Technik – für Ihre bestmögliche Versorgung.</p>
+                    <div class="practice-info">
+                        <div class="practice-info-item">
+                            <div class="practice-info-icon">📍</div>
+                            <div class="practice-info-text">
+                                <strong>Anschrift</strong>
+                                <span>Potstiege 3, 48159 Münster-Gievenbeck</span>
+                            </div>
+                        </div>
+                        <div class="practice-info-item">
+                            <div class="practice-info-icon">📞</div>
+                            <div class="practice-info-text">
+                                <strong>Telefon</strong>
+                                <span>+49 251 861842</span>
+                            </div>
+                        </div>
+                        <div class="practice-info-item">
+                            <div class="practice-info-icon">✉️</div>
+                            <div class="practice-info-text">
+                                <strong>E-Mail</strong>
+                                <span>gievenbeck@dr-ordelheide.de</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Band -->
+    <section class="cta-band">
+        <div class="container">
+            <h2>Bereit für Ihren Termin?</h2>
+            <p>Vereinbaren Sie jetzt Ihren Wunschtermin – wir freuen uns auf Sie!</p>
+            <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Kontakt aufnehmen</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">📞</div>
+                    <h4>Telefonisch</h4>
+                    <a href="tel:+49251861842">+49 251 861842</a>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">✉️</div>
+                    <h4>E-Mail</h4>
+                    <a href="mailto:gievenbeck@dr-ordelheide.de">gievenbeck@dr-ordelheide.de</a>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-card-icon">🌐</div>
+                    <h4>Aktuelle Website</h4>
+                    <a href="https://www.dr-ordelheide.de/" target="_blank">www.dr-ordelheide.de</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Konzept-Vorschau · MZ.9 · <a href="https://www.dr-ordelheide.de/" style="color: rgba(255,255,255,0.7);">Praxis Dr. Ordelheide</a></p>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta">
+        <a href="#termin" class="btn btn-primary" style="width: 100%;">Termin vereinbaren</a>
+    </div>
+
+    <script>
+        // Header scrolled state
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
