@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Gärtnerei Köhler — Pflanzen, Floristik und Raumbegrünung für Lübeck</title>
+  <meta name="description" content="Von regional und selbstgezogenen Pflanzen bis Floristik — Gärtnerei Köhler sorgt für grüne Lebensqualität für Büro und Zuhause in Lübeck.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-deep: #2d5a3d;
+      --green-fresh: #4a7c59;
+      --green-light: #8fb996;
+      --green-mint: #c8e6c9;
+      --cream: #faf8f5;
+      --warm: #f5f0e8;
+      --stone: #e8e4dd;
+      --charcoal: #2a2a2a;
+      --gold: #c9a227;
+      --shadow: 0 4px 20px rgba(45, 90, 61, 0.12);
+      --shadow-soft: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      padding: 0.75rem 5%;
+      box-shadow: var(--shadow-soft);
+      border-bottom: 1px solid var(--stone);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--green-deep);
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--green-fresh); }
+    nav a {
+      color: var(--charcoal);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--green-fresh); }
+    .header-cta {
+      background: var(--green-deep);
+      color: #fff !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .header-cta:hover {
+      background: var(--green-fresh);
+      transform: translateY(-1px);
+    }
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(250, 248, 245, 0.95) 0%, rgba(250, 248, 245, 0.7) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 5% 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--green-deep);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-text .sub {
+      font-size: 1.2rem;
+      color: var(--green-fresh);
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--green-fresh);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--green-deep);
+      color: var(--green-deep);
+    }
+    .btn-secondary:hover {
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      background: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-badge .icon {
+      width: 40px;
+      height: 40px;
+      background: var(--green-mint);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    /* USPs */
+    .usps {
+      padding: 4rem 5%;
+      background: #fff;
+      border-bottom: 1px solid var(--stone);
+    }
+    .usps-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .usp {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .usp-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      background: var(--green-mint);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .usp h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--green-deep);
+    }
+    .usp p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    /* Services */
+    .services {
+      padding: 5rem 5%;
+      background: var(--warm);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--green-deep);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .service-card-content {
+      padding: 1.5rem;
+    }
+    .service-card h3 {
+      font-size: 1.3rem;
+      color: var(--green-deep);
+      margin-bottom: 0.8rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .service-card .tag {
+      display: inline-block;
+      background: var(--green-mint);
+      color: var(--green-deep);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    /* Gallery */
+    .gallery {
+      padding: 5rem 5%;
+      background: #fff;
+    }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(45, 90, 61, 0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-overlay span {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    /* Contact Form */
+    .contact {
+      padding: 5rem 5%;
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .contact-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-text h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 1.5rem;
+    }
+    .contact-text p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .contact-info-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      align-items: center;
+    }
+    .contact-info-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-info-item a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .contact-info-item a:hover { opacity: 1; }
+    .contact-form {
+      background: #fff;
+      border-radius: 24px;
+      padding: 2rem;
+      color: var(--charcoal);
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: var(--green-deep);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid var(--stone);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--green-fresh);
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--green-deep);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit:hover {
+      background: var(--green-fresh);
+    }
+    /* CTA Band */
+    .cta-band {
+      padding: 4rem 5%;
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--green-fresh) 100%);
+      text-align: center;
+      color: #fff;
+    }
+    .cta-band h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    /* Footer */
+    footer {
+      background: var(--charcoal);
+      color: #888;
+      padding: 3rem 5% 6rem;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+    footer .concept {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 1rem 5%;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      display: none;
+    }
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+      .hero-text p { margin: 0 auto 2rem; }
+      .hero-actions { justify-content: center; }
+      .hero-image img { height: 350px; }
+      .hero-badge { right: 0; left: auto; bottom: -15px; }
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      nav { display: none; }
+      .mobile-cta { display: block; }
+      footer { padding-bottom: 5rem; }
+    }
+    @media (max-width: 600px) {
+      .hero-image img { height: 280px; }
+      .hero-badge { display: none; }
+      .services-grid,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="logo serif">Gärtnerei <span>Köhler</span></div>
+    <nav>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#kontakt" class="header-cta">Kontakt</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="sub serif">Moislinger Allee 155, Lübeck</span>
+        <h1 class="serif">Eure Gärtnerei und Florist für Lübeck</h1>
+        <p>Von regional und selbstgezogenen Pflanzen bis Floristik — wir sorgen für grüne Lebensqualität für Büro und Zuhause.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Kontaktieren</a>
+          <a href="#galerie" class="btn btn-secondary">Galerie</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/Beige+Aesthetic+Photo+Collage+New+Moodboard+Your+Story-1920w.jpg?Expires=1784704708&Signature=ElJLauzH9o34nIa5w182rGQRYzqc7JFgAALVAYY5IngzwDTcurbepQFNCPvA1Dt89jmNyuTxPyKRzPy9YSRhG3FqHlrLaZ80aogiSUHXzD85BD1dXELVlCVsqsh38tMw2OFTRuT2y61cCKnqMzh7oChoVv-HlkO2ko3nDEMRNewcA-rRJx6AcHBJM8jiDPTR7Amp9tk0KFEPuHkugTPtVkvxOaLd7j0~xpDtw5G7ghziOzb6YeiDT~yyeF0tUNF8Lv0bQQoyRbtfK8raqFtgyATBrqalngjl3-43ukJiHp~D9Gbpdjhvmpd4hPAKk5lTKP7bW5UxgXB9Pv2~XUMh9g__&Key-Pair-Id=K2NXBXLF010TJW" alt="Ästhetische Pflanzen- und Floristik-Anordnung">
+        <div class="hero-badge">
+          <div class="icon">🌿</div>
+          <div>
+            <strong style="display:block;font-size:0.9rem;">Regional & Selbstgezogen</strong>
+            <span style="font-size:0.8rem;color:#666;">Aus Lübecker Erde</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="usps">
+    <div class="usps-grid">
+      <div class="usp reveal">
+        <div class="usp-icon">🌱</div>
+        <h3>Regionale Pflanzen</h3>
+        <p>Seit Jahren selbstgezogen in Lübeck</p>
+      </div>
+      <div class="usp reveal">
+        <div class="usp-icon">💐</div>
+        <h3>Floristik</h3>
+        <p>Individuelle Sträuße & Gestecke</p>
+      </div>
+      <div class="usp reveal">
+        <div class="usp-icon">🏢</div>
+        <h3>Raumbegrünung</h3>
+        <p>Grüne Qualität für Büro & Zuhause</p>
+      </div>
+      <div class="usp reveal">
+        <div class="usp-icon">💚</div>
+        <h3>Nachhaltig</h3>
+        <p>Ökologisch gewachsen & fair</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="leistungen">
+    <div class="section-header reveal">
+      <h2 class="serif">Unsere Leistungen</h2>
+      <p>Pflanzen, Floristik und Raumbegrünung — alles aus einer Hand in Lübeck.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/IMG_3873-1920w.jpeg?Expires=1784704708&Signature=MK4FePkF0GktNmv8nqNRa8yaqZe8a-MCEzVlYYYXgeFMGznVuc72fc~otzzzeEnTee0iKz483UfHMnDAjiXhazy0s8x8dV~S-YgnICwLtmDML6bcBjYsUBZQ-CcxKcIqj4WQoq~skASc-6BWDioxW~Y7~zrfuDlE5G0cb1YnT4-7EoGVooL6zboHU9F~HetCwKoH5PA~EXFjCR-Cu-vfhvfkUFkU0qJXKBtzSusMBG4I~jzk4cx7~6DvscV-kkMGBP0T4mS~dlWfgYi53U55jL1ymiqi6so-G3cDuFpEmLHYR5nWpm1R3sdN-Z-CfBV-8oJ2rhs-f1zRSwSIVIRMEQ__&Key-Pair-Id=K2NXBXLF010TJW" alt="Pflanzenbestand" loading="lazy">
+        <div class="service-card-content">
+          <h3 class="serif">Pflanzen</h3>
+          <p>Regionale und selbstgezogene Pflanzen für jeden Standort — von robust bis exquisit.</p>
+          <span class="tag">Indoor & Outdoor</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/8DF3C83C-F9BD-42BE-BAB7-0409C91F0E90-1920w.jpg?Expires=1784704708&Signature=O93EDA-tI-yAJskQtv3PSHPfASH2GVXx32l~BxDwc0yTAvBXiMrOf39u1dBfRrQAuBQSIhI7QbbBU4jYWRoUblskCOYAAkMzzF9GdzIJYoE4ILj4dkuMnPJH~Fqs9f9XjJLp90Og1QwLVkHHy0OdXvKxaF5vyRFBQanHVBN9DdrBjBi7HoIzwt1CRaDYTzfzwWuPEwjzbkcHYXE9XNbWNrZUV0x3M4HNUkvReX1SfhqwCCS8pGs9FUAVk19FBZYBsowKLKw68znLnidq5cSKxafOXfpGGD7VBWN2NmLy~1zpMB9hsuggNsExIakrNOsBp-2zf8Mnn-BpJHPdfRx~1Q__&Key-Pair-Id=K2NXBXLF010TJW" alt="Floristik-Arrangement" loading="lazy">
+        <div class="service-card-content">
+          <h3 class="serif">Floristik</h3>
+          <p>Individuelle Sträuße, Gestecke und Arrangements — für jeden Anlass passend.</p>
+          <span class="tag">Kreativ & Persönlich</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-card-content" style="background:var(--warm);">
+          <h3 class="serif">Raumbegrünung</h3>
+          <p>Machen Sie Ihr Büro oder Ihr Zuhause grüner — wir beraten Sie zur passenden Begrünung.</p>
+          <span class="tag">Beratung & Umsetzung</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery" id="galerie">
+    <div class="section-header reveal">
+      <h2 class="serif">Einblicke</h2>
+      <p>Lassen Sie sich von unserer Arbeit inspirieren.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/Beige+Aesthetic+Photo+Collage+New+Moodboard+Your+Story-1920w.jpg?Expires=1784704708&Signature=ElJLauzH9o34nIa5w182rGQRYzqc7JFgAALVAYY5IngzwDTcurbepQFNCPvA1Dt89jmNyuTxPyKRzPy9YSRhG3FqHlrLaZ80aogiSUHXzD85BD1dXELVlCVsqsh38tMw2OFTRuT2y61cCKnqMzh7oChoVv-HlkO2ko3nDEMRNewcA-rRJx6AcHBJM8jiDPTR7Amp9tk0KFEPuHkugTPtVkvxOaLd7j0~xpDtw5G7ghziOzb6YeiDT~yyeF0tUNF8Lv0bQQoyRbtfK8raqFtgyATBrqalngjl3-43ukJiHp~D9Gbpdjhvmpd4hPAKk5lTKP7bW5UxgXB9Pv2~XUMh9g__&Key-Pair-Id=K2NXBXLF010TJW" alt="Ästhetische Pflanzen-Kollage" loading="lazy">
+        <div class="gallery-overlay"><span>Ästhetik & Stil</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/IMG_3873-1920w.jpeg?Expires=1784704708&Signature=MK4FePkF0GktNmv8nqNRa8yaqZe8a-MCEzVlYYYXgeFMGznVuc72fc~otzzzeEnTee0iKz483UfHMnDAjiXhazy0s8x8dV~S-YgnICwLtmDML6bcBjYsUBZQ-CcxKcIqj4WQoq~skASc-6BWDioxW~Y7~zrfuDlE5G0cb1YnT4-7EoGVooL6zboHU9F~HetCwKoH5PA~EXFjCR-Cu-vfhvfkUFkU0qJXKBtzSusMBG4I~jzk4cx7~6DvscV-kkMGBP0T4mS~dlWfgYi53U55jL1ymiqi6so-G3cDuFpEmLHYR5nWpm1R3sdN-Z-CfBV-8oJ2rhs-f1zRSwSIVIRMEQ__&Key-Pair-Id=K2NXBXLF010TJW" alt="Pflanzenbestand Detail" loading="lazy">
+        <div class="gallery-overlay"><span>Regional & Selbstgezogen</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://le-cdn.website-editor.net/s/9f45973ccd1c415f9f5617b4f73f4fd8/dms3rep/multi/opt/8DF3C83C-F9BD-42BE-BAB7-0409C91F0E90-1920w.jpg?Expires=1784704708&Signature=O93EDA-tI-yAJskQtv3PSHPfASH2GVXx32l~BxDwc0yTAvBXiMrOf39u1dBfRrQAuBQSIhI7QbbBU4jYWRoUblskCOYAAkMzzF9GdzIJYoE4ILj4dkuMnPJH~Fqs9f9XjJLp90Og1QwLVkHHy0OdXvKxaF5vyRFBQanHVBN9DdrBjBi7HoIzwt1CRaDYTzfzwWuPEwjzbkcHYXE9XNbWNrZUV0x3M4HNUkvReX1SfhqwCCS8pGs9FUAVk19FBZYBsowKLKw68znLnidq5cSKxafOXfpGGD7VBWN2NmLy~1zpMB9hsuggNsExIakrNOsBp-2zf8Mnn-BpJHPdfRx~1Q__&Key-Pair-Id=K2NXBXLF010TJW" alt="Floristik-Kunstwerk" loading="lazy">
+        <div class="gallery-overlay"><span>Floristik-Meisterstück</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="contact-container">
+      <div class="contact-text reveal">
+        <h2 class="serif">Sprechen Sie uns an</h2>
+        <p>Wir freuen uns auf Ihre Nachricht — ob für eine Beratung, einen individuellen Strauß oder eine Raumbegrünung.</p>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📍</div>
+          <span>Moislinger Allee 155, Lübeck</span>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">📞</div>
+          <a href="tel:+49451891395">+49 451 891395</a>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <a href="mailto:info@gaertnerei-koehler.de">info@gaertnerei-koehler.de</a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <form action="mailto:info@gaertnerei-koehler.de" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label for="interest">Interesse an</label>
+            <select id="interest" name="interest">
+              <option value="">Bitte wählen...</option>
+              <option value="pflanzen">Pflanzen</option>
+              <option value="floristik">Floristik</option>
+              <option value="raumbegruenung">Raumbegrünung</option>
+              <option value="beratung">Beratung</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" placeholder="Ihre Nachricht an uns..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <h2 class="serif">Grüne Lebensqualität beginnt hier</h2>
+    <p>Kontaktieren Sie uns — wir beraten Sie gerne.</p>
+    <a href="tel:+49451891395" class="btn btn-primary" style="background:#fff;color:var(--green-deep);">Anrufen</a>
+  </section>
+
+  <footer>
+    <p>© 2026 Gärtnerei Köhler, Lübeck</p>
+    <p class="concept">Konzept-Vorschau · MZ.9</p>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+49451891395" class="btn btn-primary">Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

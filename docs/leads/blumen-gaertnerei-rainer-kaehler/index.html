@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Gärtnerei Rainer Kähler GmbH - Ihr Friedhofgärtner in Lübeck</title>
+  <meta name="description" content="Gärtnerei Rainer Kähler GmbH - Ihr Friedhofgärtner in Lübeck. Professionelle Grabpflege, saisonale Blumenarrangements und gärtnerische Gestaltung mit Herz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2d5a3d;
+      --primary-dark: #1e3d28;
+      --primary-light: #4a7a5a;
+      --accent: #c9a962;
+      --accent-light: #e8d5a3;
+      --bg: #fafaf8;
+      --bg-light: #f4f2ed;
+      --text: #2c2c2c;
+      --text-light: #5a5a5a;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 8px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(45,90,61,0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 50px;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.kaehler-blumen.de/img/kaehler-header-v2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: var(--white);
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--text);
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,169,98,0.4);
+    }
+
+    /* USP Strip */
+    .usp-strip {
+      background: var(--bg-light);
+      padding: 40px 0;
+    }
+
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+
+    .usp-item {
+      text-align: center;
+      padding: 24px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .usp-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .usp-item h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .usp-item p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    /* Services */
+    .services {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .service-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .service-content {
+      padding: 24px;
+    }
+
+    .service-content h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .service-content p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg) 100%);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .contact-info h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .contact-info p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.25rem;
+    }
+
+    .contact-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary);
+    }
+
+    .contact-form {
+      background: var(--white);
+      padding: 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form h3 {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      text-align: center;
+      color: var(--white);
+    }
+
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-light {
+      background: var(--white);
+      color: var(--primary);
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-light:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 40px 0;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .footer-content p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    .footer-concept {
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    .mobile-cta .btn-primary {
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 70vh;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      .services,
+      .gallery,
+      .contact-section {
+        padding-bottom: 100px;
+      }
+
+      .contact-form {
+        padding: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Gärtnerei Rainer <span>Kähler</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#kontakt" class="nav-cta">Anfrage senden</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <h1>Ihr Friedhofgärtner in Lübeck</h1>
+      <p>Herzlich Willkommen bei der Gärtnerei Rainer Kähler GmbH — professionelle Grabpflege und gärtnerische Gestaltung mit Herz und Tradition.</p>
+      <a href="#kontakt" class="btn-primary">Anfrage stellen</a>
+    </div>
+  </section>
+
+  <!-- USP Strip -->
+  <section class="usp-strip">
+    <div class="container">
+      <div class="usp-grid">
+        <div class="usp-item reveal">
+          <div class="usp-icon">🌿</div>
+          <h3>Natürliche Pflege</h3>
+          <p>Nachhaltige, naturnahe Begrünung und schonende Behandlung aller Grünflächen.</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">💚</div>
+          <h3>Tradition & Erfahrung</h3>
+          <p>Jahrzehntelange Erfahrung als Friedhofgärtner in Lübeck und Umgebung.</p>
+        </div>
+        <div class="usp-item reveal">
+          <div class="usp-icon">🌸</div>
+          <h3>Saisonale Arrangements</h3>
+          <p>Blumenarrangements und Dekorationen passend zu jeder Jahreszeit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Umfassende gärtnerische Dienstleistungen — von der Grabpflege bis zur saisonalen Gestaltung.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-image" style="background-image: url('https://www.kaehler-blumen.de/img/galerie/kaehler-01.jpg')"></div>
+          <div class="service-content">
+            <h3>Grabpflege</h3>
+            <p>Regelmäßige und professionelle Pflege von Gräbern — vom Rasenschnitt bis zur Bepflanzung.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image" style="background-image: url('https://www.kaehler-blumen.de/img/galerie/kaehler-03.jpg')"></div>
+          <div class="service-content">
+            <h3>Grabgestaltung</h3>
+            <p>Individuelle Gestaltung und Neuanlage von Grabstätten nach Ihren Wünschen.</p>
+          </div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-image" style="background-image: url('https://www.kaehler-blumen.de/img/galerie/kaehler-04.jpg')"></div>
+          <div class="service-content">
+            <h3>Saisonale Blumen</h3>
+            <p>Frühlingsblumen, Sommerbepflanzung, herbstliche Arrangements und Winterdekoration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="kontakt">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <h2>Kontaktieren Sie uns</h2>
+          <p>Haben Sie Fragen zu unseren Leistungen oder wünschen Sie ein individuelles Angebot? Wir freuen uns auf Ihre Nachricht.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div style="font-size:0.85rem;color:var(--text-light)">Telefon</div>
+                <a href="tel:+494513881563">+49 451 3881563</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <div style="font-size:0.85rem;color:var(--text-light)">E-Mail</div>
+                <a href="mailto:info@kaehler-blumen.de">info@kaehler-blumen.de</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div style="font-size:0.85rem;color:var(--text-light)">Standort</div>
+                <span>Lübeck</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+          <h3>Ihre Anfrage</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Interesse an</label>
+            <select id="service" name="service">
+              <option value="">Bitte wählen...</option>
+              <option value="grabpflege">Grabpflege</option>
+              <option value="grabgestaltung">Grabgestaltung</option>
+              <option value="saisonal">Saisonale Blumen</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Absenden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Eindrücke</h2>
+        <p>Ein kleiner Einblick in unsere Arbeit und unsere Arrangements.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://www.kaehler-blumen.de/img/galerie/kaehler-01.jpg" alt="Grabpflege und Bepflanzung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kaehler-blumen.de/img/galerie/kaehler-03.jpg" alt="Saisonale Blumenarrangements" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kaehler-blumen.de/img/galerie/kaehler-04.jpg" alt="Individuelle Grabgestaltung" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://www.kaehler-blumen.de/img/galerie/kaehler-05.jpg" alt="Gärtnerische Arbeit in Lübeck" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Wir helfen Ihnen gerne weiter</h2>
+      <p>Vertrauen Sie auf unsere jahrelange Erfahrung als Friedhofgärtner in Lübeck. Kontaktieren Sie uns für ein persönliches Gespräch.</p>
+      <a href="#kontakt" class="btn-light">Jetzt Kontakt aufnehmen</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <p>Gärtnerei Rainer Kähler GmbH · Lübeck</p>
+      <p class="footer-concept">Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA -->
+  <div class="mobile-cta">
+    <a href="#kontakt" class="btn-primary">Anfrage stellen</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const body = new URLSearchParams(data).toString();
+      window.location.href = `mailto:info@kaehler-blumen.de?subject=Kontaktanfrage&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+</body>
+</html>
