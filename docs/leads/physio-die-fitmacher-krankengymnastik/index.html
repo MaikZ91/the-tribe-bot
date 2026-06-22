@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M1Fitmacher — Ihre Physiotherapie in Mannheim</title>
+  <meta name="description" content="M1Fitmacher Mannheim: Physiotherapie, Fitness & Heilpraktik — Ihre Gesundheit ist bei uns in besten Händen.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0891b2;
+      --primary-dark: #0e7490;
+      --primary-light: #ecfeff;
+      --accent: #f97316;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; color: var(--text); }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+    h3 { font-size: 1.25rem; font-weight: 600; }
+    p { color: var(--text-light); }
+
+    a { text-decoration: none; color: inherit; transition: 0.2s; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 1rem;
+      cursor: pointer; transition: 0.2s; gap: 8px;
+    }
+    .btn-primary {
+      background: var(--primary); color: white;
+      box-shadow: 0 4px 14px rgba(8,145,178,0.3);
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      border: 2px solid var(--primary); color: var(--primary); background: transparent;
+    }
+    .btn-secondary:hover { background: var(--primary-light); }
+
+    /* Before/After Toggle */
+    .before-after {
+      position: fixed; top: 80px; right: 20px; z-index: 999;
+      background: white; border-radius: 30px; padding: 6px;
+      box-shadow: var(--shadow-lg); display: flex; gap: 4px;
+    }
+    .before-after a {
+      padding: 8px 18px; border-radius: 24px; font-size: 0.85rem;
+      font-weight: 500; transition: 0.2s;
+    }
+    .before-after .before { color: var(--text-light); }
+    .before-after .before:hover { color: var(--text); }
+    .before-after .after {
+      background: var(--primary); color: white;
+    }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border); transition: 0.3s;
+    }
+    header.scrolled { box-shadow: var(--shadow); }
+    .header-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      height: 70px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .logo span { color: var(--text); }
+    .nav { display: flex; gap: 32px; }
+    .nav a { font-weight: 500; font-size: 0.95rem; color: var(--text); }
+    .nav a:hover { color: var(--primary); }
+    .header-cta { display: none; }
+    @media (min-width: 768px) { .header-cta { display: flex; } }
+
+    /* Hero */
+    .hero {
+      padding: 130px 0 80px; background: linear-gradient(135deg, var(--bg-soft) 0%, var(--primary-light) 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr; gap: 48px;
+      align-items: center;
+    }
+    .hero-content { text-align: center; }
+    .hero h1 { margin-bottom: 16px; }
+    .hero-tag {
+      display: inline-block; background: var(--primary); color: white;
+      padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero-lead {
+      font-size: 1.25rem; color: var(--text-light);
+      max-width: 600px; margin: 0 auto 32px;
+    }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-image { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    @media (min-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr 1fr; }
+      .hero-content { text-align: left; }
+      .hero-lead { margin: 0 0 32px; }
+      .hero-cta { justify-content: flex-start; }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--bg); padding: 40px 0; border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .trust-icon {
+      width: 48px; height: 48px; background: var(--primary-light);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .trust-text h4 { font-size: 1rem; font-weight: 600; }
+    .trust-text p { font-size: 0.875rem; }
+
+    /* Services */
+    .services { padding: 80px 0; background: var(--bg); }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 { margin-bottom: 16px; }
+    .section-header p { max-width: 600px; margin: 0 auto; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--bg-soft); border-radius: 20px; padding: 32px;
+      transition: 0.3s; border: 1px solid var(--border);
+    }
+    .service-card:hover {
+      transform: translateY(-4px); box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .service-icon {
+      width: 64px; height: 64px; background: var(--primary);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: white; margin-bottom: 24px;
+    }
+    .service-card h3 { margin-bottom: 12px; }
+    .service-card p { font-size: 0.95rem; }
+
+    /* Booking Feature */
+    .booking { padding: 80px 0; background: var(--primary-light); }
+    .booking-inner {
+      max-width: 800px; margin: 0 auto; background: white;
+      border-radius: 24px; padding: 40px; box-shadow: var(--shadow-lg);
+    }
+    .booking-steps { display: flex; gap: 16px; margin-bottom: 32px; }
+    .booking-step {
+      flex: 1; text-align: center; padding: 20px; border-radius: 16px;
+      background: var(--bg-soft); position: relative;
+    }
+    .booking-step.active { background: var(--primary); color: white; }
+    .booking-step.active h4, .booking-step.active p { color: white; }
+    .booking-step-num {
+      width: 32px; height: 32px; background: var(--primary);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; margin: 0 auto 12px;
+    }
+    .booking-step.active .booking-step-num { background: white; color: var(--primary); }
+    .booking-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .booking-option {
+      padding: 16px; border: 2px solid var(--border); border-radius: 12px;
+      cursor: pointer; transition: 0.2s; text-align: center;
+    }
+    .booking-option:hover, .booking-option.selected {
+      border-color: var(--primary); background: var(--primary-light);
+    }
+    .booking-option h4 { font-size: 1rem; margin-bottom: 4px; }
+    .booking-option p { font-size: 0.85rem; }
+    .time-slots {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+    }
+    .time-slot {
+      padding: 10px 16px; border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: 0.2s;
+    }
+    .time-slot:hover, .time-slot.selected {
+      background: var(--primary); color: white; border-color: var(--primary);
+    }
+    .booking-form input, .booking-form textarea {
+      width: 100%; padding: 14px; border: 2px solid var(--border);
+      border-radius: 12px; font-size: 1rem; margin-bottom: 12px;
+      font-family: inherit; transition: 0.2s;
+    }
+    .booking-form input:focus, .booking-form textarea:focus {
+      outline: none; border-color: var(--primary);
+    }
+    @media (min-width: 768px) { .booking-inner { padding: 56px; } }
+
+    /* Team */
+    .team { padding: 80px 0; background: var(--bg); }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    .team-card {
+      text-align: center;
+    }
+    .team-photo {
+      width: 180px; height: 180px; border-radius: 50%; overflow: hidden;
+      margin: 0 auto 20px; box-shadow: var(--shadow);
+      border: 4px solid var(--primary-light);
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-card h3 { margin-bottom: 4px; }
+    .team-card p { font-size: 0.9rem; }
+
+    /* Gallery */
+    .gallery { padding: 80px 0; background: var(--bg-soft); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .gallery-item {
+      border-radius: 16px; overflow: hidden; aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* Contact */
+    .contact { padding: 80px 0; background: var(--bg); }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr; gap: 48px;
+      align-items: start;
+    }
+    .contact-info h3 { margin-bottom: 16px; }
+    .contact-item {
+      display: flex; gap: 12px; margin-bottom: 20px;
+    }
+    .contact-item-icon {
+      width: 44px; height: 44px; background: var(--primary-light);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .contact-form {
+      background: var(--bg-soft); border-radius: 20px; padding: 32px;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 14px; border: 2px solid var(--border);
+      border-radius: 12px; font-size: 1rem; margin-bottom: 12px;
+      font-family: inherit; transition: 0.2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none; border-color: var(--primary);
+    }
+    @media (min-width: 768px) { .contact-inner { grid-template-columns: 1fr 1fr; } }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 80px 0; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white; text-align: center;
+    }
+    .cta-band h2 { color: white; margin-bottom: 16px; }
+    .cta-band p { color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 32px; }
+    .cta-band .btn { background: white; color: var(--primary); }
+    .cta-band .btn:hover { background: var(--bg-soft); }
+
+    /* Footer */
+    footer {
+      background: var(--bg-soft); padding: 32px 0; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 999; padding: 12px 20px; background: white;
+      border-top: 1px solid var(--border); gap: 8px;
+    }
+    @media (max-width: 767px) {
+      .mobile-cta { display: flex; }
+      .mobile-cta .btn { flex: 1; padding: 12px; font-size: 0.9rem; }
+      body { padding-bottom: 70px; }
+      .nav { display: none; }
+    }
+
+    /* Maik Chat */
+    .fab {
+      position: fixed; bottom: 90px; right: 22px; z-index: 1000;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: white; box-shadow: var(--shadow-lg);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: 0.3s; border: 3px solid var(--primary);
+    }
+    @media (max-width: 767px) { .fab { bottom: 90px; } }
+    .fab:hover { transform: scale(1.05); }
+    .fab img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .fab::before {
+      content: ''; position: absolute; inset: -6px;
+      border-radius: 50%; border: 2px solid var(--primary);
+      animation: pulse-ring 2s infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+
+    .chat-panel {
+      position: fixed; bottom: 160px; right: 22px; z-index: 1000;
+      width: 360px; max-width: calc(100vw - 44px);
+      background: white; border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      overflow: hidden; display: none;
+    }
+    .chat-panel.open { display: block; }
+    @media (max-width: 767px) { .chat-panel { bottom: 160px; } }
+    .chat-header {
+      background: var(--primary); color: white; padding: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-header h3 { color: white; font-size: 1rem; margin: 0; }
+    .chat-close { cursor: pointer; font-size: 1.5rem; color: white; }
+    .chat-messages {
+      height: 320px; overflow-y: auto; padding: 16px;
+      background: var(--bg-soft);
+    }
+    .message {
+      max-width: 85%; padding: 12px 16px; border-radius: 16px;
+      margin-bottom: 12px; font-size: 0.9rem; line-height: 1.4;
+    }
+    .message.maic {
+      background: white; border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .message.user {
+      background: var(--primary); color: white;
+      border-bottom-right-radius: 4px; margin-left: auto;
+    }
+    .chat-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .chat-btn {
+      padding: 8px 14px; background: var(--primary-light);
+      border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+      transition: 0.2s; border: 1px solid var(--primary);
+    }
+    .chat-btn:hover { background: var(--primary); color: white; }
+    .chat-input {
+      padding: 12px 16px; border-top: 1px solid var(--border);
+      display: flex; gap: 8px;
+    }
+    .chat-input input {
+      flex: 1; padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: 20px; font-size: 0.9rem; font-family: inherit;
+    }
+    .chat-input input:focus { outline: none; border-color: var(--primary); }
+    .chat-send {
+      background: var(--primary); color: white; border: none;
+      width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { transition: none; } }
+  </style>
+</head>
+<body>
+  <!-- Before/After Toggle -->
+  <div class="before-after">
+    <a href="https://m1-diefitmacher.de/" target="_blank" class="before">Vorher →</a>
+    <span class="after">Nachher</span>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">M1<span>Fitmacher</span></a>
+      <nav class="nav">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#team">Team</a>
+        <a href="#termin">Termin</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:+496211567799" class="btn btn-primary">
+          📞 +49 621 1567799
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-tag">Physiotherapie · Fitness · Heilpraktik</span>
+        <h1>Ihre Gesundheit ist bei uns in besten Händen</h1>
+        <p class="hero-lead">Individuelle Therapie, moderne Methoden und ein erfahrenes Team in Mannheim.</p>
+        <div class="hero-cta">
+          <a href="#termin" class="btn btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn btn-secondary">Leistungen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://m1-diefitmacher.de/wp-content/uploads/2022/07/M1Physio_Startjpg.jpg"
+             alt="M1Fitmacher Praxis in Mannheim" width="600" height="400">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">✓</div>
+        <div class="trust-text">
+          <h4>Erfahrenes Team</h4>
+          <p>Qualifizierte Therapeuten</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📍</div>
+        <div class="trust-text">
+          <h4>Mannheim</h4>
+          <p>Zentrale Lage</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🏥</div>
+        <div class="trust-text">
+          <h4>Verschiedene Bereiche</h4>
+          <p>Physio, Fitness & Heilpraktik</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Komplexe Gesundheitsversorgung aus einer Hand — individuell auf Ihre Bedürfnisse abgestimmt.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🏃</div>
+          <h3>M1 Physiotherapie</h3>
+          <p>Professionelle physiotherapeutische Behandlung zur Wiederherstellung und Verbesserung Ihrer Beweglichkeit.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💪</div>
+          <h3>M1 Fitness</h3>
+          <p>Gelenktes Training und Fitnessangebote zur Stärkung Ihres Körpers und zur Prävention.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🌿</div>
+          <h3>M1 Heilpraktik</h3>
+          <p>Naturheilkundliche Behandlungen zur ganzheitlichen Förderung Ihrer Gesundheit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Feature -->
+  <section class="booking" id="termin">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Termin vereinbaren</h2>
+        <p>In wenigen Schritten zu Ihrem persönlichen Termin — bequem online.</p>
+      </div>
+      <div class="booking-inner reveal">
+        <div class="booking-steps">
+          <div class="booking-step active" id="step1">
+            <div class="booking-step-num">1</div>
+            <h4>Leistung</h4>
+            <p>Wählen Sie Ihren Bereich</p>
+          </div>
+          <div class="booking-step" id="step2">
+            <div class="booking-step-num">2</div>
+            <h4>Zeit</h4>
+            <p>Wählen Sie eine Uhrzeit</p>
+          </div>
+          <div class="booking-step" id="step3">
+            <div class="booking-step-num">3</div>
+            <h4>Kontakt</h4>
+            <p>Ihre Daten</p>
+          </div>
+        </div>
+        <div id="booking-content">
+          <div class="booking-grid">
+            <div class="booking-option selected" onclick="selectService(this, 'Physiotherapie')">
+              <h4>Physiotherapie</h4>
+              <p>45-60 Min.</p>
+            </div>
+            <div class="booking-option" onclick="selectService(this, 'Fitness')">
+              <h4>Fitness</h4>
+              <p>60 Min.</p>
+            </div>
+            <div class="booking-option" onclick="selectService(this, 'Heilpraktik')">
+              <h4>Heilpraktik</h4>
+              <p>30-45 Min.</p>
+            </div>
+          </div>
+          <div class="time-slots">
+            <div class="time-slot selected" onclick="selectTime(this)">Mo 09:00</div>
+            <div class="time-slot" onclick="selectTime(this)">Mo 11:00</div>
+            <div class="time-slot" onclick="selectTime(this)">Di 14:00</div>
+            <div class="time-slot" onclick="selectTime(this)">Mi 10:00</div>
+            <div class="time-slot" onclick="selectTime(this)">Do 16:00</div>
+            <div class="time-slot" onclick="selectTime(this)">Fr 09:00</div>
+          </div>
+          <form class="booking-form" onsubmit="submitBooking(event)">
+            <input type="text" placeholder="Ihr Name" required>
+            <input type="tel" placeholder="Telefonnummer" required>
+            <input type="email" placeholder="E-Mail">
+            <textarea rows="3" placeholder="Ihre Nachricht (optional)"></textarea>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Termin anfragen</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" id="team">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unser M1-Team</h2>
+        <p>Erfahrene Fachkräfte, die sich um Ihr Wohlergehen kümmern.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="https://m1-diefitmacher.de/wp-content/uploads/2023/06/1_Anette-Colman-Lerner__3482A.jpg"
+                 alt="Annette Colman-Lerner" loading="lazy">
+          </div>
+          <h3>Annette Colman-Lerner</h3>
+          <p>Physiotherapeutin</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="https://m1-diefitmacher.de/wp-content/uploads/2023/06/2_Matthias-Klinkert_3577A.jpg"
+                 alt="Matthias Klinkert" loading="lazy">
+          </div>
+          <h3>Matthias Klinkert</h3>
+          <p>Physiotherapeut</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="https://m1-diefitmacher.de/wp-content/uploads/2023/06/3_Marco-Welz_3600B.jpg"
+                 alt="Marco Welz" loading="lazy">
+          </div>
+          <h3>Marco Welz</h3>
+          <p>Fitness-Coach</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="https://m1-diefitmacher.de/wp-content/uploads/2023/06/5_Manuel-Kern_4083.jpg"
+                 alt="Manuel Kern" loading="lazy">
+          </div>
+          <h3>Manuel Kern</h3>
+          <p>Physiotherapeut</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Eindruck von M1Fitmacher</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="https://m1-diefitmacher.de/wp-content/uploads/2026/06/Fitmacher-ALBuehler.jpg"
+               alt="Team M1Fitmacher" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://m1-diefitmacher.de/wp-content/uploads/2026/06/Fitmacher-NMueller.jpg"
+               alt="M1Fitmacher Praxis" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://m1-diefitmacher.de/wp-content/uploads/2026/06/Fitmacher-TRoesler.jpg"
+               alt="M1Fitmacher Training" loading="lazy">
+        </div>
+        <div class="gallery-item reveal">
+          <img src="https://m1-diefitmacher.de/wp-content/uploads/2023/06/10_Rosi_Paul_4095.jpg"
+               alt="M1Fitmacher Team" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Kontakt aufnehmen</h2>
+      </div>
+      <div class="contact-inner reveal">
+        <div class="contact-info">
+          <h3>Wir sind für Sie da</h3>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <strong>Adresse</strong>
+              <p>Mannheim</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div>
+              <strong>Telefon</strong>
+              <p><a href="tel:+496211567799">+49 621 1567799</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <strong>E-Mail</strong>
+              <p><a href="mailto:info@m1-diefitmacher.de">info@m1-diefitmacher.de</a></p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="submitContact(event)">
+          <input type="text" placeholder="Ihr Name" required>
+          <input type="email" placeholder="Ihre E-Mail" required>
+          <input type="tel" placeholder="Telefonnummer">
+          <textarea rows="4" placeholder="Ihre Nachricht" required></textarea>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Bereit für Ihren Termin?</h2>
+      <p>Vereinbaren Sie noch heute Ihren persönlichen Termin bei M1Fitmacher in Mannheim.</p>
+      <a href="#termin" class="btn">Jetzt Termin buchen</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Concept Preview · MZ.9 — Noch keine echte Website</p>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+496211567799" class="btn btn-secondary">📞 Anrufen</a>
+    <a href="#termin" class="btn btn-primary">Termin buchen</a>
+  </div>
+
+  <!-- Maik Chat FAB -->
+  <div class="fab" onclick="toggleChat()">
+    <img src="docs/assets/mz9/maik.jpg" alt="Maik" loading="lazy">
+  </div>
+
+  <!-- Maik Chat Panel -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <h3>💬 Chat mit Maik</h3>
+      <span class="chat-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Nachricht eingeben..." onkeypress="handleChatKeypress(event)">
+      <button class="chat-send" onclick="sendUserMessage()">→</button>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('in');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Booking functions
+    function selectService(el, service) {
+      document.querySelectorAll('.booking-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function selectTime(el) {
+      document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function submitBooking(e) {
+      e.preventDefault();
+      alert('Vielen Dank! Ihre Terminanfrage wurde gesendet. Wir melden uns zeitnah bei Ihnen.');
+    }
+    function submitContact(e) {
+      e.preventDefault();
+      alert('Vielen Dank für Ihre Nachricht! Wir melden uns bald bei Ihnen.');
+    }
+
+    // Maik Chat
+    let chatState = 0;
+    let chatShown = false;
+    const problems = [
+      "Kein Kontaktformular — Besucher können nur per Telefon kontaktieren, was viele abschreckt.",
+      "Veralteter Website-Baukasten — Das Design wirkt wenig professionell und modern.",
+      "Keine Online-Terminbuchung — Kunden müssen anrufen, was Hürden schafft."
+    ];
+
+    function initChat() {
+      if (chatShown) return;
+      chatShown = true;
+      const msgs = document.getElementById('chatMessages');
+      msgs.innerHTML = '';
+      chatState = 0;
+      addMaikMessage(`Ich habe mir eure aktuelle Website angeschaut. Hier sind die größten Punkte, die potenzielle Kunden kosten können:<br><br>• ${problems[0]}<br>• ${problems[1]}<br>• ${problems[2]}<br><br>Mit diesem Concept Preview zeigen wir, wie eine moderne Version aussehen könnte, die auf mehr Anfragen, einfache Terminbuchung und ein vertrauenswürdiges Erscheinungsbild optimiert ist.`);
+      setTimeout(() => {
+        addMaikMessage("Wie gefällt euch die neue Version im Vergleich zur aktuellen Website?");
+        addButtons([
+          { text: "👍 Deutlich besser", action: () => feedbackPositive() },
+          { text: "😐 Etwas besser", action: () => feedbackNeutral() },
+          { text: "👎 Kein großer Unterschied", action: () => feedbackNegative() }
+        ]);
+      }, 500);
+    }
+
+    function addMaikMessage(html) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'message maic';
+      div.innerHTML = html;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function addUserMessage(text) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'message user';
+      div.textContent = text;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function addButtons(buttons) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'chat-buttons';
+      buttons.forEach(btn => {
+        const b = document.createElement('button');
+        b.className = 'chat-btn';
+        b.textContent = btn.text;
+        b.onclick = () => { div.remove(); btn.action(); };
+        div.appendChild(b);
+      });
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function toggleChat() {
+      const panel = document.getElementById('chatPanel');
+      if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+      } else {
+        panel.classList.add('open');
+        setTimeout(initChat, 300);
+      }
+    }
+
+    function feedbackPositive() {
+      addUserMessage("Deutlich besser");
+      chatState = 1;
+      setTimeout(() => {
+        addMaikMessage("Danke für das Feedback! Welche Verbesserung wäre für euch aktuell am interessantesten?");
+        addButtons([
+          { text: "Mehr Anfragen", action: () => needMore("Anfragen") },
+          { text: "Mehr Terminbuchungen", action: () => needMore("Terminbuchungen") },
+          { text: "Moderneres Erscheinungsbild", action: () => needMore("Erscheinungsbild") },
+          { text: "Bessere mobile Darstellung", action: () => needMore("Mobile") },
+          { text: "Bessere Google-Sichtbarkeit", action: () => needMore("Google") }
+        ]);
+      }, 400);
+    }
+
+    function feedbackNeutral() {
+      addUserMessage("Etwas besser");
+      chatState = 1;
+      setTimeout(() => {
+        addMaikMessage("Danke! Was könnte ich noch verbessern, damit es für euch deutlich besser wird?");
+      }, 400);
+    }
+
+    function feedbackNegative() {
+      addUserMessage("Kein großer Unterschied");
+      chatState = 1;
+      setTimeout(() => {
+        addMaikMessage("Verstehe. Was ist euch an eurer aktuellen Website besonders wichtig, das ich erhalten sollte?");
+      }, 400);
+    }
+
+    function needMore(area) {
+      addUserMessage(`Mehr ${area}`);
+      chatState = 2;
+      setTimeout(() => {
+        let followUp = "";
+        if (area === "Anfragen") followUp = "Kommen die meisten Anfragen aktuell über Empfehlungen oder über die Website?";
+        else if (area === "Google") followUp = "Seid ihr aktuell zufrieden damit, wie gut ihr bei Google gefunden werdet?";
+        else if (area === "Mobile") followUp = "Habt ihr schon Rückmeldungen von Kunden zur Nutzung auf Smartphones erhalten?";
+        else followUp = "Das ist ein wichtiger Punkt! Worauf legt ihr dabei besonders wert?";
+        addMaikMessage(followUp);
+      }, 400);
+    }
+
+    function sendUserMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      addUserMessage(text);
+      input.value = '';
+      if (chatState === 0) {
+        setTimeout(() => {
+          addMaikMessage("Danke für deine Nachricht! Hast du Fragen zum Concept Preview oder möchtest du mehr über die Umsetzung erfahren?");
+        }, 500);
+      } else if (chatState >= 1) {
+        setTimeout(() => {
+          addMaikMessage("Basierend auf eurer aktuellen Website sehe ich einige konkrete Möglichkeiten zur Verbesserung. Wenn ihr möchtet, kann ich euch zeigen, welche Änderungen wahrscheinlich den größten Einfluss auf Anfragen und Kundengewinnung hätten.");
+        }, 500);
+      }
+    }
+
+    function handleChatKeypress(e) {
+      if (e.key === 'Enter') sendUserMessage();
+    }
+
+    // Trigger chat after delay or scroll
+    let chatTriggered = false;
+    setTimeout(() => {
+      if (!chatTriggered) { chatTriggered = true; initChat(); }
+    }, 3000);
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (!chatTriggered && scrolled > 0.3) { chatTriggered = true; initChat(); }
+    }, { once: true });
+  </script>
+</body>
+</html>
