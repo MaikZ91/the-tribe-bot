@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Praxis für Physiotherapie Stefanie Radek | Mannheim-Seckenheim</title>
+  <meta name="description" content="Krankengymnastik-Praxis mit den Schwerpunkten: Behandlung von Beschwerden des Muskel- und Skelettsystems, Behandlung von Wirbelsäulenproblematiken, Nachbehandlung von Sport- und Unfallverletzungen">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#fafbfc;
+      --bg-alt:#ffffff;
+      --text:#1a1a2e;
+      --text-muted:#5c5c7a;
+      --accent:#7e6c9f;
+      --accent-light:#e8e4f0;
+      --accent-dark:#5c4a7d;
+      --border:#e0e0e8;
+      --success:#6b9b7a;
+      --shadow:0 2px 12px rgba(0,0,0,0.06);
+      --shadow-hover:0 6px 24px rgba(126,108,159,0.15);
+      --radius:12px;
+      --container:1120px
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'DM Sans',system-ui,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      font-size:16px
+    }
+    h1,h2,h3,h4{
+      font-family:'Playfair Display',Georgia,serif;
+      font-weight:600;
+      line-height:1.25
+    }
+    a{text-decoration:none;color:inherit;transition:color .2s}
+    img{max-width:100%;height:auto;display:block}
+    .container{
+      max-width:var(--container);
+      margin:0 auto;
+      padding:0 1.5rem
+    }
+    /* HEADER */
+    header{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      background:rgba(250,251,252,.95);
+      backdrop-filter:blur(10px);
+      z-index:1000;
+      border-bottom:1px solid var(--border);
+      transition:box-shadow .3s
+    }
+    header.scrolled{
+      box-shadow:var(--shadow)
+    }
+    .header-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      height:70px
+    }
+    .logo{
+      font-family:'Playfair Display',serif;
+      font-size:1.35rem;
+      font-weight:600;
+      color:var(--text)
+    }
+    .logo span{
+      color:var(--accent)
+    }
+    .nav-links{
+      display:flex;
+      gap:2rem;
+      font-size:.9rem;
+      font-weight:500;
+      color:var(--text-muted)
+    }
+    .nav-links a:hover{
+      color:var(--accent)
+    }
+    .header-cta{
+      background:var(--accent);
+      color:#fff;
+      padding:.55rem 1.2rem;
+      border-radius:8px;
+      font-size:.85rem;
+      font-weight:600
+    }
+    .header-cta:hover{
+      background:var(--accent-dark);
+      color:#fff
+    }
+    @media(max-width:768px){
+      .nav-links{display:none}
+    }
+    /* HERO */
+    .hero{
+      min-height:85vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      background:linear-gradient(135deg,var(--bg-alt) 0%,#f5f6fa 100%);
+      padding:8rem 0 4rem
+    }
+    .hero-inner{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:4rem;
+      align-items:center
+    }
+    .hero-content{
+      max-width:540px
+    }
+    .hero-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:var(--accent-light);
+      color:var(--accent-dark);
+      padding:.4rem .9rem;
+      border-radius:6px;
+      font-size:.8rem;
+      font-weight:600;
+      margin-bottom:1.5rem
+    }
+    .hero h1{
+      font-size:2.7rem;
+      margin-bottom:1.3rem;
+      color:var(--text)
+    }
+    .hero p{
+      font-size:1.05rem;
+      color:var(--text-muted);
+      margin-bottom:2rem
+    }
+    .hero-actions{
+      display:flex;
+      gap:1rem;
+      flex-wrap:wrap
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      padding:.85rem 1.8rem;
+      border-radius:9px;
+      font-weight:600;
+      font-size:.95rem;
+      box-shadow:0 3px 12px rgba(126,108,159,.25);
+      transition:all .25s
+    }
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(126,108,159,.35)
+    }
+    .btn-secondary{
+      background:transparent;
+      color:var(--text);
+      padding:.85rem 1.8rem;
+      border:1.5px solid var(--border);
+      border-radius:9px;
+      font-weight:600;
+      font-size:.95rem;
+      transition:all .25s
+    }
+    .btn-secondary:hover{
+      border-color:var(--accent);
+      color:var(--accent)
+    }
+    .hero-image-wrapper{
+      position:relative
+    }
+    .hero-image-wrapper::before{
+      content:'';
+      position:absolute;
+      top:-20px;
+      left:-20px;
+      right:20px;
+      bottom:20px;
+      background:var(--accent-light);
+      border-radius:var(--radius);
+      z-index:-1
+    }
+    .hero-image-wrapper img{
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-hover);
+      width:100%;
+      max-height:500px;
+      object-fit:cover
+    }
+    .trust-badge{
+      position:absolute;
+      bottom:30px;
+      left:-15px;
+      background:#fff;
+      padding:.9rem 1.3rem;
+      border-radius:10px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+      font-size:.9rem;
+      font-weight:500
+    }
+    .trust-badge .icon{
+      width:36px;
+      height:36px;
+      background:var(--success);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:.8rem
+    }
+    @media(max-width:960px){
+      .hero-inner{
+        grid-template-columns:1fr;
+        gap:2.5rem
+      }
+      .hero h1{
+        font-size:2.1rem
+      }
+      .trust-badge{
+        bottom:20px;
+        left:10px
+      }
+    }
+    @media(max-width:580px){
+      .hero h1{
+        font-size:1.8rem
+      }
+      .hero-actions{
+        flex-direction:column
+      }
+      .btn-primary,.btn-secondary{
+        width:100%;
+        text-align:center
+      }
+    }
+    /* USP STRIP */
+    .usp-strip{
+      background:var(--accent);
+      padding:2rem 0
+    }
+    .usp-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:2rem;
+      text-align:center
+    }
+    .usp-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.5rem;
+      color:#fff
+    }
+    .usp-icon{
+      width:48px;
+      height:48px;
+      background:rgba(255,255,255,.15);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.3rem
+    }
+    .usp-text{
+      font-size:.95rem;
+      font-weight:500
+    }
+    @media(max-width:768px){
+      .usp-grid{
+        grid-template-columns:1fr;
+        gap:1rem
+      }
+      .usp-item{
+        flex-direction:row;
+        justify-content:center
+      }
+    }
+    /* SECTIONS */
+    section{
+      padding:5rem 0
+    }
+    .section-header{
+      text-align:center;
+      margin-bottom:3.5rem
+    }
+    .section-tag{
+      color:var(--accent);
+      font-size:.85rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      margin-bottom:.8rem
+    }
+    .section-header h2{
+      font-size:2.2rem;
+      margin-bottom:1rem
+    }
+    .section-header p{
+      font-size:1.05rem;
+      color:var(--text-muted);
+      max-width:580px;
+      margin:0 auto
+    }
+    /* LEISTUNGEN */
+    .leistungen{
+      background:var(--bg-alt)
+    }
+    .leistungen-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.8rem
+    }
+    .leistung-card{
+      background:var(--bg);
+      padding:2rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      transition:all .3s
+    }
+    .leistung-card:hover{
+      border-color:var(--accent);
+      box-shadow:var(--shadow-hover);
+      transform:translateY(-3px)
+    }
+    .leistung-icon{
+      width:52px;
+      height:52px;
+      background:var(--accent-light);
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.5rem;
+      margin-bottom:1.3rem
+    }
+    .leistung-card h3{
+      font-size:1.25rem;
+      margin-bottom:.8rem;
+      font-family:'DM Sans',sans-serif;
+      font-weight:600
+    }
+    .leistung-card p{
+      font-size:.95rem;
+      color:var(--text-muted);
+      line-height:1.6
+    }
+    @media(max-width:960px){
+      .leistungen-grid{
+        grid-template-columns:repeat(2,1fr)
+      }
+    }
+    @media(max-width:640px){
+      .leistungen-grid{
+        grid-template-columns:1fr
+      }
+    }
+    /* TERMIN BUCHUNG */
+    .termin{
+      background:linear-gradient(135deg,#f5f6fa 0%,var(--bg-alt) 100%)
+    }
+    .termin-wrapper{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-hover);
+      overflow:hidden;
+      max-width:900px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr
+    }
+    .termin-image{
+      background:var(--accent-light);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:3rem;
+      position:relative
+    }
+    .termin-image img{
+      border-radius:var(--radius);
+      max-height:350px;
+      object-fit:cover
+    }
+    .termin-content{
+      padding:3rem
+    }
+    .termin-content h3{
+      font-size:1.6rem;
+      margin-bottom:1rem
+    }
+    .termin-content p{
+      color:var(--text-muted);
+      margin-bottom:1.8rem
+    }
+    .termin-steps{
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      margin-bottom:2rem
+    }
+    .step{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:.95rem;
+      font-weight:500
+    }
+    .step-num{
+      width:32px;
+      height:32px;
+      background:var(--accent);
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.85rem;
+      font-weight:600
+    }
+    @media(max-width:768px){
+      .termin-wrapper{
+        grid-template-columns:1fr
+      }
+      .termin-image{
+        padding:2rem
+      }
+      .termin-content{
+        padding:2rem
+      }
+    }
+    /* GALERIE */
+    .galerie{
+      background:var(--bg-alt)
+    }
+    .galerie-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:2rem
+    }
+    .galerie-item{
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:transform .3s
+    }
+    .galerie-item:hover{
+      transform:scale(1.02)
+    }
+    .galerie-item img{
+      width:100%;
+      height:280px;
+      object-fit:cover
+    }
+    .galerie-item figcaption{
+      background:#fff;
+      padding:1rem;
+      font-size:.9rem;
+      font-weight:500;
+      text-align:center;
+      color:var(--text-muted)
+    }
+    @media(max-width:640px){
+      .galerie-grid{
+        grid-template-columns:1fr
+      }
+    }
+    /* KONTAKT */
+    .kontakt{
+      background:var(--bg)
+    }
+    .kontakt-wrapper{
+      display:grid;
+      grid-template-columns:1fr 1.3fr;
+      gap:3rem;
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden
+    }
+    .kontakt-info{
+      background:var(--accent);
+      padding:3rem;
+      color:#fff
+    }
+    .kontakt-info h3{
+      font-family:'DM Sans',sans-serif;
+      font-size:1.4rem;
+      margin-bottom:1.5rem;
+      font-weight:600
+    }
+    .kontakt-item{
+      display:flex;
+      gap:1rem;
+      margin-bottom:1.4rem;
+      align-items:flex-start
+    }
+    .kontakt-icon{
+      width:40px;
+      height:40px;
+      background:rgba(255,255,255,.15);
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1rem;
+      flex-shrink:0
+    }
+    .kontakt-item span{
+      font-size:.95rem;
+      line-height:1.5
+    }
+    .kontakt-item a{
+      text-decoration:underline;
+      opacity:.9
+    }
+    .kontakt-item a:hover{
+      opacity:1
+    }
+    .kontakt-form{
+      padding:3rem
+    }
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+      margin-bottom:1rem
+    }
+    .form-group{
+      margin-bottom:1rem
+    }
+    .form-group label{
+      display:block;
+      font-size:.85rem;
+      font-weight:600;
+      margin-bottom:.4rem;
+      color:var(--text)
+    }
+    .form-group input,.form-group textarea,.form-group select{
+      width:100%;
+      padding:.8rem 1rem;
+      border:1px solid var(--border);
+      border-radius:8px;
+      font-family:inherit;
+      font-size:.95rem;
+      transition:border-color .2s
+    }
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+      outline:0;
+      border-color:var(--accent)
+    }
+    .form-group textarea{
+      min-height:100px;
+      resize:vertical
+    }
+    .form-note{
+      font-size:.8rem;
+      color:var(--text-muted);
+      margin-top:1rem;
+      line-height:1.4
+    }
+    @media(max-width:960px){
+      .kontakt-wrapper{
+        grid-template-columns:1fr
+      }
+      .kontakt-info,.kontakt-form{
+        padding:2rem
+      }
+      .form-grid{
+        grid-template-columns:1fr
+      }
+    }
+    /* CTA BAND */
+    .cta-band{
+      background:var(--accent);
+      text-align:center;
+      color:#fff;
+      padding:4rem 1.5rem
+    }
+    .cta-band h2{
+      font-family:'DM Sans',sans-serif;
+      font-size:2rem;
+      margin-bottom:1rem;
+      font-weight:600
+    }
+    .cta-band p{
+      font-size:1.1rem;
+      opacity:.9;
+      margin-bottom:2rem;
+      max-width:600px;
+      margin-left:auto;
+      margin-right:auto
+    }
+    .cta-band .btn-primary{
+      background:#fff;
+      color:var(--accent);
+      box-shadow:0 4px 16px rgba(0,0,0,.15)
+    }
+    .cta-band .btn-primary:hover{
+      background:var(--bg-alt);
+      color:var(--accent-dark)
+    }
+    @media(max-width:580px){
+      .cta-band h2{
+        font-size:1.6rem
+      }
+    }
+    /* FOOTER */
+    footer{
+      background:#1a1a2e;
+      color:#fff;
+      padding:2.5rem 0;
+      text-align:center
+    }
+    .footer-content p{
+      font-size:.9rem;
+      opacity:.7;
+      margin-bottom:.3rem
+    }
+    .footer-note{
+      font-size:.8rem;
+      opacity:.5;
+      margin-top:1rem
+    }
+    /* MOBILE CTA BAR */
+    .mobile-cta{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:#fff;
+      padding:1rem;
+      box-shadow:0 -2px 12px rgba(0,0,0,.1);
+      display:flex;
+      gap:.8rem;
+      z-index:999
+    }
+    .mobile-cta .btn-primary,.mobile-cta .btn-secondary{
+      flex:1;
+      text-align:center;
+      padding:.75rem
+    }
+    @media(min-width:581px){
+      .mobile-cta{
+        display:none
+      }
+    }
+    /* ANIMATIONS */
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:all .6s ease-out
+    }
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0)
+    }
+    @media(prefers-reduced-motion:reduce){
+      .reveal{
+        opacity:1;
+        transform:none
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="header">
+    <div class="container header-inner">
+      <div class="logo">Praxis <span>Radek</span></div>
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#termin">Termin vereinbaren</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="#termin" class="header-cta">Termin buchen</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <span class="hero-tag">✓ Physiotherapie · Mannheim-Seckenheim</span>
+        <h1>Ihre Gesundheit in erfahrenen Händen</h1>
+        <p>Individuelle Behandlung von Beschwerden des Muskel- und Skelettsystems, Wirbelsäulenproblematiken sowie professionelle Nachbehandlung von Sport- und Unfallverletzungen.</p>
+        <div class="hero-actions">
+          <a href="#termin" class="btn-primary">Termin vereinbaren</a>
+          <a href="#leistungen" class="btn-secondary">Unsere Leistungen</a>
+        </div>
+      </div>
+      <div class="hero-image-wrapper reveal">
+        <img src="http://www.physiotherapie-radek.de/images/behandlungsraum_rot.jpg" alt="Modern eingerichteter Behandlungsraum der Physiotherapie-Praxis Radek" loading="eager">
+        <div class="trust-badge">
+          <span class="icon">✓</span>
+          <span>Fachkundige Therapie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP STRIP -->
+  <div class="usp-strip">
+    <div class="container usp-grid">
+      <div class="usp-item">
+        <span class="usp-icon">⚕️</span>
+        <span class="usp-text">Krankengymnastik nach Maß</span>
+      </div>
+      <div class="usp-item">
+        <span class="usp-icon">🎯</span>
+        <span class="usp-text">Behandlung von Wirbelsäulenproblematiken</span>
+      </div>
+      <div class="usp-item">
+        <span class="usp-icon">🏃</span>
+        <span class="usp-text">Nachbehandlung Sport- & Unfallverletzungen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEISTUNGEN -->
+  <section class="leistungen" id="leistungen">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Unser Angebot</span>
+        <h2>Behandlungsschwerpunkte</h2>
+        <p>Auf Ihre individuellen Bedürfnisse abgestimmte Therapie — von der Diagnose bis zur Wiederherstellung.</p>
+      </div>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🦴</div>
+          <h3>Muskel- & Skelettsystem</h3>
+          <p>Gezielte Behandlung von Beschwerden des Bewegungsapparates — Schmerzlinderung und Funktionsverbesserung.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🔄</div>
+          <h3>Wirbelsäulenproblematiken</h3>
+          <p>Spezialisierte Therapie bei Rückenschmerzen, Bandscheibenproblemen und funktionellen Störungen der Wirbelsäule.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="leistung-icon">🩹</div>
+          <h3>Nachbehandlung Sport- & Unfallverletzungen</h3>
+          <p>Professionelle Rehabilitation nach Verletzungen — wieder beweglich, stark und schmerzfrei.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMIN BUCHUNG -->
+  <section class="termin" id="termin">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Einfach & Unverbindlich</span>
+        <h2>Termin vereinbaren</h2>
+        <p>Vereinbaren Sie Ihren Behandlungstermin ganz einfach — wir melden uns bei Ihnen.</p>
+      </div>
+      <div class="termin-wrapper reveal">
+        <div class="termin-image">
+          <img src="http://www.physiotherapie-radek.de/images/portrait_grau.jpg" alt="Praxis für Physiotherapie Stefanie Radek" loading="lazy">
+        </div>
+        <div class="termin-content">
+          <h3>So einfach geht's</h3>
+          <p>Füllen Sie das Anfrageformular aus oder rufen Sie uns direkt an.</p>
+          <div class="termin-steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <span>Behandlungsbedarf mitteilen</span>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <span>Wunschtermin angeben</span>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <span>Wir bestätigen zeitnah</span>
+            </div>
+          </div>
+          <a href="#kontakt" class="btn-primary">Zur Terminanfrage</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="galerie">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Einblicke</span>
+        <h2>Unsere Praxis</h2>
+        <p>Modern ausgestattete Räume für eine angenehme Therapieumgebung.</p>
+      </div>
+      <div class="galerie-grid">
+        <figure class="galerie-item reveal">
+          <img src="http://www.physiotherapie-radek.de/images/behandlungsraum_rot.jpg" alt="Behandlungsraum der Praxis" loading="lazy">
+          <figcaption>Behandlungsraum</figcaption>
+        </figure>
+        <figure class="galerie-item reveal">
+          <img src="http://www.physiotherapie-radek.de/images/portrait_grau.jpg" alt="Team der Physiotherapie-Praxis" loading="lazy">
+          <figcaption>Ihre Therapeuten</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="kontakt" id="kontakt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Wir erreichen Sie</span>
+        <h2>Kontakt & Anfahrt</h2>
+      </div>
+      <div class="kontakt-wrapper reveal">
+        <div class="kontakt-info">
+          <h3>Praxis für Physiotherapie</h3>
+          <p style="margin-bottom:2rem;opacity:.9;font-size:.95rem">Stefanie Radek · Mannheim-Seckenheim</p>
+          <div class="kontakt-item">
+            <span class="kontakt-icon">📞</span>
+            <span><a href="tel:+496214815151">+49 621 4815151</a></span>
+          </div>
+          <div class="kontakt-item">
+            <span class="kontakt-icon">✉️</span>
+            <span><a href="mailto:praxis@radek-kg.de">praxis@radek-kg.de</a></span>
+          </div>
+          <div class="kontakt-item">
+            <span class="kontakt-icon">📍</span>
+            <span>Mannheim, Deutschland</span>
+          </div>
+          <div class="kontakt-item">
+            <span class="kontakt-icon">🌐</span>
+            <span>www.physiotherapie-radek.de</span>
+          </div>
+        </div>
+        <div class="kontakt-form">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1.4rem">Terminanfrage</h3>
+          <form action="mailto:praxis@radek-kg.de" method="post" enctype="text/plain">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Für Rückruf">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="reason">Behandlungsanlass</label>
+              <select id="reason" name="reason">
+                <option value="">Bitte wählen…</option>
+                <option value="muskelskelett">Muskel-/Skelettbeschwerden</option>
+                <option value="wirbelsaeule">Wirbelsäulenproblematik</option>
+                <option value="sport">Sportverletzung</option>
+                <option value="unfall">Unfallnachbehandlung</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" placeholder="Ihre Nachricht und bevorzugte Zeiten…"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;border:none;cursor:pointer">Anfrage senden</button>
+            <p class="form-note">Diese Anfrage wird per E-Mail versendet. Wir melden uns zeitnah bei Ihnen.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <h2>Bereit für Ihren Termin?</h2>
+    <p>Vereinbaren Sie jetzt Ihren Behandlungstermin — wir helfen Ihnen gerne weiter.</p>
+    <a href="#kontakt" class="btn-primary">Jetzt Termin anfragen</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-content">
+      <p>Praxis für Physiotherapie Stefanie Radek · Mannheim-Seckenheim</p>
+      <p class="footer-note">Konzept-Vorschau · MZ.9</p>
+    </div>
+  </footer>
+
+  <!-- MOBILE CTA BAR -->
+  <div class="mobile-cta">
+    <a href="tel:+496214815151" class="btn-secondary" style="text-align:center">📞 Anrufen</a>
+    <a href="#kontakt" class="btn-primary">Termin anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header=document.getElementById('header');
+    window.addEventListener('scroll',()=>{
+      header.classList.toggle('scrolled',window.scrollY>20)
+    });
+
+    // Reveal animations
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting)e.target.classList.add('in')
+      })
+    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Smooth offset for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}
+      })
+    });
+  </script>
+</body>
+</html>
