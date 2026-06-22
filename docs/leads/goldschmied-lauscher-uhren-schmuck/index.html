@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Lauscher - Uhren & Schmuck | Edle Zeitstücke & Schmuck in Aachen</title>
+  <meta name="description" content="Wir sind für Sie da. Ganz gleich ob Sie eine interessante Uhr suchen oder einen zertifizierten Uhrmacher. Oder Sie suchen Schmuck für sich selbst — bei Lauscher in Aachen finden Sie exquisite Uhren und edlen Schmuck.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A962;
+      --gold-light: #E8D5A3;
+      --gold-dark: #9A7B3A;
+      --black: #1A1A1A;
+      --charcoal: #2D2D2D;
+      --white: #FFFFFF;
+      --cream: #FAF8F5;
+      --gray: #6B6B6B;
+      --gray-light: #E5E5E5;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -0.01em; }
+    h3 { font-size: 1.5rem; font-weight: 500; }
+    p { font-size: 1rem; color: var(--gray); }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .header.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 0.75rem 2rem;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      height: 40px;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.02); }
+    .nav { display: flex; gap: 2rem; align-items: center; }
+    .nav a {
+      text-decoration: none;
+      color: var(--charcoal);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+    .nav a:hover { color: var(--gold); }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .nav .btn { display: none; }
+    @media (min-width: 768px) { .nav .btn { display: inline-block; } }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+    @media (max-width: 767px) {
+      .menu-toggle { display: block; }
+      .nav {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      .nav.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(201,169,98,0.15) 0%, transparent 50%);
+    }
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content {
+      max-width: 700px;
+      color: var(--white);
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(201,169,98,0.2);
+      border: 1px solid var(--gold);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero .btn-primary { background: var(--gold); color: var(--white); }
+    .hero .btn-outline { border-color: var(--white); color: var(--white); }
+    .hero .btn-outline:hover { background: var(--white); color: var(--black); }
+    .hero-logo {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.1;
+      max-width: 400px;
+    }
+    @media (max-width: 768px) {
+      .hero-logo { display: none; }
+      .hero p { font-size: 1rem; }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--white);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .trust-strip-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+    .trust-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 12px;
+    }
+
+    /* Services */
+    .services {
+      padding: 6rem 2rem;
+      background: var(--cream);
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gold-light);
+    }
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+      font-size: 24px;
+    }
+    .service-card h3 {
+      color: var(--black);
+      margin-bottom: 0.75rem;
+      font-size: 1.3rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Booking Section */
+    .booking {
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .booking::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,169,98,0.1) 0%, transparent 70%);
+    }
+    .booking-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .booking-header {
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+    .booking-header h2 {
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .booking-header p {
+      color: rgba(255,255,255,0.7);
+    }
+    .booking-form {
+      background: var(--white);
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      font-size: 0.9rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,98,0.1);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .booking-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .booking-actions .btn { flex: 1; }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .booking-form { padding: 2rem 1.5rem; }
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 6rem 2rem;
+      background: var(--cream);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+    .contact-info h3 {
+      color: var(--black);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .contact-text h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+    .contact-text a, .contact-text p {
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-text a:hover { color: var(--gold); }
+    .map-placeholder {
+      background: var(--gray-light);
+      border-radius: 8px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      text-align: center;
+    }
+    .cta-band h2 {
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .cta-band .btn {
+      background: var(--white);
+      color: var(--gold-dark);
+    }
+    .cta-band .btn:hover {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 2rem 1rem;
+      font-size: 0.85rem;
+    }
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
+    }
+    .footer-logo {
+      height: 30px;
+      opacity: 0.8;
+    }
+    .footer-preview {
+      background: rgba(201,169,98,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--gold);
+    }
+    .footer-bottom {
+      text-align: center;
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 1rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 99;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .mobile-cta .btn { flex: 1; text-align: center; }
+    @media (min-width: 768px) { .mobile-cta { display: none; } }
+
+    /* Chatbot Widget */
+    .chatbot-widget {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 98;
+    }
+    .chatbot-btn {
+      width: 60px;
+      height: 60px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .chatbot-btn:hover {
+      transform: scale(1.05);
+      background: var(--gold-dark);
+    }
+    .chatbot-panel {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 320px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+    }
+    .chatbot-panel.active { display: flex; }
+    .chatbot-header {
+      background: var(--gold);
+      color: var(--white);
+      padding: 1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chatbot-close {
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .chatbot-body {
+      padding: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .chatbot-message {
+      background: var(--cream);
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .chatbot-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--gray-light);
+    }
+    .chatbot-footer .btn {
+      width: 100%;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 768px) {
+      .chatbot-panel {
+        width: calc(100vw - 40px);
+        right: -10px;
+      }
+      .chatbot-widget { right: 10px; bottom: 80px; }
+    }
+
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* SVG Icons */
+    .icon { width: 24px; height: 24px; fill: currentColor; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <img src="https://www.lauscher.ac/media/image/c4/72/c6/Lauscher_Bildmarke_weiss.png" alt="Lauscher - Uhren & Schmuck Logo" class="logo">
+      <nav class="nav" id="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#booking">Beratung</a>
+        <a href="#contact">Kontakt</a>
+        <button class="btn btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Beratungstermin</button>
+      </nav>
+      <button class="menu-toggle" id="menuToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="https://www.lauscher.ac/media/image/c4/72/c6/Lauscher_Bildmarke_weiss.png" alt="" class="hero-logo">
+    <div class="hero-inner">
+      <div class="hero-content reveal">
+        <span class="hero-tag">Seit Generationen in Aachen</span>
+        <h1>Exklusive Uhren & Edler Schmuck</h1>
+        <p>Wir sind für Sie da. Ganz gleich ob Sie eine interessante Uhr suchen oder einen zertifizierten Uhrmacher. Oder Sie suchen Schmuck für sich selbst — bei Lauscher finden Sie exquisite Zeitstücke und handgefertigten Schmuck.</p>
+        <div class="hero-actions">
+          <a href="#booking" class="btn btn-primary">Beratungstermin vereinbaren</a>
+          <a href="#contact" class="btn btn-outline">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        Zertifizierter Uhrmacher
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        Persönliche Beratung
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        Exklusive Marken
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        Seit Generationen
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Unsere Leistungen</h2>
+        <p>Entdecken Sie unser umfangreiches Angebot — von exquisiten Uhren über handgefertigten Schmuck bis hin zu professionellem Uhrmacher-Service.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+          </div>
+          <h3>Exklusive Uhren</h3>
+          <p>Feinste Zeitstücke renommierter Marken. Von eleganten Dress-Uhren bis zu robusten Sportuhren — finden Sie Ihre perfekte Begleitung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Edler Schmuck</h3>
+          <p>Handgefertigter Schmuck aus Gold, Silber und Edelsteinen. Ringe, Ketten, Anhänger und mehr — für jeden Anlass das passende Stück.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3>Uhrmacher-Service</h3>
+          <p>Professionelle Reparatur und Wartung durch zertifizierte Uhrmacher. Von Batteriewechsel bis zur Komplettrestaurierung.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>Persönliche Beratung</h3>
+          <p>Wir nehmen uns Zeit für Sie. In ruhiger Atmosphäre beraten wir Sie ausführlich zu Ihren Wünschen und Vorstellungen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="booking" id="booking">
+    <div class="booking-inner">
+      <div class="booking-header reveal">
+        <h2>Beratungstermin vereinbaren</h2>
+        <p>Vereinbaren Sie einen persönlichen Beratungstermin — wir nehmen uns Zeit für Ihre Wünsche.</p>
+      </div>
+      <form class="booking-form reveal" action="mailto:info@lauscher.ac" method="post" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Name *</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="Ihre Telefonnummer">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="interest">Interesse an</label>
+            <select id="interest" name="interest" class="form-select">
+              <option value="">Bitte wählen...</option>
+              <option value="uhren">Uhren</option>
+              <option value="schmuck">Schmuck</option>
+              <option value="reparatur">Reparatur / Service</option>
+              <option value="beratung">Allgemeine Beratung</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Ihre Nachricht</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Erzählen Sie uns von Ihren Wünschen oder Fragen..."></textarea>
+        </div>
+        <div class="booking-actions">
+          <button type="submit" class="btn btn-primary">Termin anfragen</button>
+          <a href="tel:+4924120020" class="btn btn-outline">Stattdessen anrufen</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <h2>Kontakt & Anfahrt</h2>
+        <p>Besuchen Sie uns in unserem Geschäft in Aachen oder kontaktieren Sie uns — wir freuen uns auf Sie.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Lauscher - Uhren & Schmuck</h3>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <h4>Adresse</h4>
+              <p>Komphausbadstraße 8<br>52062 Aachen</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <h4>Telefon</h4>
+              <a href="tel:+4924120020">+49 241 20020</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <h4>E-Mail</h4>
+              <a href="mailto:info@lauscher.ac">info@lauscher.ac</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12,6 12,12 16,14"/>
+              </svg>
+            </div>
+            <div class="contact-text">
+              <h4>Website</h4>
+              <a href="https://www.lauscher.ac/" target="_blank" rel="noopener">www.lauscher.ac</a>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder reveal">
+          <div>Karte: Komphausbadstraße 8, 52062 Aachen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="section-inner reveal">
+      <h2>Finden Sie Ihr perfektes Stück</h2>
+      <p>Vereinbaren Sie noch heute einen persönlichen Beratungstermin.</p>
+      <a href="#booking" class="btn">Jetzt Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-content">
+        <img src="https://www.lauscher.ac/media/image/c4/72/c6/Lauscher_Bildmarke_weiss.png" alt="Lauscher Logo" class="footer-logo">
+        <span class="footer-preview">Konzept-Vorschau · MZ.9</span>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Lauscher - Uhren & Schmuck · Diese Seite ist ein Konzept-Vorschau ohne rechtliche Bindung.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+4924120020" class="btn btn-primary">
+      <svg style="vertical-align:middle;margin-right:5px" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      Anrufen
+    </a>
+    <button class="btn btn-outline" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+      Termin
+    </button>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-widget">
+    <button class="chatbot-btn" id="chatbotBtn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+    <div class="chatbot-panel" id="chatbotPanel">
+      <div class="chatbot-header">
+        <span>Schreiben Sie uns</span>
+        <button class="chatbot-close" id="chatbotClose">×</button>
+      </div>
+      <div class="chatbot-body">
+        <div class="chatbot-message">Hallo! Wie können wir Ihnen heute helfen? Nutzen Sie unser Kontaktformular für eine schnelle Antwort.</div>
+      </div>
+      <div class="chatbot-footer">
+        <a href="mailto:info@lauscher.ac" class="btn btn-primary">E-Mail schreiben</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('nav');
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('active'));
+    });
+
+    // Chatbot widget
+    const chatbotBtn = document.getElementById('chatbotBtn');
+    const chatbotPanel = document.getElementById('chatbotPanel');
+    const chatbotClose = document.getElementById('chatbotClose');
+    chatbotBtn.addEventListener('click', () => chatbotPanel.classList.toggle('active'));
+    chatbotClose.addEventListener('click', () => chatbotPanel.classList.remove('active'));
+
+    // Reveal animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

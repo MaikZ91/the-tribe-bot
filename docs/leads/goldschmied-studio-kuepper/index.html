@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Studio Küpper — Luxus-Uhren & Schmuck in Aachen | Konzept</title>
+  <meta name="description" content="Studio Küpper in Aachen: Exklusive Uhren & Schmuck von Breitling, Tudor, Omega, Longines. Persönliche Beratung & Meisterwerkstatt. Terminvereinbarung möglich.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a227;
+      --gold-light: #e8c87a;
+      --navy: #0a1628;
+      --navy-light: #162438;
+      --cream: #f8f6f2;
+      --charcoal: #2a2a2a;
+      --border: rgba(201, 162, 39, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 10px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      transition: padding 0.3s ease;
+    }
+
+    header.scrolled .header-inner {
+      padding: 10px 0;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.85);
+      margin-left: 30px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .header-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-weight: 600;
+      margin-left: 30px !important;
+    }
+
+    .header-cta:hover {
+      background: var(--gold-light);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(10, 22, 40, 0.85) 0%, rgba(10, 22, 40, 0.65) 50%, rgba(10, 22, 40, 0.75) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      color: #fff;
+      max-width: 700px;
+      padding-top: 80px;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-text {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 40px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--navy);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .trust-strip h3 {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 40px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .brands-grid {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .brand-item {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-item:hover {
+      color: var(--gold);
+    }
+
+    /* Brands Showcase */
+    .brands-section {
+      padding: 100px 0;
+      background: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: rgba(42,42,42,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .brands-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .brand-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      aspect-ratio: 16/9;
+      background: var(--navy-light);
+    }
+
+    .brand-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .brand-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .brand-card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px;
+      background: linear-gradient(transparent, rgba(10,22,40,0.85));
+      color: #fff;
+    }
+
+    .brand-card h4 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 5px;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Gallery */
+    .gallery-section {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .gallery-item {
+      position: relative;
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      transform: translateY(-5px);
+    }
+
+    .gallery-item-img {
+      aspect-ratio: 1;
+      background: var(--navy-light);
+      overflow: hidden;
+    }
+
+    .gallery-item-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item-content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .gallery-item h4 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .gallery-item p {
+      font-size: 0.9rem;
+      color: rgba(42,42,42,0.6);
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 100px 0;
+      text-align: center;
+      color: #fff;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .cta-band p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-band .btn-primary {
+      padding: 16px 40px;
+      font-size: 1rem;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      padding: 100px 0;
+      background: #fff;
+    }
+
+    .booking-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .booking-image {
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    .booking-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .booking-form h3 {
+      font-size: 2rem;
+      color: var(--navy);
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .booking-form p {
+      color: rgba(42,42,42,0.7);
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(42,42,42,0.2);
+      border-radius: 2px;
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-light);
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 80px 0;
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .contact-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .contact-item p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+    }
+
+    .contact-item a {
+      color: #fff;
+    }
+
+    .contact-item a:hover {
+      color: var(--gold);
+    }
+
+    /* Footer */
+    footer {
+      background: #050d18;
+      padding: 40px 0;
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--gold);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--navy);
+      padding: 15px 20px;
+      z-index: 999;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+    }
+
+    .mobile-cta a {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .booking-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      footer {
+        padding-bottom: 80px;
+      }
+
+      .brands-grid {
+        gap: 40px;
+      }
+
+      .brand-item {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-content {
+        padding-top: 100px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .brands-showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">Studio <span>Küpper</span></div>
+        <nav>
+          <a href="#brands">Marken</a>
+          <a href="#gallery">Kollektion</a>
+          <a href="#booking">Termin</a>
+          <a href="#contact">Kontakt</a>
+          <a href="#booking" class="header-cta">Beratung</a>
+        </nav>
+        <button class="mobile-menu-btn" aria-label="Menü">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://www.studio-kuepper.de/uploads/media/576x/05/695-SKA_Breitling_Slider2_3840x1120px.jpg?v=1-0" alt="Breitling Kollektion Studio Küpper Aachen">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <p class="hero-tagline">Seit Generationen · Aachen</p>
+        <h1>Zeitstücke mit <em>Seele</em></h1>
+        <p class="hero-text">Entdecken Sie exklusive Uhren & Schmuck von Breitling, Tudor, Omega und weiteren Meistermarken. Persönliche Beratung in unserer Meisterwerkstatt.</p>
+        <div class="hero-btns">
+          <a href="#booking" class="btn-primary">Termin vereinbaren</a>
+          <a href="#gallery" class="btn-secondary">Kollektion ansehen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container">
+      <h3>Top Marken</h3>
+      <div class="brands-grid">
+        <div class="brand-item">Breitling</div>
+        <div class="brand-item">Tudor</div>
+        <div class="brand-item">Omega</div>
+        <div class="brand-item">Longines</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brands-section" id="brands">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Unsere Kollektionen</h2>
+        <p>Neue Modelle & zeitlose Klassiker — ausgesucht für die anspruchsvolle Uhr.</p>
+      </div>
+      <div class="brands-showcase">
+        <div class="brand-card reveal">
+          <img src="https://www.studio-kuepper.de/uploads/media/576x/05/695-SKA_Breitling_Slider2_3840x1120px.jpg?v=1-0" alt="Breitling Kollektion Studio Küpper">
+          <div class="brand-card-overlay">
+            <h4>Breitling</h4>
+            <p>Die neue Kollektion — Schweizer Präzision seit 1884</p>
+          </div>
+        </div>
+        <div class="brand-card reveal">
+          <img src="https://www.studio-kuepper.de/uploads/media/576x/01/861-Tudor-banner.jpg?v=1-0" alt="Tudor Uhren Studio Küpper">
+          <div class="brand-card-overlay">
+            <h4>Tudor</h4>
+            <p>Born to Dare — Robustheit trifft Eleganz</p>
+          </div>
+        </div>
+        <div class="brand-card reveal">
+          <img src="https://www.studio-kuepper.de/uploads/media/576x/07/1287-Omega-Planet-Ocean-2025.jpg?v=1-0" alt="Omega Planet Ocean 2025 Studio Küpper">
+          <div class="brand-card-overlay">
+            <h4>Omega</h4>
+            <p>Planet Ocean 2025 — Taucheruhren der Spitzenklasse</p>
+          </div>
+        </div>
+        <div class="brand-card reveal">
+          <img src="https://www.studio-kuepper.de/uploads/media/576x/02/32-01_Banner3.jpg?v=1-0" alt="Longines Uhren Studio Küpper">
+          <div class="brand-card-overlay">
+            <h4>Longines</h4>
+            <p>Spirit — Das Titan-Zeitalter beginnt</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Neue Modelle</h2>
+        <p>Aktuelle Highlights aus unseren Vitrinen — persönlich vorführbar.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <div class="gallery-item-img">
+            <img src="https://www.studio-kuepper.de/cdn/330x330/0/1/4/8/0148bf924b6b92c104650a4b420183fc3ab1931a_AB0138241C1A1_PROD_877_Breitling_2000x2000_43mm.jpg" alt="Breitling 43mm">
+          </div>
+          <div class="gallery-item-content">
+            <h4>Breitling 43mm</h4>
+            <p>Chronomat — Avantgarde</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-item-img">
+            <img src="https://www.studio-kuepper.de/cdn/330x330/1/d/4/7/1d47cc9ca1753fb50665de0fa6fd726bb4843bab_310.30.42.50.01.001_42mm.jpg" alt="Omega 42mm">
+          </div>
+          <div class="gallery-item-content">
+            <h4>Omega 42mm</h4>
+            <p>Seamaster — Klassiker</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-item-img">
+            <img src="https://www.studio-kuepper.de/cdn/330x330/c/9/e/0/c9e07eeb5e018ba3bd0b4087006bcbf1ab7df77f_03_3100_3600_69_M3100_01.jpg" alt="Longines">
+          </div>
+          <div class="gallery-item-content">
+            <h4>Longines</h4>
+            <p>Spirit Collection</p>
+          </div>
+        </div>
+        <div class="gallery-item reveal">
+          <div class="gallery-item-img">
+            <img src="https://www.studio-kuepper.de/cdn/330x330/a/f/f/9/aff91eda9348b5bea6a9a794c5fe6011788466c0_m7941a1a0ru_0003_01.jpg" alt="Tudor">
+          </div>
+          <div class="gallery-item-content">
+            <h4>Tudor</h4>
+            <p>Black Bay — Heritage</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Fragen Sie uns nach Ihrem Traumstück</h2>
+      <p>Persönliche Beratung in unserem Atelier — wir finden die Uhr, die zu Ihnen passt.</p>
+      <a href="#booking" class="btn-primary">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="booking-section" id="booking">
+    <div class="container">
+      <div class="booking-wrapper">
+        <div class="booking-image reveal">
+          <img src="https://www.studio-kuepper.de/uploads/media/576x/00/860-Tudor-banner%20%281%29.jpg?v=1-0" alt="Beratung Studio Küpper Aachen">
+        </div>
+        <div class="booking-form reveal">
+          <h3>Termin vereinbaren</h3>
+          <p>Erzählen Sie uns Ihr Anliegen — wir melden uns zeitnah.</p>
+          <form action="mailto:info@studio-kuepper.de" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon (optional)</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="interest">Interesse</label>
+              <select id="interest" name="interest">
+                <option value="beratung">Persönliche Beratung</option>
+                <option value="uhr">Spezifische Uhr</option>
+                <option value="reparatur">Reparatur / Service</option>
+                <option value="schmuck">Schmuck</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" placeholder="Ihre Anfrage..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Anfrage senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-item reveal">
+          <h4>Telefon</h4>
+          <p><a href="tel:+4924140006975">0241 4000 6975</a></p>
+        </div>
+        <div class="contact-item reveal">
+          <h4>E-Mail</h4>
+          <p><a href="mailto:info@studio-kuepper.de">info@studio-kuepper.de</a></p>
+        </div>
+        <div class="contact-item reveal">
+          <h4>Standort</h4>
+          <p>Aachen</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Konzept-Preview · <a href="https://maikz91.github.io/the-tribe-bot/">MZ.9</a> · Nicht öffentlich</p>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#booking">Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
