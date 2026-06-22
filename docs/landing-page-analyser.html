@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Kostenlose Landing Page Analyse in 60 Sekunden">
-  <title>Landing Page Analyser</title>
+  <meta name="description" content="Kostenloses Redesign-Konzept für deine Landing Page – innerhalb von 24h">
+  <title>Redesign-Konzept — Kostenlos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,18 +23,14 @@
       min-height: 100vh;
     }
 
-    /* Colors from Ad */
     :root {
       --bg: #0a0a0a;
       --surface: #1a1a1a;
-      --surface-hover: #252525;
       --text-primary: #f5f5f5;
       --text-secondary: #8a8a8a;
       --accent: #666a42;
-      --accent-hover: #7a8050;
       --border: rgba(255,255,255,0.08);
       --button-bg: #393838;
-      --button-hover: #454444;
     }
 
     /* Top Bar */
@@ -43,16 +39,15 @@
       background: #434343;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
     }
     .logo {
       font-weight: 700;
       font-size: 1rem;
       letter-spacing: -0.02em;
     }
-    .logo span { color: #666a42; }
 
-    /* Main Content - Centered */
+    /* Main */
     .main {
       flex: 1;
       display: flex;
@@ -65,7 +60,6 @@
       width: 100%;
     }
 
-    /* Badge */
     .badge {
       font-size: 0.75rem;
       font-weight: 500;
@@ -76,26 +70,24 @@
       margin-bottom: 1rem;
     }
 
-    /* Title */
     .title {
       font-size: 1.75rem;
       font-weight: 700;
       text-align: center;
       line-height: 1.2;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: #666a42;
       letter-spacing: -0.02em;
     }
 
-    /* Subtitle */
     .subtitle {
       font-size: 0.9375rem;
       color: #8a8a8a;
       text-align: center;
       margin-bottom: 1.5rem;
+      line-height: 1.5;
     }
 
-    /* Card */
     .card {
       background: #1a1a1a;
       border: 1px solid var(--border);
@@ -104,7 +96,6 @@
       width: 100%;
     }
 
-    /* Form */
     .form { display: flex; flex-direction: column; gap: 0.875rem; }
 
     .form-label {
@@ -144,7 +135,6 @@
       padding-right: 2rem;
     }
 
-    /* Button */
     .button {
       width: 100%;
       padding: 0.875rem 1rem;
@@ -169,7 +159,6 @@
       cursor: not-allowed;
     }
 
-    /* Bottom Bar */
     .bottom-bar {
       padding: 1rem 1.5rem;
       background: #e9e7e7;
@@ -184,7 +173,6 @@
       color: #393838;
     }
 
-    /* Success Message */
     .success {
       display: none;
       text-align: center;
@@ -200,7 +188,6 @@
       font-size: 0.9375rem;
     }
 
-    /* Mobile */
     @media (max-width: 380px) {
       .title { font-size: 1.5rem; }
       .main { padding: 1rem; }
@@ -208,26 +195,23 @@
   </style>
 </head>
 <body>
-  <!-- Top Bar (Header from Ad) -->
   <div class="top-bar">
-    <div class="logo">Analyser<span>.</span></div>
+    <div class="logo">Redesign Service</div>
   </div>
 
-  <!-- Main Content -->
   <div class="main">
     <div class="badge">Kostenlos & unverbindlich</div>
     <h1 class="title">
-      Deine Landing Page ist<br>Geldverbrennung?
+      Deine Seite<br>verliert Kunden?
     </h1>
     <p class="subtitle">
-      In 60 Sekunden entdecken wir, wo du Besucher verlierst
+      Gib uns deine URL – wir analysieren Schwachstellen<br>und senden dir innerhalb von 24h ein Redesign-Konzept
     </p>
 
-    <!-- Form Card -->
     <div class="card">
       <form class="form" id="form">
         <div class="form-group">
-          <label class="form-label">Landing Page URL</label>
+          <label class="form-label">Deine Landing Page URL</label>
           <input type="url" id="url" class="form-input" placeholder="https://deine-seite.de" required>
         </div>
         <div class="form-group">
@@ -247,21 +231,19 @@
           </select>
         </div>
         <button type="submit" class="button" id="submitBtn">
-          Jetzt kostenlos analysieren
+          Redesign-Konzept anfordern
         </button>
       </form>
 
-      <!-- Success State -->
       <div class="success" id="success">
         <div class="success-icon">✓</div>
-        <p class="success-text">E-Mail geöffnet – sende sie ab!</p>
+        <p class="success-text">Anfrage gesendet!<br>Check deine E-Mails.</p>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Bar (White from Ad) -->
   <div class="bottom-bar">
-    <span class="bottom-text">100% Kostenlos • Keine Verpflichtung</span>
+    <span class="bottom-text">Ergebnis innerhalb von 24h • 100% Kostenlos</span>
   </div>
 
   <script>
@@ -285,20 +267,20 @@
       const email = document.getElementById('email').value;
       const industry = document.getElementById('industry').value;
 
-      submitBtn.textContent = 'Wird geöffnet...';
+      submitBtn.textContent = 'Wird gesendet...';
       submitBtn.disabled = true;
 
-      const subject = encodeURIComponent('Landing Page Analyse angefordert');
+      const subject = encodeURIComponent('Redesign-Konzept angefordert');
       const body = encodeURIComponent(
-        `Hallo,\n\nich möchte meine Landing Page analysieren lassen.\n\n` +
+        `Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n` +
         `URL: ${url}\n` +
         `Branche: ${industryMap[industry]}\n` +
         `E-Mail: ${email}\n\n` +
-        `Bitte sende mir den Bericht zu.\n\nViele Grüße`
+        `Bitte sende mir das Konzept zu.\n\nViele Grüße`
       );
 
       setTimeout(() => {
-        window.location.href = `mailto:deine@email.de?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:DEINE@EMAIL.DE?subject=${subject}&body=${body}`;
         form.style.display = 'none';
         success.classList.add('active');
       }, 500);
