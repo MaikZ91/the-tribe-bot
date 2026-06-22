@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hofgrün Berlin — Urbane Gartengestaltung</title>
+  <meta name="description" content="Hofgrün Berlin — Ihre Adresse für urbane Gartengestaltung in Kreuzberg. Grünraum-Design, Pflanzen-Expertise und Pflege.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2D5A27;
+      --primary-dark: #1F3D1B;
+      --accent: #8B7355;
+      --bg: #F5F4F0;
+      --surface: #FFFFFF;
+      --text: #2C2C2C;
+      --text-light: #5C5C5C;
+      --success: #4CAF50;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled { box-shadow: var(--shadow); }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .nav { display: flex; gap: 2rem; align-items: center; }
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary);
+      color: white !important;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text); }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 1.5rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(45,90,39,0.1);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--primary);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 480px;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--primary); color: white; }
+    .hero-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+
+    /* USPs */
+    .usps { padding: 3rem 1.5rem; background: white; }
+    .usps-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .usp-card {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: transform 0.3s;
+    }
+    .usp-card:hover { transform: translateY(-4px); }
+    .usp-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(45,90,39,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+    .usp-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .usp-card p { font-size: 0.9rem; color: var(--text-light); }
+
+    /* Leistungen */
+    .services { padding: 5rem 1.5rem; }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .section-header p { color: var(--text-light); font-size: 1.1rem; }
+    .services-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .service-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: rgba(45,90,39,0.15);
+      margin-bottom: 1rem;
+    }
+    .service-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--text); }
+    .service-card p { color: var(--text-light); font-size: 0.95rem; }
+    .service-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .service-tag {
+      font-size: 0.75rem;
+      background: rgba(45,90,39,0.1);
+      color: var(--primary);
+      padding: 0.3rem 0.7rem;
+      border-radius: 50px;
+    }
+
+    /* Galerie */
+    .gallery { padding: 5rem 1.5rem; background: white; }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    /* Kontaktformular (Premium-Feature) */
+    .contact { padding: 5rem 1.5rem; }
+    .contact-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; }
+    .contact-item { display: flex; gap: 1rem; margin-bottom: 1.2rem; align-items: start; }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(45,90,39,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-text h4 { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.2rem; }
+    .contact-text p { font-size: 1rem; color: var(--text); }
+    .contact-text a { color: var(--primary); text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; }
+
+    .contact-form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .contact-form p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #E0E0E0;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .submit-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--primary-dark); }
+
+    /* CTA-Band */
+    .cta-band {
+      padding: 4rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      text-align: center;
+      color: white;
+    }
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .cta-band p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-band .btn-primary {
+      background: white;
+      color: var(--primary);
+    }
+    .cta-band .btn-primary:hover { background: var(--bg); }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 1.5rem;
+      background: var(--text);
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+    }
+    .footer p { font-size: 0.85rem; }
+    .footer strong { color: white; }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    .mobile-cta .btn-primary { width: 100%; text-align: center; }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 2rem; min-height: auto; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero-image { order: -1; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .nav { display: none; }
+      .mobile-menu-btn { display: block; }
+      .mobile-cta { display: block; }
+      .cta-band { padding-bottom: 5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Hofgrün</a>
+      <nav class="nav">
+        <a href="#services">Leistungen</a>
+        <a href="#gallery">Projekte</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#contact" class="nav-cta">Anfrage senden</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Menü">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <span class="hero-badge">📍 Kreuzberg, Berlin</span>
+      <h1>Ihre Adresse für urbane Gartengestaltung</h1>
+      <p>Wir verwandeln Innenhöfe, Balkone und Terrassen in lebendige Grün-Oasen. Seit Jahren vertrauen Berlinerinnen und Berliner auf unser Pflanzen-Know-how.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Kostenlose Erstberatung</a>
+        <a href="#services" class="btn-secondary">Leistungen ansehen</a>
+      </div>
+    </div>
+    <div class="hero-image reveal">
+      <img src="http://www.hofgruen-berlin.de/bilder/startseite/40JahreKreuzberg.jpg" alt="Grüner Innenhof in Berlin Kreuzberg — Referenzprojekt von Hofgrün">
+    </div>
+  </section>
+
+  <!-- USPs -->
+  <section class="usps">
+    <div class="usps-inner">
+      <div class="usp-card reveal">
+        <div class="usp-icon">🌿</div>
+        <h3>Standort-Expertise</h3>
+        <p>Wir kennen Berliner Böden und Mikroklima — passende Pflanzen für jeden Innenhof.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">🏡</div>
+        <h3>Urbanes Know-how</h3>
+        <p>Spezialisiert auf Hinterhöfe, Mietshaus-Grün und kleinteilige Stadtbegrünung.</p>
+      </div>
+      <div class="usp-card reveal">
+        <div class="usp-icon">🤝</div>
+        <h3>Handwerk & Herz</h3>
+        <p>Mit langjähriger Erfahrung und Liebe zum Detail — vom ersten Entwurf bis zur Pflege.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <h2>Was wir für Sie tun</h2>
+      <p>Von der Planung bis zur dauerhaften Pflege — ganzheitlich, urban, nachhaltig.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-number">01</div>
+        <h3>Grünraum-Design</h3>
+        <p>Individuelle Gartengestaltung für Innenhöfe, Hintergärten und Terrassen. Wir planen, pflanzen und realisieren.</p>
+        <div class="service-tags">
+          <span class="service-tag">Planung</span>
+          <span class="service-tag">Pflanzenwahl</span>
+          <span class="service-tag">Umsetzung</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">02</div>
+        <h3>Pflege & Erhalt</h3>
+        <p>Regelmäßige Gartenpflege, Schnitt, Düngung und Saison-Vorbereitung. Damit Ihr Grün das ganze Jahr über blüht.</p>
+        <div class="service-tags">
+          <span class="service-tag">Saisonpflege</span>
+          <span class="service-tag">Rückschnitt</span>
+          <span class="service-tag">Düngung</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">03</div>
+        <h3>Balkon & Terrasse</h3>
+        <p>Kleine Flächen, große Wirkung. Wir machen aus jedem Balkon eine blühende Oase.</p>
+        <div class="service-tags">
+          <span class="service-tag">Balkongrün</span>
+          <span class="service-tag">Pflanzkästen</span>
+          <span class="service-tag">Kletterpflanzen</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">04</div>
+        <h3>Beetgestaltung</h3>
+        <p>Staudenbeete, Blumenwiesen, Hecken — wir gestalten harmonisch und nachhaltig.</p>
+        <div class="service-tags">
+          <span class="service-tag">Stauden</span>
+          <span class="service-tag">Hecken</span>
+          <span class="service-tag">Wiesen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="gallery" id="gallery">
+    <div class="section-header reveal">
+      <h2>Aktuelle Projekte</h2>
+      <p>Ein Einblick in unsere Arbeit in und um Berlin Kreuzberg.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="http://www.hofgruen-berlin.de/bilder/startseite/40JahreKreuzberg.jpg" alt="Innenhof-Projekt in Kreuzberg — 40 Jahre Erfahrung" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="http://www.hofgruen-berlin.de/bilder/startseite/Schneeglockchen.jpg" alt="Frühlingserwachen — Schneeglöckchen im Hof" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontaktformular (Premium-Feature) -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h3>Sprechen Sie mit uns</h3>
+        <p>Vereinbaren Sie ein unverbindliches Erstgespräch. Wir besuchen vor Ort und geben Ihnen eine Einschätzung zu den Möglichkeiten Ihres Außenbereichs.</p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <h4>Adresse</h4>
+            <p>Methfesselstraße 10-12<br>10965 Berlin</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-text">
+            <h4>Telefon</h4>
+            <p><a href="tel:+49307863018">+49 30 786 30 18</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <h4>E-Mail</h4>
+            <p><a href="mailto:hofgruen@posteo.de">hofgruen@posteo.de</a></p>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" onsubmit="return false;">
+        <h3>Anfrage senden</h3>
+        <p>Wir melden uns innerhalb von 24 Stunden.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="Für Rückrufe">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="Ihre E-Mail-Adresse" required>
+        </div>
+        <div class="form-group">
+          <label for="service">Interesse an</label>
+          <select id="service" name="service">
+            <option value="">Bitte wählen...</option>
+            <option value="design">Grünraum-Design / Planung</option>
+            <option value="care">Pflege & Erhalt</option>
+            <option value="balcony">Balkon / Terrasse</option>
+            <option value="beds">Beetgestaltung</option>
+            <option value="other">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Ihre Nachricht</label>
+          <textarea id="message" name="message" placeholder="Erzählen Sie uns von Ihrem Projekt..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Anfrage absenden</button>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #999; text-align: center;">Dies ist eine Konzept-Vorschau. Das Formular ist nicht aktiv.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA-Band -->
+  <section class="cta-band">
+    <h2>Bereit für mehr Grün?</h2>
+    <p>Vereinbaren Sie jetzt Ihr kostenloses Erstgespräch vor Ort in Berlin.</p>
+    <a href="tel:+49307863018" class="btn-primary">Jetzt anrufen</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p><strong>Konzept-Vorschau · MZ.9</strong> — Dies ist ein Entwurf für Hofgrün Berlin.</p>
+    <p style="margin-top: 0.5rem;">Methfesselstraße 10-12, 10965 Berlin · <a href="tel:+49307863018" style="color: rgba(255,255,255,0.6);">+49 30 786 30 18</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="#contact" class="btn-primary">Kostenlose Beratung anfragen</a>
+  </div>
+
+  <script>
+    // Header scroll state
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('in');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll(); // Initial check
+
+    // Mobile menu
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('.nav');
+    menuBtn.addEventListener('click', () => {
+      if (nav.style.display === 'flex') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.flexDirection = 'column';
+        nav.style.padding = '1rem';
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      }
+    });
+  </script>
+</body>
+</html>

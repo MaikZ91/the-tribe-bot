@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Kakteengärtnerei Helmut Matk in Berlin — riesiges Sortiment an Kakteen und Sukkulenten in 4. Generation, Schaugarten & Beratung vor Ort.">
+  <title>Kakteengärtnerei Helmut Matk | Berlin — Kakteen & Sukkulenten in 4. Generation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #2D5A3D;
+      --color-primary-dark: #1E3D28;
+      --color-secondary: #C96868;
+      --color-sand: #E8DCC4;
+      --color-sand-light: #F2EBDD;
+      --color-cream: #F9F5EB;
+      --color-text: #2C2420;
+      --color-text-light: #5A4E47;
+      --color-white: #FFFFFF;
+      --color-success: #4A7C59;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+      --shadow-md: 0 6px 16px rgba(0,0,0,0.1);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.14);
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-pill: 50px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--color-cream);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--color-secondary);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s;
+    }
+
+    .header.scrolled {
+      box-shadow: var(--shadow-md);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .header-nav a {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .header-cta {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .header-cta:hover {
+      background: var(--color-primary-dark);
+      color: var(--color-white);
+      transform: translateY(-2px);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 1.5rem 4rem;
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-sand-light) 0%, var(--color-cream) 100%);
+      z-index: -2;
+    }
+
+    .hero-image {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55%;
+      max-width: 700px;
+      height: 80%;
+      object-fit: cover;
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 550px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--color-sand);
+      color: var(--color-primary-dark);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      margin-bottom: 1rem;
+      color: var(--color-primary-dark);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--color-text-light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--color-white);
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-accent {
+      background: var(--color-secondary);
+      color: var(--color-white);
+    }
+
+    .btn-accent:hover {
+      background: #B05A5A;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* USPs */
+    .usps {
+      background: var(--color-white);
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid var(--color-sand-light);
+    }
+
+    .usps-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+
+    .usp-card {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      transition: transform 0.3s;
+    }
+
+    .usp-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .usp-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .usp-title {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary-dark);
+    }
+
+    .usp-text {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+    }
+
+    /* Section Generic */
+    .section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.15rem;
+      color: var(--color-text-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Gallery */
+    .gallery {
+      background: var(--color-white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--color-cream);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 1.2rem;
+    }
+
+    .gallery-caption h4 {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .gallery-caption p {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+    }
+
+    /* Garden Showcase */
+    .showcase {
+      background: linear-gradient(180deg, var(--color-sand-light) 0%, var(--color-cream) 100%);
+    }
+
+    .showcase-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .showcase-text h3 {
+      margin-bottom: 1rem;
+    }
+
+    .showcase-text p {
+      font-size: 1.1rem;
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .showcase-text ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .showcase-text li {
+      padding: 0.6rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--color-text-light);
+    }
+
+    .showcase-text li::before {
+      content: '🌵';
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+    }
+
+    .showcase-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .showcase-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* Contact Form */
+    .contact {
+      background: var(--color-white);
+    }
+
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      color: var(--color-text-light);
+    }
+
+    .contact-info a {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .contact-form {
+      background: var(--color-cream);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid var(--color-sand-light);
+      border-radius: var(--radius-md);
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      background: var(--color-white);
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: var(--color-primary-dark);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .cta-band h3 {
+      color: var(--color-white);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--color-text);
+      color: var(--color-sand-light);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer h4 {
+      color: var(--color-sand);
+      margin-bottom: 1rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .footer p {
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .footer a {
+      color: var(--color-sand-light);
+    }
+
+    .footer-disclaimer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      padding: 1rem 1.5rem;
+      z-index: 999;
+    }
+
+    .mobile-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-image {
+        width: 100%;
+        max-width: none;
+        height: 50%;
+        border-radius: 0;
+        top: auto;
+        bottom: 0;
+        transform: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-bottom: 10rem;
+      }
+
+      .showcase-content,
+      .contact-content {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-image {
+        order: -1;
+      }
+
+      .showcase-image img {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .header-nav {
+        display: none;
+      }
+
+      .mobile-cta {
+        display: block;
+      }
+
+      .section {
+        padding: 3.5rem 1rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-container">
+      <div class="header-logo">Kakteen Matk</div>
+      <nav class="header-nav">
+        <a href="#sortiment">Sortiment</a>
+        <a href="#schaugarten">Schaugarten</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a href="tel:+49307458880" class="header-cta">Anrufen</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-background"></div>
+    <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2023/11/image-01-neu-scaled.jpg" alt="Kakteengärtnerei Helmut Matk in Berlin — Außenansicht der Gärtnerei mit reicher Kakteen-Vielfalt" class="hero-image">
+    <div class="hero-content">
+      <span class="hero-tag">4. Generation</span>
+      <h1 class="hero-title">Willkommen in der Kakteengärtnerei Matk in Berlin</h1>
+      <p class="hero-subtitle">Riesiges Sortiment an Kakteen und Sukkulenten — selbst gezogen mit Leidenschaft. Schaugarten, Beratung und Pflanzen für jedes Zuhause.</p>
+      <div class="hero-ctas">
+        <a href="#sortiment" class="btn btn-primary">Sortiment entdecken</a>
+        <a href="#kontakt" class="btn btn-secondary">Beratung vereinbaren</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="usps">
+    <div class="usps-grid">
+      <div class="usp-card">
+        <span class="usp-icon">🌱</span>
+        <h4 class="usp-title">4. Generation</h4>
+        <p class="usp-text">Familientradition mit über 100 Jahren Erfahrung in der Kakteen-Zucht</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">🌵</span>
+        <h4 class="usp-title">Riesiges Sortiment</h4>
+        <p class="usp-text">Kakteen, Mesembs und Sukkulenten in allen Größen, Formen und Farben</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">🏡</span>
+        <h4 class="usp-title">Schaugarten vor Ort</h4>
+        <p class="usp-text">Entdecken Sie unsere Pflanzen persönlich im Schaugarten in Berlin</p>
+      </div>
+      <div class="usp-card">
+        <span class="usp-icon">💬</span>
+        <h4 class="usp-title">Persönliche Beratung</h4>
+        <p class="usp-text">Echte Fachkenntnis und Tipps für die richtige Pflege Ihrer Pflanzen</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section gallery reveal" id="sortiment">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Unser Sortiment</h2>
+        <p class="section-subtitle">Von klassischen Kakteen bis zu seltenen Sukkulenten — selbst gezogen und gesund.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/themes/kakteen/media/Kakteen.webp" alt="Kakteen — verschiedene Arten und Größen" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Kakteen</h4>
+            <p>Klassische Kugelkakteen, Säulenkakteen und mehr</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/themes/kakteen/media/Mesembs.webp" alt="Mesembs — Lebende Steine und andere Sukkulenten" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Mesembs</h4>
+            <p>Lebende Steine und andere faszinierende Sukkulenten</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/themes/kakteen/media/Sukkulenten.webp" alt="Sukkulenten — wunderschön und pflegeleicht" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Sukkulenten</h4>
+            <p>Pflegeleichte Pflanzen für Fensterbank und Garten</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2023/11/image-03-neu-scaled.jpg" alt="Detailaufnahme: Kaktusblüte" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Blühende Exemplare</h4>
+            <p>Viele unserer Pflanzen blühen beeindruckend</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2023/11/image-04-neu-scaled.jpg" alt="Kakteen-Detail: Struktur und Form" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Einzigartige Formen</h4>
+            <p>Exotische Strukturen und faszinierende Silhouetten</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2026/03/20260305_161250-300x300.jpg" alt="Kaktus-Pflanze in Detailansicht" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Handverlesene Qualität</h4>
+            <p>Jede Pflanze wird mit Sorgfalt ausgewählt</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2019/01/Echinocactus-grusonii-kurz-300x300.jpg" alt="Echinocactus grusonii — Goldener Kaktus" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Echinocactus grusonii</h4>
+            <p>Der beliebte Goldene Kaktus (Königskaktus)</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2024/11/Agave-marmorata-cv.-Papilio-Platanoides-300x300.jpg" alt="Agave marmorata — imposantes Gewächs" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Agaven</h4>
+            <p>Beeindruckende, großwüchsige Sukkulenten</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2026/04/20260416_144346-300x300.jpg" alt="Kaktus-Pflanze in der Kultur" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Spezialitäten</h4>
+            <p>Rare Arten und Spezialkakteen für Sammler</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2021/03/Pachyveria-cv.-Black-Knight-300x300.jpg" alt="Pachyveria Black Knight — dunkelblättrige Sukkulente" loading="lazy">
+          <div class="gallery-caption">
+            <h4>Pachyveria Black Knight</h4>
+            <p>Dunkle, elegante Blattsukkulenten</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section showcase reveal" id="schaugarten">
+    <div class="section-container">
+      <div class="showcase-content">
+        <div class="showcase-text">
+          <h3>Unser Schaugarten entführt Sie in eine andere Welt</h3>
+          <p>Erleben Sie die Vielfalt unserer Kakteen und Sukkulenten vor Ort. In unserem Schaugarten in Berlin finden Sie Inspiration für Ihr eigenes Zuhause und können die Pflanzen hautnah erleben.</p>
+          <ul>
+            <li>Hunderte verschiedene Arten</li>
+            <li>Inspirierende Arrangements</li>
+            <li>Persönliche Beratung direkt vor Ort</li>
+            <li>Wunderschöne Atmosphäre für Entspannung</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-accent">Besuch planen</a>
+        </div>
+        <div class="showcase-image">
+          <img src="https://www.kakteen-matk-berlin.de/wp-content/uploads/2023/11/image-01-neu-1024x683.jpg" alt="Schaugarten der Kakteengärtnerei Matk — faszinierende Kakteenwelt" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact reveal" id="kontakt">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Beratung & Kauf vor Ort</h2>
+        <p class="section-subtitle">Haben Sie Fragen zu unseren Pflanzen? Wir beraten Sie gerne persönlich oder per E-Mail.</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Kontaktieren Sie uns</h3>
+          <p><strong>Telefon:</strong> <a href="tel:+49307458880">+49 30 7458880</a></p>
+          <p><strong>E-Mail:</strong> <a href="mailto:kakteen-matk-thomas@gmx.de">kakteen-matk-thomas@gmx.de</a></p>
+          <p><strong>Adresse:</strong> John-Locke-Straße 36-40, 12305 Berlin</p>
+          <p><strong>Website:</strong> <a href="https://www.kakteen-matk-berlin.de" target="_blank">www.kakteen-matk-berlin.de</a></p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" id="name" class="form-input" placeholder="Ihr Name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">E-Mail</label>
+            <input type="email" id="email" class="form-input" placeholder="ihre@email.de" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Betreff</label>
+            <input type="text" id="subject" class="form-input" placeholder="z.B. Beratung, Besuchstermin, Anfrage..." required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Nachricht</label>
+            <textarea id="message" class="form-textarea" placeholder="Ihre Nachricht an uns..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Nachricht senden</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h3>Pflanzen Sie noch heute Freude</h3>
+    <p>Egal ob Sie ein erfahrener Sammler oder Einsteiger sind — wir haben die passende Pflanze für Sie.</p>
+    <a href="tel:+49307458880" class="btn btn-accent">Jetzt anrufen</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <h4>Kakteengärtnerei Helmut Matk</h4>
+      <p>John-Locke-Straße 36-40, 12305 Berlin</p>
+      <p><a href="tel:+49307458880">+49 30 7458880</a></p>
+      <p><a href="mailto:kakteen-matk-thomas@gmx.de">kakteen-matk-thomas@gmx.de</a></p>
+      <div class="footer-disclaimer">
+        <p>Konzept-Vorschau · MZ.9</p>
+        <p>Diese Seite ist eine unverbindliche Design-Idee. Das Kontaktformular ist ein Konzept.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="tel:+49307458880" class="btn btn-primary">Jetzt anrufen</a>
+  </div>
+
+  <script>
+    // Header scrolled state
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Contact form (concept)
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      const mailtoLink = `mailto:kakteen-matk-thomas@gmx.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `Name: ${name}\nE-Mail: ${email}\n\n${message}`
+      )}`;
+
+      window.location.href = mailtoLink;
+    });
+  </script>
+</body>
+</html>
