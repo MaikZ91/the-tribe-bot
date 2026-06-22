@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Capillusschnitt — Friseur in Paderborn | Tierversuchsfreie Haarpflege</title>
+  <meta name="description" content="Capillusschnitt — Ihr Friseur in Paderborn, Kilianstraße 8. Professionelle Haarschnitte, Farben und Pflege — 100% tierversuchsfrei. Jetzt Termin vereinbaren.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #2a2a2a;
+      --accent: #c9a87c;
+      --accent-light: #e8d5b7;
+      --bg: #faf9f7;
+      --bg-alt: #f3f1ee;
+      --text: #3a3a3a;
+      --text-light: #6b6b6b;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    }
+    .header.scrolled {
+      box-shadow: var(--shadow);
+      padding: 0.75rem 2rem;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+    .nav { display: flex; gap: 2rem; align-items: center; }
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      position: relative;
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: 0.3s;
+    }
+    .nav a:hover::after { width: 100%; }
+    .btn-cta {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .btn-cta:hover { background: var(--accent); }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5% 4rem;
+      gap: 4rem;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+    .hero-image {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/5;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-alt);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    .badge-icon { width: 16px; height: 16px; color: var(--accent); }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--primary);
+      color: var(--white);
+      padding: 3rem 5%;
+      text-align: center;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .trust-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    .trust-item p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Services */
+    .services {
+      padding: 6rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 2px;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-alt);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .service-icon svg { width: 24px; height: 24px; color: var(--accent); }
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Booking Feature */
+    .booking {
+      background: var(--bg-alt);
+      padding: 6rem 5%;
+    }
+    .booking-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .booking-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2rem;
+      text-align: center;
+    }
+    .booking-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .booking-steps {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .booking-step {
+      flex: 1;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border: 1px solid var(--bg-alt);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .booking-step:hover {
+      border-color: var(--accent);
+      background: var(--bg);
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .booking-step h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .booking-step p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    .booking-cta {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--bg-alt);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 6rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 280px);
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Team */
+    .team {
+      background: var(--bg-alt);
+      padding: 6rem 5%;
+    }
+    .team-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .team-member {
+      background: var(--white);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+    .team-member:hover { transform: translateY(-4px); }
+    .team-member img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    .team-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .team-info h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+      color: var(--primary);
+    }
+    .team-info p {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* CTA Band */
+    .cta-band {
+      background: linear-gradient(135deg, var(--primary) 0%, #3a3a3a 100%);
+      color: var(--white);
+      padding: 5rem 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_d5f5ac4540.jpg') center/cover;
+      opacity: 0.15;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cta-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    .cta-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+    .cta-content .btn-cta {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+    }
+    .cta-content .btn-cta:hover { background: var(--accent-light); }
+
+    /* Contact */
+    .contact {
+      padding: 6rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .contact-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-item p {
+      color: var(--text-light);
+    }
+    .contact-item strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    .map-placeholder {
+      background: var(--bg-alt);
+      border-radius: 2px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary);
+      color: var(--white);
+      padding: 3rem 5%;
+      text-align: center;
+    }
+    .footer p {
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+    .footer a { color: var(--accent); }
+
+    /* Mobile CTA Bar */
+    .mobile-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 1rem;
+      display: none;
+      justify-content: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      z-index: 99;
+    }
+    .mobile-cta .btn-cta {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 6rem; }
+      .hero-content p { margin: 0 auto 2rem; }
+      .hero-badges { justify-content: center; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .booking-steps { flex-direction: column; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 200px); }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+      .team-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .mobile-cta { display: flex; }
+      .nav { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="logo">capillusschnitt</div>
+    <nav class="nav">
+      <a href="#services">Leistungen</a>
+      <a href="#booking">Termin buchen</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+    <a href="tel:+4952518785737" class="btn-cta">Termin vereinbaren</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content reveal">
+      <div class="hero-badges">
+        <div class="badge">
+          <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          Ohne Tierversuche
+        </div>
+        <div class="badge">
+          <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Premium Haarpflege
+        </div>
+      </div>
+      <h1>Ihr Haar<br>verdient das Beste.</h1>
+      <p>Professionelle Haarschnitte, Farben und Pflege — ganz ohne Tierversuche. Willkommen bei Capillusschnitt in Paderborn.</p>
+      <a href="#booking" class="btn-cta">Jetzt Termin buchen</a>
+    </div>
+    <div class="hero-image reveal">
+      <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_d5f5ac4540.jpg" alt="Capillusschnitt Friseur Salon Interior">
+    </div>
+  </section>
+
+  <!-- Trust Strip -->
+  <section class="trust-strip">
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <h4>100% Tierversuchsfrei</h4>
+        <p>Alle Produkte sind zertifiziert</p>
+      </div>
+      <div class="trust-item reveal">
+        <h4>Professionelle Beratung</h4>
+        <p>Individuell auf Sie abgestimmt</p>
+      </div>
+      <div class="trust-item reveal">
+        <h4>Modernes Ambiente</h4>
+        <p>Entspannende Atmosphäre</p>
+      </div>
+      <div class="trust-item reveal">
+        <h4>Zentral in Paderborn</h4>
+        <p>Kilianstraße 8, 33098</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="section-header reveal">
+      <h2>Unsere Leistungen</h2>
+      <p>Vom klassischen Schnitt bis zum trendigen Styling — wir verwirklichen Ihren Traum</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3>Damen Schnitte</h3>
+        <p>Professionelle Haarschnitte mit individuellen Beratungen. Von klassisch bis modern.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h3>Herren Schnitte</h3>
+        <p>Precision Cuts, Bärte und Styling. Perfekt in Form für jeden Anlass.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <h3>Farben & Tönungen</h3>
+        <p>Natürliche Farbergebnisse mit hochwertigen, tierversuchsfreien Produkten.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3 3a22 22 0 0 1-2-3.95A22.06 22.06 0 0 1 5.1 9m7.9 6a22.06 22.06 0 0 0 5.1-2.05A22.05 22.05 0 0 0 15 6m-3 9l3 3"/><path d="M14.5 6.5a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l4-4a3.5 3.5 0 0 0 0-5z"/></svg>
+        </div>
+        <h3>Haarpflege</h3>
+        <p>Intensive Treatments und Kuren für gesundes, glänzendes Haar.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </div>
+        <h3>Styling</h3>
+        <p>Wäsche, Schneiden und Föhnen für den perfekten Look.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Hochzeit & Events</h3>
+        <p>Braut-Styling und Event-Frisuren für Ihren besonderen Tag.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Online Booking Feature -->
+  <section class="booking" id="booking">
+    <div class="booking-container reveal">
+      <div class="booking-header">
+        <h3>Einfach online Termin buchen</h3>
+        <p>In 3 Schritten zu Ihrem Wunschtermin</p>
+      </div>
+      <div class="booking-steps">
+        <div class="booking-step">
+          <div class="step-number">1</div>
+          <h4>Leistung wählen</h4>
+          <p>Damen, Herren, Farbe oder Pflege</p>
+        </div>
+        <div class="booking-step">
+          <div class="step-number">2</div>
+          <h4>Zeitpunkt auswählen</h4>
+          <p>Tag und Uhrzeit festlegen</p>
+        </div>
+        <div class="booking-step">
+          <div class="step-number">3</div>
+          <h4>Kontakt angeben</h4>
+          <p>Name, Telefon und Bestätigung</p>
+        </div>
+      </div>
+      <div class="booking-cta">
+        <a href="tel:+4952518785737" class="btn-cta">📞 Jetzt telefonisch Termin vereinbaren</a>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">Montags bis freitags • Online-Booking folgt bald</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="section-header reveal">
+      <h2>Galerie</h2>
+      <p>Einblicke in unseren Salon und unsere Arbeiten</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_d5f5ac4540.jpg" alt="Salon Atmosphäre" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_b1d8e63cff.jpg" alt="Friseur Arbeit" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_b468f2929c.jpg" alt="Styling Bereich" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_fd06bb9b7a.jpg" alt="Produkte" loading="lazy">
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://www.capillus-schnitt.de/fileadmin/_processed_/7/e/csm_home-02-web_d5f5ac4540.jpg" alt="Salon Detail" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team" id="team">
+    <div class="section-header reveal">
+      <h2>Unser Team</h2>
+      <p>Engagiert, erfahren und herzlich</p>
+    </div>
+    <div class="team-container">
+      <div class="team-grid">
+        <div class="team-member reveal">
+          <img src="https://www.capillus-schnitt.de/fileadmin/Projekte/Capillus/Bilder/Team/DSC06950-Bearbeitet.png" alt="Teammitglied" loading="lazy">
+          <div class="team-info">
+            <h4>Unser Expertenteam</h4>
+            <p>Stylisten & Coloristen</p>
+          </div>
+        </div>
+        <div class="team-member reveal">
+          <img src="https://www.capillus-schnitt.de/fileadmin/Projekte/Capillus/Bilder/Team/DSC06982.png" alt="Teammitglied" loading="lazy">
+          <div class="team-info">
+            <h4>Ihre Stylisten</h4>
+            <p>Passion & Präzision</p>
+          </div>
+        </div>
+        <div class="team-member reveal">
+          <img src="https://www.capillus-schnitt.de/fileadmin/Projekte/Capillus/Bilder/Team/DSC06915.png" alt="Teammitglied" loading="lazy">
+          <div class="team-info">
+            <h4>Capillusschnitt</h4>
+            <p>Mit Liebe zum Detail</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="cta-content reveal">
+      <h2>Bereit für Ihren neuen Look?</h2>
+      <p>Vereinbaren Sie noch heute Ihren Termin bei Capillusschnitt in Paderborn.</p>
+      <a href="tel:+4952518785737" class="btn-cta">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Kontakt & Anfahrt</h3>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <strong>Adresse</strong>
+            <p>Kilianstraße 8<br>33098 Paderborn</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <strong>Telefon</strong>
+            <p><a href="tel:+4952518785737">+49 5251 8785737</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <strong>E-Mail</strong>
+            <p><a href="mailto:info@capillus-schnitt.de">info@capillus-schnitt.de</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder reveal">
+        <p>📍 Kilianstraße 8, 33098 Paderborn</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Konzept-Vorschau · MZ.9 · <a href="http://www.capillus-schnitt.de" target="_blank">capillusschnitt.de</a></p>
+  </footer>
+
+  <!-- Mobile CTA Bar -->
+  <div class="mobile-cta">
+    <a href="tel:+4952518785737" class="btn-cta">📞 Termin vereinbaren</a>
+  </div>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
