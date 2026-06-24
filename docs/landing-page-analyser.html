@@ -225,104 +225,71 @@
       .bottom-bar { padding: 0.75rem 1.25rem; }
     }
 
-    /* === Premium Site Vorschau (oben rechts) === */
-    .preview-thumb {
+    /* === Premium Site Vorschau (oben rechts) — Link auf mz9.html === */
+    .preview-link {
       position: fixed;
       top: 1rem;
       right: 1rem;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.3);
-      background: #0a0a0a;
-      cursor: pointer;
       z-index: 40;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s, transform 0.15s;
-      overflow: hidden;
-    }
-    .preview-thumb:hover { border-color: #fff; transform: scale(1.05); }
-    .preview-thumb::after { content: '▶'; font-size: 0.85rem; color: #fff; }
-    .preview-thumb .pt-label, .preview-thumb .pt-wrap { display: none; }
-
-    @media (min-width: 1100px) {
-      .preview-thumb {
-        width: 187px;
-        height: 250px;
-        border-radius: 0;
-        overflow: hidden;
-      }
-      .preview-thumb::after { display: none; }
-      .preview-thumb .pt-label {
-        display: block;
-        position: absolute; top: 0; left: 0; right: 0;
-        padding: 0.35rem 0.5rem;
-        font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase;
-        color: rgba(255,255,255,0.75);
-        background: rgba(0,0,0,0.65);
-        z-index: 2;
-      }
-      .preview-thumb .pt-wrap {
-        display: block;
-        width: 375px; height: 500px;
-        transform: scale(0.5);
-        transform-origin: top left;
-        pointer-events: none;
-      }
-      .preview-thumb .pt-wrap iframe { width: 375px; height: 500px; border: 0; display: block; }
-      .preview-thumb:hover {
-        width: 300px; height: 402px;
-        border-color: rgba(255,255,255,0.5);
-      }
-      .preview-thumb:hover .pt-wrap { transform: scale(0.8); }
-    }
-
-    .preview-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 100;
-      display: none;
-      align-items: center; justify-content: center;
-      padding: 1rem;
-    }
-    .preview-overlay.active { display: flex; }
-    .preview-overlay .po-frame {
-      width: 390px; max-width: 100%;
-      height: 90vh; max-height: 844px;
-      background: #000; border: 1px solid rgba(255,255,255,0.25);
-      position: relative;
-    }
-    .preview-overlay .po-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .preview-overlay .po-title {
-      position: absolute; top: -2.4rem; left: 0;
-      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-    }
-    .preview-overlay .po-close {
-      position: absolute; top: -2.5rem; right: 0;
-      background: none; border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; padding: 0.4rem 0.9rem; cursor: pointer;
-      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      gap: 0.45rem;
+      padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+      background: rgba(10,10,10,0.85);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       font-family: inherit;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s, transform 0.15s;
     }
-    .preview-overlay .po-close:hover { background: rgba(255,255,255,0.1); }
+    .preview-link:hover { border-color: #fff; transform: translateY(-1px); }
+    .preview-link .pl-play {
+      position: relative;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #10b981; color: #06150f; flex: none;
+    }
+    .preview-link .pl-play svg { width: 11px; height: 11px; position: relative; z-index: 1; }
+    .preview-link .pl-play::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: #10b981;
+      opacity: 0.55;
+      animation: pl-pulse 1.8s cubic-bezier(0.22,0.61,0.36,1) infinite;
+    }
+    @keyframes pl-pulse {
+      0% { transform: scale(1); opacity: 0.55; }
+      70% { transform: scale(2.4); opacity: 0; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    @media (max-width: 480px) { .preview-link .pl-text { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .preview-link .pl-play::before { animation: none; opacity: 0; } }
 
-    /* === Chatbot "Frag Maik" === */
+    /* === Chatbot "Frag Maik" (Icon wie auf der MZ.9-Page) === */
     .chatbot { position: fixed; bottom: 4.5rem; right: 1rem; z-index: 50; font-family: inherit; }
     .chatbot-btn {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: #ffffff; color: #000;
-      border: none; cursor: pointer;
-      padding: 0.7rem 1rem;
-      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-      font-family: inherit;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
-      transition: transform 0.15s;
+      width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer;
+      background: #10b981; color: #06150f;
+      box-shadow: 0 14px 34px -10px rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s;
+      position: relative;
     }
-    .chatbot-btn:hover { transform: translateY(-2px); }
-    .chatbot-btn .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
+    .chatbot-btn:hover { transform: translateY(-3px) scale(1.05); }
+    .chatbot-btn svg { width: 27px; height: 27px; }
+    .chatbot-btn .dot {
+      position: absolute; top: -3px; right: -3px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #FF5C5C; border: 2px solid #fff;
+      animation: fragmaik-pulse 2s infinite;
+    }
+    @keyframes fragmaik-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }
     .chatbot-panel {
       position: absolute; bottom: calc(100% + 0.75rem); right: 0;
       width: 322px; max-width: calc(100vw - 2rem);
@@ -371,7 +338,8 @@
 
     @media (max-width: 767px) {
       .chatbot { bottom: 5rem; }
-      .chatbot-btn { padding: 0.6rem 0.8rem; }
+      .chatbot-btn { width: 54px; height: 54px; }
+      .chatbot-btn svg { width: 24px; height: 24px; }
     }
   </style>
 </head>
@@ -461,18 +429,11 @@
     });
   </script>
 
-  <!-- Premium Site Vorschau (oben rechts) -->
-  <div class="preview-thumb" id="previewThumb" title="Premium Site Vorschau öffnen" role="button" tabindex="0" aria-label="Premium Site Vorschau öffnen">
-    <div class="pt-label">Premium Site Vorschau</div>
-    <div class="pt-wrap"><iframe src="mz9.html" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
-  </div>
-  <div class="preview-overlay" id="previewOverlay">
-    <div class="po-frame">
-      <div class="po-title">MZ.9 Premium Site — Live Vorschau</div>
-      <button class="po-close" id="poClose" type="button">Schließen ✕</button>
-      <iframe id="poFrame" src="" title="MZ.9 Premium Site Vorschau"></iframe>
-    </div>
-  </div>
+  <!-- Premium Site Vorschau (oben rechts) — Link auf mz9.html -->
+  <a class="preview-link" href="mz9.html" target="_blank" rel="noopener" title="MZ.9 Premium Site ansehen">
+    <span class="pl-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+    <span class="pl-text">Premium Site Vorschau</span>
+  </a>
 
   <!-- Chatbot "Frag Maik" -->
   <div class="chatbot">
@@ -487,7 +448,7 @@
         <button id="cpSend" type="button">Senden</button>
       </div>
     </div>
-    <button class="chatbot-btn" id="chatBtn" type="button"><span class="dot"></span>💬 Frag Maik</button>
+    <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Frag Maik Chat öffnen"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></button>
   </div>
 
   <script>
@@ -579,22 +540,6 @@
       document.getElementById('cpClose').addEventListener('click', function () { panel.classList.remove('active'); });
       document.getElementById('cpSend').addEventListener('click', function () { sendUser(document.getElementById('cpInput').value); });
       document.getElementById('cpInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendUser(e.target.value); });
-
-      // Premium Site Vorschau
-      var thumb = document.getElementById('previewThumb');
-      var overlay = document.getElementById('previewOverlay');
-      var poFrame = document.getElementById('poFrame');
-      var poClose = document.getElementById('poClose');
-      function openPreview() {
-        if (!poFrame.getAttribute('src')) poFrame.src = 'mz9.html';
-        overlay.classList.add('active');
-      }
-      function closePreview() { overlay.classList.remove('active'); }
-      thumb.addEventListener('click', openPreview);
-      thumb.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPreview(); } });
-      poClose.addEventListener('click', closePreview);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closePreview(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePreview(); });
     })();
   </script>
 </body>
