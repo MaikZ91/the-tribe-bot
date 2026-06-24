@@ -282,23 +282,27 @@
     }
 
     /* === Chatbot "Frag Maik" (exakt wie MZ.9-Page: leads/chat.js Look) === */
-    .chatbot { position: fixed; bottom: 18px; right: 18px; z-index: 50; font-family: 'Inter', system-ui, sans-serif; }
+    .chatbot { position: fixed; bottom: 22px; right: 22px; z-index: 200; font-family: Arial, sans-serif; }
     .chatbot-btn {
-      width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer;
-      background: #10b981; color: #06150f;
-      box-shadow: 0 14px 34px -10px rgba(0,0,0,0.5);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.25s; position: relative;
+      display: flex; flex-direction: row; align-items: center; gap: 12px;
+      padding: 9px 22px 9px 9px;
+      background: #0a0a0b; color: #f0eee9;
+      border: 1px solid rgba(240,238,233,0.4); border-radius: 44px;
+      box-shadow: 0 18px 50px 0 rgba(0,0,0,0.55);
+      cursor: pointer; font-family: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .chatbot-btn:hover { transform: translateY(-3px) scale(1.05); }
-    .chatbot-btn svg { width: 27px; height: 27px; }
+    .chatbot-btn:hover { transform: translateY(-2px); box-shadow: 0 22px 60px 0 rgba(0,0,0,0.65); }
+    .chatbot-btn .av { position: relative; width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex: none; }
+    .chatbot-btn .av img { width: 48px; height: 48px; object-fit: cover; display: block; }
     .chatbot-btn .dot {
-      position: absolute; top: -3px; right: -3px;
-      width: 16px; height: 16px; border-radius: 50%;
-      background: #FF5C5C; border: 2px solid #fff;
-      animation: fragmaik-pulse 2s infinite;
+      position: absolute; top: -2px; right: -2px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #10b981; border: 2px solid #0a0a0b;
     }
-    @keyframes fragmaik-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+    .chatbot-btn .ftxt { display: flex; flex-direction: column; line-height: 1; }
+    .chatbot-btn .ftxt b { font-size: 14px; font-weight: 500; color: #f0eee9; letter-spacing: 0.07px; }
+    .chatbot-btn .ftxt small { font-size: 10.5px; font-weight: 500; color: #10b981; letter-spacing: 1.47px; margin-top: 2px; }
 
     .chatbot-panel {
       position: absolute; bottom: calc(100% + 0.75rem); right: 0;
@@ -359,9 +363,11 @@
     .cp-foot input::placeholder { color: #586166; }
     .cp-foot button { background: #10b981; color: #06150f; border: 0; border-radius: 10px; width: 44px; cursor: pointer; font-size: 18px; flex: none; }
 
-    @media (max-width: 767px) {
-      .chatbot-btn { width: 54px; height: 54px; }
-      .chatbot-btn svg { width: 24px; height: 24px; }
+    @media (max-width: 420px) {
+      .chatbot { bottom: 16px; right: 16px; }
+      .chatbot-btn { padding: 7px 16px 7px 7px; gap: 9px; }
+      .chatbot-btn .av, .chatbot-btn .av img { width: 42px; height: 42px; }
+      .chatbot-btn .ftxt b { font-size: 13px; }
     }
   </style>
 </head>
@@ -472,7 +478,10 @@
         <button id="cpSend" type="button" aria-label="Senden">➤</button>
       </div>
     </div>
-    <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Frag Maik Chat öffnen"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></button>
+    <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Mit Maik chatten — Anfrage starten" aria-expanded="false">
+      <span class="av"><img src="assets/mz9/maik.jpg" alt="Maik" width="48" height="48"><span class="dot" aria-hidden="true"></span></span>
+      <span class="ftxt"><b>Frag&nbsp;Maik</b><small>Antwortet sofort</small></span>
+    </button>
   </div>
 
   <script>
