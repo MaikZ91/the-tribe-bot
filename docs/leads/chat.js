@@ -16,6 +16,7 @@
   var ACCENT = C.accent || "#10b981";
   var TO = C.to || "mzschach@googlemail.com";
   var CTA = C.cta || "";
+  var AV = C.avatar || "";
   var esc = function(s){return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]);});};
 
   var css = ""
@@ -31,7 +32,8 @@
   + ".mz9c-panel.open{display:flex;animation:mz9in .28s cubic-bezier(.22,.61,.36,1)}"
   + "@keyframes mz9in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}"
   + ".mz9c-head{display:flex;align-items:center;gap:11px;padding:14px 16px;background:linear-gradient(120deg,"+ACCENT+"22,transparent);border-bottom:1px solid rgba(255,255,255,.1)}"
-  + ".mz9c-av{width:38px;height:38px;border-radius:50%;background:"+ACCENT+";color:#06150f;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}"
+  + ".mz9c-av{width:38px;height:38px;border-radius:50%;background:"+ACCENT+";color:#06150f;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none;overflow:hidden}"
+  + ".mz9c-av img{width:100%;height:100%;object-fit:cover;display:block}"
   + ".mz9c-head b{font-size:14.5px;display:block} .mz9c-head span{font-size:11.5px;color:#8a93a0;display:flex;align-items:center;gap:6px}"
   + ".mz9c-head span i{width:7px;height:7px;border-radius:50%;background:"+ACCENT+";display:inline-block}"
   + ".mz9c-x{margin-left:auto;background:transparent;border:0;color:#8a93a0;font-size:20px;cursor:pointer;line-height:1}"
@@ -56,7 +58,7 @@
   + '<button class="mz9c-btn" id="mz9cBtn" aria-label="Chat öffnen"><span class="dot"></span>'
   + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></button>'
   + '<div class="mz9c-panel" id="mz9cPanel" role="dialog" aria-label="Chat">'
-  + '  <div class="mz9c-head"><span class="mz9c-av">'+(MODE==="mz9"?"M9":esc(NAME.charAt(0)))+'</span>'
+  + '  <div class="mz9c-head"><span class="mz9c-av">'+(AV?'<img src="'+esc(AV)+'" alt="'+esc(NAME)+'">':(MODE==="mz9"?"M9":esc(NAME.charAt(0))))+'</span>'
   + '    <div><b>'+(MODE==="mz9"?"MZ.9 Assistent":esc(NAME))+'</b><span><i></i>Antwortet meist sofort</span></div>'
   + '    <button class="mz9c-x" id="mz9cX" aria-label="Schließen">×</button></div>'
   + '  <div class="mz9c-body" id="mz9cBody"></div>'
@@ -126,7 +128,7 @@
     bot("Hallo 👋 Willkommen bei <b>"+esc(NAME)+"</b>! Wie kann ich helfen?");
     setTimeout(function(){ setChips([
       {t:"Leistungen",fn:function(){ add("Leistungen","user"); bot("Einen Überblick unserer Leistungen findest du direkt auf der Seite — soll ich dich hinführen?"); setTimeout(function(){setChips([{t:"Zu den Leistungen",go:true,fn:function(){goTo("#leistungen");}},{t:"Termin/Anfrage",fn:leadCta}]);},600); }},
-      {t:"Öffnungszeiten",fn:function(){ add("Öffnungszeiten","user"); bot("Unsere Öffnungszeiten &amp; Kontaktdaten stehen weiter unten im Bereich „Kontakt". Ich bring dich hin:"); setTimeout(function(){setChips([{t:"Zu Kontakt",go:true,fn:function(){goTo("#info");}}]);},600); }},
+      {t:"Öffnungszeiten",fn:function(){ add("Öffnungszeiten","user"); bot("Unsere Öffnungszeiten &amp; Kontaktdaten stehen weiter unten im Bereich „Kontakt“. Ich bring dich hin:"); setTimeout(function(){setChips([{t:"Zu Kontakt",go:true,fn:function(){goTo("#info");}}]);},600); }},
       {t:"Termin / Anfrage",fn:leadCta}
     ]); },800);
   }
