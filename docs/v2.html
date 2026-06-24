@@ -213,6 +213,54 @@
   }
   @media (min-width:560px){.stage,.top{max-width:480px;margin:0 auto}.top{left:50%;transform:translateX(-50%)}}
   @media (max-height:680px){.c{gap:10px;padding-bottom:20px}h1{font-size:clamp(34px,10vw,50px)}.guide{height:22px}}
+
+  /* === Frag Maik Chatbot (dunkler Pill im MZ.9-Stil, Tribe-Akzent amber) === */
+  .chatbot{position:relative;align-self:flex-end;margin:2px 0 6px;z-index:30;font-family:var(--fb)}
+  .chatbot-btn{display:flex;flex-direction:row;align-items:center;gap:11px;padding:8px 18px 8px 8px;
+    background:#0A0807;color:var(--text);border:1px solid rgba(247,242,234,.4);border-radius:44px;
+    box-shadow:0 18px 50px rgba(0,0,0,.55);cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s}
+  .chatbot-btn:hover{transform:translateY(-2px);box-shadow:0 22px 60px rgba(0,0,0,.65)}
+  .chatbot-btn .av{position:relative;width:44px;height:44px;border-radius:50%;overflow:hidden;flex:none}
+  .chatbot-btn .av img{width:44px;height:44px;object-fit:cover;display:block}
+  .chatbot-btn .dot{position:absolute;top:-2px;right:-2px;width:11px;height:11px;border-radius:50%;
+    background:var(--amber);border:2px solid #0A0807}
+  .chatbot-btn .ftxt{display:flex;flex-direction:column;line-height:1}
+  .chatbot-btn .ftxt b{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.07px}
+  .chatbot-btn .ftxt small{font-size:10px;font-weight:600;color:var(--amber);letter-spacing:1.3px;margin-top:2px}
+  .chatbot-panel{position:absolute;bottom:calc(100% + 10px);right:0;width:min(340px,calc(100vw - 28px));
+    height:min(500px,calc(100dvh - 180px));background:#0E0B09;color:var(--text);
+    border:1px solid rgba(247,242,234,.14);border-radius:18px;overflow:hidden;display:none;flex-direction:column;
+    box-shadow:0 30px 80px -24px rgba(0,0,0,.7)}
+  .chatbot-panel.active{display:flex;animation:cpin .28s cubic-bezier(.22,.61,.36,1)}
+  @keyframes cpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .cp-head{display:flex;align-items:center;gap:11px;padding:14px 16px;
+    background:linear-gradient(120deg,rgba(245,162,26,.14),transparent);border-bottom:1px solid rgba(247,242,234,.1)}
+  .cp-av{width:38px;height:38px;border-radius:50%;flex:none;overflow:hidden;background:var(--amber)}
+  .cp-av img{width:100%;height:100%;object-fit:cover;display:block}
+  .cp-headtxt b{font-size:14.5px;display:block;font-weight:700}
+  .cp-headtxt span{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .cp-headtxt span i{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block}
+  .cp-close{margin-left:auto;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+  .cp-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+  .cp-msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+  .cp-msg.bot{align-self:flex-start;background:#1b1815;border-bottom-left-radius:4px}
+  .cp-msg.user{align-self:flex-end;background:var(--amber);color:#1a1205;border-bottom-right-radius:4px;font-weight:500}
+  .cp-msg a{color:var(--amber);font-weight:700;text-decoration:underline}
+  .cp-actions{align-self:flex-start;width:100%;display:flex;flex-direction:column;gap:8px;padding-top:2px}
+  .cp-quick{display:flex;flex-wrap:wrap;gap:8px}
+  .cp-quick button{background:transparent;border:1px solid rgba(247,242,234,.2);color:var(--text);
+    border-radius:50px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s}
+  .cp-quick button:hover{border-color:var(--amber);color:var(--amber)}
+  .cp-wa{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;background:var(--wa);color:var(--wa-deep);
+    text-decoration:none;border-radius:50px;padding:8px 14px;font-size:13px;font-weight:700;font-family:inherit}
+  .cp-wa:hover{background:#20bd5a}
+  .cp-footnote{text-align:center;font-size:10px;color:var(--muted);padding:0 0 9px}
+  .cp-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(247,242,234,.1)}
+  .cp-foot input{flex:1;background:#1b1815;border:1px solid rgba(247,242,234,.14);border-radius:10px;color:var(--text);
+    padding:11px 13px;font-size:14px;font-family:inherit;min-width:0;outline:none}
+  .cp-foot input:focus{border-color:var(--amber)}
+  .cp-foot input::placeholder{color:var(--muted)}
+  .cp-foot button{background:var(--amber);color:#1a1205;border:0;border-radius:10px;width:44px;cursor:pointer;font-size:18px;flex:none}
 </style>
 </head>
 <body>
@@ -292,12 +340,35 @@
 
     <div class="guide" aria-hidden="true"></div>
 
+    <!-- Frag Maik Chatbot -->
+    <div class="chatbot">
+      <div class="chatbot-panel" id="chatPanel" role="dialog" aria-label="Frag Maik Chat">
+        <div class="cp-head">
+          <span class="cp-av"><img src="assets/maik.webp" alt="Maik"></span>
+          <div class="cp-headtxt"><b>Frag Maik</b><span><i></i>Antwortet meist sofort</span></div>
+          <button class="cp-close" id="cpClose" type="button" aria-label="Chat schließen">×</button>
+        </div>
+        <div class="cp-body" id="cpBody"></div>
+        <div class="cp-footnote">Persönlich betreut · keine Bots</div>
+        <div class="cp-foot">
+          <input type="text" id="cpInput" placeholder="Frage eingeben…" autocomplete="off">
+          <button id="cpSend" type="button" aria-label="Senden">➤</button>
+        </div>
+      </div>
+      <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Frag Maik — Chat öffnen" aria-expanded="false">
+        <span class="av"><img src="assets/maik.webp" alt="Maik" width="44" height="44"><span class="dot" aria-hidden="true"></span></span>
+        <span class="ftxt"><b>Frag&nbsp;Maik</b><small>Antwortet sofort</small></span>
+      </button>
+    </div>
+
     <a class="cta" href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" data-cta="primary">
       <span class="ctaRow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Ich bin dabei — kostenlos in die WhatsApp-Gruppe</span>
       <span class="ctaCd" id="ctaCd"></span>
     </a>
     <div class="reassure reveal"><b>Öffnet WhatsApp</b> · deine Nummer bleibt privat · nur mitlesen ok · jederzeit raus</div>
   </div>
+  <!-- Frag Maik Chatbot (im Seitenfluss über dem CTA) -->
+
 </main>
 
 <script>
@@ -367,6 +438,38 @@
     document.addEventListener('click',function(e){
       if(m.open && !m.contains(e.target))m.removeAttribute('open');
     });
+  })();
+</script>
+<script>
+  /* Frag Maik Chatbot — Tribe FAQ + WhatsApp an 017645961547 */
+  (function(){
+    var WA='4917645961547';
+    var FAQ=[
+      {keys:['kostenlos','kosten','preis','geld','gratis','teuer'],a:'Ja — The Tribe ist <b>komplett kostenlos</b>. Keine Mitgliedschaft, keine Gebühren, keine versteckten Kosten.'},
+      {keys:['was ist','was','tribe','wer','zweck','idee','geht'],a:'The Tribe ist eine <b>WhatsApp-Community in Bielefeld</b>. Wir gehen jede Woche zusammen aus — egal ob du jemanden kennst oder nicht.'},
+      {keys:['wie trete','beitreten','anmelden','mitmachen','join','rein','dabei','wo anmel','wie komm'],a:'Ganz einfach: Auf den grünen WhatsApp-Button tippen — der bringt dich direkt in die Gruppe. Du kannst auch erst mal nur mitlesen.'},
+      {keys:['niemanden','allein','alleine','kenn','neu','ohne','kennt'],a:'Nein, du musst niemanden kennen. Fast alle kamen mal alleine dazu — genau dafür gibt es die Gruppe. Du wirst direkt aufgenommen.'},
+      {keys:['event','was gemacht','treff','termin','wann','warmup','bernstein','samstag'],a:'Jede Woche gibt es ein <b>Social Warmup</b> (z. B. Samstag 18:00 im Bernstein) — danach ziehen wir gemeinsam weiter. Steht alles in der WhatsApp-Gruppe.'},
+      {keys:['wo','wohin','ort','stadt','bielefeld','treffpunkt'],a:'Die Treffs sind in <b>Bielefeld</b>. Der genaue Ort steht immer in der WhatsApp-Gruppe.'},
+      {keys:['wieviele','wie viele','mitglieder','leute','groß','anzahl'],a:'Über <b>160 Bielefelder</b> sind schon dabei — Tendenz steigend.'},
+      {keys:['alter','alt','jahre','jugend','mindest'],a:'Die Gruppe ist bunt gemischt, die meisten Anfang/Mitte 20 bis 30. Eine feste Altersgrenze gibt es nicht.'},
+      {keys:['dating','flirt','beziehung','single','partner'],a:'Nein, The Tribe geht ums <b>Ausgehen und Leute kennenlernen</b> — nicht um Dating.'},
+      {keys:['privat','nummer','datenschutz','sichtbar','sicher'],a:'Du trittst über einen WhatsApp-Link bei. Deine Nummer sehen nur die Mitglieder der Gruppe. <b>Mitlesen geht auch ohne selbst zu schreiben.</b>'},
+      {keys:['raus','löschen','verlassen','abmelden','ende'],a:'Du kannst jederzeit wieder aus der Gruppe raus — ganz ohne Erklärung. Du behältst immer die Kontrolle.'}
+    ];
+    var QUICK=['Ist das kostenlos?','Was ist The Tribe?','Wie trete ich bei?','Muss ich jemanden kennen?'];
+    function waLink(msg){return 'https://wa.me/'+WA+'?text='+encodeURIComponent((msg?msg+' — ':'')+'Seite: '+location.href);}
+    var body=document.getElementById('cpBody');
+    function addMsg(h,who){var d=document.createElement('div');d.className='cp-msg '+(who==='user'?'user':'bot');d.innerHTML=h;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;}
+    function answer(q){var ql=(q||'').toLowerCase();var hit=FAQ.find(function(f){return f.keys.some(function(k){return ql.indexOf(k)!==-1;});});if(hit)addMsg(hit.a,'bot');else addMsg('Das habe ich nicht genau erfasst. Schreib Maik am besten direkt per WhatsApp — er antwortet dir.','bot');}
+    function actions(last){var old=body.querySelector('.cp-actions');if(old)old.remove();var a=document.createElement('div');a.className='cp-actions';var qw=document.createElement('div');qw.className='cp-quick';QUICK.forEach(function(t){var b=document.createElement('button');b.type='button';b.textContent=t;b.addEventListener('click',function(){send(t);});qw.appendChild(b);});a.appendChild(qw);var wa=document.createElement('a');wa.className='cp-wa';wa.href=waLink(last||'');wa.target='_blank';wa.rel='noopener';wa.textContent='💬 Lieber per WhatsApp fragen';a.appendChild(wa);body.appendChild(a);body.scrollTop=body.scrollHeight;}
+    function send(t){if(!t||!t.trim())return;addMsg(t,'user');document.getElementById('cpInput').value='';setTimeout(function(){answer(t);actions(t);},280);}
+    var panel=document.getElementById('chatPanel'),btn=document.getElementById('chatBtn'),opened=false;
+    function open(){panel.classList.add('active');btn.setAttribute('aria-expanded','true');if(!opened){opened=true;addMsg('Hey! 👋 Ich bin Maik aus The Tribe. Frag mich alles — kostenlos, Events, wie du dazukommst. Oder schreib mir direkt per WhatsApp.','bot');actions(null);}}
+    btn.addEventListener('click',function(){if(panel.classList.contains('active')){panel.classList.remove('active');btn.setAttribute('aria-expanded','false');}else open();});
+    document.getElementById('cpClose').addEventListener('click',function(){panel.classList.remove('active');btn.setAttribute('aria-expanded','false');});
+    document.getElementById('cpSend').addEventListener('click',function(){send(document.getElementById('cpInput').value);});
+    document.getElementById('cpInput').addEventListener('keydown',function(e){if(e.key==='Enter')send(e.target.value);});
   })();
 </script>
 </body>
