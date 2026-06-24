@@ -242,6 +242,8 @@
       justify-content: center;
       transition: border-color 0.2s, transform 0.15s;
       overflow: hidden;
+      text-decoration: none;
+      color: inherit;
     }
     .preview-thumb:hover { border-color: #fff; transform: scale(1.05); }
     .preview-thumb::after { content: '▶'; font-size: 0.85rem; color: #fff; }
@@ -278,36 +280,6 @@
       }
       .preview-thumb:hover .pt-wrap { transform: scale(0.8); }
     }
-
-    .preview-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 100;
-      display: none;
-      align-items: center; justify-content: center;
-      padding: 1rem;
-    }
-    .preview-overlay.active { display: flex; }
-    .preview-overlay .po-frame {
-      width: 390px; max-width: 100%;
-      height: 90vh; max-height: 844px;
-      background: #000; border: 1px solid rgba(255,255,255,0.25);
-      position: relative;
-    }
-    .preview-overlay .po-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .preview-overlay .po-title {
-      position: absolute; top: -2.4rem; left: 0;
-      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-    }
-    .preview-overlay .po-close {
-      position: absolute; top: -2.5rem; right: 0;
-      background: none; border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; padding: 0.4rem 0.9rem; cursor: pointer;
-      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-      font-family: inherit;
-    }
-    .preview-overlay .po-close:hover { background: rgba(255,255,255,0.1); }
 
     /* === Chatbot "Frag Maik" (exakt wie MZ.9-Page: leads/chat.js Look) === */
     .chatbot { position: fixed; bottom: 4.5rem; right: 1rem; z-index: 50; font-family: 'Inter', system-ui, sans-serif; }
@@ -480,18 +452,11 @@
     });
   </script>
 
-  <!-- Premium Site Vorschau (oben rechts) -->
-  <div class="preview-thumb" id="previewThumb" title="Premium Site Vorschau öffnen" role="button" tabindex="0" aria-label="Premium Site Vorschau öffnen">
+  <!-- Premium Site Vorschau (oben rechts) — öffnet mz9.html direkt -->
+  <a class="preview-thumb" href="mz9.html" target="_blank" rel="noopener" title="MZ.9 Premium Site öffnen" aria-label="MZ.9 Premium Site öffnen">
     <div class="pt-label">Premium Site Vorschau</div>
     <div class="pt-wrap"><iframe src="mz9.html" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
-  </div>
-  <div class="preview-overlay" id="previewOverlay">
-    <div class="po-frame">
-      <div class="po-title">MZ.9 Premium Site — Live Vorschau</div>
-      <button class="po-close" id="poClose" type="button">Schließen ✕</button>
-      <iframe id="poFrame" src="" title="MZ.9 Premium Site Vorschau"></iframe>
-    </div>
-  </div>
+  </a>
 
   <!-- Chatbot "Frag Maik" (MZ.9-Look mit Maik-Avatar) -->
   <div class="chatbot">
@@ -600,22 +565,6 @@
       document.getElementById('cpClose').addEventListener('click', function () { panel.classList.remove('active'); });
       document.getElementById('cpSend').addEventListener('click', function () { sendUser(document.getElementById('cpInput').value); });
       document.getElementById('cpInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendUser(e.target.value); });
-
-      // Premium Site Vorschau
-      var thumb = document.getElementById('previewThumb');
-      var overlay = document.getElementById('previewOverlay');
-      var poFrame = document.getElementById('poFrame');
-      var poClose = document.getElementById('poClose');
-      function openPreview() {
-        if (!poFrame.getAttribute('src')) poFrame.src = 'mz9.html';
-        overlay.classList.add('active');
-      }
-      function closePreview() { overlay.classList.remove('active'); }
-      thumb.addEventListener('click', openPreview);
-      thumb.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPreview(); } });
-      poClose.addEventListener('click', closePreview);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closePreview(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePreview(); });
     })();
   </script>
 </body>
