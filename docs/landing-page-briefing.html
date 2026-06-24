@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Kostenloses Premium Redesign-Konzept für deine Landing Page">
-  <title>MZ.9 Redesign</title>
+  <meta name="description" content="Kurzes Briefing für dein neues Website-Konzept">
+  <title>MZ.9 Neues Konzept</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100vh;
-      overflow: hidden;
-    }
+    html, body { height: 100vh; overflow: hidden; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: #000000;
@@ -47,6 +44,16 @@
       letter-spacing: 0.2em;
       opacity: 0.5;
     }
+    .back {
+      font-size: 0.6875rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back:hover { color: #ffffff; }
 
     /* Main */
     .main {
@@ -91,13 +98,8 @@
       max-width: 420px;
     }
 
-    .card {
-      background: transparent;
-      width: 100%;
-    }
-
+    .card { background: transparent; width: 100%; }
     .form { display: flex; flex-direction: column; gap: 1.125rem; }
-
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
 
     .form-input {
@@ -112,13 +114,9 @@
       font-family: inherit;
       transition: border-color 0.2s;
       letter-spacing: 0.01em;
+      resize: none;
     }
-
-    .form-input:focus {
-      outline: none;
-      border-color: #ffffff;
-    }
-
+    .form-input:focus { outline: none; border-color: #ffffff; }
     .form-input::placeholder {
       color: rgba(255,255,255,0.3);
       font-style: italic;
@@ -148,29 +146,8 @@
       transition: background 0.2s;
       margin-top: 0.5rem;
     }
-
-    .button:hover {
-      background: rgba(255,255,255,0.9);
-    }
-
-    .button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .alt-link {
-      display: block;
-      text-align: center;
-      margin-top: 1.25rem;
-      font-size: 0.6875rem;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .alt-link:hover { color: #ffffff; }
+    .button:hover { background: rgba(255,255,255,0.9); }
+    .button:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .bottom-bar {
       padding: 1rem 1.75rem;
@@ -180,7 +157,6 @@
       justify-content: center;
       gap: 0.5rem;
     }
-
     .bottom-text {
       font-size: 0.6875rem;
       font-weight: 300;
@@ -189,22 +165,10 @@
       text-transform: uppercase;
     }
 
-    .success {
-      display: none;
-      text-align: center;
-      padding: 3rem 0;
-    }
+    .success { display: none; text-align: center; padding: 3rem 0; }
     .success.active { display: block; }
-    .success-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.1em;
-    }
-    .success-text {
-      font-size: 0.9375rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.6);
-    }
+    .success-icon { font-size: 2.5rem; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+    .success-text { font-size: 0.9375rem; font-weight: 300; color: rgba(255,255,255,0.6); }
 
     @media (max-width: 380px) {
       .main { padding: 1rem 1.25rem; }
@@ -215,21 +179,22 @@
 <body>
   <div class="top-bar">
     <div class="logo">MZ.9<span>Media Engineering. AI</span></div>
+    <a href="landing-page-analyser.html" class="back">← Zurück</a>
   </div>
 
   <div class="main">
-    <div class="badge">Premium Website</div>
+    <div class="badge">Neue Website</div>
     <h1 class="title">
-      Deine Seite<br>verliert Kunden
+      Noch keine<br>eigene Seite?
     </h1>
     <p class="subtitle">
-      Wir analysieren deine Seite und senden dir<br>innerhalb von 24h ein Redesign-Konzept
+      Vier kurze Angaben genügen. Wir bauen dir<br>ein erstes Konzept — kostenlos.
     </p>
 
     <div class="card">
       <form class="form" id="form">
         <div class="form-group">
-          <input type="url" id="url" class="form-input" placeholder="URL deiner Landing Page" required>
+          <textarea id="desc" class="form-input" rows="2" placeholder="Kurze Beschreibung deines Unternehmens" required></textarea>
         </div>
         <div class="form-group">
           <select id="industry" class="form-input form-select" required>
@@ -242,10 +207,15 @@
             <option value="other">Sonstiges</option>
           </select>
         </div>
+        <div class="form-group">
+          <input type="text" id="refs" class="form-input" placeholder="Lieblingsseiten (z. B. stripe.com, nngroup.com)">
+        </div>
+        <div class="form-group">
+          <input type="text" id="goal" class="form-input" placeholder="Dein Ziel (z. B. mehr Anfragen, Buchungen)" required>
+        </div>
         <button type="submit" class="button" id="submitBtn">
           Konzept anfordern
         </button>
-        <a href="landing-page-briefing.html" class="alt-link">Noch keine eigene Seite für dein Unternehmen?</a>
       </form>
 
       <div class="success" id="success">
@@ -256,7 +226,7 @@
   </div>
 
   <div class="bottom-bar">
-    <span class="bottom-text">MZ.9 • 24h Konzept • Kostenlos</span>
+    <span class="bottom-text">MZ.9 • Konzept • Kostenlos</span>
   </div>
 
   <script>
@@ -276,17 +246,21 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const url = document.getElementById('url').value;
+      const desc = document.getElementById('desc').value.trim();
       const industry = document.getElementById('industry').value;
+      const refs = document.getElementById('refs').value.trim() || '—';
+      const goal = document.getElementById('goal').value.trim();
 
       submitBtn.textContent = 'Wird gesendet...';
       submitBtn.disabled = true;
 
-      const subject = encodeURIComponent('MZ.9 Redesign-Konzept');
+      const subject = encodeURIComponent('MZ.9 Neues Website-Konzept');
       const body = encodeURIComponent(
-        `Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n` +
-        `URL: ${url}\n` +
-        `Branche: ${industryMap[industry]}\n\n` +
+        `Hallo,\n\nhier sind meine Daten für ein neues Website-Konzept:\n\n` +
+        `Beschreibung: ${desc}\n` +
+        `Branche: ${industryMap[industry]}\n` +
+        `Lieblingsseiten: ${refs}\n` +
+        `Ziel: ${goal}\n\n` +
         `Bitte sende mir das Konzept zu.\n\nViele Grüße`
       );
 
