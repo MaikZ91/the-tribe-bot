@@ -224,6 +224,155 @@
       .button { margin-top: 0.25rem; padding: 1rem; }
       .bottom-bar { padding: 0.75rem 1.25rem; }
     }
+
+    /* === Premium Site Vorschau (oben rechts) === */
+    .preview-thumb {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: #0a0a0a;
+      cursor: pointer;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, transform 0.15s;
+      overflow: hidden;
+    }
+    .preview-thumb:hover { border-color: #fff; transform: scale(1.05); }
+    .preview-thumb::after { content: '▶'; font-size: 0.85rem; color: #fff; }
+    .preview-thumb .pt-label, .preview-thumb .pt-wrap { display: none; }
+
+    @media (min-width: 1100px) {
+      .preview-thumb {
+        width: 187px;
+        height: 250px;
+        border-radius: 0;
+        overflow: hidden;
+      }
+      .preview-thumb::after { display: none; }
+      .preview-thumb .pt-label {
+        display: block;
+        position: absolute; top: 0; left: 0; right: 0;
+        padding: 0.35rem 0.5rem;
+        font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: rgba(255,255,255,0.75);
+        background: rgba(0,0,0,0.65);
+        z-index: 2;
+      }
+      .preview-thumb .pt-wrap {
+        display: block;
+        width: 375px; height: 500px;
+        transform: scale(0.5);
+        transform-origin: top left;
+        pointer-events: none;
+      }
+      .preview-thumb .pt-wrap iframe { width: 375px; height: 500px; border: 0; display: block; }
+      .preview-thumb:hover {
+        width: 300px; height: 402px;
+        border-color: rgba(255,255,255,0.5);
+      }
+      .preview-thumb:hover .pt-wrap { transform: scale(0.8); }
+    }
+
+    .preview-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 100;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .preview-overlay.active { display: flex; }
+    .preview-overlay .po-frame {
+      width: 390px; max-width: 100%;
+      height: 90vh; max-height: 844px;
+      background: #000; border: 1px solid rgba(255,255,255,0.25);
+      position: relative;
+    }
+    .preview-overlay .po-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .preview-overlay .po-title {
+      position: absolute; top: -2.4rem; left: 0;
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .preview-overlay .po-close {
+      position: absolute; top: -2.5rem; right: 0;
+      background: none; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 0.4rem 0.9rem; cursor: pointer;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: inherit;
+    }
+    .preview-overlay .po-close:hover { background: rgba(255,255,255,0.1); }
+
+    /* === Chatbot "Frag Maik" === */
+    .chatbot { position: fixed; bottom: 4.5rem; right: 1rem; z-index: 50; font-family: inherit; }
+    .chatbot-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: #ffffff; color: #000;
+      border: none; cursor: pointer;
+      padding: 0.7rem 1rem;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      font-family: inherit;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      transition: transform 0.15s;
+    }
+    .chatbot-btn:hover { transform: translateY(-2px); }
+    .chatbot-btn .dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
+    .chatbot-panel {
+      position: absolute; bottom: calc(100% + 0.75rem); right: 0;
+      width: 322px; max-width: calc(100vw - 2rem);
+      height: 440px; max-height: 72vh;
+      background: #0a0a0a; border: 1px solid rgba(255,255,255,0.22);
+      display: none; flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    .chatbot-panel.active { display: flex; }
+    .cp-head {
+      padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cp-head .cp-title { font-size: 0.82rem; font-weight: 500; }
+    .cp-head .cp-title span { display: block; font-size: 0.6rem; font-weight: 300; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; margin-top: 2px; }
+    .cp-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.1rem; cursor: pointer; line-height: 1; }
+    .cp-close:hover { color: #fff; }
+    .cp-body { flex: 1; overflow-y: auto; padding: 0.9rem; display: flex; flex-direction: column; gap: 0.55rem; }
+    .cp-msg { font-size: 0.8125rem; line-height: 1.5; max-width: 88%; padding: 0.6rem 0.8rem; border-radius: 4px; }
+    .cp-msg.bot { background: rgba(255,255,255,0.08); align-self: flex-start; }
+    .cp-msg.user { background: #ffffff; color: #000; align-self: flex-end; }
+    .cp-msg a { color: #fff; text-decoration: underline; }
+    .cp-actions { align-self: flex-start; width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+    .cp-quick { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .cp-quick button {
+      background: transparent; border: 1px solid rgba(255,255,255,0.32); color: #fff;
+      font-family: inherit; font-size: 0.7rem; padding: 0.4rem 0.65rem; cursor: pointer; border-radius: 999px;
+      transition: background 0.15s;
+    }
+    .cp-quick button:hover { background: rgba(255,255,255,0.14); }
+    .cp-wa {
+      display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start;
+      background: #25D366; color: #06281a; text-decoration: none;
+      font-size: 0.72rem; font-weight: 600; padding: 0.5rem 0.8rem; border-radius: 4px;
+    }
+    .cp-wa:hover { background: #20bd5a; }
+    .cp-foot { border-top: 1px solid rgba(255,255,255,0.12); padding: 0.6rem; display: flex; gap: 0.5rem; }
+    .cp-foot input {
+      flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.22); color: #fff;
+      font-family: inherit; font-size: 0.8125rem; padding: 0.55rem 0.7rem; outline: none; border-radius: 4px;
+    }
+    .cp-foot input:focus { border-color: #fff; }
+    .cp-foot input::placeholder { color: rgba(255,255,255,0.4); font-style: italic; }
+    .cp-foot button { background: #fff; color: #000; border: none; padding: 0 0.95rem; cursor: pointer; font-family: inherit; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 4px; }
+
+    @media (max-width: 767px) {
+      .chatbot { bottom: 5rem; }
+      .chatbot-btn { padding: 0.6rem 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -310,6 +459,143 @@
         success.classList.add('active');
       }, 500);
     });
+  </script>
+
+  <!-- Premium Site Vorschau (oben rechts) -->
+  <div class="preview-thumb" id="previewThumb" title="Premium Site Vorschau öffnen" role="button" tabindex="0" aria-label="Premium Site Vorschau öffnen">
+    <div class="pt-label">Premium Site Vorschau</div>
+    <div class="pt-wrap"><iframe src="mz9.html" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+  </div>
+  <div class="preview-overlay" id="previewOverlay">
+    <div class="po-frame">
+      <div class="po-title">MZ.9 Premium Site — Live Vorschau</div>
+      <button class="po-close" id="poClose" type="button">Schließen ✕</button>
+      <iframe id="poFrame" src="" title="MZ.9 Premium Site Vorschau"></iframe>
+    </div>
+  </div>
+
+  <!-- Chatbot "Frag Maik" -->
+  <div class="chatbot">
+    <div class="chatbot-panel" id="chatPanel" role="dialog" aria-label="Frag Maik Chat">
+      <div class="cp-head">
+        <div class="cp-title">Frag Maik 💬<span>Antworten in Sekunden</span></div>
+        <button class="cp-close" id="cpClose" type="button" aria-label="Chat schließen">✕</button>
+      </div>
+      <div class="cp-body" id="cpBody"></div>
+      <div class="cp-foot">
+        <input type="text" id="cpInput" placeholder="Frage eingeben…" autocomplete="off">
+        <button id="cpSend" type="button">Senden</button>
+      </div>
+    </div>
+    <button class="chatbot-btn" id="chatBtn" type="button"><span class="dot"></span>💬 Frag Maik</button>
+  </div>
+
+  <script>
+    (function () {
+      var WA_NUMBER = '4917645961547';
+      var FAQ = [
+        { keys: ['funktioniert', 'ablauf', 'wie', 'prozess', 'abläuft', 'läuft'],
+          a: 'So läuft\'s: Du gibst deine URL ein → wir analysieren deine Seite → innerhalb von 24h bekommst du ein kostenloses Redesign-Konzept. Ganz unverbindlich.' },
+        { keys: ['kostet', 'preis', 'kostenlos', 'gratis', 'teuer', 'geld', 'kosten'],
+          a: 'Das Redesign-Konzept ist komplett <strong>kostenlos und unverbindlich</strong>. Du entscheidest danach selbst, ob du es umsetzen lässt.' },
+        { keys: ['wie lange', 'dauer', '24', 'stunden', 'schnell', 'wann', 'lange'],
+          a: 'Innerhalb von <strong>24 Stunden</strong> nach deiner Anfrage ist das Konzept bei dir.' },
+        { keys: ['mz9', 'mz 9', 'wer', 'ihr', 'unternehmen', 'team'],
+          a: 'MZ.9 ist <strong>Media Engineering & AI</strong>. Wir bauen Premium-Websites, die aus Besuchern Kunden machen.' },
+        { keys: ['bekomme', 'erhalten', 'inhalt', 'konzept', 'vorschlag', 'was genau'],
+          a: 'Du bekommst ein konkretes Redesign-Konzept für deine Landing Page — mit klaren Schritten, was deine Seite heute verliert und wie wir das fixen.' },
+        { keys: ['eigene seite', 'keine seite', 'ohne website', 'noch keine', 'nicht online'],
+          a: 'Kein Problem — nutze das <a href="landing-page-briefing.html">Briefing-Formular</a>. Mit vier Angaben bauen wir dir ein erstes Konzept.' },
+        { keys: ['whatsapp', 'kontakt', 'erreichen', 'mail', 'mail', 'anrufen', 'telefon'],
+          a: 'Schreib Maik einfach direkt per WhatsApp — der Button unten öffnet den Chat mit deiner Frage und dem Link zu dieser Seite.' }
+      ];
+      var QUICK = ['Wie funktioniert\'s?', 'Was kostet das?', 'Wie lange dauert\'s?', 'Was ist MZ.9?'];
+
+      function waLink(msg) {
+        var url = window.location.href;
+        var text = encodeURIComponent((msg ? msg + ' — ' : '') + 'Seite: ' + url);
+        return 'https://wa.me/' + WA_NUMBER + '?text=' + text;
+      }
+
+      var body = document.getElementById('cpBody');
+      function addMsg(html, who) {
+        var d = document.createElement('div');
+        d.className = 'cp-msg ' + (who === 'user' ? 'user' : 'bot');
+        d.innerHTML = html;
+        body.appendChild(d);
+        body.scrollTop = body.scrollHeight;
+        return d;
+      }
+      function botAnswer(q) {
+        var ql = (q || '').toLowerCase();
+        var hit = FAQ.find(function (f) { return f.keys.some(function (k) { return ql.indexOf(k) !== -1; }); });
+        if (hit) addMsg(hit.a, 'bot');
+        else addMsg('Das habe ich nicht genau erfasst. Stell die Frage am besten direkt per WhatsApp an Maik — er antwortet dir.', 'bot');
+      }
+      function renderActions(lastQ) {
+        var old = body.querySelector('.cp-actions');
+        if (old) old.remove();
+        var a = document.createElement('div');
+        a.className = 'cp-actions';
+        var qw = document.createElement('div');
+        qw.className = 'cp-quick';
+        QUICK.forEach(function (t) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = t;
+          b.addEventListener('click', function () { sendUser(t); });
+          qw.appendChild(b);
+        });
+        a.appendChild(qw);
+        var wa = document.createElement('a');
+        wa.className = 'cp-wa';
+        wa.href = waLink(lastQ || '');
+        wa.target = '_blank';
+        wa.rel = 'noopener';
+        wa.textContent = '💬 Lieber per WhatsApp fragen';
+        a.appendChild(wa);
+        body.appendChild(a);
+        body.scrollTop = body.scrollHeight;
+      }
+      function sendUser(t) {
+        if (!t || !t.trim()) return;
+        addMsg(t, 'user');
+        document.getElementById('cpInput').value = '';
+        setTimeout(function () { botAnswer(t); renderActions(t); }, 280);
+      }
+
+      var panel = document.getElementById('chatPanel');
+      var btn = document.getElementById('chatBtn');
+      var opened = false;
+      function openChat() {
+        panel.classList.add('active');
+        if (!opened) {
+          opened = true;
+          addMsg('Hey! 👋 Ich bin Maik. Frag mich alles zum Ablauf, Preis oder deiner Seite — oder schreib mir direkt per WhatsApp.', 'bot');
+          renderActions(null);
+        }
+      }
+      btn.addEventListener('click', function () { panel.classList.toggle('active'); if (panel.classList.contains('active')) openChat(); });
+      document.getElementById('cpClose').addEventListener('click', function () { panel.classList.remove('active'); });
+      document.getElementById('cpSend').addEventListener('click', function () { sendUser(document.getElementById('cpInput').value); });
+      document.getElementById('cpInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendUser(e.target.value); });
+
+      // Premium Site Vorschau
+      var thumb = document.getElementById('previewThumb');
+      var overlay = document.getElementById('previewOverlay');
+      var poFrame = document.getElementById('poFrame');
+      var poClose = document.getElementById('poClose');
+      function openPreview() {
+        if (!poFrame.getAttribute('src')) poFrame.src = 'mz9.html';
+        overlay.classList.add('active');
+      }
+      function closePreview() { overlay.classList.remove('active'); }
+      thumb.addEventListener('click', openPreview);
+      thumb.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPreview(); } });
+      poClose.addEventListener('click', closePreview);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closePreview(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePreview(); });
+    })();
   </script>
 </body>
 </html>
