@@ -76,7 +76,9 @@
     padding:20px 0;
   }
   header .bar{display:flex;align-items:center;justify-content:space-between;gap:24px}
-  .brand{display:flex;flex-direction:column;line-height:1;color:#fff;transition:color .35s ease}
+  .brand{display:flex;align-items:center;gap:12px;line-height:1;color:#fff;transition:color .35s ease}
+  .brand .logo{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.92);padding:3px;flex-shrink:0;box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
+  .brand .txt{display:flex;flex-direction:column}
   .brand .script-name{font-family:'Pinyon Script';font-size:1.75rem;line-height:1}
   .brand .sub{font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;font-weight:600;opacity:.85;margin-top:3px}
   nav.menu{display:flex;align-items:center;gap:30px}
@@ -96,7 +98,7 @@
   .hero{min-height:100vh;display:flex;align-items:center;position:relative;color:#fff;padding:120px 0 80px}
   .hero::before{
     content:"";position:absolute;inset:0;z-index:-2;
-    background:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+    background:url('img/hero.jpg') center/cover no-repeat;
     transform:scale(1.04);
   }
   .hero::after{
@@ -173,10 +175,18 @@
   .dish .d-dots{flex:1;border-bottom:1px dotted var(--line);align-self:flex-end;margin-bottom:6px;min-width:18px}
   .dish .d-price{font-family:'Cormorant Garamond';font-size:1.3rem;font-weight:600;color:var(--terracotta);white-space:nowrap}
   .menu-foot{text-align:center;margin-top:40px}
+  .menu-subhead{grid-column:1/-1;text-align:center;margin:6px 0 2px}
+  .menu-subhead + .dish{}
+  .menu-grid .menu-subhead:not(:first-child){margin-top:30px}
+  .menu-subhead .t{font-family:'Cormorant Garamond';font-size:1.8rem;font-weight:600;color:var(--terracotta)}
+  .menu-subhead .s{display:block;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-top:2px}
+  .menu-info{display:flex;justify-content:center;margin:0 auto 26px;max-width:780px}
+  .menu-info span{display:inline-flex;align-items:center;gap:.55em;background:rgba(94,107,58,.12);color:#46522b;border:1px solid rgba(94,107,58,.32);padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;text-align:center}
+  .dish.noprice .d-main{flex:1 1 100%}
 
   /* Reservation */
   .reserve{background:linear-gradient(160deg,var(--wine),var(--terracotta-deep));color:var(--cream);position:relative;overflow:hidden}
-  .reserve::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1400&q=80') center/cover;opacity:.12}
+  .reserve::before{content:"";position:absolute;inset:0;background:url('img/sala-tende.jpg') center/cover;opacity:.14}
   .reserve .wrap{position:relative;z-index:2}
   .reserve-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
   .reserve-intro h2{font-size:clamp(2.2rem,4.5vw,3.3rem);margin:14px 0 16px;color:#fff}
@@ -234,7 +244,7 @@
 
   /* CTA band */
   .cta-band{position:relative;color:#fff;text-align:center;padding:120px 0}
-  .cta-band::before{content:"";position:absolute;inset:0;z-index:-2;background:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=2000&q=80') center/cover}
+  .cta-band::before{content:"";position:absolute;inset:0;z-index:-2;background:url('img/parmigiano.jpg') center/cover}
   .cta-band::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(40,18,8,.74)}
   .cta-band h2{font-size:clamp(2.4rem,5vw,4rem);margin-bottom:14px}
   .cta-band p{font-size:1.1rem;opacity:.9;font-weight:300;max-width:520px;margin:0 auto 30px}
@@ -325,8 +335,11 @@
 <header id="hdr">
   <div class="wrap bar">
     <a href="#top" class="brand">
-      <span class="script-name">Pane e Vino</span>
-      <span class="sub">Trattoria · Potsdam</span>
+      <img class="logo" src="img/logo.png" alt="Logo Trattoria Pane e Vino">
+      <span class="txt">
+        <span class="script-name">Pane e Vino</span>
+        <span class="sub">Trattoria · Potsdam</span>
+      </span>
     </a>
     <nav class="menu">
       <a href="#about">Trattoria</a>
@@ -348,8 +361,8 @@
   <div class="wrap hero-inner reveal">
     <span class="eyebrow" style="color:var(--gold-soft)">Holzfeuerofen · Frische Zutaten · Tradition</span>
     <h1><span class="script">Benvenuti nella</span>Trattoria Pane e Vino</h1>
-    <p class="lead">Echte italienische Küche im Herzen von Potsdam – Pizza aus dem Holzfeuerofen,
-       hausgemachte Pasta und ausgesuchte Weine. Wie bei Nonna, nur mitten in der Stadt.</p>
+    <p class="lead">Echte italienische Küche im Herzen von Potsdam – täglich frische Pasta aus eigener
+       Herstellung, Pizza aus dem Holzfeuerofen und ausgesuchte Weine. Wie bei Nonna, nur mitten in der Stadt.</p>
     <div class="hero-cta">
       <a href="#reserve" class="btn btn-primary">Tisch reservieren</a>
       <a href="#menu" class="btn btn-ghost">Speisekarte ansehen</a>
@@ -380,8 +393,8 @@
       <span class="eyebrow">La nostra storia</span>
       <h2>Italienische Gastfreundschaft in Potsdam</h2>
       <p>In der Trattoria Pane e Vino dreht sich alles um die Leidenschaft für gutes Essen.
-         Unsere Pizza backen wir im <strong>Holzfeuerofen</strong> – das gibt ihr den
-         unverwechselbaren Geschmack und den knusprigen Boden, den man nur so bekommt.</p>
+         Unsere <strong>Pasta machen wir täglich frisch von Hand</strong> – von goldener Tagliatelle
+         bis zur schwarzen Sepia-Pasta. Und unsere Pizza backen wir im <strong>Holzfeuerofen</strong>.</p>
       <p>Wir kochen mit <strong>frischen Zutaten</strong> und nach <strong>traditionellen Rezepten</strong>,
          wie sie über Generationen weitergegeben wurden. Dazu ein Glas Wein, gute Gesellschaft –
          und schon fühlt es sich an wie ein Abend in Italien.</p>
@@ -390,7 +403,7 @@
       <div class="sig">La famiglia Pane e Vino</div>
     </div>
     <div class="about-media reveal">
-      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1100&q=80" alt="Gemütliches Ambiente in der Trattoria Pane e Vino" loading="lazy">
+      <img src="img/pasta-fresca.jpg" alt="Frische, von Hand gemachte Pasta in der Trattoria Pane e Vino" loading="lazy">
       <div class="badge">
         <div class="num">4,5</div>
         <div class="lbl"><span class="stars">★★★★★</span><br>1.535 Gäste­bewertungen</div>
@@ -405,58 +418,123 @@
     <div class="sec-head center reveal">
       <span class="eyebrow center">Il Menù</span>
       <h2>Unsere Speisekarte</h2>
-      <p>Von der Holzofen-Pizza über hausgemachte Pasta bis zum Dolce – buon appetito.</p>
-      <div class="demo-note">⚠ Beispiel-Karte · echte Gerichte &amp; Preise werden vor Veröffentlichung eingepflegt</div>
+      <p>Von hausgemachter Pasta über Antipasti, Carpaccio und Salate bis zur Tageskarte – buon appetito.</p>
+      <div class="demo-note">ℹ Speisekarte aus dem Haus · nur die Pizza-Karte ist ein Beispiel und folgt im Original</div>
     </div>
 
     <div class="menu-tabs reveal" id="menuTabs">
-      <button class="menu-tab active" data-panel="pizza">🍕 Pizza</button>
+      <button class="menu-tab active" data-panel="stuzzichini">🫒 Stuzzichini</button>
+      <button class="menu-tab" data-panel="antipasti">🍲 Antipasti &amp; Suppen</button>
+      <button class="menu-tab" data-panel="carpaccio">🥩 Carpaccio</button>
+      <button class="menu-tab" data-panel="salate">🥗 Insalate</button>
       <button class="menu-tab" data-panel="pasta">🍝 Pasta</button>
-      <button class="menu-tab" data-panel="antipasti">🥗 Antipasti</button>
-      <button class="menu-tab" data-panel="dolci">🍰 Dolci &amp; Vini</button>
+      <button class="menu-tab" data-panel="tageskarte">⭐ Tageskarte</button>
+      <button class="menu-tab" data-panel="pizza">🍕 Pizza</button>
     </div>
 
-    <div class="menu-panel active reveal" data-panel="pizza">
+    <div class="menu-panel active reveal" data-panel="stuzzichini">
       <div class="menu-grid">
-        <div class="dish"><div class="d-main"><div class="d-name">Margherita</div><div class="d-desc">Tomaten, Mozzarella fior di latte, frisches Basilikum</div></div><span class="d-dots"></span><span class="d-price">9,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Salami Diavola<span class="d-tag spicy">scharf</span></div><div class="d-desc">Tomaten, Mozzarella, scharfe Salami, Peperoncino</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Prosciutto e Funghi</div><div class="d-desc">Tomaten, Mozzarella, Kochschinken, frische Champignons</div></div><span class="d-dots"></span><span class="d-price">12,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Quattro Formaggi</div><div class="d-desc">Vier-Käse aus Gorgonzola, Mozzarella, Parmesan &amp; Scamorza</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Parma e Rucola</div><div class="d-desc">Mozzarella, Parmaschinken, Rucola, Parmesanhobel</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Tartufo</div><div class="d-desc">Trüffelcreme, Mozzarella, Steinpilze, Rucola</div></div><span class="d-dots"></span><span class="d-price">14,90 €</span></div>
-      </div>
-    </div>
-
-    <div class="menu-panel reveal" data-panel="pasta">
-      <div class="menu-grid">
-        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti Aglio e Olio</div><div class="d-desc">Knoblauch, Olivenöl, Peperoncino, Petersilie</div></div><span class="d-dots"></span><span class="d-price">9,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Penne Arrabbiata<span class="d-tag spicy">scharf</span></div><div class="d-desc">Pikante Tomatensauce, Knoblauch, Peperoncino</div></div><span class="d-dots"></span><span class="d-price">10,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Tagliatelle al Ragù</div><div class="d-desc">Hausgemachte Bolognese nach Familienrezept</div></div><span class="d-dots"></span><span class="d-price">12,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti alle Vongole</div><div class="d-desc">Frische Venusmuscheln, Weißwein, Knoblauch</div></div><span class="d-dots"></span><span class="d-price">14,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Lasagne al Forno</div><div class="d-desc">Im Ofen überbacken, klassisch nach Tradition</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Ravioli di Ricotta e Spinaci<span class="d-tag">vegetarisch</span></div><div class="d-desc">Ricotta-Spinat-Füllung, Salbeibutter</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="menu-subhead"><span class="t">Stuzzichini</span><span class="s">Kleine Vorspeisen</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Antipasti aus der Vitrine</div><div class="d-desc">Kleine Schale mit frisch gegrilltem Gemüse</div></div><span class="d-dots"></span><span class="d-price">4,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Olive e caperi</div><div class="d-desc">Oliven und Riesenkapern</div></div><span class="d-dots"></span><span class="d-price">3,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Grana con alici</div><div class="d-desc">Parmesan mit Sardellen</div></div><span class="d-dots"></span><span class="d-price">4,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Gorgonzola, noci e sedano</div><div class="d-desc">Gorgonzola mit Walnüssen und Stangensellerie</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Bocconcini con pomodori secchi</div><div class="d-desc">Mozzarellakugeln mit Basilikum und getrockneten Tomaten</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Bruschetta con pomodori</div><div class="d-desc">Ciabatta vom Grill, Tomaten, Zwiebel, Stangensellerie, Knoblauch</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Bruschetta con tonno e fagioli</div><div class="d-desc">Ciabatta vom Grill, Thunfisch, rote Zwiebeln, Bohnen, Petersilie, Crema Balsamico</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Bruschetta con prosciutto di Parma</div><div class="d-desc">Ciabatta vom Grill mit Ricotta, Parmaschinken, Rucola und getrockneten Tomaten</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
       </div>
     </div>
 
     <div class="menu-panel reveal" data-panel="antipasti">
       <div class="menu-grid">
-        <div class="dish"><div class="d-main"><div class="d-name">Bruschetta al Pomodoro<span class="d-tag">vegetarisch</span></div><div class="d-desc">Geröstetes Brot, Tomaten, Knoblauch, Basilikum</div></div><span class="d-dots"></span><span class="d-price">6,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Antipasto Misto</div><div class="d-desc">Auswahl mediterraner Vorspeisen für zwei</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Caprese</div><div class="d-desc">Büffelmozzarella, Tomaten, Basilikum, Olivenöl</div></div><span class="d-dots"></span><span class="d-price">8,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Insalata Mista</div><div class="d-desc">Gemischter Salat der Saison, Hausdressing</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Vitello Tonnato</div><div class="d-desc">Zarter Kalbsbraten, Thunfisch-Kapern-Sauce</div></div><span class="d-dots"></span><span class="d-price">11,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di Manzo</div><div class="d-desc">Rinderfilet hauchdünn, Rucola, Parmesan</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="menu-subhead"><span class="t">Le zuppe</span><span class="s">Suppen</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Crema di pomodoro</div><div class="d-desc">Tomatencremesuppe mit Basilikum und Parmesan</div></div><span class="d-dots"></span><span class="d-price">4,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Minestrone con fagioli e speck</div><div class="d-desc">Gemüsesuppe mit Bohnen und Speck</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Zuppa di pollo</div><div class="d-desc">Hühnersuppe mit Gemüse, Tagliolini, Thymian und Zitrone</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
+        <div class="menu-subhead"><span class="t">Antipasti</span><span class="s">Vorspeisen</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Antipasto misto</div><div class="d-desc">Gemischter Vorspeiseteller mit Salami, Parmaschinken DOP, eingelegtem &amp; gegrilltem Gemüse, Oliven, Riesenkapern und Käse</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Burrata oder Bufala</div><div class="d-desc">Büffelmozzarella DOP (außen fest, innen weich) mit Basilikum, Tomaten und Balsamico-Creme</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Prosciutto e melone</div><div class="d-desc">Luftgetrockneter Parmaschinken DOP auf Honigmelone, Pinienkernen, Rucola</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
       </div>
     </div>
 
-    <div class="menu-panel reveal" data-panel="dolci">
+    <div class="menu-panel reveal" data-panel="carpaccio">
       <div class="menu-grid">
-        <div class="dish"><div class="d-main"><div class="d-name">Tiramisù</div><div class="d-desc">Hausgemacht, klassisch mit Mascarpone &amp; Espresso</div></div><span class="d-dots"></span><span class="d-price">6,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Panna Cotta</div><div class="d-desc">Mit Fruchtspiegel der Saison</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Affogato al Caffè</div><div class="d-desc">Vanilleeis mit heißem Espresso übergossen</div></div><span class="d-dots"></span><span class="d-price">5,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Vino della Casa</div><div class="d-desc">Rot oder weiß · 0,2 l offen aus der Region</div></div><span class="d-dots"></span><span class="d-price">5,50 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Chianti Classico DOCG</div><div class="d-desc">Toskana · 0,75 l Flasche</div></div><span class="d-dots"></span><span class="d-price">26,90 €</span></div>
-        <div class="dish"><div class="d-main"><div class="d-name">Aperol Spritz</div><div class="d-desc">Aperol, Prosecco, Soda, Orange</div></div><span class="d-dots"></span><span class="d-price">7,50 €</span></div>
+        <div class="menu-subhead"><span class="t">Carpaccio</span><span class="s">Roh und dünn geschnitten</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di cavolo rapa<span class="d-tag">vegetarisch</span></div><div class="d-desc">Kohlrabi-Carpaccio mit Kürbiskernen und Kürbiskernöl</div></div><span class="d-dots"></span><span class="d-price">8,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di tonno</div><div class="d-desc">Thunfisch-Carpaccio mit Rucolasalat, Oliven und Riesenkapern</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di manzo</div><div class="d-desc">Rinder-Carpaccio mit Champignons, Rucolasalat und Parmesan</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di bresaola</div><div class="d-desc">Bündnerfleisch-Carpaccio mit eingelegten Artischocken, Parmesan und Champignons</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di polpo</div><div class="d-desc">Oktopus-Carpaccio mit Rucolasalat, Pinienkernen und Balsamico-Creme</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di salmone</div><div class="d-desc">Lachs-Carpaccio mit Rucolasalat, Parmesan, Kapern und Honig-Senf-Dressing</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="salate">
+      <div class="menu-grid">
+        <div class="menu-subhead"><span class="t">Insalate grandi</span><span class="s">Große Salate</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata tonno</div><div class="d-desc">Salat mit Thunfisch, Oliven, Riesenkapern und Tomaten</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata sarda</div><div class="d-desc">Salat mit verschiedenen Käsesorten, Oliven, Riesenkapern und Tomaten</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata della casa</div><div class="d-desc">Salat mit luftgetrocknetem Parmaschinken DOP, Parmesan, Tomaten und Pinienkernen</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata della salumeria</div><div class="d-desc">Salat mit eingelegten Artischocken, gegrilltem Gemüse und getrockneten Tomaten</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata mare</div><div class="d-desc">Salat mit Meeresfrüchten, Oliven, Riesenkapern und Tomaten</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata pollo</div><div class="d-desc">Salat mit Hähnchenbrustfilet und Scamorza vom Grill, Parmesan, Balsamico, Oliven, Tomaten</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="menu-subhead"><span class="t">Insalate piccole</span><span class="s">Kleine Salate</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata verde piccola</div><div class="d-desc">Kleiner gemischter Salat mit Oliven, Riesenkapern und Tomaten</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata pomodoro piccola</div><div class="d-desc">Kleiner Tomatensalat mit Zwiebeln und Parmesan</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata di rucola, grana e crema di balsamico</div><div class="d-desc">Kleiner Rucolasalat mit Parmesan und Balsamico-Creme</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata di finocchi e rucola con mele</div><div class="d-desc">Fenchel hauchdünn, Apfel, Rucola, Pinienkerne, Zitronensaft, Parmesan</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata di pomodoro, tonno, fagioli e cipolla</div><div class="d-desc">Kleiner Tomatensalat mit Thunfisch, Bohnen und Zwiebeln</div></div><span class="d-dots"></span><span class="d-price">7,90 €</span></div>
+      </div>
+      <div class="menu-info" style="margin-top:18px"><span>🌿 Alle Salate werden leicht mit Öl, Salz und Pfeffer angemacht.</span></div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="pasta">
+      <div class="menu-info"><span>🍝 Dazu fast täglich wechselnde Pastagerichte auf unserer Tafel · alle Nudelgerichte werden mit Parmesan serviert</span></div>
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti aglio, olio e peperoncino<span class="d-tag spicy">scharf</span></div><div class="d-desc">Spaghetti mit Knoblauch, Olivenöl und Gewürzpaprika</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti al pomodoro</div><div class="d-desc">Spaghetti mit Tomatensoße und Basilikum</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Maccheroncini alla arrabbiata<span class="d-tag spicy">scharf</span></div><div class="d-desc">Makkaroni mit scharfer Tomatensoße</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti alla carbonara</div><div class="d-desc">Spaghetti mit Speck, Sahne und Eigelb</div></div><span class="d-dots"></span><span class="d-price">10,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti alla amatriciana<span class="d-tag spicy">leicht scharf</span></div><div class="d-desc">Spaghetti mit Tomatensoße, Speck, Oliven und Riesenkapern</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Linguine alla puttanesca<span class="d-tag spicy">leicht scharf</span></div><div class="d-desc">Schwarze Linguine mit Sardellen, Oliven, Riesenkapern und Tomatensoße</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Pasta con salsa</div><div class="d-desc">Tagliatelle mit Hähnchenbrust, Sahne, Tomaten und Salbei-Weißweinsoße</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="tageskarte">
+      <div class="menu-info"><span>⭐ Wechselnde Tagesgerichte von unserer Tafel · Tagespreise bitte erfragen</span></div>
+      <div class="menu-grid">
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Gnocchi ai funghi porcini</div><div class="d-desc">Gnocchi gefüllt mit Steinpilzen in Kräuter-Butter-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Gnocchi ricotta e rucola</div><div class="d-desc">Gnocchi gefüllt mit Ricotta &amp; Rucola in Salbei-Butter-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Gnocchi caprino e tartufo</div><div class="d-desc">Gnocchi gefüllt mit Ziegenkäse und Trüffel in Salbei-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Fettuccine al tartufo</div><div class="d-desc">Mit schwarzem Trüffel, vollendet im Parmesan-Laib</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Bandnudeln mit Hähnchen</div><div class="d-desc">Steinpilze, Zucchini, Tomaten</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Bandnudeln vegetariano<span class="d-tag">vegetarisch</span></div><div class="d-desc">Steinpilze, Zucchini, Tomaten, Rosmarin</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Maccheroncini al gorgonzola</div><div class="d-desc">Mango, Pinienkerne, Gorgonzola-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Maccheroncini contadina</div><div class="d-desc">Speck, Steinpilze, Bohnen und Tomaten</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Ravioli di porcini e tartufo</div><div class="d-desc">Steinpilz-Ravioli gefüllt mit Trüffel in Kräuterbutter-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Tagliolini al filetto</div><div class="d-desc">Rinderfiletspitzen in Champignon-Sahne-Soße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Cappellacci al cinghiale</div><div class="d-desc">Rote-Bete-Teig gefüllt mit Wildschwein und Apfel, gebratene Steinpilze, Rosmarin-Weißweinsoße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Linguine nere ai gamberoni</div><div class="d-desc">Schwarze Linguine mit Riesengarnele und Strauchtomaten in leichter Hummer-Buttersoße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Linguine nere al salmone</div><div class="d-desc">Schwarze Linguine mit Lachs in Salbei-Weißweinsoße</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Filetto di manzo argentino</div><div class="d-desc">Arg. Rinderfilet vom Grill mit Rosmarinkartoffeln und Gemüse</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Salmone selvatico alla griglia</div><div class="d-desc">Frischer Wildlachs vom Grill mit Salat, Gemüse und 3 Dips</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Risotto allo zafferano e salmone</div><div class="d-desc">Safran-Risotto mit frischem Wildlachs, Salat &amp; Gemüse</div></div></div>
+        <div class="dish noprice"><div class="d-main"><div class="d-name">Lasagne Bolognese</div><div class="d-desc">Klassisch im Ofen überbacken</div></div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="pizza">
+      <div class="menu-info"><span>🍕 Beispiel-Auswahl · die original Pizza-Karte aus dem Holzfeuerofen wird hier ergänzt</span></div>
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Margherita</div><div class="d-desc">Tomaten, Mozzarella fior di latte, frisches Basilikum</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Salami Diavola<span class="d-tag spicy">scharf</span></div><div class="d-desc">Tomaten, Mozzarella, scharfe Salami, Peperoncino</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Prosciutto e funghi</div><div class="d-desc">Tomaten, Mozzarella, Kochschinken, frische Champignons</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Quattro formaggi</div><div class="d-desc">Gorgonzola, Mozzarella, Parmesan &amp; Scamorza</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Parma e rucola</div><div class="d-desc">Mozzarella, Parmaschinken, Rucola, Parmesanhobel</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Tartufo</div><div class="d-desc">Trüffelcreme, Mozzarella, Steinpilze, Rucola</div></div><span class="d-dots"></span><span class="d-price">—</span></div>
       </div>
     </div>
 
@@ -526,15 +604,17 @@
       <p>Atmosphäre, die Lust auf einen Abend bei uns macht.</p>
     </div>
     <div class="gal-grid reveal">
-      <figure class="tall"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80" alt="Pizza im Holzfeuerofen" loading="lazy"></figure>
-      <figure class="wide"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=80" alt="Hausgemachte Pasta" loading="lazy"></figure>
-      <figure><img src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=700&q=80" alt="Bruschetta Vorspeise" loading="lazy"></figure>
-      <figure><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80" alt="Italienischer Wein" loading="lazy"></figure>
-      <figure class="wide"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1200&q=80" alt="Tiramisù Dolce" loading="lazy"></figure>
-      <figure><img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=700&q=80" alt="Pizzaiolo bei der Arbeit" loading="lazy"></figure>
-      <figure><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80" alt="Antipasti Auswahl" loading="lazy"></figure>
+      <figure class="wide"><img src="img/interno-vini.jpg" alt="Weinregal und gemütliche Sitzecke der Trattoria Pane e Vino" loading="lazy"></figure>
+      <figure class="tall"><img src="img/pasta-nera.jpg" alt="Hausgemachte schwarze Sepia-Pasta frisch hergestellt" loading="lazy"></figure>
+      <figure><img src="img/parmigiano.jpg" alt="Pasta frisch aus dem Parmesan-Laib serviert" loading="lazy"></figure>
+      <figure><img src="img/dolce.jpg" alt="Hausgemachtes Dessert mit frischen Früchten" loading="lazy"></figure>
+      <figure class="tall"><img src="img/tartufi.jpg" alt="Frische schwarze Trüffel" loading="lazy"></figure>
+      <figure class="wide"><img src="img/sala-tende.jpg" alt="Gastraum mit roten Vorhängen und karierten Tischdecken" loading="lazy"></figure>
+      <figure><img src="img/tagliatelle-tartufo.jpg" alt="Tagliatelle mit frischem Trüffel" loading="lazy"></figure>
+      <figure><img src="img/arte.jpg" alt="Italienisches Flair mit Kunst und Keramik" loading="lazy"></figure>
+      <figure><img src="img/sala.jpg" alt="Gemütliches Ambiente im Gastraum" loading="lazy"></figure>
     </div>
-    <div class="demo-note" style="margin-top:24px">⚠ Platzhalter-Fotos · werden durch Originalbilder der Trattoria ersetzt</div>
+    <div class="menu-info" style="margin-top:26px"><span>📸 Echte Aufnahmen aus unserer Trattoria</span></div>
   </div>
 </section>
 
@@ -561,20 +641,22 @@
       <span class="eyebrow">Orari</span>
       <h2 class="serif" style="font-size:clamp(2rem,4vw,3rem);margin:14px 0 6px">Öffnungszeiten</h2>
       <div class="hours-list" id="hours">
-        <div class="row" data-day="1"><span class="d">Montag</span><span>12:00 – 23:45</span></div>
-        <div class="row" data-day="2"><span class="d">Dienstag</span><span>12:00 – 23:45</span></div>
-        <div class="row" data-day="3"><span class="d">Mittwoch</span><span>12:00 – 23:45</span></div>
-        <div class="row" data-day="4"><span class="d">Donnerstag</span><span>12:00 – 23:45</span></div>
-        <div class="row" data-day="5"><span class="d">Freitag</span><span>12:00 – 23:45</span></div>
-        <div class="row" data-day="6"><span class="d">Samstag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="1"><span class="d">Montag</span><span>12:00 – 23:00</span></div>
+        <div class="row" data-day="2"><span class="d">Dienstag</span><span>12:00 – 23:00</span></div>
+        <div class="row" data-day="3"><span class="d">Mittwoch</span><span>12:00 – 23:00</span></div>
+        <div class="row" data-day="4"><span class="d">Donnerstag</span><span>12:00 – 23:00</span></div>
+        <div class="row" data-day="5"><span class="d">Freitag</span><span>12:00 – 23:00</span></div>
+        <div class="row" data-day="6"><span class="d">Samstag</span><span>12:00 – 23:00</span></div>
         <div class="row" data-day="0"><span class="d">Sonntag</span><span>Ruhetag</span></div>
       </div>
+      <div class="menu-info" style="justify-content:flex-start;margin-top:18px"><span>🍴 Warme Küche durchgehend von 12:00 – 22:00 Uhr</span></div>
     </div>
     <div class="reveal">
       <span class="eyebrow">Contatti &amp; Anfahrt</span>
       <h2 class="serif" style="font-size:clamp(2rem,4vw,3rem);margin:14px 0 6px">So finden Sie uns</h2>
       <div class="info-card"><div class="ic">📍</div><div><h4>Adresse</h4><a href="https://maps.google.com/?q=Trattoria+Pane+e+Vino+Friedrich-Ebert-Stra%C3%9Fe+35+Potsdam" target="_blank" rel="noopener">Friedrich-Ebert-Straße 35, 14469 Potsdam</a></div></div>
-      <div class="info-card"><div class="ic">☎</div><div><h4>Telefon</h4><a href="tel:+493312007900">0331 2007900</a></div></div>
+      <div class="info-card"><div class="ic">☎</div><div><h4>Telefon</h4><a href="tel:+493312007900">0331 200 79 00</a></div></div>
+      <div class="info-card"><div class="ic">📱</div><div><h4>Mobil</h4><a href="tel:+491735253414">0173 525 3414</a></div></div>
       <div class="info-card"><div class="ic">✉</div><div><h4>E-Mail</h4><a href="mailto:trattoriapaneevino@yahoo.de">trattoriapaneevino@yahoo.de</a></div></div>
       <div class="info-card" style="border-bottom:none"><div class="ic">🅿</div><div><h4>Lage</h4><p>Zentral in Potsdam, gut mit Tram &amp; Bus erreichbar</p></div></div>
       <a href="#reserve" class="btn btn-primary" style="margin-top:18px">Jetzt Tisch reservieren</a>
@@ -600,9 +682,9 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <span class="script-name">Pane e Vino</span>
-        <p>Trattoria in Potsdam – Holzofen-Pizza, hausgemachte Pasta und ausgesuchte Weine.
-           Echte italienische Gastfreundschaft seit jeher.</p>
+        <img src="img/logo.png" alt="Logo Trattoria Pane e Vino" style="width:120px;height:120px;background:#fff;border-radius:50%;padding:6px;margin-bottom:14px">
+        <p>Trattoria in Potsdam – täglich frische Pasta aus eigener Herstellung, Holzofen-Pizza
+           und ausgesuchte Weine. Echte italienische Gastfreundschaft.</p>
       </div>
       <div>
         <h5>Navigation</h5>
@@ -616,10 +698,11 @@
       <div>
         <h5>Kontakt</h5>
         <ul>
-          <li><a href="tel:+493312007900">0331 2007900</a></li>
+          <li><a href="tel:+493312007900">0331 200 79 00</a></li>
+          <li><a href="tel:+491735253414">0173 525 3414</a></li>
           <li><a href="mailto:trattoriapaneevino@yahoo.de">trattoriapaneevino@yahoo.de</a></li>
           <li>Friedrich-Ebert-Str. 35<br>14469 Potsdam</li>
-          <li>Mo–Sa 12:00–23:45 · So Ruhetag</li>
+          <li>Mo–Sa 12:00–23:00 · warme Küche bis 22:00<br>Sonntag Ruhetag</li>
         </ul>
       </div>
     </div>
@@ -637,7 +720,7 @@
 </div>
 
 <!-- CHATBOT -->
-<button class="chat-launch" id="chatLaunch" aria-label="Chat öffnen">💬<span class="badge-dot"></span></button>
+<button class="chat-launch" id="chatLaunch" aria-label="Chat öffnen">🍕<span class="badge-dot"></span></button>
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat mit der Trattoria">
   <div class="chat-head">
     <div class="av">🍕</div>
@@ -736,7 +819,7 @@
   var answers = {
     reserve: 'Sehr gern! 📅 Nutzen Sie einfach unser <a href="#reserve" style="color:var(--terracotta);font-weight:600">Reservierungs-Formular</a> – wir bestätigen Ihren Tisch telefonisch oder per Mail.',
     menu:    'Ecco la carta! 🍕 Schauen Sie in unsere <a href="#menu" style="color:var(--terracotta);font-weight:600">Speisekarte</a> – Pizza aus dem Holzofen, Pasta, Antipasti &amp; Dolci.',
-    hours:   'Wir haben <b>Mo–Sa von 12:00 bis 23:45 Uhr</b> für Sie geöffnet. Sonntag ist Ruhetag. 🕑',
+    hours:   'Wir haben <b>Mo–Sa von 12:00 bis 23:00 Uhr</b> geöffnet (warme Küche bis 22:00). Sonntag ist Ruhetag. 🕑',
     call:    'Rufen Sie uns gern an: <a href="tel:+493312007900" style="color:var(--terracotta);font-weight:600">0331 2007900</a>. A presto! ☎'
   };
   var labels = { reserve:'Tisch reservieren', menu:'Speisekarte', hours:'Öffnungszeiten', call:'Anrufen' };
