@@ -323,13 +323,77 @@
     .foot-grid{grid-template-columns:1fr}
     .hero-meta{gap:16px}
   }
+  /* ============ PREMIUM LAYER ============ */
+  #loader{position:fixed;inset:0;z-index:200;background:radial-gradient(circle at 50% 38%,#3a1d10,#190d07 75%);display:grid;place-items:center;transition:opacity .9s ease,visibility .9s ease}
+  #loader.hidden{opacity:0;visibility:hidden}
+  #loader .lwrap{text-align:center}
+  #loader img{width:128px;height:128px;border-radius:50%;background:#fff;padding:8px;animation:pulse 1.7s ease-in-out infinite}
+  #loader .lw{font-family:'Pinyon Script';font-size:2.1rem;color:var(--gold-soft);margin-top:16px}
+  @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(231,200,120,.4)}50%{transform:scale(1.06);box-shadow:0 0 0 24px rgba(231,200,120,0)}}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:80;background:linear-gradient(90deg,var(--gold),var(--gold-soft));box-shadow:0 0 12px rgba(194,145,47,.7)}
+
+  body::before{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .sec-head h2,.about-text h2{background:linear-gradient(92deg,var(--terracotta) 0%,#b5532b 45%,var(--gold) 115%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .reviews .sec-head h2{background:linear-gradient(92deg,var(--gold-soft),#fff8ea);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+  .dish .d-price{background:linear-gradient(90deg,var(--terracotta),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+  .hero::before{animation:kenburns 20s ease-in-out infinite alternate}
+  @keyframes kenburns{from{transform:scale(1.05)}to{transform:scale(1.15)}}
+  .hero-frame{position:absolute;inset:22px;border:1px solid rgba(231,200,120,.4);pointer-events:none;z-index:0}
+  .hero-frame::after{content:"";position:absolute;inset:6px;border:1px solid rgba(231,200,120,.18)}
+
+  .btn-primary{position:relative;overflow:hidden}
+  .btn-primary::after{content:"";position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-22deg)}
+  .btn-primary:hover::after{animation:sheen .95s ease}
+  @keyframes sheen{to{left:140%}}
+
+  .dish{border-radius:8px;transition:background .3s ease,padding .3s ease}
+  .dish:hover{background:linear-gradient(90deg,rgba(194,145,47,.08),transparent 80%);padding-left:12px}
+
+  .gal-grid.reveal figure{opacity:0;transform:translateY(26px) scale(.97);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1)}
+  .gal-grid.reveal.in figure{opacity:1;transform:none}
+  .gal-grid.reveal.in figure:nth-child(1){transition-delay:.04s}
+  .gal-grid.reveal.in figure:nth-child(2){transition-delay:.10s}
+  .gal-grid.reveal.in figure:nth-child(3){transition-delay:.16s}
+  .gal-grid.reveal.in figure:nth-child(4){transition-delay:.22s}
+  .gal-grid.reveal.in figure:nth-child(5){transition-delay:.28s}
+  .gal-grid.reveal.in figure:nth-child(6){transition-delay:.34s}
+  .gal-grid.reveal.in figure:nth-child(7){transition-delay:.40s}
+  .gal-grid.reveal.in figure:nth-child(8){transition-delay:.46s}
+  .gal-grid.reveal.in figure:nth-child(9){transition-delay:.52s}
+  .rev-grid .rev:nth-child(2){transition-delay:.12s}
+  .rev-grid .rev:nth-child(3){transition-delay:.24s}
+
+  .gal-grid figure{cursor:zoom-in}
+  .gal-grid figure::after{content:"\002B";position:absolute;top:10px;right:14px;color:#fff;font-size:1.4rem;font-weight:300;opacity:0;transition:opacity .3s;text-shadow:0 1px 8px rgba(0,0,0,.7);z-index:2}
+  .gal-grid figure:hover::after{opacity:.92}
+  #lightbox{position:fixed;inset:0;z-index:120;background:rgba(18,9,5,.93);backdrop-filter:blur(5px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+  #lightbox.open{opacity:1;visibility:visible}
+  #lightbox img{max-width:90vw;max-height:76vh;border-radius:10px;box-shadow:0 36px 90px -24px #000;border:1px solid rgba(231,200,120,.45)}
+  #lightbox .cap{color:var(--cream);font-family:'Cormorant Garamond';font-size:1.45rem;text-align:center;max-width:600px}
+  #lightbox .lx-close{position:absolute;top:22px;right:30px;background:none;border:none;color:#fff;font-size:2.2rem;line-height:1;cursor:pointer;opacity:.85}
+  #lightbox .lx-close:hover{opacity:1;color:var(--gold-soft)}
+
+  .rev{position:relative}
+  .rev::before{content:"\201C";position:absolute;top:2px;right:22px;font-family:'Cormorant Garamond';font-size:5rem;line-height:1;color:var(--gold);opacity:.18}
+
   @media (prefers-reduced-motion: reduce){
     *{animation:none!important;scroll-behavior:auto!important}
     .reveal{opacity:1;transform:none}
+    .gal-grid.reveal figure{opacity:1!important;transform:none!important}
+    #loader{display:none}
   }
 </style>
 </head>
 <body>
+
+<!-- INTRO LOADER -->
+<div id="loader"><div class="lwrap"><img src="img/logo.png" alt="Trattoria Pane e Vino"><div class="lw">Benvenuti</div></div></div>
+<!-- SCROLL PROGRESS -->
+<div id="progress"></div>
 
 <!-- HEADER -->
 <header id="hdr">
@@ -374,6 +438,7 @@
     </div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><span class="dot"></span></div>
+  <div class="hero-frame"></div>
 </section>
 
 <!-- USP STRIP -->
@@ -719,6 +784,9 @@
   <a href="#reserve" class="btn btn-primary">Reservieren</a>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lightbox"><button class="lx-close" aria-label="Schließen">×</button><img src="" alt=""><div class="cap"></div></div>
+
 <!-- CHATBOT -->
 <button class="chat-launch" id="chatLaunch" aria-label="Chat öffnen">🍕<span class="badge-dot"></span></button>
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat mit der Trattoria">
@@ -829,6 +897,37 @@
     addMsg(labels[q], 'user');
     setTimeout(function(){ addMsg(answers[q] || 'Schreiben Sie uns gern – wir helfen weiter!'); }, 400);
   });
+
+  // Intro loader
+  var loader = document.getElementById('loader');
+  function hideLoader(){ if(loader) loader.classList.add('hidden'); }
+  window.addEventListener('load', function(){ setTimeout(hideLoader, 500); });
+  setTimeout(hideLoader, 2600); // safety fallback
+
+  // Scroll progress bar
+  var prog = document.getElementById('progress');
+  function updProg(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  updProg(); window.addEventListener('scroll', updProg, {passive:true});
+
+  // Lightbox gallery
+  var lb = document.getElementById('lightbox');
+  var lbImg = lb.querySelector('img');
+  var lbCap = lb.querySelector('.cap');
+  function closeLb(){ lb.classList.remove('open'); }
+  document.querySelectorAll('.gal-grid figure img').forEach(function(im){
+    im.addEventListener('click', function(){
+      lbImg.src = im.src; lbImg.alt = im.alt; lbCap.textContent = im.alt;
+      lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click', function(e){
+    if(e.target === lb || e.target.classList.contains('lx-close')) closeLb();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
 })();
 </script>
 </body>
