@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Trattoria Pane e Vino · Holzofen-Pizza & italienische Küche in Potsdam</title>
+<meta name="description" content="Trattoria Pane e Vino in Potsdam – Pizza aus dem Holzfeuerofen, frische Zutaten und traditionelle italienische Rezepte. Jetzt Tisch online reservieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terracotta:#9c3b1b;
+    --terracotta-deep:#7a2c12;
+    --wine:#5a1f1f;
+    --cream:#f7efe2;
+    --cream-2:#fbf6ec;
+    --paper:#fffdf8;
+    --ink:#2a201a;
+    --ink-soft:#5b4a3d;
+    --olive:#5e6b3a;
+    --gold:#c2912f;
+    --gold-soft:#e7c878;
+    --line:rgba(42,32,26,.12);
+    --shadow:0 24px 60px -28px rgba(58,30,12,.45);
+    --shadow-soft:0 14px 34px -22px rgba(58,30,12,.4);
+    --r:18px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Manrope',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:.2px}
+  .script{font-family:'Pinyon Script',cursive;font-weight:400}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  section{position:relative}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    font-family:'Manrope';font-size:.74rem;font-weight:600;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--terracotta);display:inline-flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+  .eyebrow.center::after{content:"";width:34px;height:1px;background:var(--gold)}
+  .eyebrow.center{justify-content:center}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+    font-weight:600;font-size:.95rem;letter-spacing:.02em;
+    padding:14px 28px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:0 14px 30px -14px rgba(156,59,27,.8)}
+  .btn-primary:hover{background:var(--terracotta-deep);transform:translateY(-2px);box-shadow:0 18px 38px -14px rgba(156,59,27,.9)}
+  .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+  .btn-dark{background:var(--ink);color:var(--cream)}
+  .btn-dark:hover{background:#3a2c22;transform:translateY(-2px)}
+  .btn-outline{background:transparent;color:var(--terracotta);border-color:var(--terracotta)}
+  .btn-outline:hover{background:var(--terracotta);color:#fff;transform:translateY(-2px)}
+
+  /* Header */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:60;
+    transition:background .35s ease, box-shadow .35s ease, padding .35s ease;
+    padding:20px 0;
+  }
+  header .bar{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;flex-direction:column;line-height:1;color:#fff;transition:color .35s ease}
+  .brand .script-name{font-family:'Pinyon Script';font-size:1.75rem;line-height:1}
+  .brand .sub{font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;font-weight:600;opacity:.85;margin-top:3px}
+  nav.menu{display:flex;align-items:center;gap:30px}
+  nav.menu a{font-size:.86rem;font-weight:600;letter-spacing:.04em;color:#fff;opacity:.92;transition:opacity .2s, color .35s}
+  nav.menu a:hover{opacity:1}
+  header.scrolled{background:rgba(255,253,248,.94);backdrop-filter:blur(12px);box-shadow:0 10px 30px -22px rgba(58,30,12,.5);padding:12px 0}
+  header.scrolled .brand{color:var(--ink)}
+  header.scrolled nav.menu a{color:var(--ink)}
+  header.scrolled .btn-ghost{color:var(--terracotta);border-color:var(--terracotta)}
+  header.scrolled .btn-ghost:hover{background:var(--terracotta);color:#fff}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+  .burger span{width:26px;height:2px;background:#fff;transition:background .35s}
+  header.scrolled .burger span{background:var(--ink)}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;color:#fff;padding:120px 0 80px}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:-2;
+    background:url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+    transform:scale(1.04);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(115deg,rgba(40,18,8,.86) 0%,rgba(60,24,12,.62) 45%,rgba(40,18,8,.4) 100%);
+  }
+  .hero-inner{max-width:680px}
+  .hero h1{font-size:clamp(3rem,7vw,5.6rem);margin:18px 0 8px;text-shadow:0 2px 30px rgba(0,0,0,.3)}
+  .hero h1 .script{display:block;color:var(--gold-soft);font-size:clamp(2.4rem,5.5vw,4rem);font-weight:400;margin-bottom:-6px}
+  .hero p.lead{font-size:1.15rem;max-width:520px;color:rgba(255,255,255,.92);margin:18px 0 32px;font-weight:300}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:26px;margin-top:40px;font-size:.86rem;opacity:.9}
+  .hero-meta span{display:inline-flex;align-items:center;gap:.5em}
+  .hero-meta b{font-weight:700}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;opacity:.8;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-hint .dot{width:1px;height:42px;background:linear-gradient(var(--gold-soft),transparent);animation:drop 2s infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* USP strip */
+  .usps{background:var(--ink);color:var(--cream)}
+  .usps .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .usp{padding:30px 26px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+  .usp:last-child{border-right:none}
+  .usp .ic{font-size:1.5rem;margin-bottom:8px}
+  .usp h4{font-family:'Manrope';font-size:.95rem;font-weight:700;letter-spacing:.02em;margin-bottom:2px}
+  .usp p{font-size:.8rem;opacity:.7;font-weight:300}
+
+  /* generic section spacing */
+  .sec{padding:100px 0}
+  .sec-head{max-width:680px}
+  .sec-head.center{margin:0 auto;text-align:center}
+  .sec-head h2{font-size:clamp(2.2rem,4.5vw,3.4rem);margin:14px 0 14px}
+  .sec-head p{color:var(--ink-soft);font-size:1.05rem;font-weight:300}
+
+  /* About */
+  .about{background:var(--cream-2)}
+  .about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+  .about-text h2{font-size:clamp(2.2rem,4.5vw,3.3rem);margin:14px 0 18px}
+  .about-text p{color:var(--ink-soft);margin-bottom:16px;font-weight:300;font-size:1.04rem}
+  .about-text .sig{font-family:'Pinyon Script';font-size:2rem;color:var(--terracotta);margin-top:10px}
+  .about-media{position:relative}
+  .about-media img{border-radius:var(--r);box-shadow:var(--shadow);width:100%;height:540px;object-fit:cover}
+  .about-media .badge{
+    position:absolute;left:-28px;bottom:34px;background:var(--paper);border-radius:16px;padding:18px 22px;
+    box-shadow:var(--shadow-soft);display:flex;align-items:center;gap:14px;
+  }
+  .about-media .badge .num{font-family:'Cormorant Garamond';font-size:2.4rem;color:var(--terracotta);font-weight:700;line-height:1}
+  .about-media .badge .lbl{font-size:.78rem;color:var(--ink-soft);line-height:1.3}
+  .stars{color:var(--gold);letter-spacing:2px}
+
+  /* Menu */
+  .menu-sec{background:var(--paper)}
+  .demo-note{
+    display:inline-flex;align-items:center;gap:.55em;background:rgba(194,145,47,.14);color:#8a6210;
+    border:1px solid rgba(194,145,47,.4);padding:7px 16px;border-radius:999px;font-size:.76rem;font-weight:600;
+    letter-spacing:.02em;margin-top:18px;
+  }
+  .menu-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:34px 0 44px}
+  .menu-tab{
+    font-weight:600;font-size:.9rem;padding:10px 22px;border-radius:999px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .2s;font-family:'Manrope'
+  }
+  .menu-tab.active{background:var(--terracotta);color:#fff;border-color:var(--terracotta);box-shadow:0 10px 22px -14px rgba(156,59,27,.8)}
+  .menu-panel{display:none;animation:fade .4s ease}
+  .menu-panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 56px;max-width:920px;margin:0 auto}
+  .dish{display:flex;align-items:baseline;gap:12px;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .dish .d-main{flex:1}
+  .dish .d-name{font-family:'Cormorant Garamond';font-size:1.4rem;font-weight:600;color:var(--ink)}
+  .dish .d-tag{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--olive);padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
+  .dish .d-tag.spicy{background:var(--terracotta)}
+  .dish .d-desc{font-size:.85rem;color:var(--ink-soft);font-weight:300;margin-top:2px}
+  .dish .d-dots{flex:1;border-bottom:1px dotted var(--line);align-self:flex-end;margin-bottom:6px;min-width:18px}
+  .dish .d-price{font-family:'Cormorant Garamond';font-size:1.3rem;font-weight:600;color:var(--terracotta);white-space:nowrap}
+  .menu-foot{text-align:center;margin-top:40px}
+
+  /* Reservation */
+  .reserve{background:linear-gradient(160deg,var(--wine),var(--terracotta-deep));color:var(--cream);position:relative;overflow:hidden}
+  .reserve::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1400&q=80') center/cover;opacity:.12}
+  .reserve .wrap{position:relative;z-index:2}
+  .reserve-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+  .reserve-intro h2{font-size:clamp(2.2rem,4.5vw,3.3rem);margin:14px 0 16px;color:#fff}
+  .reserve-intro p{color:rgba(255,255,255,.85);font-weight:300;margin-bottom:22px}
+  .reserve-intro .eyebrow{color:var(--gold-soft)}
+  .reserve-intro .eyebrow::before{background:var(--gold-soft)}
+  .reserve-contactline{display:flex;flex-direction:column;gap:10px;font-size:.95rem;margin-top:8px}
+  .reserve-contactline a{display:inline-flex;align-items:center;gap:.6em;font-weight:600}
+  .reserve-contactline a:hover{color:var(--gold-soft)}
+  .form-card{background:var(--paper);color:var(--ink);border-radius:22px;padding:34px;box-shadow:var(--shadow)}
+  .form-card h3{font-size:1.6rem;margin-bottom:4px}
+  .form-card .fc-sub{font-size:.85rem;color:var(--ink-soft);margin-bottom:22px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .field input,.field select,.field textarea{
+    font-family:'Manrope';font-size:.95rem;padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+    background:var(--cream-2);color:var(--ink);transition:border .2s, box-shadow .2s;width:100%;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(156,59,27,.12);background:#fff}
+  .form-card .btn{width:100%;margin-top:6px}
+  .form-note{font-size:.72rem;color:var(--ink-soft);text-align:center;margin-top:12px;opacity:.85}
+
+  /* Gallery */
+  .gallery{background:var(--cream-2)}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px;margin-top:46px}
+  .gal-grid figure{overflow:hidden;border-radius:14px;box-shadow:var(--shadow-soft);position:relative}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+  .gal-grid figure:hover img{transform:scale(1.07)}
+  .gal-grid .tall{grid-row:span 2}
+  .gal-grid .wide{grid-column:span 2}
+
+  /* Reviews */
+  .reviews{background:var(--ink);color:var(--cream)}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:46px}
+  .rev{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}
+  .rev .stars{font-size:1.1rem;margin-bottom:12px}
+  .rev p{font-style:italic;font-family:'Cormorant Garamond';font-size:1.3rem;line-height:1.4;color:#f1e6d6}
+  .rev .who{margin-top:16px;font-size:.82rem;font-weight:600;color:var(--gold-soft);letter-spacing:.02em}
+  .rev-summary{text-align:center;margin-top:40px;font-size:.9rem;opacity:.75}
+
+  /* Visit / hours */
+  .visit{background:var(--paper)}
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px}
+  .hours-list{margin-top:10px;border-top:1px solid var(--line)}
+  .hours-list .row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:.96rem}
+  .hours-list .row.today{color:var(--terracotta);font-weight:700}
+  .hours-list .row .d{font-weight:600}
+  .info-card{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+  .info-card .ic{font-size:1.3rem;width:42px;height:42px;display:grid;place-items:center;background:var(--cream);border-radius:12px;flex-shrink:0}
+  .info-card h4{font-family:'Manrope';font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:700;margin-bottom:2px}
+  .info-card a,.info-card p{font-size:1.05rem;font-weight:500;color:var(--ink)}
+  .info-card a:hover{color:var(--terracotta)}
+
+  /* CTA band */
+  .cta-band{position:relative;color:#fff;text-align:center;padding:120px 0}
+  .cta-band::before{content:"";position:absolute;inset:0;z-index:-2;background:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=2000&q=80') center/cover}
+  .cta-band::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(40,18,8,.74)}
+  .cta-band h2{font-size:clamp(2.4rem,5vw,4rem);margin-bottom:14px}
+  .cta-band p{font-size:1.1rem;opacity:.9;font-weight:300;max-width:520px;margin:0 auto 30px}
+  .cta-band .hero-cta{justify-content:center}
+
+  /* Footer */
+  footer{background:#1c1510;color:rgba(247,239,226,.7);padding:64px 0 0;font-size:.9rem}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .foot-brand .script-name{font-family:'Pinyon Script';font-size:2rem;color:#fff}
+  .foot-brand p{margin-top:10px;max-width:300px;font-weight:300}
+  footer h5{font-family:'Manrope';color:#fff;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:9px}
+  footer a:hover{color:var(--gold-soft)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0;font-size:.78rem;opacity:.7}
+  .concept-tag{display:inline-flex;align-items:center;gap:.5em;background:rgba(255,255,255,.06);padding:6px 14px;border-radius:999px;font-weight:600;letter-spacing:.04em}
+
+  /* Mobile CTA bar */
+  .mobile-bar{position:fixed;bottom:0;left:0;right:0;z-index:55;display:none;gap:10px;padding:12px 14px;
+    background:rgba(255,253,248,.96);backdrop-filter:blur(10px);box-shadow:0 -10px 30px -20px rgba(0,0,0,.5);border-top:1px solid var(--line)}
+  .mobile-bar .btn{flex:1;padding:13px}
+
+  /* Chatbot */
+  .chat-launch{position:fixed;right:22px;bottom:22px;z-index:70;width:62px;height:62px;border-radius:50%;
+    background:var(--terracotta);color:#fff;border:none;cursor:pointer;font-size:1.5rem;box-shadow:0 16px 34px -12px rgba(156,59,27,.9);
+    display:grid;place-items:center;transition:transform .25s}
+  .chat-launch:hover{transform:scale(1.07)}
+  .chat-launch .badge-dot{position:absolute;top:6px;right:8px;width:12px;height:12px;background:var(--olive);border:2px solid #fff;border-radius:50%}
+  .chat-panel{position:fixed;right:22px;bottom:96px;z-index:71;width:340px;max-width:calc(100vw - 32px);background:var(--paper);
+    border-radius:20px;box-shadow:var(--shadow);overflow:hidden;transform:translateY(20px) scale(.96);opacity:0;pointer-events:none;
+    transition:all .3s cubic-bezier(.2,.8,.2,1);border:1px solid var(--line)}
+  .chat-panel.open{transform:none;opacity:1;pointer-events:auto}
+  .chat-head{background:var(--terracotta);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}
+  .chat-head .av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:1.2rem}
+  .chat-head .ct{line-height:1.2}
+  .chat-head .ct b{font-size:.98rem}
+  .chat-head .ct span{font-size:.72rem;opacity:.85;display:flex;align-items:center;gap:5px}
+  .chat-head .ct span::before{content:"";width:7px;height:7px;border-radius:50%;background:#8bd17a;display:inline-block}
+  .chat-head .x{margin-left:auto;cursor:pointer;font-size:1.3rem;opacity:.85;background:none;border:none;color:#fff}
+  .chat-body{padding:18px;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--cream-2)}
+  .msg{max-width:84%;padding:10px 14px;border-radius:14px;font-size:.88rem;line-height:1.45}
+  .msg.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+  .msg.user{background:var(--terracotta);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+  .chat-quick{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:var(--paper);border-top:1px solid var(--line)}
+  .chat-quick button{font-family:'Manrope';font-size:.8rem;font-weight:600;border:1px solid var(--terracotta);color:var(--terracotta);
+    background:transparent;padding:8px 13px;border-radius:999px;cursor:pointer;transition:all .2s}
+  .chat-quick button:hover{background:var(--terracotta);color:#fff}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Responsive */
+  @media(max-width:980px){
+    .about-grid,.reserve-grid,.visit-grid{grid-template-columns:1fr;gap:40px}
+    .about-media img{height:420px}
+    .rev-grid{grid-template-columns:1fr}
+    .usps .wrap{grid-template-columns:1fr 1fr}
+    .usp:nth-child(2){border-right:none}
+    .gal-grid{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:760px){
+    nav.menu{display:none}
+    .nav-cta .btn{display:none}
+    .burger{display:flex}
+    .sec{padding:72px 0}
+    .menu-grid{grid-template-columns:1fr;gap:0 0}
+    .form-row{grid-template-columns:1fr}
+    .about-media .badge{left:14px}
+    .mobile-bar{display:flex}
+    body{padding-bottom:74px}
+    .chat-launch{bottom:84px}
+    .chat-panel{bottom:158px}
+    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:150px}
+    .foot-grid{grid-template-columns:1fr}
+    .hero-meta{gap:16px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="wrap bar">
+    <a href="#top" class="brand">
+      <span class="script-name">Pane e Vino</span>
+      <span class="sub">Trattoria · Potsdam</span>
+    </a>
+    <nav class="menu">
+      <a href="#about">Trattoria</a>
+      <a href="#menu">Speisekarte</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#visit">Öffnungszeiten</a>
+      <a href="#reserve">Reservieren</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+493312007900" class="btn btn-ghost">☎ 0331 2007900</a>
+      <a href="#reserve" class="btn btn-primary">Tisch reservieren</a>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-inner reveal">
+    <span class="eyebrow" style="color:var(--gold-soft)">Holzfeuerofen · Frische Zutaten · Tradition</span>
+    <h1><span class="script">Benvenuti nella</span>Trattoria Pane e Vino</h1>
+    <p class="lead">Echte italienische Küche im Herzen von Potsdam – Pizza aus dem Holzfeuerofen,
+       hausgemachte Pasta und ausgesuchte Weine. Wie bei Nonna, nur mitten in der Stadt.</p>
+    <div class="hero-cta">
+      <a href="#reserve" class="btn btn-primary">Tisch reservieren</a>
+      <a href="#menu" class="btn btn-ghost">Speisekarte ansehen</a>
+    </div>
+    <div class="hero-meta">
+      <span>⭐ <b>4,5 / 5</b> · 1.535 Bewertungen</span>
+      <span>📍 <b>Friedrich-Ebert-Str. 35</b>, Potsdam</span>
+      <span>🕑 <b>Mo–Sa</b> ab 12:00 Uhr</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="dot"></span></div>
+</section>
+
+<!-- USP STRIP -->
+<section class="usps">
+  <div class="wrap">
+    <div class="usp"><div class="ic">🔥</div><h4>Holzfeuerofen</h4><p>Knusprige Pizza, original gebacken</p></div>
+    <div class="usp"><div class="ic">🌿</div><h4>Frische Zutaten</h4><p>Täglich frisch, saisonal ausgewählt</p></div>
+    <div class="usp"><div class="ic">👨‍🍳</div><h4>Traditionelle Rezepte</h4><p>Echte italienische Handwerkskunst</p></div>
+    <div class="usp"><div class="ic">🍷</div><h4>Ausgesuchte Weine</h4><p>Die passende Begleitung zu jedem Gericht</p></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-text reveal">
+      <span class="eyebrow">La nostra storia</span>
+      <h2>Italienische Gastfreundschaft in Potsdam</h2>
+      <p>In der Trattoria Pane e Vino dreht sich alles um die Leidenschaft für gutes Essen.
+         Unsere Pizza backen wir im <strong>Holzfeuerofen</strong> – das gibt ihr den
+         unverwechselbaren Geschmack und den knusprigen Boden, den man nur so bekommt.</p>
+      <p>Wir kochen mit <strong>frischen Zutaten</strong> und nach <strong>traditionellen Rezepten</strong>,
+         wie sie über Generationen weitergegeben wurden. Dazu ein Glas Wein, gute Gesellschaft –
+         und schon fühlt es sich an wie ein Abend in Italien.</p>
+      <p>Mitten in Potsdam, an der Friedrich-Ebert-Straße, sind wir zum beliebten Treffpunkt für
+         alle geworden, die echte italienische Küche lieben.</p>
+      <div class="sig">La famiglia Pane e Vino</div>
+    </div>
+    <div class="about-media reveal">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1100&q=80" alt="Gemütliches Ambiente in der Trattoria Pane e Vino" loading="lazy">
+      <div class="badge">
+        <div class="num">4,5</div>
+        <div class="lbl"><span class="stars">★★★★★</span><br>1.535 Gäste­bewertungen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="sec menu-sec" id="menu">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow center">Il Menù</span>
+      <h2>Unsere Speisekarte</h2>
+      <p>Von der Holzofen-Pizza über hausgemachte Pasta bis zum Dolce – buon appetito.</p>
+      <div class="demo-note">⚠ Beispiel-Karte · echte Gerichte &amp; Preise werden vor Veröffentlichung eingepflegt</div>
+    </div>
+
+    <div class="menu-tabs reveal" id="menuTabs">
+      <button class="menu-tab active" data-panel="pizza">🍕 Pizza</button>
+      <button class="menu-tab" data-panel="pasta">🍝 Pasta</button>
+      <button class="menu-tab" data-panel="antipasti">🥗 Antipasti</button>
+      <button class="menu-tab" data-panel="dolci">🍰 Dolci &amp; Vini</button>
+    </div>
+
+    <div class="menu-panel active reveal" data-panel="pizza">
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Margherita</div><div class="d-desc">Tomaten, Mozzarella fior di latte, frisches Basilikum</div></div><span class="d-dots"></span><span class="d-price">9,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Salami Diavola<span class="d-tag spicy">scharf</span></div><div class="d-desc">Tomaten, Mozzarella, scharfe Salami, Peperoncino</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Prosciutto e Funghi</div><div class="d-desc">Tomaten, Mozzarella, Kochschinken, frische Champignons</div></div><span class="d-dots"></span><span class="d-price">12,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Quattro Formaggi</div><div class="d-desc">Vier-Käse aus Gorgonzola, Mozzarella, Parmesan &amp; Scamorza</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Parma e Rucola</div><div class="d-desc">Mozzarella, Parmaschinken, Rucola, Parmesanhobel</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Tartufo</div><div class="d-desc">Trüffelcreme, Mozzarella, Steinpilze, Rucola</div></div><span class="d-dots"></span><span class="d-price">14,90 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="pasta">
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti Aglio e Olio</div><div class="d-desc">Knoblauch, Olivenöl, Peperoncino, Petersilie</div></div><span class="d-dots"></span><span class="d-price">9,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Penne Arrabbiata<span class="d-tag spicy">scharf</span></div><div class="d-desc">Pikante Tomatensauce, Knoblauch, Peperoncino</div></div><span class="d-dots"></span><span class="d-price">10,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Tagliatelle al Ragù</div><div class="d-desc">Hausgemachte Bolognese nach Familienrezept</div></div><span class="d-dots"></span><span class="d-price">12,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Spaghetti alle Vongole</div><div class="d-desc">Frische Venusmuscheln, Weißwein, Knoblauch</div></div><span class="d-dots"></span><span class="d-price">14,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Lasagne al Forno</div><div class="d-desc">Im Ofen überbacken, klassisch nach Tradition</div></div><span class="d-dots"></span><span class="d-price">11,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Ravioli di Ricotta e Spinaci<span class="d-tag">vegetarisch</span></div><div class="d-desc">Ricotta-Spinat-Füllung, Salbeibutter</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="antipasti">
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Bruschetta al Pomodoro<span class="d-tag">vegetarisch</span></div><div class="d-desc">Geröstetes Brot, Tomaten, Knoblauch, Basilikum</div></div><span class="d-dots"></span><span class="d-price">6,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Antipasto Misto</div><div class="d-desc">Auswahl mediterraner Vorspeisen für zwei</div></div><span class="d-dots"></span><span class="d-price">13,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Caprese</div><div class="d-desc">Büffelmozzarella, Tomaten, Basilikum, Olivenöl</div></div><span class="d-dots"></span><span class="d-price">8,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Insalata Mista</div><div class="d-desc">Gemischter Salat der Saison, Hausdressing</div></div><span class="d-dots"></span><span class="d-price">6,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Vitello Tonnato</div><div class="d-desc">Zarter Kalbsbraten, Thunfisch-Kapern-Sauce</div></div><span class="d-dots"></span><span class="d-price">11,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Carpaccio di Manzo</div><div class="d-desc">Rinderfilet hauchdünn, Rucola, Parmesan</div></div><span class="d-dots"></span><span class="d-price">12,90 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-panel reveal" data-panel="dolci">
+      <div class="menu-grid">
+        <div class="dish"><div class="d-main"><div class="d-name">Tiramisù</div><div class="d-desc">Hausgemacht, klassisch mit Mascarpone &amp; Espresso</div></div><span class="d-dots"></span><span class="d-price">6,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Panna Cotta</div><div class="d-desc">Mit Fruchtspiegel der Saison</div></div><span class="d-dots"></span><span class="d-price">5,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Affogato al Caffè</div><div class="d-desc">Vanilleeis mit heißem Espresso übergossen</div></div><span class="d-dots"></span><span class="d-price">5,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Vino della Casa</div><div class="d-desc">Rot oder weiß · 0,2 l offen aus der Region</div></div><span class="d-dots"></span><span class="d-price">5,50 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Chianti Classico DOCG</div><div class="d-desc">Toskana · 0,75 l Flasche</div></div><span class="d-dots"></span><span class="d-price">26,90 €</span></div>
+        <div class="dish"><div class="d-main"><div class="d-name">Aperol Spritz</div><div class="d-desc">Aperol, Prosecco, Soda, Orange</div></div><span class="d-dots"></span><span class="d-price">7,50 €</span></div>
+      </div>
+    </div>
+
+    <div class="menu-foot reveal">
+      <a href="#reserve" class="btn btn-outline">Tisch für Ihren Besuch reservieren</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="sec reserve" id="reserve">
+  <div class="wrap reserve-grid">
+    <div class="reserve-intro reveal">
+      <span class="eyebrow">Prenota un tavolo</span>
+      <h2>Tisch online reservieren</h2>
+      <p>Sichern Sie sich Ihren Platz in der Trattoria – ob romantischer Abend zu zweit,
+         Familienessen oder Feier. Wir freuen uns auf Ihren Besuch.</p>
+      <div class="reserve-contactline">
+        <a href="tel:+493312007900">☎ 0331 2007900</a>
+        <a href="mailto:trattoriapaneevino@yahoo.de">✉ trattoriapaneevino@yahoo.de</a>
+        <span>📍 Friedrich-Ebert-Straße 35, 14469 Potsdam</span>
+      </div>
+    </div>
+
+    <form class="form-card reveal" id="resForm">
+      <h3>Reservierungsanfrage</h3>
+      <p class="fc-sub">In wenigen Schritten – wir bestätigen Ihren Tisch telefonisch oder per Mail.</p>
+      <div class="form-row">
+        <div class="field"><label for="r-date">Datum</label><input type="date" id="r-date" required></div>
+        <div class="field"><label for="r-time">Uhrzeit</label>
+          <select id="r-time" required>
+            <option value="">Bitte wählen</option>
+            <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+            <option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option>
+            <option>20:00</option><option>20:30</option><option>21:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="r-guests">Personen</label>
+          <select id="r-guests" required>
+            <option value="">Anzahl</option>
+            <option>1 Person</option><option>2 Personen</option><option>3 Personen</option>
+            <option>4 Personen</option><option>5 Personen</option><option>6 Personen</option>
+            <option>7+ Personen (große Gruppe)</option>
+          </select>
+        </div>
+        <div class="field"><label for="r-name">Name</label><input type="text" id="r-name" placeholder="Ihr Name" required></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="r-phone">Telefon</label><input type="tel" id="r-phone" placeholder="Für die Bestätigung" required></div>
+        <div class="field"><label for="r-mail">E-Mail</label><input type="email" id="r-mail" placeholder="optional"></div>
+      </div>
+      <div class="field full"><label for="r-note">Anmerkung</label><textarea id="r-note" rows="2" placeholder="Kinderstuhl, Allergien, Anlass …"></textarea></div>
+      <button type="submit" class="btn btn-primary">Reservierung anfragen →</button>
+      <p class="form-note">Konzept-Vorschau: Das Formular öffnet eine vorausgefüllte E-Mail an die Trattoria.</p>
+    </form>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow center">La Galleria</span>
+      <h2>Ein Vorgeschmack</h2>
+      <p>Atmosphäre, die Lust auf einen Abend bei uns macht.</p>
+    </div>
+    <div class="gal-grid reveal">
+      <figure class="tall"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80" alt="Pizza im Holzfeuerofen" loading="lazy"></figure>
+      <figure class="wide"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=80" alt="Hausgemachte Pasta" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=700&q=80" alt="Bruschetta Vorspeise" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=700&q=80" alt="Italienischer Wein" loading="lazy"></figure>
+      <figure class="wide"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1200&q=80" alt="Tiramisù Dolce" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=700&q=80" alt="Pizzaiolo bei der Arbeit" loading="lazy"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80" alt="Antipasti Auswahl" loading="lazy"></figure>
+    </div>
+    <div class="demo-note" style="margin-top:24px">⚠ Platzhalter-Fotos · werden durch Originalbilder der Trattoria ersetzt</div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow center" style="color:var(--gold-soft)">Cosa dicono gli ospiti</span>
+      <h2 style="color:#fff">Was Gäste sagen</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Die beste Pizza in Potsdam – knuspriger Boden direkt aus dem Holzofen. Wie in Italien.“</p><div class="who">Beispielstimme</div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Frische Zutaten, freundlicher Service und faire Preise. Wir kommen immer wieder gerne.“</p><div class="who">Beispielstimme</div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Gemütliches Ambiente und herzliche Gastfreundschaft. Ein Stück Italien mitten in der Stadt.“</p><div class="who">Beispielstimme</div></div>
+    </div>
+    <p class="rev-summary">⭐ 4,5 von 5 aus 1.535 Bewertungen · Die obigen Zitate sind beispielhafte Platzhalter.</p>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="sec visit" id="visit">
+  <div class="wrap visit-grid">
+    <div class="reveal">
+      <span class="eyebrow">Orari</span>
+      <h2 class="serif" style="font-size:clamp(2rem,4vw,3rem);margin:14px 0 6px">Öffnungszeiten</h2>
+      <div class="hours-list" id="hours">
+        <div class="row" data-day="1"><span class="d">Montag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="2"><span class="d">Dienstag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="3"><span class="d">Mittwoch</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="4"><span class="d">Donnerstag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="5"><span class="d">Freitag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="6"><span class="d">Samstag</span><span>12:00 – 23:45</span></div>
+        <div class="row" data-day="0"><span class="d">Sonntag</span><span>Ruhetag</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Contatti &amp; Anfahrt</span>
+      <h2 class="serif" style="font-size:clamp(2rem,4vw,3rem);margin:14px 0 6px">So finden Sie uns</h2>
+      <div class="info-card"><div class="ic">📍</div><div><h4>Adresse</h4><a href="https://maps.google.com/?q=Trattoria+Pane+e+Vino+Friedrich-Ebert-Stra%C3%9Fe+35+Potsdam" target="_blank" rel="noopener">Friedrich-Ebert-Straße 35, 14469 Potsdam</a></div></div>
+      <div class="info-card"><div class="ic">☎</div><div><h4>Telefon</h4><a href="tel:+493312007900">0331 2007900</a></div></div>
+      <div class="info-card"><div class="ic">✉</div><div><h4>E-Mail</h4><a href="mailto:trattoriapaneevino@yahoo.de">trattoriapaneevino@yahoo.de</a></div></div>
+      <div class="info-card" style="border-bottom:none"><div class="ic">🅿</div><div><h4>Lage</h4><p>Zentral in Potsdam, gut mit Tram &amp; Bus erreichbar</p></div></div>
+      <a href="#reserve" class="btn btn-primary" style="margin-top:18px">Jetzt Tisch reservieren</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="wrap reveal">
+    <span class="eyebrow center" style="color:var(--gold-soft)">A presto!</span>
+    <h2>Buon Appetito wartet auf Sie</h2>
+    <p>Reservieren Sie Ihren Tisch und genießen Sie echte italienische Küche aus dem Holzfeuerofen.</p>
+    <div class="hero-cta">
+      <a href="#reserve" class="btn btn-primary">Tisch reservieren</a>
+      <a href="tel:+493312007900" class="btn btn-ghost">☎ 0331 2007900</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="script-name">Pane e Vino</span>
+        <p>Trattoria in Potsdam – Holzofen-Pizza, hausgemachte Pasta und ausgesuchte Weine.
+           Echte italienische Gastfreundschaft seit jeher.</p>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#about">Die Trattoria</a></li>
+          <li><a href="#menu">Speisekarte</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#reserve">Reservieren</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Kontakt</h5>
+        <ul>
+          <li><a href="tel:+493312007900">0331 2007900</a></li>
+          <li><a href="mailto:trattoriapaneevino@yahoo.de">trattoriapaneevino@yahoo.de</a></li>
+          <li>Friedrich-Ebert-Str. 35<br>14469 Potsdam</li>
+          <li>Mo–Sa 12:00–23:45 · So Ruhetag</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Trattoria Pane e Vino · Potsdam</span>
+      <span class="concept-tag">✦ Konzept-Vorschau · gestaltet von MZ.9</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE CTA BAR -->
+<div class="mobile-bar">
+  <a href="tel:+493312007900" class="btn btn-dark">☎ Anrufen</a>
+  <a href="#reserve" class="btn btn-primary">Reservieren</a>
+</div>
+
+<!-- CHATBOT -->
+<button class="chat-launch" id="chatLaunch" aria-label="Chat öffnen">💬<span class="badge-dot"></span></button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat mit der Trattoria">
+  <div class="chat-head">
+    <div class="av">🍕</div>
+    <div class="ct"><b>Luigi · Trattoria Pane e Vino</b><span>Antwortet meist sofort</span></div>
+    <button class="x" id="chatClose" aria-label="Schließen">×</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot">Ciao &amp; benvenuto! 👋 Ich helfe Ihnen gern weiter – wie kann ich behilflich sein?</div>
+  </div>
+  <div class="chat-quick" id="chatQuick">
+    <button data-q="reserve">📅 Tisch reservieren</button>
+    <button data-q="menu">🍕 Speisekarte</button>
+    <button data-q="hours">🕑 Öffnungszeiten</button>
+    <button data-q="call">☎ Anrufen</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header scrolled state
+  var hdr = document.getElementById('hdr');
+  function onScroll(){ hdr.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile burger -> simple anchor scroll to menu section list (toggle inline menu)
+  var burger = document.getElementById('burger');
+  if(burger){ burger.addEventListener('click', function(){ location.hash = '#menu'; }); }
+
+  // Reveal animations
+  if('IntersectionObserver' in window && !rm){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Menu tabs
+  var tabs = document.querySelectorAll('.menu-tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var key = t.getAttribute('data-panel');
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      document.querySelectorAll('.menu-panel').forEach(function(p){
+        p.classList.toggle('active', p.getAttribute('data-panel') === key);
+      });
+    });
+  });
+
+  // Highlight today's opening hours
+  var today = new Date().getDay();
+  var row = document.querySelector('.hours-list .row[data-day="'+today+'"]');
+  if(row) row.classList.add('today');
+
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Reservation form -> mailto
+  var form = document.getElementById('resForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = function(id){ return (document.getElementById(id).value || '').trim(); };
+    var body =
+      'Reservierungsanfrage – Trattoria Pane e Vino%0D%0A%0D%0A' +
+      'Datum: ' + encodeURIComponent(v('r-date')) + '%0D%0A' +
+      'Uhrzeit: ' + encodeURIComponent(v('r-time')) + '%0D%0A' +
+      'Personen: ' + encodeURIComponent(v('r-guests')) + '%0D%0A' +
+      'Name: ' + encodeURIComponent(v('r-name')) + '%0D%0A' +
+      'Telefon: ' + encodeURIComponent(v('r-phone')) + '%0D%0A' +
+      'E-Mail: ' + encodeURIComponent(v('r-mail')) + '%0D%0A' +
+      'Anmerkung: ' + encodeURIComponent(v('r-note')) + '%0D%0A';
+    window.location.href = 'mailto:trattoriapaneevino@yahoo.de?subject=' +
+      encodeURIComponent('Tischreservierung – ' + v('r-name')) + '&body=' + body;
+  });
+
+  // Chatbot
+  var launch = document.getElementById('chatLaunch');
+  var panel = document.getElementById('chatPanel');
+  var close = document.getElementById('chatClose');
+  var bodyEl = document.getElementById('chatBody');
+  launch.addEventListener('click', function(){ panel.classList.toggle('open'); });
+  close.addEventListener('click', function(){ panel.classList.remove('open'); });
+
+  function addMsg(text, who){
+    var m = document.createElement('div');
+    m.className = 'msg ' + (who||'bot');
+    m.innerHTML = text;
+    bodyEl.appendChild(m);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+  var answers = {
+    reserve: 'Sehr gern! 📅 Nutzen Sie einfach unser <a href="#reserve" style="color:var(--terracotta);font-weight:600">Reservierungs-Formular</a> – wir bestätigen Ihren Tisch telefonisch oder per Mail.',
+    menu:    'Ecco la carta! 🍕 Schauen Sie in unsere <a href="#menu" style="color:var(--terracotta);font-weight:600">Speisekarte</a> – Pizza aus dem Holzofen, Pasta, Antipasti &amp; Dolci.',
+    hours:   'Wir haben <b>Mo–Sa von 12:00 bis 23:45 Uhr</b> für Sie geöffnet. Sonntag ist Ruhetag. 🕑',
+    call:    'Rufen Sie uns gern an: <a href="tel:+493312007900" style="color:var(--terracotta);font-weight:600">0331 2007900</a>. A presto! ☎'
+  };
+  var labels = { reserve:'Tisch reservieren', menu:'Speisekarte', hours:'Öffnungszeiten', call:'Anrufen' };
+  document.getElementById('chatQuick').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    var q = b.getAttribute('data-q');
+    addMsg(labels[q], 'user');
+    setTimeout(function(){ addMsg(answers[q] || 'Schreiben Sie uns gern – wir helfen weiter!'); }, 400);
+  });
+})();
+</script>
+</body>
+</html>
