@@ -141,6 +141,29 @@
     .pbub b { font-weight: 700; }
     .pbub .hl { font-weight: 700; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.4); }
 
+    /* === Zielgruppen / Branchen-Laufband === */
+    .audience {
+      margin: -0.4rem auto 0; max-width: 100%; overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+    .audience .alead {
+      display: block; text-align: center; font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55); font-weight: 600;
+      margin-bottom: 0.5rem; text-shadow: 0 1px 10px rgba(0,0,0,0.6);
+    }
+    .atrack { display: flex; gap: 6px; width: max-content; animation: amarq 24s linear infinite; }
+    .audience:hover .atrack { animation-play-state: paused; }
+    @keyframes amarq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .achip {
+      flex: none; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap;
+      color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 4px 11px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .atrack { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+    }
+
     .card {
       background: transparent;
       width: 100%;
@@ -327,6 +350,7 @@
       .button { margin-top: 0.25rem; padding: 1rem; }
       .bottom-bar { padding: 0.75rem 1.25rem; }
       .proof { min-height: 52px; }
+      .audience .alead { margin-bottom: 0.3rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -510,6 +534,28 @@
       Wir analysieren deine Seite und senden dir<br>innerhalb von 24h ein Redesign-Konzept
     </p>
 
+    <div class="audience" aria-label="Maßgeschneidert für diese Branchen">
+      <span class="alead">Maßgeschneidert für</span>
+      <div class="atrack">
+        <span class="achip">🩺 Ärzte &amp; Praxen</span>
+        <span class="achip">⚖️ Anwälte &amp; Kanzleien</span>
+        <span class="achip">🎯 Coaches &amp; Berater</span>
+        <span class="achip">🎨 Kreative &amp; Designer</span>
+        <span class="achip">📸 Fotografen</span>
+        <span class="achip">🍽️ Restaurants &amp; Gastro</span>
+        <span class="achip">🔧 Handwerk</span>
+        <span class="achip">💼 Business &amp; Agenturen</span>
+        <span class="achip" aria-hidden="true">🩺 Ärzte &amp; Praxen</span>
+        <span class="achip" aria-hidden="true">⚖️ Anwälte &amp; Kanzleien</span>
+        <span class="achip" aria-hidden="true">🎯 Coaches &amp; Berater</span>
+        <span class="achip" aria-hidden="true">🎨 Kreative &amp; Designer</span>
+        <span class="achip" aria-hidden="true">📸 Fotografen</span>
+        <span class="achip" aria-hidden="true">🍽️ Restaurants &amp; Gastro</span>
+        <span class="achip" aria-hidden="true">🔧 Handwerk</span>
+        <span class="achip" aria-hidden="true">💼 Business &amp; Agenturen</span>
+      </div>
+    </div>
+
     <div class="card">
       <form class="form" id="form">
         <div class="form-group">
@@ -537,11 +583,14 @@
         <div class="form-group">
           <select id="industry" class="form-input form-select" required>
             <option value="" disabled selected>Branche wählen</option>
-            <option value="ecommerce">E-Commerce</option>
-            <option value="saas">SaaS / Software</option>
-            <option value="agency">Agentur</option>
-            <option value="local">Lokales Geschäft</option>
-            <option value="b2b">B2B Unternehmen</option>
+            <option value="arzt">Arzt / Praxis</option>
+            <option value="anwalt">Anwalt / Kanzlei</option>
+            <option value="coach">Coach / Berater</option>
+            <option value="kreativ">Kreative / Designer</option>
+            <option value="fotograf">Fotograf</option>
+            <option value="gastro">Restaurant / Gastro</option>
+            <option value="handwerk">Handwerk</option>
+            <option value="business">Business / Agentur</option>
             <option value="other">Sonstiges</option>
           </select>
         </div>
@@ -568,11 +617,14 @@
     const submitBtn = document.getElementById('submitBtn');
 
     const industryMap = {
-      'ecommerce': 'E-Commerce',
-      'saas': 'SaaS / Software',
-      'agency': 'Agentur',
-      'local': 'Lokales Geschäft',
-      'b2b': 'B2B Unternehmen',
+      'arzt': 'Arzt / Praxis',
+      'anwalt': 'Anwalt / Kanzlei',
+      'coach': 'Coach / Berater',
+      'kreativ': 'Kreative / Designer',
+      'fotograf': 'Fotograf',
+      'gastro': 'Restaurant / Gastro',
+      'handwerk': 'Handwerk',
+      'business': 'Business / Agentur',
       'other': 'Sonstiges'
     };
 
