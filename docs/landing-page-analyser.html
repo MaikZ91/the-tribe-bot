@@ -174,6 +174,37 @@
       font-style: italic;
     }
 
+    /* === Google-Suche-Style URL-Feld (offensichtlicher Haupt-Einstieg) === */
+    .search-hint {
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      text-align: center; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.72); font-weight: 600; margin-bottom: 0.15rem;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.6);
+    }
+    .search-hint .ar { animation: hintBob 1.6s ease-in-out infinite; }
+    @keyframes hintBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+    .searchbar {
+      display: flex; align-items: center; gap: 0.7rem; width: 100%;
+      background: #ffffff; border-radius: 999px; padding: 0.95rem 1.3rem;
+      box-shadow: 0 12px 34px -10px rgba(0,0,0,0.55);
+      transition: box-shadow 0.25s ease, transform 0.2s ease;
+      animation: searchPulse 3s ease-in-out infinite;
+    }
+    @keyframes searchPulse {
+      0%,100% { box-shadow: 0 12px 34px -10px rgba(0,0,0,0.55), 0 0 0 0 rgba(255,255,255,0.0); }
+      50%     { box-shadow: 0 12px 34px -10px rgba(0,0,0,0.55), 0 0 0 7px rgba(255,255,255,0.10); }
+    }
+    .searchbar:focus-within {
+      animation: none; transform: translateY(-1px);
+      box-shadow: 0 16px 46px -10px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.4);
+    }
+    .searchbar .si { flex: none; width: 20px; height: 20px; color: #5f6368; }
+    .searchbar input {
+      flex: 1; min-width: 0; border: none; background: transparent; outline: none;
+      font-family: inherit; font-size: 1rem; font-weight: 400; color: #111111;
+    }
+    .searchbar input::placeholder { color: #80868b; font-style: normal; }
+
     .form-select {
       appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
@@ -292,6 +323,7 @@
       .subtitle { margin-bottom: 1.25rem; }
       .form { gap: 0.625rem; }
       .form-input { padding: 0.625rem 0; }
+      .searchbar { padding: 0.75rem 1.1rem; }
       .button { margin-top: 0.25rem; padding: 1rem; }
       .bottom-bar { padding: 0.75rem 1.25rem; }
       .proof { min-height: 52px; margin-bottom: 1rem; }
@@ -487,7 +519,11 @@
     <div class="card">
       <form class="form" id="form">
         <div class="form-group">
-          <input type="url" id="url" class="form-input" placeholder="URL deiner Landing Page" required>
+          <label class="search-hint" for="url"><span class="ar" aria-hidden="true">↓</span> Deine Website-URL hier eingeben</label>
+          <div class="searchbar">
+            <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="url" id="url" placeholder="https://deine-website.de" required>
+          </div>
         </div>
         <div class="form-group">
           <select id="industry" class="form-input form-select" required>
