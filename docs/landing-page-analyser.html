@@ -110,7 +110,10 @@
     }
 
     /* === Social-Proof / Conversion-Performance Chat (fliegt ein) === */
-    .proof { position: relative; width: 100%; max-width: 360px; min-height: 58px; margin: 0 auto; }
+    .proof { position: relative; width: 100%; max-width: 360px; min-height: 58px; margin: 1.1rem auto 0; }
+    .branche-hidden { display: none; }
+    .field-in { animation: fieldIn 0.35s ease; }
+    @keyframes fieldIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
     .pmsg {
       position: absolute; inset: 0; display: flex; align-items: center; gap: 10px;
       opacity: 0; animation: proofcycle 9.6s ease-in-out infinite;
@@ -566,21 +569,7 @@
           </div>
         </div>
 
-        <div class="proof" aria-label="Ergebnisse unserer Redesigns">
-          <div class="pmsg p1">
-            <span class="pav" aria-hidden="true">📈</span>
-            <div class="pbub"><span class="pnm">Conversion-Performance</span>⌀ <span class="hl">+47&nbsp;% mehr Anfragen</span> nach dem Redesign</div>
-          </div>
-          <div class="pmsg p2">
-            <span class="pav" aria-hidden="true">🚀</span>
-            <div class="pbub"><span class="pnm">Social Proof</span>Schon <span class="hl">100+ Seiten</span> transformiert</div>
-          </div>
-          <div class="pmsg p3">
-            <span class="pav" aria-hidden="true">✓</span>
-            <div class="pbub"><span class="pnm">Dein Vorteil</span><b>Kostenlos</b> — du bekommst schon ein <span class="hl">Premium-Design deiner Seite</span></div>
-          </div>
-        </div>
-        <div class="form-group">
+        <div class="form-group branche-hidden" id="brancheGroup">
           <select id="industry" class="form-input form-select" required>
             <option value="" disabled selected>Branche wählen</option>
             <option value="arzt">Arzt / Praxis</option>
@@ -605,6 +594,21 @@
         <p class="success-text">Anfrage gesendet<br>Wir melden uns bei dir</p>
       </div>
     </div>
+
+    <div class="proof" aria-label="Ergebnisse unserer Redesigns">
+      <div class="pmsg p1">
+        <span class="pav" aria-hidden="true">📈</span>
+        <div class="pbub"><span class="pnm">Conversion-Performance</span>⌀ <span class="hl">+47&nbsp;% mehr Anfragen</span> nach dem Redesign</div>
+      </div>
+      <div class="pmsg p2">
+        <span class="pav" aria-hidden="true">🚀</span>
+        <div class="pbub"><span class="pnm">Social Proof</span>Schon <span class="hl">100+ Seiten</span> transformiert</div>
+      </div>
+      <div class="pmsg p3">
+        <span class="pav" aria-hidden="true">✓</span>
+        <div class="pbub"><span class="pnm">Dein Vorteil</span><b>Kostenlos</b> — du bekommst schon ein <span class="hl">Premium-Design deiner Seite</span></div>
+      </div>
+    </div>
   </div>
 
   <div class="bottom-bar">
@@ -627,6 +631,26 @@
       'business': 'Business / Agentur',
       'other': 'Sonstiges'
     };
+
+    // Branche erst einblenden, sobald eine URL eingegeben wurde
+    const urlInput = document.getElementById('url');
+    const brancheGroup = document.getElementById('brancheGroup');
+    const industrySelect = document.getElementById('industry');
+    industrySelect.required = false;
+    function syncBranche() {
+      const has = urlInput.value.trim().length > 0;
+      if (has && brancheGroup.classList.contains('branche-hidden')) {
+        brancheGroup.classList.remove('branche-hidden');
+        brancheGroup.classList.add('field-in');
+        industrySelect.required = true;
+      } else if (!has) {
+        brancheGroup.classList.add('branche-hidden');
+        brancheGroup.classList.remove('field-in');
+        industrySelect.required = false;
+      }
+    }
+    urlInput.addEventListener('input', syncBranche);
+    syncBranche();
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
