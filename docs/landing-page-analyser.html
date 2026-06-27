@@ -212,8 +212,8 @@
     .search-hint .ar { animation: hintBob 1.6s ease-in-out infinite; }
     @keyframes hintBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
     .searchbar {
-      display: flex; align-items: center; gap: 0.7rem; width: 100%;
-      background: #ffffff; border-radius: 999px; padding: 0.95rem 1.3rem;
+      display: flex; align-items: center; gap: 0.6rem; width: 100%;
+      background: #ffffff; border-radius: 999px; padding: 5px 5px 5px 18px;
       box-shadow: 0 12px 34px -10px rgba(0,0,0,0.55);
       transition: box-shadow 0.25s ease, transform 0.2s ease;
       animation: searchPulse 3s ease-in-out infinite;
@@ -232,6 +232,24 @@
       font-family: inherit; font-size: 1rem; font-weight: 400; color: #111111;
     }
     .searchbar input::placeholder { color: #80868b; font-style: normal; }
+    /* Transform-Button direkt in der Leiste (intuitiver Action-Button) */
+    .sb-btn {
+      flex: none; display: inline-flex; align-items: center; gap: 0.45rem;
+      background: #0a0a0b; color: #ffffff; border: none; cursor: pointer;
+      font-family: inherit; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.01em;
+      padding: 0.78rem 1.1rem; border-radius: 999px; white-space: nowrap;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .sb-btn:hover { background: #000000; }
+    .sb-btn:active { transform: scale(0.97); }
+    .sb-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .sb-btn .ar { transition: transform 0.2s ease; }
+    .sb-btn:hover .ar { transform: translateX(3px); }
+    .sb-btn .sb-long { display: none; }
+    @media (min-width: 420px) {
+      .sb-btn .sb-short { display: none; }
+      .sb-btn .sb-long { display: inline; }
+    }
 
     .form-select {
       appearance: none;
@@ -568,6 +586,10 @@
           <div class="searchbar">
             <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
             <input type="url" id="url" placeholder="https://deine-website.de" required>
+            <button type="submit" class="sb-btn" id="submitBtn">
+              <span class="sb-short">Transform</span><span class="sb-long">Transform Your Business</span>
+              <span class="ar" aria-hidden="true">→</span>
+            </button>
           </div>
         </div>
 
@@ -585,9 +607,6 @@
             <option value="other">Sonstiges</option>
           </select>
         </div>
-        <button type="submit" class="button" id="submitBtn">
-          Transform Your Business — Next Level <span class="ar" aria-hidden="true">→</span>
-        </button>
         <a href="landing-page-briefing.html" class="alt-link">Noch keine eigene Seite für dein Unternehmen?</a>
       </form>
 
