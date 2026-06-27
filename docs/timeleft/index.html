@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0E0C0A" />
+<title>Timeleft · Dinner mit Fremden</title>
+<meta name="description" content="Jeden Mittwoch ein Abendessen mit fünf Fremden. Ein kuratierter Tisch, sechs Menschen, ein Abend – von THE TRIBE." />
+<style>
+  @font-face{font-family:'Familjen';src:url('../assets/fonts/familjen-grotesk-latin.woff2') format('woff2');font-weight:400 700;font-display:swap;}
+  @font-face{font-family:'Anton';src:url('../assets/fonts/anton-latin.woff2') format('woff2');font-weight:400;font-display:swap;}
+
+  :root{
+    --ink:#0E0C0A; --ink-2:#16130F; --ink-3:#1E1A13; --ink-4:#26211A;
+    --gold:#C9A24A; --gold-hi:#E8C977; --ember:#C2502E;
+    --cream:#ECE7DC; --cream-dim:#B7AF9F; --fog:#857C6D;
+    --line:rgba(236,231,220,.09); --line-2:rgba(236,231,220,.16);
+    --ff-disp:'Anton',system-ui,sans-serif;
+    --ff-head:'Familjen','Familjen Grotesk',system-ui,sans-serif;
+    --ff-body:'Familjen','Familjen Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --r:18px; --r-lg:24px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  ::selection{background:rgba(201,162,74,.3);color:#fff;}
+  body{
+    font-family:var(--ff-body); color:var(--cream); letter-spacing:.005em;
+    min-height:100dvh; display:flex; justify-content:center; background:#000;
+  }
+  .app{
+    width:100%; max-width:438px; min-height:100dvh; position:relative; overflow:hidden;
+    background:
+      radial-gradient(140% 50% at 50% -8%, rgba(201,162,74,.10), transparent 55%),
+      radial-gradient(90% 40% at 100% 4%, rgba(194,80,46,.06), transparent 50%),
+      var(--ink);
+    padding-bottom:30px;
+  }
+  @media(min-width:480px){ .app{min-height:94dvh; margin:3dvh 0; border-radius:36px; box-shadow:0 40px 140px rgba(0,0,0,.7),0 0 0 1px var(--line);} }
+  .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:50;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:30;padding:16px 22px 12px;
+    background:linear-gradient(180deg,var(--ink) 68%,rgba(14,12,10,0));backdrop-filter:blur(8px);}
+  .bar{display:flex;align-items:center;}
+  .logo{display:flex;align-items:center;gap:9px;}
+  .logo svg{width:17px;height:17px;color:var(--gold);}
+  .wordmark{font-family:var(--ff-head);font-weight:700;font-size:13px;letter-spacing:.34em;text-transform:uppercase;}
+  .loc{margin-left:auto;text-align:right;}
+  .loc .c{font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .loc .m{font-size:10px;color:var(--fog);letter-spacing:.04em;margin-top:2px;}
+
+  main{padding:0 18px;}
+  .scr{animation:fade .5s var(--ease);}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ===== Intro / hero ===== */
+  .hero{padding:22px 4px 8px;}
+  .hero .k{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:600;}
+  .hero h1{font-family:var(--ff-disp);font-weight:400;line-height:.86;margin:12px 0 0;
+    font-size:clamp(48px,15vw,68px);letter-spacing:.005em;text-transform:uppercase;
+    background:linear-gradient(180deg,var(--cream),#9a917f);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero .d{font-family:var(--ff-head);font-size:15px;color:var(--cream-dim);margin-top:12px;line-height:1.5;letter-spacing:.01em;}
+  .hero .rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:20px 4px 4px;}
+
+  .steps{margin:24px 0 8px;}
+  .step{display:flex;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line);align-items:flex-start;}
+  .step .no{font-family:var(--ff-disp);font-size:16px;color:var(--gold);width:30px;flex:none;letter-spacing:.02em;}
+  .step .st{font-family:var(--ff-head);font-weight:600;font-size:15px;margin-bottom:3px;}
+  .step .sd{font-size:12.5px;color:var(--fog);line-height:1.5;}
+
+  .ritual-banner{position:relative;margin:24px 0 6px;border-radius:var(--r-lg);padding:20px;overflow:hidden;
+    border:1px solid rgba(201,162,74,.24);background:linear-gradient(120deg,rgba(38,33,26,.9),rgba(22,19,15,.95));}
+  .ritual-banner::before{content:"";position:absolute;inset:0;background:url('../assets/gruppe.webp') center/cover;opacity:.12;mix-blend-mode:luminosity;}
+  .ritual-banner>*{position:relative;}
+  .ritual-banner .rk{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .ritual-banner h3{font-family:var(--ff-head);font-weight:700;font-size:20px;margin:8px 0 4px;}
+  .ritual-banner .rm{font-size:12.5px;color:var(--cream-dim);line-height:1.5;}
+
+  /* ===== Buttons ===== */
+  .cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;cursor:pointer;
+    font-family:var(--ff-head);font-weight:700;font-size:14.5px;letter-spacing:.02em;color:#1a1206;
+    background:linear-gradient(180deg,var(--gold-hi),var(--gold));border:none;padding:16px;border-radius:14px;
+    margin-top:22px;transition:transform .18s var(--ease),box-shadow .3s var(--ease);box-shadow:0 10px 30px rgba(201,162,74,.18);}
+  .cta:active{transform:scale(.98);}
+  .cta:disabled{opacity:.4;box-shadow:none;cursor:not-allowed;}
+  .cta svg{width:16px;height:16px;}
+  .ghost{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;cursor:pointer;
+    font-family:var(--ff-head);font-weight:600;font-size:13px;letter-spacing:.04em;color:var(--cream-dim);
+    background:transparent;border:1px solid var(--line-2);padding:13px;border-radius:12px;margin-top:12px;transition:.2s var(--ease);}
+  .ghost:active{transform:scale(.98);}
+  .fineprint{text-align:center;font-size:11px;color:var(--fog);margin-top:14px;line-height:1.6;letter-spacing:.02em;}
+
+  /* ===== Quiz ===== */
+  .progress{display:flex;gap:5px;margin:18px 4px 4px;}
+  .progress i{height:3px;flex:1;border-radius:2px;background:var(--line-2);transition:background .4s var(--ease);}
+  .progress i.done{background:var(--gold);}
+  .q-k{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:24px 4px 0;}
+  .q-h{font-family:var(--ff-head);font-weight:700;font-size:25px;line-height:1.12;margin:10px 4px 4px;}
+  .q-sub{font-size:13px;color:var(--fog);margin:0 4px 16px;line-height:1.5;}
+  .opts{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+  .opt{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:14px;cursor:pointer;
+    border:1px solid var(--line);background:var(--ink-2);transition:.2s var(--ease);}
+  .opt:active{transform:scale(.99);}
+  .opt.on{border-color:var(--gold);background:linear-gradient(120deg,rgba(201,162,74,.12),var(--ink-2));}
+  .opt .em{font-size:21px;flex:none;width:26px;text-align:center;}
+  .opt .ot{font-family:var(--ff-head);font-weight:600;font-size:15px;}
+  .opt .od{font-size:12px;color:var(--fog);margin-top:2px;}
+  .opt .tick{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);flex:none;
+    display:grid;place-items:center;color:#1a1206;transition:.2s var(--ease);}
+  .opt.on .tick{background:var(--gold);border-color:var(--gold);}
+  .opt .tick svg{width:12px;height:12px;opacity:0;transition:.2s;}
+  .opt.on .tick svg{opacity:1;}
+  .field{width:100%;font-family:var(--ff-head);font-size:16px;color:var(--cream);background:var(--ink-2);
+    border:1px solid var(--line-2);border-radius:14px;padding:15px 16px;margin-top:6px;outline:none;transition:.2s;}
+  .field:focus{border-color:var(--gold);}
+  .field::placeholder{color:var(--fog);}
+
+  /* ===== Confirmed / table ===== */
+  .ticket{position:relative;border-radius:var(--r-lg);overflow:hidden;margin-top:18px;
+    border:1px solid rgba(201,162,74,.3);background:linear-gradient(160deg,rgba(38,33,26,.95),rgba(20,17,13,.98));}
+  .ticket .top{padding:22px 22px 18px;border-bottom:1px dashed var(--line-2);}
+  .ticket .tk{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .ticket h2{font-family:var(--ff-disp);font-weight:400;font-size:34px;letter-spacing:.01em;text-transform:uppercase;margin:8px 0 6px;line-height:.95;}
+  .ticket .when{font-family:var(--ff-head);font-size:14px;color:var(--cream-dim);}
+  .ticket .when b{color:var(--gold);font-weight:600;}
+  .cdown{display:flex;gap:14px;padding:18px 22px;}
+  .cdown div{display:flex;flex-direction:column;align-items:center;}
+  .cdown b{font-family:var(--ff-disp);font-size:30px;line-height:1;color:var(--cream);letter-spacing:.02em;}
+  .cdown span{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fog);margin-top:5px;}
+  .cdown .colon{font-family:var(--ff-disp);font-size:26px;color:var(--fog);align-self:flex-start;margin-top:1px;}
+
+  .panel{border:1px solid var(--line);background:var(--ink-2);border-radius:var(--r);padding:18px;margin-top:14px;}
+  .panel .pk{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+  .seats{display:flex;flex-wrap:wrap;gap:10px;}
+  .seat{display:flex;flex-direction:column;align-items:center;gap:6px;width:60px;}
+  .seat .av{width:46px;height:46px;border-radius:50%;overflow:hidden;border:1.5px solid var(--line-2);
+    background:linear-gradient(150deg,var(--a1,#7d6a4f),var(--a2,#3a3024));display:grid;place-items:center;}
+  .seat .av img{width:100%;height:100%;object-fit:cover;}
+  .seat .av.me{border-color:var(--gold);box-shadow:0 0 0 1.5px var(--ink-2),0 0 14px rgba(201,162,74,.5);}
+  .seat .av .ini{font-family:var(--ff-head);font-weight:700;font-size:16px;color:var(--cream);}
+  .seat .nm{font-size:10.5px;color:var(--cream-dim);letter-spacing:.02em;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60px;}
+  .seat.empty .av{border-style:dashed;background:transparent;color:var(--fog);}
+
+  .reveal{display:flex;align-items:center;gap:14px;}
+  .reveal .lockic{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+    border:1px solid var(--line-2);background:var(--ink-3);color:var(--gold);}
+  .reveal .lockic svg{width:20px;height:20px;}
+  .reveal .rt{font-family:var(--ff-head);font-weight:600;font-size:15px;}
+  .reveal .rd{font-size:12px;color:var(--fog);margin-top:2px;line-height:1.4;}
+  .venue-name{font-family:var(--ff-head);font-weight:700;font-size:18px;color:var(--cream);}
+  .venue-addr{font-size:12.5px;color:var(--fog);margin-top:3px;}
+  .maplink{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:var(--ff-head);font-weight:600;
+    font-size:12px;color:var(--gold);text-decoration:none;letter-spacing:.02em;}
+  .maplink svg{width:13px;height:13px;}
+
+  .wa{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin:18px 0 6px;text-decoration:none;cursor:pointer;
+    font-family:var(--ff-head);font-weight:700;font-size:13px;letter-spacing:.02em;color:#bfe8c9;
+    background:rgba(46,120,70,.14);border:1px solid rgba(70,170,100,.3);padding:14px;border-radius:14px;}
+  .wa svg{width:16px;height:16px;}
+
+  /* ===== Profile rows ===== */
+  .prow{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line);}
+  .prow .pdate{font-family:var(--ff-disp);font-size:14px;color:var(--gold);width:54px;flex:none;text-align:center;line-height:1.1;}
+  .prow .pdate small{display:block;font-family:var(--ff-head);font-size:9px;color:var(--fog);letter-spacing:.1em;margin-top:2px;}
+  .prow .pm{min-width:0;flex:1;}
+  .prow .pn{font-family:var(--ff-head);font-weight:600;font-size:14.5px;}
+  .prow .pl{font-size:11.5px;color:var(--fog);margin-top:1px;}
+  .prow .ps{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);flex:none;}
+  .prow .ps.up{color:var(--gold);}
+
+  .me-card{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid var(--line);background:var(--ink-2);border-radius:var(--r);margin-top:18px;}
+  .me-card .av{width:54px;height:54px;border-radius:50%;flex:none;display:grid;place-items:center;
+    background:linear-gradient(150deg,var(--gold-hi),var(--gold));font-family:var(--ff-head);font-weight:700;font-size:22px;color:#1a1206;}
+  .me-card .mn{font-family:var(--ff-head);font-weight:700;font-size:18px;}
+  .me-card .mt{font-size:12px;color:var(--fog);margin-top:3px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .tag{font-family:var(--ff-head);font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--gold);
+    border:1px solid rgba(201,162,74,.3);padding:6px 12px;border-radius:999px;}
+
+  /* ===== nav ===== */
+  nav{position:sticky;bottom:0;left:0;right:0;z-index:40;margin-top:24px;
+    display:flex;justify-content:space-around;padding:11px 10px calc(11px + env(safe-area-inset-bottom));
+    background:linear-gradient(0deg,var(--ink) 72%,rgba(14,12,10,0));border-top:1px solid var(--line);}
+  .ni{display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--fog);cursor:pointer;background:none;border:none;padding:4px 14px;transition:color .2s;}
+  .ni svg{width:21px;height:21px;}
+  .ni span{font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+  .ni.on{color:var(--gold);}
+
+  .sec{display:flex;align-items:baseline;margin:26px 4px 4px;}
+  .sec .t{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+  .hide{display:none!important;}
+  .empty{text-align:center;color:var(--fog);padding:60px 24px;font-size:13.5px;line-height:1.8;}
+  .empty .big{font-family:var(--ff-disp);font-size:30px;color:var(--cream-dim);display:block;margin-bottom:14px;letter-spacing:.04em;}
+
+  .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(14px);opacity:0;z-index:60;pointer-events:none;
+    font-family:var(--ff-head);font-weight:600;font-size:12.5px;letter-spacing:.02em;color:var(--cream);
+    background:var(--ink-4);border:1px solid rgba(201,162,74,.35);padding:11px 18px;border-radius:999px;
+    box-shadow:0 14px 40px rgba(0,0,0,.6);transition:.32s var(--ease);white-space:nowrap;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .badge{position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:45;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog);
+    border:1px solid var(--line);padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.3);white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="app">
+  <span class="badge">MVP · Vorschau</span>
+  <header>
+    <div class="bar">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2c.3 3.2-1.8 4.6-3.2 6.2C8.2 9.9 7 11.4 7 14a5 5 0 0 0 10 .2c0-2.3-1-3.8-1.7-5 .1 1.3-.6 2.3-1.6 2.6.8-2.1.1-4.6-1.1-6.3C11.7 4.2 12.8 3 13 2Z"/></svg>
+        <div class="wordmark">Timeleft</div>
+      </div>
+      <div class="loc">
+        <div class="c">Bielefeld</div>
+        <div class="m" id="today">—</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== INTRO ===== -->
+    <section id="scr-intro" class="scr">
+      <div class="hero">
+        <div class="k">Jeden Mittwoch · 19:30 Uhr</div>
+        <h1>Dinner mit<br>fünf Fremden</h1>
+        <div class="d">Ein kuratierter Tisch. Sechs Menschen, die sich vorher nicht kannten. Ein Restaurant in deiner Stadt. Kein Smalltalk-Druck – nur ein guter Abend.</div>
+        <div class="rule"></div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div class="no">01</div><div><div class="st">Beantworte 6 Fragen</div><div class="sd">Ein kurzer Persönlichkeits-Check. So setzen wir dich an den richtigen Tisch.</div></div></div>
+        <div class="step"><div class="no">02</div><div><div class="st">Wir matchen deinen Tisch</div><div class="sd">Sechs Menschen mit passender Wellenlänge – Dienstag bekommst du deine Crew.</div></div></div>
+        <div class="step"><div class="no">03</div><div><div class="st">Restaurant am Tag enthüllt</div><div class="sd">Mittwoch 12 Uhr verraten wir die Location. Spannung gehört dazu.</div></div></div>
+        <div class="step"><div class="no">04</div><div><div class="st">Danach: Afterparty</div><div class="sd">Alle Tische der Stadt treffen sich ab 22 Uhr in einer Bar – wenn du magst.</div></div></div>
+      </div>
+
+      <div class="ritual-banner">
+        <div class="rk">Nächster Tisch</div>
+        <h3 id="intro-next">—</h3>
+        <div class="rm">6 Plätze pro Tisch · <span id="intro-spots">noch Plätze frei</span></div>
+      </div>
+
+      <button class="cta" id="start-btn">Tisch reservieren <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="ghost hide" id="resume-btn">Meine Reservierung ansehen</button>
+      <div class="fineprint">Ein Ritual von THE TRIBE · Bielefeld<br>Kostenlos für Community-Mitglieder im MVP</div>
+    </section>
+
+    <!-- ===== QUIZ ===== -->
+    <section id="scr-quiz" class="scr hide">
+      <div class="progress" id="prog"></div>
+      <div id="q-body"></div>
+      <button class="cta" id="q-next" disabled>Weiter</button>
+      <button class="ghost" id="q-back">Zurück</button>
+    </section>
+
+    <!-- ===== CONFIRMED ===== -->
+    <section id="scr-confirmed" class="scr hide">
+      <div class="hero" style="padding:18px 4px 0">
+        <div class="k">Reservierung bestätigt</div>
+      </div>
+      <div class="ticket">
+        <div class="top">
+          <div class="tk">Dein Tisch · Timeleft</div>
+          <h2>Mittwoch</h2>
+          <div class="when"><b id="conf-date">—</b> · 19:30 Uhr</div>
+        </div>
+        <div class="cdown" id="cdown">
+          <div><b id="cd-d">0</b><span>Tage</span></div>
+          <div class="colon">:</div>
+          <div><b id="cd-h">0</b><span>Std</span></div>
+          <div class="colon">:</div>
+          <div><b id="cd-m">0</b><span>Min</span></div>
+          <div class="colon">:</div>
+          <div><b id="cd-s">0</b><span>Sek</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="pk">Dein Tisch · 6 Plätze</div>
+        <div class="seats" id="seats"></div>
+      </div>
+
+      <div class="panel" id="venue-panel"></div>
+
+      <a class="wa" id="wa-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.8-4.2-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l.8-1c.2-.2.4-.2.6-.1l2 1c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+        Tisch-Gruppe auf WhatsApp öffnen
+      </a>
+      <button class="ghost" id="cancel-btn">Reservierung stornieren</button>
+    </section>
+
+    <!-- ===== PROFILE ===== -->
+    <section id="scr-profil" class="scr hide">
+      <div id="profil-body"></div>
+    </section>
+  </main>
+
+  <nav id="nav" class="hide">
+    <button class="ni on" data-scr="confirmed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 7l1.5 12a2 2 0 0 0 2 1.8h9a2 2 0 0 0 2-1.8L20 7M9 7V5a3 3 0 0 1 6 0v2"/></svg><span>Mein Tisch</span></button>
+    <button class="ni" data-scr="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg><span>Profil</span></button>
+  </nav>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ Timeleft MVP · front-end only, localStorage ============ */
+const WHATSAPP_URL='https://chat.whatsapp.com/'; // TODO: echte Tisch-Gruppe verlinken
+
+/* ---- Quiz definition ---- */
+const QUIZ=[
+  {id:'name',type:'text',k:'Schritt 1',h:'Wie heißt du?',sub:'Nur dein Vorname – so begrüßt dich dein Tisch.',placeholder:'Dein Vorname'},
+  {id:'vibe',type:'single',k:'Schritt 2',h:'Was bringt dich an den Tisch?',sub:'Es gibt kein falsch.',opts:[
+    {v:'neu',em:'🌱',t:'Neue Menschen',d:'Frisch in der Stadt oder einfach offen'},
+    {v:'tief',em:'🌙',t:'Echte Gespräche',d:'Mehr Tiefe, weniger Smalltalk'},
+    {v:'spontan',em:'⚡',t:'Spontaner Abend',d:'Raus aus der Routine'},
+    {v:'netz',em:'🔗',t:'Gleichgesinnte',d:'Menschen mit ähnlichen Interessen'},
+  ]},
+  {id:'energy',type:'single',k:'Schritt 3',h:'Wie tickst du an einem Abend?',sub:'Damit dein Tisch ausgewogen ist.',opts:[
+    {v:'laut',em:'🔥',t:'Ich bringe die Energie',d:'Erzähle gern, lache laut'},
+    {v:'mittig',em:'🌗',t:'Irgendwo dazwischen',d:'Zuhören und mitreden'},
+    {v:'leise',em:'🌊',t:'Eher beobachtend',d:'Taue langsam auf, dann richtig'},
+  ]},
+  {id:'topics',type:'multi',k:'Schritt 4',h:'Worüber redest du gern?',sub:'Wähle bis zu drei.',max:3,opts:[
+    {v:'kunst',em:'🎨',t:'Kunst & Kultur'},
+    {v:'reise',em:'✈️',t:'Reisen'},
+    {v:'business',em:'💡',t:'Ideen & Business'},
+    {v:'sport',em:'🏃',t:'Sport & Outdoor'},
+    {v:'film',em:'🎬',t:'Film & Musik'},
+    {v:'philo',em:'🧠',t:'Sinn & Philosophie'},
+    {v:'food',em:'🍷',t:'Essen & Trinken'},
+    {v:'games',em:'🎮',t:'Games & Tech'},
+  ]},
+  {id:'diet',type:'single',k:'Schritt 5',h:'Wie isst du?',sub:'Wir wählen das Restaurant passend.',opts:[
+    {v:'alles',em:'🍽️',t:'Alles',d:'Keine Einschränkung'},
+    {v:'veggie',em:'🥗',t:'Vegetarisch',d:''},
+    {v:'vegan',em:'🌿',t:'Vegan',d:''},
+    {v:'glutenfrei',em:'🌾',t:'Glutenfrei',d:''},
+  ]},
+  {id:'lang',type:'single',k:'Schritt 6',h:'In welcher Sprache fühlst du dich wohl?',sub:'Wir setzen dich an einen passenden Tisch.',opts:[
+    {v:'de',em:'🇩🇪',t:'Deutsch',d:''},
+    {v:'en',em:'🌍',t:'Englisch / gemischt',d:''},
+    {v:'egal',em:'🤝',t:'Egal, Hauptsache Menschen',d:''},
+  ]},
+];
+
+/* ---- fake table mates ---- */
+const MATES=[
+  {n:'Lena',img:'../assets/lena.webp',a:['#6a5a78','#332b3c']},
+  {n:'Tim',img:'../assets/tim.webp',a:['#4f6a5e','#2a342f']},
+  {n:'Sarah',img:'../assets/sarah.webp',a:['#7a4f4f','#3a2828']},
+  {n:'Patrick',img:'../assets/patrick.webp',a:['#4f5e7a','#28303c']},
+  {n:'Anna',img:'../assets/anna.webp',a:['#7a6f4f','#3a3528']},
+];
+
+/* ---- fake restaurants (revealed on dinner day) ---- */
+const VENUES={
+  alles:{name:'Numa · Levante Kitchen',addr:'Obernstraße 48, Bielefeld'},
+  veggie:{name:'Grüner Anker',addr:'Arndtstraße 7, Bielefeld'},
+  vegan:{name:'Loom Vegan Bistro',addr:'Bahnhofstraße 12, Bielefeld'},
+  glutenfrei:{name:'Tavola · Slow Food',addr:'Welle 9, Bielefeld'},
+};
+
+/* ---- state ---- */
+const KEY='timeleft_state';
+const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}};
+const save=s=>localStorage.setItem(KEY,JSON.stringify(s));
+let S=load();
+
+/* ---- dates ---- */
+const todayFmt=()=>new Date().toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'long'});
+function nextWednesday(from){ // next Wed at 19:30, strictly upcoming
+  const d=new Date(from||Date.now());d.setHours(19,30,0,0);
+  let add=(3-d.getDay()+7)%7;            // 3 = Wednesday
+  if(add===0 && Date.now()>d.getTime()) add=7; // today's dinner already passed -> next week
+  d.setDate(d.getDate()+add);
+  return d;
+}
+const longDate=d=>d.toLocaleDateString('de-DE',{day:'numeric',month:'long',year:'numeric'});
+
+/* ---- quiz engine ---- */
+let qi=0, answers={};
+function showScreen(name){
+  ['intro','quiz','confirmed','profil'].forEach(s=>document.getElementById('scr-'+s).classList.toggle('hide',s!==name));
+  const nav=document.getElementById('nav');
+  const showNav=(name==='confirmed'||name==='profil');
+  nav.classList.toggle('hide',!showNav);
+  if(showNav)document.querySelectorAll('.ni').forEach(b=>b.classList.toggle('on',b.dataset.scr===name));
+  window.scrollTo(0,0);
+}
+
+function renderQuiz(){
+  const q=QUIZ[qi];
+  document.getElementById('prog').innerHTML=QUIZ.map((_,i)=>`<i class="${i<=qi?'done':''}"></i>`).join('');
+  const body=document.getElementById('q-body');
+  let inner=`<div class="q-k">${q.k}</div><div class="q-h">${q.h}</div><div class="q-sub">${q.sub}</div>`;
+  if(q.type==='text'){
+    inner+=`<input class="field" id="q-input" placeholder="${q.placeholder}" value="${answers[q.id]||''}" autocomplete="off" maxlength="22">`;
+  }else{
+    const sel=answers[q.id]||(q.type==='multi'?[]:null);
+    inner+='<div class="opts">'+q.opts.map(o=>{
+      const on=q.type==='multi'?sel.includes(o.v):sel===o.v;
+      return `<div class="opt${on?' on':''}" data-v="${o.v}">
+        <div class="em">${o.em}</div>
+        <div><div class="ot">${o.t}</div>${o.d?`<div class="od">${o.d}</div>`:''}</div>
+        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
+      </div>`;
+    }).join('')+'</div>';
+  }
+  body.innerHTML=inner;
+  document.getElementById('q-back').style.visibility=qi===0?'hidden':'visible';
+  document.getElementById('q-next').textContent=qi===QUIZ.length-1?'Tisch sichern':'Weiter';
+
+  if(q.type==='text'){
+    const inp=document.getElementById('q-input');
+    inp.oninput=()=>{answers[q.id]=inp.value.trim();validate();};
+    inp.onkeydown=e=>{if(e.key==='Enter'&&!document.getElementById('q-next').disabled)next();};
+    setTimeout(()=>inp.focus(),120);
+  }else{
+    body.querySelectorAll('.opt').forEach(el=>el.onclick=()=>{
+      const v=el.dataset.v;
+      if(q.type==='multi'){
+        let sel=answers[q.id]||[];
+        if(sel.includes(v))sel=sel.filter(x=>x!==v);
+        else{if(sel.length>=(q.max||99))return toast(`Maximal ${q.max} auswählen`);sel=[...sel,v];}
+        answers[q.id]=sel;
+      }else{answers[q.id]=v;}
+      renderQuiz();validate();
+      if(navigator.vibrate)navigator.vibrate(12);
+    });
+  }
+  validate();
+}
+function validate(){
+  const q=QUIZ[qi];const a=answers[q.id];
+  let ok=false;
+  if(q.type==='text')ok=!!(a&&a.length>=2);
+  else if(q.type==='multi')ok=Array.isArray(a)&&a.length>=1;
+  else ok=!!a;
+  document.getElementById('q-next').disabled=!ok;
+}
+function next(){
+  if(document.getElementById('q-next').disabled)return;
+  if(qi<QUIZ.length-1){qi++;renderQuiz();window.scrollTo(0,0);}
+  else finishQuiz();
+}
+function back(){ if(qi>0){qi--;renderQuiz();window.scrollTo(0,0);} else showScreen('intro'); }
+
+function finishQuiz(){
+  const dinner=nextWednesday();
+  S={
+    profile:answers,
+    booking:{dinnerISO:dinner.toISOString(), bookedAt:Date.now(), diet:answers.diet},
+    history:S.history||[],
+  };
+  save(S);
+  if(navigator.vibrate)navigator.vibrate([20,40,30]);
+  toast('Dein Tisch ist gesichert ✦');
+  renderConfirmed();showScreen('confirmed');
+}
+
+/* ---- confirmed screen ---- */
+let cdTimer=null;
+function renderConfirmed(){
+  const b=S.booking; if(!b){showScreen('intro');return;}
+  const dinner=new Date(b.dinnerISO);
+  document.getElementById('conf-date').textContent=dinner.toLocaleDateString('de-DE',{day:'numeric',month:'long'});
+
+  // seats
+  const me=S.profile?.name||'Du';
+  const seatsEl=document.getElementById('seats');
+  let html=`<div class="seat"><div class="av me"><span class="ini">${me.slice(0,1).toUpperCase()}</span></div><div class="nm">${me} · du</div></div>`;
+  MATES.forEach(m=>{html+=`<div class="seat"><div class="av" style="--a1:${m.a[0]};--a2:${m.a[1]}"><img src="${m.img}" alt="" onerror="this.remove()"></div><div class="nm">${m.n}</div></div>`;});
+  seatsEl.innerHTML=html;
+
+  // venue reveal logic: reveal at 12:00 on dinner day
+  const reveal=new Date(dinner);reveal.setHours(12,0,0,0);
+  const vp=document.getElementById('venue-panel');
+  const v=VENUES[b.diet]||VENUES.alles;
+  if(Date.now()>=reveal.getTime()){
+    vp.innerHTML=`<div class="pk">Heute · Location enthüllt</div>
+      <div class="venue-name">${v.name}</div>
+      <div class="venue-addr">${v.addr} · 19:30 Uhr</div>
+      <a class="maplink" href="https://www.google.com/maps/search/${encodeURIComponent(v.name+' '+v.addr)}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        In Maps öffnen</a>`;
+  }else{
+    vp.innerHTML=`<div class="pk">Location</div>
+      <div class="reveal">
+        <div class="lockic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+        <div><div class="rt">Wird Mittwoch 12 Uhr enthüllt</div><div class="rd">Ein ${v && b.diet!=='alles'?dietLabel(b.diet)+'-freundliches ':''}Restaurant im Zentrum. Die Spannung gehört dazu.</div></div>
+      </div>`;
+  }
+
+  document.getElementById('wa-link').href=WHATSAPP_URL;
+  startCountdown(dinner);
+}
+function dietLabel(d){return ({veggie:'vegetarisch',vegan:'vegan',glutenfrei:'glutenfrei'})[d]||'';}
+
+function startCountdown(dinner){
+  clearInterval(cdTimer);
+  const tick=()=>{
+    let ms=dinner.getTime()-Date.now();
+    if(ms<0)ms=0;
+    const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),s=Math.floor(ms%6e4/1e3);
+    document.getElementById('cd-d').textContent=d;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  };
+  tick();cdTimer=setInterval(tick,1000);
+}
+
+/* ---- profile ---- */
+function renderProfil(){
+  const body=document.getElementById('profil-body');
+  if(!S.profile){body.innerHTML='<div class="empty"><span class="big">Profil</span>Reserviere zuerst einen Tisch.</div>';return;}
+  const p=S.profile;
+  const topicLabels={kunst:'Kunst',reise:'Reisen',business:'Ideen',sport:'Sport',film:'Musik & Film',philo:'Philosophie',food:'Food',games:'Games'};
+  const tags=(p.topics||[]).map(t=>`<span class="tag">${topicLabels[t]||t}</span>`);
+  let h=`<div class="me-card">
+    <div class="av">${(p.name||'D').slice(0,1).toUpperCase()}</div>
+    <div><div class="mn">${p.name||'Du'}</div><div class="mt">Timeleft Bielefeld · ${p.lang==='en'?'EN':'DE'}</div></div>
+  </div>
+  <div class="tags">${tags.join('')}</div>`;
+
+  // upcoming + history
+  h+='<div class="sec"><div class="t">Deine Tische</div></div>';
+  const rows=[];
+  if(S.booking){
+    const d=new Date(S.booking.dinnerISO);
+    rows.push({d,name:'Dinner mit fünf Fremden',loc:'Mittwoch · 19:30 Uhr',up:true});
+  }
+  (S.history||[]).forEach(x=>rows.push({d:new Date(x.dinnerISO),name:'Dinner mit fünf Fremden',loc:x.venue||'Bielefeld',up:false}));
+  if(!rows.length){h+='<div class="empty">Noch keine Tische.</div>';}
+  else rows.forEach(r=>{
+    h+=`<div class="prow">
+      <div class="pdate">${r.d.getDate()}<small>${r.d.toLocaleDateString('de-DE',{month:'short'}).toUpperCase()}</small></div>
+      <div class="pm"><div class="pn">${r.name}</div><div class="pl">${r.loc}</div></div>
+      <div class="ps ${r.up?'up':''}">${r.up?'Bald':'Vorbei'}</div>
+    </div>`;
+  });
+  h+=`<button class="ghost" id="reset-btn" style="margin-top:22px">Profil & Daten zurücksetzen</button>`;
+  body.innerHTML=h;
+  document.getElementById('reset-btn').onclick=()=>{
+    if(!confirm('Profil, Reservierung und Verlauf löschen?'))return;
+    localStorage.removeItem(KEY);S={};answers={};qi=0;refreshIntro();showScreen('intro');toast('Zurückgesetzt');
+  };
+}
+
+/* ---- intro ---- */
+function refreshIntro(){
+  const dinner=nextWednesday();
+  document.getElementById('intro-next').textContent=dinner.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})+' · 19:30';
+  const spots=2+(dinner.getDate()%4);
+  document.getElementById('intro-spots').textContent='noch '+spots+' Plätze frei';
+  const hasBooking=!!(S.booking);
+  document.getElementById('resume-btn').classList.toggle('hide',!hasBooking);
+  document.getElementById('start-btn').textContent=hasBooking?'Neuen Tisch reservieren':'Tisch reservieren';
+}
+
+/* ---- toast ---- */
+let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2000);}
+
+/* ---- cancel ---- */
+function cancelBooking(){
+  if(!confirm('Reservierung wirklich stornieren?'))return;
+  delete S.booking;save(S);clearInterval(cdTimer);
+  refreshIntro();showScreen('intro');toast('Reservierung storniert');
+}
+
+/* ---- wiring ---- */
+function startQuiz(){
+  answers=S.profile?{...S.profile}:{};
+  qi=0;renderQuiz();showScreen('quiz');
+}
+document.getElementById('today').textContent=todayFmt();
+document.getElementById('start-btn').onclick=startQuiz;
+document.getElementById('resume-btn').onclick=()=>{renderConfirmed();showScreen('confirmed');};
+document.getElementById('q-next').onclick=next;
+document.getElementById('q-back').onclick=back;
+document.getElementById('cancel-btn').onclick=cancelBooking;
+document.querySelectorAll('.ni').forEach(b=>b.onclick=()=>{
+  const s=b.dataset.scr;
+  if(s==='confirmed'){if(S.booking){renderConfirmed();showScreen('confirmed');}else{refreshIntro();showScreen('intro');}}
+  else{renderProfil();showScreen('profil');}
+});
+
+/* ---- boot ---- */
+function boot(){
+  refreshIntro();
+  // expire past bookings into history
+  if(S.booking){
+    const dinner=new Date(S.booking.dinnerISO);
+    const ended=new Date(dinner);ended.setHours(23,59,0,0);
+    if(Date.now()>ended.getTime()){
+      S.history=[{dinnerISO:S.booking.dinnerISO,venue:(VENUES[S.booking.diet]||VENUES.alles).name},...(S.history||[])];
+      delete S.booking;save(S);
+    }
+  }
+  if(S.booking){renderConfirmed();showScreen('confirmed');}
+  else showScreen('intro');
+}
+boot();
+</script>
+</body>
+</html>
