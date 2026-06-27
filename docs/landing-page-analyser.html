@@ -109,6 +109,38 @@
       text-shadow: 0 1px 16px rgba(0,0,0,0.6);
     }
 
+    /* === Social-Proof / Conversion-Performance Chat (fliegt ein) === */
+    .proof { position: relative; width: 100%; max-width: 360px; min-height: 58px; margin: 0 auto 1.5rem; }
+    .pmsg {
+      position: absolute; inset: 0; display: flex; align-items: center; gap: 10px;
+      opacity: 0; animation: proofcycle 9.6s ease-in-out infinite;
+    }
+    .pmsg.p2 { animation-delay: -6.4s; }
+    .pmsg.p3 { animation-delay: -3.2s; }
+    @keyframes proofcycle {
+      0%   { opacity: 0; transform: translateY(8px); }
+      4%   { opacity: 1; transform: none; }
+      29%  { opacity: 1; transform: none; }
+      33%  { opacity: 0; transform: translateY(-6px); }
+      100% { opacity: 0; transform: translateY(-6px); }
+    }
+    .pmsg .pav {
+      width: 34px; height: 34px; border-radius: 50%; flex: none;
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.22);
+    }
+    .pbub {
+      flex: 1; background: rgba(255,255,255,0.06); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 4px 14px 14px 14px;
+      padding: 9px 13px; font-size: 13px; line-height: 1.35; color: #fff; text-align: left;
+    }
+    .pbub .pnm {
+      display: block; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 2px; font-weight: 600;
+    }
+    .pbub b { font-weight: 700; }
+    .pbub .hl { font-weight: 700; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.4); }
+
     .card {
       background: transparent;
       width: 100%;
@@ -262,6 +294,14 @@
       .form-input { padding: 0.625rem 0; }
       .button { margin-top: 0.25rem; padding: 1rem; }
       .bottom-bar { padding: 0.75rem 1.25rem; }
+      .proof { min-height: 52px; margin-bottom: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pmsg { animation: none; position: static; opacity: 0; }
+      .pmsg.p1 { opacity: 1; }
+      .pmsg.p2, .pmsg.p3 { display: none; }
+      .proof { min-height: auto; }
     }
 
     /* === Premium Site Vorschau (oben rechts) === */
@@ -429,6 +469,21 @@
       Wir analysieren deine Seite und senden dir<br>innerhalb von 24h ein Redesign-Konzept
     </p>
 
+    <div class="proof" aria-label="Ergebnisse unserer Redesigns">
+      <div class="pmsg p1">
+        <span class="pav" aria-hidden="true">📈</span>
+        <div class="pbub"><span class="pnm">Conversion-Performance</span>⌀ <span class="hl">+47&nbsp;% mehr Anfragen</span> nach dem Redesign</div>
+      </div>
+      <div class="pmsg p2">
+        <span class="pav" aria-hidden="true">🚀</span>
+        <div class="pbub"><span class="pnm">Social Proof</span>Schon <span class="hl">100+ Seiten</span> transformiert</div>
+      </div>
+      <div class="pmsg p3">
+        <span class="pav" aria-hidden="true">✓</span>
+        <div class="pbub"><span class="pnm">Dein Vorteil</span><b>Kostenlos</b> — du bekommst schon ein <span class="hl">Premium-Design deiner Seite</span></div>
+      </div>
+    </div>
+
     <div class="card">
       <form class="form" id="form">
         <div class="form-group">
@@ -459,7 +514,7 @@
   </div>
 
   <div class="bottom-bar">
-    <span class="bottom-text">MZ.9 • 24h Konzept • Kostenlos</span>
+    <span class="bottom-text">100+ Seiten transformiert • 24h Konzept • Kostenlos</span>
   </div>
 
   <script>
@@ -535,7 +590,7 @@
         { keys: ['funktioniert', 'ablauf', 'wie', 'prozess', 'abläuft', 'läuft'],
           a: 'So läuft\'s: Du gibst deine URL ein → wir analysieren deine Seite → innerhalb von 24h bekommst du ein kostenloses Redesign-Konzept. Ganz unverbindlich.' },
         { keys: ['kostet', 'preis', 'kostenlos', 'gratis', 'teuer', 'geld', 'kosten'],
-          a: 'Das Redesign-Konzept ist komplett <strong>kostenlos und unverbindlich</strong>. Du entscheidest danach selbst, ob du es umsetzen lässt.' },
+          a: '<strong>Komplett kostenlos &amp; unverbindlich.</strong> Du bekommst sogar schon ein <strong>Premium-Design deiner eigenen Seite</strong> als Vorschau — erst danach entscheidest du, ob du es umsetzen lässt.' },
         { keys: ['wie lange', 'dauer', '24', 'stunden', 'schnell', 'wann', 'lange'],
           a: 'Innerhalb von <strong>24 Stunden</strong> nach deiner Anfrage ist das Konzept bei dir.' },
         { keys: ['mz9', 'mz 9', 'wer', 'ihr', 'unternehmen', 'team'],
@@ -609,7 +664,7 @@
         panel.classList.add('active');
         if (!opened) {
           opened = true;
-          addMsg('Hey! 👋 Ich bin Maik. Frag mich alles zum Ablauf, Preis oder deiner Seite — oder schreib mir direkt per WhatsApp.', 'bot');
+          addMsg('Hey! 👋 Ich bin Maik von MZ.9. Das Konzept ist <strong>komplett kostenlos</strong> — du bekommst sogar schon ein <strong>Premium-Design deiner eigenen Seite</strong>, bevor du irgendwas zahlst. Frag mich alles oder schreib mir direkt per WhatsApp.', 'bot');
           renderActions(null);
         }
       }
