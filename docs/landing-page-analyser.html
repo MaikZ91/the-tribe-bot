@@ -311,14 +311,15 @@
       text-align: center;
       margin-top: 1.25rem;
       font-size: 0.6875rem;
-      font-weight: 300;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: #ffffff;
       text-decoration: none;
-      transition: color 0.2s;
+      transition: opacity 0.2s;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.5);
     }
-    .alt-link:hover { color: #ffffff; }
+    .alt-link:hover { opacity: 0.75; }
 
     .bottom-bar {
       position: relative; z-index: 2;
@@ -696,6 +697,45 @@
         success.classList.add('active');
       }, 500);
     });
+  </script>
+
+  <script>
+    /* Dezente Suchleisten-Animation: Beispiel-URLs durchtippen (Typewriter) */
+    (function(){
+      var input = document.getElementById('url');
+      if (!input) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var samples = [
+        'https://deine-website.de',
+        'https://deine-praxis.de',
+        'https://deine-kanzlei.de',
+        'https://dein-restaurant.de',
+        'https://dein-studio.de'
+      ];
+      var i = 0, pos = samples[0].length, deleting = true, paused = false;
+      function stop(){ paused = true; }
+      input.addEventListener('focus', stop);
+      input.addEventListener('input', stop);
+      function tick(){
+        if (paused) return;
+        var word = samples[i];
+        if (deleting) {
+          pos--;
+          if (pos <= 0) { deleting = false; i = (i + 1) % samples.length; }
+        } else {
+          pos++;
+          if (pos >= word.length) {
+            input.setAttribute('placeholder', word);
+            deleting = true;
+            setTimeout(tick, 1800);
+            return;
+          }
+        }
+        input.setAttribute('placeholder', samples[i].slice(0, pos) || ' ');
+        setTimeout(tick, deleting ? 45 : 85);
+      }
+      setTimeout(tick, 1400);
+    })();
   </script>
 
   <!-- Premium Site Vorschau (oben rechts) — öffnet mz9.html direkt -->
