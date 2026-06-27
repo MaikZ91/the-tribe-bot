@@ -25,10 +25,24 @@
       font-weight: 300;
     }
 
+    /* Hintergrund-Video (Sprung-Szene) + Scrim für Lesbarkeit */
+    .bgvid {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2; background: #000000;
+    }
+    .bgscrim {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(125% 90% at 50% 42%, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.70) 60%, rgba(0,0,0,0.88) 100%);
+    }
+
     /* Top Bar */
     .top-bar {
+      position: relative; z-index: 2;
       padding: 1.5rem 1.75rem;
-      background: #000000;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -52,6 +66,7 @@
     /* Main */
     .main {
       flex: 1;
+      position: relative; z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -80,16 +95,18 @@
       line-height: 1.15;
       margin-bottom: 1rem;
       letter-spacing: -0.02em;
+      text-shadow: 0 2px 28px rgba(0,0,0,0.65);
     }
 
     .subtitle {
       font-size: 0.9375rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.78);
       text-align: center;
       margin-bottom: 2.5rem;
       line-height: 1.6;
       max-width: 420px;
+      text-shadow: 0 1px 16px rgba(0,0,0,0.6);
     }
 
     .card {
@@ -136,23 +153,44 @@
 
     .button {
       width: 100%;
-      padding: 1.25rem;
-      font-size: 0.8125rem;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      padding: 1.15rem 1.25rem;
+      font-size: clamp(0.82rem, 3.4vw, 0.95rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-transform: none;
       color: #000000;
       background: #ffffff;
       border: none;
+      border-radius: 3px;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       margin-top: 0.5rem;
+      box-shadow: 0 10px 30px -12px rgba(255,255,255,0.35);
     }
-
     .button:hover {
-      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 46px -14px rgba(255,255,255,0.55);
     }
+    .button::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -130%;
+      width: 55%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(0,0,0,0.10), transparent);
+      transform: skewX(-22deg);
+    }
+    .button:hover::after { animation: btnSheen 0.9s ease; }
+    @keyframes btnSheen { to { left: 140%; } }
+    .button .ar { font-size: 1.1em; line-height: 1; transition: transform 0.2s ease; }
+    .button:hover .ar { transform: translateX(3px); }
 
     .button:disabled {
       opacity: 0.5;
@@ -174,8 +212,9 @@
     .alt-link:hover { color: #ffffff; }
 
     .bottom-bar {
+      position: relative; z-index: 2;
       padding: 1rem 1.75rem;
-      background: #000000;
+      background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -298,11 +337,11 @@
     .chatbot-btn .dot {
       position: absolute; top: -2px; right: -2px;
       width: 12px; height: 12px; border-radius: 50%;
-      background: #10b981; border: 2px solid #0a0a0b;
+      background: #f0eee9; border: 2px solid #0a0a0b;
     }
     .chatbot-btn .ftxt { display: flex; flex-direction: column; line-height: 1; }
     .chatbot-btn .ftxt b { font-size: 14px; font-weight: 500; color: #f0eee9; letter-spacing: 0.07px; }
-    .chatbot-btn .ftxt small { font-size: 10.5px; font-weight: 500; color: #10b981; letter-spacing: 1.47px; margin-top: 2px; }
+    .chatbot-btn .ftxt small { font-size: 10.5px; font-weight: 500; color: rgba(240,238,233,0.55); letter-spacing: 1.47px; margin-top: 2px; }
 
     .chatbot-panel {
       position: absolute; bottom: calc(100% + 0.75rem); right: 0;
@@ -323,20 +362,20 @@
     }
     .cp-av {
       width: 38px; height: 38px; border-radius: 50%; flex: none; overflow: hidden;
-      background: #10b981; display: flex; align-items: center; justify-content: center;
+      background: #1c1c1e; display: flex; align-items: center; justify-content: center;
     }
     .cp-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .cp-headtxt b { font-size: 14.5px; display: block; font-weight: 700; }
     .cp-headtxt span { font-size: 11.5px; color: #8a93a0; display: flex; align-items: center; gap: 6px; }
-    .cp-headtxt span i { width: 7px; height: 7px; border-radius: 50%; background: #10b981; display: inline-block; }
+    .cp-headtxt span i { width: 7px; height: 7px; border-radius: 50%; background: #f0eee9; display: inline-block; }
     .cp-close { margin-left: auto; background: transparent; border: 0; color: #8a93a0; font-size: 20px; cursor: pointer; line-height: 1; }
     .cp-close:hover { color: #fff; }
 
     .cp-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
     .cp-msg { max-width: 84%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; }
     .cp-msg.bot { align-self: flex-start; background: #1b212b; border-bottom-left-radius: 4px; }
-    .cp-msg.user { align-self: flex-end; background: #10b981; color: #06150f; border-bottom-right-radius: 4px; font-weight: 500; }
-    .cp-msg a { color: #10b981; font-weight: 700; text-decoration: underline; }
+    .cp-msg.user { align-self: flex-end; background: #ffffff; color: #000000; border-bottom-right-radius: 4px; font-weight: 500; }
+    .cp-msg a { color: #ffffff; font-weight: 700; text-decoration: underline; }
 
     .cp-actions { align-self: flex-start; width: 100%; display: flex; flex-direction: column; gap: 8px; padding-top: 2px; }
     .cp-quick { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -345,7 +384,7 @@
       border-radius: 50px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
       font-family: inherit; transition: 0.2s;
     }
-    .cp-quick button:hover { border-color: #10b981; color: #10b981; }
+    .cp-quick button:hover { border-color: #ffffff; color: #ffffff; }
     .cp-wa {
       display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start;
       background: #25D366; color: #06281a; text-decoration: none;
@@ -359,9 +398,9 @@
       flex: 1; background: #1b212b; border: 1px solid rgba(255,255,255,0.14); border-radius: 10px;
       color: #E8ECF1; padding: 11px 13px; font-size: 14px; font-family: inherit; min-width: 0; outline: none;
     }
-    .cp-foot input:focus { border-color: #10b981; }
+    .cp-foot input:focus { border-color: #ffffff; }
     .cp-foot input::placeholder { color: #586166; }
-    .cp-foot button { background: #10b981; color: #06150f; border: 0; border-radius: 10px; width: 44px; cursor: pointer; font-size: 18px; flex: none; }
+    .cp-foot button { background: #ffffff; color: #000000; border: 0; border-radius: 10px; width: 44px; cursor: pointer; font-size: 18px; flex: none; }
 
     @media (max-width: 420px) {
       .chatbot { bottom: 16px; right: 16px; }
@@ -372,6 +411,11 @@
   </style>
 </head>
 <body>
+  <video class="bgvid" autoplay muted loop playsinline preload="auto" poster="assets/analyser/jump-poster.jpg" aria-hidden="true">
+    <source src="assets/analyser/jump.mp4" type="video/mp4">
+  </video>
+  <div class="bgscrim" aria-hidden="true"></div>
+
   <div class="top-bar">
     <div class="logo">MZ.9<span>Media Engineering. AI</span></div>
   </div>
@@ -402,7 +446,7 @@
           </select>
         </div>
         <button type="submit" class="button" id="submitBtn">
-          Konzept anfordern
+          Transform Your Business — Next Level <span class="ar" aria-hidden="true">→</span>
         </button>
         <a href="landing-page-briefing.html" class="alt-link">Noch keine eigene Seite für dein Unternehmen?</a>
       </form>
