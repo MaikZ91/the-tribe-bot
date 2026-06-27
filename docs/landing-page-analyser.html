@@ -341,33 +341,42 @@
       position: fixed;
       top: 1rem;
       right: 1rem;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.3);
-      background: #0a0a0a;
-      cursor: pointer;
       z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s, transform 0.15s;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 6px 14px 6px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.32);
+      background: rgba(10,10,11,0.72); backdrop-filter: blur(8px);
+      box-shadow: 0 12px 34px -12px rgba(0,0,0,0.6);
+      cursor: pointer; text-decoration: none; color: #fff;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+      animation: ptPulse 3s ease-in-out infinite;
     }
-    .preview-thumb:hover { border-color: #fff; transform: scale(1.05); }
-    .preview-thumb::after { content: '▶'; font-size: 0.85rem; color: #fff; }
+    .preview-thumb:hover { border-color: #fff; transform: translateY(-1px); background: rgba(16,16,18,0.85); }
+    @keyframes ptPulse {
+      0%,100% { box-shadow: 0 12px 34px -12px rgba(0,0,0,0.6), 0 0 0 0 rgba(255,255,255,0.0); }
+      50%     { box-shadow: 0 12px 34px -12px rgba(0,0,0,0.6), 0 0 0 6px rgba(255,255,255,0.10); }
+    }
+    .preview-thumb .pt-play {
+      flex: none; width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #ffffff; color: #000000; font-size: 0.68rem; padding-left: 2px;
+    }
+    .preview-thumb .pt-cta {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; color: #fff;
+    }
     .preview-thumb .pt-label, .preview-thumb .pt-wrap { display: none; }
 
     @media (min-width: 1100px) {
       .preview-thumb {
+        display: block; padding: 0; gap: 0; animation: none;
         width: 187px;
         height: 250px;
         border-radius: 0;
         overflow: hidden;
+        background: #0a0a0a;
       }
-      .preview-thumb::after { display: none; }
+      .preview-thumb .pt-play, .preview-thumb .pt-cta { display: none; }
       .preview-thumb .pt-label {
         display: block;
         position: absolute; top: 0; left: 0; right: 0;
@@ -593,7 +602,9 @@
   </script>
 
   <!-- Premium Site Vorschau (oben rechts) — öffnet mz9.html direkt -->
-  <a class="preview-thumb" href="mz9.html" target="_blank" rel="noopener" title="MZ.9 Premium Site öffnen" aria-label="MZ.9 Premium Site öffnen">
+  <a class="preview-thumb" href="mz9.html" target="_blank" rel="noopener" title="MZ.9 Premium-Design-Seite ansehen" aria-label="MZ.9 Premium-Design-Seite ansehen">
+    <span class="pt-play" aria-hidden="true">▶</span>
+    <span class="pt-cta">Premium-Design ansehen</span>
     <div class="pt-label">Premium Site Vorschau</div>
     <div class="pt-wrap"><iframe src="mz9.html" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
   </a>
