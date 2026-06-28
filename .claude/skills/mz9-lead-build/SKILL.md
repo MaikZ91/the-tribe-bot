@@ -30,6 +30,12 @@ Lies **einmal** das Build-Job unter dem im Aufruf genannten Pfad (`docs/leads/<i
 1. **Original-Bilder Pflicht**: `images[]` prominent — Hero, Galerie, CTA-Band,
    Leistungsbilder. **KEINE** bildlose Seite, **KEINE** Stock-/Fantasiebilder. Hero
    **ohne** `loading="lazy"`, Rest mit.
+   - **Hero immer mit passendem, hochauflösendem Bild.** Wähle für den Hero das stärkste,
+     thematisch passende Originalbild. **Niedrig aufgelöste Bilder NICHT vollflächig
+     hochskalieren** (wirkt verpixelt, besonders mobil) — entweder ein hochauflösendes
+     Bild verlangen/nutzen, oder das Bild in einer **festen, kleineren Bühne** neben dem
+     Text zeigen (verkleinert = scharf). Fehlt ein scharfes Hero-Bild, beim Lead-Eigner
+     anfragen.
 2. **Nur echte Daten** aus dem Build-Job — keine Preise/Offenzeiten/Fakten erfinden.
    Fehlt etwas, lass es weg. (Ausnahme: offensichtlich beispielhafte UI-Inhalte wie
    eine Muster-Speisekarte — klar als Beispiel kennzeichnen, falls keine echten vorliegen.)
@@ -78,6 +84,11 @@ Setze die Features ein, die zur Branche UND zu den `problems`/`opps` passen. Min
 
 - **Kontakt-Chatbot / Assistent**: kleines Widget, das zur Anfrage/Termin führt
   (klar als Konzept, „Schreib uns" → Mail/Anfrage).
+  - **Personalisieren mit dem Inhaber/der Leitung:** Wenn ein Foto + Name der
+    Firmen-Leitung vorliegt, nutze dieses **Foto als Avatar** (Launch-Button + Chat-Kopf,
+    rund, `object-fit:cover`) und schreibe Begrüßung & Antworten in der **Ich-Form** dieser
+    Person (z. B. „Hallo, ich bin Maike …", „ich melde mich persönlich"). Name + Funktion
+    im Chat-Kopf. Liegt kein Personenfoto vor: neutraler Marken-Avatar + „Team"-Ansprache.
 - **Online-Terminvereinbarung / Buchung** (Praxis, Friseur, Beauty, Handwerk-Anfrage):
   ansprechendes Buchungs-UI (Schritte: Leistung → Wunschtermin → Kontakt) oder
   Kalender-Ansicht, das zu `mailto:`/Anfrage führt.
@@ -108,6 +119,8 @@ Mobile-CTA-Bar (Haupt-CTA fixiert unten).
 
 - [ ] Design/Palette **branchenspezifisch** (nicht pauschal dunkel)?
 - [ ] Originalbilder aus `images[]` verbaut (Hero + Galerie + mind. 1 CTA-Band)?
+- [ ] **Hero-Bild hochauflösend & passend** (nicht verpixelt/hochskaliert; sonst feste Bühne)?
+- [ ] **Chatbot mit Inhaber/Leitung personalisiert** (Foto-Avatar + Ich-Form), falls Foto+Name vorhanden?
 - [ ] 1–2 **branchenspezifische Premium-Features** (Termin/Speisekarte/Chatbot/…)?
 - [ ] An `problems`/`opps` der Ursprungsseite orientiert (Schwächen behoben)?
 - [ ] Nur echte Daten, nichts erfunden?
