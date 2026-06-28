@@ -116,12 +116,20 @@
 
   /* leistungen */
   .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;transition:transform .3s,box-shadow .3s}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .3s,box-shadow .3s}
   .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-  .card .ic{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;margin-bottom:18px}
-  .card .ic svg{width:27px;height:27px;color:#fff}
+  .card-img{position:relative;height:172px}
+  .card-img img{width:100%;height:100%;object-fit:cover}
+  .card .ic{position:absolute;left:22px;bottom:-24px;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;box-shadow:var(--shadow-soft)}
+  .card .ic svg{width:26px;height:26px;color:#fff}
+  .card-body{padding:38px 26px 28px}
   .card h3{font-size:1.35rem;margin-bottom:8px}
   .card p{color:var(--ink-soft);font-size:.95rem}
+  .moments{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .moments figure{border-radius:16px;overflow:hidden;box-shadow:var(--shadow-soft);aspect-ratio:4/3}
+  .moments img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .moments figure:hover img{transform:scale(1.05)}
+  @media(max-width:680px){.moments{grid-template-columns:1fr 1fr}}
   .i-teal{background:linear-gradient(140deg,var(--teal),var(--teal-deep))}
   .i-sky{background:linear-gradient(140deg,var(--sky),#3f8bac)}
   .i-warm{background:linear-gradient(140deg,var(--warm),#d4863c)}
@@ -163,6 +171,18 @@
   .ph .phlbl{position:absolute;left:12px;bottom:11px;color:#fff;font-size:.8rem;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.5);z-index:2}
 
   .demo-note{display:inline-flex;align-items:center;gap:.5em;background:rgba(232,161,90,.16);color:#9a5e1f;border:1px solid rgba(232,161,90,.45);padding:7px 16px;border-radius:999px;font-size:.76rem;font-weight:600;margin-top:22px}
+
+  .brand-logo{height:42px;width:auto;display:block}
+  header.scrolled .brand-logo{height:38px}
+  /* team */
+  .team-banner{border-radius:24px;overflow:hidden;box-shadow:var(--shadow);margin:38px 0 22px;aspect-ratio:16/7;background:linear-gradient(150deg,var(--teal),var(--sky))}
+  .team-banner img{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .tmember{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-soft);background:var(--sand);aspect-ratio:1/1}
+  .tmember img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .tmember:hover img{transform:scale(1.05)}
+  .tmember .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 12px 10px;color:#fff;font-size:.82rem;font-weight:600;background:linear-gradient(transparent,rgba(20,48,45,.78));text-shadow:0 1px 6px rgba(0,0,0,.4)}
+  @media(max-width:680px){.team-grid{grid-template-columns:1fr 1fr;gap:12px}.team-banner{aspect-ratio:4/3}}
 
   /* contact */
   .contact{background:var(--paper)}
@@ -256,13 +276,11 @@
 
 <header id="hdr">
   <div class="wrap bar">
-    <a href="#top" class="brand">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
-      <span class="txt"><span class="nm">Weitblick</span><span class="sub">Ergotherapie</span></span>
-    </a>
+    <a href="#top" class="brand"><img class="brand-logo" src="img/logo.png" alt="Weitblick – Praxis für Ergotherapie"></a>
     <nav class="menu">
       <a href="#praxis">Praxis</a>
       <a href="#leistungen">Leistungen</a>
+      <a href="#team">Team</a>
       <a href="#termin">Termin</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -297,7 +315,7 @@
     <div class="hero-art reveal">
       <div class="hero-card">
         <div class="scene">
-          <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=900&q=80" alt="Helle, freundliche Ergotherapie-Praxis" onerror="this.style.display='none'">
+          <img src="img/team-indoor.jpg" alt="Das Team der Weitblick-Praxis im Bewegungsraum">
         </div>
       </div>
       <div class="float-chip fc1">
@@ -327,7 +345,7 @@
   <div class="wrap about-grid">
     <div class="about-media reveal">
       <div class="ph">
-        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1000&q=80" alt="Heller Bewegungs- und Therapieraum" onerror="this.style.display='none'">
+        <img src="img/building.jpg" alt="Das Praxisgebäude der Weitblick-Praxis beim Rondell">
       </div>
     </div>
     <div class="about-text reveal">
@@ -359,12 +377,12 @@
       <p>Individuelle Behandlung – abgestimmt auf Ihre Ziele, Ihren Alltag und Ihr Tempo.</p>
     </div>
     <div class="serv-grid">
-      <div class="card reveal"><div class="ic i-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></div><h3>Pädiatrie</h3><p>Unterstützung für Kinder bei Aufmerksamkeits-, Konzentrations- und Koordinationsstörungen – spielerisch und stärkend.</p></div>
-      <div class="card reveal"><div class="ic i-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c-2 .5-3 2-3 4 0 1 .4 2 1 2.7C5.4 14 5 15 5 16a4 4 0 0 0 6 3.5A4 4 0 0 0 17 16c0-1-.4-2-1-3.3.6-.7 1-1.7 1-2.7 0-2-1-3.5-3-4a4 4 0 0 0-4-4z"/></svg></div><h3>Neurologie</h3><p>Behandlung bei Erkrankungen des zentralen und peripheren Nervensystems – für mehr Selbstständigkeit im Alltag.</p></div>
-      <div class="card reveal"><div class="ic i-warm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.3-9.3-9.3C1 8 3 5 6 5c1.8 0 3.3 1 4 2 .7-1 2.2-2 4-2 3 0 5 3 3.3 6.7C19 16.7 12 21 12 21z"/></svg></div><h3>Geriatrie</h3><p>Begleitung im höheren Alter, auch bei demenziellen Erkrankungen – mit Geduld, Würde und Nähe.</p></div>
-      <div class="card reveal"><div class="ic i-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><h3>Lerntherapie</h3><p>Gezielte Hilfe bei Lernschwierigkeiten und verschiedenen Diagnosen – damit Lernen wieder gelingt.</p></div>
-      <div class="card reveal"><div class="ic i-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Präventionskurse</h3><p>Vorbeugen &amp; Entspannen – z. B. Autogenes Training, um Stress zu lösen und das Wohlbefinden zu stärken.</p></div>
-      <div class="card reveal"><div class="ic i-warm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Sport- &amp; Bewegungsangebote</h3><p>In unserem 35-m²-Bewegungsraum: aktivierende Angebote für Kraft, Koordination und Beweglichkeit.</p></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-paediatrie.jpg" alt="Pädiatrie – Förderung für Kinder" loading="lazy"><span class="ic i-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></span></div><div class="card-body"><h3>Pädiatrie</h3><p>Unterstützung für Kinder bei Aufmerksamkeits-, Konzentrations- und Koordinationsstörungen – spielerisch und stärkend.</p></div></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-neuro.jpg" alt="Neurologie – Therapie der Hand" loading="lazy"><span class="ic i-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c-2 .5-3 2-3 4 0 1 .4 2 1 2.7C5.4 14 5 15 5 16a4 4 0 0 0 6 3.5A4 4 0 0 0 17 16c0-1-.4-2-1-3.3.6-.7 1-1.7 1-2.7 0-2-1-3.5-3-4a4 4 0 0 0-4-4z"/></svg></span></div><div class="card-body"><h3>Neurologie</h3><p>Behandlung bei Erkrankungen des zentralen und peripheren Nervensystems – für mehr Selbstständigkeit im Alltag.</p></div></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-geriatrie.jpg" alt="Geriatrie – Begleitung im Alter" loading="lazy"><span class="ic i-warm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.3-9.3-9.3C1 8 3 5 6 5c1.8 0 3.3 1 4 2 .7-1 2.2-2 4-2 3 0 5 3 3.3 6.7C19 16.7 12 21 12 21z"/></svg></span></div><div class="card-body"><h3>Geriatrie</h3><p>Begleitung im höheren Alter, auch bei demenziellen Erkrankungen – mit Geduld, Würde und Nähe.</p></div></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-lern.jpg" alt="Lerntherapie – Hilfe beim Lernen" loading="lazy"><span class="ic i-sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span></div><div class="card-body"><h3>Lerntherapie</h3><p>Gezielte Hilfe bei Lernschwierigkeiten und verschiedenen Diagnosen – damit Lernen wieder gelingt.</p></div></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-praevention.jpg" alt="Präventionskurse – Entspannung" loading="lazy"><span class="ic i-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3"/></svg></span></div><div class="card-body"><h3>Präventionskurse</h3><p>Vorbeugen &amp; Entspannen – z. B. Autogenes Training, um Stress zu lösen und das Wohlbefinden zu stärken.</p></div></div>
+      <div class="card reveal"><div class="card-img"><img src="img/serv-sport.jpg" alt="Sport- und Bewegungsangebote" loading="lazy"><span class="ic i-warm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><div class="card-body"><h3>Sport- &amp; Bewegungsangebote</h3><p>In unserem 35-m²-Bewegungsraum: aktivierende Angebote für Kraft, Koordination und Beweglichkeit.</p></div></div>
     </div>
   </div>
 </section>
@@ -414,21 +432,35 @@
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="sec gallery" id="einblicke">
+<!-- TEAM -->
+<section class="sec gallery" id="team">
   <div class="wrap">
     <div class="sec-head center reveal">
+      <span class="eyebrow center">Unser Team</span>
+      <h2>Menschen, die mit Herz begleiten</h2>
+      <p>Ein eingespieltes Team aus erfahrenen Therapeutinnen – für jedes Anliegen die passende Begleitung.</p>
+    </div>
+    <div class="team-banner reveal"><img src="img/team-outdoor.jpg" alt="Das Team der Weitblick-Praxis" loading="lazy"></div>
+    <div class="team-grid reveal">
+      <div class="tmember"><img src="img/team-1.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-2.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-3.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-4.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-5.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-6.jpg" alt="Teammitglied der Weitblick-Praxis" loading="lazy"></div>
+      <div class="tmember"><img src="img/team-dogs.jpg" alt="Tiergestützte Begleitung mit Therapiehunden" loading="lazy"><span class="cap">Mit Herz &amp; Hund 🐾</span></div>
+    </div>
+    <div class="demo-note">⚠ Namen &amp; Funktionen der Teammitglieder ergänzen wir gern</div>
+
+    <div class="sec-head center reveal" style="margin:56px auto 0">
       <span class="eyebrow center">Einblicke</span>
-      <h2>Wohlfühlen vom ersten Moment an</h2>
-      <p>Helle Räume, viel Platz zum Bewegen und eine ruhige Atmosphäre.</p>
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.2rem)">Momente aus dem Praxisalltag</h2>
     </div>
-    <div class="gal-grid reveal">
-      <div class="ph tall"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Heller Therapieraum" onerror="this.style.display='none'"><span class="phlbl">Behandlungsraum</span></div>
-      <div class="ph wide"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=80" alt="Wartebereich" onerror="this.style.display='none'"><span class="phlbl">Wartebereich</span></div>
-      <div class="ph"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=700&q=80" alt="Bewegungsraum" onerror="this.style.display='none'"><span class="phlbl">Bewegungsraum</span></div>
-      <div class="ph"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=80" alt="Förderung für Kinder" onerror="this.style.display='none'"><span class="phlbl">Pädiatrie</span></div>
+    <div class="moments reveal">
+      <figure><img src="img/moment-kreativ.jpg" alt="Kreatives Arbeiten in der Therapie" loading="lazy"></figure>
+      <figure><img src="img/moment-lernen.jpg" alt="Gemeinsames Lernen mit Kindern" loading="lazy"></figure>
+      <figure><img src="img/moment-haende.jpg" alt="Begleitung mit Nähe und Vertrauen" loading="lazy"></figure>
     </div>
-    <div class="demo-note">⚠ Platzhalter-Aufnahmen · werden durch echte Fotos der Praxis ersetzt</div>
   </div>
 </section>
 
@@ -447,11 +479,10 @@
         <div class="info-card" style="border-bottom:none"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div><div><h4>Termine</h4><p>Nach Vereinbarung – bitte telefonisch oder über das Formular.</p></div></div>
         <a href="#termin" class="btn btn-primary" style="margin-top:20px">Jetzt Termin anfragen</a>
       </div>
-      <div class="map-card reveal">
-        <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <div class="maddr"><b>Weitblick – Ergotherapie</b><br>Hauptstraße 290+292, 33818 Leopoldshöhe<br>
-          <a href="https://maps.google.com/?q=Hauptstra%C3%9Fe+290+33818+Leopoldsh%C3%B6he" target="_blank" rel="noopener">In Google Maps öffnen →</a></div>
-      </div>
+      <a class="map-card reveal" href="https://maps.google.com/?q=Hauptstra%C3%9Fe+290+33818+Leopoldsh%C3%B6he" target="_blank" rel="noopener" style="padding:0;display:block;overflow:hidden">
+        <img src="img/map.jpg" alt="Lageplan der Weitblick-Praxis – Hauptstraße 290, Eingang und Parkplätze" style="width:100%;height:100%;min-height:340px;object-fit:cover;display:block">
+        <span class="maddr" style="position:absolute;left:18px;bottom:18px"><b>Hauptstraße 290+292</b><br><span style="color:var(--teal);font-weight:600;font-size:.86rem">In Google Maps öffnen →</span></span>
+      </a>
     </div>
   </div>
 </section>
@@ -473,7 +504,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <span class="nm">Weitblick</span>
+        <img src="img/logo.png" alt="Weitblick – Praxis für Ergotherapie" style="height:48px;background:#fff;padding:8px 12px;border-radius:10px;margin-bottom:14px">
         <p>Praxis für Ergotherapie in Leopoldshöhe – Pädiatrie, Neurologie, Geriatrie, Lerntherapie &amp; Prävention. Mit Weitblick zu mehr Selbstständigkeit.</p>
       </div>
       <div><h5>Praxis</h5><ul>
