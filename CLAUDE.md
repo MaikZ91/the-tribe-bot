@@ -6,6 +6,15 @@ Simple mode: read the repository, understand the codebase, and perform tasks
 as requested. No auto-commit, no auto-push, no auto-PR, no auto-merge.
 Confirm before any write operation.
 
+### Ausnahme: MZ.9 Lead-/Konzeptseiten immer live stellen
+
+Fertige Lead-/Konzeptseiten (`docs/leads/<id>/index.html`, gebaut mit dem
+`mz9-lead-build`-Skill) gehen **immer automatisch live** — ohne Rückfrage:
+committen → auf den Arbeitsbranch pushen → **direkt nach `main` mergen** →
+`main` pushen. GitHub Pages deployt dann in ~1–2 Min. So ist jede neue
+Konzeptseite sofort unter
+`https://maikz91.github.io/the-tribe-bot/leads/<id>/` erreichbar.
+
 ## Known issue: space in user path
 
 The Windows username `Maik Zschach` contains a space. This workspace sits at
