@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MZ.9 Reel — kurz</title>
+<style>
+@font-face{font-family:'Hanken Grotesk';font-weight:200 600;font-display:block;src:url('../../assets/fonts/hanken-grotesk-latin.woff2') format('woff2')}
+@font-face{font-family:'Allura';font-weight:400;font-display:block;src:url('../../assets/fonts/allura-latin.woff2') format('woff2')}
+@font-face{font-family:'Anton';font-weight:400;font-display:block;src:url('../../assets/fonts/anton-latin.woff2') format('woff2')}
+:root{--bg:#000;--ink:#F0EEE9;--ink2:#B9B7B1;--mut:#7C7A75;--line:rgba(240,238,233,.16);
+  --sans:'Hanken Grotesk',sans-serif;--script:'Allura',cursive;--display:'Anton',Impact,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--sans)}
+#stage{position:relative;width:1080px;height:1920px;flex:none;overflow:hidden;background:#000;color:var(--ink)}
+#grain{position:absolute;inset:0;z-index:60;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vign{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.72) 100%)}
+.layer{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+.layer.show{opacity:1;visibility:visible}
+
+/* device frame */
+.frame{position:relative;width:640px;height:1100px;border:1px solid var(--line);background:#0a0a0b;
+  box-shadow:0 60px 140px -40px rgba(0,0,0,.9);overflow:hidden;border-radius:6px}
+.frame .bar{height:46px;display:flex;align-items:center;gap:10px;padding:0 20px;border-bottom:1px solid rgba(240,238,233,.08);background:#0a0a0b}
+.frame .bar i{width:11px;height:11px;border-radius:50%;background:#2a2a2c;display:inline-block}
+.frame .scr{position:absolute;top:46px;left:0;right:0;bottom:0;overflow:hidden;background:#fff}
+.frame iframe{border:0;display:block;transform-origin:top left;background:#fff}
+#ifOld{filter:grayscale(1) contrast(1.02)}
+
+/* big punchy caption overlay (deine Style) */
+.bigcap{position:absolute;z-index:30;left:0;right:0;text-align:center;
+  font-family:var(--display);text-transform:uppercase;color:#fff;line-height:.9;letter-spacing:.01em;
+  text-shadow:0 6px 34px rgba(0,0,0,.85),0 2px 8px rgba(0,0,0,.7);transform:rotate(-4deg)}
+.bigcap .l{display:block;overflow:hidden}
+.bigcap .l>span{display:block;transform:translateY(115%);transition:transform .55s var(--ease)}
+.bigcap.in .l>span{transform:none}
+.bigcap .d2>span{transition-delay:.07s}.bigcap .d3>span{transition-delay:.14s}.bigcap .d4>span{transition-delay:.21s}
+#cap2008{top:34%;font-size:210px}
+#cap2008 .q{color:#fff;-webkit-text-stroke:5px #fff}
+#capPrem{top:30%;font-size:150px}
+#capPrem .sm{font-size:120px;color:#37ccdc}
+
+/* VERALTET stamp */
+.stamp{position:absolute;top:64%;left:50%;z-index:25;font-family:var(--display);text-transform:uppercase;
+  font-size:120px;letter-spacing:.04em;color:#fff;border:7px solid #fff;padding:6px 40px;
+  text-shadow:0 4px 24px rgba(0,0,0,.7);box-shadow:0 18px 60px -10px rgba(0,0,0,.7);
+  opacity:0;transform:translate(-50%,-50%) rotate(-10deg) scale(1.8);transition:transform .3s cubic-bezier(.2,1.5,.4,1),opacity .24s}
+.stamp.on{opacity:1;transform:translate(-50%,-50%) rotate(-10deg) scale(1)}
+
+/* paste */
+#paste .pwrap{width:860px;text-align:center}
+#paste .eyebrow{font-size:24px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--mut);margin-bottom:26px}
+#paste h2{font-weight:200;letter-spacing:-.02em;font-size:104px;line-height:1;margin-bottom:54px}
+#paste h2 em{font-style:normal;font-family:var(--script);font-weight:400}
+.addr{display:flex;align-items:center;gap:22px;border:1px solid var(--line);padding:34px 36px;text-align:left}
+.addr .lk{width:34px;height:34px;flex:none;color:var(--mut)}
+.addr .u{font-size:48px;font-weight:300;color:var(--ink);white-space:nowrap;overflow:hidden}
+.caret{display:inline-block;width:3px;height:52px;background:var(--ink);margin-left:4px;vertical-align:middle;animation:bl 1s steps(2) infinite}
+@keyframes bl{to{opacity:0}}
+.gb{margin-top:34px;display:flex;align-items:center;justify-content:center;gap:18px;border:1px solid var(--ink);
+  padding:34px;font-size:32px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);transition:.3s}
+.gb.glow{animation:gp 1s ease-in-out infinite}
+@keyframes gp{0%,100%{box-shadow:0 0 0 0 rgba(240,238,233,.35)}50%{box-shadow:0 0 0 22px rgba(240,238,233,0)}}
+.gb.click{transform:scale(.96);background:var(--ink);color:#000}
+
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:80;pointer-events:none;transition:opacity .2s ease}
+#flash.on{opacity:1}
+.brandmk{position:absolute;bottom:44px;left:0;right:0;text-align:center;z-index:70;font-size:26px;font-weight:500;letter-spacing:.5em;color:rgba(240,238,233,.5)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- OLD -->
+  <div class="layer" id="old">
+    <div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="scr"><iframe id="ifOld" src="../arzt-2008/" scrolling="no"></iframe></div></div>
+    <div class="stamp" id="stampOld">Veraltet</div>
+    <div class="bigcap" id="cap2008">
+      <span class="l"><span>2008</span></span>
+      <span class="l d2"><span>Style</span></span>
+      <span class="l d3"><span class="q">???</span></span>
+    </div>
+  </div>
+  <!-- PASTE -->
+  <div class="layer" id="paste">
+    <div class="pwrap">
+      <div class="eyebrow">So entsteht das Neue</div>
+      <h2>Füg deinen <em>Link</em> ein.</h2>
+      <div class="addr">
+        <svg class="lk" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.2"/></svg>
+        <div class="u"><span id="urlText"></span><span class="caret" id="caret"></span></div>
+      </div>
+      <div class="gb" id="goBtn">Transformieren →</div>
+    </div>
+  </div>
+  <!-- NEW -->
+  <div class="layer" id="new">
+    <div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="scr"><iframe id="ifNew" src="../arzt-mz9/" scrolling="no"></iframe></div></div>
+    <div class="bigcap" id="capPrem">
+      <span class="l"><span>Your</span></span>
+      <span class="l d2"><span>Premium</span></span>
+      <span class="l d3"><span>Page</span></span>
+      <span class="l d4"><span class="sm">&lt; 5&nbsp;min</span></span>
+    </div>
+  </div>
+
+  <div id="vign"></div>
+  <div id="grain"></div>
+  <div id="flash"></div>
+  <div class="brandmk">M Z . 9</div>
+</div>
+<script>
+function fit(){var s=Math.min(innerWidth/1080,innerHeight/1920);document.getElementById('stage').style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();
+var $=function(id){return document.getElementById(id)},ifOld=$('ifOld'),ifNew=$('ifNew');
+function sizeFrames(){var sw=640,sh=1100-46,sc=sw/780;
+  ifOld.style.width='780px';ifOld.style.height=(sh/sc)+'px';ifOld.style.transform='scale('+sc+')';
+  ifNew.style.width=sw+'px';ifNew.style.height=sh+'px';ifNew.style.transform='scale(1)';}
+sizeFrames();
+function scrollFrame(ifr,to,dur){try{var win=ifr.contentWindow,d=win.document;
+  [d.documentElement,d.body].forEach(function(e){if(e)e.style.scrollBehavior='auto'});
+  var from=win.scrollY||0,t0=performance.now();
+  (function step(t){var k=Math.min(1,(t-t0)/dur);win.scrollTo(0,from+(to-from)*k);if(k<1)requestAnimationFrame(step)})(performance.now())}catch(e){}}
+function type(el,text,dur,cb){var i=0,iv=setInterval(function(){i++;el.textContent=text.slice(0,i);if(i>=text.length){clearInterval(iv);cb&&cb()}},dur/text.length)}
+function flash(ms){$('flash').classList.add('on');setTimeout(function(){$('flash').classList.remove('on')},ms||200)}
+function show(id){$(id).classList.add('show')}function hide(id){$(id).classList.remove('show')}
+var T=[];function at(ms,fn){T.push(setTimeout(fn,ms))}
+function run(){
+  // OLD (0–2.05s)
+  at(20,function(){show('old')});
+  at(140,function(){$('cap2008').classList.add('in')});
+  at(380,function(){$('stampOld').classList.add('on')});
+  at(420,function(){scrollFrame(ifOld,300,1600)});
+  at(2050,function(){flash(190);hide('old')});
+  // PASTE (2.25–4.15s)
+  at(2250,function(){show('paste')});
+  at(2360,function(){type($('urlText'),'www.praxis-brandt.de',880,function(){$('caret').style.display='none'})});
+  at(3350,function(){$('goBtn').classList.add('glow')});
+  at(3760,function(){$('goBtn').classList.remove('glow');$('goBtn').classList.add('click')});
+  at(4150,function(){flash(320);hide('paste')});
+  // NEW (4.35–6.3s)
+  at(4350,function(){show('new');scrollFrame(ifNew,2150,1850)});
+  at(4520,function(){$('capPrem').classList.add('in')});
+}
+var started=false;function start(){if(started)return;started=true;run()}
+window.addEventListener('load',function(){if(!window.__noauto){setTimeout(start,1400)}});
+window.__reelStart=start;
+</script>
+</body>
+</html>
