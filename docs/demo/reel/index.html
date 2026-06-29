@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MZ.9 Reel — Aus alt mach neu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#06141d;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Manrope',system-ui,sans-serif}
+
+/* 9:16 stage 1080x1920, scaled to fit viewport for preview */
+#stage{
+  position:relative;width:1080px;height:1920px;flex:none;overflow:hidden;
+  background:
+    radial-gradient(1200px 800px at 50% -10%,rgba(22,167,181,.30),transparent 60%),
+    radial-gradient(900px 700px at 80% 110%,rgba(23,105,170,.35),transparent 60%),
+    linear-gradient(165deg,#0b2c40 0%,#0f3a52 45%,#0a2435 100%);
+  color:#fff;
+}
+#stage::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:26px 26px;opacity:.5}
+
+/* captions */
+.cap{position:absolute;top:96px;left:70px;right:70px;text-align:center;opacity:0;transform:translateY(24px);
+  transition:opacity .5s ease,transform .5s ease;z-index:6}
+.cap.on{opacity:1;transform:none}
+.cap .kick{font-size:30px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#7fe3ee;margin-bottom:16px}
+.cap h2{font-family:'Fraunces',serif;font-weight:600;font-size:74px;line-height:1.05;letter-spacing:-.01em;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.cap h2 em{font-style:italic;color:#37ccdc}
+
+/* phone */
+.phone{position:absolute;left:50%;top:520px;transform:translateX(-50%) translateY(40px) scale(.96);
+  width:560px;height:1180px;background:#0a151d;border-radius:64px;padding:22px;
+  box-shadow:0 50px 120px -30px rgba(0,0,0,.7),0 0 0 2px rgba(255,255,255,.06),inset 0 0 0 8px #060d12;
+  opacity:0;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);z-index:4}
+.phone.on{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+.phone.out{opacity:0;transform:translateX(-50%) translateY(-30px) scale(.96)}
+.phone .notch{position:absolute;top:30px;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#060d12;border-radius:0 0 18px 18px;z-index:3}
+.screen{width:100%;height:100%;border-radius:46px;overflow:hidden;position:relative;background:#fff}
+.screen iframe{border:0;display:block;transform-origin:top left;background:#fff}
+
+/* tool card (paste link) */
+.tool{position:absolute;left:50%;top:560px;transform:translateX(-50%) translateY(40px);width:880px;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);
+  border-radius:42px;padding:60px 56px;opacity:0;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);z-index:5;
+  box-shadow:0 40px 100px -30px rgba(0,0,0,.6)}
+.tool.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.tool.out{opacity:0;transform:translateX(-50%) translateY(-26px)}
+.tool .lab{font-size:34px;font-weight:700;color:#bfe6ee;margin-bottom:26px}
+.addrbar{display:flex;align-items:center;gap:18px;background:#fff;border-radius:22px;padding:26px 30px;box-shadow:0 12px 40px -14px rgba(0,0,0,.4)}
+.addrbar .lock{width:34px;height:34px;flex:none;color:#16a7b5}
+.addrbar .url{font-size:38px;color:#0f3a52;font-weight:600;white-space:nowrap;overflow:hidden}
+.caret{display:inline-block;width:3px;height:42px;background:#16a7b5;margin-left:3px;vertical-align:middle;animation:blink 1s steps(2,start) infinite}
+@keyframes blink{to{opacity:0}}
+.gobtn{margin-top:34px;width:100%;display:flex;align-items:center;justify-content:center;gap:16px;
+  background:linear-gradient(135deg,#19c0d0,#0e8b98);color:#fff;font-weight:800;font-size:40px;
+  padding:34px;border-radius:24px;box-shadow:0 22px 50px -16px rgba(22,167,181,.8);transition:transform .15s ease,box-shadow .3s ease}
+.gobtn.glow{box-shadow:0 0 0 0 rgba(55,204,220,.6),0 22px 60px -12px rgba(22,167,181,1);animation:pulse 1.1s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(55,204,220,.55),0 22px 60px -12px rgba(22,167,181,.9)}50%{box-shadow:0 0 0 26px rgba(55,204,220,0),0 22px 60px -12px rgba(22,167,181,.9)}}
+.gobtn.click{transform:scale(.95)}
+
+/* build progress */
+.prog{margin-top:38px;display:flex;flex-direction:column;gap:22px}
+.pstep{display:flex;align-items:center;gap:22px;font-size:34px;font-weight:600;color:#dff3f7;opacity:0;transform:translateX(-14px);transition:.4s}
+.pstep.on{opacity:1;transform:none}
+.pstep .dot{width:46px;height:46px;flex:none;border-radius:50%;border:3px solid rgba(255,255,255,.3);display:grid;place-items:center;font-size:28px}
+.pstep.done .dot{background:#27c08a;border-color:#27c08a;color:#fff}
+.pstep .spin{width:46px;height:46px;flex:none;border:4px solid rgba(255,255,255,.25);border-top-color:#37ccdc;border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.donebadge{margin-top:30px;text-align:center;font-family:'Fraunces',serif;font-size:48px;font-weight:600;color:#37ccdc;opacity:0;transform:scale(.8);transition:.5s cubic-bezier(.2,1.4,.4,1)}
+.donebadge.on{opacity:1;transform:none}
+
+/* flash */
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:20;pointer-events:none;transition:opacity .35s ease}
+#flash.on{opacity:1}
+
+/* end card */
+.endc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+  opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform .8s ease;z-index:8;text-align:center;padding:0 80px}
+.endc.on{opacity:1;transform:none}
+.endc .logo{font-family:'Fraunces',serif;font-weight:600;font-size:150px;letter-spacing:-.02em;
+  background:linear-gradient(135deg,#7fe3ee,#19c0d0);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.endc .tl{font-family:'Fraunces',serif;font-style:italic;font-size:60px;color:#fff}
+.endc .sub{font-size:36px;color:#bfe6ee;font-weight:600;margin-top:6px}
+.endc .pill{margin-top:30px;font-size:34px;font-weight:800;color:#06141d;background:linear-gradient(135deg,#37ccdc,#19c0d0);padding:26px 54px;border-radius:999px;box-shadow:0 22px 50px -16px rgba(22,167,181,.8)}
+
+/* progress bar bottom */
+#tbar{position:absolute;left:0;bottom:0;height:10px;width:0;background:linear-gradient(90deg,#37ccdc,#19c0d0);z-index:30;transition:width .2s linear}
+.wm{position:absolute;bottom:42px;left:0;right:0;text-align:center;font-weight:800;font-size:30px;color:rgba(255,255,255,.55);letter-spacing:.3em;z-index:9}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- captions -->
+  <div class="cap" id="capA"><div class="kick">Website-Check</div><h2>Sieht deine Seite noch aus wie <em>2008?</em> 😬</h2></div>
+  <div class="cap" id="capB"><div class="kick">So einfach geht's</div><h2>Füg einfach deinen <em>alten Link</em> ein 👇</h2></div>
+  <div class="cap" id="capC"><div class="kick">Sekunden später</div><h2>…fertig ist deine <em>neue Website</em> ✨</h2></div>
+
+  <!-- old phone -->
+  <div class="phone" id="phoneOld">
+    <div class="notch"></div>
+    <div class="screen"><iframe id="ifOld" src="../arzt-2008/" scrolling="no"></iframe></div>
+  </div>
+
+  <!-- tool / paste link -->
+  <div class="tool" id="tool">
+    <div class="lab">🔗 Deine aktuelle Website</div>
+    <div class="addrbar">
+      <svg class="lock" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" fill="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.4"/></svg>
+      <div class="url"><span id="urlText"></span><span class="caret" id="caret"></span></div>
+    </div>
+    <div class="gobtn" id="goBtn">✨ Website modernisieren</div>
+    <div class="prog" id="prog">
+      <div class="pstep" id="ps1"><span class="dot">1</span> Alte Seite analysiert</div>
+      <div class="pstep" id="ps2"><span class="dot">2</span> Branche erkannt: Arztpraxis</div>
+      <div class="pstep" id="ps3"><span class="dot">3</span> Design &amp; Texte erstellt</div>
+    </div>
+    <div class="donebadge" id="doneBadge">Fertig! 🎉</div>
+  </div>
+
+  <!-- new phone -->
+  <div class="phone" id="phoneNew">
+    <div class="notch"></div>
+    <div class="screen"><iframe id="ifNew" src="../arzt-mz9/" scrolling="no"></iframe></div>
+  </div>
+
+  <!-- end card -->
+  <div class="endc" id="endc">
+    <div class="logo">MZ.9</div>
+    <div class="tl">Aus alt mach neu.</div>
+    <div class="sub">Deine Website. Modern. In Sekunden.</div>
+    <div class="pill">Jetzt Link einfügen →</div>
+  </div>
+
+  <div id="flash"></div>
+  <div id="tbar"></div>
+  <div class="wm">M Z . 9</div>
+</div>
+
+<script>
+/* fit stage to viewport for browser preview (recording uses 1080x1920 viewport => scale 1) */
+function fit(){var s=Math.min(innerWidth/1080,innerHeight/1920);document.getElementById('stage').style.transform='scale('+s+')';}
+addEventListener('resize',fit);fit();
+
+var $=function(id){return document.getElementById(id)};
+var ifOld=$('ifOld'),ifNew=$('ifNew');
+
+/* size iframes inside the 516x1136 screen */
+function sizeFrames(){
+  // old site = fixed 780px desktop, scaled down to fit width
+  var sw=516, sh=1136, sc=sw/780;
+  ifOld.style.width='780px';
+  ifOld.style.height=(sh/sc)+'px';
+  ifOld.style.transform='scale('+sc+')';
+  // new site = mobile layout at screen width
+  ifNew.style.width=sw+'px';
+  ifNew.style.height=sh+'px';
+  ifNew.style.transform='scale(1)';
+}
+sizeFrames();
+
+/* smooth scroll inside an iframe (same-origin) */
+function scrollFrame(ifr,to,dur){
+  try{
+    var win=ifr.contentWindow;
+    // override CSS scroll-behavior:smooth so per-frame scrollTo applies instantly
+    var d=win.document;[d.documentElement,d.body].forEach(function(e){if(e)e.style.scrollBehavior='auto';});
+    var from=win.scrollY||0, t0=performance.now();
+    (function step(t){
+      var k=Math.min(1,(t-t0)/dur);
+      var e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      win.scrollTo(0,from+(to-from)*e);
+      if(k<1)requestAnimationFrame(step);
+    })(performance.now());
+  }catch(e){/* cross-origin (file://) – skip */}
+}
+
+function type(el,text,dur,cb){
+  var i=0,iv=setInterval(function(){
+    i++;el.textContent=text.slice(0,i);
+    if(i>=text.length){clearInterval(iv);cb&&cb();}
+  },dur/text.length);
+}
+
+var T=[]; // timeline
+function at(ms,fn){T.push(setTimeout(fn,ms));}
+var TOTAL=20800;
+
+function run(){
+  // bottom progress bar
+  var tb=$('tbar');tb.style.transitionDuration=TOTAL+'ms';requestAnimationFrame(function(){tb.style.width='1080px'});
+
+  // SCENE A — old site
+  at(150,function(){$('capA').classList.add('on');$('phoneOld').classList.add('on');});
+  at(900,function(){scrollFrame(ifOld,520,3500);});
+  at(4500,function(){$('capA').classList.remove('on');$('phoneOld').classList.add('out');});
+
+  // SCENE B — paste link
+  at(5000,function(){$('capB').classList.add('on');$('tool').classList.add('on');});
+  at(5600,function(){type($('urlText'),'www.praxis-brandt.de',1700,function(){$('caret').style.display='none';});});
+  at(7600,function(){$('goBtn').classList.add('glow');});
+  at(8200,function(){$('goBtn').classList.remove('glow');$('goBtn').classList.add('click');});
+  at(8450,function(){$('goBtn').classList.remove('click');});
+  at(8500,function(){$('ps1').classList.add('on');});
+  at(9000,function(){$('ps1').classList.add('done');$('ps1').querySelector('.dot').textContent='✓';$('ps2').classList.add('on');});
+  at(9500,function(){$('ps2').classList.add('done');$('ps2').querySelector('.dot').textContent='✓';$('ps3').classList.add('on');});
+  at(10100,function(){$('ps3').classList.add('done');$('ps3').querySelector('.dot').textContent='✓';});
+  at(10350,function(){$('doneBadge').classList.add('on');});
+
+  // TRANSITION to new
+  at(10950,function(){$('flash').classList.add('on');});
+  at(11250,function(){
+    $('capB').classList.remove('on');$('tool').classList.remove('on');$('tool').classList.add('out');
+    $('capC').classList.add('on');$('phoneNew').classList.add('on');
+  });
+  at(11550,function(){$('flash').classList.remove('on');});
+
+  // SCENE C — new site scroll
+  at(11900,function(){scrollFrame(ifNew,2650,5400);});
+  at(17400,function(){$('capC').classList.remove('on');$('phoneNew').classList.add('out');$('flash').classList.add('on');});
+  at(17750,function(){$('flash').classList.remove('on');});
+
+  // END card
+  at(17900,function(){$('endc').classList.add('on');});
+}
+
+/* autostart after iframes get a moment to load (and fonts) */
+var started=false;
+function start(){if(started)return;started=true;run();}
+window.addEventListener('load',function(){if(!window.__noauto){setTimeout(start,1400);}});
+/* manual trigger for the recorder (guarded, runs once) */
+window.__reelStart=start;
+</script>
+</body>
+</html>
