@@ -117,28 +117,54 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;fon
 #bar{position:absolute;left:0;bottom:0;height:5px;width:0;background:var(--ink);z-index:90;transition:width .2s linear}
 .brandmk{position:absolute;bottom:46px;left:0;right:0;text-align:center;z-index:70;
   font-size:26px;font-weight:500;letter-spacing:.5em;color:rgba(240,238,233,.5)}
+
+/* ===== HOOK ===== */
+#hook .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  filter:grayscale(1) contrast(1.05) brightness(.4);opacity:.45}
+#hook .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.25) 45%,rgba(0,0,0,.85))}
+.beat{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 70px;opacity:0;visibility:hidden}
+.beat.on{opacity:1;visibility:visible}
+.beat .slam{transform:scale(1.32);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s}
+.beat.on .slam{transform:scale(1);opacity:1}
+.hookbig{font-family:var(--display);text-transform:uppercase;font-size:300px;line-height:.84;color:var(--ink)}
+.hookmid{font-family:var(--display);text-transform:uppercase;font-size:200px;line-height:.86;color:var(--ink)}
+.hooksmall{font-size:46px;font-weight:300;color:var(--ink2);letter-spacing:.01em;margin-bottom:8px}
+.hookthin{font-weight:200;letter-spacing:-.02em;font-size:120px;line-height:1;color:var(--ink)}
+.hookscript{font-family:var(--script);font-size:130px;color:var(--ink2);margin-top:0}
+
+/* slam stamp over the old site */
+.stamp{position:absolute;top:46%;left:50%;z-index:25;font-family:var(--display);text-transform:uppercase;
+  font-size:130px;letter-spacing:.04em;color:#fff;border:7px solid #fff;padding:8px 46px;
+  text-shadow:0 4px 24px rgba(0,0,0,.6);box-shadow:0 18px 60px -10px rgba(0,0,0,.7);
+  opacity:0;transform:translate(-50%,-50%) rotate(-10deg) scale(1.7);
+  transition:transform .34s cubic-bezier(.2,1.5,.4,1),opacity .26s}
+.stamp.on{opacity:1;transform:translate(-50%,-50%) rotate(-10deg) scale(1)}
 </style>
 </head>
 <body>
 <div id="stage">
 
-  <!-- INTRO -->
-  <div class="layer" id="intro">
+  <!-- HOOK -->
+  <div class="layer" id="hook">
     <video class="bgv" id="bgv" muted playsinline autoplay loop preload="auto">
       <source src="../../assets/mz9/atelier.mp4" type="video/mp4">
     </video>
     <div class="scrim"></div>
-    <div class="in-wrap">
-      <div class="eyebrow">Media&nbsp;Engineering.AI</div>
-      <div class="big"><span class="line"><span>Website</span></span></div>
-      <div class="sub">von gestern?</div>
-    </div>
+    <div class="beat" id="b1"><div class="slam"><div class="hookbig">Stopp.</div></div></div>
+    <div class="beat" id="b2"><div class="slam">
+      <div class="hooksmall">Deine Website kostet dich</div>
+      <div class="hookbig">Kunden</div>
+      <div class="hookscript">…jeden Tag.</div>
+    </div></div>
+    <div class="beat" id="b3"><div class="slam"><div class="hookthin">Und du<br>merkst es<br>nicht&nbsp;mal.</div></div></div>
   </div>
 
   <!-- OLD -->
   <div class="layer" id="old">
     <div class="plate" id="plateOld"><span class="n">01</span><span class="ln"></span><span class="t">Das Alte</span></div>
     <div class="wm">2008</div>
+    <div class="stamp" id="stampOld">Veraltet</div>
     <div class="frame">
       <div class="bar"><i></i><i></i><i></i></div>
       <div class="scr"><iframe id="ifOld" src="../arzt-2008/" scrolling="no"></iframe></div>
@@ -218,44 +244,49 @@ function flash(ms){$('flash').classList.add('on');setTimeout(function(){$('flash
 function show(id){$(id).classList.add('show')}
 function hide(id){$(id).classList.remove('show')}
 
-var T=[],TOTAL=20400;
+var T=[],TOTAL=21200;
 function at(ms,fn){T.push(setTimeout(fn,ms))}
 
 function run(){
   var b=$('bar');b.style.transitionDuration=TOTAL+'ms';requestAnimationFrame(function(){b.style.width='1080px'});
   try{$('bgv').play()}catch(e){}
 
-  // INTRO
-  at(120,function(){show('intro')});
-  at(2500,function(){flash(260)});
-  at(2650,function(){hide('intro')});
+  // HOOK — schnelle Pattern-Interrupt-Beats
+  at(40,function(){show('hook');$('b1').classList.add('on')});            // "Stopp."
+  at(900,function(){flash(150)});
+  at(980,function(){$('b1').classList.remove('on');$('b2').classList.add('on')}); // "kostet dich KUNDEN"
+  at(2280,function(){flash(150)});
+  at(2360,function(){$('b2').classList.remove('on');$('b3').classList.add('on')}); // "merkst es nicht mal."
+  at(3500,function(){flash(280);hide('hook')});
 
-  // OLD
-  at(2700,function(){show('old');$('plateOld').classList.add('on')});
-  at(3200,function(){scrollFrame(ifOld,360,2600)});
-  at(3400,function(){$('capOld').classList.add('on')});
-  at(6000,function(){flash(260);hide('old')});
+  // OLD — Beweis + Stempel-Slam
+  at(3700,function(){show('old');$('plateOld').classList.add('on')});
+  at(3950,function(){$('stampOld').classList.add('on')});
+  at(4250,function(){scrollFrame(ifOld,360,2500)});
+  at(4400,function(){$('capOld').classList.add('on')});
+  at(5200,function(){$('stampOld').classList.remove('on')});
+  at(6900,function(){flash(260);hide('old')});
 
   // PASTE
-  at(6300,function(){show('paste')});
-  at(6900,function(){type($('urlText'),'www.praxis-brandt.de',1600,function(){$('caret').style.display='none'})});
-  at(8700,function(){$('goBtn').classList.add('glow')});
-  at(9300,function(){$('goBtn').classList.remove('glow');$('goBtn').classList.add('click')});
-  at(9550,function(){$('goBtn').classList.remove('click')});
-  at(9500,function(){$('s1').classList.add('on')});
-  at(9950,function(){$('s1').classList.add('done');$('s2').classList.add('on')});
-  at(10400,function(){$('s2').classList.add('done');$('s3').classList.add('on')});
-  at(10850,function(){$('s3').classList.add('done')});
+  at(7200,function(){show('paste')});
+  at(7800,function(){type($('urlText'),'www.praxis-brandt.de',1600,function(){$('caret').style.display='none'})});
+  at(9600,function(){$('goBtn').classList.add('glow')});
+  at(10200,function(){$('goBtn').classList.remove('glow');$('goBtn').classList.add('click')});
+  at(10450,function(){$('goBtn').classList.remove('click')});
+  at(10400,function(){$('s1').classList.add('on')});
+  at(10850,function(){$('s1').classList.add('done');$('s2').classList.add('on')});
+  at(11300,function(){$('s2').classList.add('done');$('s3').classList.add('on')});
+  at(11750,function(){$('s3').classList.add('done')});
 
   // -> NEW (strong flash)
-  at(11350,function(){flash(420);hide('paste')});
-  at(11650,function(){show('new');$('plateNew').classList.add('on')});
-  at(12050,function(){scrollFrame(ifNew,2500,5000)});
-  at(12300,function(){$('capNew').classList.add('on')});
-  at(17200,function(){flash(300);hide('new')});
+  at(12250,function(){flash(420);hide('paste')});
+  at(12550,function(){show('new');$('plateNew').classList.add('on')});
+  at(12950,function(){scrollFrame(ifNew,2500,4800)});
+  at(13200,function(){$('capNew').classList.add('on')});
+  at(17900,function(){flash(300);hide('new')});
 
   // END
-  at(17450,function(){show('end')});
+  at(18150,function(){show('end')});
 }
 
 var started=false;
