@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BioEvoMed · SD Pro — Skelett-Regeneration auf Basis der Evolution</title>
+<meta name="description" content="SD Pro von BioEvoMed: proenzymatische Aminosäurensequenz mit Vitamin C zur Unterstützung von Knochen, Knorpel & Gelenken. Biologisch, laktose-, frukto- & glutenfrei, ohne Gentechnik. Patentiert seit 2022.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d3b5e;--navy2:#0a2f4a;--steel:#1f6391;--teal:#1d8aa6;
+  --amber:#e8842b;--amber2:#cf6f1c;--sky:#eef5fa;--mist:#f6fafc;
+  --ink:#16303f;--ink2:#5a7282;--line:#dde8ef;--white:#fff;--r:18px;
+  --shadow:0 18px 50px -22px rgba(13,59,94,.32);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+h2{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.12;color:var(--navy);letter-spacing:-.01em}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+p{color:var(--ink2)}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:50;transition:.3s}
+header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:1140px;margin:0 auto;transition:.3s}
+header.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:0 6px 24px -16px rgba(13,59,94,.4)}
+header.scrolled .bar{padding:12px 24px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.2rem;color:var(--navy);text-decoration:none;letter-spacing:-.02em}
+.brand .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--steel),var(--teal));display:grid;place-items:center;color:#fff;font-weight:800;font-family:'Newsreader',serif;font-size:1.1rem;box-shadow:0 6px 16px -6px rgba(29,138,166,.7)}
+header .brand,header.scrolled .nav a{color:var(--navy)}
+.nav{display:flex;align-items:center;gap:28px}
+.nav a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--navy);opacity:.85;transition:.2s}
+.nav a:hover{opacity:1;color:var(--teal)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;padding:13px 26px;border-radius:999px;text-decoration:none;cursor:pointer;border:none;transition:.22s;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--amber),var(--amber2));color:#fff;box-shadow:0 12px 26px -10px rgba(232,132,43,.75)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 32px -10px rgba(232,132,43,.85)}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+.nav-cta{padding:11px 22px}
+.burger{display:none}
+
+/* hero */
+.hero{position:relative;padding:150px 0 90px;background:
+  radial-gradient(1100px 600px at 78% -8%,rgba(29,138,166,.14),transparent 60%),
+  linear-gradient(160deg,#fff 0%,var(--sky) 100%);overflow:hidden}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.hero h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(2.3rem,5.2vw,3.7rem);line-height:1.06;color:var(--navy);letter-spacing:-.02em;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--teal)}
+.hero .lead{font-size:1.15rem;color:var(--ink2);max-width:520px;margin-bottom:30px}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero .micro{margin-top:24px;font-size:.85rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.hero .micro b{color:var(--navy)}
+.hero-stage{position:relative}
+.hero-stage img{width:100%;border-radius:24px;box-shadow:var(--shadow);background:var(--white)}
+.hero-badge{position:absolute;bottom:-18px;left:-18px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;border:1px solid var(--line)}
+.hero-badge .seal{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--steel));color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.hero-badge small{display:block;font-size:.72rem;color:var(--ink2);font-weight:600}
+.hero-badge strong{font-size:.95rem;color:var(--navy)}
+
+/* trust strip */
+.trust{background:var(--navy);color:#fff;padding:22px 0}
+.trust .row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 38px;align-items:center}
+.trust .item{display:flex;align-items:center;gap:9px;font-weight:600;font-size:.92rem;color:#dce9f2}
+.trust .item svg{flex:none}
+.trust .item .dot{color:var(--amber)}
+
+/* product */
+.product{background:var(--white)}
+.product .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+.product .shot{background:radial-gradient(closest-side,rgba(29,138,166,.12),transparent 72%);border-radius:28px;padding:30px;display:grid;place-items:center}
+.product .shot img{max-height:430px;width:auto;filter:drop-shadow(0 26px 34px rgba(13,59,94,.22))}
+.product h2{margin-bottom:18px}
+.product p{margin-bottom:16px;font-size:1.04rem}
+.claim{margin-top:22px;border-left:3px solid var(--amber);background:var(--mist);padding:16px 20px;border-radius:0 12px 12px 0;font-size:.98rem;color:var(--ink)}
+.claim b{color:var(--navy)}
+
+/* indikationen */
+.indik{background:var(--mist)}
+.indik .head{text-align:center;max-width:680px;margin:0 auto 44px}
+.indik .head p{margin-top:12px}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:13px;font-weight:700;color:var(--navy);box-shadow:0 4px 14px -10px rgba(13,59,94,.3);transition:.22s}
+.chip:hover{transform:translateY(-3px);border-color:var(--teal);box-shadow:var(--shadow)}
+.chip .ic{width:38px;height:38px;border-radius:10px;background:var(--sky);color:var(--teal);display:grid;place-items:center;font-size:1.1rem;flex:none}
+
+/* ansätze */
+.approach{background:var(--white)}
+.approach .head{text-align:center;max-width:640px;margin:0 auto 46px}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.acard{position:relative;border-radius:20px;padding:34px 28px;color:#fff;overflow:hidden;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow)}
+.acard.p1{background:linear-gradient(160deg,#1d8aa6,#0d6f86)}
+.acard.p2{background:linear-gradient(160deg,#1f6391,#0d3b5e)}
+.acard.p3{background:linear-gradient(160deg,#e8842b,#c25f12)}
+.acard .num{position:absolute;top:18px;right:24px;font-family:'Newsreader',serif;font-size:3.4rem;opacity:.25;font-weight:500}
+.acard h3{font-size:1.5rem;font-family:'Newsreader',serif;font-weight:500;margin-bottom:8px}
+.acard p{color:rgba(255,255,255,.9);font-size:.95rem}
+
+/* story / timeline */
+.story{background:linear-gradient(180deg,var(--mist),#fff)}
+.story .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.founder{position:relative}
+.founder img{border-radius:22px;box-shadow:var(--shadow);width:100%;max-width:360px}
+.founder .tag{position:absolute;bottom:18px;left:18px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);padding:12px 18px;border-radius:14px;box-shadow:var(--shadow)}
+.founder .tag strong{display:block;color:var(--navy);font-size:1rem}
+.founder .tag small{color:var(--ink2);font-size:.8rem}
+.timeline{position:relative;margin-top:28px;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--teal),var(--amber))}
+.tl{position:relative;padding-bottom:24px}
+.tl:last-child{padding-bottom:0}
+.tl::before{content:'';position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+.tl .yr{font-weight:800;color:var(--amber2);font-size:.9rem;letter-spacing:.04em}
+.tl p{margin-top:3px;font-size:.97rem;color:var(--ink)}
+
+/* patents gallery */
+.patents{background:var(--navy);color:#fff}
+.patents .head{text-align:center;max-width:640px;margin:0 auto 44px}
+.patents h2{color:#fff}
+.patents .head p{color:#bcd3e3;margin-top:12px}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pg figure{background:#fff;border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.pg img{border-radius:8px;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.pg figcaption{margin-top:10px;text-align:center;font-size:.82rem;color:var(--ink2);font-weight:600}
+.partner{margin-top:40px;text-align:center;color:#9fbdd2;font-size:.85rem}
+.partner img{height:54px;width:auto;margin:14px auto 0;background:#fff;border-radius:10px;padding:8px 14px}
+
+/* funnel / Beratung */
+.funnel{background:var(--mist)}
+.funnel .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:54px;align-items:start}
+.funnel .intro p{margin-top:14px;font-size:1.02rem}
+.funnel .perks{margin-top:24px;list-style:none;display:grid;gap:12px}
+.funnel .perks li{display:flex;gap:11px;align-items:flex-start;font-size:.96rem;color:var(--ink)}
+.funnel .perks svg{flex:none;margin-top:3px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--shadow)}
+.steps{display:flex;gap:8px;margin-bottom:24px}
+.steps .s{flex:1;text-align:center;font-size:.72rem;font-weight:700;color:var(--ink2);padding-bottom:10px;border-bottom:3px solid var(--line);transition:.25s}
+.steps .s.active{color:var(--navy);border-color:var(--amber)}
+.fstep{display:none}.fstep.show{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.flabel{font-weight:700;color:var(--navy);margin-bottom:14px;font-size:1.05rem}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;cursor:pointer;font-weight:600;color:var(--ink);transition:.18s}
+.opt:hover{border-color:var(--teal);background:var(--mist)}
+.opt.sel{border-color:var(--amber);background:#fff7f0}
+.opt input{accent-color:var(--amber)}
+.fld{width:100%;font-family:inherit;font-size:.96rem;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:12px;outline:none;background:var(--mist)}
+.fld:focus{border-color:var(--teal);background:#fff}
+.frow{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+
+/* CTA band */
+.ctaband{position:relative;color:#fff;text-align:center;overflow:hidden;background:var(--navy2)}
+.ctaband img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22}
+.ctaband .inner{position:relative;padding:84px 24px}
+.ctaband h2{color:#fff;max-width:720px;margin:0 auto 16px}
+.ctaband p{color:#cfe1ee;max-width:560px;margin:0 auto 28px}
+
+/* kontakt */
+.contact{background:var(--white)}
+.contact .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:50px}
+.contact .info p{margin-bottom:16px;color:var(--ink);font-size:1rem;display:flex;gap:12px;align-items:flex-start}
+.contact .info a{color:var(--teal);text-decoration:none;font-weight:700}
+.contact .info .ic{width:40px;height:40px;border-radius:11px;background:var(--sky);color:var(--teal);display:grid;place-items:center;flex:none}
+.contact form{display:flex;flex-direction:column;gap:12px}
+.contact .note{font-size:.82rem;color:var(--ink2);margin-top:4px}
+
+/* footer */
+footer{background:var(--navy2);color:#9fbdd2;padding:40px 0;font-size:.86rem}
+footer .grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+footer .concept{font-size:.78rem;background:rgba(255,255,255,.08);padding:6px 14px;border-radius:999px;color:#cfe1ee}
+
+/* mobile cta bar */
+.mbar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:10px 16px;gap:10px;box-shadow:0 -8px 24px -16px rgba(13,59,94,.5)}
+.mbar a{flex:1;justify-content:center}
+
+/* chatbot */
+.chat-launch{position:fixed;bottom:24px;right:24px;z-index:70;display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 18px 7px 7px;box-shadow:var(--shadow);cursor:pointer;transition:.22s}
+.chat-launch:hover{transform:translateY(-2px)}
+.chat-launch img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top}
+.chat-launch span{font-weight:700;color:var(--navy);font-size:.9rem}
+.chat-launch .on{width:9px;height:9px;border-radius:50%;background:#27c08a;position:absolute;left:43px;bottom:8px;border:2px solid #fff}
+.chat-win{position:fixed;bottom:24px;right:24px;z-index:71;width:350px;max-width:calc(100vw - 32px);background:#fff;border-radius:20px;box-shadow:0 30px 70px -20px rgba(13,59,94,.55);overflow:hidden;display:none;flex-direction:column}
+.chat-win.open{display:flex}
+.chat-head{background:linear-gradient(135deg,var(--navy),var(--steel));color:#fff;padding:16px;display:flex;align-items:center;gap:12px}
+.chat-head img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid rgba(255,255,255,.5)}
+.chat-head strong{font-size:.98rem;display:block}
+.chat-head small{font-size:.78rem;opacity:.85}
+.chat-head .x{margin-left:auto;cursor:pointer;font-size:1.3rem;opacity:.8;background:none;border:none;color:#fff}
+.chat-body{padding:16px;background:var(--mist);max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.bub{max-width:82%;padding:11px 14px;border-radius:14px;font-size:.9rem;line-height:1.5}
+.bub.bot{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;color:var(--ink);align-self:flex-start}
+.bub.me{background:var(--steel);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.chat-quick{padding:12px 16px;background:#fff;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
+.qbtn{font-size:.82rem;font-weight:600;border:1.5px solid var(--line);background:#fff;color:var(--navy);padding:8px 13px;border-radius:999px;cursor:pointer;transition:.18s}
+.qbtn:hover{border-color:var(--teal);background:var(--mist)}
+
+@media(max-width:900px){
+  .hero .grid,.product .grid,.story .grid,.funnel .grid,.contact .grid{grid-template-columns:1fr}
+  .hero-stage{order:-1}
+  .cards3,.pg{grid-template-columns:1fr}
+  .founder img{max-width:100%}
+}
+@media(max-width:760px){
+  .nav{display:none}
+  section{padding:60px 0}
+  .mbar{display:flex}
+  body{padding-bottom:74px}
+  .chat-launch{bottom:84px}
+  .chat-win{bottom:84px}
+  .hero{padding:120px 0 70px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="bar">
+    <a href="#top" class="brand"><span class="mark">B</span>BioEvoMed</a>
+    <nav class="nav">
+      <a href="#sdpro">SD&nbsp;Pro</a>
+      <a href="#indikationen">Anwendung</a>
+      <a href="#ansaetze">Ansätze</a>
+      <a href="#forschung">Forschung</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#beratung" class="btn btn-primary nav-cta">Beratung anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a name="top"></a>
+<section class="hero">
+  <div class="container">
+    <div class="grid">
+      <div class="copy">
+        <span class="eyebrow">Ernährungssysteme · Made in Germany</span>
+        <h1>Skelett-Regeneration auf Basis der <em>menschlichen Evolution</em></h1>
+        <p class="lead">SD&nbsp;Pro ist eine proenzymatische Aminosäurensequenz mit Vitamin&nbsp;C – entwickelt, um Knochen, Knorpel und Gelenke gezielt mit Mikronährstoffen zu unterstützen.</p>
+        <div class="actions">
+          <a href="#beratung" class="btn btn-primary">Persönliche Beratung anfragen</a>
+          <a href="#sdpro" class="btn btn-ghost">Was ist SD&nbsp;Pro?</a>
+        </div>
+        <div class="micro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 5 5.5.8-4 3.9.9 5.5L12 20l-4.9 2.6.9-5.5-4-3.9 5.5-.8z" fill="#e8842b"/></svg>
+          <span><b>Patentiert seit 2022</b> – als Nahrungsergänzung &amp; Arzneimittel anerkannt</span>
+        </div>
+      </div>
+      <div class="hero-stage">
+        <img src="https://www.bioevomed.de/images/t/sd_pro_titel-2400px-a-2400.jpg" alt="SD Pro von BioEvoMed – Unterstützung für Knochen, Knorpel und Gelenke">
+        <div class="hero-badge">
+          <div class="seal">12&nbsp;J.</div>
+          <div><strong>Forschung</strong><small>seit 2007 entwickelt</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="container">
+    <div class="row">
+      <div class="item"><span class="dot">●</span> Biologisch</div>
+      <div class="item"><span class="dot">●</span> Laktosefrei</div>
+      <div class="item"><span class="dot">●</span> Fruktosefrei</div>
+      <div class="item"><span class="dot">●</span> Glutenfrei</div>
+      <div class="item"><span class="dot">●</span> Ohne Gentechnik</div>
+      <div class="item"><span class="dot">●</span> Patentiert 2022</div>
+    </div>
+  </div>
+</div>
+
+<section class="product" id="sdpro">
+  <div class="container">
+    <div class="grid">
+      <div class="shot reveal">
+        <img src="https://www.bioevomed.de/images/v/sd-pro-faltschachtel-998.png" alt="SD Pro Faltschachtel – Pulver zum Auflösen in Wasser" loading="lazy">
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Was ist SD Pro?</span>
+        <h2>Mikronährstoffe in konzentrierter, bioverfügbarer Form</h2>
+        <p>SD&nbsp;Pro ist eine <b>proenzymatische Aminosäurensequenz mit Vitamin&nbsp;C</b>. Das Pulver wird einfach in Wasser aufgelöst und eingenommen – zur gezielten Unterstützung bei degenerativen und verletzungsbedingten Skelettstrukturen.</p>
+        <p>Die Rezeptur ist das Ergebnis langjähriger Forschung mit dem Ziel, dem Körper genau die Mikronährstoffe bereitzustellen, die er für seine natürlichen Regenerationsprozesse benötigt.</p>
+        <div class="claim"><b>Vitamin C</b> trägt zu einer normalen Kollagenbildung für eine normale Funktion der Knochen und Knorpel bei.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="indik" id="indikationen">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Anwendungsbereiche</span>
+      <h2>Entwickelt für Knochen, Knorpel &amp; Gelenke</h2>
+      <p>SD&nbsp;Pro wird zur ernährungsphysiologischen Unterstützung bei degenerativen und verletzungsbedingten Skelettstrukturen eingesetzt.</p>
+    </div>
+    <div class="chips reveal">
+      <div class="chip"><span class="ic">🦴</span> Arthrose</div>
+      <div class="chip"><span class="ic">🔥</span> Arthritis</div>
+      <div class="chip"><span class="ic">🤚</span> Rheumatoide Arthritis</div>
+      <div class="chip"><span class="ic">💢</span> Rheuma</div>
+      <div class="chip"><span class="ic">⚡</span> Gicht</div>
+      <div class="chip"><span class="ic">🧬</span> Osteoporose</div>
+      <div class="chip"><span class="ic">🩻</span> Bandscheibenbeschwerden</div>
+      <div class="chip"><span class="ic">💪</span> Nach Verletzungen</div>
+    </div>
+  </div>
+</section>
+
+<section class="approach" id="ansaetze">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Drei Ansätze</span>
+      <h2>Präventiv. Kurativ. Rehabilitativ.</h2>
+    </div>
+    <div class="cards3">
+      <div class="acard p1 reveal"><span class="num">01</span><h3>Präventiv</h3><p>Vorsorgliche Versorgung des Skelettsystems mit Mikronährstoffen, bevor Beschwerden entstehen.</p></div>
+      <div class="acard p2 reveal"><span class="num">02</span><h3>Kurativ</h3><p>Gezielte Begleitung bei bestehenden degenerativen und entzündlichen Skelettstrukturen.</p></div>
+      <div class="acard p3 reveal"><span class="num">03</span><h3>Rehabilitativ</h3><p>Unterstützung der natürlichen Regeneration nach Verletzungen und in der Genesungsphase.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="entstehung">
+  <div class="container">
+    <div class="grid">
+      <div class="founder reveal">
+        <img src="https://www.bioevomed.de/images/h/portrait_meyer114-1050.jpg" alt="Peter Meyer, Gründer von BioEvoMed" loading="lazy">
+        <div class="tag"><strong>Peter Meyer</strong><small>Gründer von BioEvoMed</small></div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Wie entstand SD Pro?</span>
+        <h2>Aus 450.000 Jahren Evolution – in 12 Jahren Forschung</h2>
+        <p>Die Idee zu SD&nbsp;Pro entstand aus der Beobachtung, wie der menschliche Körper sich über Jahrtausende durch eigene Regenerationsprozesse selbst geheilt hat – und welche Mikronährstoffe ihm dafür heute oft fehlen.</p>
+        <div class="timeline">
+          <div class="tl"><div class="yr">2007</div><p>Gründung von BioEvoMed nach Auswertung einer klinischen Studie zu degenerativen Skelettstrukturen.</p></div>
+          <div class="tl"><div class="yr">2007–2019</div><p>Forschung gemeinsam mit Ärzten: konzentrierte Mikronährstoffe in optimierter, bioverfügbarer Rezeptur.</p></div>
+          <div class="tl"><div class="yr">2019</div><p>Anmeldung der fertigen Rezeptur zum Patent.</p></div>
+          <div class="tl"><div class="yr">Juli 2022</div><p>Patenterteilung – anerkannt als Nahrungsergänzungsmittel <b>und</b> Arzneimittel.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="patents" id="forschung">
+  <div class="container">
+    <div class="head reveal">
+      <span class="eyebrow">Forschung &amp; Nachweise</span>
+      <h2>Geschützt durch erteilte Patente</h2>
+      <p>Die Rezeptur und ihre Anwendungen sind patentrechtlich geschützt – Ausdruck von über einem Jahrzehnt fundierter Entwicklungsarbeit.</p>
+    </div>
+    <div class="pg">
+      <figure class="reveal"><img src="https://www.bioevomed.de/images/2/patenturkunde-sd-pro-1014-1.jpg" alt="Patenturkunde SD Pro" loading="lazy"><figcaption>Patenturkunde · SD Pro</figcaption></figure>
+      <figure class="reveal"><img src="https://www.bioevomed.de/images/2/patenturkunde-double-xx-1012.jpg" alt="Patenturkunde Double XX" loading="lazy"><figcaption>Patenturkunde · Double XX</figcaption></figure>
+      <figure class="reveal"><img src="https://www.bioevomed.de/images/2/patenturkunde-covid-1012.jpg" alt="Patenturkunde COVID" loading="lazy"><figcaption>Patenturkunde · Forschung</figcaption></figure>
+    </div>
+    <div class="partner reveal">
+      In Zusammenarbeit mit medizinischen Partnern
+      <img src="https://www.bioevomed.de/images/n/logo-dialyse-1.svg" alt="Partner: Dialysezentrum">
+    </div>
+  </div>
+</section>
+
+<section class="funnel" id="beratung">
+  <div class="container">
+    <div class="grid">
+      <div class="intro reveal">
+        <span class="eyebrow">Persönliche Beratung</span>
+        <h2>In 3 Schritten zur passenden Anwendung</h2>
+        <p>Erzählen Sie uns kurz, worum es geht – wir melden uns persönlich mit einer individuellen Empfehlung zu SD&nbsp;Pro. Unverbindlich und vertraulich.</p>
+        <ul class="perks">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1d8aa6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Individuelle Einschätzung statt Standardantwort</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1d8aa6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Hinweise zu Präventiv-, Kurativ- &amp; Reha-Anwendung</li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1d8aa6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Direkter Draht zum Team von BioEvoMed</li>
+        </ul>
+      </div>
+      <div class="panel reveal">
+        <div class="steps">
+          <div class="s active" data-s="1">1 · Anliegen</div>
+          <div class="s" data-s="2">2 · Ansatz</div>
+          <div class="s" data-s="3">3 · Kontakt</div>
+        </div>
+        <form id="berForm" onsubmit="return submitBer(event)">
+          <div class="fstep show" data-step="1">
+            <div class="flabel">Worum geht es?</div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="anliegen" value="Arthrose / Gelenke" required> Arthrose &amp; Gelenke</label>
+              <label class="opt"><input type="radio" name="anliegen" value="Osteoporose / Knochen"> Osteoporose &amp; Knochen</label>
+              <label class="opt"><input type="radio" name="anliegen" value="Rheuma / Entzündung"> Rheuma &amp; Entzündung</label>
+              <label class="opt"><input type="radio" name="anliegen" value="Nach Verletzung / Reha"> Nach Verletzung / Reha</label>
+              <label class="opt"><input type="radio" name="anliegen" value="Allgemeine Beratung"> Allgemeine Beratung</label>
+            </div>
+            <div class="frow"><span></span><button type="button" class="btn btn-primary" onclick="go(2)">Weiter</button></div>
+          </div>
+          <div class="fstep" data-step="2">
+            <div class="flabel">Welcher Ansatz passt am ehesten?</div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="ansatz" value="Präventiv" required> Präventiv – vorbeugen</label>
+              <label class="opt"><input type="radio" name="ansatz" value="Kurativ"> Kurativ – bestehende Beschwerden</label>
+              <label class="opt"><input type="radio" name="ansatz" value="Rehabilitativ"> Rehabilitativ – nach Verletzung</label>
+              <label class="opt"><input type="radio" name="ansatz" value="Unsicher"> Bin mir nicht sicher</label>
+            </div>
+            <div class="frow"><button type="button" class="btn btn-ghost" onclick="go(1)">Zurück</button><button type="button" class="btn btn-primary" onclick="go(3)">Weiter</button></div>
+          </div>
+          <div class="fstep" data-step="3">
+            <div class="flabel">Wie dürfen wir Sie erreichen?</div>
+            <input class="fld" type="text" name="name" placeholder="Ihr Name" required>
+            <input class="fld" type="email" name="email" placeholder="Ihre E-Mail" required>
+            <input class="fld" type="tel" name="tel" placeholder="Telefon (optional)">
+            <textarea class="fld" name="msg" placeholder="Ihre Nachricht (optional)" rows="3"></textarea>
+            <div class="frow"><button type="button" class="btn btn-ghost" onclick="go(2)">Zurück</button><button type="submit" class="btn btn-primary">Beratung anfragen</button></div>
+            <p class="note">Ihre Anfrage wird als E-Mail vorbereitet – Sie senden sie final selbst ab.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ctaband">
+  <img class="bg" src="https://www.bioevomed.de/images/t/sd_pro_titel-2400px-a-2400.jpg" alt="">
+  <div class="inner">
+    <h2>Geben Sie Ihrem Skelett, was die Evolution braucht</h2>
+    <p>Erfahren Sie in einem persönlichen Gespräch, wie SD&nbsp;Pro Sie unterstützen kann.</p>
+    <a href="#beratung" class="btn btn-primary">Jetzt Beratung anfragen</a>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="container">
+    <div class="grid">
+      <div class="info reveal">
+        <span class="eyebrow">Kontakt</span>
+        <h2 style="margin-bottom:24px">BioEvoMed Ernährungssysteme</h2>
+        <p><span class="ic">📍</span><span>Waldbadstraße 9–13<br>33803 Steinhagen</span></p>
+        <p><span class="ic">📞</span><span>Telefon:<br><a href="tel:+4952048886536">+49 (0) 5204 888 65 36</a></span></p>
+        <p><span class="ic">🛡️</span><span>SD&nbsp;Pro &amp; BioEvoMed sind eingetragene Marken.<br>Patentiert seit 2022.</span></p>
+      </div>
+      <div class="reveal">
+        <form onsubmit="return submitKontakt(event)">
+          <input class="fld" type="text" name="name" placeholder="Ihr Name" required>
+          <input class="fld" type="email" name="email" placeholder="Ihre E-Mail" required>
+          <input class="fld" type="tel" name="tel" placeholder="Telefon (optional)">
+          <textarea class="fld" name="msg" placeholder="Ihre Nachricht …" rows="4" required></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Nachricht senden</button>
+          <p class="note">Ihre Nachricht wird als E-Mail vorbereitet und von Ihnen selbst abgeschickt.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="grid">
+      <div><strong style="color:#fff">BioEvoMed</strong> · Ernährungssysteme · Steinhagen</div>
+      <div class="concept">Konzept-Vorschau · MZ.9</div>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a href="tel:+4952048886536" class="btn btn-ghost">Anrufen</a>
+  <a href="#beratung" class="btn btn-primary">Beratung</a>
+</div>
+
+<!-- Chatbot personalisiert mit Gründer Peter Meyer -->
+<div class="chat-launch" id="chatLaunch" onclick="toggleChat(true)">
+  <img src="https://www.bioevomed.de/images/h/portrait_meyer114-1050.jpg" alt="Peter Meyer">
+  <span class="on"></span>
+  <span>Fragen? Schreiben Sie mir</span>
+</div>
+<div class="chat-win" id="chatWin">
+  <div class="chat-head">
+    <img src="https://www.bioevomed.de/images/h/portrait_meyer114-1050.jpg" alt="Peter Meyer">
+    <div><strong>Peter Meyer</strong><small>Gründer · BioEvoMed</small></div>
+    <button class="x" onclick="toggleChat(false)">×</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="bub bot">Hallo, ich bin Peter Meyer, Gründer von BioEvoMed. Schön, dass Sie da sind – wobei kann ich Ihnen helfen?</div>
+  </div>
+  <div class="chat-quick" id="chatQuick">
+    <button class="qbtn" onclick="ask('Was ist SD Pro?')">Was ist SD Pro?</button>
+    <button class="qbtn" onclick="ask('Wofür wird es angewendet?')">Anwendung?</button>
+    <button class="qbtn" onclick="ask('Ist es verträglich?')">Verträglichkeit?</button>
+    <button class="qbtn" onclick="ask('Beratung')">Beratung</button>
+  </div>
+</div>
+
+<script>
+// header scrolled
+var hdr=document.getElementById('hdr');
+addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>20)});
+
+// reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+// option selection styling
+document.querySelectorAll('.opt').forEach(function(o){o.addEventListener('click',function(){
+  var n=o.querySelector('input').name;
+  document.querySelectorAll('input[name="'+n+'"]').forEach(function(i){i.closest('.opt').classList.remove('sel')});
+  o.classList.add('sel');
+})});
+
+// funnel steps
+function go(n){
+  var f=document.getElementById('berForm');
+  if(n>1){var c=f.querySelector('.fstep.show');var req=c.querySelector('input[type=radio]');
+    if(req&&!c.querySelector('input[type=radio]:checked')){alert('Bitte wählen Sie eine Option.');return;}}
+  f.querySelectorAll('.fstep').forEach(function(s){s.classList.remove('show')});
+  f.querySelector('.fstep[data-step="'+n+'"]').classList.add('show');
+  document.querySelectorAll('.steps .s').forEach(function(s){s.classList.toggle('active',+s.dataset.s<=n)});
+}
+function submitBer(e){
+  e.preventDefault();var f=e.target;var d=new FormData(f);
+  var body='Beratungsanfrage SD Pro%0D%0A%0D%0AAnliegen: '+enc(d.get('anliegen'))+'%0D%0AAnsatz: '+enc(d.get('ansatz'))+'%0D%0AName: '+enc(d.get('name'))+'%0D%0AE-Mail: '+enc(d.get('email'))+'%0D%0ATelefon: '+enc(d.get('tel')||'-')+'%0D%0ANachricht: '+enc(d.get('msg')||'-');
+  location.href='mailto:info@bioevomed.de?subject='+enc('Beratungsanfrage SD Pro')+'&body='+body;
+  return false;
+}
+function submitKontakt(e){
+  e.preventDefault();var d=new FormData(e.target);
+  var body='Name: '+enc(d.get('name'))+'%0D%0AE-Mail: '+enc(d.get('email'))+'%0D%0ATelefon: '+enc(d.get('tel')||'-')+'%0D%0A%0D%0A'+enc(d.get('msg'));
+  location.href='mailto:info@bioevomed.de?subject='+enc('Anfrage über die Website')+'&body='+body;
+  return false;
+}
+function enc(s){return encodeURIComponent(s||'')}
+
+// chatbot
+function toggleChat(o){document.getElementById('chatWin').classList.toggle('open',o);document.getElementById('chatLaunch').style.display=o?'none':'flex';}
+var answers={
+ 'Was ist SD Pro?':'SD Pro ist eine proenzymatische Aminosäurensequenz mit Vitamin C – ein Pulver, das in Wasser aufgelöst eingenommen wird. Es unterstützt Knochen, Knorpel und Gelenke mit konzentrierten Mikronährstoffen.',
+ 'Wofür wird es angewendet?':'Es wird bei degenerativen und verletzungsbedingten Skelettstrukturen eingesetzt – etwa bei Arthrose, Osteoporose, Rheuma, Gicht oder Bandscheibenbeschwerden. Präventiv, kurativ und rehabilitativ.',
+ 'Ist es verträglich?':'SD Pro ist biologisch, laktosefrei, fruktosefrei, glutenfrei und ohne Gentechnik. Für eine individuelle Einschätzung melde ich mich gern persönlich bei Ihnen.',
+ 'Beratung':'Sehr gern – nutzen Sie einfach das Beratungsformular weiter oben, dann melde ich mich persönlich bei Ihnen. Oder rufen Sie an: +49 (0) 5204 888 65 36.'
+};
+function ask(q){
+  var b=document.getElementById('chatBody');
+  b.insertAdjacentHTML('beforeend','<div class="bub me">'+q+'</div>');
+  var a=answers[q]||'Danke für Ihre Nachricht! Am besten nutzen Sie das Beratungsformular oben – dann melde ich mich persönlich bei Ihnen.';
+  setTimeout(function(){b.insertAdjacentHTML('beforeend','<div class="bub bot">'+a+'</div>');b.scrollTop=b.scrollHeight;},420);
+  b.scrollTop=b.scrollHeight;
+}
+</script>
+</body>
+</html>
