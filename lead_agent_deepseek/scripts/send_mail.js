@@ -228,7 +228,14 @@ function buildHtmlMail(lead) {
     }
     return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`;
   };
-  const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t)).map(renderLine).join('\n');
+  let paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t)).map(renderLine).join('\n');
+  // Die im Text erwähnte aktuelle Website anklickbar machen (Link zur alten Seite).
+  const siteUrl = lead.website ? (/^https?:\/\//.test(lead.website) ? lead.website : 'http://' + lead.website) : '';
+  const dom = domainOf(lead.website);
+  if (siteUrl && dom) {
+    paras = paras.replace('(' + dom + ')',
+      '(<a href="' + siteUrl + '" style="color:#0A0A0B;font-weight:600;text-decoration:underline">' + dom + '</a>)');
+  }
   const compareBlock = lead.hasCompare
     ? `      <tr><td style="padding:22px 22px 4px">
         <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #ECE9E3;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07)">
