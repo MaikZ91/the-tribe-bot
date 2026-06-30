@@ -209,7 +209,7 @@ function buildHtmlMail(lead) {
   // den Status quo), die LÖSUNG groß, fett, in MZ.9-Grün mit Akzentbalken — sie
   // ist das Erste, was ins Auge fällt. Reine Vorteils-Zeilen (ohne „→") werden
   // ebenso als prominenter grüner Haken gerendert. Normale Zeilen = Absätze.
-  const card = (inner) => `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;background:#F1FAF5;border-radius:10px"><tr><td style="padding:13px 16px;border-left:3px solid #10B981;border-top-left-radius:10px;border-bottom-left-radius:10px">${inner}</td></tr></table>`;
+  const card = (inner) => `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;background:#ffffff;border:1px solid #e6e3dd;border-radius:10px"><tr><td style="padding:13px 16px;border-left:3px solid #0A0A0B;border-top-left-radius:10px;border-bottom-left-radius:10px">${inner}</td></tr></table>`;
   const renderLine = (t) => {
     if (t.startsWith('•')) {
       const raw = t.replace(/^•\s*/, '');
@@ -220,11 +220,11 @@ function buildHtmlMail(lead) {
         return card(
           `<div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#b3b3b3;margin-bottom:1px">Aktuell</div>`
           + `<div style="font-size:12.5px;color:#9a9a9a;text-decoration:line-through;margin-bottom:8px">${issue}</div>`
-          + `<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${fix}</div>`
+          + `<div style="font-size:16px;line-height:1.45;color:#111;font-weight:700">✓ ${fix}</div>`
         );
       }
       const benefit = raw.replace(/^\s*✓\s*/, '').trim();
-      return card(`<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${benefit}</div>`);
+      return card(`<div style="font-size:16px;line-height:1.45;color:#111;font-weight:700">✓ ${benefit}</div>`);
     }
     return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`;
   };
@@ -239,7 +239,7 @@ function buildHtmlMail(lead) {
             </td>
             <td width="50%" style="padding:0;vertical-align:top">
               <img src="cid:prev@mz9" alt="MZ.9 Konzept-Vorschau" style="width:100%;display:block">
-              <div style="background:#10B981;color:#04130d;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">MZ.9 Konzept</div>
+              <div style="background:#0A0A0B;color:#F0EEE9;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">MZ.9 Konzept</div>
             </td>
           </tr>
         </table>
@@ -250,24 +250,24 @@ function buildHtmlMail(lead) {
 <body style="margin:0;padding:0;background:#ECEAE4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#1a1a2e">
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ECEAE4;padding:28px 12px">
 <tr><td align="center">
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FBFAF8;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.10)">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.10)">
 <tr><td style="background:#0A0A0B;padding:20px 28px">
-  <span style="font-size:18px;font-weight:600;letter-spacing:.14em;color:#F0EEE9">MZ.<span style="color:#10B981">9</span></span>
+  <span style="font-size:18px;font-weight:600;letter-spacing:.14em;color:#F0EEE9">MZ.<span style="color:#ffffff">9</span></span>
   <span style="float:right;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7C7A75;padding-top:7px">Konzept-Skizze</span>
 </td></tr>
 ${compareBlock}<tr><td style="padding:22px 28px 6px">
 ${paras}
 </td></tr>
 <tr><td align="center" style="padding:14px 28px 26px">
-  <a href="${previewUrl}" style="display:inline-block;background:#10B981;color:#04130d;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur Konzept-Skizze &rarr;</a>
+  <a href="${previewUrl}" style="display:inline-block;background:#0A0A0B;color:#ffffff;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur Konzept-Skizze &rarr;</a>
 </td></tr>
-<tr><td style="padding:18px 28px 16px;border-top:1px solid #ECE9E3;background:#F4F2EC">
+<tr><td style="padding:18px 28px 16px;border-top:1px solid #ECE9E3;background:#ffffff">
   <p style="margin:0 0 3px;font-weight:600;color:#1a1a2e">Viele Grüße</p>
   <p style="margin:0 0 2px;color:#2a2a35">Maik Zschach</p>
-  <p style="margin:0 0 14px"><a href="${MZ9_URL}" style="color:#0E9C75;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>
+  <p style="margin:0 0 14px"><a href="${MZ9_URL}" style="color:#333333;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>
   <p style="margin:0 0 2px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7C7A75">Impressum · §5 DDG</p>
   <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55">Maik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland<br>Telefon: <a href="tel:+4917645961547" style="color:#6a6a6a;text-decoration:none">+49 176 45961547</a> · E-Mail: <a href="mailto:mzschach@googlemail.com" style="color:#6a6a6a;text-decoration:none">mzschach@googlemail.com</a></p>
-  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55"><a href="${IMPRESSUM_URL}" style="color:#0E9C75;text-decoration:none">Impressum</a> · <a href="${DATENSCHUTZ_URL}" style="color:#0E9C75;text-decoration:none">Datenschutzerklärung</a></p>
+  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55"><a href="${IMPRESSUM_URL}" style="color:#333333;text-decoration:none">Impressum</a> · <a href="${DATENSCHUTZ_URL}" style="color:#333333;text-decoration:none">Datenschutzerklärung</a></p>
   <p style="margin:0 0 8px;font-size:11px;color:#9a9a9a;line-height:1.55">Unverbindliche, einmalige Konzept-Vorschau (Erprobung eines Konzeptes) · keine Rechnung · kein Vertragsangebot. Keine weiteren Vorschläge gewünscht? Kurze Antwort auf diese E-Mail — wir tragen Sie sofort aus dem Verteiler.</p>
   <p style="margin:0;padding:8px 10px;border:1px solid #ECE9E3;border-radius:6px;background:#FBFAF8;font-size:10.5px;color:#7C7A75;line-height:1.5">${DEMO_NOTICE}</p>
 </td></tr>
