@@ -803,16 +803,38 @@
       }
     }
 
-    // Kostenlos, ohne Key: OpenStreetMap / Nominatim
+    // Nur echte Unternehmen/POIs durchlassen (keine Straßen, Orte, Adressen …)
+    const BIZ_CLASSES = ['shop','office','craft','healthcare','tourism','leisure','club'];
+    const BIZ_AMENITIES = ['restaurant','cafe','bar','pub','fast_food','ice_cream','food_court',
+      'pharmacy','doctors','clinic','dentist','veterinary','hospital','nursing_home','social_facility',
+      'bank','bureau_de_change','post_office','marketplace','car_rental','car_wash','fuel','charging_station',
+      'cinema','theatre','nightclub','studio','events_venue','community_centre','coworking_space',
+      'driving_school','language_school','music_school','dancing_school','kindergarten','childcare',
+      'school','college','university','library'];
+    function isBusiness(d){
+      const cls = d.category || d.class;
+      if (BIZ_CLASSES.includes(cls)) return true;
+      if (cls === 'amenity' && BIZ_AMENITIES.includes(d.type)) return true;
+      return false;
+    }
+    function shortAddr(s){
+      // Straße + Ort statt komplettem Behörden-Pfad
+      const p = (s||'').split(',').map(x=>x.trim());
+      if (p.length <= 3) return p.slice(1).join(', ');
+      return [p[1], p[p.length-3] || p[2]].filter(Boolean).join(', ');
+    }
     async function searchOSM(q){
-      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&namedetails=1&extratags=1&limit=6&accept-language=de&q=' + encodeURIComponent(q);
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&namedetails=1&extratags=1&limit=20&accept-language=de&q=' + encodeURIComponent(q);
       const r = await fetch(url, { signal: acAbort.signal, headers: { 'Accept':'application/json' } });
       const data = await r.json();
-      return (data||[]).map(d => ({
-        name: (d.namedetails && d.namedetails.name) || d.display_name.split(',')[0],
-        address: d.display_name,
-        website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || ''
-      }));
+      return (data||[])
+        .filter(d => isBusiness(d) && d.namedetails && d.namedetails.name)
+        .map(d => ({
+          name: d.namedetails.name,
+          address: shortAddr(d.display_name),
+          website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || ''
+        }))
+        .slice(0, 6);
     }
 
     // Mit Key: echte Google Places (New) Autocomplete
@@ -820,7 +842,7 @@
       const r = await fetch('https://places.googleapis.com/v1/places:autocomplete', {
         method:'POST', signal: acAbort.signal,
         headers:{ 'Content-Type':'application/json', 'X-Goog-Api-Key': GOOGLE_PLACES_KEY },
-        body: JSON.stringify({ input:q, languageCode:'de', regionCode:'DE' })
+        body: JSON.stringify({ input:q, languageCode:'de', regionCode:'DE', includedPrimaryTypes:['establishment'] })
       });
       const d = await r.json();
       return (d.suggestions||[]).map(s => {
