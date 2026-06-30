@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Restaurant Lavanda — Köln | Reservierung & Speisekarte</title>
+<meta name="description" content="Restaurant Lavanda in Köln (Merheimer Straße) — mediterrane Küche, warmes Ambiente, Mittagskarte und Highlights der Küche. Jetzt online Tisch reservieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#241a14; --espresso2:#33241b; --terra:#c0532e; --terra-l:#d97a4e;
+    --gold:#c79a4b; --cream:#f7f1e7; --paper:#fcf8f1; --ink:#2a211b; --muted:#6f6258; --line:#e6dccb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:var(--paper);line-height:1.66;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif;font-weight:600;line-height:1.1}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:14px 28px;border-radius:4px;cursor:pointer;border:1.5px solid transparent;transition:.22s;letter-spacing:.02em}
+  .btn-primary{background:var(--terra);color:#fff}
+  .btn-primary:hover{background:var(--terra-l);transform:translateY(-2px)}
+  .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .btn-gold{background:var(--gold);color:#241600}
+  .btn-gold:hover{transform:translateY(-2px)}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.3s;padding:18px 0}
+  header.scrolled{background:rgba(36,26,20,.95);backdrop-filter:blur(8px);box-shadow:0 4px 22px rgba(0,0,0,.3);padding:11px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Playfair Display',serif;font-size:27px;font-weight:700;color:#fff;letter-spacing:.02em}
+  .brand span{color:var(--gold)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:14px;font-weight:500;color:#fff;opacity:.9;transition:.2s}
+  .nav-links a:hover{color:var(--gold);opacity:1}
+  .nav .btn{padding:10px 20px;font-size:14px}
+  @media(max-width:880px){.nav-links a:not(.btn){display:none}}
+
+  /* Hero */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;color:#fff;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/33c18ad5-df53-4c87-af8f-fc9ae33875f2/l0,t0,w1536,h1024/image-768x512.jpg') center/cover;}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,14,10,.86),rgba(20,14,10,.45))}
+  .hero-in{position:relative;z-index:2;max-width:660px}
+  .hero .tag{display:inline-block;border:1px solid var(--gold);color:var(--gold);border-radius:30px;padding:6px 18px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+  .hero h1{font-size:clamp(44px,7vw,80px);margin-bottom:18px}
+  .hero h1 em{color:var(--gold);font-style:italic}
+  .hero p{font-size:18px;color:rgba(255,255,255,.85);max-width:520px;margin-bottom:30px}
+  .hero-cta{display:flex;gap:13px;flex-wrap:wrap}
+
+  .strip{background:var(--espresso);color:#fff}
+  .strip .wrap{display:flex;justify-content:space-around;gap:16px;flex-wrap:wrap;text-align:center;padding:20px 22px}
+  .strip b{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);display:block}
+  .strip small{font-size:12px;letter-spacing:.05em;opacity:.8}
+
+  section{padding:90px 0}
+  .sec-head{max-width:660px;margin:0 auto 50px;text-align:center}
+  .sec-head h2{font-size:clamp(32px,5vw,50px);margin:12px 0 12px;color:var(--espresso)}
+  .sec-head p{color:var(--muted);font-size:16.5px}
+
+  /* Ambiente split */
+  .amb{background:var(--cream)}
+  .amb .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .amb-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .amb-imgs img{border-radius:10px;height:230px;width:100%;object-fit:cover;box-shadow:0 14px 30px rgba(36,26,20,.16)}
+  .amb-imgs img:first-child{grid-row:span 2;height:auto;min-height:474px}
+  .amb h2{font-size:clamp(30px,4.4vw,44px);color:var(--espresso);margin:10px 0 16px}
+  .amb p{color:var(--muted);margin-bottom:14px;font-size:16.5px}
+  @media(max-width:860px){.amb .wrap{grid-template-columns:1fr;gap:30px}.amb-imgs img:first-child{min-height:240px}}
+
+  /* Speisekarte */
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .dish{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.28s}
+  .dish:hover{transform:translateY(-6px);box-shadow:0 22px 42px rgba(36,26,20,.16)}
+  .dish .ph{height:200px;overflow:hidden}
+  .dish .ph img{height:100%;width:100%;object-fit:cover;transition:.45s}
+  .dish:hover .ph img{transform:scale(1.07)}
+  .dish-body{padding:22px}
+  .dish h3{font-size:24px;color:var(--espresso);margin-bottom:6px}
+  .dish p{font-size:14px;color:var(--muted)}
+  .note{text-align:center;color:var(--muted);font-size:13px;margin-top:22px;font-style:italic}
+  @media(max-width:860px){.menu-grid{grid-template-columns:1fr}}
+
+  /* Reservation */
+  .reserve{position:relative;color:#fff;overflow:hidden}
+  .reserve-bg{position:absolute;inset:0;background:url('https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/afb7e691-58ba-4ca3-8c21-98724cbeadcd/l135,t0,w1080,h1080/image-768x768.jpg') center/cover}
+  .reserve-bg::after{content:"";position:absolute;inset:0;background:rgba(28,20,15,.9)}
+  .reserve .wrap{position:relative;z-index:2}
+  .reserve .sec-head h2{color:#fff}
+  .res-card{max-width:720px;margin:0 auto;background:var(--paper);border-radius:14px;padding:34px;color:var(--ink)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--espresso)}
+  .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-family:inherit;background:#fff}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--terra)}
+  .frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:600px){.frow{grid-template-columns:1fr}}
+  .res-card .btn{width:100%;justify-content:center;margin-top:6px}
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .gallery img{height:190px;width:100%;object-fit:cover;border-radius:8px;transition:.35s}
+  .gallery img:hover{transform:scale(1.04)}
+  @media(max-width:760px){.gallery{grid-template-columns:1fr 1fr}}
+
+  /* Kontakt */
+  .contact{background:var(--cream)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .citem{display:flex;gap:15px;margin-bottom:20px;align-items:flex-start}
+  .citem .ic{width:46px;height:46px;border-radius:10px;background:#fff;color:var(--terra);display:grid;place-items:center;font-size:20px;flex-shrink:0;border:1px solid var(--line)}
+  .citem h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px}
+  .citem p{font-size:16px}
+  .openbox{background:var(--espresso);color:#fff;border-radius:14px;padding:32px}
+  .openbox .serif{font-size:27px;color:var(--gold);margin-bottom:12px}
+
+  footer{background:var(--espresso);color:rgba(255,255,255,.6);padding:42px 0 110px;font-size:13.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+  footer .brand{font-size:23px}
+  .concept-note{font-size:12px;color:rgba(255,255,255,.4);max-width:520px;line-height:1.6}
+
+  .mbar{position:fixed;bottom:0;left:0;right:0;z-index:55;background:var(--paper);border-top:1px solid var(--line);display:none;gap:10px;padding:9px 13px;box-shadow:0 -6px 18px rgba(0,0,0,.12)}
+  .mbar a{flex:1;justify-content:center;font-size:14px;padding:12px}
+  @media(max-width:880px){.mbar{display:flex}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <div class="brand">Restaurant <span>Lavanda</span></div>
+    <nav class="nav-links">
+      <a href="#ambiente">Ambiente</a>
+      <a href="#karte">Speisekarte</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#reservieren" class="btn btn-primary">Tisch reservieren</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-in">
+    <span class="tag">Mediterrane Küche · Köln</span>
+    <h1>Genuss mit <em>Herz</em> & Aroma.</h1>
+    <p>Herzlich willkommen im Lavanda — frische mediterrane Küche, ein warmes Ambiente und Gastfreundschaft, die man schmeckt. Mitten in Köln.</p>
+    <div class="hero-cta">
+      <a href="#reservieren" class="btn btn-primary">Tisch reservieren →</a>
+      <a href="tel:+4922129810793" class="btn btn-ghost">☎ 0221 29810793</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div><b>Mediterran</b><small>Frische Küche</small></div>
+    <div><b>Mittagskarte</b><small>Wechselnd & günstig</small></div>
+    <div><b>Ambiente</b><small>Warm & gemütlich</small></div>
+    <div><b>Köln</b><small>Merheimer Straße</small></div>
+  </div>
+</div>
+
+<section id="ambiente" class="amb">
+  <div class="wrap">
+    <div class="amb-imgs">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/7fe9b543-58ef-486c-902c-588664b0de7c/l163,t0,w840,h840/image-768x768.jpg" alt="Ambiente im Restaurant Lavanda Köln" loading="lazy">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/8e4103e7-3064-472a-adc3-58df946dccd7/image-384x512.jpg" alt="Tischkultur im Lavanda" loading="lazy">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/8ba08e53-485e-4894-a4dc-07966b6fb12a/image-384x512.jpg" alt="Detail im Lavanda" loading="lazy">
+    </div>
+    <div>
+      <span class="eyebrow">Herzlich willkommen</span>
+      <h2>Ein Ort zum Verweilen</h2>
+      <p>Bei uns im Lavanda verbinden sich frische, mediterrane Aromen mit einem Ambiente, in dem man gerne länger sitzen bleibt. Ob Mittagspause, Abendessen zu zweit oder Feier im Kreis der Liebsten — wir kümmern uns darum, dass es Ihnen schmeckt.</p>
+      <p>Unser Küchenchef setzt auf gute Zutaten, ehrliche Zubereitung und Gerichte, die Saison und Markt widerspiegeln.</p>
+      <a href="#karte" class="btn btn-gold" style="margin-top:10px">Zur Speisekarte →</a>
+    </div>
+  </div>
+</section>
+
+<section id="karte">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Highlights der Küche</span>
+      <h2>Was bei uns auf den Tisch kommt</h2>
+      <p>Ein Vorgeschmack auf unsere Karte — von leichten Mittagsgerichten bis zu den Empfehlungen des Küchenchefs.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="ph"><img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/afb7e691-58ba-4ca3-8c21-98724cbeadcd/l135,t0,w1080,h1080/image-768x768.jpg" alt="Gericht im Lavanda" loading="lazy"></div>
+        <div class="dish-body"><h3>Mittagskarte</h3><p>Wechselnde Mittagsgerichte — frisch zubereitet, ideal für die schnelle, gute Pause.</p></div>
+      </div>
+      <div class="dish">
+        <div class="ph"><img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/3402cc00-720f-449d-a37f-b877f8323385/l180,t0,w1080,h1080/image-768x768.jpg" alt="Empfehlung des Küchenchefs" loading="lazy"></div>
+        <div class="dish-body"><h3>Der Küchenchef empfiehlt</h3><p>Saisonale Spezialitäten mit mediterraner Handschrift — fragen Sie nach den Empfehlungen des Tages.</p></div>
+      </div>
+      <div class="dish">
+        <div class="ph"><img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/0957720c-53c6-4bea-8587-89069c88e183/image-384x627.jpg" alt="Speisen und Getränke im Lavanda" loading="lazy"></div>
+        <div class="dish-body"><h3>Speisen & Getränke</h3><p>Dazu eine sorgfältige Auswahl an Weinen und Getränken, die hervorragend zu unseren Gerichten passen.</p></div>
+      </div>
+    </div>
+    <p class="note">Beispielhafte Darstellung der Karten-Bereiche — die aktuelle Mittags- und Abendkarte erhalten Sie im Restaurant.</p>
+  </div>
+</section>
+
+<section id="reservieren" class="reserve">
+  <div class="reserve-bg"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="color:var(--gold)">Tisch reservieren</span>
+      <h2>In wenigen Schritten zum Tisch</h2>
+      <p style="color:rgba(255,255,255,.8)">Sagen Sie uns Datum, Uhrzeit und Personenzahl — wir bestätigen Ihre Reservierung persönlich.</p>
+    </div>
+    <div class="res-card">
+      <form onsubmit="return submitReservation(event)">
+        <div class="frow">
+          <div class="field"><label>Datum</label><input id="r_date" type="date" required></div>
+          <div class="field"><label>Uhrzeit</label><input id="r_time" type="time" required></div>
+          <div class="field"><label>Personen</label>
+            <select id="r_people"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select>
+          </div>
+        </div>
+        <div class="frow" style="grid-template-columns:1fr 1fr">
+          <div class="field"><label>Ihr Name</label><input id="r_name" type="text" placeholder="Vor- und Nachname" required></div>
+          <div class="field"><label>Telefon oder E-Mail</label><input id="r_contact" type="text" placeholder="Für die Bestätigung" required></div>
+        </div>
+        <div class="field"><label>Anmerkung (optional)</label><textarea id="r_msg" rows="2" placeholder="z. B. Tisch am Fenster, Allergien, Anlass"></textarea></div>
+        <button type="submit" class="btn btn-primary">Reservierung anfragen →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Einblicke</span><h2>Lavanda in Bildern</h2></div>
+    <div class="gallery">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/a2abdcb0-aa63-4d74-a8c2-b6a26f248f7f/image-455x303.jpg" alt="Eindruck aus dem Lavanda" loading="lazy">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/81c8a253-0a6a-46c1-8620-c3702183b48f/image-512x384.jpg" alt="Gericht im Lavanda" loading="lazy">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/b91fd004-7abd-4e9c-8fb1-80fc7baa1d9d/image-512x384.jpg" alt="Speise im Lavanda" loading="lazy">
+      <img src="https://www.restaurant-lavanda-koeln.de/wp-content/uploads/go-x/u/7fe9b543-58ef-486c-902c-588664b0de7c/image-533x384.jpg" alt="Atmosphäre im Lavanda" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Kontakt & Anfahrt</span><h2>So finden Sie uns</h2></div>
+    <div class="contact-grid">
+      <div>
+        <div class="citem"><div class="ic">📍</div><div><h4>Adresse</h4><p>Merheimer Straße<br>Köln</p></div></div>
+        <div class="citem"><div class="ic">☎</div><div><h4>Telefon</h4><p><a href="tel:+4922129810793">0221 29810793</a></p></div></div>
+        <div class="citem"><div class="ic">🍽️</div><div><h4>Reservierung</h4><p>Gern online über das Formular oder telefonisch.</p></div></div>
+      </div>
+      <div class="openbox">
+        <div class="serif">Restaurant Lavanda</div>
+        <p style="color:rgba(255,255,255,.82);margin-bottom:18px">Mediterrane Küche mitten in Köln. Besuchen Sie uns zum Mittagstisch oder am Abend — wir freuen uns auf Sie.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Restaurant+Lavanda+Merheimer+Stra%C3%9Fe+K%C3%B6ln" target="_blank" rel="noopener" class="btn btn-gold">Route planen →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand serif" style="color:#fff">Restaurant <span style="color:var(--gold)">Lavanda</span></div>
+      <p style="margin-top:8px">Merheimer Straße · Köln · 0221 29810793</p>
+    </div>
+    <p class="concept-note">Unverbindliche Konzept-Vorschau (MZ.9). Diese Seite dient ausschließlich der Demonstration eines Gestaltungskonzepts und ist kein dauerhaftes Angebot. Bildmaterial: Restaurant Lavanda.</p>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a href="tel:+4922129810793" class="btn btn-gold">☎ Anrufen</a>
+  <a href="#reservieren" class="btn btn-primary">Reservieren</a>
+</div>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+  function submitReservation(e){
+    e.preventDefault();
+    const d=document.getElementById('r_date').value;
+    const t=document.getElementById('r_time').value;
+    const p=document.getElementById('r_people').value;
+    const name=document.getElementById('r_name').value;
+    const c=document.getElementById('r_contact').value;
+    const m=document.getElementById('r_msg').value||'–';
+    const body=encodeURIComponent('Reservierungsanfrage\n\nDatum: '+d+'\nUhrzeit: '+t+'\nPersonen: '+p+'\nName: '+name+'\nKontakt: '+c+'\nAnmerkung: '+m);
+    window.location.href='mailto:info@restaurant-lavanda-koeln.de?subject='+encodeURIComponent('Reservierung '+d+' '+t+' ('+p+' Pers.)')+'&body='+body;
+    return false;
+  }
+</script>
+</body>
+</html>
