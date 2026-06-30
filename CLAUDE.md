@@ -15,6 +15,27 @@ committen → auf den Arbeitsbranch pushen → **direkt nach `main` mergen** →
 Konzeptseite sofort unter
 `https://maikz91.github.io/the-tribe-bot/leads/<id>/` erreichbar.
 
+## E-Mail-Versand: AgentMail (einziger Versandweg)
+
+Der MZ.9 Lead-Agent verschickt **ausschließlich über AgentMail** (E-Mail-API
+für Agenten) — **kein** Gmail/SMTP, **kein** nodemailer-Fallback mehr.
+Verdrahtet in `lead_agent_deepseek/scripts/send_mail.js`.
+
+- **Endpoint:** `POST https://api.agentmail.to/v0/inboxes/{inbox}/messages/send`
+  mit `Authorization: Bearer $AGENTMAIL_API_KEY`.
+- **Inbox / Absender:** `mz9-media-engineering-ai@agentmail.to`,
+  Display-Name **„Maik Zschach"**.
+- **API-Key:** kommt **nur** aus der Env-Var `AGENTMAIL_API_KEY` (niemals ins
+  Repo committen). Ohne Key blockiert der Versand sauber statt zu senden.
+  Optional: `AGENTMAIL_INBOX`, `AGENTMAIL_BASE` überschreiben Inbox/Base-URL.
+- **Inline-Bilder:** Vorher/Nachher-Vergleich wird via
+  `content_disposition:"inline"` + `content_id` (CID) gemappt — bleibt erhalten.
+- **Test-Empfänger erzwingen:** `MAIL_TO_OVERRIDE=<adresse>` lenkt JEDE Mail an
+  diese Adresse um (für Tests/Self-Sends, ohne echte Leads anzuschreiben).
+- **Autonomer Lauf:** Damit `auto.js` Stufe 3 mailt, muss `AGENTMAIL_API_KEY`
+  in der Umgebung gesetzt sein (wird an die `send_mail.js`-Subprozesse vererbt).
+  Am besten als Environment-Variable des Cloud-Environments hinterlegen.
+
 ## Known issue: space in user path
 
 The Windows username `Maik Zschach` contains a space. This workspace sits at

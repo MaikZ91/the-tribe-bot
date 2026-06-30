@@ -1,12 +1,14 @@
 /**
- * MZ.9 — E-Mail-Versand via Gmail SMTP
+ * MZ.9 — E-Mail-Versand via AgentMail (E-Mail-API für Agenten)
  *
  * sent.json-Schutz (Mutex + recordSent) kommt aus ./rules.js — NICHT hier.
  * Dieses Skript prüft gate-äquivalent vor Versand und ruft recordSent(id)
  * nach erfolgreicher Mail. Aufgerufen von auto.js Stufe 3 (gestaffelt).
  */
 
-const nodemailer = require('nodemailer');
+// Versand läuft ausschließlich über AgentMail (E-Mail-API für Agenten) —
+// kein nodemailer/SMTP mehr. Damit läuft der Versand auch ohne installiertes
+// node_modules (z. B. Cloud-Container) und ohne Gmail-App-Passwort.
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
@@ -37,17 +39,58 @@ loadEnv();
 const EMAIL_DELAY_MAX_MIN = parseInt(process.env.EMAIL_DELAY_MAX_MIN || '10', 10);
 const MZ9_URL = 'https://maikz91.github.io/the-tribe-bot/mz9';
 
-const SMTP = {
-  host: process.env.MZ9_SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.MZ9_SMTP_PORT || '587'),
-  secure: process.env.MZ9_SMTP_SECURE === 'true',
-  auth: { user: process.env.MZ9_SMTP_USER || 'mzschach@googlemail.com', pass: process.env.MZ9_SMTP_PASS || '' },
+// ─── AgentMail (E-Mail-API für Agenten) — einziger Versandweg ─────
+// Absender = Display-Name + Adresse der Inbox (in AgentMail konfiguriert,
+// aktuell „Maik Zschach <mz9-media-engineering-ai@agentmail.to>").
+const AGENTMAIL = {
+  apiKey: process.env.AGENTMAIL_API_KEY || '',
+  inbox: process.env.AGENTMAIL_INBOX || 'mz9-media-engineering-ai@agentmail.to',
+  base: process.env.AGENTMAIL_BASE || 'https://api.agentmail.to/v0',
 };
 
-const FROM = {
-  name: process.env.MZ9_FROM_NAME || 'Maik Zschach — MZ.9',
-  email: process.env.MZ9_FROM_EMAIL || 'mzschach@googlemail.com',
-};
+// Nodemailer-Attachments ({filename, path, cid}) → AgentMail SendAttachment
+// ({filename, content_type, content_disposition, content_id, content:base64}).
+// cid → Inline-Bild (content_disposition "inline" + content_id), damit der
+// Vorher/Nachher-Vergleich im HTML (cid:orig@mz9 / cid:prev@mz9) gerendert wird.
+function toAgentMailAttachments(attachments) {
+  const guessType = (f) => /\.png$/i.test(f) ? 'image/png'
+    : /\.jpe?g$/i.test(f) ? 'image/jpeg' : 'application/octet-stream';
+  return (attachments || []).map(a => {
+    const out = {
+      filename: a.filename,
+      content_type: a.contentType || guessType(a.filename || ''),
+      content: fs.readFileSync(a.path).toString('base64'),
+    };
+    if (a.cid) { out.content_disposition = 'inline'; out.content_id = a.cid; }
+    return out;
+  });
+}
+
+// Versand über AgentMail. Liefert {success: bool} an die Aufrufer zurück.
+async function sendViaAgentMail({ to, subject, text, html, attachments }) {
+  const url = `${AGENTMAIL.base}/inboxes/${encodeURIComponent(AGENTMAIL.inbox)}/messages/send`;
+  const payload = { to, subject, text, html };
+  const am = toAgentMailAttachments(attachments);
+  if (am.length) payload.attachments = am;
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${AGENTMAIL.apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      console.log(`  ❌ AgentMail ${res.status}: ${detail.slice(0, 180)}`);
+      return { success: false };
+    }
+    const data = await res.json().catch(() => ({}));
+    console.log(`  ✅ AgentMail → ${to}${data.message_id ? ` (${data.message_id})` : ''}`);
+    return { success: true };
+  } catch (err) {
+    console.log(`  ❌ AgentMail-Fehler: ${err.message}`);
+    return { success: false };
+  }
+}
 
 function loadLeads() {
   const leads = [];
@@ -199,10 +242,16 @@ async function sendHtmlMail(lead, dryRun = false) {
   // veralteten Wert (vor dem Screenshot war compare.png oft noch nicht da).
   const d = path.join(PREVIEW_DIR, lead.id);
   lead.hasCompare = fs.existsSync(path.join(d, 'original.png')) && fs.existsSync(path.join(d, 'preview.png'));
-  const { to, subject, body, html } = buildHtmlMail(lead);
+  let { to, subject, body, html } = buildHtmlMail(lead);
+  // Test-Override: MAIL_TO_OVERRIDE lenkt JEDE Mail an eine feste Adresse um
+  // (Self-Send/Test, ohne echte Leads anzuschreiben). Im Normalbetrieb leer.
+  if (process.env.MAIL_TO_OVERRIDE) {
+    console.log(`  ↪️  MAIL_TO_OVERRIDE aktiv: ${to} → ${process.env.MAIL_TO_OVERRIDE}`);
+    to = process.env.MAIL_TO_OVERRIDE;
+  }
   if (!to) { console.log(`  ⚠️  Keine E-Mail für ${lead.id}`); return { success: false }; }
-  if (dryRun) { console.log(`\n📧 DRY RUN → ${to}\n   ${subject}`); return { success: true }; }
-  if (!SMTP.auth.pass) { console.log('  ❌ Kein SMTP-Passwort'); return { success: false }; }
+  if (dryRun) { console.log(`\n📧 DRY RUN (AgentMail) → ${to}\n   ${subject}`); return { success: true }; }
+  if (!AGENTMAIL.apiKey) { console.log('  ❌ Kein AGENTMAIL_API_KEY gesetzt — Versand nicht möglich.'); return { success: false }; }
   // LETZTER Check direkt vor Versand (nach Screenshot-Wartezeit): Cache fresh
   // lesen und prüfen, ob die Adresse in der Zwischenzeit bereits versendet
   // wurde — verhindert Doppel-Mails absolut.
@@ -214,12 +263,8 @@ async function sendHtmlMail(lead, dryRun = false) {
     if (fs.existsSync(path.join(d, 'original.png'))) attachments.push({ filename: 'original.png', path: path.join(d, 'original.png'), cid: 'orig@mz9' });
     if (fs.existsSync(path.join(d, 'preview.png'))) attachments.push({ filename: 'preview.png', path: path.join(d, 'preview.png'), cid: 'prev@mz9' });
   }
-  const t = nodemailer.createTransport(SMTP);
-  try {
-    const info = await t.sendMail({ from: `"${FROM.name}" <${FROM.email}>`, to, subject, text: body + LEGAL_TEXT, html, attachments });
-    console.log(`  ✅ HTML-Mail → ${to}`);
-    return { success: true };
-  } catch (err) { console.log(`  ❌ ${err.message}`); return { success: false }; }
+  const text = body + LEGAL_TEXT;
+  return await sendViaAgentMail({ to, subject, text, html, attachments });
 }
 
 async function main() {
