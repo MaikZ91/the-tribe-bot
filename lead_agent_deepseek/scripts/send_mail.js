@@ -202,14 +202,12 @@ function buildMail(lead) {
 function buildHtmlMail(lead) {
   const { subject, body } = buildMail(lead);
   const previewUrl = lead.preview;
-  // Zeilen, die als eigener Block (CTA/Footer) gerendert werden, im Body überspringen.
+  // Schlichtes, persönliches Schwarz-Weiß-Layout — wie eine normale E-Mail,
+  // KEIN Marketing-Look (kein dunkler Header, kein farbiger Button, keine grünen
+  // Karten). Wirkt persönlicher und ist zustellfreundlicher (weniger „Werbung").
   const skip = (t) => !t || t.startsWith('👉') || t === 'Viele Grüße' || t === 'Maik'
     || t.startsWith('MZ.9') || t.startsWith('https://');
-  // Lösungs-fokussierte Karten: das Problem klein & durchgestrichen (zeigt nur
-  // den Status quo), die LÖSUNG groß, fett, in MZ.9-Grün mit Akzentbalken — sie
-  // ist das Erste, was ins Auge fällt. Reine Vorteils-Zeilen (ohne „→") werden
-  // ebenso als prominenter grüner Haken gerendert. Normale Zeilen = Absätze.
-  const card = (inner) => `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;background:#F1FAF5;border-radius:10px"><tr><td style="padding:13px 16px;border-left:3px solid #10B981;border-top-left-radius:10px;border-bottom-left-radius:10px">${inner}</td></tr></table>`;
+  const esc = (s) => s;
   const renderLine = (t) => {
     if (t.startsWith('•')) {
       const raw = t.replace(/^•\s*/, '');
@@ -217,59 +215,31 @@ function buildHtmlMail(lead) {
       if (arrow > -1) {
         const issue = raw.slice(0, arrow).trim();
         const fix = raw.slice(arrow + 1).replace(/^\s*✓\s*/, '').trim();
-        return card(
-          `<div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#b3b3b3;margin-bottom:1px">Aktuell</div>`
-          + `<div style="font-size:12.5px;color:#9a9a9a;text-decoration:line-through;margin-bottom:8px">${issue}</div>`
-          + `<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${fix}</div>`
-        );
+        // Problem dezent grau, Lösung in normalem Schwarz hervorgehoben.
+        return `      <p style="margin:0 0 9px;font-size:15px;line-height:1.5;color:#111"><span style="color:#888">${esc(issue)}</span> &rarr; <strong>${esc(fix)}</strong></p>`;
       }
       const benefit = raw.replace(/^\s*✓\s*/, '').trim();
-      return card(`<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${benefit}</div>`);
+      return `      <p style="margin:0 0 9px;font-size:15px;line-height:1.5;color:#111">&rarr; <strong>${esc(benefit)}</strong></p>`;
     }
-    return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`;
+    return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.62;color:#222">${esc(t)}</p>`;
   };
   const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t)).map(renderLine).join('\n');
-  const compareBlock = lead.hasCompare
-    ? `      <tr><td style="padding:22px 22px 4px">
-        <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #ECE9E3;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07)">
-          <tr>
-            <td width="50%" style="padding:0;vertical-align:top;border-right:1px solid #ECE9E3">
-              <img src="cid:orig@mz9" alt="Aktuelle Website" style="width:100%;display:block">
-              <div style="background:#0A0A0B;color:#F0EEE9;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">Aktuell</div>
-            </td>
-            <td width="50%" style="padding:0;vertical-align:top">
-              <img src="cid:prev@mz9" alt="MZ.9 Konzept-Vorschau" style="width:100%;display:block">
-              <div style="background:#10B981;color:#04130d;font-size:9px;font-weight:700;letter-spacing:.2em;text-align:center;padding:8px 4px;text-transform:uppercase">MZ.9 Konzept</div>
-            </td>
-          </tr>
-        </table>
-        <p style="margin:9px 0 0;font-size:11px;color:#8a8a8a;text-align:center">Vorher · Nachher — Ihre Website, neu gedacht.</p>
-      </td></tr>\n`
-    : '';
+  // Schlichter Textlink statt farbigem Button.
+  const linkBlock = `      <p style="margin:6px 0 18px;font-size:15px;line-height:1.5"><a href="${previewUrl}" style="color:#111;font-weight:600">&rarr; Zur Skizze: ${previewUrl}</a></p>`;
   const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
-<body style="margin:0;padding:0;background:#ECEAE4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#1a1a2e">
-<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ECEAE4;padding:28px 12px">
+<body style="margin:0;padding:0;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#222">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;padding:24px 14px">
 <tr><td align="center">
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FBFAF8;border-radius:14px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.10)">
-<tr><td style="background:#0A0A0B;padding:20px 28px">
-  <span style="font-size:18px;font-weight:600;letter-spacing:.14em;color:#F0EEE9">MZ.<span style="color:#10B981">9</span></span>
-  <span style="float:right;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#7C7A75;padding-top:7px">Konzept-Skizze</span>
-</td></tr>
-${compareBlock}<tr><td style="padding:22px 28px 6px">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;background:#ffffff">
+<tr><td style="padding:4px 4px 0">
 ${paras}
-</td></tr>
-<tr><td align="center" style="padding:14px 28px 26px">
-  <a href="${previewUrl}" style="display:inline-block;background:#10B981;color:#04130d;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;padding:14px 30px;border-radius:10px">Zur Konzept-Skizze &rarr;</a>
-</td></tr>
-<tr><td style="padding:18px 28px 16px;border-top:1px solid #ECE9E3;background:#F4F2EC">
-  <p style="margin:0 0 3px;font-weight:600;color:#1a1a2e">Viele Grüße</p>
-  <p style="margin:0 0 2px;color:#2a2a35">Maik Zschach</p>
-  <p style="margin:0 0 14px"><a href="${MZ9_URL}" style="color:#0E9C75;text-decoration:none;font-weight:600">MZ.9 — Media Engineering.AI</a></p>
-  <p style="margin:0 0 2px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7C7A75">Impressum · §5 DDG</p>
-  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55">Maik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland<br>Telefon: <a href="tel:+4917645961547" style="color:#6a6a6a;text-decoration:none">+49 176 45961547</a> · E-Mail: <a href="mailto:mzschach@googlemail.com" style="color:#6a6a6a;text-decoration:none">mzschach@googlemail.com</a></p>
-  <p style="margin:0 0 10px;font-size:11px;color:#6a6a6a;line-height:1.55"><a href="${IMPRESSUM_URL}" style="color:#0E9C75;text-decoration:none">Impressum</a> · <a href="${DATENSCHUTZ_URL}" style="color:#0E9C75;text-decoration:none">Datenschutzerklärung</a></p>
-  <p style="margin:0 0 8px;font-size:11px;color:#9a9a9a;line-height:1.55">Unverbindliche, einmalige Konzept-Vorschau (Erprobung eines Konzeptes) · keine Rechnung · kein Vertragsangebot. Keine weiteren Vorschläge gewünscht? Kurze Antwort auf diese E-Mail — wir tragen Sie sofort aus dem Verteiler.</p>
-  <p style="margin:0;padding:8px 10px;border:1px solid #ECE9E3;border-radius:6px;background:#FBFAF8;font-size:10.5px;color:#7C7A75;line-height:1.5">${DEMO_NOTICE}</p>
+${linkBlock}
+  <p style="margin:18px 0 2px;font-size:15px;color:#222">Viele Grüße</p>
+  <p style="margin:0 0 2px;font-size:15px;color:#222">Maik Zschach</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#222">MZ.9 — Media Engineering.AI · <a href="${MZ9_URL}" style="color:#555">${MZ9_URL.replace(/^https?:\/\//,'')}</a></p>
+  <hr style="border:none;border-top:1px solid #e2e2e2;margin:0 0 12px">
+  <p style="margin:0 0 8px;font-size:11px;color:#999;line-height:1.55">Maik Zschach · Merianstr. 8 · 33615 Bielefeld · +49 176 45961547 · <a href="mailto:mzschach@googlemail.com" style="color:#999">mzschach@googlemail.com</a><br><a href="${IMPRESSUM_URL}" style="color:#999">Impressum</a> · <a href="${DATENSCHUTZ_URL}" style="color:#999">Datenschutzerklärung</a></p>
+  <p style="margin:0;font-size:11px;color:#aaa;line-height:1.55">Unverbindliche, einmalige Konzept-Vorschau · keine Rechnung · kein Vertragsangebot. ${DEMO_NOTICE} Keine weiteren Nachrichten gewünscht? Kurze Antwort genügt — ich nehme Sie sofort heraus.</p>
 </td></tr>
 </table>
 </td></tr>
