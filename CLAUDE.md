@@ -35,6 +35,10 @@ Verdrahtet in `lead_agent_deepseek/scripts/send_mail.js`.
 - **Autonomer Lauf:** Damit `auto.js` Stufe 3 mailt, muss `AGENTMAIL_API_KEY`
   in der Umgebung gesetzt sein (wird an die `send_mail.js`-Subprozesse vererbt).
   Am besten als Environment-Variable des Cloud-Environments hinterlegen.
+- **Mail-Optik (fix, nicht ungefragt ändern):** schwarz/weiß-„MZ.9"-Look —
+  schwarzer Header oben, Inhalt schwarz auf weiß, **kein Grün**. Lösungs-Karten
+  weiß mit schwarzem Akzentbalken (Lösung fett schwarz, Problem grau/durchgestrichen),
+  CTA-Button schwarz, Footer-Links grau. So vom Inhaber bestätigt.
 
 ## Known issue: space in user path
 
