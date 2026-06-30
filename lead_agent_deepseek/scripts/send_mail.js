@@ -146,15 +146,55 @@ const DATENSCHUTZ_URL = MZ9_URL.replace(/mz9$/, 'datenschutz.html');
 const DEMO_NOTICE = 'Diese Website dient ausschließlich der Demonstration eines Konzeptes und wird nicht als dauerhaftes geschäftliches Angebot betrieben.';
 const LEGAL_TEXT = `\n— Impressum —\nMaik Zschach · Merianstr. 8 · 33615 Bielefeld · Deutschland\nTelefon: +49 176 45961547 · E-Mail: mzschach@googlemail.com\nImpressum: ${IMPRESSUM_URL}\nDatenschutzerklärung: ${DATENSCHUTZ_URL}\n\nHinweis: Diese Nachricht ist eine unverbindliche, einmalige Konzept-Vorschau (Erprobung eines Konzeptes), keine Rechnung und kein Vertragsangebot. ${DEMO_NOTICE} Wenn Sie keine weiteren Vorschläge wünschen, antworten Sie bitte kurz auf diese E-Mail oder schreiben Sie an mzschach@googlemail.com — ich nehme Sie umgehend aus dem Verteiler.`;
 
+// Domain aus der Website-URL (für einen konkreten, nicht-werblichen Betreff).
+function domainOf(url) {
+  try { return new URL(url.startsWith('http') ? url : 'http://' + url).hostname.replace(/^www\./, ''); }
+  catch { return ''; }
+}
+
+// Konkrete, website-spezifische Punkte aus problems[] — jeweils als Paar
+// {issue, fix}: WAS auf der Seite auffällt UND WIE die Skizze es löst. So wird
+// der Mehrwert sichtbar und individuell (nicht wie eine Massen-Mail). Bewusst
+// sachlich-freundlich, nichts Abwertendes. Max. 3 Punkte, dedupliziert.
+function problemFixes(problems) {
+  const map = [
+    [/Kontaktformular/i,            'Kontakt bislang nur per Telefon — kein direkter Online-Weg',        'Online-Terminanfrage & Kontaktformular direkt auf der Seite'],
+    [/HTTPS/i,                      'noch ohne sichere HTTPS-Verbindung',                                'sichere Verbindung — mehr Vertrauen bei Besuchern und bei Google'],
+    [/responsive|mobil/i,          'am Smartphone noch nicht optimal dargestellt',                      'voll mobil-optimiert — die meisten Besucher kommen übers Handy'],
+    [/Baukasten/i,                 'Auftritt wirkt aktuell etwas im Baukasten-Look',                    'individuelles, hochwertiges Design mit Wiedererkennung'],
+    [/WordPress/i,                 'Seite technisch in die Jahre gekommen',                             'schlanke, schnelle und wartungsarme Umsetzung'],
+    [/Bildmaterial/i,              'wenig Bildmaterial — der gute Eindruck vor Ort fehlt online',       'großzügige Bildsprache mit Ihren echten Fotos'],
+    [/einfaches Design/i,          'Design recht schlicht gehalten',                                    'modernes, edles Design passend zu Ihrer Branche'],
+  ];
+  const out = [];
+  for (const [re, issue, fix] of map) {
+    if ((problems || []).some(p => re.test(p))) out.push({ issue, fix });
+    if (out.length >= 3) break;
+  }
+  if (!out.length) out.push({ issue: 'der Auftritt schöpft Ihr Potenzial online noch nicht ganz aus', fix: 'klarere Struktur, modernes Design und ein direkter Kontaktweg' });
+  return out;
+}
+
 function buildMail(lead) {
+  const dom = domainOf(lead.website);
   const subject = lead.noweb
-    ? `Unverbindliche Konzept-Skizze für ${lead.name}`
-    : `Unverbindliche Konzept-Skizze Ihrer Website — ${lead.name}`;
+    ? `Kurze Idee für ${lead.name}`
+    : `Kurze Beobachtung zu ${dom || 'Ihrer Website'}`;
+  // Kein Pitch im ersten Satz. Dann eine konkrete, website-spezifische
+  // „Aufgefallen → in der Skizze gelöst"-Liste (sichtbarer Mehrwert), die
+  // fertige Skizze als Beleg, dann EINE weiche Frage. Kein Preis, kein
+  // "Angebot", keine Dringlichkeit. Impressum/Opt-out folgen via LEGAL_TEXT.
   let body;
   if (lead.noweb) {
-    body = `Hallo liebes ${lead.name}-Team,\n\nich führe aktuell einen kleinen UX-/Website-Test durch und untersuche dabei, wie Websites von kleinen und mittelständischen Unternehmen online wahrgenommen werden und wie schnell Außenstehende Inhalte und Struktur verstehen. Dabei ist mir aufgefallen, dass Sie noch keine eigene Website haben — und habe eine unverbindliche Konzept-Skizze erstellt, wie ein eigener Auftritt wirken könnte.\n\nDie Skizze dient ausschließlich zu Analyse- und Testzwecken und ist kein Angebot oder eine Dienstleistung. Der Fokus liegt darauf, wie die Informationsstruktur auf neue Besucher wirkt.\n\nHier die Skizze:\n👉 Zur Skizze: ${lead.preview}\n\nÜber ein kurzes Feedback, ob der Ansatz grundsätzlich nachvollziehbar ist, würde ich mich freuen. Falls es für Sie nicht relevant ist, können Sie die Nachricht einfach ignorieren.\n\n${SIG}`;
+    const points = [
+      '• Online auffindbar — Kunden finden Sie künftig auch über Google',
+      '• Direkter Kontakt & Terminanfrage statt nur Telefon',
+      '• Mobil-optimiert, mit Ihren echten Bildern',
+    ].join('\n');
+    body = `Hallo liebes ${lead.name}-Team,\n\nich beschäftige mich viel mit der Online-Wirkung kleiner, inhabergeführter Betriebe und habe gesehen, dass Sie aktuell noch keine eigene Website haben. Statt nur darauf hinzuweisen, habe ich kurzerhand eine unverbindliche Skizze gebaut — so könnte ein eigener Auftritt für Sie aussehen:\n\nWas er konkret bringen würde:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so etwas grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
   } else {
-    body = `Hallo liebes ${lead.name}-Team,\n\nich führe aktuell einen kleinen UX-/Website-Test durch und untersuche dabei, wie Websites von kleinen und mittelständischen Unternehmen online wahrgenommen werden und wie schnell Außenstehende Inhalte und Struktur verstehen. Dabei habe ich mir Ihre Website angesehen und eine unverbindliche Konzept-Skizze erstellt.\n\nDiese dient ausschließlich zu Analyse- und Testzwecken und ist kein Angebot oder eine Dienstleistung. Der Fokus liegt darauf, wie die Informationsstruktur auf neue Besucher wirkt und wo Orientierung möglicherweise klarer werden könnte.\n\nHier der Vergleich zur aktuellen Seite:\n👉 Zur Skizze: ${lead.preview}\n\nÜber ein kurzes Feedback, ob der Ansatz grundsätzlich nachvollziehbar ist, würde ich mich freuen. Falls es für Sie nicht relevant ist, können Sie die Nachricht einfach ignorieren.\n\n${SIG}`;
+    const points = problemFixes(lead.problems).map(p => `• ${p.issue} → in der Skizze: ${p.fix}`).join('\n');
+    body = `Hallo liebes ${lead.name}-Team,\n\nich bin auf Ihre Website (${dom}) gestoßen und habe sie mir kurz angesehen. Ein paar konkrete Punkte sind mir aufgefallen — und statt nur Tipps zu schreiben, habe ich gleich eine unverbindliche Skizze gebaut, die zeigt, wie sich das lösen ließe (mit Ihren eigenen Bildern, nichts Erfundenes):\n\nWas mir aufgefallen ist — und wie die Skizze es angeht:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so eine Richtung grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
   }
   return { to: lead.email, subject, body };
 }
@@ -165,8 +205,24 @@ function buildHtmlMail(lead) {
   // Zeilen, die als eigener Block (CTA/Footer) gerendert werden, im Body überspringen.
   const skip = (t) => !t || t.startsWith('👉') || t === 'Viele Grüße' || t === 'Maik'
     || t.startsWith('MZ.9') || t.startsWith('https://');
-  const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t))
-    .map(t => `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`).join('\n');
+  // „• Problem → in der Skizze: Lösung" als saubere Liste rendern: Problem in
+  // dunkler Schrift, Lösung in MZ.9-Grün. Normale Zeilen bleiben Absätze.
+  const renderLine = (t) => {
+    if (t.startsWith('•')) {
+      const inner = t.replace(/^•\s*/, '');
+      const arrow = inner.indexOf('→');
+      if (arrow > -1) {
+        const issue = inner.slice(0, arrow).trim();
+        const fix = inner.slice(arrow + 1).replace(/^\s*in der Skizze:\s*/i, '').trim();
+        return `      <table cellpadding="0" cellspacing="0" border="0" style="margin:0 0 10px"><tr>`
+          + `<td style="vertical-align:top;padding-right:9px;color:#10B981;font-weight:700">✓</td>`
+          + `<td style="font-size:14.5px;line-height:1.55;color:#2a2a35"><b>${issue}</b><br><span style="color:#0E9C75">${fix}</span></td></tr></table>`;
+      }
+      return `      <p style="margin:0 0 8px;font-size:14.5px;line-height:1.55;color:#2a2a35;padding-left:4px">• ${inner}</p>`;
+    }
+    return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`;
+  };
+  const paras = body.split('\n').map(l => l.trim()).filter(t => !skip(t)).map(renderLine).join('\n');
   const compareBlock = lead.hasCompare
     ? `      <tr><td style="padding:22px 22px 4px">
         <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #ECE9E3;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07)">
