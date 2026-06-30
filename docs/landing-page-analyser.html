@@ -178,6 +178,7 @@
     .card {
       background: transparent;
       width: 100%;
+      position: relative; z-index: 10;
     }
 
     .form { display: flex; flex-direction: column; gap: 1.125rem; }
@@ -256,6 +257,35 @@
       .sb-btn .sb-short { display: none; }
       .sb-btn .sb-long { display: inline; }
     }
+
+    /* Modus-Umschalter: Website-URL vs. Unternehmen finden */
+    .mode-toggle { display: flex; gap: 6px; justify-content: center; margin-bottom: 0.7rem; }
+    .mode-btn {
+      font-family: inherit; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.82); background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+      padding: 0.5rem 0.95rem; cursor: pointer; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .mode-btn:hover { background: rgba(255,255,255,0.16); }
+    .mode-btn.active { background: #ffffff; color: #0a0a0b; border-color: #ffffff; }
+    .is-hidden { display: none !important; }
+
+    /* Autocomplete-Dropdown (Unternehmenssuche) */
+    .ac-list {
+      position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 40;
+      background: #ffffff; border-radius: 16px; box-shadow: 0 18px 50px -12px rgba(0,0,0,0.55);
+      overflow: hidden; display: none; text-align: left;
+    }
+    .ac-list.open { display: block; }
+    .ac-item { display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #eef0f2; }
+    .ac-item:last-child { border-bottom: none; }
+    .ac-item:hover { background: #f4f7fa; }
+    .ac-item .pin { flex: none; margin-top: 1px; font-size: 15px; }
+    .ac-item .nm { font-size: 0.92rem; font-weight: 600; color: #111; }
+    .ac-item .ad { font-size: 0.76rem; color: #6a6f73; }
+    .ac-note { padding: 11px 16px; font-size: 0.8rem; color: #6a6f73; }
+    .ac-note.load::after { content: "…"; }
 
     .form-select {
       appearance: none;
@@ -591,16 +621,39 @@
 
     <div class="card">
       <form class="form" id="form">
-        <div class="form-group">
+        <div class="mode-toggle" role="tablist" aria-label="Suchmodus">
+          <button type="button" class="mode-btn active" id="mUrl" role="tab" aria-selected="true">🌐 Website-URL</button>
+          <button type="button" class="mode-btn" id="mBiz" role="tab" aria-selected="false">📍 Unternehmen finden</button>
+        </div>
+
+        <!-- Modus 1: Website-URL -->
+        <div class="form-group" id="urlMode">
           <label class="search-hint" for="url"><span class="ar" aria-hidden="true">↓</span> Deine Website-URL hier eingeben</label>
           <div class="searchbar">
             <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
-            <input type="url" id="url" placeholder="https://deine-website.de" required>
+            <input type="url" id="url" placeholder="https://deine-website.de">
             <button type="submit" class="sb-btn" id="submitBtn">
               <span class="sb-short">Transform</span><span class="sb-long">Transform Your Business</span>
               <span class="ar" aria-hidden="true">→</span>
             </button>
           </div>
+        </div>
+
+        <!-- Modus 2: Unternehmen finden (Google Business / OpenStreetMap) -->
+        <div class="form-group is-hidden" id="bizMode">
+          <label class="search-hint" for="biz"><span class="ar" aria-hidden="true">↓</span> Unternehmen + Ort eingeben — wir finden deine Seite</label>
+          <div class="searchbar">
+            <svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <input type="text" id="biz" autocomplete="off" placeholder="z. B. Praxis Brandt, Bielefeld">
+            <button type="submit" class="sb-btn" id="submitBtnBiz">
+              <span class="sb-short">Finden</span><span class="sb-long">Analyse starten</span>
+              <span class="ar" aria-hidden="true">→</span>
+            </button>
+            <div class="ac-list" id="bizResults" role="listbox" aria-label="Vorschläge"></div>
+          </div>
+          <input type="hidden" id="bizName">
+          <input type="hidden" id="bizWebsite">
+          <input type="hidden" id="bizAddr">
         </div>
 
         <div class="form-group branche-hidden" id="brancheGroup">
@@ -663,13 +716,53 @@
       'other': 'Sonstiges'
     };
 
-    // Branche erst einblenden, sobald eine URL eingegeben wurde
+    /* ===========================================================
+       Google-Business-Suche
+       -----------------------------------------------------------
+       Trag hier einen Google-Maps/Places-API-Key ein, um auf echte
+       Google-Business-Daten umzuschalten (Places API "New" muss in
+       der Google Cloud aktiviert + Billing an sein). Leer lassen =
+       kostenlose OpenStreetMap-Suche (ohne Key, ohne Kreditkarte).
+       =========================================================== */
+    const GOOGLE_PLACES_KEY = '';
+
     const urlInput = document.getElementById('url');
     const brancheGroup = document.getElementById('brancheGroup');
     const industrySelect = document.getElementById('industry');
     industrySelect.required = false;
+
+    // --- Modus-Umschalter ---
+    let mode = 'url';
+    const mUrl = document.getElementById('mUrl');
+    const mBiz = document.getElementById('mBiz');
+    const urlMode = document.getElementById('urlMode');
+    const bizMode = document.getElementById('bizMode');
+    const bizInput = document.getElementById('biz');
+    const bizResults = document.getElementById('bizResults');
+    const fName = document.getElementById('bizName');
+    const fSite = document.getElementById('bizWebsite');
+    const fAddr = document.getElementById('bizAddr');
+
+    function setMode(m) {
+      mode = m;
+      mUrl.classList.toggle('active', m === 'url');
+      mBiz.classList.toggle('active', m === 'biz');
+      mUrl.setAttribute('aria-selected', m === 'url');
+      mBiz.setAttribute('aria-selected', m === 'biz');
+      urlMode.classList.toggle('is-hidden', m !== 'url');
+      bizMode.classList.toggle('is-hidden', m !== 'biz');
+      closeAc();
+      syncBranche();
+      if (m === 'biz') setTimeout(() => bizInput.focus(), 30);
+    }
+    mUrl.addEventListener('click', () => setMode('url'));
+    mBiz.addEventListener('click', () => setMode('biz'));
+
+    // Branche erst einblenden, sobald URL eingegeben / Unternehmen gewählt
     function syncBranche() {
-      const has = urlInput.value.trim().length > 0;
+      const has = (mode === 'url')
+        ? urlInput.value.trim().length > 0
+        : fName.value.trim().length > 0;
       if (has && brancheGroup.classList.contains('branche-hidden')) {
         brancheGroup.classList.remove('branche-hidden');
         brancheGroup.classList.add('field-in');
@@ -683,20 +776,109 @@
     urlInput.addEventListener('input', syncBranche);
     syncBranche();
 
+    // --- Unternehmenssuche (Autocomplete) ---
+    function esc(s){ return (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function closeAc(){ bizResults.classList.remove('open'); bizResults.innerHTML=''; }
+
+    let acTimer, acAbort;
+    bizInput.addEventListener('input', () => {
+      fName.value=''; fSite.value=''; fAddr.value=''; syncBranche();
+      const q = bizInput.value.trim();
+      clearTimeout(acTimer);
+      if (q.length < 3) { closeAc(); return; }
+      bizResults.innerHTML = '<div class="ac-note load">Suche</div>'; bizResults.classList.add('open');
+      acTimer = setTimeout(() => runSearch(q), 350);
+    });
+
+    async function runSearch(q){
+      try {
+        if (acAbort) acAbort.abort();
+        acAbort = new AbortController();
+        const items = GOOGLE_PLACES_KEY ? await searchGoogle(q) : await searchOSM(q);
+        renderAc(items);
+      } catch(e){
+        if (e.name === 'AbortError') return;
+        bizResults.innerHTML = '<div class="ac-note">Suche gerade nicht erreichbar — gib die Website-URL direkt ein.</div>';
+        bizResults.classList.add('open');
+      }
+    }
+
+    // Kostenlos, ohne Key: OpenStreetMap / Nominatim
+    async function searchOSM(q){
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&namedetails=1&extratags=1&limit=6&accept-language=de&q=' + encodeURIComponent(q);
+      const r = await fetch(url, { signal: acAbort.signal, headers: { 'Accept':'application/json' } });
+      const data = await r.json();
+      return (data||[]).map(d => ({
+        name: (d.namedetails && d.namedetails.name) || d.display_name.split(',')[0],
+        address: d.display_name,
+        website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || ''
+      }));
+    }
+
+    // Mit Key: echte Google Places (New) Autocomplete
+    async function searchGoogle(q){
+      const r = await fetch('https://places.googleapis.com/v1/places:autocomplete', {
+        method:'POST', signal: acAbort.signal,
+        headers:{ 'Content-Type':'application/json', 'X-Goog-Api-Key': GOOGLE_PLACES_KEY },
+        body: JSON.stringify({ input:q, languageCode:'de', regionCode:'DE' })
+      });
+      const d = await r.json();
+      return (d.suggestions||[]).map(s => {
+        const p = s.placePrediction || {};
+        const f = p.structuredFormat || {};
+        return {
+          name: (f.mainText && f.mainText.text) || (p.text && p.text.text) || '',
+          address: (f.secondaryText && f.secondaryText.text) || '',
+          website: '', placeId: p.placeId || ''
+        };
+      });
+    }
+
+    function renderAc(items){
+      if (!items.length){
+        bizResults.innerHTML = '<div class="ac-note">Keine Treffer — tippe Name + Ort, z. B. „Praxis Brandt Bielefeld“.</div>';
+        bizResults.classList.add('open'); return;
+      }
+      bizResults.innerHTML = items.slice(0,6).map((it,i) =>
+        `<div class="ac-item" data-i="${i}"><span class="pin">📍</span><span><span class="nm">${esc(it.name)}</span><br><span class="ad">${esc(it.address)}</span></span></div>`
+      ).join('');
+      bizResults.classList.add('open');
+      Array.from(bizResults.children).forEach(el => {
+        const it = items[+el.dataset.i]; if (!it) return;
+        el.addEventListener('click', () => pick(it));
+      });
+    }
+    function pick(it){
+      bizInput.value = it.name;
+      fName.value = it.name; fSite.value = it.website || ''; fAddr.value = it.address || '';
+      closeAc(); syncBranche();
+    }
+    document.addEventListener('click', e => { if (!bizMode.contains(e.target)) closeAc(); });
+
+    // --- Absenden (modusabhängig) ---
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      const url = document.getElementById('url').value;
-      const industry = document.getElementById('industry').value;
-
-      submitBtn.textContent = 'Wird gesendet...';
-      submitBtn.disabled = true;
+      let lines;
+      if (mode === 'url') {
+        const url = urlInput.value.trim();
+        if (!url) { urlInput.focus(); return; }
+        lines = `URL: ${url}\n`;
+      } else {
+        const name = fName.value.trim() || bizInput.value.trim();
+        if (!name) { bizInput.focus(); return; }
+        lines = `Unternehmen: ${name}\n` +
+                `Adresse: ${fAddr.value || '—'}\n` +
+                `Website: ${fSite.value || '(bitte aus Google/Maps übernehmen)'}\n`;
+      }
+      const industry = industrySelect.value;
+      const btn = (mode === 'url') ? submitBtn : document.getElementById('submitBtnBiz');
+      btn.disabled = true;
 
       const subject = encodeURIComponent('MZ.9 Redesign-Konzept');
       const body = encodeURIComponent(
         `Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n` +
-        `URL: ${url}\n` +
-        `Branche: ${industryMap[industry]}\n\n` +
+        lines +
+        `Branche: ${industryMap[industry] || '—'}\n\n` +
         `Bitte sende mir das Konzept zu.\n\nViele Grüße`
       );
 
