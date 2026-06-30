@@ -193,7 +193,7 @@ function buildMail(lead) {
     ].join('\n');
     body = `Hallo liebes ${lead.name}-Team,\n\nich beschäftige mich viel mit der Online-Wirkung kleiner, inhabergeführter Betriebe und habe gesehen, dass Sie aktuell noch keine eigene Website haben. Statt nur darauf hinzuweisen, habe ich kurzerhand eine unverbindliche Skizze gebaut — so könnte ein eigener Auftritt für Sie aussehen:\n\nWas er konkret bringen würde:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so etwas grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
   } else {
-    const points = problemFixes(lead.problems).map(p => `• ${p.issue} → in der Skizze: ${p.fix}`).join('\n');
+    const points = problemFixes(lead.problems).map(p => `• ${p.issue} → ✓ ${p.fix}`).join('\n');
     body = `Hallo liebes ${lead.name}-Team,\n\nich bin auf Ihre Website (${dom}) gestoßen und habe sie mir kurz angesehen. Ein paar konkrete Punkte sind mir aufgefallen — und statt nur Tipps zu schreiben, habe ich gleich eine unverbindliche Skizze gebaut, die zeigt, wie sich das lösen ließe (mit Ihren eigenen Bildern, nichts Erfundenes):\n\nWas mir aufgefallen ist — und wie die Skizze es angeht:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so eine Richtung grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
   }
   return { to: lead.email, subject, body };
@@ -205,20 +205,26 @@ function buildHtmlMail(lead) {
   // Zeilen, die als eigener Block (CTA/Footer) gerendert werden, im Body überspringen.
   const skip = (t) => !t || t.startsWith('👉') || t === 'Viele Grüße' || t === 'Maik'
     || t.startsWith('MZ.9') || t.startsWith('https://');
-  // „• Problem → in der Skizze: Lösung" als saubere Liste rendern: Problem in
-  // dunkler Schrift, Lösung in MZ.9-Grün. Normale Zeilen bleiben Absätze.
+  // Lösungs-fokussierte Karten: das Problem klein & durchgestrichen (zeigt nur
+  // den Status quo), die LÖSUNG groß, fett, in MZ.9-Grün mit Akzentbalken — sie
+  // ist das Erste, was ins Auge fällt. Reine Vorteils-Zeilen (ohne „→") werden
+  // ebenso als prominenter grüner Haken gerendert. Normale Zeilen = Absätze.
+  const card = (inner) => `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;background:#F1FAF5;border-radius:10px"><tr><td style="padding:13px 16px;border-left:3px solid #10B981;border-top-left-radius:10px;border-bottom-left-radius:10px">${inner}</td></tr></table>`;
   const renderLine = (t) => {
     if (t.startsWith('•')) {
-      const inner = t.replace(/^•\s*/, '');
-      const arrow = inner.indexOf('→');
+      const raw = t.replace(/^•\s*/, '');
+      const arrow = raw.indexOf('→');
       if (arrow > -1) {
-        const issue = inner.slice(0, arrow).trim();
-        const fix = inner.slice(arrow + 1).replace(/^\s*in der Skizze:\s*/i, '').trim();
-        return `      <table cellpadding="0" cellspacing="0" border="0" style="margin:0 0 10px"><tr>`
-          + `<td style="vertical-align:top;padding-right:9px;color:#10B981;font-weight:700">✓</td>`
-          + `<td style="font-size:14.5px;line-height:1.55;color:#2a2a35"><b>${issue}</b><br><span style="color:#0E9C75">${fix}</span></td></tr></table>`;
+        const issue = raw.slice(0, arrow).trim();
+        const fix = raw.slice(arrow + 1).replace(/^\s*✓\s*/, '').trim();
+        return card(
+          `<div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#b3b3b3;margin-bottom:1px">Aktuell</div>`
+          + `<div style="font-size:12.5px;color:#9a9a9a;text-decoration:line-through;margin-bottom:8px">${issue}</div>`
+          + `<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${fix}</div>`
+        );
       }
-      return `      <p style="margin:0 0 8px;font-size:14.5px;line-height:1.55;color:#2a2a35;padding-left:4px">• ${inner}</p>`;
+      const benefit = raw.replace(/^\s*✓\s*/, '').trim();
+      return card(`<div style="font-size:16px;line-height:1.45;color:#0B7A53;font-weight:700">✓ ${benefit}</div>`);
     }
     return `      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#2a2a35">${t}</p>`;
   };
