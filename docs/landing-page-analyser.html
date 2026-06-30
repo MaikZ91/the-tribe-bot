@@ -817,6 +817,24 @@
       if (cls === 'amenity' && BIZ_AMENITIES.includes(d.type)) return true;
       return false;
     }
+    // OSM-Kategorie -> Branche (Select-Wert) für Auto-Vorbelegung
+    function mapIndustry(cls, type){
+      if (cls === 'healthcare') return 'arzt';
+      if (cls === 'amenity'){
+        if (['restaurant','cafe','bar','pub','fast_food','ice_cream','food_court','nightclub'].includes(type)) return 'gastro';
+        if (['doctors','clinic','dentist','pharmacy','veterinary','hospital','nursing_home','social_facility'].includes(type)) return 'arzt';
+        return 'business';
+      }
+      if (cls === 'craft') return 'handwerk';
+      if (cls === 'office') return (type === 'lawyer') ? 'anwalt' : 'business';
+      if (cls === 'shop'){
+        if (['bakery','butcher','confectionery','deli','pastry','greengrocer'].includes(type)) return 'gastro';
+        if (type === 'photo') return 'fotograf';
+        return 'business';
+      }
+      if (cls === 'tourism') return 'gastro';
+      return 'business';
+    }
     function shortAddr(s){
       // Straße + Ort statt komplettem Behörden-Pfad
       const p = (s||'').split(',').map(x=>x.trim());
@@ -832,7 +850,8 @@
         .map(d => ({
           name: d.namedetails.name,
           address: shortAddr(d.display_name),
-          website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || ''
+          website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || '',
+          kind: mapIndustry(d.category || d.class, d.type)
         }))
         .slice(0, 6);
     }
@@ -874,6 +893,11 @@
       bizInput.value = it.name;
       fName.value = it.name; fSite.value = it.website || ''; fAddr.value = it.address || '';
       closeAc(); syncBranche();
+      // Branche automatisch vorbelegen (Besucher kann weiterhin ändern)
+      if (it.kind && [...industrySelect.options].some(o => o.value === it.kind)) {
+        industrySelect.value = it.kind;
+        brancheGroup.classList.remove('field-in'); void brancheGroup.offsetWidth; brancheGroup.classList.add('field-in');
+      }
     }
     document.addEventListener('click', e => { if (!bizMode.contains(e.target)) closeAc(); });
 
