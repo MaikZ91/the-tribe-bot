@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hotel Daun · Castrop-Rauxel — Hotel, Restaurant &amp; Feiern</title>
+<meta name="description" content="Hotel Daun in Castrop-Rauxel: individueller Service, komfortable Zimmer, Restaurant mit herzhafter Küche, Biergarten und drei Wintergärten für Ihre Feier. Jetzt Zimmer oder Feier anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f4ee; --paper:#fffdf9; --ink:#232a25; --muted:#6d746b;
+    --green:#1f3b31; --green-l:#2c5647; --brass:#b08a3e;
+    --brass2:#c1975a; --line:#e6ded0; --cream:#efe7d6; --shadow:0 20px 55px -24px rgba(28,40,32,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Mulish',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.1}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);font-weight:700}
+  .btn{display:inline-block;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:14px 28px;border-radius:3px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--brass);color:#fff}
+  .btn-p:hover{background:var(--green)}
+  .btn-o{border-color:#fff;color:#fff}
+  .btn-o:hover{background:#fff;color:var(--green)}
+  .btn-d{border-color:var(--green);color:var(--green)}
+  .btn-d:hover{background:var(--green);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(31,59,49,.96);backdrop-filter:blur(10px);padding:12px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.6)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1}
+  .brand b{font-family:'Cormorant Garamond';font-size:1.7rem;letter-spacing:.5px;display:block}
+  .brand small{font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;color:var(--brass2)}
+  .menu{display:flex;gap:28px;align-items:center}
+  .menu a{color:#fff;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{opacity:1;color:var(--brass2)}
+  header .btn{padding:11px 22px}
+
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,32,26,.35) 0%,rgba(20,32,26,.25) 40%,rgba(20,32,26,.82) 100%),url('img/hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 66px}
+  .hero .ey{color:var(--brass2)}
+  .hero h1{font-size:clamp(3rem,7vw,5.6rem);margin:16px 0 10px;max-width:16ch}
+  .hero p{font-size:1.12rem;max-width:48ch;opacity:.94;margin-bottom:28px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--green);color:#e9e2d3}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 40px;padding:20px 0;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase}
+  .strip span{display:flex;gap:9px;align-items:center;opacity:.92}
+  .strip b{color:var(--brass2)}
+
+  section{padding:92px 0}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 54px}
+  .sec-head h2{font-size:clamp(2.2rem,4.6vw,3.4rem);margin:14px 0 10px}
+  .sec-head p{color:var(--muted)}
+
+  .welcome{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .welcome .fig{border-radius:6px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+  .welcome .fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:1100/620}
+  .welcome h2{font-size:clamp(2.1rem,4.4vw,3.1rem);margin-bottom:18px}
+  .welcome p{color:var(--muted);margin-bottom:16px}
+  .welcome .badge{display:inline-block;margin-top:8px;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green-l);border:1px solid var(--line);border-radius:30px;padding:8px 16px;font-weight:700}
+
+  .rooms{background:#fff}
+  .room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .room{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow);transition:.3s}
+  .room:hover{transform:translateY(-6px)}
+  .room img{aspect-ratio:1100/560;object-fit:cover;width:100%}
+  .room .body{padding:22px 24px 26px}
+  .room .body h3{font-size:1.7rem;margin-bottom:8px}
+  .room .body p{font-size:.94rem;color:var(--muted)}
+  .room.wide{grid-column:span 3}
+
+  .dine{background:var(--green);color:#ece5d6;position:relative}
+  .dine .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .dine .fig{border-radius:6px;overflow:hidden;box-shadow:var(--shadow)}
+  .dine .fig img{width:100%;aspect-ratio:1100/500;object-fit:cover}
+  .dine h2{color:#fff;font-size:clamp(2.1rem,4.4vw,3.1rem);margin:14px 0 16px}
+  .dine .ey{color:var(--brass2)}
+  .dine p{opacity:.9;margin-bottom:14px}
+  .dine .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+  .dine .tags span{border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:7px 15px;font-size:.82rem}
+  .dine .note{font-size:.78rem;opacity:.6;margin-top:16px}
+
+  .feiern .wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}
+  .feiern .fig{border-radius:6px;overflow:hidden;box-shadow:var(--shadow);order:2}
+  .feiern .fig img{width:100%;aspect-ratio:1100/500;object-fit:cover}
+  .feiern h2{font-size:clamp(2.1rem,4.4vw,3.1rem);margin:14px 0 16px}
+  .feiern p{color:var(--muted);margin-bottom:18px}
+  .occ{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px}
+  .occ li{list-style:none;display:flex;gap:11px;align-items:center;font-size:.98rem;padding:7px 0;border-bottom:1px solid var(--line)}
+  .occ li::before{content:"❖";color:var(--brass)}
+
+  .svc{background:var(--cream)}
+  .svc-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+  .svc-grid span{background:var(--paper);border:1px solid var(--line);border-radius:40px;padding:11px 22px;font-size:.9rem;font-weight:600;box-shadow:0 8px 20px -16px rgba(0,0,0,.4)}
+
+  .book{position:relative;color:#fff;text-align:center;padding:104px 0;overflow:hidden}
+  .book::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(20,32,26,.78),rgba(20,32,26,.86)),url('img/g1.jpg') center/cover no-repeat}
+  .book .wrap{position:relative}
+  .book h2{color:#fff;font-size:clamp(2.3rem,5vw,3.6rem)}
+  .book p{max-width:46ch;margin:14px auto 26px;opacity:.92}
+  .book .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+  .contact h2{font-size:clamp(1.9rem,4vw,2.7rem);margin:12px 0 18px}
+  .contact p{color:var(--muted);margin-bottom:12px}
+  .contact a{color:var(--green-l);border-bottom:1px solid var(--brass2)}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:32px;box-shadow:var(--shadow)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:700}
+  .field select,.field input,.field textarea{width:100%;font-family:'Mulish';font-size:.96rem;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:80px;resize:vertical}
+  .note{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+  footer{background:#161d18;color:#9fa89c;padding:46px 0;font-size:.85rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+  footer .concept{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#6f776d}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:1.4rem}
+  .cbot-launch b{font-size:.82rem}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--green);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--brass);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:1.3rem}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.8}
+  .cbot-body{padding:16px;background:#fbf7ef}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:12px 12px 12px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--green);color:#fff}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,253,249,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .welcome,.dine .wrap,.feiern .wrap,.contact .wrap{grid-template-columns:1fr;gap:34px}
+    .feiern .fig{order:0}
+    .room-grid{grid-template-columns:1fr}
+    .room.wide{grid-column:span 1}
+    .occ{grid-template-columns:1fr}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:82vh}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Hotel Daun</b><small>Restaurant · Bistro · Castrop-Rauxel</small></a>
+    <nav class="menu">
+      <a href="#zimmer">Zimmer</a>
+      <a href="#restaurant">Restaurant</a>
+      <a href="#feiern">Feiern</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#anfrage" class="btn btn-p">Anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">Hotel · Restaurant · Biergarten</p>
+    <h1>Ankommen. Wohlfühlen. Bleiben.</h1>
+    <p>Kürzlich renoviert, individuell und herzlich — Ihr Hotel mit persönlichem Ambiente im schönen Castrop-Rauxel.</p>
+    <div class="hero-cta">
+      <a href="#anfrage" class="btn btn-p">Zimmer anfragen</a>
+      <a href="tel:+492305923150" class="btn btn-o">02305 923150</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>✦</b> Komfortable Zimmer</span>
+    <span><b>✦</b> Restaurant &amp; herzhafte Küche</span>
+    <span><b>✦</b> Biergarten &amp; 3 Wintergärten</span>
+    <span><b>✦</b> Feiern bis ins Detail</span>
+  </div>
+</div>
+
+<section id="willkommen">
+  <div class="wrap welcome">
+    <div>
+      <p class="ey">Herzlich willkommen</p>
+      <h2>Ein Haus mit Charakter &amp; Herz</h2>
+      <p>Das kürzlich renovierte Hotel Daun bietet individuellen, freundlichen Service und persönliches Ambiente. Wohnen Sie in komfortablen, hübsch dekorierten Zimmern.</p>
+      <p>Entspannen Sie bei gutem Wetter im hoteleigenen Biergarten oder relaxen Sie in einem der drei Wintergärten. Das nahegelegene Naturgebiet Langeloh lockt mit unberührten Landschaften und frischer Luft.</p>
+      <span class="badge">Familiär geführt · seit Jahren in Castrop-Rauxel</span>
+    </div>
+    <div class="fig"><img src="img/g7.jpg" loading="lazy" alt="Festlich eingedeckter Wintergarten im Hotel Daun"></div>
+  </div>
+</section>
+
+<section id="zimmer" class="rooms">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Übernachten</p>
+      <h2>Unsere Zimmer</h2>
+      <p>Alle Zimmer mit Fernseher, Telefon, Minibar und Tresor — ausschließlich Nichtraucherzimmer.</p>
+    </div>
+    <div class="room-grid">
+      <div class="room reveal">
+        <img src="img/g5.jpg" loading="lazy" alt="Einzelzimmer im Hotel Daun">
+        <div class="body"><h3>Einzelzimmer</h3><p>Gehobene Ausstattung für den ruhigen, komfortablen Aufenthalt.</p></div>
+      </div>
+      <div class="room reveal">
+        <img src="img/g2.jpg" loading="lazy" alt="Doppelzimmer im Hotel Daun">
+        <div class="body"><h3>Doppelzimmer</h3><p>Großzügig, teilweise mit Balkon — komfortabel und exklusiv ausgestattet.</p></div>
+      </div>
+      <div class="room reveal">
+        <img src="img/g4.jpg" loading="lazy" alt="Komfortzimmer im Hotel Daun">
+        <div class="body"><h3>Suite &amp; Dreibettzimmer</h3><p>Nett, gemütlich, einfach zum Wohlfühlen — auch ideal für Familien.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="restaurant" class="dine">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/g6.jpg" loading="lazy" alt="Warmes Buffet im Restaurant des Hotel Daun"></div>
+    <div>
+      <p class="ey">Restaurant &amp; Bistro</p>
+      <h2>Herzhafte Küche in gemütlichem Ambiente</h2>
+      <p>Im ansprechenden Restaurant servieren wir herzhafte Küche — ob zum Abend nach der Anreise, im Biergarten bei Sonnenschein oder als reichhaltiges Buffet zu Ihrer Feier.</p>
+      <div class="tags">
+        <span>Restaurant</span><span>Bistro</span><span>Biergarten</span><span>Buffet für Feiern</span>
+      </div>
+      <p class="note">Tageskarte &amp; Buffet-Zusammenstellung stimmen wir gern persönlich mit Ihnen ab.</p>
+    </div>
+  </div>
+</section>
+
+<section id="feiern" class="feiern">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/g7.jpg" loading="lazy" alt="Festtafel für eine Feier im Wintergarten des Hotel Daun"></div>
+    <div>
+      <p class="ey">Ihre Feier bei uns</p>
+      <h2>Feste feiern, wie sie fallen</h2>
+      <p>Von der Hochzeit im lichtdurchfluteten Wintergarten bis zur Betriebsfeier mit Kegelbahn — wir richten Ihren Anlass persönlich aus. Konferenzraum und Kegelbahn inklusive.</p>
+      <ul class="occ">
+        <li>Hochzeiten</li>
+        <li>Weihnachtsfeiern</li>
+        <li>Geburtstagsfeiern</li>
+        <li>Betriebsfeste</li>
+        <li>Jubiläum</li>
+        <li>Kommunion</li>
+      </ul>
+      <p style="margin-top:20px"><a href="#anfrage" class="btn btn-d">Feier anfragen</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="svc">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Alles da</p>
+      <h2>Unser Service</h2>
+    </div>
+    <div class="svc-grid">
+      <span>Restaurant</span><span>Biergarten</span><span>3 Wintergärten</span><span>Free Wi-Fi</span>
+      <span>Flat-Screen-TV</span><span>Parkplatz</span><span>Konferenzraum</span><span>Top Kegelbahn</span>
+    </div>
+  </div>
+</section>
+
+<section id="anfrage" class="contact">
+  <div class="wrap">
+    <div>
+      <p class="ey">Kontakt &amp; Anfahrt</p>
+      <h2>Wir freuen uns auf Sie</h2>
+      <p><strong style="color:var(--ink)">Hotel Daun · Restaurant-Bistro Daun GmbH</strong><br>Bochumer Straße 266<br>44577 Castrop-Rauxel</p>
+      <p>Telefon: <a href="tel:+492305923150">02305 923150</a></p>
+      <p>E-Mail: <a href="mailto:info@hoteldaun.de">info@hoteldaun.de</a></p>
+      <p style="color:var(--muted);margin-top:18px">Direkt am Naturgebiet Langeloh — mit eigenem Parkplatz.</p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Anliegen</label>
+        <select id="typ">
+          <option>Zimmer anfragen</option>
+          <option>Tisch im Restaurant</option>
+          <option>Feier / Event planen</option>
+          <option>Allgemeine Frage</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Wunschtermin</label>
+        <input type="text" id="termin" placeholder="z. B. 12.–14. September">
+      </div>
+      <div class="field">
+        <label>Name &amp; Kontakt</label>
+        <input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail">
+      </div>
+      <div class="field">
+        <label>Ihre Nachricht (optional)</label>
+        <textarea id="msg" placeholder="Personenzahl, Wünsche, Fragen …"></textarea>
+      </div>
+      <button class="btn btn-p" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an das Hotel — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section class="book">
+  <div class="wrap">
+    <p class="ey" style="color:var(--brass2)">Zeit für ein paar schöne Tage</p>
+    <h2>Jetzt Zimmer oder Feier sichern</h2>
+    <p>Sagen Sie uns kurz, was Sie planen — wir melden uns persönlich bei Ihnen zurück.</p>
+    <div class="cta">
+      <a href="#anfrage" class="btn btn-p">Anfrage senden</a>
+      <a href="tel:+492305923150" class="btn btn-o">02305 923150</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#e9e2d3"><b style="font-family:'Cormorant Garamond';font-size:1.6rem">Hotel Daun</b></div>
+      <span style="color:#7f887c">Bochumer Straße 266 · 44577 Castrop-Rauxel · 02305 923150</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">HD</span>
+    <div><b>Fragen zu Zimmer &amp; Feier?</b><small>Wir helfen gern weiter</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">HD</span>
+      <div><b>Team Hotel Daun</b><br><small>Restaurant · Bistro</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Herzlich willkommen! Wie können wir Ihren Aufenthalt oder Ihre Feier schön machen?</div>
+      <div class="quick">
+        <a href="#anfrage" onclick="toggleBot()">Zimmer anfragen</a>
+        <a href="#feiern" onclick="toggleBot()">Feier planen</a>
+        <a href="tel:+492305923150">Lieber anrufen — 02305 923150</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+492305923150" class="btn btn-d">Anrufen</a>
+  <a href="#anfrage" class="btn btn-p">Anfragen</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  function sendReq(e){
+    e.preventDefault();
+    var t=document.getElementById('typ').value, d=document.getElementById('termin').value||'nach Absprache',
+        k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Hallo Team Hotel Daun,%0D%0A%0D%0Aich habe folgende Anfrage.%0D%0A%0D%0AAnliegen: '+encodeURIComponent(t)+
+      '%0D%0AWunschtermin: '+encodeURIComponent(d)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ANachricht: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AVielen Dank';
+    window.location.href='mailto:info@hoteldaun.de?subject='+encodeURIComponent('Anfrage · '+t)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
