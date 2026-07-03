@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Landhaus Rohlfing — Gaststätte | Minden</title>
+<meta name="description" content="Landhaus Rohlfing in Minden — gutbürgerliche Gaststätte mit wechselnder Speisekarte. Gemütlich einkehren, feiern und genießen. Jetzt Tisch anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#31402c; --green2:#3f5138; --wood:#9c6b3c; --amber:#c98f43; --amber-l:#dcab63;
+    --cream:#f3eee2; --paper:#faf6ec; --ink:#2a2820; --muted:#726c5c; --line:#e5dcc7;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:var(--paper);line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.serif{font-family:'Frank Ruhl Libre',Georgia,serif;font-weight:600;line-height:1.14}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--amber);font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:15px 30px;cursor:pointer;border:1px solid transparent;transition:.25s}
+  .btn-primary{background:var(--amber);color:#241600}
+  .btn-primary:hover{background:var(--amber-l);transform:translateY(-2px)}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green2)}
+  .btn-outline{border-color:var(--green);color:var(--green)}
+  .btn-outline:hover{background:var(--green);color:#fff}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:60;transition:.3s;padding:20px 0}
+  header.scrolled{background:rgba(49,64,44,.97);backdrop-filter:blur(8px);padding:12px 0}
+  header.scrolled .brand,header.scrolled .nav-links a{color:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Frank Ruhl Libre',serif;font-size:23px;font-weight:700;color:var(--green);letter-spacing:.01em;transition:.3s}
+  .brand span{color:var(--amber)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.9;transition:.2s;font-weight:500}
+  .nav-links a:hover{color:var(--amber)}
+  .nav .btn{padding:11px 22px}
+  @media(max-width:880px){.nav-links a:not(.btn){display:none}}
+
+  /* Split-Hero — Bild scharf in fester Bühne, kein Vollbild-Upscale */
+  .hero{padding:140px 0 80px;background:var(--cream)}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .hero .eyebrow{display:block;margin-bottom:18px}
+  .hero h1{font-size:clamp(40px,6vw,72px);color:var(--green);margin-bottom:18px}
+  .hero p{font-size:18px;color:var(--muted);max-width:480px;margin-bottom:30px}
+  .hero-cta{display:flex;gap:13px;flex-wrap:wrap}
+  .hero-img{position:relative}
+  .hero-img img{width:100%;height:520px;object-fit:cover;border-radius:14px;box-shadow:0 26px 50px rgba(49,64,44,.22)}
+  .hero-img .tag{position:absolute;left:-16px;bottom:26px;background:var(--green);color:#fff;font-family:'Frank Ruhl Libre',serif;font-size:18px;padding:12px 20px;border-radius:8px}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:34px}.hero-img img{height:360px}}
+
+  .strip{background:var(--green);color:#fff}
+  .strip .wrap{display:flex;justify-content:space-around;gap:14px;flex-wrap:wrap;text-align:center;padding:22px 24px}
+  .strip b{font-family:'Frank Ruhl Libre',serif;font-size:20px;color:var(--amber-l);display:block;font-weight:600}
+  .strip small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+
+  section{padding:92px 0}
+  .sec-head{max-width:600px;margin:0 auto 50px;text-align:center}
+  .sec-head h2{font-size:clamp(32px,4.6vw,48px);margin:12px 0 12px;color:var(--green)}
+  .sec-head p{color:var(--muted);font-size:16px}
+
+  .split{background:var(--cream)}
+  .split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split img{width:100%;height:400px;object-fit:cover;border-radius:12px;box-shadow:0 20px 40px rgba(49,64,44,.18)}
+  .split h2{font-size:clamp(30px,4.4vw,44px);color:var(--green);margin:8px 0 16px}
+  .split p{color:var(--muted);font-size:16.5px;margin-bottom:14px}
+  @media(max-width:860px){.split .wrap{grid-template-columns:1fr;gap:28px}.split img{height:300px}}
+
+  .info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .ic-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:34px 28px;text-align:center}
+  .ic-card h3{font-size:24px;color:var(--green);margin:6px 0 10px}
+  .ic-card p{font-size:14.5px;color:var(--muted)}
+  .ic-card .big{font-family:'Frank Ruhl Libre',serif;font-size:30px;color:var(--amber)}
+  @media(max-width:760px){.info{grid-template-columns:1fr}}
+
+  .anfrage{background:var(--green);color:#fff}
+  .anfrage .wrap{max-width:680px}
+  .anfrage .sec-head h2{color:#fff}
+  .book{background:var(--paper);border-radius:14px;padding:36px;color:var(--ink)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:6px;color:var(--green)}
+  .field input,.field select,.field textarea{width:100%;padding:12px 15px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-family:inherit;background:#fff;font-weight:300}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--amber)}
+  .frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:600px){.frow{grid-template-columns:1fr}}
+  .book .btn{width:100%;justify-content:center;margin-top:6px}
+
+  .contact{background:var(--cream)}
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .citem{display:flex;gap:15px;margin-bottom:20px;align-items:flex-start}
+  .citem .ic{width:44px;height:44px;border-radius:10px;background:#fff;color:var(--green);display:grid;place-items:center;font-size:20px;flex-shrink:0;border:1px solid var(--line)}
+  .citem h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px}
+  .citem p{font-size:16px}
+  .mapbox{background:var(--green);color:#fff;border-radius:14px;padding:34px}
+  .mapbox .serif{font-size:26px;color:var(--amber-l);margin-bottom:10px}
+
+  footer{background:#242e20;color:rgba(255,255,255,.6);padding:42px 0 110px;font-size:13.5px}
+  footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+  footer .brand{font-size:22px;color:#fff}
+  .concept-note{font-size:12px;color:rgba(255,255,255,.42);max-width:520px;line-height:1.6}
+
+  .mbar{position:fixed;bottom:0;left:0;right:0;z-index:55;background:var(--paper);border-top:1px solid var(--line);display:none;gap:10px;padding:9px 13px}
+  .mbar a{flex:1;justify-content:center;font-size:12px;padding:13px}
+  @media(max-width:880px){.mbar{display:flex}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <div class="brand">Landhaus <span>Rohlfing</span></div>
+    <nav class="nav-links">
+      <a href="#willkommen">Willkommen</a>
+      <a href="#kueche">Küche</a>
+      <a href="#info">Öffnungszeiten</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#anfrage" class="btn btn-primary">Tisch anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Gaststätte · Minden</span>
+      <h1>Herzlich willkommen im Landhaus Rohlfing</h1>
+      <p>Gutbürgerlich, gemütlich und mit einer Küche zum Wohlfühlen — Ihr Landhaus in Minden für den schönen Abend, die Feier oder den Einkehrschwung.</p>
+      <div class="hero-cta">
+        <a href="#anfrage" class="btn btn-primary">Tisch anfragen →</a>
+        <a href="tel:+4957151366" class="btn btn-outline">☎ 0571 51366</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://www.landhausrohlfing.de/s/cc_images/cache_17841335.jpeg?t=1743074480" alt="Landhaus Rohlfing in Minden">
+      <div class="tag">Seit Jahren Ihr Gastgeber</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div><b>Gutbürgerlich</b><small>Küche</small></div>
+    <div><b>Wechselnde</b><small>Speisekarte</small></div>
+    <div><b>Feiern</b><small>& Anlässe</small></div>
+    <div><b>Minden</b><small>Bergkirchen</small></div>
+  </div>
+</div>
+
+<section id="willkommen" class="split">
+  <div class="wrap">
+    <img src="https://www.landhausrohlfing.de/s/cc_images/cache_364977.JPG?t=1643457759" alt="Gemütliche Gaststube im Landhaus Rohlfing" loading="lazy">
+    <div>
+      <span class="eyebrow">Einkehren &amp; genießen</span>
+      <h2>Ein Ort zum Wohlfühlen</h2>
+      <p>Im Landhaus Rohlfing legen wir Wert auf ehrliche Gastlichkeit: ein freundlicher Empfang, gemütliche Räume und Gerichte, die schmecken wie bei Freunden.</p>
+      <p>Ob zum Mittagstisch, zum Abendessen oder für Ihre Feier — bei uns sind Sie gut aufgehoben.</p>
+      <a href="#anfrage" class="btn btn-green" style="margin-top:10px">Platz sichern →</a>
+    </div>
+  </div>
+</section>
+
+<section id="kueche">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Unsere Küche</span>
+      <h2>Frisch &amp; gutbürgerlich</h2>
+      <p>Eine wechselnde Speisekarte mit saisonalen Gerichten — fragen Sie gern nach den Empfehlungen des Tages.</p>
+    </div>
+    <div class="info">
+      <div class="ic-card"><div class="big">✦</div><h3>Mittagstisch</h3><p>Wechselnde Gerichte für die gute Pause zwischendurch.</p></div>
+      <div class="ic-card"><div class="big">✦</div><h3>Abendkarte</h3><p>Gutbürgerliche Klassiker und Saisonales am Abend.</p></div>
+      <div class="ic-card"><div class="big">✦</div><h3>Feiern</h3><p>Der passende Rahmen für Familienfeiern und Anlässe.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="anfrage" class="anfrage">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="color:var(--amber-l)">Reservierung &amp; Anfrage</span>
+      <h2>Tisch oder Feier anfragen</h2>
+      <p style="color:rgba(255,255,255,.82)">Sagen Sie uns kurz Bescheid — für den Tisch am Abend oder Ihre Feier. Wir melden uns persönlich.</p>
+    </div>
+    <div class="book">
+      <form onsubmit="return submitAnfrage(event)">
+        <div class="field"><label>Anlass</label>
+          <select id="a_topic"><option>Tischreservierung</option><option>Feier / Familienfeier</option><option>Mittagstisch</option><option>Allgemeine Anfrage</option></select>
+        </div>
+        <div class="frow">
+          <div class="field"><label>Datum</label><input id="a_date" type="date"></div>
+          <div class="field"><label>Uhrzeit</label><input id="a_time" type="time"></div>
+          <div class="field"><label>Personen</label><select id="a_people"><option>2</option><option>4</option><option>6</option><option>8</option><option>12</option><option>20+</option></select></div>
+        </div>
+        <div class="frow" style="grid-template-columns:1fr 1fr">
+          <div class="field"><label>Ihr Name</label><input id="a_name" type="text" placeholder="Vor- und Nachname" required></div>
+          <div class="field"><label>Telefon oder E-Mail</label><input id="a_contact" type="text" placeholder="Für die Rückmeldung" required></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Anfrage senden →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="info" class="contact">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Kontakt &amp; Anfahrt</span>
+      <h2 class="serif" style="font-size:clamp(30px,4.4vw,44px);color:var(--green);margin:12px 0 22px">So finden Sie uns</h2>
+      <div class="citem"><div class="ic">📍</div><div><h4>Adresse</h4><p>Bergkirchener Straße 100<br>32429 Minden</p></div></div>
+      <div class="citem"><div class="ic">☎</div><div><h4>Telefon</h4><p><a href="tel:+4957151366">0571 51366</a></p></div></div>
+      <div class="citem"><div class="ic">✉</div><div><h4>E-Mail</h4><p><a href="mailto:info@landhausrohlfing.de">info@landhausrohlfing.de</a></p></div></div>
+    </div>
+    <div class="mapbox">
+      <div class="serif">Landhaus Rohlfing</div>
+      <p style="color:rgba(255,255,255,.85);margin-bottom:18px;font-weight:300">Gutbürgerliche Gaststätte in Minden. Bitte reservieren Sie am besten vorab — wir freuen uns auf Sie.</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Bergkirchener+Stra%C3%9Fe+100+32429+Minden" target="_blank" rel="noopener" class="btn btn-primary">Route planen →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand serif" style="color:#fff">Landhaus <span style="color:var(--amber-l)">Rohlfing</span></div>
+      <p style="margin-top:8px">Bergkirchener Straße 100 · 32429 Minden · 0571 51366</p>
+    </div>
+    <p class="concept-note">Unverbindliche Konzept-Vorschau (MZ.9). Diese Seite dient ausschließlich der Demonstration eines Gestaltungskonzepts und ist kein dauerhaftes Angebot. Bildmaterial: Landhaus Rohlfing.</p>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a href="tel:+4957151366" class="btn btn-green">☎ Anrufen</a>
+  <a href="#anfrage" class="btn btn-primary">Anfragen</a>
+</div>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40));
+  function submitAnfrage(e){
+    e.preventDefault();
+    const topic=document.getElementById('a_topic').value;
+    const d=document.getElementById('a_date').value||'(kein Datum)';
+    const t=document.getElementById('a_time').value||'-';
+    const p=document.getElementById('a_people').value;
+    const n=document.getElementById('a_name').value;
+    const c=document.getElementById('a_contact').value;
+    const body=encodeURIComponent('Anfrage über die Website\n\nAnlass: '+topic+'\nDatum: '+d+'\nUhrzeit: '+t+'\nPersonen: '+p+'\nName: '+n+'\nKontakt: '+c);
+    window.location.href='mailto:info@landhausrohlfing.de?subject='+encodeURIComponent('Anfrage: '+topic)+'&body='+body;
+    return false;
+  }
+</script>
+</body>
+</html>
