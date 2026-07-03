@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Friseurteam kreativ · Lippstadt — Haarschnitt, Farbe & Make-up</title>
+<meta name="description" content="Friseurteam kreativ in Lippstadt: seit über 20 Jahren perfekter Haarschnitt, Farbe, Balayage und Make-up in freundlich-entspannter Atmosphäre. Jetzt Wunschtermin anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1ec; --paper:#fffdfb; --ink:#2a2320; --muted:#7a6f66;
+    --taupe:#b8a595; --taupe-d:#8a7b6d; --line:#e7ddd3; --rose:#c9a19a;
+    --accent:#a98d6b; --shadow:0 18px 50px -22px rgba(58,44,34,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.12;letter-spacing:.2px}
+  .script{font-family:'Sacramento',cursive;font-weight:400}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1140px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--taupe-d);font-weight:500}
+
+  /* Header */
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(255,253,251,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Sacramento',cursive;font-size:2rem;color:var(--ink);line-height:1}
+  .brand small{font-family:'Jost';font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--taupe-d);display:block;margin-top:-4px}
+  header.scrolled .brand,header.scrolled .nav a{color:var(--ink)}
+  .menu{display:flex;gap:30px;align-items:center}
+  .menu a{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.82;transition:.2s}
+  .menu a:hover{opacity:1}
+  .btn{display:inline-block;font-family:'Jost';font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;border-radius:40px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--ink);color:#fff}
+  .btn-p:hover{background:var(--accent)}
+  .btn-o{border-color:var(--ink);color:var(--ink)}
+  .btn-o:hover{background:var(--ink);color:#fff}
+  .hero .btn,.menu .btn{}
+  header .btn{padding:11px 22px}
+
+  /* Hero */
+  .hero{position:relative;padding:150px 0 90px;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero-copy .ey{margin-bottom:22px}
+  .hero h1{font-size:clamp(2.9rem,6vw,4.9rem)}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .lead{margin:22px 0 30px;color:var(--muted);font-size:1.08rem;max-width:34ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .stage{position:relative}
+  .stage .frame{position:relative;border-radius:220px 220px 22px 22px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:769/1024;max-width:440px;margin-left:auto}
+  .stage .frame img{width:100%;height:100%;object-fit:cover}
+  .stage .tag{position:absolute;left:-18px;bottom:38px;background:var(--paper);padding:14px 20px;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .stage .tag b{font-family:'Cormorant Garamond';font-size:1.5rem;display:block;line-height:1}
+  .stage .tag span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe-d)}
+  .hero .blob{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#efe4d9,transparent 70%);top:-120px;right:-120px;z-index:-1}
+
+  /* Strip */
+  .strip{background:var(--ink);color:#f3ece4}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;padding:22px 0;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase}
+  .strip span{display:flex;align-items:center;gap:10px;opacity:.9}
+  .strip b{color:var(--taupe)}
+
+  section{padding:88px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .sec-head h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin:14px 0 8px}
+  .sec-head p{color:var(--muted)}
+
+  /* Leistungen */
+  .serv{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 34px}
+  .serv li{list-style:none;display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
+  .serv li .n{font-family:'Cormorant Garamond';font-size:1.1rem;color:var(--accent);min-width:30px}
+  .serv li p{font-size:1.02rem}
+
+  /* Booking */
+  .book{background:linear-gradient(180deg,#fffdfb,#f3ebe3)}
+  .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:34px;box-shadow:var(--shadow)}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe-d);margin-bottom:8px}
+  .field select,.field input,.field textarea{width:100%;font-family:'Jost';font-size:.98rem;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:82px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{padding:9px 15px;border:1px solid var(--line);border-radius:30px;font-size:.82rem;cursor:pointer;transition:.2s;background:#fff}
+  .chip.on,.chip:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .book .note{font-size:.82rem;color:var(--muted);margin-top:6px}
+
+  /* Team */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .member{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .member img{aspect-ratio:3/4;object-fit:cover;width:100%}
+  .member .cap{padding:14px 16px}
+  .member .cap b{font-family:'Cormorant Garamond';font-size:1.25rem;font-weight:600}
+  .member .cap span{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe-d)}
+
+  /* Produkte */
+  .prod{background:var(--ink);color:#f3ece4;text-align:center}
+  .prod .row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 46px;margin-top:26px}
+  .prod .row span{font-family:'Cormorant Garamond';font-size:1.7rem;color:#e9dccb;opacity:.92}
+
+  /* Info */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .hours li{list-style:none;display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);font-size:.98rem}
+  .hours li b{font-weight:500}
+  .hours .cl{color:var(--rose)}
+  .contact p{margin-bottom:12px;color:var(--muted)}
+  .contact a{color:var(--ink);border-bottom:1px solid var(--taupe)}
+
+  /* CTA band */
+  .cta{position:relative;text-align:center;color:#fff;padding:110px 0;background:linear-gradient(rgba(30,24,20,.62),rgba(30,24,20,.62)),center/cover no-repeat;background-image:linear-gradient(rgba(30,24,20,.6),rgba(30,24,20,.72)),url('img/start01.jpg')}
+  .cta h2{font-size:clamp(2.3rem,5vw,3.6rem);color:#fff}
+  .cta p{max-width:46ch;margin:14px auto 28px;opacity:.92}
+
+  footer{background:#221c18;color:#b6a99c;padding:44px 0;font-size:.85rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+  footer .concept{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#7d7167}
+
+  /* Chatbot */
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+  .cbot-launch b{font-size:.82rem}.cbot-launch span{display:block;font-size:.68rem;color:var(--taupe-d)}
+  .cbot-panel{position:absolute;right:0;bottom:66px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:12px;padding:16px;background:var(--ink);color:#fff}
+  .cbot-head img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+  .cbot-head b{font-size:.92rem}.cbot-head span{font-size:.68rem;opacity:.75}
+  .cbot-body{padding:16px;font-size:.9rem;color:var(--ink);background:#fbf6f1}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:12px 14px;margin-bottom:12px}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--ink);color:#fff}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,253,251,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .hero .wrap,.book-grid,.info-grid{grid-template-columns:1fr;gap:40px}
+    .stage .frame{margin:0 auto;max-width:360px}
+    .team-grid{grid-template-columns:repeat(2,1fr)}
+    .serv{grid-template-columns:1fr}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand">kreativ<small>Friseurteam · Lippstadt</small></a>
+    <nav class="menu">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#termin">Termin</a>
+      <a href="#team">Team</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#termin" class="btn btn-p">Termin anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="blob"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="ey">Innovativ · Positiv · Kreativ</p>
+      <h1>Dein Look. <em>Mit Gefühl</em> gemacht.</h1>
+      <p class="lead">Seit über 20&nbsp;Jahren dein Friseurteam in Lippstadt — perfekter Schnitt, moderne Farbe und Make-up in freundlich-entspannter Atmosphäre.</p>
+      <div class="hero-cta">
+        <a href="#termin" class="btn btn-p">Wunschtermin anfragen</a>
+        <a href="tel:+49294159440" class="btn btn-o">02941 59440</a>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="frame"><img src="img/start01.jpg" alt="Das Team von Friseurteam kreativ in Lippstadt vor der Salon-Wand"></div>
+      <div class="tag"><b>20+</b><span>Jahre im Trend</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>✓</b> Schnitt · Farbe · Balayage</span>
+    <span><b>✓</b> Make-up für jeden Anlass</span>
+    <span><b>✓</b> Hochsteckfrisuren &amp; Hochzeit</span>
+    <span><b>✓</b> Extensions &amp; Verdichtung</span>
+  </div>
+</div>
+
+<section id="leistungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Was wir für dich tun</p>
+      <h2>Unsere Leistungen</h2>
+      <p>Aus modischen Trends machen wir einfach tragbare Frisuren — regelmäßig geschult, immer am Puls der Zeit.</p>
+    </div>
+    <ul class="serv">
+      <li><span class="n">01</span><p>Damen- und Herrenhaarschnitt</p></li>
+      <li><span class="n">02</span><p>Aktuelle Trend-Schnitttechniken</p></li>
+      <li><span class="n">03</span><p>Farbbehandlungen aller Art</p></li>
+      <li><span class="n">04</span><p>Freehand-Technique, Balayage &amp; Color Melting</p></li>
+      <li><span class="n">05</span><p>Foliensträhnen aller Art</p></li>
+      <li><span class="n">06</span><p>Verschiedene Welltechniken</p></li>
+      <li><span class="n">07</span><p>Hochsteckfrisuren — Hochzeit, Abiball &amp; Schützenfest</p></li>
+      <li><span class="n">08</span><p>Extensions, Echthaarverlängerung &amp; Verdichtung</p></li>
+      <li><span class="n">09</span><p>Make-up für jeden Anlass</p></li>
+      <li><span class="n">10</span><p>Make-up Workshops</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="termin" class="book">
+  <div class="wrap book-grid">
+    <div>
+      <p class="ey">Kein Warten in der Leitung</p>
+      <h2 style="font-size:clamp(2.1rem,4.4vw,3.1rem);margin:12px 0 16px">Wunschtermin online anfragen</h2>
+      <p style="color:var(--muted);max-width:44ch">Sag uns kurz, was du dir wünschst und wann es dir passt — wir bestätigen deinen Termin persönlich. Ganz ohne Telefon-Warteschleife.</p>
+      <p style="color:var(--muted);margin-top:18px">Lieber direkt sprechen? <a href="tel:+49294159440" style="color:var(--ink);border-bottom:1px solid var(--taupe)">02941 59440</a></p>
+    </div>
+    <form class="card" id="bookform" onsubmit="return sendBooking(event)">
+      <div class="field">
+        <label>Leistung</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Haarschnitt">Haarschnitt</span>
+          <span class="chip" data-v="Farbe / Balayage">Farbe / Balayage</span>
+          <span class="chip" data-v="Strähnen">Strähnen</span>
+          <span class="chip" data-v="Hochsteckfrisur">Hochsteckfrisur</span>
+          <span class="chip" data-v="Make-up">Make-up</span>
+          <span class="chip" data-v="Extensions">Extensions</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Wunschtag &amp; Uhrzeit</label>
+        <input type="text" id="wunsch" placeholder="z. B. Samstag Vormittag">
+      </div>
+      <div class="field">
+        <label>Dein Name &amp; Kontakt</label>
+        <input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail">
+      </div>
+      <div class="field">
+        <label>Anmerkung (optional)</label>
+        <textarea id="anm" placeholder="Erzähl uns kurz, was du dir wünschst"></textarea>
+      </div>
+      <button class="btn btn-p" style="width:100%">Termin anfragen</button>
+      <p class="note">Deine Anfrage öffnet eine vorbereitete E-Mail an das Team — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Menschen, die dein Haar lieben</p>
+      <h2>Unser Team</h2>
+      <p>Ein eingespieltes Team, das dich berät und aus deinem Typ das Beste herausholt.</p>
+    </div>
+    <div class="team-grid">
+      <div class="member reveal"><img src="img/gt1.jpg" loading="lazy" alt="Susanne Cordes-Sültrop, Inhaberin"><div class="cap"><b>Susanne Cordes-Sültrop</b><span>Inhaberin</span></div></div>
+      <div class="member reveal"><img src="img/gt4.jpg" loading="lazy" alt="Stylistin im Friseurteam kreativ"><div class="cap"><b>Gabi Scholand</b><span>Stylistin</span></div></div>
+      <div class="member reveal"><img src="img/gt3.jpg" loading="lazy" alt="Stylistin im Friseurteam kreativ"><div class="cap"><b>Persefoni Theoharidou</b><span>Stylistin</span></div></div>
+      <div class="member reveal"><img src="img/gt5.jpg" loading="lazy" alt="Stylistin im Friseurteam kreativ"><div class="cap"><b>Dein Team</b><span>Beratung &amp; Styling</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="prod">
+  <div class="wrap">
+    <p class="ey" style="color:var(--taupe)">Womit wir arbeiten</p>
+    <h2 style="color:#fff;font-size:clamp(1.9rem,4vw,2.7rem);margin-top:10px">Ausgesuchte Premium-Produkte</h2>
+    <div class="row">
+      <span>Alcina</span><span>KMS California</span><span>Phyto</span><span>Hairdreams</span><span>Great Lengths</span>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap info-grid">
+    <div>
+      <p class="ey">Wann wir für dich da sind</p>
+      <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);margin:12px 0 20px">Öffnungszeiten</h2>
+      <ul class="hours">
+        <li><b>Montag</b><span class="cl">geschlossen</span></li>
+        <li><b>Dienstag &amp; Mittwoch</b><span>8.30 – 18.00 Uhr</span></li>
+        <li><b>Donnerstag &amp; Freitag</b><span>8.00 – 18.00 Uhr</span></li>
+        <li><b>Donnerstag ab 18.00</b><span>nach Absprache</span></li>
+        <li><b>Samstag</b><span>8.00 – 14.00 Uhr</span></li>
+      </ul>
+    </div>
+    <div class="contact">
+      <p class="ey">So erreichst du uns</p>
+      <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);margin:12px 0 20px">Kontakt &amp; Anfahrt</h2>
+      <p><strong style="color:var(--ink)">Friseurteam kreativ</strong><br>Woldemei 42 · 59555 Lippstadt</p>
+      <p>Telefon: <a href="tel:+49294159440">02941 59440</a></p>
+      <p>E-Mail: <a href="mailto:info@kreativ-friseurteam.de">info@kreativ-friseurteam.de</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/friseurteam.kreativ/" target="_blank" rel="noopener">@friseurteam.kreativ</a></p>
+      <p style="margin-top:16px"><a href="#termin" class="btn btn-p">Termin anfragen</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <p class="ey" style="color:var(--taupe)">Bereit für etwas Neues?</p>
+    <h2>Zeit für deinen Lieblingslook</h2>
+    <p>Sichere dir deinen Wunschtermin bei Friseurteam kreativ — wir freuen uns auf dich.</p>
+    <a href="#termin" class="btn btn-p" style="background:#fff;color:var(--ink)">Jetzt Termin anfragen</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="font-size:1.7rem;color:#e9dccb">kreativ</div>
+      <span style="color:#8d7f74">Friseurteam kreativ · Woldemei 42 · 59555 Lippstadt</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<!-- Chatbot: personalisiert als Susanne -->
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <img src="img/gt1.jpg" alt="Susanne">
+    <div><b>Hallo, ich bin Susanne</b><span>Frag mich nach deinem Termin</span></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <img src="img/gt1.jpg" alt="Susanne Cordes-Sültrop">
+      <div><b>Susanne Cordes-Sültrop</b><br><span>Friseurteam kreativ</span></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Schön, dass du da bist! 💛 Ich helfe dir gern, den passenden Termin zu finden. Was darf's sein?</div>
+      <div class="quick">
+        <a href="#termin" onclick="toggleBot()">Ich möchte einen Termin anfragen</a>
+        <a href="tel:+49294159440">Lieber anrufen — 02941 59440</a>
+        <a href="#leistungen" onclick="toggleBot()">Zeig mir eure Leistungen</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+49294159440" class="btn btn-o">Anrufen</a>
+  <a href="#termin" class="btn btn-p">Termin anfragen</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>40)});
+  // chips
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendBooking(e){
+    e.preventDefault();
+    var l=pick||'Termin', w=document.getElementById('wunsch').value||'nach Absprache',
+        k=document.getElementById('kontakt').value||'', a=document.getElementById('anm').value||'';
+    var body='Hallo Friseurteam kreativ,%0D%0A%0D%0Aich möchte gern einen Termin anfragen.%0D%0A%0D%0ALeistung: '+encodeURIComponent(l)+
+      '%0D%0AWunschtermin: '+encodeURIComponent(w)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (a?('%0D%0AAnmerkung: '+encodeURIComponent(a)):'')+'%0D%0A%0D%0AViele Grüße';
+    window.location.href='mailto:info@kreativ-friseurteam.de?subject='+encodeURIComponent('Terminanfrage · '+l)+'&body='+body;
+    return false;
+  }
+  // chatbot
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  // reveal
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
