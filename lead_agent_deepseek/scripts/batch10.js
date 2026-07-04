@@ -28,6 +28,7 @@ function domainOf(url) {
 // Bereits verarbeitete Betriebe (aus docs/leads/*/build-job.json) — nach
 // Website-Domain UND E-Mail — damit Discovery keine schon gebauten Leads
 // erneut vorschlägt (wichtig für den Dauerlauf).
+function emailDomain(e) { const m = String(e || '').toLowerCase().match(/@([^@\s]+)$/); return m ? m[1].replace(/^www\./, '') : ''; }
 function alreadyDone() {
   const domains = new Set(), emails = new Set();
   const dir = path.join(__dirname, '..', '..', 'docs', 'leads');
@@ -37,6 +38,7 @@ function alreadyDone() {
     try {
       const j = JSON.parse(fs.readFileSync(path.join(dir, e.name, 'build-job.json'), 'utf8'));
       const d = domainOf(j.website); if (d) domains.add(d);
+      const ed = emailDomain(j.email); if (ed) domains.add(ed);   // auch E-Mail-Domain (fängt Redirect-Fälle)
       if (j.email) emails.add(String(j.email).toLowerCase());
     } catch {}
   }
@@ -60,8 +62,8 @@ function alreadyDone() {
       if (!bad) continue;                                       // muss wirklich schlecht sein
       if ((l.images || []).length < 3) continue;                // genug Rohmaterial
       if (seen.has(l.id)) continue; seen.add(l.id);
-      const dom = domainOf(l.website);                          // schon verarbeitet? -> skip
-      if ((dom && done.domains.has(dom)) || (l.email && done.emails.has(String(l.email).toLowerCase()))) continue;
+      const dom = domainOf(l.website), edom = emailDomain(l.email);   // schon verarbeitet? -> skip
+      if ((dom && done.domains.has(dom)) || (edom && done.domains.has(edom)) || (l.email && done.emails.has(String(l.email).toLowerCase()))) continue;
       found.push({ id: l.id, name: l.name, city: l.city, branch: l.branch,
         website: l.website, email: l.email, phone: l.phone, score: l.score,
         reasons: l.reasons, imgs: (l.images || []).length });
