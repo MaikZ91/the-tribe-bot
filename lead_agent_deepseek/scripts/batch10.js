@@ -44,6 +44,13 @@ function domainOf(url) {
 function emailDomain(e) { const m = String(e || '').toLowerCase().match(/@([^@\s]+)$/); return m ? m[1].replace(/^www\./, '') : ''; }
 function alreadyDone() {
   const domains = new Set(), emails = new Set();
+  // Manuelle Skip-Liste (Qualitäts-Gate-Rejects) — sonst tauchen verworfene
+  // Leads bei jeder Discovery erneut auf (sie landen nie in docs/leads/).
+  try {
+    const sk = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'skip.json'), 'utf8'));
+    for (const d of (sk.domains || [])) { const x = domainOf(d) || String(d).toLowerCase(); if (x) domains.add(x); }
+    for (const e of (sk.emails || [])) { emails.add(String(e).toLowerCase()); const ed = emailDomain(e); if (ed) domains.add(ed); }
+  } catch {}
   const dir = path.join(__dirname, '..', '..', 'docs', 'leads');
   let entries = []; try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return { domains, emails }; }
   for (const e of entries) {
