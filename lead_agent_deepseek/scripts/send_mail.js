@@ -140,6 +140,13 @@ function oppsFromProblems(problems) {
 
 const SIG = `Viele Grüße\nMaik\nMZ.9 — Media Engineering.AI\n${MZ9_URL}`;
 
+// Dezente Zusatz-Info: Websites sind nur EIN Baustein. Auf Wunsch auch
+// App-Entwicklung und Prozess-Automatisierung (Marketing, Kundengewinnung)
+// — Betrieb zukunftsfähig machen: weniger Arbeit, mehr Kunden. Bewusst als
+// „Am Rande"-Notiz, nicht als zweiter Pitch. Zeile beginnt mit „~" und wird
+// in der HTML-Mail als abgesetzter, grau-dezenter Hinweis gerendert.
+const SIDEINFO = `~ Am Rande: Websites sind nur ein Teil dessen, was wir machen. Auf Wunsch entwickeln wir auch Apps und automatisieren Abläufe wie Marketing und Kundengewinnung — damit Ihr Betrieb zukunftsfähig wird: weniger Arbeit, mehr Kunden. Nur, falls es Thema ist.`;
+
 // ─── Rechtskonformer Footer (Impressum §5 DDG + Datenschutz + Widerspruch) ──
 const IMPRESSUM_URL = MZ9_URL.replace(/mz9$/, 'impressum.html');
 const DATENSCHUTZ_URL = MZ9_URL.replace(/mz9$/, 'datenschutz.html');
@@ -205,12 +212,12 @@ function buildMail(lead) {
       '• Direkter Kontakt & Terminanfrage statt nur Telefon',
       '• Mobil-optimiert, mit Ihren echten Bildern',
     ].join('\n');
-    body = `Hallo liebes ${lead.name}-Team,\n\nich beschäftige mich viel mit der Online-Wirkung kleiner, inhabergeführter Betriebe und habe gesehen, dass Sie aktuell noch keine eigene Website haben. Statt nur darauf hinzuweisen, habe ich kurzerhand eine unverbindliche Skizze gebaut — so könnte ein eigener Auftritt für Sie aussehen:\n\nWas er konkret bringen würde:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so etwas grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
+    body = `Hallo liebes ${lead.name}-Team,\n\nich beschäftige mich viel mit der Online-Wirkung kleiner, inhabergeführter Betriebe und habe gesehen, dass Sie aktuell noch keine eigene Website haben. Statt nur darauf hinzuweisen, habe ich kurzerhand eine unverbindliche Skizze gebaut — so könnte ein eigener Auftritt für Sie aussehen:\n\nWas er konkret bringen würde:\n${points}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so etwas grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIDEINFO}\n\n${SIG}`;
   } else {
     const points = problemFixes(lead.problems).map(p => `• ${p.issue} → ✓ ${p.fix}`).join('\n');
     const est = impactEstimate(lead.problems);
     const estLine = `≈ Grobe Schätzung (Erfahrungswerte, keine Garantie): Aktuell springen vermutlich rund ${est.bLow}–${est.bHigh}% Ihrer Website-Besucher wieder ab, bevor sie Kontakt aufnehmen. Mit einem modernen, mobil-optimierten Auftritt und direktem Kontaktweg lassen sich Anfragen erfahrungsgemäß um etwa ${est.gLow}–${est.gHigh}% steigern.`;
-    body = `Hallo liebes ${lead.name}-Team,\n\nich bin auf Ihre Website (${dom}) gestoßen und habe sie mir kurz angesehen. Ein paar konkrete Punkte sind mir aufgefallen — und statt nur Tipps zu schreiben, habe ich gleich eine unverbindliche Skizze gebaut, die zeigt, wie sich das lösen ließe (mit Ihren eigenen Bildern, nichts Erfundenes):\n\nWas mir aufgefallen ist — und wie die Skizze es angeht:\n${points}\n\n${estLine}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so eine Richtung grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIG}`;
+    body = `Hallo liebes ${lead.name}-Team,\n\nich bin auf Ihre Website (${dom}) gestoßen und habe sie mir kurz angesehen. Ein paar konkrete Punkte sind mir aufgefallen — und statt nur Tipps zu schreiben, habe ich gleich eine unverbindliche Skizze gebaut, die zeigt, wie sich das lösen ließe (mit Ihren eigenen Bildern, nichts Erfundenes):\n\nWas mir aufgefallen ist — und wie die Skizze es angeht:\n${points}\n\n${estLine}\n\n👉 Zur Skizze: ${lead.preview}\n\nDas ist kein Angebot und kostet nichts. Wäre so eine Richtung grundsätzlich interessant für Sie? Über eine kurze Rückmeldung freue ich mich; falls nicht, ignorieren Sie die Nachricht gern.\n\n${SIDEINFO}\n\n${SIG}`;
   }
   return { to: lead.email, subject, body };
 }
@@ -227,6 +234,13 @@ function buildHtmlMail(lead) {
   // ebenso als prominenter grüner Haken gerendert. Normale Zeilen = Absätze.
   const card = (inner) => `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;background:#ffffff;border:1px solid #e6e3dd;border-radius:10px"><tr><td style="padding:13px 16px;border-left:3px solid #0A0A0B;border-top-left-radius:10px;border-bottom-left-radius:10px">${inner}</td></tr></table>`;
   const renderLine = (t) => {
+    if (t.startsWith('~')) {
+      // Dezente „Am Rande"-Zusatzinfo (App/Automatisierung) — bewusst leise,
+      // grau, mit feinem oberen Trenner, damit sie nicht wie ein zweiter Pitch wirkt.
+      const txt = t.replace(/^~\s*/, '');
+      return `      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:20px 0 6px;border-top:1px solid #ecebe7"><tr><td style="padding:14px 2px 0">`
+        + `<div style="font-size:13px;line-height:1.6;color:#8a8a8a">${txt}</div></td></tr></table>`;
+    }
     if (t.startsWith('≈')) {
       // Impact-Schätzung als abgesetzte Box (schwarz/weiß, Label „Schätzung").
       const txt = t.replace(/^≈\s*/, '').replace(/^Grobe Schätzung[^:]*:\s*/i, '');
