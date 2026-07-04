@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bierhaus Maler &amp; Glaser GmbH · Lippstadt — Meisterhandwerk seit 1946</title>
+<meta name="description" content="Bierhaus Maler & Glaser GmbH in Lippstadt: Innenraum, Fassade, Wärmedämmung, Industrieanstrich, Glaserarbeiten und Spanndecken. Meisterhandwerk seit 1946 — jetzt Projekt anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1b2830; --bg:#eef1f2; --paper:#ffffff; --muted:#5a6870;
+    --petrol:#1d4e5c; --petrol-d:#153a45; --ochre:#d29431; --ochre-l:#e2a844;
+    --line:#dde3e5; --cream:#e9eef0; --shadow:0 20px 55px -26px rgba(20,32,38,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;line-height:1.02;text-transform:uppercase;letter-spacing:.5px}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1140px,92vw);margin:0 auto}
+  .ey{font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ochre);font-weight:600;font-family:'Inter'}
+  .btn{display:inline-block;font-family:'Barlow Condensed';font-size:1rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:13px 30px;border-radius:2px;transition:.25s;cursor:pointer;border:2px solid transparent}
+  .btn-p{background:var(--ochre);color:#1b2830}
+  .btn-p:hover{background:var(--ochre-l)}
+  .btn-o{border-color:#fff;color:#fff}
+  .btn-o:hover{background:#fff;color:var(--petrol)}
+  .btn-d{border-color:var(--petrol);color:var(--petrol)}
+  .btn-d:hover{background:var(--petrol);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:18px 0;transition:.35s}
+  header.scrolled{background:rgba(21,58,69,.97);backdrop-filter:blur(10px);padding:10px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.6)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1}
+  .brand b{font-family:'Barlow Condensed';font-size:1.5rem;text-transform:uppercase;letter-spacing:.5px;display:block}
+  .brand b span{color:var(--ochre-l)}
+  .brand small{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;opacity:.8;font-family:'Inter'}
+  .menu{display:flex;gap:24px;align-items:center}
+  .menu a{color:#fff;font-family:'Barlow Condensed';font-size:1.02rem;letter-spacing:.06em;text-transform:uppercase;opacity:.92;transition:.2s}
+  .menu a:hover{color:var(--ochre-l)}
+  header .btn{padding:10px 22px}
+
+  .hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,45,53,.62),rgba(19,45,53,.5) 42%,rgba(15,34,41,.92)),url('img/hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 66px}
+  .hero .ey{color:var(--ochre-l)}
+  .hero h1{font-size:clamp(2.8rem,6.4vw,5.4rem);margin:14px 0 14px;max-width:18ch}
+  .hero p{font-family:'Inter';font-size:1.1rem;max-width:44ch;opacity:.94;margin-bottom:28px;text-transform:none;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .badge{position:absolute;top:120px;right:0;background:var(--ochre);color:#1b2830;font-family:'Barlow Condensed';padding:10px 20px;border-radius:2px;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;box-shadow:var(--shadow)}
+
+  .strip{background:var(--petrol)}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 38px;padding:20px 0}
+  .strip span{display:flex;gap:10px;align-items:center;color:#dbe6e9;font-family:'Barlow Condensed';font-size:1.05rem;letter-spacing:.05em;text-transform:uppercase}
+  .strip b{color:var(--ochre-l)}
+
+  section{padding:90px 0}
+  .sec-head{max-width:680px;margin:0 auto 50px;text-align:center}
+  .sec-head h2{font-size:clamp(2.3rem,5vw,3.6rem)}
+  .sec-head .ey{margin-bottom:12px}
+  .sec-head p{color:var(--muted);margin-top:8px}
+
+  .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .serv-card{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:var(--shadow);transition:.3s}
+  .serv-card:hover{transform:translateY(-6px)}
+  .serv-card img{aspect-ratio:600/400;object-fit:cover;width:100%}
+  .serv-card .b{padding:20px 22px;display:flex;align-items:center;gap:12px}
+  .serv-card .b .n{font-family:'Barlow Condensed';font-size:1.3rem;color:var(--ochre)}
+  .serv-card h3{font-size:1.4rem;color:var(--ink)}
+
+  .band{position:relative;color:#fff;text-align:center;padding:100px 0;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(19,45,53,.82),rgba(19,45,53,.88)),url('img/band.jpg') center/cover no-repeat}
+  .band .wrap{position:relative}
+  .band h2{color:#fff;font-size:clamp(2.1rem,4.6vw,3.4rem)}
+  .band p{max-width:48ch;margin:14px auto 26px;opacity:.92}
+
+  .about{background:#fff}
+  .about .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:52px;align-items:center}
+  .about .years{font-family:'Barlow Condensed';font-size:clamp(5rem,14vw,9rem);color:var(--petrol);line-height:.9;text-align:center}
+  .about .years small{display:block;font-family:'Inter';font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);font-weight:600}
+  .about h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin:0 0 16px}
+  .about p{color:var(--muted);margin-bottom:14px;max-width:54ch}
+
+  .cta-sec{background:var(--cream)}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:34px;box-shadow:var(--shadow)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input,.field textarea{width:100%;font-family:'Inter';font-size:.96rem;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:84px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 14px;border:1px solid var(--line);border-radius:3px;font-size:.82rem;cursor:pointer;transition:.2s;background:#fff;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.04em}
+  .chip.on,.chip:hover{background:var(--petrol);color:#fff;border-color:var(--petrol)}
+  .note{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+  .info{background:var(--petrol-d);color:#d7e2e5}
+  .info .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px}
+  .info .blk h3{font-size:1.4rem;color:#fff;margin-bottom:8px}
+  .info .blk p{font-size:.96rem;opacity:.86}
+  .info .blk a{color:var(--ochre-l)}
+
+  footer{background:#12222a;color:#8397a0;padding:40px 0;font-size:.85rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer .concept{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#5a6870}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--petrol);color:var(--ochre-l);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-size:1.2rem;font-weight:700}
+  .cbot-launch b{font-size:.82rem}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--petrol);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--ochre);color:#1b2830;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-size:1.1rem;font-weight:700}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.82}
+  .cbot-body{padding:16px;background:#f2f6f7}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:10px 10px 10px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:5px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--petrol);color:#fff;border-color:var(--petrol)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .serv-grid{grid-template-columns:1fr 1fr}
+    .about .wrap,.cta-grid{grid-template-columns:1fr;gap:32px}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:80vh}
+    .hero .badge{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Bierhaus <span>Maler &amp; Glaser</span></b><small>Meisterbetrieb · Lippstadt</small></a>
+    <nav class="menu">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#betrieb">Betrieb</a>
+      <a href="#anfrage">Anfrage</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#anfrage" class="btn btn-p">Projekt anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="badge">seit 1946</div>
+  <div class="wrap">
+    <p class="ey">Maler · Glaser · Wärmedämmung · Lippstadt</p>
+    <h1>Farbe, Fassade &amp; Handwerk aus einer Hand.</h1>
+    <p>Von der Innenraumgestaltung bis zur kompletten Fassade — sauber, termintreu und in Meisterqualität für private und gewerbliche Kunden.</p>
+    <div class="hero-cta">
+      <a href="#anfrage" class="btn btn-p">Projekt anfragen</a>
+      <a href="tel:+49294114881" class="btn btn-o">02941 14881</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>✓</b> Innen &amp; Fassade</span>
+    <span><b>✓</b> Wärmedämmung</span>
+    <span><b>✓</b> Glaserarbeiten</span>
+    <span><b>✓</b> Spanndecken</span>
+  </div>
+</div>
+
+<section id="leistungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Was wir können</p>
+      <h2>Unsere Leistungen</h2>
+      <p>Sechs Gewerke, ein Ansprechpartner — für Ihr Projekt vom Innenraum bis zur Fassade.</p>
+    </div>
+    <div class="serv-grid">
+      <div class="serv-card reveal"><img src="img/s1.jpg" loading="lazy" alt="Innenraumgestaltung"><div class="b"><span class="n">01</span><h3>Innenraum­gestaltung</h3></div></div>
+      <div class="serv-card reveal"><img src="img/s2.jpg" loading="lazy" alt="Fassadengestaltung"><div class="b"><span class="n">02</span><h3>Fassaden­gestaltung</h3></div></div>
+      <div class="serv-card reveal"><img src="img/s3.jpg" loading="lazy" alt="Wärmedämmung"><div class="b"><span class="n">03</span><h3>Wärmedämmung</h3></div></div>
+      <div class="serv-card reveal"><img src="img/s4.jpg" loading="lazy" alt="Industrieanstrich"><div class="b"><span class="n">04</span><h3>Industrieanstrich</h3></div></div>
+      <div class="serv-card reveal"><img src="img/s5.jpg" loading="lazy" alt="Glaserarbeiten"><div class="b"><span class="n">05</span><h3>Glaserarbeiten</h3></div></div>
+      <div class="serv-card reveal"><img src="img/s6.jpg" loading="lazy" alt="Spanndecken"><div class="b"><span class="n">06</span><h3>Spanndecken</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="ey" style="color:var(--ochre-l)">Qualität, die man sieht</p>
+    <h2>Ihr Projekt in besten Händen</h2>
+    <p>Ob Wohnraum, Fassade oder Gewerbeobjekt — wir beraten Sie ehrlich und setzen sauber um. Fordern Sie unverbindlich Ihr Angebot an.</p>
+    <a href="#anfrage" class="btn btn-p">Projekt anfragen</a>
+  </div>
+</section>
+
+<section id="betrieb" class="about">
+  <div class="wrap">
+    <div class="years reveal">1946<small>gegründet</small></div>
+    <div>
+      <p class="ey">Der Betrieb</p>
+      <h2>Über 75 Jahre Maler­handwerk in Lippstadt</h2>
+      <p>Herzlich willkommen bei der Bierhaus Maler &amp; Glaser GmbH in Lippstadt-Overhagen. Gegründet im September 1946 vom Malergesellen Heinrich Bierhaus, steht der Name „Bierhaus" seither für Kundenfreundlichkeit und Qualität.</p>
+      <p>Ob Innenraum- oder Fassadengestaltung, Wärmedämmung, Glaserarbeiten oder Spanndecken — bei uns bekommen Sie sauberes Meisterhandwerk aus einer Hand, für private und gewerbliche Kunden.</p>
+    </div>
+  </div>
+</section>
+
+<section id="anfrage" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2 style="font-size:clamp(2.1rem,4.6vw,3.3rem);margin:12px 0 16px">Projekt anfragen</h2>
+      <p style="color:var(--muted);max-width:44ch">Beschreiben Sie kurz Ihr Vorhaben — wir melden uns mit einer Einschätzung und einem Termin für die Beratung.</p>
+      <p style="color:var(--muted);margin-top:18px">Lieber direkt sprechen? <a href="tel:+49294114881" style="color:var(--ink);border-bottom:2px solid var(--ochre)">02941 14881</a></p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Leistung</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Innenraum">Innenraum</span>
+          <span class="chip" data-v="Fassade">Fassade</span>
+          <span class="chip" data-v="Wärmedämmung">Wärmedämmung</span>
+          <span class="chip" data-v="Industrieanstrich">Industrie</span>
+          <span class="chip" data-v="Glaserarbeiten">Glas</span>
+          <span class="chip" data-v="Spanndecken">Spanndecken</span>
+        </div>
+      </div>
+      <div class="field"><label>Objekt / Ort</label><input type="text" id="obj" placeholder="z. B. Einfamilienhaus in Lippstadt"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Beschreibung</label><textarea id="msg" placeholder="Worum geht es?"></textarea></div>
+      <button class="btn btn-p" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an den Betrieb — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div class="blk">
+      <h3>Anschrift</h3>
+      <p>Bierhaus Maler &amp; Glaser GmbH<br>Nepomukstr. 49 · 59556 Lippstadt</p>
+    </div>
+    <div class="blk">
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+49294114881">02941 14881</a><br>E-Mail: <a href="mailto:info@bierhaus-gmbh.de">info@bierhaus-gmbh.de</a></p>
+    </div>
+    <div class="blk">
+      <h3>Meisterbetrieb</h3>
+      <p>Maler &amp; Glaser · seit 1946<br>Lippstadt-Overhagen &amp; Region</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#d7e2e5"><b style="font-family:'Barlow Condensed';font-size:1.5rem;text-transform:uppercase">Bierhaus <span style="color:var(--ochre-l)">Maler &amp; Glaser</span></b></div>
+      <span style="color:#66787f">Nepomukstr. 49 · 59556 Lippstadt · 02941 14881</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">BM</span>
+    <div><b>Frage zum Projekt?</b><small>Wir helfen weiter</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">BM</span>
+      <div><b>Bierhaus Maler &amp; Glaser</b><br><small>Meisterbetrieb · Lippstadt</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Guten Tag! Sagen Sie uns kurz, worum es geht — Innenraum, Fassade, Wärmedämmung oder Spanndecken?</div>
+      <div class="quick">
+        <a href="#anfrage" onclick="toggleBot()">Projekt anfragen</a>
+        <a href="#leistungen" onclick="toggleBot()">Leistungen ansehen</a>
+        <a href="tel:+49294114881">Lieber anrufen — 02941 14881</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+49294114881" class="btn btn-d">Anrufen</a>
+  <a href="#anfrage" class="btn btn-p">Anfrage</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendReq(e){
+    e.preventDefault();
+    var g=pick||'Anfrage', o=document.getElementById('obj').value||'', k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Guten Tag,%0D%0A%0D%0Aich habe eine Projektanfrage.%0D%0A%0D%0ALeistung: '+encodeURIComponent(g)+
+      '%0D%0AObjekt/Ort: '+encodeURIComponent(o)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ABeschreibung: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AMit freundlichen Grüßen';
+    window.location.href='mailto:info@bierhaus-gmbh.de?subject='+encodeURIComponent('Projektanfrage · '+g)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
