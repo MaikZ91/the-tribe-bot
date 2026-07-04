@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lichtenberger Hof · Landhotel &amp; Restaurant · Salzgitter</title>
+<meta name="description" content="Lichtenberger Hof in Salzgitter: Landhotel & Restaurant mit à-la-carte-Küche, täglichem Mittagstisch, Biergarten, Kegelbahn und Party-Service. Jetzt Tisch anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241d18; --bg:#f6f0e6; --paper:#fffdf8; --muted:#6d6055;
+    --terra:#a8482e; --terra-d:#8a3922; --sage:#5c6b47; --sage-d:#47542f;
+    --gold:#b98b3e; --line:#e6dccb; --cream:#eee3d0; --shadow:0 22px 60px -26px rgba(36,29,24,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Mulish',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1140px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .btn{display:inline-block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:14px 30px;border-radius:2px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--terra);color:#fff}
+  .btn-p:hover{background:var(--terra-d)}
+  .btn-o{border-color:#fff;color:#fff}
+  .btn-o:hover{background:#fff;color:var(--terra)}
+  .btn-d{border-color:var(--sage);color:var(--sage)}
+  .btn-d:hover{background:var(--sage);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(36,29,24,.96);backdrop-filter:blur(10px);padding:11px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.6)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1.02}
+  .brand b{font-family:'Cormorant Garamond';font-size:1.6rem;font-weight:600;display:block;letter-spacing:.4px}
+  .brand small{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+  .menu{display:flex;gap:26px;align-items:center}
+  .menu a{color:#fff;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{color:var(--gold)}
+  header .btn{padding:11px 22px}
+
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,22,16,.35),rgba(30,22,16,.3) 40%,rgba(26,18,12,.9)),url('img/hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 68px}
+  .hero .ey{color:var(--gold)}
+  .hero h1{font-size:clamp(3rem,6.4vw,5.6rem);margin:14px 0 12px;max-width:16ch}
+  .hero p{font-size:1.1rem;max-width:46ch;opacity:.94;margin-bottom:28px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--sage-d);color:#eef0e4}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:20px 0;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}
+  .strip span{display:flex;gap:9px;align-items:center;opacity:.94}
+  .strip b{color:var(--gold)}
+
+  section{padding:90px 0}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 52px}
+  .sec-head h2{font-size:clamp(2.2rem,4.8vw,3.4rem);margin:12px 0 8px}
+  .sec-head p{color:var(--muted)}
+
+  .welcome{background:#fff;text-align:center}
+  .welcome .wrap{max-width:760px}
+  .welcome h2{font-size:clamp(2.2rem,4.6vw,3.3rem);margin:6px 0 20px}
+  .welcome p{font-size:1.16rem;color:var(--muted);font-family:'Cormorant Garamond';font-style:italic;line-height:1.5}
+
+  /* Speisekarte */
+  .menu-sec{background:var(--cream)}
+  .menu-cats{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:840px;margin:0 auto 42px}
+  .menu-cats span{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:8px 16px;font-size:.82rem;color:var(--ink);font-weight:600}
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 56px;max-width:980px;margin:0 auto}
+  .menu-cat{grid-column:span 2;text-align:center;margin:24px 0 6px}
+  .menu-cat:first-child{margin-top:0}
+  .menu-cat h3{font-size:1.8rem;color:var(--terra);display:inline-block;position:relative;padding:0 26px}
+  .menu-cat h3::before,.menu-cat h3::after{content:"";position:absolute;top:50%;width:18px;height:1px;background:var(--gold)}
+  .menu-cat h3::before{left:0}.menu-cat h3::after{right:0}
+  .dish{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px dashed #d9c9ad}
+  .dish .l b{font-family:'Cormorant Garamond';font-size:1.3rem;font-style:italic;color:var(--ink);display:block}
+  .dish .l span{font-size:.9rem;color:var(--muted)}
+  .dish .p{font-family:'Cormorant Garamond';font-size:1.25rem;color:var(--terra);white-space:nowrap;font-weight:600}
+  .menu-note{text-align:center;color:var(--muted);font-size:.86rem;margin-top:30px;font-style:italic}
+
+  /* Split rows */
+  .split{background:#fff}
+  .split+.split{border-top:1px solid var(--line)}
+  .split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split.rev .fig{order:2}
+  .split .fig{border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+  .split .fig img{width:100%;aspect-ratio:1024/580;object-fit:cover}
+  .split h2{font-size:clamp(2rem,4.2vw,3rem);margin:12px 0 14px}
+  .split p{color:var(--muted);margin-bottom:14px;max-width:48ch}
+  .split .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .split .tags span{border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:.82rem;color:var(--ink)}
+
+  /* Reservierung */
+  .res{background:var(--sage-d);color:#eef0e4}
+  .res .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+  .res h2{color:#fff;font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:18px}
+  .hours li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:.98rem}
+  .res .contact{margin-top:26px;font-size:.96rem}
+  .res .contact p{margin-bottom:8px;opacity:.92}
+  .res .contact a{color:#fff;border-bottom:1px solid var(--gold)}
+  .card{background:var(--paper);color:var(--ink);border-radius:12px;padding:32px;box-shadow:var(--shadow)}
+  .card h3{font-size:1.7rem;margin-bottom:6px}
+  .card .sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input,.field select,.field textarea{width:100%;font-family:'Mulish';font-size:.96rem;padding:12px 14px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .note{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+  footer{background:#1c150f;color:#9c8d7d;padding:44px 0;font-size:.85rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+  footer .concept{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#6f6153}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--terra);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:1.3rem}
+  .cbot-launch b{font-size:.82rem}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--terra);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-size:1.2rem}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.82}
+  .cbot-body{padding:16px;background:#faf5ec}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:12px 12px 12px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--terra);color:#fff;border-color:var(--terra)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,253,248,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .menu-grid,.split .wrap,.res .wrap{grid-template-columns:1fr;gap:34px}
+    .menu-cat{grid-column:span 1}
+    .split.rev .fig{order:0}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Lichtenberger Hof</b><small>Landhotel &amp; Restaurant · Salzgitter</small></a>
+    <nav class="menu">
+      <a href="#speisekarte">Speisekarte</a>
+      <a href="#restaurant">Restaurant</a>
+      <a href="#hotel">Übernachten</a>
+      <a href="#reservieren">Kontakt</a>
+      <a href="#reservieren" class="btn btn-p">Tisch anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">Landhotel &amp; Restaurant · Salzgitter</p>
+    <h1>Einkehren. Genießen. Bleiben.</h1>
+    <p>À-la-carte-Küche, täglicher Mittagstisch und ein Biergarten zum Verweilen — herzlich geführt von Familie Dombrowsky.</p>
+    <div class="hero-cta">
+      <a href="#reservieren" class="btn btn-p">Tisch anfragen</a>
+      <a href="#speisekarte" class="btn btn-o">Zur Speisekarte</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>❖</b> À la carte &amp; saisonal</span>
+    <span><b>❖</b> Täglich Mittagstisch</span>
+    <span><b>❖</b> Biergarten</span>
+    <span><b>❖</b> Party-Service</span>
+  </div>
+</div>
+
+<section class="welcome">
+  <div class="wrap">
+    <p class="ey">Herzlich willkommen</p>
+    <h2>Gutbürgerlich. Gastfreundlich.</h2>
+    <p>„Einen angenehmen Aufenthalt und guten Appetit wünscht Ihnen Familie Dombrowsky und das freundliche Team vom Lichtenberger Hof — ein gut geführtes Restaurant mit Speisen à la carte und saisonalen Gerichten."</p>
+  </div>
+</section>
+
+<section id="speisekarte" class="menu-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Aus unserer Küche</p>
+      <h2>Speisekarte</h2>
+      <p>Ein Auszug aus unserer Karte — dazu wechselnde saisonale Empfehlungen.</p>
+    </div>
+    <div class="menu-cats">
+      <span>Saison</span><span>Suppen</span><span>Salat</span><span>Vegetarisch</span><span>Deftig</span><span>Schwein</span><span>Steak</span><span>Geflügel</span><span>Fisch</span><span>Wild</span><span>Empfehlungen</span>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-cat"><h3>Suppen</h3></div>
+      <div class="dish"><div class="l"><b>Lichtenberger Festtagssuppe</b><span>kräftige Rinderbrühe mit feiner Einlage</span></div><div class="p">4,90 €</div></div>
+      <div class="dish"><div class="l"><b>Frühlingslauchsüppchen</b><span>mit Kirschtomaten und Croutons</span></div><div class="p">5,20 €</div></div>
+
+      <div class="menu-cat"><h3>Vom Schwein</h3></div>
+      <div class="dish"><div class="l"><b>Schweinefilet „Heinrich der Löwe"</b><span>im Kräutermantel, Sauce Hollandaise, Kroketten</span></div><div class="p">18,50 €</div></div>
+      <div class="dish"><div class="l"><b>Geschnetzeltes vom Schwein mit Steinpilzen</b><span>mit Butterspätzle und Salatteller</span></div><div class="p">18,90 €</div></div>
+
+      <div class="menu-cat"><h3>Vom Grill</h3></div>
+      <div class="dish"><div class="l"><b>Rumpsteak „Argentinisch – Angus" (180 g)</b><span>mit kleinem Fettrand, extra saftig</span></div><div class="p">18,50 €</div></div>
+      <div class="dish"><div class="l"><b>Rinderfilet „Argentinisch – Angus" (180 g)</b><span>saftig und ganz zart</span></div><div class="p">25,50 €</div></div>
+
+      <div class="menu-cat"><h3>Fisch</h3></div>
+      <div class="dish"><div class="l"><b>Zanderfilet auf der Haut gegrillt</b><span>an geschmortem Spitzkohl, Salzkartoffeln</span></div><div class="p">18,90 €</div></div>
+      <div class="dish"><div class="l"><b>Mediterraner Lachs in der Alufolie gegart</b><span>mit Rosmarinkartoffeln</span></div><div class="p">20,50 €</div></div>
+    </div>
+    <p class="menu-note">Auszug aus unserer Karte · die vollständige und saisonal wechselnde Speisekarte finden Sie im Restaurant.</p>
+  </div>
+</section>
+
+<section id="restaurant" class="split">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/gaesteraum.jpg" alt="Gästeraum im Lichtenberger Hof"></div>
+    <div>
+      <p class="ey">Restaurant &amp; Gästeraum</p>
+      <h2>Behaglich speisen</h2>
+      <p>Ob à la carte, zum täglichen Mittagstisch oder für die große Feier: In unserem gemütlichen Gästeraum genießen Sie ehrliche, gut zubereitete Küche in warmer Atmosphäre.</p>
+      <div class="tags"><span>À la carte</span><span>Mittagstisch</span><span>Feiern &amp; Gruppen</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="split rev">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/biergarten.jpg" alt="Biergarten des Lichtenberger Hof"></div>
+    <div>
+      <p class="ey">Draußen genießen</p>
+      <h2>Unser Biergarten</h2>
+      <p>Im Sommer durchgehend geöffnet: Lassen Sie es sich zwischen Blumen und schattigen Plätzen gut gehen — bei kühlen Getränken und frischer Küche.</p>
+      <div class="tags"><span>Im Sommer durchgehend</span><span>Schattige Plätze</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="hotel" class="split">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/zimmer.jpg" alt="Gästezimmer im Landhotel Lichtenberger Hof"></div>
+    <div>
+      <p class="ey">Landhotel</p>
+      <h2>Bleiben Sie über Nacht</h2>
+      <p>Komfortable Gästezimmer für Reisende, Monteure und Feiergäste — ruhig gelegen, freundlich und unkompliziert.</p>
+      <div class="tags"><span>Komfortable Zimmer</span><span>Ruhige Lage</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="split rev">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/kegelbahn.jpg" alt="Kegelbahn im Lichtenberger Hof"></div>
+    <div>
+      <p class="ey">Feiern &amp; Events</p>
+      <h2>Kegelbahn &amp; Party-Service</h2>
+      <p>Vom Kegelabend bis zur Familienfeier: Wir haben den passenden Rahmen. Und wenn's mal außer Haus sein soll, kommt der Party-Service vom Fachmann zu Ihnen — warm oder kalt, auch an Sonn- und Feiertagen.</p>
+      <div class="tags"><span>Kegelbahn</span><span>Party-Service</span><span>Essen außer Haus</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="reservieren" class="res">
+  <div class="wrap">
+    <div>
+      <p class="ey">Reservierung &amp; Kontakt</p>
+      <h2>Wir freuen uns auf Sie</h2>
+      <div class="contact">
+        <p style="font-family:'Cormorant Garamond';font-size:1.4rem;color:#fff">Lichtenberger Hof</p>
+        <p>Burgbergstraße 54c · 38228 Salzgitter</p>
+        <p>Telefon: <a href="tel:+49534185170">05341 85170</a></p>
+        <p>E-Mail: <a href="mailto:frank.dombrowsky@lichtenberger-hof.de">frank.dombrowsky@lichtenberger-hof.de</a></p>
+      </div>
+      <p style="opacity:.75;margin-top:20px;font-size:.9rem">Tisch, Zimmer oder Party-Service — sagen Sie uns kurz Bescheid, wir melden uns persönlich.</p>
+    </div>
+    <form class="card" onsubmit="return sendRes(event)">
+      <h3>Anfrage senden</h3>
+      <p class="sub">Tisch · Zimmer · Feier · Party-Service</p>
+      <div class="field">
+        <label>Anliegen</label>
+        <select id="typ">
+          <option>Tisch reservieren</option>
+          <option>Zimmer anfragen</option>
+          <option>Feier / Kegelabend</option>
+          <option>Party-Service / Essen außer Haus</option>
+        </select>
+      </div>
+      <div class="two">
+        <div class="field"><label>Datum</label><input type="text" id="datum" placeholder="z. B. Sa, 12.09."></div>
+        <div class="field"><label>Personen</label><input type="text" id="pers" placeholder="z. B. 4"></div>
+      </div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kname" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Anmerkung (optional)</label><textarea id="anm" placeholder="Uhrzeit, Anlass, Wünsche …"></textarea></div>
+      <button class="btn btn-p" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an den Lichtenberger Hof — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#e6d9c7"><b style="font-family:'Cormorant Garamond';font-size:1.5rem">Lichtenberger Hof</b></div>
+      <span style="color:#7f7163">Burgbergstraße 54c · 38228 Salzgitter · 05341 85170</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">LH</span>
+    <div><b>Tisch oder Zimmer?</b><small>Wir helfen gern weiter</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">LH</span>
+      <div><b>Lichtenberger Hof</b><br><small>Landhotel &amp; Restaurant</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Herzlich willkommen! Möchten Sie einen Tisch reservieren, ein Zimmer anfragen oder in die Speisekarte schauen?</div>
+      <div class="quick">
+        <a href="#reservieren" onclick="toggleBot()">Tisch / Zimmer anfragen</a>
+        <a href="#speisekarte" onclick="toggleBot()">Zur Speisekarte</a>
+        <a href="tel:+49534185170">Lieber anrufen — 05341 85170</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+49534185170" class="btn btn-d">Anrufen</a>
+  <a href="#reservieren" class="btn btn-p">Tisch anfragen</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  function sendRes(e){
+    e.preventDefault();
+    function v(id,f){var el=document.getElementById(id);return (el&&el.value)||f;}
+    var t=v('typ',''),d=v('datum','nach Absprache'),p=v('pers',''),n=v('kname',''),a=v('anm','');
+    var body='Hallo Lichtenberger Hof,%0D%0A%0D%0Aich habe folgende Anfrage.%0D%0A%0D%0AAnliegen: '+encodeURIComponent(t)+
+      '%0D%0ADatum: '+encodeURIComponent(d)+'%0D%0APersonen: '+encodeURIComponent(p)+
+      '%0D%0AName/Kontakt: '+encodeURIComponent(n)+(a?('%0D%0AAnmerkung: '+encodeURIComponent(a)):'')+'%0D%0A%0D%0AVielen Dank';
+    window.location.href='mailto:frank.dombrowsky@lichtenberger-hof.de?subject='+encodeURIComponent('Anfrage · '+t)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
