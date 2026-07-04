@@ -131,7 +131,9 @@ function alreadyDone() {
     catch (e) { process.stderr.write(`[batch10] ${city}/${branch} err\n`); continue; }
     for (const l of leads) {
       if (!l.email || FREEMAIL.test(l.email)) continue;        // Domain-Mail Pflicht
-      const bad = (l.reasons || []).some(r => /Kein HTTPS|Nicht mobil/i.test(r));
+      // "Wirklich schlecht": kein HTTPS ODER nicht mobil ODER veralteter Baukasten
+      // (entspricht den Inhaber-Kriterien; vorher fehlte der Baukasten-Fall).
+      const bad = (l.reasons || []).some(r => /Kein HTTPS|Nicht mobil|Veralteter Website-Baukasten/i.test(r));
       if (!bad) continue;                                       // muss wirklich schlecht sein
       if ((l.images || []).length < 3) continue;                // genug Rohmaterial
       if (seen.has(l.id)) continue; seen.add(l.id);
