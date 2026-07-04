@@ -105,30 +105,41 @@ function fetchUrl(url, redirects = 0) {
   });
 }
 
+// Mehrere öffentliche Overpass-Mirrors — verteilt die Last, umgeht Rate-Limits.
+const OVERPASS_HOSTS = [
+  'overpass-api.de',
+  'lz4.overpass-api.de',
+  'z.overpass-api.de',
+  'overpass.osm.ch',
+];
+
 function overpass(query) {
   const body = 'data=' + encodeURIComponent(query);
-  const hosts = ['overpass-api.de', 'overpass.kumi.systems'];
-  let attempt = 0;
+  // Zufälliger Start-Mirror pro Aufruf → 40 Discovery-Queries verteilen sich,
+  // statt denselben Host zu hämmern (das triggert sonst 429/rate-limit).
+  const start = Math.floor(Math.random() * OVERPASS_HOSTS.length);
+  let tries = 0;
   function tryHost() {
     return new Promise((resolve, reject) => {
-      const host = hosts[attempt % hosts.length];
+      const host = OVERPASS_HOSTS[(start + tries) % OVERPASS_HOSTS.length];
       const req = https.request({
         host, path: '/api/interpreter', method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(body), 'User-Agent': 'MZ9-LeadAgent/2.0' },
-        timeout: 60000,
+        timeout: 45000,
       }, (res) => {
         let d = '';
         res.on('data', c => d += c);
         res.on('end', () => {
-          if (res.statusCode !== 200) return reject(new Error('overpass ' + res.statusCode));
+          if (res.statusCode !== 200) return reject(new Error('overpass ' + res.statusCode + '@' + host));
           try { resolve(JSON.parse(d)); } catch (e) { reject(new Error('overpass parse: ' + e.message)); }
         });
       });
       req.on('error', reject);
-      req.on('timeout', () => { req.destroy(); reject(new Error('overpass timeout')); });
+      req.on('timeout', () => { req.destroy(); reject(new Error('overpass timeout@' + host)); });
       req.write(body); req.end();
     }).catch(err => {
-      if (++attempt < hosts.length) return tryHost();
+      // Bei 429/Timeout/Fehler den nächsten Mirror probieren (alle einmal).
+      if (++tries < OVERPASS_HOSTS.length) return tryHost();
       throw err;
     });
   }

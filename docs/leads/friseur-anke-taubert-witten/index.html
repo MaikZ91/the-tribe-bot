@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Friseursalon Anke Taubert · Witten — Friseurmeisterin mit Ambiente</title>
+<meta name="description" content="Friseurmeisterin Anke Taubert in Witten: fachgerechte, individuelle und typgerechte Friseurarbeit in edlem Salon-Ambiente. Hairstyling, Perücken – jetzt Termin anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3a2f2c; --bg:#f7f0ec; --paper:#fffdfb; --muted:#8a7b73;
+    --blush:#c98b86; --blush-d:#b06f6a; --gold:#b39056; --rose:#e8d3cd;
+    --line:#ece0d8; --cream:#f0e6dd; --shadow:0 22px 60px -26px rgba(58,47,44,.36);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.1}
+  .script{font-family:'Sacramento',cursive}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1120px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500}
+  .btn{display:inline-block;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;border-radius:40px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--blush);color:#fff}
+  .btn-p:hover{background:var(--blush-d)}
+  .btn-o{border-color:#fff;color:#fff}
+  .btn-o:hover{background:#fff;color:var(--ink)}
+  .btn-d{border-color:var(--ink);color:var(--ink)}
+  .btn-d:hover{background:var(--ink);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(255,253,251,.93);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;transition:.35s;line-height:1}
+  header.scrolled .brand{color:var(--ink)}
+  .brand b{font-family:'Sacramento';font-size:2rem;font-weight:400;display:block}
+  .brand small{font-family:'Jost';font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;opacity:.85;margin-top:-2px;display:block}
+  .menu{display:flex;gap:28px;align-items:center}
+  .menu a{color:#fff;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;opacity:.92;transition:.2s}
+  header.scrolled .menu a{color:var(--ink)}
+  .menu a:hover{color:var(--blush)}
+  header .btn{padding:10px 22px}
+
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(58,40,38,.36),rgba(58,40,38,.32) 45%,rgba(48,32,30,.86)),url('img/hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 66px}
+  .hero .ey{color:var(--rose)}
+  .hero .script{font-size:clamp(2.6rem,6vw,4.4rem);color:var(--rose);display:block;line-height:1;margin-bottom:-2px}
+  .hero h1{font-size:clamp(2.6rem,5.6vw,4.6rem);margin:6px 0 14px;max-width:16ch}
+  .hero p{font-size:1.08rem;max-width:44ch;opacity:.94;margin-bottom:28px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--ink);color:#efe3db}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:20px 0;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+  .strip span{display:flex;gap:9px;align-items:center;opacity:.92}
+  .strip b{color:var(--blush)}
+
+  section{padding:90px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 50px}
+  .sec-head h2{font-size:clamp(2.1rem,4.6vw,3.3rem);margin:12px 0 8px}
+  .sec-head p{color:var(--muted)}
+
+  /* Owner / intro */
+  .intro{background:#fff}
+  .intro .wrap{max-width:820px;text-align:center}
+  .intro .script{font-family:'Sacramento';font-size:2.4rem;color:var(--blush);line-height:1}
+  .intro h2{font-size:clamp(2rem,4.2vw,3rem);margin:6px 0 20px}
+  .intro p{font-size:1.16rem;color:var(--muted);font-family:'Cormorant Garamond';font-style:italic;line-height:1.55}
+  .intro .sign{margin-top:22px;font-family:'Sacramento';font-size:2rem;color:var(--ink)}
+  .intro .role{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:2px}
+
+  /* Leistungen */
+  .serv{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .serv .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 22px;text-align:center;box-shadow:var(--shadow)}
+  .serv .card .ic{font-size:1.5rem;color:var(--blush)}
+  .serv .card h3{font-size:1.35rem;margin:12px 0 0}
+
+  /* Galerie */
+  .gal{background:var(--cream)}
+  .gal-grid{display:grid;grid-template-columns:2fr 1fr;grid-auto-rows:1fr;gap:16px}
+  .gal-grid figure{border-radius:12px;overflow:hidden;box-shadow:var(--shadow);position:relative;min-height:220px}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:.5s}
+  .gal-grid figure:hover img{transform:scale(1.05)}
+  .gal-grid .tall{grid-row:span 2}
+
+  /* Termin */
+  .book{background:#fff}
+  .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .card2{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px;box-shadow:var(--shadow)}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .field input,.field textarea{width:100%;font-family:'Jost';font-size:.96rem;padding:12px 15px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:80px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{padding:9px 15px;border:1px solid var(--line);border-radius:30px;font-size:.82rem;cursor:pointer;transition:.2s;background:#fff}
+  .chip.on,.chip:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .note{font-size:.8rem;color:var(--muted);margin-top:6px}
+
+  /* Info */
+  .info{background:var(--ink);color:#eaded6}
+  .info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .info h2{color:#fff;font-size:clamp(1.8rem,3.8vw,2.6rem);margin-bottom:18px}
+  .hours li{list-style:none;display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.98rem}
+  .hours .cl{color:var(--rose)}
+  .info .contact p{margin-bottom:12px;opacity:.9}
+  .info .contact a{color:#fff;border-bottom:1px solid var(--blush)}
+  .info .contact .big{font-family:'Sacramento';font-size:1.7rem;color:#fff}
+
+  footer{background:#2b201d;color:#a8988f;padding:44px 0;font-size:.85rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+  footer .concept{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#7c6c63}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--blush);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sacramento';font-size:1.4rem}
+  .cbot-launch b{font-size:.82rem}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--ink);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--blush);display:flex;align-items:center;justify-content:center;font-family:'Sacramento';font-size:1.3rem}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.8}
+  .cbot-body{padding:16px;background:#fbf6f2}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:12px 12px 12px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--blush);color:#fff;border-color:var(--blush)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,253,251,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .book-grid,.info .wrap{grid-template-columns:1fr;gap:36px}
+    .serv{grid-template-columns:1fr 1fr}
+    .gal-grid{grid-template-columns:1fr 1fr}
+    .gal-grid .tall{grid-row:auto}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:82vh}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Anke Taubert</b><small>Friseurmeisterin · Witten</small></a>
+    <nav class="menu">
+      <a href="#salon">Salon</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#termin" class="btn btn-p">Termin anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <span class="script">Schöne Haare</span>
+    <h1>machen glücklich.</h1>
+    <p>Friseurmeisterin in Witten — ganze Friseurarbeit, fachgerecht, individuell und typgerecht, in einem Salon zum Wohlfühlen.</p>
+    <div class="hero-cta">
+      <a href="#termin" class="btn btn-p">Termin anfragen</a>
+      <a href="tel:+492302424438" class="btn btn-o">02302 424438</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>✦</b> Friseurmeisterin</span>
+    <span><b>✦</b> Individuell &amp; typgerecht</span>
+    <span><b>✦</b> Hairstyling &amp; Perücken</span>
+    <span><b>✦</b> Edles Salon-Ambiente</span>
+  </div>
+</div>
+
+<section id="salon" class="intro">
+  <div class="wrap">
+    <p class="script">Herzlich willkommen</p>
+    <h2>Ihr gutes Aussehen ist meine Leidenschaft</h2>
+    <p>„Erfahrung und Fachwissen, gepaart mit Kreativität und Zuverlässigkeit, zeichnen mich als Ihren Partner rund um Ihr gutes Aussehen in Witten und Umgebung aus. In meinem Salon leiste ich für Sie ganze Friseurarbeit — fachgerecht, individuell und typgerecht."</p>
+    <div class="sign">Anke Taubert</div>
+    <div class="role">Friseurmeisterin</div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Was ich für Sie tue</p>
+      <h2>Leistungen</h2>
+      <p>Rund um Ihr gutes Aussehen — mit Zeit, Beratung und dem Blick fürs Detail.</p>
+    </div>
+    <div class="serv">
+      <div class="card reveal"><div class="ic">✂</div><h3>Schnitt &amp; Styling</h3></div>
+      <div class="card reveal"><div class="ic">✦</div><h3>Typgerechte Beratung</h3></div>
+      <div class="card reveal"><div class="ic">❋</div><h3>Hairstyling</h3></div>
+      <div class="card reveal"><div class="ic">♛</div><h3>Perücken</h3></div>
+    </div>
+  </div>
+</section>
+
+<section id="ambiente" class="gal">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Zum Wohlfühlen</p>
+      <h2>Unser Ambiente</h2>
+      <p>Ein Salon, in dem man gern verweilt — hell, edel und mit Liebe eingerichtet.</p>
+    </div>
+    <div class="gal-grid">
+      <figure class="tall reveal"><img src="img/hero.jpg" loading="lazy" alt="Friseursalon Anke Taubert – Gastraum"></figure>
+      <figure class="reveal"><img src="img/g1.jpg" loading="lazy" alt="Waschplätze im Salon Anke Taubert"></figure>
+      <figure class="reveal"><img src="img/g3.jpg" loading="lazy" alt="Detail im Salon Anke Taubert"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="termin" class="book">
+  <div class="wrap book-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2 style="font-size:clamp(2rem,4.2vw,3rem);margin:12px 0 16px">Wunschtermin anfragen</h2>
+      <p style="color:var(--muted);max-width:44ch">Sagen Sie mir kurz, was Sie sich wünschen und wann es passt — ich bestätige Ihren Termin persönlich.</p>
+      <p style="color:var(--muted);margin-top:18px">Lieber anrufen? <a href="tel:+492302424438" style="color:var(--ink);border-bottom:1px solid var(--blush)">02302 424438</a></p>
+    </div>
+    <form class="card2" onsubmit="return sendBooking(event)">
+      <div class="field">
+        <label>Leistung</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Schnitt">Schnitt</span>
+          <span class="chip" data-v="Farbe">Farbe</span>
+          <span class="chip" data-v="Styling">Styling</span>
+          <span class="chip" data-v="Beratung">Beratung</span>
+          <span class="chip" data-v="Perücken">Perücken</span>
+        </div>
+      </div>
+      <div class="field"><label>Wunschtag &amp; Uhrzeit</label><input type="text" id="wunsch" placeholder="z. B. Donnerstag Vormittag"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Anmerkung (optional)</label><textarea id="anm" placeholder="Was wünschen Sie sich?"></textarea></div>
+      <button class="btn btn-p" style="width:100%">Termin anfragen</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an den Salon — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div>
+      <p class="ey" style="color:var(--rose)">Wann ich für Sie da bin</p>
+      <h2>Öffnungszeiten</h2>
+      <ul class="hours">
+        <li><b>Dienstag – Freitag</b><span>9:00 – 17:30 Uhr</span></li>
+        <li><b>Samstag</b><span class="cl">geschlossen</span></li>
+      </ul>
+      <p style="opacity:.8;margin-top:14px;font-size:.9rem">Termine nach Vereinbarung — ich nehme mir Zeit für Sie.</p>
+    </div>
+    <div class="contact">
+      <p class="ey" style="color:var(--rose)">So finden Sie mich</p>
+      <h2>Kontakt &amp; Salon</h2>
+      <p class="big">Friseursalon Anke Taubert</p>
+      <p>Ruhrstraße 34 · 58452 Witten</p>
+      <p>Telefon: <a href="tel:+492302424438">02302 424438</a></p>
+      <p>E-Mail: <a href="mailto:ideen@anke-taubert.de">ideen@anke-taubert.de</a></p>
+      <p style="margin-top:16px"><a href="#termin" class="btn btn-p">Termin anfragen</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#eaded6"><b class="script" style="font-size:1.8rem">Anke Taubert</b></div>
+      <span style="color:#8a7a71">Ruhrstraße 34 · 58452 Witten · 02302 424438</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">A</span>
+    <div><b>Hallo, ich bin Anke</b><small>Frag mich nach deinem Termin</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">A</span>
+      <div><b>Anke Taubert</b><br><small>Friseurmeisterin · Witten</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Schön, dass Sie da sind! Ich helfe Ihnen gern, den passenden Termin zu finden. Was darf's sein?</div>
+      <div class="quick">
+        <a href="#termin" onclick="toggleBot()">Ich möchte einen Termin anfragen</a>
+        <a href="tel:+492302424438">Lieber anrufen — 02302 424438</a>
+        <a href="#leistungen" onclick="toggleBot()">Zeig mir die Leistungen</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+492302424438" class="btn btn-d">Anrufen</a>
+  <a href="#termin" class="btn btn-p">Termin anfragen</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendBooking(e){
+    e.preventDefault();
+    var l=pick||'Termin', w=document.getElementById('wunsch').value||'nach Absprache',
+        k=document.getElementById('kontakt').value||'', a=document.getElementById('anm').value||'';
+    var body='Hallo Frau Taubert,%0D%0A%0D%0Aich möchte gern einen Termin anfragen.%0D%0A%0D%0ALeistung: '+encodeURIComponent(l)+
+      '%0D%0AWunschtermin: '+encodeURIComponent(w)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (a?('%0D%0AAnmerkung: '+encodeURIComponent(a)):'')+'%0D%0A%0D%0AViele Grüße';
+    window.location.href='mailto:ideen@anke-taubert.de?subject='+encodeURIComponent('Terminanfrage · '+l)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
