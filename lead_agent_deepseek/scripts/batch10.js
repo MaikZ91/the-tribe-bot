@@ -6,9 +6,62 @@
  */
 const path = require('path');
 const fs = require('fs');
+const http = require('http');
+const https = require('https');
 const { discover } = require('./discover');
 
 const FREEMAIL = /@(gmx|web|t-online|gmail|googlemail|yahoo|hotmail|freenet|aol|outlook|live|icloud|me)\./i;
+
+// Offensichtliche Nicht-Fotos (Logos, Text-Grafiken, Platzhalter, Sprites …).
+const JUNK_IMG = /(logo|icon|sprite|spacer|blank|shapeimage|thumbnail|button|pixel|symbol|arrow|bg[-_]?|hintergrund|play\.png|placeholder|loader|avatar|badge|siegel|banner_)/i;
+
+// Bilddimensionen aus JPEG/PNG-Header lesen (ohne Fremd-Lib).
+function dimsFromBuffer(b) {
+  if (!b || b.length < 24) return null;
+  if (b[0] === 0x89 && b[1] === 0x50) return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) }; // PNG
+  if (b[0] === 0xFF && b[1] === 0xD8) { // JPEG
+    let i = 2;
+    while (i < b.length) {
+      if (b[i] !== 0xFF) { i++; continue; }
+      const m = b[i + 1];
+      if (m >= 0xC0 && m <= 0xC3) return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+      if (i + 2 >= b.length) break;
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+  }
+  return null;
+}
+
+// Bild laden (max ~600KB, 8s) und Dimensionen zurückgeben.
+function measureImage(url) {
+  return new Promise((resolve) => {
+    let mod, u;
+    try { u = new URL(url); mod = u.protocol === 'https:' ? https : http; } catch { return resolve(null); }
+    const req = mod.get(u, { headers: { 'User-Agent': 'MZ9-LeadAgent/2.0' }, timeout: 8000 }, (res) => {
+      if (res.statusCode !== 200) { res.destroy(); return resolve(null); }
+      const chunks = []; let len = 0;
+      res.on('data', (c) => { chunks.push(c); len += c.length; if (len > 600000) res.destroy(); });
+      res.on('end', () => resolve(dimsFromBuffer(Buffer.concat(chunks))));
+      res.on('close', () => resolve(dimsFromBuffer(Buffer.concat(chunks))));
+    });
+    req.on('timeout', () => { req.destroy(); resolve(null); });
+    req.on('error', () => resolve(null));
+  });
+}
+
+// Prüft, ob ein Lead genügend ECHTE, verwendbare Fotos hat (≥ minGood
+// Bilder mit langer Kante ≥ 500px, keine Junk-Grafiken). Bricht früh ab.
+async function hasUsablePhotos(images, minGood = 2) {
+  const cands = (images || []).filter((u) => u && /\.(jpe?g|png)(\?|$)/i.test(u) && !JUNK_IMG.test(u));
+  let good = 0, checked = 0;
+  for (const u of cands) {
+    if (checked >= 10) break;
+    checked++;
+    const d = await measureImage(u);
+    if (d && Math.max(d.w, d.h) >= 500 && Math.min(d.w, d.h) >= 300) { if (++good >= minGood) return true; }
+  }
+  return good >= minGood;
+}
 
 const CITIES = [
   // Ruhrgebiet / OWL
@@ -84,6 +137,10 @@ function alreadyDone() {
       if (seen.has(l.id)) continue; seen.add(l.id);
       const dom = domainOf(l.website), edom = emailDomain(l.email);   // schon verarbeitet? -> skip
       if ((dom && done.domains.has(dom)) || (edom && done.domains.has(edom)) || (l.email && done.emails.has(String(l.email).toLowerCase()))) continue;
+      // Bildqualität VORAB prüfen: mind. 2 echte Fotos (lange Kante ≥500px,
+      // keine Junk-Grafiken) — sonst nicht baubar, gar nicht erst vorschlagen.
+      const usable = await hasUsablePhotos(l.images, 2);
+      if (!usable) { process.stderr.write(`[batch10]   ⨯ ${l.id}: zu wenig verwendbare Fotos — übersprungen\n`); continue; }
       found.push({ id: l.id, name: l.name, city: l.city, branch: l.branch,
         website: l.website, email: l.email, phone: l.phone, score: l.score,
         reasons: l.reasons, imgs: (l.images || []).length });
