@@ -11,11 +11,24 @@ const { discover } = require('./discover');
 const FREEMAIL = /@(gmx|web|t-online|gmail|googlemail|yahoo|hotmail|freenet|aol|outlook|live|icloud|me)\./i;
 
 const CITIES = [
+  // Ruhrgebiet / OWL
   'Gelsenkirchen', 'Herne', 'Recklinghausen', 'Bottrop', 'Gladbeck', 'Witten',
   'Hamm', 'Hagen', 'Iserlohn', 'Lüdenscheid', 'Gütersloh', 'Herford',
   'Minden', 'Detmold', 'Lippstadt', 'Soest', 'Unna', 'Castrop-Rauxel',
   'Marl', 'Dorsten', 'Datteln', 'Wesel', 'Dinslaken', 'Moers',
   'Solingen', 'Remscheid', 'Velbert', 'Ratingen', 'Neuss', 'Viersen',
+  // weiteres NRW / Rheinland / Münsterland / Bergisches / Niederrhein
+  'Bergisch Gladbach', 'Troisdorf', 'Siegburg', 'Euskirchen', 'Düren', 'Kerpen',
+  'Grevenbroich', 'Dormagen', 'Willich', 'Kempen', 'Krefeld', 'Mönchengladbach',
+  'Rheine', 'Ibbenbüren', 'Coesfeld', 'Ahlen', 'Beckum', 'Warendorf',
+  'Gronau', 'Bocholt', 'Kleve', 'Goch', 'Emmerich', 'Kamp-Lintfort',
+  'Bergkamen', 'Lünen', 'Schwerte', 'Menden', 'Arnsberg', 'Meschede',
+  'Gevelsberg', 'Ennepetal', 'Schwelm', 'Wetter', 'Herdecke', 'Sprockhövel',
+  'Paderborn', 'Bielefeld', 'Bad Oeynhausen', 'Löhne', 'Bünde', 'Hameln',
+  // norddeutsche / hessische / niedersächsische Mittelstädte
+  'Osnabrück', 'Oldenburg', 'Delmenhorst', 'Nordhorn', 'Lingen', 'Cloppenburg',
+  'Kassel', 'Marburg', 'Gießen', 'Wetzlar', 'Fulda', 'Hanau',
+  'Hildesheim', 'Salzgitter', 'Wolfsburg', 'Celle', 'Peine', 'Goslar',
 ];
 const BRANCHES = ['Friseur', 'Dachdecker', 'Maler', 'Tischler', 'Elektriker',
   'Sanitär', 'Restaurant', 'Metzgerei', 'Baeckerei', 'Fliesenleger'];
