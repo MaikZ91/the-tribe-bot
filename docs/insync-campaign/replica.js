@@ -1,13 +1,13 @@
-/* Statische Replik der INSYNC-Campaign-Seite (www.in-sync.io/campaign/start)
+/* Statische Campaign-Seite von Redesign.AI (Basis: Replik von www.in-sync.io/campaign/start)
  * Ersetzt die Next.js-Client-Interaktivität durch Vanilla-JS:
  * Scroll-Reveals, VSL-/Testimonial-/Team-Videos, Portfolio-Videos & -Tabs,
- * Testimonial-Slider, Calendly-Popup. */
+ * Testimonial-Slider, Scroll-to-Erstgespräch. */
 (function () {
   'use strict';
 
   var TESTIMONIALS = [
     {
-      quote: 'Unsere neue Webseite ist ein kompletter Gamechanger. Sie kann im Look mit den Seiten großer Megakonzerne mithalten - und das ist genau die Liga, mit der wir uns vergleichen wollen. Wenn ihr eine Designagentur sucht, die sich nicht wie eine klassische Agentur anfühlt, seid ihr bei INSYNC genau richtig.',
+      quote: 'Unsere neue Webseite ist ein kompletter Gamechanger. Sie kann im Look mit den Seiten großer Megakonzerne mithalten - und das ist genau die Liga, mit der wir uns vergleichen wollen. Wenn ihr eine Designagentur sucht, die sich nicht wie eine klassische Agentur anfühlt, seid ihr bei Redesign.AI genau richtig.',
       name: 'Alex Kurze',
       role: 'Director of Innovation · FRAMEN GmbH',
       linkedin: 'https://www.linkedin.com/in/alexkurze/',
@@ -16,7 +16,7 @@
       video: 'videos/wistia/tnbkbvqf08.mp4'
     },
     {
-      quote: 'Wir haben unsere Website komplett modernisieren lassen und sind begeistert vom Ergebnis. Die Zusammenarbeit mit INSYNC lief schnell, unkompliziert und zuverlässig - auch auf kleinere Änderungen wurde flexibel reagiert. Klare Weiterempfehlung.',
+      quote: 'Wir haben unsere Website komplett modernisieren lassen und sind begeistert vom Ergebnis. Die Zusammenarbeit mit Redesign.AI lief schnell, unkompliziert und zuverlässig - auch auf kleinere Änderungen wurde flexibel reagiert. Klare Weiterempfehlung.',
       name: 'Michael Sindlinger',
       role: 'CEO · Linetrack GmbH',
       linkedin: 'https://www.linkedin.com/in/michael-sindlinger-260615172/',
@@ -25,7 +25,7 @@
       video: null
     },
     {
-      quote: 'Die Zusammenarbeit mit INSYNC war ein wirklich entspanntes Miteinander - unkompliziert und verlässlich. Vom Entwurf bis zum Go-Live lief alles reibungslos, und das Ergebnis hat uns überzeugt. Wir setzen die Zusammenarbeit direkt mit dem nächsten Projekt fort.',
+      quote: 'Die Zusammenarbeit mit Redesign.AI war ein wirklich entspanntes Miteinander - unkompliziert und verlässlich. Vom Entwurf bis zum Go-Live lief alles reibungslos, und das Ergebnis hat uns überzeugt. Wir setzen die Zusammenarbeit direkt mit dem nächsten Projekt fort.',
       name: 'Michael Reeder',
       role: 'Founder & CEO · Theraletik GmbH',
       linkedin: 'https://www.linkedin.com/in/michael-reeder-186705230/',
@@ -34,7 +34,7 @@
       video: null
     },
     {
-      quote: 'Ich bedanke mich vielmals beim ganzen Team von INSYNC für deren ausgezeichnete Arbeit! Unsere gesamte Unternehmensgruppe hat mit mehreren Websites, komplett unterschiedlicher Designs und Co. ein komplett neues Rebrand inkl. CMS-Verwaltung erhalten. Auf jeden Fall weiterzuempfehlen!',
+      quote: 'Ich bedanke mich vielmals beim ganzen Team von Redesign.AI für deren ausgezeichnete Arbeit! Unsere gesamte Unternehmensgruppe hat mit mehreren Websites, komplett unterschiedlicher Designs und Co. ein komplett neues Rebrand inkl. CMS-Verwaltung erhalten. Auf jeden Fall weiterzuempfehlen!',
       name: 'Christoffer Riefenstahl',
       role: 'Partner · X Capital Group',
       linkedin: 'https://www.linkedin.com/in/christoffer-riefenstahl-83a303173/',
@@ -43,7 +43,7 @@
       video: null
     },
     {
-      quote: 'INSYNC ist für uns ein richtig starker Partner. Das Team liefert konstant hochwertige Arbeit - zuverlässig, pünktlich und immer im vereinbarten Budget. Die Kommunikation läuft reibungslos und ist durchweg professionell. Wir können INSYNC absolut weiterempfehlen.',
+      quote: 'Redesign.AI ist für uns ein richtig starker Partner. Das Team liefert konstant hochwertige Arbeit - zuverlässig, pünktlich und immer im vereinbarten Budget. Die Kommunikation läuft reibungslos und ist durchweg professionell. Wir können Redesign.AI absolut weiterempfehlen.',
       name: 'Thomas Messerer',
       role: 'CEO · Silencio Network LLC',
       linkedin: 'https://www.linkedin.com/in/thomas-messerer-tmc/',
@@ -61,7 +61,7 @@
       video: null
     },
     {
-      quote: 'Die Zusammenarbeit mit INSYNC war von Anfang an super angenehm. Unser Ziel war eine moderne, benutzerfreundliche und optisch starke Website - und INSYNC hat unsere Erwartungen definitiv übertroffen. Vom ersten Gespräch bis zum Launch haben wir uns durchgehend gut aufgehoben gefühlt. Neben dem technischen Know-how merkt man einfach, dass hier auch viel Herzblut drinsteckt.',
+      quote: 'Die Zusammenarbeit mit Redesign.AI war von Anfang an super angenehm. Unser Ziel war eine moderne, benutzerfreundliche und optisch starke Website - und Redesign.AI hat unsere Erwartungen definitiv übertroffen. Vom ersten Gespräch bis zum Launch haben wir uns durchgehend gut aufgehoben gefühlt. Neben dem technischen Know-how merkt man einfach, dass hier auch viel Herzblut drinsteckt.',
       name: 'Justine Torka',
       role: 'Gründerin · MedicConnect',
       linkedin: 'https://www.linkedin.com/in/justine-torka/',
@@ -78,8 +78,7 @@
     { slug: 'soniq', name: 'SONIQ', video: 'videos/sanity/fd409016b7e3e015d5d95ba416e0bd4a1c55943a.mp4' }
   ];
 
-  var CALENDLY_DEFAULT = 'https://calendly.com/insync-studios/intro';
-  var CONTACT_MAIL = 'hello@in-sync.io';
+  var CONTACT_MAIL = 'mzschach@googlemail.com';
 
   function onReady(fn) {
     if (document.readyState !== 'loading') fn();
@@ -152,7 +151,7 @@
 
   /* ---------- 4. Team-Video (Autoplay-Loop) ---------- */
   function setupTeamVideo() {
-    var card = document.querySelector('[aria-label="INSYNC team"]');
+    var card = document.querySelector('[aria-label="Redesign.AI team"]');
     if (!card) return;
     var slot = card.querySelector('div.absolute.inset-0.size-full');
     if (!slot) slot = card.firstElementChild;
@@ -278,7 +277,7 @@
   function setupNavTheme() {
     var header = document.querySelector('header');
     if (!header) return;
-    var logo = header.querySelector('img[alt="INSYNC"]');
+    var logo = header.querySelector('img[alt="Redesign.AI"]');
     var ctaSpan = header.querySelector('button span.relative.z-10');
     var sections = document.querySelectorAll('[data-nav-theme]');
     if (!sections.length) return;
@@ -287,7 +286,7 @@
       if (theme === 'light') {
         header.style.background = 'rgba(244,244,244,0.6)';
         header.style.borderColor = 'rgba(0,0,0,0.1)';
-        if (logo) logo.style.filter = 'invert(1)';
+        if (logo) { logo.src = 'redesign-logo-dark.svg'; logo.srcset = ''; }
         if (ctaSpan) {
           ctaSpan.style.color = '#0a0a0a';
           ctaSpan.style.background = 'rgba(0,0,0,0.04)';
@@ -296,7 +295,7 @@
       } else {
         header.style.background = '';
         header.style.borderColor = '';
-        if (logo) logo.style.filter = '';
+        if (logo) { logo.src = 'redesign-logo.svg'; logo.srcset = ''; }
         if (ctaSpan) { ctaSpan.style.color = ''; ctaSpan.style.background = ''; ctaSpan.style.borderColor = ''; }
       }
     }
@@ -316,19 +315,14 @@
     update();
   }
 
-  /* ---------- 7. Calendly-Popup ---------- */
+  /* ---------- 7. Call-buchen-Buttons: zum Erstgespräch-Bereich scrollen ---------- */
   function setupCalendly() {
     document.addEventListener('click', function (ev) {
       var el = ev.target.closest ? ev.target.closest('.calendly-popup-btn') : null;
       if (!el) return;
-      var a = el.closest('a[href*="calendly.com"]') || (el.matches && el.matches('a[href*="calendly.com"]') ? el : null);
-      var url = a ? a.href : CALENDLY_DEFAULT;
-      if (window.Calendly && window.Calendly.initPopupWidget) {
-        ev.preventDefault();
-        window.Calendly.initPopupWidget({ url: url });
-      } else if (!a) {
-        window.open(url, '_blank', 'noopener');
-      }
+      ev.preventDefault();
+      var target = document.getElementById('erstgespraech');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
