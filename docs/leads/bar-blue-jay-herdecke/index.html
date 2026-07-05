@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Blue Jay · American Bar & Restaurant · Herdecke</title>
+<meta name="description" content="Blue Jay in Herdecke — American Bar & Restaurant: Erlebnisgastronomie auf zwei Ebenen mit amerikanischer Küche, großer Cocktailauswahl, Bieren frisch vom Fass, Citybeach und Events. Jetzt Tisch reservieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#131418; --bg2:#191b20; --bg3:#20232a; --card:#1d1f26;
+    --ink:#ece7dd; --muted:#9b968c; --dim:#726d64;
+    --blue:#3f83d8; --blue-l:#5c9bec; --amber:#d79a43; --amber-l:#e6b25f;
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+    --shadow:0 24px 60px -28px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:.98;letter-spacing:.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+  .ey{font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;color:var(--blue-l);font-weight:600;font-family:'Inter'}
+  .btn{display:inline-block;font-family:'Bebas Neue';font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;padding:13px 32px;border-radius:3px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--amber);color:#17140d}
+  .btn-p:hover{background:var(--amber-l)}
+  .btn-b{background:var(--blue);color:#fff}
+  .btn-b:hover{background:var(--blue-l)}
+  .btn-o{border-color:rgba(255,255,255,.55);color:#fff}
+  .btn-o:hover{background:#fff;color:#17140d}
+  .btn-d{border-color:var(--line2);color:var(--ink)}
+  .btn-d:hover{background:var(--ink);color:#17140d}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(15,16,20,.96);backdrop-filter:blur(10px);padding:11px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.8)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:.95}
+  .brand b{font-family:'Bebas Neue';font-size:1.85rem;letter-spacing:.06em;display:block}
+  .brand b span{color:var(--blue-l)}
+  .brand small{font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;opacity:.8;font-family:'Inter'}
+  .menu{display:flex;gap:26px;align-items:center}
+  .menu a{color:#fff;font-family:'Bebas Neue';font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{color:var(--blue-l)}
+  header .btn{padding:9px 22px}
+
+  .hero{position:relative;min-height:96vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,14,.55),rgba(10,11,14,.4) 40%,rgba(10,11,14,.95)),url('img/bar1.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 76px}
+  .hero .ey{color:var(--blue-l)}
+  .hero h1{font-size:clamp(4rem,11vw,9rem);margin:12px 0 6px;font-weight:400}
+  .hero h1 span{color:var(--blue-l)}
+  .hero p{font-family:'Inter';font-size:1.14rem;max-width:47ch;opacity:.94;margin:10px 0 30px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--blue)}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 38px;padding:18px 0}
+  .strip span{display:flex;gap:10px;align-items:center;color:#eaf2fd;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.08em;text-transform:uppercase}
+
+  section{padding:96px 0}
+  .sec-head{max-width:720px;margin:0 auto 54px;text-align:center}
+  .sec-head h2{font-size:clamp(2.8rem,6vw,4.6rem)}
+  .sec-head .ey{margin-bottom:14px}
+  .sec-head p{color:var(--muted);margin-top:12px;font-weight:300}
+
+  .welcome{background:var(--bg)}
+  .welcome .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .welcome .fig{border-radius:4px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .welcome .fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .welcome .ey{margin-bottom:12px}
+  .welcome h2{font-size:clamp(2.6rem,5vw,4rem);margin:0 0 16px}
+  .welcome p{color:#c7c2b8;margin-bottom:16px;font-weight:300;max-width:52ch}
+
+  .high{background:var(--bg2)}
+  .high-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .high-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:28px 22px;transition:.25s}
+  .high-card:hover{transform:translateY(-5px);border-color:var(--blue)}
+  .high-card .ic{font-size:1.7rem;margin-bottom:10px}
+  .high-card h3{font-size:1.55rem;color:#fff;margin-bottom:8px;letter-spacing:.03em}
+  .high-card p{font-size:.92rem;color:var(--muted);font-weight:300}
+
+  .food{background:var(--bg)}
+  .food-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px}
+  .food-grid figure{border-radius:4px;overflow:hidden;position:relative;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .food-grid img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .food-grid figure:hover img{transform:scale(1.06)}
+  .food-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:15px;background:linear-gradient(180deg,transparent,rgba(8,9,12,.9));color:#fff;font-family:'Bebas Neue';font-size:1.35rem;letter-spacing:.04em}
+  .f-tall{grid-row:span 2}
+  .f-wide{grid-column:span 2}
+
+  .amb{background:var(--bg2)}
+  .amb-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+  .amb-grid figure{border-radius:4px;overflow:hidden;position:relative;box-shadow:var(--shadow);border:1px solid var(--line);background:#0e0f12}
+  .amb-grid img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .amb-grid figure:hover img{transform:scale(1.06)}
+  .amb-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(180deg,transparent,rgba(8,9,12,.88));color:#fff;font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:.04em}
+  .a-wide{grid-column:span 2}
+
+  .cta-sec{background:var(--bg3)}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .cta-grid .ey{color:var(--blue-l)}
+  .cta-grid h2{color:#fff;font-size:clamp(2.6rem,5vw,4.2rem);margin:12px 0 16px}
+  .cta-grid p{color:#c7c2b8;font-weight:300;max-width:44ch}
+  .cta-grid .tel{margin-top:20px;font-size:1.05rem;color:var(--muted)}
+  .cta-grid .tel a{color:#fff;border-bottom:1px solid var(--amber)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:34px;box-shadow:var(--shadow)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input,.field textarea{width:100%;font-family:'Inter';font-size:.95rem;padding:12px 14px;border:1px solid var(--line2);border-radius:5px;background:#14161b;color:var(--ink)}
+  .field input::placeholder,.field textarea::placeholder{color:#6b665d}
+  .field textarea{min-height:78px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 15px;border:1px solid var(--line2);border-radius:3px;font-size:.78rem;cursor:pointer;transition:.2s;background:#14161b;color:var(--ink);font-family:'Inter';letter-spacing:.05em;text-transform:uppercase}
+  .chip.on,.chip:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .note{font-size:.78rem;color:var(--dim);margin-top:6px}
+
+  .info{background:var(--bg2);border-top:1px solid var(--line)}
+  .info .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px}
+  .info .blk h3{font-family:'Bebas Neue';font-size:1.6rem;color:#fff;margin-bottom:8px;letter-spacing:.04em}
+  .info .blk p{font-size:.94rem;color:var(--muted);font-weight:300}
+  .info .blk a{color:var(--blue-l)}
+
+  footer{background:#0d0e11;color:#6d685f;padding:42px 0;font-size:.84rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer .concept{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#4c473f}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line2);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:1.25rem}
+  .cbot-launch b{font-size:.82rem;color:var(--ink)}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--card);border:1px solid var(--line2);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--blue);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:1.15rem}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.85}
+  .cbot-body{padding:16px;background:var(--bg2)}
+  .cbot-body .msg{background:var(--card);border:1px solid var(--line);border-radius:10px 10px 10px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem;color:var(--ink)}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line2);border-radius:5px;padding:10px 12px;font-size:.84rem;background:var(--card);color:var(--ink);transition:.2s}
+  .cbot-body .quick a:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(15,16,20,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line2)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .high-grid{grid-template-columns:1fr 1fr}
+    .welcome .wrap,.cta-grid{grid-template-columns:1fr;gap:34px}
+    .food-grid,.amb-grid{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+    .f-wide,.a-wide{grid-column:span 2}
+    .f-tall{grid-row:auto}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:86vh}
+  }
+  @media(max-width:560px){.high-grid{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Blue<span>Jay</span></b><small>American Bar &amp; Restaurant · Herdecke</small></a>
+    <nav class="menu">
+      <a href="#konzept">Konzept</a>
+      <a href="#kueche">Küche &amp; Bar</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#reservieren" class="btn btn-p">Reservieren</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">American Bar &amp; Restaurant · Herdecke</p>
+    <h1>Blue<span> Jay</span></h1>
+    <p>Erlebnisgastronomie auf zwei Ebenen — amerikanische Küche, eine große Auswahl an Cocktails, Biere frisch vom Fass und Urlaubsfeeling im Citybeach.</p>
+    <div class="hero-cta">
+      <a href="#reservieren" class="btn btn-p">Tisch reservieren</a>
+      <a href="tel:+492330914462" class="btn btn-o">02330 914462</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span>★ American Kitchen</span>
+    <span>★ Cocktailbar</span>
+    <span>★ Citybeach</span>
+    <span>★ Events &amp; Partys</span>
+  </div>
+</div>
+
+<section id="konzept" class="welcome">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/interior2.jpg" alt="Stilvoll gestalteter Gastraum im Blue Jay"></div>
+    <div>
+      <p class="ey">Willkommen im Blue Jay</p>
+      <h2>Erlebnis­gastronomie auf zwei Ebenen</h2>
+      <p>Stilvoll gestaltete Räumlichkeiten, Kerzenschein, elegante Möbel aus Holz und Leder sowie warme Farben laden zum Verweilen ein. Ein Ort für den entspannten Abend, das gute Essen und den letzten Cocktail.</p>
+      <p>Und wenn die Sonne scheint: Urlaubsfeeling direkt vor der Haustür im Citybeach — mit Lounge-Sitzecken, Strandkörben, Liegestühlen und Palmen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="highlights" class="high">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Warum Blue Jay</p>
+      <h2>Mehr als nur essen gehen</h2>
+    </div>
+    <div class="high-grid">
+      <div class="high-card reveal"><div class="ic">🍹</div><h3>Cocktail Happy Hour</h3><p>Täglich ab 17 Uhr — eine große Auswahl an Cocktails, gemixt von unserer Bar.</p></div>
+      <div class="high-card reveal"><div class="ic">🍺</div><h3>Frisch vom Fass</h3><p>Internationale Biere und vier Sorten frisch gezapft — dazu ein vielfältiges Getränkeprogramm.</p></div>
+      <div class="high-card reveal"><div class="ic">🌴</div><h3>Citybeach</h3><p>Strandkörbe, Liegestühle, Palmen &amp; Lounge — Urlaubsfeeling mitten in Herdecke.</p></div>
+      <div class="high-card reveal"><div class="ic">🎉</div><h3>Events &amp; Partys</h3><p>Wechselnde Events sorgen für ausgelassene Stimmung bis tief in die Nacht.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="kueche" class="food">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">American Kitchen</p>
+      <h2>Küche &amp; Bar</h2>
+      <p>Internationale Speisen mit Fokus auf die amerikanische Küche — herzhaft, frisch und mit dem gewissen Etwas. Eine Allergen-Speisekarte halten wir gern für Sie bereit.</p>
+    </div>
+    <div class="food-grid">
+      <figure class="f-tall reveal"><img src="img/steak.jpg" loading="lazy" alt="Steak-Pfanne im Blue Jay"><figcaption>Steak-Pfanne</figcaption></figure>
+      <figure class="f-wide reveal"><img src="img/burger.jpg" loading="lazy" alt="Blue Jay Classic Burger mit Pommes"><figcaption>Classic Burger</figcaption></figure>
+      <figure class="reveal"><img src="img/wings.jpg" loading="lazy" alt="Chicken Wings"><figcaption>Chicken Wings</figcaption></figure>
+      <figure class="reveal"><img src="img/starter.jpg" loading="lazy" alt="Starter-Platte mit Onion Rings und Dips"><figcaption>Starter-Platte</figcaption></figure>
+      <figure class="f-wide reveal"><img src="img/cocktail3.jpg" loading="lazy" alt="Frisch gemixter Cocktail"><figcaption>Cocktails von der Bar</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="ambiente" class="amb">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Ein Blick zu uns</p>
+      <h2>Bar &amp; Ambiente</h2>
+      <p>Warmes Licht, eine gut sortierte Bar und Räume, in denen man gern länger bleibt.</p>
+    </div>
+    <div class="amb-grid">
+      <figure class="a-wide reveal"><img src="img/tresen.jpg" loading="lazy" alt="Beleuchtete Bar im Blue Jay"><figcaption>Unsere Bar</figcaption></figure>
+      <figure class="reveal"><img src="img/pano.jpg" loading="lazy" alt="Barbereich in stimmungsvollem Licht"><figcaption>Cocktailbar</figcaption></figure>
+      <figure class="reveal"><img src="img/cocktail1.jpg" loading="lazy" alt="Cocktail-Kreation"><figcaption>Frisch gemixt</figcaption></figure>
+      <figure class="reveal"><img src="img/interior1.jpg" loading="lazy" alt="Gastraum auf zwei Ebenen"><figcaption>Zwei Ebenen</figcaption></figure>
+      <figure class="a-wide reveal"><img src="img/interior3.jpg" loading="lazy" alt="Gemütlicher Gastraum bei Kerzenschein"><figcaption>Bei Kerzenschein</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="reservieren" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2>Reservieren &amp; anfragen</h2>
+      <p>Sagen Sie uns kurz, worum es geht — Tisch reservieren, Citybeach, eine Feier oder unsere mobile Cocktailbar. Wir melden uns zeitnah.</p>
+      <p class="tel">Lieber direkt sprechen? <a href="tel:+492330914462">02330 914462</a></p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Anliegen</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Tisch reservieren">Tisch reservieren</span>
+          <span class="chip" data-v="Citybeach">Citybeach</span>
+          <span class="chip" data-v="Feier / Gruppe">Feier / Gruppe</span>
+          <span class="chip" data-v="Mobile Cocktailbar">Mobile Cocktailbar</span>
+        </div>
+      </div>
+      <div class="field"><label>Datum / Uhrzeit / Personen</label><input type="text" id="obj" placeholder="z. B. Fr 20:00 Uhr, 4 Personen"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Ihre Nachricht</label><textarea id="msg" placeholder="Wünsche, Anzahl, Anlass …"></textarea></div>
+      <button class="btn btn-b" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an das Blue Jay — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div class="blk">
+      <h3>Anschrift</h3>
+      <p>Blue Jay · American Bar &amp; Restaurant<br>Hauptstr. 37 · 58313 Herdecke</p>
+    </div>
+    <div class="blk">
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+492330914462">02330 914462</a><br>E-Mail: <a href="mailto:info@blue-jay.de">info@blue-jay.de</a></p>
+    </div>
+    <div class="blk">
+      <h3>Gut zu wissen</h3>
+      <p>Cocktail Happy Hour täglich ab 17 Uhr<br>Sonntags ab 15 Uhr: Kaffee, Kuchen &amp; warme Küche<br>Citybeach · Events · Mobile Cocktailbar</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#c7c2b8"><b style="font-family:'Bebas Neue';font-size:1.75rem">Blue<span style="color:var(--blue-l)">Jay</span></b></div>
+      <span style="color:#5b564e">Hauptstr. 37 · 58313 Herdecke · 02330 914462</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">BJ</span>
+    <div><b>Tisch oder Cocktail?</b><small>Wir helfen gern</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">BJ</span>
+      <div><b>Blue Jay Herdecke</b><br><small>American Bar &amp; Restaurant</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Hey! Möchtest du einen Tisch reservieren, etwas über den Citybeach wissen oder nach unserer mobilen Cocktailbar fragen?</div>
+      <div class="quick">
+        <a href="#reservieren" onclick="toggleBot()">Tisch reservieren</a>
+        <a href="#kueche" onclick="toggleBot()">Küche &amp; Bar ansehen</a>
+        <a href="tel:+492330914462">Lieber anrufen — 02330 914462</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+492330914462" class="btn btn-d">Anrufen</a>
+  <a href="#reservieren" class="btn btn-p">Reservieren</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendReq(e){
+    e.preventDefault();
+    var g=pick||'Anfrage', o=document.getElementById('obj').value||'', k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Hallo Blue-Jay-Team,%0D%0A%0D%0Aich habe eine Anfrage.%0D%0A%0D%0AAnliegen: '+encodeURIComponent(g)+
+      '%0D%0ADatum/Personen: '+encodeURIComponent(o)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ANachricht: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AViele Grüße';
+    window.location.href='mailto:info@blue-jay.de?subject='+encodeURIComponent('Anfrage · '+g)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
