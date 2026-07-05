@@ -98,6 +98,36 @@
   .hero .ctas .note{font-size:.875rem;color:rgba(255,255,255,.8)}
   .hero .ctas .btn-primary{font-size:1rem}
 
+  /* Live-Dialog aus der Community (aus der alten v2 übernommen): 4 Nachrichten im Wechsel */
+  .herochat{position:relative;min-height:92px;width:min(34ch,100%)}
+  .msg{position:absolute;inset:0;display:flex;align-items:flex-start;gap:9px;
+    opacity:0;animation:msgcycle 8.8s ease-in-out infinite}
+  .msg.m2{animation-delay:-6.6s}
+  .msg.m3{animation-delay:-4.4s}
+  .msg.m4{animation-delay:-2.2s}
+  @keyframes msgcycle{
+    0%{opacity:0;transform:translateY(6px)}
+    3%{opacity:1;transform:none}
+    21%{opacity:1;transform:none}
+    25%{opacity:0;transform:translateY(-4px)}
+    100%{opacity:0;transform:translateY(-4px)}
+  }
+  .msg img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;
+    border:1.5px solid rgba(255,255,255,.55)}
+  .bub{background:rgba(18,26,22,.66);backdrop-filter:blur(3px);
+    border:1px solid rgba(37,211,102,.28);border-radius:3px 14px 14px 14px;
+    padding:8px 12px;font-size:13.5px;line-height:1.36;color:#fff}
+  .bub .nm{display:block;font-size:11px;font-weight:600;color:#5fe392;margin-bottom:2px}
+  .bub .nm i{font-style:normal;color:rgba(255,255,255,.6);font-weight:400}
+  .bub .on{display:inline-block;width:6px;height:6px;border-radius:50%;background:#25D366;
+    margin-left:6px;vertical-align:middle;animation:onpulse 2.4s ease-in-out infinite}
+  @keyframes onpulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @media(prefers-reduced-motion:reduce){
+    .herochat{min-height:0}
+    .msg{position:static;opacity:1;animation:none}
+    .msg.m1,.msg.m3,.msg.m4{display:none}  /* nur Maiks Nachricht statisch */
+  }
+
   /* ============ Marquee ============ */
   .band{border-block:1px solid var(--border);background:color-mix(in oklab,var(--blush) 40%,transparent);
     padding-block:1.5rem;overflow:hidden}
@@ -348,6 +378,36 @@
       </div>
     </div>
     <div class="ctas">
+      <div class="herochat" aria-label="Nachrichten aus der Community">
+        <div class="msg m1">
+          <img src="assets/lea.webp" alt="Lea, Mitglied">
+          <div class="bub">
+            <span class="nm">Lea <i>· dabei</i></span>
+            Gestern war mega ❤️
+          </div>
+        </div>
+        <div class="msg m2">
+          <img src="assets/maik.webp" alt="Maik, Gründer">
+          <div class="bub">
+            <span class="nm">Maik <i>· Gründer</i><span class="on" aria-hidden="true"></span></span>
+            Social Warm-up <b>Samstag 18:00</b> 🎉 Einstieg in den Abend – danach ziehen wir gemeinsam weiter
+          </div>
+        </div>
+        <div class="msg m3">
+          <img src="assets/anna.webp" alt="Anna, neu dabei">
+          <div class="bub">
+            <span class="nm">Anna <i>· neu hier</i></span>
+            Kann ich da einfach so dazukommen? Kenn ja niemanden 😅
+          </div>
+        </div>
+        <div class="msg m4">
+          <img src="assets/lena.webp" alt="Lena, Mitglied">
+          <div class="bub">
+            <span class="nm">Lena <i>· dabei</i><span class="on" aria-hidden="true"></span></span>
+            Klar, komm einfach! War selbst neu — keiner kennt am Anfang jemanden 🙂
+          </div>
+        </div>
+      </div>
       <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="hero">
         <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
         Community beitreten
