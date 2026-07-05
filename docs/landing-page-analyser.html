@@ -16,30 +16,33 @@
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100vh;
-      height: 100dvh;
-      overflow: hidden;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: #000000;
       color: #ffffff;
+      font-weight: 300;
+    }
+
+    /* Hero = erster Screen (ehemals ganze Seite), Rest scrollt darunter weiter */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
-      font-weight: 300;
+      overflow: hidden;
     }
 
     /* Hintergrund-Video (Sprung-Szene) + Scrim für Lesbarkeit */
     .bgvid {
-      position: fixed; inset: 0;
+      position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      z-index: -2; background: #000000;
+      z-index: 0; background: #000000;
     }
     .bgscrim {
-      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
         radial-gradient(125% 90% at 50% 42%, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.70) 60%, rgba(0,0,0,0.88) 100%);
     }
@@ -575,9 +578,143 @@
       .chatbot-btn .av, .chatbot-btn .av img { width: 42px; height: 42px; }
       .chatbot-btn .ftxt b { font-size: 13px; }
     }
+
+    /* ==========================================================
+       Angehängte Sektionen (Premium-Campaign-Look, eigene Inhalte)
+       ========================================================== */
+    .x-section { padding: clamp(72px, 12vw, 150px) clamp(18px, 4vw, 48px); }
+    .x-wrap { max-width: 1240px; margin: 0 auto; }
+    .x-dark { background: #0a0a0a; color: #ffffff; }
+    .x-light { background: #f4f4f2; color: #141718; }
+    .x-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      opacity: 0.55; margin-bottom: 1.4rem;
+    }
+    .x-kicker::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    .x-h2 {
+      font-size: clamp(2rem, 5.4vw, 3.6rem);
+      font-weight: 500; line-height: 1.08; letter-spacing: -0.02em;
+      margin-bottom: 1.1rem;
+    }
+    .x-h2 .mut { opacity: 0.35; }
+    .x-h2 .acc { color: #ff8010; }
+    .x-sub { font-size: clamp(0.95rem, 1.6vw, 1.1rem); line-height: 1.65; max-width: 560px; opacity: 0.72; font-weight: 300; }
+
+    .x-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: #ffffff; color: #000000; text-decoration: none;
+      font-weight: 600; font-size: 0.92rem; letter-spacing: 0.01em;
+      padding: 1.05rem 1.6rem; border-radius: 8px; margin-top: 2.2rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 40px -14px rgba(255,255,255,0.4);
+    }
+    .x-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 52px -16px rgba(255,255,255,0.55); }
+    .x-cta .ar { transition: transform 0.2s ease; }
+    .x-cta:hover .ar { transform: translateX(3px); }
+    .x-cta-note { display: block; margin-top: 0.8rem; font-size: 0.72rem; letter-spacing: 0.06em; opacity: 0.45; }
+
+    /* Portfolio */
+    .x-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 2.4vw, 30px); margin-top: clamp(30px, 5vw, 60px); }
+    @media (max-width: 760px) { .x-grid { grid-template-columns: 1fr; } }
+    .x-card {
+      display: block; text-decoration: none; color: inherit;
+      border-radius: 14px; overflow: hidden; position: relative;
+      border: 1px solid rgba(255,255,255,0.1); background: #000;
+      transition: transform 0.3s cubic-bezier(0.22,0.61,0.36,1), border-color 0.3s;
+    }
+    .x-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.32); }
+    .x-card .shot { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+    .x-card .meta {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 14px 16px; background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .x-card .nm { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em; }
+    .x-card .tg { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.45; white-space: nowrap; }
+    .x-card .go { flex: none; opacity: 0.5; transition: transform 0.2s, opacity 0.2s; }
+    .x-card:hover .go { transform: translateX(3px); opacity: 1; }
+
+    /* Prozess */
+    .x-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 26px); margin-top: clamp(30px, 5vw, 56px); }
+    @media (max-width: 860px) { .x-steps { grid-template-columns: 1fr; } }
+    .x-step {
+      background: #ffffff; border: 1px solid rgba(20,23,24,0.08); border-radius: 14px;
+      padding: clamp(20px, 2.6vw, 32px);
+      box-shadow: 0 18px 40px -30px rgba(20,23,24,0.35);
+    }
+    .x-step .no {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 8px; margin-bottom: 1.1rem;
+      background: #141718; color: #fff; font-size: 0.82rem; font-weight: 700;
+    }
+    .x-step h3 { font-size: 1.08rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.55rem; }
+    .x-step p { font-size: 0.9rem; line-height: 1.6; color: rgba(20,23,24,0.62); font-weight: 300; }
+    .x-step .oc { display: block; margin-top: 0.9rem; font-size: 0.8rem; color: rgba(20,23,24,0.85); }
+    .x-step .oc b { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Stack-Chips */
+    .x-chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 1.6rem; }
+    .x-chip {
+      font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em;
+      padding: 0.5rem 0.9rem; border-radius: 999px;
+      border: 1px solid rgba(20,23,24,0.16); color: rgba(20,23,24,0.75); background: #ffffff;
+    }
+
+    /* Kontakt / Berater */
+    .x-advisor {
+      display: flex; align-items: center; gap: clamp(16px, 3vw, 28px); flex-wrap: wrap;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: clamp(20px, 3vw, 34px); margin-top: clamp(26px, 4vw, 46px);
+      max-width: 640px;
+    }
+    .x-advisor img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; flex: none; }
+    .x-advisor .an { font-size: 1.12rem; font-weight: 600; }
+    .x-advisor .ar2 { font-size: 0.82rem; opacity: 0.55; margin-top: 2px; }
+    .x-abtns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0.95rem; }
+    .x-abtn {
+      display: inline-flex; align-items: center; gap: 0.45rem; text-decoration: none;
+      font-size: 0.82rem; font-weight: 600; padding: 0.68rem 1.05rem; border-radius: 8px;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+    .x-abtn:active { transform: scale(0.98); }
+    .x-abtn.wa { background: #25D366; color: #06281a; }
+    .x-abtn.wa:hover { background: #20bd5a; }
+    .x-abtn.ml { background: #ffffff; color: #000000; }
+    .x-abtn.ml:hover { background: #ececec; }
+
+    /* Footer */
+    .x-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 26px clamp(18px, 4vw, 48px);
+      background: #000000; border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.72rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); text-transform: uppercase;
+    }
+    .x-footer a { color: rgba(255,255,255,0.65); text-decoration: none; margin-left: 16px; }
+    .x-footer a:hover { color: #ffffff; }
+
+    /* Scroll-Reveal */
+    .x-rv { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.22,0.61,0.36,1), transform 0.7s cubic-bezier(0.22,0.61,0.36,1); }
+    .x-rv.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .x-rv { opacity: 1; transform: none; transition: none; } }
+
+    /* Vorschau-Pill nur auf dem Hero-Screen zeigen */
+    .preview-thumb { transition: opacity 0.3s ease, transform 0.15s, border-color 0.2s, background 0.2s; }
+    .preview-thumb.pt-hide { opacity: 0; pointer-events: none; }
+
+    /* Scroll-Cue im Hero */
+    .scroll-cue {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; padding-bottom: 1.1rem;
+      text-decoration: none; color: rgba(255,255,255,0.55);
+      font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .scroll-cue .ar { display: inline-block; margin-left: 8px; animation: hintBob 1.6s ease-in-out infinite; }
   </style>
 </head>
 <body>
+  <div class="hero" id="top">
   <picture>
     <source srcset="assets/analyser/jump-still.webp" type="image/webp">
     <img class="bgvid" src="assets/analyser/jump-still.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
@@ -698,6 +835,138 @@
   <div class="bottom-bar">
     <span class="bottom-text">100+ Seiten transformiert • 24h Konzept • Kostenlos</span>
   </div>
+  <a class="scroll-cue" href="#warum" aria-label="Weiter zu den Details">Mehr entdecken<span class="ar" aria-hidden="true">↓</span></a>
+  </div><!-- /.hero -->
+
+  <!-- ===================== Angehängte Premium-Sektionen (eigene Inhalte) ===================== -->
+
+  <section class="x-section x-dark" id="warum">
+    <div class="x-wrap">
+      <span class="x-kicker x-rv">MZ.9 · Redesign.AI</span>
+      <h2 class="x-h2 x-rv">Websites wie Apple.<br><span class="acc">In 4 Wochen.</span></h2>
+      <p class="x-sub x-rv">Manche Unternehmen wirken auf den ersten Blick hochwertig — das ist kein Zufall,
+      sondern Design. Wir bauen dir einen Auftritt, der genau das auslöst: Vertrauen in Sekunden,
+      Anfragen statt Absprünge.</p>
+      <div class="x-rv">
+        <a class="x-cta" href="#top">Kostenloses Redesign-Konzept <span class="ar" aria-hidden="true">→</span></a>
+        <span class="x-cta-note">100 % kostenlos &amp; unverbindlich — Konzept in 24h</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="x-section x-dark" id="arbeit" style="padding-top:0">
+    <div class="x-wrap">
+      <span class="x-kicker x-rv">Referenzen</span>
+      <h2 class="x-h2 x-rv">Unsere Arbeit<span class="mut">.</span></h2>
+      <p class="x-sub x-rv">Eigene Projekte aus dem MZ.9-Studio — jede Seite klickbar, jede live.</p>
+      <div class="x-grid">
+        <a class="x-card x-rv" href="mz9.html" target="_blank" rel="noopener">
+          <img class="shot" src="assets/analyser/work-mz9-atelier.jpg" alt="MZ.9 Atelier — Studio-Website" loading="lazy">
+          <span class="meta"><span class="nm">MZ.9 Atelier</span><span class="tg">Design · Development</span><span class="go" aria-hidden="true">→</span></span>
+        </a>
+        <a class="x-card x-rv" href="premium.html" target="_blank" rel="noopener">
+          <img class="shot" src="assets/analyser/work-tribe-journal.jpg" alt="The Tribe Journal — Community-Plattform" loading="lazy">
+          <span class="meta"><span class="nm">The Tribe Journal</span><span class="tg">Branding · Design</span><span class="go" aria-hidden="true">→</span></span>
+        </a>
+        <a class="x-card x-rv" href="wine-walk.html" target="_blank" rel="noopener">
+          <img class="shot" src="assets/analyser/work-wine-walk.jpg" alt="Wine Walk — Event-Landingpage" loading="lazy">
+          <span class="meta"><span class="nm">Wine Walk</span><span class="tg">Design · Motion</span><span class="go" aria-hidden="true">→</span></span>
+        </a>
+        <a class="x-card x-rv" href="techno-paint.html" target="_blank" rel="noopener">
+          <img class="shot" src="assets/analyser/work-techno-paint.jpg" alt="Techno &amp; Paint — Event-Landingpage" loading="lazy">
+          <span class="meta"><span class="nm">Techno &amp; Paint</span><span class="tg">Design · Motion</span><span class="go" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="x-section x-light" id="prozess">
+    <div class="x-wrap">
+      <span class="x-kicker x-rv">Der Weg</span>
+      <h2 class="x-h2 x-rv">So entsteht Premium<span class="mut">.</span></h2>
+      <p class="x-sub x-rv" style="opacity:0.6">Drei Phasen, vom kostenlosen Konzept bis zur fertigen Seite.
+      Jede mit einem klaren Ergebnis — und du entscheidest nach jeder Phase, ob es weitergeht.</p>
+      <div class="x-steps">
+        <div class="x-step x-rv">
+          <span class="no">1</span>
+          <h3>Analyse &amp; Konzept</h3>
+          <p>Du gibst oben deine URL ein. Wir analysieren, wo deine Seite heute Besucher verliert,
+          und bauen dir ein konkretes Redesign-Konzept — als klickbare Vorschau, nicht als PDF.</p>
+          <span class="oc">Ergebnis: <b>dein Konzept in 24h, kostenlos</b></span>
+        </div>
+        <div class="x-step x-rv">
+          <span class="no">2</span>
+          <h3>Design &amp; Umsetzung</h3>
+          <p>Gefällt dir die Richtung, setzen wir sie um: komplette Seite, jede Sektion auf dein
+          Unternehmen zugeschnitten — Texte, Bildwelt, Animationen inklusive.</p>
+          <span class="oc">Ergebnis: <b>deine fertige Premium-Seite</b></span>
+        </div>
+        <div class="x-step x-rv">
+          <span class="no">3</span>
+          <h3>Launch &amp; Betreuung</h3>
+          <p>Wir stellen live, messen was passiert und optimieren weiter. Änderungen und neue
+          Inhalte gehen direkt über Maik — ohne Agentur-Umwege.</p>
+          <span class="oc">Ergebnis: <b>eine Seite, die dauerhaft verkauft</b></span>
+        </div>
+      </div>
+      <div class="x-rv" style="margin-top:2.6rem">
+        <span class="x-kicker" style="margin-bottom:0.9rem">Unser Stack</span>
+        <div class="x-chips">
+          <span class="x-chip">KI-Workflows</span><span class="x-chip">Figma</span><span class="x-chip">HTML/CSS/JS</span>
+          <span class="x-chip">React</span><span class="x-chip">Tailwind</span><span class="x-chip">GSAP</span>
+          <span class="x-chip">GitHub Pages</span><span class="x-chip">Analytics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="x-section x-dark" id="kontakt">
+    <div class="x-wrap">
+      <span class="x-kicker x-rv">Kontakt</span>
+      <h2 class="x-h2 x-rv">Lass uns über<br>deine Seite sprechen<span class="mut">.</span></h2>
+      <p class="x-sub x-rv">Kein Verkaufsgespräch — du bekommst eine ehrliche Einschätzung,
+      was deine Seite heute liegen lässt und wie wir das ändern.</p>
+      <div class="x-advisor x-rv">
+        <img src="assets/analyser/maik-zschach.jpg" alt="Maik Zschach">
+        <div>
+          <div class="an">Maik Zschach</div>
+          <div class="ar2">Media Engineering &amp; AI · MZ.9 · Bielefeld</div>
+          <div class="x-abtns">
+            <a class="x-abtn wa" href="https://wa.me/4917645961547?text=Hi%20Maik%2C%20ich%20will%20ein%20Redesign-Konzept%20f%C3%BCr%20meine%20Seite." target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="x-abtn ml" href="#top">Konzept anfordern <span aria-hidden="true">↑</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="x-footer">
+    <span>© 2026 MZ.9 — Redesign.AI</span>
+    <span><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></span>
+  </footer>
+
+  <script>
+    /* Premium-Vorschau nur zeigen, solange der Hero sichtbar ist
+       (läuft nach DOMContentLoaded — die Vorschau steht weiter unten im DOM) */
+    document.addEventListener('DOMContentLoaded', function(){
+      var hero = document.querySelector('.hero');
+      var pt = document.querySelector('.preview-thumb');
+      if (!hero || !pt || !('IntersectionObserver' in window)) return;
+      new IntersectionObserver(function(en){
+        pt.classList.toggle('pt-hide', !en[0].isIntersecting);
+      }, { threshold: 0.25 }).observe(hero);
+    });
+
+    /* Scroll-Reveal für die angehängten Sektionen */
+    (function(){
+      var els = document.querySelectorAll('.x-rv');
+      if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+      els.forEach(function(e){ io.observe(e); });
+    })();
+  </script>
 
   <script>
     const form = document.getElementById('form');
