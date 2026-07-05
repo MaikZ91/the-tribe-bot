@@ -2,265 +2,299 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<meta name="theme-color" content="#0A0807">
-<meta name="description" content="The Tribe Bielefeld — die kostenlose WhatsApp-Community, die jede Woche zusammen ausgeht. Du musst niemanden kennen.">
-<title>The Tribe — komm in Bielefeld an</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f0">
+<meta name="description" content="THE TRIBE bringt jede Woche Menschen in Bielefeld und Münster zusammen. Social Warm-up, Abendessen, Drinks und gemeinsame Abende — du erscheinst einfach.">
+<title>THE TRIBE — Wöchentliche Treffen in Bielefeld &amp; Münster</title>
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0807'/><text x='16' y='22' font-family='Arial Black' font-size='14' fill='white' text-anchor='middle' font-weight='900'>T</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23241d18'/><text x='16' y='22' font-family='Georgia' font-size='16' fill='%23fa9585' text-anchor='middle' font-style='italic'>t</text></svg>">
 
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/familjen-grotesk-latin.woff2" crossorigin>
-<link rel="preload" as="image" href="assets/hero/5.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" as="image" href="assets/hero/onepager-hero.jpg" fetchpriority="high">
 
 <style>
-  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/anton-latin.woff2) format('woff2')}
-  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
   :root{
-    --black:#0A0807; --amber:#F5A21A; --wa:#25D366; --wa-deep:#062c16;
-    --text:#F7F2EA; --muted:#A8A199;
-    --fd:"Anton","Arial Narrow",sans-serif;
-    --fb:"Familjen Grotesk",system-ui,-apple-system,sans-serif;
-    --ease:cubic-bezier(.16,.84,.34,1);
+    --cream:#f8f5ee; --ink:#241d18; --sand:#e9e3d4; --blush:#f4cdc4; --coral:#fa9585;
+    --border:#e0d8c9; --muted:#6b6157;
+    --cream:oklch(97.5% .012 85); --ink:oklch(18% .02 40); --sand:oklch(92% .02 80);
+    --blush:oklch(88% .06 20); --coral:oklch(78% .14 25);
+    --border:oklch(88% .015 60); --muted:oklch(45% .02 40);
+    --fd:"Fraunces",ui-serif,Georgia,serif;
+    --fs:"Inter",ui-sans-serif,system-ui,sans-serif;
+    --shadow-soft:0 20px 60px -20px color-mix(in oklab,var(--ink) 25%,transparent);
+    --shadow-pop:0 10px 30px -10px color-mix(in oklab,var(--coral) 45%,transparent);
+    --r3:1.5rem; --rBig:2.5rem;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{font-family:var(--fb);background:var(--black);color:var(--text);
-    -webkit-font-smoothing:antialiased;line-height:1.4;overflow:hidden;
-    overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fs);background:var(--cream);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.5;font-feature-settings:"ss01"}
   a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  button{font-family:inherit}
+  .fd{font-family:var(--fd)}
+  .container{width:100%;max-width:1240px;margin-inline:auto;padding-inline:1.25rem}
 
-  .stage{position:relative;height:100dvh;width:100%;overflow:hidden;
-    display:flex;flex-direction:column;justify-content:flex-end}
+  .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+    background:var(--coral);color:var(--ink);border:0;cursor:pointer;
+    box-shadow:var(--shadow-pop);border-radius:9999px;padding:.95rem 1.6rem;font-weight:600;font-size:1rem;
+    transition:transform .2s,box-shadow .2s,background .2s}
+  .btn-primary:hover{background:color-mix(in oklab,var(--coral) 90%,white);transform:translateY(-1px)}
+  .btn-primary.sm{padding:.7rem 1.2rem;font-size:.875rem;gap:.5rem}
+  .btn-primary svg{flex:none}
+  .btn-ghost{display:inline-flex;align-items:center;justify-content:center;
+    color:var(--ink);border-radius:9999px;padding:.7rem 1.2rem;font-weight:500;font-size:.95rem;transition:background .2s}
+  .btn-ghost:hover{background:color-mix(in oklab,var(--ink) 6%,transparent)}
 
-  /* atmosphere: schnell wechselnde Foto-Slideshow (nur opacity -> GPU, performant) + vignette + grain */
-  .bgwrap{position:absolute;inset:0;z-index:0;background:var(--black)}
-  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 36%;
-    opacity:0;will-change:opacity;animation:bgcycle 17.5s linear infinite}
-  .bg.b1{object-position:50% 40%;animation-delay:0s}
-  .bg.b2{object-position:50% 40%;animation-delay:-2.5s}
-  .bg.b3{object-position:50% 40%;animation-delay:-5s}
-  .bg.b4{object-position:50% 38%;animation-delay:-7.5s}
-  .bg.b5{object-position:50% 40%;animation-delay:-10s}
-  .bg.b6{object-position:50% 45%;animation-delay:-12.5s}
-  .bg.b7{object-position:50% 40%;animation-delay:-15s}
-  @keyframes bgcycle{
-    0%{opacity:0} 4%{opacity:1} 11%{opacity:1} 14%{opacity:0} 100%{opacity:0}
-  }
-  /* Grundbild sofort sichtbar, bevor Animationen nach window.load starten */
-  html:not(.ready) .bg.b1{opacity:1}
-  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:
-      radial-gradient(120% 78% at 50% 32%,transparent 0%,rgba(7,5,4,.42) 70%,rgba(7,5,4,.82) 100%),
-      linear-gradient(to top,rgba(6,4,3,.97) 0%,rgba(6,4,3,.9) 36%,rgba(6,4,3,.62) 68%,rgba(6,4,3,.32) 100%)}
-  .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;mix-blend-mode:soft-light;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+  .eyebrow{margin-bottom:1rem;font-size:.875rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
+  h2.display{font-family:var(--fd);font-weight:400;font-size:clamp(2.7rem,5.5vw,4.5rem);line-height:1.02;letter-spacing:-.01em}
+  h2.display em,.it{font-style:italic}
+  .sub{margin-top:1.5rem;max-width:28rem;font-size:1.125rem;color:var(--muted)}
 
-  /* top bar — wordmark + de-emphasised ghost CTA (one filled CTA wins) */
-  .top{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;
-    justify-content:space-between;gap:12px;padding:max(13px,env(safe-area-inset-top)) 18px 0}
-  .mark{font-family:var(--fd);font-size:15px;letter-spacing:.07em;background:var(--text);
-    color:var(--black);padding:5px 9px 3px;line-height:1}
-  .topR{display:flex;align-items:center;gap:9px;flex-shrink:0}
-  .ticker{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;color:var(--text);opacity:.95;white-space:nowrap}
+  /* ============ Header ============ */
+  header{position:absolute;inset-inline:0;top:0;z-index:30}
+  .hd{display:flex;align-items:center;justify-content:space-between;padding-block:1.5rem}
+  .logo{display:flex;align-items:baseline;gap:.25rem;font-family:var(--fd);font-size:1.5rem;letter-spacing:-.02em;color:#fff}
+  .logo .b{font-weight:600}
+  .logo .c{font-style:italic;color:var(--coral)}
+  .logo .d{color:var(--coral)}
+  .hd nav{display:none;align-items:center;gap:.5rem}
+  .hd nav .btn-ghost{color:#fff}
+  .hd nav .btn-ghost:hover{background:rgba(255,255,255,.12)}
+  @media(min-width:768px){.hd nav{display:flex}}
+  .hd .join-sm{display:none}
+  @media(min-width:520px){.hd .join-sm{display:inline}.hd .join-xs{display:none}}
 
-  /* dezenter Info-Dropdown in der Ecke */
-  .menu{position:relative;flex-shrink:0}
-  .menu>summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;
-    justify-content:center;gap:3.5px;width:30px;height:24px;padding:5px 6px;
-    border-radius:7px;border:1px solid rgba(247,242,234,.18);background:rgba(18,16,14,.32);
-    -webkit-tap-highlight-color:transparent}
-  .menu>summary::-webkit-details-marker{display:none}
-  .menu>summary span{display:block;height:1.5px;background:var(--text);opacity:.75;border-radius:2px;transition:.2s var(--ease)}
-  .menu[open]>summary{border-color:rgba(245,162,26,.5)}
-  .menu[open]>summary span{opacity:1}
-  .menuPop{position:absolute;top:calc(100% + 8px);right:0;z-index:30;min-width:178px;
-    display:flex;flex-direction:column;padding:6px;border-radius:13px;
-    background:rgba(14,12,11,.92);backdrop-filter:blur(14px);
-    border:1px solid rgba(247,242,234,.12);box-shadow:0 18px 44px rgba(0,0,0,.55);
-    animation:popIn .18s var(--ease)}
-  @keyframes popIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-  .menuPop .ph{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted);padding:5px 10px 6px}
-  .menuPop a{display:flex;align-items:center;justify-content:space-between;gap:10px;
-    padding:10px 11px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--text);
-    transition:background .15s}
-  .menuPop a:active,.menuPop a:hover{background:rgba(245,162,26,.12)}
-  .menuPop a .ar{color:var(--amber);font-size:12px;opacity:.8}
-  .menuPop a.feat{color:var(--amber)}
-  .ticker .d{width:7px;height:7px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:onpulse 2.4s ease-in-out infinite}
-  .ticker .cd{color:var(--amber)}
-  .ticker b{color:var(--amber);font-weight:700}
-
-  /* community-driven events — klein, statisch, dezent unter der Top-Bar */
-  .events{position:absolute;left:0;right:0;z-index:5;
-    top:calc(max(13px,env(safe-area-inset-top)) + 34px);
-    padding:7px 18px;pointer-events:none;
-    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:9px;row-gap:2px}
-  .events .lbl{font-size:9px;font-weight:700;
-    letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:.85}
-  .events .lbl::after{content:"·";margin-left:9px;opacity:.6}
-  .evtrack{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
-    column-gap:9px;row-gap:2px}
-  .ev{pointer-events:auto;font-family:inherit;font-size:8.5px;font-weight:700;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--muted);opacity:.7;
-    white-space:nowrap;text-decoration:none}
-  .ev .ico{display:none}
-  .ev:active{opacity:1}
-
-  /* the staged statement */
-  .c{position:relative;z-index:4;display:flex;flex-direction:column;
-    padding:0 24px calc(26px + env(safe-area-inset-bottom));gap:clamp(11px,2.4vh,18px)}
-  .reveal{opacity:1}
-  /* Grundseite zuerst sichtbar — alle Animationen erst nach window.load (html.ready) */
-  html:not(.ready) *,html:not(.ready) *::before,html:not(.ready) *::after{animation-play-state:paused!important}
-  html:not(.ready) .msg.m1{opacity:1}
-  /* non-CTA elements stehen leicht zurück, damit der Button am hellsten ist */
-  .dim{opacity:.82}
-
-  .kick{font-family:var(--fd);font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--amber);animation-delay:.45s}
-  h1{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:.004em;
-    font-size:clamp(28px,8.4vw,54px);line-height:.96;text-shadow:0 2px 30px rgba(0,0,0,.5)}
-  h1 span{display:block}
-  h1 .l1{animation-delay:.5s} h1 .l2{animation-delay:.66s}
-  h1 .l3{animation-delay:.82s} h1 .l4{animation-delay:.98s}
-  h1 em{font-style:normal;color:var(--amber)}
-  .lead{font-size:clamp(14px,3.9vw,16.5px);line-height:1.45;color:var(--text);
-    max-width:30ch;animation-delay:1.2s}
-  .lead .n{font-family:var(--fd);font-style:normal;color:var(--amber);font-size:1.32em;
-    display:inline-block;min-width:1.5em;text-align:center;vertical-align:-1px}
-  .lead b{font-weight:600}
-  .faces{display:flex;align-items:center;margin:1px 0 -2px}
-  .faces img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:2px solid var(--black);margin-left:-7px}
+  /* ============ Hero ============ */
+  .hero{position:relative;isolation:isolate;overflow:hidden}
+  .hero>img.bgimg{position:absolute;inset:0;z-index:-2;height:100%;width:100%;object-fit:cover}
+  .hero .shade{position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(to bottom,rgba(0,0,0,.4),rgba(0,0,0,.2) 50%,rgba(0,0,0,.7))}
+  .hero .inner{display:flex;min-height:100svh;flex-direction:column;justify-content:space-between;
+    padding-top:7rem;padding-bottom:2.5rem}
+  .hero .copy{max-width:48rem;color:#fff}
+  .badge{margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;
+    background:rgba(255,255,255,.15);padding:.5rem 1rem;font-size:.875rem;backdrop-filter:blur(8px)}
+  .badge .dot{height:.5rem;width:.5rem;border-radius:9999px;background:var(--coral)}
+  .citypills{display:flex;overflow:hidden;border-radius:9999px}
+  .citypills button{border:0;cursor:pointer;border-radius:9999px;padding:.25rem .75rem;font-size:.875rem;font-weight:500;
+    transition:.2s;background:transparent;color:rgba(255,255,255,.9)}
+  .citypills button:hover{color:#fff}
+  .citypills button.on{background:#fff;color:var(--ink)}
+  .hero h1{font-family:var(--fd);font-weight:400;font-size:clamp(3rem,9vw,7.5rem);line-height:.95;letter-spacing:-.01em}
+  .hero h1 .inf{margin-left:.75rem;display:inline-block}
+  .hero .lead{margin-top:1.5rem;max-width:36rem;font-size:1.125rem;color:rgba(255,255,255,.85)}
+  .hero .lead .hl{color:var(--coral);font-weight:500}
+  /* Kennzahl: Gesichter + Live-Zähler (aus v2 übernommen) */
+  .faces{display:flex;align-items:center;margin-top:1.25rem}
+  .faces img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.9);margin-left:-9px}
   .faces img:first-child{margin-left:0}
-  .faces .fw{margin-left:7px;font-size:11px;color:var(--muted)}
-  /* stärkster Hebel: lebendiger Chat — 1 dezenter Slot, 3-Beat: Event → Anna → Maik, schnell */
-  .chat{position:relative;min-height:92px;max-width:32ch;animation-delay:1.6s}
-  .msg{position:absolute;inset:0;display:flex;align-items:flex-start;gap:9px;
-    opacity:0;animation:msgcycle 8.8s ease-in-out infinite}
-  .msg.m2{animation-delay:-6.6s}
-  .msg.m3{animation-delay:-4.4s}
-  .msg.m4{animation-delay:-2.2s}
-  @keyframes msgcycle{
-    0%{opacity:0;transform:translateY(6px)}
-    3%{opacity:1;transform:none}
-    21%{opacity:1;transform:none}
-    25%{opacity:0;transform:translateY(-4px)}
-    100%{opacity:0;transform:translateY(-4px)}
-  }
-  .msg img{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;
-    border:1.5px solid rgba(0,0,0,.45)}
-  .bub{background:rgba(18,26,22,.66);backdrop-filter:blur(3px);
-    border:1px solid rgba(37,211,102,.22);border-radius:3px 14px 14px 14px;
-    padding:8px 12px;font-size:13.5px;line-height:1.36;color:var(--text)}
-  .bub .nm{display:block;font-size:11px;font-weight:600;color:#5fe392;margin-bottom:2px}
-  .bub .nm i{font-style:normal;color:var(--muted);font-weight:400}
-  .bub .on{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--wa);
-    margin-left:6px;vertical-align:middle;animation:onpulse 2.4s ease-in-out infinite}
-  @keyframes onpulse{0%,100%{opacity:.4}50%{opacity:1}}
-  .meta{font-size:11.5px;color:var(--muted);animation-delay:1.95s}
+  .faces .fw{margin-left:.75rem;font-size:.9rem;color:rgba(255,255,255,.85)}
+  .faces .fw b{color:#fff}
+  .faces .fw .n{font-family:var(--fd);font-size:1.25em;color:var(--coral);font-style:italic}
+  .hero .ctas{display:flex;flex-direction:column;align-items:flex-start;gap:1rem}
+  .hero .ctas .note{font-size:.875rem;color:rgba(255,255,255,.8)}
+  .hero .ctas .btn-primary{font-size:1rem}
 
-  /* directional guide: faint line that travels down toward the CTA */
-  .guide{height:34px;position:relative;align-self:center;width:1px;overflow:hidden}
-  .guide::before{content:"";position:absolute;left:0;top:-34px;width:1px;height:34px;
-    background:linear-gradient(to bottom,transparent,var(--amber));
-    animation:flow 2.6s ease-in-out infinite}
-  @keyframes flow{0%{transform:translateY(0);opacity:0}30%{opacity:.85}100%{transform:translateY(68px);opacity:0}}
+  /* ============ Marquee ============ */
+  .band{border-block:1px solid var(--border);background:color-mix(in oklab,var(--blush) 40%,transparent);
+    padding-block:1.5rem;overflow:hidden}
+  .marquee{display:flex;gap:3rem;width:max-content;animation:marquee 40s linear infinite;
+    font-family:var(--fd);font-size:clamp(1.875rem,4vw,3rem)}
+  .marquee span{display:flex;align-items:center;gap:3rem;white-space:nowrap;color:color-mix(in oklab,var(--ink) 80%,transparent)}
+  .marquee span i{font-style:normal;color:var(--coral)}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marquee{animation:none}}
 
-  .kick{font-family:var(--fd);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+  /* ============ Warm-up ============ */
+  .sec{padding-block:6rem}
+  @media(min-width:768px){.sec{padding-block:8rem}}
+  .warmcard{position:relative;overflow:hidden;border-radius:var(--rBig);
+    background:linear-gradient(to bottom right,var(--coral),var(--blush),var(--sand));
+    padding:2rem;box-shadow:var(--shadow-soft)}
+  @media(min-width:768px){.warmcard{padding:4rem}}
+  .warmgrid{display:grid;gap:2.5rem}
+  @media(min-width:768px){.warmgrid{grid-template-columns:1.3fr 1fr;align-items:end}}
+  .warmtag{margin-bottom:1rem;display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;
+    background:rgba(255,255,255,.6);padding:.25rem .75rem;font-size:.75rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;color:var(--ink);backdrop-filter:blur(8px)}
+  .warmtag .dot{height:.375rem;width:.375rem;border-radius:9999px;background:var(--ink)}
+  .warmcard h2{font-family:var(--fd);font-weight:400;font-size:clamp(3rem,7vw,6rem);line-height:1}
+  .warmcard .txt{margin-top:1.5rem;max-width:32rem;font-size:1.125rem;color:color-mix(in oklab,var(--ink) 80%,transparent)}
+  .warmfacts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;list-style:none}
+  .warmfacts li{border-radius:1rem;background:rgba(255,255,255,.7);padding:1.25rem;backdrop-filter:blur(8px)}
+  .warmfacts .k{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:color-mix(in oklab,var(--ink) 60%,transparent)}
+  .warmfacts .v{margin-top:.25rem;font-family:var(--fd);font-size:1.5rem}
+  .warmfoot{margin-top:2.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+  .warmfoot .hint{font-size:.875rem;color:color-mix(in oklab,var(--ink) 70%,transparent)}
+  .blob{pointer-events:none;position:absolute;border-radius:9999px;filter:blur(64px)}
+  .warmcard .blob{right:-6rem;top:-6rem;height:18rem;width:18rem;background:rgba(255,255,255,.4)}
 
-  .cta{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-    background:var(--wa);color:var(--wa-deep);font-weight:700;font-size:clamp(16px,4.7vw,18.5px);
-    padding:19px 22px;border-radius:17px;overflow:hidden;
-    animation:glow 3.6s ease-in-out infinite}
-  @keyframes glow{0%,100%{box-shadow:0 14px 30px rgba(37,211,102,.34)}50%{box-shadow:0 18px 52px rgba(37,211,102,.66)}}
-  .cta svg{width:22px;height:22px;flex-shrink:0}
-  .cta:active{transform:scale(.98)}
-  .cta::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.42) 50%,transparent 70%);
-    transform:translateX(-130%);animation:sweep 4.4s ease-in-out infinite}
-  @keyframes sweep{0%,62%{transform:translateX(-130%)}82%,100%{transform:translateX(130%)}}
+  /* ============ How ============ */
+  .howgrid{display:grid;gap:3rem}
+  @media(min-width:768px){.howgrid{grid-template-columns:1fr 1.2fr;gap:5rem}}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:1.5rem}
+  .steps li{border-radius:var(--r3);border:1px solid var(--border);background:#fff;padding:2rem;
+    transition:transform .2s,box-shadow .2s}
+  .steps li:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+  .steps .row{display:flex;align-items:baseline;gap:1.5rem}
+  .steps .num{font-family:var(--fd);font-size:2.25rem;color:var(--coral)}
+  .steps h3{font-family:var(--fd);font-weight:400;font-size:1.5rem}
+  .steps p{margin-top:.5rem;color:var(--muted)}
 
-  .reassure{text-align:center;font-size:11.5px;color:var(--muted);animation-delay:3.2s}
-  .reassure b{color:var(--text);font-weight:600}
-  .ctaRow{display:flex;align-items:center;justify-content:center;gap:11px;text-align:center}
+  /* ============ Formate ============ */
+  .formats{background:color-mix(in oklab,var(--blush) 50%,transparent)}
+  .fhead{margin-bottom:4rem;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:1.5rem}
+  @media(min-width:768px){.fhead{flex-direction:row;align-items:flex-end}}
+  .fhead .sub{margin-top:0}
+  .cards{display:grid;gap:1.5rem}
+  @media(min-width:768px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{display:flex;flex-direction:column;overflow:hidden;border-radius:var(--r3);background:#fff;
+    box-shadow:var(--shadow-soft);transition:transform .2s}
+  .card:hover{transform:translateY(-4px)}
+  .card .imgwrap{position:relative;aspect-ratio:4/5;overflow:hidden}
+  .card .imgwrap img{height:100%;width:100%;object-fit:cover;transition:transform .7s}
+  .card:hover .imgwrap img{transform:scale(1.05)}
+  .card .tagL{position:absolute;left:1rem;top:1rem;border-radius:9999px;background:rgba(255,255,255,.9);white-space:nowrap;
+    padding:.25rem .75rem;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);backdrop-filter:blur(8px)}
+  .card .tagR{position:absolute;right:1rem;top:1rem;border-radius:9999px;background:color-mix(in oklab,var(--ink) 80%,transparent);white-space:nowrap;
+    padding:.25rem .75rem;font-size:.75rem;font-weight:500;color:var(--cream);backdrop-filter:blur(8px)}
+  .card .body{display:flex;flex:1;flex-direction:column;justify-content:space-between;gap:1.5rem;padding:1.75rem}
+  .card .body p{color:var(--muted)}
+  .card .btn-primary{align-self:flex-start}
 
-  /* Kurze Displays: oben entzerren, damit der Block über dem CTA nicht gedrängt wirkt. */
-  @media (max-height:780px){
-    .c{gap:clamp(8px,1.6vh,13px);padding-bottom:calc(20px + env(safe-area-inset-bottom))}
-    .chat{min-height:80px}
-    .guide{height:18px}
-  }
-  @media (max-height:680px){
-    h1{font-size:clamp(25px,7.2vw,40px)}
-    /* Chat bleibt sichtbar — kompakt in die freie Fläche zwischen Leuten und CTA. */
-    .chat{min-height:62px}
-    .chat .bub{padding:6px 10px;font-size:12.5px;line-height:1.3}
-    .chat .msg img{width:26px;height:26px}
-    .guide{display:none}
-  }
-  .ctaCd{text-align:center;font-size:11px;font-weight:600;color:var(--wa-deep);
-    opacity:.72;font-variant-numeric:tabular-nums}
-  .ctaCd:empty{display:none}
+  /* ============ Zahlen (Kennzahlen aus v2) ============ */
+  .numgrid{display:grid;gap:2.5rem}
+  @media(min-width:768px){.numgrid{grid-template-columns:1.2fr 1fr;align-items:center}}
+  .numcard{border-radius:var(--r3);background:var(--ink);color:var(--cream);padding:2.5rem;box-shadow:var(--shadow-soft)}
+  .numcard dl{display:grid;grid-template-columns:1fr 1fr;row-gap:2.5rem}
+  .numcard dt{font-family:var(--fd);font-size:3.75rem;line-height:1;color:var(--coral)}
+  .numcard dd{margin-top:.5rem;font-size:.875rem;color:color-mix(in oklab,var(--cream) 70%,transparent)}
 
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
-    .bg{opacity:0;transform:none} .bg.b1{opacity:1}
-    .reveal,.dim,.guide,.cta{opacity:1;transform:none}
-    .guide{display:none}
-    .msg{position:static;opacity:1} .msg.m1{display:none}  /* nur Maik statisch */
-  }
-  @media (min-width:560px){.stage,.top{max-width:480px;margin:0 auto}.top{left:50%;transform:translateX(-50%)}}
-  @media (max-height:680px){.c{gap:10px;padding-bottom:20px}h1{font-size:clamp(34px,10vw,50px)}.guide{height:22px}}
+  /* ============ Stimmen ============ */
+  .voices{background:var(--ink);color:var(--cream)}
+  .voices .eyebrow{color:color-mix(in oklab,var(--cream) 60%,transparent)}
+  .voices h2 .it{color:var(--coral)}
+  .quotes{margin-top:4rem;display:grid;gap:1.5rem}
+  @media(min-width:768px){.quotes{grid-template-columns:repeat(3,1fr)}}
+  .quotes figure{border-radius:var(--r3);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+    padding:2rem;backdrop-filter:blur(8px)}
+  .quotes blockquote{font-family:var(--fd);font-size:1.25rem;line-height:1.375}
+  .quotes figcaption{margin-top:1.5rem;font-size:.875rem;color:color-mix(in oklab,var(--cream) 70%,transparent)}
+  .quotes figcaption .city{color:var(--coral)}
 
-  /* === Frag Maik Chatbot (dunkler Pill im MZ.9-Stil, Tribe-Akzent amber) === */
-  .chatbot{position:relative;align-self:flex-end;margin:2px 0 6px;z-index:30;font-family:var(--fb)}
-  .chatbot-btn{display:flex;flex-direction:row;align-items:center;gap:11px;padding:8px 18px 8px 8px;
-    background:#0A0807;color:var(--text);border:1px solid rgba(247,242,234,.4);border-radius:44px;
-    box-shadow:0 18px 50px rgba(0,0,0,.55);cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s}
-  .chatbot-btn:hover{transform:translateY(-2px);box-shadow:0 22px 60px rgba(0,0,0,.65)}
+  /* ============ Städte ============ */
+  .citygrid{display:grid;gap:3rem}
+  @media(min-width:768px){.citygrid{grid-template-columns:1fr 1fr;gap:4rem}}
+  .cityswitch{margin-top:2rem;display:flex;gap:.5rem;border-radius:9999px;background:var(--sand);padding:.25rem;width:fit-content}
+  .cityswitch button{border:0;cursor:pointer;border-radius:9999px;padding:.5rem 1.25rem;font-size:.875rem;font-weight:500;
+    transition:.2s;background:transparent;color:color-mix(in oklab,var(--ink) 70%,transparent)}
+  .cityswitch button:hover{color:var(--ink)}
+  .cityswitch button.on{background:var(--ink);color:var(--cream)}
+  .citycard{position:relative;overflow:hidden;border-radius:var(--r3);
+    background:linear-gradient(to bottom right,var(--blush),color-mix(in oklab,var(--coral) 70%,transparent));
+    padding:2.5rem;box-shadow:var(--shadow-soft)}
+  .citycard .colwrap{display:flex;height:100%;flex-direction:column;justify-content:space-between;gap:2.5rem}
+  .citycard .k{font-size:.875rem;text-transform:uppercase;letter-spacing:.2em;color:color-mix(in oklab,var(--ink) 70%,transparent)}
+  .citycard .cityname{margin-top:.5rem;font-family:var(--fd);font-size:clamp(3.75rem,6vw,4.5rem);line-height:1}
+  .citycard .when{margin-top:.25rem;font-family:var(--fd);font-size:1.5rem;font-style:italic}
+  .citycard .meet{border-radius:1rem;background:rgba(255,255,255,.6);padding:1.25rem;backdrop-filter:blur(8px)}
+  .citycard .meet .k2{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:color-mix(in oklab,var(--ink) 60%,transparent)}
+  .citycard .meet .v{margin-top:.25rem;font-weight:500}
+  .citycard .blob{right:-4rem;bottom:-4rem;height:16rem;width:16rem;background:rgba(255,255,255,.3)}
+  .citycard .btn-primary{align-self:flex-start}
+
+  /* ============ FAQ ============ */
+  .faq{background:var(--sand)}
+  .faqgrid{display:grid;gap:3rem}
+  @media(min-width:768px){.faqgrid{grid-template-columns:1fr 1.4fr}}
+  .faqlist{border-block:1px solid color-mix(in oklab,var(--ink) 10%,transparent)}
+  .faqlist details{padding-block:1.5rem}
+  .faqlist details+details{border-top:1px solid color-mix(in oklab,var(--ink) 10%,transparent)}
+  .faqlist summary{display:flex;cursor:pointer;list-style:none;align-items:center;justify-content:space-between;gap:1rem}
+  .faqlist summary::-webkit-details-marker{display:none}
+  .faqlist summary .q{font-family:var(--fd);font-size:1.25rem}
+  @media(min-width:768px){.faqlist summary .q{font-size:1.5rem}}
+  .faqlist summary .pl{font-size:1.5rem;color:var(--coral);transition:transform .2s}
+  .faqlist details[open] summary .pl{transform:rotate(45deg)}
+  .faqlist details p{margin-top:.75rem;max-width:42rem;color:var(--muted)}
+
+  /* ============ Join ============ */
+  .joincard{position:relative;overflow:hidden;border-radius:var(--rBig);background:var(--ink);color:var(--cream);
+    padding:4rem 2rem}
+  @media(min-width:768px){.joincard{padding:6rem 4rem}}
+  .joincard .in{position:relative;z-index:10;margin-inline:auto;max-width:48rem;text-align:center}
+  .joincard .eyebrow{color:color-mix(in oklab,var(--cream) 60%,transparent)}
+  .joincard h2{font-family:var(--fd);font-weight:400;font-size:clamp(3rem,7vw,6rem);line-height:1}
+  .joincard h2 .it{color:var(--coral)}
+  .joincard .txt{margin-top:1.5rem;font-size:1.125rem;color:color-mix(in oklab,var(--cream) 70%,transparent)}
+  .joincard .btns{margin-top:2.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem}
+  .joincard .fine{margin-top:1rem;font-size:.75rem;color:color-mix(in oklab,var(--cream) 50%,transparent)}
+  .joincard .blob.a{left:-5rem;top:-5rem;height:18rem;width:18rem;background:color-mix(in oklab,var(--coral) 40%,transparent)}
+  .joincard .blob.b{right:-6rem;bottom:-6rem;height:20rem;width:20rem;background:color-mix(in oklab,var(--blush) 30%,transparent)}
+
+  /* ============ Footer ============ */
+  footer{border-top:1px solid var(--border)}
+  .ft{display:flex;flex-direction:column;gap:1.5rem;padding-block:2.5rem;font-size:.875rem;color:var(--muted)}
+  @media(min-width:768px){.ft{flex-direction:row;align-items:center;justify-content:space-between}}
+  .ft .logo{color:var(--ink)}
+  .ft .links{display:flex;gap:1.25rem}
+  .ft .links a{display:flex;align-items:center;gap:.25rem}
+  .ft .links a:hover{color:var(--ink)}
+
+  /* ============ Frag Maik Chatbot (CTA-Chat aus v2, im neuen Look) ============ */
+  .chatbot{position:fixed;right:1.1rem;bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:50;font-family:var(--fs)}
+  .chatbot-btn{display:flex;align-items:center;gap:11px;padding:8px 18px 8px 8px;
+    background:var(--ink);color:var(--cream);border:1px solid color-mix(in oklab,var(--cream) 30%,transparent);
+    border-radius:44px;box-shadow:0 18px 50px rgba(0,0,0,.35);cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .chatbot-btn:hover{transform:translateY(-2px);box-shadow:0 22px 60px rgba(0,0,0,.45)}
   .chatbot-btn .av{position:relative;width:44px;height:44px;border-radius:50%;overflow:hidden;flex:none}
-  .chatbot-btn .av img{width:44px;height:44px;object-fit:cover;display:block}
+  .chatbot-btn .av img{width:44px;height:44px;object-fit:cover}
   .chatbot-btn .dot{position:absolute;top:-2px;right:-2px;width:11px;height:11px;border-radius:50%;
-    background:var(--amber);border:2px solid #0A0807}
-  .chatbot-btn .ftxt{display:flex;flex-direction:column;line-height:1}
-  .chatbot-btn .ftxt b{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.07px}
-  .chatbot-btn .ftxt small{font-size:10px;font-weight:600;color:var(--amber);letter-spacing:1.3px;margin-top:2px}
+    background:var(--coral);border:2px solid var(--ink)}
+  .chatbot-btn .ftxt{display:flex;flex-direction:column;line-height:1;text-align:left}
+  .chatbot-btn .ftxt b{font-size:13px;font-weight:600}
+  .chatbot-btn .ftxt small{font-size:10px;font-weight:600;color:var(--coral);letter-spacing:1.3px;margin-top:2px}
   .chatbot-panel{position:absolute;bottom:calc(100% + 10px);right:0;width:min(340px,calc(100vw - 28px));
-    height:min(500px,calc(100dvh - 180px));background:#0E0B09;color:var(--text);
-    border:1px solid rgba(247,242,234,.14);border-radius:18px;overflow:hidden;display:none;flex-direction:column;
-    box-shadow:0 30px 80px -24px rgba(0,0,0,.7)}
+    height:min(500px,calc(100dvh - 140px));background:var(--ink);color:var(--cream);
+    border:1px solid color-mix(in oklab,var(--cream) 14%,transparent);border-radius:18px;overflow:hidden;
+    display:none;flex-direction:column;box-shadow:0 30px 80px -24px rgba(0,0,0,.6)}
   .chatbot-panel.active{display:flex;animation:cpin .28s cubic-bezier(.22,.61,.36,1)}
   @keyframes cpin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   .cp-head{display:flex;align-items:center;gap:11px;padding:14px 16px;
-    background:linear-gradient(120deg,rgba(245,162,26,.14),transparent);border-bottom:1px solid rgba(247,242,234,.1)}
-  .cp-av{width:38px;height:38px;border-radius:50%;flex:none;overflow:hidden;background:var(--amber)}
-  .cp-av img{width:100%;height:100%;object-fit:cover;display:block}
+    background:linear-gradient(120deg,color-mix(in oklab,var(--coral) 18%,transparent),transparent);
+    border-bottom:1px solid color-mix(in oklab,var(--cream) 10%,transparent)}
+  .cp-av{width:38px;height:38px;border-radius:50%;flex:none;overflow:hidden;background:var(--coral)}
+  .cp-av img{width:100%;height:100%;object-fit:cover}
   .cp-headtxt b{font-size:14.5px;display:block;font-weight:700}
-  .cp-headtxt span{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
-  .cp-headtxt span i{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block}
-  .cp-close{margin-left:auto;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+  .cp-headtxt span{font-size:11.5px;color:color-mix(in oklab,var(--cream) 60%,transparent);display:flex;align-items:center;gap:6px}
+  .cp-headtxt span i{width:7px;height:7px;border-radius:50%;background:var(--coral);display:inline-block}
+  .cp-close{margin-left:auto;background:transparent;border:0;color:color-mix(in oklab,var(--cream) 60%,transparent);font-size:20px;cursor:pointer;line-height:1}
   .cp-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
   .cp-msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
-  .cp-msg.bot{align-self:flex-start;background:#1b1815;border-bottom-left-radius:4px}
-  .cp-msg.user{align-self:flex-end;background:var(--amber);color:#1a1205;border-bottom-right-radius:4px;font-weight:500}
-  .cp-msg a{color:var(--amber);font-weight:700;text-decoration:underline}
+  .cp-msg.bot{align-self:flex-start;background:color-mix(in oklab,var(--cream) 8%,var(--ink));border-bottom-left-radius:4px}
+  .cp-msg.user{align-self:flex-end;background:var(--coral);color:var(--ink);border-bottom-right-radius:4px;font-weight:500}
+  .cp-msg a{color:var(--coral);font-weight:700;text-decoration:underline}
   .cp-actions{align-self:flex-start;width:100%;display:flex;flex-direction:column;gap:8px;padding-top:2px}
   .cp-quick{display:flex;flex-wrap:wrap;gap:8px}
-  .cp-quick button{background:transparent;border:1px solid rgba(247,242,234,.2);color:var(--text);
-    border-radius:50px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s}
-  .cp-quick button:hover{border-color:var(--amber);color:var(--amber)}
-  .cp-wa{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;background:var(--wa);color:var(--wa-deep);
-    text-decoration:none;border-radius:50px;padding:8px 14px;font-size:13px;font-weight:700;font-family:inherit}
-  .cp-wa:hover{background:#20bd5a}
-  .cp-footnote{text-align:center;font-size:10px;color:var(--muted);padding:0 0 9px}
-  .cp-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(247,242,234,.1)}
-  .cp-foot input{flex:1;background:#1b1815;border:1px solid rgba(247,242,234,.14);border-radius:10px;color:var(--text);
+  .cp-quick button{background:transparent;border:1px solid color-mix(in oklab,var(--cream) 22%,transparent);color:var(--cream);
+    border-radius:50px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+  .cp-quick button:hover{border-color:var(--coral);color:var(--coral)}
+  .cp-wa{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;background:var(--coral);color:var(--ink);
+    border-radius:50px;padding:8px 14px;font-size:13px;font-weight:700}
+  .cp-wa:hover{background:color-mix(in oklab,var(--coral) 90%,white)}
+  .cp-footnote{text-align:center;font-size:10px;color:color-mix(in oklab,var(--cream) 55%,transparent);padding:0 0 9px}
+  .cp-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid color-mix(in oklab,var(--cream) 10%,transparent)}
+  .cp-foot input{flex:1;background:color-mix(in oklab,var(--cream) 8%,var(--ink));
+    border:1px solid color-mix(in oklab,var(--cream) 14%,transparent);border-radius:10px;color:var(--cream);
     padding:11px 13px;font-size:14px;font-family:inherit;min-width:0;outline:none}
-  .cp-foot input:focus{border-color:var(--amber)}
-  .cp-foot input::placeholder{color:var(--muted)}
-  .cp-foot button{background:var(--amber);color:#1a1205;border:0;border-radius:10px;width:44px;cursor:pointer;font-size:18px;flex:none}
+  .cp-foot input:focus{border-color:var(--coral)}
+  .cp-foot input::placeholder{color:color-mix(in oklab,var(--cream) 45%,transparent)}
+  .cp-foot button{background:var(--coral);color:var(--ink);border:0;border-radius:10px;width:44px;cursor:pointer;font-size:18px;flex:none}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -271,173 +305,418 @@
     api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,
     autocapture:true,enable_heatmaps:true,disable_session_recording:false,
     session_recording:{maskAllInputs:false},rageclick:true});
-  posthog.register({landing_variant:'v6-bgslide'});}catch(e){}
+  posthog.register({landing_variant:'v7-onepager'});}catch(e){}
 </script>
 
-<main class="stage">
-  <div class="bgwrap" aria-hidden="true">
-    <img class="bg b1" src="assets/hero/5.webp" alt="" fetchpriority="high" decoding="async">
-    <img class="bg b2" src="assets/hero/3.webp" alt="" loading="lazy" decoding="async">
-    <img class="bg b3" src="assets/hero/4.webp" alt="" loading="lazy" decoding="async">
-    <img class="bg b4" src="assets/hero/9.webp" alt="" loading="lazy" decoding="async">
-    <img class="bg b5" src="assets/hero/10.webp" alt="" loading="lazy" decoding="async">
-    <img class="bg b6" src="assets/hero/11.webp" alt="" loading="lazy" decoding="async">
-    <img class="bg b7" src="assets/hero/1.webp" alt="" loading="lazy" decoding="async">
-  </div>
-  <div class="scrim"></div>
-  <div class="grain"></div>
+<div id="top">
 
-  <div class="top">
-    <span class="mark">THE&nbsp;TRIBE</span>
-    <div class="topR">
-      <span class="ticker"><span class="d"></span>Social Warmup · <b>Bernstein</b> · <span id="evCd">Sa&nbsp;18:00</span></span>
-    </div>
-  </div>
-
-  <div class="c">
-    <div class="kick reveal">Neu in Bielefeld? Bock auszugehen?</div>
-    <h1>
-      <span class="l1 reveal">Bielefeld ist</span>
-      <span class="l2 reveal">nur eine Stadt —</span>
-      <span class="l3 reveal">bis du <em>deine&nbsp;Leute</em></span>
-      <span class="l4 reveal">kennst.</span>
-    </h1>
-
-    <div class="faces reveal dim"><img src="assets/maik.webp" alt="Maik"><img src="assets/patrick.webp" alt="Patrick"><img src="assets/lena.webp" alt="Lena"><img src="assets/anna.webp" alt="Anna"><span class="fw">&amp; 164 weitere</span></div>
-
-    <p class="lead reveal dim">Schon <span class="n" id="bigCount">167</span> Bielefelder ziehen zusammen los — <b>komm mit</b>.</p>
-
-    <div class="chat reveal dim" aria-label="Nachrichten aus der Community">
-      <div class="msg m1">
-        <img src="assets/lea.webp" alt="Lea, Mitglied">
-        <div class="bub">
-          <span class="nm">Lea <i>· dabei</i></span>
-          Gestern war mega ❤️
-        </div>
-      </div>
-      <div class="msg m2">
-        <img src="assets/maik.webp" alt="Maik, Gründer">
-        <div class="bub">
-          <span class="nm">Maik <i>· Gründer</i><span class="on" aria-hidden="true"></span></span>
-          Social Warmup <b>Samstag 18:00</b> 🎉 Einstieg in den Abend – danach ziehen wir gemeinsam weiter
-        </div>
-      </div>
-      <div class="msg m3">
-        <img src="assets/anna.webp" alt="Anna, neu dabei">
-        <div class="bub">
-          <span class="nm">Anna <i>· neu hier</i></span>
-          Kann ich da einfach so dazukommen? Kenn ja niemanden 😅
-        </div>
-      </div>
-      <div class="msg m4">
-        <img src="assets/lena.webp" alt="Lena, Mitglied">
-        <div class="bub">
-          <span class="nm">Lena <i>· dabei</i><span class="on" aria-hidden="true"></span></span>
-          Klar, komm einfach! War selbst neu — keiner kennt am Anfang jemanden 🙂
-        </div>
-      </div>
-    </div>
-
-    <div class="guide" aria-hidden="true"></div>
-
-    <!-- Frag Maik Chatbot -->
-    <div class="chatbot">
-      <div class="chatbot-panel" id="chatPanel" role="dialog" aria-label="Frag Maik Chat">
-        <div class="cp-head">
-          <span class="cp-av"><img src="assets/maik.webp" alt="Maik"></span>
-          <div class="cp-headtxt"><b>Frag Maik</b><span><i></i>Antwortet meist sofort</span></div>
-          <button class="cp-close" id="cpClose" type="button" aria-label="Chat schließen">×</button>
-        </div>
-        <div class="cp-body" id="cpBody"></div>
-        <div class="cp-footnote">Persönlich betreut · keine Bots</div>
-        <div class="cp-foot">
-          <input type="text" id="cpInput" placeholder="Frage eingeben…" autocomplete="off">
-          <button id="cpSend" type="button" aria-label="Senden">➤</button>
-        </div>
-      </div>
-      <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Frag Maik — Chat öffnen" aria-expanded="false">
-        <span class="av"><img src="assets/maik.webp" alt="Maik" width="44" height="44"><span class="dot" aria-hidden="true"></span></span>
-        <span class="ftxt"><b>Frag&nbsp;Maik</b><small>Antwortet sofort</small></span>
-      </button>
-    </div>
-
-    <a class="cta" href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" data-cta="primary">
-      <span class="ctaRow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Ich bin dabei — kostenlos in die WhatsApp-Gruppe</span>
-      <span class="ctaCd" id="ctaCd"></span>
+<header>
+  <div class="container hd">
+    <a href="#top" class="logo"><span class="b">the</span><span class="c">tribe</span><span class="d">.</span></a>
+    <nav>
+      <a href="#warmup" class="btn-ghost">Social Warm-up</a>
+      <a href="#how" class="btn-ghost">So funktioniert's</a>
+      <a href="#experiences" class="btn-ghost">Erlebnisse</a>
+      <a href="#cities" class="btn-ghost">Städte</a>
+      <a href="#faq" class="btn-ghost">FAQ</a>
+    </nav>
+    <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary sm" data-cta="header">
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+      <span class="join-sm">Community beitreten</span><span class="join-xs">Beitreten</span>
     </a>
-    <div class="reassure reveal"><b>Öffnet WhatsApp</b> · deine Nummer bleibt privat · nur mitlesen ok · jederzeit raus</div>
   </div>
-  <!-- Frag Maik Chatbot (im Seitenfluss über dem CTA) -->
+</header>
 
-</main>
+<!-- ============ Hero ============ -->
+<section class="hero">
+  <img class="bgimg" src="assets/hero/onepager-hero.jpg" alt="Freunde beim gemeinsamen Abendessen" width="1600" height="1200" fetchpriority="high">
+  <div class="shade"></div>
+  <div class="container inner">
+    <div class="copy">
+      <div class="badge">
+        <span class="dot"></span>
+        <div class="citypills" role="group" aria-label="Stadt wählen">
+          <button type="button" class="on" data-city="bielefeld">Bielefeld</button>
+          <button type="button" data-city="muenster">Münster</button>
+        </div>
+      </div>
+      <h1>Die Community,<br>die Fremde in<br>Freunde <span class="it">verwandelt</span><span class="inf">∞</span></h1>
+      <p class="lead">Keine App, kein Wischen. Tritt unserer WhatsApp-Community bei — und sei dabei beim<span class="hl"> Social Warm-up jeden Samstag</span> in <span data-cityname>Bielefeld</span>.</p>
+      <div class="faces">
+        <img src="assets/maik.webp" alt="Maik"><img src="assets/patrick.webp" alt="Patrick"><img src="assets/lena.webp" alt="Lena"><img src="assets/anna.webp" alt="Anna">
+        <span class="fw">Schon <b><span class="n" id="bigCount">167</span></b> ziehen zusammen los — <b>komm mit</b>.</span>
+      </div>
+    </div>
+    <div class="ctas">
+      <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="hero">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        Community beitreten
+      </a>
+      <p class="note">Kostenlos · <span data-cityname>Bielefeld</span> &amp; NRW · Sa Social Warm-up</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Marquee ============ -->
+<div class="band" aria-hidden="true">
+  <div class="marquee">
+    <span>Community first<i>✺</i></span><span>Jeden Samstag<i>✺</i></span><span>Social Warm-up<i>✺</i></span><span>Echte Gespräche<i>✺</i></span><span>Bielefeld ✿ Münster<i>✺</i></span><span>Ohne Wischen<i>✺</i></span>
+    <span>Community first<i>✺</i></span><span>Jeden Samstag<i>✺</i></span><span>Social Warm-up<i>✺</i></span><span>Echte Gespräche<i>✺</i></span><span>Bielefeld ✿ Münster<i>✺</i></span><span>Ohne Wischen<i>✺</i></span>
+  </div>
+</div>
+
+<!-- ============ Social Warm-up ============ -->
+<section id="warmup" class="container sec">
+  <div class="warmcard">
+    <div class="warmgrid">
+      <div>
+        <p class="warmtag"><span class="dot"></span>Jeden Samstag</p>
+        <h2>Social<br><span class="it">Warm-up.</span></h2>
+        <p class="txt">Unser wöchentliches Ritual: ein lockeres Treffen, das das Eis bricht. Ankommen, kurz kennenlernen, gemeinsam den Abend starten — und danach entstehen die Pläne für den Rest des Wochenendes. Kein Ticket, keine Anmeldung, einfach kommen.</p>
+      </div>
+      <ul class="warmfacts">
+        <li><p class="k">Wann</p><p class="v">Samstags 18:00</p></li>
+        <li><p class="k">Wo</p><p class="v">Bielefeld &amp; Münster</p></li>
+        <li><p class="k">Kosten</p><p class="v">Kostenlos</p></li>
+        <li><p class="k">Ort &amp; Zeit</p><p class="v">In der Community</p></li>
+      </ul>
+    </div>
+    <div class="warmfoot">
+      <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="warmup">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        In WhatsApp beitreten
+      </a>
+      <span class="hint">Treffpunkt wird jede Woche in der Gruppe geteilt.</span>
+    </div>
+    <div class="blob"></div>
+  </div>
+</section>
+
+<!-- ============ So funktioniert's ============ -->
+<section id="how" class="container sec" style="padding-top:0">
+  <div class="howgrid">
+    <div>
+      <p class="eyebrow">So funktioniert's</p>
+      <h2 class="display">Community zuerst.<br><span class="it">Alles andere folgt.</span></h2>
+      <p class="sub">Bei uns ist die Community der Eintrittspunkt — nicht eine App und nicht ein Ticket. Du kommst rein, du bist dabei.</p>
+    </div>
+    <ol class="steps">
+      <li>
+        <div class="row">
+          <span class="num">01</span>
+          <div>
+            <h3>Tritt der Community bei</h3>
+            <p>Ein Klick, WhatsApp-Gruppe beitreten. Kein Profil, keine Bio, keine Bewerbung. Sag kurz Hi — der Rest passiert von selbst.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <span class="num">02</span>
+          <div>
+            <h3>Komm zum Social Warm-up</h3>
+            <p>Jeden Samstag lockeres Kennenlernen in Bielefeld oder Münster. Perfekt für den Einstieg — hier lernst du die Gesichter kennen.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <span class="num">03</span>
+          <div>
+            <h3>Bleib für Dinner, Drinks &amp; Nächte</h3>
+            <p>Wer will, zieht danach mit weiter: Abendessen zu sechst, entspannte Drinks oder gemeinsam ausgehen, bis die Stadt schläft.</p>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ Formate ============ -->
+<section id="experiences" class="formats sec">
+  <div class="container">
+    <div class="fhead">
+      <div>
+        <p class="eyebrow">Unsere Formate</p>
+        <h2 class="display">Vom Warm-up bis zum <span class="it">Dinner.</span></h2>
+      </div>
+      <p class="sub">Alles startet mit dem Social Warm-up am Samstag. Wer mehr will, findet in der Community alle weiteren Termine.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="imgwrap">
+          <img src="assets/hero/1.webp" alt="Anstoßen beim Social Warm-up" loading="lazy" style="object-position:50% 22%">
+          <span class="tagL">Social Warm-up</span>
+          <span class="tagR">Samstags</span>
+        </div>
+        <div class="body">
+          <p>Unser wöchentliches Kennenlern-Ritual. Locker, ohne Druck, für alle offen. Der einfachste Weg, in die Tribe reinzukommen.</p>
+          <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary sm" data-cta="card-warmup">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+            Community beitreten
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="imgwrap">
+          <img src="assets/hero/9.webp" alt="Abendessen in gemütlicher Runde" loading="lazy">
+          <span class="tagL">Abendessen</span>
+          <span class="tagR">Regelmäßig</span>
+        </div>
+        <div class="body">
+          <p>Sechs Menschen, ein Tisch, gutes Essen. Termine und Restaurants werden in der Community angekündigt.</p>
+          <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary sm" data-cta="card-dinner">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+            In der Gruppe anmelden
+          </a>
+        </div>
+      </article>
+      <article class="card">
+        <div class="imgwrap">
+          <img src="assets/hero/11-crop.webp" alt="Gemeinsam ausgehen — Club-Nacht mit der Tribe" loading="lazy">
+          <span class="tagL">Ausgehen</span>
+          <span class="tagR">Nach dem Warm-up</span>
+        </div>
+        <div class="body">
+          <p>Nach dem Warm-up ziehen wir gemeinsam weiter — Bar, Kneipe oder Club. Echte Nächte, echte Gespräche, neue Leute.</p>
+          <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary sm" data-cta="card-night">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+            Mitkommen
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ In Zahlen (Kennzahlen) ============ -->
+<section class="container sec">
+  <div class="numgrid">
+    <div>
+      <p class="eyebrow">In Zahlen</p>
+      <h2 class="display">Klein genug, um sich zu <span class="it">erinnern.</span></h2>
+      <p class="sub">Wir wachsen langsam und mit Absicht. In der Community kennt sich jeder — und beim Social Warm-up trifft man sich Woche für Woche wieder.</p>
+    </div>
+    <div class="numcard">
+      <dl>
+        <div>
+          <dt id="numMembers">167</dt>
+          <dd>Mitglieder in der Community</dd>
+        </div>
+        <div>
+          <dt>Sa</dt>
+          <dd>Social Warm-up, jede Woche</dd>
+        </div>
+        <div>
+          <dt>0€</dt>
+          <dd>Eintritt in die Community</dd>
+        </div>
+        <div>
+          <dt>6</dt>
+          <dd>Menschen pro Dinner-Tisch</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Stimmen ============ -->
+<section class="voices sec">
+  <div class="container">
+    <p class="eyebrow">Stimmen aus der Tribe</p>
+    <h2 class="display">Was Mitglieder <span class="it">sagen.</span></h2>
+    <div class="quotes">
+      <figure>
+        <blockquote>“Bin zum Warm-up am Samstag gekommen, weil eine Freundin den Link geteilt hat. Zwei Stunden später kannte ich zehn neue Leute. Absurd einfach.”</blockquote>
+        <figcaption>Lena, 29 · <span class="city">Bielefeld</span></figcaption>
+      </figure>
+      <figure>
+        <blockquote>“In Münster neu, kannte keinen. Der WhatsApp-Chat war der schnellste Weg rein — beim ersten Warm-up hat mich direkt jemand mitgenommen zum Abendessen.”</blockquote>
+        <figcaption>Jonas, 26 · <span class="city">Münster</span></figcaption>
+      </figure>
+      <figure>
+        <blockquote>“Ich mag, dass die Community der Einstieg ist. Kein Ticket, kein Formular. Einfach beitreten, kurz Hi sagen — und am Samstag hin.”</blockquote>
+        <figcaption>Aylin, 33 · <span class="city">Bielefeld</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Städte ============ -->
+<section id="cities" class="container sec">
+  <div class="citygrid">
+    <div>
+      <p class="eyebrow">Unsere Städte</p>
+      <h2 class="display">Zwei Städte,<br><span class="it">eine Tribe.</span></h2>
+      <div class="cityswitch" role="group" aria-label="Stadt wählen">
+        <button type="button" class="on" data-city="bielefeld">Bielefeld</button>
+        <button type="button" data-city="muenster">Münster</button>
+      </div>
+      <p class="sub" id="cityDesc">In Bielefeld treffen wir uns rund um Altstadt, Bahnhofsviertel und den Siegfriedplatz. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.</p>
+    </div>
+    <div class="citycard">
+      <div class="colwrap">
+        <div>
+          <p class="k">Nächstes Social Warm-up</p>
+          <p class="cityname" data-cityname>Bielefeld</p>
+          <p class="when">Samstag · Ort in der Community</p>
+        </div>
+        <div class="meet">
+          <p class="k2">Wo wir uns treffen</p>
+          <p class="v" id="citySpots">Altstadt · Bahnhofsviertel · Siegfriedplatz</p>
+        </div>
+        <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="city">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+          <span data-cityname>Bielefeld</span>&nbsp;— Community beitreten
+        </a>
+      </div>
+      <div class="blob"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="faq sec">
+  <div class="container faqgrid">
+    <div>
+      <p class="eyebrow">FAQ</p>
+      <h2 class="display">Häufig <span class="it">gefragt.</span></h2>
+      <p class="sub">Noch offene Fragen? Frag direkt in der Community — meistens antwortet jemand innerhalb weniger Minuten.</p>
+    </div>
+    <div class="faqlist">
+      <details>
+        <summary><span class="q">Wie werde ich Teil von THE TRIBE?</span><span class="pl">+</span></summary>
+        <p>Tritt einfach unserer WhatsApp-Community bei — der Link ist überall auf dieser Seite. Kein Profil, keine Bewerbung, keine Kosten.</p>
+      </details>
+      <details>
+        <summary><span class="q">Was ist das Social Warm-up?</span><span class="pl">+</span></summary>
+        <p>Unser wöchentliches Kennenlern-Treffen jeden Samstag in Bielefeld und Münster. Locker, kostenlos, für alle offen. Der perfekte Einstieg in die Community.</p>
+      </details>
+      <details>
+        <summary><span class="q">Wo findet das Warm-up statt?</span><span class="pl">+</span></summary>
+        <p>Ort und Uhrzeit werden jede Woche in der WhatsApp-Gruppe geteilt — meistens ein Café, eine Bar oder ein Park in der Innenstadt.</p>
+      </details>
+      <details>
+        <summary><span class="q">Was passiert nach dem Warm-up?</span><span class="pl">+</span></summary>
+        <p>In der Community werden Abendessen zu sechst, Drinks und gemeinsame Abende organisiert — danach ziehen wir oft zusammen weiter. Wer will, ist dabei — kein Muss.</p>
+      </details>
+      <details>
+        <summary><span class="q">Wer kann mitmachen?</span><span class="pl">+</span></summary>
+        <p>Jeder ab 18, der Lust auf neue Menschen hat. Unabhängig von Alter, Geschlecht oder Hintergrund. Respekt und offene Neugier sind die einzigen Regeln.</p>
+      </details>
+      <details>
+        <summary><span class="q">Kostet das etwas?</span><span class="pl">+</span></summary>
+        <p>Die Community und das Social Warm-up sind kostenlos. Beim Abendessen und bei Drinks zahlst du nur deinen eigenen Verzehr.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Join ============ -->
+<section id="join" class="container sec">
+  <div class="joincard">
+    <div class="in">
+      <p class="eyebrow">Ein Klick, du bist drin</p>
+      <h2>Komm rein.<br><span class="it">Sag Hi.</span></h2>
+      <p class="txt">Die WhatsApp-Community ist der Eintrittspunkt. Beitreten, kurz vorstellen — und am Samstag beim Social Warm-up sehen wir uns.</p>
+      <div class="btns">
+        <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="join">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+          WhatsApp-Community beitreten
+        </a>
+      </div>
+      <p class="fine">Kostenlos · Bielefeld &amp; Münster · Kein Profil nötig</p>
+    </div>
+    <div class="blob a"></div>
+    <div class="blob b"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container ft">
+    <a href="#top" class="logo"><span class="b">the</span><span class="c">tribe</span><span class="d">.</span></a>
+    <p>© 2026 THE TRIBE · Bielefeld &amp; Münster</p>
+    <div class="links">
+      <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+        WhatsApp
+      </a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<!-- ============ Frag Maik Chatbot (CTA-Chat) ============ -->
+<div class="chatbot">
+  <div class="chatbot-panel" id="chatPanel" role="dialog" aria-label="Frag Maik Chat">
+    <div class="cp-head">
+      <span class="cp-av"><img src="assets/maik.webp" alt="Maik"></span>
+      <div class="cp-headtxt"><b>Frag Maik</b><span><i></i>Antwortet meist sofort</span></div>
+      <button class="cp-close" id="cpClose" type="button" aria-label="Chat schließen">×</button>
+    </div>
+    <div class="cp-body" id="cpBody"></div>
+    <div class="cp-footnote">Persönlich betreut · keine Bots</div>
+    <div class="cp-foot">
+      <input type="text" id="cpInput" placeholder="Frage eingeben…" autocomplete="off">
+      <button id="cpSend" type="button" aria-label="Senden">➤</button>
+    </div>
+  </div>
+  <button class="chatbot-btn" id="chatBtn" type="button" aria-label="Frag Maik — Chat öffnen" aria-expanded="false">
+    <span class="av"><img src="assets/maik.webp" alt="Maik" width="44" height="44"><span class="dot" aria-hidden="true"></span></span>
+    <span class="ftxt"><b>Frag&nbsp;Maik</b><small>Antwortet sofort</small></span>
+  </button>
+</div>
 
 <script>
-  // Live-Countdown bis nächsten Samstag 18:00
+  // Stadt-Umschalter (Hero-Badge + Städte-Sektion, synchron)
   (function(){
-    var el=document.getElementById('evCd'); if(!el) return;
-    function nx(){var n=new Date(),d=new Date(n);d.setHours(18,0,0,0);
-      var a=(6-n.getDay()+7)%7; if(a===0&&n.getTime()>d.getTime())a=7; d.setDate(d.getDate()+a); return d;}
-    function cd(){var ms=nx()-new Date(); if(ms<=0) return 'heute Abend';
-      var h=Math.floor(ms/3.6e6),dd=Math.floor(h/24),hh=h%24;
-      return 'in '+(dd>0?dd+' Tag'+(dd>1?'en':''):hh+' Std');}
-    var flip=false;
-    function tick(){ el.textContent = flip ? cd() : 'Sa 18:00'; flip=!flip; }
-    tick(); setInterval(tick,3200);
+    var DATA={
+      bielefeld:{name:'Bielefeld',
+        desc:'In Bielefeld treffen wir uns rund um Altstadt, Bahnhofsviertel und den Siegfriedplatz. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.',
+        spots:'Altstadt · Bahnhofsviertel · Siegfriedplatz'},
+      muenster:{name:'Münster',
+        desc:'In Münster treffen wir uns rund um Hafen, Kreuzviertel und den Prinzipalmarkt. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.',
+        spots:'Hafen · Kreuzviertel · Prinzipalmarkt'}
+    };
+    function setCity(key){
+      var c=DATA[key]; if(!c) return;
+      document.querySelectorAll('[data-cityname]').forEach(function(el){el.textContent=c.name;});
+      var d=document.getElementById('cityDesc'); if(d) d.textContent=c.desc;
+      var s=document.getElementById('citySpots'); if(s) s.textContent=c.spots;
+      document.querySelectorAll('[data-city]').forEach(function(b){
+        b.classList.toggle('on', b.getAttribute('data-city')===key);
+      });
+      try{window.posthog&&posthog.capture('city_toggle',{city:key,landing_variant:'v7-onepager'});}catch(e){}
+    }
+    document.querySelectorAll('[data-city]').forEach(function(b){
+      b.addEventListener('click',function(){setCity(b.getAttribute('data-city'));});
+    });
   })();
 
-  // Grundseite zuerst, DANN Animationen: erst bei window.load html.ready setzen
-  // + schnelle Hochzählung der 110 (Start = Endwert − 20)
+  // Kennzahl: schnelle Hochzählung der Mitgliederzahl (Hero + Zahlen-Karte)
   window.addEventListener('load',function(){
-    document.documentElement.classList.add('ready');
-    var el=document.getElementById('bigCount'); if(!el) return;
-    var tgt=parseInt(el.textContent,10)||0, st=Math.max(tgt-20,0); el.textContent=st;
-    var t0=performance.now();
-    (function f(now){var p=Math.min(1,(now-t0)/650),e=1-Math.pow(1-p,3);
-      el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
+    ['bigCount','numMembers'].forEach(function(id){
+      var el=document.getElementById(id); if(!el) return;
+      var tgt=parseInt(el.textContent,10)||0, st=Math.max(tgt-20,0); el.textContent=st;
+      var t0=performance.now();
+      (function f(now){var p=Math.min(1,(now-t0)/650),e=1-Math.pow(1-p,3);
+        el.textContent=Math.round(st+(tgt-st)*e); if(p<1)requestAnimationFrame(f);})(t0);
+    });
   });
 
-  // CTA + Verweil-Tracking (Event-Namen identisch -> Loop bleibt kompatibel)
+  // CTA- + Verweil-Tracking (Event-Namen identisch -> Loop bleibt kompatibel)
   (function(){
     var clicked=false,t0=Date.now();
     document.querySelectorAll('a[data-cta]').forEach(function(a){
       a.addEventListener('click',function(){clicked=true;
-        try{window.posthog&&posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'v6-bgslide'});}catch(e){}});
+        try{window.posthog&&posthog.capture('whatsapp_cta_click',{cta_location:a.getAttribute('data-cta'),landing_variant:'v7-onepager'});}catch(e){}});
     });
-    function bye(){try{window.posthog&&posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:clicked,landing_variant:'v6-bgslide'});}catch(e){}}
+    function bye(){try{window.posthog&&posthog.capture('tribe_dwell',{dwell_ms:Date.now()-t0,reached_cta:clicked,landing_variant:'v7-onepager'});}catch(e){}}
     addEventListener('pagehide',bye);
     addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')bye();});
-  })();
-
-  // Optischer Mini-Countdown IM CTA-Button (KEIN Redirect -> kein Meta-Policy-Risiko):
-  // nach Verweilzeit dezenter Nudge, der zur Tap-Entscheidung anstupst.
-  (function(){
-    var DELAY=12000, CD=3;                       // 12s on-page, dann 3·2·1, danach statischer Nudge
-    var cd=document.getElementById('ctaCd'); if(!cd) return;
-    var killed=false,startT,cdT;
-    function stop(){killed=true;clearTimeout(startT);clearInterval(cdT);}
-    document.querySelectorAll('a[data-cta]').forEach(function(l){l.addEventListener('click',stop);});
-    window.addEventListener('load',function(){
-      startT=setTimeout(function(){
-        if(killed||document.visibilityState==='hidden')return;
-        try{window.posthog&&posthog.capture('cta_nudge_shown',{landing_variant:'v6-bgslide'});}catch(e){}
-        var n=CD; cd.textContent='dein Platz wartet … '+n;
-        cdT=setInterval(function(){
-          if(killed){clearInterval(cdT);return;}
-          n--;
-          if(n<=0){clearInterval(cdT);cd.textContent='👉 jetzt dabei sein';return;}  // KEIN location-change
-          cd.textContent='dein Platz wartet … '+n;
-        },1000);
-      },DELAY);
-    });
-  })();
-
-  /* Info-Dropdown: schließt bei Klick außerhalb */
-  (function(){
-    var m=document.getElementById('menu');
-    if(!m)return;
-    document.addEventListener('click',function(e){
-      if(m.open && !m.contains(e.target))m.removeAttribute('open');
-    });
   })();
 </script>
 <script>
@@ -446,12 +725,12 @@
     var WA='4917645961547';
     var FAQ=[
       {keys:['kostenlos','kosten','preis','geld','gratis','teuer'],a:'Ja — The Tribe ist <b>komplett kostenlos</b>. Keine Mitgliedschaft, keine Gebühren, keine versteckten Kosten.'},
-      {keys:['was ist','was','tribe','wer','zweck','idee','geht'],a:'The Tribe ist eine <b>WhatsApp-Community in Bielefeld</b>. Wir gehen jede Woche zusammen aus — egal ob du jemanden kennst oder nicht.'},
-      {keys:['wie trete','beitreten','anmelden','mitmachen','join','rein','dabei','wo anmel','wie komm'],a:'Ganz einfach: Auf den grünen WhatsApp-Button tippen — der bringt dich direkt in die Gruppe. Du kannst auch erst mal nur mitlesen.'},
+      {keys:['was ist','was','tribe','wer','zweck','idee','geht'],a:'The Tribe ist eine <b>WhatsApp-Community in Bielefeld &amp; Münster</b>. Wir gehen jede Woche zusammen aus — egal ob du jemanden kennst oder nicht.'},
+      {keys:['wie trete','beitreten','anmelden','mitmachen','join','rein','dabei','wo anmel','wie komm'],a:'Ganz einfach: Auf den Community-beitreten-Button tippen — der bringt dich direkt in die WhatsApp-Gruppe. Du kannst auch erst mal nur mitlesen.'},
       {keys:['niemanden','allein','alleine','kenn','neu','ohne','kennt'],a:'Nein, du musst niemanden kennen. Fast alle kamen mal alleine dazu — genau dafür gibt es die Gruppe. Du wirst direkt aufgenommen.'},
-      {keys:['event','was gemacht','treff','termin','wann','warmup','bernstein','samstag'],a:'Jede Woche gibt es ein <b>Social Warmup</b> (z. B. Samstag 18:00 im Bernstein) — danach ziehen wir gemeinsam weiter. Steht alles in der WhatsApp-Gruppe.'},
-      {keys:['wo','wohin','ort','stadt','bielefeld','treffpunkt'],a:'Die Treffs sind in <b>Bielefeld</b>. Der genaue Ort steht immer in der WhatsApp-Gruppe.'},
-      {keys:['wieviele','wie viele','mitglieder','leute','groß','anzahl'],a:'Über <b>160 Bielefelder</b> sind schon dabei — Tendenz steigend.'},
+      {keys:['event','was gemacht','treff','termin','wann','warmup','warm-up','samstag'],a:'Jede Woche gibt es ein <b>Social Warm-up</b> (Samstag 18:00) — danach ziehen wir gemeinsam weiter. Steht alles in der WhatsApp-Gruppe.'},
+      {keys:['wo','wohin','ort','stadt','bielefeld','münster','muenster','treffpunkt'],a:'Die Treffs sind in <b>Bielefeld und Münster</b>. Der genaue Ort steht immer in der WhatsApp-Gruppe.'},
+      {keys:['wieviele','wie viele','mitglieder','leute','groß','anzahl'],a:'Über <b>160 Leute</b> sind schon dabei — Tendenz steigend.'},
       {keys:['alter','alt','jahre','jugend','mindest'],a:'Die Gruppe ist bunt gemischt, die meisten Anfang/Mitte 20 bis 30. Eine feste Altersgrenze gibt es nicht.'},
       {keys:['dating','flirt','beziehung','single','partner'],a:'Nein, The Tribe geht ums <b>Ausgehen und Leute kennenlernen</b> — nicht um Dating.'},
       {keys:['privat','nummer','datenschutz','sichtbar','sicher'],a:'Du trittst über einen WhatsApp-Link bei. Deine Nummer sehen nur die Mitglieder der Gruppe. <b>Mitlesen geht auch ohne selbst zu schreiben.</b>'},

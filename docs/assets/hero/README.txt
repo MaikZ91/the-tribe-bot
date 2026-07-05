@@ -1,8 +1,14 @@
-HERO-SLIDESHOW (Ausgehen-Seite v2 / docs/v2.html)
+HERO-SLIDESHOW / BILDER (Ausgehen-Seite v2 / docs/v2.html)
 ==================================================
 
-Hier liegen die Hintergrundbilder, die auf der v2-Seite im Crossfade
-durchlaufen. Anzeige-Reihenfolge wird in docs/v2.html gesetzt.
+Hier liegen die Fotos der v2-Seite. Seit dem One-Pager-Redesign
+(Lovable-Look) nutzt docs/v2.html:
+  onepager-hero.jpg - Hero-Bild (von der Lovable-Seite uebernommen)
+  1.webp            - Format-Karte "Social Warm-up"
+  9.webp            - Format-Karte "Abendessen"
+  11-crop.webp      - Format-Karte "Ausgehen" (11.webp ohne schwarze Balken)
+
+Die uebrigen Bilder bleiben als Vorrat fuer Karten/Slideshows liegen.
 
 Aktuell aktiv (Anzeige-Reihenfolge: 5,3,4,9,10,11,7,1,2):
   1.webp   - Anstoßen / Prost (Bar, Abend)
