@@ -1,99 +1,25 @@
-/* Statische Campaign-Seite von Redesign.AI (Basis: Replik von www.in-sync.io/campaign/start)
- * Ersetzt die Next.js-Client-Interaktivität durch Vanilla-JS:
- * Scroll-Reveals, VSL-/Testimonial-/Team-Videos, Portfolio-Videos & -Tabs,
- * Testimonial-Slider, Scroll-to-Erstgespräch. */
+/* Redesign.AI Campaign-Seite (Basis: statischer Nachbau, Inhalte: MZ.9)
+ * Vanilla-JS für: Scroll-Reveals, Header-Theme, Portfolio-Tabs,
+ * WhatsApp-/Mail-CTAs, Newsletter-Hinweis und den URL-Analyse-Funnel. */
 (function () {
   'use strict';
 
-  var TESTIMONIALS = [
-    {
-      quote: 'Unsere neue Webseite ist ein kompletter Gamechanger. Sie kann im Look mit den Seiten großer Megakonzerne mithalten - und das ist genau die Liga, mit der wir uns vergleichen wollen. Wenn ihr eine Designagentur sucht, die sich nicht wie eine klassische Agentur anfühlt, seid ihr bei Redesign.AI genau richtig.',
-      name: 'Alex Kurze',
-      role: 'Director of Innovation · FRAMEN GmbH',
-      linkedin: 'https://www.linkedin.com/in/alexkurze/',
-      poster: 'images/sanity/9f7733b40c066f78bd7305020abeac1f1bd97752-1200x900.jpg',
-      posterAlt: 'Alex Kurze, Director of Innovation bei FRAMEN',
-      video: 'videos/wistia/tnbkbvqf08.mp4'
-    },
-    {
-      quote: 'Wir haben unsere Website komplett modernisieren lassen und sind begeistert vom Ergebnis. Die Zusammenarbeit mit Redesign.AI lief schnell, unkompliziert und zuverlässig - auch auf kleinere Änderungen wurde flexibel reagiert. Klare Weiterempfehlung.',
-      name: 'Michael Sindlinger',
-      role: 'CEO · Linetrack GmbH',
-      linkedin: 'https://www.linkedin.com/in/michael-sindlinger-260615172/',
-      poster: 'images/sanity/17b0ba46926dcae98ee121789db9a3a4643e1a45-1200x900.jpg',
-      posterAlt: 'Michael Sindlinger, CEO der Linetrack GmbH',
-      video: null
-    },
-    {
-      quote: 'Die Zusammenarbeit mit Redesign.AI war ein wirklich entspanntes Miteinander - unkompliziert und verlässlich. Vom Entwurf bis zum Go-Live lief alles reibungslos, und das Ergebnis hat uns überzeugt. Wir setzen die Zusammenarbeit direkt mit dem nächsten Projekt fort.',
-      name: 'Michael Reeder',
-      role: 'Founder & CEO · Theraletik GmbH',
-      linkedin: 'https://www.linkedin.com/in/michael-reeder-186705230/',
-      poster: 'images/sanity/4166c6d8a8aa7acba94485fed72f988b52d0adce-1200x900.jpg',
-      posterAlt: 'Michael Reeder, Founder & CEO der Theraletik GmbH',
-      video: null
-    },
-    {
-      quote: 'Ich bedanke mich vielmals beim ganzen Team von Redesign.AI für deren ausgezeichnete Arbeit! Unsere gesamte Unternehmensgruppe hat mit mehreren Websites, komplett unterschiedlicher Designs und Co. ein komplett neues Rebrand inkl. CMS-Verwaltung erhalten. Auf jeden Fall weiterzuempfehlen!',
-      name: 'Christoffer Riefenstahl',
-      role: 'Partner · X Capital Group',
-      linkedin: 'https://www.linkedin.com/in/christoffer-riefenstahl-83a303173/',
-      poster: 'images/sanity/8fc30c95c3cbae8b58aa1dcd75e77a5ce73513fa-1200x900.jpg',
-      posterAlt: 'Christoffer Riefenstahl, Partner der X Capital Group',
-      video: null
-    },
-    {
-      quote: 'Redesign.AI ist für uns ein richtig starker Partner. Das Team liefert konstant hochwertige Arbeit - zuverlässig, pünktlich und immer im vereinbarten Budget. Die Kommunikation läuft reibungslos und ist durchweg professionell. Wir können Redesign.AI absolut weiterempfehlen.',
-      name: 'Thomas Messerer',
-      role: 'CEO · Silencio Network LLC',
-      linkedin: 'https://www.linkedin.com/in/thomas-messerer-tmc/',
-      poster: 'images/sanity/95e93c5eaf52f44d7b090b30efa818d7f4501de1-1200x900.jpg',
-      posterAlt: 'Thomas Messerer, CEO der Silencio Network LLC',
-      video: null
-    },
-    {
-      quote: 'Mit dieser Website fühlt sich alles ein Stück stärker an. Schon irgendwie witzig … vorher war mir eine Website ehrlich gesagt ziemlich egal - bis ich dann eine hatte, die einfach so richtig gut ist.',
-      name: 'Michael Conroy',
-      role: 'President · Deliver Films Inc.',
-      linkedin: null,
-      poster: 'images/sanity/a7c474fad2f44481381ee582d3b4f366abfe2212-1200x900.jpg',
-      posterAlt: 'Michael Conroy, President von Deliver Films Inc.',
-      video: null
-    },
-    {
-      quote: 'Die Zusammenarbeit mit Redesign.AI war von Anfang an super angenehm. Unser Ziel war eine moderne, benutzerfreundliche und optisch starke Website - und Redesign.AI hat unsere Erwartungen definitiv übertroffen. Vom ersten Gespräch bis zum Launch haben wir uns durchgehend gut aufgehoben gefühlt. Neben dem technischen Know-how merkt man einfach, dass hier auch viel Herzblut drinsteckt.',
-      name: 'Justine Torka',
-      role: 'Gründerin · MedicConnect',
-      linkedin: 'https://www.linkedin.com/in/justine-torka/',
-      poster: 'images/sanity/c42c7d90a0f3d04801f8259a848f40ef60033b60-1200x900.jpg',
-      posterAlt: 'Justine Torka, Gründerin von MedicConnect',
-      video: null
-    }
-  ];
-
-  var PROJECTS = [
-    { slug: 'framen', name: 'FRAMEN', video: 'videos/sanity/cf329bfba293f7bada16590d3b84bf636ece8736.mp4' },
-    { slug: 'inventry', name: 'INVENTRY', video: 'videos/sanity/3c101645003fabe7dd9baf32a0234aff88c8fb09.mp4' },
-    { slug: 'theraletik', name: 'Theraletik', video: 'videos/sanity/aac00ae37c983f252802bbd0f68cba439d7071b5.mp4' },
-    { slug: 'soniq', name: 'SONIQ', video: 'videos/sanity/fd409016b7e3e015d5d95ba416e0bd4a1c55943a.mp4' }
-  ];
-
-  var CONTACT_MAIL = 'mzschach@googlemail.com';
+  var CONTACT_MAIL = 'maik.z@gmx.de';
+  var WA_LINK = 'https://wa.me/4917645961547?text=' + encodeURIComponent('Hi Maik, ich will ein Redesign-Konzept für meine Seite.');
+  var PROJECT_NAMES = ['Bäckerei HINKEL', 'Restaurant 3eck', 'Dr. Benz Zahnmedizin', 'Kanzlei Schneider'];
 
   function onReady(fn) {
     if (document.readyState !== 'loading') fn();
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
-  /* ---------- 1. Scroll-Reveals (ersetzt Framer-Motion-Eintrittsanimationen) ---------- */
+  /* ---------- Scroll-Reveals (ersetzt Framer-Motion-Eintritte) ---------- */
   function setupReveals() {
-    // Wort-für-Wort animierte Headlines: SSR-Zustand ist "invisible" — einblenden.
     document.querySelectorAll('span.invisible[aria-label]').forEach(function (el) {
       el.classList.remove('invisible');
     });
-
     var hidden = Array.prototype.filter.call(
-      document.querySelectorAll('[style*="opacity:0"], [style*="opacity: 0"]'),
+      document.querySelectorAll('[style*="opacity:0"]'),
       function (el) { return parseFloat(el.style.opacity) === 0; }
     );
     var io = new IntersectionObserver(function (entries) {
@@ -103,177 +29,14 @@
         el.style.transition = 'opacity 0.7s cubic-bezier(0.625,0.05,0,1), transform 0.7s cubic-bezier(0.625,0.05,0,1)';
         el.style.opacity = '1';
         if (el.style.transform) el.style.transform = 'none';
+        if (el.style.filter) el.style.filter = 'none';
         io.unobserve(el);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     hidden.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- 2. Video-Helfer ---------- */
-  function makeVideo(src, opts) {
-    var v = document.createElement('video');
-    v.src = src;
-    v.playsInline = true;
-    v.setAttribute('playsinline', '');
-    if (opts.poster) v.poster = opts.poster;
-    if (opts.controls) v.controls = true;
-    if (opts.loop) v.loop = true;
-    if (opts.muted) { v.muted = true; v.setAttribute('muted', ''); }
-    if (opts.autoplay) v.autoplay = true;
-    v.preload = opts.preload || 'metadata';
-    v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;' + (opts.css || '');
-    return v;
-  }
-
-  // play() mit Fallback: wenn Autoplay mit Ton blockiert wird, bleiben die
-  // Controls sichtbar, sodass der Nutzer manuell starten kann.
-  function safePlay(v) {
-    var p = v.play();
-    if (p && p.catch) p.catch(function () { v.controls = true; });
-  }
-
-  /* ---------- 3. VSL (Haupt-Video) ---------- */
-  function setupVsl() {
-    var btn = document.querySelector('button[aria-label="Video abspielen"]');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var wrap = document.createElement('div');
-      wrap.style.cssText = 'position:absolute;inset:0;background:#000;';
-      var v = makeVideo('videos/wistia/r6e4qrwvdw.mp4', {
-        controls: true, autoplay: true, preload: 'auto',
-        poster: 'images/campaign/vsl-poster.webp', css: 'object-fit:contain;'
-      });
-      wrap.appendChild(v);
-      btn.replaceWith(wrap);
-      safePlay(v);
-    }, { once: true });
-  }
-
-  /* ---------- 4. Team-Video (Autoplay-Loop) ---------- */
-  function setupTeamVideo() {
-    var card = document.querySelector('[aria-label="Redesign.AI team"]');
-    if (!card) return;
-    var slot = card.querySelector('div.absolute.inset-0.size-full');
-    if (!slot) slot = card.firstElementChild;
-    var v = makeVideo('videos/team/team-0519.mp4', { muted: true, loop: true, autoplay: true, preload: 'auto' });
-    slot.appendChild(v);
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { e.isIntersecting ? v.play().catch(function () {}) : v.pause(); });
-    }, { threshold: 0.15 });
-    io.observe(card);
-  }
-
-  /* ---------- 5. Portfolio: Videos in den Mockups + Tab-Navigation ---------- */
-  function setupPortfolio() {
-    var slides = {};
-    PROJECTS.forEach(function (p) {
-      var a = document.querySelector('a[aria-label="' + p.name + '"]');
-      if (!a) return;
-      slides[p.name] = a;
-      // Bildschirmfläche im Mac-Studio-Mockup: das absolut positionierte Overlay mit prozentualen Kanten
-      var screen = Array.prototype.find.call(a.querySelectorAll('div'), function (d) {
-        return d.style && d.style.left && d.style.left.indexOf('%') >= 0 && d.style.height && d.style.height.indexOf('%') >= 0;
-      });
-      var host = screen || a;
-      var v = makeVideo(p.video, { muted: true, loop: true, preload: 'metadata' });
-      host.appendChild(v);
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { e.isIntersecting ? v.play().catch(function () {}) : v.pause(); });
-      }, { threshold: 0.3 });
-      io.observe(a);
-    });
-
-    // Tabs (mobil sticky + Desktop): klick -> zum Projekt scrollen
-    PROJECTS.forEach(function (p) {
-      document.querySelectorAll('button[aria-label="' + p.name + '"]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var target = slides[p.name];
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      });
-    });
-
-    // aria-current der Tabs dem sichtbaren Projekt nachführen
-    var slideIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var name = e.target.getAttribute('aria-label');
-        PROJECTS.forEach(function (p) {
-          document.querySelectorAll('button[aria-label="' + p.name + '"]').forEach(function (btn) {
-            var active = p.name === name;
-            btn.setAttribute('aria-current', active ? 'true' : 'false');
-            var prev = btn.querySelector('div');
-            if (prev) prev.style.opacity = active ? '1' : '0.45';
-          });
-        });
-      });
-    }, { threshold: 0.55 });
-    Object.keys(slides).forEach(function (k) { slideIO.observe(slides[k]); });
-  }
-
-  /* ---------- 6. Testimonial-Slider ---------- */
-  function setupTestimonials() {
-    var img = null;
-    document.querySelectorAll('img').forEach(function (i) {
-      if (!img && i.src.indexOf('9f7733b40c066f78bd7305020abeac1f1bd97752') >= 0) img = i;
-    });
-    var quoteEl = null;
-    document.querySelectorAll('p').forEach(function (p) {
-      if (!quoteEl && p.textContent.indexOf('kompletter Gamechanger') >= 0) quoteEl = p;
-    });
-    var playBtns = document.querySelectorAll('button[aria-label^="Video von"]');
-    var prevBtns = document.querySelectorAll('button[aria-label="Vorheriges Testimonial"]');
-    var nextBtns = document.querySelectorAll('button[aria-label="Nächstes Testimonial"]');
-    if (!img || !quoteEl || !prevBtns.length || !nextBtns.length) return;
-
-    var nameEls = [], roleEls = [], linkEls = [];
-    document.querySelectorAll('p').forEach(function (p) {
-      if (p.textContent.trim() === 'Alex Kurze') nameEls.push(p);
-      if (p.textContent.trim() === 'Director of Innovation · FRAMEN GmbH') roleEls.push(p);
-    });
-    document.querySelectorAll('a[aria-label$="LinkedIn"]').forEach(function (a) { linkEls.push(a); });
-
-    var mediaBox = img.parentElement; // div.absolute.inset-0 mit dem Poster
-    var idx = 0, activeVideo = null;
-
-    function render() {
-      var t = TESTIMONIALS[idx];
-      if (activeVideo) { activeVideo.remove(); activeVideo = null; img.style.visibility = ''; }
-      img.src = t.poster || '';
-      img.alt = t.posterAlt || t.name;
-      quoteEl.textContent = '“' + t.quote + '”';
-      nameEls.forEach(function (e) { e.textContent = t.name; });
-      roleEls.forEach(function (e) { e.textContent = t.role; });
-      linkEls.forEach(function (a) {
-        if (t.linkedin) { a.href = t.linkedin; a.style.display = ''; a.setAttribute('aria-label', t.name + ' LinkedIn'); }
-        else a.style.display = 'none';
-      });
-      playBtns.forEach(function (b) {
-        b.style.display = t.video ? '' : 'none';
-        b.setAttribute('aria-label', 'Video von ' + t.name + ' abspielen');
-      });
-    }
-
-    prevBtns.forEach(function (b) {
-      b.addEventListener('click', function () { idx = (idx - 1 + TESTIMONIALS.length) % TESTIMONIALS.length; render(); });
-    });
-    nextBtns.forEach(function (b) {
-      b.addEventListener('click', function () { idx = (idx + 1) % TESTIMONIALS.length; render(); });
-    });
-
-    playBtns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var t = TESTIMONIALS[idx];
-        if (!t.video || activeVideo) return;
-        activeVideo = makeVideo(t.video, { controls: true, autoplay: true, preload: 'auto', poster: t.poster });
-        activeVideo.style.zIndex = '15';
-        mediaBox.parentElement.appendChild(activeVideo);
-        safePlay(activeVideo);
-      });
-    });
-  }
-
-  /* ---------- 6b. Header-Theme (hell/dunkel je nach Sektion unter der Navbar) ---------- */
+  /* ---------- Header-Theme (hell/dunkel je nach Sektion) ---------- */
   function setupNavTheme() {
     var header = document.querySelector('header');
     if (!header) return;
@@ -299,7 +62,6 @@
         if (ctaSpan) { ctaSpan.style.color = ''; ctaSpan.style.background = ''; ctaSpan.style.borderColor = ''; }
       }
     }
-
     var current = null;
     function update() {
       var y = header.getBoundingClientRect().bottom - 1;
@@ -315,47 +77,245 @@
     update();
   }
 
-  /* ---------- 7. Call-buchen-Buttons: zum Erstgespräch-Bereich scrollen ---------- */
-  function setupCalendly() {
+  /* ---------- Portfolio-Tabs ---------- */
+  function setupPortfolio() {
+    var slides = {};
+    PROJECT_NAMES.forEach(function (n) {
+      var a = document.querySelector('a[aria-label="' + n + '"]');
+      if (a) slides[n] = a;
+      document.querySelectorAll('button[aria-label="' + n + '"]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (slides[n]) slides[n].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+    });
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var name = en.target.getAttribute('aria-label');
+        PROJECT_NAMES.forEach(function (n) {
+          document.querySelectorAll('button[aria-label="' + n + '"]').forEach(function (btn) {
+            var act = n === name;
+            btn.setAttribute('aria-current', act ? 'true' : 'false');
+            var prev = btn.querySelector('div');
+            if (prev) prev.style.opacity = act ? '1' : '0.45';
+          });
+        });
+      });
+    }, { threshold: 0.55 });
+    Object.keys(slides).forEach(function (k) { sio.observe(slides[k]); });
+  }
+
+  /* ---------- CTAs: Call buchen -> WhatsApp, Nachricht -> Mail ---------- */
+  function setupCtas() {
     document.addEventListener('click', function (ev) {
+      var msg = ev.target.closest ? ev.target.closest('button[aria-label="Nachricht senden"]') : null;
+      if (msg) { window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept'); return; }
       var el = ev.target.closest ? ev.target.closest('.calendly-popup-btn') : null;
-      if (!el) return;
-      ev.preventDefault();
-      var target = document.getElementById('erstgespraech');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (el) { ev.preventDefault(); window.open(WA_LINK, '_blank', 'noopener'); }
     });
   }
 
-  /* ---------- 8. Kleinkram: Nachricht senden, Newsletter, Cookie-Button ---------- */
-  function setupMisc() {
-    var msgBtn = document.querySelector('button[aria-label="Nachricht senden"]');
-    if (msgBtn) msgBtn.addEventListener('click', function () {
-      window.location.href = 'mailto:' + CONTACT_MAIL;
-    });
-
+  /* ---------- Newsletter: statische Demo ---------- */
+  function setupNewsletter() {
     document.querySelectorAll('form').forEach(function (f) {
+      if (f.id === 'form') return; // Funnel hat eigenes Submit
       f.addEventListener('submit', function (ev) {
         ev.preventDefault();
-        var note = f.querySelector('.replica-note');
-        if (!note) {
-          note = document.createElement('p');
-          note.className = 'replica-note';
-          note.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;';
-          note.textContent = 'Statische Kopie – Newsletter-Anmeldung ist hier deaktiviert.';
-          f.appendChild(note);
-        }
+        if (f.querySelector('.replica-note')) return;
+        var note = document.createElement('p');
+        note.className = 'replica-note';
+        note.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;';
+        note.textContent = 'Newsletter folgt bald — schreib solange per WhatsApp.';
+        f.appendChild(note);
       });
     });
   }
 
+  /* ---------- URL-Analyse-Funnel (Hero) ---------- */
+  function setupFunnel() {
+    var form = document.getElementById('form');
+    if (!form) return;
+    var success = document.getElementById('success');
+    var urlInput = document.getElementById('url');
+    var brancheGroup = document.getElementById('brancheGroup');
+    var industrySelect = document.getElementById('industry');
+    var mUrl = document.getElementById('mUrl'), mBiz = document.getElementById('mBiz');
+    var urlMode = document.getElementById('urlMode'), bizMode = document.getElementById('bizMode');
+    var bizInput = document.getElementById('biz'), bizResults = document.getElementById('bizResults');
+    var fName = document.getElementById('bizName'), fSite = document.getElementById('bizWebsite'), fAddr = document.getElementById('bizAddr');
+
+    var industryMap = { arzt: 'Arzt / Praxis', anwalt: 'Anwalt / Kanzlei', coach: 'Coach / Berater', kreativ: 'Kreative / Designer', fotograf: 'Fotograf', gastro: 'Restaurant / Gastro', handwerk: 'Handwerk', business: 'Business / Agentur', other: 'Sonstiges' };
+
+    var mode = 'url';
+    function setMode(m) {
+      mode = m;
+      mUrl.classList.toggle('active', m === 'url');
+      mBiz.classList.toggle('active', m === 'biz');
+      mUrl.setAttribute('aria-selected', m === 'url');
+      mBiz.setAttribute('aria-selected', m === 'biz');
+      urlMode.classList.toggle('is-hidden', m !== 'url');
+      bizMode.classList.toggle('is-hidden', m !== 'biz');
+      closeAc(); syncBranche();
+      if (m === 'biz') setTimeout(function () { bizInput.focus(); }, 30);
+    }
+    mUrl.addEventListener('click', function () { setMode('url'); });
+    mBiz.addEventListener('click', function () { setMode('biz'); });
+
+    function syncBranche() {
+      var has = (mode === 'url') ? urlInput.value.trim().length > 0 : fName.value.trim().length > 0;
+      if (has && brancheGroup.classList.contains('branche-hidden')) {
+        brancheGroup.classList.remove('branche-hidden');
+        brancheGroup.classList.add('field-in');
+      } else if (!has) {
+        brancheGroup.classList.add('branche-hidden');
+        brancheGroup.classList.remove('field-in');
+      }
+    }
+    urlInput.addEventListener('input', syncBranche);
+
+    function esc(s) { return (s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function closeAc() { bizResults.classList.remove('open'); bizResults.innerHTML = ''; }
+
+    var acTimer, acAbort;
+    bizInput.addEventListener('input', function () {
+      fName.value = ''; fSite.value = ''; fAddr.value = ''; syncBranche();
+      var q = bizInput.value.trim();
+      clearTimeout(acTimer);
+      if (q.length < 3) { closeAc(); return; }
+      bizResults.innerHTML = '<div class="ac-note">Suche…</div>'; bizResults.classList.add('open');
+      acTimer = setTimeout(function () { runSearch(q); }, 350);
+    });
+
+    var BIZ_CLASSES = ['shop', 'office', 'craft', 'healthcare', 'tourism', 'leisure', 'club'];
+    var BIZ_AMENITIES = ['restaurant', 'cafe', 'bar', 'pub', 'fast_food', 'ice_cream', 'food_court', 'pharmacy', 'doctors', 'clinic', 'dentist', 'veterinary', 'hospital', 'nursing_home', 'social_facility', 'bank', 'post_office', 'marketplace', 'car_rental', 'car_wash', 'fuel', 'cinema', 'theatre', 'nightclub', 'studio', 'events_venue', 'community_centre', 'coworking_space', 'driving_school', 'language_school', 'music_school', 'dancing_school', 'kindergarten', 'childcare', 'school', 'college', 'university', 'library'];
+    function isBusiness(d) {
+      var cls = d.category || d.class;
+      if (BIZ_CLASSES.indexOf(cls) >= 0) return true;
+      if (cls === 'amenity' && BIZ_AMENITIES.indexOf(d.type) >= 0) return true;
+      return false;
+    }
+    function mapIndustry(cls, type) {
+      if (cls === 'healthcare') return 'arzt';
+      if (cls === 'amenity') {
+        if (['restaurant', 'cafe', 'bar', 'pub', 'fast_food', 'ice_cream', 'food_court', 'nightclub'].indexOf(type) >= 0) return 'gastro';
+        if (['doctors', 'clinic', 'dentist', 'pharmacy', 'veterinary', 'hospital', 'nursing_home', 'social_facility'].indexOf(type) >= 0) return 'arzt';
+        return 'business';
+      }
+      if (cls === 'craft') return 'handwerk';
+      if (cls === 'office') return (type === 'lawyer') ? 'anwalt' : 'business';
+      if (cls === 'shop') {
+        if (['bakery', 'butcher', 'confectionery', 'deli', 'pastry', 'greengrocer'].indexOf(type) >= 0) return 'gastro';
+        if (type === 'photo') return 'fotograf';
+        return 'business';
+      }
+      if (cls === 'tourism') return 'gastro';
+      return 'business';
+    }
+    function shortAddr(s) {
+      var p = (s || '').split(',').map(function (x) { return x.trim(); });
+      if (p.length <= 3) return p.slice(1).join(', ');
+      return [p[1], p[p.length - 3] || p[2]].filter(Boolean).join(', ');
+    }
+    function runSearch(q) {
+      if (acAbort) acAbort.abort();
+      acAbort = new AbortController();
+      var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&namedetails=1&extratags=1&limit=20&accept-language=de&q=' + encodeURIComponent(q);
+      fetch(url, { signal: acAbort.signal, headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var items = (data || []).filter(function (d) { return isBusiness(d) && d.namedetails && d.namedetails.name; })
+            .map(function (d) {
+              return { name: d.namedetails.name, address: shortAddr(d.display_name), website: (d.extratags && (d.extratags.website || d.extratags['contact:website'])) || '', kind: mapIndustry(d.category || d.class, d.type) };
+            }).slice(0, 6);
+          renderAc(items);
+        })
+        .catch(function (e) {
+          if (e.name === 'AbortError') return;
+          bizResults.innerHTML = '<div class="ac-note">Suche gerade nicht erreichbar — gib die Website-URL direkt ein.</div>';
+          bizResults.classList.add('open');
+        });
+    }
+    function renderAc(items) {
+      if (!items.length) {
+        bizResults.innerHTML = '<div class="ac-note">Keine Treffer — tippe Name + Ort, z. B. „Praxis Brandt Bielefeld“.</div>';
+        bizResults.classList.add('open'); return;
+      }
+      bizResults.innerHTML = items.map(function (it, i) {
+        return '<div class="ac-item" data-i="' + i + '"><span>📍</span><span><span class="nm">' + esc(it.name) + '</span><br><span class="ad">' + esc(it.address) + '</span></span></div>';
+      }).join('');
+      bizResults.classList.add('open');
+      Array.prototype.forEach.call(bizResults.children, function (el) {
+        var it = items[+el.getAttribute('data-i')];
+        if (it) el.addEventListener('click', function () { pick(it); });
+      });
+    }
+    function pick(it) {
+      bizInput.value = it.name;
+      fName.value = it.name; fSite.value = it.website || ''; fAddr.value = it.address || '';
+      closeAc(); syncBranche();
+      if (it.kind) {
+        for (var i = 0; i < industrySelect.options.length; i++) {
+          if (industrySelect.options[i].value === it.kind) { industrySelect.value = it.kind; break; }
+        }
+      }
+    }
+    document.addEventListener('click', function (e) { if (!bizMode.contains(e.target)) closeAc(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var lines;
+      if (mode === 'url') {
+        var url = urlInput.value.trim();
+        if (!url) { urlInput.focus(); return; }
+        lines = 'URL: ' + url + '\n';
+      } else {
+        var name = fName.value.trim() || bizInput.value.trim();
+        if (!name) { bizInput.focus(); return; }
+        lines = 'Unternehmen: ' + name + '\nAdresse: ' + (fAddr.value || '—') + '\nWebsite: ' + (fSite.value || '(bitte aus Google/Maps übernehmen)') + '\n';
+      }
+      var subject = encodeURIComponent('MZ.9 Redesign-Konzept');
+      var bodyTxt = encodeURIComponent('Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n' + lines + 'Branche: ' + (industryMap[industrySelect.value] || '—') + '\n\nBitte sende mir das Konzept zu.\n\nViele Grüße');
+      setTimeout(function () {
+        window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + subject + '&body=' + bodyTxt;
+        form.style.display = 'none';
+        if (success) success.classList.add('active');
+      }, 400);
+    });
+
+    /* Typewriter-Placeholder */
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var samples = ['https://deine-website.de', 'https://deine-praxis.de', 'https://deine-kanzlei.de', 'https://dein-restaurant.de', 'https://dein-studio.de'];
+      var i = 0, pos = samples[0].length, deleting = true, paused = false;
+      urlInput.addEventListener('focus', function () { paused = true; });
+      urlInput.addEventListener('input', function () { paused = true; });
+      (function tick() {
+        if (paused) return;
+        var word = samples[i];
+        if (deleting) {
+          pos--;
+          if (pos <= 0) { deleting = false; i = (i + 1) % samples.length; }
+        } else {
+          pos++;
+          if (pos >= word.length) {
+            urlInput.setAttribute('placeholder', word);
+            deleting = true;
+            setTimeout(tick, 1800);
+            return;
+          }
+        }
+        urlInput.setAttribute('placeholder', samples[i].slice(0, pos) || ' ');
+        setTimeout(tick, deleting ? 45 : 85);
+      })();
+    }
+  }
+
   onReady(function () {
     setupReveals();
-    setupVsl();
-    setupTeamVideo();
-    setupPortfolio();
     setupNavTheme();
-    setupTestimonials();
-    setupCalendly();
-    setupMisc();
+    setupPortfolio();
+    setupCtas();
+    setupNewsletter();
+    setupFunnel();
   });
 })();
