@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ristorante Pizzeria Rondinella · Löhne</title>
+<meta name="description" content="Ristorante Pizzeria Rondinella in Löhne-Gohfeld: italienische Küche, frische Pizza, Pasta und Gyros — Restaurant, Lieferung, Abholung, Reservierung und Partyservice in der Wibbeltstraße 20. Jetzt Tisch reservieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a221f; --bg:#f7f1e6; --paper:#ffffff; --muted:#6b6058;
+    --wine:#6d2130; --wine-d:#551a26; --wine-dd:#3e131d;
+    --gold:#b0863f; --gold-l:#c99c55; --olive:#5f6b3e; --cream:#efe6d5;
+    --line:#e4dbc9; --shadow:0 22px 60px -30px rgba(40,24,20,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:600;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .btn{display:inline-block;font-family:'Inter';font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:14px 30px;border-radius:2px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--wine);color:#fff}
+  .btn-p:hover{background:var(--wine-d)}
+  .btn-g{background:var(--gold);color:#fff}
+  .btn-g:hover{background:var(--gold-l)}
+  .btn-o{border-color:rgba(255,255,255,.72);color:#fff}
+  .btn-o:hover{background:#fff;color:var(--wine)}
+  .btn-d{border-color:var(--wine);color:var(--wine)}
+  .btn-d:hover{background:var(--wine);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(62,19,29,.97);backdrop-filter:blur(10px);padding:11px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.6)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1.02}
+  .brand b{font-family:'Playfair Display';font-size:1.6rem;font-weight:700;letter-spacing:.4px;display:block}
+  .brand b span{color:var(--gold-l)}
+  .brand small{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;opacity:.82;font-family:'Inter'}
+  .menu{display:flex;gap:25px;align-items:center}
+  .menu a{color:#fff;font-family:'Inter';font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{color:var(--gold-l)}
+  header .btn{padding:11px 22px}
+
+  .hero{position:relative;min-height:94vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,12,16,.55),rgba(30,12,16,.4) 42%,rgba(28,10,14,.92)),url('img/intro-bg.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 76px}
+  .hero .ey{color:var(--gold-l)}
+  .hero h1{font-size:clamp(3.2rem,8vw,6.6rem);margin:14px 0 16px;font-weight:700}
+  .hero p{font-family:'Inter';font-size:1.12rem;max-width:46ch;opacity:.95;margin-bottom:30px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--wine)}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 40px;padding:20px 0}
+  .strip span{display:flex;gap:10px;align-items:center;color:#f0e4d6;font-family:'Inter';font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
+  .strip b{color:var(--gold-l)}
+
+  section{padding:96px 0}
+  .sec-head{max-width:720px;margin:0 auto 54px;text-align:center}
+  .sec-head h2{font-size:clamp(2.5rem,5.2vw,3.9rem)}
+  .sec-head .ey{margin-bottom:14px}
+  .sec-head p{color:var(--muted);margin-top:12px;font-weight:300}
+
+  .welcome{background:var(--bg)}
+  .welcome .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .welcome .fig{border-radius:3px;overflow:hidden;box-shadow:var(--shadow)}
+  .welcome .fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .welcome .ey{margin-bottom:12px}
+  .welcome h2{font-size:clamp(2.3rem,4.6vw,3.4rem);margin:0 0 18px}
+  .welcome p{color:#4a423b;margin-bottom:16px;font-weight:300;max-width:52ch}
+  .welcome .rate{display:flex;align-items:center;gap:14px;margin-top:22px}
+  .welcome .rate b{font-family:'Playfair Display';font-size:2.4rem;color:var(--wine);line-height:1}
+  .welcome .rate .st{color:var(--gold);letter-spacing:.1em}
+  .welcome .rate span{font-size:.86rem;color:var(--muted)}
+
+  .offer{background:var(--wine);color:#f2e7d9}
+  .offer .sec-head h2{color:#fff}
+  .offer .sec-head .ey{color:var(--gold-l)}
+  .offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .offer-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:30px 26px;text-align:center}
+  .offer-card .ic{font-size:1.8rem;margin-bottom:10px}
+  .offer-card h3{font-size:1.6rem;color:#fff;margin-bottom:10px}
+  .offer-card p{font-size:.95rem;opacity:.86;font-weight:300}
+
+  .gal{background:var(--cream)}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px}
+  .gal-grid figure{border-radius:3px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .gal-grid figure:hover img{transform:scale(1.06)}
+  .gal-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:15px;background:linear-gradient(180deg,transparent,rgba(28,10,14,.82));color:#fff;font-family:'Playfair Display';font-size:1.1rem}
+  .g-tall{grid-row:span 2}
+  .g-wide{grid-column:span 2}
+
+  .hours-sec{background:var(--bg)}
+  .hours-sec .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .hours-sec .ey{margin-bottom:12px}
+  .hours-sec h2{font-size:clamp(2.3rem,4.6vw,3.4rem);margin:0 0 18px}
+  .hours-sec p{color:#4a423b;font-weight:300;margin-bottom:14px;max-width:46ch}
+  .hours{background:#fff;border:1px solid var(--line);border-radius:6px;padding:26px 30px;box-shadow:var(--shadow)}
+  .hours h3{font-family:'Playfair Display';font-size:1.7rem;color:var(--wine);margin-bottom:8px}
+  .hours .row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dotted var(--line);font-size:.95rem}
+  .hours .row span:first-child{color:var(--muted)}
+  .hours .ruhetag{color:var(--wine);font-weight:600}
+  .hours .hint{font-size:.84rem;color:var(--muted);margin-top:14px}
+
+  .cta-sec{background:var(--wine-dd);color:#f2e7d9}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .cta-grid .ey{color:var(--gold-l)}
+  .cta-grid h2{color:#fff;font-size:clamp(2.3rem,4.8vw,3.6rem);margin:12px 0 18px}
+  .cta-grid p{opacity:.86;font-weight:300;max-width:44ch}
+  .cta-grid .tel{margin-top:20px;font-size:1.05rem}
+  .cta-grid .tel a{color:#fff;border-bottom:1px solid var(--gold)}
+  .card{background:#fff;border-radius:8px;padding:34px;box-shadow:var(--shadow);color:var(--ink)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input,.field textarea{width:100%;font-family:'Inter';font-size:.95rem;padding:12px 14px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:78px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 15px;border:1px solid var(--line);border-radius:2px;font-size:.78rem;cursor:pointer;transition:.2s;background:#fff;font-family:'Inter';letter-spacing:.06em;text-transform:uppercase}
+  .chip.on,.chip:hover{background:var(--wine);color:#fff;border-color:var(--wine)}
+  .note{font-size:.78rem;color:var(--muted);margin-top:6px}
+
+  .info{background:var(--wine-d);color:#f0e5d7}
+  .info .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px}
+  .info .blk h3{font-family:'Playfair Display';font-size:1.5rem;color:#fff;margin-bottom:8px}
+  .info .blk p{font-size:.94rem;opacity:.86;font-weight:300}
+  .info .blk a{color:var(--gold-l)}
+
+  footer{background:#2c0f15;color:#b89a8c;padding:42px 0;font-size:.84rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer .concept{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#8a6a62}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--wine);color:var(--gold-l);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-size:1.3rem;font-weight:700}
+  .cbot-launch b{font-size:.82rem;font-weight:600}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--wine);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-size:1.2rem;font-weight:700}
+  .cbot-head b{font-size:.9rem;font-weight:600}.cbot-head small{font-size:.68rem;opacity:.82}
+  .cbot-body{padding:16px;background:#f5efe4}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:10px 10px 10px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--wine);color:#fff;border-color:var(--wine)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .offer-grid{grid-template-columns:1fr}
+    .welcome .wrap,.hours-sec .wrap,.cta-grid{grid-template-columns:1fr;gap:34px}
+    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+    .g-wide{grid-column:span 2}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:84vh}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Rondi<span>nella</span></b><small>Ristorante · Pizzeria · Löhne</small></a>
+    <nav class="menu">
+      <a href="#angebot">Angebot</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#zeiten">Öffnungszeiten</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#reservieren" class="btn btn-g">Reservieren</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">Ristorante · Pizzeria · Lieferservice · Löhne</p>
+    <h1>Rondinella</h1>
+    <p>Italienische Küche, frische Pizza, Pasta und gemütliche Gastfreundschaft — in der Wibbeltstraße 20 in Löhne-Gohfeld.</p>
+    <div class="hero-cta">
+      <a href="#reservieren" class="btn btn-g">Tisch reservieren</a>
+      <a href="tel:+49573184147" class="btn btn-o">05731 84147</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>◆</b> Pizza &amp; Pasta</span>
+    <span><b>◆</b> Lieferung &amp; Abholung</span>
+    <span><b>◆</b> Reservierung</span>
+    <span><b>◆</b> Partyservice</span>
+  </div>
+</div>
+
+<section id="ueber" class="welcome">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/gastraum.jpg" alt="Gemütlicher Gastraum im Ristorante Rondinella"></div>
+    <div>
+      <p class="ey">Benvenuti · Herzlich willkommen</p>
+      <h2>Italienisch genießen in Löhne</h2>
+      <p>Im Rondinella erwarten Sie klassische italienische Küche, frisch zubereitete Pizza und Pasta sowie eine gemütliche, freundliche Atmosphäre. Ob im Restaurant, auf der überdachten Terrasse oder bequem nach Hause geliefert — bei uns sind Sie gut aufgehoben.</p>
+      <p>Gäste heben online besonders Pizza, Gyros und Pasta, den freundlichen Service und die angenehme Atmosphäre hervor.</p>
+      <div class="rate">
+        <b>5,0</b>
+        <div><div class="st">★★★★★</div><span>Sehr gute lokale Bewertung</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="angebot" class="offer">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Heute genießen</p>
+      <h2>Restaurant · Lieferung · Feiern</h2>
+      <p>So, wie es Ihnen am besten passt — vor Ort, zuhause oder für Ihre Feier.</p>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-card reveal"><div class="ic">🍝</div><h3>Im Restaurant</h3><p>Genießen Sie italienische Küche im gemütlichen Gastraum oder auf der überdachten Terrasse mit Außenbereich. Reservierung jederzeit möglich.</p></div>
+      <div class="offer-card reveal"><div class="ic">🛵</div><h3>Lieferung &amp; Abholung</h3><p>Wir liefern Ihre Lieblingsgerichte nach Hause oder Sie holen sie bequem ab. Letzte Bestellannahme: 23:00 Uhr.</p></div>
+      <div class="offer-card reveal"><div class="ic">🎉</div><h3>Partyservice</h3><p>Für Feiern und Gruppen bereiten wir nach Wunsch und Vorbestellung einen Partyservice vor — herzhaft und reichlich.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ambiente" class="gal">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Ein Blick zu uns</p>
+      <h2>Ambiente &amp; Terrasse</h2>
+      <p>Moderner Gastraum, eine einladende überdachte Terrasse und ein herzlicher Empfang — mitten in Löhne-Gohfeld.</p>
+    </div>
+    <div class="gal-grid">
+      <figure class="g-tall reveal"><img src="img/terrasse.jpg" loading="lazy" alt="Überdachte Terrasse mit Kamin im Rondinella"><figcaption>Überdachte Terrasse</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/gastraum2.jpg" loading="lazy" alt="Gastraum mit Rundbögen"><figcaption>Der Gastraum</figcaption></figure>
+      <figure class="reveal"><img src="img/tisch.jpg" loading="lazy" alt="Liebevoll eingedeckter Tisch"><figcaption>Eingedeckt</figcaption></figure>
+      <figure class="reveal"><img src="img/buffet.jpg" loading="lazy" alt="Frische italienische Gerichte"><figcaption>Frisch zubereitet</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/terrasse2.jpg" loading="lazy" alt="Terrasse mit gedeckten Tischen"><figcaption>Draußen sitzen</figcaption></figure>
+      <figure class="reveal"><img src="img/bankett.jpg" loading="lazy" alt="Lange Tafel für Feiern und Gruppen"><figcaption>Feiern &amp; Gruppen</figcaption></figure>
+      <figure class="reveal"><img src="img/aussen.jpg" loading="lazy" alt="Ristorante Rondinella von außen"><figcaption>Wibbeltstraße 20</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="zeiten" class="hours-sec">
+  <div class="wrap">
+    <div>
+      <p class="ey">Wann wir für Sie da sind</p>
+      <h2>Öffnungszeiten</h2>
+      <p>Reservieren Sie Ihren Tisch oder bestellen Sie direkt telefonisch — wir freuen uns auf Ihren Besuch.</p>
+      <p style="color:var(--wine);font-weight:500">Bestellung &amp; Reservierung: <a href="tel:+49573184147" style="border-bottom:2px solid var(--gold)">05731 84147</a></p>
+    </div>
+    <div class="hours reveal">
+      <h3>Rondinella Löhne</h3>
+      <div class="row"><span>Montag</span><span>17:00 – 23:00</span></div>
+      <div class="row"><span>Dienstag</span><span class="ruhetag">Ruhetag</span></div>
+      <div class="row"><span>Mittwoch – Samstag</span><span>17:00 – 23:00</span></div>
+      <div class="row"><span>Sonntag &amp; Feiertage</span><span>11:00–14:30 &amp; 17:00–23:00</span></div>
+      <p class="hint">Lieferung &amp; Abholung — letzte Bestellannahme 23:00 Uhr.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reservieren" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2>Reservieren &amp; anfragen</h2>
+      <p>Sagen Sie uns kurz, worum es geht — Tisch reservieren, Lieferung oder Partyservice. Wir melden uns zeitnah bei Ihnen.</p>
+      <p class="tel">Lieber direkt sprechen? <a href="tel:+49573184147">05731 84147</a></p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Anliegen</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Tisch reservieren">Tisch reservieren</span>
+          <span class="chip" data-v="Lieferung / Abholung">Lieferung</span>
+          <span class="chip" data-v="Partyservice">Partyservice</span>
+        </div>
+      </div>
+      <div class="field"><label>Datum / Uhrzeit / Personen</label><input type="text" id="obj" placeholder="z. B. Sa 19:00 Uhr, 4 Personen"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Ihre Nachricht</label><textarea id="msg" placeholder="Wünsche, Anzahl, Uhrzeit …"></textarea></div>
+      <button class="btn btn-g" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an das Restaurant — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div class="blk">
+      <h3>Anschrift</h3>
+      <p>Ristorante Pizzeria Rondinella<br>Wibbeltstraße 20 · 32584 Löhne-Gohfeld</p>
+    </div>
+    <div class="blk">
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+49573184147">05731 84147</a><br>E-Mail: <a href="mailto:info@restorante-rondinella.de">info@restorante-rondinella.de</a></p>
+    </div>
+    <div class="blk">
+      <h3>Gut zu wissen</h3>
+      <p>Dienstag Ruhetag<br>Lieferung · Abholung · Reservierung<br>Außenbereich &amp; Partyservice</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#e7d6c9"><b style="font-family:'Playfair Display';font-size:1.6rem">Rondi<span style="color:var(--gold-l)">nella</span></b></div>
+      <span style="color:#9a7b72">Wibbeltstraße 20 · 32584 Löhne · 05731 84147</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">R</span>
+    <div><b>Tisch oder Lieferung?</b><small>Wir helfen gern</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">R</span>
+      <div><b>Rondinella Löhne</b><br><small>Ristorante · Pizzeria</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Buongiorno! Möchten Sie einen Tisch reservieren, etwas bestellen oder nach dem Partyservice fragen?</div>
+      <div class="quick">
+        <a href="#reservieren" onclick="toggleBot()">Tisch reservieren</a>
+        <a href="#angebot" onclick="toggleBot()">Lieferung &amp; Abholung</a>
+        <a href="tel:+49573184147">Lieber anrufen — 05731 84147</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+49573184147" class="btn btn-d">Anrufen</a>
+  <a href="#reservieren" class="btn btn-g">Reservieren</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendReq(e){
+    e.preventDefault();
+    var g=pick||'Anfrage', o=document.getElementById('obj').value||'', k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Guten Tag,%0D%0A%0D%0Aich habe eine Anfrage an das Rondinella.%0D%0A%0D%0AAnliegen: '+encodeURIComponent(g)+
+      '%0D%0ADatum/Personen: '+encodeURIComponent(o)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ANachricht: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AMit freundlichen Grüßen';
+    window.location.href='mailto:info@restorante-rondinella.de?subject='+encodeURIComponent('Anfrage · '+g)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
