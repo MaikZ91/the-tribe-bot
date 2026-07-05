@@ -82,9 +82,24 @@ const CITIES = [
   'Osnabrück', 'Oldenburg', 'Delmenhorst', 'Nordhorn', 'Lingen', 'Cloppenburg',
   'Kassel', 'Marburg', 'Gießen', 'Wetzlar', 'Fulda', 'Hanau',
   'Hildesheim', 'Salzgitter', 'Wolfsburg', 'Celle', 'Peine', 'Goslar',
+  // frische Regionen — Baden-Württemberg / Bayern (Süden)
+  'Reutlingen', 'Esslingen', 'Ludwigsburg', 'Göppingen', 'Schwäbisch Gmünd', 'Aalen',
+  'Heilbronn', 'Sindelfingen', 'Böblingen', 'Tübingen', 'Ravensburg', 'Villingen-Schwenningen',
+  'Offenburg', 'Rastatt', 'Bruchsal', 'Schwäbisch Hall', 'Ingolstadt', 'Rosenheim',
+  'Landshut', 'Kempten', 'Augsburg', 'Fürth', 'Erlangen', 'Bamberg', 'Bayreuth', 'Schweinfurt',
+  // Rheinland-Pfalz / Saarland / Hessen-Süd
+  'Kaiserslautern', 'Neustadt an der Weinstraße', 'Landau', 'Speyer', 'Neuwied', 'Bad Kreuznach',
+  'Saarlouis', 'Neunkirchen', 'Homburg', 'Bensheim', 'Rüsselsheim', 'Offenbach',
+  // Sachsen / Thüringen / Sachsen-Anhalt
+  'Zwickau', 'Plauen', 'Görlitz', 'Bautzen', 'Freiberg', 'Gera', 'Jena', 'Weimar',
+  'Gotha', 'Dessau-Roßlau', 'Halberstadt', 'Merseburg',
+  // Norden — Schleswig-Holstein / Mecklenburg / Küste
+  'Flensburg', 'Neumünster', 'Rendsburg', 'Elmshorn', 'Pinneberg', 'Norderstedt',
+  'Stralsund', 'Greifswald', 'Wismar', 'Güstrow', 'Cuxhaven', 'Stade',
 ];
 const BRANCHES = ['Friseur', 'Dachdecker', 'Maler', 'Tischler', 'Elektriker',
-  'Sanitär', 'Restaurant', 'Metzgerei', 'Baeckerei', 'Fliesenleger'];
+  'Sanitär', 'Restaurant', 'Metzgerei', 'Baeckerei', 'Fliesenleger',
+  'Raumausstatter', 'Goldschmied', 'Konditorei', 'Optiker', 'Polsterei'];
 
 function rnd(a) { return a[Math.floor(Math.random() * a.length)]; }
 function domainOf(url) {
