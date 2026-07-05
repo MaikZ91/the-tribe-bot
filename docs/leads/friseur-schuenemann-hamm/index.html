@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Schünemann · La Biosthétique Friseur in Hamm</title>
+<meta name="description" content="Schünemann — La Biosthétique Friseursalon in Hamm. Haarschnitt, Coloration, Kosmetik und Beauty in edlem, ruhigem Ambiente. Jetzt Termin vereinbaren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a2622; --bg:#f7f4ee; --paper:#ffffff; --muted:#7c746a;
+    --char:#211e1a; --char-d:#191612; --char-dd:#12100d;
+    --gold:#9b8460; --gold-l:#b39c78; --sand:#ece5d9;
+    --line:#e5ddce; --shadow:0 24px 60px -32px rgba(30,24,18,.42);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Jost',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;font-weight:300;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Marcellus',Georgia,serif;font-weight:400;line-height:1.14}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1140px,92vw);margin:0 auto}
+  .ey{font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:400}
+  .btn{display:inline-block;font-family:'Jost';font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;padding:15px 34px;transition:.3s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--char);color:#fff}
+  .btn-p:hover{background:var(--gold)}
+  .btn-o{border-color:rgba(255,255,255,.65);color:#fff}
+  .btn-o:hover{background:#fff;color:var(--char)}
+  .btn-d{border-color:var(--char);color:var(--char)}
+  .btn-d:hover{background:var(--char);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:22px 0;transition:.35s}
+  header.scrolled{background:rgba(18,16,13,.96);backdrop-filter:blur(10px);padding:12px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.5)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1.1}
+  .brand b{font-family:'Marcellus';font-size:1.6rem;letter-spacing:.12em;display:block;font-weight:400}
+  .brand small{font-size:.54rem;letter-spacing:.34em;text-transform:uppercase;opacity:.8;font-family:'Jost'}
+  .menu{display:flex;gap:30px;align-items:center}
+  .menu a{color:#fff;font-family:'Jost';font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{color:var(--gold-l)}
+  header .btn{padding:11px 24px}
+
+  .hero{position:relative;min-height:96vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,15,12,.42),rgba(18,15,12,.3) 40%,rgba(16,13,10,.88)),url('img/hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 80px}
+  .hero .ey{color:var(--gold-l)}
+  .hero h1{font-size:clamp(2.8rem,6.6vw,5.6rem);margin:20px 0 20px;max-width:18ch;font-weight:400}
+  .hero p{font-family:'Jost';font-size:1.1rem;max-width:46ch;opacity:.94;margin-bottom:32px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--char)}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 44px;padding:22px 0}
+  .strip span{display:flex;gap:12px;align-items:center;color:#e8e0d2;font-family:'Jost';font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:300}
+  .strip b{color:var(--gold-l)}
+
+  section{padding:104px 0}
+  .sec-head{max-width:700px;margin:0 auto 58px;text-align:center}
+  .sec-head h2{font-size:clamp(2.4rem,5vw,3.7rem)}
+  .sec-head .ey{margin-bottom:16px}
+  .sec-head p{color:var(--muted);margin-top:14px}
+
+  .about{background:var(--bg)}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .about .fig{overflow:hidden;box-shadow:var(--shadow)}
+  .about .fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .about .ey{margin-bottom:14px}
+  .about h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin:0 0 20px}
+  .about p{color:#4c453c;margin-bottom:18px;max-width:52ch}
+  .about .sign{font-family:'Marcellus';font-size:1.4rem;color:var(--char);margin-top:8px}
+  .about .sign small{display:block;font-family:'Jost';font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+
+  .serv{background:var(--char);color:#e7dfd2}
+  .serv .sec-head h2{color:#fff}
+  .serv .sec-head .ey{color:var(--gold-l)}
+  .serv .sec-head p{color:#afa595}
+  .serv-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)}
+  .serv-card{background:var(--char);padding:34px 20px;text-align:center;transition:.3s}
+  .serv-card:hover{background:var(--char-d)}
+  .serv-card .n{font-family:'Marcellus';font-size:1.1rem;color:var(--gold-l)}
+  .serv-card h3{font-size:1.25rem;color:#fff;margin-top:10px}
+
+  .gal{background:var(--sand)}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px}
+  .gal-grid figure{overflow:hidden;position:relative;box-shadow:var(--shadow)}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:.7s}
+  .gal-grid figure:hover img{transform:scale(1.05)}
+  .gal-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(180deg,transparent,rgba(16,13,10,.8));color:#fff;font-family:'Marcellus';font-size:1.05rem;letter-spacing:.04em}
+  .g-tall{grid-row:span 2}
+  .g-wide{grid-column:span 2}
+
+  .beauty{background:var(--bg)}
+  .beauty .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .beauty .fig{overflow:hidden;box-shadow:var(--shadow);order:2}
+  .beauty .fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .beauty .ey{margin-bottom:14px}
+  .beauty h2{font-size:clamp(2.1rem,4.4vw,3.2rem);margin:0 0 20px}
+  .beauty p{color:#4c453c;margin-bottom:18px;max-width:50ch}
+
+  .cta-sec{background:var(--char-dd);color:#e7dfd2}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .cta-grid .ey{color:var(--gold-l)}
+  .cta-grid h2{color:#fff;font-size:clamp(2.2rem,4.6vw,3.4rem);margin:14px 0 20px}
+  .cta-grid p{opacity:.86;max-width:44ch}
+  .cta-grid .tel{margin-top:22px;font-size:1.05rem}
+  .cta-grid .tel a{color:#fff;border-bottom:1px solid var(--gold-l)}
+  .card{background:#fff;padding:36px;box-shadow:var(--shadow);color:var(--ink)}
+  .field{margin-bottom:17px}
+  .field label{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .field input,.field textarea{width:100%;font-family:'Jost';font-size:.95rem;padding:13px 15px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .field textarea{min-height:80px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:9px 16px;border:1px solid var(--line);font-size:.76rem;cursor:pointer;transition:.2s;background:#fff;font-family:'Jost';letter-spacing:.08em;text-transform:uppercase}
+  .chip.on,.chip:hover{background:var(--char);color:#fff;border-color:var(--char)}
+  .note{font-size:.76rem;color:var(--muted);margin-top:8px}
+
+  .info{background:var(--char-d);color:#e4dccf}
+  .info .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px}
+  .info .blk h3{font-family:'Marcellus';font-size:1.4rem;color:#fff;margin-bottom:10px}
+  .info .blk p{font-size:.92rem;opacity:.85}
+  .info .blk a{color:var(--gold-l)}
+
+  footer{background:#100e0b;color:#8a8173;padding:44px 0;font-size:.82rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer .concept{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#5a5245}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--char);color:var(--gold-l);display:flex;align-items:center;justify-content:center;font-family:'Marcellus';font-size:1.2rem}
+  .cbot-launch b{font-size:.82rem}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--char);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Marcellus';font-size:1.1rem}
+  .cbot-head b{font-size:.9rem}.cbot-head small{font-size:.68rem;opacity:.82}
+  .cbot-body{padding:16px;background:#f6f2ec}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:8px 8px 8px 2px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--char);color:#fff;border-color:var(--char)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .serv-grid{grid-template-columns:1fr 1fr 1fr}
+    .about .wrap,.beauty .wrap,.cta-grid{grid-template-columns:1fr;gap:36px}
+    .beauty .fig{order:0}
+    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+    .g-wide{grid-column:span 2}
+    .g-tall{grid-row:auto}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:84vh}
+  }
+  @media(max-width:560px){.serv-grid{grid-template-columns:1fr 1fr}}
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>SCHÜNEMANN</b><small>La Biosthétique · Friseur Hamm</small></a>
+    <nav class="menu">
+      <a href="#salon">Salon</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#beauty">Beauty</a>
+      <a href="#termin" class="btn btn-p">Termin</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">La Biosthétique Paris · Friseur in Hamm</p>
+    <h1>Schönheit mit Stil &amp; Ruhe.</h1>
+    <p>Haarschnitt, Coloration und Kosmetik auf höchstem Niveau — in einem edlen, ruhigen Ambiente, in dem Sie zur Ruhe kommen.</p>
+    <div class="hero-cta">
+      <a href="#termin" class="btn btn-p">Termin vereinbaren</a>
+      <a href="tel:+49238125752" class="btn btn-o">02381 25752</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>◆</b> La Biosthétique Paris</span>
+    <span><b>◆</b> Haar · Farbe · Kosmetik</span>
+    <span><b>◆</b> Edles Ambiente</span>
+    <span><b>◆</b> Beauty &amp; Wellness</span>
+  </div>
+</div>
+
+<section id="salon" class="about">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/marke.jpg" alt="La Biosthétique Salon Schünemann in Hamm"></div>
+    <div>
+      <p class="ey">Willkommen bei Schünemann</p>
+      <h2>Ihr La Biosthétique Salon in Hamm</h2>
+      <p>Bei Schünemann verbinden wir erstklassiges Friseurhandwerk mit der ganzheitlichen Schönheitsphilosophie von La Biosthétique Paris. Von der typgerechten Beratung über den perfekten Schnitt bis zur pflegenden Coloration nehmen wir uns Zeit für Sie.</p>
+      <p>In hellem, ruhigem Ambiente dürfen Sie sich zurücklehnen und den Alltag hinter sich lassen — für einen Look und ein Gefühl, mit dem Sie strahlen.</p>
+      <p class="sign">Michael Schünemann<small>Inhaber · La Biosthétique Salon</small></p>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen" class="serv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Für Haar &amp; Haut</p>
+      <h2>Unsere Leistungen</h2>
+      <p>Ganzheitliche Schönheit — vom Haarschnitt bis zur Kosmetik, abgestimmt auf Sie.</p>
+    </div>
+    <div class="serv-grid">
+      <div class="serv-card reveal"><div class="n">I</div><h3>Haarschnitt &amp; Styling</h3></div>
+      <div class="serv-card reveal"><div class="n">II</div><h3>Coloration</h3></div>
+      <div class="serv-card reveal"><div class="n">III</div><h3>Kosmetik</h3></div>
+      <div class="serv-card reveal"><div class="n">IV</div><h3>La Biosthétique Pflege</h3></div>
+      <div class="serv-card reveal"><div class="n">V</div><h3>Beauty &amp; Wellness</h3></div>
+    </div>
+  </div>
+</section>
+
+<section id="ambiente" class="gal">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Blick in den Salon</p>
+      <h2>Ambiente</h2>
+      <p>Hell, klar und ruhig — ein Ort zum Wohlfühlen und Auftanken.</p>
+    </div>
+    <div class="gal-grid">
+      <figure class="g-tall reveal"><img src="img/salon.jpg" loading="lazy" alt="Heller Salonbereich"><figcaption>Der Salon</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/styling.jpg" loading="lazy" alt="Styling-Plätze"><figcaption>Styling-Plätze</figcaption></figure>
+      <figure class="reveal"><img src="img/wasch.jpg" loading="lazy" alt="Waschplätze mit Ledersesseln"><figcaption>Waschplätze</figcaption></figure>
+      <figure class="reveal"><img src="img/empfang.jpg" loading="lazy" alt="Empfangsbereich"><figcaption>Empfang</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/produkte.jpg" loading="lazy" alt="La Biosthétique Pflegeprodukte"><figcaption>Pflege &amp; Produkte</figcaption></figure>
+      <figure class="reveal"><img src="img/detail.jpg" loading="lazy" alt="Liebevolles Detail im Salon"><figcaption>Im Detail</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="beauty" class="beauty">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/kosmetik.jpg" alt="Kosmetik- und Beautybereich"></div>
+    <div>
+      <p class="ey">Salon Beauté</p>
+      <h2>Kosmetik &amp; Wellness</h2>
+      <p>Neben dem Friseurhandwerk verwöhnen wir Sie in unserem Beauty-Bereich mit Gesichts- und Pflegebehandlungen aus der Welt von La Biosthétique — für sichtbar gepflegte, strahlende Haut.</p>
+      <p>Gönnen Sie sich eine Auszeit vom Alltag: eine Behandlung, die guttut und nachwirkt.</p>
+      <a href="#termin" class="btn btn-d" style="margin-top:6px">Beauty-Termin anfragen</a>
+    </div>
+  </div>
+</section>
+
+<section id="termin" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2>Termin vereinbaren</h2>
+      <p>Sagen Sie uns kurz, worum es geht — Schnitt, Farbe, Kosmetik oder Beratung. Wir melden uns zur Terminabstimmung.</p>
+      <p class="tel">Lieber direkt sprechen? <a href="tel:+49238125752">02381 25752</a></p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Ihr Wunsch</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Haarschnitt">Haarschnitt</span>
+          <span class="chip" data-v="Coloration">Coloration</span>
+          <span class="chip" data-v="Kosmetik">Kosmetik</span>
+          <span class="chip" data-v="Beratung">Beratung</span>
+        </div>
+      </div>
+      <div class="field"><label>Wunschtermin</label><input type="text" id="obj" placeholder="z. B. nächste Woche vormittags"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Ihre Nachricht</label><textarea id="msg" placeholder="Wünsche, Anlass …"></textarea></div>
+      <button class="btn btn-p" style="width:100%">Anfrage senden</button>
+      <p class="note">Ihre Anfrage öffnet eine vorbereitete E-Mail an den Salon — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div class="blk">
+      <h3>Anschrift</h3>
+      <p>Schünemann · La Biosthétique<br>Oststraße 39 · 59065 Hamm</p>
+    </div>
+    <div class="blk">
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+49238125752">02381 25752</a><br>E-Mail: <a href="mailto:info@schuenemann-biosthetik.de">info@schuenemann-biosthetik.de</a></p>
+    </div>
+    <div class="blk">
+      <h3>Gut zu wissen</h3>
+      <p>Termine nach Vereinbarung<br>Haar · Farbe · Kosmetik<br>La Biosthétique Paris</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#e4dccf"><b style="font-family:'Marcellus';font-size:1.5rem;letter-spacing:.1em">SCHÜNEMANN</b></div>
+      <span style="color:#6b6254">Oststraße 39 · 59065 Hamm · 02381 25752</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">S</span>
+    <div><b>Termin gefällig?</b><small>Wir beraten Sie gern</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">S</span>
+      <div><b>Schünemann</b><br><small>La Biosthétique · Hamm</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Guten Tag! Möchten Sie einen Termin vereinbaren — Schnitt, Farbe, Kosmetik oder eine Beratung?</div>
+      <div class="quick">
+        <a href="#termin" onclick="toggleBot()">Termin vereinbaren</a>
+        <a href="#leistungen" onclick="toggleBot()">Leistungen ansehen</a>
+        <a href="tel:+49238125752">Lieber anrufen — 02381 25752</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+49238125752" class="btn btn-d">Anrufen</a>
+  <a href="#termin" class="btn btn-p">Termin</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendReq(e){
+    e.preventDefault();
+    var g=pick||'Termin', o=document.getElementById('obj').value||'', k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Guten Tag,%0D%0A%0D%0Aich möchte gern einen Termin vereinbaren.%0D%0A%0D%0AWunsch: '+encodeURIComponent(g)+
+      '%0D%0AWunschtermin: '+encodeURIComponent(o)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ANachricht: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AMit freundlichen Grüßen';
+    window.location.href='mailto:info@schuenemann-biosthetik.de?subject='+encodeURIComponent('Terminanfrage · '+g)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
