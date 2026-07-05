@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Haarwerk · Dein Friseursalon in Nordhorn</title>
+<meta name="description" content="Haarwerk — dein Friseursalon in Nordhorn. Wir lieben, was wir tun: Schnitt, Farbe und Styling von einem herzlichen Team in modernem Ambiente. Jetzt Termin anfragen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2c231e; --bg:#f6efe6; --paper:#ffffff; --muted:#7a6e63;
+    --clay:#c0653f; --clay-l:#d17a53; --brown:#33271f; --brown-d:#271d16; --brown-dd:#1c150f;
+    --cream:#ece1d2; --line:#e4d8c8; --shadow:0 22px 60px -30px rgba(40,28,20,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+  .ey{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--clay);font-weight:600}
+  .btn{display:inline-block;font-family:'DM Sans';font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:14px 30px;border-radius:40px;transition:.25s;cursor:pointer;border:1px solid transparent}
+  .btn-p{background:var(--clay);color:#fff}
+  .btn-p:hover{background:var(--clay-l)}
+  .btn-o{border-color:rgba(255,255,255,.75);color:#fff}
+  .btn-o:hover{background:#fff;color:var(--brown)}
+  .btn-d{border-color:var(--brown);color:var(--brown)}
+  .btn-d:hover{background:var(--brown);color:#fff}
+
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;transition:.35s}
+  header.scrolled{background:rgba(39,29,22,.97);backdrop-filter:blur(10px);padding:11px 0;box-shadow:0 8px 30px -18px rgba(0,0,0,.55)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .brand{color:#fff;line-height:1.05}
+  .brand b{font-family:'DM Serif Display';font-size:1.6rem;letter-spacing:.3px;display:block}
+  .brand b span{color:var(--clay-l)}
+  .brand small{font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;opacity:.82;font-family:'DM Sans'}
+  .menu{display:flex;gap:26px;align-items:center}
+  .menu a{color:#fff;font-family:'DM Sans';font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;opacity:.9;transition:.2s}
+  .menu a:hover{color:var(--clay-l)}
+  header .btn{padding:11px 24px}
+
+  .hero{position:relative;min-height:94vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,20,14,.5),rgba(28,20,14,.32) 42%,rgba(24,17,11,.9)),url('img/salon-hero.jpg') center/cover no-repeat}
+  .hero .wrap{position:relative;padding:0 0 74px}
+  .hero .ey{color:var(--clay-l)}
+  .hero h1{font-size:clamp(2.9rem,7vw,5.8rem);margin:14px 0 16px;max-width:15ch;font-weight:400}
+  .hero p{font-family:'DM Sans';font-size:1.14rem;max-width:46ch;opacity:.95;margin-bottom:30px;font-weight:300}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+  .strip{background:var(--brown)}
+  .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 40px;padding:20px 0}
+  .strip span{display:flex;gap:10px;align-items:center;color:#ecdfce;font-family:'DM Sans';font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
+  .strip b{color:var(--clay-l)}
+
+  section{padding:96px 0}
+  .sec-head{max-width:720px;margin:0 auto 54px;text-align:center}
+  .sec-head h2{font-size:clamp(2.5rem,5.4vw,4rem)}
+  .sec-head .ey{margin-bottom:14px}
+  .sec-head p{color:var(--muted);margin-top:12px;font-weight:300}
+
+  .welcome{background:var(--bg)}
+  .welcome .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .welcome .fig{border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+  .welcome .fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .welcome .ey{margin-bottom:12px}
+  .welcome h2{font-size:clamp(2.2rem,4.6vw,3.4rem);margin:0 0 18px}
+  .welcome p{color:#4a3d34;margin-bottom:16px;font-weight:300;max-width:52ch}
+  .welcome .quote{font-family:'DM Serif Display';font-style:italic;font-size:1.5rem;color:var(--clay);line-height:1.35;margin-top:8px}
+
+  .serv{background:var(--brown);color:#ecdfce}
+  .serv .sec-head h2{color:#fff}
+  .serv .sec-head .ey{color:var(--clay-l)}
+  .serv .sec-head p{color:#b9ab99}
+  .serv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .serv-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:30px 22px;text-align:center;transition:.25s}
+  .serv-card:hover{transform:translateY(-5px);border-color:var(--clay-l)}
+  .serv-card .ic{font-size:1.6rem;margin-bottom:10px}
+  .serv-card h3{font-size:1.4rem;color:#fff}
+
+  .team{background:var(--cream)}
+  .team-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .team-grid figure{border-radius:10px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/4}
+  .team-grid img{width:100%;height:100%;object-fit:cover;transition:.5s}
+  .team-grid figure:hover img{transform:scale(1.05)}
+
+  .gal{background:var(--bg)}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px}
+  .gal-grid figure{border-radius:8px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:.6s}
+  .gal-grid figure:hover img{transform:scale(1.06)}
+  .gal-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:15px;background:linear-gradient(180deg,transparent,rgba(24,17,11,.82));color:#fff;font-family:'DM Serif Display';font-size:1.1rem}
+  .g-tall{grid-row:span 2}
+  .g-wide{grid-column:span 2}
+
+  .cta-sec{background:var(--brown-dd);color:#ecdfce}
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .cta-grid .ey{color:var(--clay-l)}
+  .cta-grid h2{color:#fff;font-size:clamp(2.2rem,4.6vw,3.4rem);margin:12px 0 18px}
+  .cta-grid p{opacity:.86;font-weight:300;max-width:44ch}
+  .cta-grid .tel{margin-top:20px;font-size:1.05rem}
+  .cta-grid .tel a{color:#fff;border-bottom:1px solid var(--clay-l)}
+  .card{background:#fff;border-radius:14px;padding:34px;box-shadow:var(--shadow);color:var(--ink)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input,.field textarea{width:100%;font-family:'DM Sans';font-size:.95rem;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  .field textarea{min-height:78px;resize:vertical}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 15px;border:1px solid var(--line);border-radius:40px;font-size:.78rem;cursor:pointer;transition:.2s;background:#fff;font-family:'DM Sans';letter-spacing:.04em;text-transform:uppercase}
+  .chip.on,.chip:hover{background:var(--brown);color:#fff;border-color:var(--brown)}
+  .note{font-size:.78rem;color:var(--muted);margin-top:6px}
+
+  .info{background:var(--brown-d);color:#e6d9c8}
+  .info .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:26px}
+  .info .blk h3{font-family:'DM Serif Display';font-size:1.5rem;color:#fff;margin-bottom:8px}
+  .info .blk p{font-size:.94rem;opacity:.86;font-weight:300}
+  .info .blk a{color:var(--clay-l)}
+
+  footer{background:#181109;color:#8b7d6d;padding:42px 0;font-size:.84rem}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  footer .concept{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#5c5142}
+
+  .cbot{position:fixed;right:22px;bottom:22px;z-index:80}
+  .cbot-launch{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);padding:9px 18px 9px 9px;border-radius:44px;box-shadow:var(--shadow);cursor:pointer}
+  .cbot-launch .av{width:42px;height:42px;border-radius:50%;background:var(--brown);color:var(--clay-l);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display';font-size:1.2rem}
+  .cbot-launch b{font-size:.82rem;font-weight:600}.cbot-launch small{display:block;font-size:.68rem;color:var(--muted)}
+  .cbot-panel{position:absolute;right:0;bottom:64px;width:320px;max-width:82vw;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:none}
+  .cbot-panel.open{display:block}
+  .cbot-head{display:flex;align-items:center;gap:11px;padding:16px;background:var(--brown);color:#fff}
+  .cbot-head .av{width:40px;height:40px;border-radius:50%;background:var(--clay);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display';font-size:1.1rem}
+  .cbot-head b{font-size:.9rem;font-weight:600}.cbot-head small{font-size:.68rem;opacity:.82}
+  .cbot-body{padding:16px;background:#f5eee3}
+  .cbot-body .msg{background:#fff;border:1px solid var(--line);border-radius:10px 10px 10px 3px;padding:12px 14px;margin-bottom:12px;font-size:.9rem}
+  .cbot-body .quick{display:flex;flex-direction:column;gap:8px}
+  .cbot-body .quick a{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.84rem;background:#fff;transition:.2s}
+  .cbot-body .quick a:hover{background:var(--brown);color:#fff;border-color:var(--brown)}
+
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;padding:10px 14px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mbar a{flex:1;text-align:center}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .serv-grid{grid-template-columns:1fr 1fr}
+    .team-grid{grid-template-columns:repeat(3,1fr)}
+    .welcome .wrap,.cta-grid{grid-template-columns:1fr;gap:34px}
+    .gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+    .g-wide{grid-column:span 2}
+    .g-tall{grid-row:auto}
+    .menu{display:none}
+    .mbar{display:flex}
+    body{padding-bottom:64px}
+    .cbot{bottom:76px}
+    .hero{min-height:82vh}
+  }
+  @media(max-width:560px){.serv-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(prefers-reduced-motion:reduce){.reveal{transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><b>Haar<span>werk</span></b><small>Friseursalon · Nordhorn</small></a>
+    <nav class="menu">
+      <a href="#studio">Studio</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#team">Team</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#termin" class="btn btn-p">Termin</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <p class="ey">Dein Friseursalon in Nordhorn</p>
+    <h1>Wir lieben, was wir tun.</h1>
+    <p>Schnitt, Farbe und Styling von einem herzlichen Team — in einem modernen, freundlichen Salon an der Neuenhauser Straße 175.</p>
+    <div class="hero-cta">
+      <a href="#termin" class="btn btn-p">Termin anfragen</a>
+      <a href="tel:+4959217881455" class="btn btn-o">05921 7881455</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><b>◆</b> Herzliches Team</span>
+    <span><b>◆</b> Schnitt · Farbe · Styling</span>
+    <span><b>◆</b> Modernes Ambiente</span>
+    <span><b>◆</b> Online-Terminbuchung</span>
+  </div>
+</div>
+
+<section id="studio" class="welcome">
+  <div class="wrap">
+    <div class="fig reveal"><img src="img/lounge.jpg" alt="Freundlicher Wartebereich im Haarwerk Nordhorn"></div>
+    <div>
+      <p class="ey">Willkommen im Haarwerk</p>
+      <h2>Dein Salon in Nordhorn</h2>
+      <p>Bei uns bist du in guten Händen: Ein eingespieltes, herzliches Team, ein modernes Ambiente und viel Liebe zum Detail — für den Look, mit dem du dich rundum wohlfühlst.</p>
+      <p>Ob frischer Schnitt, neue Farbe oder ein kompletter Typwechsel: Wir nehmen uns Zeit, hören zu und beraten dich typgerecht.</p>
+      <p class="quote">„Wir lieben, was wir tun — und wir tun, was wir lieben."</p>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen" class="serv">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Für deinen Look</p>
+      <h2>Unsere Leistungen</h2>
+      <p>Alles fürs Haar — mit Können, Gespür und einem guten Gespräch dazu.</p>
+    </div>
+    <div class="serv-grid">
+      <div class="serv-card reveal"><div class="ic">✂️</div><h3>Schnitt &amp; Styling</h3></div>
+      <div class="serv-card reveal"><div class="ic">🎨</div><h3>Farbe &amp; Strähnen</h3></div>
+      <div class="serv-card reveal"><div class="ic">💬</div><h3>Typberatung</h3></div>
+      <div class="serv-card reveal"><div class="ic">📅</div><h3>Online-Terminbuchung</h3></div>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="team">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Die Menschen hinter Haarwerk</p>
+      <h2>Unser Team</h2>
+      <p>Ein starkes Team, das mit Herz, Können und einem Lächeln bei der Sache ist.</p>
+    </div>
+    <div class="team-grid">
+      <figure class="reveal"><img src="img/team1.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+      <figure class="reveal"><img src="img/team2.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+      <figure class="reveal"><img src="img/team3.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+      <figure class="reveal"><img src="img/team4.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+      <figure class="reveal"><img src="img/team5.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+      <figure class="reveal"><img src="img/team6.jpg" loading="lazy" alt="Teammitglied von Haarwerk"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="einblick" class="gal">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="ey">Blick ins Studio</p>
+      <h2>Unser Salon</h2>
+      <p>Hell, modern und einladend — komm vorbei und fühl dich wohl.</p>
+    </div>
+    <div class="gal-grid">
+      <figure class="g-tall reveal"><img src="img/stationen.jpg" loading="lazy" alt="Bedienplätze im Haarwerk"><figcaption>Bedienplätze</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/studio.jpg" loading="lazy" alt="Modernes Salon-Studio"><figcaption>Das Studio</figcaption></figure>
+      <figure class="reveal"><img src="img/waschplatz.jpg" loading="lazy" alt="Waschplätze mit bequemen Sesseln"><figcaption>Waschplätze</figcaption></figure>
+      <figure class="reveal"><img src="img/empfang.jpg" loading="lazy" alt="Empfangsbereich"><figcaption>Empfang</figcaption></figure>
+      <figure class="g-wide reveal"><img src="img/produkte.jpg" loading="lazy" alt="Pflege- und Stylingprodukte"><figcaption>Pflege &amp; Produkte</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="termin" class="cta-sec">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="ey">Kein Formular auf der alten Seite? Jetzt schon.</p>
+      <h2>Termin anfragen</h2>
+      <p>Sag uns kurz, worum es geht — Schnitt, Farbe, Styling oder Beratung. Wir melden uns und finden einen Termin, der passt.</p>
+      <p class="tel">Lieber direkt sprechen? <a href="tel:+4959217881455">05921 7881455</a></p>
+    </div>
+    <form class="card" onsubmit="return sendReq(event)">
+      <div class="field">
+        <label>Dein Wunsch</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-v="Schnitt">Schnitt</span>
+          <span class="chip" data-v="Farbe / Strähnen">Farbe</span>
+          <span class="chip" data-v="Styling">Styling</span>
+          <span class="chip" data-v="Beratung">Beratung</span>
+        </div>
+      </div>
+      <div class="field"><label>Wunschtermin</label><input type="text" id="obj" placeholder="z. B. nächste Woche nachmittags"></div>
+      <div class="field"><label>Name &amp; Kontakt</label><input type="text" id="kontakt" placeholder="Name · Telefon oder E-Mail"></div>
+      <div class="field"><label>Deine Nachricht</label><textarea id="msg" placeholder="Wünsche, Anlass …"></textarea></div>
+      <button class="btn btn-p" style="width:100%">Anfrage senden</button>
+      <p class="note">Deine Anfrage öffnet eine vorbereitete E-Mail an den Salon — unverbindlich.</p>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt" class="info">
+  <div class="wrap">
+    <div class="blk">
+      <h3>Anschrift</h3>
+      <p>Haarwerk<br>Neuenhauser Straße 175 · 48527 Nordhorn</p>
+    </div>
+    <div class="blk">
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:+4959217881455">05921 7881455</a><br>E-Mail: <a href="mailto:salon@haarwerk175.de">salon@haarwerk175.de</a></p>
+    </div>
+    <div class="blk">
+      <h3>Gut zu wissen</h3>
+      <p>Termine online oder telefonisch<br>Schnitt · Farbe · Styling<br>Nordhorn · Grafschaft Bentheim</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand" style="color:#e6d9c8"><b style="font-family:'DM Serif Display';font-size:1.6rem">Haar<span style="color:var(--clay-l)">werk</span></b></div>
+      <span style="color:#6b5e4e">Neuenhauser Straße 175 · 48527 Nordhorn · 05921 7881455</span>
+    </div>
+    <span class="concept">Konzept-Vorschau · MZ.9 Media Engineering</span>
+  </div>
+</footer>
+
+<div class="cbot">
+  <div class="cbot-launch" id="cbotBtn">
+    <span class="av">H</span>
+    <div><b>Lust auf was Neues?</b><small>Wir beraten dich gern</small></div>
+  </div>
+  <div class="cbot-panel" id="cbotPanel">
+    <div class="cbot-head">
+      <span class="av">H</span>
+      <div><b>Haarwerk Nordhorn</b><br><small>Dein Friseursalon</small></div>
+    </div>
+    <div class="cbot-body">
+      <div class="msg">Hallo! Worum geht's — Schnitt, Farbe, Styling oder Beratung? Wir helfen dir gern weiter.</div>
+      <div class="quick">
+        <a href="#termin" onclick="toggleBot()">Termin anfragen</a>
+        <a href="#team" onclick="toggleBot()">Team ansehen</a>
+        <a href="tel:+4959217881455">Lieber anrufen — 05921 7881455</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mbar">
+  <a href="tel:+4959217881455" class="btn btn-d">Anrufen</a>
+  <a href="#termin" class="btn btn-p">Termin</a>
+</div>
+
+<script>
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>60)});
+  var pick='';
+  document.querySelectorAll('#chips .chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');pick=c.dataset.v;
+    });
+  });
+  function sendReq(e){
+    e.preventDefault();
+    var g=pick||'Termin', o=document.getElementById('obj').value||'', k=document.getElementById('kontakt').value||'', m=document.getElementById('msg').value||'';
+    var body='Hallo Haarwerk-Team,%0D%0A%0D%0Aich möchte gern einen Termin anfragen.%0D%0A%0D%0AWunsch: '+encodeURIComponent(g)+
+      '%0D%0AWunschtermin: '+encodeURIComponent(o)+'%0D%0AKontakt: '+encodeURIComponent(k)+
+      (m?('%0D%0ANachricht: '+encodeURIComponent(m)):'')+'%0D%0A%0D%0AViele Grüße';
+    window.location.href='mailto:salon@haarwerk175.de?subject='+encodeURIComponent('Terminanfrage · '+g)+'&body='+body;
+    return false;
+  }
+  var panel=document.getElementById('cbotPanel');
+  function toggleBot(){panel.classList.toggle('open')}
+  document.getElementById('cbotBtn').addEventListener('click',toggleBot);
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
