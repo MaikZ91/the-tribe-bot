@@ -77,12 +77,54 @@
     update();
   }
 
-  /* ---------- Portfolio-Tabs ---------- */
+  /* ---------- Showreel im Hero: spielt, solange sichtbar ---------- */
+  function setupShowreel() {
+    var v = document.getElementById('showreel');
+    if (!v) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 });
+    io.observe(v);
+  }
+
+  /* ---------- Portfolio: Scroll-Videos in den Mockups + Tabs ---------- */
+  var PROJECT_CLIPS = {
+    'Bäckerei HINKEL': 'videos/work/clip-baeckerei-hinkel.webm',
+    'Restaurant 3eck': 'videos/work/clip-restaurant-3eck.webm',
+    'Dr. Benz Zahnmedizin': 'videos/work/clip-zahnarzt-benz.webm',
+    'Kanzlei Schneider': 'videos/work/clip-anwalt-schneider.webm'
+  };
+
   function setupPortfolio() {
     var slides = {};
     PROJECT_NAMES.forEach(function (n) {
       var a = document.querySelector('a[aria-label="' + n + '"]');
       if (a) slides[n] = a;
+      // Screen-Recording in die Bildschirmfläche des Mac-Mockups legen
+      if (a && PROJECT_CLIPS[n]) {
+        var screen = Array.prototype.find.call(a.querySelectorAll('div'), function (d) {
+          return d.style && d.style.left && d.style.left.indexOf('%') >= 0 && d.style.height && d.style.height.indexOf('%') >= 0;
+        });
+        if (screen) {
+          var v = document.createElement('video');
+          v.src = PROJECT_CLIPS[n];
+          v.muted = true; v.setAttribute('muted', '');
+          v.loop = true; v.playsInline = true; v.setAttribute('playsinline', '');
+          v.preload = 'metadata';
+          v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;';
+          screen.appendChild(v);
+          var vio = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+              else v.pause();
+            });
+          }, { threshold: 0.3 });
+          vio.observe(a);
+        }
+      }
       document.querySelectorAll('button[aria-label="' + n + '"]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           if (slides[n]) slides[n].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -313,6 +355,7 @@
   onReady(function () {
     setupReveals();
     setupNavTheme();
+    setupShowreel();
     setupPortfolio();
     setupCtas();
     setupNewsletter();
