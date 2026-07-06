@@ -148,23 +148,25 @@
     Object.keys(slides).forEach(function (k) { sio.observe(slides[k]); });
   }
 
-  /* ---------- Horizontales Scrolly-Showcase („Website spürt man") ---------- */
+  /* ---------- Horizontale Bild-Bänder wie beim Original:
+     zwei Reihen wandern gegenläufig, gekoppelt an den Scroll-Fortschritt
+     der Sektion durch den Viewport (kein Pinning). ---------- */
   function setupHScroll() {
-    var outer = document.getElementById('hsOuter');
-    var track = document.getElementById('hsTrack');
-    if (!outer || !track) return;
-    if (window.matchMedia('(max-width: 860px)').matches) return; // mobil: natives Swipen
+    var sec = document.getElementById('showcase');
+    var t1 = document.getElementById('strip1');
+    var t2 = document.getElementById('strip2');
+    if (!sec || !t1 || !t2) return;
     var ticking = false;
     function update() {
       if (ticking) return; ticking = true;
       requestAnimationFrame(function () {
-        var r = outer.getBoundingClientRect();
-        var total = r.height - innerHeight;
-        var prog = Math.min(Math.max(-r.top / total, 0), 1);
-        // easeInOut, damit Start und Ende weich sind
-        var e = prog < 0.5 ? 2 * prog * prog : 1 - Math.pow(-2 * prog + 2, 2) / 2;
-        var max = track.scrollWidth - innerWidth;
-        track.style.transform = 'translateX(' + (-e * max).toFixed(1) + 'px)';
+        var r = sec.getBoundingClientRect();
+        var prog = (innerHeight - r.top) / (innerHeight + r.height);
+        prog = Math.min(Math.max(prog, 0), 1);
+        var s1 = t1.scrollWidth * 0.28;
+        var s2 = t2.scrollWidth * 0.28;
+        t1.style.transform = 'translateX(' + (-prog * s1).toFixed(1) + 'px)';
+        t2.style.transform = 'translateX(' + (-s2 + prog * s2).toFixed(1) + 'px)';
         ticking = false;
       });
     }
