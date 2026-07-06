@@ -1,236 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3ECK — Café · Bar · Restaurant · Bielefeld</title>
-<meta name="description" content="Regional, saisonal und immer besonders — das 3ECK mitten in der Bielefelder Altstadt.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3ECK — Café Bar Restaurant Bielefeld</title>
 <style>
-:root { --acc: #c23a22; --acc2: #e8734a; --ink: #1d1d1f; --paper: #fbfbfd; --grey: #6e6e73; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-
-/* Konzept-Banner */
-.concept-note { background: #000; color: rgba(255,255,255,0.75); font-size: 11px; letter-spacing: 0.04em;
-  text-align: center; padding: 7px 14px; }
-.concept-note b { color: var(--acc2); font-weight: 600; }
-
-/* Nav */
-.nav { position: sticky; top: 0; z-index: 90; display: flex; align-items: center; gap: 28px;
-  padding: 14px clamp(18px, 4vw, 44px); background: rgba(251,251,253,0.72);
-  backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
-.nav.scrolled { box-shadow: 0 10px 40px -18px rgba(0,0,0,0.25); }
-.nav .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 16.5px; letter-spacing: -0.01em; }
-.nav .brand .mark { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--acc), var(--acc2));
-  color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; }
-.nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 13.5px; color: rgba(29,29,31,0.75); font-weight: 500; }
-.nav .links a:hover { color: var(--ink); }
-.nav .tel { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
-.nav .cta { background: var(--ink); color: #fff; font-size: 13.5px; font-weight: 600;
-  padding: 10px 18px; border-radius: 999px; white-space: nowrap; transition: transform 0.2s, background 0.2s; }
-.nav .cta:hover { background: #000; transform: translateY(-1px); }
-@media (max-width: 900px) { .nav .links { display: none; } .nav .tel { margin-left: auto; } }
-
-/* Hero */
-.hero { position: relative; text-align: center; padding: clamp(80px, 12vw, 150px) 20px clamp(70px, 9vw, 120px);
-  overflow: hidden; }
-.hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 130%; pointer-events: none;
-  background: radial-gradient(52% 46% at 50% 18%, rgba(232,115,74,0.20) 0%, rgba(255,255,255,0) 70%); }
-.hero > * { position: relative; }
-.kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 26px; }
-.kicker::before, .kicker::after { content: ""; width: 26px; height: 1px; background: var(--acc); opacity: 0.5; }
-.hero h1 { font-size: clamp(2.9rem, 8.4vw, 6.2rem); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700; }
-.hero h1 .acc { display: block; background: linear-gradient(100deg, var(--acc) 10%, var(--acc2) 90%);
-  -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.08em; }
-.hero .sub { max-width: 560px; margin: 26px auto 0; font-size: clamp(1.02rem, 2vw, 1.22rem);
-  line-height: 1.55; color: var(--grey); font-weight: 400; }
-.btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
-.btn { display: inline-flex; align-items: center; gap: 9px; font-size: 15.5px; font-weight: 600;
-  padding: 15px 28px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
-.btn:hover { transform: translateY(-2px); }
-.btn.solid { background: var(--ink); color: #fff; box-shadow: 0 16px 36px -14px rgba(0,0,0,0.45); }
-.btn.solid:hover { background: #000; }
-.btn.ghost { border: 1.5px solid rgba(29,29,31,0.22); color: var(--ink); background: rgba(255,255,255,0.6); }
-.btn.ghost:hover { border-color: var(--ink); }
-.hero .meta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
-.hero .meta span { font-size: 12.5px; font-weight: 600; color: var(--grey);
-  border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.7); padding: 7px 14px; border-radius: 999px; }
-
-/* Statement (dunkel) */
-.statement { background: #000; color: #f5f5f7; padding: clamp(90px, 13vw, 170px) 22px; text-align: center;
-  position: relative; overflow: hidden; }
-.statement::after { content: ""; position: absolute; left: 50%; bottom: -40%; width: 90vw; height: 80%;
-  transform: translateX(-50%); pointer-events: none;
-  background: radial-gradient(50% 55% at 50% 100%, rgba(232,115,74,0.35) 0%, rgba(0,0,0,0) 70%); }
-.statement p { position: relative; max-width: 1000px; margin: 0 auto;
-  font-size: clamp(1.7rem, 4.6vw, 3.4rem); line-height: 1.18; letter-spacing: -0.025em; font-weight: 700; }
-.statement p .dim { color: rgba(245,245,247,0.35); }
-.statement p .hl { background: linear-gradient(100deg, var(--acc2), #fff);
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-/* Sections allgemein */
-.section { padding: clamp(76px, 10vw, 140px) clamp(18px, 4vw, 44px); }
-.wrap { max-width: 1180px; margin: 0 auto; }
-.sec-head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 64px); }
-.sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.sec-head .k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
-.sec-head h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em; line-height: 1.07; font-weight: 700; margin-top: 12px; }
-.sec-head .s { color: var(--grey); font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55; margin-top: 14px; }
-
-/* Bento-Grid */
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-.card { grid-column: span 2; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 26px;
-  padding: clamp(24px, 3vw, 36px); box-shadow: 0 20px 50px -38px rgba(0,0,0,0.35);
-  transition: transform 0.35s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.35s; position: relative; overflow: hidden; }
-.card:hover { transform: translateY(-6px); box-shadow: 0 34px 70px -40px rgba(0,0,0,0.45); }
-.card.wide { grid-column: span 3; }
-.card.hero-card { grid-column: span 6; background: linear-gradient(120deg, #1e2a38, #3c536b);
-  color: #fff; border: none; display: flex; flex-direction: column; justify-content: flex-end; min-height: 300px; }
-.card.hero-card h3 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; }
-.card.hero-card p { color: rgba(255,255,255,0.82); }
-.card .ico { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center;
-  font-size: 24px; background: linear-gradient(135deg, rgba(194,58,34,0.1), rgba(232,115,74,0.18)); margin-bottom: 20px; }
-.card h3 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.01em; }
-.card p { margin-top: 8px; font-size: 0.95rem; line-height: 1.55; color: var(--grey); }
-.card.hero-card p { max-width: 560px; margin-top: 12px; }
-@media (max-width: 980px) { .card, .card.wide { grid-column: span 3; } }
-@media (max-width: 640px) { .card, .card.wide, .card.hero-card { grid-column: span 6; } }
-
-/* Werte / Zahlenband */
-.band { background: #f5f5f7; }
-.vals { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-.val { background: #fff; border-radius: 22px; padding: 26px; border: 1px solid rgba(0,0,0,0.05); }
-.val .n { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em;
-  background: linear-gradient(100deg, var(--acc), var(--acc2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.val .t { font-size: 0.9rem; color: var(--grey); margin-top: 6px; line-height: 1.5; }
-
-/* Stimmen */
-.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.quote { background: #fff; border-radius: 24px; padding: 30px; border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 20px 50px -40px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 14px; }
-.quote .stars { color: var(--acc); letter-spacing: 3px; font-size: 14px; }
-.quote blockquote { font-size: 1.02rem; line-height: 1.55; font-weight: 500; letter-spacing: -0.005em; }
-.quote .who { font-size: 0.82rem; color: var(--grey); margin-top: auto; }
-
-/* Kontakt (dunkel) */
-.contact { background: #000; color: #f5f5f7; border-radius: 34px; margin: 0 clamp(12px, 2vw, 26px) 26px;
-  padding: clamp(66px, 9vw, 120px) clamp(22px, 5vw, 70px); position: relative; overflow: hidden; }
-.contact::before { content: ""; position: absolute; right: -18%; top: -30%; width: 65%; aspect-ratio: 1; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(232,115,74,0.35) 0%, rgba(0,0,0,0) 72%); }
-.contact .grid { position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(34px, 5vw, 70px); align-items: center; }
-@media (max-width: 860px) { .contact .grid { grid-template-columns: 1fr; } }
-.contact h2 { font-size: clamp(2.1rem, 5vw, 3.6rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 700; }
-.contact .s { color: rgba(245,245,247,0.6); font-size: 1.05rem; line-height: 1.6; margin-top: 16px; max-width: 460px; }
-.contact .phone { display: inline-block; margin-top: 30px; font-size: clamp(1.6rem, 3.6vw, 2.5rem); font-weight: 800;
-  letter-spacing: -0.02em; background: linear-gradient(100deg, #fff, var(--acc2));
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-.contact .btn-row { justify-content: flex-start; }
-.contact .btn.solid { background: #fff; color: #000; }
-.contact .btn.ghost { border-color: rgba(255,255,255,0.3); color: #fff; background: transparent; }
-.info { display: flex; flex-direction: column; gap: 14px; }
-.info .row { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px; padding: 18px 22px; }
-.info .row .l { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-.info .row .v { font-size: 1rem; font-weight: 600; margin-top: 5px; line-height: 1.45; }
-
-/* Footer */
-.footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  padding: 22px clamp(18px, 4vw, 44px) 30px; font-size: 12px; color: var(--grey); }
-.footer b { color: var(--ink); }
-
-/* Reveals */
-.rv { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22,0.61,0.36,1), transform 0.75s cubic-bezier(0.22,0.61,0.36,1); }
-.rv.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+:root{--red:#c0392b;--charcoal:#2c3e50;--white:#fff;--light:#f9f9f9;--ink:#2c3e50;--ink2:#7f8c8d;--r:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
+.container{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+h2{font-size:2rem;font-weight:800;margin-bottom:16px;color:var(--charcoal)}
+.hero{background:linear-gradient(135deg,var(--charcoal) 0%,#1a252f 100%);color:#fff;padding:120px 0 90px;text-align:center;position:relative}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--red),#e74c3c,var(--red))}
+.hero .badge{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:800;padding:5px 16px;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.2rem);font-weight:900;line-height:1.1;max-width:550px;margin:0 auto 12px}
+.hero p{font-size:1.1rem;color:#bdc3c7;max-width:450px;margin:0 auto 26px}
+.cta{display:inline-block;background:var(--red);color:#fff;font-weight:800;padding:15px 34px;text-decoration:none;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;transition:background .2s}
+.cta:hover{background:#a93226}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:32px}
+.menu-item{background:var(--light);border-radius:var(--r);padding:24px;border-bottom:3px solid var(--red)}
+.menu-item h3{font-size:1rem;font-weight:700;color:var(--charcoal);margin-bottom:6px}
+.menu-item p{font-size:.85rem;color:var(--ink2)}
+.highlights{background:var(--charcoal);color:#fff}
+.highlights h2{color:#fff;text-align:center}
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:28px;text-align:center}
+.hl .emoji{font-size:2.5rem;margin-bottom:10px}
+.hl h4{font-size:1rem;font-weight:700;color:var(--red);margin-bottom:6px}
+.hl p{font-size:.85rem;color:#bdc3c7}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px}
+.rev{background:var(--light);border-radius:var(--r);padding:24px;border:1px solid #e8e8e8}
+.rev .stars{color:#f1c40f;margin-bottom:8px}
+.rev p{font-size:.9rem;font-style:italic;margin-bottom:10px}
+.rev .author{font-size:.8rem;color:var(--ink2);font-weight:600}
+.contact{background:var(--light)}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:24px}
+.contact .info p{margin-bottom:12px;font-size:.95rem}
+.contact .info strong{color:var(--red)}
+.contact form{display:flex;flex-direction:column;gap:12px}
+.contact input,.contact textarea{font-family:inherit;font-size:.95rem;padding:13px 16px;border-radius:var(--r);border:1px solid #ddd;background:var(--white);color:var(--ink);outline:none}
+.contact input:focus,.contact textarea:focus{border-color:var(--red)}
+.contact textarea{resize:vertical;min-height:100px}
+.contact button{background:var(--red);color:#fff;font-weight:800;padding:14px;border:none;border-radius:var(--r);cursor:pointer;font-size:1rem;text-transform:uppercase;letter-spacing:.04em}
+footer{text-align:center;padding:24px;font-size:.8rem;color:var(--ink2);border-top:1px solid #eee}
+@media(max-width:700px){.hl-grid{grid-template-columns:1fr}.contact .wrap{grid-template-columns:1fr}section{padding:50px 0}}
 </style>
 </head>
 <body>
-<div class="concept-note">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für 3ECK</div>
-
-<nav class="nav" id="nav">
-  <a class="brand" href="#top"><span class="mark">3</span>3ECK</a>
-  <div class="links"><a href="#leistungen">Karte</a><a href="#werte">Warum wir</a><a href="#stimmen">Gäste</a><a href="#kontakt">Reservieren</a></div>
-  <a class="tel" href="tel:+495219887783">0521 · 988 77 83</a>
-  <a class="cta" href="#kontakt">Tisch reservieren</a>
-</nav>
-
-<header class="hero" id="top">
-  <div class="kicker rv">Café · Bar · Restaurant · Bielefelder Altstadt</div>
-  <h1 class="rv">Genuss mit<span class="acc">Ecken und Kanten.</span></h1>
-  <p class="sub rv">Regional, saisonal und immer besonders — mitten in der Bielefelder Altstadt. Frühstück, Mittagstisch, Abendkarte und Abende, die bleiben.</p>
-  <div class="btn-row rv">
-    <a class="btn solid" href="#kontakt">Tisch reservieren <span>→</span></a>
-    <a class="btn ghost" href="#leistungen">Unsere Karte</a>
+<section class="hero">
+  <div class="container">
+    <span class="badge">✦ Café · Bar · Restaurant</span>
+    <h1>Genuss mit Ecken und Kanten</h1>
+    <p>Regional, saisonal und immer besonders — mitten in der Bielefelder Altstadt.</p>
+    <a href="#kontakt" class="cta">Tisch reservieren</a>
   </div>
-  <div class="meta rv"><span>Regional &amp; saisonal</span><span>Ritterstraße 21</span><span>Mo–Sa 9–23 · So 10–18</span></div>
-</header>
-
-<section class="statement">
-  <p class="rv"><span class="dim">Gutes Essen braucht</span> keine Show. <span class="dim">Nur</span> <span class="hl">gute Zutaten</span> <span class="dim">— und Menschen, die kochen können.</span></p>
 </section>
 
-<section class="section" id="leistungen">
-  <div class="wrap">
-    <div class="sec-head rv"><div class="k">Unsere Karte</div><h2>Von früh bis spät.</h2><p class="s">Wöchentlich wechselnde Gerichte, hausgemachte Aufstriche und eine Abendkarte mit Charakter.</p></div>
-    <div class="bento">
-      <div class="card hero-card rv"><h3>Frühstück &amp; Mittagstisch</h3><p>Täglich Frühstück bis 12 Uhr mit regionalen Produkten und hausgemachten Aufstrichen — mittags wöchentlich wechselnde Gerichte, frisch, saisonal, kreativ.</p></div>
-      <div class="card rv"><div class="ico">🍽️</div><h3>Abendkarte</h3><p>Kleine, feine Auswahl mit Fleisch, Fisch und vegetarischen Optionen.</p></div><div class="card rv"><div class="ico">🍷</div><h3>Wein &amp; Drinks</h3><p>Ausgewählte Weine, Craft-Biere und hausgemachte Limonaden.</p></div><div class="card rv"><div class="ico">🎵</div><h3>Events &amp; Live-Musik</h3><p>Donnerstags Live-Musik, DJ-Sets am Wochenende — und private Feiern richten wir aus.</p></div>
+<section class="menu" id="karte">
+  <div class="container"><h2>Unsere Karte</h2>
+    <div class="menu-grid">
+      <div class="menu-item"><h3>☕ Frühstück</h3><p>Täglich bis 12 Uhr — mit regionalen Produkten und hausgemachten Aufstrichen.</p></div>
+      <div class="menu-item"><h3>🥗 Mittagstisch</h3><p>Wöchentlich wechselnde Gerichte — frisch, saisonal und kreativ.</p></div>
+      <div class="menu-item"><h3>🍽️ Abendkarte</h3><p>Kleine, feine Auswahl mit Fleisch, Fisch und vegetarischen Optionen.</p></div>
+      <div class="menu-item"><h3>🍷 Wein &amp; Drinks</h3><p>Ausgewählte Weine, Craft-Biere und hausgemachte Limonaden.</p></div>
+      <div class="menu-item"><h3>🎉 Events</h3><p>Geburtstage, Firmenfeiern, private Dinner — wir richten aus.</p></div>
+      <div class="menu-item"><h3>🎵 Live-Musik</h3><p>Jeden Donnerstag Abend Live-Musik und DJ-Sets am Wochenende.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section band" id="werte">
-  <div class="wrap">
-    <div class="sec-head center rv"><div class="k">Warum das 3ECK</div><h2>Drei gute Gründe.</h2></div>
-    <div class="vals"><div class="val rv"><div class="n">🌿</div><div class="t">Regional &amp; saisonal — wir kochen mit dem, was die Region hergibt.</div></div><div class="val rv"><div class="n">🏠</div><div class="t">Gemütlich — Wohlfühl-Atmosphäre mit Charme und Charakter.</div></div><div class="val rv"><div class="n">💛</div><div class="t">Herzlich — ein Team, das Gastfreundschaft lebt.</div></div><div class="val rv"><div class="n">🎉</div><div class="t">Feiern — Geburtstage, Firmenfeiern, private Dinner.</div></div></div>
+<section class="highlights">
+  <div class="container"><h2>3 gute Gründe</h2>
+    <div class="hl-grid">
+      <div class="hl"><div class="emoji">🌿</div><h4>Regional &amp; Saisonal</h4><p>Wir kochen mit dem, was die Region hergibt.</p></div>
+      <div class="hl"><div class="emoji">🏠</div><h4>Gemütlich</h4><p>Wohlfühl-Atmosphäre mit Charme &amp; Charakter.</p></div>
+      <div class="hl"><div class="emoji">💛</div><h4>Herzlich</h4><p>Ein Team, das Gastfreundschaft lebt.</p></div>
+    </div>
   </div>
 </section>
 
-<section class="section" id="stimmen">
-  <div class="wrap">
-    <div class="sec-head center rv"><div class="k">Stimmen</div><h2>Das sagen unsere Gäste.</h2></div>
-    <div class="quotes"><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Das beste Frühstück in Bielefeld! Tolle Atmosphäre und mega freundlicher Service.“</blockquote><span class="who">— Laura M., Bielefeld</span></div><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Kreative Küche, faire Preise und immer einen Besuch wert.“</blockquote><span class="who">— Jan K., Bielefeld</span></div><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Den Geburtstag meiner Frau hier gefeiert — perfekt organisiert, toller Abend!“</blockquote><span class="who">— Familie Meier, Bielefeld</span></div></div>
+<section class="reviews">
+  <div class="container"><h2>Gästestimmen</h2>
+    <div class="rev-grid">
+      <div class="rev"><div class="stars">★★★★★</div><p>"Das beste Frühstück in Bielefeld! Tolle Atmosphäre und mega freundlicher Service."</p><div class="author">Laura M., Bielefeld</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Absolut empfehlenswertes Restaurant. Kreative Küche, faire Preise und immer einen Besuch wert."</p><div class="author">Jan K., Bielefeld</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Den Geburtstag meiner Frau hier gefeiert — Perfekt organisiert, leckeres Essen, toller Abend!"</p><div class="author">Familie Meier, Bielefeld</div></div>
+    </div>
   </div>
 </section>
 
 <section class="contact" id="kontakt">
-  <div class="grid">
-    <div class="rv">
-      <h2>Euer Tisch wartet.</h2>
-      <p class="s">Ruft an oder schreibt uns — für den Abend zu zweit oder die ganze Feier.</p>
-      <a class="phone" href="tel:+495219887783">0521 · 988 77 83</a>
-      <div class="btn-row" style="margin-top:26px">
-        <a class="btn solid" href="tel:+495219887783">Jetzt anrufen</a>
-        <a class="btn ghost" href="mailto:info@3eck-bielefeld.de">E-Mail schreiben</a>
+  <div class="container"><h2>Kontakt &amp; Reservierung</h2>
+    <div class="wrap">
+      <div class="info">
+        <p><strong>📞 Telefon:</strong> 0521 9887783</p>
+        <p><strong>✉️ E-Mail:</strong> info@3eck-bielefeld.de</p>
+        <p><strong>📍 Adresse:</strong><br>Ritterstraße 21<br>33602 Bielefeld</p>
+        <p style="font-size:.85rem;color:var(--ink2);margin-top:8px">Mo–Sa: 9–23 Uhr · So: 10–18 Uhr</p>
       </div>
+      <form onsubmit="event.preventDefault();alert('Vielen Dank für Ihre Reservierungsanfrage!');">
+        <input type="text" placeholder="Ihr Name" required>
+        <input type="email" placeholder="Ihre E-Mail" required>
+        <input type="text" placeholder="Datum &amp; Uhrzeit">
+        <textarea placeholder="Anzahl Personen, Anlass..."></textarea>
+        <button type="submit">Reservierung anfragen</button>
+      </form>
     </div>
-    <div class="info rv"><div class="row"><div class="l">Adresse</div><div class="v">Ritterstraße 21 · 33602 Bielefeld</div></div><div class="row"><div class="l">Öffnungszeiten</div><div class="v">Mo–Sa 9–23 Uhr · So 10–18 Uhr</div></div><div class="row"><div class="l">Telefon</div><div class="v">0521 · 988 77 83</div></div><div class="row"><div class="l">E-Mail</div><div class="v">info@3eck-bielefeld.de</div></div></div>
   </div>
 </section>
-
-<footer class="footer">
-  <span>© 2026 <b>3ECK</b> · Ritterstraße 21 · Bielefeld</span>
-  <span>Konzept-Design: <b>MZ.9 — Redesign.AI</b></span>
-</footer>
-
-<script>
-(function () {
-  var els = document.querySelectorAll('.rv');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
-    els.forEach(function (e) { io.observe(e); });
-  } else els.forEach(function (e) { e.classList.add('in'); });
-  var nav = document.getElementById('nav');
-  addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
-})();
-</script>
-</body>
-</html>
+<footer><div class="container">© 2024 3ECK · Ritterstraße 21 · 33602 Bielefeld</div></footer>
+</body></html>
