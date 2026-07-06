@@ -148,6 +148,31 @@
     Object.keys(slides).forEach(function (k) { sio.observe(slides[k]); });
   }
 
+  /* ---------- Horizontales Scrolly-Showcase („Website spürt man") ---------- */
+  function setupHScroll() {
+    var outer = document.getElementById('hsOuter');
+    var track = document.getElementById('hsTrack');
+    if (!outer || !track) return;
+    if (window.matchMedia('(max-width: 860px)').matches) return; // mobil: natives Swipen
+    var ticking = false;
+    function update() {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        var r = outer.getBoundingClientRect();
+        var total = r.height - innerHeight;
+        var prog = Math.min(Math.max(-r.top / total, 0), 1);
+        // easeInOut, damit Start und Ende weich sind
+        var e = prog < 0.5 ? 2 * prog * prog : 1 - Math.pow(-2 * prog + 2, 2) / 2;
+        var max = track.scrollWidth - innerWidth;
+        track.style.transform = 'translateX(' + (-e * max).toFixed(1) + 'px)';
+        ticking = false;
+      });
+    }
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
+
   /* ---------- CTAs: Call buchen -> WhatsApp, Nachricht -> Mail ---------- */
   function setupCtas() {
     document.addEventListener('click', function (ev) {
@@ -356,6 +381,7 @@
     setupReveals();
     setupNavTheme();
     setupShowreel();
+    setupHScroll();
     setupPortfolio();
     setupCtas();
     setupNewsletter();
