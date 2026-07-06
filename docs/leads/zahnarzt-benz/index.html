@@ -14,111 +14,166 @@ body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
-/* Konzept-Banner */
-.concept-note { background: #000; color: rgba(255,255,255,0.75); font-size: 11px; letter-spacing: 0.04em;
-  text-align: center; padding: 7px 14px; }
+.concept-note { position: relative; z-index: 95; background: #000; color: rgba(255,255,255,0.75); font-size: 11px;
+  letter-spacing: 0.04em; text-align: center; padding: 7px 14px; }
 .concept-note b { color: var(--acc2); font-weight: 600; }
 
-/* Nav */
-.nav { position: sticky; top: 0; z-index: 90; display: flex; align-items: center; gap: 28px;
-  padding: 14px clamp(18px, 4vw, 44px); background: rgba(251,251,253,0.72);
-  backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.06); transition: box-shadow 0.3s; }
-.nav.scrolled { box-shadow: 0 10px 40px -18px rgba(0,0,0,0.25); }
+/* Nav: transparent über dem Bild-Hero, danach hell mit Blur */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 90; display: flex; align-items: center; gap: 28px;
+  padding: 14px clamp(18px, 4vw, 44px); transition: background 0.35s, box-shadow 0.35s, color 0.35s, transform 0.35s;
+  color: #fff; }
+.nav.solid { background: rgba(251,251,253,0.78); backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); color: var(--ink);
+  box-shadow: 0 10px 40px -18px rgba(0,0,0,0.28); }
 .nav .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 16.5px; letter-spacing: -0.01em; }
 .nav .brand .mark { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--acc), var(--acc2));
-  color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; }
-.nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 13.5px; color: rgba(29,29,31,0.75); font-weight: 500; }
-.nav .links a:hover { color: var(--ink); }
+  color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800;
+  box-shadow: 0 8px 22px -8px rgba(0,0,0,0.5); }
+.nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 13.5px; font-weight: 500; opacity: 0.85; }
+.nav .links a:hover { opacity: 1; }
 .nav .tel { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
-.nav .cta { background: var(--ink); color: #fff; font-size: 13.5px; font-weight: 600;
-  padding: 10px 18px; border-radius: 999px; white-space: nowrap; transition: transform 0.2s, background 0.2s; }
-.nav .cta:hover { background: #000; transform: translateY(-1px); }
+.nav .cta { background: #fff; color: #000; font-size: 13.5px; font-weight: 600; padding: 10px 18px; border-radius: 999px;
+  white-space: nowrap; transition: transform 0.2s; }
+.nav.solid .cta { background: var(--ink); color: #fff; }
+.nav .cta:hover { transform: translateY(-1px); }
 @media (max-width: 900px) { .nav .links { display: none; } .nav .tel { margin-left: auto; } }
 
-/* Hero */
-.hero { position: relative; text-align: center; padding: clamp(80px, 12vw, 150px) 20px clamp(70px, 9vw, 120px);
-  overflow: hidden; }
-.hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 130%; pointer-events: none;
-  background: radial-gradient(52% 46% at 50% 18%, rgba(63,193,211,0.18) 0%, rgba(255,255,255,0) 70%); }
-.hero > * { position: relative; }
-.kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 26px; }
-.kicker::before, .kicker::after { content: ""; width: 26px; height: 1px; background: var(--acc); opacity: 0.5; }
-.hero h1 { font-size: clamp(2.9rem, 8.4vw, 6.2rem); line-height: 1.03; letter-spacing: -0.035em; font-weight: 700; }
-.hero h1 .acc { display: block; background: linear-gradient(100deg, var(--acc) 10%, var(--acc2) 90%);
-  -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.08em; }
-.hero .sub { max-width: 560px; margin: 26px auto 0; font-size: clamp(1.02rem, 2vw, 1.22rem);
-  line-height: 1.55; color: var(--grey); font-weight: 400; }
-.btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
-.btn { display: inline-flex; align-items: center; gap: 9px; font-size: 15.5px; font-weight: 600;
-  padding: 15px 28px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
+/* Hero: Full-Bleed-Bild mit Parallax */
+.hero { position: relative; min-height: 104svh; display: flex; align-items: flex-end; overflow: hidden; color: #fff; }
+.hero .bg { position: absolute; inset: -12% 0; z-index: 0; will-change: transform; }
+.hero .bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 2.2s cubic-bezier(0.22,0.61,0.36,1); }
+.hero.loaded .bg img { transform: scale(1); }
+.hero .scrim { position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(5,5,8,0.92) 0%, rgba(5,5,8,0.42) 42%, rgba(5,5,8,0.28) 100%); }
+.hero .inner { position: relative; z-index: 2; width: 100%; max-width: 1180px; margin: 0 auto;
+  padding: 140px clamp(20px, 4vw, 44px) clamp(56px, 8vw, 96px); }
+.kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--acc2); margin-bottom: 22px; }
+.kicker::before { content: ""; width: 30px; height: 1px; background: var(--acc2); }
+.hero h1 { font-size: clamp(3rem, 9vw, 6.8rem); line-height: 1.0; letter-spacing: -0.035em; font-weight: 700; }
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.hero h1 .w > span { display: inline-block; transform: translateY(112%); transition: transform 0.9s cubic-bezier(0.22,0.61,0.36,1);
+  transition-delay: var(--d, 0s); }
+.hero.loaded h1 .w > span { transform: none; }
+.hero h1 .acc { background: linear-gradient(100deg, var(--acc2), #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .sub { max-width: 540px; margin-top: 22px; font-size: clamp(1rem, 1.9vw, 1.18rem); line-height: 1.6; color: rgba(255,255,255,0.82); }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 600;
+  padding: 15px 27px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
 .btn:hover { transform: translateY(-2px); }
-.btn.solid { background: var(--ink); color: #fff; box-shadow: 0 16px 36px -14px rgba(0,0,0,0.45); }
-.btn.solid:hover { background: #000; }
-.btn.ghost { border: 1.5px solid rgba(29,29,31,0.22); color: var(--ink); background: rgba(255,255,255,0.6); }
-.btn.ghost:hover { border-color: var(--ink); }
-.hero .meta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
-.hero .meta span { font-size: 12.5px; font-weight: 600; color: var(--grey);
-  border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.7); padding: 7px 14px; border-radius: 999px; }
+.btn.solid { background: #fff; color: #000; box-shadow: 0 18px 40px -16px rgba(0,0,0,0.6); }
+.btn.ghost { border: 1.5px solid rgba(255,255,255,0.42); color: #fff; backdrop-filter: blur(6px); }
+.hero .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
+.hero .meta span { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.28); background: rgba(0,0,0,0.25); backdrop-filter: blur(8px);
+  padding: 7px 14px; border-radius: 999px; }
+.scroll-cue { position: absolute; right: clamp(20px, 4vw, 44px); bottom: 26px; z-index: 2;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+  writing-mode: vertical-rl; display: flex; align-items: center; gap: 8px; }
+.scroll-cue::after { content: ""; width: 1px; height: 42px; background: linear-gradient(rgba(255,255,255,0.7), transparent);
+  animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 0%,100% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(10px); opacity: 0.3; } }
 
-/* Statement (dunkel) */
+/* Marquee */
+.mq { background: #000; color: #f5f5f7; overflow: hidden; padding: 18px 0; border-block: 1px solid rgba(255,255,255,0.08); }
+.mq .track { display: flex; gap: 0; width: max-content; animation: mq 27s linear infinite; }
+.mq:hover .track { animation-play-state: paused; }
+@keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.mq span { flex: none; font-size: clamp(1.5rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em;
+  padding-right: 26px; white-space: nowrap; }
+.mq span i { font-style: normal; color: var(--acc2); padding-right: 26px; }
+.mq span.o { -webkit-text-stroke: 1px rgba(255,255,255,0.5); color: transparent; }
+
+/* Sections */
+.section { padding: clamp(76px, 10vw, 140px) clamp(18px, 4vw, 44px); }
+.wrap { max-width: 1180px; margin: 0 auto; }
+.sec-head { max-width: 760px; margin-bottom: clamp(36px, 5vw, 60px); }
+.sec-head.center { margin-inline: auto; text-align: center; }
+.sec-head .k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.sec-head h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em; line-height: 1.07; font-weight: 700; margin-top: 12px; }
+.sec-head .s { color: var(--grey); font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55; margin-top: 14px; }
+
+/* Bento mit Bildern */
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.card { grid-column: span 2; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 26px;
+  padding: clamp(24px, 3vw, 34px); box-shadow: 0 20px 50px -38px rgba(0,0,0,0.35); position: relative; overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.4s; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 34px 70px -40px rgba(0,0,0,0.45); }
+.card.img { padding: 0; display: flex; flex-direction: column; }
+.card.img .ph { overflow: hidden; aspect-ratio: 16/10; }
+.card.img .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22,0.61,0.36,1); }
+.card.img:hover .ph img { transform: scale(1.07); }
+.card.img .tx { padding: 22px 26px 26px; }
+.card.feature { grid-column: span 6; min-height: 380px; color: #fff; border: none; display: flex; align-items: flex-end; }
+.card.feature .bg { position: absolute; inset: 0; }
+.card.feature .bg img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(0.22,0.61,0.36,1); }
+.card.feature:hover .bg img { transform: scale(1.05); }
+.card.feature .bg::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,5,8,0.88), rgba(5,5,8,0.12) 60%); }
+.card.feature .fx { position: relative; max-width: 620px; }
+.card.feature h3 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; }
+.card.feature p { color: rgba(255,255,255,0.85); margin-top: 10px; font-size: 1rem; line-height: 1.6; }
+.card .ico { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; background: linear-gradient(135deg, rgba(10,124,138,0.1), rgba(63,193,211,0.18)); margin-bottom: 18px; }
+.card h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.card p { margin-top: 8px; font-size: 0.95rem; line-height: 1.55; color: var(--grey); }
+.card.feature p { color: rgba(255,255,255,0.85); }
+.card.img .tx p { margin-top: 6px; }
+@media (max-width: 980px) { .card { grid-column: span 3; } }
+@media (max-width: 640px) { .card, .card.feature { grid-column: span 6; } }
+
+/* Galerie mit Clip-Reveal */
+.gallery { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 16px; align-items: stretch; }
+@media (max-width: 860px) { .gallery { grid-template-columns: 1fr; } }
+.gallery figure { position: relative; overflow: hidden; border-radius: 24px; aspect-ratio: 4/5;
+  clip-path: inset(14% 10% 14% 10% round 34px); transition: clip-path 1.1s cubic-bezier(0.22,0.61,0.36,1); }
+.gallery figure:nth-child(2) { aspect-ratio: 4/5; margin-top: clamp(0px, 4vw, 54px); }
+.gallery figure:nth-child(3) { aspect-ratio: 4/5; margin-top: clamp(0px, 7vw, 104px); }
+.gallery figure.in { clip-path: inset(0 0 0 0 round 24px); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); transition: transform 1.3s cubic-bezier(0.22,0.61,0.36,1); }
+.gallery figure.in img { transform: scale(1); }
+.gallery figure:hover img { transform: scale(1.06); }
+.gallery figcaption { position: absolute; left: 16px; bottom: 14px; z-index: 2; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px); padding: 7px 13px; border-radius: 999px; }
+
+/* Statement */
 .statement { background: #000; color: #f5f5f7; padding: clamp(90px, 13vw, 170px) 22px; text-align: center;
   position: relative; overflow: hidden; }
 .statement::after { content: ""; position: absolute; left: 50%; bottom: -40%; width: 90vw; height: 80%;
   transform: translateX(-50%); pointer-events: none;
   background: radial-gradient(50% 55% at 50% 100%, rgba(63,193,211,0.32) 0%, rgba(0,0,0,0) 70%); }
 .statement p { position: relative; max-width: 1000px; margin: 0 auto;
-  font-size: clamp(1.7rem, 4.6vw, 3.4rem); line-height: 1.18; letter-spacing: -0.025em; font-weight: 700; }
+  font-size: clamp(1.7rem, 4.6vw, 3.4rem); line-height: 1.16; letter-spacing: -0.025em; font-weight: 700; }
 .statement p .dim { color: rgba(245,245,247,0.35); }
-.statement p .hl { background: linear-gradient(100deg, var(--acc2), #fff);
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.statement p .hl { background: linear-gradient(100deg, var(--acc2), #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-/* Sections allgemein */
-.section { padding: clamp(76px, 10vw, 140px) clamp(18px, 4vw, 44px); }
-.wrap { max-width: 1180px; margin: 0 auto; }
-.sec-head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 64px); }
-.sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.sec-head .k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
-.sec-head h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em; line-height: 1.07; font-weight: 700; margin-top: 12px; }
-.sec-head .s { color: var(--grey); font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55; margin-top: 14px; }
-
-/* Bento-Grid */
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-.card { grid-column: span 2; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 26px;
-  padding: clamp(24px, 3vw, 36px); box-shadow: 0 20px 50px -38px rgba(0,0,0,0.35);
-  transition: transform 0.35s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.35s; position: relative; overflow: hidden; }
-.card:hover { transform: translateY(-6px); box-shadow: 0 34px 70px -40px rgba(0,0,0,0.45); }
-.card.wide { grid-column: span 3; }
-.card.hero-card { grid-column: span 6; background: linear-gradient(120deg, #0b3b42, #14707f);
-  color: #fff; border: none; display: flex; flex-direction: column; justify-content: flex-end; min-height: 300px; }
-.card.hero-card h3 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; }
-.card.hero-card p { color: rgba(255,255,255,0.82); }
-.card .ico { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center;
-  font-size: 24px; background: linear-gradient(135deg, rgba(10,124,138,0.1), rgba(63,193,211,0.18)); margin-bottom: 20px; }
-.card h3 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.01em; }
-.card p { margin-top: 8px; font-size: 0.95rem; line-height: 1.55; color: var(--grey); }
-.card.hero-card p { max-width: 560px; margin-top: 12px; }
-@media (max-width: 980px) { .card, .card.wide { grid-column: span 3; } }
-@media (max-width: 640px) { .card, .card.wide, .card.hero-card { grid-column: span 6; } }
-
-/* Werte / Zahlenband */
-.band { background: #f5f5f7; }
-.vals { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-.val { background: #fff; border-radius: 22px; padding: 26px; border: 1px solid rgba(0,0,0,0.05); }
-.val .n { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em;
+/* Split: Bild + Text */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+@media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
+.split .ph { position: relative; overflow: hidden; border-radius: 28px; aspect-ratio: 4/4.6; }
+.split .ph img { width: 100%; height: 116%; object-fit: cover; will-change: transform; }
+.split h2 { font-size: clamp(1.9rem, 4vw, 3rem); letter-spacing: -0.03em; line-height: 1.08; font-weight: 700; }
+.split .s { color: var(--grey); line-height: 1.65; margin-top: 16px; font-size: 1.02rem; }
+.vals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+@media (max-width: 500px) { .vals { grid-template-columns: 1fr; } }
+.val { background: #fff; border-radius: 18px; padding: 20px 22px; border: 1px solid rgba(0,0,0,0.05); }
+.val .n { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.03em;
   background: linear-gradient(100deg, var(--acc), var(--acc2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.val .t { font-size: 0.9rem; color: var(--grey); margin-top: 6px; line-height: 1.5; }
+.val .t { font-size: 0.86rem; color: var(--grey); margin-top: 4px; line-height: 1.5; }
+.band { background: #f5f5f7; }
 
 /* Stimmen */
 .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
 .quote { background: #fff; border-radius: 24px; padding: 30px; border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 20px 50px -40px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 14px; }
+  box-shadow: 0 20px 50px -40px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 14px;
+  transition: transform 0.35s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.35s; }
+.quote:hover { transform: translateY(-5px); box-shadow: 0 30px 62px -42px rgba(0,0,0,0.42); }
 .quote .stars { color: var(--acc); letter-spacing: 3px; font-size: 14px; }
-.quote blockquote { font-size: 1.02rem; line-height: 1.55; font-weight: 500; letter-spacing: -0.005em; }
+.quote blockquote { font-size: 1.02rem; line-height: 1.55; font-weight: 500; }
 .quote .who { font-size: 0.82rem; color: var(--grey); margin-top: auto; }
 
-/* Kontakt (dunkel) */
+/* Kontakt */
 .contact { background: #000; color: #f5f5f7; border-radius: 34px; margin: 0 clamp(12px, 2vw, 26px) 26px;
   padding: clamp(66px, 9vw, 120px) clamp(22px, 5vw, 70px); position: relative; overflow: hidden; }
 .contact::before { content: ""; position: absolute; right: -18%; top: -30%; width: 65%; aspect-ratio: 1; pointer-events: none;
@@ -130,24 +185,24 @@ a { color: inherit; text-decoration: none; }
 .contact .phone { display: inline-block; margin-top: 30px; font-size: clamp(1.6rem, 3.6vw, 2.5rem); font-weight: 800;
   letter-spacing: -0.02em; background: linear-gradient(100deg, #fff, var(--acc2));
   -webkit-background-clip: text; background-clip: text; color: transparent; }
-.contact .btn-row { justify-content: flex-start; }
 .contact .btn.solid { background: #fff; color: #000; }
-.contact .btn.ghost { border-color: rgba(255,255,255,0.3); color: #fff; background: transparent; }
+.contact .btn.ghost { border-color: rgba(255,255,255,0.3); color: #fff; }
 .info { display: flex; flex-direction: column; gap: 14px; }
-.info .row { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px; padding: 18px 22px; }
+.info .row { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 18px 22px; }
 .info .row .l { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
 .info .row .v { font-size: 1rem; font-weight: 600; margin-top: 5px; line-height: 1.45; }
 
-/* Footer */
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   padding: 22px clamp(18px, 4vw, 44px) 30px; font-size: 12px; color: var(--grey); }
 .footer b { color: var(--ink); }
 
-/* Reveals */
-.rv { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22,0.61,0.36,1), transform 0.75s cubic-bezier(0.22,0.61,0.36,1); }
+/* Reveals (gestaffelt über --d) */
+.rv { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.22,0.61,0.36,1), transform 0.8s cubic-bezier(0.22,0.61,0.36,1); transition-delay: var(--d, 0s); }
 .rv.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .rv, .gallery figure, .gallery img, .hero h1 .w > span, .hero .bg img { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
+  .mq .track { animation: none; }
+}
 </style>
 </head>
 <body>
@@ -155,47 +210,69 @@ a { color: inherit; text-decoration: none; }
 
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><span class="mark">B</span>Dr. Benz &amp; Kollegen</a>
-  <div class="links"><a href="#leistungen">Leistungen</a><a href="#werte">Praxis</a><a href="#stimmen">Patienten</a><a href="#kontakt">Termin</a></div>
+  <div class="links"><a href="#leistungen">Leistungen</a><a href="#galerie">Praxis</a><a href="#werte">Über uns</a><a href="#kontakt">Termin</a></div>
   <a class="tel" href="tel:+495219862630">0521 · 98 62 630</a>
   <a class="cta" href="#kontakt">Termin vereinbaren</a>
 </nav>
 
 <header class="hero" id="top">
-  <div class="kicker rv">Zahnarztpraxis im Wellehaus · Bielefeld Mitte</div>
-  <h1 class="rv">Moderne Zahnmedizin.<span class="acc">Mit Herz &amp; Können.</span></h1>
-  <p class="sub rv">Hochwertige Zahnmedizin, persönliche Beratung und moderne Behandlungskonzepte für die ganze Familie — mitten in Bielefeld.</p>
-  <div class="btn-row rv">
-    <a class="btn solid" href="#kontakt">Termin vereinbaren <span>→</span></a>
-    <a class="btn ghost" href="#leistungen">Unsere Leistungen</a>
+  <div class="bg" data-plx="0.25"><img src="../../assets/premium/benz-hero.jpg" alt="Moderner Behandlungsraum der Praxis Dr. Benz"></div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="kicker">Zahnarztpraxis im Wellehaus · Bielefeld Mitte</div>
+    <h1><span class="w" style="--d:0.10s"><span>Moderne</span></span> <span class="w" style="--d:0.18s"><span>Zahnmedizin.</span></span><br><span class="w" style="--d:0.28s"><span class="acc">Mit Herz &amp; Können.</span></span></h1>
+    <p class="sub rv" style="--d:0.55s">Hochwertige Zahnmedizin, persönliche Beratung und moderne Behandlungskonzepte für die ganze Familie — mitten in Bielefeld.</p>
+    <div class="btn-row rv" style="--d:0.7s">
+      <a class="btn solid" href="#kontakt">Termin vereinbaren <span>→</span></a>
+      <a class="btn ghost" href="#leistungen">Unsere Leistungen</a>
+    </div>
+    <div class="meta rv" style="--d:0.85s"><span>Wellehaus · Am Bach 20</span><span>Digitale 3D-Planung</span><span>Angstpatienten willkommen</span></div>
   </div>
-  <div class="meta rv"><span>Wellehaus · Am Bach 20</span><span>Digitale 3D-Planung</span><span>Angstpatienten willkommen</span></div>
+  <span class="scroll-cue">Scroll</span>
 </header>
 
-<section class="statement">
-  <p class="rv"><span class="dim">Ihr Lächeln ist</span> einzigartig. <span class="dim">Unsere Behandlung</span> <span class="hl">auch.</span></p>
-</section>
+<div class="mq" aria-hidden="true"><div class="track"><span>Prophylaxe <i>✦</i></span><span class="o">Ästhetik <i>✦</i></span><span>Implantologie <i>✦</i></span><span class="o">Kinderzahnheilkunde <i>✦</i></span><span>3D-Planung <i>✦</i></span><span>Prophylaxe <i>✦</i></span><span class="o">Ästhetik <i>✦</i></span><span>Implantologie <i>✦</i></span><span class="o">Kinderzahnheilkunde <i>✦</i></span><span>3D-Planung <i>✦</i></span></div></div>
 
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Leistungen</div><h2>Ihr Lächeln in besten Händen.</h2><p class="s">Von der Prophylaxe bis zur Implantologie — modernste Technik trifft auf einfühlsame Betreuung.</p></div>
     <div class="bento">
-      <div class="card hero-card rv"><h3>Ästhetische Zahnmedizin</h3><p>Bleaching, Veneers, Invisalign — für ein strahlendes, selbstbewusstes Lächeln. Digital geplant, präzise umgesetzt, natürlich schön.</p></div>
-      <div class="card rv"><div class="ico">🦷</div><h3>Prophylaxe &amp; Vorsorge</h3><p>Professionelle Zahnreinigung, Kariesfrüherkennung und individuelle Programme.</p></div><div class="card rv"><div class="ico">🔧</div><h3>Implantologie</h3><p>Moderne Implantate mit digitaler Planung — sicher, präzise, langlebig.</p></div><div class="card rv"><div class="ico">👶</div><h3>Kinderzahnheilkunde</h3><p>Spielerische, angstfreie Behandlung für unsere kleinen Patienten.</p></div><div class="card wide rv"><div class="ico">🛡️</div><h3>Parodontologie</h3><p>Schonende Behandlung von Zahnfleischerkrankungen mit moderner Lasertechnik.</p></div><div class="card wide rv"><div class="ico">😴</div><h3>Angstpatienten</h3><p>Einfühlsame Betreuung, Sedierung und Vollnarkose — wir nehmen uns Zeit für Sie.</p></div>
+      <div class="card feature rv"><div class="bg"><img src="../../assets/premium/benz-d.jpg" alt="" loading="lazy"></div>
+        <div class="fx"><h3>Ästhetische Zahnmedizin</h3><p>Bleaching, Veneers, Invisalign — digital geplant, präzise umgesetzt, natürlich schön.</p></div></div>
+      <div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../assets/premium/benz-a.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Prophylaxe &amp; Vorsorge</h3><p>Professionelle Zahnreinigung, Früherkennung und individuelle Programme.</p></div></div><div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../assets/premium/benz-c.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Implantologie</h3><p>Moderne Implantate mit digitaler 3D-Planung — sicher, präzise, langlebig.</p></div></div><div class="card rv" style="--d:0.16s"><div class="ico">👶</div><h3>Kinder &amp; Angstpatienten</h3><p>Spielerisch, angstfrei, einfühlsam — mit Sedierung und Vollnarkose, wenn nötig.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <p class="rv"><span class="dim">Ihr Lächeln ist</span> einzigartig. <span class="dim">Unsere Behandlung</span> <span class="hl">auch.</span></p>
+</section>
+
+<section class="section" id="galerie">
+  <div class="wrap">
+    <div class="sec-head center rv"><div class="k">Ihre Praxis</div><h2>Hochwertig. Persönlich. Zentral.</h2></div>
+    <div class="gallery">
+      <figure><img src="../../assets/premium/benz-a.jpg" alt="" loading="lazy"><figcaption>Behandlung</figcaption></figure>
+      <figure><img src="../../assets/premium/benz-b.jpg" alt="" loading="lazy"><figcaption>Moderne Technik</figcaption></figure>
+      <figure><img src="../../assets/premium/benz-c.jpg" alt="" loading="lazy"><figcaption>Wohlfühlen</figcaption></figure>
     </div>
   </div>
 </section>
 
 <section class="section band" id="werte">
-  <div class="wrap">
-    <div class="sec-head center rv"><div class="k">Ihre Praxis</div><h2>Hochwertig. Persönlich. Zentral.</h2></div>
-    <div class="vals"><div class="val rv"><div class="n">3D</div><div class="t">Digitale Röntgentechnik und 3D-Planung für präzise Diagnosen.</div></div><div class="val rv"><div class="n">100%</div><div class="t">Wohlfühlatmosphäre im Wellehaus mitten in Bielefeld.</div></div><div class="val rv"><div class="n">👨‍👩‍👧</div><div class="t">Zahnmedizin für die ganze Familie — vom Kind bis zu den Großeltern.</div></div><div class="val rv"><div class="n">⏱</div><div class="t">Faire Terminvergabe — kaum Wartezeit, klare Kommunikation.</div></div></div>
+  <div class="wrap split">
+    <div class="ph rv"><img src="../../assets/premium/benz-e.jpg" alt="" data-plx="0.12" loading="lazy"></div>
+    <div>
+      <div class="sec-head rv" style="margin-bottom:0"><div class="k">Über uns</div><h2>Eine Praxis, die sich Zeit nimmt.</h2><p class="s">Im Wellehaus mitten in Bielefeld erwartet Sie ein Team, das zuhört — und Technik auf Klinikniveau.</p></div>
+      <div class="vals"><div class="val rv"><div class="n">3D</div><div class="t">Digitale Röntgentechnik und 3D-Planung für präzise Diagnosen.</div></div><div class="val rv"><div class="n">100%</div><div class="t">Wohlfühlatmosphäre im Wellehaus mitten in Bielefeld.</div></div><div class="val rv"><div class="n">👨‍👩‍👧</div><div class="t">Zahnmedizin für die ganze Familie.</div></div><div class="val rv"><div class="n">⏱</div><div class="t">Faire Terminvergabe — kaum Wartezeit.</div></div></div>
+    </div>
   </div>
 </section>
 
 <section class="section" id="stimmen">
   <div class="wrap">
     <div class="sec-head center rv"><div class="k">Stimmen</div><h2>Das sagen unsere Patienten.</h2></div>
-    <div class="quotes"><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Top moderne Praxis, super freundliches Team. Endlich ein Zahnarzt, bei dem ich mich wohlfühle.“</blockquote><span class="who">— Patientin · Google</span></div><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Professionelle Beratung, faire Preise, keinerlei Wartezeit. Absolut empfehlenswert.“</blockquote><span class="who">— Patient · Google</span></div><div class="quote rv"><span class="stars">★★★★★</span><blockquote>„Habe als Angstpatient endlich eine Praxis gefunden, die einfühlsam behandelt. Danke!“</blockquote><span class="who">— Patientin · Google</span></div></div>
+    <div class="quotes"><div class="quote rv" style="--d:0s"><span class="stars">★★★★★</span><blockquote>„Top moderne Praxis, super freundliches Team. Endlich ein Zahnarzt, bei dem ich mich wohlfühle.“</blockquote><span class="who">— Patientin · Google</span></div><div class="quote rv" style="--d:0.12s"><span class="stars">★★★★★</span><blockquote>„Professionelle Beratung, faire Preise, keinerlei Wartezeit.“</blockquote><span class="who">— Patient · Google</span></div><div class="quote rv" style="--d:0.24s"><span class="stars">★★★★★</span><blockquote>„Habe als Angstpatient endlich eine Praxis gefunden, die einfühlsam behandelt. Danke!“</blockquote><span class="who">— Patientin · Google</span></div></div>
   </div>
 </section>
 
@@ -210,7 +287,7 @@ a { color: inherit; text-decoration: none; }
         <a class="btn ghost" href="mailto:praxis@dr-benz-bielefeld.de">E-Mail schreiben</a>
       </div>
     </div>
-    <div class="info rv"><div class="row"><div class="l">Adresse</div><div class="v">Am Bach 20 · 33602 Bielefeld (Wellehaus)</div></div><div class="row"><div class="l">Telefon</div><div class="v">0521 · 98 62 630</div></div><div class="row"><div class="l">E-Mail</div><div class="v">praxis@dr-benz-bielefeld.de</div></div><div class="row"><div class="l">Schwerpunkt</div><div class="v">Ästhetik · Implantologie · Familie</div></div></div>
+    <div class="info rv" style="--d:0.15s"><div class="row"><div class="l">Adresse</div><div class="v">Am Bach 20 · 33602 Bielefeld (Wellehaus)</div></div><div class="row"><div class="l">Telefon</div><div class="v">0521 · 98 62 630</div></div><div class="row"><div class="l">E-Mail</div><div class="v">praxis@dr-benz-bielefeld.de</div></div><div class="row"><div class="l">Schwerpunkt</div><div class="v">Ästhetik · Implantologie · Familie</div></div></div>
   </div>
 </section>
 
@@ -221,15 +298,44 @@ a { color: inherit; text-decoration: none; }
 
 <script>
 (function () {
-  var els = document.querySelectorAll('.rv');
+  var hero = document.querySelector('.hero');
+  addEventListener('load', function () { hero.classList.add('loaded'); });
+  setTimeout(function () { hero.classList.add('loaded'); }, 700);
+
+  /* Reveals */
+  var els = document.querySelectorAll('.rv, .gallery figure');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     els.forEach(function (e) { io.observe(e); });
   } else els.forEach(function (e) { e.classList.add('in'); });
+
+  /* Nav: über dem Hero transparent, danach hell */
   var nav = document.getElementById('nav');
-  addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
+  function navUpd() {
+    nav.classList.toggle('solid', scrollY > hero.offsetHeight - 90);
+  }
+  addEventListener('scroll', navUpd, { passive: true }); navUpd();
+
+  /* Parallax */
+  var plx = Array.prototype.map.call(document.querySelectorAll('[data-plx]'), function (el) {
+    return { el: el, f: parseFloat(el.getAttribute('data-plx')) || 0.2 };
+  });
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      plx.forEach(function (p) {
+        var r = (p.el.closest('.hero') || p.el.parentElement).getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) { ticking = false; return; }
+        var prog = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+        p.el.style.transform = 'translateY(' + (-prog * p.f * 100).toFixed(2) + 'px)';
+      });
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
 </script>
 </body>
