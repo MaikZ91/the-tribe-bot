@@ -203,10 +203,55 @@ a { color: inherit; text-decoration: none; }
   .rv, .gallery figure, .gallery img, .hero h1 .w > span, .hero .bg img { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
   .mq .track { animation: none; }
 }
+
+/* ===== v3 Premium-Layer ===== */
+.intro { position: fixed; inset: 0; z-index: 200; background: #0a0a0a; display: flex; align-items: center; justify-content: center;
+  clip-path: inset(0 0 0 0); transition: clip-path 0.9s cubic-bezier(0.77,0,0.18,1) 0.5s; }
+.intro.done { clip-path: inset(0 0 100% 0); pointer-events: none; }
+.intro .im { display: flex; align-items: center; gap: 14px; color: #fff; font-weight: 800;
+  font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.02em; opacity: 0; transform: translateY(16px);
+  animation: introIn 0.7s cubic-bezier(0.22,0.61,0.36,1) 0.08s forwards; }
+.intro .im .mark { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--acc), var(--acc2));
+  display: flex; align-items: center; justify-content: center; font-size: 19px; }
+@keyframes introIn { to { opacity: 1; transform: none; } }
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 130;
+  background: linear-gradient(90deg, var(--acc), var(--acc2)); }
+.grain { position: fixed; inset: 0; z-index: 105; pointer-events: none; opacity: 0.05;
+  background-image: url(../../insync-campaign/textures/grain.avif); background-size: 380px; }
+.mq { transform: rotate(-1.3deg) scale(1.03); }
+.hero .bg img.zoom { animation: heroZoom 16s ease-in-out infinite alternate; }
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+.stat-chip { position: absolute; right: clamp(18px, 4vw, 44px); bottom: 100px; z-index: 3;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; font-weight: 600; font-size: 13px;
+  padding: 12px 18px; border-radius: 999px; opacity: 0; transform: translateY(16px);
+  transition: opacity 0.8s 1.2s, transform 0.8s 1.2s; }
+.hero.loaded .stat-chip { opacity: 1; transform: none; }
+@media (max-width: 700px) { .stat-chip { display: none; } }
+.gallery figure { will-change: transform; }
+.ctaband { background: #000; color: #fff; text-align: center; padding: clamp(90px, 13vw, 170px) 22px;
+  position: relative; overflow: hidden; }
+.ctaband::before { content: ""; position: absolute; left: 50%; top: 55%; width: 90vw; aspect-ratio: 2.2;
+  transform: translate(-50%,-50%); pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(212,175,55,0.30) 0%, rgba(0,0,0,0) 70%); }
+.ctaband .big { position: relative; font-size: clamp(2.4rem, 7vw, 5.2rem); font-weight: 800;
+  letter-spacing: -0.035em; line-height: 1.03; }
+.ctaband .big em { font-style: normal; background: linear-gradient(100deg, var(--acc2), #fff);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ctaband .s2 { position: relative; margin-top: 16px; color: rgba(255,255,255,0.55); font-size: 1.05rem; }
+.ctaband .btn { position: relative; margin-top: 34px; background: #fff; color: #000;
+  box-shadow: 0 20px 50px -18px rgba(0,0,0,0.8); }
+.gword { font-size: clamp(4rem, 17vw, 15rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.86;
+  text-align: center; color: transparent; -webkit-text-stroke: 1.5px rgba(29,29,31,0.14);
+  user-select: none; margin: 40px 0 -0.1em; }
 </style>
 </head>
 <body>
 <div class="concept-note">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Kanzlei Schneider</div>
+<div class="intro" id="intro"><div class="im"><span class="mark">S</span>Kanzlei Schneider</div></div>
+<div class="progress" id="progress"></div>
+<div class="grain" aria-hidden="true"></div>
+
 
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><span class="mark">S</span>Kanzlei Schneider</a>
@@ -228,6 +273,7 @@ a { color: inherit; text-decoration: none; }
     </div>
     <div class="meta rv" style="--d:0.85s"><span>Marktstraße 2–4</span><span>Persönliche Beratung</span><span>Verständlich erklärt</span></div>
   </div>
+  <div class="stat-chip">Rückmeldung meist in 24h</div>
   <span class="scroll-cue">Scroll</span>
 </header>
 
@@ -276,6 +322,11 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<section class="ctaband">
+  <h2 class="big rv">Ihr Fall. <em>Mein Mandat.</em></h2>
+  <p class="s2 rv" style="--d:0.12s">Schildern Sie Ihr Anliegen — ich melde mich umgehend.</p>
+  <a class="btn solid mag rv" href="#kontakt" style="--d:0.22s">Erstberatung anfragen <span>→</span></a>
+</section>
 <section class="contact" id="kontakt">
   <div class="grid">
     <div class="rv">
@@ -291,6 +342,7 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<div class="gword" aria-hidden="true">SCHNEIDER</div>
 <footer class="footer">
   <span>© 2026 <b>Kanzlei Schneider</b> · Marktstraße 2–4 · Bielefeld</span>
   <span>Konzept-Design: <b>MZ.9 — Redesign.AI</b></span>
@@ -336,6 +388,72 @@ a { color: inherit; text-decoration: none; }
     });
   }
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+</script>
+<script>
+(function () {
+  /* Intro-Vorhang */
+  var intro = document.getElementById('intro');
+  function done() { intro.classList.add('done'); setTimeout(function(){ intro.remove(); }, 1800); }
+  if (document.readyState === 'complete') setTimeout(done, 350); else addEventListener('load', function(){ setTimeout(done, 250); });
+  setTimeout(done, 1600);
+
+  /* Scroll-Progress */
+  var bar = document.getElementById('progress');
+  function prog() {
+    var m = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (m > 0 ? (scrollY / m) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', prog, { passive: true }); prog();
+
+  /* Hero-Zoom-Loop nach dem Entrance */
+  setTimeout(function () {
+    var im = document.querySelector('.hero .bg img');
+    if (im) im.classList.add('zoom');
+  }, 2600);
+
+  /* Zaehler hochzaehlen */
+  var nums = document.querySelectorAll('.val .n');
+  var cio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var el = e.target, txt = el.textContent.trim();
+      var m = txt.match(/^(\d+)([.,]\d+)?(.*)$/);
+      if (!m || m[2]) return;
+      var target = parseInt(m[1], 10), suf = m[3] || '', t0 = performance.now();
+      (function tick(t) {
+        var p = Math.min((t - t0) / 1100, 1), ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach(function (n) { cio.observe(n); });
+
+  /* Galerie-Drift: Spalten wandern beim Scrollen unterschiedlich schnell */
+  var figs = document.querySelectorAll('.gallery figure');
+  var speeds = [0.05, 0.12, 0.2];
+  function drift() {
+    if (!figs.length || innerWidth < 861) return;
+    var r = figs[0].parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    var off = (r.top + r.height / 2 - innerHeight / 2);
+    figs.forEach(function (f, i) { f.style.transform = 'translateY(' + (-off * speeds[i % 3]).toFixed(1) + 'px)'; });
+  }
+  addEventListener('scroll', function(){ requestAnimationFrame(drift); }, { passive: true }); drift();
+
+  /* Magnetische Buttons */
+  document.querySelectorAll('.btn.solid, .nav .cta').forEach(function (b) {
+    b.classList.add('mag');
+    b.addEventListener('mousemove', function (ev) {
+      var r = b.getBoundingClientRect();
+      var dx = (ev.clientX - r.left - r.width / 2) * 0.18;
+      var dy = (ev.clientY - r.top - r.height / 2) * 0.3;
+      b.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
+    });
+    b.addEventListener('mouseleave', function () { b.style.transform = ''; });
+  });
 })();
 </script>
 </body>
