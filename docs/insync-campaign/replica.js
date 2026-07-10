@@ -483,6 +483,92 @@
     }
   }
 
+  /* ---------- Portfolio-Mockups: 3D-Tilt, Glanz-Sweep, Schweben, Power-On.
+     Desktop: Mockup neigt sich zum Cursor, ein Lichtreflex wandert übers
+     Glas. Mobile: dezenter Scroll-Tilt. Beim ersten Sichtbarwerden leuchtet
+     der Bildschirm auf. ---------- */
+  function setupMockupFX() {
+    if (REDUCED) return;
+    var slides = [];
+    PROJECT_NAMES.forEach(function (n) {
+      var a = document.querySelector('a[aria-label="' + n + '"]');
+      var inner = a && a.querySelector(':scope > div > div');
+      if (!a || !inner) return;
+
+      a.style.perspective = '1400px';
+      inner.style.transformStyle = 'preserve-3d';
+
+      /* Glanz-Streifen übers Glas */
+      var glare = document.createElement('div');
+      glare.setAttribute('aria-hidden', 'true');
+      glare.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden;';
+      var beam = document.createElement('div');
+      beam.style.cssText = 'position:absolute;top:-20%;bottom:-20%;left:0;width:34%;transform:translateX(-160%) rotate(14deg);' +
+        'background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.11) 50%, rgba(255,255,255,0) 100%);';
+      glare.appendChild(beam);
+      inner.appendChild(glare);
+
+      var s = { a: a, inner: inner, beam: beam, rx: 0, ry: 0, trx: 0, try_: 0, hover: false, visible: false, phase: Math.random() * Math.PI * 2, powered: false };
+      slides.push(s);
+
+      a.addEventListener('pointermove', function (ev) {
+        if (ev.pointerType !== 'mouse') return;
+        var r = a.getBoundingClientRect();
+        var px = (ev.clientX - r.left) / r.width - 0.5;
+        var py = (ev.clientY - r.top) / r.height - 0.5;
+        s.hover = true;
+        s.try_ = px * 7;      /* rotateY: links/rechts */
+        s.trx = -py * 5;      /* rotateX: oben/unten */
+      });
+      a.addEventListener('pointerleave', function () { s.hover = false; s.trx = 0; s.try_ = 0; });
+
+      /* Sichtbarkeit + Power-On */
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          s.visible = e.isIntersecting;
+          if (e.isIntersecting && !s.powered) {
+            s.powered = true;
+            var screen = inner.querySelector('video') && inner.querySelector('video').parentElement;
+            if (screen && screen.animate) {
+              var black = document.createElement('div');
+              black.style.cssText = 'position:absolute;inset:0;background:#000;z-index:4;pointer-events:none;';
+              screen.appendChild(black);
+              black.animate([{ opacity: 1 }, { opacity: 1, offset: 0.25 }, { opacity: 0 }],
+                { duration: 950, easing: 'ease-out' }).onfinish = function () { black.remove(); };
+              screen.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(1.9)', offset: 0.45 }, { filter: 'brightness(1)' }],
+                { duration: 1200, easing: 'ease-out' });
+            }
+          }
+        });
+      }, { threshold: 0.35 }).observe(a);
+    });
+    if (!slides.length) return;
+
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    (function loop(t) {
+      requestAnimationFrame(loop);
+      for (var i = 0; i < slides.length; i++) {
+        var s = slides[i];
+        if (!s.visible) continue;
+        if (!fine && !s.hover) {
+          /* Mobile: Tilt aus der Scroll-Position ableiten */
+          var r = s.a.getBoundingClientRect();
+          var c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+          s.trx = c * 6; s.try_ = 0;
+        }
+        /* sanft nachziehen + Schwebe-Offset */
+        s.rx += (s.trx - s.rx) * 0.07;
+        s.ry += (s.try_ - s.ry) * 0.07;
+        var float_ = Math.sin(t / 2400 + s.phase) * 5;
+        var scale = s.hover ? 1.012 : 1;
+        s.inner.style.transform = 'translateY(' + float_.toFixed(2) + 'px) rotateX(' + s.rx.toFixed(2) + 'deg) rotateY(' + s.ry.toFixed(2) + 'deg) scale(' + scale + ')';
+        /* Glanz: folgt dem Tilt, gleitet sonst langsam im Loop */
+        var gx = s.hover ? (s.ry / 7) * 220 + 60 : ((t / 42 + s.phase * 300) % 560) - 180;
+        s.beam.style.transform = 'translateX(' + gx.toFixed(1) + '%) rotate(14deg)';
+      }
+    })(0);
+  }
+
   /* Studio-Reel: dezent autoplayen, sobald sichtbar */
   function setupTeamReel() {
     var v = document.getElementById('teamReel');
@@ -506,5 +592,6 @@
     setupNewsletter();
     setupFunnel();
     setupTeamReel();
+    setupMockupFX();
   });
 })();
