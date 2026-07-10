@@ -286,32 +286,100 @@ a { color: inherit; text-decoration: none; }
   <a class="cta" href="#kontakt">Erstberatung anfragen</a>
 </nav>
 
-<header class="hero" id="top">
-  <div class="bg" data-plx="0.25"><img src="../../../assets/premium/schneider-hero.jpg" alt="Vertragsunterzeichnung in der Kanzlei Morgenstern"><video src="../../../assets/premium/video/morgenstern-hero.mp4" muted loop playsinline preload="auto"></video></div>
-  <div class="scrim"></div>
-  <div class="inner">
-    <div class="kicker">Rechtsanwalt · Havelbrück</div>
-    <h1><span class="w" style="--d:0.10s"><span>Klare</span></span> <span class="w" style="--d:0.18s"><span>Worte.</span></span><br><span class="w" style="--d:0.24s"><span class="acc">Klares Recht.</span></span></h1>
-    <p class="sub rv" style="--d:0.55s">Kompetente Rechtsberatung in Verkehrsrecht, Vertragsrecht und allgemeinem Zivilrecht — persönlich, verständlich und auf den Punkt.</p>
-    <div class="btn-row rv" style="--d:0.7s">
-      <a class="btn solid" href="#kontakt">Erstberatung anfragen <span>→</span></a>
+<style>
+/* === Morgenstern: klassisch-seriöser Kanzlei-Archetyp — Navy, Gold, Serifen, Linien === */
+body { background: #0f1218; }
+.nav { color: #eef0f4; }
+.nav.solid { background: rgba(15,18,24,0.85); color: #eef0f4; box-shadow: 0 10px 40px -22px rgba(0,0,0,0.85); }
+.nav.solid .cta { background: var(--acc2); color: #0f1218; }
+.hero.hero-law { min-height: 100svh; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: stretch; background: #0f1218; color: #eef0f4; overflow: hidden; }
+@media (max-width: 900px) { .hero.hero-law { grid-template-columns: 1fr; } .hero-law .ph { min-height: 44svh; } }
+.hero-law .tx { display: flex; flex-direction: column; justify-content: center; padding: clamp(110px, 14vh, 170px) clamp(22px, 5vw, 70px) clamp(46px, 7vh, 80px); }
+.hero-law .over { font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--acc2);
+  display: flex; align-items: center; gap: 14px; }
+.hero-law .over::after { content: ""; flex: 0 0 54px; height: 1px; background: var(--acc2); }
+.hero-law h1 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; margin-top: 24px;
+  font-size: clamp(2.7rem, 6.2vw, 5.2rem); line-height: 1.06; letter-spacing: -0.01em; }
+.hero-law h1 .gold { color: var(--acc2); font-style: italic; }
+.hero-law .sub { max-width: 480px; margin-top: 22px; font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.7; color: rgba(238,240,244,0.6); }
+.hero-law .btn-row { margin-top: 30px; }
+.hero-law .btn.solid { background: var(--acc2); color: #0f1218; box-shadow: none; }
+.hero-law .btn.ghost { border-color: rgba(238,240,244,0.3); color: #eef0f4; }
+.hero-law .creds { display: flex; flex-wrap: wrap; margin-top: 44px; border-top: 1px solid rgba(238,240,244,0.14); }
+.hero-law .creds div { padding: 16px 22px 0 0; margin-right: 22px; border-right: 1px solid rgba(238,240,244,0.14); }
+.hero-law .creds div:last-child { border-right: none; }
+.hero-law .creds b { display: block; font-family: Georgia, serif; font-size: 1.25rem; color: #eef0f4; font-weight: 400; }
+.hero-law .creds span { font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(238,240,244,0.4); }
+.hero-law .ph { position: relative; overflow: hidden; border-left: 1px solid rgba(212,175,55,0.35); }
+.hero-law .ph img, .hero-law .ph video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); }
+.hero-law .ph video { opacity: 0; transition: opacity 1s; }
+.hero-law .ph video.on { opacity: 1; }
+.hero-law .ph::after { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(212,175,55,0.4); pointer-events: none; }
+.hero-law .card-ra { position: absolute; left: 22px; bottom: 22px; z-index: 3; background: rgba(15,18,24,0.82); backdrop-filter: blur(8px);
+  border: 1px solid rgba(212,175,55,0.4); padding: 14px 18px; }
+.hero-law .card-ra b { display: block; font-family: Georgia, serif; font-weight: 400; font-size: 1.05rem; }
+.hero-law .card-ra span { font-size: 11px; color: rgba(238,240,244,0.55); }
+/* Seiten-Typo: Serif-Headlines + Linien, dunkles Editorial */
+.section { background: #0f1218; color: #eef0f4; }
+.sec-head h2, .contact h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+.sec-head .s { color: rgba(238,240,244,0.55); }
+.sec-head .k { color: var(--acc2); }
+.card { background: #151a22; border-color: rgba(255,255,255,0.07); box-shadow: none; }
+.card h3 { color: #eef0f4; font-family: Georgia, serif; font-weight: 400; }
+.card p { color: rgba(238,240,244,0.55); }
+.band { background: #0b0e13 !important; }
+.contact { background: #090b0f; }
+/* Rechtsgebiete als nummerierte Zeilen */
+.law-rows { border-top: 1px solid rgba(238,240,244,0.14); }
+.law-row { display: grid; grid-template-columns: 88px 1fr 1.2fr 40px; gap: 20px; align-items: baseline;
+  padding: 26px 4px; border-bottom: 1px solid rgba(238,240,244,0.14); transition: background 0.25s, padding 0.25s; }
+@media (max-width: 820px) { .law-row { grid-template-columns: 60px 1fr; } .law-row .d, .law-row .ar { display: none; } }
+.law-row:hover { background: rgba(212,175,55,0.05); padding-left: 14px; }
+.law-row .no { font-family: Georgia, serif; font-size: 1rem; color: var(--acc2); }
+.law-row .t { font-family: Georgia, serif; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.01em; }
+.law-row .d { font-size: 0.92rem; line-height: 1.6; color: rgba(238,240,244,0.55); }
+.law-row .ar { text-align: right; color: var(--acc2); transition: transform 0.25s; }
+.law-row:hover .ar { transform: translateX(6px); }
+/* Credential-Leiste statt Marquee */
+.law-bar { background: #0b0e13; border-block: 1px solid rgba(212,175,55,0.25); padding: 18px 20px; }
+.law-bar .in { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 34px; justify-content: center;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(238,240,244,0.5); }
+.law-bar .in b { color: var(--acc2); font-weight: 700; }
+</style>
+<header class="hero hero-law" id="top">
+  <div class="tx">
+    <div class="over rv" style="--d:0.05s">Kanzlei Morgenstern · Havelbrück</div>
+    <h1><span class="w" style="--d:0.14s"><span>Klare Worte.</span></span><br><span class="w" style="--d:0.28s"><span class="gold">Klares Recht.</span></span></h1>
+    <p class="sub rv" style="--d:0.5s">Kompetente Rechtsberatung in Verkehrsrecht, Vertragsrecht und allgemeinem Zivilrecht — persönlich, verständlich und auf den Punkt. Sie sprechen immer direkt mit Ihrem Anwalt.</p>
+    <div class="btn-row rv" style="--d:0.65s">
+      <a class="btn solid" href="#ersteinschaetzung">Kostenlose Ersteinschätzung <span>→</span></a>
       <a class="btn ghost" href="#leistungen">Rechtsgebiete</a>
     </div>
-    <div class="meta rv" style="--d:0.85s"><span>Alte Poststraße 9</span><span>Persönliche Beratung</span><span>Verständlich erklärt</span></div>
+    <div class="creds rv" style="--d:0.8s">
+      <div><b>15+ Jahre</b><span>Erfahrung</span></div>
+      <div><b>24 h</b><span>Rückmeldung</span></div>
+      <div><b>§ 43a BRAO</b><span>Vertraulich</span></div>
+    </div>
   </div>
-  <div class="stat-chip">Rückmeldung meist in 24h</div>
-  <span class="scroll-cue">Scroll</span>
+  <div class="ph">
+    <img src="../../../assets/premium/schneider-hero.jpg" alt="Vertragsunterzeichnung in der Kanzlei Morgenstern">
+    <video src="../../../assets/premium/video/morgenstern-hero.mp4" muted loop playsinline preload="auto"></video>
+    <div class="card-ra"><b>RA Jakob Morgenstern</b><span>Fachanwalt für Verkehrsrecht</span></div>
+  </div>
 </header>
 
-<div class="mq" aria-hidden="true"><div class="track"><span>Verkehrsrecht <i>✦</i></span><span class="o">Vertragsrecht <i>✦</i></span><span>Zivilrecht <i>✦</i></span><span class="o">Mietrecht <i>✦</i></span><span>Erstberatung <i>✦</i></span><span>Verkehrsrecht <i>✦</i></span><span class="o">Vertragsrecht <i>✦</i></span><span>Zivilrecht <i>✦</i></span><span class="o">Mietrecht <i>✦</i></span><span>Erstberatung <i>✦</i></span></div></div>
+<div class="law-bar" aria-label="Schwerpunkte">
+  <div class="in"><span><b>§</b> Verkehrsrecht</span><span><b>§</b> Vertragsrecht</span><span><b>§</b> Zivil- &amp; Mietrecht</span><span><b>§</b> Vertretung vor Gericht</span></div>
+</div>
 
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Rechtsgebiete</div><h2>Wo ich für Sie eintrete.</h2><p class="s">Vier Schwerpunkte, ein Anspruch: Ihre Interessen durchsetzen — außergerichtlich wie vor Gericht.</p></div>
-    <div class="bento">
-      <div class="card feature rv"><div class="bg"><img src="../../../assets/premium/schneider-d.jpg" alt="" loading="lazy"></div>
-        <div class="fx"><h3>Verkehrsrecht</h3><p>Unfallregulierung, Bußgeldverfahren, Fahrerlaubnisrecht — ich setze Ihre Rechte durch, damit Sie sich um nichts kümmern müssen.</p></div></div>
-      <div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../../assets/premium/schneider-c.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Vertragsrecht</h3><p>Prüfung und Gestaltung von Verträgen — für Privatpersonen und Unternehmen.</p></div></div><div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../../assets/premium/schneider-b.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Zivil- &amp; Mietrecht</h3><p>Nachbarschaftsstreit, Schadensersatz, Mietminderung, Kündigung — wir finden eine Lösung.</p></div></div><div class="card rv" style="--d:0.16s"><div class="ico">⚖️</div><h3>Vertretung vor Gericht</h3><p>Wenn es darauf ankommt: konsequente Vertretung Ihrer Interessen.</p></div>
+    <div class="law-rows rv">
+      <a class="law-row" href="#ersteinschaetzung"><span class="no">01</span><span class="t">Verkehrsrecht</span><span class="d">Unfallregulierung, Bußgeldverfahren, Fahrerlaubnisrecht — ich setze Ihre Rechte durch, damit Sie sich um nichts kümmern müssen.</span><span class="ar">→</span></a>
+      <a class="law-row" href="#ersteinschaetzung"><span class="no">02</span><span class="t">Vertragsrecht</span><span class="d">Prüfung und Gestaltung von Verträgen — für Privatpersonen und Unternehmen, bevor es teuer wird.</span><span class="ar">→</span></a>
+      <a class="law-row" href="#ersteinschaetzung"><span class="no">03</span><span class="t">Zivil- &amp; Mietrecht</span><span class="d">Nachbarschaftsstreit, Schadensersatz, Mietminderung, Kündigung — wir finden eine Lösung.</span><span class="ar">→</span></a>
+      <a class="law-row" href="#ersteinschaetzung"><span class="no">04</span><span class="t">Vertretung vor Gericht</span><span class="d">Wenn es darauf ankommt: konsequente, gut vorbereitete Vertretung Ihrer Interessen.</span><span class="ar">→</span></a>
     </div>
   </div>
 </section>
