@@ -15,6 +15,12 @@
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Kein automatischer Sprung nach dem Laden: Browser stellen sonst die
+     letzte Scroll-Position wieder her, sobald Bilder/Videos nachgeladen
+     sind — das wirkt wie ein spontaner Sprung in eine Sektion. */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  addEventListener('pageshow', function (e) { if (e.persisted) scrollTo(0, 0); });
+
   /* ---------- Scroll-Reveals im Original-Stil ----------
      Headline-Zeilen mit Wipe-Overlays: der Akzentbalken fegt über die
      Zeile, der Text erscheint dahinter. Hero-Wörter schieben gestaffelt
@@ -477,6 +483,18 @@
     }
   }
 
+  /* Studio-Reel: dezent autoplayen, sobald sichtbar */
+  function setupTeamReel() {
+    var v = document.getElementById('teamReel');
+    if (!v || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 }).observe(v);
+  }
+
   onReady(function () {
     setupReveals();
     setupScrollFill();
@@ -487,5 +505,6 @@
     setupCtas();
     setupNewsletter();
     setupFunnel();
+    setupTeamReel();
   });
 })();
