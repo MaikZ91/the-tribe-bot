@@ -269,6 +269,12 @@
 
   /* ---------- CTAs: Call buchen -> WhatsApp, Nachricht -> Mail ---------- */
   function setupCtas() {
+    // Platzhalter-Links (href="#") aus dem Original-Footer/-Menü dürfen die
+    // Seite nicht nach oben springen lassen — Klick wird geschluckt.
+    document.addEventListener('click', function (ev) {
+      var dead = ev.target.closest ? ev.target.closest('a[href="#"]') : null;
+      if (dead) ev.preventDefault();
+    });
     document.addEventListener('click', function (ev) {
       var msg = ev.target.closest ? ev.target.closest('button[aria-label="Nachricht senden"]') : null;
       if (msg) { window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept'); return; }
