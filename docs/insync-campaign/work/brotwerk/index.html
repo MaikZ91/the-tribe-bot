@@ -353,6 +353,67 @@ body { background: #f6efe3; }
 
 <div class="mq" aria-hidden="true"><div class="track"><span>Natursauerteig <i>✦</i></span><span class="o">Handwerk <i>✦</i></span><span>Brotfreunde <i>✦</i></span><span class="o">Regionale Mühlen <i>✦</i></span><span>Ofenfrisch <i>✦</i></span><span>Natursauerteig <i>✦</i></span><span class="o">Handwerk <i>✦</i></span><span>Brotfreunde <i>✦</i></span><span class="o">Regionale Mühlen <i>✦</i></span><span>Ofenfrisch <i>✦</i></span></div></div>
 
+<style>
+/* Scrollytelling: Das Brot schneidet sich beim Scrollen */
+.cutsec { height: 280vh; position: relative; background: #efe3cc; }
+.cut-sticky { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; overflow: hidden; gap: clamp(18px, 3vh, 34px); padding: 90px 18px 40px; }
+.cut-k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.cut-h { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  letter-spacing: -0.015em; color: #241c10; text-align: center; line-height: 1.1; }
+.cut-h em { font-style: italic; color: var(--acc); }
+.cut-loaf { position: relative; display: flex; width: min(880px, 94vw); aspect-ratio: 21/10;
+  filter: drop-shadow(0 40px 50px rgba(60,40,10,0.35)); }
+.cut-loaf span { flex: 1; background-image: url('../../../assets/premium/hinkel-slice.jpg');
+  background-size: 900% 100%; background-repeat: no-repeat; will-change: transform;
+  transform-origin: bottom left; }
+.cut-line { position: absolute; top: -6%; bottom: -6%; width: 3px; background: linear-gradient(#fff0, #fffdf4, #fff0);
+  box-shadow: 0 0 18px 2px rgba(255,250,230,0.9); opacity: 0; pointer-events: none; }
+.cut-cap { font-size: 0.95rem; color: #6a5d47; text-align: center; max-width: 460px; line-height: 1.6; }
+.cut-cap b { color: #241c10; }
+.cut-hint { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(36,28,16,0.4); font-weight: 700; }
+</style>
+<section class="cutsec scrolly" id="anschnitt" aria-label="Scroll-Animation: Brot wird geschnitten">
+  <div class="cut-sticky">
+    <div class="cut-k">Frisch aufgeschnitten</div>
+    <h2 class="cut-h">Scrollen Sie — <em>wir schneiden an.</em></h2>
+    <div class="cut-loaf" id="cutLoaf">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <div class="cut-line" id="cutLine"></div>
+    </div>
+    <p class="cut-cap"><b>24 Stunden Teigruhe, 4 Zutaten, null Kompromisse.</b><br>So klingt eine Kruste, die diesen Namen verdient.</p>
+    <div class="cut-hint" id="cutHint">↓ Weiterscrollen zum Anschneiden</div>
+  </div>
+</section>
+<script>
+(function () {
+  var sec = document.getElementById('anschnitt');
+  var slices = Array.prototype.slice.call(document.querySelectorAll('#cutLoaf > span'));
+  var line = document.getElementById('cutLine'), hint = document.getElementById('cutHint');
+  slices.forEach(function (s, i) { s.style.backgroundPosition = (i / (slices.length - 1) * 100) + '% 0'; });
+  var ticking = false;
+  function upd() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var r = sec.getBoundingClientRect();
+      var p = Math.min(Math.max(-r.top / (r.height - innerHeight), 0), 1);
+      var n = slices.length;
+      slices.forEach(function (s, i) {
+        var q = Math.min(Math.max((p * (n + 1.5) - i) / 1.5, 0), 1);
+        var e = q * q * (3 - 2 * q);
+        s.style.transform = 'rotate(' + (-e * 9) + 'deg) translate(' + (-e * 16) + '%,' + (e * 1.5) + '%)';
+      });
+      var cutX = Math.min(p * (n + 1.5) / n, 1);
+      line.style.left = (cutX * 100) + '%';
+      line.style.opacity = (p > 0.01 && p < 0.97) ? 1 : 0;
+      if (hint) hint.style.opacity = p > 0.05 ? 0 : 1;
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', upd, { passive: true }); upd();
+})();
+</script>
+
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Sortiment</div><h2>Gebacken, wie es sein soll.</h2><p class="s">Vom Frühstücksbrötchen bis zum Sonntagskuchen — alles aus eigener Backstube.</p></div>

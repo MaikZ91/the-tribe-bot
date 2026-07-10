@@ -351,6 +351,65 @@ body { background: #fbfbfd; }
   </div>
 </div>
 
+<style>
+/* Scrollytelling: Vorher/Nachher-Wipe beim Scrollen */
+.wipesec { height: 240vh; position: relative; background: linear-gradient(180deg, #fbfbfd, #eef6f8); }
+.wipe-sticky { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: clamp(16px, 3vh, 30px); overflow: hidden; padding: 90px 18px 40px; }
+.wipe-k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.wipe-h { font-size: clamp(1.9rem, 4.6vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; color: #0e1a1e; text-align: center; line-height: 1.08; }
+.wipe-h span { background: linear-gradient(95deg, var(--acc), #67d3e2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wipe-frame { position: relative; width: min(900px, 94vw); aspect-ratio: 16/8.5; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 50px 100px -45px rgba(10,50,60,0.55); border: 1px solid rgba(0,0,0,0.06); }
+.wipe-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wipe-frame .before { filter: saturate(0.55) brightness(0.82) sepia(0.22); }
+.wipe-frame .after-wrap { position: absolute; inset: 0; overflow: hidden; will-change: clip-path; }
+.wipe-frame .after-wrap img { filter: saturate(1.08) brightness(1.06); }
+.wipe-bar { position: absolute; top: 0; bottom: 0; width: 3px; background: #fff; box-shadow: 0 0 22px rgba(63,193,211,0.9); }
+.wipe-bar::after { content: "↔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px;
+  border-radius: 50%; background: #fff; color: var(--acc); display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; box-shadow: 0 10px 26px rgba(0,0,0,0.25); }
+.wipe-tag { position: absolute; bottom: 14px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 999px; }
+.wipe-tag.a { left: 14px; background: rgba(14,26,30,0.6); color: #fff; backdrop-filter: blur(6px); }
+.wipe-tag.b { right: 14px; background: var(--acc); color: #fff; }
+.wipe-cap { font-size: 0.95rem; color: var(--grey); text-align: center; max-width: 480px; line-height: 1.6; }
+</style>
+<section class="wipesec scrolly" id="verwandlung" aria-label="Scroll-Animation: Vorher-Nachher">
+  <div class="wipe-sticky">
+    <div class="wipe-k">Bleaching &amp; Ästhetik</div>
+    <h2 class="wipe-h">Scrollen Sie — <span>und sehen Sie den Unterschied.</span></h2>
+    <div class="wipe-frame">
+      <img class="before" src="../../../assets/premium/benz-c.jpg" alt="Behandlung vorher">
+      <div class="after-wrap" id="wipeAfter"><img src="../../../assets/premium/benz-c.jpg" alt="Behandlung nachher"></div>
+      <div class="wipe-bar" id="wipeBar"></div>
+      <span class="wipe-tag a">Vorher</span>
+      <span class="wipe-tag b">Nachher</span>
+    </div>
+    <p class="wipe-cap">Professionelles Bleaching, Veneers und Unsichtbare Aligner — digital geplant, schonend umgesetzt.</p>
+  </div>
+</section>
+<script>
+(function () {
+  var sec = document.getElementById('verwandlung');
+  var aw = document.getElementById('wipeAfter'), bar = document.getElementById('wipeBar');
+  var ticking = false;
+  function upd() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var r = sec.getBoundingClientRect();
+      var p = Math.min(Math.max(-r.top / (r.height - innerHeight), 0), 1);
+      var e = p * p * (3 - 2 * p);
+      var x = 6 + e * 88; /* Prozent der Breite */
+      aw.style.clipPath = 'inset(0 0 0 ' + x + '%)';
+      bar.style.left = x + '%';
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', upd, { passive: true }); upd();
+})();
+</script>
+
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Leistungen</div><h2>Ihr Lächeln in besten Händen.</h2><p class="s">Von der Prophylaxe bis zur Implantologie — modernste Technik trifft auf einfühlsame Betreuung.</p></div>

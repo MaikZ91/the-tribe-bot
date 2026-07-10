@@ -372,6 +372,84 @@ body { background: #0f1218; }
   <div class="in"><span><b>§</b> Verkehrsrecht</span><span><b>§</b> Vertragsrecht</span><span><b>§</b> Zivil- &amp; Mietrecht</span><span><b>§</b> Vertretung vor Gericht</span></div>
 </div>
 
+<style>
+/* Scrollytelling: Die Waage kommt beim Scrollen ins Gleichgewicht */
+.lawsec { height: 260vh; position: relative; background: #0b0e13; }
+.law-sticky { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: clamp(12px, 2.6vh, 26px); overflow: hidden; padding: 90px 18px 40px; }
+.laws-k { font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--acc2); }
+.laws-h { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  color: #eef0f4; text-align: center; line-height: 1.12; letter-spacing: -0.01em; }
+.laws-h em { font-style: italic; color: var(--acc2); }
+.laws-svg { width: min(560px, 88vw); height: auto; overflow: visible; }
+.laws-steps { display: flex; gap: 12px 26px; flex-wrap: wrap; justify-content: center; }
+.laws-steps span { font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; color: rgba(238,240,244,0.35);
+  transition: color 0.4s; }
+.laws-steps span::before { content: "○ "; color: rgba(212,175,55,0.4); }
+.laws-steps span.on { color: #eef0f4; }
+.laws-steps span.on::before { content: "✓ "; color: var(--acc2); }
+</style>
+<section class="lawsec scrolly" id="gleichgewicht" aria-label="Scroll-Animation: Waage im Gleichgewicht">
+  <div class="law-sticky">
+    <div class="laws-k">Scrollen Sie — Schritt für Schritt</div>
+    <h2 class="laws-h">Wir bringen Ihren Fall<br><em>ins Gleichgewicht.</em></h2>
+    <svg class="laws-svg" viewBox="0 0 600 320" fill="none" aria-hidden="true">
+      <line x1="300" y1="60" x2="300" y2="252" stroke="#d4af37" stroke-width="3"/>
+      <path d="M255 262 h90 l14 18 h-118 Z" fill="#d4af37"/>
+      <circle cx="300" cy="56" r="7" fill="#d4af37"/>
+      <g id="lwBeam">
+        <line id="lwBar" x1="150" y1="56" x2="450" y2="56" stroke="#d4af37" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g id="lwPanL">
+        <line x1="0" y1="0" x2="-26" y2="42" stroke="#d4af37" stroke-width="1.6"/>
+        <line x1="0" y1="0" x2="26" y2="42" stroke="#d4af37" stroke-width="1.6"/>
+        <path d="M-34 42 a34 20 0 0 0 68 0 Z" fill="rgba(212,175,55,0.18)" stroke="#d4af37" stroke-width="2"/>
+        <text y="76" text-anchor="middle" font-size="13" fill="rgba(238,240,244,0.6)" font-family="Georgia, serif" font-style="italic">Ihr Fall</text>
+      </g>
+      <g id="lwPanR">
+        <line x1="0" y1="0" x2="-26" y2="42" stroke="#d4af37" stroke-width="1.6"/>
+        <line x1="0" y1="0" x2="26" y2="42" stroke="#d4af37" stroke-width="1.6"/>
+        <path d="M-34 42 a34 20 0 0 0 68 0 Z" fill="rgba(212,175,55,0.18)" stroke="#d4af37" stroke-width="2"/>
+        <text y="76" text-anchor="middle" font-size="13" fill="rgba(238,240,244,0.6)" font-family="Georgia, serif" font-style="italic">Ihr Recht</text>
+      </g>
+    </svg>
+    <div class="laws-steps">
+      <span id="lwS1">Sachverhalt geprüft</span>
+      <span id="lwS2">Fristen gesichert</span>
+      <span id="lwS3">Strategie steht</span>
+      <span id="lwS4">Gleichgewicht erreicht</span>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var sec = document.getElementById('gleichgewicht');
+  var bar = document.getElementById('lwBar'), panL = document.getElementById('lwPanL'), panR = document.getElementById('lwPanR');
+  var steps = [document.getElementById('lwS1'), document.getElementById('lwS2'), document.getElementById('lwS3'), document.getElementById('lwS4')];
+  var CX = 300, CY = 56, L = 150;
+  var ticking = false;
+  function upd() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var r = sec.getBoundingClientRect();
+      var p = Math.min(Math.max(-r.top / (r.height - innerHeight), 0), 1);
+      var e = p * p * (3 - 2 * p);
+      var deg = -16 * (1 - e);
+      var a = deg * Math.PI / 180;
+      var x1 = CX - L * Math.cos(a), y1 = CY - L * Math.sin(a);
+      var x2 = CX + L * Math.cos(a), y2 = CY + L * Math.sin(a);
+      bar.setAttribute('x1', x1); bar.setAttribute('y1', y1);
+      bar.setAttribute('x2', x2); bar.setAttribute('y2', y2);
+      panL.setAttribute('transform', 'translate(' + x1 + ' ' + (y1 + 8) + ')');
+      panR.setAttribute('transform', 'translate(' + x2 + ' ' + (y2 + 8) + ')');
+      steps.forEach(function (s, i) { s.classList.toggle('on', p > 0.2 + i * 0.2); });
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', upd, { passive: true }); upd();
+})();
+</script>
+
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Rechtsgebiete</div><h2>Wo ich für Sie eintrete.</h2><p class="s">Vier Schwerpunkte, ein Anspruch: Ihre Interessen durchsetzen — außergerichtlich wie vor Gericht.</p></div>

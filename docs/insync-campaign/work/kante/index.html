@@ -345,6 +345,71 @@ body { background: #0e0c0a; color: #f3efe9; }
 
 <div class="mq" aria-hidden="true"><div class="track"><span>Frühstück <i>✦</i></span><span class="o">Mittagstisch <i>✦</i></span><span>Abendkarte <i>✦</i></span><span class="o">Wein &amp; Drinks <i>✦</i></span><span>Live-Musik <i>✦</i></span><span>Frühstück <i>✦</i></span><span class="o">Mittagstisch <i>✦</i></span><span>Abendkarte <i>✦</i></span><span class="o">Wein &amp; Drinks <i>✦</i></span><span>Live-Musik <i>✦</i></span></div></div>
 
+<style>
+/* Scrollytelling: Ein Tag an der KANTE — von 9 bis 23 Uhr */
+.daysec { height: 300vh; position: relative; }
+.day-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: clamp(10px, 2.4vh, 22px); padding: 90px 18px 40px;
+  background: #d8b98a; }
+.day-night { position: absolute; inset: 0; background: #0e0c0a; opacity: 0; pointer-events: none; }
+.day-imgs { position: absolute; inset: 0; }
+.day-imgs img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: none; }
+.day-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,8,6,0.82), rgba(10,8,6,0.25) 55%, rgba(10,8,6,0.45)); }
+.day-clock { position: relative; z-index: 2; font-weight: 800; font-size: clamp(4.6rem, 15vw, 11rem); line-height: 1;
+  letter-spacing: -0.03em; color: #f3efe9; font-variant-numeric: tabular-nums; text-transform: uppercase; }
+.day-label { position: relative; z-index: 2; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: clamp(0.8rem, 2vw, 1.05rem); color: var(--acc2); }
+.day-dish { position: relative; z-index: 2; font-size: 0.95rem; color: rgba(243,239,233,0.75); max-width: 420px; text-align: center; line-height: 1.6; }
+.day-k { position: relative; z-index: 2; font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(243,239,233,0.6); }
+</style>
+<section class="daysec scrolly" id="tagundnacht" aria-label="Scroll-Animation: Ein Tag an der KANTE">
+  <div class="day-sticky">
+    <div class="day-imgs" id="dayImgs">
+      <img src="../../../assets/premium/3eck-a.jpg" alt="">
+      <img src="../../../assets/premium/3eck-c.jpg" alt="">
+      <img src="../../../assets/premium/3eck-b.jpg" alt="">
+    </div>
+    <div class="day-night" id="dayNight"></div>
+    <div class="day-scrim"></div>
+    <div class="day-k">Scroll dich durch den Tag</div>
+    <div class="day-clock" id="dayClock">09:00</div>
+    <div class="day-label" id="dayLabel">Frühstück &amp; Specialty Coffee</div>
+    <p class="day-dish" id="dayDish">Flat White aus eigener Röstung, Shakshuka, Frühstücksbrett KANTE.</p>
+  </div>
+</section>
+<script>
+(function () {
+  var sec = document.getElementById('tagundnacht');
+  var clock = document.getElementById('dayClock'), label = document.getElementById('dayLabel'), dish = document.getElementById('dayDish');
+  var night = document.getElementById('dayNight');
+  var imgs = document.querySelectorAll('#dayImgs img');
+  var PHASES = [
+    [0.00, 'Frühstück & Specialty Coffee', 'Flat White aus eigener Röstung, Shakshuka, Frühstücksbrett KANTE.', 0],
+    [0.34, 'Mittagstisch', 'Marktteller der Woche, KANTE-Burger, hausgemachte Pasta.', 1],
+    [0.62, 'Abendkarte', 'Flanksteak vom Grill, gebratener Zander, Pilz-Risotto.', 1],
+    [0.85, 'Bar & Drinks', 'KANTE Spritz, Negroni, Naturwein — bis open end.', 2]
+  ];
+  var ticking = false;
+  function upd() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var r = sec.getBoundingClientRect();
+      var p = Math.min(Math.max(-r.top / (r.height - innerHeight), 0), 1);
+      var mins = (9 * 60) + p * 14 * 60;
+      var h = Math.floor(mins / 60), m = Math.floor(mins % 60);
+      clock.textContent = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+      night.style.opacity = Math.max(0, (p - 0.35) / 0.65) * 0.92;
+      var ph = PHASES[0];
+      for (var i = 0; i < PHASES.length; i++) if (p >= PHASES[i][0]) ph = PHASES[i];
+      if (label.textContent !== ph[1]) { label.textContent = ph[1]; dish.textContent = ph[2]; }
+      imgs.forEach(function (im, i) { im.style.opacity = i === ph[3] ? 0.55 : 0; });
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', upd, { passive: true }); upd();
+})();
+</script>
+
 <section class="section" id="leistungen">
   <div class="wrap">
     <div class="sec-head rv"><div class="k">Unsere Karte</div><h2>Von früh bis spät.</h2><p class="s">Wöchentlich wechselnde Gerichte, hausgemachte Aufstriche und eine Abendkarte mit Charakter.</p></div>
