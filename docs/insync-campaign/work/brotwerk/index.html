@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brotwerk Mühlenrath — Die Bäckerei der Brotfreunde · Havelbrück</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
 <meta name="description" content="Echtes Handwerk, beste Zutaten und die Liebe zum guten Brot — Brotwerk Mühlenrath in Havelbrück.">
 <style>
 :root { --acc: #a06514; --acc2: #e0a34c; --ink: #1d1d1f; --paper: #fbfbfd; --grey: #6e6e73; }
@@ -280,7 +281,7 @@ a { color: inherit; text-decoration: none; }
 
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><span class="mark">B</span>Brotwerk Mühlenrath</a>
-  <div class="links"><a href="#leistungen">Sortiment</a><a href="#galerie">Backstube</a><a href="#werte">Philosophie</a><a href="#kontakt">Kontakt</a></div>
+  <div class="links"><a href="#leistungen">Sortiment</a><a href="#backplan">Backplan</a><a href="#galerie">Backstube</a><a href="#werte">Philosophie</a><a href="#kontakt">Kontakt</a></div>
   <a class="tel" href="tel:+495558620010">0555 · 862 00 10</a>
   <a class="cta" href="#kontakt">Kontakt</a>
 </nav>
@@ -314,6 +315,150 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
 </section>
+
+<style>
+/* Backplan + Click&Collect — nur Brotwerk */
+.bplan { background: #f2e9d8; border-block: 1px solid rgba(0,0,0,0.05); }
+.bplan .sec-head h2 em { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 400; }
+.bp-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(20px, 3vw, 40px); align-items: start; }
+@media (max-width: 920px) { .bp-grid { grid-template-columns: 1fr; } }
+.bp-days { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+.bp-days button { font: inherit; font-size: 13.5px; font-weight: 700; padding: 10px 18px; border-radius: 999px;
+  border: 1.5px solid rgba(29,29,31,0.18); background: transparent; color: var(--ink); cursor: pointer;
+  transition: background 0.25s, color 0.25s, transform 0.2s; }
+.bp-days button:hover { transform: translateY(-1px); }
+.bp-days button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.bp-days button small { display: block; font-size: 10px; font-weight: 600; opacity: 0.55; letter-spacing: 0.08em; text-transform: uppercase; }
+.bp-list { list-style: none; }
+.bp-list li { display: grid; grid-template-columns: 1fr auto; gap: 4px 18px; padding: 17px 2px; border-bottom: 1px dashed rgba(29,29,31,0.22);
+  opacity: 0; transform: translateY(10px); animation: bpIn 0.5s cubic-bezier(0.22,0.61,0.36,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes bpIn { to { opacity: 1; transform: none; } }
+.bp-list .nm { grid-column: 1; grid-row: 1; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: clamp(1.15rem, 2.2vw, 1.45rem); letter-spacing: -0.01em; }
+.bp-list .nm .tag { font-family: inherit; font-style: normal; vertical-align: middle; display: inline-block; margin-left: 10px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--acc); border-radius: 999px; padding: 4px 9px; }
+.bp-list .ds { grid-column: 1; grid-row: 2; font-size: 0.9rem; color: var(--grey); line-height: 1.5; max-width: 480px; }
+.bp-list .pr { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
+.bp-hint { margin-top: 18px; font-size: 12px; color: var(--grey); }
+.bp-order { position: sticky; top: 96px; background: #fff; border-radius: 26px; padding: clamp(24px, 3vw, 32px);
+  box-shadow: 0 30px 70px -45px rgba(0,0,0,0.5); border: 1px solid rgba(0,0,0,0.05); }
+.bp-order h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
+.bp-order .bp-note { font-size: 0.88rem; color: var(--grey); line-height: 1.5; margin-top: 6px; }
+.bp-items { margin: 18px 0 6px; }
+.bp-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.95rem; }
+.bp-row .n { flex: 1; font-weight: 600; }
+.bp-row .p { font-size: 0.85rem; color: var(--grey); white-space: nowrap; }
+.bp-step { display: flex; align-items: center; gap: 0; border: 1.5px solid rgba(0,0,0,0.14); border-radius: 999px; overflow: hidden; }
+.bp-step button { font: inherit; width: 30px; height: 30px; border: none; background: transparent; cursor: pointer; font-weight: 700; font-size: 15px; }
+.bp-step button:hover { background: rgba(0,0,0,0.06); }
+.bp-step .q { min-width: 26px; text-align: center; font-weight: 700; font-size: 0.95rem; }
+.bp-time { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; font-size: 0.92rem; font-weight: 600; }
+.bp-time select { font: inherit; font-weight: 600; padding: 9px 13px; border-radius: 12px; border: 1.5px solid rgba(0,0,0,0.14); background: #fff; }
+.bp-sum { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.05rem; padding-top: 12px; }
+.bp-btn { width: 100%; margin-top: 14px; font: inherit; font-size: 15px; font-weight: 700; color: #fff; background: var(--ink);
+  border: none; border-radius: 999px; padding: 15px 20px; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+.bp-btn:hover { transform: translateY(-2px); background: #000; }
+.bp-ok { display: none; margin-top: 14px; background: #eef7ec; border: 1px solid #cde5c8; color: #2c5f2d;
+  border-radius: 14px; padding: 13px 16px; font-size: 0.9rem; font-weight: 600; line-height: 1.45; }
+.bp-ok.show { display: block; animation: bpIn 0.4s ease forwards; }
+.bp-demo { margin-top: 10px; font-size: 10.5px; letter-spacing: 0.05em; color: var(--grey); text-align: center; }
+</style>
+<section class="section bplan" id="backplan">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="k">Backplan</div><h2>Was <em>heute</em> aus dem Ofen kommt.</h2><p class="s">Jeder Tag hat seinen eigenen Backplan. Und wer sichergehen will: vorbestellen — ab 11 Uhr ist das Beste weg.</p></div>
+    <div class="bp-grid">
+      <div class="rv">
+        <div class="bp-days" id="bpDays" role="tablist" aria-label="Wochentag wählen"></div>
+        <ul class="bp-list" id="bpList"></ul>
+        <p class="bp-hint">Alle Brote aus eigenem Natursauerteig · Mehle von der Mühle Havelbrück · Sonntag bleibt der Ofen kalt.</p>
+      </div>
+      <aside class="bp-order rv" style="--d:0.12s">
+        <h3>Vorbestellen &amp; abholen</h3>
+        <p class="bp-note">Click &amp; Collect: heute bestellt — morgen früh ohne Anstehen abholen, ofenwarm.</p>
+        <div class="bp-items" id="bpItems"></div>
+        <div class="bp-time"><span>Abholzeit</span>
+          <select id="bpTime"><option>6:30 Uhr</option><option>7:30 Uhr</option><option selected>8:30 Uhr</option><option>10:00 Uhr</option><option>12:00 Uhr</option></select>
+        </div>
+        <div class="bp-sum"><span>Summe</span><span id="bpSum">0,00&nbsp;€</span></div>
+        <button class="bp-btn" id="bpBtn" type="button">Verbindlich vorbestellen</button>
+        <div class="bp-ok" id="bpOk">✓ Vorbestellung eingegangen — liegt morgen ab <b id="bpOkTime">8:30 Uhr</b> für Sie bereit. Bezahlt wird an der Theke.</div>
+        <p class="bp-demo">Interaktive Demo im Konzept — im Livegang mit Kasse/Shop verbunden.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var PLAN = {
+    'Mo': [['Havelbrücker Landbrot', 'Roggenmisch, 24h Teigruhe, kräftige Kruste', '4,20 €', 'Klassiker'],
+           ['Dinkel-Saaten-Kruste', 'Dinkel, Leinsaat, Sonnenblume — saftige Krume', '4,90 €', ''],
+           ['Butterzopf', 'Locker geflochten, mit Süßrahmbutter', '3,60 €', ''],
+           ['Mühlenrather Ecken', 'Blätterteig, Nussfüllung, Zimt', '1,80 €', '']],
+    'Di': [['Havelbrücker Landbrot', 'Roggenmisch, 24h Teigruhe, kräftige Kruste', '4,20 €', ''],
+           ['Walnussbrot', 'Weizen &amp; Roggen mit gerösteten Walnüssen', '5,40 €', 'Nur Di + Fr'],
+           ['Laugenstangen', 'Handgeschlungen, grobes Salz', '1,40 €', ''],
+           ['Apfel-Streusel', 'Mit Boskoop vom Obsthof Weide', '2,60 €', '']],
+    'Mi': [['Havelbrücker Landbrot', 'Roggenmisch, 24h Teigruhe, kräftige Kruste', '4,20 €', ''],
+           ['Ruchbrot', 'Schweizer Ruchmehl, wilde Porung, röstig', '5,20 €', 'Mittwochs'],
+           ['Körnerbrötchen', 'Fünf Saaten, übernacht geführt', '0,95 €', ''],
+           ['Bienenstich', 'Nach dem Rezept von Oma Mühlenrath', '2,80 €', '']],
+    'Do': [['Havelbrücker Landbrot', 'Roggenmisch, 24h Teigruhe, kräftige Kruste', '4,20 €', ''],
+           ['Kartoffelbrot', 'Mit Pellkartoffeln vom Vortag — bleibt tagelang saftig', '4,80 €', 'Donnerstags'],
+           ['Roggenschrot 100 %', 'Reines Vollkorn, mild-säuerlich', '5,10 €', ''],
+           ['Franzbrötchen', 'Zimtig, buttrig, hanseatisch', '1,90 €', '']],
+    'Fr': [['Havelbrücker Landbrot', 'Roggenmisch, 24h Teigruhe, kräftige Kruste', '4,20 €', ''],
+           ['Walnussbrot', 'Weizen &amp; Roggen mit gerösteten Walnüssen', '5,40 €', 'Nur Di + Fr'],
+           ['Baguette Tradition', 'Lange Führung, dünne Kruste — fürs Wochenende', '2,90 €', ''],
+           ['Freitagstorte', 'Wechselnd — diese Woche: Schwarzwälder Kirsch', '3,20 €', 'Stück']],
+    'Sa': [['Samstagskruste XXL', '1,5 kg für die ganze Familie — nur samstags', '7,90 €', 'Wochenende'],
+           ['Sonntagsbrötchen-Tüte', '10 gemischte Brötchen zum Vorbestellen', '8,50 €', 'Bestseller'],
+           ['Hefezopf mit Rosinen', 'Für den Sonntagstisch', '4,40 €', ''],
+           ['Käsekuchen', 'Gebrannter Käsekuchen, kein Boden, viel Geschmack', '2,90 €', 'Stück']]
+  };
+  var DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  var LABEL = { Mo: 'Montag', Di: 'Dienstag', Mi: 'Mittwoch', Do: 'Donnerstag', Fr: 'Freitag', Sa: 'Samstag' };
+  var daysEl = document.getElementById('bpDays'), listEl = document.getElementById('bpList');
+  var today = DAYS[Math.min(Math.max(new Date().getDay() - 1, 0), 5)];
+  function render(day) {
+    listEl.innerHTML = PLAN[day].map(function (it, i) {
+      return '<li style="--d:' + (i * 0.07) + 's"><div class="nm">' + it[0] + (it[3] ? '<span class="tag">' + it[3] + '</span>' : '') + '</div><div class="pr">' + it[2] + '</div><div class="ds">' + it[1] + '</div></li>';
+    }).join('');
+  }
+  DAYS.forEach(function (d) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab');
+    b.innerHTML = d + '<small>' + LABEL[d].slice(0, 2) + (LABEL[d].length > 7 ? '' : '') + '</small>';
+    b.innerHTML = d; b.title = LABEL[d];
+    if (d === today) b.classList.add('on');
+    b.addEventListener('click', function () {
+      daysEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); render(d);
+    });
+    daysEl.appendChild(b);
+  });
+  render(today);
+
+  /* Click & Collect */
+  var ORDER = [['Havelbrücker Landbrot', 4.2], ['Dinkel-Saaten-Kruste', 4.9], ['Sonntagsbrötchen-Tüte (10 St.)', 8.5], ['Hefezopf', 4.4]];
+  var itemsEl = document.getElementById('bpItems'), sumEl = document.getElementById('bpSum');
+  var qty = ORDER.map(function () { return 0; });
+  function euro(v) { return v.toFixed(2).replace('.', ',') + ' €'; }
+  function sum() { sumEl.textContent = euro(ORDER.reduce(function (a, it, i) { return a + it[1] * qty[i]; }, 0)); }
+  ORDER.forEach(function (it, i) {
+    var row = document.createElement('div'); row.className = 'bp-row';
+    row.innerHTML = '<span class="n">' + it[0] + '</span><span class="p">' + euro(it[1]) + '</span>' +
+      '<span class="bp-step"><button type="button" aria-label="weniger">−</button><span class="q">0</span><button type="button" aria-label="mehr">+</button></span>';
+    var btns = row.querySelectorAll('button'), q = row.querySelector('.q');
+    btns[0].addEventListener('click', function () { qty[i] = Math.max(0, qty[i] - 1); q.textContent = qty[i]; sum(); });
+    btns[1].addEventListener('click', function () { qty[i]++; q.textContent = qty[i]; sum(); });
+    itemsEl.appendChild(row);
+  });
+  sum();
+  document.getElementById('bpBtn').addEventListener('click', function () {
+    document.getElementById('bpOkTime').textContent = document.getElementById('bpTime').value;
+    document.getElementById('bpOk').classList.add('show');
+  });
+})();
+</script>
 
 <section class="statement">
   <p class="rv"><span class="dim">Ein gutes Brot braucht</span> Zeit, Handwerk <span class="dim">und</span> <span class="hl">Liebe.</span> <span class="dim">Alles andere lassen wir weg.</span></p>
@@ -420,7 +565,8 @@ a { color: inherit; text-decoration: none; }
 (function () {
   /* Intro-Vorhang */
   var intro = document.getElementById('intro');
-  function done() { intro.classList.add('done'); setTimeout(function(){ intro.remove(); }, 1800); }
+  if (/nointro/.test(location.search) && intro) { intro.remove(); intro = null; }
+  function done() { if (!intro) return; var el = intro; intro = null; el.classList.add('done'); setTimeout(function(){ el.remove(); }, 1800); }
   if (document.readyState === 'complete') setTimeout(done, 350); else addEventListener('load', function(){ setTimeout(done, 250); });
   setTimeout(done, 1600);
 

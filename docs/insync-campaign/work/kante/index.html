@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KANTE — Café · Bar · Restaurant · Havelbrück</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
 <meta name="description" content="Regional, saisonal und immer besonders — die KANTE mitten in der Altstadt von Havelbrück.">
 <style>
 :root { --acc: #c23a22; --acc2: #e8734a; --ink: #1d1d1f; --paper: #fbfbfd; --grey: #6e6e73; }
@@ -280,7 +281,7 @@ a { color: inherit; text-decoration: none; }
 
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><span class="mark">K</span>KANTE</a>
-  <div class="links"><a href="#leistungen">Karte</a><a href="#galerie">Einblicke</a><a href="#werte">Warum wir</a><a href="#kontakt">Reservieren</a></div>
+  <div class="links"><a href="#speisekarte">Speisekarte</a><a href="#reservierung">Reservieren</a><a href="#galerie">Einblicke</a><a href="#kontakt">Kontakt</a></div>
   <a class="tel" href="tel:+495559887720">0555 · 988 77 20</a>
   <a class="cta" href="#kontakt">Tisch reservieren</a>
 </nav>
@@ -314,6 +315,177 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
 </section>
+
+<style>
+/* Speisekarte + Tischreservierung — nur KANTE */
+.karte { background: #14100d; color: #f3efe9; border-block: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; }
+.karte::before { content: ""; position: absolute; right: -20%; top: -30%; width: 70%; height: 120%;
+  background: radial-gradient(closest-side, rgba(232,115,74,0.13), transparent 70%); pointer-events: none; }
+.karte .sec-head .k { color: var(--acc2); }
+.karte .sec-head .s { color: rgba(243,239,233,0.55); }
+.ka-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 34px; border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; }
+.ka-tabs button { font: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 11px 20px; border-radius: 999px; border: none; background: transparent; color: rgba(243,239,233,0.6);
+  cursor: pointer; transition: background 0.25s, color 0.25s; }
+.ka-tabs button.on { background: #f3efe9; color: #14100d; }
+.ka-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px clamp(30px, 5vw, 70px); }
+@media (max-width: 860px) { .ka-cols { grid-template-columns: 1fr; } }
+.ka-item { display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.09);
+  opacity: 0; transform: translateY(10px); animation: kaIn 0.5s cubic-bezier(0.22,0.61,0.36,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes kaIn { to { opacity: 1; transform: none; } }
+.ka-item .n { font-size: 1.06rem; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 8px; }
+.ka-item .n::after { content: ""; flex: 1; border-bottom: 1.5px dotted rgba(255,255,255,0.25); transform: translateY(-3px); }
+.ka-item .p { font-weight: 700; color: var(--acc2); font-variant-numeric: tabular-nums; }
+.ka-item .d { grid-column: 1 / -1; font-size: 0.88rem; color: rgba(243,239,233,0.5); line-height: 1.5; }
+.ka-item .veg { display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; color: #9fce6a;
+  border: 1px solid rgba(159,206,106,0.4); border-radius: 999px; padding: 2px 7px; margin-left: 8px; vertical-align: 2px; }
+.ka-foot { margin-top: 26px; font-size: 12px; color: rgba(243,239,233,0.4); }
+/* Reservierung */
+.resv { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(26px, 4vw, 60px); align-items: center;
+  margin-top: clamp(56px, 8vw, 96px); padding-top: clamp(40px, 6vw, 70px); border-top: 1px solid rgba(255,255,255,0.1); }
+@media (max-width: 860px) { .resv { grid-template-columns: 1fr; } }
+.resv h3 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.1; }
+.resv h3 em { font-style: normal; color: var(--acc2); }
+.resv .rs { color: rgba(243,239,233,0.55); margin-top: 12px; line-height: 1.6; font-size: 0.98rem; }
+.rv-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px;
+  padding: clamp(22px, 3vw, 30px); backdrop-filter: blur(6px); }
+.rv-box .lab { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243,239,233,0.5); margin: 16px 0 9px; }
+.rv-box .lab:first-child { margin-top: 0; }
+.ka-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.ka-chips button { font: inherit; font-size: 13px; font-weight: 700; padding: 9px 15px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16); background: transparent; color: #f3efe9; cursor: pointer; transition: background 0.2s, border 0.2s; }
+.ka-chips button.on { background: var(--acc); border-color: var(--acc); }
+.ka-chips button:disabled { opacity: 0.3; cursor: default; text-decoration: line-through; }
+.ka-pers { display: flex; align-items: center; gap: 14px; }
+.ka-pers button { font: inherit; width: 38px; height: 38px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.16);
+  background: transparent; color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; }
+.ka-pers button:hover { background: rgba(255,255,255,0.08); }
+.ka-pers .q { font-size: 1.1rem; font-weight: 700; min-width: 90px; text-align: center; }
+.ka-btn { width: 100%; margin-top: 22px; font: inherit; font-size: 15px; font-weight: 700; color: #14100d; background: #f3efe9;
+  border: none; border-radius: 14px; padding: 15px 20px; cursor: pointer; transition: transform 0.2s; }
+.ka-btn:hover { transform: translateY(-2px); }
+.ka-ok { display: none; margin-top: 14px; border: 1px solid rgba(159,206,106,0.4); color: #cde5a9; background: rgba(159,206,106,0.08);
+  border-radius: 14px; padding: 13px 16px; font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
+.ka-ok.show { display: block; animation: kaIn 0.4s ease forwards; }
+.ka-demo { margin-top: 10px; font-size: 10.5px; letter-spacing: 0.05em; color: rgba(243,239,233,0.35); text-align: center; }
+</style>
+<section class="section karte" id="speisekarte">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="k">Speisekarte</div><h2>Die Karte der KANTE.</h2><p class="s">Klein, wechselnd, ehrlich — was die Saison hergibt und der Markt am Morgen. Donnerstags Live-Musik, samstags Brunch.</p></div>
+    <div class="ka-tabs rv" id="kaTabs" role="tablist"></div>
+    <div class="ka-cols" id="kaList"></div>
+    <p class="ka-foot rv">Alle Preise inkl. MwSt. · Allergene &amp; Zusatzstoffe auf Nachfrage · Küche bis 22 Uhr, Bar bis open end.</p>
+    <div class="resv" id="reservierung">
+      <div class="rv">
+        <h3>Heute Abend an der <em>KANTE</em>?</h3>
+        <p class="rs">Reserviert euren Tisch in 20 Sekunden — ohne Anruf, ohne App. Für Gruppen ab 8 Personen ruft uns kurz an, dann rücken wir die Tische zusammen.</p>
+      </div>
+      <div class="rv-box rv" style="--d:0.12s">
+        <div class="lab">Tag</div>
+        <div class="ka-chips" id="kaDay"></div>
+        <div class="lab">Uhrzeit</div>
+        <div class="ka-chips" id="kaTime"></div>
+        <div class="lab">Personen</div>
+        <div class="ka-pers">
+          <button type="button" id="kaMinus" aria-label="weniger">−</button>
+          <span class="q" id="kaQ">2 Personen</span>
+          <button type="button" id="kaPlus" aria-label="mehr">+</button>
+        </div>
+        <button class="ka-btn" type="button" id="kaBtn">Tisch reservieren</button>
+        <div class="ka-ok" id="kaOk"></div>
+        <p class="ka-demo">Interaktive Demo im Konzept — im Livegang mit Reservierungssystem verbunden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var MENU = {
+    'Frühstück': [
+      ['Frühstücksbrett KANTE', 'Sauerteigbrot, Aufstriche, Käse, Schinken, weiches Ei', '11,50', ''],
+      ['Shakshuka', 'Pochierte Eier in Tomate-Paprika, Fladenbrot', '10,90', 'veg'],
+      ['Porridge & Ofenobst', 'Haferporridge, karamellisierte Pflaume, Mandel', '8,40', 'veg'],
+      ['Croissant & Specialty-Kaffee', 'Butter-Croissant plus Flat White aus eigener Röstung', '6,90', 'veg']
+    ],
+    'Mittag': [
+      ['Marktteller der Woche', 'Was der Markt hergibt — jede Woche neu, immer frisch', '12,90', ''],
+      ['KANTE-Burger', 'Brioche, Rind vom Hof Ellernbrook, Röstzwiebel, Fritten', '15,50', ''],
+      ['Ofenkürbis & Feta', 'Mit Salbei, Honig und geröstetem Buchweizen', '13,20', 'veg'],
+      ['Pasta des Tages', 'Hausgemachte Pasta, wechselnde Sauce', '11,80', 'veg']
+    ],
+    'Abend': [
+      ['Flanksteak vom Grill', 'Chimichurri, Ofenkartoffel, Salat', '24,50', ''],
+      ['Gebratener Zander', 'Beurre blanc, Spitzkohl, Kartoffelstampf', '22,90', ''],
+      ['Pilz-Risotto', 'Steinpilze, Parmesan, brauner Butter-Jus', '17,40', 'veg'],
+      ['Schokoladen-Fondant', 'Flüssiger Kern, Salzkaramell, Vanilleeis', '8,90', 'veg']
+    ],
+    'Bar': [
+      ['KANTE Spritz', 'Hausaperitif mit Rhabarber und Rosmarin', '8,50', ''],
+      ['Negroni Classico', 'Gin, Campari, roter Wermut', '10,00', ''],
+      ['Naturwein 0,1 l', 'Wechselnde Auswahl — fragt das Team', 'ab 6,50', ''],
+      ['Hausgemachte Limonade', 'Zitrone-Verbene oder Gurke-Minze', '4,80', 'veg']
+    ]
+  };
+  var tabsEl = document.getElementById('kaTabs'), listEl = document.getElementById('kaList');
+  function render(cat) {
+    listEl.innerHTML = MENU[cat].map(function (it, i) {
+      return '<div class="ka-item" style="--d:' + (i * 0.06) + 's"><div class="n">' + it[0] + (it[3] ? '<span class="veg">VEGGIE</span>' : '') + '</div><div class="p">' + it[2] + ' €</div><div class="d">' + it[1] + '</div></div>';
+    }).join('');
+  }
+  Object.keys(MENU).forEach(function (cat, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = cat; if (i === 2) b.classList.add('on');
+    b.addEventListener('click', function () {
+      tabsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); render(cat);
+    });
+    tabsEl.appendChild(b);
+  });
+  render('Abend');
+
+  /* Reservierung */
+  var days = ['Heute', 'Morgen', 'Fr', 'Sa', 'So'];
+  var times = ['17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00'];
+  var booked = { 'Heute': ['19:00', '19:30', '20:00'], 'Fr': ['20:00', '20:30'], 'Sa': ['18:30', '19:00', '19:30', '20:00', '20:30'] };
+  var selDay = 'Heute', selTime = null, pers = 2;
+  var dayEl = document.getElementById('kaDay'), timeEl = document.getElementById('kaTime');
+  function renderTimes() {
+    timeEl.innerHTML = '';
+    times.forEach(function (t) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = t;
+      if ((booked[selDay] || []).indexOf(t) >= 0) b.disabled = true;
+      if (t === selTime && !b.disabled) b.classList.add('on');
+      b.addEventListener('click', function () {
+        selTime = t;
+        timeEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+      });
+      timeEl.appendChild(b);
+    });
+  }
+  days.forEach(function (d, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = d;
+    if (i === 0) b.classList.add('on');
+    b.addEventListener('click', function () {
+      selDay = d; selTime = null;
+      dayEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); renderTimes();
+    });
+    dayEl.appendChild(b);
+  });
+  renderTimes();
+  var qEl = document.getElementById('kaQ');
+  document.getElementById('kaMinus').addEventListener('click', function () { pers = Math.max(1, pers - 1); qEl.textContent = pers + (pers === 1 ? ' Person' : ' Personen'); });
+  document.getElementById('kaPlus').addEventListener('click', function () { pers = Math.min(8, pers + 1); qEl.textContent = pers + ' Personen'; });
+  document.getElementById('kaBtn').addEventListener('click', function () {
+    var ok = document.getElementById('kaOk');
+    if (!selTime) { ok.textContent = 'Bitte noch eine Uhrzeit wählen.'; ok.classList.add('show'); return; }
+    ok.innerHTML = '✓ Tisch für <b>' + pers + '</b> — <b>' + selDay + ', ' + selTime + ' Uhr</b>. Wir freuen uns auf euch!';
+    ok.classList.add('show');
+  });
+})();
+</script>
 
 <section class="statement">
   <p class="rv"><span class="dim">Gutes Essen braucht</span> keine Show. <span class="dim">Nur</span> <span class="hl">gute Zutaten</span> <span class="dim">— und Menschen, die kochen können.</span></p>
@@ -420,7 +592,8 @@ a { color: inherit; text-decoration: none; }
 (function () {
   /* Intro-Vorhang */
   var intro = document.getElementById('intro');
-  function done() { intro.classList.add('done'); setTimeout(function(){ intro.remove(); }, 1800); }
+  if (/nointro/.test(location.search) && intro) { intro.remove(); intro = null; }
+  function done() { if (!intro) return; var el = intro; intro = null; el.classList.add('done'); setTimeout(function(){ el.remove(); }, 1800); }
   if (document.readyState === 'complete') setTimeout(done, 350); else addEventListener('load', function(){ setTimeout(done, 250); });
   setTimeout(done, 1600);
 

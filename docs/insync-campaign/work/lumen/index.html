@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zahnatelier LUMEN — Zahnarztpraxis im Lichthof · Havelbrück</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
 <meta name="description" content="Moderne Zahnmedizin mit Herz & Können — Zahnarztpraxis Zahnatelier LUMEN in Havelbrück.">
 <style>
 :root { --acc: #0a7c8a; --acc2: #3fc1d3; --ink: #1d1d1f; --paper: #fbfbfd; --grey: #6e6e73; }
@@ -280,7 +281,7 @@ a { color: inherit; text-decoration: none; }
 
 <nav class="nav" id="nav">
   <a class="brand" href="#top"><span class="mark">L</span>Zahnatelier LUMEN</a>
-  <div class="links"><a href="#leistungen">Leistungen</a><a href="#galerie">Praxis</a><a href="#werte">Über uns</a><a href="#kontakt">Termin</a></div>
+  <div class="links"><a href="#leistungen">Leistungen</a><a href="#termin">Online-Termin</a><a href="#galerie">Praxis</a><a href="#kontakt">Kontakt</a></div>
   <a class="tel" href="tel:+495559862030">0555 · 986 20 30</a>
   <a class="cta" href="#kontakt">Termin vereinbaren</a>
 </nav>
@@ -314,6 +315,197 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
 </section>
+
+<style>
+/* Online-Terminbuchung — nur LUMEN */
+.booking { background: linear-gradient(180deg, #eef6f8, #fbfbfd); border-block: 1px solid rgba(10,124,138,0.08); }
+.lu-shell { background: #fff; border-radius: 30px; box-shadow: 0 40px 90px -60px rgba(10,60,70,0.5);
+  border: 1px solid rgba(10,124,138,0.1); overflow: hidden; max-width: 880px; margin: 0 auto; }
+.lu-head { display: flex; align-items: center; gap: 14px; padding: 22px clamp(20px, 3vw, 34px);
+  border-bottom: 1px solid rgba(0,0,0,0.06); }
+.lu-steps { display: flex; gap: 6px; margin-left: auto; }
+.lu-steps span { width: 34px; height: 5px; border-radius: 99px; background: rgba(10,124,138,0.14); transition: background 0.3s; }
+.lu-steps span.on { background: var(--acc); }
+.lu-head .t { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+.lu-head .live { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; color: var(--acc); }
+.lu-head .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #35c26a; animation: luPulse 1.6s infinite; }
+@keyframes luPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(53,194,106,0.5); } 60% { box-shadow: 0 0 0 6px rgba(53,194,106,0); } }
+.lu-body { padding: clamp(24px, 3.6vw, 40px); min-height: 330px; }
+.lu-pane { display: none; }
+.lu-pane.on { display: block; animation: luIn 0.45s cubic-bezier(0.22,0.61,0.36,1); }
+@keyframes luIn { from { opacity: 0; transform: translateY(12px); } }
+.lu-q { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 22px; }
+.lu-treat { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.lu-treat button { font: inherit; text-align: left; padding: 18px; border-radius: 18px; border: 1.5px solid rgba(0,0,0,0.1);
+  background: #fff; cursor: pointer; transition: border 0.2s, transform 0.2s, box-shadow 0.2s; }
+.lu-treat button:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -22px rgba(10,60,70,0.4); }
+.lu-treat button.on { border-color: var(--acc); box-shadow: 0 0 0 3px rgba(10,124,138,0.12); }
+.lu-treat .ic { font-size: 24px; }
+.lu-treat .tn { font-weight: 700; font-size: 0.98rem; margin-top: 10px; }
+.lu-treat .td { font-size: 0.8rem; color: var(--grey); margin-top: 4px; line-height: 1.45; }
+.lu-treat .tm { display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--acc);
+  background: rgba(10,124,138,0.08); border-radius: 999px; padding: 4px 10px; }
+.lu-days { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 24px; }
+.lu-days button { font: inherit; min-width: 74px; padding: 12px 10px; border-radius: 16px; border: 1.5px solid rgba(0,0,0,0.1);
+  background: #fff; cursor: pointer; text-align: center; transition: border 0.2s; }
+.lu-days button.on { border-color: var(--acc); box-shadow: 0 0 0 3px rgba(10,124,138,0.12); }
+.lu-days .dw { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); }
+.lu-days .dd { font-size: 1.15rem; font-weight: 700; margin-top: 2px; }
+.lu-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 9px; }
+.lu-slots button { font: inherit; font-size: 13.5px; font-weight: 700; padding: 11px 6px; border-radius: 12px;
+  border: 1.5px solid rgba(0,0,0,0.1); background: #fff; cursor: pointer; transition: border 0.2s, background 0.2s; }
+.lu-slots button.on { background: var(--acc); border-color: var(--acc); color: #fff; }
+.lu-slots button:disabled { opacity: 0.32; cursor: default; text-decoration: line-through; }
+.lu-sum { background: rgba(10,124,138,0.05); border: 1px solid rgba(10,124,138,0.14); border-radius: 18px; padding: 20px; }
+.lu-sum .row { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; font-size: 0.95rem;
+  border-bottom: 1px dashed rgba(10,124,138,0.18); }
+.lu-sum .row:last-child { border: none; }
+.lu-sum .l { color: var(--grey); }
+.lu-sum .v { font-weight: 700; text-align: right; }
+.lu-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+@media (max-width: 620px) { .lu-fields { grid-template-columns: 1fr; } }
+.lu-fields input { font: inherit; font-size: 0.95rem; padding: 13px 15px; border-radius: 13px; border: 1.5px solid rgba(0,0,0,0.12); }
+.lu-fields input:focus { outline: none; border-color: var(--acc); }
+.lu-foot { display: flex; align-items: center; gap: 12px; padding: 18px clamp(20px, 3vw, 34px);
+  border-top: 1px solid rgba(0,0,0,0.06); background: #fafcfd; }
+.lu-back { font: inherit; font-size: 14px; font-weight: 600; color: var(--grey); background: none; border: none; cursor: pointer; visibility: hidden; }
+.lu-next { font: inherit; margin-left: auto; font-size: 15px; font-weight: 700; color: #fff; background: var(--acc);
+  border: none; border-radius: 999px; padding: 14px 30px; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+.lu-next:disabled { opacity: 0.35; cursor: default; }
+.lu-next:not(:disabled):hover { transform: translateY(-2px); }
+.lu-done { text-align: center; padding: 30px 10px; }
+.lu-done .chk { width: 74px; height: 74px; margin: 0 auto 20px; border-radius: 50%; background: #35c26a; color: #fff;
+  font-size: 34px; display: flex; align-items: center; justify-content: center; animation: luPop 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes luPop { from { transform: scale(0); } }
+.lu-done h4 { font-size: 1.4rem; letter-spacing: -0.02em; }
+.lu-done p { color: var(--grey); margin-top: 10px; line-height: 1.6; font-size: 0.95rem; }
+.lu-demo { text-align: center; font-size: 10.5px; letter-spacing: 0.05em; color: var(--grey); padding: 0 20px 18px; }
+.booking .aside { max-width: 880px; margin: 22px auto 0; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.booking .aside span { font-size: 12px; font-weight: 600; color: var(--grey); border: 1px solid rgba(0,0,0,0.09);
+  background: #fff; border-radius: 999px; padding: 8px 15px; }
+</style>
+<section class="section booking" id="termin">
+  <div class="wrap">
+    <div class="sec-head center rv"><div class="k">Online-Terminbuchung</div><h2>Ihr Termin — in 30 Sekunden.</h2><p class="s">Kein Warteschleifen-Marathon: Behandlung wählen, Zeit aussuchen, fertig. Rund um die Uhr, auch sonntags um 23 Uhr.</p></div>
+    <div class="lu-shell rv">
+      <div class="lu-head"><span class="t">Termin buchen</span><span class="live">Echtzeit-Kalender</span>
+        <div class="lu-steps"><span class="on"></span><span id="luS2"></span><span id="luS3"></span></div>
+      </div>
+      <div class="lu-body">
+        <div class="lu-pane on" id="luP1">
+          <div class="lu-q">Welche Behandlung darf es sein?</div>
+          <div class="lu-treat" id="luTreat"></div>
+        </div>
+        <div class="lu-pane" id="luP2">
+          <div class="lu-q">Wann passt es Ihnen?</div>
+          <div class="lu-days" id="luDays"></div>
+          <div class="lu-slots" id="luSlots"></div>
+        </div>
+        <div class="lu-pane" id="luP3">
+          <div class="lu-q">Fast geschafft — Ihre Daten.</div>
+          <div class="lu-sum" id="luSum"></div>
+          <div class="lu-fields">
+            <input type="text" placeholder="Ihr Name" id="luName">
+            <input type="tel" placeholder="Telefonnummer" id="luTel">
+          </div>
+        </div>
+        <div class="lu-pane" id="luP4">
+          <div class="lu-done">
+            <div class="chk">✓</div>
+            <h4>Termin bestätigt!</h4>
+            <p id="luDoneTx">Wir haben Ihnen alles per SMS geschickt.<br>Bitte kommen Sie 10 Minuten früher — beim ersten Besuch mit Versichertenkarte.</p>
+          </div>
+        </div>
+      </div>
+      <div class="lu-foot">
+        <button class="lu-back" id="luBack" type="button">← Zurück</button>
+        <button class="lu-next" id="luNext" type="button" disabled>Weiter</button>
+      </div>
+      <p class="lu-demo">Interaktive Demo im Konzept — im Livegang direkt mit dem Praxiskalender (z.&nbsp;B. Doctolib) verbunden.</p>
+    </div>
+    <div class="aside rv"><span>🦷 Schmerzpatienten: heute noch dran</span><span>📱 Erinnerung per SMS</span><span>🔁 Verschieben mit einem Klick</span><span>🕐 Ø Wartezeit vor Ort: unter 5 Min.</span></div>
+  </div>
+</section>
+<script>
+(function () {
+  var TREAT = [
+    ['🪥', 'Prophylaxe / Zahnreinigung', 'Gründliche PZR mit Politur und Fluoridierung', '60 Min.'],
+    ['✨', 'Bleaching-Beratung', 'Analyse, Farbbestimmung, Behandlungsplan', '30 Min.'],
+    ['🦷', 'Kontrolle / Check-up', 'Halbjährliche Vorsorge mit Früherkennung', '20 Min.'],
+    ['🚨', 'Schmerz-Termin', 'Akute Beschwerden — wir nehmen Sie heute dran', 'ASAP']
+  ];
+  var state = { treat: null, day: null, slot: null, step: 1 };
+  var treatEl = document.getElementById('luTreat');
+  TREAT.forEach(function (t, i) {
+    var b = document.createElement('button'); b.type = 'button';
+    b.innerHTML = '<span class="ic">' + t[0] + '</span><div class="tn">' + t[1] + '</div><div class="td">' + t[2] + '</div><span class="tm">' + t[3] + '</span>';
+    b.addEventListener('click', function () {
+      state.treat = t[1];
+      treatEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); next.disabled = false;
+    });
+    treatEl.appendChild(b);
+  });
+  /* nächste 6 Werktage generieren */
+  var DW = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  var days = [], d = new Date();
+  while (days.length < 6) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) days.push({ w: DW[d.getDay()], d: d.getDate() + '.' + (d.getMonth() + 1) + '.' });
+  }
+  var SLOTS = ['8:00', '8:40', '9:20', '10:00', '10:40', '11:20', '14:00', '14:40', '15:20', '16:00', '16:40', '17:20'];
+  var daysEl = document.getElementById('luDays'), slotsEl = document.getElementById('luSlots');
+  function renderSlots(seed) {
+    slotsEl.innerHTML = '';
+    SLOTS.forEach(function (s, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = s;
+      if ((i * 7 + seed * 5) % 3 === 0) b.disabled = true; /* belegte Slots simulieren */
+      b.addEventListener('click', function () {
+        state.slot = s;
+        slotsEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on'); next.disabled = false;
+      });
+      slotsEl.appendChild(b);
+    });
+  }
+  days.forEach(function (dd, i) {
+    var b = document.createElement('button'); b.type = 'button';
+    b.innerHTML = '<div class="dw">' + dd.w + '</div><div class="dd">' + dd.d + '</div>';
+    b.addEventListener('click', function () {
+      state.day = dd.w + ', ' + dd.d; state.slot = null; next.disabled = true;
+      daysEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); renderSlots(i);
+    });
+    daysEl.appendChild(b);
+  });
+  var next = document.getElementById('luNext'), back = document.getElementById('luBack');
+  function show(step) {
+    state.step = step;
+    [1, 2, 3, 4].forEach(function (i) { document.getElementById('luP' + i).classList.toggle('on', i === step); });
+    document.getElementById('luS2').classList.toggle('on', step >= 2);
+    document.getElementById('luS3').classList.toggle('on', step >= 3);
+    back.style.visibility = (step > 1 && step < 4) ? 'visible' : 'hidden';
+    next.style.display = step === 4 ? 'none' : '';
+    if (step === 2) next.disabled = !state.slot;
+    if (step === 3) {
+      next.disabled = false; next.textContent = 'Termin verbindlich buchen';
+      document.getElementById('luSum').innerHTML =
+        '<div class="row"><span class="l">Behandlung</span><span class="v">' + state.treat + '</span></div>' +
+        '<div class="row"><span class="l">Termin</span><span class="v">' + state.day + ' · ' + state.slot + ' Uhr</span></div>' +
+        '<div class="row"><span class="l">Behandlerin</span><span class="v">ZÄ Dr. Amelie Lund</span></div>';
+    } else { next.textContent = 'Weiter'; }
+  }
+  next.addEventListener('click', function () {
+    if (state.step === 3) {
+      var n = document.getElementById('luName').value.trim();
+      document.getElementById('luDoneTx').innerHTML = (n ? '<b>' + n + '</b>, Ihr' : 'Ihr') + ' Termin: <b>' + state.day + ' um ' + state.slot + ' Uhr</b>.<br>Bestätigung kommt per SMS — beim ersten Besuch bitte Versichertenkarte mitbringen.';
+      show(4); return;
+    }
+    show(state.step + 1);
+  });
+  back.addEventListener('click', function () { show(state.step - 1); });
+})();
+</script>
 
 <section class="statement">
   <p class="rv"><span class="dim">Ihr Lächeln ist</span> einzigartig. <span class="dim">Unsere Behandlung</span> <span class="hl">auch.</span></p>
@@ -420,7 +612,8 @@ a { color: inherit; text-decoration: none; }
 (function () {
   /* Intro-Vorhang */
   var intro = document.getElementById('intro');
-  function done() { intro.classList.add('done'); setTimeout(function(){ intro.remove(); }, 1800); }
+  if (/nointro/.test(location.search) && intro) { intro.remove(); intro = null; }
+  function done() { if (!intro) return; var el = intro; intro = null; el.classList.add('done'); setTimeout(function(){ el.remove(); }, 1800); }
   if (document.readyState === 'complete') setTimeout(done, 350); else addEventListener('load', function(){ setTimeout(done, 250); });
   setTimeout(done, 1600);
 
