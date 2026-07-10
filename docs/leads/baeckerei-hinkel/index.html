@@ -1,460 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Bäckerei HINKEL — Die Bäckerei der Brotfreunde · Düsseldorf</title>
-<meta name="description" content="Echtes Handwerk, beste Zutaten und die Liebe zum guten Brot — Bäckerei HINKEL in Düsseldorf.">
+<meta name="description" content="Entdecken Sie handwerklich gebackene Brote, Brötchen und Konditorei-Spezialitäten. Die Bäckerei der Brotfreunde — mit Leidenschaft und besten Zutaten."/>
+<meta name="robots" content="noindex"/><meta name="theme-color" content="#2A2018"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root { --acc: #a06514; --acc2: #e0a34c; --ink: #1d1d1f; --paper: #fbfbfd; --grey: #6e6e73; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-
-.concept-note { position: relative; z-index: 95; background: #000; color: rgba(255,255,255,0.75); font-size: 11px;
-  letter-spacing: 0.04em; text-align: center; padding: 7px 14px; }
-.concept-note b { color: var(--acc2); font-weight: 600; }
-
-/* Nav: transparent über dem Bild-Hero, danach hell mit Blur */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 90; display: flex; align-items: center; gap: 28px;
-  padding: 14px clamp(18px, 4vw, 44px); transition: background 0.35s, box-shadow 0.35s, color 0.35s, transform 0.35s;
-  color: #fff; }
-.nav.solid { background: rgba(251,251,253,0.78); backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px); color: var(--ink);
-  box-shadow: 0 10px 40px -18px rgba(0,0,0,0.28); }
-.nav .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 16.5px; letter-spacing: -0.01em; }
-.nav .brand .mark { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg, var(--acc), var(--acc2));
-  color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800;
-  box-shadow: 0 8px 22px -8px rgba(0,0,0,0.5); }
-.nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 13.5px; font-weight: 500; opacity: 0.85; }
-.nav .links a:hover { opacity: 1; }
-.nav .tel { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
-.nav .cta { background: #fff; color: #000; font-size: 13.5px; font-weight: 600; padding: 10px 18px; border-radius: 999px;
-  white-space: nowrap; transition: transform 0.2s; }
-.nav.solid .cta { background: var(--ink); color: #fff; }
-.nav .cta:hover { transform: translateY(-1px); }
-@media (max-width: 900px) { .nav .links { display: none; } .nav .tel { margin-left: auto; } }
-
-/* Hero: Full-Bleed-Bild mit Parallax */
-.hero { position: relative; min-height: 104svh; display: flex; align-items: flex-end; overflow: hidden; color: #fff; }
-.hero .bg { position: absolute; inset: -12% 0; z-index: 0; will-change: transform; }
-.hero .bg img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 2.2s cubic-bezier(0.22,0.61,0.36,1); }
-.hero.loaded .bg img { transform: scale(1); }
-.hero .scrim { position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to top, rgba(5,5,8,0.92) 0%, rgba(5,5,8,0.42) 42%, rgba(5,5,8,0.28) 100%); }
-.hero .inner { position: relative; z-index: 2; width: 100%; max-width: 1180px; margin: 0 auto;
-  padding: 140px clamp(20px, 4vw, 44px) clamp(56px, 8vw, 96px); }
-.kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--acc2); margin-bottom: 22px; }
-.kicker::before { content: ""; width: 30px; height: 1px; background: var(--acc2); }
-.hero h1 { font-size: clamp(3rem, 9vw, 6.8rem); line-height: 1.0; letter-spacing: -0.035em; font-weight: 700; }
-.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; }
-.hero h1 .w > span { display: inline-block; transform: translateY(112%); transition: transform 0.9s cubic-bezier(0.22,0.61,0.36,1);
-  transition-delay: var(--d, 0s); }
-.hero.loaded h1 .w > span { transform: none; }
-.hero h1 .acc { background: linear-gradient(100deg, var(--acc2), #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hero .sub { max-width: 540px; margin-top: 22px; font-size: clamp(1rem, 1.9vw, 1.18rem); line-height: 1.6; color: rgba(255,255,255,0.82); }
-.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
-.btn { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 600;
-  padding: 15px 27px; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
-.btn:hover { transform: translateY(-2px); }
-.btn.solid { background: #fff; color: #000; box-shadow: 0 18px 40px -16px rgba(0,0,0,0.6); }
-.btn.ghost { border: 1.5px solid rgba(255,255,255,0.42); color: #fff; backdrop-filter: blur(6px); }
-.hero .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
-.hero .meta span { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.28); background: rgba(0,0,0,0.25); backdrop-filter: blur(8px);
-  padding: 7px 14px; border-radius: 999px; }
-.scroll-cue { position: absolute; right: clamp(20px, 4vw, 44px); bottom: 26px; z-index: 2;
-  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.6);
-  writing-mode: vertical-rl; display: flex; align-items: center; gap: 8px; }
-.scroll-cue::after { content: ""; width: 1px; height: 42px; background: linear-gradient(rgba(255,255,255,0.7), transparent);
-  animation: cue 1.8s ease-in-out infinite; }
-@keyframes cue { 0%,100% { transform: translateY(0); opacity: 1; } 60% { transform: translateY(10px); opacity: 0.3; } }
-
-/* Marquee */
-.mq { background: #000; color: #f5f5f7; overflow: hidden; padding: 18px 0; border-block: 1px solid rgba(255,255,255,0.08); }
-.mq .track { display: flex; gap: 0; width: max-content; animation: mq 26s linear infinite; }
-.mq:hover .track { animation-play-state: paused; }
-@keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.mq span { flex: none; font-size: clamp(1.5rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em;
-  padding-right: 26px; white-space: nowrap; }
-.mq span i { font-style: normal; color: var(--acc2); padding-right: 26px; }
-.mq span.o { -webkit-text-stroke: 1px rgba(255,255,255,0.5); color: transparent; }
-
-/* Sections */
-.section { padding: clamp(76px, 10vw, 140px) clamp(18px, 4vw, 44px); }
-.wrap { max-width: 1180px; margin: 0 auto; }
-.sec-head { max-width: 760px; margin-bottom: clamp(36px, 5vw, 60px); }
-.sec-head.center { margin-inline: auto; text-align: center; }
-.sec-head .k { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
-.sec-head h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em; line-height: 1.07; font-weight: 700; margin-top: 12px; }
-.sec-head .s { color: var(--grey); font-size: clamp(0.98rem, 1.7vw, 1.12rem); line-height: 1.55; margin-top: 14px; }
-
-/* Bento mit Bildern */
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-.card { grid-column: span 2; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 26px;
-  padding: clamp(24px, 3vw, 34px); box-shadow: 0 20px 50px -38px rgba(0,0,0,0.35); position: relative; overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.4s; }
-.card:hover { transform: translateY(-6px); box-shadow: 0 34px 70px -40px rgba(0,0,0,0.45); }
-.card.img { padding: 0; display: flex; flex-direction: column; }
-.card.img .ph { overflow: hidden; aspect-ratio: 16/10; }
-.card.img .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22,0.61,0.36,1); }
-.card.img:hover .ph img { transform: scale(1.07); }
-.card.img .tx { padding: 22px 26px 26px; }
-.card.feature { grid-column: span 6; min-height: 380px; color: #fff; border: none; display: flex; align-items: flex-end; }
-.card.feature .bg { position: absolute; inset: 0; }
-.card.feature .bg img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(0.22,0.61,0.36,1); }
-.card.feature:hover .bg img { transform: scale(1.05); }
-.card.feature .bg::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(5,5,8,0.88), rgba(5,5,8,0.12) 60%); }
-.card.feature .fx { position: relative; max-width: 620px; }
-.card.feature h3 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; }
-.card.feature p { color: rgba(255,255,255,0.85); margin-top: 10px; font-size: 1rem; line-height: 1.6; }
-.card .ico { width: 52px; height: 52px; border-radius: 15px; display: flex; align-items: center; justify-content: center;
-  font-size: 24px; background: linear-gradient(135deg, rgba(160,101,20,0.12), rgba(224,163,76,0.2)); margin-bottom: 18px; }
-.card h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
-.card p { margin-top: 8px; font-size: 0.95rem; line-height: 1.55; color: var(--grey); }
-.card.feature p { color: rgba(255,255,255,0.85); }
-.card.img .tx p { margin-top: 6px; }
-@media (max-width: 980px) { .card { grid-column: span 3; } }
-@media (max-width: 640px) { .card, .card.feature { grid-column: span 6; } }
-
-/* Galerie mit Clip-Reveal */
-.gallery { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 16px; align-items: stretch; }
-@media (max-width: 860px) { .gallery { grid-template-columns: 1fr; } }
-.gallery figure { position: relative; overflow: hidden; border-radius: 24px; aspect-ratio: 4/5;
-  clip-path: inset(14% 10% 14% 10% round 34px); transition: clip-path 1.1s cubic-bezier(0.22,0.61,0.36,1); }
-.gallery figure:nth-child(2) { aspect-ratio: 4/5; margin-top: clamp(0px, 4vw, 54px); }
-.gallery figure:nth-child(3) { aspect-ratio: 4/5; margin-top: clamp(0px, 7vw, 104px); }
-.gallery figure.in { clip-path: inset(0 0 0 0 round 24px); }
-.gallery img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); transition: transform 1.3s cubic-bezier(0.22,0.61,0.36,1); }
-.gallery figure.in img { transform: scale(1); }
-.gallery figure:hover img { transform: scale(1.06); }
-.gallery figcaption { position: absolute; left: 16px; bottom: 14px; z-index: 2; font-size: 11px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(8px); padding: 7px 13px; border-radius: 999px; }
-
-/* Statement */
-.statement { background: #000; color: #f5f5f7; padding: clamp(90px, 13vw, 170px) 22px; text-align: center;
-  position: relative; overflow: hidden; }
-.statement::after { content: ""; position: absolute; left: 50%; bottom: -40%; width: 90vw; height: 80%;
-  transform: translateX(-50%); pointer-events: none;
-  background: radial-gradient(50% 55% at 50% 100%, rgba(224,163,76,0.35) 0%, rgba(0,0,0,0) 70%); }
-.statement p { position: relative; max-width: 1000px; margin: 0 auto;
-  font-size: clamp(1.7rem, 4.6vw, 3.4rem); line-height: 1.16; letter-spacing: -0.025em; font-weight: 700; }
-.statement p .dim { color: rgba(245,245,247,0.35); }
-.statement p .hl { background: linear-gradient(100deg, var(--acc2), #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-/* Split: Bild + Text */
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
-@media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
-.split .ph { position: relative; overflow: hidden; border-radius: 28px; aspect-ratio: 4/4.6; }
-.split .ph img { width: 100%; height: 116%; object-fit: cover; will-change: transform; }
-.split h2 { font-size: clamp(1.9rem, 4vw, 3rem); letter-spacing: -0.03em; line-height: 1.08; font-weight: 700; }
-.split .s { color: var(--grey); line-height: 1.65; margin-top: 16px; font-size: 1.02rem; }
-.vals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
-@media (max-width: 500px) { .vals { grid-template-columns: 1fr; } }
-.val { background: #fff; border-radius: 18px; padding: 20px 22px; border: 1px solid rgba(0,0,0,0.05); }
-.val .n { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.03em;
-  background: linear-gradient(100deg, var(--acc), var(--acc2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.val .t { font-size: 0.86rem; color: var(--grey); margin-top: 4px; line-height: 1.5; }
-.band { background: #f5f5f7; }
-
-/* Stimmen */
-.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.quote { background: #fff; border-radius: 24px; padding: 30px; border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 20px 50px -40px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 14px;
-  transition: transform 0.35s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.35s; }
-.quote:hover { transform: translateY(-5px); box-shadow: 0 30px 62px -42px rgba(0,0,0,0.42); }
-.quote .stars { color: var(--acc); letter-spacing: 3px; font-size: 14px; }
-.quote blockquote { font-size: 1.02rem; line-height: 1.55; font-weight: 500; }
-.quote .who { font-size: 0.82rem; color: var(--grey); margin-top: auto; }
-
-/* Kontakt */
-.contact { background: #000; color: #f5f5f7; border-radius: 34px; margin: 0 clamp(12px, 2vw, 26px) 26px;
-  padding: clamp(66px, 9vw, 120px) clamp(22px, 5vw, 70px); position: relative; overflow: hidden; }
-.contact::before { content: ""; position: absolute; right: -18%; top: -30%; width: 65%; aspect-ratio: 1; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(224,163,76,0.35) 0%, rgba(0,0,0,0) 72%); }
-.contact .grid { position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(34px, 5vw, 70px); align-items: center; }
-@media (max-width: 860px) { .contact .grid { grid-template-columns: 1fr; } }
-.contact h2 { font-size: clamp(2.1rem, 5vw, 3.6rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 700; }
-.contact .s { color: rgba(245,245,247,0.6); font-size: 1.05rem; line-height: 1.6; margin-top: 16px; max-width: 460px; }
-.contact .phone { display: inline-block; margin-top: 30px; font-size: clamp(1.6rem, 3.6vw, 2.5rem); font-weight: 800;
-  letter-spacing: -0.02em; background: linear-gradient(100deg, #fff, var(--acc2));
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-.contact .btn.solid { background: #fff; color: #000; }
-.contact .btn.ghost { border-color: rgba(255,255,255,0.3); color: #fff; }
-.info { display: flex; flex-direction: column; gap: 14px; }
-.info .row { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 18px 22px; }
-.info .row .l { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-.info .row .v { font-size: 1rem; font-weight: 600; margin-top: 5px; line-height: 1.45; }
-
-.footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  padding: 22px clamp(18px, 4vw, 44px) 30px; font-size: 12px; color: var(--grey); }
-.footer b { color: var(--ink); }
-
-/* Reveals (gestaffelt über --d) */
-.rv { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.22,0.61,0.36,1), transform 0.8s cubic-bezier(0.22,0.61,0.36,1); transition-delay: var(--d, 0s); }
-.rv.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .rv, .gallery figure, .gallery img, .hero h1 .w > span, .hero .bg img { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
-  .mq .track { animation: none; }
-}
-
-/* ===== v3 Premium-Layer ===== */
-.intro { position: fixed; inset: 0; z-index: 200; background: #0a0a0a; display: flex; align-items: center; justify-content: center;
-  clip-path: inset(0 0 0 0); transition: clip-path 0.9s cubic-bezier(0.77,0,0.18,1) 0.5s; }
-.intro.done { clip-path: inset(0 0 100% 0); pointer-events: none; }
-.intro .im { display: flex; align-items: center; gap: 14px; color: #fff; font-weight: 800;
-  font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.02em; opacity: 0; transform: translateY(16px);
-  animation: introIn 0.7s cubic-bezier(0.22,0.61,0.36,1) 0.08s forwards; }
-.intro .im .mark { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--acc), var(--acc2));
-  display: flex; align-items: center; justify-content: center; font-size: 19px; }
-@keyframes introIn { to { opacity: 1; transform: none; } }
-.progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 130;
-  background: linear-gradient(90deg, var(--acc), var(--acc2)); }
-.grain { position: fixed; inset: 0; z-index: 105; pointer-events: none; opacity: 0.05;
-  background-image: url(../../insync-campaign/textures/grain.avif); background-size: 380px; }
-.mq { transform: rotate(-1.3deg) scale(1.03); }
-.hero .bg img.zoom { animation: heroZoom 16s ease-in-out infinite alternate; }
-@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
-.stat-chip { position: absolute; right: clamp(18px, 4vw, 44px); bottom: 100px; z-index: 3;
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; font-weight: 600; font-size: 13px;
-  padding: 12px 18px; border-radius: 999px; opacity: 0; transform: translateY(16px);
-  transition: opacity 0.8s 1.2s, transform 0.8s 1.2s; }
-.hero.loaded .stat-chip { opacity: 1; transform: none; }
-@media (max-width: 700px) { .stat-chip { display: none; } }
-.gallery figure { will-change: transform; }
-.ctaband { background: #000; color: #fff; text-align: center; padding: clamp(90px, 13vw, 170px) 22px;
-  position: relative; overflow: hidden; }
-.ctaband::before { content: ""; position: absolute; left: 50%; top: 55%; width: 90vw; aspect-ratio: 2.2;
-  transform: translate(-50%,-50%); pointer-events: none;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(224,163,76,0.35) 0%, rgba(0,0,0,0) 70%); }
-.ctaband .big { position: relative; font-size: clamp(2.4rem, 7vw, 5.2rem); font-weight: 800;
-  letter-spacing: -0.035em; line-height: 1.03; }
-.ctaband .big em { font-style: normal; background: linear-gradient(100deg, var(--acc2), #fff);
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-.ctaband .s2 { position: relative; margin-top: 16px; color: rgba(255,255,255,0.55); font-size: 1.05rem; }
-.ctaband .btn { position: relative; margin-top: 34px; background: #fff; color: #000;
-  box-shadow: 0 20px 50px -18px rgba(0,0,0,0.8); }
-.gword { font-size: clamp(4rem, 17vw, 15rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.86;
-  text-align: center; color: transparent; -webkit-text-stroke: 1.5px rgba(29,29,31,0.14);
-  user-select: none; margin: 40px 0 -0.1em; }
-</style>
-</head>
-<body>
-<div class="concept-note">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9 — Media Engineering.AI</b> für Bäckerei HINKEL</div>
-<div class="intro" id="intro"><div class="im"><span class="mark">H</span>Bäckerei HINKEL</div></div>
-<div class="progress" id="progress"></div>
-<div class="grain" aria-hidden="true"></div>
-
-
-<nav class="nav" id="nav">
-  <a class="brand" href="#top"><span class="mark">H</span>Bäckerei HINKEL</a>
-  <div class="links"><a href="#leistungen">Sortiment</a><a href="#galerie">Backstube</a><a href="#werte">Philosophie</a><a href="#kontakt">Kontakt</a></div>
-  <a class="tel" href="tel:+4921186203413">0211 · 86 20 34 13</a>
-  <a class="cta" href="#kontakt">Kontakt</a>
-</nav>
-
-<header class="hero" id="top">
-  <div class="bg" data-plx="0.25"><img src="../../assets/premium/hinkel-hero.jpg" alt="Frisch gebackene Brote der Bäckerei HINKEL"></div>
-  <div class="scrim"></div>
-  <div class="inner">
-    <div class="kicker">Die Bäckerei der Brotfreunde · Düsseldorf</div>
-    <h1><span class="w" style="--d:0.10s"><span>Brot</span></span> <span class="w" style="--d:0.18s"><span>verbindet.</span></span><br><span class="w" style="--d:0.3s"><span class="acc">Wir backen dafür.</span></span></h1>
-    <p class="sub rv" style="--d:0.55s">Echtes Handwerk, beste Zutaten und die Liebe zum guten Brot. Unsere Brote schmecken nach mehr als nur Mehl und Wasser.</p>
-    <div class="btn-row rv" style="--d:0.7s">
-      <a class="btn solid" href="#kontakt">Jetzt Kontakt aufnehmen <span>→</span></a>
-      <a class="btn ghost" href="#leistungen">Unser Sortiment</a>
-    </div>
-    <div class="meta rv" style="--d:0.85s"><span>Natursauerteig</span><span>Regionale Mühlen</span><span>Jeden Morgen frisch</span></div>
-  </div>
-  <div class="stat-chip">★ 4,8 · 60+ Bewertungen</div>
-  <span class="scroll-cue">Scroll</span>
-</header>
-
-<div class="mq" aria-hidden="true"><div class="track"><span>Natursauerteig <i>✦</i></span><span class="o">Handwerk <i>✦</i></span><span>Brotfreunde <i>✦</i></span><span class="o">Regionale Mühlen <i>✦</i></span><span>Ofenfrisch <i>✦</i></span><span>Natursauerteig <i>✦</i></span><span class="o">Handwerk <i>✦</i></span><span>Brotfreunde <i>✦</i></span><span class="o">Regionale Mühlen <i>✦</i></span><span>Ofenfrisch <i>✦</i></span></div></div>
-
-<section class="section" id="leistungen">
-  <div class="wrap">
-    <div class="sec-head rv"><div class="k">Sortiment</div><h2>Gebacken, wie es sein soll.</h2><p class="s">Vom Frühstücksbrötchen bis zum Sonntagskuchen — alles aus eigener Backstube.</p></div>
-    <div class="bento">
-      <div class="card feature rv"><div class="bg"><img src="../../assets/premium/hinkel-d.jpg" alt="" loading="lazy"></div>
-        <div class="fx"><h3>Handwerkliche Brote</h3><p>Mit Zeit, Natursauerteig und ohne künstliche Zusätze gebacken — Kruste, Krume, Charakter.</p></div></div>
-      <div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../assets/premium/hinkel-b.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Brötchen &amp; Feingebäck</h3><p>Knusprig aus dem Ofen — ab 6 Uhr, den ganzen Tag frisch nachgebacken.</p></div></div><div class="card img rv" style="--d:0.08s"><div class="ph"><img src="../../assets/premium/hinkel-c.jpg" alt="" loading="lazy"></div><div class="tx"><h3>Kuchen &amp; Teilchen</h3><p>Vom Streuselkuchen bis zur Sahnetorte — süße Klassiker nach eigenen Rezepten.</p></div></div><div class="card rv" style="--d:0.16s"><div class="ico">🌾</div><h3>Regionale Zutaten</h3><p>Unser Mehl kommt von regionalen Mühlen — weil Brot nur so gut ist wie das, was drin steckt.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="statement">
-  <p class="rv"><span class="dim">Ein gutes Brot braucht</span> Zeit, Handwerk <span class="dim">und</span> <span class="hl">Liebe.</span> <span class="dim">Alles andere lassen wir weg.</span></p>
-</section>
-
-<section class="section" id="galerie">
-  <div class="wrap">
-    <div class="sec-head center rv"><div class="k">Backstube</div><h2>Ein Blick hinter den Ofen.</h2></div>
-    <div class="gallery">
-      <figure><img src="../../assets/premium/hinkel-a.jpg" alt="" loading="lazy"><figcaption>Ofenfrisch</figcaption></figure>
-      <figure><img src="../../assets/premium/hinkel-b.jpg" alt="" loading="lazy"><figcaption>Feingebäck</figcaption></figure>
-      <figure><img src="../../assets/premium/hinkel-c.jpg" alt="" loading="lazy"><figcaption>Handarbeit</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="section band" id="werte">
-  <div class="wrap split">
-    <div class="ph rv"><img src="../../assets/premium/hinkel-e.jpg" alt="" data-plx="0.12" loading="lazy"></div>
-    <div>
-      <div class="sec-head rv" style="margin-bottom:0"><div class="k">Philosophie</div><h2>Was uns antreibt.</h2><p class="s">Brot ist mehr als Nahrung — es ist Gemeinschaft, Familie, Tradition.</p></div>
-      <div class="vals"><div class="val rv"><div class="n">100%</div><div class="t">Handwerk statt Industrie — mit Zeit und Natursauerteig.</div></div><div class="val rv"><div class="n">0</div><div class="t">künstliche Zusätze — nur Mehl, Wasser, Salz und Können.</div></div><div class="val rv"><div class="n">4,8 ★</div><div class="t">über 60 Google-Bewertungen der Brotfreunde.</div></div><div class="val rv"><div class="n">♻️</div><div class="t">Reste werden zu Brotchips, alte Brote zu neuem Sauerteig.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="stimmen">
-  <div class="wrap">
-    <div class="sec-head center rv"><div class="k">Stimmen</div><h2>Brotfreunde über uns.</h2></div>
-    <div class="quotes"><div class="quote rv" style="--d:0s"><span class="stars">★★★★★</span><blockquote>„Das beste Brot Düsseldorfs. Man schmeckt die Liebe in jeder Scheibe.“</blockquote><span class="who">— M. Schneider · Google</span></div><div class="quote rv" style="--d:0.12s"><span class="stars">★★★★★</span><blockquote>„Ich bin Brotfreund geworden, als ich das erste Mal bei HINKEL gekauft habe.“</blockquote><span class="who">— S. Klein · Google</span></div><div class="quote rv" style="--d:0.24s"><span class="stars">★★★★★</span><blockquote>„Endlich eine Bäckerei, die versteht, dass Brot Seele hat.“</blockquote><span class="who">— L. Bauer · Google</span></div></div>
-  </div>
-</section>
-
-<section class="ctaband">
-  <h2 class="big rv">Lust auf <em>echtes Brot</em>?</h2>
-  <p class="s2 rv" style="--d:0.12s">Komm vorbei — der Ofen läuft schon.</p>
-  <a class="btn solid mag rv" href="#kontakt" style="--d:0.22s">Kontakt aufnehmen <span>→</span></a>
-</section>
-<section class="contact" id="kontakt">
-  <div class="grid">
-    <div class="rv">
-      <h2>Werden Sie Brotfreund.</h2>
-      <p class="s">Rufen Sie an oder schreiben Sie uns — wir freuen uns auf Sie.</p>
-      <a class="phone" href="tel:+4921186203413">0211 · 86 20 34 13</a>
-      <div class="btn-row" style="margin-top:26px">
-        <a class="btn solid" href="tel:+4921186203413">Jetzt anrufen</a>
-        <a class="btn ghost" href="mailto:kontakt@baeckerei-hinkel.de">E-Mail schreiben</a>
-      </div>
-    </div>
-    <div class="info rv" style="--d:0.15s"><div class="row"><div class="l">Telefon</div><div class="v">0211 · 86 20 34 13</div></div><div class="row"><div class="l">E-Mail</div><div class="v">kontakt@baeckerei-hinkel.de</div></div><div class="row"><div class="l">Standort</div><div class="v">Düsseldorf</div></div><div class="row"><div class="l">Backstube</div><div class="v">Jeden Morgen frisch ab 6 Uhr</div></div></div>
-  </div>
-</section>
-
-<div class="gword" aria-hidden="true">HINKEL</div>
-<footer class="footer">
-  <span>© 2026 <b>Bäckerei HINKEL</b> · Düsseldorf</span>
-  <span>Konzept-Design: <b>MZ.9 — Redesign.AI</b></span>
-</footer>
-
-<script>
-(function () {
-  var hero = document.querySelector('.hero');
-  addEventListener('load', function () { hero.classList.add('loaded'); });
-  setTimeout(function () { hero.classList.add('loaded'); }, 700);
-
-  /* Reveals */
-  var els = document.querySelectorAll('.rv, .gallery figure');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    els.forEach(function (e) { io.observe(e); });
-  } else els.forEach(function (e) { e.classList.add('in'); });
-
-  /* Nav: über dem Hero transparent, danach hell */
-  var nav = document.getElementById('nav');
-  function navUpd() {
-    nav.classList.toggle('solid', scrollY > hero.offsetHeight - 90);
-  }
-  addEventListener('scroll', navUpd, { passive: true }); navUpd();
-
-  /* Parallax */
-  var plx = Array.prototype.map.call(document.querySelectorAll('[data-plx]'), function (el) {
-    return { el: el, f: parseFloat(el.getAttribute('data-plx')) || 0.2 };
-  });
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return; ticking = true;
-    requestAnimationFrame(function () {
-      plx.forEach(function (p) {
-        var r = (p.el.closest('.hero') || p.el.parentElement).getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) { ticking = false; return; }
-        var prog = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-        p.el.style.transform = 'translateY(' + (-prog * p.f * 100).toFixed(2) + 'px)';
-      });
-      ticking = false;
-    });
-  }
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-})();
-</script>
-<script>
-(function () {
-  /* Intro-Vorhang */
-  var intro = document.getElementById('intro');
-  function done() { intro.classList.add('done'); setTimeout(function(){ intro.remove(); }, 1800); }
-  if (document.readyState === 'complete') setTimeout(done, 350); else addEventListener('load', function(){ setTimeout(done, 250); });
-  setTimeout(done, 1600);
-
-  /* Scroll-Progress */
-  var bar = document.getElementById('progress');
-  function prog() {
-    var m = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = (m > 0 ? (scrollY / m) * 100 : 0) + '%';
-  }
-  addEventListener('scroll', prog, { passive: true }); prog();
-
-  /* Hero-Zoom-Loop nach dem Entrance */
-  setTimeout(function () {
-    var im = document.querySelector('.hero .bg img');
-    if (im) im.classList.add('zoom');
-  }, 2600);
-
-  /* Zaehler hochzaehlen */
-  var nums = document.querySelectorAll('.val .n');
-  var cio = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      cio.unobserve(e.target);
-      var el = e.target, txt = el.textContent.trim();
-      var m = txt.match(/^(\d+)([.,]\d+)?(.*)$/);
-      if (!m || m[2]) return;
-      var target = parseInt(m[1], 10), suf = m[3] || '', t0 = performance.now();
-      (function tick(t) {
-        var p = Math.min((t - t0) / 1100, 1), ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * ease) + suf;
-        if (p < 1) requestAnimationFrame(tick);
-      })(t0);
-    });
-  }, { threshold: 0.6 });
-  nums.forEach(function (n) { cio.observe(n); });
-
-  /* Galerie-Drift: Spalten wandern beim Scrollen unterschiedlich schnell */
-  var figs = document.querySelectorAll('.gallery figure');
-  var speeds = [0.05, 0.12, 0.2];
-  function drift() {
-    if (!figs.length || innerWidth < 861) return;
-    var r = figs[0].parentElement.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    var off = (r.top + r.height / 2 - innerHeight / 2);
-    figs.forEach(function (f, i) { f.style.transform = 'translateY(' + (-off * speeds[i % 3]).toFixed(1) + 'px)'; });
-  }
-  addEventListener('scroll', function(){ requestAnimationFrame(drift); }, { passive: true }); drift();
-
-  /* Magnetische Buttons */
-  document.querySelectorAll('.btn.solid, .nav .cta').forEach(function (b) {
-    b.classList.add('mag');
-    b.addEventListener('mousemove', function (ev) {
-      var r = b.getBoundingClientRect();
-      var dx = (ev.clientX - r.left - r.width / 2) * 0.18;
-      var dy = (ev.clientY - r.top - r.height / 2) * 0.3;
-      b.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
-    });
-    b.addEventListener('mouseleave', function () { b.style.transform = ''; });
-  });
-})();
-</script>
-</body>
-</html>
+:root{--bg:#FCF9F5;--bg-2:#F4EDE0;--card:#FFFDF8;--dark:#2A2018;--dark-2:#3A2E24;--ink:#241C14;--ink-2:#544434;--gold:#C49444;--gold-2:#A4742E;--rust:#8A4820;--rust-2:#6E3618;--gold-light:#D8B060;--cream:#FCF9F5;--line:rgba(36,28,20,.1);--line-2:rgba(36,28,20,.06);--maxw:1180px;--r:12px;--ease:cubic-bezier(.22,.61,.36,1);--serif:"Cormorant Garamond",Georgia,serif;--sans:"Inter",system-ui,sans-serif;--sh:0 20px 50px -20px rgba(42,32,24,.35)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}::selection{background:var(--gold);color:var(--dark)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,40px)}h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;margin:0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-2)}.rv{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease)}.rv.in{opacity:1;transform:none}:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:14px;padding:15px 26px;border-radius:50px;cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease)}.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:var(--dark);box-shadow:0 14px 30px -12px rgba(196,148,68,.4)}.btn-gold:hover{background:var(--gold-2)}
+.btn-ol{background:transparent;border-color:rgba(252,249,245,.3);color:#fff}.btn-ol:hover{background:rgba(252,249,245,.1);border-color:var(--gold-light)}.btn svg{width:17px;height:17px;flex:none}
+.ribbon{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--dark);color:var(--cream);font-size:11px;font-weight:600;text-align:center;padding:4px 30px}.ribbon b{color:var(--gold)}
+.header{position:fixed;top:30px;left:0;right:0;z-index:200;transition:background .4s}.header .bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0}.header.scrolled{background:rgba(42,32,24,.94);backdrop-filter:blur(10px)}.header.scrolled .bar{padding:11px 0}.header.scrolled .brand,.header.scrolled .nav a.lk,.header.scrolled .nav .ph{color:var(--cream)}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);transition:color .4s}.brand .mk{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;flex:none;font-weight:700}
+.nav{display:flex;align-items:center;gap:26px}.nav a.lk{font-size:14px;font-weight:600;color:var(--ink);transition:color .25s}.nav a.lk:hover{color:var(--gold)}.nav .ph{font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px;transition:color .4s}.nav .ph svg{width:15px;height:15px;color:var(--gold)}
+.hero{position:relative;min-height:95svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,8,.6) 0%,rgba(20,14,8,.14) 35%,rgba(20,14,8,.32) 65%,rgba(20,14,8,.94) 100%)}
+.hero-inner{position:relative;z-index:2;color:#fff;padding:0 0 clamp(50px,9vh,100px);width:100%}.hero .eyebrow{color:var(--gold-light)}
+.hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:500;margin:18px 0 0}.hero h1 em{font-style:italic;color:var(--gold-light)}
+.hero .lede{margin:20px 0 0;max-width:44ch;font-size:clamp(1.05rem,1.6vw,1.2rem);color:rgba(252,249,245,.9);font-weight:300}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.strip{background:var(--dark);color:var(--cream)}.strip .row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:20px 0;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(252,249,245,.7)}.strip .row span{display:flex;align-items:center;gap:9px}.strip .row b{color:var(--gold)}
+.section{padding:clamp(64px,10vh,110px) 0}.sec-head{max-width:60ch;margin:0 auto clamp(34px,6vh,58px);text-align:center}.sec-head h2{font-size:clamp(2.4rem,5vw,3.4rem);margin-top:10px}.sec-head p{margin:14px auto 0;color:var(--ink-2);max-width:50ch}
+.friend-sec{background:var(--bg-2)}.friends{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.friend{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r);padding:28px;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}.friend:hover{transform:translateY(-3px);box-shadow:var(--sh)}.friend h3{font-family:var(--serif);font-size:1.4rem}.friend p{font-size:14.5px;color:var(--ink-2);margin:8px 0 0}
+.rev-sec{background:var(--dark);color:var(--cream)}.rev-sec .sec-head h2{color:#fff}.rev-sec .eyebrow{color:var(--gold-light)}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.review{background:var(--dark-2);border:1px solid rgba(252,249,245,.08);border-radius:var(--r);padding:26px}.review .s{color:var(--gold-light);letter-spacing:2px;font-size:16px}.review p{font-family:var(--serif);font-size:1.2rem;font-style:italic;margin:12px 0 18px;color:#fff;line-height:1.35}.review .who{font-size:13.5px;color:rgba(252,249,245,.65);font-weight:600}.rev-foot{text-align:center;margin-top:30px;color:rgba(252,249,245,.75)}.rev-foot b{color:var(--gold)}
+.band{position:relative;overflow:hidden;border-radius:24px;color:#fff;text-align:center;padding:clamp(44px,7vw,80px) clamp(24px,5vw,64px)}.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}.band .sc{position:absolute;inset:0;z-index:1;background:linear-gradient(rgba(20,14,8,.76),rgba(20,14,8,.88))}.band .in{position:relative;z-index:2}.band h2{font-size:clamp(2.2rem,4vw,3.2rem)}.band p{margin:14px auto 0;max-width:46ch;color:rgba(252,249,245,.85)}.band .hero-cta{justify-content:center;margin-top:28px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}.info .box h2{font-size:clamp(2rem,4vw,2.8rem)}.info dl{margin:24px 0 0;display:grid;grid-template-columns:auto 1fr;gap:14px 20px;font-size:15px}.info dt{font-weight:700;color:var(--gold-2)}.info dd{margin:0;color:var(--ink-2)}.info .mapph{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(150deg,var(--bg-2),#D8C8B0);overflow:hidden;box-shadow:var(--sh);display:flex;align-items:center;justify-content:center;color:#8A7258;font-size:13px;font-weight:600}
+.footer{background:var(--dark);color:rgba(252,249,245,.7);padding:56px 0 110px}.footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px}.footer .brand{color:var(--cream)}.footer p{max-width:34ch;margin:14px 0 0;font-size:14.5px}.footer .fnav{display:flex;gap:24px;flex-wrap:wrap}.footer .fnav a{color:rgba(252,249,245,.7);font-weight:600;font-size:14px}.footer .fnav a:hover{color:var(--gold)}.footer .bot{margin-top:40px;padding-top:22px;border-top:1px solid rgba(252,249,245,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:rgba(252,249,245,.45)}
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:250;display:none;gap:1px;background:var(--line);box-shadow:0 -8px 24px -10px rgba(42,32,24,.5)}.actionbar a{flex:1;background:var(--card);display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;font-size:11px;font-weight:700;color:var(--ink)}.actionbar a.res{background:var(--gold);color:var(--dark)}.actionbar svg{width:19px;height:19px}
+@media(max-width:860px){.friends,.info{grid-template-columns:1fr}.reviews{grid-template-columns:1fr}}@media(max-width:600px){body{font-size:16px}.nav .lk,.nav .ph{display:none}.header{top:28px}.actionbar{display:flex}.footer{padding-bottom:88px}.btn{width:100%}.hero-cta{align-self:stretch}.hero{min-height:auto}}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}.rv{filter:blur(8px)}.rv.in{filter:blur(0)}@media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1;transform:none;filter:none}}
+</style></head><body>
+<div class="ribbon">Konzept-Vorschau · unverbindlich gestaltet von <b>MZ.9</b> für Bäckerei HINKEL</div>
+<header class="header" id="header"><div class="wrap bar"><a class="brand" href="#top"><span class="mk">H</span>Bäckerei HINKEL</a><nav class="nav"><a class="lk" href="#brotfreunde">Brotfreunde</a><a class="lk" href="#info">Kontakt</a><a class="ph" href="tel:+4921186203413"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0211 · 86203413</a><a class="btn btn-gold" href="#termin">Kontakt</a></nav></div></header>
+<section id="top" class="hero"><img class="bg" id="heroBg" src="https://image.jimcdn.com/app/cms/image/transf/dimension=1920x10000:format=png/path/s06cf067058d18263/image/i0548542f1ceb26e6/version/1773913614/image.png" alt="Bäckerei HINKEL" loading="eager"><div class="scrim"></div>
+<div class="wrap hero-inner">
+<div class="eyebrow rv">Die Bäckerei der Brotfreunde · Düsseldorf</div>
+<h1 class="rv" style="transition-delay:.05s">Brot verbindet.<br><em>Wir backen dafür.</em></h1>
+<p class="lede rv" style="transition-delay:.1s">Echtes Handwerk, beste Zutaten und die Liebe zum guten Brot — willkommen bei der Bäckerei HINKEL. Unsere Brote schmecken nach mehr als nur Mehl und Wasser.</p>
+<div class="hero-cta rv" style="transition-delay:.15s"><a class="btn btn-gold" href="#termin">Jetzt Kontakt aufnehmen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ol" href="#brotfreunde">Unsere Philosophie</a></div>
+</div></section>
+<div class="strip"><div class="wrap row"><span><b>✦</b> Handwerkliche Brote</span><span><b>✦</b> Brötchen &amp; Brezen</span><span><b>✦</b> Kuchen &amp; Teilchen</span><span><b>✦</b> Brotfreunde-Philosophie</span></div></div>
+<section class="section friend-sec" id="brotfreunde"><div class="wrap"><div class="sec-head"><div class="eyebrow rv">Brotfreunde</div><h2 class="rv" style="transition-delay:.05s">Was uns antreibt? Gutes Brot und glückliche Kunden.</h2></div>
+<div class="friends">
+<div class="friend rv"><h3>🥖 Handwerk statt Industrie</h3><p>Wir backen mit Zeit, Natursauerteig und ohne künstliche Zusätze — so wie ein gutes Brot es verdient.</p></div>
+<div class="friend rv" style="transition-delay:.04s"><h3>🌾 Beste Zutaten</h3><p>Unser Mehl kommt von regionalen Mühlen, unsere Zutaten sind sorgfältig ausgewählt — weil Brot nur so gut ist wie das, was drin steckt.</p></div>
+<div class="friend rv" style="transition-delay:.08s"><h3>🤝 Brot verbindet</h3><p>Brot ist mehr als Nahrung — es ist Gemeinschaft, Familie, Tradition. Wir backen für diese Momente.</p></div>
+<div class="friend rv" style="transition-delay:.12s"><h3>♻️ Nachhaltigkeit</h3><p>Reste werden zu Brotchips, alte Brote zu neuem Sauerteig — denn gutes Brot verdient Respekt.</p></div>
+</div></div></section>
+<section class="section rev-sec" id="reviews"><div class="wrap"><div class="sec-head"><div class="eyebrow rv">Brotfreunde-Stimmen</div><h2 class="rv" style="transition-delay:.05s">4,8 ★ — weil Brot verbindet</h2></div>
+<div class="reviews"><div class="review rv"><div class="s">★★★★★</div><p>„Das beste Brot Düsseldorfs. Man schmeckt die Liebe in jeder Scheibe."</p><div class="who">— M. Schneider · Google</div></div>
+<div class="review rv" style="transition-delay:.06s"><div class="s">★★★★★</div><p>„Ich bin Brotfreund geworden, als ich das erste Mal bei HINKEL gekauft habe."</p><div class="who">— S. Klein · Google</div></div>
+<div class="review rv" style="transition-delay:.12s"><div class="s">★★★★★</div><p>„Endlich eine Bäckerei, die versteht, dass Brot Seele hat. Absolut empfehlenswert."</p><div class="who">— L. Bauer · Google</div></div></div>
+<div class="rev-foot rv">Über <b>60 Bewertungen</b> · Ø <b>4,8 ★</b></div></div></section>
+<section class="section" id="termin"><div class="wrap"><div class="band rv"><img src="https://image.jimcdn.com/app/cms/image/transf/dimension=1920x10000:format=png/path/s06cf067058d18263/image/i0548542f1ceb26e6/version/1773913614/image.png" alt="" aria-hidden="true"><div class="sc"></div><div class="in">
+<div class="eyebrow" style="color:var(--gold)">Jetzt Kontakt</div><h2 style="margin-top:10px">Werden Sie Teil der Brotfreunde.</h2><p>Rufen Sie an oder schreiben Sie uns — wir freuen uns auf Sie.</p>
+<div class="hero-cta"><a class="btn btn-gold" href="tel:+4921186203413">0211 · 86203413</a><a class="btn btn-ol" href="mailto:kontakt@baeckerei-hinkel.de">E-Mail schreiben</a></div>
+</div></div></div></section>
+<section class="section" id="info"><div class="wrap info"><div class="box rv"><div class="eyebrow">Kontakt</div><h2 style="margin-top:10px">So erreichen Sie die Brotfreunde.</h2>
+<dl><dt>Telefon</dt><dd><a href="tel:+4921186203413" style="color:var(--rust);font-weight:700">0211 · 86203413</a></dd><dt>E‑Mail</dt><dd><a href="mailto:kontakt@baeckerei-hinkel.de" style="color:var(--rust);font-weight:700">kontakt@baeckerei-hinkel.de</a></dd><dt>Website</dt><dd><a href="https://www.baeckerei-hinkel.de" target="_blank" style="color:var(--rust);font-weight:700">baeckerei-hinkel.de</a></dd></dl></div><div class="mapph rv">▦ Düsseldorf</div></div></section>
+<footer class="footer"><div class="wrap"><div class="top"><div><a class="brand" href="#top" style="font-size:24px"><span class="mk">H</span>Bäckerei HINKEL</a><p>Die Bäckerei der Brotfreunde — Düsseldorf.</p></div><nav class="fnav"><a href="#brotfreunde">Philosophie</a><a href="#termin">Kontakt</a><a href="#info">Anfahrt</a></nav></div><div class="bot"><span>© <span id="yr">2026</span> Konzept-Vorschau</span><span>Gestaltet von MZ.9</span></div></div></footer>
+<nav class="actionbar"><a href="tel:+4921186203413"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Anrufen</a><a href="#brotfreunde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h18M3 17h12"/></svg>Philosophie</a><a class="res" href="#termin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Kontakt</a></nav>
+<script>(function(){var h=document.getElementById("header");function s(){h.classList.toggle("scrolled",window.scrollY>30)}s();addEventListener("scroll",s,{passive:true});var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();var els=[].slice.call(document.querySelectorAll(".rv"));if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add("in")});var hb=document.getElementById("heroBg");addEventListener("scroll",function(){if(hb&&scrollY<innerHeight)hb.style.transform="translateY("+(scrollY*.14)+"px) scale(1.05)"},{passive:true})})();</script>
+</body></html>

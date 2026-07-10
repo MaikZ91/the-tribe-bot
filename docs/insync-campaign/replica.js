@@ -6,7 +6,7 @@
 
   var CONTACT_MAIL = 'maik.z@gmx.de';
   var WA_LINK = 'https://wa.me/4917645961547?text=' + encodeURIComponent('Hi Maik, ich will ein Redesign-Konzept für meine Seite.');
-  var PROJECT_NAMES = ['Bäckerei HINKEL', 'Restaurant 3eck', 'Dr. Benz Zahnmedizin', 'Kanzlei Schneider'];
+  var PROJECT_NAMES = ['Brotwerk Mühlenrath', 'Café Bar KANTE', 'Zahnatelier LUMEN', 'Kanzlei Morgenstern'];
 
   function onReady(fn) {
     if (document.readyState !== 'loading') fn();
@@ -77,25 +77,28 @@
     update();
   }
 
-  /* ---------- Showreel im Hero: spielt, solange sichtbar ---------- */
+  /* ---------- VSL im Hero: Klick startet Video mit Ton ---------- */
   function setupShowreel() {
-    var v = document.getElementById('showreel');
-    if (!v) return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-        else v.pause();
-      });
-    }, { threshold: 0.25 });
-    io.observe(v);
+    var v = document.getElementById('vsl');
+    var btn = document.getElementById('vslPlay');
+    if (!v || !btn) return;
+    btn.addEventListener('click', function () {
+      btn.style.transition = 'opacity 0.4s'; btn.style.opacity = '0';
+      setTimeout(function () { btn.remove(); }, 450);
+      v.controls = true; v.muted = false;
+      var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; });
+    });
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (!e.isIntersecting && !v.paused) v.pause(); });
+    }, { threshold: 0.15 }).observe(v);
   }
 
   /* ---------- Portfolio: Scroll-Videos in den Mockups + Tabs ---------- */
   var PROJECT_CLIPS = {
-    'Bäckerei HINKEL': 'videos/work/clip-baeckerei-hinkel.webm',
-    'Restaurant 3eck': 'videos/work/clip-restaurant-3eck.webm',
-    'Dr. Benz Zahnmedizin': 'videos/work/clip-zahnarzt-benz.webm',
-    'Kanzlei Schneider': 'videos/work/clip-anwalt-schneider.webm'
+    'Brotwerk Mühlenrath': 'videos/work/clip-brotwerk.webm',
+    'Café Bar KANTE': 'videos/work/clip-kante.webm',
+    'Zahnatelier LUMEN': 'videos/work/clip-lumen.webm',
+    'Kanzlei Morgenstern': 'videos/work/clip-morgenstern.webm'
   };
 
   function setupPortfolio() {
