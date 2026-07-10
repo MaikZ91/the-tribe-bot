@@ -254,6 +254,21 @@ a { color: inherit; text-decoration: none; }
 @keyframes fmq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .fstrip img { height: clamp(150px, 22vw, 250px); width: auto; border-radius: 16px; display: block;
   box-shadow: 0 18px 40px -28px rgba(0,0,0,0.45); }
+
+/* ===== v5 Motion-Layer ===== */
+.rw { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.rw > span { display: inline-block; transform: translateY(112%); transition: transform 0.85s cubic-bezier(0.22,0.61,0.36,1); transition-delay: var(--wd, 0s); }
+.rw.in > span { transform: none; }
+.cur-dot, .cur-ring { position: fixed; top: 0; left: 0; z-index: 400; pointer-events: none; border-radius: 999px;
+  transform: translate(-50%,-50%); }
+.cur-dot { width: 7px; height: 7px; background: var(--acc2); }
+.cur-ring { width: 34px; height: 34px; border: 1.5px solid var(--acc2); opacity: 0.55;
+  transition: width 0.25s, height 0.25s, opacity 0.25s, background 0.25s; }
+.cur-ring.hot { width: 56px; height: 56px; opacity: 0.9; background: color-mix(in srgb, var(--acc2) 12%, transparent); }
+@media (pointer: coarse) { .cur-dot, .cur-ring { display: none; } }
+.hero .inner { will-change: transform, opacity; }
+.fstrip .ftrack.rev { animation-direction: reverse; margin-top: 14px; }
+@media (prefers-reduced-motion: reduce) { .rw > span { transform: none !important; } .cur-dot, .cur-ring { display: none; } }
 </style>
 </head>
 <body>
@@ -478,6 +493,120 @@ a { color: inherit; text-decoration: none; }
     new IntersectionObserver(function(es){
       es.forEach(function(e){ if (e.isIntersecting) { var q=v.play(); if(q&&q.catch)q.catch(function(){}); } else v.pause(); });
     }, { threshold: 0.1 }).observe(v);
+  }
+})();
+</script><script>
+(function () {
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Headline-Wortmasken: Wörter schieben gestaffelt hoch */
+  function maskWords(el) {
+    if (el.dataset.rw) return [];
+    el.dataset.rw = '1';
+    el.classList.remove('rv');
+    var out = [];
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function (tok) {
+            if (/^\s*$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+            var m = document.createElement('span'); m.className = 'rw';
+            var inner = document.createElement('span'); inner.textContent = tok;
+            m.appendChild(inner); frag.appendChild(m); out.push(m);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1) walk(ch);
+      });
+    })(el);
+    return out;
+  }
+  var headWords = [];
+  document.querySelectorAll('.sec-head h2, .split h2, .ctaband .big, .contact h2').forEach(function (h) {
+    var ws = maskWords(h);
+    ws.forEach(function (m, i) { m.querySelector('span').style.setProperty('--wd', (i * 0.06) + 's'); });
+    if (ws.length) headWords.push({ el: h, ws: ws });
+  });
+  var hio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      hio.unobserve(e.target);
+      var grp = headWords.find(function (g) { return g.el === e.target; });
+      if (grp) grp.ws.forEach(function (m) { m.classList.add('in'); });
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.2 });
+  headWords.forEach(function (g) {
+    if (REDUCED) g.ws.forEach(function (m) { m.classList.add('in'); });
+    else hio.observe(g.el);
+  });
+
+  /* Statement: Scroll-Textfüllung */
+  var st = document.querySelector('.statement p');
+  if (st && !REDUCED) {
+    st.classList.remove('rv'); st.classList.add('in'); st.style.opacity = '1';
+    var words = [];
+    (function wrap(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function (tok) {
+            if (/^\s*$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+            var s = document.createElement('span'); s.textContent = tok;
+            s.style.opacity = '0.22'; s.style.transition = 'opacity 0.3s ease';
+            frag.appendChild(s); words.push(s);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1) wrap(ch);
+      });
+    })(st);
+    function fill() {
+      var r = st.getBoundingClientRect();
+      var prog = Math.min(Math.max((innerHeight * 0.9 - r.top) / (innerHeight * 0.8), 0), 1);
+      var n = Math.round(prog * words.length);
+      for (var i = 0; i < words.length; i++) words[i].style.opacity = i < n ? '1' : '0.22';
+    }
+    addEventListener('scroll', function () { requestAnimationFrame(fill); }, { passive: true });
+    fill();
+  }
+
+  /* Custom Cursor */
+  if (matchMedia('(pointer: fine)').matches && !REDUCED) {
+    var dot = document.createElement('div'); dot.className = 'cur-dot';
+    var ring = document.createElement('div'); ring.className = 'cur-ring';
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + (mx - 3.5) + 'px,' + (my - 3.5) + 'px)';
+      var hot = e.target.closest && e.target.closest('a, button, .btn, .card, .gallery figure');
+      ring.classList.toggle('hot', !!hot);
+    }, { passive: true });
+    (function lerp() {
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      ring.style.transform = 'translate(' + (rx - 17) + 'px,' + (ry - 17) + 'px)';
+      requestAnimationFrame(lerp);
+    })();
+  }
+
+  /* Hero-Exit-Parallax: Inhalt gleitet beim Wegscrollen */
+  var hero = document.querySelector('.hero'), inner = document.querySelector('.hero .inner');
+  if (hero && inner && !REDUCED) {
+    addEventListener('scroll', function () {
+      requestAnimationFrame(function () {
+        var h = hero.offsetHeight;
+        var p = Math.min(Math.max(scrollY / h, 0), 1);
+        inner.style.transform = 'translateY(' + (p * 90) + 'px)';
+        inner.style.opacity = String(1 - p * 0.8);
+      });
+    }, { passive: true });
+  }
+
+  /* Zweites, gegenläufiges Film-Band */
+  var track = document.querySelector('.fstrip .ftrack');
+  if (track && !track.parentElement.querySelector('.rev')) {
+    var clone = track.cloneNode(true);
+    clone.classList.add('rev');
+    track.parentElement.appendChild(clone);
   }
 })();
 </script></body>

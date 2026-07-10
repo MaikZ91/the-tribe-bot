@@ -13,11 +13,49 @@
     else document.addEventListener('DOMContentLoaded', fn);
   }
 
-  /* ---------- Scroll-Reveals (ersetzt Framer-Motion-Eintritte) ---------- */
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Scroll-Reveals im Original-Stil ----------
+     Headline-Zeilen mit Wipe-Overlays: der Akzentbalken fegt über die
+     Zeile, der Text erscheint dahinter. Hero-Wörter schieben gestaffelt
+     hoch. Rest blendet klassisch ein. ---------- */
+  function wipeOverlays(line) {
+    var p = line.parentElement;
+    if (!p) return [];
+    return Array.prototype.filter.call(
+      p.querySelectorAll(':scope > span[aria-hidden="true"]'),
+      function (o) { return (o.getAttribute('style') || '').indexOf('clip-path') >= 0; }
+    );
+  }
+
+  function playWipe(line, overlays, delay) {
+    if (REDUCED || !line.animate) {
+      line.style.opacity = '1';
+      overlays.forEach(function (o) { o.style.clipPath = 'inset(0 100% 0 0)'; });
+      return;
+    }
+    setTimeout(function () {
+      overlays.forEach(function (o, i) {
+        o.animate(
+          [{ clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 100%)' }],
+          { duration: 850, delay: i * 70, easing: 'cubic-bezier(0.77,0,0.18,1)', fill: 'forwards' });
+      });
+      setTimeout(function () { line.style.opacity = '1'; }, 380);
+    }, delay);
+  }
+
   function setupReveals() {
     document.querySelectorAll('span.invisible[aria-label]').forEach(function (el) {
       el.classList.remove('invisible');
+      var words = el.querySelectorAll('span[data-w]');
+      if (REDUCED || !words.length || !words[0].animate) return;
+      words.forEach(function (w, i) {
+        w.animate(
+          [{ opacity: 0, transform: 'translateY(0.7em)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 700, delay: 120 + i * 70, easing: 'cubic-bezier(0.22,0.61,0.36,1)', fill: 'backwards' });
+      });
     });
+
     var hidden = Array.prototype.filter.call(
       document.querySelectorAll('[style*="opacity:0"]'),
       function (el) { return parseFloat(el.style.opacity) === 0; }
@@ -26,14 +64,65 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         var el = entry.target;
+        io.unobserve(el);
+        var ovl = wipeOverlays(el);
+        if (ovl.length) {
+          var head = el.closest('h1,h2,h3') || el.parentElement;
+          var idx = parseInt(head.getAttribute('data-wipe-i') || '0', 10);
+          head.setAttribute('data-wipe-i', String(idx + 1));
+          playWipe(el, ovl, idx * 150);
+          return;
+        }
         el.style.transition = 'opacity 0.7s cubic-bezier(0.625,0.05,0,1), transform 0.7s cubic-bezier(0.625,0.05,0,1)';
         el.style.opacity = '1';
         if (el.style.transform) el.style.transform = 'none';
         if (el.style.filter) el.style.filter = 'none';
-        io.unobserve(el);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     hidden.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Statement: Wörter füllen sich beim Scrollen ---------- */
+  function setupScrollFill() {
+    if (REDUCED) return;
+    var target = null;
+    document.querySelectorAll('section p').forEach(function (p) {
+      if (!target && p.textContent.indexOf('spürt man') >= 0) target = p;
+    });
+    if (!target) return;
+    function wrapWords(node) {
+      var out = [];
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(function (tok) {
+            if (/^\s*$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+            var s = document.createElement('span');
+            s.textContent = tok;
+            s.style.opacity = '0.22';
+            s.style.transition = 'opacity 0.3s ease';
+            frag.appendChild(s); out.push(s);
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1 && ch.getAttribute('aria-hidden') !== 'true') {
+          out = out.concat(wrapWords(ch));
+        }
+      });
+      return out;
+    }
+    var words = wrapWords(target);
+    if (!words.length) return;
+    // Basis-Opacity der Original-Spans neutralisieren, Füllung übernimmt die Wort-Opacity
+    target.style.opacity = '1';
+    function upd() {
+      var r = target.getBoundingClientRect();
+      var prog = (innerHeight * 0.9 - r.top) / (innerHeight * 0.8);
+      prog = Math.min(Math.max(prog, 0), 1);
+      var n = Math.round(prog * words.length);
+      for (var i = 0; i < words.length; i++) words[i].style.opacity = i < n ? '1' : '0.22';
+    }
+    addEventListener('scroll', function () { requestAnimationFrame(upd); }, { passive: true });
+    upd();
   }
 
   /* ---------- Header-Theme (hell/dunkel je nach Sektion) ---------- */
@@ -384,6 +473,7 @@
 
   onReady(function () {
     setupReveals();
+    setupScrollFill();
     setupNavTheme();
     setupShowreel();
     setupHScroll();
