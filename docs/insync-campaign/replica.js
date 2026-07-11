@@ -273,6 +273,19 @@
     update();
   }
 
+  /* ---------- Anfrage-Tracking: zaehlt echte Kontakt-Klicks.
+     Laeuft in den dataLayer (fuer GA4/GTM) und — falls eingebunden —
+     zu GoatCounter. So entstehen belegbare Zahlen statt Behauptungen. */
+  function track(ev) {
+    try {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'mz9_' + ev, ts: Date.now() });
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'event/' + ev, title: ev, event: true });
+      }
+    } catch (e) {}
+  }
+  window.MZ9_TRACK = track;
+
   /* ---------- CTAs: Call buchen -> WhatsApp, Nachricht -> Mail ---------- */
   function setupCtas() {
     // Platzhalter-Links (href="#") aus dem Original-Footer/-Menü dürfen die
@@ -283,9 +296,9 @@
     });
     document.addEventListener('click', function (ev) {
       var msg = ev.target.closest ? ev.target.closest('button[aria-label="Nachricht senden"]') : null;
-      if (msg) { window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept'); return; }
+      if (msg) { track('mail_klick'); window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept'); return; }
       var el = ev.target.closest ? ev.target.closest('.calendly-popup-btn') : null;
-      if (el) { ev.preventDefault(); window.open(WA_LINK, '_blank', 'noopener'); }
+      if (el) { ev.preventDefault(); track('whatsapp_klick'); window.open(WA_LINK, '_blank', 'noopener'); }
     });
   }
 
@@ -450,6 +463,7 @@
       var subject = encodeURIComponent('MZ.9 Redesign-Konzept');
       var bodyTxt = encodeURIComponent('Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n' + lines + 'Branche: ' + (industryMap[industrySelect.value] || '—') + '\n\nBitte sende mir das Konzept zu.\n\nViele Grüße');
       setTimeout(function () {
+        track('funnel_anfrage');
         window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + subject + '&body=' + bodyTxt;
         form.style.display = 'none';
         if (success) success.classList.add('active');

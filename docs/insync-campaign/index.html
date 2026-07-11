@@ -320,6 +320,120 @@ html { scroll-behavior: smooth; }
     });
   }, { threshold: 0.25 }).observe(sec);
 })();
+</script>
+<style>
+/* === Stimmen aus den Konzept-Welten === */
+.tm-sec { background: #0a0a0a; color: #fff; padding: 0 15px clamp(90px, 12vw, 160px); }
+.tm-wrap { max-width: 1240px; margin: 0 auto; }
+.tm-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(30px, 4vw, 46px); }
+.tm-head h3 { font-size: clamp(1.6rem, 3.6vw, 2.6rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+.tm-head p { max-width: 460px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.4); }
+.tm-head p b { color: rgba(255,255,255,0.75); }
+.tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 1080px) { .tm-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .tm-grid { grid-template-columns: 1fr; } }
+.tm-card { position: relative; display: flex; flex-direction: column; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px; padding: 24px; transition: transform 0.35s cubic-bezier(0.22,0.61,0.36,1), border-color 0.35s; }
+.tm-card:hover { transform: translateY(-6px); border-color: rgba(255,128,16,0.45); }
+.tm-tag { position: absolute; top: 16px; right: 16px; font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; padding: 4px 9px; }
+.tm-card .q { font-size: 14.5px; line-height: 1.65; color: rgba(255,255,255,0.8); margin-top: 18px; flex: 1; }
+.tm-card .q::before { content: "„"; display: block; font-size: 40px; line-height: 0.6; color: var(--accent); margin-bottom: 10px; font-family: Georgia, serif; }
+.tm-who { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.tm-who .av { width: 40px; height: 40px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #fff; }
+.tm-who b { display: block; font-size: 13.5px; letter-spacing: -0.01em; }
+.tm-who span { font-size: 11.5px; color: rgba(255,255,255,0.4); }
+.tm-kpi { margin-top: 16px; display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; font-size: 11.5px; font-weight: 700;
+  color: var(--accent); background: rgba(255,128,16,0.09); border: 1px solid rgba(255,128,16,0.3); border-radius: 999px; padding: 6px 12px; }
+.tm-note { margin-top: 18px; text-align: center; font-size: 11.5px; color: rgba(255,255,255,0.35); }
+/* Mess-Karte */
+.tm-track { margin-top: 14px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; align-items: stretch; }
+@media (max-width: 900px) { .tm-track { grid-template-columns: 1fr; } }
+.tm-track .tx { background: linear-gradient(120deg, rgba(255,128,16,0.14), rgba(255,128,16,0.04)); border: 1px solid rgba(255,128,16,0.35);
+  border-radius: 22px; padding: clamp(24px, 3vw, 34px); display: flex; flex-direction: column; justify-content: center; }
+.tm-track .tx h4 { font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+.tm-track .tx h4 em { font-style: normal; color: var(--accent); }
+.tm-track .tx p { margin-top: 12px; font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,0.55); max-width: 520px; }
+.tm-track .demo { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; padding: clamp(20px, 2.6vw, 28px); }
+.tm-track .demo .dh { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.tm-track .demo .dh b { color: rgba(255,255,255,0.7); }
+.tm-row { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.tm-row .lb { flex: 0 0 128px; font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.7); }
+.tm-row .tr { flex: 1; height: 8px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.tm-row .tr i { display: block; height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--accent), #ffb668);
+  transition: width 1.3s cubic-bezier(0.22,0.61,0.36,1); }
+.tm-row .vl { flex: 0 0 44px; text-align: right; font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.tm-track .demo .df { margin-top: 16px; font-size: 10.5px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+</style>
+<section class="tm-sec" id="stimmen" data-nav-theme="dark" aria-label="Stimmen und Erfolgsmessung">
+  <div class="tm-wrap">
+    <div class="tm-head">
+      <h3>Stimmen aus unseren<br>Konzept-Welten.</h3>
+      <p><b>Transparenz:</b> Die vier Showcase-Projekte sind fiktive Konzept-Designs — so klingt es, wenn eine Website für ihren Betrieb arbeitet. <b>Dein echtes Ergebnis ist das nächste.</b></p>
+    </div>
+    <div class="tm-grid">
+      <div class="tm-card"><span class="tm-tag">Konzept</span>
+        <p class="q">Früher haben die Leute angerufen, ob es noch Brot gibt. Jetzt bestellen sie abends vor und holen morgens ab — ohne ein einziges Telefonat.</p>
+        <div class="tm-kpi">🥖 Click &amp; Collect eingebaut</div>
+        <div class="tm-who"><span class="av" style="background:linear-gradient(135deg,#a06514,#e0a34c)">B</span><div><b>Brotwerk Mühlenrath</b><span>Bäckerei · Konzept-Design</span></div></div>
+      </div>
+      <div class="tm-card"><span class="tm-tag">Konzept</span>
+        <p class="q">Der Tisch ist in 20 Sekunden reserviert — genau so schnell, wie unsere Gäste entscheiden. Die Karte lesen sie schon auf dem Weg zu uns.</p>
+        <div class="tm-kpi">☕ Tischreservierung in 20 Sek.</div>
+        <div class="tm-who"><span class="av" style="background:linear-gradient(135deg,#c23a22,#e8734a)">K</span><div><b>Café Bar KANTE</b><span>Gastronomie · Konzept-Design</span></div></div>
+      </div>
+      <div class="tm-card"><span class="tm-tag">Konzept</span>
+        <p class="q">Patienten buchen ihren Termin nachts um elf, wenn es ihnen einfällt — nicht morgens um acht in der Warteschleife. Das Telefon ist endlich frei.</p>
+        <div class="tm-kpi">🦷 Online-Buchung rund um die Uhr</div>
+        <div class="tm-who"><span class="av" style="background:linear-gradient(135deg,#0a7c8a,#3fc1d3)">L</span><div><b>Zahnatelier LUMEN</b><span>Zahnarztpraxis · Konzept-Design</span></div></div>
+      </div>
+      <div class="tm-card"><span class="tm-tag">Konzept</span>
+        <p class="q">Wer eine Frist hat, wartet nicht auf einen Rückruf. Die Online-Ersteinschätzung holt genau diese Fälle ab — bevor sie zur Konkurrenz gehen.</p>
+        <div class="tm-kpi">⚖️ Ersteinschätzung als Mandats-Magnet</div>
+        <div class="tm-who"><span class="av" style="background:linear-gradient(135deg,#8a6d1d,#d4af37)">M</span><div><b>Kanzlei Morgenstern</b><span>Rechtsanwalt · Konzept-Design</span></div></div>
+      </div>
+    </div>
+    <div class="tm-track">
+      <div class="tx">
+        <h4>Und dein Ergebnis? <em>Wird gemessen — nicht behauptet.</em></h4>
+        <p>Jede Website von Redesign.AI kommt mit eingebautem Anfrage-Tracking: Anrufe, WhatsApp-Klicks, Buchungen und Formular-Anfragen werden gezählt. Nach 90 Tagen siehst du schwarz auf weiß, was deine neue Seite bringt — echte Zahlen statt Agentur-Versprechen.</p>
+      </div>
+      <div class="demo" id="tmDemo">
+        <div class="dh"><span>So sieht dein Report aus</span><b>Beispiel-Ansicht</b></div>
+        <div class="tm-row"><span class="lb">Anrufe</span><span class="tr"><i data-w="72"></i></span><span class="vl" data-n="34">0</span></div>
+        <div class="tm-row"><span class="lb">WhatsApp-Chats</span><span class="tr"><i data-w="88"></i></span><span class="vl" data-n="41">0</span></div>
+        <div class="tm-row"><span class="lb">Terminbuchungen</span><span class="tr"><i data-w="55"></i></span><span class="vl" data-n="26">0</span></div>
+        <div class="tm-row"><span class="lb">Formular-Anfragen</span><span class="tr"><i data-w="38"></i></span><span class="vl" data-n="18">0</span></div>
+        <div class="df">Beispiel-Darstellung des monatlichen Anfrage-Reports — keine echten Messwerte. Dein Report zählt ab Livegang deine tatsächlichen Anfragen.</div>
+      </div>
+    </div>
+    <p class="tm-note">Du willst die erste echte Referenz mit gemessenen Zahlen werden? Basis-Website 149&nbsp;€ — Tracking inklusive.</p>
+  </div>
+</section>
+<script>
+(function () {
+  var demo = document.getElementById('tmDemo');
+  if (!demo || !('IntersectionObserver' in window)) return;
+  var done = false;
+  new IntersectionObserver(function (es, io) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting || done) return;
+      done = true;
+      demo.querySelectorAll('.tr i').forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; });
+      demo.querySelectorAll('.vl').forEach(function (v) {
+        var target = parseInt(v.getAttribute('data-n'), 10), t0 = performance.now();
+        (function tick(t) {
+          var p = Math.min((t - t0) / 1300, 1);
+          v.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+      io.disconnect();
+    });
+  }, { threshold: 0.35 }).observe(demo);
+})();
 </script><section data-nav-theme="light" class="bg-canvas-light flex flex-col lg:flex-row gap-[32px] lg:max-[1499px]:gap-[50px] min-[1500px]:gap-[120px] items-start pt-[56px] lg:pt-[150px] pb-[56px] lg:pb-[200px] px-[15px] lg:px-[30px] cap-2000"><div class="flex-1 flex flex-col gap-xs lg:gap-md items-start lg:sticky lg:top-[120px]"><h2 class="font-medium text-section-h2 leading-[1.1] tracking-[-1.3px] text-grey-800"><span class="block"><span class="relative inline-block"><span class="block" style="opacity:0">So entsteht</span><span aria-hidden="true" class="absolute -inset-x-[0.08em] -inset-y-[0.04em] pointer-events-none bg-accent" style="clip-path:inset(0% 100% 0% 0%)"></span><span aria-hidden="true" class="absolute -inset-x-[0.08em] -inset-y-[0.04em] pointer-events-none" style="background-color:#1c1c1c;clip-path:inset(0% 100% 0% 0%)"></span></span></span> <span class="block"><span class="relative inline-block"><span class="block" style="opacity:0"><span class="text-[rgba(20,23,24,0.5)]">Premium.</span></span><span aria-hidden="true" class="absolute -inset-x-[0.08em] -inset-y-[0.04em] pointer-events-none bg-accent" style="clip-path:inset(0% 100% 0% 0%)"></span><span aria-hidden="true" class="absolute -inset-x-[0.08em] -inset-y-[0.04em] pointer-events-none" style="background-color:#1c1c1c;clip-path:inset(0% 100% 0% 0%)"></span></span></span></h2><div style="opacity:0;transform:translateY(24px)"><p class="font-medium text-body-sm text-grey-400 max-w-[544px]">Drei Phasen, vom ersten Konzept bis zur fertigen Website. Jede mit klarem Ergebnis und einem Ziel: ein Auftritt, der nichts dem Zufall überlässt.</p></div></div><div class="w-full lg:w-[666px] shrink-0 flex flex-col gap-[32px] items-start relative"><div aria-hidden="true" class="absolute left-[15.5px] top-[42px] bottom-[16px] w-px bg-[rgba(0,0,0,0.1)]"></div><div aria-hidden="true" style="transform:scaleY(0)" class="absolute left-[15.5px] top-[42px] bottom-[16px] w-px bg-accent origin-top"></div><div style="opacity:1;transform:none" class="relative flex gap-[20px] items-start w-full"><div style="background-color:rgba(67, 68, 69, 1)" class="relative rounded-xs size-[32px] flex items-center justify-center shrink-0 z-10"><span class="font-bold text-body-sm tracking-[-0.32px] leading-none text-white">1</span></div><div class="flex-1 min-w-0 bg-white border border-[rgba(28,28,28,0.1)] rounded-card lg:rounded-[20px] p-[15px] flex flex-col gap-[20px] items-start"><div class="relative w-full aspect-[876/450] rounded-card overflow-hidden"><img alt="Phase 4" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" sizes="(min-width: 1024px) 636px, 100vw" srcSet="images/work/proc-launch.jpg 640w, images/work/proc-launch.jpg 750w, images/work/proc-launch.jpg 828w, images/work/proc-launch.jpg 1080w, images/work/proc-launch.jpg 1200w, images/work/proc-launch.jpg 1920w, images/work/proc-launch.jpg 2048w, images/work/proc-launch.jpg 3840w" src="images/work/proc-launch.jpg"/><div aria-hidden="true" class="absolute inset-0 rounded-card border border-[rgba(28,28,28,0.1)] pointer-events-none"></div></div><div class="flex flex-col gap-[6px] items-start pb-[20px] pt-[10px] px-[10px] w-full"><h3 class="font-bold text-[18px] tracking-[-0.36px] leading-[24px] text-grey-800">Konzept, Moodboard &amp; Hero-Design</h3><p class="font-medium text-caption text-grey-400 whitespace-pre-line">Jedes Projekt startet mit Strategie, nicht mit Pixeln. Wir analysieren deine Marke, deine Kunden und deinen Markt, leiten daraus ein klares Konzept ab und übersetzen es in ein Moodboard für Look &amp; Feel. Darauf aufbauend entwerfen wir mehrere Varianten deiner Hero-Section, also den Bereich, den deine Kunden als Erstes sehen und an dem sich in Sekunden entscheidet, ob sie bleiben.<!-- -->
 
 <span class="font-bold underline decoration-solid">Outcome:</span> <!-- -->eine freigegebene Hero-Variante plus eine dokumentierte Brand-Direction, die jede weitere Design-Entscheidung vorgibt.</p></div></div></div><div style="opacity:0;transform:translateY(40px)" class="relative flex gap-[20px] items-start w-full"><div style="background-color:rgba(67, 68, 69, 1)" class="relative rounded-xs size-[32px] flex items-center justify-center shrink-0 z-10"><span class="font-bold text-body-sm tracking-[-0.32px] leading-none text-white">2</span></div><div class="flex-1 min-w-0 bg-white border border-[rgba(28,28,28,0.1)] rounded-card lg:rounded-[20px] p-[15px] flex flex-col gap-[20px] items-start"><div class="relative w-full aspect-[876/450] rounded-card overflow-hidden"><img alt="Phase 5" loading="lazy" decoding="async" data-nimg="fill" class="object-cover" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" sizes="(min-width: 1024px) 636px, 100vw" srcSet="images/work/proc-design.jpg 640w, images/work/proc-design.jpg 750w, images/work/proc-design.jpg 828w, images/work/proc-design.jpg 1080w, images/work/proc-design.jpg 1200w, images/work/proc-design.jpg 1920w, images/work/proc-design.jpg 2048w, images/work/proc-design.jpg 3840w" src="images/work/proc-design.jpg"/><div aria-hidden="true" class="absolute inset-0 rounded-card border border-[rgba(28,28,28,0.1)] pointer-events-none"></div></div><div class="flex flex-col gap-[6px] items-start pb-[20px] pt-[10px] px-[10px] w-full"><h3 class="font-bold text-[18px] tracking-[-0.36px] leading-[24px] text-grey-800">Website-Design &amp; Asset-Creation</h3><p class="font-medium text-caption text-grey-400 whitespace-pre-line">Auf Basis der Brand-Direction gestalten wir deine komplette Website, jede Section bis ins Detail auf deine Marke abgestimmt. Dazu kommen überzeugende Texte, individuelle Bildwelten, maßgeschneiderte 3D-Assets und Animationen, die deinem Auftritt den letzten Schliff geben. Parallel bauen wir ein Design-System aus wiederverwendbaren Komponenten, damit deine Seite konsistent bleibt, wenn du sie später erweiterst.<!-- -->
@@ -427,6 +541,7 @@ html { scroll-behavior: smooth; }
       var opened = false;
       function openChat() {
         panel.classList.add('active');
+        if (window.MZ9_TRACK) window.MZ9_TRACK('chat_geoeffnet');
         if (!opened) {
           opened = true;
           addMsg('Hey! 👋 Ich bin Maik von MZ.9. Das Konzept ist <strong>komplett kostenlos</strong> — du bekommst sogar schon ein <strong>Premium-Design deiner eigenen Seite</strong>, bevor du irgendwas zahlst. Frag mich alles oder schreib mir direkt per WhatsApp.', 'bot');
