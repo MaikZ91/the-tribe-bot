@@ -629,5 +629,7 @@
     setupFunnel();
     setupTeamReel();
     setupMockupFX();
+    var munBg = document.getElementById('munBg');
+    if (munBg) { var pr = munBg.play(); if (pr && pr.catch) pr.catch(function () {}); }
   });
 })();
