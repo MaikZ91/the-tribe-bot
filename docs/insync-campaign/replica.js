@@ -326,8 +326,9 @@
     var urlInput = document.getElementById('url');
     var brancheGroup = document.getElementById('brancheGroup');
     var industrySelect = document.getElementById('industry');
-    var mUrl = document.getElementById('mUrl'), mBiz = document.getElementById('mBiz');
-    var urlMode = document.getElementById('urlMode'), bizMode = document.getElementById('bizMode');
+    var mUrl = document.getElementById('mUrl'), mBiz = document.getElementById('mBiz'), mNone = document.getElementById('mNone');
+    var urlMode = document.getElementById('urlMode'), bizMode = document.getElementById('bizMode'), noneMode = document.getElementById('noneMode');
+    var noneInput = document.getElementById('noneName');
     var bizInput = document.getElementById('biz'), bizResults = document.getElementById('bizResults');
     var fName = document.getElementById('bizName'), fSite = document.getElementById('bizWebsite'), fAddr = document.getElementById('bizAddr');
 
@@ -338,18 +339,26 @@
       mode = m;
       mUrl.classList.toggle('active', m === 'url');
       mBiz.classList.toggle('active', m === 'biz');
+      if (mNone) mNone.classList.toggle('active', m === 'none');
       mUrl.setAttribute('aria-selected', m === 'url');
       mBiz.setAttribute('aria-selected', m === 'biz');
+      if (mNone) mNone.setAttribute('aria-selected', m === 'none');
       urlMode.classList.toggle('is-hidden', m !== 'url');
       bizMode.classList.toggle('is-hidden', m !== 'biz');
+      if (noneMode) noneMode.classList.toggle('is-hidden', m !== 'none');
       closeAc(); syncBranche();
       if (m === 'biz') setTimeout(function () { bizInput.focus(); }, 30);
+      if (m === 'none' && noneInput) setTimeout(function () { noneInput.focus(); }, 30);
     }
     mUrl.addEventListener('click', function () { setMode('url'); });
     mBiz.addEventListener('click', function () { setMode('biz'); });
+    if (mNone) mNone.addEventListener('click', function () { setMode('none'); });
+    if (noneInput) noneInput.addEventListener('input', syncBranche);
 
     function syncBranche() {
-      var has = (mode === 'url') ? urlInput.value.trim().length > 0 : fName.value.trim().length > 0;
+      var has = (mode === 'url') ? urlInput.value.trim().length > 0
+        : (mode === 'none') ? (noneInput && noneInput.value.trim().length > 0)
+        : fName.value.trim().length > 0;
       if (has && brancheGroup.classList.contains('branche-hidden')) {
         brancheGroup.classList.remove('branche-hidden');
         brancheGroup.classList.add('field-in');
@@ -450,24 +459,37 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var lines;
+      var lines, intro;
       if (mode === 'url') {
         var url = urlInput.value.trim();
         if (!url) { urlInput.focus(); return; }
-        lines = 'URL: ' + url + '\n';
+        intro = 'Hallo Maik, ich möchte mein kostenloses Redesign-Konzept 🚀';
+        lines = 'Meine Website: ' + url;
+      } else if (mode === 'none') {
+        var nname = (noneInput && noneInput.value.trim()) || '';
+        intro = 'Hallo Maik, ich habe noch KEINE Website und möchte eine neue — mit kostenlosem Konzept 🚀';
+        lines = 'Mein Betrieb: ' + (nname || '(sag ich dir gleich)') + '\nStatus: noch keine Website';
       } else {
         var name = fName.value.trim() || bizInput.value.trim();
         if (!name) { bizInput.focus(); return; }
-        lines = 'Unternehmen: ' + name + '\nAdresse: ' + (fAddr.value || '—') + '\nWebsite: ' + (fSite.value || '(bitte aus Google/Maps übernehmen)') + '\n';
+        intro = 'Hallo Maik, ich möchte mein kostenloses Redesign-Konzept 🚀';
+        lines = 'Mein Unternehmen: ' + name + '\nAdresse: ' + (fAddr.value || '—') + (fSite.value ? '\nWebsite: ' + fSite.value : '');
       }
-      var subject = encodeURIComponent('MZ.9 Redesign-Konzept');
-      var bodyTxt = encodeURIComponent('Hallo,\n\nhier sind meine Daten für das kostenlose Redesign-Konzept:\n\n' + lines + 'Branche: ' + (industryMap[industrySelect.value] || '—') + '\n\nBitte sende mir das Konzept zu.\n\nViele Grüße');
-      setTimeout(function () {
-        track('funnel_anfrage');
-        window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + subject + '&body=' + bodyTxt;
-        form.style.display = 'none';
-        if (success) success.classList.add('active');
-      }, 400);
+      var branche = industryMap[industrySelect.value];
+      var waText = intro + '\n\n' + lines + (branche ? '\nBranche: ' + branche : '');
+      var waLink = WA_LINK.split('?')[0] + '?text=' + encodeURIComponent(waText);
+      var mailLink = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept') +
+        '&body=' + encodeURIComponent(waText.replace(/🚀/g, '') + '\n\nViele Grüße');
+      track('funnel_anfrage');
+      // Fallback-Links im Success verdrahten (WhatsApp evtl. nicht installiert)
+      if (success) {
+        var waFb = success.querySelector('[data-wa]'); if (waFb) waFb.href = waLink;
+        var mFb = success.querySelector('[data-mail]'); if (mFb) mFb.href = mailLink;
+      }
+      form.style.display = 'none';
+      if (success) success.classList.add('active');
+      // WhatsApp öffnen (funktioniert zuverlässig im Instagram-Browser)
+      setTimeout(function () { window.location.href = waLink; }, 120);
     });
 
     /* Typewriter-Placeholder */
