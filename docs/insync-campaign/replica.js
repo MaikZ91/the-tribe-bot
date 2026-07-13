@@ -611,10 +611,29 @@
     if (!v || !('IntersectionObserver' in window)) return;
     new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        if (e.isIntersecting) { forcePlay(v); }
         else v.pause();
       });
     }, { threshold: 0.25 }).observe(v);
+  }
+
+  /* Autoplay absichern: muted/playsInline als JS-PROPERTY setzen (das
+     HTML-Attribut allein reicht manchen Mobil-Browsern nicht), dann
+     play() — und beim ersten Touch/Scroll erneut anstoßen, falls der
+     Browser Autoplay blockt (z. B. iOS-Stromsparmodus). */
+  function forcePlay(v) {
+    if (!v) return;
+    v.muted = true;
+    v.playsInline = true;
+    v.setAttribute('muted', '');
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  function kickVideos() {
+    ['munBg', 'teamReel'].forEach(function (id) {
+      var v = document.getElementById(id);
+      if (v && v.paused) forcePlay(v);
+    });
   }
 
   onReady(function () {
@@ -629,7 +648,9 @@
     setupFunnel();
     setupTeamReel();
     setupMockupFX();
-    var munBg = document.getElementById('munBg');
-    if (munBg) { var pr = munBg.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    forcePlay(document.getElementById('munBg'));
+    ['touchend', 'scroll', 'click'].forEach(function (ev) {
+      addEventListener(ev, kickVideos, { once: true, passive: true });
+    });
   });
 })();
