@@ -294,6 +294,46 @@
   }
   window.MZ9_TRACK = track;
 
+  /* ---------- Stadt-Umschalter Münster <-> Bielefeld (eine Seite, ein Link).
+     Standard = Münster. Wahl wird in localStorage gemerkt, sodass ein Besucher
+     beim nächsten Aufruf direkt "seine" Stadt sieht. Optional startet eine
+     Anzeige mit ?stadt=bielefeld direkt auf Bielefeld — es bleibt aber ein und
+     dieselbe URL. */
+  function setupCitySwitch() {
+    var LM = { muenster: 'Prinzipalmarkt', bielefeld: 'Alten Markt' };
+    var NAME = { muenster: 'Münster', bielefeld: 'Bielefeld' };
+    function apply(city) {
+      if (city !== 'bielefeld') city = 'muenster';
+      document.documentElement.setAttribute('data-city', city);
+      document.querySelectorAll('.jsCity').forEach(function (el) {
+        el.textContent = el.hasAttribute('data-lm') ? LM[city] : NAME[city];
+      });
+      document.querySelectorAll('.jsCityPh').forEach(function (el) {
+        var ph = el.getAttribute('data-ph-' + city);
+        if (ph) el.setAttribute('placeholder', ph);
+      });
+      // Hero-WhatsApp-CTA: Stadt anhängen, damit Maik sofort weiß, woher.
+      var waMsg = 'Hallo Maik, ich hätte gern mein kostenloses Redesign-Konzept 🚀 (aus ' + NAME[city] + ')';
+      document.querySelectorAll('[data-wa-cta]').forEach(function (a) {
+        a.href = 'https://wa.me/4917645961547?text=' + encodeURIComponent(waMsg);
+      });
+      document.querySelectorAll('[data-city-btn]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-city-btn') === city ? 'true' : 'false');
+      });
+      try { localStorage.setItem('mz9_city', city); } catch (e) {}
+      document.title = 'Redesign.AI — Premium Webdesign aus ' + NAME[city] + ' · Live in 7 Tagen';
+    }
+    var params = new URLSearchParams(location.search);
+    var q = (params.get('stadt') || params.get('city') || '').toLowerCase();
+    var stored; try { stored = localStorage.getItem('mz9_city'); } catch (e) {}
+    var initial = /biele/.test(q) ? 'bielefeld'
+      : (/m(ü|ue)ns/.test(q) ? 'muenster' : (stored || 'muenster'));
+    apply(initial);
+    document.querySelectorAll('[data-city-btn]').forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.getAttribute('data-city-btn')); });
+    });
+  }
+
   /* ---------- CTAs: Call buchen -> WhatsApp, Nachricht -> Mail ---------- */
   function setupCtas() {
     // Platzhalter-Links (href="#") aus dem Original-Footer/-Menü dürfen die
@@ -649,6 +689,7 @@
   }
 
   onReady(function () {
+    setupCitySwitch();
     setupReveals();
     setupScrollFill();
     setupNavTheme();
