@@ -302,9 +302,22 @@
   function setupCitySwitch() {
     var LM = { muenster: 'Prinzipalmarkt', bielefeld: 'Alten Markt' };
     var NAME = { muenster: 'Münster', bielefeld: 'Bielefeld' };
+    var BG = {
+      muenster: { src: 'videos/muenster-hero.mp4', poster: 'images/home/muenster-hero.jpg', alt: 'Altstadt von Münster aus der Luft' },
+      bielefeld: { src: 'videos/bielefeld-hero.mp4', poster: 'images/home/bielefeld-hero.jpg', alt: 'Sparrenburg Bielefeld aus der Luft' }
+    };
     function apply(city) {
       if (city !== 'bielefeld') city = 'muenster';
       document.documentElement.setAttribute('data-city', city);
+      // Hero-Hintergrundvideo auf die Stadt umschalten (nur wenn nötig, damit
+      // ein laufendes Video nicht bei jedem Aufruf neu geladen wird).
+      var bg = document.getElementById('munBg');
+      if (bg && bg.getAttribute('src') !== BG[city].src) {
+        bg.setAttribute('poster', BG[city].poster);
+        bg.setAttribute('src', BG[city].src);
+        bg.load();
+        var pp = bg.play(); if (pp && pp.catch) pp.catch(function () {});
+      }
       document.querySelectorAll('.jsCity').forEach(function (el) {
         el.textContent = el.hasAttribute('data-lm') ? LM[city] : NAME[city];
       });
