@@ -282,6 +282,11 @@
       if (window.goatcounter && window.goatcounter.count) {
         window.goatcounter.count({ path: 'event/' + ev, title: ev, event: true });
       }
+      // PostHog: benannte Lead-Events (zusaetzlich zum Autocapture), damit sich
+      // ein sauberer Funnel bauen laesst. Stadt aus data-city mitgeben.
+      if (window.posthog && window.posthog.capture) {
+        window.posthog.capture(ev, { city: document.documentElement.getAttribute('data-city') || 'muenster' });
+      }
       // Google Ads Conversion — feuert nur bei echten Kontakt-Events und
       // nur wenn ein Conversion-Label hinterlegt ist (window.MZ9_CONV_LABEL).
       var LEAD_EVENTS = { funnel_anfrage: 1, whatsapp_klick: 1, mail_klick: 1 };
@@ -343,7 +348,11 @@
       : (/m(ü|ue)ns/.test(q) ? 'muenster' : (stored || 'muenster'));
     apply(initial);
     document.querySelectorAll('[data-city-btn]').forEach(function (b) {
-      b.addEventListener('click', function () { apply(b.getAttribute('data-city-btn')); });
+      b.addEventListener('click', function () {
+        var c = b.getAttribute('data-city-btn');
+        apply(c);
+        try { if (window.posthog && window.posthog.capture) window.posthog.capture('city_toggle', { city: c }); } catch (e) {}
+      });
     });
   }
 
