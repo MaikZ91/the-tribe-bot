@@ -282,6 +282,14 @@
       if (window.goatcounter && window.goatcounter.count) {
         window.goatcounter.count({ path: 'event/' + ev, title: ev, event: true });
       }
+      // Google Ads Conversion — feuert nur bei echten Kontakt-Events und
+      // nur wenn ein Conversion-Label hinterlegt ist (window.MZ9_CONV_LABEL).
+      var LEAD_EVENTS = { funnel_anfrage: 1, whatsapp_klick: 1, mail_klick: 1 };
+      if (LEAD_EVENTS[ev] && typeof window.gtag === 'function' && window.MZ9_CONV_LABEL) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-16688786523/' + window.MZ9_CONV_LABEL
+        });
+      }
     } catch (e) {}
   }
   window.MZ9_TRACK = track;
@@ -295,6 +303,10 @@
       if (dead) ev.preventDefault();
     });
     document.addEventListener('click', function (ev) {
+      // Hero-/Direkt-WhatsApp-Buttons (öffnen in neuem Tab, Seite bleibt) —
+      // Klick als Lead zählen, Navigation nicht unterbrechen.
+      var wa = ev.target.closest ? ev.target.closest('[data-wa-cta]') : null;
+      if (wa) { track('whatsapp_klick'); return; }
       var msg = ev.target.closest ? ev.target.closest('button[aria-label="Nachricht senden"]') : null;
       if (msg) { track('mail_klick'); window.location.href = 'mailto:' + CONTACT_MAIL + '?subject=' + encodeURIComponent('MZ.9 Redesign-Konzept'); return; }
       var el = ev.target.closest ? ev.target.closest('.calendly-popup-btn') : null;
