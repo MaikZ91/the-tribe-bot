@@ -51,66 +51,65 @@
   <p class="sub">Beim Wine Walk entstehen Fotos und kurze Videos. Hier kannst du mit zwei
      Klicks einwilligen, dass Aufnahmen, auf denen du zu sehen bist, verwendet werden dürfen.</p>
 
-  <form id="consentForm" class="card" action="https://formsubmit.co/maik.z@gmx.de" method="POST">
-    <input type="hidden" name="_subject" value="Neue Foto-Einwilligung – Wine Walk">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="text" name="_honey" style="display:none">
-    <input type="hidden" name="Formular" value="Einwilligung Bildnutzung Wine Walk">
-    <input type="hidden" name="Datum" id="dateField" value="">
-
+  <form id="consentForm" class="card">
     <label class="field" for="name">Vor- und Nachname *</label>
     <input type="text" id="name" name="Name" required autocomplete="name" placeholder="Max Mustermann">
 
-    <label class="field" for="email">E-Mail (optional, für Rückfragen / Widerruf)</label>
-    <input type="email" id="email" name="E-Mail" autocomplete="email" placeholder="max@beispiel.de">
-
     <label class="consent">
-      <input type="checkbox" name="Einwilligung Fotos/Videos" value="Ja" required>
+      <input type="checkbox" id="c1" required>
       <span><strong>Ja</strong>, ich willige ein, dass Foto- und Videoaufnahmen, die beim
       Wine Walk von mir gemacht werden, gespeichert und verwendet werden dürfen. *</span>
     </label>
 
     <label class="consent">
-      <input type="checkbox" name="Einwilligung Social Media" value="Ja" required>
+      <input type="checkbox" id="c2" required>
       <span><strong>Ja</strong>, ich willige ein, dass diese Aufnahmen auf Social-Media-Kanälen
       (z.&nbsp;B. Instagram, Facebook) sowie für Marketing- und Werbezwecke veröffentlicht
       werden dürfen. *</span>
     </label>
 
     <label class="consent">
-      <input type="checkbox" name="Namensnennung" value="Ja">
+      <input type="checkbox" id="c3">
       <span>Ich bin einverstanden, dass mein Vorname bei Beiträgen genannt werden darf.
       <span class="opt">(optional)</span></span>
     </label>
 
-    <button type="submit">Einwilligung absenden</button>
+    <button type="submit">Per WhatsApp absenden</button>
+    <p class="legal" style="margin-top:10px">Beim Klick öffnet sich WhatsApp mit der fertigen
+    Einwilligung — dort nur noch auf „Senden" tippen.</p>
 
     <p class="legal">Diese Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die
-    Zukunft widerrufen werden (formlos per E-Mail an
-    <a href="mailto:maik.z@gmx.de">maik.z@gmx.de</a>). Bereits veröffentlichte Beiträge werden
+    Zukunft widerrufen werden (formlos per WhatsApp oder Nachricht an den Veranstalter).
+    Bereits veröffentlichte Beiträge werden
     nach Widerruf im Rahmen des Zumutbaren entfernt. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1
     lit.&nbsp;a DSGVO. Es entstehen keine Nachteile, wenn du nicht einwilligst.</p>
   </form>
 
   <div class="ok" id="okBox">
     <h2>Danke! 🍷</h2>
-    <p>Deine Einwilligung wurde übermittelt.</p>
+    <p>WhatsApp hat sich geöffnet — bitte dort noch auf „Senden" tippen.</p>
   </div>
 </div>
 
 <script>
-  document.getElementById('dateField').value = new Date().toLocaleString('de-DE');
-  var f = document.getElementById('consentForm');
-  f.addEventListener('submit', function(e){
+  document.getElementById('consentForm').addEventListener('submit', function(e){
     e.preventDefault();
-    var data = new FormData(f);
-    fetch(f.action, {method:'POST', body:data, headers:{'Accept':'application/json'}})
-      .then(function(r){
-        if(r.ok){ f.style.display='none'; document.getElementById('okBox').style.display='block'; }
-        else { f.submit(); }
-      })
-      .catch(function(){ f.submit(); });
+    var name = document.getElementById('name').value.trim();
+    var lines = [
+      '📸 *Foto-Einwilligung Wine Walk*',
+      '',
+      'Name: ' + name,
+      'Datum: ' + new Date().toLocaleString('de-DE'),
+      '',
+      '✅ Einwilligung Foto-/Videoaufnahmen: JA',
+      '✅ Einwilligung Social Media & Marketing: JA',
+      (document.getElementById('c3').checked ? '✅' : '❌') + ' Nennung Vorname: ' +
+        (document.getElementById('c3').checked ? 'JA' : 'NEIN'),
+      '',
+      'Hinweis: Einwilligung freiwillig, jederzeit widerrufbar (Art. 6 Abs. 1 lit. a DSGVO).'
+    ];
+    window.open('https://wa.me/4917645961547?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+    document.getElementById('okBox').style.display = 'block';
   });
 </script>
 </body>
