@@ -527,6 +527,19 @@ const CAT_KEYS = Object.keys(CATS);
 const accent = k => (CATS[k]||CATS['Sonstiges']).c;
 const catEm  = k => (CATS[k]||CATS['Sonstiges']).em;
 
+/* ---- Bielefeld-Standardbilder pro Kategorie (Fallback ohne eigenes Foto) ---- */
+const CAT_IMG = {
+  'Wine & Dine':'../assets/wine/glass.jpg',
+  'Party & Musik':'../assets/hero/9.webp',
+  'Kreativ & Kunst':'../assets/hero/10.webp',
+  'Sport & Outdoor':'../assets/hero/4.webp',
+  'Kultur & Talk':'../assets/hero/11.webp',
+  'Food & Supper':'../assets/hero/5.webp',
+  'Ausgehen':'../assets/hero/3.webp',
+  'Sonstiges':'../assets/hero/1.webp'
+};
+const eventImg = e => e.img || CAT_IMG[e.cat] || CAT_IMG['Sonstiges'];
+
 /* ---- accent theme options ---- */
 const THEMES = [
   {name:'Amber',   a:'#F5A21A', hi:'#FFC65A'},
@@ -651,11 +664,9 @@ function priceTag(e){
 function cardHTML(e){
   const host=hostById(e.hostId); const ac=accent(e.cat);
   const joined=!!S.joined[e.id];
-  const imgTag = e.img
-    ? `<img src="${esc(e.img)}" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`
-    : '';
+  const imgTag = `<img src="${esc(eventImg(e))}" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`;
   return `<article class="card" style="--ac:${ac}" data-ev="${e.id}">
-    <div class="ph${e.img?'':' noimg'}" data-em="${catEm(e.cat)}">
+    <div class="ph" data-em="${catEm(e.cat)}">
       ${imgTag}
       <div class="top">
         <span class="tag"><span class="dt"></span>${esc(e.cat)}</span>
@@ -861,9 +872,7 @@ function openEvent(id){
   const priceLine = (!e.price||e.price<=0)
     ? '<span style="color:var(--wa);font-weight:700">Kostenlos</span> — freies Community-Event'
     : `<span style="color:var(--accent-hi);font-weight:700">€${eur(e.price)}</span> pro Person <small>· Ticket-Event</small>`;
-  const dh = e.img
-    ? `<div class="dh"><img src="${esc(e.img)}" alt="" onerror="this.parentNode.classList.add('noimg');this.parentNode.dataset.em='${catEm(e.cat)}';this.remove()"><button class="close" data-close>×</button><span class="tag dtag"><span class="dt" style="background:${ac};box-shadow:0 0 9px ${ac}"></span>${esc(e.cat)}</span></div>`
-    : `<div class="dh noimg" data-em="${catEm(e.cat)}" style="--ac:${ac}"><button class="close" data-close>×</button><span class="tag dtag"><span class="dt" style="background:${ac}"></span>${esc(e.cat)}</span></div>`;
+  const dh = `<div class="dh" data-em="${catEm(e.cat)}" style="--ac:${ac}"><img src="${esc(eventImg(e))}" alt="" onerror="this.parentNode.classList.add('noimg');this.remove()"><button class="close" data-close>×</button><span class="tag dtag"><span class="dt" style="background:${ac};box-shadow:0 0 9px ${ac}"></span>${esc(e.cat)}</span></div>`;
   const html=`
     ${dh}
     <h2 class="d-title">${esc(e.title)}</h2>
@@ -892,8 +901,24 @@ function openEvent(id){
         In der WhatsApp-Gruppe besprechen
       </a>
       <a class="btn btn-ghost" href="${waHostLink(host)}" target="_blank" rel="noopener">Host direkt anschreiben</a>
+      <button class="btn btn-ghost" data-share="${e.id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+        Event teilen
+      </button>
     </div>`;
   openSheet(html);
+}
+
+/* ---- Teilen: native Share-Sheet, sonst Link in die Zwischenablage ---- */
+async function shareEvent(id){
+  const e=eventById(id); if(!e) return;
+  const p=dParts(e.date);
+  const url=location.origin+location.pathname;
+  const text=`„${e.title}" am ${p.full} · ${e.time} Uhr, ${e.loc} (Bielefeld). Dabei über HOSTED by THE TRIBE:`;
+  try{
+    if(navigator.share){ await navigator.share({title:e.title, text, url}); return; }
+    await navigator.clipboard.writeText(text+' '+url); toast('Link kopiert 📋');
+  }catch(err){ /* Nutzer hat abgebrochen — kein Fehler */ }
 }
 
 /* ============================================================ host sheet ====== */
@@ -982,6 +1007,9 @@ function initEvents(){
 
     const ho=e.target.closest('[data-host-open]');
     if(ho && ho.dataset.hostOpen && ho.dataset.hostOpen!=='me'){ openHost(ho.dataset.hostOpen); return; }
+
+    const sh=e.target.closest('[data-share]');
+    if(sh){ shareEvent(sh.dataset.share); return; }
   });
 
   $('#scrim').addEventListener('click',closeSheet);
