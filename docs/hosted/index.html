@@ -603,7 +603,7 @@ function load(){
   }
   return s;
 }
-function save(s){ localStorage.setItem(KEY, JSON.stringify(s||S)); }
+function save(s){ try{ localStorage.setItem(KEY, JSON.stringify(s||S)); }catch(e){ /* privater Modus / Quota voll — App läuft trotzdem (nur ohne Speichern) */ } }
 
 const hostById = id => S.hosts.find(h=>h.id===id) || {id, name:'Host', bio:''};
 const eventById = id => S.events.find(e=>e.id===id);
@@ -1050,7 +1050,15 @@ function boot(){
   initEvents();
   go('discover');
 }
-boot();
+try{ boot(); }
+catch(err){
+  // Letzte Rettung: nie ein weißer Screen — Fehler sichtbar machen statt still zu sterben
+  document.body.innerHTML='<div style="max-width:440px;margin:0 auto;padding:60px 26px;font-family:system-ui,sans-serif;color:#F3EEE4;background:#0E0C0A;min-height:100dvh">'
+    +'<h1 style="font-size:22px;margin:0 0 12px">HOSTED konnte nicht laden</h1>'
+    +'<p style="color:#B7AF9F;line-height:1.6;font-size:14px">Bitte lade die Seite neu. Falls es weiter hakt, öffne sie in einem anderen Browser (nicht im privaten Modus).</p>'
+    +'<pre style="white-space:pre-wrap;color:#847B6C;font-size:11px;margin-top:20px">'+String(err&&err.message||err)+'</pre></div>';
+  try{ console.error('HOSTED boot error', err); }catch(_){}
+}
 </script>
 </body>
 </html>
