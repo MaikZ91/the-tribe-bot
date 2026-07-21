@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0E0C0A" />
+<title>HOSTED — deine Stadt, dein Event · by THE TRIBE</title>
+<meta name="description" content="HOSTED — hoste eigene Events in Bielefeld. Wine Walk, Techno x Paint & mehr. Hosts vernetzen sich, Leute machen mit, Kommunikation läuft in der WhatsApp-Gruppe. Kostenlos hosten oder mit 30% Provision an THE TRIBE." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E0C0A'/><text x='16' y='22' font-family='Arial Black,sans-serif' font-size='15' fill='%23F5A21A' text-anchor='middle' font-weight='900'>H</text></svg>">
+<style>
+  @font-face{font-family:'Familjen';src:url('../assets/fonts/familjen-grotesk-latin.woff2') format('woff2');font-weight:400 700;font-display:swap;}
+  @font-face{font-family:'Anton';src:url('../assets/fonts/anton-latin.woff2') format('woff2');font-weight:400;font-display:swap;}
+
+  :root{
+    --ink:#0E0C0A; --ink-2:#16130F; --ink-3:#1E1A15; --ink-4:#272119;
+    --accent:#F5A21A;           /* personalisierbar */
+    --accent-hi:#FFC65A;
+    --wa:#25D366; --wa-bg:rgba(37,211,102,.13); --wa-bd:rgba(37,211,102,.32);
+    --cream:#F3EEE4; --cream-dim:#B7AF9F; --fog:#847B6C;
+    --line:rgba(243,238,228,.09); --line-2:rgba(243,238,228,.17);
+    --ff-disp:'Anton',system-ui,sans-serif;
+    --ff-head:'Familjen','Familjen Grotesk',system-ui,sans-serif;
+    --ff-body:'Familjen','Familjen Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --r:16px; --r-lg:22px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --max:440px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  ::selection{background:color-mix(in srgb,var(--accent) 35%,transparent);color:#fff;}
+  body{font-family:var(--ff-body);color:var(--cream);letter-spacing:.005em;
+    min-height:100dvh;display:flex;justify-content:center;background:#000;line-height:1.45;}
+  input,textarea,select,button{font-family:inherit;color:inherit;}
+  img{display:block;}
+  a{color:inherit;text-decoration:none;}
+
+  .app{width:100%;max-width:var(--max);min-height:100dvh;position:relative;overflow:hidden;
+    background:
+      radial-gradient(140% 50% at 50% -8%, color-mix(in srgb,var(--accent) 12%,transparent), transparent 55%),
+      radial-gradient(90% 40% at 100% 4%, rgba(194,80,46,.06), transparent 50%),
+      var(--ink);
+    padding-bottom:78px;}
+  @media(min-width:480px){.app{min-height:96dvh;margin:2dvh 0;border-radius:34px;
+    box-shadow:0 40px 140px rgba(0,0,0,.7),0 0 0 1px var(--line);}}
+  .app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.045;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:35;padding:15px 20px 11px;
+    background:linear-gradient(180deg,var(--ink) 70%,rgba(14,12,10,0));backdrop-filter:blur(9px);}
+  .bar{display:flex;align-items:center;gap:10px;}
+  .logo{display:flex;align-items:center;gap:9px;}
+  .logo .glyph{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#120d05;
+    font-family:var(--ff-disp);font-size:17px;display:grid;place-items:center;padding-top:2px;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 40%,transparent);}
+  .wordmark{font-family:var(--ff-disp);font-size:18px;letter-spacing:.14em;text-transform:uppercase;line-height:1;}
+  .wordmark small{display:block;font-family:var(--ff-head);font-size:8px;letter-spacing:.34em;color:var(--fog);font-weight:600;margin-top:2px;}
+  .loc{margin-left:auto;text-align:right;}
+  .loc .c{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+  .loc .m{font-size:10px;color:var(--fog);letter-spacing:.03em;margin-top:1px;}
+
+  main{padding:0 16px;}
+  .view{animation:fade .4s var(--ease);}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .hide{display:none!important;}
+
+  /* ===== section titles ===== */
+  .sec{display:flex;align-items:baseline;gap:10px;margin:22px 4px 12px;}
+  .sec .t{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+  .sec .n{margin-left:auto;font-size:11px;color:var(--fog);}
+
+  /* ===== hero ===== */
+  .hero{padding:12px 4px 4px;}
+  .hero .k{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--fog);font-weight:700;}
+  .hero h1{font-family:var(--ff-disp);font-weight:400;line-height:.9;margin:8px 0 0;
+    font-size:clamp(40px,13vw,58px);letter-spacing:.01em;text-transform:uppercase;
+    background:linear-gradient(180deg,var(--cream),#9a917f);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero .d{font-family:var(--ff-head);font-size:13.5px;color:var(--cream-dim);margin-top:9px;max-width:32ch;}
+  .hero .d b{color:var(--cream);font-weight:600;}
+
+  /* ===== chips ===== */
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 4px 10px;scrollbar-width:none;-ms-overflow-style:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;font-size:11.5px;font-weight:600;letter-spacing:.02em;padding:8px 13px;border-radius:999px;
+    background:var(--ink-2);border:1px solid var(--line);color:var(--cream-dim);cursor:pointer;white-space:nowrap;transition:.18s var(--ease);}
+  .chip.on{background:var(--accent);border-color:var(--accent);color:#120d05;font-weight:700;}
+
+  /* ===== event card ===== */
+  .card{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--ink-2);border:1px solid var(--line);margin-bottom:14px;cursor:pointer;transition:.2s var(--ease);}
+  .card:active{transform:scale(.988);}
+  .card .ph{position:relative;height:186px;overflow:hidden;background:var(--ink-3);}
+  .card .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.03) brightness(.92);}
+  .card .ph.noimg{background:radial-gradient(120% 100% at 30% 0%,color-mix(in srgb,var(--ac) 46%,var(--ink-3)),var(--ink-2));}
+  .card .ph.noimg::before{content:attr(data-em);position:absolute;inset:0;display:grid;place-items:center;font-size:60px;opacity:.5;}
+  .card .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,10,0) 34%,rgba(14,12,10,.72) 78%,var(--ink-2) 100%);}
+  .card .top{position:absolute;top:12px;left:12px;right:12px;z-index:2;display:flex;align-items:flex-start;gap:8px;}
+  .tag{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    padding:5px 9px;border-radius:999px;background:rgba(10,8,6,.5);backdrop-filter:blur(6px);border:1px solid var(--line-2);}
+  .tag .dt{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 9px var(--ac);}
+  .price{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.06em;padding:5px 10px;border-radius:999px;
+    background:rgba(10,8,6,.55);backdrop-filter:blur(6px);border:1px solid var(--line-2);white-space:nowrap;}
+  .price.free{color:var(--wa);border-color:var(--wa-bd);}
+  .price.paid{color:var(--accent-hi);border-color:color-mix(in srgb,var(--accent) 40%,transparent);}
+  .card .meta{position:absolute;left:14px;right:14px;bottom:12px;z-index:2;}
+  .card .day{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--accent-hi);text-transform:uppercase;margin-bottom:5px;}
+  .card h3{font-family:var(--ff-disp);font-weight:400;font-size:24px;line-height:.98;letter-spacing:.01em;text-transform:uppercase;}
+  .card .sub{font-size:12px;color:var(--cream-dim);margin-top:5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .card .sub .hostn{color:var(--cream);font-weight:600;}
+  .card .foot{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line);}
+  .who{display:flex;align-items:center;}
+  .who .av{width:22px;height:22px;border-radius:50%;margin-left:-7px;border:2px solid var(--ink-2);background:linear-gradient(135deg,var(--a1),var(--a2));}
+  .who .av:first-child{margin-left:0;}
+  .who .lbl{margin-left:9px;font-size:11px;color:var(--fog);}
+  .who .lbl b{color:var(--cream-dim);font-weight:700;}
+  .join{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--ff-head);font-weight:700;font-size:12px;
+    padding:8px 15px;border-radius:999px;background:var(--accent);color:#120d05;border:none;cursor:pointer;transition:.18s var(--ease);}
+  .join.on{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);}
+  .join svg{width:14px;height:14px;}
+
+  /* ===== calendar ===== */
+  .cal-head{display:flex;align-items:center;gap:12px;margin:8px 4px 14px;}
+  .cal-head .mn{font-family:var(--ff-disp);font-size:22px;text-transform:uppercase;letter-spacing:.02em;}
+  .cal-nav{margin-left:auto;display:flex;gap:8px;}
+  .cal-nav button{width:34px;height:34px;border-radius:10px;background:var(--ink-2);border:1px solid var(--line);color:var(--cream);font-size:16px;cursor:pointer;display:grid;place-items:center;}
+  .grid-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+  .grid-cal .dow{text-align:center;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);font-weight:700;padding-bottom:4px;}
+  .cell{aspect-ratio:1;border-radius:11px;background:var(--ink-2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13px;color:var(--cream-dim);cursor:pointer;position:relative;transition:.15s var(--ease);}
+  .cell.empty{background:transparent;border:none;cursor:default;}
+  .cell.today{border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--cream);}
+  .cell.has{color:var(--cream);}
+  .cell.sel{background:var(--accent);border-color:var(--accent);color:#120d05;font-weight:700;}
+  .cell .dots{display:flex;gap:3px;height:5px;}
+  .cell .dots i{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+  .cell.sel .dots i{background:#120d05;}
+  .cal-day{margin:18px 4px 8px;font-family:var(--ff-head);font-weight:700;font-size:14px;color:var(--accent);}
+
+  /* ===== hosts ===== */
+  .host-row{display:flex;align-items:center;gap:13px;padding:13px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--line);margin-bottom:11px;cursor:pointer;}
+  .avatar{width:48px;height:48px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;font-family:var(--ff-disp);font-size:20px;color:#fff;background:linear-gradient(135deg,var(--a1),var(--a2));}
+  .host-row .info{min-width:0;flex:1;}
+  .host-row .nm{font-family:var(--ff-head);font-weight:700;font-size:15px;display:flex;align-items:center;gap:7px;}
+  .host-row .vf{font-size:9px;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:999px;padding:1px 6px;letter-spacing:.08em;text-transform:uppercase;}
+  .host-row .bi{font-size:12px;color:var(--cream-dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .host-row .st{font-size:10.5px;color:var(--fog);margin-top:4px;}
+  .connect{flex:0 0 auto;font-family:var(--ff-head);font-weight:700;font-size:12px;padding:8px 13px;border-radius:999px;background:var(--accent);color:#120d05;border:none;cursor:pointer;}
+  .connect.on{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);}
+
+  /* ===== forms ===== */
+  .field{margin-bottom:15px;}
+  .field label{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);font-weight:700;margin-bottom:7px;}
+  .field label .req{color:var(--accent);}
+  .inp,.ta,.sel{width:100%;background:var(--ink-2);border:1px solid var(--line-2);border-radius:13px;padding:13px 14px;font-size:15px;color:var(--cream);transition:.15s var(--ease);}
+  .inp:focus,.ta:focus,.sel:focus{outline:none;border-color:var(--accent);background:var(--ink-3);}
+  .inp::placeholder,.ta::placeholder{color:var(--fog);}
+  .ta{resize:vertical;min-height:92px;line-height:1.5;}
+  .sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23847B6C' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+  .hint{font-size:11px;color:var(--fog);margin-top:6px;line-height:1.5;}
+
+  /* image upload */
+  .drop{position:relative;border:1.5px dashed var(--line-2);border-radius:16px;overflow:hidden;background:var(--ink-2);min-height:150px;display:grid;place-items:center;text-align:center;cursor:pointer;transition:.18s var(--ease);}
+  .drop:active{border-color:var(--accent);}
+  .drop input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+  .drop .ph-empty{padding:26px 20px;color:var(--fog);}
+  .drop .ph-empty .ic{font-size:30px;margin-bottom:8px;opacity:.7;}
+  .drop .ph-empty b{color:var(--cream-dim);display:block;font-size:13px;margin-bottom:3px;}
+  .drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .drop .rm{position:absolute;top:9px;right:9px;z-index:3;width:30px;height:30px;border-radius:50%;background:rgba(10,8,6,.7);backdrop-filter:blur(6px);border:1px solid var(--line-2);color:var(--cream);font-size:16px;display:grid;place-items:center;}
+
+  /* toggle */
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink-2);border:1px solid var(--line-2);border-radius:13px;padding:4px;}
+  .seg button{padding:11px;border-radius:10px;background:transparent;border:none;color:var(--cream-dim);font-weight:700;font-size:13px;cursor:pointer;transition:.15s var(--ease);}
+  .seg button.on{background:var(--accent);color:#120d05;}
+  .seg.free button.on{background:var(--wa);color:#04240f;}
+
+  /* commission panel */
+  .comm{background:linear-gradient(180deg,var(--ink-3),var(--ink-2));border:1px solid var(--line-2);border-radius:16px;padding:16px;margin-top:4px;}
+  .comm .r{display:flex;align-items:center;justify-content:space-between;padding:7px 0;font-size:13.5px;}
+  .comm .r+.r{border-top:1px solid var(--line);}
+  .comm .r .l{color:var(--cream-dim);}
+  .comm .r .v{font-family:var(--ff-head);font-weight:700;}
+  .comm .r.host .v{color:var(--wa);font-size:16px;}
+  .comm .r.tribe .v{color:var(--accent);}
+  .comm .note{font-size:11px;color:var(--fog);margin-top:10px;line-height:1.5;}
+  .comm.freebox{background:var(--wa-bg);border-color:var(--wa-bd);}
+  .comm.freebox .big{font-family:var(--ff-head);font-weight:700;color:var(--wa);font-size:14px;display:flex;align-items:center;gap:8px;}
+
+  /* primary button */
+  .btn{width:100%;padding:16px;border-radius:15px;border:none;font-family:var(--ff-head);font-weight:700;font-size:15px;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.18s var(--ease);}
+  .btn-primary{background:var(--accent);color:#120d05;box-shadow:0 12px 34px color-mix(in srgb,var(--accent) 30%,transparent);}
+  .btn-primary:active{transform:translateY(1px);}
+  .btn-ghost{background:var(--ink-2);border:1px solid var(--line-2);color:var(--cream);}
+  .btn-wa{background:var(--wa-bg);border:1px solid var(--wa-bd);color:#bfe8c9;}
+  .btn svg{width:17px;height:17px;}
+
+  /* ===== profile ===== */
+  .prof-hero{display:flex;align-items:center;gap:15px;padding:6px 4px 4px;}
+  .prof-hero .avatar{width:66px;height:66px;border-radius:19px;font-size:27px;}
+  .prof-hero .nm{font-family:var(--ff-disp);font-size:23px;text-transform:uppercase;letter-spacing:.01em;}
+  .prof-hero .bi{font-size:12.5px;color:var(--cream-dim);margin-top:3px;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0;}
+  .stat{background:var(--ink-2);border:1px solid var(--line);border-radius:15px;padding:14px 8px;text-align:center;}
+  .stat .v{font-family:var(--ff-disp);font-size:26px;color:var(--accent);line-height:1;}
+  .stat .l{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);margin-top:6px;}
+  .swatches{display:flex;gap:11px;flex-wrap:wrap;margin-top:4px;}
+  .sw{width:38px;height:38px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s var(--ease);position:relative;}
+  .sw.on{border-color:var(--cream);transform:scale(1.08);}
+  .sw.on::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#120d05;font-weight:900;font-size:15px;}
+  .rowlink{display:flex;align-items:center;gap:12px;padding:15px 4px;border-top:1px solid var(--line);cursor:pointer;}
+  .rowlink .ic{width:20px;color:var(--accent);}
+  .rowlink .tx{font-weight:600;font-size:14px;}
+  .rowlink .ar{margin-left:auto;color:var(--fog);}
+
+  /* ===== bottom nav ===== */
+  nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:var(--max);z-index:40;
+    display:flex;justify-content:space-around;align-items:flex-end;padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+    background:linear-gradient(0deg,var(--ink) 74%,rgba(14,12,10,0));border-top:1px solid var(--line);}
+  .ni{display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--fog);cursor:pointer;background:none;border:none;padding:4px 8px;transition:color .2s;}
+  .ni svg{width:22px;height:22px;}
+  .ni span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+  .ni.on{color:var(--accent);}
+  .ni.fab{margin-top:-24px;}
+  .ni.fab .cta{width:54px;height:54px;border-radius:18px;background:var(--accent);color:#120d05;display:grid;place-items:center;
+    box-shadow:0 10px 30px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .ni.fab .cta svg{width:26px;height:26px;}
+  .ni.fab span{color:var(--cream-dim);margin-top:2px;}
+
+  /* ===== sheet / modal ===== */
+  .scrim{position:fixed;inset:0;z-index:70;background:rgba(6,5,4,.72);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.28s var(--ease);}
+  .scrim.show{opacity:1;pointer-events:auto;}
+  .sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(100%);width:100%;max-width:var(--max);z-index:80;
+    max-height:92dvh;overflow-y:auto;background:var(--ink);border-radius:26px 26px 0 0;border:1px solid var(--line-2);border-bottom:none;
+    transition:transform .34s var(--ease);-webkit-overflow-scrolling:touch;}
+  .sheet.show{transform:translateX(-50%) translateY(0);}
+  .sheet .grip{position:sticky;top:0;z-index:5;display:flex;justify-content:center;padding:11px 0 7px;background:linear-gradient(180deg,var(--ink) 72%,transparent);}
+  .sheet .grip i{width:38px;height:4px;border-radius:99px;background:var(--line-2);}
+  .sheet-body{padding:4px 20px calc(30px + env(safe-area-inset-bottom));}
+
+  /* detail sheet */
+  .dh{position:relative;margin:-4px -20px 0;height:230px;overflow:hidden;background:var(--ink-3);}
+  .dh img{width:100%;height:100%;object-fit:cover;}
+  .dh.noimg{background:radial-gradient(120% 100% at 30% 0%,color-mix(in srgb,var(--ac) 50%,var(--ink-3)),var(--ink));}
+  .dh.noimg::before{content:attr(data-em);position:absolute;inset:0;display:grid;place-items:center;font-size:76px;opacity:.5;}
+  .dh::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--ink));}
+  .dh .close{position:absolute;top:14px;right:16px;z-index:3;width:34px;height:34px;border-radius:50%;background:rgba(10,8,6,.6);backdrop-filter:blur(6px);border:1px solid var(--line-2);color:var(--cream);font-size:18px;display:grid;place-items:center;cursor:pointer;}
+  .dh .dtag{position:absolute;top:14px;left:16px;z-index:3;}
+  .d-title{font-family:var(--ff-disp);font-size:32px;line-height:.96;text-transform:uppercase;margin-top:-30px;position:relative;z-index:2;}
+  .d-tagline{color:var(--accent-hi);font-weight:600;font-size:13.5px;margin-top:6px;}
+  .d-facts{display:flex;flex-direction:column;gap:1px;margin:18px 0;background:var(--line);border-radius:14px;overflow:hidden;border:1px solid var(--line);}
+  .d-fact{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--ink-2);}
+  .d-fact .ic{width:18px;color:var(--accent);flex:0 0 auto;}
+  .d-fact .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);}
+  .d-fact .v{font-weight:600;font-size:14px;margin-top:1px;}
+  .d-fact .v small{color:var(--cream-dim);font-weight:400;}
+  .d-desc{font-size:14.5px;line-height:1.65;color:var(--cream-dim);white-space:pre-wrap;}
+  .d-host{display:flex;align-items:center;gap:12px;padding:14px;background:var(--ink-2);border:1px solid var(--line);border-radius:15px;margin:18px 0;}
+  .d-host .avatar{width:44px;height:44px;font-size:18px;border-radius:13px;}
+  .d-host .nm{font-family:var(--ff-head);font-weight:700;font-size:14.5px;}
+  .d-host .ro{font-size:11px;color:var(--fog);}
+  .actions{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+  .wa-tip{display:flex;gap:10px;align-items:flex-start;background:var(--wa-bg);border:1px solid var(--wa-bd);border-radius:14px;padding:13px 14px;margin-top:14px;}
+  .wa-tip svg{width:18px;height:18px;flex:0 0 auto;color:var(--wa);margin-top:1px;}
+  .wa-tip .tx{font-size:12.5px;color:#cfe9d6;line-height:1.5;}
+  .wa-tip .tx b{color:#eafaef;}
+
+  .empty{text-align:center;color:var(--fog);padding:56px 24px;font-size:13.5px;line-height:1.8;}
+  .empty .big{font-family:var(--ff-disp);font-size:26px;color:var(--cream-dim);display:block;margin-bottom:12px;letter-spacing:.03em;}
+  .empty b{color:var(--accent);font-weight:400;}
+
+  .toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(14px);opacity:0;z-index:90;pointer-events:none;
+    font-family:var(--ff-head);font-weight:600;font-size:13px;color:var(--cream);
+    background:var(--ink-4);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);padding:12px 18px;border-radius:999px;
+    box-shadow:0 14px 40px rgba(0,0,0,.6);transition:.32s var(--ease);white-space:nowrap;max-width:90vw;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .banner{display:flex;gap:11px;align-items:center;background:linear-gradient(100deg,color-mix(in srgb,var(--accent) 14%,var(--ink-2)),var(--ink-2));
+    border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);border-radius:16px;padding:14px;margin:4px 4px 6px;}
+  .banner .em{font-size:26px;}
+  .banner .tx{font-size:12.5px;line-height:1.45;color:var(--cream-dim);}
+  .banner .tx b{color:var(--cream);}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="bar">
+      <div class="logo">
+        <div class="glyph">H</div>
+        <div class="wordmark">Hosted<small>by The Tribe · Bielefeld</small></div>
+      </div>
+      <div class="loc">
+        <div class="c">Bielefeld</div>
+        <div class="m" id="today">—</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ ENTDECKEN ============ -->
+    <section id="view-discover" class="view">
+      <div class="hero">
+        <div class="k">Was läuft in der Stadt</div>
+        <h1>Mach dein<br>Ding.</h1>
+        <div class="d"><b>Hoste</b> eigene Events oder <b>sei dabei</b>. Von Wine Walk bis Techno&nbsp;x&nbsp;Paint — alles von echten Menschen aus Bielefeld.</div>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div id="feed"></div>
+    </section>
+
+    <!-- ============ KALENDER ============ -->
+    <section id="view-calendar" class="view hide">
+      <div class="sec"><div class="t">Kalender</div><div class="n" id="cal-count"></div></div>
+      <div class="cal-head">
+        <div class="mn" id="cal-month">—</div>
+        <div class="cal-nav">
+          <button id="cal-prev" aria-label="Vorheriger Monat">‹</button>
+          <button id="cal-next" aria-label="Nächster Monat">›</button>
+        </div>
+      </div>
+      <div class="grid-cal" id="cal-grid"></div>
+      <div id="cal-list"></div>
+    </section>
+
+    <!-- ============ HOSTEN ============ -->
+    <section id="view-create" class="view hide">
+      <div class="sec"><div class="t">Event hosten</div></div>
+      <div class="banner">
+        <span class="em">✨</span>
+        <div class="tx"><b>In 60 Sekunden live.</b> Fülle aus, lade ein Bild hoch — dein Event landet sofort im Feed &amp; im Kalender. Besprochen wird alles in der Tribe-WhatsApp-Gruppe.</div>
+      </div>
+
+      <form id="ev-form" autocomplete="off">
+        <div class="field">
+          <label>Titel <span class="req">*</span></label>
+          <input class="inp" id="f-title" placeholder="z. B. Wine Walk am Obersee" maxlength="48" required>
+        </div>
+
+        <div class="field">
+          <label>Bild</label>
+          <label class="drop" id="f-drop">
+            <input type="file" id="f-image" accept="image/*">
+            <div class="ph-empty" id="drop-empty">
+              <div class="ic">📷</div>
+              <b>Bild hochladen</b>
+              Tippen zum Auswählen — macht dein Event unwiderstehlich
+            </div>
+          </label>
+        </div>
+
+        <div class="field">
+          <label>Kategorie <span class="req">*</span></label>
+          <select class="sel" id="f-cat"></select>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label>Datum <span class="req">*</span></label>
+            <input class="inp" id="f-date" type="date" required>
+          </div>
+          <div class="field">
+            <label>Uhrzeit <span class="req">*</span></label>
+            <input class="inp" id="f-time" type="time" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Treffpunkt <span class="req">*</span></label>
+          <input class="inp" id="f-loc" placeholder="z. B. Bürgerpark, Haupteingang" maxlength="60" required>
+        </div>
+
+        <div class="field">
+          <label>Worum geht's?</label>
+          <textarea class="ta" id="f-desc" placeholder="Beschreibe dein Event in ein paar Sätzen. Was passiert, für wen ist es, was macht es besonders?" maxlength="600"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Preis-Modell <span class="req">*</span></label>
+          <div class="seg free" id="f-mode">
+            <button type="button" data-mode="free" class="on">Kostenlos</button>
+            <button type="button" data-mode="paid">Mit Ticketpreis</button>
+          </div>
+          <div class="hint" id="mode-hint">Kostenlose Community-Events kannst du einfach so hosten — 0&nbsp;% Provision, du behältst die volle Freiheit.</div>
+        </div>
+
+        <div class="field hide" id="price-wrap">
+          <label>Ticketpreis pro Person (€) <span class="req">*</span></label>
+          <input class="inp" id="f-price" type="number" min="1" step="0.5" inputmode="decimal" placeholder="z. B. 20">
+        </div>
+
+        <div id="comm-slot"></div>
+
+        <div class="field" style="margin-top:20px;">
+          <label>Als wer hostest du?</label>
+          <input class="inp" id="f-host" placeholder="Dein Host-Name">
+          <div class="hint">Wird aus deinem Profil übernommen — hier änderbar.</div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="margin-top:10px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Event veröffentlichen
+        </button>
+        <p class="hint" style="text-align:center;margin-top:12px;">Mit dem Veröffentlichen bestätigst du die <a href="#" id="lnk-rules" style="color:var(--accent);">Host-Regeln</a>. Dein Event ist danach sofort im Feed sichtbar.</p>
+      </form>
+    </section>
+
+    <!-- ============ HOSTS ============ -->
+    <section id="view-hosts" class="view hide">
+      <div class="sec"><div class="t">Hosts · Community</div><div class="n" id="hosts-count"></div></div>
+      <div class="banner">
+        <span class="em">🤝</span>
+        <div class="tx"><b>Vernetz dich.</b> Folge anderen Hosts, plant zusammen, teilt Reichweite. Gemeinsam wird die Stadt lebendiger.</div>
+      </div>
+      <div id="host-list"></div>
+    </section>
+
+    <!-- ============ PROFIL ============ -->
+    <section id="view-profile" class="view hide">
+      <div class="prof-hero">
+        <div class="avatar" id="p-avatar">?</div>
+        <div>
+          <div class="nm" id="p-name">Dein Name</div>
+          <div class="bi" id="p-bio">Richte dein Host-Profil ein</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v" id="p-hosted">0</div><div class="l">Gehostet</div></div>
+        <div class="stat"><div class="v" id="p-joined">0</div><div class="l">Dabei</div></div>
+        <div class="stat"><div class="v" id="p-conn">0</div><div class="l">Vernetzt</div></div>
+      </div>
+
+      <div class="sec"><div class="t">Personalisieren</div></div>
+      <div class="field">
+        <label>Akzentfarbe der App</label>
+        <div class="swatches" id="swatches"></div>
+      </div>
+
+      <div class="sec"><div class="t">Dein Host-Profil</div></div>
+      <div class="field">
+        <label>Host-Name</label>
+        <input class="inp" id="p-in-name" placeholder="Wie sollen dich Leute nennen?" maxlength="28">
+      </div>
+      <div class="field">
+        <label>Kurz-Bio</label>
+        <input class="inp" id="p-in-bio" placeholder="z. B. Ich liebe Wein &amp; gute Gespräche" maxlength="60">
+      </div>
+      <div class="field">
+        <label>WhatsApp-Nummer (für Host-Kontakt)</label>
+        <input class="inp" id="p-in-wa" placeholder="z. B. 49176…" inputmode="tel">
+        <div class="hint">Optional. So können dich Teilnehmer direkt erreichen.</div>
+      </div>
+      <button class="btn btn-primary" id="p-save" style="margin-top:4px;">Profil speichern</button>
+
+      <div style="margin-top:26px;">
+        <div class="rowlink" id="lnk-group">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>
+          </span>
+          <span class="tx">Zur Tribe-WhatsApp-Gruppe</span>
+          <span class="ar">→</span>
+        </div>
+        <div class="rowlink" id="lnk-how">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>
+          </span>
+          <span class="tx">Wie funktioniert die Provision?</span>
+          <span class="ar">→</span>
+        </div>
+        <div class="rowlink" id="lnk-reset">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>
+          </span>
+          <span class="tx">Meine Daten zurücksetzen</span>
+          <span class="ar">→</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav>
+    <button class="ni on" data-view="discover">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2 5.2-5.2 2 2-5.2z"/></svg>
+      <span>Entdecken</span>
+    </button>
+    <button class="ni" data-view="calendar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
+      <span>Kalender</span>
+    </button>
+    <button class="ni fab" data-view="create">
+      <span class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      <span>Hosten</span>
+    </button>
+    <button class="ni" data-view="hosts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.2"/><path d="M3.4 19a5.6 5.6 0 0 1 11.2 0"/><path d="M16 6.6a3 3 0 0 1 0 5.6"/><path d="M15.5 14a5.5 5.5 0 0 1 5 5"/></svg>
+      <span>Hosts</span>
+    </button>
+    <button class="ni" data-view="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></svg>
+      <span>Profil</span>
+    </button>
+  </nav>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet"><div class="grip"><i></i></div><div class="sheet-body" id="sheet-body"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   HOSTED · by THE TRIBE — client-side MVP
+   Persistenz via localStorage (GitHub Pages = statisch, kein Backend).
+   ============================================================ */
+const TRIBE_WA_GROUP = 'https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL';
+const TRIBE_FEE = 0.30;            // 30 % Provision auf Gewinn-Events
+const KEY = 'hosted_v1';
+
+/* ---- categories & accents ---- */
+const CATS = {
+  'Wine & Dine':{c:'#9E2B3F',em:'🍷'},
+  'Party & Musik':{c:'#8A6BB0',em:'🎧'},
+  'Kreativ & Kunst':{c:'#4FA3A0',em:'🎨'},
+  'Sport & Outdoor':{c:'#5E8C6A',em:'🏃'},
+  'Kultur & Talk':{c:'#5E7CA6',em:'🎭'},
+  'Food & Supper':{c:'#C9822E',em:'🍽️'},
+  'Ausgehen':{c:'#C9A24A',em:'🌙'},
+  'Sonstiges':{c:'#8A8276',em:'✨'}
+};
+const CAT_KEYS = Object.keys(CATS);
+const accent = k => (CATS[k]||CATS['Sonstiges']).c;
+const catEm  = k => (CATS[k]||CATS['Sonstiges']).em;
+
+/* ---- accent theme options ---- */
+const THEMES = [
+  {name:'Amber',   a:'#F5A21A', hi:'#FFC65A'},
+  {name:'Ember',   a:'#E2603C', hi:'#F58F6E'},
+  {name:'Wine',    a:'#C0455C', hi:'#E5768A'},
+  {name:'Violet',  a:'#9B7BD4', hi:'#C1A8F0'},
+  {name:'Teal',    a:'#3FB6A8', hi:'#77E0D3'},
+  {name:'Lime',    a:'#8FC24A', hi:'#BEE87D'},
+  {name:'Sky',     a:'#5B9BD6', hi:'#8CC2F0'},
+  {name:'Gold',    a:'#C9A24A', hi:'#E8C977'}
+];
+
+/* ---- avatar palettes ---- */
+const AVP = [['#C9822E','#7a4f1e'],['#8A6BB0','#463659'],['#4FA3A0','#274f4d'],
+  ['#9E2B3F','#521722'],['#5E7CA6','#2f3f54'],['#5E8C6A','#2f4636'],['#C9A24A','#645020']];
+function hash(s){let h=0;s=String(s);for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+const avp = s => AVP[hash(s)%AVP.length];
+const initial = n => (String(n||'?').trim()[0]||'?').toUpperCase();
+
+/* ---- seed hosts ---- */
+const SEED_HOSTS = [
+  {id:'h_lena', name:'Lena',   bio:'Sommelier-Herz, plant Wine Walks am Obersee', verified:true,  wa:'4917645961547'},
+  {id:'h_jo',   name:'Jo & Mara', bio:'Techno x Paint — Farbe, Bass, Freiheit', verified:true, wa:'4917645961547'},
+  {id:'h_tim',  name:'Tim',    bio:'Läuft dienstags, kocht sonntags', verified:false, wa:'4917645961547'},
+  {id:'h_sarah',name:'Sarah',  bio:'Foto-Walks & Kreativkram', verified:false, wa:'4917645961547'},
+  {id:'h_patrick',name:'Patrick', bio:'Pub Crawls & gute Runden', verified:false, wa:'4917645961547'}
+];
+
+/* ---- seed events (relative to /hosted/) ---- */
+function iso(offset){const d=new Date();d.setDate(d.getDate()+offset);return d.toISOString().slice(0,10);}
+const SEED_EVENTS = [
+  {id:'e_wine',  title:'Wine Walk am Obersee', cat:'Wine & Dine', hostId:'h_lena',
+    date:iso(3), time:'18:00', loc:'Bürgerpark, Haupteingang', img:'../assets/wine/cheers.jpg',
+    price:24, profit:true, tagline:'Walk. Sip. Connect.',
+    desc:'Ein Spaziergang mit feinen Weinen an kleinen Stopps — vom Bürgerpark zum Obersee. Ein Glas in der Hand, gute Gespräche unterwegs und der Sonnenuntergang am Wasser als Finale.'},
+  {id:'e_techno',title:'Techno x Paint', cat:'Kreativ & Kunst', hostId:'h_jo',
+    date:iso(5), time:'20:00', loc:'Atelier Nordstadt', img:'../assets/hero/9.webp',
+    price:18, profit:true, tagline:'Farbe. Bass. Loslassen.',
+    desc:'Leinwand, Neonfarben, ein DJ-Set und du. Wir malen, was der Beat vorgibt — kein Können nötig, nur Lust auf Farbe und Bewegung. Am Ende nimmst du dein Bild mit.'},
+  {id:'e_run',   title:'Tuesday Run', cat:'Sport & Outdoor', hostId:'h_tim',
+    date:iso(1), time:'19:00', loc:'Stadtpark, Musikpavillon', img:'../assets/hero/4.webp',
+    price:0, profit:false, tagline:'Locker laufen, danach an die Bar.',
+    desc:'Gemeinsam 5–7 km in entspanntem Tempo — niemand wird abgehängt. Danach optional noch ein Getränk. Perfekt zum Ankommen und Leute kennenlernen.'},
+  {id:'e_foto',  title:'Foto-Walk Altstadt', cat:'Kreativ & Kunst', hostId:'h_sarah',
+    date:iso(6), time:'16:30', loc:'Alter Markt, Brunnen', img:'../assets/hero/10.webp',
+    price:0, profit:false, tagline:'Licht, Gassen, gute Motive.',
+    desc:'Wir ziehen mit Kamera oder Handy durch die Altstadt und fangen das goldene Nachmittagslicht ein. Tipps inklusive — für Anfänger und Fortgeschrittene.'},
+  {id:'e_supper',title:'Supper Club', cat:'Food & Supper', hostId:'h_tim',
+    date:iso(9), time:'19:30', loc:'Private Location (nach Anmeldung)', img:'../assets/hero/5.webp',
+    price:35, profit:true, tagline:'Ein Tisch, Fremde, ein Abend.',
+    desc:'Drei Gänge, ein langer Tisch und Menschen, die du noch nicht kennst. Am Ende gehst du mit vollem Bauch und neuen Nummern nach Hause.'},
+  {id:'e_pub',   title:'Pub Crawl Friday', cat:'Ausgehen', hostId:'h_patrick',
+    date:iso(4), time:'20:30', loc:'Treff: Kesselbrink', img:'../assets/hero/3.webp',
+    price:0, profit:false, tagline:'Drei Bars, eine Crew.',
+    desc:'Wir ziehen durch die besten kleinen Läden der Stadt. Keine Anmeldung, einfach dabei sein — die Runde findet ihren Weg von ganz allein.'}
+];
+
+/* ============================================================ state ============ */
+let S = load();
+function load(){
+  let s;
+  try{ s = JSON.parse(localStorage.getItem(KEY)); }catch(e){ s=null; }
+  if(!s || !s.v){
+    s = {
+      v:1,
+      theme:0,
+      me:{ hostId:'me', name:'', bio:'', wa:'' },
+      hosts: SEED_HOSTS.map(h=>({...h})),
+      events: SEED_EVENTS.map(e=>({...e})),
+      joined:{},            // eventId -> true
+      connections:{}        // hostId -> true
+    };
+    save(s);
+  }
+  return s;
+}
+function save(s){ localStorage.setItem(KEY, JSON.stringify(s||S)); }
+
+const hostById = id => S.hosts.find(h=>h.id===id) || {id, name:'Host', bio:''};
+const eventById = id => S.events.find(e=>e.id===id);
+function attendeeCount(e){ const base = 2 + (hash(e.id)%11); return base + (S.joined[e.id]?1:0); }
+
+/* ============================================================ helpers ========== */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur = n => (Math.round(n*100)/100).toLocaleString('de-DE',{minimumFractionDigits:0,maximumFractionDigits:2});
+const nowISO = new Date().toISOString().slice(0,10);
+function dParts(d){ const dt=new Date(d+'T12:00'); return {
+  wd: dt.toLocaleDateString('de-DE',{weekday:'short'}),
+  wdl: dt.toLocaleDateString('de-DE',{weekday:'long'}),
+  day: dt.getDate(), mon: dt.toLocaleDateString('de-DE',{month:'short'}),
+  full: dt.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})
+};}
+function relDay(d){
+  const a=new Date(d+'T12:00'), b=new Date(nowISO+'T12:00');
+  const diff=Math.round((a-b)/864e5);
+  if(diff===0) return 'Heute'; if(diff===1) return 'Morgen';
+  if(diff>1&&diff<7) return dParts(d).wdl;
+  const p=dParts(d); return `${p.wd}, ${p.day}. ${p.mon}`;
+}
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2400); }
+
+/* ============================================================ theme =========== */
+function applyTheme(){
+  const t = THEMES[S.theme]||THEMES[0];
+  document.documentElement.style.setProperty('--accent', t.a);
+  document.documentElement.style.setProperty('--accent-hi', t.hi);
+  const tc=$('meta[name=theme-color]'); if(tc) tc.setAttribute('content','#0E0C0A');
+}
+
+/* ============================================================ event card ====== */
+function whoHTML(e){
+  const total=attendeeCount(e); const n=Math.min(total,4); let h='<div class="who">';
+  for(let i=0;i<n;i++){ const c=AVP[(hash(e.id)+i)%AVP.length]; h+=`<div class="av" style="--a1:${c[0]};--a2:${c[1]}"></div>`; }
+  h+=`<span class="lbl"><b>${total}</b> dabei</span></div>`; return h;
+}
+function priceTag(e){
+  if(!e.price||e.price<=0) return '<span class="price free">GRATIS</span>';
+  return `<span class="price paid">€${eur(e.price)}</span>`;
+}
+function cardHTML(e){
+  const host=hostById(e.hostId); const ac=accent(e.cat);
+  const joined=!!S.joined[e.id];
+  const imgTag = e.img
+    ? `<img src="${esc(e.img)}" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`
+    : '';
+  return `<article class="card" style="--ac:${ac}" data-ev="${e.id}">
+    <div class="ph${e.img?'':' noimg'}" data-em="${catEm(e.cat)}">
+      ${imgTag}
+      <div class="top">
+        <span class="tag"><span class="dt"></span>${esc(e.cat)}</span>
+        ${priceTag(e)}
+      </div>
+      <div class="meta">
+        <div class="day">${esc(relDay(e.date))} · ${esc(e.time)} Uhr</div>
+        <h3>${esc(e.title)}</h3>
+        <div class="sub"><span class="hostn">${esc(host.name)}</span> · ${esc(e.loc)}</div>
+      </div>
+    </div>
+    <div class="foot">
+      ${whoHTML(e)}
+      <button class="join${joined?' on':''}" data-join="${e.id}">
+        ${joined?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Dabei'
+                :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Dabei'}
+      </button>
+    </div>
+  </article>`;
+}
+
+/* ============================================================ DISCOVER ======== */
+let curFilter='Alle';
+function renderChips(){
+  const box=$('#chips'); const cats=['Alle',...CAT_KEYS.filter(k=>k!=='Sonstiges')];
+  box.innerHTML=cats.map(c=>`<button class="chip${c===curFilter?' on':''}" data-chip="${esc(c)}">${esc(c)}</button>`).join('');
+}
+function upcoming(){ return S.events.filter(e=>e.date>=nowISO).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)); }
+function renderFeed(){
+  const feed=$('#feed');
+  let list=upcoming();
+  if(curFilter!=='Alle') list=list.filter(e=>e.cat===curFilter);
+  if(!list.length){ feed.innerHTML=`<div class="empty"><span class="big">Noch nichts hier</span>Sei die erste Person, die in dieser Kategorie ein Event hostet.<br><br><b>+ Event hosten</b></div>`; return; }
+  feed.innerHTML=list.map(cardHTML).join('');
+}
+
+/* ============================================================ CALENDAR ======== */
+let calY, calM, calSel=null;
+function initCal(){ const d=new Date(); calY=d.getFullYear(); calM=d.getMonth(); calSel=nowISO; }
+function renderCal(){
+  $('#cal-count').textContent=`${upcoming().length} kommende`;
+  const first=new Date(calY,calM,1); const start=(first.getDay()+6)%7; // Mo=0
+  const days=new Date(calY,calM+1,0).getDate();
+  $('#cal-month').textContent=first.toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+  const byDate={}; S.events.forEach(e=>{ (byDate[e.date]=byDate[e.date]||[]).push(e); });
+  const dow=['Mo','Di','Mi','Do','Fr','Sa','So'];
+  let h=dow.map(d=>`<div class="dow">${d}</div>`).join('');
+  for(let i=0;i<start;i++) h+=`<div class="cell empty"></div>`;
+  for(let d=1;d<=days;d++){
+    const ds=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const evs=byDate[ds]||[]; const cls=['cell'];
+    if(ds===nowISO) cls.push('today'); if(evs.length) cls.push('has'); if(ds===calSel) cls.push('sel');
+    const dots=evs.slice(0,3).map(()=>'<i></i>').join('');
+    h+=`<div class="${cls.join(' ')}" data-day="${ds}">${d}<div class="dots">${dots}</div></div>`;
+  }
+  $('#cal-grid').innerHTML=h;
+  renderCalList();
+}
+function renderCalList(){
+  const box=$('#cal-list'); if(!calSel){ box.innerHTML=''; return; }
+  const evs=S.events.filter(e=>e.date===calSel).sort((a,b)=>a.time.localeCompare(b.time));
+  const p=dParts(calSel);
+  let h=`<div class="cal-day">${p.full}</div>`;
+  if(!evs.length){ h+=`<div class="empty" style="padding:30px 20px"><span class="big" style="font-size:20px">Frei</span>An diesem Tag ist noch nichts geplant.<br><b>+ Host dein Event</b></div>`; }
+  else h+=evs.map(cardHTML).join('');
+  box.innerHTML=h;
+}
+
+/* ============================================================ HOSTS =========== */
+function hostStats(id){
+  const ev=S.events.filter(e=>e.hostId===id).length;
+  return ev;
+}
+function renderHosts(){
+  const list=[...S.hosts].filter(h=>h.id!=='me');
+  $('#hosts-count').textContent=`${list.length} Hosts`;
+  const box=$('#host-list');
+  box.innerHTML=list.map(h=>{
+    const c=avp(h.id); const con=!!S.connections[h.id]; const n=hostStats(h.id);
+    return `<div class="host-row" data-host="${h.id}">
+      <div class="avatar" style="--a1:${c[0]};--a2:${c[1]}">${initial(h.name)}</div>
+      <div class="info">
+        <div class="nm">${esc(h.name)}${h.verified?'<span class="vf">Verifiziert</span>':''}</div>
+        <div class="bi">${esc(h.bio||'Host aus Bielefeld')}</div>
+        <div class="st">${n} Event${n===1?'':'s'} gehostet</div>
+      </div>
+      <button class="connect${con?' on':''}" data-connect="${h.id}">${con?'Vernetzt':'+ Folgen'}</button>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================ PROFILE ========= */
+function renderProfile(){
+  const me=S.me;
+  const c=avp(me.name||'me');
+  $('#p-avatar').style.setProperty('--a1',c[0]); $('#p-avatar').style.setProperty('--a2',c[1]);
+  $('#p-avatar').textContent=initial(me.name||'?');
+  $('#p-name').textContent=me.name||'Dein Name';
+  $('#p-bio').textContent=me.bio||'Richte dein Host-Profil ein';
+  $('#p-hosted').textContent=S.events.filter(e=>e.hostId==='me').length;
+  $('#p-joined').textContent=Object.keys(S.joined).length;
+  $('#p-conn').textContent=Object.keys(S.connections).filter(k=>S.connections[k]).length;
+  $('#p-in-name').value=me.name||''; $('#p-in-bio').value=me.bio||''; $('#p-in-wa').value=me.wa||'';
+  // swatches
+  $('#swatches').innerHTML=THEMES.map((t,i)=>
+    `<div class="sw${i===S.theme?' on':''}" data-theme="${i}" style="background:${t.a}" title="${t.name}"></div>`).join('');
+}
+
+/* ============================================================ CREATE ========== */
+let uploadData=null;
+function initCreateForm(){
+  // categories
+  $('#f-cat').innerHTML=CAT_KEYS.map(k=>`<option value="${esc(k)}">${catEm(k)}  ${esc(k)}</option>`).join('');
+  // default host name
+  $('#f-host').value=S.me.name||'';
+  // default date = tomorrow
+  const t=new Date(); t.setDate(t.getDate()+1); $('#f-date').value=t.toISOString().slice(0,10);
+  $('#f-date').min=nowISO;
+  renderComm();
+}
+let priceMode='free';
+function renderComm(){
+  const slot=$('#comm-slot');
+  if(priceMode==='free'){ slot.innerHTML=''; return; }
+  const price=parseFloat($('#f-price').value)||0;
+  const fee=price*TRIBE_FEE, net=price-fee;
+  slot.innerHTML=`<div class="comm">
+    <div class="r"><span class="l">Ticketpreis pro Person</span><span class="v">€${eur(price)}</span></div>
+    <div class="r tribe"><span class="l">THE TRIBE Provision (30 %)</span><span class="v">– €${eur(fee)}</span></div>
+    <div class="r host"><span class="l">Du erhältst pro Ticket</span><span class="v">€${eur(net)}</span></div>
+    <div class="note">Bei Events mit Gewinnabsicht behält THE TRIBE 30 % Provision — dafür bekommst du Reichweite, die Community, den Kalender-Slot und die WhatsApp-Gruppe. Abgerechnet wird pro verkauftem Ticket.</div>
+  </div>`;
+}
+function setMode(m){
+  priceMode=m;
+  $$('#f-mode button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
+  $('#f-mode').classList.toggle('free',m==='free');
+  $('#price-wrap').classList.toggle('hide',m!=='paid');
+  $('#f-price').required=(m==='paid');
+  $('#mode-hint').innerHTML = m==='free'
+    ? 'Kostenlose Community-Events kannst du einfach so hosten — 0&nbsp;% Provision, du behältst die volle Freiheit.'
+    : 'Events mit Gewinnabsicht: THE&nbsp;TRIBE behält 30&nbsp;% Provision, du bekommst 70&nbsp;% pro Ticket + volle Reichweite.';
+  renderComm();
+}
+function handleImage(file){
+  if(!file) return;
+  if(file.size>6*1024*1024){ toast('Bild zu groß (max 6 MB)'); return; }
+  const rd=new FileReader();
+  rd.onload=()=>{ uploadData=rd.result; showUpload(); };
+  rd.readAsDataURL(file);
+}
+function showUpload(){
+  const drop=$('#f-drop');
+  drop.querySelector('img')?.remove(); drop.querySelector('.rm')?.remove();
+  if(uploadData){
+    $('#drop-empty').style.display='none';
+    const img=document.createElement('img'); img.src=uploadData; drop.appendChild(img);
+    const rm=document.createElement('button'); rm.type='button'; rm.className='rm'; rm.textContent='×';
+    rm.onclick=(e)=>{ e.preventDefault(); e.stopPropagation(); uploadData=null; $('#f-image').value=''; $('#drop-empty').style.display=''; drop.querySelector('img')?.remove(); rm.remove(); };
+    drop.appendChild(rm);
+  }
+}
+function submitEvent(ev){
+  ev.preventDefault();
+  const title=$('#f-title').value.trim();
+  const cat=$('#f-cat').value, date=$('#f-date').value, time=$('#f-time').value, loc=$('#f-loc').value.trim();
+  const desc=$('#f-desc').value.trim(); const hostName=$('#f-host').value.trim()||S.me.name||'Anonymer Host';
+  if(!title||!date||!time||!loc){ toast('Bitte Pflichtfelder ausfüllen'); return; }
+  let price=0, profit=false;
+  if(priceMode==='paid'){ price=parseFloat($('#f-price').value)||0; if(price<=0){ toast('Bitte Ticketpreis eingeben'); return; } profit=true; }
+  // ensure "me" host name is set
+  if(!S.me.name && hostName){ S.me.name=hostName; }
+  const e={ id:'e_'+Date.now().toString(36), title, cat, hostId:'me', hostName,
+    date, time, loc, desc, img:uploadData||'', price, profit, tagline:'' };
+  S.events.push(e); save();
+  // reset
+  ev.target.reset(); uploadData=null; showUpload(); setMode('free'); initCreateForm();
+  toast('🎉 Event ist live!');
+  go('discover'); renderFeed();
+  setTimeout(()=>openEvent(e.id),350);
+}
+
+/* ============================================================ EVENT SHEET ===== */
+function openSheet(html){
+  $('#sheet-body').innerHTML=html;
+  $('#sheet').scrollTop=0;
+  $('#scrim').classList.add('show'); $('#sheet').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeSheet(){
+  $('#scrim').classList.remove('show'); $('#sheet').classList.remove('show');
+  document.body.style.overflow='';
+}
+function waHostLink(host){
+  if(host && host.wa) return `https://wa.me/${host.wa.replace(/\D/g,'')}`;
+  return TRIBE_WA_GROUP;
+}
+function openEvent(id){
+  const e=eventById(id); if(!e) return;
+  const host = e.hostId==='me' ? {...S.me, name:e.hostName||S.me.name||'Du'} : hostById(e.hostId);
+  const ac=accent(e.cat); const joined=!!S.joined[e.id]; const c=avp(host.id||host.name);
+  const p=dParts(e.date);
+  const priceLine = (!e.price||e.price<=0)
+    ? '<span style="color:var(--wa);font-weight:700">Kostenlos</span> — freies Community-Event'
+    : `<span style="color:var(--accent-hi);font-weight:700">€${eur(e.price)}</span> pro Person <small>· Ticket-Event</small>`;
+  const dh = e.img
+    ? `<div class="dh"><img src="${esc(e.img)}" alt="" onerror="this.parentNode.classList.add('noimg');this.parentNode.dataset.em='${catEm(e.cat)}';this.remove()"><button class="close" data-close>×</button><span class="tag dtag"><span class="dt" style="background:${ac};box-shadow:0 0 9px ${ac}"></span>${esc(e.cat)}</span></div>`
+    : `<div class="dh noimg" data-em="${catEm(e.cat)}" style="--ac:${ac}"><button class="close" data-close>×</button><span class="tag dtag"><span class="dt" style="background:${ac}"></span>${esc(e.cat)}</span></div>`;
+  const html=`
+    ${dh}
+    <h2 class="d-title">${esc(e.title)}</h2>
+    ${e.tagline?`<div class="d-tagline">${esc(e.tagline)}</div>`:''}
+    <div class="d-facts">
+      <div class="d-fact"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg></span><div><div class="k">Wann</div><div class="v">${esc(p.full)} · ${esc(e.time)} Uhr</div></div></div>
+      <div class="d-fact"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="k">Wo</div><div class="v">${esc(e.loc)}, Bielefeld</div></div></div>
+      <div class="d-fact"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><div class="k">Preis</div><div class="v">${priceLine}</div></div></div>
+      <div class="d-fact"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="9" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5"/></svg></span><div><div class="k">Wer kommt</div><div class="v">${attendeeCount(e)} dabei</div></div></div>
+    </div>
+    ${e.desc?`<p class="d-desc">${esc(e.desc)}</p>`:''}
+    <div class="d-host" data-host-open="${host.id||''}">
+      <div class="avatar" style="--a1:${c[0]};--a2:${c[1]}">${initial(host.name)}</div>
+      <div style="flex:1"><div class="nm">${esc(host.name)}${host.verified?' · <span style="color:var(--accent);font-size:11px">verifiziert</span>':''}</div><div class="ro">${esc(host.bio||'Host aus Bielefeld')}</div></div>
+    </div>
+    <div class="wa-tip">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>
+      <div class="tx"><b>Kommunikation läuft über WhatsApp.</b> Alle Absprachen, Treffpunkt-Updates und Fotos gibt's in der Tribe-Gruppe — tritt bei und sag kurz Hallo.</div>
+    </div>
+    <div class="actions">
+      <button class="btn ${joined?'btn-ghost':'btn-primary'}" data-join-sheet="${e.id}">
+        ${joined?'✓ Du bist dabei — abmelden':'Ich bin dabei'}
+      </button>
+      <a class="btn btn-wa" href="${TRIBE_WA_GROUP}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>
+        In der WhatsApp-Gruppe besprechen
+      </a>
+      <a class="btn btn-ghost" href="${waHostLink(host)}" target="_blank" rel="noopener">Host direkt anschreiben</a>
+    </div>`;
+  openSheet(html);
+}
+
+/* ============================================================ host sheet ====== */
+function openHost(id){
+  const h=hostById(id); const c=avp(id); const con=!!S.connections[id];
+  const evs=S.events.filter(e=>e.hostId===id && e.date>=nowISO).sort((a,b)=>a.date.localeCompare(b.date));
+  const html=`
+    <div style="display:flex;align-items:center;gap:15px;padding:6px 0 2px">
+      <div class="avatar" style="--a1:${c[0]};--a2:${c[1]};width:64px;height:64px;border-radius:19px;font-size:26px">${initial(h.name)}</div>
+      <div style="flex:1">
+        <div style="font-family:var(--ff-disp);font-size:24px;text-transform:uppercase">${esc(h.name)}${h.verified?' <span style="font-size:11px;color:var(--accent);letter-spacing:.05em">✓ verifiziert</span>':''}</div>
+        <div style="font-size:13px;color:var(--cream-dim);margin-top:3px">${esc(h.bio||'Host aus Bielefeld')}</div>
+      </div>
+      <button class="close" data-close style="position:static">×</button>
+    </div>
+    <div class="actions" style="margin:16px 0 6px">
+      <button class="btn ${con?'btn-ghost':'btn-primary'}" data-connect-sheet="${id}">${con?'✓ Vernetzt — entfolgen':'+ Host folgen'}</button>
+      <a class="btn btn-wa" href="${waHostLink(h)}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>Anschreiben</a>
+    </div>
+    <div class="sec"><div class="t">Events von ${esc(h.name)}</div><div class="n">${evs.length}</div></div>
+    ${evs.length?evs.map(cardHTML).join(''):'<div class="empty" style="padding:30px"><span class="big" style="font-size:20px">Noch nichts geplant</span></div>'}`;
+  openSheet(html);
+}
+
+/* ============================================================ actions ========= */
+function toggleJoin(id){
+  if(S.joined[id]) delete S.joined[id]; else S.joined[id]=true;
+  save(); return !!S.joined[id];
+}
+function toggleConnect(id){
+  if(S.connections[id]) delete S.connections[id]; else S.connections[id]=true;
+  save(); return !!S.connections[id];
+}
+
+/* ============================================================ navigation ====== */
+const VIEWS=['discover','calendar','create','hosts','profile'];
+function go(view){
+  VIEWS.forEach(v=>$('#view-'+v).classList.toggle('hide',v!==view));
+  $$('.ni').forEach(b=>b.classList.toggle('on',b.dataset.view===view));
+  document.querySelector('main').scrollTop=0; window.scrollTo(0,0);
+  if(view==='discover'){ renderChips(); renderFeed(); }
+  if(view==='calendar'){ renderCal(); }
+  if(view==='create'){ initCreateForm(); }
+  if(view==='hosts'){ renderHosts(); }
+  if(view==='profile'){ renderProfile(); }
+}
+
+/* ============================================================ wiring ========== */
+function initEvents(){
+  // nav
+  $$('.ni').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+
+  // delegate clicks
+  document.body.addEventListener('click',e=>{
+    const chip=e.target.closest('[data-chip]');
+    if(chip){ curFilter=chip.dataset.chip; renderChips(); renderFeed(); return; }
+
+    const join=e.target.closest('[data-join]');
+    if(join){ e.stopPropagation(); const on=toggleJoin(join.dataset.join); renderFeed();
+      if($('#view-calendar').offsetParent) renderCalList();
+      toast(on?'Du bist dabei ✓':'Abgemeldet'); return; }
+
+    const card=e.target.closest('[data-ev]');
+    if(card){ openEvent(card.dataset.ev); return; }
+
+    const day=e.target.closest('[data-day]');
+    if(day){ calSel=day.dataset.day; renderCal(); return; }
+
+    const conn=e.target.closest('[data-connect]');
+    if(conn){ e.stopPropagation(); const on=toggleConnect(conn.dataset.connect); renderHosts();
+      toast(on?'Vernetzt 🤝':'Entfolgt'); return; }
+
+    const hrow=e.target.closest('[data-host]');
+    if(hrow){ openHost(hrow.dataset.host); return; }
+
+    if(e.target.closest('[data-close]')){ closeSheet(); return; }
+
+    const js=e.target.closest('[data-join-sheet]');
+    if(js){ const id=js.dataset.joinSheet; const on=toggleJoin(id); openEvent(id);
+      renderFeed(); toast(on?'Du bist dabei ✓':'Abgemeldet'); return; }
+
+    const cs=e.target.closest('[data-connect-sheet]');
+    if(cs){ const id=cs.dataset.connectSheet; const on=toggleConnect(id); openHost(id);
+      toast(on?'Vernetzt 🤝':'Entfolgt'); return; }
+
+    const ho=e.target.closest('[data-host-open]');
+    if(ho && ho.dataset.hostOpen && ho.dataset.hostOpen!=='me'){ openHost(ho.dataset.hostOpen); return; }
+  });
+
+  $('#scrim').addEventListener('click',closeSheet);
+
+  // create form
+  $('#f-image').addEventListener('change',e=>handleImage(e.target.files[0]));
+  $$('#f-mode button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+  $('#f-price').addEventListener('input',renderComm);
+  $('#ev-form').addEventListener('submit',submitEvent);
+  $('#lnk-rules').addEventListener('click',e=>{e.preventDefault();openRules();});
+
+  // calendar nav
+  $('#cal-prev').addEventListener('click',()=>{ calM--; if(calM<0){calM=11;calY--;} calSel=null; renderCal(); });
+  $('#cal-next').addEventListener('click',()=>{ calM++; if(calM>11){calM=0;calY++;} calSel=null; renderCal(); });
+
+  // profile
+  $('#swatches').addEventListener('click',e=>{ const sw=e.target.closest('[data-theme]'); if(!sw) return;
+    S.theme=+sw.dataset.theme; save(); applyTheme(); renderProfile(); });
+  $('#p-save').addEventListener('click',()=>{
+    S.me.name=$('#p-in-name').value.trim(); S.me.bio=$('#p-in-bio').value.trim(); S.me.wa=$('#p-in-wa').value.trim();
+    save(); renderProfile(); toast('Profil gespeichert ✓');
+  });
+  $('#lnk-group').addEventListener('click',()=>window.open(TRIBE_WA_GROUP,'_blank'));
+  $('#lnk-how').addEventListener('click',openRules);
+  $('#lnk-reset').addEventListener('click',()=>{
+    if(confirm('Alle deine Daten (Profil, erstellte Events, Anmeldungen) zurücksetzen?')){
+      localStorage.removeItem(KEY); S=load(); applyTheme(); go('discover'); toast('Zurückgesetzt');
+    }
+  });
+}
+
+function openRules(){
+  const html=`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0 2px">
+      <div style="font-family:var(--ff-disp);font-size:26px;text-transform:uppercase">So funktioniert's</div>
+      <button class="close" data-close style="position:static">×</button>
+    </div>
+    <div class="comm freebox" style="margin:14px 0">
+      <div class="big">🎉 Kostenlose Events — 0 % Provision</div>
+      <div class="note" style="color:#a7d8b6">Community-Events ohne Gewinnabsicht (Runs, Foto-Walks, Stammtische …) hostest du komplett gratis. Einfach erstellen, Bild hoch, live.</div>
+    </div>
+    <div class="comm" style="margin:14px 0">
+      <div class="r host"><span class="l">Du bekommst pro Ticket</span><span class="v">70 %</span></div>
+      <div class="r tribe"><span class="l">THE TRIBE Provision</span><span class="v">30 %</span></div>
+      <div class="note">Sobald ein Event mit <b>Gewinnabsicht</b> läuft (Ticketpreis &gt; 0 €), behält THE&nbsp;TRIBE 30&nbsp;% pro verkauftem Ticket. Dafür bekommst du: Reichweite in der ganzen Community, den Kalender-Slot, die WhatsApp-Gruppe und das Vertrauen der Marke.</div>
+    </div>
+    <div class="sec"><div class="t">Die Idee in 4 Schritten</div></div>
+    <div style="font-size:14px;line-height:1.7;color:var(--cream-dim)">
+      <p style="margin:0 0 10px"><b style="color:var(--cream)">1 · Hosten.</b> Erstelle dein Event mit Bild, Datum &amp; Treffpunkt.</p>
+      <p style="margin:0 0 10px"><b style="color:var(--cream)">2 · Entdecken.</b> Andere sehen es im Feed &amp; Kalender und melden sich an.</p>
+      <p style="margin:0 0 10px"><b style="color:var(--cream)">3 · Vernetzen.</b> Hosts folgen sich, planen zusammen, teilen Reichweite.</p>
+      <p style="margin:0"><b style="color:var(--cream)">4 · Treffen.</b> Alle Absprachen laufen in der Tribe-WhatsApp-Gruppe.</p>
+    </div>
+    <div class="actions" style="margin-top:22px">
+      <a class="btn btn-wa" href="${TRIBE_WA_GROUP}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg>Zur WhatsApp-Gruppe</a>
+    </div>`;
+  openSheet(html);
+}
+
+/* ============================================================ boot ============ */
+function boot(){
+  applyTheme();
+  $('#today').textContent=new Date().toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'});
+  initCal();
+  initEvents();
+  go('discover');
+}
+boot();
+</script>
+</body>
+</html>
