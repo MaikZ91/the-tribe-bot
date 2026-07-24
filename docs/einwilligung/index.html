@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Einwilligung Bildnutzung – Wine Walk</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --line:#e5e0d8;
+    --bg:#faf7f2; --card:#ffffff; --accent:#7c2d3e; --accent-dark:#5e2230;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);
+       min-height:100vh;display:flex;justify-content:center;padding:24px 16px 64px}
+  .wrap{width:100%;max-width:560px}
+  .brand{font-size:28px;letter-spacing:.01em;margin-bottom:20px}
+  .brand em{font-style:italic;color:var(--accent)}
+  .tag{font-family:system-ui,sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+       color:var(--accent);margin-bottom:8px}
+  h1{font-size:clamp(24px,5vw,32px);line-height:1.2;margin-bottom:8px}
+  .sub{color:var(--muted);font-size:15px;line-height:1.5;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        padding:24px 20px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  label.field{display:block;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;
+        letter-spacing:.02em;margin-bottom:6px}
+  input[type=text],input[type=email]{
+    width:100%;padding:12px 14px;font-size:16px;font-family:inherit;
+    border:1px solid var(--line);border-radius:10px;background:#fdfcfa;margin-bottom:18px}
+  input:focus{outline:2px solid var(--accent);border-color:transparent}
+  .consent{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);
+        border-radius:10px;margin-bottom:12px;cursor:pointer;background:#fdfcfa}
+  .consent input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--accent)}
+  .consent span{font-size:14.5px;line-height:1.5}
+  .consent .opt{color:var(--muted);font-size:12.5px;font-family:system-ui,sans-serif}
+  button{width:100%;margin-top:16px;padding:15px;font-size:16px;font-family:system-ui,sans-serif;
+        font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:10px;cursor:pointer}
+  button:hover{background:var(--accent-dark)}
+  .legal{font-size:12px;color:var(--muted);line-height:1.55;margin-top:18px;font-family:system-ui,sans-serif}
+  .legal a{color:var(--accent)}
+  .ok{display:none;text-align:center;padding:40px 20px}
+  .ok h2{margin-bottom:8px}
+  .ok p{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">The&nbsp;<em>Tribe</em></div>
+  <p class="tag">Wine Walk · Foto-Einwilligung</p>
+  <h1>Einwilligung zur Bildnutzung</h1>
+  <p class="sub">Beim Wine Walk entstehen Fotos und kurze Videos. Hier kannst du mit zwei
+     Klicks einwilligen, dass Aufnahmen, auf denen du zu sehen bist, verwendet werden dürfen.</p>
+
+  <form id="consentForm" class="card">
+    <label class="field" for="name">Vor- und Nachname *</label>
+    <input type="text" id="name" name="Name" required autocomplete="name" placeholder="Max Mustermann">
+
+    <label class="consent">
+      <input type="checkbox" id="c1" required>
+      <span><strong>Ja</strong>, ich willige ein, dass Foto- und Videoaufnahmen, die beim
+      Wine Walk von mir gemacht werden, gespeichert und verwendet werden dürfen. *</span>
+    </label>
+
+    <label class="consent">
+      <input type="checkbox" id="c2" required>
+      <span><strong>Ja</strong>, ich willige ein, dass diese Aufnahmen auf Social-Media-Kanälen
+      (z.&nbsp;B. Instagram, Facebook) sowie für Marketing- und Werbezwecke veröffentlicht
+      werden dürfen. *</span>
+    </label>
+
+    <label class="consent">
+      <input type="checkbox" id="c3">
+      <span>Ich bin einverstanden, dass mein Vorname bei Beiträgen genannt werden darf.
+      <span class="opt">(optional)</span></span>
+    </label>
+
+    <button type="submit">Per WhatsApp absenden</button>
+    <p class="legal" style="margin-top:10px">Beim Klick öffnet sich WhatsApp mit der fertigen
+    Einwilligung — dort nur noch auf „Senden" tippen.</p>
+
+    <p class="legal">Diese Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die
+    Zukunft widerrufen werden (formlos per WhatsApp oder Nachricht an den Veranstalter).
+    Bereits veröffentlichte Beiträge werden
+    nach Widerruf im Rahmen des Zumutbaren entfernt. Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1
+    lit.&nbsp;a DSGVO. Es entstehen keine Nachteile, wenn du nicht einwilligst.</p>
+  </form>
+
+  <div class="ok" id="okBox">
+    <h2>Danke! 🍷</h2>
+    <p>WhatsApp hat sich geöffnet — bitte dort noch auf „Senden" tippen.</p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('consentForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var lines = [
+      '📸 *Foto-Einwilligung Wine Walk*',
+      '',
+      'Name: ' + name,
+      'Datum: ' + new Date().toLocaleString('de-DE'),
+      '',
+      '✅ Einwilligung Foto-/Videoaufnahmen: JA',
+      '✅ Einwilligung Social Media & Marketing: JA',
+      (document.getElementById('c3').checked ? '✅' : '❌') + ' Nennung Vorname: ' +
+        (document.getElementById('c3').checked ? 'JA' : 'NEIN'),
+      '',
+      'Hinweis: Einwilligung freiwillig, jederzeit widerrufbar (Art. 6 Abs. 1 lit. a DSGVO).'
+    ];
+    window.open('https://wa.me/4917645961547?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+    document.getElementById('okBox').style.display = 'block';
+  });
+</script>
+</body>
+</html>

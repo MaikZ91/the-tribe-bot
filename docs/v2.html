@@ -697,7 +697,7 @@
     <a href="#top" class="logo"><span class="b">the</span><span class="c">tribe</span><span class="d">.</span></a>
     <p>© 2026 THE TRIBE · Bielefeld &amp; Münster</p>
     <div class="links">
-      <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener">
+      <a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" data-cta="footer">
         <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
         WhatsApp
       </a>
@@ -735,9 +735,11 @@
   (function(){
     var DATA={
       bielefeld:{name:'Bielefeld',
+        wa:'https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t',
         desc:'In Bielefeld treffen wir uns rund um Altstadt, Bahnhofsviertel und den Siegfriedplatz. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.',
         spots:'Altstadt · Bahnhofsviertel · Siegfriedplatz'},
       muenster:{name:'Münster',
+        wa:'https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&p=i&ilr=4&amv=2',
         desc:'In Münster treffen wir uns rund um Hafen, Kreuzviertel und den Prinzipalmarkt. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.',
         spots:'Hafen · Kreuzviertel · Prinzipalmarkt'}
     };
@@ -746,6 +748,8 @@
       document.querySelectorAll('[data-cityname]').forEach(function(el){el.textContent=c.name;});
       var d=document.getElementById('cityDesc'); if(d) d.textContent=c.desc;
       var s=document.getElementById('citySpots'); if(s) s.textContent=c.spots;
+      // Alle WhatsApp-CTAs auf die Community der gewählten Stadt umbiegen
+      document.querySelectorAll('a[data-cta]').forEach(function(a){a.href=c.wa;});
       document.querySelectorAll('[data-city]').forEach(function(b){
         b.classList.toggle('on', b.getAttribute('data-city')===key);
       });
