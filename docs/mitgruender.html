@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="description" content="Redesign.AI sucht Mitgründer:in — KI-Media-Agentur für Webdesign & Automatisierung in Münster & Bielefeld.">
+<title>Redesign.AI — Mitgründer:in gesucht</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='23' font-family='Arial' font-size='17' font-weight='800' fill='%23ff8010' text-anchor='middle'>R</text></svg>">
+
+<style>
+  @font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/familjen-grotesk-latin.woff2) format('woff2')}
+  :root{
+    --black:#0a0a0a; --panel:#141414; --line:#262626;
+    --orange:#ff8010; --white:#ffffff; --muted:#9a9a92; --paper:#f0eee9;
+    --fd:'Anton','Arial Narrow',sans-serif;
+    --fb:'Familjen Grotesk','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#333;font-family:var(--fb);-webkit-font-smoothing:antialiased}
+
+  /* A4-Blatt */
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;background:var(--black);color:var(--white);
+    display:flex;flex-direction:column;padding:14mm 14mm 12mm;position:relative;overflow:hidden}
+  @media screen{ .sheet{margin:24px auto;box-shadow:0 30px 80px rgba(0,0,0,.5)} }
+  @media print{
+    @page{size:A4;margin:0}
+    body{background:var(--black)}
+    .sheet{margin:0;box-shadow:none;width:210mm;height:297mm}
+  }
+
+  /* dezente Deko */
+  .glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+  .glow.a{width:120mm;height:120mm;right:-45mm;top:-45mm;background:rgba(255,128,16,.16)}
+  .glow.b{width:100mm;height:100mm;left:-40mm;bottom:-40mm;background:rgba(255,128,16,.08)}
+
+  /* Kopf */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:6mm}
+  .logo{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:800;font-size:24px;letter-spacing:.5px}
+  .logo i{font-style:normal;color:var(--orange)}
+  .kopf .tag{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+  /* Headline-Block */
+  .heldpart{margin-top:11mm}
+  .kick{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--orange)}
+  .kick::before{content:"";width:22px;height:2px;background:var(--orange)}
+  h1{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:64px;line-height:.98;
+    letter-spacing:.004em;margin-top:4mm}
+  h1 em{font-style:normal;color:var(--orange)}
+  .sub{margin-top:5mm;font-size:15.5px;line-height:1.5;color:#d9d7d0;max-width:150mm}
+  .sub b{color:var(--white);font-weight:600}
+  .staedte{margin-top:5mm;display:flex;gap:3mm;flex-wrap:wrap}
+  .staedte span{border:1.5px solid var(--orange);color:var(--orange);border-radius:999px;
+    padding:1.6mm 4.5mm;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+  /* Drei Spalten-Karten */
+  .grid{margin-top:9mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+  .karte{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5.5mm 5mm}
+  .karte h2{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:15.5px;
+    letter-spacing:.05em;color:var(--orange);margin-bottom:3.2mm}
+  .karte ul{list-style:none}
+  .karte li{position:relative;padding-left:5.5mm;font-size:11.8px;line-height:1.45;color:#d9d7d0;margin-bottom:2.6mm}
+  .karte li:last-child{margin-bottom:0}
+  .karte li::before{content:"→";position:absolute;left:0;top:0;color:var(--orange);font-weight:700}
+  .karte li b{color:var(--white);font-weight:600}
+
+  /* Zahlenleiste */
+  .zahlen{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+  .z{border-left:3px solid var(--orange);padding:1mm 0 1mm 4mm}
+  .z b{display:block;font-family:var(--fd);font-weight:400;font-size:26px;line-height:1;color:var(--white)}
+  .z span{display:block;margin-top:1.4mm;font-size:10.5px;color:var(--muted);line-height:1.35}
+
+  /* Kontakt */
+  .kontakt{margin-top:auto;background:var(--paper);color:var(--black);border-radius:12px;
+    padding:6mm;display:flex;align-items:center;gap:7mm}
+  .kontakt .qr{flex:none;width:34mm;height:34mm;background:#fff;border-radius:6px;padding:2mm}
+  .kontakt .qr img{width:100%;height:100%;display:block}
+  .kontakt .kt{flex:1}
+  .kontakt .kt .h{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:19px;letter-spacing:.03em}
+  .kontakt .kt .h i{font-style:normal;color:#c05f00}
+  .kontakt .kt p{margin-top:2mm;font-size:12px;line-height:1.5;color:#3c3a36}
+  .kontakt .rows{margin-top:3mm;display:flex;flex-wrap:wrap;gap:2.5mm 6mm;font-size:12.5px;font-weight:600}
+  .kontakt .rows span{display:inline-flex;align-items:center;gap:2mm}
+  .kontakt .rows .ic{color:#c05f00}
+  .fuss{margin-top:4mm;display:flex;justify-content:space-between;gap:5mm;
+    font-size:9.5px;letter-spacing:.08em;color:var(--muted)}
+
+  /* Bildschirm-Anpassung für Handy-Ansicht */
+  @media screen and (max-width:840px){
+    .sheet{width:100%;min-height:0;padding:7mm 5mm;margin:0}
+    h1{font-size:13vw}
+    .grid,.zahlen{grid-template-columns:1fr}
+    .kontakt{flex-direction:column;text-align:center}
+    .kontakt .rows{justify-content:center}
+    .fuss{flex-direction:column;text-align:center;gap:1mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+
+  <div class="kopf">
+    <div class="logo">Redesign<i>.AI</i></div>
+    <div class="tag">KI-Media-Agentur</div>
+  </div>
+
+  <div class="heldpart">
+    <span class="kick">Webdesign · KI-Automatisierung · Media</span>
+    <h1>Mitgründer:in<br><em>gesucht.</em></h1>
+    <p class="sub">Ich baue <b>Redesign.AI</b> — eine KI-gestützte Agentur, die Websites für lokale
+      Betriebe neu denkt: automatisch analysiert, in Tagen statt Monaten neu gebaut.
+      Marke, Funnel und Tech laufen bereits. <b>Jetzt fehlt der zweite Kopf.</b></p>
+    <div class="staedte"><span>Münster</span><span>Bielefeld</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="karte">
+      <h2>Was schon steht</h2>
+      <ul>
+        <li><b>Eigener KI-Lead-Agent</b> — findet Betriebe, analysiert ihre Website automatisch</li>
+        <li><b>1000+ Konzeptseiten</b> automatisch generiert, als Portfolio live</li>
+        <li><b>Marke &amp; Funnel online</b> — Redesign.AI mit URL-Analyse-Funnel</li>
+      </ul>
+    </div>
+    <div class="karte">
+      <h2>Wen ich suche</h2>
+      <ul>
+        <li><b>Vertrieb &amp; Kundengespräche</b> — oder Design/Entwicklung</li>
+        <li><b>Machertyp:</b> lieber ausprobieren als lange planen</li>
+        <li>Vor Ort in <b>Münster oder Bielefeld</b> (oder dazwischen)</li>
+      </ul>
+    </div>
+    <div class="karte">
+      <h2>Was dich erwartet</h2>
+      <ul>
+        <li><b>Echte Beteiligung</b> — Mitgründung, kein Job</li>
+        <li>Produkt, Preise &amp; Richtung <b>gestalten wir gemeinsam</b></li>
+        <li>KI-Tooling auf aktuellem Stand statt Agentur-Alltag von gestern</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="zahlen">
+    <div class="z"><b>1000+</b><span>automatisch gebaute Redesign-Konzepte als Startkapital</span></div>
+    <div class="z"><b>7 Tage</b><span>vom Erstkontakt zur fertigen neuen Website</span></div>
+    <div class="z"><b>2 Städte</b><span>Münster &amp; Bielefeld — Mittelstand direkt vor der Tür</span></div>
+  </div>
+
+  <div class="kontakt">
+    <div class="qr"><img src="data:image/png;base64,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" alt="QR-Code: WhatsApp-Chat mit Maik"></div>
+    <div class="kt">
+      <div class="h">Lass uns <i>sprechen.</i></div>
+      <p>QR scannen und direkt per WhatsApp schreiben — oder Mail. Kein Bewerbungsprozess:
+         ein Kaffee in Münster oder Bielefeld reicht für den Anfang.</p>
+      <div class="rows">
+        <span><span class="ic">✆</span>0176&nbsp;4596&nbsp;1547 (WhatsApp)</span>
+        <span><span class="ic">✉</span>maik.z@gmx.de</span>
+        <span><span class="ic">☰</span>maikz91.github.io/the-tribe-bot/insync-campaign</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fuss">
+    <span>Redesign.AI · Maik Zschach</span>
+    <span>Webdesign · KI-Automatisierung · Media — Münster &amp; Bielefeld</span>
+  </div>
+</div>
+
+</body>
+</html>
