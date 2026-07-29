@@ -3909,17 +3909,24 @@ function renderQrAsBlocks(matrix, { invert = false } = {}) {
     return lines.join('\n');
 }
 
+// Reused across refreshes so one run produces one issue, not one per refresh.
+let authIssueNumber = null;
+
 /**
  * Post an authentication prompt as a GitHub issue so it can be read on a phone.
+ * The first call of a run creates the issue, later calls edit it in place —
+ * WhatsApp rotates the code every few minutes and would otherwise flood the
+ * issue tracker.
  * Returns the issue URL, or null when unavailable.
  */
 async function postAuthIssue(title, body, labels) {
     if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_REPOSITORY) {
         return null;
     }
+    const base = `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/issues`;
     try {
-        const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/issues`, {
-            method: 'POST',
+        const res = await fetch(authIssueNumber ? `${base}/${authIssueNumber}` : base, {
+            method: authIssueNumber ? 'PATCH' : 'POST',
             headers: {
                 'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
                 'Accept': 'application/vnd.github+json',
@@ -3932,7 +3939,9 @@ async function postAuthIssue(title, body, labels) {
             return null;
         }
         const issue = await res.json();
-        console.log(`Als GitHub Issue gepostet: #${issue.number} (${issue.html_url})`);
+        const action = authIssueNumber ? 'aktualisiert' : 'gepostet';
+        authIssueNumber = issue.number;
+        console.log(`Als GitHub Issue ${action}: #${issue.number} (${issue.html_url})`);
         return issue.html_url;
     } catch (err) {
         console.error('Issue-Post Exception:', err && err.stack ? err.stack : err);
@@ -4007,10 +4016,11 @@ client.on('qr', async qr => {
     console.log(qr);
     console.log('--- Ende QR-Rohdaten ---');
 
-    if (process.env.GITHUB_TOKEN && process.env.GITHUB_REPOSITORY && matrix) {
-        try {
-            const ascii = renderQrAsBlocks(matrix.modules, { invert: false });
-            const body = [
+    if (matrix) {
+        const ascii = renderQrAsBlocks(matrix.modules, { invert: false });
+        await postAuthIssue(
+            `WhatsApp QR ${new Date().toISOString()}`,
+            [
                 'WhatsApp-Web QR — bitte scannen, bevor das 20-Min-Timeout zuschlägt.',
                 '',
                 'Im Terminal ansehen: `gh issue view <diese-nummer>`',
@@ -4026,26 +4036,9 @@ client.on('qr', async qr => {
                 '```',
                 '',
                 '</details>'
-            ].join('\n');
-            const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/issues`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-                    'Accept': 'application/vnd.github+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ title: `WhatsApp QR ${new Date().toISOString()}`, body, labels: ['whatsapp-qr'] })
-            });
-            if (res.ok) {
-                const issue = await res.json();
-                console.log(`QR als GitHub Issue gepostet: #${issue.number} (${issue.html_url})`);
-                console.log(`Im Terminal: gh issue view ${issue.number}`);
-            } else {
-                console.error('Issue-Post fehlgeschlagen:', res.status, await res.text());
-            }
-        } catch (err) {
-            console.error('Issue-Post Exception:', err && err.stack ? err.stack : err);
-        }
+            ].join('\n'),
+            ['whatsapp-qr']
+        );
     }
 });
 
