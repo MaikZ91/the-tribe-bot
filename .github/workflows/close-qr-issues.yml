@@ -1,0 +1,76 @@
+name: Close stale WhatsApp QR issues
+
+# Einmal-Aufräumer: Der alte QR-Handler hat pro QR-Refresh (~alle 20 s) ein
+# eigenes Issue angelegt, dadurch über 2200 offene "WhatsApp QR"-Issues.
+# Das Verhalten ist gefixt (ein Issue pro Lauf, wird aktualisiert) — dieser
+# Workflow räumt den Altbestand ab.
+
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        description: "Label, dessen offene Issues geschlossen werden"
+        required: false
+        default: "whatsapp-qr"
+        type: string
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/close-qr-issues.yml"
+
+# Nicht in die Concurrency-Group des Bots hängen — der soll weiterlaufen.
+concurrency:
+  group: close-qr-issues
+  cancel-in-progress: false
+
+permissions:
+  issues: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Close open issues with the given label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          LABEL: ${{ inputs.label || 'whatsapp-qr' }}
+        run: |
+          set -uo pipefail
+          closed=0
+          failed=0
+
+          while :; do
+            # Geschlossene Issues fallen aus dem Filter, daher immer Seite 1.
+            numbers=$(gh api \
+              "repos/$REPO/issues?labels=$LABEL&state=open&per_page=100" \
+              --jq '.[].number' 2>/dev/null) || {
+                echo "Auflisten fehlgeschlagen, 30 s Pause und erneut."
+                sleep 30
+                continue
+              }
+
+            if [ -z "$numbers" ]; then
+              echo "Keine offenen Issues mit Label '$LABEL' mehr."
+              break
+            fi
+
+            for n in $numbers; do
+              if gh api -X PATCH "repos/$REPO/issues/$n" \
+                   -f state=closed -f state_reason=not_planned >/dev/null 2>&1; then
+                closed=$((closed + 1))
+                [ $((closed % 50)) -eq 0 ] && echo "... $closed geschlossen"
+              else
+                failed=$((failed + 1))
+                echo "Issue #$n konnte nicht geschlossen werden — 10 s Pause."
+                sleep 10
+              fi
+              # GitHub empfiehlt max. ~1 schreibende Anfrage pro Sekunde.
+              sleep 1
+            done
+          done
+
+          echo "Fertig: $closed geschlossen, $failed fehlgeschlagen."
