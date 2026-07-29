@@ -112,7 +112,9 @@ jobs:
         env:
           BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
-          WHATSAPP_PAIRING_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.pairing_number || '' }}
+          # Falls als Secret hinterlegt, koppeln sich auch geplante Läufe nach
+          # einem Session-Verlust selbst per Code — sonst nur manuelle Läufe.
+          WHATSAPP_PAIRING_NUMBER: ${{ (github.event_name == 'workflow_dispatch' && inputs.pairing_number) || secrets.WHATSAPP_PAIRING_NUMBER || '' }}
           WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
           WHATSAPP_TUESDAY_RUN_CHAT_ID: ${{ secrets.WHATSAPP_TUESDAY_RUN_CHAT_ID }}
           WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
