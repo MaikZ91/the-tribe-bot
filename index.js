@@ -379,6 +379,21 @@ function writeState(state) {
     fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
 }
 
+/**
+ * Scheduled jobs are matched by a 30-minute time window, and several cron
+ * entries can land in the same window — so a job could run twice on one day.
+ * These two record and check a per-day marker to keep it to once.
+ */
+function wasJobDoneToday(name, dateKey) {
+    return (readState().dueJobs || {})[name] === dateKey;
+}
+
+function markJobDone(name, dateKey) {
+    const state = readState();
+    state.dueJobs = { ...(state.dueJobs || {}), [name]: dateKey };
+    writeState(state);
+}
+
 function getState() {
     const state = readState();
 
@@ -3596,10 +3611,30 @@ async function runDueJobs() {
     }
 
     for (const [name, , task] of dueJobs) {
+        if (wasJobDoneToday(name, nowParts.dateKey)) {
+            console.log(`Job ${name} lief heute (${nowParts.dateKey}) bereits — uebersprungen.`);
+            continue;
+        }
         console.log(`Starte faelligen Job: ${name}`);
         await task();
+        markJobDone(name, nowParts.dateKey);
     }
 }
+
+// Explicitly dispatched commands map onto the scheduled job of the same name,
+// so posting one by hand marks it done and the scheduled run skips it.
+const COMMAND_TO_DUE_JOB = {
+    'daily-highlights': 'daily-highlights',
+    'wednesday-poll': 'wednesday-poll',
+    'friday-poll': 'friday-poll',
+    'saturday-poll': 'friday-poll',
+    'saturday-reminder': 'saturday-reminder',
+    'weekly-calendar': 'weekly-calendar',
+    'tuesday-run': 'tuesday-run',
+    'jam-session': 'jam-session',
+    'thursday-football': 'thursday-football',
+    'ping-pong': 'ping-pong'
+};
 
 async function runBotCommand(command) {
     switch (command) {
@@ -4057,6 +4092,12 @@ client.on('ready', async () => {
         try {
             console.log(`Einmaliger Bot-Command: ${BOT_COMMAND}`);
             await runBotCommand(BOT_COMMAND);
+            const dueJob = COMMAND_TO_DUE_JOB[BOT_COMMAND];
+            if (dueJob) {
+                const { dateKey } = getDateParts();
+                markJobDone(dueJob, dateKey);
+                console.log(`Job ${dueJob} fuer ${dateKey} als erledigt vermerkt — geplante Laeufe ueberspringen ihn heute.`);
+            }
             console.log('Einmaliger Bot-Command abgeschlossen.');
             await new Promise(resolve => setTimeout(resolve, ONE_SHOT_FLUSH_MS));
             await client.destroy();
