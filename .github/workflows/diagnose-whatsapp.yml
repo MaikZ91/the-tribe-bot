@@ -1,0 +1,85 @@
+name: Diagnose WhatsApp read access
+
+# Klaert, ob getChats()/getChatById() an der Library oder an einer veralteten
+# Gruppen-ID scheitern. Sendet nichts.
+
+on:
+  workflow_dispatch:
+    inputs:
+      list_chats:
+        description: "Gruppenliste mit Namen ausgeben (Achtung: Actions-Logs sind oeffentlich)"
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+    paths:
+      - "diagnose-whatsapp.js"
+      - ".github/workflows/diagnose-whatsapp.yml"
+
+# Gleiche Group wie der Bot: nie zwei Chromium-Sessions auf derselben
+# WhatsApp-Session gleichzeitig.
+concurrency:
+  group: whatsapp-bot
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore WhatsApp session and bot state
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            whatsapp-bot-
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run diagnosis
+        env:
+          DIAGNOSE_LIST_CHATS: ${{ inputs.list_chats && '1' || '0' }}
+          WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
+          WHATSAPP_TUESDAY_RUN_CHAT_ID: ${{ secrets.WHATSAPP_TUESDAY_RUN_CHAT_ID }}
+          WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
+          WHATSAPP_ANNOUNCEMENTS_CHAT_ID: ${{ secrets.WHATSAPP_ANNOUNCEMENTS_CHAT_ID }}
+          WHATSAPP_AUSGEHEN_CHAT_ID: ${{ secrets.WHATSAPP_AUSGEHEN_CHAT_ID }}
+        run: node diagnose-whatsapp.js
+
+      - name: Save WhatsApp session and bot state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
