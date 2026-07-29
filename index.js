@@ -1761,6 +1761,33 @@ async function sendDailyHighlightsVideo(date = getBerlinNow()) {
     }
 }
 
+/**
+ * Send a poll and pin it for a week.
+ *
+ * whatsapp-web.js resolves sendMessage to undefined when it cannot map the sent
+ * poll back to a message model. The poll is delivered either way, so a missing
+ * message must not abort the caller — that would skip the state write that
+ * follows and leave the week's schedule without its poll reference.
+ *
+ * Returns the message id, or null when it could not be determined.
+ */
+async function sendAndPinPoll(chatId, poll) {
+    const message = await client.sendMessage(chatId, poll);
+
+    if (!message) {
+        console.warn('Umfrage gesendet, aber kein Message-Objekt erhalten — ohne Pin und ohne Message-ID.');
+        return null;
+    }
+
+    try {
+        await message.pin(604800);
+    } catch (err) {
+        console.error('Umfrage konnte nicht angepinnt werden:', err && err.message ? err.message : err);
+    }
+
+    return message.id?._serialized || null;
+}
+
 async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today }) {
     const activity = getSpecialSaturdayActivity(weekKey);
     const intro = [
@@ -1786,11 +1813,10 @@ async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, to
         await client.sendMessage(chatId, intro);
     }
 
-    const pollMessage = await client.sendMessage(
+    const pollMessageId = await sendAndPinPoll(
         chatId,
         new Poll(`Special Samstag: ${activity.emoji} ${activity.name}`, SPECIAL_SATURDAY_POLL_OPTIONS)
     );
-    await pollMessage.pin(604800);
 
     weeklyState.specialSaturday = {
         dateKey: today.dateKey,
@@ -1798,14 +1824,14 @@ async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, to
         activity: activity.name,
         emoji: activity.emoji,
         time: activity.time,
-        messageId: pollMessage.id._serialized,
+        messageId: pollMessageId,
         createdAt: new Date().toISOString()
     };
 
     weeklyState.venuePoll = {
         dateKey: today.dateKey,
         weekKey,
-        messageId: pollMessage.id._serialized,
+        messageId: pollMessageId,
         options: SPECIAL_SATURDAY_POLL_OPTIONS,
         special: true,
         createdAt: new Date().toISOString()
@@ -1851,16 +1877,19 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
         await client.sendMessage(chatId, intro);
     }
 
-    const pollMessage = await client.sendMessage(
+    const pollMessageId = await sendAndPinPoll(
         chatId,
         new Poll('Location fuer den Social Warmup am Samstag?', options)
     );
-    await pollMessage.pin(604800);
+
+    if (!pollMessageId) {
+        console.warn('Freitag faellt damit auf die erste Location zurueck statt auf den Abstimmungssieger.');
+    }
 
     weeklyState.venuePoll = {
         dateKey: today.dateKey,
         weekKey,
-        messageId: pollMessage.id._serialized,
+        messageId: pollMessageId,
         options,
         createdAt: new Date().toISOString()
     };
@@ -3309,11 +3338,10 @@ async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) 
         await client.sendMessage(chatId, intro);
     }
 
-    const pollMessage = await client.sendMessage(
+    const pollMessageId = await sendAndPinPoll(
         chatId,
         new Poll(`${label} - Samstag ${time}: bist du dabei?`, ATTENDANCE_OPTIONS)
     );
-    await pollMessage.pin(604800);
 
     weeklyState.finalVenue = {
         name: label,
@@ -3323,7 +3351,7 @@ async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) 
 
     weeklyState.attendancePoll = {
         dateKey: today.dateKey,
-        messageId: pollMessage.id._serialized,
+        messageId: pollMessageId,
         venue: label,
         special: true,
         createdAt: new Date().toISOString()
@@ -3370,11 +3398,10 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
         await client.sendMessage(chatId, intro);
     }
 
-    const pollMessage = await client.sendMessage(
+    const pollMessageId = await sendAndPinPoll(
         chatId,
         new Poll(`Social Warmup am Samstag bei ${result.winner} – 18 Uhr (danach ziehen wir gemeinsam weiter): bist du dabei?`, ATTENDANCE_OPTIONS)
     );
-    await pollMessage.pin(604800);
 
     weeklyState.finalVenue = {
         name: result.winner,
@@ -3385,7 +3412,7 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
 
     weeklyState.attendancePoll = {
         dateKey: today.dateKey,
-        messageId: pollMessage.id._serialized,
+        messageId: pollMessageId,
         venue: result.winner,
         createdAt: new Date().toISOString()
     };
