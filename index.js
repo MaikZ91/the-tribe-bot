@@ -81,7 +81,43 @@ const STAMMTISCH_VENUES = [
 ];
 const VENUE_POLL_WEEKLY_COUNT = 3;
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag - schreib's in den Chat";
-const VENUE_POLL_OPENERS = [
+// Ab diesem Montag ersetzt der Weekend Starter (Fr 20 Uhr) den Social Warmup
+// (Sa 18 Uhr). Die laufende Woche wird davor noch im alten Format zu Ende
+// gefahren, damit die bereits gestellte Mittwochs-Umfrage nicht ins Leere geht.
+const WEEKEND_STARTER_START_DATE = '2026-08-03';
+
+const WEEKEND_STARTER_FORMAT = {
+    label: 'Weekend Starter',
+    day: 'Freitag',
+    dayAdverb: 'freitags',
+    time: '20 Uhr',
+    timeShort: '20:00',
+    // weekdayIndex wie getUTCDay(): 0 = Sonntag
+    eventWeekdayIndex: 5,
+    claim: 'Starte mit THE TRIBE ins Wochenende.'
+};
+
+const SOCIAL_WARMUP_FORMAT = {
+    label: 'Social Warmup',
+    day: 'Samstag',
+    dayAdverb: 'samstags',
+    time: '18 Uhr',
+    timeShort: '18:00',
+    eventWeekdayIndex: 6,
+    claim: 'Einstieg in den Abend, danach ziehen wir gemeinsam weiter.'
+};
+
+const WEEKEND_STARTER_OPENERS = [
+    'Freitag, 20 Uhr - starte mit THE TRIBE ins Wochenende.',
+    'Neue Woche, neuer Freitag, neue Location.',
+    'Freitagabend ohne Plan? Hier ist einer.',
+    'Freitag, 20 Uhr - Tisch, Drink, neue Gesichter.',
+    'Mittwoch heisst: wo starten wir Freitag ins Wochenende?',
+    'Weekend Starter steht: Freitag, 20 Uhr, offline und echt.',
+    'Wochenende beginnt Freitag um 20 Uhr - wo, entscheidet ihr.'
+];
+
+const SOCIAL_WARMUP_OPENERS = [
     'Samstag, 18 Uhr - Tribe trifft sich offline.',
     'Neue Woche, neuer Samstag, neue Location.',
     'Bielefeld-Samstag ohne Plan? Hier ist einer.',
@@ -127,6 +163,7 @@ const TUESDAY_RUN_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-tuesday-run.
 const THURSDAY_FOOTBALL_DEFAULT_IMAGE_PATH = TUESDAY_RUN_DEFAULT_IMAGE_PATH;
 const JAM_SESSION_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'creative_circle.mp4');
 const KENNENLERNABEND_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-kennenlernabend.jpg');
+const WEEKEND_STARTER_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-weekend-starter.jpg');
 const DAILY_HIGHLIGHTS_IMAGE_DIR = path.join(IMAGES_DIR, 'daily-highlights');
 
 const IG_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN;
@@ -306,14 +343,42 @@ function getWeekRotationIndex(weekKey) {
     return (getWeekNumber(weekKey) * VENUE_POLL_WEEKLY_COUNT) % STAMMTISCH_VENUES.length;
 }
 
-function getOpenerForWeek(weekKey) {
-    return VENUE_POLL_OPENERS[getWeekNumber(weekKey) % VENUE_POLL_OPENERS.length];
+/**
+ * Laeuft die Woche schon im Weekend-Starter-Format?
+ * dateKey ist YYYY-MM-DD, ein String-Vergleich reicht daher.
+ */
+function isWeekendStarterActive(dateKey = getDateParts().dateKey) {
+    return dateKey >= WEEKEND_STARTER_START_DATE;
+}
+
+/**
+ * Das aktive Wochenend-Format samt Tag, Uhrzeit und Claim. Alle Texte ziehen
+ * ihre Angaben hier heraus, statt Tag und Uhrzeit fest einzubauen.
+ */
+function getEventFormat(dateKey = getDateParts().dateKey) {
+    return isWeekendStarterActive(dateKey) ? WEEKEND_STARTER_FORMAT : SOCIAL_WARMUP_FORMAT;
+}
+
+function getOpenerForWeek(weekKey, dateKey = getDateParts().dateKey) {
+    const openers = isWeekendStarterActive(dateKey) ? WEEKEND_STARTER_OPENERS : SOCIAL_WARMUP_OPENERS;
+    return openers[getWeekNumber(weekKey) % openers.length];
 }
 
 function getUpcomingSaturdayUtcDate(weekKey) {
     const [year, month, day] = weekKey.split('-').map(Number);
     const mondayUtc = Date.UTC(year, month - 1, day, 12, 0, 0);
     return new Date(mondayUtc + 5 * 24 * 60 * 60 * 1000);
+}
+
+/**
+ * Datum des Event-Abends der Woche: Freitag im Weekend-Starter-Format,
+ * sonst Samstag. weekKey ist der Montag der Woche.
+ */
+function getEventDayUtcDate(weekKey, dateKey = getDateParts().dateKey) {
+    const [year, month, day] = weekKey.split('-').map(Number);
+    const mondayUtc = Date.UTC(year, month - 1, day, 12, 0, 0);
+    const offsetDays = isWeekendStarterActive(dateKey) ? 4 : 5;
+    return new Date(mondayUtc + offsetDays * 24 * 60 * 60 * 1000);
 }
 
 function isLastSaturdayOfMonth(weekKey) {
@@ -1347,18 +1412,27 @@ function formatGermanDateFromUtcDate(utcDate) {
     }).format(utcDate);
 }
 
-const WEEKLY_CALENDAR_POLL_OPTIONS = [
-    'Tuesday Run (Di 17:00)',
-    'Fussball (Do 17:00)',
-    'Creative Circle (Do 18:00)',
-    'Ping Pong (Do 18:00)',
-    'Social Warmup (Sa 18:00)',
-];
+function getWeeklyCalendarPollOptions(dateKey = getDateParts().dateKey) {
+    const format = getEventFormat(dateKey);
+    return [
+        'Tuesday Run (Di 17:00)',
+        'Fussball (Do 17:00)',
+        'Creative Circle (Do 18:00)',
+        'Ping Pong (Do 18:00)',
+        `${format.label} (${format.day.slice(0, 2)} ${format.timeShort})`
+    ];
+}
 
 function buildWeeklyCalendarMessage(date = getBerlinNow()) {
+    const parts = getDateParts(date);
+    const format = getEventFormat(parts.dateKey);
     const tuesday  = getUpcomingWeekdayDate(2, date);
     const thursday = getUpcomingWeekdayDate(4, date);
-    const saturday   = getUpcomingWeekdayDate(6, date);
+    const eventDay = getUpcomingWeekdayDate(format.eventWeekdayIndex, date);
+
+    const eventLine = isWeekendStarterActive(parts.dateKey)
+        ? `${format.timeShort} Uhr – ${format.label} | ${format.claim} | Location folgt Donnerstagabend`
+        : `${format.timeShort} Uhr – ${format.label} | ${format.claim} | Location folgt Freitagabend`;
 
     return [
         'THE TRIBE – Events diese Woche',
@@ -1371,8 +1445,8 @@ function buildWeeklyCalendarMessage(date = getBerlinNow()) {
         '18:00 Uhr – Creative Circle | Wiese Obersee (bei Regen: CoWorking Merianstr. 8)',
         '18:00 Uhr – Ping Pong | Nr.z.P.',
         '',
-        formatGermanDateFromUtcDate(saturday),
-        '18:00 Uhr – Social Warmup | Einstieg in den Abend, danach ziehen wir gemeinsam weiter | Location folgt Freitagabend',
+        formatGermanDateFromUtcDate(eventDay),
+        eventLine,
         '',
         'Bei welchen Events seid ihr dabei?'
     ].join('\n');
@@ -1392,7 +1466,7 @@ async function sendWeeklyCalendar({ force = false } = {}) {
     await client.sendMessage(announcementChatId, message);
     await client.sendMessage(
         announcementChatId,
-        new Poll('Welche Tribe Events besuche ich diese Woche?', WEEKLY_CALENDAR_POLL_OPTIONS)
+        new Poll('Welche Tribe Events besuche ich diese Woche?', getWeeklyCalendarPollOptions())
     );
 
     weeklyState.weeklyCalendar = {
@@ -1548,7 +1622,12 @@ async function loadThursdayFootballMedia() {
 }
 
 async function loadKennenlernabendMedia() {
-    const configuredImagePath = process.env.TRIBE_KENNENLERNABEND_IMAGE_PATH || KENNENLERNABEND_DEFAULT_IMAGE_PATH;
+    // Im Weekend-Starter-Format die passende Kachel, sonst die alte.
+    // Eine gesetzte Env-Var gewinnt weiterhin ueber beides.
+    const defaultImagePath = isWeekendStarterActive() && fs.existsSync(WEEKEND_STARTER_IMAGE_PATH)
+        ? WEEKEND_STARTER_IMAGE_PATH
+        : KENNENLERNABEND_DEFAULT_IMAGE_PATH;
+    const configuredImagePath = process.env.TRIBE_KENNENLERNABEND_IMAGE_PATH || defaultImagePath;
     const configuredImageUrl = process.env.TRIBE_KENNENLERNABEND_IMAGE_URL;
 
     if (fs.existsSync(configuredImagePath)) {
@@ -1856,17 +1935,23 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
         return;
     }
 
+    const format = getEventFormat(today.dateKey);
+    const weekendStarter = isWeekendStarterActive(today.dateKey);
     const venues = getVenueOptionsForWeek(weekKey);
     const options = [...venues, VENUE_POLL_CHAT_OPTION];
     const intro = [
-        getOpenerForWeek(weekKey),
+        getOpenerForWeek(weekKey, today.dateKey),
         '',
-        'Social Warmup: Einstieg in den Abend – entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.',
+        weekendStarter
+            ? `${format.label}: ${format.claim} Entspannt ankommen, Leute kennenlernen, danach zieht ihr gemeinsam weiter.`
+            : `${format.label}: Einstieg in den Abend – entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.`,
         '',
         'Drei Locations zur Auswahl:',
         ...venues.map(venue => `👉 ${venue}`),
         '',
-        'Bis Freitag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
+        weekendStarter
+            ? 'Bis Donnerstag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
+            : 'Bis Freitag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -1879,11 +1964,11 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
 
     const pollMessageId = await sendAndPinPoll(
         chatId,
-        new Poll('Location fuer den Social Warmup am Samstag?', options)
+        new Poll(`Location fuer den ${format.label} am ${format.day}?`, options)
     );
 
     if (!pollMessageId) {
-        console.warn('Freitag faellt damit auf die erste Location zurueck statt auf den Abstimmungssieger.');
+        console.warn('Die Zusage-Umfrage faellt damit auf die erste Location zurueck statt auf den Abstimmungssieger.');
     }
 
     weeklyState.venuePoll = {
@@ -1989,14 +2074,16 @@ async function updateLandingPageNextEvent() {
         const state = getState();
         const weekKey = getBerlinWeekKey();
 
-        // Nächsten Samstag berechnen
-        const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
-        const day = saturdayDate.getUTCDate();
-        const month = saturdayDate.getUTCMonth() + 1;
+        // Naechsten Event-Abend berechnen: Freitag im Weekend-Starter-Format,
+        // sonst Samstag.
+        const format = getEventFormat();
+        const eventDate = getEventDayUtcDate(weekKey);
+        const day = eventDate.getUTCDate();
+        const month = eventDate.getUTCMonth() + 1;
         const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
         const monthNames = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-        const dayName = dayNames[saturdayDate.getUTCDay()];
-        const label = `${dayName}. ${day}. ${monthNames[month - 1]} · 18:00 Uhr`;
+        const dayName = dayNames[eventDate.getUTCDay()];
+        const label = `${dayName}. ${day}. ${monthNames[month - 1]} · ${format.timeShort} Uhr`;
 
         // Location: aus laufender Abstimmung oder Fallback
         const weeklyState = ensureWeeklyPollState(state, weekKey);
@@ -3327,7 +3414,7 @@ async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) 
         'Die Anmeldung ist verbindlich.',
         '',
         'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
-        'Social Warm-Up — wer mag, zieht danach mit uns weiter.'
+        'Wer mag, zieht danach mit uns weiter.'
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -3380,14 +3467,17 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
     const result = venueOverride
         ? { winner: venueOverride, counts: {}, source: 'override' }
         : await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
+    const format = getEventFormat(today.dateKey);
     const intro = [
-        `Wir treffen uns am Samstag um 18 Uhr bei ${result.winner}.`,
+        `Wir treffen uns am ${format.day} um ${format.time} bei ${result.winner}.`,
         '',
         'Die Anmeldung ist verbindlich.',
         '',
         '',
         'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
-        'Social Warm-Up — wer mag, zieht danach mit uns weiter.'
+        isWeekendStarterActive(today.dateKey)
+            ? `${format.label} — ${format.claim}`
+            : `${format.label} — wer mag, zieht danach mit uns weiter.`
     ].join('\n');
 
     const media = await loadKennenlernabendMedia();
@@ -3400,7 +3490,7 @@ async function sendSaturdayAttendancePoll({ force = false } = {}) {
 
     const pollMessageId = await sendAndPinPoll(
         chatId,
-        new Poll(`Social Warmup am Samstag bei ${result.winner} – 18 Uhr (danach ziehen wir gemeinsam weiter): bist du dabei?`, ATTENDANCE_OPTIONS)
+        new Poll(`${format.label} am ${format.day} bei ${result.winner} – ${format.time}: bist du dabei?`, ATTENDANCE_OPTIONS)
     );
 
     weeklyState.finalVenue = {
@@ -3465,11 +3555,14 @@ async function sendSaturdayKennenlernabendReminder({ force = false } = {}) {
         venue = result.winner;
     }
 
+    const format = getEventFormat(today.dateKey);
     const message = [
-        'Reminder: Social Warmup heute',
+        `Reminder: ${format.label} heute`,
         '',
-        'Was: Social Warmup – Einstieg in den Abend, danach ziehen wir weiter',
-        'Wann: heute, 18:00 Uhr',
+        isWeekendStarterActive(today.dateKey)
+            ? `Was: ${format.label} – ${format.claim}`
+            : `Was: ${format.label} – Einstieg in den Abend, danach ziehen wir weiter`,
+        `Wann: heute, ${format.timeShort} Uhr`,
         `Wo: ${venue}`,
         '',
         'Angemeldet? Perfekt. Heute Abend wird gut.',
@@ -3556,11 +3649,14 @@ function startScheduler() {
         await sendWednesdayVenuePoll();
     });
 
-    scheduleJob('Freitags-Umfrage', { weekdayIndex: 5, hour: 18 }, async () => {
+    // Wie in runDueJobs: Weekend Starter zieht beide Termine einen Tag vor.
+    const schedulerWeekendStarter = isWeekendStarterActive();
+
+    scheduleJob('Zusage-Umfrage', { weekdayIndex: schedulerWeekendStarter ? 4 : 5, hour: 18 }, async () => {
         await sendSaturdayAttendancePoll();
     });
 
-    scheduleJob('Kennenlernabend-Reminder', { weekdayIndex: 6, hour: 12 }, async () => {
+    scheduleJob('Event-Reminder', { weekdayIndex: schedulerWeekendStarter ? 5 : 6, hour: 12 }, async () => {
         await sendSaturdayKennenlernabendReminder();
     });
 
@@ -3620,11 +3716,21 @@ async function runDueJobs() {
     }
 
     const nowParts = getDateParts();
+
+    // Weekend Starter zieht Zusage-Umfrage und Reminder je einen Tag vor:
+    // Mi Location-Umfrage → Do Zusage-Umfrage → Fr Reminder → Fr 20 Uhr Event.
+    // Vorher lief es Mi → Fr → Sa auf den Samstag 18 Uhr zu.
+    // Die Job-Namen bleiben, damit BOT_COMMAND, Workflow-Auswahl und die
+    // gespeicherten Tagesmerker weiter passen.
+    const weekendStarter = isWeekendStarterActive(nowParts.dateKey);
+    const attendancePollWeekday = weekendStarter ? 4 : 5;
+    const eventReminderWeekday = weekendStarter ? 5 : 6;
+
     const dueJobs = [
         ['daily-highlights', { hour: DAILY_POST_HOUR }, () => sendDailyHighlights()],
         ['wednesday-poll', { weekdayIndex: 3, hour: 20 }, () => sendWednesdayVenuePoll()],
-        ['friday-poll', { weekdayIndex: 5, hour: 18 }, () => sendSaturdayAttendancePoll()],
-        ['saturday-reminder', { weekdayIndex: 6, hour: 12 }, () => sendSaturdayKennenlernabendReminder()],
+        ['friday-poll', { weekdayIndex: attendancePollWeekday, hour: 18 }, () => sendSaturdayAttendancePoll()],
+        ['saturday-reminder', { weekdayIndex: eventReminderWeekday, hour: 12 }, () => sendSaturdayKennenlernabendReminder()],
         ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
@@ -3806,14 +3912,24 @@ async function sendCommunityWelcomeBatch(batchIds) {
         `Hey ${introNames}! Schön dass ihr hier seid 😊`,
         `${introNames} – willkommen! ✌️`,
     ];
-    const context = [
-        `Echte Treffen in Bielefeld, jeden Samstag Social Warmup als Einstieg in den Abend – stellt euch kurz vor! 🙌`,
-        `Samstags Social Warmup – Einstieg in den Abend, danach ziehen wir gemeinsam weiter. Wer seid ihr? 👀`,
-        `THE TRIBE = echte Treffen. Samstags Social Warmup, danach gemeinsam los. Sagt kurz Hallo! 😄`,
-        `Jeden Samstag Social Warmup – kommt vorbei, lernt uns kennen, dann ziehen wir weiter ✌️`,
-        `Hier treffen sich echte Menschen – Samstags beim Social Warmup. Wer seid ihr? 😊`,
-        `Samstags Social Warmup als Startpunkt in den Abend – stellt euch kurz vor! 🙌`,
-    ];
+    const format = getEventFormat();
+    const context = isWeekendStarterActive()
+        ? [
+            `Echte Treffen in Bielefeld, jeden ${format.day} ab ${format.time} der ${format.label} – stellt euch kurz vor! 🙌`,
+            `${format.claim} Jeden ${format.day} ab ${format.time}. Wer seid ihr? 👀`,
+            `THE TRIBE = echte Treffen. ${format.dayAdverb.replace(/^./, c => c.toUpperCase())} ab ${format.time} der ${format.label}. Sagt kurz Hallo! 😄`,
+            `Jeden ${format.day} ${format.label} – kommt vorbei, lernt uns kennen, startet mit uns ins Wochenende ✌️`,
+            `Hier treffen sich echte Menschen – ${format.dayAdverb} beim ${format.label}. Wer seid ihr? 😊`,
+            `${format.label} als Startpunkt ins Wochenende – stellt euch kurz vor! 🙌`,
+        ]
+        : [
+            `Echte Treffen in Bielefeld, jeden Samstag Social Warmup als Einstieg in den Abend – stellt euch kurz vor! 🙌`,
+            `Samstags Social Warmup – Einstieg in den Abend, danach ziehen wir gemeinsam weiter. Wer seid ihr? 👀`,
+            `THE TRIBE = echte Treffen. Samstags Social Warmup, danach gemeinsam los. Sagt kurz Hallo! 😄`,
+            `Jeden Samstag Social Warmup – kommt vorbei, lernt uns kennen, dann ziehen wir weiter ✌️`,
+            `Hier treffen sich echte Menschen – Samstags beim Social Warmup. Wer seid ihr? 😊`,
+            `Samstags Social Warmup als Startpunkt in den Abend – stellt euch kurz vor! 🙌`,
+        ];
     const pick = arr => arr[Math.floor(Math.random() * arr.length)];
     const message = `${pick(greetings)}\n${pick(context)}`;
 
