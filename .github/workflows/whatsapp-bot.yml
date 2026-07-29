@@ -32,10 +32,15 @@ on:
           - check-new-members
           - germany-export
       force_fresh_auth:
-        description: "WhatsApp-Session-Cache löschen (erzwingt neuen QR-Code)"
+        description: "WhatsApp-Session-Cache löschen (erzwingt neue Kopplung)"
         required: false
         default: false
         type: boolean
+      pairing_number:
+        description: "Telefonnummer international ohne + und Leerzeichen (z. B. 4915112345678). Gesetzt = Kopplung per 8-stelligem Code statt QR-Scan."
+        required: false
+        default: ""
+        type: string
       friday_poll_venue_override:
         description: "Optional: Venue-Name für friday-poll erzwingen (z. B. 'Café Barcelona'). Leer lassen für normales Verhalten."
         required: false
@@ -107,6 +112,7 @@ jobs:
         env:
           BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
+          WHATSAPP_PAIRING_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.pairing_number || '' }}
           WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
           WHATSAPP_TUESDAY_RUN_CHAT_ID: ${{ secrets.WHATSAPP_TUESDAY_RUN_CHAT_ID }}
           WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
@@ -134,8 +140,10 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
+      # Also save on failure: a session that authenticated shortly before an
+      # unrelated error would otherwise be lost, forcing a re-pairing.
       - name: Save WhatsApp session and bot state
-        if: success()
+        if: always()
         uses: actions/cache/save@v4
         with:
           path: |

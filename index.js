@@ -139,11 +139,22 @@ const IS_ONE_SHOT_RUN = BOT_COMMAND.length > 0;
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
+// Phone number in international, symbol-free format (e.g. 4915112345678).
+// When set, WhatsApp links this device via an 8-character pairing code instead
+// of a QR code — no second screen needed to authenticate.
+const PAIRING_NUMBER = (process.env.WHATSAPP_PAIRING_NUMBER || '').replace(/\D/g, '');
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     authTimeoutMs: 120000,
+    ...(PAIRING_NUMBER
+        ? { pairWithPhoneNumber: { phoneNumber: PAIRING_NUMBER, showNotification: true } }
+        : {}),
     puppeteer: {
         headless: true,
+        // Injecting the WhatsApp Web store regularly exceeds puppeteer's 180s
+        // default on CI runners, which aborts initialize() with a ProtocolError.
+        protocolTimeout: 300000,
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -166,6 +177,7 @@ const communityJoinSourceChatIds = new Set(
 
 let rl;
 let isReady = false;
+let authPending = false;
 let scheduledJobs = [];
 let dashboardServer;
 let dashboardRefreshIntervalId;
@@ -3897,7 +3909,69 @@ function renderQrAsBlocks(matrix, { invert = false } = {}) {
     return lines.join('\n');
 }
 
+/**
+ * Post an authentication prompt as a GitHub issue so it can be read on a phone.
+ * Returns the issue URL, or null when unavailable.
+ */
+async function postAuthIssue(title, body, labels) {
+    if (!process.env.GITHUB_TOKEN || !process.env.GITHUB_REPOSITORY) {
+        return null;
+    }
+    try {
+        const res = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/issues`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, body, labels })
+        });
+        if (!res.ok) {
+            console.error('Issue-Post fehlgeschlagen:', res.status, await res.text());
+            return null;
+        }
+        const issue = await res.json();
+        console.log(`Als GitHub Issue gepostet: #${issue.number} (${issue.html_url})`);
+        return issue.html_url;
+    } catch (err) {
+        console.error('Issue-Post Exception:', err && err.stack ? err.stack : err);
+        return null;
+    }
+}
+
+client.on('code', async code => {
+    authPending = true;
+    const pretty = String(code).match(/.{1,4}/g).join('-');
+    console.log('\n===== WHATSAPP-KOPPLUNGSCODE =====\n');
+    console.log(`    ${pretty}`);
+    console.log('\nWhatsApp > Einstellungen > Verknuepfte Geraete > Geraet verknuepfen');
+    console.log('> "Stattdessen mit Telefonnummer verknuepfen" > Code eingeben.');
+    console.log('\n===== ENDE KOPPLUNGSCODE =====\n');
+
+    await postAuthIssue(
+        `WhatsApp Kopplungscode ${pretty}`,
+        [
+            `## \`${pretty}\``,
+            '',
+            'Auf dem Handy eingeben — kein Scannen, kein zweiter Bildschirm noetig:',
+            '',
+            '1. WhatsApp oeffnen',
+            '2. **Einstellungen** → **Verknüpfte Geräte** → **Gerät verknüpfen**',
+            '3. Unten **„Stattdessen mit Telefonnummer verknüpfen"** antippen',
+            '4. Code oben eintippen',
+            '',
+            'Der Code ist ca. 3 Minuten gueltig — danach erzeugt der Bot automatisch',
+            'einen neuen und postet ein weiteres Issue (bis das Job-Timeout greift).',
+            '',
+            'Nach erfolgreicher Kopplung kann dieses Issue geschlossen werden.'
+        ].join('\n'),
+        ['whatsapp-pairing']
+    );
+});
+
 client.on('qr', async qr => {
+    authPending = true;
     console.log('QR-Code in WhatsApp scannen.');
 
     let matrix;
@@ -4098,8 +4172,39 @@ if (!IS_ONE_SHOT_RUN) {
 }
 
 console.log('Initialisiere WhatsApp-Client (Puppeteer startet Chromium)...');
+
+// On CI a failed or stalled login used to keep Chromium alive until the job
+// timeout killed the run — which skipped the session-saving step. Fail fast
+// instead, but leave enough room to type a pairing code when one is pending.
+if (IS_ONE_SHOT_RUN) {
+    const CONNECT_TIMEOUT_MS = Number(process.env.CONNECT_TIMEOUT_MS || 6 * 60 * 1000);
+    const AUTH_TIMEOUT_MS = Number(process.env.AUTH_TIMEOUT_MS || 15 * 60 * 1000);
+    const startedAt = Date.now();
+
+    const watchdog = setInterval(() => {
+        if (isReady) {
+            clearInterval(watchdog);
+            return;
+        }
+        const waited = Date.now() - startedAt;
+        const limit = authPending ? AUTH_TIMEOUT_MS : CONNECT_TIMEOUT_MS;
+        if (waited < limit) {
+            return;
+        }
+        clearInterval(watchdog);
+        console.error(
+            authPending
+                ? `Kopplung nicht abgeschlossen (${Math.round(waited / 1000)}s). Beende Prozess.`
+                : `Keine WhatsApp-Verbindung nach ${Math.round(waited / 1000)}s. Beende Prozess.`
+        );
+        process.exit(1);
+    }, 15000);
+    watchdog.unref();
+}
+
 client.initialize().catch(err => {
     console.error('Fehler bei client.initialize():', err && err.stack ? err.stack : err);
+    process.exit(1);
 });
 
 process.on('unhandledRejection', err => {
