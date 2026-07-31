@@ -60,7 +60,41 @@ const GERMANY_CITIES = [
 ];
 const TIME_ZONE = 'Europe/Berlin';
 const DAILY_POST_HOUR = 9;
-const MAX_HIGHLIGHTS = 3;
+const MAX_HIGHLIGHTS = 5;
+
+// Nur Events an diesen Locations kommen auf den Tageshighlights-Flyer.
+// In der Event-Liste steht die Location im Namen als "(@handle)", daher wird
+// kleingeschrieben gegen den Namen gematcht. Ueber HIGHLIGHT_VENUES
+// (kommagetrennt) ueberschreibbar, ohne Code-Aenderung.
+const HIGHLIGHT_VENUES = (process.env.HIGHLIGHT_VENUES || [
+    'stereobielefeld',
+    'forum_bielefeld',
+    'sams_bielefeld',
+    'movie_liveclub',
+    'hinterzimmer.club',
+    'cutiebielefeld',
+    'platzhirschbielefeld',
+    'cafe_europa_bi',
+    'lokschuppen',
+    'groovestation',
+    'nr.z.p',
+    'irish_pub_bielefeld',
+    'bunker ulmenwall',
+    'falkendom',
+    'stadthalle bielefeld'
+].join(','))
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+function isHighlightVenue(entry) {
+    const name = String(entry.event || '').toLowerCase();
+    return HIGHLIGHT_VENUES.some(venue => name.includes(venue));
+}
+
+function isTribeEvent(entry) {
+    return /tribe/i.test(String(entry.event || ''));
+}
 const DASHBOARD_PORT = Number(process.env.DASHBOARD_PORT || 3000);
 const DASHBOARD_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const INITIAL_MESSAGE_HISTORY_LIMIT = Number(process.env.DASHBOARD_MESSAGE_HISTORY_LIMIT || 250);
@@ -1758,56 +1792,52 @@ async function sendDailyHighlights({ force = false } = {}) {
 
     const events = await fetchEvents();
     const highlights = getTodayHighlights(events, now);
-    const EXCLUDED_CATEGORIES = new Set(['sport', 'sonstiges', 'kino', 'ausgehen']);
+    // Gefiltert wird ueber die Location, nicht ueber die Kategorie: das
+    // category-Feld der Event-Liste ist unzuverlaessig — oft leer (was zu
+    // "Sonstiges" normalisiert und die Clubs herauswerfen wuerde), teils
+    // enthaelt es versehentlich den Beschreibungstext. Die Allowlist der
+    // Locations grenzt ohnehin deutlich schaerfer ein.
     const { weekdayIndex } = today;
-    const isFriday = weekdayIndex === 5;
-    const isSaturday = weekdayIndex === 6;
     const WEEKDAY_PREFIXES = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
     const todayPrefix = WEEKDAY_PREFIXES[weekdayIndex];
     const weekdayPrefixPattern = /^\s*(MO|DI|MI|DO|FR|SA|SO)\s*[•·]/i;
     const filtered = highlights.filter(h => {
-        const cat = normalizeCategory(h.category).toLowerCase();
-        if (EXCLUDED_CATEGORIES.has(cat)) return false;
+        // Eigene Formate kommen als fester Eintrag dazu, nicht aus der Liste.
+        if (isTribeEvent(h)) return false;
+        // Nur angesagte Locations.
+        if (!isHighlightVenue(h)) return false;
         const name = h.event || '';
         // Wiederkehrende Serien mit Wochentags-Präfix (z. B. "FR • Cafe Europa")
         // nur am passenden Wochentag zeigen
         const prefixMatch = name.match(weekdayPrefixPattern);
         if (prefixMatch && prefixMatch[1].toUpperCase() !== todayPrefix) return false;
-        if (isFriday || isSaturday) {
-            // Wiederkehrende Club-Events Fr/Sa nicht zeigen
-            if (/cutie/i.test(name)) return false;
-            if (/liv\/hinterzimmer/i.test(name)) return false;
-        }
         return true;
     });
 
-    const tribeEntry = {
-        event: 'THE TRIBE Kennenlernabend',
-        time: '18:00',
+    // Einziges eigenes Format auf dem Flyer: der Weekend Starter am Eventtag.
+    // Ping Pong, Pub Quiz und Kennenlernabend sind bewusst raus.
+    const format = getEventFormat(todayKey);
+    const isEventDay = weekdayIndex === format.eventWeekdayIndex;
+    const weeklyState = ensureWeeklyPollState(state, getBerlinWeekKey());
+    const votedVenue = weeklyState.finalVenue?.name || weeklyState.attendancePoll?.venue || '';
+
+    const ownEntry = {
+        event: votedVenue ? `${format.label} (@${votedVenue})` : format.label,
+        time: format.timeShort,
         category: 'THE TRIBE',
         link: ''
     };
-    const pingPongEntry = {
-        event: 'Ping Pong im Nr.z.P.',
-        time: '18:00',
-        category: 'THE TRIBE',
-        link: ''
-    };
-    const pubQuizEntry = {
-        event: 'Pub Quiz (@irish_pub_bielefeld)',
-        time: '20:00',
-        category: 'Ausgehen',
-        link: 'https://www.irishpub-bielefeld.de/'
-    };
-    const isMonday = weekdayIndex === 1;
-    const isThursday = weekdayIndex === 4;
-    const fixedEntries = [
-        ...(isMonday ? [pubQuizEntry] : []),
-        ...(isThursday ? [pingPongEntry] : []),
-        ...(isSaturday ? [tribeEntry] : [])
-    ];
+
+    const fixedEntries = isEventDay ? [ownEntry] : [];
     const fixedNames = new Set(fixedEntries.map(e => e.event));
     const withTribe = [...fixedEntries, ...filtered.filter(h => !fixedNames.has(h.event))];
+
+    if (withTribe.length === 0) {
+        // Lieber nichts posten als einen Flyer mit "keine Highlights" — bei der
+        // engen Location-Auswahl bleibt rund ein Drittel der Tage leer.
+        console.log(`Keine passenden Highlights fuer ${todayKey} — kein Flyer gepostet.`);
+        return;
+    }
 
     const caption = 'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/';
 
