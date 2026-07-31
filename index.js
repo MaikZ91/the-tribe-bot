@@ -974,9 +974,11 @@ function getDailyHighlightsImageHtml(highlights, date = getBerlinNow()) {
         const venue = entry.event && /\(@([^)]+)\)/.test(entry.event)
             ? escapeHtml(entry.event.match(/\(@([^)]+)\)/)[1])
             : 'Bielefeld';
-        const imageUrl = entry.image_url ? escapeHtml(String(entry.image_url)) : null;
-        const thumb = imageUrl
-            ? `<div class="thumb"><img src="${imageUrl}" alt=""></div>`
+        // entry.image ist die vorab eingebettete Data-URL, entry.image_url der
+        // Rohlink als Rueckfall.
+        const src = entry.image || entry.image_url || null;
+        const thumb = src
+            ? `<div class="thumb"><img src="${escapeHtml(String(src))}" alt=""></div>`
             : `<div class="thumb placeholder">${String(index + 1).padStart(2, '0')}</div>`;
 
         return `
@@ -1132,8 +1134,41 @@ async function getPuppeteerBrowser() {
     return puppeteer.launch({ headless: true });
 }
 
+/**
+ * Load an image and return it as a data URL, or null.
+ *
+ * Same approach as render-highlights-video.js: the flyer is rendered via
+ * setContent, so remote <img> sources depend on the page fetching them in
+ * time. Inlining the bytes removes that race entirely.
+ */
+async function loadImageAsDataUrl(url) {
+    if (!url) return null;
+    try {
+        const res = await fetch(url, { redirect: 'follow' });
+        if (!res.ok) return null;
+        const buf = Buffer.from(await res.arrayBuffer());
+        if (buf.length < 1000) return null; // 1x1-Pixel und Platzhalter ueberspringen
+        const contentType = res.headers.get('content-type') || 'image/jpeg';
+        if (!/^image\//.test(contentType)) return null;
+        return `data:${contentType};base64,${buf.toString('base64')}`;
+    } catch {
+        return null;
+    }
+}
+
 async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
     fs.mkdirSync(DAILY_HIGHLIGHTS_IMAGE_DIR, { recursive: true });
+
+    // Bilder vorab einbetten, sonst bleiben die Kacheln leer.
+    const withImages = await Promise.all(highlights.slice(0, MAX_HIGHLIGHTS).map(async entry => ({
+        ...entry,
+        image: await loadImageAsDataUrl(entry.image_url)
+    })));
+    const failed = withImages.filter(e => e.image_url && !e.image).length;
+    if (failed) {
+        console.warn(`${failed} Event-Bild(er) konnten nicht geladen werden — Platzhalter genutzt.`);
+    }
+    highlights = withImages;
 
     const outputPath = getDailyHighlightImagePath(date);
     const browser = await getPuppeteerBrowser();
