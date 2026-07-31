@@ -964,303 +964,156 @@ function getDailyHighlightsImageHtml(highlights, date = getBerlinNow()) {
     const { day, month, year } = getDateParts(date);
     const displayHighlights = highlights.slice(0, MAX_HIGHLIGHTS);
 
-    const cards = displayHighlights.map((entry, index) => {
+    // Design und Farbwelt sind aus render-highlights-video.js uebernommen
+    // (Cover-Szene), damit Flyer und Video als ein Auftritt wirken.
+    const rows = displayHighlights.map((entry, index) => {
         const style = getCategoryStyle(entry.category, index);
-        const time = entry.time ? `${escapeHtml(entry.time)} Uhr` : 'Heute';
+        const time = entry.time ? escapeHtml(entry.time) : 'Heute';
         const title = escapeHtml(entry.event || 'Event');
         const category = escapeHtml(style.label);
-        const url = entry.link
-            ? escapeHtml(String(entry.link).replace(/^https?:\/\//, '').replace(/\/$/, ''))
-            : 'liebefeld.lovable.app';
+        const venue = entry.event && /\(@([^)]+)\)/.test(entry.event)
+            ? escapeHtml(entry.event.match(/\(@([^)]+)\)/)[1])
+            : 'Bielefeld';
         const imageUrl = entry.image_url ? escapeHtml(String(entry.image_url)) : null;
-        const eventDateStyle = imageUrl
-            ? ` style="background-image: url('${imageUrl}');"`
-            : '';
-        const overlayDiv = imageUrl ? '<div class="event-date-overlay"></div>' : '';
+        const thumb = imageUrl
+            ? `<div class="thumb"><img src="${imageUrl}" alt=""></div>`
+            : `<div class="thumb placeholder">${String(index + 1).padStart(2, '0')}</div>`;
 
         return `
-            <article class="event-card" style="--accent: ${style.accent}; --badge-bg: ${style.background};">
-                <div class="event-date"${eventDateStyle}>
-                    ${overlayDiv}
-                    <span>${time}</span>
+            <div class="row" style="--accent: ${style.accent};">
+                ${thumb}
+                <div class="meta">
+                    <div class="top"><span class="time">${time}</span> · ${category}</div>
+                    <div class="name">${title.replace(/\s*\(@[^)]+\)\s*/, '')}</div>
+                    <div class="venue">${venue}</div>
                 </div>
-                <div class="event-body">
-                    <div class="event-topline">
-                        <span class="badge">${category}</span>
-                        <span class="count">0${index + 1}</span>
-                    </div>
-                    <h2>${title}</h2>
-                    <div class="event-meta">
-                        <span>Bielefeld</span>
-                        <span>${url}</span>
-                    </div>
-                </div>
-            </article>
+            </div>
         `;
     }).join('');
 
     const emptyState = `
-        <article class="event-card empty">
-            <div class="event-body">
-                <div class="event-topline">
-                    <span class="badge">Heute</span>
-                    <span class="count">01</span>
-                </div>
-                <h2>Heute sind noch keine Highlights eingetragen.</h2>
-                <div class="event-meta">
-                    <span>Bielefeld</span>
-                    <span>liebefeld.lovable.app</span>
-                </div>
+        <div class="row" style="--accent: #F59E0B;">
+            <div class="thumb placeholder">–</div>
+            <div class="meta">
+                <div class="top"><span class="time">Heute</span> · Bielefeld</div>
+                <div class="name">Heute sind noch keine Highlights eingetragen</div>
+                <div class="venue">liebefeld.lovable.app</div>
             </div>
-        </article>
+        </div>
     `;
 
     return `<!doctype html>
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        * {
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --black: #0A0807;
+            --black-soft: #141110;
+            --amber: #F59E0B;
+            --whatsapp: #25D366;
+            --text: #F5F0E8;
+            --muted: #9C9690;
+            --rule: rgba(245, 240, 232, 0.14);
         }
 
-        body {
-            margin: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
             width: 1080px;
-            min-height: 1350px;
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background:
-                radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.95), transparent 28%),
-                linear-gradient(145deg, #fff7ed 0%, #ffffff 45%, #ecfeff 100%);
-            color: #111827;
-        }
-
-        .poster {
-            width: 1080px;
-            min-height: 1350px;
-            padding: 66px 58px 54px;
-            display: flex;
-            flex-direction: column;
-            gap: 34px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 30px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-weight: 850;
-            font-size: 34px;
-            letter-spacing: 0;
-        }
-
-        .brand-mark {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            background: #111827;
-            color: #ffffff;
-            display: grid;
-            place-items: center;
-            font-size: 26px;
-            line-height: 1;
-        }
-
-        .date {
-            text-align: right;
-            font-size: 24px;
-            line-height: 1.2;
-            color: #4b5563;
-            font-weight: 750;
-        }
-
-        h1 {
-            margin: 6px 0 2px;
-            max-width: 800px;
-            font-size: 84px;
-            line-height: 0.98;
-            letter-spacing: 0;
-            font-weight: 900;
-        }
-
-        .subtitle {
-            margin: 0;
-            max-width: 790px;
-            color: #4b5563;
-            font-size: 30px;
-            line-height: 1.28;
-            font-weight: 620;
-        }
-
-        .events {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-            margin-top: 6px;
-        }
-
-        .event-card {
-            min-height: 218px;
-            display: grid;
-            grid-template-columns: 220px 1fr;
+            height: 1350px;
+            background: var(--black);
             overflow: hidden;
-            border: 2px solid rgba(17, 24, 39, 0.08);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow: 0 24px 54px rgba(15, 23, 42, 0.12);
+            font-family: 'Familjen Grotesk', ui-sans-serif, system-ui, sans-serif;
+            color: var(--text);
         }
 
-        .event-card.empty {
-            grid-template-columns: 1fr;
+        .poster { position: relative; width: 1080px; height: 1350px;
+                  padding: 54px 58px 46px; display: flex; flex-direction: column; }
+
+        /* Rauschtextur wie im Video */
+        .poster::after {
+            content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50;
+            opacity: 0.28; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
         }
 
-        .event-date {
-            position: relative;
-            background: var(--accent);
-            background-size: cover;
-            background-position: center;
-            color: #ffffff;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 28px 18px;
-            font-size: 34px;
-            line-height: 1.05;
-            font-weight: 900;
-            text-align: center;
-            overflow: hidden;
+        /* Kopf und Fuss duerfen nicht schrumpfen: sonst quetscht der Flex-Layout
+           sie bei vollen fuenf Zeilen auf ihre Trennlinie zusammen und der Text
+           verschwindet. Gekuerzt wird stattdessen die Liste. */
+        .head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 24px; margin-bottom: 30px;
+            flex-shrink: 0;
         }
-
-        .event-date-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.08) 0%,
-                var(--accent) 85%
-            );
-            opacity: 0.82;
-        }
-
-        .event-date span {
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-        }
-
-        .event-body {
-            padding: 28px 30px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 18px;
-        }
-
-        .event-topline,
-        .event-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 22px;
-        }
-
-        .badge {
-            max-width: 470px;
-            padding: 9px 14px;
-            border-radius: 8px;
-            background: var(--badge-bg, #f3f4f6);
-            color: var(--accent, #111827);
-            font-size: 20px;
-            line-height: 1;
-            font-weight: 850;
+        .head .title {
+            font-family: 'Anton', sans-serif; font-size: 92px; line-height: 0.92;
             text-transform: uppercase;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        }
+        .head .title em { font-style: normal; color: var(--amber); }
+        .head .date {
+            font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 0.04em;
+            text-transform: uppercase; color: var(--muted); text-align: right; line-height: 1.15;
         }
 
-        .count {
-            color: #d1d5db;
-            font-size: 24px;
-            font-weight: 900;
+        /* Platz fuer die absolut verankerte Fusszeile freihalten. */
+        .list { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+        .row {
+            display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center;
+            border-left: 5px solid var(--accent); padding-left: 24px; min-height: 150px;
+        }
+        .row .thumb {
+            width: 150px; height: 150px; overflow: hidden; background: var(--black-soft);
+        }
+        .row .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .row .thumb.placeholder {
+            display: grid; place-items: center;
+            font-family: 'Anton', sans-serif; font-size: 64px; color: var(--accent); opacity: 0.55;
+        }
+        .row .meta { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+        .row .top {
+            font-weight: 600; font-size: 18px; letter-spacing: 0.22em; text-transform: uppercase;
+            margin-bottom: 8px; color: var(--accent);
+        }
+        .row .top .time { color: var(--text); }
+        .row .name {
+            font-family: 'Anton', sans-serif; font-size: 46px; line-height: 0.95;
+            text-transform: uppercase; color: var(--text); margin-bottom: 8px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .row .venue {
+            font-size: 20px; color: var(--muted); letter-spacing: 0.04em;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        h2 {
-            margin: 0;
-            font-size: 43px;
-            line-height: 1.08;
-            letter-spacing: 0;
-            font-weight: 900;
+        /* Signatur steht bewusst oben unter dem Kopf, nicht als Fusszeile:
+           als letztes Kind der Spalte hat Chromium sie reproduzierbar auf
+           Hoehe 0 gequetscht — die Trennlinie blieb, der Text verschwand.
+           Hier oben rendert sie zuverlaessig. */
+        .stamp {
+            flex-shrink: 0;
+            margin-bottom: 26px;
+            font-family: 'Anton', sans-serif; font-size: 22px;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--muted);
         }
-
-        .event-meta {
-            color: #6b7280;
-            font-size: 22px;
-            line-height: 1.2;
-            font-weight: 700;
-        }
-
-        .event-meta span:last-child {
-            max-width: 430px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            text-align: right;
-        }
-
-        footer {
-            margin-top: auto;
-            padding-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            color: #374151;
-            font-size: 25px;
-            line-height: 1.25;
-            font-weight: 760;
-        }
-
-        .app-link {
-            padding: 14px 18px;
-            border-radius: 8px;
-            background: #111827;
-            color: #ffffff;
-            font-weight: 850;
-            white-space: nowrap;
-        }
+        .stamp em { font-style: normal; color: var(--whatsapp); }
     </style>
 </head>
 <body>
     <main class="poster">
-        <header>
-            <div class="brand">
-                <div class="brand-mark">L</div>
-                <span>Liebefeld</span>
-            </div>
+        <div class="head">
+            <div class="title">Heute<br><em>in Bielefeld</em></div>
             <div class="date">${escapeHtml(day)}.${escapeHtml(month)}.${escapeHtml(year)}</div>
-        </header>
-
-        <section>
-            <h1>Bielefeld Tageshighlights</h1>
-            <p class="subtitle">Unsere Auswahl fuer heute. Stimme gleich in der Umfrage ab, wo du dabei bist.</p>
-        </section>
-
-        <section class="events">
-            ${cards || emptyState}
-        </section>
-
-        <footer>
-            <span>Mehr Events fuer #Liebefeld</span>
-            <span class="app-link">liebefeld.lovable.app</span>
-        </footer>
+        </div>
+        <div class="stamp">Tageshighlights · <em>The Tribe Bielefeld</em></div>
+        <div class="list">
+            ${rows || emptyState}
+        </div>
     </main>
 </body>
 </html>`;
