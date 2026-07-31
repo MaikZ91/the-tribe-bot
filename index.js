@@ -72,7 +72,6 @@ const HIGHLIGHT_VENUES = (process.env.HIGHLIGHT_VENUES || [
     'sams_bielefeld',
     'movie_liveclub',
     'hinterzimmer.club',
-    'cutiebielefeld',
     'platzhirschbielefeld',
     'cafe_europa_bi',
     'lokschuppen',
@@ -87,8 +86,19 @@ const HIGHLIGHT_VENUES = (process.env.HIGHLIGHT_VENUES || [
     .map(value => value.trim().toLowerCase())
     .filter(Boolean);
 
+// Wiederkehrende Reihen, die trotz passender Location nicht auf den Flyer
+// sollen — sie laufen jede Woche und sind keine Highlights. Kommagetrennt
+// ueber HIGHLIGHT_EXCLUDED_SERIES ueberschreibbar.
+const HIGHLIGHT_EXCLUDED_SERIES = (process.env.HIGHLIGHT_EXCLUDED_SERIES || 'cutie,afro')
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
 function isHighlightVenue(entry) {
     const name = String(entry.event || '').toLowerCase();
+    if (HIGHLIGHT_EXCLUDED_SERIES.some(series => name.includes(series))) {
+        return false;
+    }
     return HIGHLIGHT_VENUES.some(venue => name.includes(venue));
 }
 
