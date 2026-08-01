@@ -50,29 +50,16 @@ on:
         required: false
         default: ""
         type: string
-  # ── Zeitplan vorübergehend abgeschaltet (01.08.2026) ──────────────────────
-  # Die WhatsApp-Session ist am 31.07. abgerissen. Seitdem forderte jeder Lauf
-  # alle 3 Minuten einen neuen Kopplungscode an — bei einem Lauf alle 30 Minuten
-  # summierte sich das auf über hundert Verknüpfungsversuche. WhatsApp drosselt
-  # das, die Kopplung schlägt seitdem mit "Gerät konnte nicht hinzugefügt
-  # werden" fehl.
-  #
-  # Solange die Kopplung nicht steht, bringt jeder weitere Lauf nichts und hält
-  # die Drosselung nur warm. Manuelle Läufe (workflow_dispatch) gehen weiter.
-  #
-  # WIEDER EINSCHALTEN: die folgenden Zeilen entkommentieren, sobald die
-  # Session wieder steht.
-  #
-  # schedule:
-  #   # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
-  #   # summer/winter time both land on the intended local time.
-  #   - cron: "5 7,8 * * *"
-  #   - cron: "5 10,11 * * *"
-  #   - cron: "20 10,11 * * *"
-  #   - cron: "5 16,17 * * *"
-  #   - cron: "5 18,19 * * *"
-  #   # Mitglieder-Polling alle 30 Minuten (für "Welcome alle 3 neuen User")
-  #   - cron: "*/30 * * * *"
+  schedule:
+    # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
+    # summer/winter time both land on the intended local time.
+    - cron: "5 7,8 * * *"
+    - cron: "5 10,11 * * *"
+    - cron: "20 10,11 * * *"
+    - cron: "5 16,17 * * *"
+    - cron: "5 18,19 * * *"
+    # Mitglieder-Polling alle 30 Minuten (für "Welcome alle 3 neuen User")
+    - cron: "*/30 * * * *"
 
 concurrency:
   group: whatsapp-bot
