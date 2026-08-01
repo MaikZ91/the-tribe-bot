@@ -954,7 +954,9 @@ async function buildHighlightsMessage(date = getBerlinNow()) {
 
 function getDailyHighlightImagePath(date = getBerlinNow()) {
     const { dateKey } = getDateParts(date);
-    return path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `bielefeld-tageshighlights-${dateKey}.png`);
+    // JPEG statt PNG: das PNG mit eingebetteten Artworks lag bei ~490 KB und
+    // wurde von WhatsApp nicht angenommen, waehrend ein 92-KB-JPEG durchging.
+    return path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `bielefeld-tageshighlights-${dateKey}.jpg`);
 }
 
 function getCategoryStyle(categoryValue, index) {
@@ -1198,7 +1200,8 @@ async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
     try {
         await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
         await page.setContent(getDailyHighlightsImageHtml(highlights, date), { waitUntil: 'networkidle0' });
-        await page.screenshot({ path: outputPath, type: 'png', fullPage: false });
+        await page.screenshot({ path: outputPath, type: 'jpeg', quality: 82, fullPage: false });
+        console.log(`Flyer gerendert: ${outputPath} (${Math.round(fs.statSync(outputPath).size / 1024)} KB)`);
     } finally {
         await page.close().catch(() => {});
         if (shouldCloseBrowser) {
