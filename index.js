@@ -4150,6 +4150,15 @@ client.on('qr', async qr => {
 
 client.on('ready', async () => {
     isReady = true;
+    // Marker fuer den Workflow: nur mit gueltiger Anmeldung darf der Cache
+    // zurueckgeschrieben werden. Sonst ueberschreibt ein Lauf, der die
+    // Kopplung nie abgeschlossen hat, die funktionierende Session — und jeder
+    // weitere Lauf stellt danach die kaputte wieder her.
+    try {
+        fs.writeFileSync(path.join(__dirname, '.auth-ok'), new Date().toISOString());
+    } catch (err) {
+        console.error('Auth-Marker konnte nicht geschrieben werden:', err.message);
+    }
     console.log('Bot ist online.');
     console.log(`Sendeziel: ${chatId}`);
     console.log(`Tuesday-Run-Ziel: ${tuesdayRunChatId}`);

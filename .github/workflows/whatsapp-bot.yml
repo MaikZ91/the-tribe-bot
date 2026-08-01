@@ -146,10 +146,25 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-      # Also save on failure: a session that authenticated shortly before an
-      # unrelated error would otherwise be lost, forcing a re-pairing.
-      - name: Save WhatsApp session and bot state
+      # Der Bot schreibt .auth-ok, sobald er angemeldet war.
+      - name: Did the session authenticate?
+        id: authcheck
         if: always()
+        run: |
+          if [ -f .auth-ok ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            echo "Session war angemeldet — Cache wird gesichert."
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Keine Anmeldung in diesem Lauf — Cache bleibt unangetastet."
+          fi
+
+      # Auch bei Fehlschlag sichern, damit eine kurz zuvor erfolgreiche
+      # Anmeldung nicht verloren geht — aber NUR dann. Ohne diese Bedingung
+      # ueberschreibt ein Lauf ohne Anmeldung die funktionierende Session, und
+      # jeder weitere Lauf stellt danach die kaputte wieder her.
+      - name: Save WhatsApp session and bot state
+        if: always() && steps.authcheck.outputs.ok == 'true'
         uses: actions/cache/save@v4
         with:
           path: |
