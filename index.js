@@ -1240,13 +1240,17 @@ async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), capti
         const media = MessageMedia.fromFilePath(imagePath);
         console.log(`Sende Flyer mit ${highlights.length} Eintrag(en) an ${flyerChatId} ...`);
         const sent = await client.sendMessage(flyerChatId, media, caption ? { caption } : undefined);
-        // sendMessage liefert undefined, wenn whatsapp-web.js die Nachricht
-        // nicht zurueckmappen kann — dann ist unklar, ob sie angekommen ist.
+        // sendMessage liefert bei dieser Library-Version auch dann kein
+        // Message-Objekt, wenn die Nachricht ankommt — die Rueckmeldung fehlt,
+        // die Zustellung nicht. Ein fehlendes Objekt darf deshalb NICHT als
+        // Fehlschlag gelten: sonst laeuft danach der Textversand als Rueckfall
+        // und in der Gruppe stehen Bild und Text.
+        // Ein echter Fehler wirft und landet im catch unten.
         if (!sent) {
-            console.warn('Flyer abgeschickt, aber kein Message-Objekt zurueck — Zustellung unbestaetigt.');
-            return null;
+            console.warn('Flyer gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).');
+        } else {
+            console.log(`Flyer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`);
         }
-        console.log(`Flyer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`);
         return imagePath;
     } catch (error) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', error.message);
@@ -1791,17 +1795,12 @@ async function sendDailyHighlights({ force = false } = {}) {
     }
 
     if (!delivered) {
-        // Der Medienversand ueber whatsapp-web.js kommt beim aktuellen
-        // WhatsApp-Web-Build nicht durch — unabhaengig von Format und Groesse
-        // (getestet mit 490-KB-PNG und 111-KB-JPEG). Reiner Text geht dagegen
-        // zuverlaessig raus, also lieber die Liste als Text als gar nichts.
-        console.warn('Bildversand fehlgeschlagen — weiche auf Textfassung aus.');
-        const text = formatHighlightsMessage(withTribe, now);
-        const sentText = await client.sendMessage(flyerChatId, text);
-        if (!sentText) {
-            throw new Error(`Tageshighlights fuer ${todayKey} nicht zugestellt — weder als Bild noch als Text`);
-        }
-        console.log(`Tageshighlights fuer ${todayKey} als Text gesendet (Message-ID ${sentText.id?._serialized || 'unbekannt'}).`);
+        // Nur echte Fehler landen hier — sendDailyHighlightsImage gibt den
+        // Pfad auch dann zurueck, wenn die Library die Zustellung nicht
+        // bestaetigt. Kein Textversand als Rueckfall: der lief zuletzt
+        // zusaetzlich zum erfolgreich gesendeten Bild und hat die Gruppe
+        // doppelt bespielt.
+        throw new Error(`Tageshighlights fuer ${todayKey} nicht gesendet`);
     }
 
     state.lastPostedDate = todayKey;
