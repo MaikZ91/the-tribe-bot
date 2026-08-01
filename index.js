@@ -228,8 +228,18 @@ const PAIRING_NUMBER = (process.env.WHATSAPP_PAIRING_NUMBER || '').replace(/\D/g
 const client = new Client({
     authStrategy: new LocalAuth(),
     authTimeoutMs: 120000,
+    // Standardmaessig erneuert whatsapp-web.js den Kopplungscode alle 3 Minuten
+    // und macht den vorherigen damit ungueltig — wer den Code erst ablesen und
+    // dann im Handy eintippen muss, jagt einem beweglichen Ziel hinterher.
+    // Laengeres Intervall laesst einen Code stehen.
     ...(PAIRING_NUMBER
-        ? { pairWithPhoneNumber: { phoneNumber: PAIRING_NUMBER, showNotification: true } }
+        ? {
+            pairWithPhoneNumber: {
+                phoneNumber: PAIRING_NUMBER,
+                showNotification: true,
+                intervalMs: Number(process.env.PAIRING_INTERVAL_MS || 5 * 60 * 1000)
+            }
+        }
         : {}),
     puppeteer: {
         headless: true,
