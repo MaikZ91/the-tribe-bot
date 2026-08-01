@@ -1,7 +1,13 @@
 name: Post daily flyer once
 
 # Einmal-Workflow: postet den Tageshighlights-Flyer sofort, ausserhalb der
-# regulaeren Uhrzeit. Lauf 5: Textfassung als Rueckfall (Lauf 4 wurde als wartender Job verdraengt). Nach dem Lauf wird diese Datei wieder entfernt.
+# regulaeren Uhrzeit. Nach dem Lauf wird diese Datei wieder entfernt.
+#
+# Lauf 6: Testversand in die Bielefelder Hauptgruppe statt in die
+# Ankuendigungsgruppe. In die Hauptgruppe kam zuletzt eine Umfrage an, an die
+# Ankuendigungsgruppe scheiterte alles — Bild wie Text. Der Lauf trennt die
+# beiden Moeglichkeiten: Ist der Versand generell kaputt, oder nur diese eine
+# Gruppe nicht mehr erreichbar?
 
 on:
   push:
@@ -57,6 +63,8 @@ jobs:
       - name: Post the daily flyer
         env:
           BOT_COMMAND: daily-highlights
+          # Testweise in die Bielefelder Hauptgruppe statt in die Ankuendigungen.
+          WHATSAPP_FLYER_CHAT_ID: "120363426194120338@g.us"
           WHATSAPP_PAIRING_NUMBER: ${{ secrets.WHATSAPP_PAIRING_NUMBER }}
           WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
           WHATSAPP_ANNOUNCEMENTS_CHAT_ID: ${{ secrets.WHATSAPP_ANNOUNCEMENTS_CHAT_ID }}
