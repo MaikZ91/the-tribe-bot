@@ -1773,12 +1773,17 @@ async function sendDailyHighlights({ force = false } = {}) {
     }
 
     if (!delivered) {
-        // Frueher wurde hier bedingungslos "gesendet" geloggt und der Tag als
-        // erledigt markiert — auch wenn nichts ankam. Damit sah ein stiller
-        // Fehlschlag im Log wie ein Erfolg aus und der Flyer fiel fuer den Tag
-        // ersatzlos aus. Jetzt schlaegt er als Fehler durch, damit weder der
-        // Tagesmerker gesetzt noch der Lauf als erfolgreich gemeldet wird.
-        throw new Error(`Tageshighlights fuer ${todayKey} nicht zugestellt`);
+        // Der Medienversand ueber whatsapp-web.js kommt beim aktuellen
+        // WhatsApp-Web-Build nicht durch — unabhaengig von Format und Groesse
+        // (getestet mit 490-KB-PNG und 111-KB-JPEG). Reiner Text geht dagegen
+        // zuverlaessig raus, also lieber die Liste als Text als gar nichts.
+        console.warn('Bildversand fehlgeschlagen — weiche auf Textfassung aus.');
+        const text = formatHighlightsMessage(withTribe, now);
+        const sentText = await client.sendMessage(flyerChatId, text);
+        if (!sentText) {
+            throw new Error(`Tageshighlights fuer ${todayKey} nicht zugestellt — weder als Bild noch als Text`);
+        }
+        console.log(`Tageshighlights fuer ${todayKey} als Text gesendet (Message-ID ${sentText.id?._serialized || 'unbekannt'}).`);
     }
 
     state.lastPostedDate = todayKey;
