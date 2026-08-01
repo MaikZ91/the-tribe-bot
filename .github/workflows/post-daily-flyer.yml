@@ -1,0 +1,98 @@
+name: Post daily flyer once
+
+# Einmal-Workflow: postet den Tageshighlights-Flyer sofort, ausserhalb der
+# regulaeren Uhrzeit. Nach dem Lauf wird diese Datei wieder entfernt.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/post-daily-flyer.yml"
+
+# Gleiche Group wie der Bot: nie zwei Chromium-Sessions auf derselben
+# WhatsApp-Session gleichzeitig.
+concurrency:
+  group: whatsapp-bot
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Restore WhatsApp session and bot state
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            whatsapp-bot-
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post the daily flyer
+        env:
+          BOT_COMMAND: daily-highlights
+          WHATSAPP_PAIRING_NUMBER: ${{ secrets.WHATSAPP_PAIRING_NUMBER }}
+          WHATSAPP_CHAT_ID: ${{ secrets.WHATSAPP_CHAT_ID }}
+          WHATSAPP_ANNOUNCEMENTS_CHAT_ID: ${{ secrets.WHATSAPP_ANNOUNCEMENTS_CHAT_ID }}
+          WHATSAPP_AUSGEHEN_CHAT_ID: ${{ secrets.WHATSAPP_AUSGEHEN_CHAT_ID }}
+          WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS: ${{ secrets.WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm start
+
+      # Nur bei erfolgreicher Anmeldung sichern — sonst ueberschreibt ein Lauf
+      # ohne Login die funktionierende Session.
+      - name: Did the session authenticate?
+        id: authcheck
+        if: always()
+        run: |
+          if [ -f .auth-ok ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Keine Anmeldung — Cache bleibt unangetastet."
+          fi
+
+      - name: Save WhatsApp session and bot state
+        if: always() && steps.authcheck.outputs.ok == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .wwebjs_auth
+            .wwebjs_cache
+            .daily-highlights-state.json
+            .community-dashboard.json
+            .pending-new-members.json
+            .known-members.json
+            images/daily-highlights
+          key: whatsapp-bot-${{ github.run_id }}-${{ github.run_attempt }}
