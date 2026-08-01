@@ -225,9 +225,27 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 // of a QR code — no second screen needed to authenticate.
 const PAIRING_NUMBER = (process.env.WHATSAPP_PAIRING_NUMBER || '').replace(/\D/g, '');
 
+// WhatsApp Web auf einen bekannten Build festnageln. Gegen den ausgelieferten
+// Build (2.3000.1044058164) scheitert in dieser Library alles, was ein
+// Message-Objekt aufloesen muss: senden, Umfragen, getChats, getChatById —
+// die Verbindung selbst steht. Ein aelterer Build, gegen den die Library
+// gebaut wurde, bringt das erfahrungsgemaess zurueck.
+// Leerer Wert schaltet das Pinning ab.
+const WEB_VERSION = process.env.WHATSAPP_WEB_VERSION === undefined
+    ? '2.3000.1043572178-alpha'
+    : process.env.WHATSAPP_WEB_VERSION;
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     authTimeoutMs: 120000,
+    ...(WEB_VERSION
+        ? {
+            webVersionCache: {
+                type: 'remote',
+                remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${WEB_VERSION}.html`
+            }
+        }
+        : {}),
     // Standardmaessig erneuert whatsapp-web.js den Kopplungscode alle 3 Minuten
     // und macht den vorherigen damit ungueltig — wer den Code erst ablesen und
     // dann im Handy eintippen muss, jagt einem beweglichen Ziel hinterher.
