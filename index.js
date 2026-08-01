@@ -1209,11 +1209,23 @@ async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
     return outputPath;
 }
 
+// Zielgruppe des Flyers. Standard ist die Ankuendigungsgruppe; ueber
+// WHATSAPP_FLYER_CHAT_ID umstellbar, ohne Code-Aenderung.
+const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || announcementChatId;
+
 async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), caption) {
     try {
         const imagePath = await renderDailyHighlightsImage(highlights, date);
         const media = MessageMedia.fromFilePath(imagePath);
-        await client.sendMessage(announcementChatId, media, caption ? { caption } : undefined);
+        console.log(`Sende Flyer mit ${highlights.length} Eintrag(en) an ${flyerChatId} ...`);
+        const sent = await client.sendMessage(flyerChatId, media, caption ? { caption } : undefined);
+        // sendMessage liefert undefined, wenn whatsapp-web.js die Nachricht
+        // nicht zurueckmappen kann — dann ist unklar, ob sie angekommen ist.
+        if (!sent) {
+            console.warn('Flyer abgeschickt, aber kein Message-Objekt zurueck — Zustellung unbestaetigt.');
+            return null;
+        }
+        console.log(`Flyer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`);
         return imagePath;
     } catch (error) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', error.message);
@@ -1750,10 +1762,20 @@ async function sendDailyHighlights({ force = false } = {}) {
     const caption = 'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/';
 
     // Event-Übersicht als Bild posten (kein Video mehr), Link direkt als Caption
+    let delivered = null;
     try {
-        await sendDailyHighlightsImage(withTribe, now, caption);
+        delivered = await sendDailyHighlightsImage(withTribe, now, caption);
     } catch (err) {
         console.error('Tageshighlights-Bild konnte nicht gesendet werden:', err.message);
+    }
+
+    if (!delivered) {
+        // Frueher wurde hier bedingungslos "gesendet" geloggt und der Tag als
+        // erledigt markiert — auch wenn nichts ankam. Damit sah ein stiller
+        // Fehlschlag im Log wie ein Erfolg aus und der Flyer fiel fuer den Tag
+        // ersatzlos aus. Jetzt schlaegt er als Fehler durch, damit weder der
+        // Tagesmerker gesetzt noch der Lauf als erfolgreich gemeldet wird.
+        throw new Error(`Tageshighlights fuer ${todayKey} nicht zugestellt`);
     }
 
     state.lastPostedDate = todayKey;
@@ -3687,7 +3709,15 @@ async function runDueJobs() {
             continue;
         }
         console.log(`Starte faelligen Job: ${name}`);
-        await task();
+        try {
+            await task();
+        } catch (err) {
+            // Ein gescheiterter Job darf die uebrigen faelligen nicht mitreissen
+            // und wird nicht als erledigt vermerkt — der naechste Lauf versucht
+            // ihn erneut.
+            console.error(`Job ${name} fehlgeschlagen:`, err && err.message ? err.message : err);
+            continue;
+        }
         markJobDone(name, nowParts.dateKey);
     }
 }
