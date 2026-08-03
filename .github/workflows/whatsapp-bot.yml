@@ -58,8 +58,13 @@ on:
     - cron: "20 10,11 * * *"
     - cron: "5 16,17 * * *"
     - cron: "5 18,19 * * *"
-    # Mitglieder-Polling alle 30 Minuten (für "Welcome alle 3 neuen User")
-    - cron: "*/30 * * * *"
+    # Mitglieder-Polling stündlich (für "Welcome alle 3 neuen User").
+    # Bewusst NICHT alle 30 Minuten: GitHub drosselt hochfrequente Schedules
+    # auf öffentlichen Repos zuerst. Gemessen über 38,6 h liefen von 77
+    # erwarteten */30-Läufen nur 30 (39 %), mit Lücken von bis zu 233 Minuten —
+    # in denen dann auch die festen Crons oben ausfielen. Verpasste Jobs holt
+    # das catchUpHours-Fenster in index.js nach.
+    - cron: "0 * * * *"
 
 concurrency:
   group: whatsapp-bot
