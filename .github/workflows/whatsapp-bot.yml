@@ -117,10 +117,11 @@ jobs:
 
       - name: Run bot command
         env:
-          # Geplante Läufe halten die Verbindung offen (BOT_RESIDENT), Pushes
-          # und manuelle Läufe bleiben kurze Einmal-Läufe.
-          BOT_COMMAND: ${{ github.event_name == 'schedule' && '' || (github.event_name == 'workflow_dispatch' && inputs.command || 'run-due') }}
-          BOT_RESIDENT: ${{ github.event_name == 'schedule' && '1' || '0' }}
+          # Automatische Läufe (Zeitplan wie Push) halten die Verbindung offen,
+          # damit 'message' und 'group_join' ankommen. Nur ein manuell
+          # ausgelöster Lauf mit gewähltem Kommando bleibt ein Einmal-Lauf.
+          BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || '' }}
+          BOT_RESIDENT: ${{ github.event_name == 'workflow_dispatch' && '0' || '1' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
           # Falls als Secret hinterlegt, koppeln sich auch geplante Läufe nach
           # einem Session-Verlust selbst per Code — sonst nur manuelle Läufe.
