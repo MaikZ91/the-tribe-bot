@@ -3674,9 +3674,20 @@ function stopScheduler() {
     scheduledJobs = [];
 }
 
-function isDueNow({ weekdayIndex, hour, minute = 0 }, nowParts = getDateParts()) {
+function isDueNow({ weekdayIndex, hour, minute = 0, catchUpHours = 0 }, nowParts = getDateParts()) {
     if (weekdayIndex !== undefined && nowParts.weekdayIndex !== weekdayIndex) {
         return false;
+    }
+
+    // GitHubs Cron laesst geplante Laeufe regelmaessig aus — am 03.08. lag
+    // zwischen 06:58 und 10:30 Uhr kein einziger Lauf. Ein 30-Minuten-Fenster
+    // faellt dann ersatzlos aus. Jobs mit catchUpHours bleiben danach noch
+    // eine Weile faellig; der Tagesmerker verhindert Mehrfachposts.
+    const nowMinutes = nowParts.hour * 60 + nowParts.minute;
+    const target = hour * 60 + minute;
+
+    if (catchUpHours > 0) {
+        return nowMinutes >= target && nowMinutes < target + catchUpHours * 60;
     }
 
     if (nowParts.hour !== hour) {
@@ -3711,11 +3722,14 @@ async function runDueJobs() {
     const attendancePollWeekday = weekendStarter ? 4 : 5;
     const eventReminderWeekday = weekendStarter ? 5 : 6;
 
+    // catchUpHours nur dort, wo ein verspaeteter Post noch Sinn ergibt — alles
+    // bleibt am selben Tag. Der Reminder holt kuerzer nach: "heute 20 Uhr" ist
+    // am Abend noch nuetzlich, nachts nicht mehr.
     const dueJobs = [
-        ['daily-highlights', { hour: DAILY_POST_HOUR }, () => sendDailyHighlights()],
-        ['wednesday-poll', { weekdayIndex: 3, hour: 20 }, () => sendWednesdayVenuePoll()],
-        ['friday-poll', { weekdayIndex: attendancePollWeekday, hour: 18 }, () => sendSaturdayAttendancePoll()],
-        ['saturday-reminder', { weekdayIndex: eventReminderWeekday, hour: 12 }, () => sendSaturdayKennenlernabendReminder()],
+        ['daily-highlights', { hour: DAILY_POST_HOUR, catchUpHours: 6 }, () => sendDailyHighlights()],
+        ['wednesday-poll', { weekdayIndex: 3, hour: 20, catchUpHours: 3 }, () => sendWednesdayVenuePoll()],
+        ['friday-poll', { weekdayIndex: attendancePollWeekday, hour: 18, catchUpHours: 4 }, () => sendSaturdayAttendancePoll()],
+        ['saturday-reminder', { weekdayIndex: eventReminderWeekday, hour: 12, catchUpHours: 5 }, () => sendSaturdayKennenlernabendReminder()],
         ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
