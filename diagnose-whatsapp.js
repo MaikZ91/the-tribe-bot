@@ -24,9 +24,25 @@ const CONFIGURED_CHATS = [
     ['WHATSAPP_AUSGEHEN_CHAT_ID', process.env.WHATSAPP_AUSGEHEN_CHAT_ID || '120363426194120338@g.us']
 ];
 
+// Denselben WhatsApp-Web-Build festnageln wie der Bot. Der erste Diagnoselauf
+// am 29.07. lief noch ohne Pinning und scheiterte — seitdem hat das Pinning das
+// Senden zurueckgebracht. Ob es auch das Lesen zurueckbringt, ist offen, und
+// genau das misst dieser Lauf. Leerer Wert schaltet das Pinning ab.
+const WEB_VERSION = process.env.WHATSAPP_WEB_VERSION === undefined
+    ? '2.3000.1043572178-alpha'
+    : process.env.WHATSAPP_WEB_VERSION;
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     authTimeoutMs: 120000,
+    ...(WEB_VERSION
+        ? {
+            webVersionCache: {
+                type: 'remote',
+                remotePath: `https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/${WEB_VERSION}.html`
+            }
+        }
+        : {}),
     puppeteer: {
         headless: true,
         protocolTimeout: 300000,
