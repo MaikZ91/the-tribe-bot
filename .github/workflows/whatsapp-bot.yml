@@ -51,20 +51,15 @@ on:
         default: ""
         type: string
   schedule:
-    # GitHub cron runs in UTC. Each target hour is listed twice so Berlin
-    # summer/winter time both land on the intended local time.
-    - cron: "5 7,8 * * *"
-    - cron: "5 10,11 * * *"
-    - cron: "20 10,11 * * *"
-    - cron: "5 16,17 * * *"
-    - cron: "5 18,19 * * *"
-    # Mitglieder-Polling stündlich (für "Welcome alle 3 neuen User").
-    # Bewusst NICHT alle 30 Minuten: GitHub drosselt hochfrequente Schedules
-    # auf öffentlichen Repos zuerst. Gemessen über 38,6 h liefen von 77
-    # erwarteten */30-Läufen nur 30 (39 %), mit Lücken von bis zu 233 Minuten —
-    # in denen dann auch die festen Crons oben ausfielen. Verpasste Jobs holt
-    # das catchUpHours-Fenster in index.js nach.
-    - cron: "0 * * * *"
+    # Vier Dauerläufe am Tag, je knapp sechs Stunden — zusammen decken sie den
+    # Tag ab. Der Bot bleibt dabei verbunden, damit 'message' und 'group_join'
+    # ankommen (Dashboard-Zahlen, Mitglieder-Begrüßung). Die Posts löst er
+    # selbst aus, alle zehn Minuten über runDueJobs().
+    #
+    # Feste Post-Crons gibt es deshalb nicht mehr. Vier Läufe am Tag werden von
+    # GitHub auch deutlich seltener übersprungen als der frühere Halbstunden-
+    # takt: gemessen über 38,6 h liefen von 77 erwarteten */30-Läufen nur 30.
+    - cron: "0 0,6,12,18 * * *"
 
 concurrency:
   group: whatsapp-bot
@@ -77,7 +72,10 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Ein Actions-Job darf höchstens 6 Stunden laufen. Der Bot steigt im
+    # Dauerlauf nach 5,75 h von selbst aus; dieses Limit ist nur das Netz
+    # darunter. Öffentliche Repos zahlen keine Runner-Minuten.
+    timeout-minutes: 355
 
     steps:
       - name: Checkout
@@ -119,7 +117,10 @@ jobs:
 
       - name: Run bot command
         env:
-          BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || 'run-due' }}
+          # Geplante Läufe halten die Verbindung offen (BOT_RESIDENT), Pushes
+          # und manuelle Läufe bleiben kurze Einmal-Läufe.
+          BOT_COMMAND: ${{ github.event_name == 'schedule' && '' || (github.event_name == 'workflow_dispatch' && inputs.command || 'run-due') }}
+          BOT_RESIDENT: ${{ github.event_name == 'schedule' && '1' || '0' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
           # Falls als Secret hinterlegt, koppeln sich auch geplante Läufe nach
           # einem Session-Verlust selbst per Code — sonst nur manuelle Läufe.

@@ -216,6 +216,11 @@ const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const BOT_COMMAND = (process.env.BOT_COMMAND || process.argv.find(arg => arg.startsWith('--bot-command='))?.split('=')[1] || '').trim();
 const IS_ONE_SHOT_RUN = BOT_COMMAND.length > 0;
+// Dauerlauf auf CI: Verbindung offen halten, statt nach einem Kommando zu
+// beenden. Nur so kommen 'message' und 'group_join' wieder an — Dashboard-
+// Zahlen und Mitglieder-Begruessung haengen an diesen Push-Ereignissen, nicht
+// an getChats(). Kein Terminal, also auch keine readline-Konsole.
+const IS_RESIDENT_RUN = process.env.BOT_RESIDENT === '1' && !IS_ONE_SHOT_RUN;
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -4270,6 +4275,44 @@ client.on('ready', async () => {
         return;
     }
 
+    if (IS_RESIDENT_RUN) {
+        // Gepostet wird weiter ueber runDueJobs() — mit Tagesmerker und
+        // Catch-up-Fenster. startScheduler() bleibt bewusst aus: seine Timer
+        // feuern nur exakt zur Minute und kennen den Tagesmerker nicht, was
+        // nach jedem Neustart entweder Posts verschluckt oder verdoppelt.
+        const TICK_MS = Number(process.env.RESIDENT_TICK_MS || 10 * 60 * 1000);
+        // Ein Actions-Job darf hoechstens 6 Stunden laufen. Vorher von selbst
+        // aussteigen, damit der Cache sauber geschrieben wird, statt vom Runner
+        // mitten im Lauf abgeschossen zu werden.
+        const MAX_RUNTIME_MS = Number(process.env.RESIDENT_MAX_RUNTIME_MS || 5.75 * 60 * 60 * 1000);
+
+        console.log(
+            `Dauerlauf aktiv: faellige Jobs alle ${Math.round(TICK_MS / 60000)} Minuten, ` +
+            `Ende nach ${(MAX_RUNTIME_MS / 3600000).toFixed(2)} Stunden.`
+        );
+
+        const tick = async () => {
+            try {
+                await runDueJobs();
+            } catch (err) {
+                console.error('Fehler im Dauerlauf-Tick:', err && err.stack ? err.stack : err);
+            }
+        };
+
+        await tick();
+        const ticker = setInterval(tick, TICK_MS);
+
+        setTimeout(async () => {
+            clearInterval(ticker);
+            console.log('Laufzeitfenster erreicht — beende sauber, der naechste Lauf uebernimmt.');
+            await new Promise(resolve => setTimeout(resolve, 8000));
+            await client.destroy().catch(() => {});
+            process.exit(0);
+        }, MAX_RUNTIME_MS);
+
+        return;
+    }
+
     console.log('Enter sendet eine Nachricht. /groups, /highlights, /poll-mittwoch, /poll-freitag, /poll-samstag, /kennenlernabend-reminder, /tuesday-run, /jam-session, /thursday-football und /ping-pong testen die automatischen Posts. /exit beendet den Bot.');
 
     startScheduler();
@@ -4369,7 +4412,7 @@ console.log('Initialisiere WhatsApp-Client (Puppeteer startet Chromium)...');
 // On CI a failed or stalled login used to keep Chromium alive until the job
 // timeout killed the run — which skipped the session-saving step. Fail fast
 // instead, but leave enough room to type a pairing code when one is pending.
-if (IS_ONE_SHOT_RUN) {
+if (IS_ONE_SHOT_RUN || IS_RESIDENT_RUN) {
     const CONNECT_TIMEOUT_MS = Number(process.env.CONNECT_TIMEOUT_MS || 6 * 60 * 1000);
     const AUTH_TIMEOUT_MS = Number(process.env.AUTH_TIMEOUT_MS || 15 * 60 * 1000);
     const startedAt = Date.now();
