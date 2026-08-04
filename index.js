@@ -1065,7 +1065,11 @@ function getWeekPlannerDates(date = getBerlinNow()) {
     const offsetToMonday = weekdayIndex === 0 ? -6 : 1 - weekdayIndex;
     const monday = new Date(utcNoonDate.getTime() + offsetToMonday * DAY_MS);
 
-    return [0, 1, 2, 3, 4, 5, 6].map(step => new Date(monday.getTime() + step * DAY_MS));
+    // Vergangene Tage fallen weg: dienstags abends gepostet, ist der Montag
+    // kein Programmhinweis mehr.
+    return [0, 1, 2, 3, 4, 5, 6]
+        .map(step => new Date(monday.getTime() + step * DAY_MS))
+        .filter(day => getDateParts(day).dateKey >= getDateParts(date).dateKey);
 }
 
 /**
@@ -1591,6 +1595,9 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow(), options = {})
             flex: 1; display: flex; flex-direction: column;
             gap: 18px; justify-content: space-between;
         }
+        /* Bei ein oder zwei Tagen reisst space-between ein Loch in die Mitte
+           — dann stehen die Bloecke oben zusammen. */
+        .days.sparse { justify-content: flex-start; gap: 28px; }
 
         .day { display: flex; flex-direction: column; gap: 8px; }
         .dayhead {
@@ -1648,7 +1655,7 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow(), options = {})
             <div class="date">${range}<br>${escapeHtml(city)}</div>
         </div>
         <div class="stamp">${escapeHtml(stamp)} · <em>The Tribe ${escapeHtml(city)}</em></div>
-        <div class="days">
+        <div class="days${groups.length < 3 ? ' sparse' : ''}">
             ${sections}
         </div>
     </main>
@@ -1675,7 +1682,7 @@ async function renderWeekendPlannerImage(groups, date = getBerlinNow(), options 
     }
 
     const { dateKey } = getDateParts(date);
-    const outputPath = path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `weekend-planner-${dateKey}.jpg`);
+    const outputPath = path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `${options.slug || 'weekend-planner'}-${dateKey}.jpg`);
     const browser = await getPuppeteerBrowser();
     const shouldCloseBrowser = browser !== client.pupBrowser
         && (!client.pupPage || browser !== client.pupPage.browser());
@@ -1687,7 +1694,7 @@ async function renderWeekendPlannerImage(groups, date = getBerlinNow(), options 
         // Ruhe — gemessen ueber 120 s ohne Abschluss, obwohl keine Anfrage
         // mehr offen ist. 'load' plus fonts.ready wartet auf genau das, was
         // das Bild braucht: Layout und Schriften.
-        await page.setContent(getWeekendPlannerImageHtml(groups, date), { waitUntil: 'load' });
+        await page.setContent(getWeekendPlannerImageHtml(groups, date, options), { waitUntil: 'load' });
         await page.evaluate(() => document.fonts.ready);
         await page.screenshot({ path: outputPath, type: 'jpeg', quality: 82, fullPage: false });
         console.log(`Weekend-Planer gerendert: ${outputPath} (${Math.round(fs.statSync(outputPath).size / 1024)} KB)`);
@@ -2315,22 +2322,42 @@ async function sendDailyHighlights({ force = false } = {}) {
     console.log(`Tageshighlights fuer ${todayKey} gesendet.`);
 }
 
-async function sendWeekendPlanner({ force = false } = {}) {
-    const now = getBerlinNow();
-    const groups = getWeekendPlannerGroups(await fetchEvents(), now);
-    const total = groups.reduce((sum, group) => sum + group.entries.length, 0);
+async function sendPlanner(options = {}) {
+    const {
+        force = false,
+        label = 'Planer',
+        city = 'Bielefeld',
+        useWeek = false,
+        title = 'Weekend',
+        titleAccent = 'Planer',
+        stamp = 'Fr · Sa · So',
+        caption = 'Mehr Events: https://liebefeld.lovable.app/',
+        slug = 'planner'
+    } = options;
 
+    const now = getBerlinNow();
+    const groups = getWeekendPlannerGroups(await fetchEvents(), now, {
+        city,
+        days: useWeek ? getWeekPlannerDates(now) : getWeekendPlannerDates(now),
+        dropEmptyDays: useWeek
+    });
+
+    const total = groups.reduce((sum, group) => sum + group.entries.length, 0);
     if (total === 0 && !force) {
-        console.log('Weekend-Planer: keine Eintraege fuer das kommende Wochenende — nicht gepostet.');
+        console.log(`${label}: keine Eintraege fuer ${city} — nicht gepostet.`);
+        return;
+    }
+
+    if (groups.length === 0) {
+        console.log(`${label}: kein Tag mit Eintraegen fuer ${city} — nicht gepostet.`);
         return;
     }
 
     const summary = groups.map(group => `${group.label} ${group.entries.length}`).join(' · ');
-    console.log(`Weekend-Planer fuer ${groups[0].dateKey}–${groups[2].dateKey}: ${summary}`);
+    console.log(`${label} fuer ${groups[0].dateKey}–${groups[groups.length - 1].dateKey}: ${summary}`);
 
-    const imagePath = await renderWeekendPlannerImage(groups, now);
+    const imagePath = await renderWeekendPlannerImage(groups, now, { title, titleAccent, city, stamp, slug });
     const media = MessageMedia.fromFilePath(imagePath);
-    const caption = 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/';
 
     // sendMessage liefert bei dieser Library-Version nicht zuverlaessig ein
     // Message-Objekt zurueck, auch wenn die Nachricht ankommt. Ein Fehler wirft
@@ -2338,8 +2365,35 @@ async function sendWeekendPlanner({ force = false } = {}) {
     // Job als erledigt, obwohl nichts in der Gruppe steht.
     const sent = await client.sendMessage(flyerChatId, media, { caption });
     console.log(sent
-        ? `Weekend-Planer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
-        : 'Weekend-Planer gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).');
+        ? `${label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
+        : `${label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
+}
+
+function sendWeekendPlanner({ force = false } = {}) {
+    return sendPlanner({
+        force,
+        label: 'Weekend-Planer',
+        city: 'Bielefeld',
+        slug: 'weekend-planner',
+        caption: 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/'
+    });
+}
+
+// Muenster laeuft ueber die ganze Woche statt nur das Wochenende: der Feed
+// fuehrt dort dreissig Termine insgesamt, ein bis zwei je Wochenende. Leere
+// Tage fallen weg, das Plakat zeigt also nur, was wirklich laeuft.
+function sendMuensterPlanner({ force = false } = {}) {
+    return sendPlanner({
+        force,
+        label: 'Muenster-Planer',
+        city: 'Münster',
+        useWeek: true,
+        title: 'Diese Woche',
+        titleAccent: 'in Münster',
+        stamp: 'Mo bis So',
+        slug: 'muenster-planner',
+        caption: 'Eure Woche in Münster ✨\nMehr Events: https://liebefeld.lovable.app/'
+    });
 }
 
 async function sendDailyHighlightsVideo(date = getBerlinNow()) {
@@ -4266,6 +4320,7 @@ async function runDueJobs() {
         // Dienstagabend, damit die Gruppe das Wochenende planen kann, solange
         // noch Zeit ist. weekdayIndex 2 ist Dienstag (getUTCDay, 0 = Sonntag).
         ['weekend-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendWeekendPlanner()],
+        ['muenster-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendMuensterPlanner()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
         ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
@@ -4306,6 +4361,7 @@ const COMMAND_TO_DUE_JOB = {
     'saturday-reminder': 'saturday-reminder',
     'weekly-calendar': 'weekly-calendar',
     'weekend-planner': 'weekend-planner',
+    'muenster-planner': 'muenster-planner',
     'tuesday-run': 'tuesday-run',
     'jam-session': 'jam-session',
     'thursday-football': 'thursday-football',
@@ -4335,6 +4391,9 @@ async function runBotCommand(command) {
             return;
         case 'weekend-planner':
             await sendWeekendPlanner({ force: true });
+            return;
+        case 'muenster-planner':
+            await sendMuensterPlanner({ force: true });
             return;
         case 'weekly-calendar':
             await sendWeeklyCalendar({ force: true });
