@@ -900,6 +900,96 @@ function getTodayHighlights(events, date = getBerlinNow()) {
         .sort((a, b) => toSortableTime(a.time).localeCompare(toSortableTime(b.time)));
 }
 
+// --- Weekend Planner -------------------------------------------------------
+//
+// Dienstagsflyer mit dem Programm fuer Freitag, Samstag und Sonntag. Die
+// Auswahl ist bewusst weiter gefasst als beim Tagesflyer: dessen Allowlist der
+// vierzehn Clubs laesst uebers ganze Wochenende nur zwei bis vier Eintraege
+// uebrig. Hier zaehlt alles aus Bielefeld ausser Sport, VHS-Kursen,
+// Wochenmarkt und Kino — gemessen neun bis dreizehn Eintraege je Wochenende.
+
+const WEEKEND_PLANNER_EXCLUDED_TERMS = (
+    process.env.WEEKEND_PLANNER_EXCLUDED_TERMS
+    || 'hochschulsport,volkshochschule,wochenmarkt,cinemaxx'
+)
+    .split(',')
+    .map(value => value.trim().toLowerCase())
+    .filter(Boolean);
+
+const WEEKEND_PLANNER_MAX_PER_DAY = Number(process.env.WEEKEND_PLANNER_MAX_PER_DAY || 5);
+const WEEKEND_PLANNER_DAY_LABELS = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
+
+/**
+ * Reads a feed entry's date as YYYY-MM-DD.
+ *
+ * The weekday prefix is deliberately ignored. The feed writes it in eighteen
+ * spellings (Fr, Fri, Sa, Sat, Th, Thu, Tu, Tue, ...), while
+ * getTodayDateLabels() only builds four — which drops about a quarter of a
+ * weekend on the floor.
+ */
+function getEventDateKey(entry) {
+    const match = String((entry && entry.date) || '').match(/(\d{2})\.(\d{2})\.(\d{4})/);
+    return match ? `${match[3]}-${match[2]}-${match[1]}` : null;
+}
+
+/**
+ * The Friday, Saturday and Sunday the planner covers. Saturday and Sunday
+ * still resolve to the weekend already under way, so a late run reports the
+ * current weekend instead of skipping ahead to the next one.
+ */
+function getWeekendPlannerDates(date = getBerlinNow()) {
+    const { utcNoonDate, weekdayIndex } = getDateParts(date);
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const offsetToFriday = weekdayIndex === 0 ? -2 : 5 - weekdayIndex;
+    const friday = new Date(utcNoonDate.getTime() + offsetToFriday * DAY_MS);
+
+    return [0, 1, 2].map(step => new Date(friday.getTime() + step * DAY_MS));
+}
+
+function isWeekendPlannerEvent(entry) {
+    if (!isBielefeldEvent(entry)) {
+        return false;
+    }
+
+    const name = String(entry.event || '').toLowerCase();
+
+    if (Array.from(EXCLUDED_ACCOUNTS).some(account => name.includes(`@${account}`))) {
+        return false;
+    }
+
+    if (EXCLUDED_ORGANIZERS.some(organizer => name.includes(organizer))) {
+        return false;
+    }
+
+    // Sport und Kurse sind kein Wochenendprogramm — sie stellen sonst allein
+    // die Haelfte der Eintraege.
+    if (normalizeCategory(entry.category).toLowerCase() === 'sport') {
+        return false;
+    }
+
+    return !WEEKEND_PLANNER_EXCLUDED_TERMS.some(term => name.includes(term));
+}
+
+function getWeekendPlannerGroups(events, date = getBerlinNow()) {
+    return getWeekendPlannerDates(date).map(day => {
+        const parts = getDateParts(day);
+        const entries = events
+            .filter(entry => getEventDateKey(entry) === parts.dateKey)
+            .filter(isWeekendPlannerEvent)
+            .filter(entry => !isTribeEvent(entry))
+            .sort((a, b) => toSortableTime(a.time).localeCompare(toSortableTime(b.time)));
+
+        return {
+            dateKey: parts.dateKey,
+            weekdayIndex: parts.weekdayIndex,
+            label: WEEKEND_PLANNER_DAY_LABELS[parts.weekdayIndex],
+            dayLabel: `${parts.day}.${parts.month}.`,
+            entries: entries.slice(0, WEEKEND_PLANNER_MAX_PER_DAY),
+            hidden: Math.max(0, entries.length - WEEKEND_PLANNER_MAX_PER_DAY)
+        };
+    });
+}
+
 function normalizeCategory(value) {
     const category = String(value || '').trim();
 
@@ -1199,6 +1289,193 @@ async function loadImageAsDataUrl(url) {
     } catch {
         return null;
     }
+}
+
+function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
+    const first = groups[0];
+    const last = groups[groups.length - 1];
+    const { year } = getDateParts(date);
+    const range = `${escapeHtml(first.dayLabel)}–${escapeHtml(last.dayLabel)}${escapeHtml(year)}`;
+
+    const sections = groups.map(group => {
+        const rows = group.entries.map((entry, index) => {
+            const style = getCategoryStyle(entry.category, index);
+            const time = entry.time ? escapeHtml(entry.time) : '';
+            const title = escapeHtml(entry.event || 'Event').replace(/\s*\(@[^)]+\)\s*/, '');
+            const venue = entry.event && /\(@([^)]+)\)/.test(entry.event)
+                ? escapeHtml(entry.event.match(/\(@([^)]+)\)/)[1])
+                : 'Bielefeld';
+
+            return `
+                <div class="row" style="--accent: ${style.accent};">
+                    <div class="time">${time}</div>
+                    <div class="meta">
+                        <div class="name">${title}</div>
+                        <div class="venue">${venue}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const empty = '<div class="row empty"><div class="time">–</div>'
+            + '<div class="meta"><div class="name">Noch nichts eingetragen</div></div></div>';
+        const more = group.hidden
+            ? `<div class="more">+ ${group.hidden} weitere</div>`
+            : '';
+
+        return `
+            <section class="day">
+                <div class="dayhead"><span class="wd">${escapeHtml(group.label)}</span>
+                    <span class="dt">${escapeHtml(group.dayLabel)}</span></div>
+                ${rows || empty}
+                ${more}
+            </section>
+        `;
+    }).join('');
+
+    return `<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
+
+        :root {
+            --black: #0A0807;
+            --amber: #F59E0B;
+            --whatsapp: #25D366;
+            --text: #F5F0E8;
+            --muted: #9C9690;
+            --rule: rgba(245, 240, 232, 0.14);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 1080px; height: 1350px; background: var(--black); overflow: hidden;
+            font-family: 'Familjen Grotesk', ui-sans-serif, system-ui, sans-serif;
+            color: var(--text);
+        }
+
+        .poster { position: relative; width: 1080px; height: 1350px;
+                  padding: 54px 58px 46px; display: flex; flex-direction: column; }
+
+        /* Rauschtextur wie beim Tagesflyer und im Video. */
+        .poster::after {
+            content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50;
+            opacity: 0.28; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        .head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 22px; margin-bottom: 24px; flex-shrink: 0;
+        }
+        .head .title {
+            font-family: 'Anton', sans-serif; font-size: 88px; line-height: 0.92;
+            text-transform: uppercase;
+        }
+        .head .title em { font-style: normal; color: var(--amber); }
+        .head .date {
+            font-family: 'Anton', sans-serif; font-size: 26px; letter-spacing: 0.04em;
+            text-transform: uppercase; color: var(--muted); text-align: right; line-height: 1.15;
+        }
+
+        /* Wie beim Tagesflyer steht die Signatur oben: als letztes Kind der
+           Spalte quetscht Chromium sie reproduzierbar auf Hoehe 0. */
+        .stamp {
+            flex-shrink: 0; margin-bottom: 20px;
+            font-family: 'Anton', sans-serif; font-size: 21px;
+            letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+        }
+        .stamp em { font-style: normal; color: var(--whatsapp); }
+
+        /* space-between verteilt die drei Tagesbloecke ueber die Resthoehe.
+           An vollen Wochenenden greift es nicht mehr und der Abstand faellt
+           auf den gap zurueck — an duennen bleibt der Fuss nicht leer. */
+        .days {
+            flex: 1; display: flex; flex-direction: column;
+            gap: 18px; justify-content: space-between;
+        }
+
+        .day { display: flex; flex-direction: column; gap: 10px; }
+        .dayhead {
+            display: flex; align-items: baseline; gap: 14px;
+            border-bottom: 1px solid var(--rule); padding-bottom: 8px;
+        }
+        .dayhead .wd {
+            font-family: 'Anton', sans-serif; font-size: 40px; line-height: 1;
+            color: var(--amber); text-transform: uppercase;
+        }
+        .dayhead .dt {
+            font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+        }
+
+        .row {
+            display: grid; grid-template-columns: 108px 1fr; gap: 18px; align-items: baseline;
+            border-left: 4px solid var(--accent, var(--rule)); padding-left: 18px;
+        }
+        .row .time {
+            font-family: 'Anton', sans-serif; font-size: 26px; color: var(--text);
+            letter-spacing: 0.02em;
+        }
+        .row .meta { min-width: 0; }
+        .row .name {
+            font-family: 'Anton', sans-serif; font-size: 30px; line-height: 1.04;
+            text-transform: uppercase; color: var(--text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .row .venue {
+            font-size: 17px; color: var(--muted); letter-spacing: 0.03em; margin-top: 2px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .row.empty .name { color: var(--muted); }
+
+        .more {
+            font-size: 17px; color: var(--muted); letter-spacing: 0.1em;
+            text-transform: uppercase; padding-left: 22px;
+        }
+    </style>
+</head>
+<body>
+    <main class="poster">
+        <div class="head">
+            <div class="title">Weekend<br><em>Planer</em></div>
+            <div class="date">${range}<br>Bielefeld</div>
+        </div>
+        <div class="stamp">Fr · Sa · So · <em>The Tribe Bielefeld</em></div>
+        <div class="days">
+            ${sections}
+        </div>
+    </main>
+</body>
+</html>`;
+}
+
+async function renderWeekendPlannerImage(groups, date = getBerlinNow()) {
+    fs.mkdirSync(DAILY_HIGHLIGHTS_IMAGE_DIR, { recursive: true });
+
+    const { dateKey } = getDateParts(date);
+    const outputPath = path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `weekend-planner-${dateKey}.jpg`);
+    const browser = await getPuppeteerBrowser();
+    const shouldCloseBrowser = browser !== client.pupBrowser
+        && (!client.pupPage || browser !== client.pupPage.browser());
+    const page = await browser.newPage();
+
+    try {
+        await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
+        await page.setContent(getWeekendPlannerImageHtml(groups, date), { waitUntil: 'networkidle0' });
+        await page.screenshot({ path: outputPath, type: 'jpeg', quality: 82, fullPage: false });
+        console.log(`Weekend-Planer gerendert: ${outputPath} (${Math.round(fs.statSync(outputPath).size / 1024)} KB)`);
+    } finally {
+        await page.close().catch(() => {});
+        if (shouldCloseBrowser) {
+            await browser.close().catch(() => {});
+        }
+    }
+
+    return outputPath;
 }
 
 async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
@@ -1813,6 +2090,33 @@ async function sendDailyHighlights({ force = false } = {}) {
     writeState(state);
 
     console.log(`Tageshighlights fuer ${todayKey} gesendet.`);
+}
+
+async function sendWeekendPlanner({ force = false } = {}) {
+    const now = getBerlinNow();
+    const groups = getWeekendPlannerGroups(await fetchEvents(), now);
+    const total = groups.reduce((sum, group) => sum + group.entries.length, 0);
+
+    if (total === 0 && !force) {
+        console.log('Weekend-Planer: keine Eintraege fuer das kommende Wochenende — nicht gepostet.');
+        return;
+    }
+
+    const summary = groups.map(group => `${group.label} ${group.entries.length}`).join(' · ');
+    console.log(`Weekend-Planer fuer ${groups[0].dateKey}–${groups[2].dateKey}: ${summary}`);
+
+    const imagePath = await renderWeekendPlannerImage(groups, now);
+    const media = MessageMedia.fromFilePath(imagePath);
+    const caption = 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/';
+
+    // sendMessage liefert bei dieser Library-Version nicht zuverlaessig ein
+    // Message-Objekt zurueck, auch wenn die Nachricht ankommt. Ein Fehler wirft
+    // und wird hier bewusst NICHT geschluckt: sonst vermerkt runDueJobs() den
+    // Job als erledigt, obwohl nichts in der Gruppe steht.
+    const sent = await client.sendMessage(flyerChatId, media, { caption });
+    console.log(sent
+        ? `Weekend-Planer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
+        : 'Weekend-Planer gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).');
 }
 
 async function sendDailyHighlightsVideo(date = getBerlinNow()) {
@@ -3736,6 +4040,9 @@ async function runDueJobs() {
         ['friday-poll', { weekdayIndex: attendancePollWeekday, hour: 18, catchUpHours: 4 }, () => sendSaturdayAttendancePoll()],
         ['saturday-reminder', { weekdayIndex: eventReminderWeekday, hour: 12, catchUpHours: 5 }, () => sendSaturdayKennenlernabendReminder()],
         ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
+        // Dienstagabend, damit die Gruppe das Wochenende planen kann, solange
+        // noch Zeit ist. weekdayIndex 2 ist Dienstag (getUTCDay, 0 = Sonntag).
+        ['weekend-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendWeekendPlanner()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
         ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
@@ -3775,6 +4082,7 @@ const COMMAND_TO_DUE_JOB = {
     'saturday-poll': 'friday-poll',
     'saturday-reminder': 'saturday-reminder',
     'weekly-calendar': 'weekly-calendar',
+    'weekend-planner': 'weekend-planner',
     'tuesday-run': 'tuesday-run',
     'jam-session': 'jam-session',
     'thursday-football': 'thursday-football',
@@ -3801,6 +4109,9 @@ async function runBotCommand(command) {
             return;
         case 'saturday-reminder':
             await sendSaturdayKennenlernabendReminder({ force: true });
+            return;
+        case 'weekend-planner':
+            await sendWeekendPlanner({ force: true });
             return;
         case 'weekly-calendar':
             await sendWeeklyCalendar({ force: true });
