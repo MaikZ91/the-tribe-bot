@@ -917,6 +917,10 @@ const WEEKEND_PLANNER_EXCLUDED_TERMS = (
     .filter(Boolean);
 
 const WEEKEND_PLANNER_MAX_PER_DAY = Number(process.env.WEEKEND_PLANNER_MAX_PER_DAY || 5);
+// Deckel ueber alle drei Tage: das Plakat ist 1350 px hoch und laeuft bei
+// fuenf Eintraegen je Tag um rund 470 px ueber. Gemessene Wochenenden liegen
+// bei acht bis neun Eintraegen, der Deckel greift also selten.
+const WEEKEND_PLANNER_MAX_TOTAL = Number(process.env.WEEKEND_PLANNER_MAX_TOTAL || 10);
 const WEEKEND_PLANNER_DAY_LABELS = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
 
 /**
@@ -971,7 +975,7 @@ function isWeekendPlannerEvent(entry) {
 }
 
 function getWeekendPlannerGroups(events, date = getBerlinNow()) {
-    return getWeekendPlannerDates(date).map(day => {
+    const groups = getWeekendPlannerDates(date).map(day => {
         const parts = getDateParts(day);
         const entries = events
             .filter(entry => getEventDateKey(entry) === parts.dateKey)
@@ -988,6 +992,19 @@ function getWeekendPlannerGroups(events, date = getBerlinNow()) {
             hidden: Math.max(0, entries.length - WEEKEND_PLANNER_MAX_PER_DAY)
         };
     });
+
+    // Ueber dem Gesamtdeckel wird immer beim laengsten Tag gekuerzt, damit
+    // kein Tag leer laeuft, solange ein anderer noch Eintraege abgeben kann.
+    let total = groups.reduce((sum, group) => sum + group.entries.length, 0);
+    while (total > WEEKEND_PLANNER_MAX_TOTAL) {
+        const longest = groups.reduce((a, b) => (b.entries.length > a.entries.length ? b : a));
+        if (longest.entries.length === 0) break;
+        longest.entries = longest.entries.slice(0, -1);
+        longest.hidden += 1;
+        total -= 1;
+    }
+
+    return groups;
 }
 
 function normalizeCategory(value) {
@@ -1305,9 +1322,17 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
             const venue = entry.event && /\(@([^)]+)\)/.test(entry.event)
                 ? escapeHtml(entry.event.match(/\(@([^)]+)\)/)[1])
                 : 'Bielefeld';
+            // Nur die vorab eingebettete Data-URL, bewusst ohne Rueckfall auf
+            // den Rohlink: der laesst setContent() mit networkidle0 auf einen
+            // Abruf warten, der auf dem Runner ins Timeout laufen kann.
+            const src = entry.image || null;
+            const thumb = src
+                ? `<div class="thumb"><img src="${escapeHtml(String(src))}" alt=""></div>`
+                : '<div class="thumb placeholder"></div>';
 
             return `
                 <div class="row" style="--accent: ${style.accent};">
+                    ${thumb}
                     <div class="time">${time}</div>
                     <div class="meta">
                         <div class="name">${title}</div>
@@ -1317,7 +1342,8 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
             `;
         }).join('');
 
-        const empty = '<div class="row empty"><div class="time">–</div>'
+        const empty = '<div class="row empty"><div class="thumb placeholder"></div>'
+            + '<div class="time">–</div>'
             + '<div class="meta"><div class="name">Noch nichts eingetragen</div></div></div>';
         const more = group.hidden
             ? `<div class="more">+ ${group.hidden} weitere</div>`
@@ -1342,6 +1368,7 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
 
         :root {
             --black: #0A0807;
+            --black-soft: #141110;
             --amber: #F59E0B;
             --whatsapp: #25D366;
             --text: #F5F0E8;
@@ -1413,8 +1440,16 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
         }
 
         .row {
-            display: grid; grid-template-columns: 108px 1fr; gap: 18px; align-items: baseline;
-            border-left: 4px solid var(--accent, var(--rule)); padding-left: 18px;
+            display: grid; grid-template-columns: 72px 96px 1fr; gap: 16px; align-items: center;
+            border-left: 4px solid var(--accent, var(--rule)); padding-left: 16px;
+        }
+        .row .thumb {
+            width: 72px; height: 72px; overflow: hidden; background: var(--black-soft);
+        }
+        .row .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .row .thumb.placeholder {
+            background: linear-gradient(135deg, var(--black-soft), rgba(245, 240, 232, 0.06));
+            border: 1px solid var(--rule);
         }
         .row .time {
             font-family: 'Anton', sans-serif; font-size: 26px; color: var(--text);
@@ -1431,6 +1466,8 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .row.empty .name { color: var(--muted); }
+        /* Kachel bleibt im Raster stehen, damit die Spalten fluchten. */
+        .row.empty .thumb { visibility: hidden; }
 
         .more {
             font-size: 17px; color: var(--muted); letter-spacing: 0.1em;
@@ -1456,6 +1493,21 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
 async function renderWeekendPlannerImage(groups, date = getBerlinNow()) {
     fs.mkdirSync(DAILY_HIGHLIGHTS_IMAGE_DIR, { recursive: true });
 
+    // Bilder vorab einbetten, sonst bleiben die Kacheln leer: die Seite wird
+    // ueber setContent() ohne Netzwerkkontext geladen.
+    let failed = 0;
+    groups = await Promise.all(groups.map(async group => ({
+        ...group,
+        entries: await Promise.all(group.entries.map(async entry => {
+            const image = await loadImageAsDataUrl(entry.image_url);
+            if (entry.image_url && !image) failed += 1;
+            return { ...entry, image };
+        }))
+    })));
+    if (failed) {
+        console.warn(`Weekend-Planer: ${failed} Event-Bild(er) nicht ladbar — Platzhalter genutzt.`);
+    }
+
     const { dateKey } = getDateParts(date);
     const outputPath = path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `weekend-planner-${dateKey}.jpg`);
     const browser = await getPuppeteerBrowser();
@@ -1465,7 +1517,12 @@ async function renderWeekendPlannerImage(groups, date = getBerlinNow()) {
 
     try {
         await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
-        await page.setContent(getWeekendPlannerImageHtml(groups, date), { waitUntil: 'networkidle0' });
+        // networkidle0 kommt bei zehn eingebetteten Bildern nicht mehr zur
+        // Ruhe — gemessen ueber 120 s ohne Abschluss, obwohl keine Anfrage
+        // mehr offen ist. 'load' plus fonts.ready wartet auf genau das, was
+        // das Bild braucht: Layout und Schriften.
+        await page.setContent(getWeekendPlannerImageHtml(groups, date), { waitUntil: 'load' });
+        await page.evaluate(() => document.fonts.ready);
         await page.screenshot({ path: outputPath, type: 'jpeg', quality: 82, fullPage: false });
         console.log(`Weekend-Planer gerendert: ${outputPath} (${Math.round(fs.statSync(outputPath).size / 1024)} KB)`);
     } finally {
