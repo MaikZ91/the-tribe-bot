@@ -4320,7 +4320,11 @@ async function runDueJobs() {
         // Dienstagabend, damit die Gruppe das Wochenende planen kann, solange
         // noch Zeit ist. weekdayIndex 2 ist Dienstag (getUTCDay, 0 = Sonntag).
         ['weekend-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendWeekendPlanner()],
-        ['muenster-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendMuensterPlanner()],
+        // Muenster ist bewusst nicht im Zeitplan: der Flyer steht, aber der
+        // Feed gibt fuer die Stadt nur ein bis zwei Termine je Woche her.
+        // Ueber den Befehl muenster-planner laesst er sich jederzeit posten,
+        // und diese Zeile wieder einkommentieren stellt die Automatik her.
+        // ['muenster-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendMuensterPlanner()],
         ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
         ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
         ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
