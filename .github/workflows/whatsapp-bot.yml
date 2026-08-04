@@ -7,6 +7,10 @@ on:
     # Wegen dieses Pfadfilters löst ein leerer Commit KEINEN Lauf aus — um den
     # Bot ausserhalb des Zeitplans zu starten, muss eine der Dateien unten
     # tatsächlich verändert werden.
+    #
+    # Ein Push holt nur fällige Jobs nach und ist nach zwei Minuten fertig
+    # (siehe BOT_COMMAND weiter unten). Den Dauerlauf startet allein der
+    # Zeitplan — von Hand geht er über "Run workflow" mit run-due.
     paths:
       - ".github/workflows/whatsapp-bot.yml"
       - "index.js"
@@ -73,7 +77,10 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  # contents: write, weil die Instagram-Story eine öffentlich erreichbare
+  # Bild-URL braucht: der Flyer wird dafür nach images/daily-highlights/
+  # committet und von raw.githubusercontent.com ausgeliefert.
+  contents: write
   issues: write
 
 jobs:
@@ -121,11 +128,13 @@ jobs:
 
       - name: Run bot command
         env:
-          # Automatische Läufe (Zeitplan wie Push) halten die Verbindung offen,
-          # damit 'message' und 'group_join' ankommen. Nur ein manuell
-          # ausgelöster Lauf mit gewähltem Kommando bleibt ein Einmal-Lauf.
-          BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || '' }}
-          BOT_RESIDENT: ${{ github.event_name == 'workflow_dispatch' && '0' || '1' }}
+          # Nur der Zeitplan haelt die Verbindung offen, damit 'message' und
+          # 'group_join' ankommen. Ein Push belegt die Concurrency-Group sonst
+          # fuer 5,75 Stunden und blockiert jeden Dispatch dahinter — bei einer
+          # Reihe von Commits hintereinander kommt gar nichts mehr durch. Er
+          # holt jetzt nur faellige Jobs nach und ist nach zwei Minuten fertig.
+          BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || (github.event_name == 'push' && 'run-due' || '') }}
+          BOT_RESIDENT: ${{ github.event_name == 'schedule' && '1' || '0' }}
           FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
           # Falls als Secret hinterlegt, koppeln sich auch geplante Läufe nach
           # einem Session-Verlust selbst per Code — sonst nur manuelle Läufe.

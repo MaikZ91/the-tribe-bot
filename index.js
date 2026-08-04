@@ -1859,6 +1859,15 @@ async function postInstagramStory(imageUrl) {
 
 async function sendDailyHighlightsInstagramStory(imagePath) {
     if (!IG_ACCESS_TOKEN || !IG_USER_ID || !GITHUB_REPOSITORY || !GITHUB_TOKEN) {
+        // Ohne Hinweis sieht ein fehlendes Secret im Log genauso aus wie
+        // "gar nicht erst versucht" — deshalb benennen, was fehlt.
+        const missing = [
+            !IG_ACCESS_TOKEN && 'IG_ACCESS_TOKEN',
+            !IG_USER_ID && 'IG_USER_ID',
+            !GITHUB_REPOSITORY && 'GITHUB_REPOSITORY',
+            !GITHUB_TOKEN && 'GITHUB_TOKEN'
+        ].filter(Boolean).join(', ');
+        console.log(`Instagram-Story uebersprungen — nicht gesetzt: ${missing}.`);
         return;
     }
 
@@ -2320,6 +2329,12 @@ async function sendDailyHighlights({ force = false } = {}) {
     writeState(state);
 
     console.log(`Tageshighlights fuer ${todayKey} gesendet.`);
+
+    // Derselbe Flyer zusaetzlich als Instagram-Story. Bewusst nach dem
+    // State-Schreiben: die Story ist Zugabe, ein Fehler dort darf den bereits
+    // zugestellten WhatsApp-Post nicht zum Fehlschlag machen. Die Funktion
+    // faengt eigene Fehler ab und loggt nur.
+    await sendDailyHighlightsInstagramStory(delivered);
 }
 
 async function sendPlanner(options = {}) {
