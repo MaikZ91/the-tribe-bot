@@ -25,9 +25,11 @@ on:
         default: "run-due"
         type: choice
         options:
+          # daily-highlights-video fehlt bewusst: der Renderer braucht ffmpeg,
+          # und das wird auf dem Runner nicht mehr installiert. Lokal bleibt
+          # der Befehl ueber BOT_COMMAND nutzbar.
           - run-due
           - daily-highlights
-          - daily-highlights-video
           - wednesday-poll
           - friday-poll
           - saturday-reminder
@@ -83,13 +85,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # Nur der Befehl daily-highlights-video braucht ffmpeg — er ist der
-      # einzige Aufrufer von render-highlights-video.js. runDueJobs() rendert
-      # kein Video, also zahlt jeder geplante Lauf sonst ~30 s fuer nichts.
-      - name: Ensure ffmpeg
-        if: github.event_name == 'workflow_dispatch' && inputs.command == 'daily-highlights-video'
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: Restore WhatsApp session and bot state
         id: restore-bot-cache
