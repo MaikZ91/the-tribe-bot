@@ -931,9 +931,109 @@ const WEEKEND_PLANNER_DAY_LABELS = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
  * getTodayDateLabels() only builds four — which drops about a quarter of a
  * weekend on the floor.
  */
-function getEventDateKey(entry) {
-    const match = String((entry && entry.date) || '').match(/(\d{2})\.(\d{2})\.(\d{4})/);
-    return match ? `${match[3]}-${match[2]}-${match[1]}` : null;
+function getEventDateKey(entry, reference = getBerlinNow()) {
+    const raw = String((entry && entry.date) || '');
+
+    const full = raw.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+    if (full) {
+        return `${full[3]}-${full[2]}-${full[1]}`;
+    }
+
+    // 133 von 1652 Eintraegen kommen ohne Jahr ("Fr, 07.08") — und das sind
+    // fast genau die Clubs: Stereo, Sams, Forum, Cafe Europa, nr.z.p. Sie
+    // wegzuwerfen war der Grund, warum auf dem Planer kein Club auftauchte.
+    const short = raw.match(/(\d{2})\.(\d{2})(?!\.\d)/);
+    if (!short) {
+        return null;
+    }
+
+    const referenceKey = getDateParts(reference).dateKey;
+    const year = Number(referenceKey.slice(0, 4));
+    const candidate = `${year}-${short[2]}-${short[1]}`;
+
+    // Ueber den Jahreswechsel liegt ein Datum, das weit zurueckliegt, im
+    // Folgejahr — ein Termin im Januar, gelesen im Dezember.
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const gap = (Date.parse(`${referenceKey}T12:00:00Z`) - Date.parse(`${candidate}T12:00:00Z`)) / DAY_MS;
+    return gap > 180 ? `${year + 1}-${short[2]}-${short[1]}` : candidate;
+}
+
+// Wiederkehrende Serien tragen ihren Wochentag im Titel ("MI • WEDNESDATE"),
+// und bei ihnen widerspricht das Datumsfeld des Feeds dem regelmaessig — die
+// Cafe-Europa-Reihen stehen dort quer ueber die Woche verteilt. Das Praefix
+// gilt, das Datumsfeld nicht. Der Tagesflyer haelt es genauso.
+const WEEKDAY_PREFIX_PATTERN = /^\s*(MO|DI|MI|DO|FR|SA|SO)\s*[•·]/i;
+
+function matchesWeekdayPrefix(entry, weekdayIndex) {
+    const match = String((entry && entry.event) || '').match(WEEKDAY_PREFIX_PATTERN);
+    if (!match) {
+        return true;
+    }
+
+    return WEEKEND_PLANNER_DAY_LABELS[weekdayIndex] === match[1].toUpperCase();
+}
+
+function getVenueKey(entry) {
+    const match = String((entry && entry.event) || '').match(/\(@([^)]+)\)/);
+    return match ? match[1].trim().toLowerCase() : null;
+}
+
+/**
+ * Picks one entry per venue and day.
+ *
+ * Stereo, Sams and Forum list several rooms or floors of the same night as
+ * separate entries, which would fill the poster with one address. Preference
+ * goes to the entry that carries a picture, then to one with a start time,
+ * then to the more descriptive title.
+ */
+function dedupeByVenue(entries) {
+    const best = new Map();
+    const loose = [];
+
+    for (const entry of entries) {
+        const key = getVenueKey(entry);
+        if (!key) {
+            loose.push(entry);
+            continue;
+        }
+
+        const current = best.get(key);
+        // Rang vor Ausstattung: sonst gewinnt bei Stereo die Afro-Nacht, die
+        // ueber HIGHLIGHT_EXCLUDED_SERIES als Serie gilt und den ganzen Club
+        // aus der Auswahl kippt, gegen die kuratierte Nacht daneben.
+        const better = !current
+            || rankWeekendEntry(entry) > rankWeekendEntry(current)
+            || (rankWeekendEntry(entry) === rankWeekendEntry(current)
+                && scoreEntry(entry) > scoreEntry(current));
+
+        if (better) {
+            best.set(key, entry);
+        }
+    }
+
+    return [...best.values(), ...loose];
+}
+
+/**
+ * Ranks an entry for the limited number of slots on the poster.
+ *
+ * The curated clubs come first — they are what the group goes out for, and
+ * sorting purely by time buried them because their nights start at 23:00.
+ * isHighlightVenue() already carries that list for the daily flyer.
+ */
+function rankWeekendEntry(entry) {
+    if (isHighlightVenue(entry)) {
+        return 2;
+    }
+
+    return String(entry.image_url || '').trim() ? 1 : 0;
+}
+
+function scoreEntry(entry) {
+    const hasImage = String(entry.image_url || '').trim() ? 4 : 0;
+    const hasTime = String(entry.time || '').trim() ? 2 : 0;
+    const title = String(entry.event || '').replace(/\s*\(@[^)]+\)\s*/, '');
+    return hasImage + hasTime + Math.min(1, title.length / 100);
 }
 
 /**
@@ -977,10 +1077,21 @@ function isWeekendPlannerEvent(entry) {
 function getWeekendPlannerGroups(events, date = getBerlinNow()) {
     const groups = getWeekendPlannerDates(date).map(day => {
         const parts = getDateParts(day);
-        const entries = events
-            .filter(entry => getEventDateKey(entry) === parts.dateKey)
+        const matching = events
+            .filter(entry => getEventDateKey(entry, date) === parts.dateKey)
+            .filter(entry => matchesWeekdayPrefix(entry, parts.weekdayIndex))
             .filter(isWeekendPlannerEvent)
-            .filter(entry => !isTribeEvent(entry))
+            .filter(entry => !isTribeEvent(entry));
+
+        // Erst nach Rang auswaehlen, dann nach Uhrzeit anzeigen. Rein nach
+        // Uhrzeit geschnitten fielen ausgerechnet die Clubs weg: sie starten
+        // um 23:00 und standen damit immer am Ende der Liste.
+        const ranked = dedupeByVenue(matching)
+            .sort((a, b) => rankWeekendEntry(b) - rankWeekendEntry(a)
+                || toSortableTime(a.time).localeCompare(toSortableTime(b.time)));
+
+        const entries = ranked
+            .slice(0, WEEKEND_PLANNER_MAX_PER_DAY)
             .sort((a, b) => toSortableTime(a.time).localeCompare(toSortableTime(b.time)));
 
         return {
@@ -988,8 +1099,8 @@ function getWeekendPlannerGroups(events, date = getBerlinNow()) {
             weekdayIndex: parts.weekdayIndex,
             label: WEEKEND_PLANNER_DAY_LABELS[parts.weekdayIndex],
             dayLabel: `${parts.day}.${parts.month}.`,
-            entries: entries.slice(0, WEEKEND_PLANNER_MAX_PER_DAY),
-            hidden: Math.max(0, entries.length - WEEKEND_PLANNER_MAX_PER_DAY)
+            entries,
+            hidden: Math.max(0, ranked.length - entries.length)
         };
     });
 
@@ -999,7 +1110,11 @@ function getWeekendPlannerGroups(events, date = getBerlinNow()) {
     while (total > WEEKEND_PLANNER_MAX_TOTAL) {
         const longest = groups.reduce((a, b) => (b.entries.length > a.entries.length ? b : a));
         if (longest.entries.length === 0) break;
-        longest.entries = longest.entries.slice(0, -1);
+
+        // Auch hier faellt der niedrigste Rang zuerst, nicht der spaeteste
+        // Eintrag — sonst nimmt der Gesamtdeckel wieder die Clubs.
+        const weakest = longest.entries.reduce((a, b) => (rankWeekendEntry(b) <= rankWeekendEntry(a) ? b : a));
+        longest.entries = longest.entries.filter(entry => entry !== weakest);
         longest.hidden += 1;
         total -= 1;
     }
@@ -1426,7 +1541,7 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
             gap: 18px; justify-content: space-between;
         }
 
-        .day { display: flex; flex-direction: column; gap: 10px; }
+        .day { display: flex; flex-direction: column; gap: 8px; }
         .dayhead {
             display: flex; align-items: baseline; gap: 14px;
             border-bottom: 1px solid var(--rule); padding-bottom: 8px;
@@ -1440,11 +1555,11 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
         }
 
         .row {
-            display: grid; grid-template-columns: 72px 96px 1fr; gap: 16px; align-items: center;
-            border-left: 4px solid var(--accent, var(--rule)); padding-left: 16px;
+            display: grid; grid-template-columns: 60px 92px 1fr; gap: 14px; align-items: center;
+            border-left: 4px solid var(--accent, var(--rule)); padding-left: 14px;
         }
         .row .thumb {
-            width: 72px; height: 72px; overflow: hidden; background: var(--black-soft);
+            width: 60px; height: 60px; overflow: hidden; background: var(--black-soft);
         }
         .row .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .row .thumb.placeholder {
