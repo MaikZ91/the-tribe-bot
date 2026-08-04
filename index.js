@@ -1050,8 +1050,43 @@ function getWeekendPlannerDates(date = getBerlinNow()) {
     return [0, 1, 2].map(step => new Date(friday.getTime() + step * DAY_MS));
 }
 
-function isWeekendPlannerEvent(entry) {
-    if (!isBielefeldEvent(entry)) {
+/**
+ * Days of the week the city planner covers, Monday through Sunday.
+ *
+ * Muenster carries only thirty entries in the whole feed — one or two per
+ * weekend — so a Friday-to-Sunday poster would mostly be empty. Days without
+ * entries are dropped later, which keeps the poster to what is actually on.
+ */
+function getWeekPlannerDates(date = getBerlinNow()) {
+    const { utcNoonDate, weekdayIndex } = getDateParts(date);
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    // weekdayIndex 0 ist Sonntag; von dort ist der laufende Montag sechs Tage
+    // her, sonst liegt er weekdayIndex-1 Tage zurueck.
+    const offsetToMonday = weekdayIndex === 0 ? -6 : 1 - weekdayIndex;
+    const monday = new Date(utcNoonDate.getTime() + offsetToMonday * DAY_MS);
+
+    return [0, 1, 2, 3, 4, 5, 6].map(step => new Date(monday.getTime() + step * DAY_MS));
+}
+
+/**
+ * Whether an entry belongs to the given city.
+ *
+ * Only out-of-town entries carry a city field — Bielefeld ones have none, so
+ * a missing field means Bielefeld.
+ */
+function isCityEvent(entry, city = 'Bielefeld') {
+    if (!entry || typeof entry !== 'object') {
+        return false;
+    }
+
+    const value = String(entry.city || '').trim().toLowerCase();
+    return value
+        ? value === city.toLowerCase()
+        : city.toLowerCase() === 'bielefeld';
+}
+
+function isWeekendPlannerEvent(entry, city = 'Bielefeld') {
+    if (!isCityEvent(entry, city)) {
         return false;
     }
 
@@ -1074,13 +1109,19 @@ function isWeekendPlannerEvent(entry) {
     return !WEEKEND_PLANNER_EXCLUDED_TERMS.some(term => name.includes(term));
 }
 
-function getWeekendPlannerGroups(events, date = getBerlinNow()) {
-    const groups = getWeekendPlannerDates(date).map(day => {
+function getWeekendPlannerGroups(events, date = getBerlinNow(), options = {}) {
+    const {
+        city = 'Bielefeld',
+        days = getWeekendPlannerDates(date),
+        dropEmptyDays = false
+    } = options;
+
+    const groups = days.map(day => {
         const parts = getDateParts(day);
         const matching = events
             .filter(entry => getEventDateKey(entry, date) === parts.dateKey)
             .filter(entry => matchesWeekdayPrefix(entry, parts.weekdayIndex))
-            .filter(isWeekendPlannerEvent)
+            .filter(entry => isWeekendPlannerEvent(entry, city))
             .filter(entry => !isTribeEvent(entry));
 
         // Erst nach Rang auswaehlen, dann nach Uhrzeit anzeigen. Rein nach
@@ -1119,7 +1160,10 @@ function getWeekendPlannerGroups(events, date = getBerlinNow()) {
         total -= 1;
     }
 
-    return groups;
+    // Ueber eine ganze Woche stehen die meisten Tage leer — dann zeigt das
+    // Plakat nur die Tage, an denen wirklich etwas laeuft. Beim Wochenende
+    // bleiben Fr/Sa/So stehen, auch leer, damit die Struktur erkennbar ist.
+    return dropEmptyDays ? groups.filter(group => group.entries.length > 0) : groups;
 }
 
 function normalizeCategory(value) {
@@ -1423,7 +1467,14 @@ async function loadImageAsDataUrl(url) {
     }
 }
 
-function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
+function getWeekendPlannerImageHtml(groups, date = getBerlinNow(), options = {}) {
+    const {
+        title = 'Weekend',
+        titleAccent = 'Planer',
+        city = 'Bielefeld',
+        stamp = 'Fr · Sa · So'
+    } = options;
+
     const first = groups[0];
     const last = groups[groups.length - 1];
     const { year } = getDateParts(date);
@@ -1593,10 +1644,10 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
 <body>
     <main class="poster">
         <div class="head">
-            <div class="title">Weekend<br><em>Planer</em></div>
-            <div class="date">${range}<br>Bielefeld</div>
+            <div class="title">${escapeHtml(title)}<br><em>${escapeHtml(titleAccent)}</em></div>
+            <div class="date">${range}<br>${escapeHtml(city)}</div>
         </div>
-        <div class="stamp">Fr · Sa · So · <em>The Tribe Bielefeld</em></div>
+        <div class="stamp">${escapeHtml(stamp)} · <em>The Tribe ${escapeHtml(city)}</em></div>
         <div class="days">
             ${sections}
         </div>
@@ -1605,7 +1656,7 @@ function getWeekendPlannerImageHtml(groups, date = getBerlinNow()) {
 </html>`;
 }
 
-async function renderWeekendPlannerImage(groups, date = getBerlinNow()) {
+async function renderWeekendPlannerImage(groups, date = getBerlinNow(), options = {}) {
     fs.mkdirSync(DAILY_HIGHLIGHTS_IMAGE_DIR, { recursive: true });
 
     // Bilder vorab einbetten, sonst bleiben die Kacheln leer: die Seite wird
