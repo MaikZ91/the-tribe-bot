@@ -743,7 +743,7 @@
         desc:'In Münster treffen wir uns rund um Hafen, Kreuzviertel und den Prinzipalmarkt. Das Warm-up findet an wechselnden Orten in der Innenstadt statt.',
         spots:'Hafen · Kreuzviertel · Prinzipalmarkt'}
     };
-    function setCity(key){
+    function setCity(key,via){
       var c=DATA[key]; if(!c) return;
       document.querySelectorAll('[data-cityname]').forEach(function(el){el.textContent=c.name;});
       var d=document.getElementById('cityDesc'); if(d) d.textContent=c.desc;
@@ -753,11 +753,24 @@
       document.querySelectorAll('[data-city]').forEach(function(b){
         b.classList.toggle('on', b.getAttribute('data-city')===key);
       });
-      try{window.posthog&&posthog.capture('city_toggle',{city:key,landing_variant:'v7-onepager'});}catch(e){}
+      // Vorbelegung per URL zaehlt bewusst NICHT als 'city_toggle' — sonst waere
+      // die Auswertung "hat umgeschaltet vs. nie umgeschaltet" nicht mehr vergleichbar.
+      var ev=(via==='url')?'city_preset':'city_toggle';
+      try{window.posthog&&posthog.capture(ev,{city:key,landing_variant:'v7-onepager'});}catch(e){}
     }
     document.querySelectorAll('[data-city]').forEach(function(b){
-      b.addEventListener('click',function(){setCity(b.getAttribute('data-city'));});
+      b.addEventListener('click',function(){setCity(b.getAttribute('data-city'),'click');});
     });
+
+    // Stadt per URL vorbelegen: ?stadt=muenster (alternativ ?city=).
+    // Ohne Parameter oder bei unbekanntem Wert bleibt alles wie bisher: Bielefeld.
+    var ALIAS={muenster:'muenster','münster':'muenster',ms:'muenster',
+               bielefeld:'bielefeld',bi:'bielefeld'};
+    try{
+      var p=new URLSearchParams(location.search);
+      var pre=ALIAS[(p.get('stadt')||p.get('city')||'').toLowerCase().trim()];
+      if(pre) setCity(pre,'url');
+    }catch(e){}
   })();
 
   // Kennzahl: schnelle Hochzählung der Mitgliederzahl (Hero + Zahlen-Karte)
