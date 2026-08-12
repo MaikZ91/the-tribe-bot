@@ -775,8 +775,21 @@
       var ev=(via==='url')?'city_preset':'city_toggle';
       try{window.posthog&&posthog.capture(ev,{city:key,landing_variant:'v7-onepager'});}catch(e){}
     }
+    // Münster laeuft seit dem Launch auf der Story-Fassung unter /muenster/.
+    // Diese Seite beschreibt den Bielefelder Termin (Social Warm-up Samstag 18:00),
+    // der fuer Münster nicht stimmt — deshalb schaltet der Münster-Button nicht mehr
+    // die Texte um, sondern fuehrt auf die Münster-Seite.
     document.querySelectorAll('[data-city]').forEach(function(b){
-      b.addEventListener('click',function(){setCity(b.getAttribute('data-city'),'click');});
+      b.addEventListener('click',function(){
+        var key=b.getAttribute('data-city');
+        if(key==='muenster'){
+          try{window.posthog&&posthog.capture('city_toggle',
+            {city:'muenster',landing_variant:'v7-onepager',routed_to_story:true});}catch(e){}
+          setTimeout(function(){location.href='muenster/'+location.search+location.hash;},150);
+          return;
+        }
+        setCity(key,'click');
+      });
     });
 
     // Stadt per URL vorbelegen: ?stadt=muenster (alternativ ?city=).
