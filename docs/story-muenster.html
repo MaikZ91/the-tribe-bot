@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#241d18">
+<meta name="description" content="Jeden Samstag ziehen wir in Münster zusammen los. Kein Verein, keine App — tritt der WhatsApp-Community bei und komm einfach dazu.">
+<title>THE TRIBE — Münster</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23241d18'/><text x='16' y='22' font-family='Georgia' font-size='16' fill='%23fa9585' text-anchor='middle' font-style='italic'>t</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" as="image" href="assets/gruppe.webp" fetchpriority="high">
+
+<style>
+  :root{
+    --ink:#241d18; --cream:#f8f5ee; --coral:#fa9585; --wa:#25D366;
+    --fd:"Fraunces",ui-serif,Georgia,serif;
+    --fs:"Inter",ui-sans-serif,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--ink);color:var(--cream);font-family:var(--fs);
+    -webkit-font-smoothing:antialiased;overflow:hidden;overscroll-behavior:none}
+
+  #deck{height:100svh;width:100%;position:relative}
+
+  .panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:calc(74px + env(safe-area-inset-top)) 26px calc(38px + env(safe-area-inset-bottom));
+    opacity:0;visibility:hidden;transition:opacity .38s ease;pointer-events:none}
+  .panel.live{opacity:1;visibility:visible;pointer-events:auto}
+  .panel img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+  .panel .veil{position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(36,29,24,.72) 0%,rgba(36,29,24,.35) 34%,rgba(36,29,24,.92) 100%)}
+
+  /* sanftes Heranfahren, damit das Standbild lebt */
+  .panel.live img.bg{animation:ken 9s ease-out both}
+  @keyframes ken{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+    color:rgba(248,245,238,.62);margin-bottom:16px}
+  .eyebrow b{color:var(--coral);font-weight:700}
+  h1,h2{font-family:var(--fd);font-weight:400;line-height:1.02;letter-spacing:-.02em;
+    font-size:clamp(38px,10.4vw,58px)}
+  h1 em,h2 em{font-style:italic;color:var(--coral)}
+  .sub{margin-top:18px;font-size:clamp(15px,4.2vw,18px);line-height:1.55;
+    color:rgba(248,245,238,.82);max-width:24rem}
+
+  /* Panel 2: Chat aus der echten Community */
+  .chat{margin-top:22px;display:flex;flex-direction:column;gap:11px;max-width:25rem}
+  .msg{display:flex;gap:9px;align-items:flex-start;
+    opacity:0;transform:translateY(9px)}
+  .panel.live .msg{animation:msgin .5s ease forwards}
+  .panel.live .msg:nth-child(1){animation-delay:.45s}
+  .panel.live .msg:nth-child(2){animation-delay:1.25s}
+  @keyframes msgin{to{opacity:1;transform:none}}
+  .msg img{width:31px;height:31px;border-radius:50%;object-fit:cover;flex:none;
+    border:1.5px solid rgba(255,255,255,.5)}
+  .bub{background:rgba(20,16,13,.72);backdrop-filter:blur(4px);
+    border:1px solid rgba(250,149,133,.3);border-radius:3px 14px 14px 14px;
+    padding:9px 13px;font-size:14px;line-height:1.4}
+  .bub .nm{display:block;font-size:11px;font-weight:700;color:var(--coral);margin-bottom:2px}
+
+  .faces{margin-top:20px;display:flex;align-items:center}
+  .faces img{width:34px;height:34px;border-radius:50%;object-fit:cover;
+    border:2px solid rgba(255,255,255,.85);margin-left:-10px}
+  .faces img:first-child{margin-left:0}
+  .faces span{margin-left:12px;font-size:14px;color:rgba(248,245,238,.85)}
+  .faces b{color:#fff}
+
+  .cta{margin-top:26px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--wa);color:#0d2b18;border-radius:999px;padding:17px 26px;
+    font-weight:700;font-size:16.5px;text-decoration:none;
+    box-shadow:0 16px 34px -14px rgba(37,211,102,.75)}
+  .cta:active{transform:translateY(1px)}
+  .fine{margin-top:13px;font-size:12.5px;color:rgba(248,245,238,.55)}
+  .fine i{font-style:normal;color:var(--coral)}
+
+  /* Fortschrittsbalken oben, wie man es aus Stories kennt */
+  #bars{position:absolute;top:calc(12px + env(safe-area-inset-top));left:16px;right:16px;
+    display:flex;gap:5px;z-index:6}
+  #bars .seg{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden}
+  #bars .seg i{display:block;height:100%;width:0;background:#fff;border-radius:2px}
+
+  .brand{position:absolute;top:calc(28px + env(safe-area-inset-top));left:26px;z-index:6;
+    font-family:var(--fd);font-size:17px;letter-spacing:-.01em}
+  .brand b{font-weight:500}
+  .brand i{font-style:italic;color:var(--coral)}
+  .brand s{text-decoration:none;color:rgba(248,245,238,.55);font-family:var(--fs);
+    font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-left:8px}
+
+  /* Tap-Zonen: rechts weiter, links zurück — Story-Konvention */
+  /* Buttons bringen von Haus aus Hintergrund und Rahmen mit - beides muss weg,
+     sonst uebermalen die beiden Zonen die ganze Story. */
+  .zone{position:absolute;top:0;bottom:0;width:32%;z-index:4;
+    background:transparent;border:0;padding:0;appearance:none;-webkit-appearance:none;
+    cursor:pointer;-webkit-tap-highlight-color:transparent}
+  #prev{left:0} #next{right:0;width:68%}
+  .panel .cta,.panel .chat{position:relative;z-index:5}
+
+  .hint{position:absolute;right:20px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:6;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,245,238,.4)}
+
+  @media(prefers-reduced-motion:reduce){
+    .panel.live img.bg{animation:none}
+    .panel.live .msg{animation:none;opacity:1;transform:none}
+  }
+  @media(min-width:760px){
+    #deck{max-width:460px;margin:0 auto;box-shadow:0 0 90px rgba(0,0,0,.6)}
+    body{background:#15110e}
+  }
+</style>
+</head>
+<body>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,
+    capture_pageleave:true,autocapture:true,enable_heatmaps:true,rageclick:true});
+  posthog.register({landing_variant:'v8-story-ms',stadt:'muenster'});}catch(e){}
+</script>
+
+<div class="brand"><b>the</b><i>tribe</i>.<s>Münster</s></div>
+<div id="bars" aria-hidden="true"></div>
+
+<main id="deck">
+
+  <!-- 1 — die Situation -->
+  <section class="panel" data-dur="7000" aria-label="Panel 1 von 3">
+    <img class="bg" src="assets/gruppe.webp" alt="Große Runde abends unterwegs in Münster" fetchpriority="high">
+    <div class="veil"></div>
+    <p class="eyebrow">Samstagabend in <b>Münster</b></p>
+    <h1>Alle sind<br>unterwegs.<br><em>Nur du nicht?</em></h1>
+    <p class="sub">Neu in der Stadt, Freunde weggezogen, oder einfach keine Lust,
+      schon wieder allein loszuziehen.</p>
+  </section>
+
+  <!-- 2 — was es ist, und die Hemmung -->
+  <section class="panel" data-dur="9000" aria-label="Panel 2 von 3">
+    <img class="bg" src="assets/hero/9.webp" alt="Die Tribe-Runde zusammen in einer Bar" loading="eager">
+    <div class="veil"></div>
+    <p class="eyebrow">Jeden Samstag · 18:00 Uhr</p>
+    <h2>Wir ziehen<br><em>zusammen los.</em></h2>
+    <p class="sub">Kein Verein, keine Anmeldung, kein Ticket. Du kommst einfach dazu.</p>
+    <div class="chat">
+      <div class="msg">
+        <img src="assets/anna.webp" alt="">
+        <div class="bub"><span class="nm">Anna · neu hier</span>Kann ich da einfach so dazukommen? Kenn ja niemanden 😅</div>
+      </div>
+      <div class="msg">
+        <img src="assets/lena.webp" alt="">
+        <div class="bub"><span class="nm">Lena · dabei</span>Klar, komm einfach! War selbst neu — keiner kennt am Anfang jemanden 🙂</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — beitreten -->
+  <section class="panel" data-dur="0" aria-label="Panel 3 von 3">
+    <img class="bg" src="assets/hero/1.webp" alt="Anstoßen in der Runde" loading="eager">
+    <div class="veil"></div>
+    <p class="eyebrow">Deine Leute warten schon</p>
+    <h2>Komm<br><em>Samstag mit.</em></h2>
+    <div class="faces">
+      <img src="assets/maik.webp" alt=""><img src="assets/lena.webp" alt=""><img src="assets/patrick.webp" alt=""><img src="assets/anna.webp" alt="">
+      <span>Schon <b>167</b> ziehen zusammen los.</span>
+    </div>
+    <a class="cta" id="join"
+       href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2"
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+      In WhatsApp beitreten
+    </a>
+    <p class="fine"><i>✓</i> kostenlos &nbsp; <i>✓</i> jederzeit wieder raus &nbsp; <i>✓</i> kein Zwang</p>
+  </section>
+
+</main>
+
+<button class="zone" id="prev" aria-label="Zurück"></button>
+<button class="zone" id="next" aria-label="Weiter"></button>
+<div class="hint" id="hint" aria-hidden="true">Tippen ›</div>
+
+<script>
+(function () {
+  var deck = document.getElementById('deck');
+  var panels = Array.prototype.slice.call(deck.querySelectorAll('.panel'));
+  var bars = document.getElementById('bars');
+  var hint = document.getElementById('hint');
+  var n = panels.length, cur = -1, raf = 0, t0 = 0, paused = false, maxSeen = 0;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var segs = panels.map(function () {
+    var s = document.createElement('div'); s.className = 'seg';
+    var i = document.createElement('i'); s.appendChild(i); bars.appendChild(s);
+    return i;
+  });
+
+  function dur(i) { return parseInt(panels[i].getAttribute('data-dur'), 10) || 0; }
+
+  function loop(ts) {
+    if (paused) { raf = requestAnimationFrame(loop); return; }
+    if (!t0) t0 = ts;
+    var d = dur(cur);
+    if (d > 0) {
+      var p = Math.min(1, (ts - t0) / d);
+      segs[cur].style.width = (p * 100).toFixed(1) + '%';
+      if (p >= 1) { show(cur + 1); return; }
+    }
+    raf = requestAnimationFrame(loop);
+  }
+
+  function show(i) {
+    if (i < 0) i = 0;
+    if (i > n - 1) i = n - 1;
+    if (i === cur) return;
+    cur = i;
+    panels.forEach(function (p, k) { p.classList.toggle('live', k === i); });
+    segs.forEach(function (s, k) { s.style.width = k < i ? '100%' : (k === i ? '0%' : '0%'); });
+    if (hint) hint.style.display = i === n - 1 ? 'none' : '';
+
+    if (i > maxSeen) maxSeen = i;
+    try {
+      posthog.capture('story_panel_view', { panel_index: i, panel_total: n,
+        landing_variant: 'v8-story-ms', stadt: 'muenster' });
+      posthog.register({ max_panel_reached: maxSeen,
+        max_panel_pct: Math.round(maxSeen / (n - 1) * 100) });
+    } catch (e) {}
+
+    cancelAnimationFrame(raf); t0 = 0;
+    if (!reduce && dur(i) > 0) raf = requestAnimationFrame(loop);
+  }
+
+  document.getElementById('next').addEventListener('click', function () { show(cur + 1); });
+  document.getElementById('prev').addEventListener('click', function () { show(cur - 1); });
+  addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+    if (e.key === 'ArrowLeft') show(cur - 1);
+  });
+
+  // Halten pausiert den Fortschritt, wie in einer Story
+  ['pointerdown', 'pointerup', 'pointercancel'].forEach(function (ev) {
+    deck.addEventListener(ev, function (e) { paused = (ev === 'pointerdown'); });
+  });
+
+  // Wischen nach links/rechts
+  var sx = null;
+  deck.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  deck.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 55) show(cur + (dx < 0 ? 1 : -1));
+    sx = null;
+  }, { passive: true });
+
+  document.getElementById('join').addEventListener('click', function () {
+    try {
+      posthog.capture('whatsapp_cta_click', { cta_location: 'story-final',
+        landing_variant: 'v8-story-ms', stadt: 'muenster', panels_seen: maxSeen + 1 });
+    } catch (e) {}
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>
