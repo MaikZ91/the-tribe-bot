@@ -330,16 +330,13 @@
         var ph = el.getAttribute('data-ph-' + city);
         if (ph) el.setAttribute('placeholder', ph);
       });
-      // Hero-WhatsApp-CTA: Stadt anhängen, damit Maik sofort weiß, woher.
-      var waMsg = 'Hallo Maik, ich hätte gern mein kostenloses Redesign-Konzept 🚀 (aus ' + NAME[city] + ')';
-      document.querySelectorAll('[data-wa-cta]').forEach(function (a) {
-        a.href = 'https://wa.me/4917645961547?text=' + encodeURIComponent(waMsg);
-      });
+      // Die WhatsApp-CTAs behalten bewusst ihren eigenen Text: jeder Button
+      // steht für ein anderes Anliegen (Konzept, Miete). Ein globales
+      // Überschreiben hat die spezifischen Nachrichten geschluckt.
       document.querySelectorAll('[data-city-btn]').forEach(function (b) {
         b.setAttribute('aria-pressed', b.getAttribute('data-city-btn') === city ? 'true' : 'false');
       });
       try { localStorage.setItem('mz9_city', city); } catch (e) {}
-      document.title = 'Redesign.AI — Premium Webdesign aus ' + NAME[city] + ' · Live in 7 Tagen';
     }
     var params = new URLSearchParams(location.search);
     var q = (params.get('stadt') || params.get('city') || '').toLowerCase();
