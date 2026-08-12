@@ -174,6 +174,11 @@ const WEEK_OVERRIDES = {
     '2026-05-25': {
         venues: ['Plan B', 'Nichtschwimmer', 'Mellow Gold'],
         skipSpecialSaturday: true
+    },
+    // Rotation waere Alex | Glueck & Seligkeit | Hechelei gewesen; Liv nimmt
+    // den Platz der Hechelei ein.
+    '2026-08-10': {
+        venues: ['Liv', 'Alex', 'Glueck & Seligkeit']
     }
 };
 const SPECIAL_SATURDAY_OPENERS = [
@@ -2512,7 +2517,11 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
     const weekKey = getBerlinWeekKey();
     const weeklyState = ensureWeeklyPollState(state, weekKey);
 
-    if (!force && weeklyState.venuePoll && weeklyState.venuePoll.dateKey === today.dateKey) {
+    // Die Location-Umfrage ist ein Wochenformat — einmal pro Woche genuegt.
+    // Der frueher tagesgenaue Vergleich haette sie ein zweites Mal gestellt,
+    // sobald sie vorgezogen wird und der regulaere Mittwochs-Lauf danach noch
+    // greift: der Tagesmerker gilt nur fuer den Tag, an dem vorgezogen wurde.
+    if (!force && weeklyState.venuePoll) {
         return;
     }
 
