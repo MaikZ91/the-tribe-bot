@@ -73,6 +73,7 @@
     font-weight:700;font-size:16.5px;text-decoration:none;
     box-shadow:0 16px 34px -14px rgba(37,211,102,.75)}
   .cta:active{transform:translateY(1px)}
+  .cta.sm{margin-top:20px;padding:13px 20px;font-size:15px;align-self:flex-start}
   .fine{margin-top:13px;font-size:12.5px;color:rgba(248,245,238,.55)}
   .fine i{font-style:normal;color:var(--coral)}
 
@@ -135,6 +136,7 @@
     <h1>Alle sind<br>unterwegs.<br><em>Nur du nicht?</em></h1>
     <p class="sub">Neu in der Stadt, Freunde weggezogen, oder einfach keine Lust,
       schon wieder allein loszuziehen.</p>
+    <a class="cta sm" data-join="panel-1" href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> In WhatsApp beitreten</a>
   </section>
 
   <!-- 2 — was es ist, und die Hemmung -->
@@ -155,6 +157,7 @@
         <div class="bub"><span class="nm">Lena · dabei</span>Klar, komm einfach! War selbst neu — keiner kennt am Anfang jemanden 🙂</div>
       </div>
     </div>
+    <a class="cta sm" data-join="panel-2" href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> In WhatsApp beitreten</a>
   </section>
 
   <!-- 3 — beitreten -->
@@ -168,7 +171,7 @@
       <img src="../assets/maik.webp" alt=""><img src="../assets/lena.webp" alt=""><img src="../assets/patrick.webp" alt=""><img src="../assets/anna.webp" alt="">
       <span>Schon <b>167</b> ziehen zusammen los.</span>
     </div>
-    <a class="cta" id="join"
+    <a class="cta" id="join" data-join="panel-3"
        href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2"
        target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
@@ -261,12 +264,20 @@
     sx = null;
   }, { passive: true });
 
-  document.getElementById('join').addEventListener('click', function () {
-    try {
-      posthog.capture('whatsapp_cta_click', { cta_location: 'story-final',
-        landing_variant: 'v8-story-ms', stadt: 'muenster', panels_seen: maxSeen + 1 });
-    } catch (e) {}
-  });
+  // Jeder Beitreten-Button meldet, von welchem Panel aus geklickt wurde.
+  sec_joins();
+  function sec_joins() {
+    document.querySelectorAll('[data-join]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        try {
+          posthog.capture('whatsapp_cta_click', {
+            cta_location: a.getAttribute('data-join'),
+            landing_variant: 'v8-story-ms', stadt: 'muenster',
+            panels_seen: maxSeen + 1 });
+        } catch (e) {}
+      });
+    });
+  }
 
   show(0);
 })();
