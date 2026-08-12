@@ -177,8 +177,13 @@ const WEEK_OVERRIDES = {
     },
     // Rotation waere Alex | Glueck & Seligkeit | Hechelei gewesen; Liv nimmt
     // den Platz der Hechelei ein.
+    //
+    // skipVenuePoll: die Umfrage wurde diese Woche von Hand in der Gruppe
+    // gestellt. Der Bot hat davon keinen State — ohne diesen Schalter wuerde
+    // der Mittwochs-Lauf sie am Abend ein zweites Mal posten.
     '2026-08-10': {
-        venues: ['Liv', 'Alex', 'Glueck & Seligkeit']
+        venues: ['Liv', 'Alex', 'Glueck & Seligkeit'],
+        skipVenuePoll: true
     }
 };
 const SPECIAL_SATURDAY_OPENERS = [
@@ -2522,6 +2527,11 @@ async function sendWednesdayVenuePoll({ force = false } = {}) {
     // sobald sie vorgezogen wird und der regulaere Mittwochs-Lauf danach noch
     // greift: der Tagesmerker gilt nur fuer den Tag, an dem vorgezogen wurde.
     if (!force && weeklyState.venuePoll) {
+        return;
+    }
+
+    if (!force && WEEK_OVERRIDES[weekKey]?.skipVenuePoll) {
+        console.log(`Location-Umfrage fuer Woche ${weekKey} per Override abgeschaltet — nichts gepostet.`);
         return;
     }
 
