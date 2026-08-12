@@ -209,13 +209,23 @@ html { scroll-behavior: smooth; }
   .rh-bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22)}
   .rh-bar span{margin-left:10px;font-size:11px;color:rgba(255,255,255,.4);
     background:rgba(255,255,255,.06);border-radius:5px;padding:3px 10px}
-  .rh-screen{position:relative;aspect-ratio:16/10;background:#0e0e0f}
-  .rh-screen img{width:100%;height:100%;object-fit:cover;object-position:50% 0;
-    clip-path:inset(0 0 calc((1 - var(--p)) * 100%) 0)}
+  .rh-screen{position:relative;aspect-ratio:16/10;background:#0e0e0f;overflow:hidden}
+  /* Unterlage mit demselben Bild: blendet erst zum Schluss ein, damit die
+     unvermeidlichen Subpixel-Fugen zwischen den Streifen nichts Dunkles
+     durchscheinen lassen. Waehrend der Animation bleibt sie unsichtbar. */
+  .rh-screen::before{content:"";position:absolute;inset:0;
+    background:url('images/work/work-brotwerk.jpg') 50% 0/cover no-repeat;
+    opacity:calc(var(--p) * var(--p) * var(--p))}
+  /* Neun Streifen, die sich beim Scrollen zur fertigen Seite zusammenfuegen
+     (Mechanik aus dem Brotwerk-Konzept, Richtung umgedreht). */
+  .rh-slices{position:absolute;inset:0;display:flex}
+  .rh-slices span{flex:1;background-image:url('images/work/work-brotwerk.jpg');
+    background-size:900% 100%;background-repeat:no-repeat;
+    transform-origin:bottom left;will-change:transform,opacity}
   /* Aufbau-Linie, die mit dem Scrollen nach unten wandert */
-  .rh-line{position:absolute;left:0;right:0;height:2px;pointer-events:none;
-    top:calc(var(--p) * 100%);background:linear-gradient(90deg,transparent,var(--accent,#ff8010),transparent);
-    box-shadow:0 0 16px 2px rgba(255,128,16,.55);opacity:calc(1 - var(--p))}
+  .rh-line{position:absolute;top:-4%;bottom:-4%;width:3px;pointer-events:none;
+    background:linear-gradient(#fff0,var(--accent,#ff8010),#fff0);
+    box-shadow:0 0 18px 3px rgba(255,128,16,.6);opacity:0}
 
   .rh-tags{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:9px}
   .rh-tags li{opacity:0;transform:translateY(9px);transition:opacity .38s ease,transform .38s ease;
@@ -225,16 +235,43 @@ html { scroll-behavior: smooth; }
   .rh-tags li.price{border-color:var(--accent,#ff8010);background:var(--accent,#ff8010);color:#0a0a0a}
   /* Auf schmalen Schirmen sitzen WhatsApp-Button und Chat-Widget unten fest —
      der Chip-Reihe Platz geben, sonst verdecken sie den Preis. */
-  @media(max-width:999px){.rh-inner{padding-bottom:86px}}
+  @media(max-width:999px){
+    .rh-sticky{align-items:flex-start}
+    .rh-inner{padding-top:76px;padding-bottom:96px;gap:16px}
+    .rh-screen{aspect-ratio:16/9}
+    .rh-h{font-size:clamp(32px,8.2vw,44px)}
+    .rh-lead{margin-top:14px;font-size:14.5px}
+    .rh-ctas{margin-top:20px}
+    .rh-tags{margin-top:14px;gap:7px}
+    .rh-tags li{padding:7px 11px;font-size:11.5px}
+  }
+  /* Niedrige Fenster (kleine Handys, Browserleisten eingeblendet): weiter
+     eindampfen, damit der Preis-Chip nicht unter die fixierten Buttons rutscht. */
+  @media(max-width:999px) and (max-height:820px){
+    .rh-inner{padding-top:66px;gap:12px}
+    .rh-h{font-size:clamp(27px,7.2vw,36px)}
+    .rh-lead{margin-top:10px;font-size:13.5px;line-height:1.5}
+    .rh-ctas{margin-top:14px;gap:9px}
+    .rh-cta,.rh-cta2{padding:11px 17px;font-size:14px}
+    .rh-screen{aspect-ratio:16/8}
+    .rh-tags{margin-top:11px}
+  }
 
   .rh-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:3;
     font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;
     color:rgba(255,255,255,.45);opacity:calc(1 - var(--p) * 2.2)}
 
+  /* Sehr niedrige Fenster: Sticky abschalten. Sonst bliebe der Preis-Chip
+     dauerhaft unter der Falte - beim Scrollen laeuft ja nur die Animation
+     weiter, der Inhalt bewegt sich nicht. JS setzt --p dann auf 1. */
+  @media(max-height:700px){
+    .rh{height:auto}
+    .rh-sticky{position:static;height:auto;padding:70px 0 44px}
+  }
   @media(prefers-reduced-motion:reduce){
     .rh{height:auto}
     .rh-sticky{position:static;height:auto;padding:110px 0 70px}
-    .rh-screen img{clip-path:none}
+    .rh-slices span{transform:none!important;opacity:1!important}
     .rh-line{display:none}
     .rh-tags li{opacity:1;transform:none}
   }
@@ -268,7 +305,10 @@ html { scroll-behavior: smooth; }
         <div class="rh-browser">
           <div class="rh-bar"><i></i><i></i><i></i><span>deine-website.de</span></div>
           <div class="rh-screen">
-            <img src="images/work/work-brotwerk.jpg" alt="Beispiel einer fertigen Website" loading="eager">
+            <div class="rh-slices" id="rhSlices" role="img"
+                 aria-label="Beispiel einer fertigen Website, die sich beim Scrollen zusammensetzt">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
             <div class="rh-line" aria-hidden="true"></div>
           </div>
         </div>
@@ -290,6 +330,12 @@ html { scroll-behavior: smooth; }
   var sec = document.getElementById('hero');
   if (!sec) return;
   var tags = sec.querySelectorAll('.rh-tags li');
+  var slices = Array.prototype.slice.call(sec.querySelectorAll('#rhSlices > span'));
+  var line = sec.querySelector('.rh-line');
+  // Jeder Streifen zeigt ein Neuntel des Bildes.
+  slices.forEach(function (s, i) {
+    s.style.backgroundPosition = (i / (slices.length - 1) * 100) + '% 0';
+  });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     sec.style.setProperty('--p', 1);
     tags.forEach(function (t) { t.classList.add('on'); });
@@ -304,6 +350,21 @@ html { scroll-behavior: smooth; }
     var p = travel > 0 ? (-r.top) / travel : 1;
     p = Math.min(Math.max(p, 0), 1);
     sec.style.setProperty('--p', p.toFixed(4));
+    // Streifen fuegen sich nacheinander zusammen: q laeuft je Streifen von 0
+    // (versetzt, halbtransparent) auf 1 (an seinem Platz).
+    var n = slices.length;
+    slices.forEach(function (s, i) {
+      var q = Math.min(Math.max((p * (n + 1.5) - i) / 1.5, 0), 1);
+      var e = q * q * (3 - 2 * q);
+      var k = 1 - e;
+      s.style.transform = 'rotate(' + (-k * 9) + 'deg) translate(' + (-k * 22) + '%,' + (k * 4) + '%)';
+      s.style.opacity = (0.15 + e * 0.85).toFixed(3);
+    });
+    if (line) {
+      var x = Math.min(p * (n + 1.5) / n, 1);
+      line.style.left = (x * 100) + '%';
+      line.style.opacity = (p > 0.01 && p < 0.97) ? 1 : 0;
+    }
     tags.forEach(function (t) {
       t.classList.toggle('on', p >= parseFloat(t.getAttribute('data-at')));
     });
