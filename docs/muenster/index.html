@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="preload" as="image" href="../assets/story/ws-collage.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/story/ws-collage.webp" fetchpriority="high">
 
 <style>
   :root{
@@ -129,7 +129,7 @@
 
   <!-- 1 — die Situation -->
   <section class="panel" data-dur="3500" aria-label="Panel 1 von 3">
-    <video class="bg" muted loop playsinline preload="auto" poster="../assets/story/ws-collage.jpg" aria-hidden="true">
+    <video class="bg" muted loop playsinline preload="auto" poster="../assets/story/ws-collage.webp" aria-hidden="true">
       <source src="../assets/story/ws-collage.mp4" type="video/mp4"></video>
     <div class="veil"></div>
     <p class="eyebrow">Freitagabend in <b>Münster</b></p>
@@ -143,7 +143,7 @@
   <!-- 5,5 s, damit der Zusammenschnitt (5,47 s) ganz durchlaeuft, bevor umgeblendet wird -->
   <section class="panel" data-dur="5500" aria-label="Panel 2 von 3">
     <!-- Drei Szenen hintereinander, schnelle Schnitte, laeuft bewusst nur einmal durch -->
-    <video class="bg" muted playsinline preload="auto" poster="../assets/story/ws-mix.jpg" aria-hidden="true">
+    <video class="bg" muted playsinline preload="none" poster="../assets/story/ws-mix.webp" aria-hidden="true">
       <source src="../assets/story/ws-mix.mp4" type="video/mp4"></video>
     <div class="veil"></div>
     <p class="eyebrow">Weekend&nbsp;Starter · <b>Freitag 20&nbsp;Uhr</b></p>
@@ -166,7 +166,7 @@
   <section class="panel" data-dur="0" aria-label="Panel 3 von 3">
     <!-- Polaroid der beiden, dann dieselben zwei als Video, zum Schluss die Sesselrunde.
          Laeuft wie Panel 2 nur einmal durch und bleibt auf dem letzten Polaroid stehen. -->
-    <video class="bg" muted playsinline preload="auto" poster="../assets/story/ws-jungs.jpg" aria-hidden="true">
+    <video class="bg" muted playsinline preload="none" poster="../assets/story/ws-jungs.webp" aria-hidden="true">
       <source src="../assets/story/ws-jungs.mp4" type="video/mp4"></video>
     <div class="veil"></div>
     <p class="eyebrow">Deine Leute warten schon</p>
@@ -196,7 +196,7 @@
   var panels = Array.prototype.slice.call(deck.querySelectorAll('.panel'));
   var bars = document.getElementById('bars');
   var hint = document.getElementById('hint');
-  var n = panels.length, cur = -1, raf = 0, t0 = 0, paused = false, maxSeen = 0;
+  var n = panels.length, cur = -1, raf = 0, tmo = 0, t0 = 0, pauseAt = 0, paused = false, maxSeen = 0;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var segs = panels.map(function () {
@@ -208,7 +208,11 @@
   function dur(i) { return parseInt(panels[i].getAttribute('data-dur'), 10) || 0; }
 
   function loop(ts) {
-    if (paused) { raf = requestAnimationFrame(loop); return; }
+    // Pausieren muss die verstrichene Zeit wirklich anhalten. Vorher lief t0
+    // weiter, dadurch waere das Panel nach dem Loslassen sofort weitergesprungen
+    // statt dort fortzusetzen, wo angefasst wurde.
+    if (paused) { if (!pauseAt) pauseAt = ts; raf = requestAnimationFrame(loop); return; }
+    if (pauseAt) { t0 += (ts - pauseAt); pauseAt = 0; }
     if (!t0) t0 = ts;
     var d = dur(cur);
     if (d > 0) {
@@ -231,6 +235,14 @@
       if (k === i) { try { v.currentTime = 0; var pp = v.play(); if (pp && pp.catch) pp.catch(function(){}); } catch (e) {} }
       else { try { v.pause(); } catch (e) {} }
     });
+
+    // Nur Panel 1 laedt sein Video sofort. Das naechste wird angestossen, sobald
+    // das aktuelle Panel laeuft - so steht beim Umblenden genug vorgeladen bereit,
+    // ohne dass beim Oeffnen der Seite alle drei Videos gleichzeitig ziehen.
+    // preload umzustellen stoesst den Download selbst an; ein zusaetzliches
+    // load() wuerde die Datei ein zweites Mal anfordern.
+    var nx = panels[i + 1] && panels[i + 1].querySelector('video.bg');
+    if (nx && nx.preload === 'none') nx.preload = 'auto';
     segs.forEach(function (s, k) { s.style.width = k < i ? '100%' : (k === i ? '0%' : '0%'); });
     if (hint) hint.style.display = i === n - 1 ? 'none' : '';
 
@@ -242,20 +254,46 @@
         max_panel_pct: Math.round(maxSeen / (n - 1) * 100) });
     } catch (e) {}
 
-    cancelAnimationFrame(raf); t0 = 0;
-    if (!reduce && dur(i) > 0) raf = requestAnimationFrame(loop);
+    cancelAnimationFrame(raf); clearTimeout(tmo); t0 = 0; pauseAt = 0; paused = false;
+    if (dur(i) <= 0) return;
+    if (reduce) {
+      // Bei "Bewegung reduzieren" lief bisher gar nichts weiter: der Fortschritt
+      // haengt an requestAnimationFrame, und das wurde hier uebersprungen. Wer die
+      // Einstellung am Handy an hat, blieb also auf Panel 1 haengen. Jetzt blendet
+      // ein Timer weiter, nur ohne laufenden Balken.
+      segs[i].style.width = '100%';
+      tmo = setTimeout(function () { show(i + 1); }, dur(i));
+    } else {
+      raf = requestAnimationFrame(loop);
+    }
   }
 
-  document.getElementById('next').addEventListener('click', function () { show(cur + 1); });
-  document.getElementById('prev').addEventListener('click', function () { show(cur - 1); });
+  // Langes Halten ist "pausieren", nicht "weiter". Ohne diese Grenze wuerde das
+  // Loslassen den Klick der Tipp-Zone ausloesen und trotzdem umblenden - das
+  // Halten waere damit wirkungslos.
+  var downAt = 0;
+  document.addEventListener('pointerdown', function () { downAt = Date.now(); });
+  function tap(step) {
+    return function () { if (Date.now() - downAt < 250) show(cur + step); };
+  }
+  document.getElementById('next').addEventListener('click', tap(1));
+  document.getElementById('prev').addEventListener('click', tap(-1));
   addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
     if (e.key === 'ArrowLeft') show(cur - 1);
   });
 
-  // Halten pausiert den Fortschritt, wie in einer Story
-  ['pointerdown', 'pointerup', 'pointercancel'].forEach(function (ev) {
-    deck.addEventListener(ev, function (e) { paused = (ev === 'pointerdown'); });
+  // Halten pausiert den Fortschritt, wie in einer Story.
+  // Lag vorher auf #deck und hat nie ausgeloest, weil die beiden Tipp-Zonen
+  // ausserhalb von #deck liegen und den Zeiger abfangen - deshalb jetzt am
+  // Dokument. Losgelassen wird auch bei pointercancel, Fensterwechsel und
+  // verlorenem Fokus, damit die Story nicht dauerhaft pausiert stehen bleibt.
+  document.addEventListener('pointerdown', function () { paused = true; });
+  ['pointerup', 'pointercancel', 'blur'].forEach(function (ev) {
+    addEventListener(ev, function () { paused = false; });
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') paused = false;
   });
 
   // Wischen nach links/rechts
