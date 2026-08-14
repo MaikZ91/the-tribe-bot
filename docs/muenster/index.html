@@ -23,7 +23,10 @@
   body{background:var(--ink);color:var(--cream);font-family:var(--fs);
     -webkit-font-smoothing:antialiased;overflow:hidden;overscroll-behavior:none}
 
-  #deck{height:100svh;width:100%;position:relative}
+  /* Reihenfolge ist Absicht: 100vh als Rueckfall fuer aeltere In-App-Browser, die
+     svh nicht kennen - ohne den bliebe die Hoehe dort ungesetzt. --app-h wird per
+     JS aus visualViewport gesetzt und gewinnt, weil es zuletzt kommt. */
+  #deck{height:100vh;height:100svh;height:var(--app-h,100svh);width:100%;position:relative}
 
   .panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
     padding:calc(74px + env(safe-area-inset-top)) 26px calc(38px + env(safe-area-inset-bottom));
@@ -102,6 +105,27 @@
   .hint{position:absolute;right:20px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:6;
     font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,245,238,.4)}
 
+  /* Beitreten-Knopf oben: liegt ueber den Tipp-Zonen (z-index 4) und ist
+     unabhaengig von allem, was die App unten ueber die Seite legt. */
+  .cta-top{position:absolute;top:calc(21px + env(safe-area-inset-top));right:18px;z-index:7;
+    display:inline-flex;align-items:center;gap:7px;background:var(--wa);color:#0d2b18;
+    border-radius:999px;padding:9px 15px;font-weight:700;font-size:13.5px;text-decoration:none;
+    box-shadow:0 10px 24px -12px rgba(37,211,102,.9)}
+  .cta-top:active{transform:translateY(1px)}
+  @media(max-width:340px){.cta-top{padding:8px 12px;font-size:12.5px}}
+
+  /* Facebook und Instagram melden die volle Fensterhoehe und legen ihre Leiste
+     obendrauf. Der Beitreten-Knopf endete dadurch 38 px ueber dem Rand, waehrend
+     die Leisten 48-60 px hoch sind - er war zur Haelfte verdeckt. */
+  html.in-app .panel{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+  html.in-app .hint{bottom:calc(80px + env(safe-area-inset-bottom))}
+  /* Auf kurzen Displays schiebt der volle Zuschlag den Text bis an den oberen
+     Knopf. 84 px halten eine 60-px-Leiste immer noch mit 24 px Abstand frei. */
+  @media(max-height:700px){
+    html.in-app .panel{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+    html.in-app .hint{bottom:calc(62px + env(safe-area-inset-bottom))}
+  }
+
   @media(prefers-reduced-motion:reduce){
     .panel.live video.bg{animation:none}
     .panel.live .msg{animation:none;opacity:1;transform:none}
@@ -111,6 +135,28 @@
     body{background:#15110e}
   }
 </style>
+<script>
+(function () {
+  var d = document.documentElement;
+
+  // Facebook, Instagram & Co. melden die volle Fensterhoehe und legen ihre
+  // Bedienleiste darueber. Erkennen und der Seite unten mehr Luft geben.
+  if (/FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|Snapchat|Twitter|Pinterest/i.test(navigator.userAgent || '')) {
+    d.classList.add('in-app');
+  }
+
+  // Wahre sichtbare Hoehe messen statt sie aus Viewport-Einheiten zu raten.
+  // visualViewport ist die verlaesslichste Quelle, innerHeight der Rueckfall.
+  function setH() {
+    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+    if (h > 0) d.style.setProperty('--app-h', Math.round(h) + 'px');
+  }
+  setH();
+  addEventListener('resize', setH);
+  addEventListener('orientationchange', function () { setTimeout(setH, 250); });
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', setH);
+})();
+</script>
 </head>
 <body>
 
@@ -123,6 +169,7 @@
 </script>
 
 <div class="brand"><b>the</b><i>tribe</i>.<s>Münster</s></div>
+<a class="cta-top" data-join="oben" href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Beitreten</a>
 <div id="bars" aria-hidden="true"></div>
 
 <main id="deck">
@@ -271,10 +318,19 @@
   // Langes Halten ist "pausieren", nicht "weiter". Ohne diese Grenze wuerde das
   // Loslassen den Klick der Tipp-Zone ausloesen und trotzdem umblenden - das
   // Halten waere damit wirkungslos.
-  var downAt = 0;
-  document.addEventListener('pointerdown', function () { downAt = Date.now(); });
+  // Gemerkt wird, ob der letzte Druck lang war - nicht wann er war. Sonst
+  // blockiert die Zeitgrenze auch Klicks ganz ohne vorheriges Antippen, also
+  // Tastatur und Vorlesehilfen, bei denen gar kein pointerdown kommt.
+  var downAt = 0, langGedrueckt = false;
+  document.addEventListener('pointerdown', function () { downAt = Date.now(); langGedrueckt = false; });
+  document.addEventListener('pointerup', function () {
+    langGedrueckt = !!downAt && (Date.now() - downAt >= 250);
+  });
   function tap(step) {
-    return function () { if (Date.now() - downAt < 250) show(cur + step); };
+    return function () {
+      if (!langGedrueckt) show(cur + step);
+      langGedrueckt = false;
+    };
   }
   document.getElementById('next').addEventListener('click', tap(1));
   document.getElementById('prev').addEventListener('click', tap(-1));
