@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#241d18">
-<meta name="description" content="Vier am Tisch — der Dating-Modus von THE TRIBE. Zwei Frauen, zwei Männer, ein Abend. Samstag 22. August, 19 Uhr, Café Barcelona in Bielefeld.">
+<meta name="description" content="Vier am Tisch — der Dating-Modus von THE TRIBE. Zwei Frauen, zwei Männer, ein Abend. Samstag 22. August, 19 Uhr, Café Barcelona. Platz sichern für 9,98 €.">
 <title>Vier am Tisch — THE TRIBE</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23241d18'/><text x='16' y='22' font-family='Georgia' font-size='16' fill='%23fa9585' text-anchor='middle' font-style='italic'>t</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +83,16 @@
   .fine{margin-top:12px;font-size:12.5px;color:rgba(248,245,238,.55);text-align:center}
   .fine i{font-style:normal;color:var(--coral)}
 
+  /* Zahlung bewusst als eigener, zweiter Knopf - nicht in WhatsApp-Gruen, damit
+     klar ist, dass es ein zweiter Schritt ist und kein Alternativweg. */
+  .pay{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:3px;
+    border:1px solid var(--coral);border-radius:999px;padding:13px 22px;
+    color:var(--cream);text-decoration:none;text-align:center}
+  .pay:active{transform:translateY(1px)}
+  .paytop{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--coral)}
+  .paymain{font-size:16px;font-weight:700}
+
   .how{margin-top:34px;border-top:1px solid rgba(248,245,238,.14);padding-top:22px}
   .how ol{list-style:none;counter-reset:s}
   .how li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:15px;font-size:15px;
@@ -122,7 +132,7 @@
     <div><dt>Wann</dt><dd id="fWann">Samstag, 22. August<small>19:00 Uhr</small></dd></div>
     <div><dt>Wo</dt><dd>Café Barcelona<small>Tisch ist reserviert auf „The Tribe"</small></dd></div>
     <div><dt>Wer</dt><dd>2 Frauen, 2 Männer<small>25 bis 35 Jahre</small></dd></div>
-    <div><dt>Kosten</dt><dd>Keine<small>Jede:r zahlt nur das eigene Getränk</small></dd></div>
+    <div><dt>Beitrag</dt><dd>9,98 €<small>Sichert deinen Platz · Getränke zahlt jede:r selbst</small></dd></div>
   </dl>
 
   <h2>Nimm dir einen Platz</h2>
@@ -135,12 +145,19 @@
     <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
     <span id="ctaText">Platz anfragen</span>
   </a>
-  <p class="fine"><i>✓</i> kostenlos &nbsp; <i>✓</i> Absage jederzeit &nbsp; <i>✓</i> kein Profil nötig</p>
+  <p class="fine"><i>✓</i> 9,98 € Beitrag &nbsp; <i>✓</i> nur 4 Plätze &nbsp; <i>✓</i> kein Profil nötig</p>
+
+  <a class="pay" id="payBtn" href="https://py.pl/SLgYRxIrVCEWl8jphj7ReA" target="_blank" rel="noopener">
+    <span class="paytop">Schritt 2 · Platz verbindlich sichern</span>
+    <span class="paymain">9,98 € über PayPal zahlen</span>
+  </a>
+  <p class="fine">Erst mit der Zahlung ist dein Platz reserviert.</p>
 
   <div class="how">
     <h2 style="margin-top:0">So läuft es</h2>
     <ol>
       <li>Du tippst auf einen freien Platz — WhatsApp öffnet sich mit fertiger Nachricht an <b>Maik</b>.</li>
+      <li>Du zahlst <b>9,98 €</b> über den PayPal-Link. Erst damit ist der Platz verbindlich reserviert.</li>
       <li>Maik bestätigt dir den Platz und schickt dir am Freitag eine kurze Erinnerung.</li>
       <li>Samstag 19 Uhr: Du gehst ins <b>Café Barcelona</b> und fragst nach dem Tisch für <b>„The Tribe"</b>.</li>
       <li>Zwei Stunden reden. Danach entscheidet ihr selbst, ob ihr weiterzieht.</li>
@@ -178,7 +195,8 @@
 
   function link(platz) {
     var t = 'Hi Maik, ich nehme ' + (platz ? platz.wer : 'einen freien Platz')
-          + ' bei Vier am Tisch am ' + TERMIN + ' im Café Barcelona.';
+          + ' bei Vier am Tisch am ' + TERMIN + ' im Café Barcelona.'
+          + ' Die 9,98 € überweise ich gleich per PayPal.';
     return WA + encodeURIComponent(t);
   }
 
@@ -210,6 +228,16 @@
     ? 'Platz anfragen' : 'Auf die Warteliste';
 
   // Jeder Platz meldet einzeln, damit sichtbar wird, welche zuerst weggehen.
+  var pay = document.getElementById('payBtn');
+  if (pay) pay.addEventListener('click', function () {
+    try {
+      posthog.capture('dating_pay_click', {
+        seats_free: frei, betrag: 9.98,
+        landing_variant: 'v9-dating-mvp', format: 'vier-am-tisch'
+      });
+    } catch (e) {}
+  });
+
   document.querySelectorAll('[data-seat]').forEach(function (el) {
     el.addEventListener('click', function () {
       try {
