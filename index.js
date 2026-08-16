@@ -1756,7 +1756,11 @@ async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
 
 // Zielgruppe des Flyers. Standard ist die Ankuendigungsgruppe; ueber
 // WHATSAPP_FLYER_CHAT_ID umstellbar, ohne Code-Aenderung.
-const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || ausgehenChatId;
+// Gleiches Ziel wie die Weekend-Starter-Umfragen. Bewusst chatId statt
+// ausgehenChatId: beide zeigen heute auf dieselbe Gruppe, aber nur chatId
+// bleibt mit den Umfragen zusammen, falls WHATSAPP_AUSGEHEN_CHAT_ID spaeter
+// auf eine andere Gruppe gesetzt wird.
+const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || chatId;
 
 async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), caption) {
     try {
