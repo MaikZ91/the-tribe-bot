@@ -124,6 +124,8 @@ const STAMMTISCH_VENUES = [
     'Mellow Gold'
 ];
 const VENUE_POLL_WEEKLY_COUNT = 3;
+// Erst ab so vielen wartenden Neuzugaengen geht eine Begruessung raus.
+const WELCOME_BATCH_SIZE = Number(process.env.WELCOME_BATCH_SIZE || 4);
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag - schreib's in den Chat";
 // Ab diesem Montag ersetzt der Weekend Starter (Fr 20 Uhr) den Social Warmup
 // (Sa 18 Uhr). Die laufende Woche wird davor noch im alten Format zu Ende
@@ -1754,7 +1756,7 @@ async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
 
 // Zielgruppe des Flyers. Standard ist die Ankuendigungsgruppe; ueber
 // WHATSAPP_FLYER_CHAT_ID umstellbar, ohne Code-Aenderung.
-const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || announcementChatId;
+const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || ausgehenChatId;
 
 async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), caption) {
     try {
@@ -4544,8 +4546,12 @@ async function handleConsoleCommand(input) {
 async function sendCommunityWelcomeBatch(batchIds) {
     const contacts = await Promise.all(batchIds.map(id => client.getContactById(id)));
     const names = contacts.map(getDisplayNameForContact);
-    const [name1, name2, name3] = names;
-    const introNames = `${name1}, ${name2} & ${name3}`;
+    // Nicht auf drei Namen festnageln: die Batch-Groesse steht in
+    // WELCOME_BATCH_SIZE, und eine feste Destrukturierung wuerde jeden
+    // weiteren Namen stillschweigend unterschlagen.
+    const introNames = names.length > 1
+        ? `${names.slice(0, -1).join(', ')} & ${names[names.length - 1]}`
+        : names[0];
 
     const greetings = [
         `Hey ${introNames}, willkommen bei THE TRIBE! 👋`,
@@ -4588,8 +4594,8 @@ async function sendCommunityWelcomeBatch(batchIds) {
 }
 
 async function processWelcomeQueue(queue) {
-    while (queue.length >= 3) {
-        const batchIds = queue.splice(0, 3);
+    while (queue.length >= WELCOME_BATCH_SIZE) {
+        const batchIds = queue.splice(0, WELCOME_BATCH_SIZE);
         try {
             await sendCommunityWelcomeBatch(batchIds);
         } catch (err) {
@@ -4627,7 +4633,7 @@ async function sendCommunityWelcome(notification) {
     writePendingNewMembers(queue);
 
     if (queue.length > 0) {
-        console.log(`${queue.length} neues Mitglied in der Warteschlange (warte auf insgesamt 3).`);
+        console.log(`${queue.length} neues Mitglied in der Warteschlange (warte auf insgesamt ${WELCOME_BATCH_SIZE}).`);
     }
 }
 
@@ -4701,7 +4707,7 @@ async function checkForNewMembers() {
     if (snapshotChanged) writeKnownMembers(knownMembers);
 
     if (queue.length > 0) {
-        console.log(`${queue.length} Mitglied(er) in Warteschlange (warte auf insgesamt 3).`);
+        console.log(`${queue.length} Mitglied(er) in Warteschlange (warte auf insgesamt ${WELCOME_BATCH_SIZE}).`);
     } else {
         console.log('Keine neuen Mitglieder zu begrüßen.');
     }
