@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#241d18">
+<meta name="description" content="Vier am Tisch — der Dating-Modus von THE TRIBE. Zwei Frauen, zwei Männer, ein Abend. Samstag 22. August, 19 Uhr, Café Barcelona in Bielefeld.">
+<title>Vier am Tisch — THE TRIBE</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23241d18'/><text x='16' y='22' font-family='Georgia' font-size='16' fill='%23fa9585' text-anchor='middle' font-style='italic'>t</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+  :root{
+    --ink:#241d18; --cream:#f8f5ee; --coral:#fa9585; --wa:#25D366;
+    --fd:"Fraunces",ui-serif,Georgia,serif;
+    --fs:"Inter",ui-sans-serif,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--cream);font-family:var(--fs);
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+    padding:calc(26px + env(safe-area-inset-top)) 20px calc(40px + env(safe-area-inset-bottom))}
+  .wrap{max-width:440px;margin:0 auto}
+
+  .brand{font-family:var(--fd);font-size:17px;letter-spacing:-.01em;margin-bottom:34px}
+  .brand b{font-weight:500}
+  .brand i{font-style:italic;color:var(--coral)}
+  .brand s{text-decoration:none;color:rgba(248,245,238,.55);font-size:10.5px;font-weight:700;
+    letter-spacing:.2em;text-transform:uppercase;margin-left:8px;font-family:var(--fs)}
+
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--coral);margin-bottom:14px}
+  h1{font-family:var(--fd);font-weight:400;font-size:clamp(40px,12vw,58px);line-height:1;
+    letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--coral)}
+  .lead{margin-top:16px;font-size:16.5px;color:rgba(248,245,238,.82)}
+
+  /* Die harten Fakten - das Erste, was jemand wissen will */
+  .facts{margin-top:26px;border:1px solid rgba(248,245,238,.16);border-radius:14px;overflow:hidden}
+  .facts div{display:flex;gap:14px;padding:13px 16px;font-size:15px;
+    border-bottom:1px solid rgba(248,245,238,.1)}
+  .facts div:last-child{border-bottom:0}
+  .facts dt{flex:0 0 78px;color:rgba(248,245,238,.55);font-size:13px;padding-top:1px}
+  .facts dd{font-weight:600}
+  .facts dd small{display:block;font-weight:400;font-size:13px;color:rgba(248,245,238,.6);margin-top:2px}
+
+  h2{font-family:var(--fd);font-weight:400;font-size:26px;margin:36px 0 4px}
+  .h2sub{font-size:14px;color:rgba(248,245,238,.6);margin-bottom:16px}
+
+  /* Vier Plaetze, zwei Reihen */
+  .seats{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  /* display:block auf Karte und Zeilen ist noetig: die Karte ist ein <a>, ohne das
+     laufen die drei Zeilen inline ineinander und werden unterstrichen. */
+  .seat{display:block;position:relative;border:1px solid rgba(248,245,238,.2);border-radius:14px;
+    padding:16px 14px 15px;background:rgba(248,245,238,.04);text-align:left;
+    font-family:var(--fs);color:inherit;text-decoration:none;cursor:pointer;appearance:none;
+    -webkit-tap-highlight-color:transparent;transition:border-color .18s,background .18s}
+  .seat:active{transform:translateY(1px)}
+  .seat span{display:block}
+  .seat .who{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:rgba(248,245,238,.55);padding-right:16px}
+  .seat .state{margin-top:9px;font-size:17px;font-weight:700}
+  .seat .hint{margin-top:3px;font-size:12.5px;color:rgba(248,245,238,.55)}
+  .seat.free{border-color:rgba(37,211,102,.55);background:rgba(37,211,102,.09)}
+  .seat.free .state{color:var(--wa)}
+  .seat.taken{opacity:.5;cursor:default}
+  .seat.taken .state{color:rgba(248,245,238,.75)}
+  .seat .dot{position:absolute;top:14px;right:14px;width:9px;height:9px;border-radius:50%}
+  .seat.free .dot{background:var(--wa);box-shadow:0 0 0 4px rgba(37,211,102,.18)}
+  .seat.taken .dot{background:rgba(248,245,238,.3)}
+
+  .count{margin-top:14px;font-size:14px;color:rgba(248,245,238,.7);text-align:center}
+  .count b{color:#fff}
+
+  .cta{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--wa);color:#0d2b18;border-radius:999px;padding:17px 24px;
+    font-weight:700;font-size:16.5px;text-decoration:none;
+    box-shadow:0 16px 34px -14px rgba(37,211,102,.75)}
+  .cta:active{transform:translateY(1px)}
+  .cta.off{background:rgba(248,245,238,.14);color:rgba(248,245,238,.55);box-shadow:none;
+    pointer-events:none}
+  .fine{margin-top:12px;font-size:12.5px;color:rgba(248,245,238,.55);text-align:center}
+  .fine i{font-style:normal;color:var(--coral)}
+
+  .how{margin-top:34px;border-top:1px solid rgba(248,245,238,.14);padding-top:22px}
+  .how ol{list-style:none;counter-reset:s}
+  .how li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:15px;font-size:15px;
+    color:rgba(248,245,238,.85)}
+  .how li::before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;
+    border-radius:50%;border:1px solid var(--coral);color:var(--coral);
+    font-size:13px;font-weight:700;display:grid;place-items:center}
+  .how li b{color:#fff}
+
+  .note{margin-top:26px;font-size:13.5px;line-height:1.6;color:rgba(248,245,238,.62);
+    background:rgba(248,245,238,.05);border-radius:12px;padding:15px 16px}
+
+  footer{margin-top:34px;font-size:12.5px;color:rgba(248,245,238,.4);text-align:center}
+  footer a{color:rgba(248,245,238,.6)}
+</style>
+</head>
+<body>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister identify reset get_distinct_id opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  try{posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{
+    api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,
+    capture_pageleave:true,autocapture:true,rageclick:true});
+  posthog.register({landing_variant:'v9-dating-mvp'});}catch(e){}
+</script>
+
+<div class="wrap">
+
+  <div class="brand"><b>the</b><i>tribe</i>.<s>Dating</s></div>
+
+  <p class="kicker">Neues Format · Testlauf</p>
+  <h1>Vier am Tisch.<br><em>Zwei Stunden.</em></h1>
+  <p class="lead">Zwei Frauen, zwei Männer, ein reservierter Tisch. Keine Profile,
+    kein Wischen — ihr sitzt euch einfach gegenüber.</p>
+
+  <dl class="facts">
+    <div><dt>Wann</dt><dd id="fWann">Samstag, 22. August<small>19:00 Uhr</small></dd></div>
+    <div><dt>Wo</dt><dd>Café Barcelona<small>Tisch ist reserviert auf „The Tribe"</small></dd></div>
+    <div><dt>Wer</dt><dd>2 Frauen, 2 Männer<small>25 bis 35 Jahre</small></dd></div>
+    <div><dt>Kosten</dt><dd>Keine<small>Jede:r zahlt nur das eigene Getränk</small></dd></div>
+  </dl>
+
+  <h2>Nimm dir einen Platz</h2>
+  <p class="h2sub">Tippe auf einen freien Platz — der Rest läuft über WhatsApp.</p>
+
+  <div class="seats" id="seats"></div>
+  <p class="count" id="count"></p>
+
+  <a class="cta" id="mainCta" data-seat="unten" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
+    <span id="ctaText">Platz anfragen</span>
+  </a>
+  <p class="fine"><i>✓</i> kostenlos &nbsp; <i>✓</i> Absage jederzeit &nbsp; <i>✓</i> kein Profil nötig</p>
+
+  <div class="how">
+    <h2 style="margin-top:0">So läuft es</h2>
+    <ol>
+      <li>Du tippst auf einen freien Platz — WhatsApp öffnet sich mit fertiger Nachricht an <b>Maik</b>.</li>
+      <li>Maik bestätigt dir den Platz und schickt dir am Freitag eine kurze Erinnerung.</li>
+      <li>Samstag 19 Uhr: Du gehst ins <b>Café Barcelona</b> und fragst nach dem Tisch für <b>„The Tribe"</b>.</li>
+      <li>Zwei Stunden reden. Danach entscheidet ihr selbst, ob ihr weiterzieht.</li>
+    </ol>
+  </div>
+
+  <p class="note"><b>Warum nur vier Leute?</b> Weil an einem Tisch zu viert noch jede:r zu Wort
+    kommt. Das ist ein Testlauf — wenn es funktioniert, machen wir daraus ein festes Format.
+    Feedback danach ist ausdrücklich erwünscht.</p>
+
+  <footer>
+    THE TRIBE · <a href="../muenster/">Münster</a> · <a href="../v2">Bielefeld</a><br>
+    <a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+     Belegung. MVP ohne Server: Wer einen Platz nimmt, meldet sich per
+     WhatsApp, und hier wird "frei" auf false gesetzt. Eine Zeile pro Platz,
+     mehr braucht es fuer den Testlauf nicht.
+  ------------------------------------------------------------------ */
+  var TERMIN = 'Samstag, 22. August, 19 Uhr';
+  var PLAETZE = [
+    { id: 'frau-1', label: 'Frau 1', wer: 'Platz 1 (Frau)', frei: true },
+    { id: 'frau-2', label: 'Frau 2', wer: 'Platz 2 (Frau)', frei: true },
+    { id: 'mann-1', label: 'Mann 1', wer: 'Platz 1 (Mann)', frei: true },
+    { id: 'mann-2', label: 'Mann 2', wer: 'Platz 2 (Mann)', frei: true }
+  ];
+
+  var WA = 'https://wa.me/4917645961547?text=';
+
+  function link(platz) {
+    var t = 'Hi Maik, ich nehme ' + (platz ? platz.wer : 'einen freien Platz')
+          + ' bei Vier am Tisch am ' + TERMIN + ' im Café Barcelona.';
+    return WA + encodeURIComponent(t);
+  }
+
+  var box = document.getElementById('seats');
+  PLAETZE.forEach(function (p) {
+    var b = document.createElement(p.frei ? 'a' : 'div');
+    b.className = 'seat ' + (p.frei ? 'free' : 'taken');
+    if (p.frei) {
+      b.href = link(p);
+      b.target = '_blank';
+      b.rel = 'noopener';
+      b.setAttribute('data-seat', p.id);
+    }
+    b.innerHTML = '<span class="dot"></span>'
+      + '<span class="who">' + p.label + '</span>'
+      + '<span class="state">' + (p.frei ? 'Frei' : 'Vergeben') + '</span>'
+      + '<span class="hint">' + (p.frei ? 'Tippen zum Anfragen' : 'Schon besetzt') + '</span>';
+    box.appendChild(b);
+  });
+
+  var frei = PLAETZE.filter(function (p) { return p.frei; }).length;
+  document.getElementById('count').innerHTML = frei
+    ? 'Noch <b>' + frei + ' von 4</b> Plätzen frei.'
+    : 'Alle Plätze vergeben — schreib Maik, er setzt dich auf die Warteliste.';
+
+  var cta = document.getElementById('mainCta');
+  cta.href = link(null);
+  document.getElementById('ctaText').textContent = frei
+    ? 'Platz anfragen' : 'Auf die Warteliste';
+
+  // Jeder Platz meldet einzeln, damit sichtbar wird, welche zuerst weggehen.
+  document.querySelectorAll('[data-seat]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      try {
+        posthog.capture('dating_seat_click', {
+          seat: el.getAttribute('data-seat'),
+          seats_free: frei,
+          landing_variant: 'v9-dating-mvp',
+          format: 'vier-am-tisch'
+        });
+      } catch (e) {}
+    });
+  });
+})();
+</script>
+</body>
+</html>
