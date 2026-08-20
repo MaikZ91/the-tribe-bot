@@ -126,6 +126,29 @@
     html.in-app .hint{bottom:calc(62px + env(safe-area-inset-bottom))}
   }
 
+  /* Das stehende Panel traegt jetzt alles: Ueberschrift, Text, Chat, Gesichter,
+     Knopf und Bedingungen. Auf kurzen Displays passt das nicht mehr und der
+     Inhalt lief oben unter den Beitreten-Knopf. Hier wird verdichtet statt
+     abgeschnitten - der Einleitungssatz faellt weg, seine Aussage steht
+     ohnehin im Kleingedruckten. */
+  @media(max-height:780px){
+    .panel h2{font-size:clamp(30px,8.4vw,42px)}
+    .panel .sub{display:none}
+    .chat{margin-top:14px;gap:8px}
+    .bub{padding:7px 11px;font-size:13px;line-height:1.35}
+    .msg img{width:27px;height:27px}
+    .faces{margin-top:13px}
+    .faces img{width:29px;height:29px}
+    .faces span{font-size:13px}
+    .cta{margin-top:16px;padding:14px 22px;font-size:15.5px}
+    .fine{margin-top:9px;font-size:11.5px}
+    .eyebrow{margin-bottom:11px}
+  }
+  @media(max-height:660px){
+    .panel h2{font-size:clamp(27px,7.6vw,36px)}
+    .chat .msg:nth-child(2){display:none}
+  }
+
   @media(prefers-reduced-motion:reduce){
     .panel.live video.bg{animation:none}
     .panel.live .msg{animation:none;opacity:1;transform:none}
@@ -174,11 +197,10 @@
 
 <main id="deck">
 
-  <!-- 1 — die Situation -->
-    <!-- 2,5 s: Der grosse Knopf auf Panel 1 hat bei 158 Besuchern null Klicks
-       bekommen, laengeres Verweilen bringt hier also nichts. Panel 3 dagegen
-       konvertiert bei 10,9 % - kuerzer heisst schneller dorthin. -->
-  <section class="panel" data-dur="2500" aria-label="Panel 1 von 3">
+  <!-- 1 — der Aufhaenger. Bewusst schlank: Gesichter, grosser Knopf und
+       Kleingedrucktes standen hier und haben bei 364 Besuchern null Klicks
+       gebracht. Wer sofort handeln will, hat den Knopf oben rechts. -->
+  <section class="panel" data-dur="2500" aria-label="Panel 1 von 2">
     <video class="bg" muted loop playsinline preload="auto" poster="../assets/story/ws-collage.webp" aria-hidden="true">
       <source src="../assets/story/ws-collage.mp4" type="video/mp4"></video>
     <div class="veil"></div>
@@ -186,26 +208,21 @@
     <h1>Alle sind<br>unterwegs.<br><em>Nur du nicht?</em></h1>
     <p class="sub">Neu in der Stadt, Freunde weggezogen, oder einfach keine Lust,
       schon wieder allein loszuziehen.</p>
-    <!-- Panel 1 sehen 100 %, Panel 3 nur 31 % - dort passierten aber zwei Drittel
-         der Klicks. Deshalb bekommt Panel 1 dieselben Beweise und denselben
-         grossen Knopf: Gesichter, Mitgliederzahl, Bedingungen. -->
-    <div class="faces">
-      <img src="../assets/maik.webp" alt=""><img src="../assets/lena.webp" alt=""><img src="../assets/patrick.webp" alt=""><img src="../assets/anna.webp" alt="">
-      <span>Schon <b>238</b> ziehen zusammen los.</span>
-    </div>
-    <a class="cta" data-join="panel-1" href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> In WhatsApp beitreten</a>
-    <p class="fine"><i>✓</i> kostenlos &nbsp; <i>✓</i> jederzeit wieder raus &nbsp; <i>✓</i> kein Zwang</p>
   </section>
 
-  <!-- 2 — was es ist, und die Hemmung -->
-  <!-- 5,5 s, damit der Zusammenschnitt (5,47 s) ganz durchlaeuft, bevor umgeblendet wird -->
-  <section class="panel" data-dur="5500" aria-label="Panel 2 von 3">
-    <!-- Drei Szenen hintereinander, schnelle Schnitte, laeuft bewusst nur einmal durch -->
-    <video class="bg" muted playsinline preload="none" poster="../assets/story/ws-mix.webp" aria-hidden="true">
-      <source src="../assets/story/ws-mix.mp4" type="video/mp4"></video>
+
+  <!-- 2 — alles, was ueberzeugt, auf einer stehenden Flaeche.
+       Alle 20 CTA-Klicks kamen vom frueheren Panel 3, dem einzigen, das nicht
+       weiterblendet. Nur 39 % kamen dort an. Zusammengelegt erreichen es 66 %. -->
+  <section class="panel" data-dur="0" aria-label="Panel 2 von 2">
+    <!-- Beide Filme hintereinander: erst der Zusammenschnitt der sieben Szenen,
+         dann Polaroid, Jungs und Sesselrunde. Laeuft einmal durch und bleibt
+         auf dem letzten Polaroid stehen. -->
+    <video class="bg" muted playsinline preload="none" poster="../assets/story/ws-story.webp" aria-hidden="true">
+      <source src="../assets/story/ws-story.mp4" type="video/mp4"></video>
     <div class="veil"></div>
     <p class="eyebrow">Weekend&nbsp;Starter · <b>Freitag 20&nbsp;Uhr</b></p>
-    <h2>Wir ziehen<br><em>zusammen los.</em></h2>
+    <h2>Komm<br><em>Freitag mit.</em></h2>
     <p class="sub">Kein Verein, keine Anmeldung, kein Ticket. Du kommst einfach dazu.</p>
     <div class="chat">
       <div class="msg">
@@ -217,23 +234,11 @@
         <div class="bub"><span class="nm">Lena · dabei</span>Klar, komm einfach! War selbst neu — keiner kennt am Anfang jemanden 🙂</div>
       </div>
     </div>
-    <a class="cta sm" data-join="panel-2" href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> In WhatsApp beitreten</a>
-  </section>
-
-  <!-- 3 — beitreten -->
-  <section class="panel" data-dur="0" aria-label="Panel 3 von 3">
-    <!-- Polaroid der beiden, dann dieselben zwei als Video, zum Schluss die Sesselrunde.
-         Laeuft wie Panel 2 nur einmal durch und bleibt auf dem letzten Polaroid stehen. -->
-    <video class="bg" muted playsinline preload="none" poster="../assets/story/ws-jungs.webp" aria-hidden="true">
-      <source src="../assets/story/ws-jungs.mp4" type="video/mp4"></video>
-    <div class="veil"></div>
-    <p class="eyebrow">Deine Leute warten schon</p>
-    <h2>Komm<br><em>Freitag mit.</em></h2>
     <div class="faces">
       <img src="../assets/maik.webp" alt=""><img src="../assets/lena.webp" alt=""><img src="../assets/patrick.webp" alt=""><img src="../assets/anna.webp" alt="">
-      <span>Schon <b>238</b> ziehen zusammen los.</span>
+      <span>Schon <b>250</b> ziehen zusammen los.</span>
     </div>
-    <a class="cta" id="join" data-join="panel-3"
+    <a class="cta" id="join" data-join="panel-2"
        href="https://chat.whatsapp.com/GKn2ZMFLdBeCCvuem2povl?s=cl&amp;p=i&amp;ilr=4&amp;amv=2"
        target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" width="21" height="21" fill="currentColor" aria-hidden="true"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
