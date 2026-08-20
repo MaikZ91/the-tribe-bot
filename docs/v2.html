@@ -57,7 +57,7 @@
   .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
     background:var(--coral);color:var(--ink);border:0;cursor:pointer;
     box-shadow:var(--shadow-pop);border-radius:9999px;padding:.95rem 1.6rem;font-weight:600;font-size:1rem;
-    transition:transform .2s,box-shadow .2s,background .2s}
+    transition:transform .2s,box-shadow .2s,background .2s;max-width:100%}
   .btn-primary:hover{background:color-mix(in oklab,var(--coral) 90%,white);transform:translateY(-1px)}
   .btn-primary.sm{padding:.7rem 1.2rem;font-size:.875rem;gap:.5rem}
   .btn-primary svg{flex:none}
@@ -164,6 +164,13 @@
   @media(min-width:768px){.warmcard{padding:4rem}}
   .warmgrid{display:grid;gap:2.5rem}
   @media(min-width:768px){.warmgrid{grid-template-columns:1.3fr 1fr;align-items:end}}
+  /* Ohne max-width und Umbruch sprengt "Bielefeld - Community beitreten"
+     auf schmalen Displays seinen Container um 37 px. */
+  .btn-primary{white-space:normal;text-align:center;line-height:1.25}
+  @media(max-width:400px){.btn-primary{padding-left:1rem;padding-right:1rem;font-size:.95rem}}
+  /* Diese drei Abschnitte hatten bisher keinen Knopf: wer dort ueberzeugt wird,
+     musste erst weiterscrollen. Zusammen sind das 4,1 Bildschirme Inhalt. */
+  .secta{margin-top:2rem;display:flex;justify-content:center}
   .warmtag{margin-bottom:1rem;display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;
     background:rgba(255,255,255,.6);padding:.25rem .75rem;font-size:.75rem;font-weight:600;
     text-transform:uppercase;letter-spacing:.1em;color:var(--ink);backdrop-filter:blur(8px)}
@@ -171,7 +178,13 @@
   .warmcard h2{font-family:var(--fd);font-weight:400;font-size:clamp(3rem,7vw,6rem);line-height:1}
   .warmcard .txt{margin-top:1.5rem;max-width:32rem;font-size:1.125rem;color:color-mix(in oklab,var(--ink) 80%,transparent)}
   .warmfacts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;list-style:none}
-  .warmfacts li{border-radius:1rem;background:rgba(255,255,255,.7);padding:1.25rem;backdrop-filter:blur(8px)}
+  /* min-width:0 ist noetig: Grid-Elemente haben sonst Mindestbreite gleich
+     Inhaltsbreite - "Bielefeld & Muenster" sprengt damit die halbe Spalte und
+     schiebt das ganze Raster ueber den rechten Kartenrand hinaus. */
+  .warmfacts li{min-width:0;border-radius:1rem;background:rgba(255,255,255,.7);padding:1.25rem;backdrop-filter:blur(8px)}
+  .warmfacts .v{overflow-wrap:anywhere}
+  @media(max-width:520px){.warmfacts{gap:.75rem}.warmfacts li{padding:.9rem}
+    .warmfacts .v{font-size:1.15rem}}
   .warmfacts .k{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:color-mix(in oklab,var(--ink) 60%,transparent)}
   .warmfacts .v{margin-top:.25rem;font-family:var(--fd);font-size:1.5rem}
   .warmfoot{margin-top:2.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
@@ -219,6 +232,17 @@
   .numcard dl{display:grid;grid-template-columns:1fr 1fr;row-gap:2.5rem}
   .numcard dt{font-family:var(--fd);font-size:3.75rem;line-height:1;color:var(--coral)}
   .numcard dd{margin-top:.5rem;font-size:.875rem;color:color-mix(in oklab,var(--cream) 70%,transparent)}
+
+  /* Fakten direkt im Hero: dieselbe Information wie der Warm-up-Block weiter
+     unten, der 26 % der Abschluesse macht - nur sehen ihn dort nur 14 %,
+     weil 86 % der Besucher gar nicht scrollen. Bewusst knapp gehalten, damit
+     der Knopf im ersten Bildschirm bleibt. */
+  .quickfacts{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:.85rem 0 0;padding:0}
+  .quickfacts li{border:1px solid color-mix(in oklab,var(--cream) 26%,transparent);
+    border-radius:999px;padding:.32rem .7rem;
+    background:color-mix(in oklab,var(--ink) 45%,transparent)}
+  .quickfacts b{font-size:.82rem;font-weight:700;white-space:nowrap}
+  @media(max-width:380px){.quickfacts b{font-size:.76rem}.quickfacts li{padding:.3rem .55rem}}
 
   /* ============ Stimmen ============ */
   .voices{background:var(--ink);color:var(--cream)}
@@ -388,10 +412,10 @@
         </div>
       </div>
       <h1>Die Community,<br>die Fremde in<br>Freunde <span class="it">verwandelt</span><span class="inf">∞</span></h1>
-      <p class="lead">Keine App, kein Wischen. Tritt unserer WhatsApp-Community bei — und sei dabei beim<span class="hl"> Social Warm-up jeden Samstag</span> in <span data-cityname>Bielefeld</span>.</p>
+      <p class="lead">Keine App, kein Wischen. Tritt unserer WhatsApp-Community bei — und sei dabei beim<span class="hl"> Social Warm-up jeden Samstag</span> in <span data-cityname>Bielefeld</span>.</p><ul class="quickfacts"><li><b>Samstags 18:00</b></li><li><b><span data-cityname>Bielefeld</span></b></li><li><b>Kostenlos</b></li></ul>
       <div class="faces">
         <img src="assets/maik.webp" alt="Maik"><img src="assets/patrick.webp" alt="Patrick"><img src="assets/lena.webp" alt="Lena"><img src="assets/anna.webp" alt="Anna">
-        <span class="fw">Schon <b><span class="n" id="bigCount">167</span></b> ziehen zusammen los — <b>komm mit</b>.</span>
+        <span class="fw">Schon <b><span class="n" id="bigCount">250</span></b> ziehen zusammen los — <b>komm mit</b>.</span>
       </div>
     </div>
     <div class="ctas">
@@ -429,7 +453,6 @@
         <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg>
         Community beitreten
       </a>
-      <p class="note">Kostenlos · <span data-cityname>Bielefeld</span> &amp; NRW · Sa Social Warm-up</p>
     </div>
   </div>
 </section>
@@ -507,7 +530,7 @@
       </li>
     </ol>
   </div>
-</section>
+<div class="secta"><a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="how"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Community beitreten</a></div></section>
 
 <!-- ============ Formate ============ -->
 <section id="experiences" class="formats sec">
@@ -577,7 +600,7 @@
     <div class="numcard">
       <dl>
         <div>
-          <dt id="numMembers">167</dt>
+          <dt id="numMembers">250</dt>
           <dd>Mitglieder in der Community</dd>
         </div>
         <div>
@@ -617,7 +640,7 @@
       </figure>
     </div>
   </div>
-</section>
+<div class="secta"><a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="voices"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Auch dabei sein</a></div></section>
 
 <!-- ============ Städte ============ -->
 <section id="cities" class="container sec">
@@ -687,7 +710,7 @@
       </details>
     </div>
   </div>
-</section>
+<div class="secta"><a href="https://chat.whatsapp.com/HY43NEnJv7A0QlUpQnPJhU?mode=gi_t" target="_blank" rel="noopener" class="btn-primary" data-cta="faq"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M17.6 6.31a7.94 7.94 0 0 0-5.6-2.31C7.58 4 4 7.58 4 12c0 1.42.37 2.81 1.07 4.03L4 20l4.07-1.05A7.94 7.94 0 0 0 12 19.94c4.42 0 8-3.58 8-8 0-2.13-.84-4.16-2.4-5.63ZM12 18.5c-1.27 0-2.51-.34-3.6-.99l-.26-.15-2.42.63.65-2.36-.17-.27A6.5 6.5 0 1 1 12 18.5Z"/></svg> Fragen geklärt? Dann komm rein</a></div></section>
 
 <!-- ============ Join ============ -->
 <section id="join" class="container sec">
