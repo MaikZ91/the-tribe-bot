@@ -258,6 +258,13 @@ img,svg{max-width:100%}
   margin-top:1.75rem;padding:1rem 1.15rem;border-left:3px solid var(--line);
   font-size:var(--step--1);color:var(--muted);line-height:1.55;background:#fff;border-radius:0 8px 8px 0;
 }
+.mailnote{
+  margin-top:1.5rem;padding:.95rem 1.15rem;border-radius:10px;
+  background:var(--accent-wash);border:1px solid #C6CFFB;
+  font-size:var(--step--1);color:var(--accent-ink);line-height:1.55;
+}
+.mailnote span{color:var(--muted)}
+.mailnote a{color:var(--accent-ink);font-weight:600}
 .res-cta{margin-top:2.25rem;padding-top:2rem;border-top:1px solid var(--line)}
 .res-cta h3{font-size:var(--step-2);max-width:22ch}
 
@@ -583,7 +590,7 @@ img,svg{max-width:100%}
         <!-- Schritt 6 · Lead -->
         <div class="step" data-step="6">
           <h3>Wohin dürfen wir das Ergebnis schicken?</h3>
-          <p class="hint">Du siehst die Auswertung direkt danach auf dieser Seite. Die E-Mail brauchen wir, damit du sie nicht verlierst.</p>
+          <p class="hint">Du siehst die Auswertung sofort auf dieser Seite. Gleichzeitig öffnet sich deine Anfrage in deinem Mailprogramm – einmal abschicken, dann melden wir uns.</p>
 
           <div class="field" id="f-name">
             <label for="i-name">Name</label>
@@ -626,6 +633,11 @@ img,svg{max-width:100%}
               <div class="u">Stunden pro Woche geschätztes Einsparpotenzial</div>
             </div>
           </div>
+
+          <p class="mailnote">
+            Deine Anfrage öffnet sich gerade in deinem Mailprogramm – bitte einmal abschicken, dann meldet sich Maik bei dir.
+            <br><span>Es passiert nichts? <a id="mail-fallback" href="mailto:Maik.z@gmx.de">Hier die Mail öffnen</a> oder schreib direkt an <a href="mailto:Maik.z@gmx.de">Maik.z@gmx.de</a>.</span>
+          </p>
 
           <div class="recs" id="recs"></div>
 
@@ -781,13 +793,19 @@ img,svg{max-width:100%}
 /* ============================================================
    KONFIGURATION — hier eintragen, bevor Werbebudget laeuft
    ------------------------------------------------------------
-   LEAD_ENDPOINT: URL, die den Lead per POST entgegennimmt
-   (Make-/Zapier-Webhook, Formspree, eigene API). Solange der
-   Wert leer ist, wird KEIN Lead uebertragen — die Angaben aus
-   dem Formular landen nur in der Browser-Konsole und sind
-   danach verloren.
+   Der Lead geht ueber das Mailprogramm des Besuchers raus:
+   "Analyse starten" zeigt das Ergebnis und oeffnet gleichzeitig
+   einen fertigen Mailentwurf an KONTAKT_MAIL. Abschicken muss
+   der Besucher selbst — kommt keine Mail an, hat er es nicht
+   getan oder sein Browser kennt kein mailto (kommt im
+   Instagram-In-App-Browser vor). Fuer diesen Fall steht auf der
+   Ergebnisseite ein sichtbarer Ersatzlink.
+
+   LEAD_ENDPOINT ist optional: sobald dort ein Webhook steht
+   (Make, Zapier, Formspree), geht der Lead ZUSAETZLICH per POST
+   dorthin und haengt nicht mehr allein am Mailprogramm.
    ============================================================ */
-var LEAD_ENDPOINT = '';                          // <— eintragen
+var LEAD_ENDPOINT = '';                          // optional
 var KONTAKT_MAIL  = 'Maik.z@gmx.de';
 
 /* ============================================================
@@ -1142,6 +1160,29 @@ function evaluate(){
    ABSENDEN
    ============================================================ */
 var mailRe = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+var letzteMail = '';
+
+/* Interne Schluessel in lesbare Beschriftungen uebersetzen — die
+   stehen schon in den Buttons, also von dort holen statt eine
+   zweite Liste zu pflegen, die auseinanderlaufen kann. */
+function labels(gruppe, werte){
+  if(!werte || !werte.length) return '–';
+  return werte.map(function(v){
+    var b = document.querySelector('[data-multi="'+gruppe+'"] .opt[data-v="'+v+'"]');
+    return b ? b.textContent.trim() : v;
+  }).join(', ');
+}
+function titel(keys){
+  return keys.map(function(k){ return LIB[k] ? LIB[k].t : k; }).join(' · ');
+}
+
+/* Baut den mailto-Link. Zeilenumbrueche muessen als %0A kodiert
+   sein; encodeURIComponent erledigt das, encodeURI nicht. */
+function mailtoLink(betreff, zeilen){
+  return 'mailto:' + KONTAKT_MAIL +
+         '?subject=' + encodeURIComponent(betreff) +
+         '&body='    + encodeURIComponent(zeilen.join('\n'));
+}
 
 document.getElementById('submit').addEventListener('click', function(){
   var name = document.getElementById('i-name');
@@ -1177,42 +1218,77 @@ document.getElementById('submit').addEventListener('click', function(){
   track('check_completed', {aufgaben: answers.aufgaben.length, stunden: answers.stunden});
   track('lead_submitted', {branche: answers.branche, groesse: answers.groesse});
 
-  /* Lead uebertragen. Ohne LEAD_ENDPOINT geht nichts raus — die
-     Eingaben sind dann nach dem Schliessen des Tabs verloren. */
+  /* Optionaler zweiter Weg: wenn irgendwann ein Webhook existiert,
+     geht der Lead zusaetzlich dorthin. Ohne LEAD_ENDPOINT ist die
+     Mail der einzige Kanal. */
   if(LEAD_ENDPOINT){
     fetch(LEAD_ENDPOINT, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify(Object.assign({}, lead, {ergebnis: result}))
-    }).catch(function(e){ console.error('[lead] Uebertragung fehlgeschlagen', e); });
-  } else {
-    console.warn('[lead] Kein LEAD_ENDPOINT gesetzt — dieser Lead wird NICHT uebertragen.', lead, result);
+    }).catch(function(e){ console.error('[lead] Webhook fehlgeschlagen', e); });
   }
+
+  /* Der eigentliche Versand laeuft ueber das Mailprogramm des
+     Besuchers. Erst das Ergebnis zeigen, dann den Entwurf oeffnen —
+     sonst wechselt das Geraet in die Mail-App, bevor der Besucher
+     ueberhaupt gesehen hat, wofuer er seine Daten gegeben hat. */
+  letzteMail = mailtoLink('KI-Check Anfrage — ' + lead.name, [
+    'Hallo,',
+    '',
+    'ich habe den KI-Check gemacht. Hier meine Angaben:',
+    '',
+    'Name:     ' + lead.name,
+    'E-Mail:   ' + lead.email,
+    'Telefon:  ' + (lead.telefon || '–'),
+    '',
+    'Branche:  ' + (lead.branche || '–'),
+    'Groesse:  ' + (lead.groesse || '–'),
+    'Zeitfresser: ' + labels('aufgaben', lead.aufgaben),
+    'Tools:    ' + labels('tools', lead.tools),
+    'Stunden/Woche: ' + (lead.stunden || '–'),
+    '',
+    'Ausgewiesenes Einsparpotenzial: ' + result.lo + '-' + result.hi + ' Std./Woche',
+    'Empfehlungen: ' + titel(result.picks),
+    '',
+    'Viele Gruesse',
+    lead.name,
+    ''
+  ]);
 
   show(7);
   scrollCheck();
+
+  var fallback = document.getElementById('mail-fallback');
+  if(fallback) fallback.href = letzteMail;
+
+  /* Kurz warten, damit die Ergebnisseite gerendert ist, bevor das
+     Geraet in die Mail-App springt. */
+  setTimeout(function(){ window.location.href = letzteMail; }, 900);
 });
 
 document.getElementById('beratung').addEventListener('click', function(){
   track('consultation_requested', {branche: answers.branche});
-  var zeilen = [
+  var n = document.getElementById('i-name').value.trim();
+  window.location.href = mailtoLink('Erstberatung Automatisierung' + (n ? ' — ' + n : ''), [
     'Hallo,',
     '',
     'ich habe den KI-Check gemacht und würde gern über die Umsetzung sprechen.',
     '',
+    'Name:    ' + (n || '–'),
+    'E-Mail:  ' + (document.getElementById('i-mail').value.trim() || '–'),
+    'Telefon: ' + (document.getElementById('i-tel').value.trim() || '–'),
+    '',
     'Meine Angaben aus dem Check:',
     '- Branche: ' + (answers.branche || '–'),
     '- Unternehmensgröße: ' + (answers.groesse || '–'),
-    '- Zeitfresser: ' + (answers.aufgaben.length ? answers.aufgaben.join(', ') : '–'),
-    '- Tools: ' + (answers.tools.length ? answers.tools.join(', ') : '–'),
+    '- Zeitfresser: ' + labels('aufgaben', answers.aufgaben),
+    '- Tools: ' + labels('tools', answers.tools),
     '- Stunden/Woche für wiederkehrende Aufgaben: ' + (answers.stunden || '–'),
     '',
     'Viele Grüße',
     ''
-  ].join('\n');
-  window.location.href = 'mailto:' + KONTAKT_MAIL +
-    '?subject=' + encodeURIComponent('Erstberatung Automatisierung') +
-    '&body=' + encodeURIComponent(zeilen);
+  ]);
 });
 
 /* Fehlerzustand beim Tippen zurücksetzen */
