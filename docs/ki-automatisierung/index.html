@@ -765,7 +765,7 @@ img,svg{max-width:100%}
 <!-- Consent ----------------------------------------------------->
 <div class="cookie" id="cookie" role="dialog" aria-label="Datenschutz-Einstellungen">
   <p><strong>Kurz zum Datenschutz.</strong><br>
-  Wir würden gerne messen, wie diese Seite genutzt wird (Meta Pixel, Google Analytics). Das ist für den KI-Check nicht nötig – du entscheidest.</p>
+  Wir würden gerne messen, wie diese Seite genutzt wird – anonym über PostHog, gehostet in der EU. Für den KI-Check ist das nicht nötig, du entscheidest. Details in der <a href="../datenschutz.html">Datenschutzerklärung</a>.</p>
   <div class="cookie-btns">
     <button class="btn btn--ghost" id="c-no">Nur notwendige</button>
     <button class="btn" id="c-yes">Einverstanden</button>
@@ -791,36 +791,113 @@ var LEAD_ENDPOINT = '';                          // <— eintragen
 var KONTAKT_MAIL  = 'Maik.z@gmx.de';
 
 /* ============================================================
-   TRACKING
-   Events: page_view · check_started · check_step ·
-           check_completed · lead_submitted · consultation_requested
+   TRACKING — PostHog (EU), dieselbe Projekt-ID wie v2 und muenster
+   ------------------------------------------------------------
+   Eigene Events: check_started · check_step · check_completed ·
+   lead_submitted · consultation_requested. Den $pageview erzeugt
+   PostHog selbst.
+
+   PostHog wird ERST nach der Einwilligung geladen — vorher geht
+   keine einzige Anfrage an posthog.com. Wer ablehnt oder das
+   Banner wegklickt, wird nicht gemessen. Genau das sagt der
+   Banner-Text auch aus.
+
+   TRACK_OHNE_CONSENT = true laesst die Seite von der ersten
+   Sekunde an messen, so wie v2 und muenster es tun. Dann sind die
+   Zahlen mit den anderen Seiten vergleichbar — aber der
+   Banner-Text muss dann angepasst werden, weil er sonst etwas
+   Falsches behauptet.
+
+   Bewusst NICHT uebernommen aus v2.html: maskAllInputs:false.
+   Diese Seite hat ein Formular mit Name, E-Mail und Telefon; die
+   Session-Aufzeichnung darf diese Eingaben nicht mitschneiden.
    ============================================================ */
-var consent = null;               // null | true | false
+var VARIANT            = 'v10-ki-check';
+var PH_KEY             = 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
+var TRACK_OHNE_CONSENT = false;
+
+var consent = null;                 // null | true | false
+var wartend = [];                   // Events vor der Einwilligung
+var phBereit = false;
 window.dataLayer = window.dataLayer || [];
 
-function track(name, params){
-  var payload = Object.assign({event:name}, params || {});
-  window.dataLayer.push(payload);
-  if(consent === true){
-    if(typeof window.fbq === 'function') window.fbq('trackCustom', name, params || {});
-    if(typeof window.gtag === 'function') window.gtag('event', name, params || {});
-  }
-  if(window.console && console.debug) console.debug('[track]', name, params || {});
+function consentLesen(){
+  try{
+    var v = window.localStorage.getItem('ki-check-consent');
+    return v === 'ja' ? true : (v === 'nein' ? false : null);
+  }catch(e){ return null; }
+}
+function consentSchreiben(wert){
+  try{ window.localStorage.setItem('ki-check-consent', wert ? 'ja' : 'nein'); }catch(e){}
 }
 
-/* Consent-Banner. Speicherung bewusst nur in-memory —
-   in der Live-Version hier localStorage oder dein CMP einhängen. */
+function ladePostHog(){
+  if(phBereit) return;
+  phBereit = true;
+  try{
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init(PH_KEY, {
+      api_host:'https://eu.i.posthog.com',
+      person_profiles:'always',
+      capture_pageview:true,
+      capture_pageleave:true,
+      autocapture:true,
+      enable_heatmaps:true,
+      disable_session_recording:false,
+      /* Eingaben maskieren — im Formular stehen personenbezogene Daten */
+      session_recording:{maskAllInputs:true},
+      rageclick:true
+    });
+    posthog.register({landing_variant:VARIANT});
+    /* Vor der Einwilligung gesammelte Events nachreichen */
+    wartend.forEach(function(e){ try{ posthog.capture(e[0], e[1]); }catch(x){} });
+    wartend.length = 0;
+  }catch(e){
+    if(window.console && console.warn) console.warn('[track] PostHog nicht geladen', e);
+  }
+}
+
+function track(name, params){
+  var p = Object.assign({landing_variant:VARIANT}, params || {});
+  window.dataLayer.push(Object.assign({event:name}, p));
+  if(consent === true){
+    if(window.posthog && typeof posthog.capture === 'function'){
+      try{ posthog.capture(name, p); }catch(e){}
+    }
+    if(typeof window.fbq === 'function') window.fbq('trackCustom', name, p);
+    if(typeof window.gtag === 'function') window.gtag('event', name, p);
+  } else if(consent === null){
+    /* Noch keine Entscheidung — aufheben und ggf. nachreichen */
+    if(wartend.length < 40) wartend.push([name, p]);
+  }
+  if(window.console && console.debug) console.debug('[track]', name, p);
+}
+
+/* Consent-Banner. Die Entscheidung wird in localStorage gemerkt,
+   damit das Banner nicht bei jedem Besuch erneut aufpoppt. */
 var cookie = document.getElementById('cookie');
-setTimeout(function(){ if(consent === null) cookie.classList.add('on'); }, 1200);
+consent = consentLesen();
+
+if(TRACK_OHNE_CONSENT){
+  consent = true;
+  ladePostHog();
+} else if(consent === true){
+  ladePostHog();
+} else if(consent === null){
+  setTimeout(function(){ if(consent === null) cookie.classList.add('on'); }, 1200);
+}
+
 document.getElementById('c-yes').addEventListener('click', function(){
-  consent = true; cookie.classList.remove('on');
-  /* Hier Pixel/GA nachladen: loadPixel(); loadGA(); */
-  track('page_view', {page:'landing'});
+  consent = true; consentSchreiben(true); cookie.classList.remove('on');
+  ladePostHog();
 });
 document.getElementById('c-no').addEventListener('click', function(){
-  consent = false; cookie.classList.remove('on');
+  consent = false; consentSchreiben(false); cookie.classList.remove('on');
+  wartend.length = 0;
 });
-track('page_view', {page:'landing'});
+
+/* Kein eigenes page_view-Event: den $pageview erzeugt PostHog
+   selbst ueber capture_pageview, sobald es geladen ist. */
 
 /* ============================================================
    HERO-ANIMATION — eine orchestrierte Sequenz beim Laden
