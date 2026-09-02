@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI-Automatisierung für Bielefelder Unternehmen — kostenloser KI-Check</title>
+<meta name="description" content="Finde in 2 Minuten heraus, welche wiederkehrenden Aufgaben in deinem Unternehmen sich automatisieren lassen. Kostenlos, unverbindlich, aus Bielefeld.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --paper:#EFF0ED;
+  --paper-2:#F7F8F6;
+  --ink:#14171A;
+  --muted:#5C636B;
+  --line:#D6D9D3;
+  --accent:#1B3CE8;
+  --accent-ink:#0E2495;
+  --accent-wash:#E4E8FE;
+  --ok:#0E7A4E;
+
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+
+  --step--1:0.875rem;
+  --step-0:1rem;
+  --step-1:1.1875rem;
+  --step-2:1.5rem;
+  --step-3:clamp(1.75rem,1.3rem + 2.2vw,2.6rem);
+  --step-4:clamp(2.2rem,1.4rem + 4.4vw,4.1rem);
+
+  --gutter:clamp(1.25rem,5vw,2rem);
+  --maxw:1120px;
+  --r:14px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin:0}
+h1{font-size:var(--step-4)}
+h2{font-size:var(--step-3)}
+h3{font-size:var(--step-1);letter-spacing:-0.015em;line-height:1.25}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img,svg{max-width:100%}
+
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.sec{padding-block:clamp(3.5rem,8vw,6.5rem)}
+.lede{color:var(--muted);font-size:var(--step-1);max-width:56ch;line-height:1.55}
+.small{font-size:var(--step--1);color:var(--muted)}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  background:var(--accent);color:#fff;border:1px solid var(--accent);
+  padding:1rem 1.6rem;border-radius:10px;
+  font-family:var(--f-display);font-weight:600;font-size:var(--step-0);
+  letter-spacing:-0.01em;text-decoration:none;cursor:pointer;
+  transition:background .18s ease, transform .18s ease;
+}
+.btn:hover{background:var(--accent-ink)}
+.btn:active{transform:translateY(1px)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{background:#fff;border-color:var(--ink)}
+.btn--lg{padding:1.15rem 2rem;font-size:var(--step-1)}
+.btn--block{width:100%}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn[disabled]:hover{background:var(--accent)}
+
+.reassure{margin-top:.85rem;font-size:var(--step--1);color:var(--muted)}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-head{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color .2s ease;
+}
+.site-head.is-stuck{border-bottom-color:var(--line)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--f-display);font-weight:700;letter-spacing:-0.03em;font-size:1.05rem;text-decoration:none}
+.brand-mark{width:22px;height:22px;flex:none}
+.head-cta{display:none}
+@media(min-width:720px){.head-cta{display:inline-flex;padding:.65rem 1.15rem;border-radius:8px}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding-top:clamp(2.5rem,6vw,4.5rem);padding-bottom:clamp(3rem,7vw,5rem)}
+.badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--accent-wash);color:var(--accent-ink);
+  border-radius:100px;padding:.4rem .9rem;
+  font-size:var(--step--1);font-weight:600;
+}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.hero h1{margin-top:1.4rem;max-width:15ch}
+.hero .lede{margin-top:1.3rem}
+.hero-actions{margin-top:2.1rem}
+
+/* --- Workflow visual --- */
+.flow{
+  margin-top:clamp(2.75rem,7vw,4rem);
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:clamp(1.25rem,4vw,2.25rem);
+}
+.flow-head{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;align-items:baseline;margin-bottom:1.6rem}
+.flow-head strong{font-family:var(--f-display);font-size:var(--step-0);font-weight:600}
+.flow-grid{display:grid;gap:1rem;align-items:center}
+@media(min-width:860px){.flow-grid{grid-template-columns:1fr auto 1fr auto 1fr}}
+
+.lane-label{font-size:var(--step--1);color:var(--muted);margin-bottom:.7rem}
+.chips{display:flex;flex-direction:column;gap:.55rem}
+.chip{
+  display:flex;align-items:center;gap:.7rem;
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:.75rem .9rem;font-size:var(--step--1);
+  transition:border-color .35s ease, box-shadow .35s ease;
+}
+.chip svg{flex:none;color:var(--muted)}
+.chip.lit{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.chip.lit svg{color:var(--accent)}
+
+.node{
+  background:var(--ink);color:#fff;border-radius:12px;
+  padding:1.1rem 1.15rem;text-align:center;
+}
+.node b{display:block;font-family:var(--f-display);font-size:var(--step-0);font-weight:600;letter-spacing:-0.01em}
+.node span{display:block;font-size:.78rem;color:#9AA2AC;margin-top:.25rem}
+.node.lit{background:var(--accent)}
+.node.lit span{color:#C3CCFB}
+
+.link{position:relative;height:2px;background:var(--line);min-width:44px;border-radius:2px}
+.link::after{
+  content:"";position:absolute;inset:0;width:0;background:var(--accent);border-radius:2px;
+  transition:width .5s ease;
+}
+.link.lit::after{width:100%}
+@media(max-width:859px){
+  .link{width:2px;height:26px;min-width:0;justify-self:start;margin-left:1.1rem}
+  .link::after{width:100%;height:0;transition:height .5s ease}
+  .link.lit::after{height:100%}
+}
+
+/* ============================================================
+   PROBLEM
+   ============================================================ */
+.prob-list{margin-top:2.4rem;border-top:1px solid var(--line)}
+.prob{
+  display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
+  padding:1.15rem .25rem;border-bottom:1px solid var(--line);
+}
+.prob-i{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:#fff;border:1px solid var(--line);color:var(--muted)}
+.prob-t{font-family:var(--f-display);font-weight:600;font-size:var(--step-0);letter-spacing:-0.01em}
+.prob-time{font-size:var(--step--1);color:var(--muted);white-space:nowrap}
+.prob-close{margin-top:2rem;font-size:var(--step-1);max-width:52ch;line-height:1.5}
+
+/* ============================================================
+   CHECK PITCH
+   ============================================================ */
+.pitch{background:var(--ink);color:#fff;border-radius:var(--r);padding:clamp(1.75rem,5vw,3.25rem)}
+.pitch h2{max-width:18ch}
+.pitch p{color:#A8B0BA;margin-top:1.1rem;max-width:54ch;font-size:var(--step-1);line-height:1.55}
+.pitch .btn{margin-top:2rem;background:#fff;color:var(--ink);border-color:#fff}
+.pitch .btn:hover{background:var(--accent-wash)}
+.pitch .reassure{color:#8B939D}
+
+/* ============================================================
+   CHECK / FORM
+   ============================================================ */
+.check-shell{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.bar{height:4px;background:var(--line)}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s cubic-bezier(.4,0,.2,1)}
+.check-body{padding:clamp(1.5rem,5vw,2.75rem)}
+.step-meta{display:flex;justify-content:space-between;gap:1rem;font-size:var(--step--1);color:var(--muted);margin-bottom:1.1rem}
+.step{display:none}
+.step.on{display:block;animation:in .3s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step h3{font-size:var(--step-2);letter-spacing:-0.02em}
+.step .hint{color:var(--muted);font-size:var(--step--1);margin-top:.55rem}
+
+.opts{display:grid;gap:.6rem;margin-top:1.6rem}
+@media(min-width:600px){.opts--2{grid-template-columns:1fr 1fr}.opts--3{grid-template-columns:repeat(3,1fr)}}
+.opt{
+  display:flex;align-items:center;gap:.75rem;
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:.9rem 1rem;text-align:left;cursor:pointer;width:100%;
+  font-size:var(--step-0);transition:border-color .15s ease, background .15s ease;
+}
+.opt:hover{border-color:var(--ink)}
+.opt .box{width:19px;height:19px;flex:none;border:1.5px solid var(--line);border-radius:5px;display:grid;place-items:center;transition:.15s ease}
+.opt .box svg{width:11px;height:11px;color:#fff;opacity:0}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash)}
+.opt[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
+.opt[aria-pressed="true"] .box svg{opacity:1}
+
+.field{margin-top:1.1rem}
+.field label{display:block;font-size:var(--step--1);font-weight:600;margin-bottom:.4rem}
+.field input{
+  width:100%;padding:.85rem 1rem;border:1px solid var(--line);border-radius:10px;
+  background:#fff;font:inherit;color:var(--ink);
+}
+.field input::placeholder{color:#9AA2AC}
+.field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.field.err input{border-color:#C0392B}
+.err-msg{display:none;color:#C0392B;font-size:var(--step--1);margin-top:.35rem}
+.field.err .err-msg{display:block}
+
+.consent{display:flex;gap:.75rem;align-items:flex-start;margin-top:1.4rem;font-size:var(--step--1);color:var(--muted);line-height:1.5}
+.consent input{margin-top:.2rem;width:17px;height:17px;flex:none;accent-color:var(--accent)}
+.consent a{color:var(--accent-ink)}
+
+.nav{display:flex;gap:.75rem;margin-top:2rem;flex-wrap:wrap}
+.nav .btn{flex:1 1 auto}
+.nav .btn--ghost{flex:0 0 auto}
+
+/* ============================================================
+   RESULTS
+   ============================================================ */
+.res-top{display:grid;gap:1.5rem;align-items:start}
+@media(min-width:760px){.res-top{grid-template-columns:1fr auto}}
+.savings{
+  background:var(--ink);color:#fff;border-radius:12px;padding:1.35rem 1.6rem;min-width:230px;
+}
+.savings .n{font-family:var(--f-display);font-size:clamp(2rem,5vw,2.7rem);font-weight:700;letter-spacing:-0.03em;line-height:1}
+.savings .u{color:#A8B0BA;font-size:var(--step--1);margin-top:.4rem}
+.recs{display:grid;gap:.75rem;margin-top:2rem}
+.rec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.25rem;display:grid;grid-template-columns:auto 1fr;gap:1rem}
+.rec-n{width:26px;height:26px;border-radius:7px;background:var(--accent-wash);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:.8rem}
+.rec h4{margin:0;font-family:var(--f-display);font-size:var(--step-0);font-weight:600;letter-spacing:-0.01em}
+.rec p{color:var(--muted);font-size:var(--step--1);margin-top:.4rem;line-height:1.55}
+.rec .est{display:inline-block;margin-top:.6rem;font-size:.78rem;color:var(--accent-ink);background:var(--accent-wash);padding:.2rem .55rem;border-radius:5px}
+.disclaimer{
+  margin-top:1.75rem;padding:1rem 1.15rem;border-left:3px solid var(--line);
+  font-size:var(--step--1);color:var(--muted);line-height:1.55;background:#fff;border-radius:0 8px 8px 0;
+}
+.res-cta{margin-top:2.25rem;padding-top:2rem;border-top:1px solid var(--line)}
+.res-cta h3{font-size:var(--step-2);max-width:22ch}
+
+/* ============================================================
+   LEISTUNGEN
+   ============================================================ */
+.cards{display:grid;gap:1rem;margin-top:2.5rem}
+@media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.cards{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:1.5rem}
+.card svg{color:var(--accent);margin-bottom:1rem}
+.card p{color:var(--muted);font-size:var(--step--1);margin-top:.6rem;line-height:1.6}
+
+/* ============================================================
+   ABLAUF
+   ============================================================ */
+.steps3{display:grid;gap:0;margin-top:2.5rem;border-top:1px solid var(--line)}
+@media(min-width:800px){.steps3{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
+.s3{padding:1.6rem 0;border-bottom:1px solid var(--line)}
+@media(min-width:800px){.s3{border-bottom:none}}
+.s3 .n{font-family:var(--f-display);font-weight:700;font-size:var(--step-2);color:var(--accent);letter-spacing:-0.03em}
+.s3 h3{margin-top:.5rem}
+.s3 p{color:var(--muted);font-size:var(--step--1);margin-top:.5rem;line-height:1.6;max-width:34ch}
+
+/* ============================================================
+   LOKAL
+   ============================================================ */
+.local{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.local-grid{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:860px){.local-grid{grid-template-columns:1fr 1.05fr}}
+.local p{margin-top:1.2rem;color:var(--muted);font-size:var(--step-1);line-height:1.55;max-width:44ch}
+.skyline{width:100%;height:auto;color:var(--ink)}
+.skyline .ridge{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.28}
+.skyline .burg{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linejoin:round}
+.skyline .flag{fill:var(--accent)}
+
+/* ============================================================
+   FINAL + FOOTER
+   ============================================================ */
+.final{text-align:center}
+.final h2{max-width:20ch;margin-inline:auto}
+.final .lede{margin:1.2rem auto 0;text-align:center}
+.final .btn{margin-top:2rem}
+.site-foot{border-top:1px solid var(--line);padding-block:2.25rem}
+.foot-in{display:flex;flex-wrap:wrap;gap:1rem 1.75rem;align-items:center;justify-content:space-between;font-size:var(--step--1);color:var(--muted)}
+.foot-in nav{display:flex;flex-wrap:wrap;gap:1.25rem}
+.foot-in a{text-decoration:none}
+.foot-in a:hover{color:var(--ink);text-decoration:underline}
+
+/* ============================================================
+   STICKY MOBILE CTA
+   ============================================================ */
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:45;
+  padding:.7rem var(--gutter) calc(.7rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter:blur(10px);border-top:1px solid var(--line);
+  transform:translateY(110%);transition:transform .25s ease;
+}
+.sticky.on{transform:none}
+@media(min-width:720px){.sticky{display:none}}
+
+/* ============================================================
+   CONSENT
+   ============================================================ */
+.cookie{
+  position:fixed;z-index:60;left:var(--gutter);right:var(--gutter);bottom:var(--gutter);
+  max-width:440px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:1.25rem;box-shadow:0 12px 40px rgba(20,23,26,.14);
+  display:none;
+}
+.cookie.on{display:block}
+.cookie p{font-size:var(--step--1);color:var(--muted);line-height:1.55}
+.cookie strong{color:var(--ink);font-family:var(--f-display)}
+.cookie-btns{display:flex;gap:.6rem;margin-top:1rem}
+.cookie-btns .btn{flex:1;padding:.7rem 1rem;font-size:var(--step--1)}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head" id="head">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="22" height="22" rx="6" fill="#14171A"/>
+        <path d="M6.5 15.5L11 8.5l2.4 3.8 1.6-2.2 2.5 5.4" stroke="#1B3CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Automatisierung Bielefeld
+    </a>
+    <button class="btn head-cta" data-goto-check>KI-Check starten</button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- 1 · HERO ---------------------------------------------------->
+<section class="sec hero">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span>KI-Automatisierung für Bielefelder Unternehmen</span>
+
+    <h1>Wie viele Stunden verliert dein Unternehmen jede Woche durch manuelle Aufgaben?</h1>
+
+    <p class="lede">Wir zeigen dir, welche Prozesse du mit KI automatisieren kannst – und wo du jede Woche Zeit sparen kannst.</p>
+
+    <div class="hero-actions">
+      <button class="btn btn--lg" data-goto-check>Kostenlosen KI-Check starten →</button>
+      <p class="reassure">2 Minuten · kostenlos · unverbindlich</p>
+    </div>
+
+    <!-- Workflow-Visual -->
+    <div class="flow" id="flow" aria-hidden="true">
+      <div class="flow-head">
+        <strong>Aus manueller Arbeit wird ein Ablauf, der von allein läuft</strong>
+      </div>
+      <div class="flow-grid">
+        <div>
+          <div class="lane-label">Heute: kommt rein, bleibt liegen</div>
+          <div class="chips">
+            <div class="chip" data-f="1">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              Anfrage per E-Mail
+            </div>
+            <div class="chip" data-f="1">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+              Anruf auf dem Zettel
+            </div>
+            <div class="chip" data-f="1">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+              Nachricht bei WhatsApp
+            </div>
+          </div>
+        </div>
+
+        <div class="link" data-f="2"></div>
+
+        <div class="node" data-f="3">
+          <b>Automatisierter Ablauf</b>
+          <span>erfassen · zuordnen · antworten</span>
+        </div>
+
+        <div class="link" data-f="4"></div>
+
+        <div>
+          <div class="lane-label">Danach: erledigt sich selbst</div>
+          <div class="chips">
+            <div class="chip" data-f="5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
+              Termin steht im Kalender
+            </div>
+            <div class="chip" data-f="5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6"/></svg>
+              Angebot ist raus
+            </div>
+            <div class="chip" data-f="5">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>
+              Kunde ist erfasst
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · PROBLEM ------------------------------------------------->
+<section class="sec">
+  <div class="wrap">
+    <h2>Vielleicht kennst du das:</h2>
+
+    <div class="prob-list">
+      <div class="prob">
+        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
+        <div class="prob-t">Kundenanfragen manuell beantworten</div>
+        <div class="prob-time">jeden Tag aufs Neue</div>
+      </div>
+      <div class="prob">
+        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div class="prob-t">Termine ständig hin und her koordinieren</div>
+        <div class="prob-time">fünf Mails für einen Termin</div>
+      </div>
+      <div class="prob">
+        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
+        <div class="prob-t">Daten aus E-Mails in Excel übertragen</div>
+        <div class="prob-time">abtippen statt arbeiten</div>
+      </div>
+      <div class="prob">
+        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <div class="prob-t">Angebote immer wieder neu erstellen</div>
+        <div class="prob-time">dieselbe Vorlage, andere Zahlen</div>
+      </div>
+      <div class="prob">
+        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        <div class="prob-t">Social-Media-Content mühsam vorbereiten</div>
+        <div class="prob-time">wenn überhaupt Zeit bleibt</div>
+      </div>
+    </div>
+
+    <p class="prob-close">Genau solche wiederkehrenden Aufgaben lassen sich heute häufig automatisieren.</p>
+  </div>
+</section>
+
+<!-- 3 · CHECK-PITCH --------------------------------------------->
+<section class="sec">
+  <div class="wrap">
+    <div class="pitch">
+      <h2>Finde in 2 Minuten heraus, was du automatisieren kannst.</h2>
+      <p>Beantworte ein paar kurze Fragen zu deinem Unternehmen. Der Check wertet deine Antworten aus und zeigt dir konkrete Automatisierungsmöglichkeiten.</p>
+      <button class="btn btn--lg" data-goto-check>Jetzt kostenlosen Check starten →</button>
+      <p class="reassure">Keine Registrierung nötig, um loszulegen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · INTERAKTIVER CHECK -------------------------------------->
+<section class="sec" id="check" style="padding-top:0">
+  <div class="wrap">
+    <div class="check-shell">
+      <div class="bar"><i id="bar"></i></div>
+      <div class="check-body">
+
+        <div class="step-meta" id="meta" hidden>
+          <span id="meta-step"></span>
+          <span id="meta-time">ca. 2 Minuten</span>
+        </div>
+
+        <!-- Schritt 1 -->
+        <div class="step on" data-step="1">
+          <h3>Was macht dein Unternehmen?</h3>
+          <p class="hint">Grobe Richtung reicht.</p>
+          <div class="opts opts--2" data-single="branche">
+            <button class="opt" type="button" aria-pressed="false" data-v="Handwerk"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Handwerk &amp; Bau</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Dienstleistung"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Dienstleistung &amp; Beratung</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Agentur"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Agentur &amp; Marketing</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Immobilien"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Immobilien</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Gastronomie"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Gastronomie &amp; Hotel</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Fitness"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Fitness &amp; Gesundheit</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Handel"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Handel &amp; E-Commerce</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="Sonstiges"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Etwas anderes</button>
+          </div>
+          <div class="nav">
+            <button class="btn" data-next disabled>Weiter</button>
+          </div>
+        </div>
+
+        <!-- Schritt 2 -->
+        <div class="step" data-step="2">
+          <h3>Wie groß ist dein Unternehmen?</h3>
+          <div class="opts opts--2" data-single="groesse">
+            <button class="opt" type="button" aria-pressed="false" data-v="1"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Ich allein</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="2-5"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>2 bis 5 Mitarbeitende</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="6-20"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>6 bis 20 Mitarbeitende</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="21+"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Mehr als 20</button>
+          </div>
+          <div class="nav">
+            <button class="btn btn--ghost" data-back>Zurück</button>
+            <button class="btn" data-next disabled>Weiter</button>
+          </div>
+        </div>
+
+        <!-- Schritt 3 -->
+        <div class="step" data-step="3">
+          <h3>Welche Aufgaben kosten dich aktuell am meisten Zeit?</h3>
+          <p class="hint">Mehrfachauswahl möglich.</p>
+          <div class="opts opts--2" data-multi="aufgaben">
+            <button class="opt" type="button" aria-pressed="false" data-v="kundenanfragen"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Kundenanfragen</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="termine"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Termine</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="angebote"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Angebote</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="rechnungen"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Rechnungen</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="daten"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Daten / Excel</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="social"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Social Media</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="dokumente"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Dokumente</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="kommunikation"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Interne Kommunikation</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="sonstiges"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Sonstiges</button>
+          </div>
+          <div class="nav">
+            <button class="btn btn--ghost" data-back>Zurück</button>
+            <button class="btn" data-next disabled>Weiter</button>
+          </div>
+        </div>
+
+        <!-- Schritt 4 -->
+        <div class="step" data-step="4">
+          <h3>Welche Tools nutzt du aktuell?</h3>
+          <p class="hint">Mehrfachauswahl möglich.</p>
+          <div class="opts opts--2" data-multi="tools">
+            <button class="opt" type="button" aria-pressed="false" data-v="mail"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Outlook / Gmail</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="excel"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Excel / Google Sheets</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="whatsapp"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>WhatsApp</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="crm"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>CRM-System</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="buchhaltung"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Buchhaltungssoftware</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="branche"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Branchensoftware</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="papier"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Zettel, Telefon, Kopf</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="keine"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Weiß ich nicht genau</button>
+          </div>
+          <div class="nav">
+            <button class="btn btn--ghost" data-back>Zurück</button>
+            <button class="btn" data-next disabled>Weiter</button>
+          </div>
+        </div>
+
+        <!-- Schritt 5 -->
+        <div class="step" data-step="5">
+          <h3>Wie viele Stunden pro Woche gehen ungefähr für wiederkehrende Aufgaben drauf?</h3>
+          <p class="hint">Schätzung genügt – über alle Mitarbeitenden zusammen.</p>
+          <div class="opts opts--2" data-single="stunden">
+            <button class="opt" type="button" aria-pressed="false" data-v="3"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Weniger als 5 Stunden</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="7"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>5 bis 10 Stunden</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="15"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>10 bis 20 Stunden</button>
+            <button class="opt" type="button" aria-pressed="false" data-v="25"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Mehr als 20 Stunden</button>
+          </div>
+          <div class="nav">
+            <button class="btn btn--ghost" data-back>Zurück</button>
+            <button class="btn" data-next disabled>Weiter</button>
+          </div>
+        </div>
+
+        <!-- Schritt 6 · Lead -->
+        <div class="step" data-step="6">
+          <h3>Wohin dürfen wir das Ergebnis schicken?</h3>
+          <p class="hint">Du siehst die Auswertung direkt danach auf dieser Seite. Die E-Mail brauchen wir, damit du sie nicht verlierst.</p>
+
+          <div class="field" id="f-name">
+            <label for="i-name">Name</label>
+            <input id="i-name" type="text" autocomplete="name" placeholder="Vor- und Nachname">
+            <span class="err-msg">Bitte trag deinen Namen ein.</span>
+          </div>
+          <div class="field" id="f-mail">
+            <label for="i-mail">E-Mail</label>
+            <input id="i-mail" type="email" autocomplete="email" placeholder="name@unternehmen.de">
+            <span class="err-msg">Bitte prüf die E-Mail-Adresse.</span>
+          </div>
+          <div class="field" id="f-tel">
+            <label for="i-tel">Telefon <span style="font-weight:400;color:var(--muted)">– optional</span></label>
+            <input id="i-tel" type="tel" autocomplete="tel" placeholder="Für einen kurzen Rückruf">
+          </div>
+
+          <div class="field" id="f-consent" style="margin-top:0">
+            <label class="consent" for="i-consent" style="font-weight:400">
+              <input id="i-consent" type="checkbox">
+              <span>Ich bin damit einverstanden, dass meine Angaben zur Auswertung und Kontaktaufnahme gespeichert und verarbeitet werden. Widerruf jederzeit per E-Mail möglich. Mehr dazu in der <a href="../datenschutz.html">Datenschutzerklärung</a>.</span>
+            </label>
+            <span class="err-msg">Ohne diese Einwilligung dürfen wir die Daten nicht verarbeiten.</span>
+          </div>
+
+          <div class="nav">
+            <button class="btn btn--ghost" data-back>Zurück</button>
+            <button class="btn" id="submit">Analyse starten</button>
+          </div>
+        </div>
+
+        <!-- 5 · ERGEBNIS -->
+        <div class="step" data-step="7">
+          <div class="res-top">
+            <div>
+              <h3 style="font-size:var(--step-2)">Wir haben mehrere Automatisierungspotenziale gefunden.</h3>
+              <p class="small" style="margin-top:.7rem;max-width:48ch" id="res-intro"></p>
+            </div>
+            <div class="savings">
+              <div class="n" id="res-hours">–</div>
+              <div class="u">Stunden pro Woche geschätztes Einsparpotenzial</div>
+            </div>
+          </div>
+
+          <div class="recs" id="recs"></div>
+
+          <div class="disclaimer">
+            <strong style="color:var(--ink)">Wie diese Einschätzung entsteht:</strong> Sie basiert ausschließlich auf deinen Angaben und auf Erfahrungswerten aus vergleichbaren Betrieben. Es ist eine unverbindliche Orientierung, keine Prüfung deiner tatsächlichen Abläufe und keine garantierte Einsparung. Was in deinem Unternehmen wirklich möglich ist, zeigt sich erst im Gespräch.
+          </div>
+
+          <div class="res-cta">
+            <h3>Möchtest du wissen, wie wir eine dieser Automatisierungen konkret für dein Unternehmen umsetzen können?</h3>
+            <p class="lede" style="font-size:var(--step-0);margin-top:.9rem">In einem kurzen Gespräch schauen wir uns einen deiner Abläufe genau an und sagen dir ehrlich, ob sich das lohnt.</p>
+            <button class="btn btn--lg" id="beratung" style="margin-top:1.6rem">Kostenlose Erstberatung anfragen →</button>
+            <p class="reassure">Wir melden uns innerhalb eines Werktags.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · LEISTUNGEN ---------------------------------------------->
+<section class="sec">
+  <div class="wrap">
+    <h2>Was wir für dein Unternehmen automatisieren können</h2>
+    <div class="cards">
+      <div class="card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.5"/></svg>
+        <h3>KI-Automatisierung</h3>
+        <p>Automatisiere wiederkehrende Aufgaben mit modernen KI-Workflows.</p>
+      </div>
+      <div class="card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg>
+        <h3>Web &amp; Tools</h3>
+        <p>Individuelle kleine Web-Apps und digitale Tools für deine Prozesse.</p>
+      </div>
+      <div class="card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m7 15 3.5-4 3 2.5L20 7"/></svg>
+        <h3>Daten &amp; Prozesse</h3>
+        <p>Weniger Excel, weniger Copy &amp; Paste, weniger manuelle Arbeit.</p>
+      </div>
+      <div class="card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
+        <h3>Social Media</h3>
+        <p>Content-Prozesse effizienter planen, erstellen und veröffentlichen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · ABLAUF -------------------------------------------------->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <h2>So funktioniert es</h2>
+    <div class="steps3">
+      <div class="s3">
+        <div class="n">01</div>
+        <h3>Check machen</h3>
+        <p>Beantworte ein paar Fragen zu deinem Unternehmen.</p>
+      </div>
+      <div class="s3">
+        <div class="n">02</div>
+        <h3>Potenzial erkennen</h3>
+        <p>Wir identifizieren konkrete Automatisierungsmöglichkeiten.</p>
+      </div>
+      <div class="s3">
+        <div class="n">03</div>
+        <h3>Umsetzen</h3>
+        <p>Wenn du möchtest, bauen wir die passende Lösung für dich.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · LOKAL --------------------------------------------------->
+<section class="sec local">
+  <div class="wrap local-grid">
+    <div>
+      <h2>Direkt aus Bielefeld.</h2>
+      <p>Kein anonymes Software-Portal. Persönliche Umsetzung für Unternehmen aus Bielefeld und Umgebung.</p>
+      <p class="small" style="margin-top:1.5rem;max-width:40ch">Erreichbar per Telefon, nicht nur per Ticketsystem. Und falls es sinnvoll ist, kommen wir vorbei.</p>
+    </div>
+    <div>
+      <svg class="skyline" viewBox="0 0 520 210" role="img" aria-label="Stilisierte Darstellung des Sparrenburg-Turms vor dem Höhenzug des Teutoburger Waldes">
+        <path class="ridge" d="M0 168 C 60 150, 96 158, 132 142 S 196 118, 236 130 S 300 112, 344 128 S 424 148, 470 138 S 508 146, 520 142"/>
+        <path class="ridge" d="M0 186 C 70 174, 120 180, 176 168 S 268 150, 330 162 S 440 176, 520 166"/>
+        <!-- Sparrenburg -->
+        <g class="burg">
+          <path d="M214 168 h92"/>
+          <path d="M226 168 v-42 h68 v42"/>
+          <path d="M226 126 h68"/>
+          <path d="M242 168 v-26 h14 v26"/>
+          <path d="M266 168 v-26 h14 v26"/>
+          <!-- Turm -->
+          <path d="M240 126 v-84 h40 v84"/>
+          <path d="M236 42 h48"/>
+          <path d="M236 42 v-9 h8 v9 M252 33 h8 v9 M268 33 h8 v9 v0 M276 42 v-9"/>
+          <path d="M252 126 v-30 h16 v30"/>
+          <circle cx="260" cy="72" r="7"/>
+        </g>
+        <path class="flag" d="M280 33 v-16 l22 6 -22 6"/>
+        <path class="ridge" d="M0 196 h520" stroke-dasharray="2 6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · FINAL CTA ----------------------------------------------->
+<section class="sec final">
+  <div class="wrap">
+    <h2>Bereit, weniger Zeit mit manueller Arbeit zu verlieren?</h2>
+    <p class="lede">Finde jetzt kostenlos heraus, was sich in deinem Unternehmen automatisieren lässt.</p>
+    <button class="btn btn--lg" data-goto-check>KI-Check starten →</button>
+    <p class="reassure">Kostenlos · 2 Minuten · unverbindlich</p>
+  </div>
+</section>
+
+</main>
+
+<!-- 10 · FOOTER ------------------------------------------------->
+<footer class="site-foot">
+  <div class="wrap foot-in">
+    <span>KI-Automatisierung Bielefeld</span>
+    <nav>
+      <a href="../impressum.html">Impressum</a>
+      <a href="../datenschutz.html">Datenschutz</a>
+      <a href="mailto:mzschach@googlemail.com">Kontakt</a>
+    </nav>
+    <span>Bielefeld</span>
+  </div>
+</footer>
+
+<!-- Sticky CTA (mobil) ------------------------------------------>
+<div class="sticky" id="sticky">
+  <button class="btn btn--block" data-goto-check>Kostenlosen KI-Check starten →</button>
+</div>
+
+<!-- Consent ----------------------------------------------------->
+<div class="cookie" id="cookie" role="dialog" aria-label="Datenschutz-Einstellungen">
+  <p><strong>Kurz zum Datenschutz.</strong><br>
+  Wir würden gerne messen, wie diese Seite genutzt wird (Meta Pixel, Google Analytics). Das ist für den KI-Check nicht nötig – du entscheidest.</p>
+  <div class="cookie-btns">
+    <button class="btn btn--ghost" id="c-no">Nur notwendige</button>
+    <button class="btn" id="c-yes">Einverstanden</button>
+  </div>
+</div>
+
+<div class="sr" role="status" aria-live="polite" id="live"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ============================================================
+   KONFIGURATION — hier eintragen, bevor Werbebudget laeuft
+   ------------------------------------------------------------
+   LEAD_ENDPOINT: URL, die den Lead per POST entgegennimmt
+   (Make-/Zapier-Webhook, Formspree, eigene API). Solange der
+   Wert leer ist, wird KEIN Lead uebertragen — die Angaben aus
+   dem Formular landen nur in der Browser-Konsole und sind
+   danach verloren.
+   ============================================================ */
+var LEAD_ENDPOINT = '';                          // <— eintragen
+var KONTAKT_MAIL  = 'mzschach@googlemail.com';
+
+/* ============================================================
+   TRACKING
+   Events: page_view · check_started · check_step ·
+           check_completed · lead_submitted · consultation_requested
+   ============================================================ */
+var consent = null;               // null | true | false
+window.dataLayer = window.dataLayer || [];
+
+function track(name, params){
+  var payload = Object.assign({event:name}, params || {});
+  window.dataLayer.push(payload);
+  if(consent === true){
+    if(typeof window.fbq === 'function') window.fbq('trackCustom', name, params || {});
+    if(typeof window.gtag === 'function') window.gtag('event', name, params || {});
+  }
+  if(window.console && console.debug) console.debug('[track]', name, params || {});
+}
+
+/* Consent-Banner. Speicherung bewusst nur in-memory —
+   in der Live-Version hier localStorage oder dein CMP einhängen. */
+var cookie = document.getElementById('cookie');
+setTimeout(function(){ if(consent === null) cookie.classList.add('on'); }, 1200);
+document.getElementById('c-yes').addEventListener('click', function(){
+  consent = true; cookie.classList.remove('on');
+  /* Hier Pixel/GA nachladen: loadPixel(); loadGA(); */
+  track('page_view', {page:'landing'});
+});
+document.getElementById('c-no').addEventListener('click', function(){
+  consent = false; cookie.classList.remove('on');
+});
+track('page_view', {page:'landing'});
+
+/* ============================================================
+   HERO-ANIMATION — eine orchestrierte Sequenz beim Laden
+   ============================================================ */
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var flow = document.getElementById('flow');
+function runFlow(){
+  var frames = [1,2,3,4,5];
+  if(reduce){
+    flow.querySelectorAll('[data-f]').forEach(function(el){ el.classList.add('lit'); });
+    return;
+  }
+  frames.forEach(function(f, i){
+    setTimeout(function(){
+      flow.querySelectorAll('[data-f="'+f+'"]').forEach(function(el){ el.classList.add('lit'); });
+    }, 380 + i*420);
+  });
+}
+var flowSeen = false;
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting && !flowSeen){ flowSeen = true; runFlow(); io.disconnect(); }
+  });
+}, {threshold:.35});
+io.observe(flow);
+
+/* ============================================================
+   HEADER + STICKY CTA
+   ============================================================ */
+var head = document.getElementById('head');
+var sticky = document.getElementById('sticky');
+var checkSec = document.getElementById('check');
+window.addEventListener('scroll', function(){
+  head.classList.toggle('is-stuck', window.scrollY > 8);
+  var r = checkSec.getBoundingClientRect();
+  var inCheck = r.top < window.innerHeight * .8 && r.bottom > 120;
+  sticky.classList.toggle('on', window.scrollY > 420 && !inCheck);
+}, {passive:true});
+
+/* ============================================================
+   CHECK
+   ============================================================ */
+var answers = {branche:null, groesse:null, aufgaben:[], tools:[], stunden:null};
+var current = 1;
+var TOTAL = 6;
+var started = false;
+
+var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+var bar = document.getElementById('bar');
+var meta = document.getElementById('meta');
+var metaStep = document.getElementById('meta-step');
+var live = document.getElementById('live');
+
+function stepEl(n){ return document.querySelector('.step[data-step="'+n+'"]'); }
+
+function show(n){
+  steps.forEach(function(s){ s.classList.toggle('on', +s.dataset.step === n); });
+  current = n;
+  if(n <= TOTAL){
+    meta.hidden = false;
+    metaStep.textContent = 'Frage ' + n + ' von ' + TOTAL;
+    bar.style.width = ((n-1)/TOTAL*100) + '%';
+  } else {
+    meta.hidden = true;
+    bar.style.width = '100%';
+  }
+  var h = stepEl(n) ? stepEl(n).querySelector('h3') : null;
+  if(h) live.textContent = h.textContent;
+}
+
+function validate(n){
+  var el = stepEl(n);
+  if(!el) return true;
+  var single = el.querySelector('[data-single]');
+  var multi = el.querySelector('[data-multi]');
+  if(single) return answers[single.dataset.single] !== null;
+  if(multi) return answers[multi.dataset.multi].length > 0;
+  return true;
+}
+function syncNext(n){
+  var el = stepEl(n); if(!el) return;
+  var b = el.querySelector('[data-next]'); if(!b) return;
+  b.disabled = !validate(n);
+}
+
+/* Auswahl */
+document.querySelectorAll('[data-single]').forEach(function(group){
+  var key = group.dataset.single;
+  group.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      group.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      answers[key] = btn.dataset.v;
+      syncNext(current);
+      startOnce();
+    });
+  });
+});
+document.querySelectorAll('[data-multi]').forEach(function(group){
+  var key = group.dataset.multi;
+  group.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = btn.dataset.v;
+      var i = answers[key].indexOf(v);
+      if(i > -1){ answers[key].splice(i,1); btn.setAttribute('aria-pressed','false'); }
+      else { answers[key].push(v); btn.setAttribute('aria-pressed','true'); }
+      syncNext(current);
+      startOnce();
+    });
+  });
+});
+
+function startOnce(){
+  if(started) return;
+  started = true;
+  track('check_started', {});
+}
+
+document.querySelectorAll('[data-next]').forEach(function(b){
+  b.addEventListener('click', function(){
+    if(!validate(current)) return;
+    track('check_step', {step: current});
+    show(current + 1);
+    scrollCheck();
+  });
+});
+document.querySelectorAll('[data-back]').forEach(function(b){
+  b.addEventListener('click', function(){ show(Math.max(1, current - 1)); scrollCheck(); });
+});
+
+function scrollCheck(){
+  var y = checkSec.getBoundingClientRect().top + window.scrollY - 84;
+  window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'});
+}
+document.querySelectorAll('[data-goto-check]').forEach(function(b){
+  b.addEventListener('click', function(){ scrollCheck(); startOnce(); });
+});
+
+/* ============================================================
+   AUSWERTUNG
+   ============================================================ */
+var LIB = {
+  kundenanfragen:{
+    t:'Kundenanfragen automatisieren',
+    d:'Anfragen aus E-Mail, Formular und WhatsApp laufen an einer Stelle zusammen. Standardfragen werden sofort beantwortet, alles andere landet vorsortiert bei dir.',
+    h:[2,4]
+  },
+  termine:{
+    t:'Terminvereinbarung automatisieren',
+    d:'Kunden buchen selbst freie Slots aus deinem Kalender. Bestätigung und Erinnerung gehen automatisch raus – das spart die Rückfrage-Schleifen.',
+    h:[1,3]
+  },
+  angebote:{
+    t:'Angebote automatisch vorbereiten',
+    d:'Aus Anfrage und Leistungskatalog entsteht ein fertiger Entwurf. Du prüfst und schickst raus, statt jedes Mal neu zu tippen.',
+    h:[1.5,3.5]
+  },
+  rechnungen:{
+    t:'Rechnungen und Zahlungserinnerungen automatisieren',
+    d:'Rechnungen werden aus abgeschlossenen Aufträgen erzeugt, offene Posten überwacht und Erinnerungen selbstständig verschickt.',
+    h:[1,2.5]
+  },
+  daten:{
+    t:'Datenübertragung automatisieren',
+    d:'Angaben aus E-Mails, PDFs und Formularen landen direkt in der richtigen Tabelle oder im System. Kein Abtippen, keine Zahlendreher.',
+    h:[2,4]
+  },
+  social:{
+    t:'Content-Produktion beschleunigen',
+    d:'Aus einem Projektfoto oder einer Notiz entstehen Beitragsentwürfe für die Woche. Du gibst frei, die Veröffentlichung läuft nach Plan.',
+    h:[1.5,3]
+  },
+  dokumente:{
+    t:'Dokumente automatisch erzeugen und ablegen',
+    d:'Verträge, Protokolle und Bestätigungen werden aus Vorlagen gefüllt und sofort am richtigen Ort abgelegt – auffindbar statt verstreut.',
+    h:[1,2.5]
+  },
+  kommunikation:{
+    t:'Interne Abstimmung bündeln',
+    d:'Aufträge, Rückfragen und Status stehen an einer Stelle statt in fünf Chatverläufen. Weniger Nachfragen, weniger Doppelarbeit.',
+    h:[1,3]
+  },
+  sonstiges:{
+    t:'Individuellen Ablauf prüfen',
+    d:'Was bei dir am meisten Zeit frisst, schauen wir uns direkt an und sagen dir, ob sich eine Automatisierung dafür rechnet.',
+    h:[1,2]
+  }
+};
+
+var BRANCHE_HINT = {
+  Handwerk:'Bei Handwerksbetrieben lohnt sich fast immer der Weg von der Anfrage bis zum Angebot.',
+  Dienstleistung:'Bei Dienstleistern liegt das meiste Potenzial in Terminen und wiederkehrender Korrespondenz.',
+  Agentur:'In Agenturen kosten Abstimmung und Reporting meist mehr Zeit als die eigentliche Arbeit.',
+  Immobilien:'In der Immobilienbranche ist die Vorqualifizierung von Anfragen der größte Hebel.',
+  Gastronomie:'In der Gastronomie sind Reservierungen und Bestellungen die Klassiker.',
+  Fitness:'Bei Fitness- und Gesundheitsbetrieben spart die Kursverwaltung samt Erinnerungen am meisten.',
+  Handel:'Im Handel liegt das Potenzial meist bei Bestellungen, Retouren und Produktdaten.',
+  Sonstiges:''
+};
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function evaluate(){
+  var picks = answers.aufgaben.slice();
+  if(picks.length === 0) picks = ['kundenanfragen'];
+  /* Priorisieren: höchstes Zeitpotenzial zuerst, max. 5 Empfehlungen */
+  picks.sort(function(a,b){ return (LIB[b].h[1]) - (LIB[a].h[1]); });
+  picks = picks.slice(0,5);
+
+  var lo = 0, hi = 0;
+  picks.forEach(function(k){ lo += LIB[k].h[0]; hi += LIB[k].h[1]; });
+
+  /* Auf die angegebene Wochenzeit deckeln – niemals mehr als 55 % versprechen */
+  var stated = parseFloat(answers.stunden || '7');
+  var cap = stated * 0.55;
+  if(hi > cap){ var f = cap / hi; hi *= f; lo *= f; }
+  lo = Math.max(1, Math.round(lo));
+  hi = Math.max(lo + 1, Math.round(hi));
+
+  /* Ergebnis rendern */
+  document.getElementById('res-hours').textContent = lo + '–' + hi;
+
+  var hint = BRANCHE_HINT[answers.branche] || '';
+  document.getElementById('res-intro').textContent =
+    'Auf Basis deiner Angaben sind das die Abläufe mit dem größten Hebel. ' + hint;
+
+  var wrap = document.getElementById('recs');
+  wrap.innerHTML = picks.map(function(k, i){
+    var r = LIB[k];
+    return '<div class="rec">' +
+             '<div class="rec-n">' + (i+1) + '</div>' +
+             '<div><h4>' + esc(r.t) + '</h4>' +
+             '<p>' + esc(r.d) + '</p>' +
+             '<span class="est">' + r.h[0] + '–' + r.h[1] + ' Std./Woche</span></div>' +
+           '</div>';
+  }).join('');
+
+  return {lo:lo, hi:hi, picks:picks};
+}
+
+/* ============================================================
+   ABSENDEN
+   ============================================================ */
+var mailRe = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+document.getElementById('submit').addEventListener('click', function(){
+  var name = document.getElementById('i-name');
+  var mail = document.getElementById('i-mail');
+  var tel  = document.getElementById('i-tel');
+  var ok   = document.getElementById('i-consent');
+  var bad = false;
+
+  function mark(id, isBad){ document.getElementById(id).classList.toggle('err', isBad); if(isBad) bad = true; }
+  mark('f-name', name.value.trim().length < 2);
+  mark('f-mail', !mailRe.test(mail.value.trim()));
+  mark('f-consent', !ok.checked);
+
+  if(bad){
+    document.querySelector('.field.err input').focus();
+    return;
+  }
+
+  var lead = {
+    name: name.value.trim(),
+    email: mail.value.trim(),
+    telefon: tel.value.trim(),
+    branche: answers.branche,
+    groesse: answers.groesse,
+    aufgaben: answers.aufgaben,
+    tools: answers.tools,
+    stunden: answers.stunden,
+    ts: new Date().toISOString()
+  };
+
+  var result = evaluate();
+
+  track('check_completed', {aufgaben: answers.aufgaben.length, stunden: answers.stunden});
+  track('lead_submitted', {branche: answers.branche, groesse: answers.groesse});
+
+  /* Lead uebertragen. Ohne LEAD_ENDPOINT geht nichts raus — die
+     Eingaben sind dann nach dem Schliessen des Tabs verloren. */
+  if(LEAD_ENDPOINT){
+    fetch(LEAD_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(Object.assign({}, lead, {ergebnis: result}))
+    }).catch(function(e){ console.error('[lead] Uebertragung fehlgeschlagen', e); });
+  } else {
+    console.warn('[lead] Kein LEAD_ENDPOINT gesetzt — dieser Lead wird NICHT uebertragen.', lead, result);
+  }
+
+  show(7);
+  scrollCheck();
+});
+
+document.getElementById('beratung').addEventListener('click', function(){
+  track('consultation_requested', {branche: answers.branche});
+  var zeilen = [
+    'Hallo,',
+    '',
+    'ich habe den KI-Check gemacht und würde gern über die Umsetzung sprechen.',
+    '',
+    'Meine Angaben aus dem Check:',
+    '- Branche: ' + (answers.branche || '–'),
+    '- Unternehmensgröße: ' + (answers.groesse || '–'),
+    '- Zeitfresser: ' + (answers.aufgaben.length ? answers.aufgaben.join(', ') : '–'),
+    '- Tools: ' + (answers.tools.length ? answers.tools.join(', ') : '–'),
+    '- Stunden/Woche für wiederkehrende Aufgaben: ' + (answers.stunden || '–'),
+    '',
+    'Viele Grüße',
+    ''
+  ].join('\n');
+  window.location.href = 'mailto:' + KONTAKT_MAIL +
+    '?subject=' + encodeURIComponent('Erstberatung Automatisierung') +
+    '&body=' + encodeURIComponent(zeilen);
+});
+
+/* Fehlerzustand beim Tippen zurücksetzen */
+['i-name','i-mail'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', function(){
+    this.closest('.field').classList.remove('err');
+  });
+});
+document.getElementById('i-consent').addEventListener('change', function(){
+  document.getElementById('f-consent').classList.remove('err');
+});
+
+show(1);
+})();
+</script>
+</body>
+</html>
