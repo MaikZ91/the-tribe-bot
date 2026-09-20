@@ -3895,7 +3895,11 @@ console.log('Initialisiere WhatsApp-Client (Puppeteer startet Chromium)...');
 // instead, but leave enough room to type a pairing code when one is pending.
 if (IS_ONE_SHOT_RUN || IS_RESIDENT_RUN) {
     const CONNECT_TIMEOUT_MS = Number(process.env.CONNECT_TIMEOUT_MS || 6 * 60 * 1000);
-    const AUTH_TIMEOUT_MS = Number(process.env.AUTH_TIMEOUT_MS || 15 * 60 * 1000);
+    // 25 statt 15 Minuten: drei Kopplungsversuche sind daran gescheitert, dass
+    // das Fenster zu war, bevor jemand am Handy den frischen Code eintippen
+    // konnte. Ein ungekoppelter Lauf blockiert dafuer laenger — das ist der
+    // kleinere Schaden, solange gar keine Session existiert.
+    const AUTH_TIMEOUT_MS = Number(process.env.AUTH_TIMEOUT_MS || 25 * 60 * 1000);
     const startedAt = Date.now();
 
     const watchdog = setInterval(() => {
