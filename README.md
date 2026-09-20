@@ -31,16 +31,10 @@ workflow caches `.wwebjs_auth` and the bot state files for later runs.
 
 Optional but recommended:
 
-- `WHATSAPP_CHAT_ID`
-- `WHATSAPP_TUESDAY_RUN_CHAT_ID`
-- `WHATSAPP_JAM_SESSION_CHAT_ID`
-- `WHATSAPP_ANNOUNCEMENTS_CHAT_ID`
-- `WHATSAPP_AUSGEHEN_CHAT_ID`
-- `WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS`
-- `TRIBE_TUESDAY_RUN_IMAGE_URL`
-- `TRIBE_JAM_SESSION_IMAGE_URL`
-- `TRIBE_THURSDAY_FOOTBALL_IMAGE_URL`
-- `TRIBE_KENNENLERNABEND_IMAGE_URL`
+- `WHATSAPP_CHAT_ID` — Bielefeld, Ziel beider Bielefeld-Posts
+- `WHATSAPP_MUENSTER_CHAT_ID` — Münster; ohne diese ID wird dort nicht gepostet
+- `WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS` — Gruppen, in denen Beitritte erkannt werden
+- `WELCOME_BATCH_SIZE` — ab wie vielen Neuzugängen begrüßt wird (Standard 7)
 - `IG_ACCESS_TOKEN`
 - `IG_USER_ID`
 - `SUPABASE_URL`

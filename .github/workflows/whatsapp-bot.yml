@@ -20,30 +20,16 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        # Ab 03.08. gilt der Weekend Starter: friday-poll ist dann die
-        # Zusage-Umfrage am Donnerstag, saturday-reminder der Reminder am
-        # Freitag. Die Schluessel bleiben, damit gespeicherte Tagesmerker und
-        # bestehende Aufrufe weiter passen.
-        description: "Bot command (ab 03.08.: friday-poll = Do Zusage, saturday-reminder = Fr Reminder)"
+        description: "Bot-Befehl (run-due = faellige Jobs)"
         required: true
         default: "run-due"
         type: choice
         options:
-          # daily-highlights-video fehlt bewusst: der Renderer braucht ffmpeg,
-          # und das wird auf dem Runner nicht mehr installiert. Lokal bleibt
-          # der Befehl ueber BOT_COMMAND nutzbar.
           - run-due
-          - daily-highlights
           - weekend-planner
           - muenster-planner
-          - wednesday-poll
-          - friday-poll
-          - saturday-reminder
-          - weekly-calendar
-          - tuesday-run
-          - jam-session
-          - thursday-football
-          - ping-pong
+          - weekend-starter
+          - muenster-weekend-starter
           - check-new-members
           - germany-export
       force_fresh_auth:
@@ -53,11 +39,6 @@ on:
         type: boolean
       pairing_number:
         description: "Telefonnummer international ohne + und Leerzeichen (z. B. 4915112345678). Gesetzt = Kopplung per 8-stelligem Code statt QR-Scan."
-        required: false
-        default: ""
-        type: string
-      friday_poll_venue_override:
-        description: "Optional: Venue-Name für friday-poll erzwingen (z. B. 'Café Barcelona'). Leer lassen für normales Verhalten."
         required: false
         default: ""
         type: string
@@ -135,7 +116,6 @@ jobs:
           # holt jetzt nur faellige Jobs nach und ist nach zwei Minuten fertig.
           BOT_COMMAND: ${{ github.event_name == 'workflow_dispatch' && inputs.command || (github.event_name == 'push' && 'run-due' || '') }}
           BOT_RESIDENT: ${{ github.event_name == 'schedule' && '1' || '0' }}
-          FRIDAY_POLL_VENUE_OVERRIDE: ${{ github.event_name == 'workflow_dispatch' && inputs.friday_poll_venue_override || '' }}
           # Falls als Secret hinterlegt, koppeln sich auch geplante Läufe nach
           # einem Session-Verlust selbst per Code — sonst nur manuelle Läufe.
           WHATSAPP_PAIRING_NUMBER: ${{ (github.event_name == 'workflow_dispatch' && inputs.pairing_number) || secrets.WHATSAPP_PAIRING_NUMBER || '' }}
@@ -144,6 +124,7 @@ jobs:
           WHATSAPP_JAM_SESSION_CHAT_ID: ${{ secrets.WHATSAPP_JAM_SESSION_CHAT_ID }}
           WHATSAPP_ANNOUNCEMENTS_CHAT_ID: ${{ secrets.WHATSAPP_ANNOUNCEMENTS_CHAT_ID }}
           WHATSAPP_AUSGEHEN_CHAT_ID: ${{ secrets.WHATSAPP_AUSGEHEN_CHAT_ID }}
+          WHATSAPP_MUENSTER_CHAT_ID: ${{ secrets.WHATSAPP_MUENSTER_CHAT_ID }}
           WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS: ${{ secrets.WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS }}
           TRIBE_TUESDAY_RUN_IMAGE_URL: ${{ secrets.TRIBE_TUESDAY_RUN_IMAGE_URL }}
           TRIBE_JAM_SESSION_IMAGE_URL: ${{ secrets.TRIBE_JAM_SESSION_IMAGE_URL }}

@@ -59,8 +59,6 @@ const GERMANY_CITIES = [
     'Kaiserslautern', 'Marburg', 'Tübingen', 'Lüneburg'
 ];
 const TIME_ZONE = 'Europe/Berlin';
-const DAILY_POST_HOUR = 9;
-const MAX_HIGHLIGHTS = 5;
 
 // Nur Events an diesen Locations kommen auf den Tageshighlights-Flyer.
 // In der Event-Liste steht die Location im Namen als "(@handle)", daher wird
@@ -107,7 +105,6 @@ function isTribeEvent(entry) {
 }
 const DASHBOARD_PORT = Number(process.env.DASHBOARD_PORT || 3000);
 const DASHBOARD_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
-const INITIAL_MESSAGE_HISTORY_LIMIT = Number(process.env.DASHBOARD_MESSAGE_HISTORY_LIMIT || 250);
 const STAMMTISCH_VENUES = [
     'Bernstein',
     "L'Osteria",
@@ -124,6 +121,8 @@ const STAMMTISCH_VENUES = [
     'Mellow Gold'
 ];
 const VENUE_POLL_WEEKLY_COUNT = 3;
+// Erst ab so vielen wartenden Neuzugaengen geht eine Begruessung raus.
+const WELCOME_BATCH_SIZE = Number(process.env.WELCOME_BATCH_SIZE || 7);
 const VENUE_POLL_CHAT_OPTION = "Eigener Vorschlag - schreib's in den Chat";
 // Ab diesem Montag ersetzt der Weekend Starter (Fr 20 Uhr) den Social Warmup
 // (Sa 18 Uhr). Die laufende Woche wird davor noch im alten Format zu Ende
@@ -134,8 +133,8 @@ const WEEKEND_STARTER_FORMAT = {
     label: 'Weekend Starter',
     day: 'Freitag',
     dayAdverb: 'freitags',
-    time: '20 Uhr',
-    timeShort: '20:00',
+    time: '19 Uhr',
+    timeShort: '19:00',
     // weekdayIndex wie getUTCDay(): 0 = Sonntag
     eventWeekdayIndex: 5,
     claim: 'Starte mit THE TRIBE ins Wochenende.'
@@ -151,25 +150,7 @@ const SOCIAL_WARMUP_FORMAT = {
     claim: 'Einstieg in den Abend, danach ziehen wir gemeinsam weiter.'
 };
 
-const WEEKEND_STARTER_OPENERS = [
-    'Freitag, 20 Uhr - starte mit THE TRIBE ins Wochenende.',
-    'Neue Woche, neuer Freitag, neue Location.',
-    'Freitagabend ohne Plan? Hier ist einer.',
-    'Freitag, 20 Uhr - Tisch, Drink, neue Gesichter.',
-    'Mittwoch heisst: wo starten wir Freitag ins Wochenende?',
-    'Weekend Starter steht: Freitag, 20 Uhr, offline und echt.',
-    'Wochenende beginnt Freitag um 20 Uhr - wo, entscheidet ihr.'
-];
 
-const SOCIAL_WARMUP_OPENERS = [
-    'Samstag, 18 Uhr - Tribe trifft sich offline.',
-    'Neue Woche, neuer Samstag, neue Location.',
-    'Bielefeld-Samstag ohne Plan? Hier ist einer.',
-    'Samstag, 18 Uhr - Tisch, Drink, neue Gesichter.',
-    'Mittwoch heisst: wo treffen wir uns Samstag?',
-    'Diese Woche wieder Tribe-Samstag - 18 Uhr, offline, echt.',
-    'Samstag-Plan steht: 18 Uhr, Tribe-Tisch.'
-];
 const WEEK_OVERRIDES = {
     '2026-05-25': {
         venues: ['Plan B', 'Nichtschwimmer', 'Mellow Gold'],
@@ -181,38 +162,8 @@ const WEEK_OVERRIDES = {
         venues: ['Liv', 'Alex', 'Glueck & Seligkeit']
     }
 };
-const SPECIAL_SATURDAY_OPENERS = [
-    'Letzter Samstag im Monat - Zeit fuer was anderes.',
-    'Special-Samstag steht an - keine Kneipe, was Neues.',
-    'Ein Mal im Monat raus aus dem Tisch-Modus.',
-    'Special-Samstag - wir machen gemeinsam was abseits der Bar.'
-];
-const SPECIAL_SATURDAY_ACTIVITIES = [
-    { name: 'SpielSamstag',  emoji: '🎲', time: '18 Uhr',                blurb: 'Brettspiele, Karten, Wuerfel - bringt mit was ihr habt oder Cafe mit Spielregal.' },
-    { name: 'Walk + Bar',    emoji: '🚶', time: '17 Uhr (Sommer 18 Uhr)', blurb: 'Spaziergang Altstadt oder Sparrenburg, danach gemeinsam einkehren.' },
-    { name: 'Kochen',        emoji: '🍝', time: '17 Uhr',                blurb: 'Gemeinsam kochen beim Host - wer hat Platz und Bock?' },
-    { name: 'Sofa-Konzert',  emoji: '🎸', time: '19 Uhr',                blurb: 'Akustik im Wohnzimmer. Spieler bringt Instrument, Hoerer bringt Wein.' },
-    { name: 'Wandern',       emoji: '🥾', time: '11 Uhr (Tagestour)',    blurb: 'Teutoburger Wald, Hermannshoehen oder Senne. Route klaert die Orga im Chat.' },
-    { name: 'Jam Session',   emoji: '🎶', time: '18 Uhr',                blurb: 'Instrumente mitbringen, zusammen klimpern. Singen, Trommeln, Loops - alles erlaubt.' },
-    { name: 'Foto-Walk',     emoji: '📷', time: '17 Uhr (zum Sunset)',   blurb: 'Kamera oder Handy reicht. Spaziergang durch die Stadt, Bilder spaeter im Chat teilen.' }
-];
-const SPECIAL_SATURDAY_POLL_OPTIONS = [
-    'Bin dabei',
-    'Uebernehme die Orga',
-    'Vielleicht',
-    'Nicht diese Woche'
-];
 const ATTENDANCE_OPTIONS = ['Bin dabei', 'Beim naechsten Mal'];
-const TUESDAY_RUN_ATTENDANCE_OPTIONS = ['Bin dabei', 'Vielleicht', 'Diesmal nicht'];
-const THURSDAY_FOOTBALL_ATTENDANCE_OPTIONS = ['Bin dabei', 'Vielleicht', 'Diesmal nicht'];
-const JAM_SESSION_ATTENDANCE_OPTIONS = ['Kuenstler', 'Teilnehmer'];
-const PING_PONG_ATTENDANCE_OPTIONS = ['Ja, bin dabei', 'Heute nicht'];
 const IMAGES_DIR = path.join(__dirname, 'images');
-const TUESDAY_RUN_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-tuesday-run.jpg');
-const THURSDAY_FOOTBALL_DEFAULT_IMAGE_PATH = TUESDAY_RUN_DEFAULT_IMAGE_PATH;
-const JAM_SESSION_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'creative_circle.mp4');
-const KENNENLERNABEND_DEFAULT_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-kennenlernabend.jpg');
-const WEEKEND_STARTER_IMAGE_PATH = path.join(IMAGES_DIR, 'tribe-weekend-starter.jpg');
 const DAILY_HIGHLIGHTS_IMAGE_DIR = path.join(IMAGES_DIR, 'daily-highlights');
 
 const IG_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN;
@@ -287,6 +238,9 @@ const tuesdayRunChatId = process.env.WHATSAPP_TUESDAY_RUN_CHAT_ID || '1203634239
 const jamSessionChatId = process.env.WHATSAPP_JAM_SESSION_CHAT_ID || '120363426677676365@g.us';
 const announcementChatId = process.env.WHATSAPP_ANNOUNCEMENTS_CHAT_ID || '120363425963185977@g.us';
 const ausgehenChatId = process.env.WHATSAPP_AUSGEHEN_CHAT_ID || '120363426194120338@g.us';
+// Muenster hat bewusst keinen Rueckfall: ohne gesetzte ID wird dort nicht
+// gepostet, statt versehentlich in einer Bielefelder Gruppe zu landen.
+const muensterChatId = (process.env.WHATSAPP_MUENSTER_CHAT_ID || '').trim();
 const communityJoinSourceChatIds = new Set(
     (process.env.WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS || announcementChatId)
         .split(',')
@@ -441,16 +395,7 @@ function getEventFormat(dateKey = getDateParts().dateKey) {
     return isWeekendStarterActive(dateKey) ? WEEKEND_STARTER_FORMAT : SOCIAL_WARMUP_FORMAT;
 }
 
-function getOpenerForWeek(weekKey, dateKey = getDateParts().dateKey) {
-    const openers = isWeekendStarterActive(dateKey) ? WEEKEND_STARTER_OPENERS : SOCIAL_WARMUP_OPENERS;
-    return openers[getWeekNumber(weekKey) % openers.length];
-}
 
-function getUpcomingSaturdayUtcDate(weekKey) {
-    const [year, month, day] = weekKey.split('-').map(Number);
-    const mondayUtc = Date.UTC(year, month - 1, day, 12, 0, 0);
-    return new Date(mondayUtc + 5 * 24 * 60 * 60 * 1000);
-}
 
 /**
  * Datum des Event-Abends der Woche: Freitag im Weekend-Starter-Format,
@@ -463,24 +408,9 @@ function getEventDayUtcDate(weekKey, dateKey = getDateParts().dateKey) {
     return new Date(mondayUtc + offsetDays * 24 * 60 * 60 * 1000);
 }
 
-function isLastSaturdayOfMonth(weekKey) {
-    const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
-    const nextSaturdayDate = new Date(saturdayDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-    return saturdayDate.getUTCMonth() !== nextSaturdayDate.getUTCMonth();
-}
 
-function getSaturdayMonthIndex(weekKey) {
-    const saturdayDate = getUpcomingSaturdayUtcDate(weekKey);
-    return saturdayDate.getUTCFullYear() * 12 + saturdayDate.getUTCMonth();
-}
 
-function getSpecialSaturdayActivity(weekKey) {
-    return SPECIAL_SATURDAY_ACTIVITIES[getSaturdayMonthIndex(weekKey) % SPECIAL_SATURDAY_ACTIVITIES.length];
-}
 
-function getSpecialSaturdayOpener(weekKey) {
-    return SPECIAL_SATURDAY_OPENERS[getSaturdayMonthIndex(weekKey) % SPECIAL_SATURDAY_OPENERS.length];
-}
 
 function rotateArray(values, shift) {
     const normalizedShift = ((shift % values.length) + values.length) % values.length;
@@ -855,17 +785,6 @@ function unique(values) {
     return Array.from(new Set(values));
 }
 
-function isBielefeldEvent(entry) {
-    if (!entry || typeof entry !== 'object') {
-        return false;
-    }
-
-    if (entry.city) {
-        return String(entry.city).trim().toLowerCase() === 'bielefeld';
-    }
-
-    return true;
-}
 
 function toSortableTime(value) {
     return /^\d{2}:\d{2}$/.test(value || '') ? value : '99:99';
@@ -890,20 +809,6 @@ async function fetchEvents() {
 const EXCLUDED_ACCOUNTS = new Set(['sennefriedhof']);
 const EXCLUDED_ORGANIZERS = ['kirchengemeinde oldentrup'];
 
-function getTodayHighlights(events, date = getBerlinNow()) {
-    const acceptedDates = new Set(getTodayDateLabels(date));
-
-    return events
-        .filter(isBielefeldEvent)
-        .filter(entry => acceptedDates.has(String(entry.date || '').trim()))
-        .filter(entry => {
-            const name = String(entry.event || '').toLowerCase();
-            if (Array.from(EXCLUDED_ACCOUNTS).some(acc => name.includes(`@${acc}`))) return false;
-            if (EXCLUDED_ORGANIZERS.some(org => name.includes(org))) return false;
-            return true;
-        })
-        .sort((a, b) => toSortableTime(a.time).localeCompare(toSortableTime(b.time)));
-}
 
 // --- Weekend Planner -------------------------------------------------------
 //
@@ -1185,77 +1090,10 @@ function normalizeCategory(value) {
     return category;
 }
 
-function splitHighlightsBySport(highlights) {
-    const sportHighlights = [];
-    const otherHighlights = [];
 
-    for (const highlight of highlights) {
-        const category = normalizeCategory(highlight.category).toLowerCase();
-        if (category === 'sport') {
-            sportHighlights.push(highlight);
-            continue;
-        }
 
-        otherHighlights.push(highlight);
-    }
 
-    return {
-        sportHighlights,
-        otherHighlights
-    };
-}
 
-function groupHighlightsByCategory(highlights) {
-    const grouped = new Map();
-
-    for (const highlight of highlights) {
-        const category = normalizeCategory(highlight.category);
-        if (!grouped.has(category)) {
-            grouped.set(category, []);
-        }
-
-        grouped.get(category).push(highlight);
-    }
-
-    return Array.from(grouped.entries());
-}
-
-function formatHighlightsMessage(highlights, date = getBerlinNow(), titlePrefix = 'Bielefeld Tageshighlights') {
-    const { day, month, year } = getDateParts(date);
-    const title = `${titlePrefix} fuer ${day}.${month}.${year}`;
-
-    if (highlights.length === 0) {
-        return `${title}\n\nHeute wurden in der Event-Liste keine Eintraege fuer Bielefeld gefunden.`;
-    }
-
-    const sections = groupHighlightsByCategory(highlights.slice(0, MAX_HIGHLIGHTS))
-        .map(([category, entries]) => {
-            const lines = entries.map((entry, index) => {
-                const time = entry.time ? `${entry.time} Uhr` : 'Ohne Uhrzeit';
-                const link = entry.link ? ` ${entry.link}` : '';
-                return `${index + 1}. ${time} - ${entry.event}${link}`;
-            });
-
-            return `${category}\n${lines.join('\n')}`;
-        });
-
-    const moreLine = `\n\nMehr Events für #Liebefeld gibt´s in unserer App: https://liebefeld.lovable.app/`;
-
-    return `${title}\n\n${sections.join('\n\n')}${moreLine}`;
-}
-
-async function buildHighlightsMessage(date = getBerlinNow()) {
-    const events = await fetchEvents();
-    const highlights = getTodayHighlights(events, date);
-    return formatHighlightsMessage(highlights, date);
-}
-
-function getDailyHighlightImagePath(date = getBerlinNow()) {
-    const { dateKey } = getDateParts(date);
-    // JPEG statt PNG: das PNG mit eingebetteten Artworks lag bei ~490 KB und
-    // wurde von WhatsApp nicht angenommen, waehrend ein 92-KB-JPEG durchging.
-    return path.join(DAILY_HIGHLIGHTS_IMAGE_DIR, `bielefeld-tageshighlights-${dateKey}.jpg`);
-}
 
 function getCategoryStyle(categoryValue, index) {
     const category = normalizeCategory(categoryValue).toLowerCase();
@@ -1280,166 +1118,6 @@ function getCategoryStyle(categoryValue, index) {
     return styles[category] || fallbackStyles[index % fallbackStyles.length];
 }
 
-function getDailyHighlightsImageHtml(highlights, date = getBerlinNow()) {
-    const { day, month, year } = getDateParts(date);
-    const displayHighlights = highlights.slice(0, MAX_HIGHLIGHTS);
-
-    // Design und Farbwelt sind aus render-highlights-video.js uebernommen
-    // (Cover-Szene), damit Flyer und Video als ein Auftritt wirken.
-    const rows = displayHighlights.map((entry, index) => {
-        const style = getCategoryStyle(entry.category, index);
-        const time = entry.time ? escapeHtml(entry.time) : 'Heute';
-        const title = escapeHtml(entry.event || 'Event');
-        const category = escapeHtml(style.label);
-        const venue = entry.event && /\(@([^)]+)\)/.test(entry.event)
-            ? escapeHtml(entry.event.match(/\(@([^)]+)\)/)[1])
-            : 'Bielefeld';
-        // entry.image ist die vorab eingebettete Data-URL, entry.image_url der
-        // Rohlink als Rueckfall.
-        const src = entry.image || entry.image_url || null;
-        const thumb = src
-            ? `<div class="thumb"><img src="${escapeHtml(String(src))}" alt=""></div>`
-            : `<div class="thumb placeholder">${String(index + 1).padStart(2, '0')}</div>`;
-
-        return `
-            <div class="row" style="--accent: ${style.accent};">
-                ${thumb}
-                <div class="meta">
-                    <div class="top"><span class="time">${time}</span> · ${category}</div>
-                    <div class="name">${title.replace(/\s*\(@[^)]+\)\s*/, '')}</div>
-                    <div class="venue">${venue}</div>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    const emptyState = `
-        <div class="row" style="--accent: #F59E0B;">
-            <div class="thumb placeholder">–</div>
-            <div class="meta">
-                <div class="top"><span class="time">Heute</span> · Bielefeld</div>
-                <div class="name">Heute sind noch keine Highlights eingetragen</div>
-                <div class="venue">liebefeld.lovable.app</div>
-            </div>
-        </div>
-    `;
-
-    return `<!doctype html>
-<html lang="de">
-<head>
-    <meta charset="utf-8">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Familjen+Grotesk:wght@400;500;600;700&display=swap');
-
-        :root {
-            --black: #0A0807;
-            --black-soft: #141110;
-            --amber: #F59E0B;
-            --whatsapp: #25D366;
-            --text: #F5F0E8;
-            --muted: #9C9690;
-            --rule: rgba(245, 240, 232, 0.14);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html, body {
-            width: 1080px;
-            height: 1350px;
-            background: var(--black);
-            overflow: hidden;
-            font-family: 'Familjen Grotesk', ui-sans-serif, system-ui, sans-serif;
-            color: var(--text);
-        }
-
-        .poster { position: relative; width: 1080px; height: 1350px;
-                  padding: 54px 58px 46px; display: flex; flex-direction: column; }
-
-        /* Rauschtextur wie im Video */
-        .poster::after {
-            content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 50;
-            opacity: 0.28; mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-        }
-
-        /* Kopf und Fuss duerfen nicht schrumpfen: sonst quetscht der Flex-Layout
-           sie bei vollen fuenf Zeilen auf ihre Trennlinie zusammen und der Text
-           verschwindet. Gekuerzt wird stattdessen die Liste. */
-        .head {
-            display: flex; justify-content: space-between; align-items: baseline;
-            border-bottom: 1px solid var(--rule);
-            padding-bottom: 24px; margin-bottom: 30px;
-            flex-shrink: 0;
-        }
-        .head .title {
-            font-family: 'Anton', sans-serif; font-size: 92px; line-height: 0.92;
-            text-transform: uppercase;
-        }
-        .head .title em { font-style: normal; color: var(--amber); }
-        .head .date {
-            font-family: 'Anton', sans-serif; font-size: 28px; letter-spacing: 0.04em;
-            text-transform: uppercase; color: var(--muted); text-align: right; line-height: 1.15;
-        }
-
-        /* Platz fuer die absolut verankerte Fusszeile freihalten. */
-        .list { flex: 1; display: flex; flex-direction: column; gap: 20px; }
-
-        .row {
-            display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center;
-            border-left: 5px solid var(--accent); padding-left: 24px; min-height: 150px;
-        }
-        .row .thumb {
-            width: 150px; height: 150px; overflow: hidden; background: var(--black-soft);
-        }
-        .row .thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .row .thumb.placeholder {
-            display: grid; place-items: center;
-            font-family: 'Anton', sans-serif; font-size: 64px; color: var(--accent); opacity: 0.55;
-        }
-        .row .meta { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        .row .top {
-            font-weight: 600; font-size: 18px; letter-spacing: 0.22em; text-transform: uppercase;
-            margin-bottom: 8px; color: var(--accent);
-        }
-        .row .top .time { color: var(--text); }
-        .row .name {
-            font-family: 'Anton', sans-serif; font-size: 46px; line-height: 0.95;
-            text-transform: uppercase; color: var(--text); margin-bottom: 8px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .row .venue {
-            font-size: 20px; color: var(--muted); letter-spacing: 0.04em;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        /* Signatur steht bewusst oben unter dem Kopf, nicht als Fusszeile:
-           als letztes Kind der Spalte hat Chromium sie reproduzierbar auf
-           Hoehe 0 gequetscht — die Trennlinie blieb, der Text verschwand.
-           Hier oben rendert sie zuverlaessig. */
-        .stamp {
-            flex-shrink: 0;
-            margin-bottom: 26px;
-            font-family: 'Anton', sans-serif; font-size: 22px;
-            letter-spacing: 0.18em; text-transform: uppercase;
-            color: var(--muted);
-        }
-        .stamp em { font-style: normal; color: var(--whatsapp); }
-    </style>
-</head>
-<body>
-    <main class="poster">
-        <div class="head">
-            <div class="title">Heute<br><em>in Bielefeld</em></div>
-            <div class="date">${escapeHtml(day)}.${escapeHtml(month)}.${escapeHtml(year)}</div>
-        </div>
-        <div class="stamp">Tageshighlights · <em>The Tribe Bielefeld</em></div>
-        <div class="list">
-            ${rows || emptyState}
-        </div>
-    </main>
-</body>
-</html>`;
-}
 
 async function getPuppeteerBrowser() {
     if (client.pupBrowser) {
@@ -1713,67 +1391,11 @@ async function renderWeekendPlannerImage(groups, date = getBerlinNow(), options 
     return outputPath;
 }
 
-async function renderDailyHighlightsImage(highlights, date = getBerlinNow()) {
-    fs.mkdirSync(DAILY_HIGHLIGHTS_IMAGE_DIR, { recursive: true });
-
-    // Bilder vorab einbetten, sonst bleiben die Kacheln leer.
-    const withImages = await Promise.all(highlights.slice(0, MAX_HIGHLIGHTS).map(async entry => ({
-        ...entry,
-        image: await loadImageAsDataUrl(entry.image_url)
-    })));
-    const failed = withImages.filter(e => e.image_url && !e.image).length;
-    if (failed) {
-        console.warn(`${failed} Event-Bild(er) konnten nicht geladen werden — Platzhalter genutzt.`);
-    }
-    highlights = withImages;
-
-    const outputPath = getDailyHighlightImagePath(date);
-    const browser = await getPuppeteerBrowser();
-    const shouldCloseBrowser = browser !== client.pupBrowser && (!client.pupPage || browser !== client.pupPage.browser());
-    const page = await browser.newPage();
-
-    try {
-        await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 1 });
-        await page.setContent(getDailyHighlightsImageHtml(highlights, date), { waitUntil: 'networkidle0' });
-        await page.screenshot({ path: outputPath, type: 'jpeg', quality: 82, fullPage: false });
-        console.log(`Flyer gerendert: ${outputPath} (${Math.round(fs.statSync(outputPath).size / 1024)} KB)`);
-    } finally {
-        await page.close().catch(() => {});
-        if (shouldCloseBrowser) {
-            await browser.close().catch(() => {});
-        }
-    }
-
-    return outputPath;
-}
 
 // Zielgruppe des Flyers. Standard ist die Ankuendigungsgruppe; ueber
 // WHATSAPP_FLYER_CHAT_ID umstellbar, ohne Code-Aenderung.
-const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || announcementChatId;
+const flyerChatId = process.env.WHATSAPP_FLYER_CHAT_ID || chatId;
 
-async function sendDailyHighlightsImage(highlights, date = getBerlinNow(), caption) {
-    try {
-        const imagePath = await renderDailyHighlightsImage(highlights, date);
-        const media = MessageMedia.fromFilePath(imagePath);
-        console.log(`Sende Flyer mit ${highlights.length} Eintrag(en) an ${flyerChatId} ...`);
-        const sent = await client.sendMessage(flyerChatId, media, caption ? { caption } : undefined);
-        // sendMessage liefert bei dieser Library-Version auch dann kein
-        // Message-Objekt, wenn die Nachricht ankommt — die Rueckmeldung fehlt,
-        // die Zustellung nicht. Ein fehlendes Objekt darf deshalb NICHT als
-        // Fehlschlag gelten: sonst laeuft danach der Textversand als Rueckfall
-        // und in der Gruppe stehen Bild und Text.
-        // Ein echter Fehler wirft und landet im catch unten.
-        if (!sent) {
-            console.warn('Flyer gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).');
-        } else {
-            console.log(`Flyer zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`);
-        }
-        return imagePath;
-    } catch (error) {
-        console.error('Tageshighlights-Bild konnte nicht gesendet werden:', error.message);
-        return null;
-    }
-}
 
 async function uploadHighlightImageToGithub(imagePath) {
     if (!GITHUB_REPOSITORY || !GITHUB_TOKEN) {
@@ -1893,454 +1515,24 @@ function ensureWeeklyPollState(state, weekKey) {
     return state.weeklyPolls[weekKey];
 }
 
-function ensureWeeklyAnnouncementState(state, weekKey) {
-    if (!state.weeklyAnnouncements[weekKey]) {
-        state.weeklyAnnouncements[weekKey] = {};
-    }
-
-    return state.weeklyAnnouncements[weekKey];
-}
-
-function getUpcomingWeekdayDate(targetWeekdayIndex, date = getBerlinNow()) {
-    const parts = getDateParts(date);
-    const daysUntilTarget = (targetWeekdayIndex - parts.weekdayIndex + 7) % 7;
-    const targetUtcDate = new Date(parts.utcNoonDate.getTime() + (daysUntilTarget * 24 * 60 * 60 * 1000));
-    return targetUtcDate;
-}
-
-function formatGermanDateFromUtcDate(utcDate) {
-    return new Intl.DateTimeFormat('de-DE', {
-        timeZone: TIME_ZONE,
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-    }).format(utcDate);
-}
-
-function getWeeklyCalendarPollOptions(dateKey = getDateParts().dateKey) {
-    const format = getEventFormat(dateKey);
-    return [
-        'Tuesday Run (Di 17:00)',
-        'Fussball (Do 17:00)',
-        'Creative Circle (Do 18:00)',
-        'Ping Pong (Do 18:00)',
-        `${format.label} (${format.day.slice(0, 2)} ${format.timeShort})`
-    ];
-}
-
-function buildWeeklyCalendarMessage(date = getBerlinNow()) {
-    const parts = getDateParts(date);
-    const format = getEventFormat(parts.dateKey);
-    const tuesday  = getUpcomingWeekdayDate(2, date);
-    const thursday = getUpcomingWeekdayDate(4, date);
-    const eventDay = getUpcomingWeekdayDate(format.eventWeekdayIndex, date);
-
-    const eventLine = isWeekendStarterActive(parts.dateKey)
-        ? `${format.timeShort} Uhr – ${format.label} | ${format.claim} | Location folgt Donnerstagabend`
-        : `${format.timeShort} Uhr – ${format.label} | ${format.claim} | Location folgt Freitagabend`;
-
-    return [
-        'THE TRIBE – Events diese Woche',
-        '',
-        formatGermanDateFromUtcDate(tuesday),
-        '17:00 Uhr – Tuesday Run | Gellershagen Park Teich',
-        '',
-        formatGermanDateFromUtcDate(thursday),
-        '17:00 Uhr – Fussball | Sportplatz Obersee',
-        '18:00 Uhr – Creative Circle | Wiese Obersee (bei Regen: CoWorking Merianstr. 8)',
-        '18:00 Uhr – Ping Pong | Nr.z.P.',
-        '',
-        formatGermanDateFromUtcDate(eventDay),
-        eventLine,
-        '',
-        'Bei welchen Events seid ihr dabei?'
-    ].join('\n');
-}
-
-async function sendWeeklyCalendar({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyAnnouncementState(state, weekKey);
-
-    if (!force && weeklyState.weeklyCalendar && weeklyState.weeklyCalendar.dateKey === today.dateKey) {
-        return;
-    }
-
-    const message = buildWeeklyCalendarMessage();
-    await client.sendMessage(announcementChatId, message);
-    await client.sendMessage(
-        announcementChatId,
-        new Poll('Welche Tribe Events besuche ich diese Woche?', getWeeklyCalendarPollOptions())
-    );
-
-    weeklyState.weeklyCalendar = {
-        dateKey: today.dateKey,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Wochenkalender fuer ${weekKey} gesendet.`);
-}
-
-function buildTuesdayRunMessage(date = getBerlinNow()) {
-    const nextTuesday = getUpcomingWeekdayDate(2, date);
-    const formattedTuesdayDate = formatGermanDateFromUtcDate(nextTuesday);
-
-    return [
-        '🏃 TRIBE Tuesday Run – Jeden Dienstag!',
-        '',
-        'Hey Sportler! Diese Woche ist wieder Lauftreff-Zeit! 💪',
-        'Egal ob Anfaenger oder Profi – jeder ist willkommen!',
-        'Wir laufen gemeinsam eine entspannte Runde und geniessen den Feierabend.',
-        '',
-        `📅 Wann: ${formattedTuesdayDate}, 17:00 Uhr`,
-        '📍 Wo: Gellershagen Park Teich',
-        '',
-        'Wer ist dabei? Kommentiere unten!'
-    ].join('\n');
-}
-
-function buildThursdayFootballMessage(date = getBerlinNow()) {
-    const nextThursday = getUpcomingWeekdayDate(4, date);
-    const formattedThursdayDate = formatGermanDateFromUtcDate(nextThursday);
-
-    return [
-        'TRIBE Donnerstag Fussball - Jede Woche!',
-        '',
-        'Hey Sportler! Diese Woche ist wieder Fussball-Zeit!',
-        'Egal ob Kreisklasse oder Champions League - jeder ist willkommen!',
-        'Wir kicken gemeinsam eine Runde und starten sportlich in den Abend.',
-        '',
-        `Wann: ${formattedThursdayDate}, 17:00 Uhr`,
-        'Wo: Sportplatz Obersee',
-        '',
-        'Wer ist dabei? Kommentiere unten!'
-    ].join('\n');
-}
-
-function buildJamSessionMessage(date = getBerlinNow()) {
-    const nextThursday = getUpcomingWeekdayDate(4, date);
-    const formattedThursdayDate = formatGermanDateFromUtcDate(nextThursday);
-
-    return [
-        'TRIBE Creative Circle - Jeden Donnerstag!',
-        '',
-        'Diesen Donnerstag treffen wir uns wieder zum Creative Circle.',
-        'Musik steht im Mittelpunkt – aber auch Zeichnen, Schreiben, Fotografieren und andere kreative Dinge sind willkommen.',
-        'Komm als Künstler oder einfach zum Zuhören und Genießen.',
-        '',
-        `Wann: ${formattedThursdayDate}, 18:00 Uhr`,
-        'Wo: Wiese Obersee',
-        'Bei schlechtem Wetter: CoWorking Space Merianstr. 8',
-        '',
-        'Stimme kurz ab – kommst du als Kuenstler oder Teilnehmer?'
-    ].join('\n');
-}
-
-function buildPingPongMessage(date = getBerlinNow()) {
-    const nextThursday = getUpcomingWeekdayDate(4, date);
-    const formattedDate = formatGermanDateFromUtcDate(nextThursday);
-
-    return [
-        'Tagesempfehlung: Ping Pong am Nr.z.P.!',
-        '',
-        `Heute, ${formattedDate}, ist wieder Zeit fuer eine Runde Tischtennis!`,
-        'Kommt vorbei, spielt eine Runde und connectet mit anderen aus der Tribe.',
-        'Egal ob Anfaenger oder Profi – alle sind willkommen!',
-        '',
-        'Wer ist heute dabei?'
-    ].join('\n');
-}
-
-async function sendThursdayPingPongRecommendation({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyAnnouncementState(state, weekKey);
-
-    if (!force && weeklyState.pingPong && weeklyState.pingPong.dateKey === today.dateKey) {
-        return;
-    }
-
-    const message = buildPingPongMessage();
-    await client.sendMessage(ausgehenChatId, message);
-
-    await client.sendMessage(
-        ausgehenChatId,
-        new Poll('Ping Pong heute am Nr.z.P.: Wer ist dabei?', PING_PONG_ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.pingPong = {
-        dateKey: today.dateKey,
-        chatId: ausgehenChatId,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Ping-Pong-Tagesempfehlung fuer ${weekKey} gesendet.`);
-}
-
-async function loadTuesdayRunMedia() {
-    const configuredImagePath = process.env.TRIBE_TUESDAY_RUN_IMAGE_PATH || TUESDAY_RUN_DEFAULT_IMAGE_PATH;
-    const configuredImageUrl = process.env.TRIBE_TUESDAY_RUN_IMAGE_URL;
-
-    if (fs.existsSync(configuredImagePath)) {
-        return MessageMedia.fromFilePath(configuredImagePath);
-    }
-
-    if (configuredImageUrl) {
-        return MessageMedia.fromUrl(configuredImageUrl, { unsafeMime: true });
-    }
-
-    return null;
-}
-
-async function loadJamSessionMedia() {
-    const configuredImagePath = process.env.TRIBE_JAM_SESSION_IMAGE_PATH || JAM_SESSION_DEFAULT_IMAGE_PATH;
-    const configuredImageUrl = process.env.TRIBE_JAM_SESSION_IMAGE_URL;
-
-    if (fs.existsSync(configuredImagePath)) {
-        return MessageMedia.fromFilePath(configuredImagePath);
-    }
-
-    if (configuredImageUrl) {
-        return MessageMedia.fromUrl(configuredImageUrl, { unsafeMime: true });
-    }
-
-    return null;
-}
-
-async function loadThursdayFootballMedia() {
-    const configuredImagePath = process.env.TRIBE_THURSDAY_FOOTBALL_IMAGE_PATH || THURSDAY_FOOTBALL_DEFAULT_IMAGE_PATH;
-    const configuredImageUrl = process.env.TRIBE_THURSDAY_FOOTBALL_IMAGE_URL;
-
-    if (fs.existsSync(configuredImagePath)) {
-        return MessageMedia.fromFilePath(configuredImagePath);
-    }
-
-    if (configuredImageUrl) {
-        return MessageMedia.fromUrl(configuredImageUrl, { unsafeMime: true });
-    }
-
-    return null;
-}
-
-async function loadKennenlernabendMedia() {
-    // Im Weekend-Starter-Format die passende Kachel, sonst die alte.
-    // Eine gesetzte Env-Var gewinnt weiterhin ueber beides.
-    const defaultImagePath = isWeekendStarterActive() && fs.existsSync(WEEKEND_STARTER_IMAGE_PATH)
-        ? WEEKEND_STARTER_IMAGE_PATH
-        : KENNENLERNABEND_DEFAULT_IMAGE_PATH;
-    const configuredImagePath = process.env.TRIBE_KENNENLERNABEND_IMAGE_PATH || defaultImagePath;
-    const configuredImageUrl = process.env.TRIBE_KENNENLERNABEND_IMAGE_URL;
-
-    if (fs.existsSync(configuredImagePath)) {
-        return MessageMedia.fromFilePath(configuredImagePath);
-    }
-
-    if (configuredImageUrl) {
-        return MessageMedia.fromUrl(configuredImageUrl, { unsafeMime: true });
-    }
-
-    return null;
-}
-
-async function sendTuesdayRunAnnouncement({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyAnnouncementState(state, weekKey);
-
-    if (!force && weeklyState.tuesdayRun && weeklyState.tuesdayRun.dateKey === today.dateKey) {
-        return;
-    }
-
-    const message = buildTuesdayRunMessage();
-    const media = await loadTuesdayRunMedia();
-
-    if (media) {
-        await client.sendMessage(tuesdayRunChatId, media, { caption: message });
-    } else {
-        await client.sendMessage(tuesdayRunChatId, message);
-        console.log('Tuesday-Run-Post ohne Bild gesendet, weil keine Bilddatei oder Bild-URL konfiguriert ist.');
-    }
-
-    await client.sendMessage(
-        tuesdayRunChatId,
-        new Poll('TRIBE Tuesday Run: Wer ist dabei?', TUESDAY_RUN_ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.tuesdayRun = {
-        dateKey: today.dateKey,
-        chatId: tuesdayRunChatId,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Tuesday-Run-Post fuer ${weekKey} gesendet.`);
-}
-
-async function sendJamSessionAnnouncement({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyAnnouncementState(state, weekKey);
-
-    if (!force && weeklyState.jamSession && weeklyState.jamSession.dateKey === today.dateKey) {
-        return;
-    }
-
-    const message = buildJamSessionMessage();
-    const media = await loadJamSessionMedia();
-
-    if (media) {
-        await client.sendMessage(jamSessionChatId, media, { caption: message });
-    } else {
-        await client.sendMessage(jamSessionChatId, message);
-        console.log('Jam-Session-Post ohne Bild gesendet, weil keine Bilddatei oder Bild-URL konfiguriert ist.');
-    }
-
-    await client.sendMessage(
-        jamSessionChatId,
-        new Poll('TRIBE Creative Circle: Wer bist du diese Woche?', JAM_SESSION_ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.jamSession = {
-        dateKey: today.dateKey,
-        chatId: jamSessionChatId,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Jam-Session-Post fuer ${weekKey} gesendet.`);
-}
-
-async function sendThursdayFootballAnnouncement({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyAnnouncementState(state, weekKey);
-
-    if (!force && weeklyState.thursdayFootball && weeklyState.thursdayFootball.dateKey === today.dateKey) {
-        return;
-    }
-
-    const message = buildThursdayFootballMessage();
-    const media = await loadThursdayFootballMedia();
-
-    if (media) {
-        await client.sendMessage(tuesdayRunChatId, media, { caption: message });
-    } else {
-        await client.sendMessage(tuesdayRunChatId, message);
-        console.log('Donnerstags-Fussball-Post ohne Bild gesendet, weil keine Bilddatei oder Bild-URL konfiguriert ist.');
-    }
-
-    await client.sendMessage(
-        tuesdayRunChatId,
-        new Poll('TRIBE Donnerstag Fussball: Wer ist dabei?', THURSDAY_FOOTBALL_ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.thursdayFootball = {
-        dateKey: today.dateKey,
-        chatId: tuesdayRunChatId,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Donnerstags-Fussball-Post fuer ${weekKey} gesendet.`);
-}
-
-async function sendDailyHighlights({ force = false } = {}) {
-    const state = getState();
-    const now = getBerlinNow();
-    const today = getDateParts(now);
-    const todayKey = today.dateKey;
-
-    if (!force && state.lastPostedDate === todayKey) {
-        return;
-    }
-
-    const events = await fetchEvents();
-    const highlights = getTodayHighlights(events, now);
-    // Gefiltert wird ueber die Location, nicht ueber die Kategorie: das
-    // category-Feld der Event-Liste ist unzuverlaessig — oft leer (was zu
-    // "Sonstiges" normalisiert und die Clubs herauswerfen wuerde), teils
-    // enthaelt es versehentlich den Beschreibungstext. Die Allowlist der
-    // Locations grenzt ohnehin deutlich schaerfer ein.
-    const { weekdayIndex } = today;
-    const WEEKDAY_PREFIXES = ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'];
-    const todayPrefix = WEEKDAY_PREFIXES[weekdayIndex];
-    const weekdayPrefixPattern = /^\s*(MO|DI|MI|DO|FR|SA|SO)\s*[•·]/i;
-    const filtered = highlights.filter(h => {
-        // Eigene Formate kommen als fester Eintrag dazu, nicht aus der Liste.
-        if (isTribeEvent(h)) return false;
-        // Nur angesagte Locations.
-        if (!isHighlightVenue(h)) return false;
-        const name = h.event || '';
-        // Wiederkehrende Serien mit Wochentags-Präfix (z. B. "FR • Cafe Europa")
-        // nur am passenden Wochentag zeigen
-        const prefixMatch = name.match(weekdayPrefixPattern);
-        if (prefixMatch && prefixMatch[1].toUpperCase() !== todayPrefix) return false;
-        return true;
-    });
-
-    // Einziges eigenes Format auf dem Flyer: der Weekend Starter am Eventtag.
-    // Ping Pong, Pub Quiz und Kennenlernabend sind bewusst raus.
-    const format = getEventFormat(todayKey);
-    const isEventDay = weekdayIndex === format.eventWeekdayIndex;
-    const weeklyState = ensureWeeklyPollState(state, getBerlinWeekKey());
-    const votedVenue = weeklyState.finalVenue?.name || weeklyState.attendancePoll?.venue || '';
-
-    const ownEntry = {
-        event: votedVenue ? `${format.label} (@${votedVenue})` : format.label,
-        time: format.timeShort,
-        category: 'THE TRIBE',
-        link: ''
-    };
-
-    const fixedEntries = isEventDay ? [ownEntry] : [];
-    const fixedNames = new Set(fixedEntries.map(e => e.event));
-    const withTribe = [...fixedEntries, ...filtered.filter(h => !fixedNames.has(h.event))];
-
-    if (withTribe.length === 0) {
-        // Lieber nichts posten als einen Flyer mit "keine Highlights" — bei der
-        // engen Location-Auswahl bleibt rund ein Drittel der Tage leer.
-        console.log(`Keine passenden Highlights fuer ${todayKey} — kein Flyer gepostet.`);
-        return;
-    }
-
-    const caption = 'Mehr Events für #Liebefeld: https://liebefeld.lovable.app/';
-
-    // Event-Übersicht als Bild posten (kein Video mehr), Link direkt als Caption
-    let delivered = null;
-    try {
-        delivered = await sendDailyHighlightsImage(withTribe, now, caption);
-    } catch (err) {
-        console.error('Tageshighlights-Bild konnte nicht gesendet werden:', err.message);
-    }
-
-    if (!delivered) {
-        // Nur echte Fehler landen hier — sendDailyHighlightsImage gibt den
-        // Pfad auch dann zurueck, wenn die Library die Zustellung nicht
-        // bestaetigt. Kein Textversand als Rueckfall: der lief zuletzt
-        // zusaetzlich zum erfolgreich gesendeten Bild und hat die Gruppe
-        // doppelt bespielt.
-        throw new Error(`Tageshighlights fuer ${todayKey} nicht gesendet`);
-    }
-
-    state.lastPostedDate = todayKey;
-    state.lastPostedAt = new Date().toISOString();
-    writeState(state);
-
-    console.log(`Tageshighlights fuer ${todayKey} gesendet.`);
-
-    // Derselbe Flyer zusaetzlich als Instagram-Story. Bewusst nach dem
-    // State-Schreiben: die Story ist Zugabe, ein Fehler dort darf den bereits
-    // zugestellten WhatsApp-Post nicht zum Fehlschlag machen. Die Funktion
-    // faengt eigene Fehler ab und loggt nur.
-    await sendDailyHighlightsInstagramStory(delivered);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function sendPlanner(options = {}) {
     const {
@@ -2352,8 +1544,14 @@ async function sendPlanner(options = {}) {
         titleAccent = 'Planer',
         stamp = 'Fr · Sa · So',
         caption = 'Mehr Events: https://liebefeld.lovable.app/',
-        slug = 'planner'
+        slug = 'planner',
+        targetChatId = flyerChatId
     } = options;
+
+    if (!targetChatId) {
+        console.log(`${label} uebersprungen — keine Gruppen-ID gesetzt.`);
+        return;
+    }
 
     const now = getBerlinNow();
     const groups = getWeekendPlannerGroups(await fetchEvents(), now, {
@@ -2383,10 +1581,15 @@ async function sendPlanner(options = {}) {
     // Message-Objekt zurueck, auch wenn die Nachricht ankommt. Ein Fehler wirft
     // und wird hier bewusst NICHT geschluckt: sonst vermerkt runDueJobs() den
     // Job als erledigt, obwohl nichts in der Gruppe steht.
-    const sent = await client.sendMessage(flyerChatId, media, { caption });
+    const sent = await client.sendMessage(targetChatId, media, { caption });
     console.log(sent
         ? `${label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
         : `${label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
+
+    // Die Wochenuebersicht geht zusaetzlich als Instagram-Story raus. Bewusst
+    // am Ende und mit eigener Fehlerbehandlung: die Story ist Zugabe, ein
+    // Fehler dort darf den bereits zugestellten WhatsApp-Post nicht kippen.
+    await sendDailyHighlightsInstagramStory(imagePath);
 }
 
 function sendWeekendPlanner({ force = false } = {}) {
@@ -2397,6 +1600,73 @@ function sendWeekendPlanner({ force = false } = {}) {
         slug: 'weekend-planner',
         caption: 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/'
     });
+}
+
+// Der Weekend Starter ist eine feste Ankuendigung, keine Auswertung: immer
+// dasselbe Plakat, immer derselbe Text. Es gibt weder Umfrage noch Location —
+// die Gruppe schlaegt selbst vor, deshalb auch kein Abgleich mit dem Feed.
+const WEEKEND_STARTER_CITIES = {
+    bielefeld: {
+        label: 'Bielefeld',
+        connect: 'BIELEFELD CONNECT',
+        poster: path.join(__dirname, 'images', 'weekend-starter-bielefeld.png'),
+        getChatId: () => chatId
+    },
+    muenster: {
+        label: 'Münster',
+        connect: 'MÜNSTER CONNECT',
+        poster: path.join(__dirname, 'images', 'weekend-starter-muenster.png'),
+        getChatId: () => muensterChatId
+    }
+};
+
+function getWeekendStarterCaption(city) {
+    const format = getEventFormat();
+    return [
+        '🍻 WEEKEND STARTER',
+        `THE TRIBE · ${city.connect}`,
+        '',
+        `Jeden ${format.day} · ab ${format.time} · verschiedene Locations in ${city.label}`,
+        '',
+        'Kein Host. Kein Programm. Keine Anmeldung.',
+        'Einfach Community. Einfach ins Wochenende starten.',
+        '',
+        'Du hast eine Location im Kopf?',
+        '👉 Mach einen Vorschlag in der Community.',
+        '',
+        'Andere haben Bock?',
+        '👉 Treffen, anstoßen, quatschen & neue Leute kennenlernen.',
+        '',
+        'SELF ORGANIZED · BY THE COMMUNITY, FOR THE COMMUNITY. 🫶',
+        '',
+        '🍻 Drinks. 🗣️ Kontakte. ❤️ Community.'
+    ].join('\n');
+}
+
+async function sendWeekendStarter(cityKey) {
+    const city = WEEKEND_STARTER_CITIES[cityKey];
+    if (!city) {
+        throw new Error(`Unbekannte Weekend-Starter-Stadt: ${cityKey}`);
+    }
+
+    const target = city.getChatId();
+    if (!target) {
+        console.log(`Weekend Starter ${city.label} uebersprungen — keine Gruppen-ID gesetzt.`);
+        return;
+    }
+
+    if (!fs.existsSync(city.poster)) {
+        throw new Error(`Plakat fehlt: ${city.poster}`);
+    }
+
+    const media = MessageMedia.fromFilePath(city.poster);
+    console.log(`Sende Weekend Starter ${city.label} an ${target} ...`);
+    // Ein Fehler wird bewusst nicht geschluckt: sonst vermerkt runDueJobs()
+    // den Job als erledigt, obwohl nichts in der Gruppe steht.
+    const sent = await client.sendMessage(target, media, { caption: getWeekendStarterCaption(city) });
+    console.log(sent
+        ? `Weekend Starter ${city.label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
+        : `Weekend Starter ${city.label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
 }
 
 // Muenster laeuft ueber die ganze Woche statt nur das Wochenende: der Feed
@@ -2412,172 +1682,14 @@ function sendMuensterPlanner({ force = false } = {}) {
         titleAccent: 'in Münster',
         stamp: 'Mo bis So',
         slug: 'muenster-planner',
-        caption: 'Eure Woche in Münster ✨\nMehr Events: https://liebefeld.lovable.app/'
+        caption: 'Eure Woche in Münster ✨\nMehr Events: https://liebefeld.lovable.app/',
+        targetChatId: muensterChatId
     });
 }
 
-async function sendDailyHighlightsVideo(date = getBerlinNow()) {
-    const videoPath = await generateDailyHighlightsVideo(date, { label: 'daily-video' });
-    if (!videoPath || !fs.existsSync(videoPath)) {
-        throw new Error('Video rendering produced no output');
-    }
-    try {
-        const media = MessageMedia.fromFilePath(videoPath);
-        await client.sendMessage(announcementChatId, media, {
-            caption: '🎬 Tageshighlights als Video – viel Spass beim Durchscrollen!'
-        });
-    } catch (err) {
-        throw new Error(`Failed to send video: ${err.message}`);
-    }
-}
 
-/**
- * Send a poll and pin it for a week.
- *
- * whatsapp-web.js resolves sendMessage to undefined when it cannot map the sent
- * poll back to a message model. The poll is delivered either way, so a missing
- * message must not abort the caller — that would skip the state write that
- * follows and leave the week's schedule without its poll reference.
- *
- * Returns the message id, or null when it could not be determined.
- */
-async function sendAndPinPoll(chatId, poll) {
-    const message = await client.sendMessage(chatId, poll);
 
-    if (!message) {
-        console.warn('Umfrage gesendet, aber kein Message-Objekt erhalten — ohne Pin und ohne Message-ID.');
-        return null;
-    }
 
-    try {
-        await message.pin(604800);
-    } catch (err) {
-        console.error('Umfrage konnte nicht angepinnt werden:', err && err.message ? err.message : err);
-    }
-
-    return message.id?._serialized || null;
-}
-
-async function sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today }) {
-    const activity = getSpecialSaturdayActivity(weekKey);
-    const intro = [
-        getSpecialSaturdayOpener(weekKey),
-        '',
-        '🎉 Letzter Samstag im Monat = SPECIAL SAMSTAG.',
-        '',
-        `Diese Mal: ${activity.emoji} ${activity.name} (${activity.time})`,
-        activity.blurb,
-        '',
-        '⚠️ Special Samstag heisst: jemand aus der Tribe uebernimmt die Orga.',
-        'Treffpunkt, Location, Details - im Chat klaeren.',
-        "Wer hat Bock? Schreibt 👇 \"Ich mach's\" - sonst faellt's flach.",
-        '',
-        'Sagt bis Freitag 18 Uhr Bescheid, ob ihr dabei seid.'
-    ].join('\n');
-
-    const media = await loadKennenlernabendMedia();
-
-    if (media) {
-        await client.sendMessage(chatId, media, { caption: intro });
-    } else {
-        await client.sendMessage(chatId, intro);
-    }
-
-    const pollMessageId = await sendAndPinPoll(
-        chatId,
-        new Poll(`Special Samstag: ${activity.emoji} ${activity.name}`, SPECIAL_SATURDAY_POLL_OPTIONS)
-    );
-
-    weeklyState.specialSaturday = {
-        dateKey: today.dateKey,
-        weekKey,
-        activity: activity.name,
-        emoji: activity.emoji,
-        time: activity.time,
-        messageId: pollMessageId,
-        createdAt: new Date().toISOString()
-    };
-
-    weeklyState.venuePoll = {
-        dateKey: today.dateKey,
-        weekKey,
-        messageId: pollMessageId,
-        options: SPECIAL_SATURDAY_POLL_OPTIONS,
-        special: true,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Special-Samstag-Post fuer ${weekKey} gesendet. Aktion: ${activity.name}.`);
-}
-
-async function sendWednesdayVenuePoll({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyPollState(state, weekKey);
-
-    // Die Location-Umfrage ist ein Wochenformat — einmal pro Woche genuegt.
-    // Der frueher tagesgenaue Vergleich haette sie ein zweites Mal gestellt,
-    // sobald sie vorgezogen wird und der regulaere Mittwochs-Lauf danach noch
-    // greift: der Tagesmerker gilt nur fuer den Tag, an dem vorgezogen wurde.
-    if (!force && weeklyState.venuePoll) {
-        return;
-    }
-
-    if (isLastSaturdayOfMonth(weekKey) && !WEEK_OVERRIDES[weekKey]?.skipSpecialSaturday) {
-        await sendSpecialSaturdayAnnouncement({ state, weeklyState, weekKey, today });
-        return;
-    }
-
-    const format = getEventFormat(today.dateKey);
-    const weekendStarter = isWeekendStarterActive(today.dateKey);
-    const venues = getVenueOptionsForWeek(weekKey);
-    const options = [...venues, VENUE_POLL_CHAT_OPTION];
-    const intro = [
-        getOpenerForWeek(weekKey, today.dateKey),
-        '',
-        weekendStarter
-            ? `${format.label}: ${format.claim} Entspannt ankommen, Leute kennenlernen, danach zieht ihr gemeinsam weiter.`
-            : `${format.label}: Einstieg in den Abend – entspannt ankommen, Leute kennenlernen, danach ziehen wir gemeinsam weiter.`,
-        '',
-        'Drei Locations zur Auswahl:',
-        ...venues.map(venue => `👉 ${venue}`),
-        '',
-        weekendStarter
-            ? 'Bis Donnerstag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
-            : 'Bis Freitag 18 Uhr abstimmen. Eigene Idee? Ab in den Chat.'
-    ].join('\n');
-
-    const media = await loadKennenlernabendMedia();
-
-    if (media) {
-        await client.sendMessage(chatId, media, { caption: intro });
-    } else {
-        await client.sendMessage(chatId, intro);
-    }
-
-    const pollMessageId = await sendAndPinPoll(
-        chatId,
-        new Poll(`Location fuer den ${format.label} am ${format.day}?`, options)
-    );
-
-    if (!pollMessageId) {
-        console.warn('Die Zusage-Umfrage faellt damit auf die erste Location zurueck statt auf den Abstimmungssieger.');
-    }
-
-    weeklyState.venuePoll = {
-        dateKey: today.dateKey,
-        weekKey,
-        messageId: pollMessageId,
-        options,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Mittwochs-Umfrage fuer ${weekKey} gesendet.`);
-    await updateLandingPageNextEvent();
-}
 
 function getLatestVotesPerVoter(votes) {
     const latestByVoter = new Map();
@@ -2832,29 +1944,6 @@ async function exportGermanyCommunityMap() {
     }
 }
 
-async function syncRecentMessageHistory() {
-    const analytics = getAnalytics();
-
-    if (analytics.lastHistorySyncAt) {
-        return;
-    }
-
-    for (const targetChatId of getTrackedChatIds()) {
-        try {
-            const chat = await client.getChatById(targetChatId);
-            const messages = await chat.fetchMessages({ limit: INITIAL_MESSAGE_HISTORY_LIMIT });
-
-            for (const message of messages) {
-                recordAnalyticsMessage(message, { persist: false, analytics });
-            }
-        } catch (err) {
-            console.error(`Fehler beim Laden des Nachrichtenverlaufs fuer ${targetChatId}:`, err.message);
-        }
-    }
-
-    analytics.lastHistorySyncAt = new Date().toISOString();
-    writeAnalytics(analytics);
-}
 
 function buildAttendanceSnapshot(weekKey, weeklyState, counts, latestVotes) {
     const yesCount = counts['Bin dabei'] || 0;
@@ -3091,14 +2180,10 @@ function renderLandingChart(lc) {
 
 function getDashboardCommands() {
     return [
-        { label: 'Highlights', command: '/highlights' },
-        { label: 'Poll Mi', command: '/poll-mittwoch' },
-        { label: 'Poll Fr', command: '/poll-freitag' },
-        { label: 'Reminder So', command: '/kennenlernabend-reminder' },
-        { label: 'Tuesday Run', command: '/tuesday-run' },
-        { label: 'Jam Session', command: '/jam-session' },
-        { label: 'Fussball Do', command: '/thursday-football' },
-        { label: 'Ping Pong Do', command: '/ping-pong' },
+        { label: 'Wochenuebersicht BI', command: '/weekend-planner' },
+        { label: 'Wochenuebersicht MS', command: '/muenster-planner' },
+        { label: 'Weekend Starter BI', command: '/weekend-starter' },
+        { label: 'Weekend Starter MS', command: '/weekend-starter-muenster' },
         { label: 'Gruppen', command: '/groups' }
     ];
 }
@@ -3999,193 +3084,8 @@ async function getWinningVenueFromWednesdayPoll(weeklyState, weekKey) {
     };
 }
 
-async function sendSpecialSaturdayAttendancePoll({ state, weeklyState, today }) {
-    const { activity, emoji, time } = weeklyState.specialSaturday;
-    const label = `${emoji} ${activity}`;
-    const intro = [
-        `Special Samstag steht: ${label} (${time}).`,
-        'Falls Orga und Treffpunkt noch offen sind: jetzt im Chat klaeren.',
-        '',
-        'Die Anmeldung ist verbindlich.',
-        '',
-        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
-        'Wer mag, zieht danach mit uns weiter.'
-    ].join('\n');
 
-    const media = await loadKennenlernabendMedia();
 
-    if (media) {
-        await client.sendMessage(chatId, media, { caption: intro });
-    } else {
-        await client.sendMessage(chatId, intro);
-    }
-
-    const pollMessageId = await sendAndPinPoll(
-        chatId,
-        new Poll(`${label} - Samstag ${time}: bist du dabei?`, ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.finalVenue = {
-        name: label,
-        source: 'special',
-        resolvedAt: new Date().toISOString()
-    };
-
-    weeklyState.attendancePoll = {
-        dateKey: today.dateKey,
-        messageId: pollMessageId,
-        venue: label,
-        special: true,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Freitags-Umfrage (Special) fuer ${weeklyState.specialSaturday.weekKey} gesendet. Aktion: ${activity}.`);
-}
-
-async function sendSaturdayAttendancePoll({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyPollState(state, weekKey);
-
-    if (!force && weeklyState.attendancePoll && weeklyState.attendancePoll.dateKey === today.dateKey) {
-        return;
-    }
-
-    if (weeklyState.specialSaturday && !WEEK_OVERRIDES[weekKey]?.skipSpecialSaturday) {
-        await sendSpecialSaturdayAttendancePoll({ state, weeklyState, today });
-        return;
-    }
-
-    const venueOverride = (process.env.FRIDAY_POLL_VENUE_OVERRIDE || '').trim();
-    const result = venueOverride
-        ? { winner: venueOverride, counts: {}, source: 'override' }
-        : await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
-    const format = getEventFormat(today.dateKey);
-    const intro = [
-        `Wir treffen uns am ${format.day} um ${format.time} bei ${result.winner}.`,
-        '',
-        'Die Anmeldung ist verbindlich.',
-        '',
-        '',
-        'Bitte beachte: Nur angemeldete Personen koennen wir fuer den Abend einplanen.',
-        isWeekendStarterActive(today.dateKey)
-            ? `${format.label} — ${format.claim}`
-            : `${format.label} — wer mag, zieht danach mit uns weiter.`
-    ].join('\n');
-
-    const media = await loadKennenlernabendMedia();
-
-    if (media) {
-        await client.sendMessage(chatId, media, { caption: intro });
-    } else {
-        await client.sendMessage(chatId, intro);
-    }
-
-    const pollMessageId = await sendAndPinPoll(
-        chatId,
-        new Poll(`${format.label} am ${format.day} bei ${result.winner} – ${format.time}: bist du dabei?`, ATTENDANCE_OPTIONS)
-    );
-
-    weeklyState.finalVenue = {
-        name: result.winner,
-        counts: result.counts,
-        source: result.source,
-        resolvedAt: new Date().toISOString()
-    };
-
-    weeklyState.attendancePoll = {
-        dateKey: today.dateKey,
-        messageId: pollMessageId,
-        venue: result.winner,
-        createdAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Freitags-Umfrage fuer ${weekKey} gesendet. Gewinner: ${result.winner}.`);
-}
-
-async function sendSaturdayKennenlernabendReminder({ force = false } = {}) {
-    const state = getState();
-    const today = getDateParts();
-    const weekKey = getBerlinWeekKey();
-    const weeklyState = ensureWeeklyPollState(state, weekKey);
-
-    if (!force && weeklyState.saturdayReminder && weeklyState.saturdayReminder.dateKey === today.dateKey) {
-        return;
-    }
-
-    if (weeklyState.specialSaturday) {
-        const { activity, emoji, time } = weeklyState.specialSaturday;
-        const message = [
-            'Reminder: Special Samstag heute',
-            '',
-            `Was: ${emoji} ${activity}`,
-            `Wann: heute, ${time}`,
-            'Wo: siehe Chat (Orga laeuft ueber Tribe-Mitglied)',
-            '',
-            'Wer noch unentschlossen ist: einfach kommen oder kurz im Chat melden.'
-        ].join('\n');
-
-        await client.sendMessage(chatId, message);
-
-        weeklyState.saturdayReminder = {
-            dateKey: today.dateKey,
-            venue: `${emoji} ${activity}`,
-            special: true,
-            sentAt: new Date().toISOString()
-        };
-
-        writeState(state);
-        console.log(`Samstags-Reminder (Special) fuer ${weekKey} gesendet. Aktion: ${activity}.`);
-        return;
-    }
-
-    let venue = weeklyState.finalVenue?.name || weeklyState.attendancePoll?.venue;
-    let result = null;
-
-    if (!venue) {
-        result = await getWinningVenueFromWednesdayPoll(weeklyState, weekKey);
-        venue = result.winner;
-    }
-
-    const format = getEventFormat(today.dateKey);
-    const message = [
-        `Reminder: ${format.label} heute`,
-        '',
-        isWeekendStarterActive(today.dateKey)
-            ? `Was: ${format.label} – ${format.claim}`
-            : `Was: ${format.label} – Einstieg in den Abend, danach ziehen wir weiter`,
-        `Wann: heute, ${format.timeShort} Uhr`,
-        `Wo: ${venue}`,
-        '',
-        'Angemeldet? Perfekt. Heute Abend wird gut.',
-        '',
-        'Noch nicht zugesagt? Sag jetzt verbindlich zu — stimm ab!',
-
-    ].join('\n');
-
-    await client.sendMessage(chatId, message);
-
-    if (!weeklyState.finalVenue && result) {
-        weeklyState.finalVenue = {
-            name: result.winner,
-            counts: result.counts,
-            source: result.source,
-            resolvedAt: new Date().toISOString()
-        };
-    }
-
-    weeklyState.saturdayReminder = {
-        dateKey: today.dateKey,
-        venue,
-        sentAt: new Date().toISOString()
-    };
-
-    writeState(state);
-    console.log(`Samstags-Reminder fuer ${weekKey} gesendet. Location: ${venue}.`);
-}
 
 function findNextOccurrence({ weekdayIndex, hour, minute = 0 }, fromDate = getBerlinNow()) {
     const start = new Date(fromDate.getTime() + 60 * 1000);
@@ -4234,45 +3134,22 @@ function scheduleJob(name, rule, task) {
 function startScheduler() {
     stopScheduler();
 
-    console.log(`Scheduler aktiv. Posts laufen nur noch zu festen Zeitpunkten um ${String(DAILY_POST_HOUR).padStart(2, '0')}:00 (${TIME_ZONE}).`);
+    console.log('Scheduler aktiv: Dienstag 18 Uhr Wochenuebersicht, Mittwoch 18 Uhr Weekend Starter.');
 
-    scheduleJob('Tageshighlights', { hour: DAILY_POST_HOUR }, async () => {
-        await sendDailyHighlights();
+    scheduleJob('Weekend-Planer', { weekdayIndex: 2, hour: 18 }, async () => {
+        await sendWeekendPlanner();
     });
 
-    scheduleJob('Mittwochs-Umfrage', { weekdayIndex: 3, hour: 20 }, async () => {
-        await sendWednesdayVenuePoll();
+    scheduleJob('Muenster-Planer', { weekdayIndex: 2, hour: 18 }, async () => {
+        await sendMuensterPlanner();
     });
 
-    // Wie in runDueJobs: Weekend Starter zieht beide Termine einen Tag vor.
-    const schedulerWeekendStarter = isWeekendStarterActive();
-
-    scheduleJob('Zusage-Umfrage', { weekdayIndex: schedulerWeekendStarter ? 4 : 5, hour: 18 }, async () => {
-        await sendSaturdayAttendancePoll();
+    scheduleJob('Weekend Starter Bielefeld', { weekdayIndex: 3, hour: 18 }, async () => {
+        await sendWeekendStarter('bielefeld');
     });
 
-    scheduleJob('Event-Reminder', { weekdayIndex: schedulerWeekendStarter ? 5 : 6, hour: 12 }, async () => {
-        await sendSaturdayKennenlernabendReminder();
-    });
-
-    scheduleJob('Wochenkalender', { weekdayIndex: 0, hour: 12, minute: 15 }, async () => {
-        await sendWeeklyCalendar();
-    });
-
-    scheduleJob('Tuesday-Run-Post', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, async () => {
-        await sendTuesdayRunAnnouncement();
-    });
-
-    scheduleJob('Jam-Session-Post', { weekdayIndex: 3, hour: 18 }, async () => {
-        await sendJamSessionAnnouncement();
-    });
-
-    scheduleJob('Donnerstags-Fussball-Post', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, async () => {
-        await sendThursdayFootballAnnouncement();
-    });
-
-    scheduleJob('Ping-Pong-Tagesempfehlung', { weekdayIndex: 4, hour: 12 }, async () => {
-        await sendThursdayPingPongRecommendation();
+    scheduleJob('Weekend Starter Muenster', { weekdayIndex: 3, hour: 18 }, async () => {
+        await sendWeekendStarter('muenster');
     });
 }
 
@@ -4335,24 +3212,15 @@ async function runDueJobs() {
     // catchUpHours nur dort, wo ein verspaeteter Post noch Sinn ergibt — alles
     // bleibt am selben Tag. Der Reminder holt kuerzer nach: "heute 20 Uhr" ist
     // am Abend noch nuetzlich, nachts nicht mehr.
+    // Nur noch zwei Formate, jeweils fuer Bielefeld und Muenster:
+    //   Dienstag 18 Uhr  Wochenuebersicht (WhatsApp + Instagram-Story)
+    //   Mittwoch 18 Uhr  Weekend-Starter-Ankuendigung
+    // weekdayIndex wie getUTCDay(): 0 = Sonntag, 2 = Dienstag, 3 = Mittwoch.
     const dueJobs = [
-        ['daily-highlights', { hour: DAILY_POST_HOUR, catchUpHours: 6 }, () => sendDailyHighlights()],
-        ['wednesday-poll', { weekdayIndex: 3, hour: 20, catchUpHours: 3 }, () => sendWednesdayVenuePoll()],
-        ['friday-poll', { weekdayIndex: attendancePollWeekday, hour: 18, catchUpHours: 4 }, () => sendSaturdayAttendancePoll()],
-        ['saturday-reminder', { weekdayIndex: eventReminderWeekday, hour: 12, catchUpHours: 5 }, () => sendSaturdayKennenlernabendReminder()],
-        ['weekly-calendar', { weekdayIndex: 0, hour: 12, minute: 15 }, () => sendWeeklyCalendar()],
-        // Dienstagabend, damit die Gruppe das Wochenende planen kann, solange
-        // noch Zeit ist. weekdayIndex 2 ist Dienstag (getUTCDay, 0 = Sonntag).
         ['weekend-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendWeekendPlanner()],
-        // Muenster ist bewusst nicht im Zeitplan: der Flyer steht, aber der
-        // Feed gibt fuer die Stadt nur ein bis zwei Termine je Woche her.
-        // Ueber den Befehl muenster-planner laesst er sich jederzeit posten,
-        // und diese Zeile wieder einkommentieren stellt die Automatik her.
-        // ['muenster-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendMuensterPlanner()],
-        ['tuesday-run', { weekdayIndex: 1, hour: DAILY_POST_HOUR }, () => sendTuesdayRunAnnouncement()],
-        ['jam-session', { weekdayIndex: 3, hour: 18 }, () => sendJamSessionAnnouncement()],
-        ['thursday-football', { weekdayIndex: 3, hour: DAILY_POST_HOUR }, () => sendThursdayFootballAnnouncement()],
-        ['ping-pong', { weekdayIndex: 4, hour: 12 }, () => sendThursdayPingPongRecommendation()]
+        ['muenster-planner', { weekdayIndex: 2, hour: 18, catchUpHours: 4 }, () => sendMuensterPlanner()],
+        ['weekend-starter', { weekdayIndex: 3, hour: 18, catchUpHours: 4 }, () => sendWeekendStarter('bielefeld')],
+        ['muenster-weekend-starter', { weekdayIndex: 3, hour: 18, catchUpHours: 4 }, () => sendWeekendStarter('muenster')]
     ].filter(([, rule]) => isDueNow(rule, nowParts));
 
     if (dueJobs.length === 0) {
@@ -4382,18 +3250,10 @@ async function runDueJobs() {
 // Explicitly dispatched commands map onto the scheduled job of the same name,
 // so posting one by hand marks it done and the scheduled run skips it.
 const COMMAND_TO_DUE_JOB = {
-    'daily-highlights': 'daily-highlights',
-    'wednesday-poll': 'wednesday-poll',
-    'friday-poll': 'friday-poll',
-    'saturday-poll': 'friday-poll',
-    'saturday-reminder': 'saturday-reminder',
-    'weekly-calendar': 'weekly-calendar',
     'weekend-planner': 'weekend-planner',
     'muenster-planner': 'muenster-planner',
-    'tuesday-run': 'tuesday-run',
-    'jam-session': 'jam-session',
-    'thursday-football': 'thursday-football',
-    'ping-pong': 'ping-pong'
+    'weekend-starter': 'weekend-starter',
+    'muenster-weekend-starter': 'muenster-weekend-starter'
 };
 
 async function runBotCommand(command) {
@@ -4401,42 +3261,17 @@ async function runBotCommand(command) {
         case 'run-due':
             await runDueJobs();
             return;
-        case 'daily-highlights':
-            await sendDailyHighlights({ force: true });
-            return;
-        case 'daily-highlights-video':
-            await sendDailyHighlightsVideo();
-            return;
-        case 'wednesday-poll':
-            await sendWednesdayVenuePoll({ force: true });
-            return;
-        case 'friday-poll':
-        case 'saturday-poll':
-            await sendSaturdayAttendancePoll({ force: true });
-            return;
-        case 'saturday-reminder':
-            await sendSaturdayKennenlernabendReminder({ force: true });
-            return;
         case 'weekend-planner':
             await sendWeekendPlanner({ force: true });
             return;
         case 'muenster-planner':
             await sendMuensterPlanner({ force: true });
             return;
-        case 'weekly-calendar':
-            await sendWeeklyCalendar({ force: true });
+        case 'weekend-starter':
+            await sendWeekendStarter('bielefeld');
             return;
-        case 'tuesday-run':
-            await sendTuesdayRunAnnouncement({ force: true });
-            return;
-        case 'jam-session':
-            await sendJamSessionAnnouncement({ force: true });
-            return;
-        case 'thursday-football':
-            await sendThursdayFootballAnnouncement({ force: true });
-            return;
-        case 'ping-pong':
-            await sendThursdayPingPongRecommendation({ force: true });
+        case 'muenster-weekend-starter':
+            await sendWeekendStarter('muenster');
             return;
         case 'check-new-members':
             await checkForNewMembers();
@@ -4465,43 +3300,23 @@ async function handleConsoleCommand(input) {
         return;
     }
 
-    if (message === '/highlights') {
-        await sendDailyHighlights({ force: true });
+    if (message === '/weekend-planner') {
+        await sendWeekendPlanner({ force: true });
         return;
     }
 
-    if (message === '/poll-mittwoch') {
-        await sendWednesdayVenuePoll({ force: true });
+    if (message === '/muenster-planner') {
+        await sendMuensterPlanner({ force: true });
         return;
     }
 
-    if (message === '/poll-freitag' || message === '/poll-samstag') {
-        await sendSaturdayAttendancePoll({ force: true });
+    if (message === '/weekend-starter') {
+        await sendWeekendStarter('bielefeld');
         return;
     }
 
-    if (message === '/kennenlernabend-reminder') {
-        await sendSaturdayKennenlernabendReminder({ force: true });
-        return;
-    }
-
-    if (message === '/tuesday-run') {
-        await sendTuesdayRunAnnouncement({ force: true });
-        return;
-    }
-
-    if (message === '/jam-session') {
-        await sendJamSessionAnnouncement({ force: true });
-        return;
-    }
-
-    if (message === '/thursday-football') {
-        await sendThursdayFootballAnnouncement({ force: true });
-        return;
-    }
-
-    if (message === '/ping-pong') {
-        await sendThursdayPingPongRecommendation({ force: true });
+    if (message === '/weekend-starter-muenster') {
+        await sendWeekendStarter('muenster');
         return;
     }
 
@@ -4534,8 +3349,12 @@ async function handleConsoleCommand(input) {
 async function sendCommunityWelcomeBatch(batchIds) {
     const contacts = await Promise.all(batchIds.map(id => client.getContactById(id)));
     const names = contacts.map(getDisplayNameForContact);
-    const [name1, name2, name3] = names;
-    const introNames = `${name1}, ${name2} & ${name3}`;
+    // Nicht auf drei Namen festnageln: die Batch-Groesse steht in
+    // WELCOME_BATCH_SIZE, eine feste Zerlegung wuerde jeden weiteren Namen
+    // stillschweigend unterschlagen.
+    const introNames = names.length > 1
+        ? `${names.slice(0, -1).join(', ')} & ${names[names.length - 1]}`
+        : names[0];
 
     const greetings = [
         `Hey ${introNames}, willkommen bei THE TRIBE! 👋`,
@@ -4578,8 +3397,8 @@ async function sendCommunityWelcomeBatch(batchIds) {
 }
 
 async function processWelcomeQueue(queue) {
-    while (queue.length >= 3) {
-        const batchIds = queue.splice(0, 3);
+    while (queue.length >= WELCOME_BATCH_SIZE) {
+        const batchIds = queue.splice(0, WELCOME_BATCH_SIZE);
         try {
             await sendCommunityWelcomeBatch(batchIds);
         } catch (err) {
@@ -4617,7 +3436,7 @@ async function sendCommunityWelcome(notification) {
     writePendingNewMembers(queue);
 
     if (queue.length > 0) {
-        console.log(`${queue.length} neues Mitglied in der Warteschlange (warte auf insgesamt 3).`);
+        console.log(`${queue.length} neues Mitglied in der Warteschlange (warte auf insgesamt ${WELCOME_BATCH_SIZE}).`);
     }
 }
 
@@ -4691,7 +3510,7 @@ async function checkForNewMembers() {
     if (snapshotChanged) writeKnownMembers(knownMembers);
 
     if (queue.length > 0) {
-        console.log(`${queue.length} Mitglied(er) in Warteschlange (warte auf insgesamt 3).`);
+        console.log(`${queue.length} Mitglied(er) in Warteschlange (warte auf insgesamt ${WELCOME_BATCH_SIZE}).`);
     } else {
         console.log('Keine neuen Mitglieder zu begrüßen.');
     }
@@ -4934,7 +3753,7 @@ client.on('ready', async () => {
         return;
     }
 
-    console.log('Enter sendet eine Nachricht. /groups, /highlights, /poll-mittwoch, /poll-freitag, /poll-samstag, /kennenlernabend-reminder, /tuesday-run, /jam-session, /thursday-football und /ping-pong testen die automatischen Posts. /exit beendet den Bot.');
+    console.log('Enter sendet eine Nachricht. /groups, /weekend-planner, /muenster-planner, /weekend-starter und /weekend-starter-muenster testen die automatischen Posts. /exit beendet den Bot.');
 
     startScheduler();
     startDashboardServer();
