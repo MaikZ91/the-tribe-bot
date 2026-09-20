@@ -32,7 +32,9 @@ workflow caches `.wwebjs_auth` and the bot state files for later runs.
 Optional but recommended:
 
 - `WHATSAPP_CHAT_ID` — Bielefeld, Ziel beider Bielefeld-Posts
-- `WHATSAPP_MUENSTER_CHAT_ID` — Münster; ohne diese ID wird dort nicht gepostet
+- `WHATSAPP_MUENSTER_CHAT_ID` — Münster. Ohne diese ID löst der Bot die Gruppe
+  über den öffentlichen Einladungslink auf und schreibt die ID ins Log; mit
+  `WHATSAPP_MUENSTER_INVITE` lässt sich ein anderer Link setzen
 - `WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS` — Gruppen, in denen Beitritte erkannt werden
 - `WELCOME_BATCH_SIZE` — ab wie vielen Neuzugängen begrüßt wird (Standard 7)
 - `IG_ACCESS_TOKEN`

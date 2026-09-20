@@ -241,6 +241,17 @@ const ausgehenChatId = process.env.WHATSAPP_AUSGEHEN_CHAT_ID || '120363426194120
 // Muenster hat bewusst keinen Rueckfall: ohne gesetzte ID wird dort nicht
 // gepostet, statt versehentlich in einer Bielefelder Gruppe zu landen.
 const muensterChatId = (process.env.WHATSAPP_MUENSTER_CHAT_ID || '').trim();
+// Alternativ genuegt der Code aus dem Einladungslink (chat.whatsapp.com/<code>).
+// Die Gruppen-ID laesst sich nur mit angemeldeter Verbindung daraus ermitteln,
+// also passiert das zur Laufzeit — einmal pro Prozess, danach gemerkt.
+// Der Standard ist der oeffentliche Beitrittslink der Muenster-Gruppe — er
+// steht ohnehin auf docs/muenster/index.html und in docs/germany/cities.json.
+const MUENSTER_INVITE_DEFAULT = 'GKn2ZMFLdBeCCvuem2povl';
+const muensterInvite = (process.env.WHATSAPP_MUENSTER_INVITE || MUENSTER_INVITE_DEFAULT)
+    .trim()
+    .replace(/^https?:\/\/chat\.whatsapp\.com\//i, '')
+    .split('?')[0];
+let resolvedMuensterChatId = muensterChatId;
 const communityJoinSourceChatIds = new Set(
     (process.env.WHATSAPP_COMMUNITY_SOURCE_CHAT_IDS || announcementChatId)
         .split(',')
@@ -1598,7 +1609,8 @@ function sendWeekendPlanner({ force = false } = {}) {
         label: 'Weekend-Planer',
         city: 'Bielefeld',
         slug: 'weekend-planner',
-        caption: 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/'
+        caption: 'Euer Wochenende in Bielefeld ✨\nMehr Events: https://liebefeld.lovable.app/',
+        targetChatId: ausgehenChatId
     });
 }
 
@@ -1616,9 +1628,37 @@ const WEEKEND_STARTER_CITIES = {
         label: 'Münster',
         connect: 'MÜNSTER CONNECT',
         poster: path.join(__dirname, 'images', 'weekend-starter-muenster.png'),
-        getChatId: () => muensterChatId
+        getChatId: () => getMuensterChatId()
     }
 };
+
+// Liefert die Muenster-Gruppen-ID: entweder direkt aus dem Secret, oder aus
+// dem Einladungscode. Die aufgeloeste ID wird geloggt — damit laesst sie sich
+// danach fest als WHATSAPP_MUENSTER_CHAT_ID hinterlegen und der Umweg entfaellt.
+async function getMuensterChatId() {
+    if (resolvedMuensterChatId) {
+        return resolvedMuensterChatId;
+    }
+    if (!muensterInvite) {
+        return '';
+    }
+
+    try {
+        const info = await client.getInviteInfo(muensterInvite);
+        const id = info?.id?._serialized || info?.id;
+        if (!id) {
+            console.warn('Einladungslink Muenster lieferte keine Gruppen-ID.');
+            return '';
+        }
+        resolvedMuensterChatId = id;
+        console.log(`Muenster-Gruppe aufgeloest: ${id} ("${info.subject || 'ohne Namen'}").`);
+        console.log('Tipp: diese ID als WHATSAPP_MUENSTER_CHAT_ID hinterlegen, dann entfaellt die Abfrage.');
+        return id;
+    } catch (err) {
+        console.error('Einladungslink Muenster konnte nicht aufgeloest werden:', err.message);
+        return '';
+    }
+}
 
 function getWeekendStarterCaption(city) {
     const format = getEventFormat();
@@ -1649,7 +1689,7 @@ async function sendWeekendStarter(cityKey) {
         throw new Error(`Unbekannte Weekend-Starter-Stadt: ${cityKey}`);
     }
 
-    const target = city.getChatId();
+    const target = await city.getChatId();
     if (!target) {
         console.log(`Weekend Starter ${city.label} uebersprungen — keine Gruppen-ID gesetzt.`);
         return;
@@ -1672,7 +1712,7 @@ async function sendWeekendStarter(cityKey) {
 // Muenster laeuft ueber die ganze Woche statt nur das Wochenende: der Feed
 // fuehrt dort dreissig Termine insgesamt, ein bis zwei je Wochenende. Leere
 // Tage fallen weg, das Plakat zeigt also nur, was wirklich laeuft.
-function sendMuensterPlanner({ force = false } = {}) {
+async function sendMuensterPlanner({ force = false } = {}) {
     return sendPlanner({
         force,
         label: 'Muenster-Planer',
@@ -1683,7 +1723,7 @@ function sendMuensterPlanner({ force = false } = {}) {
         stamp: 'Mo bis So',
         slug: 'muenster-planner',
         caption: 'Eure Woche in Münster ✨\nMehr Events: https://liebefeld.lovable.app/',
-        targetChatId: muensterChatId
+        targetChatId: await getMuensterChatId()
     });
 }
 
