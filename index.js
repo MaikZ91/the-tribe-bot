@@ -207,16 +207,17 @@ const client = new Client({
             }
         }
         : {}),
-    // Standardmaessig erneuert whatsapp-web.js den Kopplungscode alle 3 Minuten
-    // und macht den vorherigen damit ungueltig — wer den Code erst ablesen und
-    // dann im Handy eintippen muss, jagt einem beweglichen Ziel hinterher.
-    // Laengeres Intervall laesst einen Code stehen.
+    // Das Intervall muss KUERZER sein als die Gueltigkeit des Codes, sonst
+    // entsteht ein totes Fenster. Mit 5 Minuten Intervall gegen rund 3 Minuten
+    // Gueltigkeit war der Code im Issue zwei von fuenf Minuten sicher abgelaufen
+    // — genau dann, wenn man ihn abliest. 2 Minuten heisst: es steht immer ein
+    // frischer Code da, um den Preis, dass er sich beim Eintippen aendern kann.
     ...(PAIRING_NUMBER
         ? {
             pairWithPhoneNumber: {
                 phoneNumber: PAIRING_NUMBER,
                 showNotification: true,
-                intervalMs: Number(process.env.PAIRING_INTERVAL_MS || 5 * 60 * 1000)
+                intervalMs: Number(process.env.PAIRING_INTERVAL_MS || 2 * 60 * 1000)
             }
         }
         : {}),
@@ -3640,8 +3641,8 @@ client.on('code', async code => {
             '3. Unten **„Stattdessen mit Telefonnummer verknüpfen"** antippen',
             '4. Code oben eintippen',
             '',
-            'Der Code ist ca. 3 Minuten gueltig — danach erzeugt der Bot automatisch',
-            'einen neuen und postet ein weiteres Issue (bis das Job-Timeout greift).',
+            'Der Bot erzeugt alle 2 Minuten einen neuen Code und ersetzt ihn hier —',
+            'Seite neu laden holt immer den aktuellen (bis das Job-Timeout greift).',
             '',
             'Nach erfolgreicher Kopplung kann dieses Issue geschlossen werden.'
         ].join('\n'),
