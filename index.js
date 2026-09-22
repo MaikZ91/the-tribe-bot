@@ -1637,10 +1637,9 @@ function sendWeekendPlanner({ force = false } = {}) {
     });
 }
 
-// Bildversand mit Diagnose.
+// Reparatur des Bildversands, in die Seite injiziert.
 //
-// Ursache der Fehlschlaege vom 22.09., aus der Library gelesen statt geraten
-// (whatsapp-web.js/src/util/Injected/Utils.js, processMediaData):
+// Ursache, aus der Library gelesen (Injected/Utils.js, processMediaData):
 //
 //     const mediaData = await mediaPrep.waitForPrep();
 //     const mediaObject = window.require('WAWebMediaStorage')
@@ -1648,34 +1647,117 @@ function sendWeekendPlanner({ force = false } = {}) {
 //     if (!mediaData.filehash) throw new Error('media-fault: ...');  <- zu spaet
 //
 // getOrCreateMediaObject ist WhatsApps memoisierter Getter und wirft "Data
-// passed to getter must include an id property", wenn er undefined bekommt.
-// mediaData.filehash ist also leer. Die passende Pruefung der Library steht
-// eine Zeile zu spaet und kommt nie zum Zug.
+// passed to getter must include an id property", sobald er undefined bekommt.
 //
-// Am 05.08. lief derselbe Versand mit derselben Library-Version. Geaendert
-// hat sich seitdem nur der ausgelieferte WhatsApp-Web-Build. Ob WhatsApp die
-// Rueckgabe von waitForPrep() umgebaut hat oder unser Bild das Problem ist,
-// entscheidet die Sonde unten: sie praepariert ein 1x1-Pixel-PNG direkt in
-// der Seite und meldet, was zurueckkommt.
-async function probeMediaPrep() {
+// Eine Sonde mit einem 1x1-Pixel-PNG lieferte am 22.09. einen sauberen
+// filehash, der 114-KB-Flyer nicht — die Schnittstelle ist also intakt, der
+// Hash ist bei groesseren Dateien nur noch nicht fertig, wenn waitForPrep()
+// zurueckkommt. Deshalb hier dieselbe Funktion, nur mit Wartschleife davor.
+// Der Rest ist Zeile fuer Zeile das Original aus 1.34.7.
+async function installMediaSendPatch() {
     try {
-        return await client.pupPage.evaluate(async () => {
-            const pixel = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-            const bytes = Uint8Array.from(atob(pixel), c => c.charCodeAt(0));
-            const file = new File([bytes], 'p.png', { type: 'image/png' });
-            const OpaqueData = window.require('WAWebMediaOpaqueData');
-            const opaque = await OpaqueData.createFromData(file, 'image/png');
-            const prep = window.require('WAWebPrepRawMedia').prepRawMedia(opaque, {});
-            const data = await prep.waitForPrep();
-            return {
-                typ: typeof data,
-                schluessel: data ? Object.keys(data).slice(0, 40) : null,
-                filehash: data ? String(data.filehash) : null,
-                mediaKey: data ? String(data.mediaKey).slice(0, 12) : null
+        await client.pupPage.evaluate(() => {
+            window.WWebJS.processMediaData = async (mediaInfo, opts) => {
+                const {
+                    forceSticker, forceGif, forceVoice, forceDocument,
+                    forceMediaHd, sendToChannel, sendToStatus
+                } = opts || {};
+
+                const file = window.WWebJS.mediaInfoToFile(mediaInfo);
+                const OpaqueData = window.require('WAWebMediaOpaqueData');
+                const opaqueData = await OpaqueData.createFromData(file, mediaInfo.mimetype);
+
+                const mediaParams = {
+                    asSticker: forceSticker, asGif: forceGif,
+                    isPtt: forceVoice, asDocument: forceDocument
+                };
+                if (forceMediaHd && file.type.indexOf('image/') === 0) {
+                    mediaParams.maxDimension = 2560;
+                }
+
+                const mediaPrep = window.require('WAWebPrepRawMedia')
+                    .prepRawMedia(opaqueData, mediaParams);
+                const mediaData = await mediaPrep.waitForPrep();
+
+                // Der eigentliche Patch: auf den Hash warten, statt mit
+                // undefined in den Getter zu laufen.
+                for (let i = 0; i < 100 && !mediaData.filehash; i += 1) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                if (!mediaData.filehash) {
+                    throw new Error('media-fault: filehash fehlt auch nach 10s');
+                }
+
+                const mediaObject = window.require('WAWebMediaStorage')
+                    .getOrCreateMediaObject(mediaData.filehash);
+                const mediaType = window.require('WAWebMmsMediaTypes').msgToMediaType({
+                    type: mediaData.type, isGif: mediaData.isGif, isNewsletter: sendToChannel
+                });
+
+                if ((forceVoice && mediaData.type === 'ptt') ||
+                    (sendToStatus && mediaData.type === 'audio')) {
+                    const waveform = mediaObject.contentInfo.waveform;
+                    mediaData.waveform = waveform || (await window.WWebJS.generateWaveform(file));
+                }
+
+                if (!(mediaData.mediaBlob instanceof OpaqueData)) {
+                    mediaData.mediaBlob = await OpaqueData.createFromData(
+                        mediaData.mediaBlob, mediaData.mediaBlob.type);
+                }
+
+                mediaData.renderableUrl = mediaData.mediaBlob.url();
+                mediaObject.consolidate(mediaData.toJSON());
+                mediaData.mediaBlob.autorelease();
+
+                const shouldUseMediaCache = window.require('WAWebMediaDataUtils')
+                    .shouldUseMediaCache(
+                        window.require('WAWebMmsMediaTypes').castToV4(mediaObject.type));
+                if (shouldUseMediaCache && mediaData.mediaBlob instanceof OpaqueData) {
+                    window.require('WAWebMediaInMemoryBlobCache')
+                        .InMemoryMediaBlobCache.put(mediaObject.filehash,
+                            mediaData.mediaBlob.formData());
+                }
+
+                const dataToUpload = {
+                    mimetype: mediaData.mimetype, mediaObject, mediaType,
+                    ...(sendToChannel ? {
+                        calculateToken: window.require('WAMediaCalculateFilehash').getRandomFilehash
+                    } : {})
+                };
+
+                const { uploadMedia, uploadUnencryptedMedia } =
+                    window.require('WAWebMediaMmsV4Upload');
+                const uploadedMedia = !sendToChannel
+                    ? await uploadMedia(dataToUpload)
+                    : await uploadUnencryptedMedia(dataToUpload);
+
+                const mediaEntry = uploadedMedia.mediaEntry;
+                if (!mediaEntry) {
+                    throw new Error('upload failed: media entry was not created');
+                }
+
+                mediaData.set({
+                    clientUrl: mediaEntry.mmsUrl,
+                    deprecatedMms3Url: mediaEntry.deprecatedMms3Url,
+                    directPath: mediaEntry.directPath,
+                    mediaKey: mediaEntry.mediaKey,
+                    mediaKeyTimestamp: mediaEntry.mediaKeyTimestamp,
+                    filehash: mediaObject.filehash,
+                    encFilehash: mediaEntry.encFilehash,
+                    uploadhash: mediaEntry.uploadHash,
+                    size: mediaObject.size,
+                    streamingSidecar: mediaEntry.sidecar,
+                    firstFrameSidecar: mediaEntry.firstFrameSidecar,
+                    mediaHandle: sendToChannel ? mediaEntry.handle : null
+                });
+
+                return mediaData;
             };
+            return true;
         });
+        console.log('Bildversand-Patch aktiv (wartet auf filehash).');
     } catch (err) {
-        return { fehler: err.message };
+        console.error('Bildversand-Patch konnte nicht gesetzt werden:', err.message);
     }
 }
 
@@ -1684,9 +1766,6 @@ async function sendMedia(target, media, caption, label) {
         return await client.sendMessage(target, media, { caption });
     } catch (err) {
         console.warn(`${label}: Bildversand gescheitert: ${err.message}`);
-        const version = await client.getWWebVersion().catch(e => `nicht ermittelbar (${e.message})`);
-        console.warn(`${label}: geladener WhatsApp-Web-Build: ${version}`);
-        console.warn(`${label}: Sonde mit 1x1-PNG: ${JSON.stringify(await probeMediaPrep())}`);
         throw err;
     }
 }
@@ -3834,6 +3913,7 @@ client.on('ready', async () => {
     console.log('Bot ist online.');
     console.log(`Sendeziel: ${chatId}`);
     await checkWebVersionPin();
+    await installMediaSendPatch();
 
     if (IS_ONE_SHOT_RUN) {
         // whatsapp-web.js' sendMessage resolves when the message is queued in the
