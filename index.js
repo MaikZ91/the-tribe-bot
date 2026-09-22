@@ -1764,11 +1764,31 @@ async function installMediaSendPatch() {
             // meldet trotzdem einen Fehler — der Post gilt dann faelschlich
             // als gescheitert und wird zehn Minuten spaeter erneut versucht.
             // Deshalb hier auffangen statt durchreichen.
+            // Jede Stufe einzeln markieren, damit im Fehlerfall feststeht,
+            // WO es bricht — statt weiter Stellen zu vermuten. Der Stack aus
+            // der Seite nennt die Funktion, der Node-Fehler tut das nicht.
+            const origProcess = window.WWebJS.processMediaData;
+            window.WWebJS.processMediaData = async (...args) => {
+                try {
+                    return await origProcess(...args);
+                } catch (err) {
+                    window.__tribeStufe = 'processMediaData';
+                    window.__tribeStack = String((err && err.stack) || err);
+                    throw err;
+                }
+            };
+
             const origSend = window.WWebJS.sendMessage;
             window.WWebJS.sendMessage = async (chat, content, options) => {
-                const msg = await origSend(chat, content, options);
-                window.__tribeSendOk = true;
-                return msg;
+                try {
+                    const msg = await origSend(chat, content, options);
+                    window.__tribeSendOk = true;
+                    return msg;
+                } catch (err) {
+                    window.__tribeStufe = window.__tribeStufe || 'sendMessage';
+                    window.__tribeStack = window.__tribeStack || String((err && err.stack) || err);
+                    throw err;
+                }
             };
 
             const origModel = window.WWebJS.getMessageModel;
@@ -1793,6 +1813,8 @@ async function sendMedia(target, media, caption, label) {
     await client.pupPage.evaluate(() => {
         window.__tribeSendOk = false;
         window.__tribeModelFehler = null;
+        window.__tribeStufe = null;
+        window.__tribeStack = null;
     }).catch(() => {});
 
     try {
@@ -1806,11 +1828,18 @@ async function sendMedia(target, media, caption, label) {
         return sent;
     } catch (err) {
         // Entscheidend fuer die Frage, ob trotzdem etwas in der Gruppe steht.
-        const zugestellt = await client.pupPage
-            .evaluate(() => window.__tribeSendOk === true)
+        const diagnose = await client.pupPage
+            .evaluate(() => ({
+                zugestellt: window.__tribeSendOk === true,
+                stufe: window.__tribeStufe,
+                stack: window.__tribeStack
+            }))
             .catch(() => null);
         console.warn(`${label}: Bildversand gescheitert: ${err.message}`);
-        console.warn(`${label}: Versand war vor dem Fehler durchgelaufen: ${zugestellt}`);
+        console.warn(`${label}: zugestellt=${diagnose?.zugestellt} Stufe=${diagnose?.stufe}`);
+        if (diagnose?.stack) {
+            console.warn(`${label}: Stack aus der Seite:\n${diagnose.stack}`);
+        }
         throw err;
     }
 }
