@@ -1601,15 +1601,29 @@ async function sendPlanner(options = {}) {
     // Message-Objekt zurueck, auch wenn die Nachricht ankommt. Ein Fehler wirft
     // und wird hier bewusst NICHT geschluckt: sonst vermerkt runDueJobs() den
     // Job als erledigt, obwohl nichts in der Gruppe steht.
+    // Instagram zuerst, und mit eigenem Tagesmerker. Zwei Gruende:
+    //
+    // Stand die Story hinter dem WhatsApp-Versand, nahm ein Fehler dort sie
+    // mit in den Abgrund — am 22.09. war das Bild fertig gerendert, aber der
+    // Bild-Versand warf, und die Story wurde nie auch nur versucht. Die beiden
+    // Kanaele haengen inhaltlich zusammen, technisch aber nicht.
+    //
+    // Der eigene Merker ist noetig, weil runDueJobs() den Job alle zehn
+    // Minuten erneut versucht, solange WhatsApp scheitert. Ohne ihn stuenden
+    // nach einem kaputten Abend vier identische Stories im Profil.
+    const storyKey = `instagram:${slug}`;
+    const { dateKey } = getDateParts(now);
+    if (wasJobDoneToday(storyKey, dateKey)) {
+        console.log(`${label}: Instagram-Story lief heute bereits — uebersprungen.`);
+    } else {
+        await sendDailyHighlightsInstagramStory(imagePath);
+        markJobDone(storyKey, dateKey);
+    }
+
     const sent = await client.sendMessage(targetChatId, media, { caption });
     console.log(sent
         ? `${label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
         : `${label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
-
-    // Die Wochenuebersicht geht zusaetzlich als Instagram-Story raus. Bewusst
-    // am Ende und mit eigener Fehlerbehandlung: die Story ist Zugabe, ein
-    // Fehler dort darf den bereits zugestellten WhatsApp-Post nicht kippen.
-    await sendDailyHighlightsInstagramStory(imagePath);
 }
 
 function sendWeekendPlanner({ force = false } = {}) {
