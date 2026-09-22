@@ -186,15 +186,23 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 // of a QR code — no second screen needed to authenticate.
 const PAIRING_NUMBER = (process.env.WHATSAPP_PAIRING_NUMBER || '').replace(/\D/g, '');
 
-// WhatsApp Web auf einen bekannten Build festnageln. Gegen den ausgelieferten
-// Build (2.3000.1044058164) scheitert in dieser Library alles, was ein
-// Message-Objekt aufloesen muss: senden, Umfragen, getChats, getChatById —
-// die Verbindung selbst steht. Ein aelterer Build, gegen den die Library
-// gebaut wurde, bringt das erfahrungsgemaess zurueck.
+// WhatsApp Web auf einen bekannten Build festnageln.
+//
+// ACHTUNG, diese Angabe verfaellt: Die Snapshots bei wa-version haben ein
+// expire-Datum und verschwinden danach aus dem Repo. Der vorige Pin
+// (2.3000.1043572178-alpha) lieferte irgendwann HTTP 404 — der Bot lud also
+// ein totes Pinning, bekam von WhatsApp aber aktuelles JavaScript. Verbindung
+// und Text-Versand liefen weiter, der Bild-Versand brach mit
+// "Data passed to getter must include an id property" aus WhatsApps eigenem
+// Skript ab. Genau daran sind am 22.09. die Planer-Posts gescheitert.
+//
+// Dieser Build ist bis 2026-11-22 gueltig. checkWebVersionPin() unten meldet
+// beim Start, wenn er abgelaufen oder nicht mehr erreichbar ist.
 // Leerer Wert schaltet das Pinning ab.
 const WEB_VERSION = process.env.WHATSAPP_WEB_VERSION === undefined
-    ? '2.3000.1043572178-alpha'
+    ? '2.3000.1048152143-alpha'
     : process.env.WHATSAPP_WEB_VERSION;
+const WA_VERSIONS_URL = 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/versions.json';
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -3713,6 +3721,37 @@ client.on('qr', async qr => {
     }
 });
 
+// Meldet, wenn der festgenagelte Build abgelaufen oder verschwunden ist.
+// Das passiert still — die Verbindung steht, nur das Senden von Bildern
+// bricht dann in WhatsApps eigenem Skript ab. Einmal pro Lauf genuegt.
+async function checkWebVersionPin() {
+    if (!WEB_VERSION) {
+        return;
+    }
+
+    try {
+        const response = await fetch(WA_VERSIONS_URL);
+        if (!response.ok) {
+            return;
+        }
+        const data = await response.json();
+        const entry = (data.versions || []).find(v => v.version === WEB_VERSION);
+
+        if (!entry) {
+            console.warn(`::warning::WhatsApp-Web-Pin ${WEB_VERSION} steht nicht mehr in der Versionsliste.`);
+        } else if (new Date(entry.expire) < new Date()) {
+            console.warn(`::warning::WhatsApp-Web-Pin ${WEB_VERSION} ist am ${entry.expire.slice(0, 10)} abgelaufen.`);
+        } else {
+            console.log(`WhatsApp-Web-Pin ${WEB_VERSION} gueltig bis ${entry.expire.slice(0, 10)}.`);
+            return;
+        }
+
+        console.warn(`Aktueller Build waere ${data.currentVersion} — als WHATSAPP_WEB_VERSION setzen oder im Code nachziehen.`);
+    } catch (err) {
+        console.warn('Versionsliste nicht erreichbar:', err.message);
+    }
+}
+
 client.on('ready', async () => {
     isReady = true;
     // Marker fuer den Workflow: nur mit gueltiger Anmeldung darf der Cache
@@ -3726,8 +3765,7 @@ client.on('ready', async () => {
     }
     console.log('Bot ist online.');
     console.log(`Sendeziel: ${chatId}`);
-    console.log(`Tuesday-Run-Ziel: ${tuesdayRunChatId}`);
-    console.log(`Jam-Session-Ziel: ${jamSessionChatId}`);
+    await checkWebVersionPin();
 
     if (IS_ONE_SHOT_RUN) {
         // whatsapp-web.js' sendMessage resolves when the message is queued in the
