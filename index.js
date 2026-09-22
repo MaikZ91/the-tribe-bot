@@ -1753,19 +1753,64 @@ async function installMediaSendPatch() {
 
                 return mediaData;
             };
+            // Zweiter Teil: die beiden Schritte um den Versand herum
+            // einzeln absichern.
+            //
+            // Client.sendMessage macht in der Seite drei Dinge:
+            //   getChat(chatId) -> WWebJS.sendMessage(...) -> getMessageModel(msg)
+            //
+            // getMessageModel serialisiert die BEREITS gesendete Nachricht.
+            // Wirft es, ist das Bild laengst zugestellt, und die Library
+            // meldet trotzdem einen Fehler — der Post gilt dann faelschlich
+            // als gescheitert und wird zehn Minuten spaeter erneut versucht.
+            // Deshalb hier auffangen statt durchreichen.
+            const origSend = window.WWebJS.sendMessage;
+            window.WWebJS.sendMessage = async (chat, content, options) => {
+                const msg = await origSend(chat, content, options);
+                window.__tribeSendOk = true;
+                return msg;
+            };
+
+            const origModel = window.WWebJS.getMessageModel;
+            window.WWebJS.getMessageModel = (message) => {
+                try {
+                    return origModel(message);
+                } catch (err) {
+                    window.__tribeModelFehler = String(err && err.message);
+                    return { id: { _serialized: 'nicht-serialisierbar' } };
+                }
+            };
+
             return true;
         });
-        console.log('Bildversand-Patch aktiv (wartet auf filehash).');
+        console.log('Bildversand-Patch aktiv (filehash-Wartschleife + Versand-Kapselung).');
     } catch (err) {
         console.error('Bildversand-Patch konnte nicht gesetzt werden:', err.message);
     }
 }
 
 async function sendMedia(target, media, caption, label) {
+    await client.pupPage.evaluate(() => {
+        window.__tribeSendOk = false;
+        window.__tribeModelFehler = null;
+    }).catch(() => {});
+
     try {
-        return await client.sendMessage(target, media, { caption });
+        const sent = await client.sendMessage(target, media, { caption });
+        const fehler = await client.pupPage
+            .evaluate(() => window.__tribeModelFehler)
+            .catch(() => null);
+        if (fehler) {
+            console.warn(`${label}: gesendet, aber Serialisierung scheiterte: ${fehler}`);
+        }
+        return sent;
     } catch (err) {
+        // Entscheidend fuer die Frage, ob trotzdem etwas in der Gruppe steht.
+        const zugestellt = await client.pupPage
+            .evaluate(() => window.__tribeSendOk === true)
+            .catch(() => null);
         console.warn(`${label}: Bildversand gescheitert: ${err.message}`);
+        console.warn(`${label}: Versand war vor dem Fehler durchgelaufen: ${zugestellt}`);
         throw err;
     }
 }
