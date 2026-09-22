@@ -3940,6 +3940,49 @@ if (!IS_ONE_SHOT_RUN) {
     startDashboardServer();
 }
 
+// Chromium legt im Profil Sperrdateien an und raeumt sie beim Beenden weg.
+// Wird der Prozess abgeschossen — auf CI etwa durch "Cancel workflow" —,
+// bleiben sie liegen und landen im Session-Cache. Der naechste Lauf erbt sie
+// und scheitert mit "The profile appears to be in use by another Chromium
+// process ... on another computer", obwohl dort gar nichts laeuft. Die
+// Sperren gehoeren immer der abgelaufenen Maschine, sind also stets veraltet.
+function clearStaleChromiumLocks() {
+    const authDir = path.join(__dirname, '.wwebjs_auth');
+    if (!fs.existsSync(authDir)) {
+        return;
+    }
+
+    const removed = [];
+    const walk = dir => {
+        for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+            const full = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                walk(full);
+            } else if (entry.name.startsWith('Singleton')) {
+                try {
+                    fs.unlinkSync(full);
+                    removed.push(path.relative(authDir, full));
+                } catch (err) {
+                    console.warn(`Sperrdatei ${entry.name} nicht loeschbar: ${err.message}`);
+                }
+            }
+        }
+    };
+
+    try {
+        walk(authDir);
+    } catch (err) {
+        console.warn('Profil konnte nicht nach Sperrdateien durchsucht werden:', err.message);
+        return;
+    }
+
+    if (removed.length > 0) {
+        console.log(`Veraltete Chromium-Sperren entfernt: ${removed.join(', ')}`);
+    }
+}
+
+clearStaleChromiumLocks();
+
 console.log('Initialisiere WhatsApp-Client (Puppeteer startet Chromium)...');
 
 // On CI a failed or stalled login used to keep Chromium alive until the job
