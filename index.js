@@ -1620,7 +1620,7 @@ async function sendPlanner(options = {}) {
         markJobDone(storyKey, dateKey);
     }
 
-    const sent = await sendMediaWithFallback(targetChatId, media, caption, label);
+    const sent = await sendMedia(targetChatId, media, caption, label);
     console.log(sent
         ? `${label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
         : `${label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
@@ -1637,59 +1637,56 @@ function sendWeekendPlanner({ force = false } = {}) {
     });
 }
 
-// Bildversand ueber drei Wege, bis einer durchkommt.
+// Bildversand mit Diagnose.
 //
-// Am 22.09. scheiterte jeder Bild-Post an "Data passed to getter must include
-// an id property" aus WhatsApps eigenem Skript — auch mit gueltigem, taktuellem
-// Web-Pin. Text-Versand lief zur selben Zeit einwandfrei, der Bruch liegt also
-// im Medien-Pfad von whatsapp-web.js 1.34.7 gegen das aktuelle WhatsApp Web.
+// Ursache der Fehlschlaege vom 22.09., aus der Library gelesen statt geraten
+// (whatsapp-web.js/src/util/Injected/Utils.js, processMediaData):
 //
-// Welcher Teil genau bricht, ist von aussen nicht zu sehen, deshalb probiert
-// der Bot der Reihe nach und schreibt ins Log, was funktioniert hat. Bricht
-// der zweite Weg erst beim Text ab, gilt er trotzdem als erledigt — das Bild
-// ist dann ja in der Gruppe, und ein dritter Versuch wuerde es verdoppeln.
-async function sendMediaWithFallback(target, media, caption, label) {
-    const attempts = [
-        ['Bild mit Caption', () => client.sendMessage(target, media, { caption })],
-        ['Bild ohne Caption, Text getrennt', async () => {
-            const sent = await client.sendMessage(target, media);
-            try {
-                await client.sendMessage(target, caption);
-            } catch (err) {
-                console.warn(`${label}: Bild kam an, Text danach gescheitert: ${err.message}`);
-            }
-            return sent;
-        }],
-        ['als Dokument', () => client.sendMessage(target, media, { caption, sendMediaAsDocument: true })]
-    ];
-
-    // Genau EIN Versuch pro Lauf. Nacheinander durchzuprobieren waere
-    // schneller, ist aber gefaehrlich: scheitert ein Weg erst NACH der
-    // Zustellung — die Library loest das Message-Objekt ja erst hinterher auf
-    // —, wuerde der naechste Weg dasselbe Bild ein zweites Mal posten. In der
-    // Gruppe staenden dann bis zu drei Flyer. Der Cursor merkt sich, wo es
-    // weitergeht; runDueJobs versucht es zehn Minuten spaeter erneut, und das
-    // Catch-up-Fenster von vier Stunden reicht fuer alle Wege.
-    const state = readState();
-    const cursor = Math.min(state.mediaSendCursor || 0, attempts.length - 1);
-    const [name, attempt] = attempts[cursor];
-
+//     const mediaData = await mediaPrep.waitForPrep();
+//     const mediaObject = window.require('WAWebMediaStorage')
+//         .getOrCreateMediaObject(mediaData.filehash);   <- wirft
+//     if (!mediaData.filehash) throw new Error('media-fault: ...');  <- zu spaet
+//
+// getOrCreateMediaObject ist WhatsApps memoisierter Getter und wirft "Data
+// passed to getter must include an id property", wenn er undefined bekommt.
+// mediaData.filehash ist also leer. Die passende Pruefung der Library steht
+// eine Zeile zu spaet und kommt nie zum Zug.
+//
+// Am 05.08. lief derselbe Versand mit derselben Library-Version. Geaendert
+// hat sich seitdem nur der ausgelieferte WhatsApp-Web-Build. Ob WhatsApp die
+// Rueckgabe von waitForPrep() umgebaut hat oder unser Bild das Problem ist,
+// entscheidet die Sonde unten: sie praepariert ein 1x1-Pixel-PNG direkt in
+// der Seite und meldet, was zurueckkommt.
+async function probeMediaPrep() {
     try {
-        const sent = await attempt();
-        console.log(`${label}: Versand erfolgreich ueber "${name}".`);
-        // Funktionierenden Weg merken, damit kuenftige Posts direkt dort
-        // anfangen statt jedes Mal neu zu suchen.
-        if ((state.mediaSendCursor || 0) !== cursor) {
-            state.mediaSendCursor = cursor;
-            writeState(state);
-        }
-        return sent;
+        return await client.pupPage.evaluate(async () => {
+            const pixel = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+            const bytes = Uint8Array.from(atob(pixel), c => c.charCodeAt(0));
+            const file = new File([bytes], 'p.png', { type: 'image/png' });
+            const OpaqueData = window.require('WAWebMediaOpaqueData');
+            const opaque = await OpaqueData.createFromData(file, 'image/png');
+            const prep = window.require('WAWebPrepRawMedia').prepRawMedia(opaque, {});
+            const data = await prep.waitForPrep();
+            return {
+                typ: typeof data,
+                schluessel: data ? Object.keys(data).slice(0, 40) : null,
+                filehash: data ? String(data.filehash) : null,
+                mediaKey: data ? String(data.mediaKey).slice(0, 12) : null
+            };
+        });
     } catch (err) {
-        const next = cursor + 1 < attempts.length ? cursor + 1 : 0;
-        state.mediaSendCursor = next;
-        writeState(state);
-        console.warn(`${label}: Versand ueber "${name}" gescheitert: ${err.message}`);
-        console.warn(`${label}: naechster Lauf probiert "${attempts[next][0]}".`);
+        return { fehler: err.message };
+    }
+}
+
+async function sendMedia(target, media, caption, label) {
+    try {
+        return await client.sendMessage(target, media, { caption });
+    } catch (err) {
+        console.warn(`${label}: Bildversand gescheitert: ${err.message}`);
+        const version = await client.getWWebVersion().catch(e => `nicht ermittelbar (${e.message})`);
+        console.warn(`${label}: geladener WhatsApp-Web-Build: ${version}`);
+        console.warn(`${label}: Sonde mit 1x1-PNG: ${JSON.stringify(await probeMediaPrep())}`);
         throw err;
     }
 }
@@ -1783,7 +1780,7 @@ async function sendWeekendStarter(cityKey) {
     console.log(`Sende Weekend Starter ${city.label} an ${target} ...`);
     // Ein Fehler wird bewusst nicht geschluckt: sonst vermerkt runDueJobs()
     // den Job als erledigt, obwohl nichts in der Gruppe steht.
-    const sent = await sendMediaWithFallback(target, media, getWeekendStarterCaption(city), `Weekend Starter ${city.label}`);
+    const sent = await sendMedia(target, media, getWeekendStarterCaption(city), `Weekend Starter ${city.label}`);
     console.log(sent
         ? `Weekend Starter ${city.label} zugestellt (Message-ID ${sent.id?._serialized || 'unbekannt'}).`
         : `Weekend Starter ${city.label} gesendet, ohne Bestaetigung durch die Library (bekanntes Verhalten).`);
