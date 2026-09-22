@@ -1663,19 +1663,35 @@ async function sendMediaWithFallback(target, media, caption, label) {
         ['als Dokument', () => client.sendMessage(target, media, { caption, sendMediaAsDocument: true })]
     ];
 
-    let lastError;
-    for (const [name, attempt] of attempts) {
-        try {
-            const sent = await attempt();
-            console.log(`${label}: Versand erfolgreich ueber "${name}".`);
-            return sent;
-        } catch (err) {
-            console.warn(`${label}: Versand ueber "${name}" gescheitert: ${err.message}`);
-            lastError = err;
-        }
-    }
+    // Genau EIN Versuch pro Lauf. Nacheinander durchzuprobieren waere
+    // schneller, ist aber gefaehrlich: scheitert ein Weg erst NACH der
+    // Zustellung — die Library loest das Message-Objekt ja erst hinterher auf
+    // —, wuerde der naechste Weg dasselbe Bild ein zweites Mal posten. In der
+    // Gruppe staenden dann bis zu drei Flyer. Der Cursor merkt sich, wo es
+    // weitergeht; runDueJobs versucht es zehn Minuten spaeter erneut, und das
+    // Catch-up-Fenster von vier Stunden reicht fuer alle Wege.
+    const state = readState();
+    const cursor = Math.min(state.mediaSendCursor || 0, attempts.length - 1);
+    const [name, attempt] = attempts[cursor];
 
-    throw lastError;
+    try {
+        const sent = await attempt();
+        console.log(`${label}: Versand erfolgreich ueber "${name}".`);
+        // Funktionierenden Weg merken, damit kuenftige Posts direkt dort
+        // anfangen statt jedes Mal neu zu suchen.
+        if ((state.mediaSendCursor || 0) !== cursor) {
+            state.mediaSendCursor = cursor;
+            writeState(state);
+        }
+        return sent;
+    } catch (err) {
+        const next = cursor + 1 < attempts.length ? cursor + 1 : 0;
+        state.mediaSendCursor = next;
+        writeState(state);
+        console.warn(`${label}: Versand ueber "${name}" gescheitert: ${err.message}`);
+        console.warn(`${label}: naechster Lauf probiert "${attempts[next][0]}".`);
+        throw err;
+    }
 }
 
 // Der Weekend Starter ist eine feste Ankuendigung, keine Auswertung: immer
