@@ -777,10 +777,10 @@ img,svg{max-width:100%}
 <!-- Consent ----------------------------------------------------->
 <div class="cookie" id="cookie" role="dialog" aria-label="Datenschutz-Einstellungen">
   <p><strong>Kurz zum Datenschutz.</strong><br>
-  Wir würden gerne messen, wie diese Seite genutzt wird – anonym über PostHog, gehostet in der EU. Für den KI-Check ist das nicht nötig, du entscheidest. Details in der <a href="../datenschutz.html">Datenschutzerklärung</a>.</p>
+  Wir messen anonym, wie diese Seite genutzt wird – über PostHog, gehostet in der EU. Du kannst dem jederzeit widersprechen. Details in der <a href="../datenschutz.html">Datenschutzerklärung</a>.</p>
   <div class="cookie-btns">
-    <button class="btn btn--ghost" id="c-no">Nur notwendige</button>
-    <button class="btn" id="c-yes">Einverstanden</button>
+    <button class="btn btn--ghost" id="c-no">Nicht messen</button>
+    <button class="btn" id="c-yes">Ist okay</button>
   </div>
 </div>
 
@@ -832,7 +832,7 @@ var KONTAKT_MAIL  = 'Maik.z@gmx.de';
    ============================================================ */
 var VARIANT            = 'v10-ki-check';
 var PH_KEY             = 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
-var TRACK_OHNE_CONSENT = false;
+var TRACK_OHNE_CONSENT = true;
 
 var consent = null;                 // null | true | false
 var wartend = [];                   // Events vor der Einwilligung
@@ -891,17 +891,26 @@ function track(name, params){
   if(window.console && console.debug) console.debug('[track]', name, p);
 }
 
-/* Consent-Banner. Die Entscheidung wird in localStorage gemerkt,
-   damit das Banner nicht bei jedem Besuch erneut aufpoppt. */
+/* Widerspruchs-Modell statt Einwilligung: gemessen wird ab dem ersten
+   Moment, wer widerspricht wird ausgetragen. Vorher lief es umgekehrt —
+   PostHog startete erst nach Klick auf "Einverstanden", und da die
+   grosse Mehrheit das Banner ignoriert, war praktisch der gesamte
+   bezahlte Traffic unsichtbar. Die beiden anderen Landingpages (v2,
+   muenster) messen seit jeher ebenso jeden Besucher.
+   Zurueck auf Einwilligung: TRACK_OHNE_CONSENT auf false setzen und
+   den Banner-Text wieder auf "du entscheidest" aendern. */
 var cookie = document.getElementById('cookie');
 consent = consentLesen();
 
-if(TRACK_OHNE_CONSENT){
+if(consent === false){
+  /* Frueher widersprochen — nichts laden. */
+} else if(TRACK_OHNE_CONSENT || consent === true){
   consent = true;
   ladePostHog();
-} else if(consent === true){
-  ladePostHog();
-} else if(consent === null){
+  if(consentLesen() === null){
+    setTimeout(function(){ cookie.classList.add('on'); }, 1200);
+  }
+} else {
   setTimeout(function(){ if(consent === null) cookie.classList.add('on'); }, 1200);
 }
 
@@ -912,6 +921,8 @@ document.getElementById('c-yes').addEventListener('click', function(){
 document.getElementById('c-no').addEventListener('click', function(){
   consent = false; consentSchreiben(false); cookie.classList.remove('on');
   wartend.length = 0;
+  /* Bereits geladenes PostHog stilllegen und die gesetzten Daten loeschen. */
+  try{ if(window.posthog && posthog.opt_out_capturing){ posthog.opt_out_capturing(); posthog.reset(); } }catch(e){}
 });
 
 /* Kein eigenes page_view-Event: den $pageview erzeugt PostHog
