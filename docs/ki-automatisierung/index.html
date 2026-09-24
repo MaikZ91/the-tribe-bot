@@ -2,851 +2,605 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KI-Automatisierung für Bielefelder Unternehmen — kostenloser KI-Check</title>
-<meta name="description" content="Finde in 2 Minuten heraus, welche wiederkehrenden Aufgaben in deinem Unternehmen sich automatisieren lassen. Kostenlos, unverbindlich, aus Bielefeld.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>KI-Check für Bielefelder Unternehmen — wie viele Stunden verlierst du?</title>
+<meta name="description" content="5 kurze Fragen, 2 Minuten: Finde heraus, welche wiederkehrenden Aufgaben in deinem Unternehmen sich mit KI automatisieren lassen. Kostenlos, aus Bielefeld.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  /* Echte sichtbare Hoehe setzen, bevor irgendetwas gezeichnet wird.
+     In-App-Browser (Instagram, Facebook) melden die volle Hoehe und legen
+     ihre Leiste darueber — derselbe Fehler hat auf der Muenster-Story den
+     Beitreten-Button verdeckt. visualViewport liefert die echte Flaeche. */
+  (function () {
+    var d = document.documentElement;
+    if (/FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|Snapchat|Twitter|Pinterest/i.test(navigator.userAgent || '')) {
+      d.classList.add('in-app');
+    }
+    function setH() {
+      var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+      if (h > 0) d.style.setProperty('--app-h', Math.round(h) + 'px');
+    }
+    setH();
+    (window.visualViewport || window).addEventListener('resize', setH);
+    window.addEventListener('orientationchange', function () { setTimeout(setH, 250); });
+  })();
+</script>
 <style>
 /* ============================================================
-   TOKENS
+   TOKENS — angelehnt an die Insync-Seite: fast schwarz, warmes
+   Orange als einziger Akzent, Pillen, weiche Expo-Kurven.
    ============================================================ */
 :root{
-  --paper:#EFF0ED;
-  --paper-2:#F7F8F6;
-  --ink:#14171A;
-  --muted:#5C636B;
-  --line:#D6D9D3;
-  --accent:#1B3CE8;
-  --accent-ink:#0E2495;
-  --accent-wash:#E4E8FE;
-  --ok:#0E7A4E;
+  --bg:#0a0a0a;
+  --card:rgba(255,255,255,.035);
+  --card-hi:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.09);
+  --line-hi:rgba(255,255,255,.18);
+  --text:#f4f2ee;
+  --muted:rgba(244,242,238,.58);
+  --faint:rgba(244,242,238,.34);
+  --accent:#ff8010;
+  --accent-2:#ffb668;
+  --accent-wash:rgba(255,128,16,.12);
+  --ok:#35d07f;
 
-  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --f-body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --font:"Geist","aeonik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.625,.05,0,1);
+  --ease-soft:cubic-bezier(.22,.61,.36,1);
 
-  --step--1:0.875rem;
-  --step-0:1rem;
-  --step-1:1.1875rem;
-  --step-2:1.5rem;
-  --step-3:clamp(1.75rem,1.3rem + 2.2vw,2.6rem);
-  --step-4:clamp(2.2rem,1.4rem + 4.4vw,4.1rem);
-
-  --gutter:clamp(1.25rem,5vw,2rem);
-  --maxw:1120px;
-  --r:14px;
+  --pad:clamp(1.15rem,5vw,2rem);
+  --maxw:560px;
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
 body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--f-body);
-  font-size:var(--step-0);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  background:var(--bg);color:var(--text);
+  font-family:var(--font);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
 }
-h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-0.025em;line-height:1.08;margin:0}
-h1{font-size:var(--step-4)}
-h2{font-size:var(--step-3)}
-h3{font-size:var(--step-1);letter-spacing:-0.015em;line-height:1.25}
-p{margin:0}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 a{color:inherit}
-button{font:inherit;color:inherit}
-img,svg{max-width:100%}
-
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
-
-.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
-.sec{padding-block:clamp(3.5rem,8vw,6.5rem)}
-.lede{color:var(--muted);font-size:var(--step-1);max-width:56ch;line-height:1.55}
-.small{font-size:var(--step--1);color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px}
 
 /* ============================================================
-   BUTTONS
+   APP-RAHMEN — eine Bildschirmhoehe, nichts scrollt
    ============================================================ */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.55em;
-  background:var(--accent);color:#fff;border:1px solid var(--accent);
-  padding:1rem 1.6rem;border-radius:10px;
-  font-family:var(--f-display);font-weight:600;font-size:var(--step-0);
-  letter-spacing:-0.01em;text-decoration:none;cursor:pointer;
-  transition:background .18s ease, transform .18s ease;
+#app{
+  position:relative;width:100%;
+  height:100vh;height:100svh;height:var(--app-h,100svh);
+  display:flex;flex-direction:column;overflow:hidden;isolation:isolate;
 }
-.btn:hover{background:var(--accent-ink)}
-.btn:active{transform:translateY(1px)}
-.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn--ghost:hover{background:#fff;border-color:var(--ink)}
-.btn--lg{padding:1.15rem 2rem;font-size:var(--step-1)}
-.btn--block{width:100%}
-.btn[disabled]{opacity:.4;cursor:not-allowed}
-.btn[disabled]:hover{background:var(--accent)}
 
-.reassure{margin-top:.85rem;font-size:var(--step--1);color:var(--muted)}
+/* Hintergrund: zwei langsam treibende Glutflaechen + Korn */
+.bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg::before,.bg::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);will-change:transform}
+.bg::before{
+  width:70vmax;height:70vmax;left:-25vmax;top:-30vmax;
+  background:radial-gradient(circle,rgba(255,128,16,.20),rgba(255,128,16,0) 62%);
+  animation:drift1 22s var(--ease-soft) infinite alternate;
+}
+.bg::after{
+  width:60vmax;height:60vmax;right:-28vmax;bottom:-30vmax;
+  background:radial-gradient(circle,rgba(255,182,104,.13),rgba(255,182,104,0) 60%);
+  animation:drift2 26s var(--ease-soft) infinite alternate;
+}
+@keyframes drift1{to{transform:translate(12vmax,10vmax) scale(1.08)}}
+@keyframes drift2{to{transform:translate(-10vmax,-8vmax) scale(1.12)}}
+.grain{
+  position:absolute;inset:-50%;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}
+  60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}
+}
+.vignette{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 40%,transparent 40%,rgba(0,0,0,.55))}
 
 /* ============================================================
-   HEADER
+   KOPF — Story-Balken, Zurueck, Marke, Zaehler
    ============================================================ */
-.site-head{
-  position:sticky;top:0;z-index:40;
-  background:color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid transparent;
-  transition:border-color .2s ease;
+.top{flex:none;width:100%;max-width:var(--maxw);margin:0 auto;padding:calc(.8rem + env(safe-area-inset-top)) var(--pad) .35rem}
+.bars{display:flex;gap:5px}
+.bars i{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.bars i::after{
+  content:"";position:absolute;inset:0;transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:transform .7s var(--ease);
 }
-.site-head.is-stuck{border-bottom-color:var(--line)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
-.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--f-display);font-weight:700;letter-spacing:-0.03em;font-size:1.05rem;text-decoration:none}
-.brand-mark{width:22px;height:22px;flex:none}
-.head-cta{display:none}
-@media(min-width:720px){.head-cta{display:inline-flex;padding:.65rem 1.15rem;border-radius:8px}}
+.bars i.done::after{transform:scaleX(1)}
+.bars i.now::after{transform:scaleX(.45)}
+
+.row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:.8rem;min-height:36px}
+.back{
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line);background:var(--card);
+  transition:opacity .4s var(--ease),transform .4s var(--ease),background .2s;
+}
+.back:hover{background:var(--card-hi)}
+.back[hidden]{display:grid!important;opacity:0;pointer-events:none;transform:translateX(-6px)}
+.brand{display:flex;align-items:center;gap:.5rem;font-weight:500;font-size:.86rem;letter-spacing:-.01em;color:var(--muted)}
+.brand b{
+  width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),#ff5a00);color:#0a0a0a;font-size:.6rem;font-weight:600;
+}
+.count{font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
 
 /* ============================================================
-   HERO
+   BUEHNE — Screens liegen uebereinander und wechseln
    ============================================================ */
-.hero{padding-top:clamp(2.5rem,6vw,4.5rem);padding-bottom:clamp(3rem,7vw,5rem)}
-.badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:var(--accent-wash);color:var(--accent-ink);
-  border-radius:100px;padding:.4rem .9rem;
-  font-size:var(--step--1);font-weight:600;
+.stage{position:relative;flex:1;min-height:0;width:100%;max-width:var(--maxw);margin:0 auto}
+.screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:.6rem var(--pad) .9rem;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(26px);filter:blur(8px);
+  transition:opacity .75s var(--ease),transform .75s var(--ease),filter .75s var(--ease),visibility 0s linear .75s;
 }
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
-.hero h1{margin-top:1.4rem;max-width:15ch}
-.hero .lede{margin-top:1.3rem}
-.hero-actions{margin-top:2.1rem}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{
+  opacity:1;visibility:visible;pointer-events:auto;transform:none;filter:none;
+  transition:opacity .75s var(--ease) .12s,transform .75s var(--ease) .12s,filter .75s var(--ease) .12s,visibility 0s;
+}
+.screen.out{transform:translateY(-22px)}
+.screen.back-out{transform:translateY(26px)}
+.screen.back-in{transform:translateY(-22px)}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:min-content}
 
-/* --- Workflow visual --- */
-.flow{
-  margin-top:clamp(2.75rem,7vw,4rem);
-  background:var(--paper-2);
-  border:1px solid var(--line);
-  border-radius:var(--r);
-  padding:clamp(1.25rem,4vw,2.25rem);
+/* Texte */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;align-self:flex-start;
+  padding:.38rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--card);
+  font-size:.74rem;font-weight:500;color:var(--accent-2);letter-spacing:.01em;
 }
-.flow-head{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;align-items:baseline;margin-bottom:1.6rem}
-.flow-head strong{font-family:var(--f-display);font-size:var(--step-0);font-weight:600}
-.flow-grid{display:grid;gap:1rem;align-items:center}
-@media(min-width:860px){.flow-grid{grid-template-columns:1fr auto 1fr auto 1fr}}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.hook{margin:.9rem 0 0;font-weight:500;letter-spacing:-.035em;line-height:1.04;font-size:clamp(1.85rem,8.2vw,2.75rem)}
+.hook em{font-style:normal;color:var(--accent)}
+.sub{margin:.65rem 0 0;color:var(--muted);font-size:clamp(.92rem,3.6vw,1.02rem);line-height:1.5;max-width:40ch}
+.q-num{
+  display:flex;align-items:center;gap:.6rem;margin-top:1.25rem;
+  font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+}
+.q-num::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.q{margin:.45rem 0 0;font-weight:500;letter-spacing:-.03em;line-height:1.12;font-size:clamp(1.4rem,6.2vw,1.95rem)}
+.first .q{font-size:clamp(1.12rem,4.8vw,1.35rem);letter-spacing:-.02em}
+.hint{margin:.4rem 0 0;color:var(--faint);font-size:.82rem}
 
-.lane-label{font-size:var(--step--1);color:var(--muted);margin-bottom:.7rem}
-.chips{display:flex;flex-direction:column;gap:.55rem}
-.chip{
-  display:flex;align-items:center;gap:.7rem;
-  background:#fff;border:1px solid var(--line);border-radius:10px;
-  padding:.75rem .9rem;font-size:var(--step--1);
-  transition:border-color .35s ease, box-shadow .35s ease;
-}
-.chip svg{flex:none;color:var(--muted)}
-.chip.lit{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
-.chip.lit svg{color:var(--accent)}
-
-.node{
-  background:var(--ink);color:#fff;border-radius:12px;
-  padding:1.1rem 1.15rem;text-align:center;
-}
-.node b{display:block;font-family:var(--f-display);font-size:var(--step-0);font-weight:600;letter-spacing:-0.01em}
-.node span{display:block;font-size:.78rem;color:#9AA2AC;margin-top:.25rem}
-.node.lit{background:var(--accent)}
-.node.lit span{color:#C3CCFB}
-
-.link{position:relative;height:2px;background:var(--line);min-width:44px;border-radius:2px}
-.link::after{
-  content:"";position:absolute;inset:0;width:0;background:var(--accent);border-radius:2px;
-  transition:width .5s ease;
-}
-.link.lit::after{width:100%}
-@media(max-width:859px){
-  .link{width:2px;height:26px;min-width:0;justify-self:start;margin-left:1.1rem}
-  .link::after{width:100%;height:0;transition:height .5s ease}
-  .link.lit::after{height:100%}
-}
+/* Wort-Enthuellung fuer die Hook-Zeile */
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em}
+.w>span{display:inline-block;transform:translateY(105%);transition:transform .9s var(--ease)}
+.w:nth-child(2)>span{transition-delay:.06s}.w:nth-child(3)>span{transition-delay:.12s}
+.w:nth-child(4)>span{transition-delay:.18s}.w:nth-child(5)>span{transition-delay:.24s}
+.screen.on .w>span{transform:none}
 
 /* ============================================================
-   PROBLEM
+   OPTIONEN
    ============================================================ */
-.prob-list{margin-top:2.4rem;border-top:1px solid var(--line)}
-.prob{
-  display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
-  padding:1.15rem .25rem;border-bottom:1px solid var(--line);
-}
-.prob-i{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:#fff;border:1px solid var(--line);color:var(--muted)}
-.prob-t{font-family:var(--f-display);font-weight:600;font-size:var(--step-0);letter-spacing:-0.01em}
-.prob-time{font-size:var(--step--1);color:var(--muted);white-space:nowrap}
-.prob-close{margin-top:2rem;font-size:var(--step-1);max-width:52ch;line-height:1.5}
-
-/* ============================================================
-   CHECK PITCH
-   ============================================================ */
-.pitch{background:var(--ink);color:#fff;border-radius:var(--r);padding:clamp(1.75rem,5vw,3.25rem)}
-.pitch h2{max-width:18ch}
-.pitch p{color:#A8B0BA;margin-top:1.1rem;max-width:54ch;font-size:var(--step-1);line-height:1.55}
-.pitch .btn{margin-top:2rem;background:#fff;color:var(--ink);border-color:#fff}
-.pitch .btn:hover{background:var(--accent-wash)}
-.pitch .reassure{color:#8B939D}
-
-/* ============================================================
-   CHECK / FORM
-   ============================================================ */
-.check-shell{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.bar{height:4px;background:var(--line)}
-.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s cubic-bezier(.4,0,.2,1)}
-.check-body{padding:clamp(1.5rem,5vw,2.75rem)}
-.step-meta{display:flex;justify-content:space-between;gap:1rem;font-size:var(--step--1);color:var(--muted);margin-bottom:1.1rem}
-.step{display:none}
-.step.on{display:block;animation:in .3s ease both}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.step h3{font-size:var(--step-2);letter-spacing:-0.02em}
-.step .hint{color:var(--muted);font-size:var(--step--1);margin-top:.55rem}
-
-.opts{display:grid;gap:.6rem;margin-top:1.6rem}
-@media(min-width:600px){.opts--2{grid-template-columns:1fr 1fr}.opts--3{grid-template-columns:repeat(3,1fr)}}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem}
+.opts.one{grid-template-columns:1fr}
 .opt{
-  display:flex;align-items:center;gap:.75rem;
-  background:#fff;border:1px solid var(--line);border-radius:10px;
-  padding:.9rem 1rem;text-align:left;cursor:pointer;width:100%;
-  font-size:var(--step-0);transition:border-color .15s ease, background .15s ease;
+  position:relative;display:flex;align-items:center;gap:.6rem;min-height:52px;
+  padding:.72rem 1.7rem .72rem .85rem;border-radius:16px;text-align:left;
+  background:var(--card);border:1px solid var(--line);
+  font-size:.9rem;font-weight:500;letter-spacing:-.01em;line-height:1.25;
+  opacity:0;transform:translateY(12px) scale(.985);
+  transition:opacity .6s var(--ease),transform .6s var(--ease),
+             background .25s var(--ease-soft),border-color .25s var(--ease-soft),box-shadow .35s var(--ease-soft);
 }
-.opt:hover{border-color:var(--ink)}
-.opt .box{width:19px;height:19px;flex:none;border:1.5px solid var(--line);border-radius:5px;display:grid;place-items:center;transition:.15s ease}
-.opt .box svg{width:11px;height:11px;color:#fff;opacity:0}
-.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-wash)}
-.opt[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
-.opt[aria-pressed="true"] .box svg{opacity:1}
+.screen.on .opt{opacity:1;transform:none;transition-delay:calc(.22s + var(--i,0) * 45ms),calc(.22s + var(--i,0) * 45ms),0s,0s,0s}
+.opt:hover{background:var(--card-hi);border-color:var(--line-hi)}
+.opt:active{transform:scale(.975)!important;transition-delay:0s!important}
+.opt .ic{
+  flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:rgba(255,255,255,.05);color:var(--muted);transition:background .3s,color .3s;
+}
+.opt .ic svg{width:16px;height:16px}
+.opt .tick{
+  position:absolute;top:8px;right:8px;width:16px;height:16px;border-radius:50%;
+  display:grid;place-items:center;background:var(--accent);color:#0a0a0a;
+  transform:scale(0);transition:transform .45s var(--ease);
+}
+.opt .tick svg{width:9px;height:9px}
+.opt[aria-pressed="true"]{
+  background:var(--accent-wash);border-color:rgba(255,128,16,.65);
+  box-shadow:0 0 0 1px rgba(255,128,16,.25),0 10px 30px -12px rgba(255,128,16,.55);
+}
+.opt[aria-pressed="true"] .ic{background:rgba(255,128,16,.18);color:var(--accent-2)}
+.opt[aria-pressed="true"] .tick{transform:scale(1)}
+.opts.one .opt{min-height:56px;font-size:.98rem}
 
-.field{margin-top:1.1rem}
-.field label{display:block;font-size:var(--step--1);font-weight:600;margin-bottom:.4rem}
-.field input{
-  width:100%;padding:.85rem 1rem;border:1px solid var(--line);border-radius:10px;
-  background:#fff;font:inherit;color:var(--ink);
+/* ============================================================
+   AKTIONEN — Pille mit wanderndem Lichtstreif
+   ============================================================ */
+.actions{flex:none;padding-top:.9rem}
+.btn{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;
+  min-height:56px;padding:.95rem 1.4rem;border-radius:999px;
+  background:var(--accent);color:#0a0a0a;
+  font-weight:600;font-size:1.02rem;letter-spacing:-.015em;text-decoration:none;white-space:nowrap;
+  box-shadow:0 14px 40px -14px rgba(255,128,16,.75),inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .35s var(--ease),opacity .35s var(--ease),box-shadow .35s var(--ease),filter .35s;
 }
-.field input::placeholder{color:#9AA2AC}
-.field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
-.field.err input{border-color:#C0392B}
-.err-msg{display:none;color:#C0392B;font-size:var(--step--1);margin-top:.35rem}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%);
+  transform:translateX(-120%);animation:sheen 3.6s var(--ease) 1.2s infinite;
+}
+@keyframes sheen{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.btn:active{transform:scale(.975)}
+.btn .arr{transition:transform .4s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn[disabled]{opacity:.28;filter:saturate(.3);pointer-events:none;box-shadow:none}
+.btn[disabled]::before{animation:none}
+
+/* Rotierender Glutrand — wie auf der Insync-Seite */
+.glow{position:relative;border-radius:22px;padding:1px;overflow:hidden;isolation:isolate}
+.glow::before{
+  content:"";position:absolute;left:50%;top:50%;width:220%;aspect-ratio:1;z-index:-1;
+  background:conic-gradient(from 0deg,transparent 0 62%,color-mix(in srgb,var(--accent),white 20%) 76%,transparent 88%);
+  transform:translate(-50%,-50%);animation:spin 6s linear infinite;
+}
+.glow::after{content:"";position:absolute;inset:0;z-index:-2;background:var(--line);border-radius:inherit}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(1turn)}}
+.glow>.inner{border-radius:21px;background:linear-gradient(180deg,#151515,#0e0e0e)}
+
+/* ============================================================
+   FORMULAR
+   ============================================================ */
+.form{display:grid;gap:.55rem;margin-top:1.05rem}
+.field{position:relative;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.screen.on .field{opacity:1;transform:none;transition-delay:calc(.2s + var(--i,0) * 55ms)}
+.field input{
+  width:100%;height:56px;padding:1.35rem 1rem .45rem;border-radius:16px;
+  background:var(--card);border:1px solid var(--line);color:var(--text);
+  font:inherit;font-size:1rem;outline:none;transition:border-color .25s,background .25s,box-shadow .3s;
+}
+/* :not(.consent) — sonst wird die Einwilligungs-Zeile ebenfalls absolut
+   gesetzt und nach einem Fehlversuch von der Fehlermeldung ueberdeckt. */
+.field>label:not(.consent){
+  position:absolute;left:1rem;top:28px;transform:translateY(-50%);transform-origin:left;
+  color:var(--faint);font-size:.95rem;pointer-events:none;
+  transition:transform .35s var(--ease),top .35s var(--ease),color .25s;
+}
+.field input:focus,.field input:not(:placeholder-shown){background:var(--card-hi)}
+.field input:focus{border-color:rgba(255,128,16,.6);box-shadow:0 0 0 4px rgba(255,128,16,.12)}
+.field input:focus+label,.field input:not(:placeholder-shown)+label{top:.95rem;transform:translateY(-50%) scale(.72);color:var(--accent-2)}
+.field .opt-tag{position:absolute;right:1rem;top:28px;transform:translateY(-50%);font-size:.72rem;color:var(--faint);pointer-events:none}
+.field.err input{border-color:#ff5a4a;box-shadow:0 0 0 4px rgba(255,90,74,.12)}
+.err-msg{display:none;margin:.3rem 0 0 .25rem;font-size:.76rem;color:#ff8a7d}
 .field.err .err-msg{display:block}
 
-.consent{display:flex;gap:.75rem;align-items:flex-start;margin-top:1.4rem;font-size:var(--step--1);color:var(--muted);line-height:1.5}
-.consent input{margin-top:.2rem;width:17px;height:17px;flex:none;accent-color:var(--accent)}
-.consent a{color:var(--accent-ink)}
-
-.nav{display:flex;gap:.75rem;margin-top:2rem;flex-wrap:wrap}
-.nav .btn{flex:1 1 auto}
-.nav .btn--ghost{flex:0 0 auto}
-
-/* ============================================================
-   RESULTS
-   ============================================================ */
-.res-top{display:grid;gap:1.5rem;align-items:start}
-@media(min-width:760px){.res-top{grid-template-columns:1fr auto}}
-.savings{
-  background:var(--ink);color:#fff;border-radius:12px;padding:1.35rem 1.6rem;min-width:230px;
+.consent{display:flex;gap:.7rem;align-items:flex-start;margin-top:.25rem;padding:.2rem .1rem;font-size:.76rem;line-height:1.45;color:var(--muted);cursor:pointer}
+.consent input{position:absolute;opacity:0;pointer-events:none}
+.consent .box{
+  flex:none;width:20px;height:20px;margin-top:1px;border-radius:6px;border:1px solid var(--line-hi);
+  display:grid;place-items:center;background:var(--card);transition:background .25s,border-color .25s;
 }
-.savings .n{font-family:var(--f-display);font-size:clamp(2rem,5vw,2.7rem);font-weight:700;letter-spacing:-0.03em;line-height:1}
-.savings .u{color:#A8B0BA;font-size:var(--step--1);margin-top:.4rem}
-.recs{display:grid;gap:.75rem;margin-top:2rem}
-.rec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.15rem 1.25rem;display:grid;grid-template-columns:auto 1fr;gap:1rem}
-.rec-n{width:26px;height:26px;border-radius:7px;background:var(--accent-wash);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:600;font-size:.8rem}
-.rec h4{margin:0;font-family:var(--f-display);font-size:var(--step-0);font-weight:600;letter-spacing:-0.01em}
-.rec p{color:var(--muted);font-size:var(--step--1);margin-top:.4rem;line-height:1.55}
-.rec .est{display:inline-block;margin-top:.6rem;font-size:.78rem;color:var(--accent-ink);background:var(--accent-wash);padding:.2rem .55rem;border-radius:5px}
-.disclaimer{
-  margin-top:1.75rem;padding:1rem 1.15rem;border-left:3px solid var(--line);
-  font-size:var(--step--1);color:var(--muted);line-height:1.55;background:#fff;border-radius:0 8px 8px 0;
+.consent .box svg{width:11px;height:11px;color:#0a0a0a;transform:scale(0);transition:transform .35s var(--ease)}
+.consent input:checked+.box{background:var(--accent);border-color:var(--accent)}
+.consent input:checked+.box svg{transform:scale(1)}
+.consent input:focus-visible+.box{outline:2px solid var(--accent);outline-offset:2px}
+.consent a{color:var(--accent-2)}
+.field.err .consent .box{border-color:#ff5a4a}
+
+/* ============================================================
+   ERGEBNIS
+   ============================================================ */
+.res-card>.inner{padding:1.15rem 1.2rem 1.1rem}
+.res-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.res-num{
+  display:flex;align-items:baseline;gap:.45rem;margin-top:.35rem;
+  font-weight:500;letter-spacing:-.05em;line-height:1;font-size:clamp(3rem,15vw,4.4rem);font-variant-numeric:tabular-nums;
 }
-.mailnote{
-  margin-top:1.5rem;padding:.95rem 1.15rem;border-radius:10px;
-  background:var(--accent-wash);border:1px solid #C6CFFB;
-  font-size:var(--step--1);color:var(--accent-ink);line-height:1.55;
+.res-num span{background:linear-gradient(180deg,#fff 30%,var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.res-num small{font-size:.3em;letter-spacing:-.01em;color:var(--muted)}
+.res-intro{margin:.55rem 0 0;font-size:.84rem;color:var(--muted);line-height:1.45}
+
+.recs{display:grid;gap:.45rem;margin-top:.75rem}
+.rec{
+  display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .8rem;border-radius:14px;
+  background:var(--card);border:1px solid var(--line);
+  opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);
 }
-.mailnote span{color:var(--muted)}
-.mailnote a{color:var(--accent-ink);font-weight:600}
-.res-cta{margin-top:2.25rem;padding-top:2rem;border-top:1px solid var(--line)}
-.res-cta h3{font-size:var(--step-2);max-width:22ch}
+.recs.show .rec{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 110ms)}
+.rec-n{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:var(--accent-wash);color:var(--accent-2);font-size:.72rem;font-weight:600}
+.rec h4{margin:0;font-size:.86rem;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.rec span{display:block;margin-top:.15rem;font-size:.74rem;color:var(--faint)}
 
-/* ============================================================
-   LEISTUNGEN
-   ============================================================ */
-.cards{display:grid;gap:1rem;margin-top:2.5rem}
-@media(min-width:640px){.cards{grid-template-columns:1fr 1fr}}
-@media(min-width:1000px){.cards{grid-template-columns:repeat(4,1fr)}}
-.card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:1.5rem}
-.card svg{color:var(--accent);margin-bottom:1rem}
-.card p{color:var(--muted);font-size:var(--step--1);margin-top:.6rem;line-height:1.6}
-
-/* ============================================================
-   ABLAUF
-   ============================================================ */
-.steps3{display:grid;gap:0;margin-top:2.5rem;border-top:1px solid var(--line)}
-@media(min-width:800px){.steps3{grid-template-columns:repeat(3,1fr);gap:2.5rem}}
-.s3{padding:1.6rem 0;border-bottom:1px solid var(--line)}
-@media(min-width:800px){.s3{border-bottom:none}}
-.s3 .n{font-family:var(--f-display);font-weight:700;font-size:var(--step-2);color:var(--accent);letter-spacing:-0.03em}
-.s3 h3{margin-top:.5rem}
-.s3 p{color:var(--muted);font-size:var(--step--1);margin-top:.5rem;line-height:1.6;max-width:34ch}
-
-/* ============================================================
-   LOKAL
-   ============================================================ */
-.local{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.local-grid{display:grid;gap:2.5rem;align-items:center}
-@media(min-width:860px){.local-grid{grid-template-columns:1fr 1.05fr}}
-.local p{margin-top:1.2rem;color:var(--muted);font-size:var(--step-1);line-height:1.55;max-width:44ch}
-.skyline{width:100%;height:auto;color:var(--ink)}
-.skyline .ridge{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.28}
-.skyline .burg{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linejoin:round}
-.skyline .flag{fill:var(--accent)}
-
-/* ============================================================
-   FINAL + FOOTER
-   ============================================================ */
-.final{text-align:center}
-.final h2{max-width:20ch;margin-inline:auto}
-.final .lede{margin:1.2rem auto 0;text-align:center}
-.final .btn{margin-top:2rem}
-.site-foot{border-top:1px solid var(--line);padding-block:2.25rem}
-.foot-in{display:flex;flex-wrap:wrap;gap:1rem 1.75rem;align-items:center;justify-content:space-between;font-size:var(--step--1);color:var(--muted)}
-.foot-in nav{display:flex;flex-wrap:wrap;gap:1.25rem}
-.foot-in a{text-decoration:none}
-.foot-in a:hover{color:var(--ink);text-decoration:underline}
-
-/* ============================================================
-   STICKY MOBILE CTA
-   ============================================================ */
-.sticky{
-  position:fixed;left:0;right:0;bottom:0;z-index:45;
-  padding:.7rem var(--gutter) calc(.7rem + env(safe-area-inset-bottom));
-  background:color-mix(in srgb, var(--paper) 94%, transparent);
-  backdrop-filter:blur(10px);border-top:1px solid var(--line);
-  transform:translateY(110%);transition:transform .25s ease;
+.maik{
+  display:flex;align-items:center;gap:.7rem;margin-top:.75rem;padding:.5rem .7rem .5rem .5rem;
+  border-radius:999px;border:1px solid var(--line);background:var(--card);
 }
-.sticky.on{transform:none}
-@media(min-width:720px){.sticky{display:none}}
-
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.maik img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:none}
+.maik p{margin:0;font-size:.78rem;line-height:1.35;color:var(--muted)}
+.maik p b{color:var(--text);font-weight:500}
+.maik .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);flex:none;margin-left:auto;margin-right:.3rem}
+.mailnote{margin:.55rem 0 0;font-size:.72rem;line-height:1.45;color:var(--faint);text-align:center}
+.mailnote a{color:var(--accent-2)}
 
 /* ============================================================
-   HANDY — der Start-Button muss ohne Scrollen sichtbar sein.
-   Gemessen im Instagram-In-App-Browser (390x664): die Ueberschrift
-   lief ueber 6 Zeilen, der Button stand bei y=586 und die
-   Datenschutz-Box ab y=431 lag darueber. 17 bezahlte Besucher,
-   0 % gescrollt, 0 Klicks. Deshalb: kompakter Hero, Datenschutz
-   als schmale Leiste statt Box.
+   FUSS
    ============================================================ */
-@media(max-width:599px){
-  .hero{padding-top:1.1rem;padding-bottom:2.5rem}
-  .badge{font-size:.76rem;padding:.3rem .7rem}
-  .hero h1{font-size:clamp(1.65rem,7.2vw,2.05rem);max-width:none;margin-top:.85rem;line-height:1.1}
-  .hero .lede{font-size:1rem;margin-top:.75rem;line-height:1.5}
-  .hero-actions{margin-top:1.15rem}
-  .hero-actions .btn{width:100%;padding:.95rem 1.1rem;font-size:1.05rem}
-  .hero-actions .reassure{margin-top:.5rem}
+.legal{
+  flex:none;display:flex;justify-content:center;gap:1.1rem;
+  padding:.2rem var(--pad) calc(.55rem + env(safe-area-inset-bottom));
+  font-size:.68rem;color:var(--faint);
 }
+.legal a{text-decoration:none}
+.legal a:hover{color:var(--muted)}
+/* In-App-Browser legen unten eine Leiste ueber die Seite */
+html.in-app .legal{padding-bottom:calc(.55rem + 44px + env(safe-area-inset-bottom))}
+
+/* Hoehen-Stufen: jeder Screen muss ohne Scrollen passen. Gemessen auf
+   412x700, 390x664, 375x560 jeweils im Instagram-In-App-Browser. */
+@media(max-height:780px){
+  .hook{font-size:clamp(1.6rem,7.2vw,2.3rem);margin-top:.75rem}
+  .sub{margin-top:.45rem;font-size:.9rem}
+  .q-num{margin-top:.9rem}
+  .q{font-size:clamp(1.3rem,5.8vw,1.7rem)}
+  .opts{margin-top:.75rem;gap:.42rem}
+  .opt{min-height:48px;padding:.6rem 1.6rem .6rem .75rem;font-size:.86rem}
+  .opts.one{grid-template-columns:1fr 1fr}
+  .opts.one .opt{min-height:54px;font-size:.9rem}
+  .actions{padding-top:.7rem}
+  .res-num{font-size:clamp(2.8rem,13.5vw,3.9rem)}
+  .rec:nth-child(3){display:none}
+}
+@media(max-height:680px){
+  .hook{font-size:clamp(1.5rem,6.8vw,2rem);margin-top:.6rem}
+  .sub{font-size:.84rem;margin-top:.35rem}
+  .q-num{margin-top:.7rem}
+  .q{font-size:clamp(1.2rem,5.4vw,1.5rem)}
+  .opt{min-height:44px;padding:.5rem 1.55rem .5rem .65rem;font-size:.82rem;border-radius:13px;gap:.5rem}
+  .opt .ic{width:24px;height:24px;border-radius:7px}
+  .opt .ic svg{width:14px;height:14px}
+  .opts{margin-top:.6rem;gap:.38rem}
+  .opts.one .opt{min-height:48px;font-size:.86rem}
+  .btn{min-height:50px;padding:.78rem 1.2rem;font-size:.98rem}
+  .form{gap:.45rem;margin-top:.75rem}
+  .field input{height:50px;padding-top:1.2rem}
+  .field>label:not(.consent),.field .opt-tag{top:25px}
+  .field input:focus+label,.field input:not(:placeholder-shown)+label{top:.85rem}
+  .step6-hint{display:none}
+  .res-num{font-size:clamp(2.6rem,13vw,3.6rem)}
+  .recs{margin-top:.55rem;gap:.38rem}
+  .rec{padding:.55rem .7rem}
+  .rec:nth-child(3){display:none}
+  .maik{margin-top:.55rem}
+}
+@media(max-height:600px){
+  .opt .ic,.sub,.eyebrow,.hint,.res-intro,.maik{display:none}
+  .hook{margin-top:0;font-size:clamp(1.4rem,6.4vw,1.8rem)}
+  .q-num{margin-top:.55rem}
+  .opt{min-height:42px}
+  .field input{height:48px}
+  .res-card>.inner{padding:.9rem 1rem}
+}
+@media(min-width:720px){ .opts.one{grid-template-columns:1fr 1fr} }
 
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .screen{filter:none}
 }
 </style>
 </head>
 <body>
 
-<header class="site-head" id="head">
-  <div class="wrap">
-    <a class="brand" href="#top">
-      <svg class="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="1" y="1" width="22" height="22" rx="6" fill="#14171A"/>
-        <path d="M6.5 15.5L11 8.5l2.4 3.8 1.6-2.2 2.5 5.4" stroke="#1B3CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Automatisierung Bielefeld
-    </a>
-    <button class="btn head-cta" data-goto-check>KI-Check starten</button>
-  </div>
-</header>
+<div id="app">
+  <div class="bg" aria-hidden="true"><div class="grain"></div><div class="vignette"></div></div>
 
-<main id="top">
-
-<!-- 1 · HERO ---------------------------------------------------->
-<section class="sec hero">
-  <div class="wrap">
-    <span class="badge"><span class="dot"></span>KI-Automatisierung für Bielefelder Unternehmen</span>
-
-    <h1>Wie viele Stunden verliert dein Unternehmen jede Woche durch manuelle Aufgaben?</h1>
-
-    <p class="lede">Wir zeigen dir, welche Prozesse du mit KI automatisieren kannst – und wo du jede Woche Zeit sparen kannst.</p>
-
-    <div class="hero-actions">
-      <button class="btn btn--lg" data-goto-check>Kostenlosen KI-Check starten →</button>
-      <p class="reassure">2 Minuten · kostenlos · unverbindlich</p>
+  <header class="top">
+    <div class="bars" id="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="row">
+      <button class="back" id="back" type="button" aria-label="Zurück" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="brand"><b>KI</b>Automatisierung Bielefeld</div>
+      <div class="count" id="count">1/5</div>
     </div>
+  </header>
 
-    <!-- Workflow-Visual -->
-    <div class="flow" id="flow" aria-hidden="true">
-      <div class="flow-head">
-        <strong>Aus manueller Arbeit wird ein Ablauf, der von allein läuft</strong>
-      </div>
-      <div class="flow-grid">
-        <div>
-          <div class="lane-label">Heute: kommt rein, bleibt liegen</div>
-          <div class="chips">
-            <div class="chip" data-f="1">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-              Anfrage per E-Mail
-            </div>
-            <div class="chip" data-f="1">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-              Anruf auf dem Zettel
-            </div>
-            <div class="chip" data-f="1">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
-              Nachricht bei WhatsApp
-            </div>
-          </div>
-        </div>
+  <main class="stage" id="stage">
 
-        <div class="link" data-f="2"></div>
-
-        <div class="node" data-f="3">
-          <b>Automatisierter Ablauf</b>
-          <span>erfassen · zuordnen · antworten</span>
-        </div>
-
-        <div class="link" data-f="4"></div>
-
-        <div>
-          <div class="lane-label">Danach: erledigt sich selbst</div>
-          <div class="chips">
-            <div class="chip" data-f="5">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
-              Termin steht im Kalender
-            </div>
-            <div class="chip" data-f="5">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6"/></svg>
-              Angebot ist raus
-            </div>
-            <div class="chip" data-f="5">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>
-              Kunde ist erfasst
-            </div>
-          </div>
+    <!-- 1 · Branche (Einstieg mit Hook) -->
+    <section class="screen first on" data-step="1" aria-labelledby="q1">
+      <div class="body">
+        <span class="eyebrow">Kostenloser KI-Check · 2 Minuten</span>
+        <h1 class="hook" aria-label="Wie viele Stunden verliert dein Unternehmen jede Woche?"><span class="w"><span>Wie viele</span></span> <span class="w"><span><em>Stunden</em></span></span> <span class="w"><span>verliert dein</span></span> <span class="w"><span>Unternehmen</span></span> <span class="w"><span>jede Woche?</span></span></h1>
+        <p class="sub">5 kurze Fragen – danach siehst du, was sich bei dir mit KI automatisieren lässt.</p>
+        <div class="q-num">Frage 1</div>
+        <h2 class="q" id="q1">Was macht dein Unternehmen?</h2>
+        <div class="opts" data-single="branche">
+          <button class="opt" type="button" aria-pressed="false" data-v="Handwerk" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>Handwerk &amp; Bau<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Dienstleistung" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg></span>Dienstleistung &amp; Beratung<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Agentur" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></span>Agentur &amp; Marketing<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Immobilien" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>Immobilien<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Gastronomie" style="--i:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg></span>Gastronomie &amp; Hotel<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Fitness" style="--i:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Fitness &amp; Gesundheit<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Handel" style="--i:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span>Handel &amp; E-Commerce<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="Sonstiges" style="--i:7"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Etwas anderes<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- 2 · PROBLEM ------------------------------------------------->
-<section class="sec">
-  <div class="wrap">
-    <h2>Vielleicht kennst du das:</h2>
-
-    <div class="prob-list">
-      <div class="prob">
-        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
-        <div class="prob-t">Kundenanfragen manuell beantworten</div>
-        <div class="prob-time">jeden Tag aufs Neue</div>
+    <!-- 2 · Groesse -->
+    <section class="screen" data-step="2" aria-labelledby="q2">
+      <div class="body">
+        <div class="q-num">Frage 2</div>
+        <h2 class="q" id="q2">Wie groß ist dein Unternehmen?</h2>
+        <div class="opts one" data-single="groesse">
+          <button class="opt" type="button" aria-pressed="false" data-v="1" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Ich allein<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="2-5" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2A5 5 0 0 1 22 19"/></svg></span>2 bis 5 Mitarbeitende<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="6-20" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/></svg></span>6 bis 20 Mitarbeitende<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="21+" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l6-4v16M9 21V5l6 4v12M15 21V11l6 3v7"/></svg></span>Mehr als 20<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+        </div>
       </div>
-      <div class="prob">
-        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-        <div class="prob-t">Termine ständig hin und her koordinieren</div>
-        <div class="prob-time">fünf Mails für einen Termin</div>
+    </section>
+
+    <!-- 3 · Aufgaben (Mehrfach) -->
+    <section class="screen" data-step="3" aria-labelledby="q3">
+      <div class="body">
+        <div class="q-num">Frage 3</div>
+        <h2 class="q" id="q3">Was kostet dich am meisten Zeit?</h2>
+        <p class="hint">Mehrfachauswahl möglich.</p>
+        <div class="opts" data-multi="aufgaben">
+          <button class="opt" type="button" aria-pressed="false" data-v="kundenanfragen" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>Kundenanfragen<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="termine" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Termine<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="angebote" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>Angebote<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="rechnungen" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 1 .7V2l-1 .7-3-2-3 2-3-2-3 2-3-2z"/><path d="M8 8h8M8 12h8"/></svg></span>Rechnungen<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="daten" style="--i:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></span>Daten / Excel<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="social" style="--i:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/></svg></span>Social Media<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="dokumente" style="--i:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>Dokumente<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="kommunikation" style="--i:7"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg></span>Interne Kommunikation<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="sonstiges" style="--i:8"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg></span>Sonstiges<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+        </div>
       </div>
-      <div class="prob">
-        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
-        <div class="prob-t">Daten aus E-Mails in Excel übertragen</div>
-        <div class="prob-time">abtippen statt arbeiten</div>
+      <div class="actions"><button class="btn" type="button" data-next disabled>Weiter <span class="arr">→</span></button></div>
+    </section>
+
+    <!-- 4 · Tools (Mehrfach) -->
+    <section class="screen" data-step="4" aria-labelledby="q4">
+      <div class="body">
+        <div class="q-num">Frage 4</div>
+        <h2 class="q" id="q4">Welche Tools nutzt du?</h2>
+        <p class="hint">Mehrfachauswahl möglich.</p>
+        <div class="opts" data-multi="tools">
+          <button class="opt" type="button" aria-pressed="false" data-v="mail" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>Outlook / Gmail<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="excel" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></span>Excel / Sheets<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="whatsapp" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg></span>WhatsApp<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="crm" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M17 11l2 2 4-4"/></svg></span>CRM-System<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="buchhaltung" style="--i:4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M14 11h2M8 15h2M14 15h2M8 19h2M14 19h2"/></svg></span>Buchhaltung<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="branche" style="--i:5"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg></span>Branchensoftware<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="papier" style="--i:6"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>Zettel, Telefon, Kopf<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="keine" style="--i:7"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></span>Weiß ich nicht genau<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+        </div>
       </div>
-      <div class="prob">
-        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
-        <div class="prob-t">Angebote immer wieder neu erstellen</div>
-        <div class="prob-time">dieselbe Vorlage, andere Zahlen</div>
+      <div class="actions"><button class="btn" type="button" data-next disabled>Weiter <span class="arr">→</span></button></div>
+    </section>
+
+    <!-- 5 · Stunden -->
+    <section class="screen" data-step="5" aria-labelledby="q5">
+      <div class="body">
+        <div class="q-num">Frage 5</div>
+        <h2 class="q" id="q5">Wie viele Stunden pro Woche gehen für wiederkehrende Aufgaben drauf?</h2>
+        <p class="hint">Schätzung genügt – alle Mitarbeitenden zusammen.</p>
+        <div class="opts one" data-single="stunden">
+          <button class="opt" type="button" aria-pressed="false" data-v="3" style="--i:0"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l2 1"/></svg></span>Weniger als 5 Stunden<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="7" style="--i:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>5 bis 10 Stunden<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="15" style="--i:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 3"/></svg></span>10 bis 20 Stunden<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+          <button class="opt" type="button" aria-pressed="false" data-v="25" style="--i:3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 4.5 4 8a4 4 0 0 1-8 0c0-1.5.6-2.7 1.5-3.6M12 22a7 7 0 0 0 7-7c0-2-.7-3.8-2-5.3"/></svg></span>Mehr als 20 Stunden<span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span></button>
+        </div>
       </div>
-      <div class="prob">
-        <div class="prob-i"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
-        <div class="prob-t">Social-Media-Content mühsam vorbereiten</div>
-        <div class="prob-time">wenn überhaupt Zeit bleibt</div>
-      </div>
-    </div>
+    </section>
 
-    <p class="prob-close">Genau solche wiederkehrenden Aufgaben lassen sich heute häufig automatisieren.</p>
-  </div>
-</section>
-
-<!-- 3 · CHECK-PITCH --------------------------------------------->
-<section class="sec">
-  <div class="wrap">
-    <div class="pitch">
-      <h2>Finde in 2 Minuten heraus, was du automatisieren kannst.</h2>
-      <p>Beantworte ein paar kurze Fragen zu deinem Unternehmen. Der Check wertet deine Antworten aus und zeigt dir konkrete Automatisierungsmöglichkeiten.</p>
-      <button class="btn btn--lg" data-goto-check>Jetzt kostenlosen Check starten →</button>
-      <p class="reassure">Keine Registrierung nötig, um loszulegen.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 4 · INTERAKTIVER CHECK -------------------------------------->
-<section class="sec" id="check" style="padding-top:0">
-  <div class="wrap">
-    <div class="check-shell">
-      <div class="bar"><i id="bar"></i></div>
-      <div class="check-body">
-
-        <div class="step-meta" id="meta" hidden>
-          <span id="meta-step"></span>
-          <span id="meta-time">ca. 2 Minuten</span>
-        </div>
-
-        <!-- Schritt 1 -->
-        <div class="step on" data-step="1">
-          <h3>Was macht dein Unternehmen?</h3>
-          <p class="hint">Grobe Richtung reicht.</p>
-          <div class="opts opts--2" data-single="branche">
-            <button class="opt" type="button" aria-pressed="false" data-v="Handwerk"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Handwerk &amp; Bau</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Dienstleistung"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Dienstleistung &amp; Beratung</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Agentur"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Agentur &amp; Marketing</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Immobilien"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Immobilien</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Gastronomie"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Gastronomie &amp; Hotel</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Fitness"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Fitness &amp; Gesundheit</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Handel"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Handel &amp; E-Commerce</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="Sonstiges"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Etwas anderes</button>
+    <!-- 6 · Kontakt -->
+    <section class="screen" data-step="6" aria-labelledby="q6">
+      <div class="body">
+        <div class="q-num">Fast geschafft</div>
+        <h2 class="q" id="q6">Wohin dürfen wir deine Auswertung schicken?</h2>
+        <p class="hint step6-hint">Du siehst sie gleich hier – und sie geht als Mail an Maik, damit er sich melden kann.</p>
+        <div class="form">
+          <div class="field" id="f-name" style="--i:0">
+            <input id="i-name" type="text" autocomplete="name" placeholder=" " enterkeyhint="next">
+            <label for="i-name">Vor- und Nachname</label>
+            <div class="err-msg">Bitte trag deinen Namen ein.</div>
           </div>
-          <div class="nav">
-            <button class="btn" data-next disabled>Weiter</button>
-          </div>
-        </div>
-
-        <!-- Schritt 2 -->
-        <div class="step" data-step="2">
-          <h3>Wie groß ist dein Unternehmen?</h3>
-          <div class="opts opts--2" data-single="groesse">
-            <button class="opt" type="button" aria-pressed="false" data-v="1"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Ich allein</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="2-5"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>2 bis 5 Mitarbeitende</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="6-20"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>6 bis 20 Mitarbeitende</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="21+"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Mehr als 20</button>
-          </div>
-          <div class="nav">
-            <button class="btn btn--ghost" data-back>Zurück</button>
-            <button class="btn" data-next disabled>Weiter</button>
-          </div>
-        </div>
-
-        <!-- Schritt 3 -->
-        <div class="step" data-step="3">
-          <h3>Welche Aufgaben kosten dich aktuell am meisten Zeit?</h3>
-          <p class="hint">Mehrfachauswahl möglich.</p>
-          <div class="opts opts--2" data-multi="aufgaben">
-            <button class="opt" type="button" aria-pressed="false" data-v="kundenanfragen"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Kundenanfragen</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="termine"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Termine</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="angebote"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Angebote</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="rechnungen"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Rechnungen</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="daten"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Daten / Excel</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="social"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Social Media</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="dokumente"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Dokumente</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="kommunikation"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Interne Kommunikation</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="sonstiges"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Sonstiges</button>
-          </div>
-          <div class="nav">
-            <button class="btn btn--ghost" data-back>Zurück</button>
-            <button class="btn" data-next disabled>Weiter</button>
-          </div>
-        </div>
-
-        <!-- Schritt 4 -->
-        <div class="step" data-step="4">
-          <h3>Welche Tools nutzt du aktuell?</h3>
-          <p class="hint">Mehrfachauswahl möglich.</p>
-          <div class="opts opts--2" data-multi="tools">
-            <button class="opt" type="button" aria-pressed="false" data-v="mail"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Outlook / Gmail</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="excel"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Excel / Google Sheets</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="whatsapp"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>WhatsApp</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="crm"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>CRM-System</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="buchhaltung"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Buchhaltungssoftware</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="branche"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Branchensoftware</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="papier"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Zettel, Telefon, Kopf</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="keine"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Weiß ich nicht genau</button>
-          </div>
-          <div class="nav">
-            <button class="btn btn--ghost" data-back>Zurück</button>
-            <button class="btn" data-next disabled>Weiter</button>
-          </div>
-        </div>
-
-        <!-- Schritt 5 -->
-        <div class="step" data-step="5">
-          <h3>Wie viele Stunden pro Woche gehen ungefähr für wiederkehrende Aufgaben drauf?</h3>
-          <p class="hint">Schätzung genügt – über alle Mitarbeitenden zusammen.</p>
-          <div class="opts opts--2" data-single="stunden">
-            <button class="opt" type="button" aria-pressed="false" data-v="3"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Weniger als 5 Stunden</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="7"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>5 bis 10 Stunden</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="15"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>10 bis 20 Stunden</button>
-            <button class="opt" type="button" aria-pressed="false" data-v="25"><span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>Mehr als 20 Stunden</button>
-          </div>
-          <div class="nav">
-            <button class="btn btn--ghost" data-back>Zurück</button>
-            <button class="btn" data-next disabled>Weiter</button>
-          </div>
-        </div>
-
-        <!-- Schritt 6 · Lead -->
-        <div class="step" data-step="6">
-          <h3>Wohin dürfen wir das Ergebnis schicken?</h3>
-          <p class="hint">Du siehst die Auswertung sofort auf dieser Seite. Gleichzeitig öffnet sich deine Anfrage in deinem Mailprogramm – einmal abschicken, dann melden wir uns.</p>
-
-          <div class="field" id="f-name">
-            <label for="i-name">Name</label>
-            <input id="i-name" type="text" autocomplete="name" placeholder="Vor- und Nachname">
-            <span class="err-msg">Bitte trag deinen Namen ein.</span>
-          </div>
-          <div class="field" id="f-mail">
+          <div class="field" id="f-mail" style="--i:1">
+            <input id="i-mail" type="email" autocomplete="email" inputmode="email" placeholder=" " enterkeyhint="next">
             <label for="i-mail">E-Mail</label>
-            <input id="i-mail" type="email" autocomplete="email" placeholder="name@unternehmen.de">
-            <span class="err-msg">Bitte prüf die E-Mail-Adresse.</span>
+            <div class="err-msg">Bitte prüf die E-Mail-Adresse.</div>
           </div>
-          <div class="field" id="f-tel">
-            <label for="i-tel">Telefon <span style="font-weight:400;color:var(--muted)">– optional</span></label>
-            <input id="i-tel" type="tel" autocomplete="tel" placeholder="Für einen kurzen Rückruf">
+          <div class="field" id="f-tel" style="--i:2">
+            <input id="i-tel" type="tel" autocomplete="tel" inputmode="tel" placeholder=" " enterkeyhint="done">
+            <label for="i-tel">Telefon</label>
+            <span class="opt-tag">optional</span>
           </div>
-
-          <div class="field" id="f-consent" style="margin-top:0">
-            <label class="consent" for="i-consent" style="font-weight:400">
+          <div class="field" id="f-consent" style="--i:3">
+            <label class="consent" for="i-consent">
               <input id="i-consent" type="checkbox">
-              <span>Ich bin damit einverstanden, dass meine Angaben zur Auswertung und Kontaktaufnahme gespeichert und verarbeitet werden. Widerruf jederzeit per E-Mail möglich. Mehr dazu in der <a href="../datenschutz.html">Datenschutzerklärung</a>.</span>
+              <span class="box"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M2 6.2 4.6 9 10 3.2"/></svg></span>
+              <span>Meine Angaben dürfen zur Auswertung und Kontaktaufnahme verarbeitet werden. Widerruf jederzeit per Mail. <a href="../datenschutz.html">Datenschutz</a></span>
             </label>
-            <span class="err-msg">Ohne diese Einwilligung dürfen wir die Daten nicht verarbeiten.</span>
-          </div>
-
-          <div class="nav">
-            <button class="btn btn--ghost" data-back>Zurück</button>
-            <button class="btn" id="submit">Analyse starten</button>
+            <div class="err-msg">Ohne Einwilligung dürfen wir die Daten nicht verarbeiten.</div>
           </div>
         </div>
+      </div>
+      <div class="actions"><button class="btn" type="button" id="submit">Auswertung ansehen <span class="arr">→</span></button></div>
+    </section>
 
-        <!-- 5 · ERGEBNIS -->
-        <div class="step" data-step="7">
-          <div class="res-top">
-            <div>
-              <h3 style="font-size:var(--step-2)">Wir haben mehrere Automatisierungspotenziale gefunden.</h3>
-              <p class="small" style="margin-top:.7rem;max-width:48ch" id="res-intro"></p>
-            </div>
-            <div class="savings">
-              <div class="n" id="res-hours">–</div>
-              <div class="u">Stunden pro Woche geschätztes Einsparpotenzial</div>
-            </div>
-          </div>
-
-          <p class="mailnote">
-            Deine Anfrage öffnet sich gerade in deinem Mailprogramm – bitte einmal abschicken, dann meldet sich Maik bei dir.
-            <br><span>Es passiert nichts? <a id="mail-fallback" href="mailto:Maik.z@gmx.de">Hier die Mail öffnen</a> oder schreib direkt an <a href="mailto:Maik.z@gmx.de">Maik.z@gmx.de</a>.</span>
-          </p>
-
-          <div class="recs" id="recs"></div>
-
-          <div class="disclaimer">
-            <strong style="color:var(--ink)">Wie diese Einschätzung entsteht:</strong> Sie basiert ausschließlich auf deinen Angaben und auf Erfahrungswerten aus vergleichbaren Betrieben. Es ist eine unverbindliche Orientierung, keine Prüfung deiner tatsächlichen Abläufe und keine garantierte Einsparung. Was in deinem Unternehmen wirklich möglich ist, zeigt sich erst im Gespräch.
-          </div>
-
-          <div class="res-cta">
-            <h3>Möchtest du wissen, wie wir eine dieser Automatisierungen konkret für dein Unternehmen umsetzen können?</h3>
-            <p class="lede" style="font-size:var(--step-0);margin-top:.9rem">In einem kurzen Gespräch schauen wir uns einen deiner Abläufe genau an und sagen dir ehrlich, ob sich das lohnt.</p>
-            <button class="btn btn--lg" id="beratung" style="margin-top:1.6rem">Kostenlose Erstberatung anfragen →</button>
-            <p class="reassure">Wir melden uns innerhalb eines Werktags.</p>
-          </div>
+    <!-- 7 · Ergebnis -->
+    <section class="screen" data-step="7" aria-labelledby="res-title">
+      <div class="body">
+        <div class="glow res-card"><div class="inner">
+          <div class="res-label" id="res-title">Dein Einsparpotenzial</div>
+          <div class="res-num"><span id="res-hours">0–0</span><small>Std. / Woche</small></div>
+          <p class="res-intro" id="res-intro"></p>
+        </div></div>
+        <div class="recs" id="recs"></div>
+        <div class="maik">
+          <img src="../insync-campaign/images/home/maik-zschach.jpg" alt="" width="36" height="36">
+          <p><b>Maik meldet sich persönlich</b><br>innerhalb eines Werktags – aus Bielefeld.</p>
+          <span class="dot" aria-hidden="true"></span>
         </div>
-
+        <p class="mailnote">Deine Anfrage öffnet sich gleich in deinem Mailprogramm – bitte einmal abschicken.<br>Nichts passiert? <a id="mail-fallback" href="mailto:Maik.z@gmx.de">Hier öffnen</a> · <a href="mailto:Maik.z@gmx.de">Maik.z@gmx.de</a></p>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="actions"><button class="btn" type="button" id="beratung">Erstberatung anfragen · kostenlos <span class="arr">→</span></button></div>
+    </section>
 
-<!-- 6 · LEISTUNGEN ---------------------------------------------->
-<section class="sec">
-  <div class="wrap">
-    <h2>Was wir für dein Unternehmen automatisieren können</h2>
-    <div class="cards">
-      <div class="card">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.5"/></svg>
-        <h3>KI-Automatisierung</h3>
-        <p>Automatisiere wiederkehrende Aufgaben mit modernen KI-Workflows.</p>
-      </div>
-      <div class="card">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01M9 6.5h.01"/></svg>
-        <h3>Web &amp; Tools</h3>
-        <p>Individuelle kleine Web-Apps und digitale Tools für deine Prozesse.</p>
-      </div>
-      <div class="card">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="m7 15 3.5-4 3 2.5L20 7"/></svg>
-        <h3>Daten &amp; Prozesse</h3>
-        <p>Weniger Excel, weniger Copy &amp; Paste, weniger manuelle Arbeit.</p>
-      </div>
-      <div class="card">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".9" fill="currentColor" stroke="none"/></svg>
-        <h3>Social Media</h3>
-        <p>Content-Prozesse effizienter planen, erstellen und veröffentlichen.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </main>
 
-<!-- 7 · ABLAUF -------------------------------------------------->
-<section class="sec" style="padding-top:0">
-  <div class="wrap">
-    <h2>So funktioniert es</h2>
-    <div class="steps3">
-      <div class="s3">
-        <div class="n">01</div>
-        <h3>Check machen</h3>
-        <p>Beantworte ein paar Fragen zu deinem Unternehmen.</p>
-      </div>
-      <div class="s3">
-        <div class="n">02</div>
-        <h3>Potenzial erkennen</h3>
-        <p>Wir identifizieren konkrete Automatisierungsmöglichkeiten.</p>
-      </div>
-      <div class="s3">
-        <div class="n">03</div>
-        <h3>Umsetzen</h3>
-        <p>Wenn du möchtest, bauen wir die passende Lösung für dich.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 8 · LOKAL --------------------------------------------------->
-<section class="sec local">
-  <div class="wrap local-grid">
-    <div>
-      <h2>Direkt aus Bielefeld.</h2>
-      <p>Kein anonymes Software-Portal. Persönliche Umsetzung für Unternehmen aus Bielefeld und Umgebung.</p>
-      <p class="small" style="margin-top:1.5rem;max-width:40ch">Erreichbar per Telefon, nicht nur per Ticketsystem. Und falls es sinnvoll ist, kommen wir vorbei.</p>
-    </div>
-    <div>
-      <svg class="skyline" viewBox="0 0 520 210" role="img" aria-label="Stilisierte Darstellung des Sparrenburg-Turms vor dem Höhenzug des Teutoburger Waldes">
-        <path class="ridge" d="M0 168 C 60 150, 96 158, 132 142 S 196 118, 236 130 S 300 112, 344 128 S 424 148, 470 138 S 508 146, 520 142"/>
-        <path class="ridge" d="M0 186 C 70 174, 120 180, 176 168 S 268 150, 330 162 S 440 176, 520 166"/>
-        <!-- Sparrenburg -->
-        <g class="burg">
-          <path d="M214 168 h92"/>
-          <path d="M226 168 v-42 h68 v42"/>
-          <path d="M226 126 h68"/>
-          <path d="M242 168 v-26 h14 v26"/>
-          <path d="M266 168 v-26 h14 v26"/>
-          <!-- Turm -->
-          <path d="M240 126 v-84 h40 v84"/>
-          <path d="M236 42 h48"/>
-          <path d="M236 42 v-9 h8 v9 M252 33 h8 v9 M268 33 h8 v9 v0 M276 42 v-9"/>
-          <path d="M252 126 v-30 h16 v30"/>
-          <circle cx="260" cy="72" r="7"/>
-        </g>
-        <path class="flag" d="M280 33 v-16 l22 6 -22 6"/>
-        <path class="ridge" d="M0 196 h520" stroke-dasharray="2 6"/>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- 9 · FINAL CTA ----------------------------------------------->
-<section class="sec final">
-  <div class="wrap">
-    <h2>Bereit, weniger Zeit mit manueller Arbeit zu verlieren?</h2>
-    <p class="lede">Finde jetzt kostenlos heraus, was sich in deinem Unternehmen automatisieren lässt.</p>
-    <button class="btn btn--lg" data-goto-check>KI-Check starten →</button>
-    <p class="reassure">Kostenlos · 2 Minuten · unverbindlich</p>
-  </div>
-</section>
-
-</main>
-
-<!-- 10 · FOOTER ------------------------------------------------->
-<footer class="site-foot">
-  <div class="wrap foot-in">
-    <span>KI-Automatisierung Bielefeld</span>
-    <nav>
-      <a href="../impressum.html">Impressum</a>
-      <a href="../datenschutz.html">Datenschutz</a>
-      <a href="mailto:Maik.z@gmx.de">Kontakt</a>
-    </nav>
-    <span>Bielefeld</span>
-  </div>
-</footer>
-
-<!-- Sticky CTA (mobil) ------------------------------------------>
-<div class="sticky" id="sticky">
-  <button class="btn btn--block" data-goto-check>Kostenlosen KI-Check starten →</button>
+  <footer class="legal">
+    <a href="../impressum.html">Impressum</a>
+    <a href="../datenschutz.html">Datenschutz</a>
+    <a href="mailto:Maik.z@gmx.de">Kontakt</a>
+  </footer>
 </div>
 
-<div class="sr" role="status" aria-live="polite" id="live"></div>
+<div role="status" aria-live="polite" id="live" style="position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></div>
 
 <script>
 (function(){
 'use strict';
 
 /* ============================================================
-   KONFIGURATION — hier eintragen, bevor Werbebudget laeuft
+   KONFIGURATION
    ------------------------------------------------------------
-   Der Lead geht ueber das Mailprogramm des Besuchers raus:
-   "Analyse starten" zeigt das Ergebnis und oeffnet gleichzeitig
-   einen fertigen Mailentwurf an KONTAKT_MAIL. Abschicken muss
-   der Besucher selbst — kommt keine Mail an, hat er es nicht
-   getan oder sein Browser kennt kein mailto (kommt im
-   Instagram-In-App-Browser vor). Fuer diesen Fall steht auf der
-   Ergebnisseite ein sichtbarer Ersatzlink.
-
-   LEAD_ENDPOINT ist optional: sobald dort ein Webhook steht
-   (Make, Zapier, Formspree), geht der Lead ZUSAETZLICH per POST
-   dorthin und haengt nicht mehr allein am Mailprogramm.
+   Der Lead geht ueber das Mailprogramm des Besuchers raus: nach dem
+   Kontakt-Screen erscheint die Auswertung und kurz darauf oeffnet sich
+   ein fertiger Entwurf an KONTAKT_MAIL. Abschicken muss der Besucher
+   selbst; fuer Browser ohne mailto (kommt im Instagram-In-App-Browser
+   vor) steht ein Ersatzlink auf der Ergebnisseite.
+   LEAD_ENDPOINT ist optional (Make/Zapier/Formspree), dann geht der
+   Lead zusaetzlich per POST dorthin.
    ============================================================ */
-var LEAD_ENDPOINT = '';                          // optional
+var LEAD_ENDPOINT = '';
 var KONTAKT_MAIL  = 'Maik.z@gmx.de';
 
 /* ============================================================
-   TRACKING — PostHog (EU), dieselbe Projekt-ID wie v2 und muenster
-   ------------------------------------------------------------
-   Eigene Events: check_started · check_step · check_completed ·
-   lead_submitted · consultation_requested. Den $pageview erzeugt
-   PostHog selbst.
-
-   PostHog wird ERST nach der Einwilligung geladen — vorher geht
-   keine einzige Anfrage an posthog.com. Wer ablehnt oder das
-   Banner wegklickt, wird nicht gemessen. Genau das sagt der
-   Banner-Text auch aus.
-
-   TRACK_OHNE_CONSENT = true laesst die Seite von der ersten
-   Sekunde an messen, so wie v2 und muenster es tun. Dann sind die
-   Zahlen mit den anderen Seiten vergleichbar — aber der
-   Banner-Text muss dann angepasst werden, weil er sonst etwas
-   Falsches behauptet.
-
-   Bewusst NICHT uebernommen aus v2.html: maskAllInputs:false.
-   Diese Seite hat ein Formular mit Name, E-Mail und Telefon; die
-   Session-Aufzeichnung darf diese Eingaben nicht mitschneiden.
+   TRACKING — PostHog (EU), gleiches Projekt wie v2 und muenster.
+   Eigene landing_variant fuers Story-Format, damit es sich sauber
+   gegen die alte Scroll-Seite (v10-ki-check) vergleichen laesst.
+   Events: check_started · check_step · check_completed ·
+   lead_submitted · consultation_requested.
+   Kein Banner (auf Wunsch entfernt). Wer frueher "Nicht messen"
+   gewaehlt hat, bleibt ausgetragen. Session-Recording maskiert
+   Eingaben — im Formular stehen Name, E-Mail und Telefon.
    ============================================================ */
-var VARIANT            = 'v10-ki-check';
-var PH_KEY             = 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
-var TRACK_OHNE_CONSENT = true;
+var VARIANT = 'v11-ki-story';
+var PH_KEY  = 'phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t';
 
-var consent = null;                 // null | true | false
-var wartend = [];                   // Events vor der Einwilligung
-var phBereit = false;
 window.dataLayer = window.dataLayer || [];
+var messen = true;
+try{ messen = window.localStorage.getItem('ki-check-consent') !== 'nein'; }catch(e){}
 
-function consentLesen(){
+if(messen){
   try{
-    var v = window.localStorage.getItem('ki-check-consent');
-    return v === 'ja' ? true : (v === 'nein' ? false : null);
-  }catch(e){ return null; }
-}
-function consentSchreiben(wert){
-  try{ window.localStorage.setItem('ki-check-consent', wert ? 'ja' : 'nein'); }catch(e){}
-}
-
-function ladePostHog(){
-  if(phBereit) return;
-  phBereit = true;
-  try{
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister identify reset opt_in_capturing opt_out_capturing has_opted_out_capturing get_distinct_id startSessionRecording stopSessionRecording".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
     posthog.init(PH_KEY, {
       api_host:'https://eu.i.posthog.com',
       person_profiles:'always',
@@ -855,165 +609,76 @@ function ladePostHog(){
       autocapture:true,
       enable_heatmaps:true,
       disable_session_recording:false,
-      /* Eingaben maskieren — im Formular stehen personenbezogene Daten */
       session_recording:{maskAllInputs:true},
       rageclick:true
     });
     posthog.register({landing_variant:VARIANT});
-    /* Vor der Einwilligung gesammelte Events nachreichen */
-    wartend.forEach(function(e){ try{ posthog.capture(e[0], e[1]); }catch(x){} });
-    wartend.length = 0;
-  }catch(e){
-    if(window.console && console.warn) console.warn('[track] PostHog nicht geladen', e);
-  }
+  }catch(e){}
 }
 
 function track(name, params){
   var p = Object.assign({landing_variant:VARIANT}, params || {});
   window.dataLayer.push(Object.assign({event:name}, p));
-  if(consent === true){
-    if(window.posthog && typeof posthog.capture === 'function'){
-      try{ posthog.capture(name, p); }catch(e){}
-    }
-    if(typeof window.fbq === 'function') window.fbq('trackCustom', name, p);
-    if(typeof window.gtag === 'function') window.gtag('event', name, p);
-  } else if(consent === null){
-    /* Noch keine Entscheidung — aufheben und ggf. nachreichen */
-    if(wartend.length < 40) wartend.push([name, p]);
+  if(messen && window.posthog && typeof posthog.capture === 'function'){
+    try{ posthog.capture(name, p); }catch(e){}
   }
-  if(window.console && console.debug) console.debug('[track]', name, p);
 }
-
-/* Widerspruchs-Modell statt Einwilligung: gemessen wird ab dem ersten
-   Moment, wer widerspricht wird ausgetragen. Vorher lief es umgekehrt —
-   PostHog startete erst nach Klick auf "Einverstanden", und da die
-   grosse Mehrheit das Banner ignoriert, war praktisch der gesamte
-   bezahlte Traffic unsichtbar. Die beiden anderen Landingpages (v2,
-   muenster) messen seit jeher ebenso jeden Besucher.
-   Zurueck auf Einwilligung: TRACK_OHNE_CONSENT auf false setzen und
-   den Banner-Text wieder auf "du entscheidest" aendern. */
-/* Kein Datenschutz-Banner mehr (auf Wunsch entfernt) — gemessen wird
-   jeder Besucher, wie auf v2 und muenster. Wer frueher ueber das
-   Banner "Nicht messen" gewaehlt hat, bleibt ausgetragen. */
-consent = consentLesen();
-if(consent !== false){
-  consent = true;
-  ladePostHog();
-}
-
-/* Kein eigenes page_view-Event: den $pageview erzeugt PostHog
-   selbst ueber capture_pageview, sobald es geladen ist. */
 
 /* ============================================================
-   HERO-ANIMATION — eine orchestrierte Sequenz beim Laden
+   STORY-STEUERUNG
    ============================================================ */
 var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var flow = document.getElementById('flow');
-function runFlow(){
-  var frames = [1,2,3,4,5];
-  if(reduce){
-    flow.querySelectorAll('[data-f]').forEach(function(el){ el.classList.add('lit'); });
-    return;
-  }
-  frames.forEach(function(f, i){
-    setTimeout(function(){
-      flow.querySelectorAll('[data-f="'+f+'"]').forEach(function(el){ el.classList.add('lit'); });
-    }, 380 + i*420);
-  });
-}
-var flowSeen = false;
-var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting && !flowSeen){ flowSeen = true; runFlow(); io.disconnect(); }
-  });
-}, {threshold:.35});
-io.observe(flow);
-
-/* ============================================================
-   HEADER + STICKY CTA
-   ============================================================ */
-var head = document.getElementById('head');
-var sticky = document.getElementById('sticky');
-var checkSec = document.getElementById('check');
-window.addEventListener('scroll', function(){
-  head.classList.toggle('is-stuck', window.scrollY > 8);
-  var r = checkSec.getBoundingClientRect();
-  var inCheck = r.top < window.innerHeight * .8 && r.bottom > 120;
-  sticky.classList.toggle('on', window.scrollY > 420 && !inCheck);
-}, {passive:true});
-
-/* ============================================================
-   CHECK
-   ============================================================ */
-var answers = {branche:null, groesse:null, aufgaben:[], tools:[], stunden:null};
-var current = 1;
-var TOTAL = 6;
-var started = false;
-
-var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
-var bar = document.getElementById('bar');
-var meta = document.getElementById('meta');
-var metaStep = document.getElementById('meta-step');
+var bars = Array.prototype.slice.call(document.querySelectorAll('#bars i'));
+var backBtn = document.getElementById('back');
+var countEl = document.getElementById('count');
 var live = document.getElementById('live');
+var QUESTIONS = 5, FORM = 6, RESULT = 7;
 
-function stepEl(n){ return document.querySelector('.step[data-step="'+n+'"]'); }
+var answers = {branche:null, groesse:null, aufgaben:[], tools:[], stunden:null};
+var current = 1, started = false, busy = false;
 
-function show(n){
-  steps.forEach(function(s){ s.classList.toggle('on', +s.dataset.step === n); });
+function screenEl(n){ return document.querySelector('.screen[data-step="'+n+'"]'); }
+
+function paintChrome(n){
+  bars.forEach(function(b, i){
+    var idx = i + 1;
+    b.classList.toggle('done', idx < n || n === RESULT);
+    b.classList.toggle('now', idx === n && n !== RESULT);
+  });
+  backBtn.hidden = (n === 1 || n === RESULT);
+  countEl.textContent = n <= QUESTIONS ? (n + '/' + QUESTIONS) : '';
+}
+
+function go(n, dir){
+  if(n === current || busy) return;
+  var from = screenEl(current), to = screenEl(n);
+  if(!to) return;
+  busy = true;
+  var backwards = dir === 'back';
+
+  from.classList.remove('on');
+  from.classList.add(backwards ? 'back-out' : 'out');
+  to.classList.remove('out','back-out','back-in');
+  if(backwards) to.classList.add('back-in');
+  /* Zwei Frames Pause, damit die Startposition greift, bevor .on sie aufhebt */
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      to.classList.remove('back-in');
+      to.classList.add('on');
+      to.scrollTop = 0;
+    });
+  });
+
   current = n;
-  if(n <= TOTAL){
-    meta.hidden = false;
-    metaStep.textContent = 'Frage ' + n + ' von ' + TOTAL;
-    bar.style.width = ((n-1)/TOTAL*100) + '%';
-  } else {
-    meta.hidden = true;
-    bar.style.width = '100%';
-  }
-  var h = stepEl(n) ? stepEl(n).querySelector('h3') : null;
-  if(h) live.textContent = h.textContent;
-}
+  paintChrome(n);
+  var h = to.querySelector('h1,h2,.res-label');
+  if(h) live.textContent = h.textContent.trim();
 
-function validate(n){
-  var el = stepEl(n);
-  if(!el) return true;
-  var single = el.querySelector('[data-single]');
-  var multi = el.querySelector('[data-multi]');
-  if(single) return answers[single.dataset.single] !== null;
-  if(multi) return answers[multi.dataset.multi].length > 0;
-  return true;
+  setTimeout(function(){
+    from.classList.remove('out','back-out');
+    busy = false;
+  }, reduce ? 30 : 620);
 }
-function syncNext(n){
-  var el = stepEl(n); if(!el) return;
-  var b = el.querySelector('[data-next]'); if(!b) return;
-  b.disabled = !validate(n);
-}
-
-/* Auswahl */
-document.querySelectorAll('[data-single]').forEach(function(group){
-  var key = group.dataset.single;
-  group.querySelectorAll('.opt').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      group.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
-      btn.setAttribute('aria-pressed','true');
-      answers[key] = btn.dataset.v;
-      syncNext(current);
-      startOnce();
-    });
-  });
-});
-document.querySelectorAll('[data-multi]').forEach(function(group){
-  var key = group.dataset.multi;
-  group.querySelectorAll('.opt').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var v = btn.dataset.v;
-      var i = answers[key].indexOf(v);
-      if(i > -1){ answers[key].splice(i,1); btn.setAttribute('aria-pressed','false'); }
-      else { answers[key].push(v); btn.setAttribute('aria-pressed','true'); }
-      syncNext(current);
-      startOnce();
-    });
-  });
-});
 
 function startOnce(){
   if(started) return;
@@ -1021,77 +686,76 @@ function startOnce(){
   track('check_started', {});
 }
 
-document.querySelectorAll('[data-next]').forEach(function(b){
-  b.addEventListener('click', function(){
-    if(!validate(current)) return;
-    track('check_step', {step: current});
-    show(current + 1);
-    scrollCheck();
+function next(){
+  if(!valid(current)) return;
+  track('check_step', {step: current});
+  go(current + 1, 'fwd');
+}
+
+backBtn.addEventListener('click', function(){ if(current > 1 && current < RESULT) go(current - 1, 'back'); });
+
+function valid(n){
+  var el = screenEl(n); if(!el) return true;
+  var s = el.querySelector('[data-single]'), m = el.querySelector('[data-multi]');
+  if(s) return answers[s.dataset.single] !== null;
+  if(m) return answers[m.dataset.multi].length > 0;
+  return true;
+}
+function syncNext(n){
+  var el = screenEl(n), b = el && el.querySelector('[data-next]');
+  if(b) b.disabled = !valid(n);
+}
+
+/* Einfachauswahl: kurz zeigen, was gewaehlt wurde, dann weiter */
+document.querySelectorAll('[data-single]').forEach(function(group){
+  var key = group.dataset.single;
+  group.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(busy) return;
+      group.querySelectorAll('.opt').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      answers[key] = btn.dataset.v;
+      startOnce();
+      var here = current;
+      setTimeout(function(){ if(current === here) next(); }, reduce ? 60 : 420);
+    });
   });
 });
-document.querySelectorAll('[data-back]').forEach(function(b){
-  b.addEventListener('click', function(){ show(Math.max(1, current - 1)); scrollCheck(); });
-});
 
-function scrollCheck(){
-  var y = checkSec.getBoundingClientRect().top + window.scrollY - 84;
-  window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'});
-}
-document.querySelectorAll('[data-goto-check]').forEach(function(b){
-  b.addEventListener('click', function(){ scrollCheck(); startOnce(); });
+/* Mehrfachauswahl: Weiter-Knopf wird aktiv */
+document.querySelectorAll('[data-multi]').forEach(function(group){
+  var key = group.dataset.multi;
+  group.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = btn.dataset.v, i = answers[key].indexOf(v);
+      if(i > -1){ answers[key].splice(i,1); btn.setAttribute('aria-pressed','false'); }
+      else { answers[key].push(v); btn.setAttribute('aria-pressed','true'); }
+      startOnce();
+      syncNext(current);
+    });
+  });
+});
+document.querySelectorAll('[data-next]').forEach(function(b){ b.addEventListener('click', next); });
+
+document.addEventListener('keydown', function(e){
+  var tag = document.activeElement && document.activeElement.tagName;
+  if(e.key === 'ArrowLeft' && current > 1 && current < RESULT && tag !== 'INPUT') go(current - 1, 'back');
 });
 
 /* ============================================================
    AUSWERTUNG
    ============================================================ */
 var LIB = {
-  kundenanfragen:{
-    t:'Kundenanfragen automatisieren',
-    d:'Anfragen aus E-Mail, Formular und WhatsApp laufen an einer Stelle zusammen. Standardfragen werden sofort beantwortet, alles andere landet vorsortiert bei dir.',
-    h:[2,4]
-  },
-  termine:{
-    t:'Terminvereinbarung automatisieren',
-    d:'Kunden buchen selbst freie Slots aus deinem Kalender. Bestätigung und Erinnerung gehen automatisch raus – das spart die Rückfrage-Schleifen.',
-    h:[1,3]
-  },
-  angebote:{
-    t:'Angebote automatisch vorbereiten',
-    d:'Aus Anfrage und Leistungskatalog entsteht ein fertiger Entwurf. Du prüfst und schickst raus, statt jedes Mal neu zu tippen.',
-    h:[1.5,3.5]
-  },
-  rechnungen:{
-    t:'Rechnungen und Zahlungserinnerungen automatisieren',
-    d:'Rechnungen werden aus abgeschlossenen Aufträgen erzeugt, offene Posten überwacht und Erinnerungen selbstständig verschickt.',
-    h:[1,2.5]
-  },
-  daten:{
-    t:'Datenübertragung automatisieren',
-    d:'Angaben aus E-Mails, PDFs und Formularen landen direkt in der richtigen Tabelle oder im System. Kein Abtippen, keine Zahlendreher.',
-    h:[2,4]
-  },
-  social:{
-    t:'Content-Produktion beschleunigen',
-    d:'Aus einem Projektfoto oder einer Notiz entstehen Beitragsentwürfe für die Woche. Du gibst frei, die Veröffentlichung läuft nach Plan.',
-    h:[1.5,3]
-  },
-  dokumente:{
-    t:'Dokumente automatisch erzeugen und ablegen',
-    d:'Verträge, Protokolle und Bestätigungen werden aus Vorlagen gefüllt und sofort am richtigen Ort abgelegt – auffindbar statt verstreut.',
-    h:[1,2.5]
-  },
-  kommunikation:{
-    t:'Interne Abstimmung bündeln',
-    d:'Aufträge, Rückfragen und Status stehen an einer Stelle statt in fünf Chatverläufen. Weniger Nachfragen, weniger Doppelarbeit.',
-    h:[1,3]
-  },
-  sonstiges:{
-    t:'Individuellen Ablauf prüfen',
-    d:'Was bei dir am meisten Zeit frisst, schauen wir uns direkt an und sagen dir, ob sich eine Automatisierung dafür rechnet.',
-    h:[1,2]
-  }
+  kundenanfragen:{t:'Kundenanfragen automatisieren', h:[2,4]},
+  termine:{t:'Terminvereinbarung automatisieren', h:[1,3]},
+  angebote:{t:'Angebote automatisch vorbereiten', h:[1.5,3.5]},
+  rechnungen:{t:'Rechnungen & Zahlungserinnerungen automatisieren', h:[1,2.5]},
+  daten:{t:'Datenübertragung automatisieren', h:[2,4]},
+  social:{t:'Content-Produktion beschleunigen', h:[1.5,3]},
+  dokumente:{t:'Dokumente automatisch erzeugen und ablegen', h:[1,2.5]},
+  kommunikation:{t:'Interne Abstimmung bündeln', h:[1,3]},
+  sonstiges:{t:'Individuellen Ablauf prüfen', h:[1,2]}
 };
-
 var BRANCHE_HINT = {
   Handwerk:'Bei Handwerksbetrieben lohnt sich fast immer der Weg von der Anfrage bis zum Angebot.',
   Dienstleistung:'Bei Dienstleistern liegt das meiste Potenzial in Terminen und wiederkehrender Korrespondenz.',
@@ -1100,58 +764,54 @@ var BRANCHE_HINT = {
   Gastronomie:'In der Gastronomie sind Reservierungen und Bestellungen die Klassiker.',
   Fitness:'Bei Fitness- und Gesundheitsbetrieben spart die Kursverwaltung samt Erinnerungen am meisten.',
   Handel:'Im Handel liegt das Potenzial meist bei Bestellungen, Retouren und Produktdaten.',
-  Sonstiges:''
+  Sonstiges:'Auf Basis deiner Angaben sind das die Abläufe mit dem größten Hebel.'
 };
-
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
 function evaluate(){
   var picks = answers.aufgaben.slice();
-  if(picks.length === 0) picks = ['kundenanfragen'];
-  /* Priorisieren: höchstes Zeitpotenzial zuerst, max. 5 Empfehlungen */
-  picks.sort(function(a,b){ return (LIB[b].h[1]) - (LIB[a].h[1]); });
+  if(!picks.length) picks = ['kundenanfragen'];
+  picks.sort(function(a,b){ return LIB[b].h[1] - LIB[a].h[1]; });
   picks = picks.slice(0,5);
-
   var lo = 0, hi = 0;
   picks.forEach(function(k){ lo += LIB[k].h[0]; hi += LIB[k].h[1]; });
-
-  /* Auf die angegebene Wochenzeit deckeln – niemals mehr als 55 % versprechen */
-  var stated = parseFloat(answers.stunden || '7');
-  var cap = stated * 0.55;
+  /* Nie mehr als 55 % der angegebenen Wochenzeit versprechen */
+  var cap = parseFloat(answers.stunden || '7') * 0.55;
   if(hi > cap){ var f = cap / hi; hi *= f; lo *= f; }
   lo = Math.max(1, Math.round(lo));
   hi = Math.max(lo + 1, Math.round(hi));
-
-  /* Ergebnis rendern */
-  document.getElementById('res-hours').textContent = lo + '–' + hi;
-
-  var hint = BRANCHE_HINT[answers.branche] || '';
-  document.getElementById('res-intro').textContent =
-    'Auf Basis deiner Angaben sind das die Abläufe mit dem größten Hebel. ' + hint;
-
-  var wrap = document.getElementById('recs');
-  wrap.innerHTML = picks.map(function(k, i){
-    var r = LIB[k];
-    return '<div class="rec">' +
-             '<div class="rec-n">' + (i+1) + '</div>' +
-             '<div><h4>' + esc(r.t) + '</h4>' +
-             '<p>' + esc(r.d) + '</p>' +
-             '<span class="est">' + r.h[0] + '–' + r.h[1] + ' Std./Woche</span></div>' +
-           '</div>';
-  }).join('');
-
   return {lo:lo, hi:hi, picks:picks};
 }
 
-/* ============================================================
-   ABSENDEN
-   ============================================================ */
-var mailRe = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
-var letzteMail = '';
+function renderResult(r){
+  document.getElementById('res-intro').textContent = BRANCHE_HINT[answers.branche] || BRANCHE_HINT.Sonstiges;
+  var wrap = document.getElementById('recs');
+  /* Drei Empfehlungen passen ohne Scrollen; die Mail enthaelt alle */
+  wrap.innerHTML = r.picks.slice(0,3).map(function(k, i){
+    return '<div class="rec" style="--i:'+i+'"><div class="rec-n">'+(i+1)+'</div><div><h4>'+esc(LIB[k].t)+'</h4>'+
+           '<span>'+LIB[k].h[0]+'–'+LIB[k].h[1]+' Std. pro Woche</span></div></div>';
+  }).join('');
 
-/* Interne Schluessel in lesbare Beschriftungen uebersetzen — die
-   stehen schon in den Buttons, also von dort holen statt eine
-   zweite Liste zu pflegen, die auseinanderlaufen kann. */
+  var out = document.getElementById('res-hours');
+  var target = r.lo + '–' + r.hi;
+  if(reduce){ out.textContent = target; wrap.classList.add('show'); return; }
+  out.textContent = '0–0';
+  setTimeout(function(){
+    var t0 = null, dur = 1300;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      out.textContent = Math.round(r.lo * e) + '–' + Math.round(r.hi * e);
+      if(p < 1) requestAnimationFrame(step); else out.textContent = target;
+    }
+    requestAnimationFrame(step);
+    setTimeout(function(){ wrap.classList.add('show'); }, 500);
+  }, 450);
+}
+
+/* ============================================================
+   MAIL
+   ============================================================ */
 function labels(gruppe, werte){
   if(!werte || !werte.length) return '–';
   return werte.map(function(v){
@@ -1159,136 +819,100 @@ function labels(gruppe, werte){
     return b ? b.textContent.trim() : v;
   }).join(', ');
 }
-function titel(keys){
-  return keys.map(function(k){ return LIB[k] ? LIB[k].t : k; }).join(' · ');
+function titel(keys){ return keys.map(function(k){ return LIB[k] ? LIB[k].t : k; }).join(' · '); }
+function mailtoLink(betreff, zeilen){
+  return 'mailto:' + KONTAKT_MAIL + '?subject=' + encodeURIComponent(betreff) + '&body=' + encodeURIComponent(zeilen.join('\n'));
 }
 
-/* Baut den mailto-Link. Zeilenumbrueche muessen als %0A kodiert
-   sein; encodeURIComponent erledigt das, encodeURI nicht. */
-function mailtoLink(betreff, zeilen){
-  return 'mailto:' + KONTAKT_MAIL +
-         '?subject=' + encodeURIComponent(betreff) +
-         '&body='    + encodeURIComponent(zeilen.join('\n'));
-}
+var mailRe = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
 document.getElementById('submit').addEventListener('click', function(){
-  var name = document.getElementById('i-name');
-  var mail = document.getElementById('i-mail');
-  var tel  = document.getElementById('i-tel');
-  var ok   = document.getElementById('i-consent');
+  var name = document.getElementById('i-name'), mail = document.getElementById('i-mail');
+  var tel = document.getElementById('i-tel'), ok = document.getElementById('i-consent');
   var bad = false;
-
   function mark(id, isBad){ document.getElementById(id).classList.toggle('err', isBad); if(isBad) bad = true; }
   mark('f-name', name.value.trim().length < 2);
   mark('f-mail', !mailRe.test(mail.value.trim()));
   mark('f-consent', !ok.checked);
-
   if(bad){
-    document.querySelector('.field.err input').focus();
+    var first = document.querySelector('.field.err input');
+    if(first && first.type !== 'checkbox') first.focus();
     return;
   }
 
   var lead = {
-    name: name.value.trim(),
-    email: mail.value.trim(),
-    telefon: tel.value.trim(),
-    branche: answers.branche,
-    groesse: answers.groesse,
-    aufgaben: answers.aufgaben,
-    tools: answers.tools,
-    stunden: answers.stunden,
-    ts: new Date().toISOString()
+    name:name.value.trim(), email:mail.value.trim(), telefon:tel.value.trim(),
+    branche:answers.branche, groesse:answers.groesse, aufgaben:answers.aufgaben,
+    tools:answers.tools, stunden:answers.stunden, ts:new Date().toISOString()
   };
+  var r = evaluate();
 
-  var result = evaluate();
-
+  track('check_step', {step: FORM});
   track('check_completed', {aufgaben: answers.aufgaben.length, stunden: answers.stunden});
   track('lead_submitted', {branche: answers.branche, groesse: answers.groesse});
 
-  /* Optionaler zweiter Weg: wenn irgendwann ein Webhook existiert,
-     geht der Lead zusaetzlich dorthin. Ohne LEAD_ENDPOINT ist die
-     Mail der einzige Kanal. */
   if(LEAD_ENDPOINT){
-    fetch(LEAD_ENDPOINT, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(Object.assign({}, lead, {ergebnis: result}))
-    }).catch(function(e){ console.error('[lead] Webhook fehlgeschlagen', e); });
+    fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(Object.assign({}, lead, {ergebnis:r}))}).catch(function(){});
   }
 
-  /* Der eigentliche Versand laeuft ueber das Mailprogramm des
-     Besuchers. Erst das Ergebnis zeigen, dann den Entwurf oeffnen —
-     sonst wechselt das Geraet in die Mail-App, bevor der Besucher
-     ueberhaupt gesehen hat, wofuer er seine Daten gegeben hat. */
-  letzteMail = mailtoLink('KI-Check Anfrage — ' + lead.name, [
-    'Hallo,',
-    '',
-    'ich habe den KI-Check gemacht. Hier meine Angaben:',
-    '',
+  var letzteMail = mailtoLink('KI-Check Anfrage — ' + lead.name, [
+    'Hallo,', '', 'ich habe den KI-Check gemacht. Hier meine Angaben:', '',
     'Name:     ' + lead.name,
     'E-Mail:   ' + lead.email,
-    'Telefon:  ' + (lead.telefon || '–'),
-    '',
+    'Telefon:  ' + (lead.telefon || '–'), '',
     'Branche:  ' + (lead.branche || '–'),
     'Groesse:  ' + (lead.groesse || '–'),
     'Zeitfresser: ' + labels('aufgaben', lead.aufgaben),
     'Tools:    ' + labels('tools', lead.tools),
-    'Stunden/Woche: ' + (lead.stunden || '–'),
-    '',
-    'Ausgewiesenes Einsparpotenzial: ' + result.lo + '-' + result.hi + ' Std./Woche',
-    'Empfehlungen: ' + titel(result.picks),
-    '',
-    'Viele Gruesse',
-    lead.name,
-    ''
+    'Stunden/Woche: ' + (lead.stunden || '–'), '',
+    'Ausgewiesenes Einsparpotenzial: ' + r.lo + '-' + r.hi + ' Std./Woche',
+    'Empfehlungen: ' + titel(r.picks), '',
+    'Viele Gruesse', lead.name, ''
   ]);
+  document.getElementById('mail-fallback').href = letzteMail;
 
-  show(7);
-  scrollCheck();
-
-  var fallback = document.getElementById('mail-fallback');
-  if(fallback) fallback.href = letzteMail;
-
-  /* Kurz warten, damit die Ergebnisseite gerendert ist, bevor das
-     Geraet in die Mail-App springt. */
-  setTimeout(function(){ window.location.href = letzteMail; }, 900);
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  go(RESULT, 'fwd');
+  renderResult(r);
+  /* Erst die Auswertung zeigen, dann in die Mail-App wechseln */
+  setTimeout(function(){ window.location.href = letzteMail; }, reduce ? 400 : 2200);
 });
 
-document.getElementById('beratung').addEventListener('click', function(){
-  track('consultation_requested', {branche: answers.branche});
-  var n = document.getElementById('i-name').value.trim();
-  window.location.href = mailtoLink('Erstberatung Automatisierung' + (n ? ' — ' + n : ''), [
-    'Hallo,',
-    '',
-    'ich habe den KI-Check gemacht und würde gern über die Umsetzung sprechen.',
-    '',
-    'Name:    ' + (n || '–'),
-    'E-Mail:  ' + (document.getElementById('i-mail').value.trim() || '–'),
-    'Telefon: ' + (document.getElementById('i-tel').value.trim() || '–'),
-    '',
-    'Meine Angaben aus dem Check:',
-    '- Branche: ' + (answers.branche || '–'),
-    '- Unternehmensgröße: ' + (answers.groesse || '–'),
-    '- Zeitfresser: ' + labels('aufgaben', answers.aufgaben),
-    '- Tools: ' + labels('tools', answers.tools),
-    '- Stunden/Woche für wiederkehrende Aufgaben: ' + (answers.stunden || '–'),
-    '',
-    'Viele Grüße',
-    ''
-  ]);
-});
-
-/* Fehlerzustand beim Tippen zurücksetzen */
-['i-name','i-mail'].forEach(function(id){
-  document.getElementById(id).addEventListener('input', function(){
-    this.closest('.field').classList.remove('err');
+/* Enter springt durchs Formular */
+['i-name','i-mail','i-tel'].forEach(function(id, i, arr){
+  var el = document.getElementById(id);
+  el.addEventListener('input', function(){ this.closest('.field').classList.remove('err'); });
+  el.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter') return;
+    e.preventDefault();
+    if(i < arr.length - 1) document.getElementById(arr[i+1]).focus();
+    else document.getElementById('submit').click();
   });
 });
 document.getElementById('i-consent').addEventListener('change', function(){
   document.getElementById('f-consent').classList.remove('err');
 });
 
-show(1);
+document.getElementById('beratung').addEventListener('click', function(){
+  track('consultation_requested', {branche: answers.branche});
+  var n = document.getElementById('i-name').value.trim();
+  window.location.href = mailtoLink('Erstberatung Automatisierung' + (n ? ' — ' + n : ''), [
+    'Hallo Maik,', '', 'ich habe den KI-Check gemacht und würde gern über die Umsetzung sprechen.', '',
+    'Name:    ' + (n || '–'),
+    'E-Mail:  ' + (document.getElementById('i-mail').value.trim() || '–'),
+    'Telefon: ' + (document.getElementById('i-tel').value.trim() || '–'), '',
+    'Meine Angaben aus dem Check:',
+    '- Branche: ' + (answers.branche || '–'),
+    '- Unternehmensgröße: ' + (answers.groesse || '–'),
+    '- Zeitfresser: ' + labels('aufgaben', answers.aufgaben),
+    '- Tools: ' + labels('tools', answers.tools),
+    '- Stunden/Woche: ' + (answers.stunden || '–'), '',
+    'Viele Grüße', ''
+  ]);
+});
+
+paintChrome(1);
 })();
 </script>
 </body>
