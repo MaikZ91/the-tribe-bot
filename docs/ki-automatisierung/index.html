@@ -344,6 +344,35 @@ img,svg{max-width:100%}
 
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
+/* ============================================================
+   HANDY — der Start-Button muss ohne Scrollen sichtbar sein.
+   Gemessen im Instagram-In-App-Browser (390x664): die Ueberschrift
+   lief ueber 6 Zeilen, der Button stand bei y=586 und die
+   Datenschutz-Box ab y=431 lag darueber. 17 bezahlte Besucher,
+   0 % gescrollt, 0 Klicks. Deshalb: kompakter Hero, Datenschutz
+   als schmale Leiste statt Box.
+   ============================================================ */
+@media(max-width:599px){
+  .hero{padding-top:1.1rem;padding-bottom:2.5rem}
+  .badge{font-size:.76rem;padding:.3rem .7rem}
+  .hero h1{font-size:clamp(1.65rem,7.2vw,2.05rem);max-width:none;margin-top:.85rem;line-height:1.1}
+  .hero .lede{font-size:1rem;margin-top:.75rem;line-height:1.5}
+  .hero-actions{margin-top:1.15rem}
+  .hero-actions .btn{width:100%;padding:.95rem 1.1rem;font-size:1.05rem}
+  .hero-actions .reassure{margin-top:.5rem}
+
+  .cookie{
+    left:0;right:0;bottom:0;max-width:none;border-radius:0;
+    border-left:0;border-right:0;border-bottom:0;
+    padding:.6rem var(--gutter) calc(.6rem + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 24px rgba(20,23,26,.10);
+  }
+  .cookie p{font-size:.76rem;line-height:1.4}
+  .cookie p strong,.cookie p br{display:none}
+  .cookie-btns{margin-top:.45rem}
+  .cookie-btns .btn{padding:.45rem .8rem;font-size:.8rem}
+}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
@@ -963,7 +992,9 @@ window.addEventListener('scroll', function(){
   head.classList.toggle('is-stuck', window.scrollY > 8);
   var r = checkSec.getBoundingClientRect();
   var inCheck = r.top < window.innerHeight * .8 && r.bottom > 120;
-  sticky.classList.toggle('on', window.scrollY > 420 && !inCheck);
+  /* Nicht gleichzeitig mit der Datenschutz-Leiste — beide sitzen unten. */
+  var leisteOffen = cookie && cookie.classList.contains('on');
+  sticky.classList.toggle('on', window.scrollY > 420 && !inCheck && !leisteOffen);
 }, {passive:true});
 
 /* ============================================================
