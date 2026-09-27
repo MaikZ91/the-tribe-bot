@@ -45,10 +45,22 @@ def token() -> str:
     return t
 
 
+_ACCOUNT_CHECKED = False
+
+
 def user_id() -> str:
-    u = os.getenv("IG_AI_USER_ID", "").strip()
-    if not u:
-        sys.exit("IG_AI_USER_ID fehlt – bitte als GitHub-Secret anlegen.")
+    """Account id; 'me' works with Instagram-Login tokens when no id is set.
+
+    Before any API work we verify that the token belongs to the configured
+    account, so a wrong token (e.g. The Tribe's) can never post here.
+    """
+    global _ACCOUNT_CHECKED
+    u = os.getenv("IG_AI_USER_ID", "").strip() or "me"
+    if not _ACCOUNT_CHECKED:
+        who = api("GET", u, fields="username")
+        if who.get("username", "").lower() != CONFIG["account"].lower():
+            sys.exit(f"Token gehört zu @{who.get('username')}, erwartet @{CONFIG['account']} – Abbruch.")
+        _ACCOUNT_CHECKED = True
     return u
 
 

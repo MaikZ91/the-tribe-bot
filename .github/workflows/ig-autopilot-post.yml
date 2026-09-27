@@ -28,7 +28,7 @@ jobs:
   post:
     runs-on: ubuntu-latest
     env:
-      IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN }}
+      IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN || secrets.AI }}
       IG_AI_USER_ID: ${{ secrets.IG_AI_USER_ID }}
       PIPER_VOICE_DIR: ${{ github.workspace }}/.piper-voices
       POST_ID: ${{ inputs.post_id }}
@@ -43,8 +43,8 @@ jobs:
       - name: Fälligen Beitrag ermitteln
         id: due
         run: |
-          if [ -z "$IG_AI_TOKEN" ] || [ -z "$IG_AI_USER_ID" ]; then
-            echo "::notice::Secrets IG_AI_TOKEN / IG_AI_USER_ID fehlen – nichts zu tun."
+          if [ -z "$IG_AI_TOKEN" ]; then
+            echo "::notice::Secret AI (bzw. IG_AI_TOKEN) fehlt – nichts zu tun."
             exit 0
           fi
           echo "id=$(python instagram_autopilot/autopilot.py due)" >> "$GITHUB_OUTPUT"
