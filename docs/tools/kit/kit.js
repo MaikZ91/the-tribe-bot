@@ -64,6 +64,7 @@
   };
   /* Footer with links to the other tools + CTA, rendered into #kit-footer. */
   K.TOOLS = [
+    ['verpasste-anfragen', 'Was kosten verpasste Anfragen?'], ['anfrage-qr', 'Anfrage-QR für Firmenwagen'],
     ['angebot', 'Angebot in 60 Sek.'], ['rechnung', 'Rechnung + Pflichtangaben'],
     ['stundensatz', 'Stundensatz-Rechner'], ['zeitfresser', 'Was kostet Routinearbeit?'],
     ['antworten', 'Antworten auf Anfragen'], ['termin', 'Terminbestätigung + Kalender'],
@@ -78,7 +79,7 @@
       '<div class="cta no-print"><b>Das ist die einfache Version.</b><p>' + pitch + '</p>' +
       '<a href="../../ki-automatisierung/?utm_source=tool&utm_medium=' + current + '">Kostenloser KI-Check · 2 Min.</a></div>' +
       '<div class="no-print"><h2 style="font-size:1rem;margin:24px 0 4px">Weitere kostenlose Tools</h2><div class="more">' + links + '</div>' +
-      '<p style="text-align:center;margin-top:10px"><a href="../">Alle 10 Tools ansehen</a></p></div>' +
+      '<p style="text-align:center;margin-top:10px"><a href="../">Alle Tools ansehen</a></p></div>' +
       '<footer class="no-print">Ein Tool von <a href="https://www.instagram.com/ai.made.in.bielefeld/">@ai.made.in.bielefeld</a> · ' +
       '<a href="../../impressum.html">Impressum</a> · <a href="../../datenschutz.html">Datenschutz</a><br>' +
       'Kostenlos, ohne Anmeldung – alle Eingaben bleiben in deinem Browser. Angaben ohne Gewähr.</footer>';

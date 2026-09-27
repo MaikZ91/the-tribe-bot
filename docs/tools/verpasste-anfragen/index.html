@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Was kosten dich verpasste Anfragen? — kostenloser Rechner</title>
+<meta name="description" content="Anfragen, die liegen bleiben oder zu spät beantwortet werden, kosten Aufträge. Rechne mit deinen eigenen Zahlen aus, wie viel Umsatz dir das im Jahr kostet. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Verpasste Anfragen</span>
+  <h1>Was kosten dich <em>Anfragen, die liegen bleiben?</em></h1>
+  <p>Mit deinen eigenen Zahlen – in 20 Sekunden siehst du, wie viel Umsatz jedes Jahr einfach verschwindet.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Deine Anfragen</h2>
+    <div class="row2"><div><label for="anfragen">Anfragen pro Woche</label><input id="anfragen" inputmode="numeric" value="10"></div>
+    <div><label for="liegen">davon zu spät / gar nicht beantwortet (%)</label><input id="liegen" inputmode="numeric" value="20"></div></div>
+    <div class="row2"><div><label for="wert">Ø Auftragswert (€)</label><input id="wert" inputmode="decimal" value="1500"></div>
+    <div><label for="quote">Deine Abschlussquote bei beantworteten Anfragen (%)</label><input id="quote" inputmode="numeric" value="30"></div></div>
+    <div class="hint">Schätzwerte genügen. Wie viele Anfragen bleiben bei dir liegen – abends, am Wochenende, wenn du auf der Baustelle bist?</div>
+  </div>
+  <div class="result pop" id="res">
+    <div class="lbl">So viel Umsatz geht dir pro Jahr verloren</div>
+    <div class="big" id="euro">–</div>
+    <div class="sub" id="sub"></div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-anfr">–</b><span>verpasste Anfragen / Jahr</span></div>
+      <div class="kpi"><b id="k-auf">–</b><span>entgangene Aufträge / Jahr</span></div>
+      <div class="kpi"><b id="k-monat">–</b><span>pro Monat</span></div>
+      <div class="kpi"><b id="k-halb">–</b><span>zurück, wenn du nur die Hälfte rettest</span></div>
+    </div>
+  </div>
+  <button class="btn dark" id="share">Ergebnis per WhatsApp teilen</button>
+  <div class="hint">Rechnung: Anfragen × 46 Wochen × Anteil verpasst × Abschlussquote × Auftragswert. Deine Zahlen, keine Annahmen von uns.</div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var last={};
+function calc(){
+  var a=K.num(K.$('anfragen').value), l=K.num(K.$('liegen').value)/100, w=K.num(K.$('wert').value), q=K.num(K.$('quote').value)/100;
+  var verpasst=a*46*l, auftraege=verpasst*q, euro=auftraege*w;
+  K.countUp(K.$('euro'),euro,function(x){return K.euro(x,0);});
+  K.$('sub').textContent='bei '+K.fmt(a,0)+' Anfragen pro Woche und '+K.fmt(l*100,0)+' % verpassten';
+  K.$('k-anfr').textContent=K.fmt(verpasst,0); K.$('k-auf').textContent=K.fmt(auftraege,0);
+  K.$('k-monat').textContent=K.euro(euro/12,0); K.$('k-halb').textContent=K.euro(euro/2,0);
+  last={euro:euro};
+}
+document.addEventListener('input',calc);
+K.$('share').onclick=function(){ window.open(K.whatsapp('Verpasste Anfragen kosten mich ca. '+K.euro(last.euro,0)+' Umsatz im Jahr. Rechne selbst: '+location.href.split('?')[0]),'_blank'); };
+calc();
+K.footer('verpasste-anfragen','Anfragen können automatisch sofort beantwortet werden – mit Terminvorschlag, auch abends und am Wochenende. Ob das für dich passt, zeigt der KI-Check.');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Anfrage-QR für Firmenwagen &amp; Flyer — WhatsApp-Link erstellen</title>
+<meta name="description" content="QR-Code für Firmenwagen, Flyer oder Baustellenschild: Scannen öffnet WhatsApp mit fertiger Anfrage an dich. Kostenlos erstellen und ausdrucken.">
+<link rel="stylesheet" href="../kit/kit.css">
+<style>.schild{background:#0a0a0a;color:#fff;border-radius:22px;padding:24px;text-align:center;max-width:380px;margin:0 auto}
+.schild h3{margin:0;font-size:1.5rem}.schild p{margin:6px 0 0;color:rgba(255,255,255,.75)}.schild .qrbox{background:#fff;border-radius:16px;display:inline-block;padding:12px;margin:16px 0 8px}
+.schild canvas{width:200px;height:200px;display:block;image-rendering:pixelated}.schild .tel{font-weight:600;font-size:1.1rem;margin-top:6px}
+@media print{.wrap>*:not(#schild-card){display:none!important}.hero{display:none}#schild-card{border:0;box-shadow:none}}</style>
+</head>
+<body>
+<header class="hero no-print"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Anfrage-QR</span>
+  <h1>Aus jedem Blick auf deinen Firmenwagen <em>wird eine Anfrage.</em></h1>
+  <p>QR-Code scannen → WhatsApp öffnet sich mit fertiger Anfrage an dich. Für Auto, Flyer, Baustellenschild.</p>
+</div></header>
+<main class="wrap">
+  <div class="card no-print">
+    <h2><span class="step">1</span> Deine Daten</h2>
+    <div class="row2"><div><label for="firma">Betrieb</label><input id="firma" placeholder="Malerbetrieb Muster"></div><div><label for="nummer">WhatsApp-Nummer</label><input id="nummer" inputmode="tel" placeholder="0171 2345678"></div></div>
+    <label for="leistung">Was bietest du an? (für den Text auf dem Schild)</label><input id="leistung" value="Malerarbeiten in Bielefeld & Umgebung">
+    <label for="text">Vorformulierte Nachricht deiner Kunden</label><textarea id="text">Hallo, ich habe Ihren QR-Code gesehen und hätte gern ein Angebot für: </textarea>
+    <div class="hint">Die Nummer wird nur in den QR-Code geschrieben – nichts wird gespeichert oder übertragen.</div>
+  </div>
+  <div class="card" id="schild-card">
+    <div class="schild"><h3 id="s-firma">Dein Betrieb</h3><p id="s-leistung"></p><div class="qrbox"><canvas id="qr" width="200" height="200"></canvas></div><div>Scannen &amp; Anfrage per WhatsApp senden</div><div class="tel" id="s-tel"></div></div>
+  </div>
+  <div class="row2 no-print"><button class="btn" id="png">QR-Code als Bild</button><button class="btn dark" onclick="window.print()">Schild drucken</button></div>
+  <button class="btn ghost no-print" id="copy">WhatsApp-Link kopieren (für Website &amp; Instagram-Bio)</button>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/qrcode.js"></script>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+K.remember(['firma','nummer']);
+function link(){
+  var n=K.$('nummer').value.replace(/[^\d+]/g,'');
+  if(n.indexOf('+')===0) n=n.slice(1); else if(n.indexOf('00')===0) n=n.slice(2); else if(n.indexOf('0')===0) n='49'+n.slice(1);
+  return 'https://wa.me/'+(n||'49')+'?text='+encodeURIComponent(K.$('text').value);
+}
+function draw(){
+  var q=qrcode(0,'M'); q.addData(link(),'Byte'); q.make();
+  var m=q.getModuleCount(), c=K.$('qr'), size=c.width, cell=Math.floor(size/(m+4)), off=Math.floor((size-cell*m)/2), x=c.getContext('2d');
+  x.fillStyle='#fff'; x.fillRect(0,0,size,size); x.fillStyle='#0a0a0a';
+  for(var r=0;r<m;r++) for(var k=0;k<m;k++) if(q.isDark(r,k)) x.fillRect(off+k*cell,off+r*cell,cell,cell);
+  K.$('s-firma').textContent=K.$('firma').value.trim()||'Dein Betrieb';
+  K.$('s-leistung').textContent=K.$('leistung').value;
+  K.$('s-tel').textContent=K.$('nummer').value;
+}
+K.$('png').onclick=function(){ var a=document.createElement('a'); a.href=K.$('qr').toDataURL('image/png'); a.download='anfrage-qr.png'; a.click(); };
+K.$('copy').onclick=function(){ K.copy(link()); };
+document.addEventListener('input',draw); draw();
+K.footer('anfrage-qr','Und wenn die Anfragen dann reinkommen: Sie können automatisch beantwortet, sortiert und mit Terminvorschlag versehen werden. Der KI-Check zeigt, wie das bei dir aussähe.');
+})();
+</script>
+</body>
+</html>
