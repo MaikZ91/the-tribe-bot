@@ -2,6 +2,7 @@
 
 Commands (run from the repo root):
   python instagram_autopilot/autopilot.py due          -> prints the post id due now (or nothing)
+  python instagram_autopilot/autopilot.py plan N       -> prints the next N post ids in posting order
   python instagram_autopilot/autopilot.py render ID    -> renders ID into docs/ig-media/ID/
   python instagram_autopilot/autopilot.py publish ID   -> posts ID via the Instagram API
   python instagram_autopilot/autopilot.py insights     -> stores metrics + rebuilds data/report.md
@@ -222,6 +223,19 @@ def cmd_due() -> None:
 # --------------------------------------------------------------------------
 # Render + publish
 # --------------------------------------------------------------------------
+
+def cmd_plan(n: str = "1") -> None:
+    """Print the next n post ids in posting order (lets a batch render them in parallel)."""
+    state = load_state()
+    for _ in range(int(n)):
+        pid = next_queued(state)
+        if not pid:
+            break
+        spec = load_spec(pid)
+        state["published"][pid] = {"local_date": "9999", "local_time": "99:99", "format": spec.get("format"),
+                                   "hook_style": spec.get("hook_style"), "images": spec_images(spec)}
+        print(pid)
+
 
 def cmd_render(post_id: str) -> None:
     sys.path.insert(0, str(HERE))
@@ -639,4 +653,4 @@ def cmd_refresh() -> None:
 if __name__ == "__main__":
     cmd, *args = sys.argv[1:] or ["due"]
     {"due": cmd_due, "render": cmd_render, "publish": cmd_publish, "insights": cmd_insights,
-     "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage}[cmd](*args)
+     "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage, "plan": cmd_plan}[cmd](*args)

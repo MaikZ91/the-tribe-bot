@@ -81,6 +81,30 @@ jobs:
           git config user.email "ig-autopilot[bot]@users.noreply.github.com"
           push() { for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && return 0; sleep $((i*7)); done; return 1; }
           id="${{ steps.due.outputs.id }}"
+          if [ "$COUNT" -gt 1 ] && [ -z "$POST_ID" ]; then
+            # Stapel: alle Reels parallel rendern, einmal pushen (eine Pages-Auslieferung),
+            # dann ohne Wartezeiten nacheinander veröffentlichen.
+            ids=$(python instagram_autopilot/autopilot.py plan "$COUNT")
+            echo "Stapel: $(echo "$ids" | wc -l) Beiträge"
+            echo "$ids" | xargs -P "$(nproc)" -I{} sh -c 'python instagram_autopilot/autopilot.py render {} > /dev/null 2>&1 || echo "::warning::Rendern fehlgeschlagen: {}"'
+            git add docs/ig-media
+            git commit -q -m "ig-autopilot: Medien für Stapel ($(echo "$ids" | wc -l) Beiträge)"
+            push
+            for id in $ids; do
+              [ -f "docs/ig-media/$id/meta.json" ] || continue
+              echo "::group::$id"
+              ok=1
+              python instagram_autopilot/autopilot.py publish "$id" || ok=0
+              python instagram_autopilot/autopilot.py prune || true
+              git add -A instagram_autopilot/ docs/ig-media/
+              git diff --cached --quiet || git commit -q -m "ig-autopilot: $id gepostet"
+              push
+              echo "::endgroup::"
+              if [ "$ok" = "0" ]; then echo "::error::Posten von $id fehlgeschlagen – Abbruch"; exit 1; fi
+              [ "$GAP" != "0" ] && sleep $((GAP*60))
+            done
+            exit 0
+          fi
           n=0
           while [ -n "$id" ] && [ "$n" -lt "$COUNT" ]; do
             n=$((n+1))
