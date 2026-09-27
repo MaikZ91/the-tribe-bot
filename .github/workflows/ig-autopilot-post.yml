@@ -47,7 +47,9 @@ jobs:
             echo "::notice::Secret AI (bzw. IG_AI_TOKEN) fehlt – nichts zu tun."
             exit 0
           fi
-          echo "id=$(python instagram_autopilot/autopilot.py due)" >> "$GITHUB_OUTPUT"
+          pip install -q requests
+          id=$(python instagram_autopilot/autopilot.py due)   # bricht bei Fehlern ab (bash -e)
+          echo "id=$id" >> "$GITHUB_OUTPUT"
 
       - name: Abhängigkeiten
         if: steps.due.outputs.id != ''
