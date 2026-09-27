@@ -444,8 +444,10 @@ def slide_beat(img, s, t, dur, h):
     """Viral beat: words pop in one by one (scale bounce), *word* = highlighted."""
     d = ImageDraw.Draw(img)
     size = s.get("size", 112)
-    base = font_c("Bold", size)
     words = s["text"].split()
+    while size > 60 and max(d.textlength(w.strip("*"), font=font_c("Bold", size)) for w in words) > W - 2 * MARGIN_X - 40:
+        size -= 6                                   # long single words must fit
+    base = font_c("Bold", size)
     # layout with the final size
     lines, cur, maxw = [], [], W - 2 * MARGIN_X
     for w in words:
@@ -467,6 +469,7 @@ def slide_beat(img, s, t, dur, h):
             if appear >= 0:
                 k = min(1.0, appear / 0.16)
                 sc = 1.0 + 0.35 * (1 - k) ** 2          # pop: big -> normal
+                sc = min(sc, (W - 40) / max(ww, 1))      # never wider than the frame
                 f = font_c("Bold", max(10, int(size * sc)))
                 word = w.strip("*")
                 wx = x + (ww - d.textlength(word, font=f)) / 2
