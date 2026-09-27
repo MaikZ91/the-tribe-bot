@@ -25,7 +25,17 @@ Betriebe in Bielefeld/OWL, Inhaber: Maik). Ziel: Anfragen über den kostenlosen 
    (neue Formate, Themen, Hooks). Verfügbare Slide-Typen: hook, point, flow, stat, cta.
    Reels: 15–35 s, starker Hook in den ersten 2 s, `voice` ausgeschrieben (Zahlen als Wörter).
    Jeder Beitrag endet mit „Kommentiere CHECK“ (die DM-Automatik schickt dann den Link).
-4b. **Demo-Tool der Woche (wichtigster Punkt):** Baue ein neues, wirklich funktionierendes
+4a. **Datengetrieben entscheiden (Pain-Ranking in data/report.md):**
+   - Die Themen (Pains) mit dem höchsten Ø Interesse bekommen in der nächsten Planung
+     die meisten neuen Beiträge (Viral-, Tool- und Leistungs-Beiträge zu genau diesem Schmerz).
+   - Pains mit dauerhaft niedrigem Interesse (≥ 3 Beiträge) werden seltener bespielt.
+   - Jeder neue Beitrag bekommt ein Feld `pain` (Liste der Pains: siehe `tools_by_pain` in config.json).
+   - Formate: Anteil in `mix` (config.json) zugunsten des Formats mit höherem Ø Interesse
+     verschieben – aber jede Kategorie bleibt mindestens einmal pro Rotation drin.
+4b. **Demo-Tool der Woche (wichtigster Punkt):** Baue das Tool für den Pain, den der Report unter
+   „Nächstes Tool bauen für“ nennt; hat der stärkste Pain schon ein Tool, baue eine zweite, andere
+   Lösung für diesen Pain. Trage das neue Tool in `tools_by_pain` und in `docs/tools/kit/kit.js`
+   (K.TOOLS) sowie `docs/tools/index.html` ein. Baue ein neues, wirklich funktionierendes
    kostenloses Mini-Tool für eine Zielgruppe unter `docs/tools/<name>/index.html` (Vorbild:
    `docs/tools/angebot/`: gleiche Optik, läuft komplett im Browser, keine Datenübertragung,
    Impressum/Datenschutz-Links, CTA zum KI-Check). Nimm es mit Playwright als

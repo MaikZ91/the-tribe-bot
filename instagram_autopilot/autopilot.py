@@ -363,6 +363,35 @@ def score(row: dict) -> float:
     return round(100 * pts / reach, 2)
 
 
+def interest(row: dict) -> float:
+    """Absolute interest: views plus weighted interactions, boosted by retention."""
+    g = lambda k: float(row.get(k) or 0)
+    pts = g("views") + 3 * g("likes") + 5 * g("comments") + 6 * g("saved") + 8 * g("shares") + 10 * g("follows")
+    return round(pts * (0.5 + min(float(row.get("watch_ratio") or 1.0), 2.5) / 2), 1)
+
+
+def pain_report(rows: list[dict]) -> list[str]:
+    """Rank audience pains by interest and point to the next tool to build."""
+    tools = CONFIG.get("tools_by_pain", {})
+    agg: dict = {}
+    for r in rows:
+        agg.setdefault(r.get("pain") or "sonstiges", []).append(r)
+    ranking = sorted(agg.items(), key=lambda kv: -sum(x["interest"] for x in kv[1]) / len(kv[1]))
+    out = ["", "## Pain-Ranking (Ø Interesse je Thema)", "",
+           "| Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |", "|---|---|---|---|---|---|"]
+    for pain, rs in ranking:
+        wr = [x["watch_ratio"] for x in rs if x.get("watch_ratio")]
+        out.append(f"| {pain} | {sum(x['interest'] for x in rs) / len(rs):.1f} | "
+                   f"{sum(float(x.get('views') or 0) for x in rs) / len(rs):.1f} | "
+                   f"{(sum(wr) / len(wr)) if wr else 0:.2f} | {len(rs)} | {', '.join(tools.get(pain, [])) or '–'} |")
+    top_without = next((p for p, rs in ranking if not tools.get(p) and len(rs) >= 1 and p not in ("sonstiges", "allgemein")), None)
+    top = ranking[0][0] if ranking else None
+    out += ["", f"**Stärkster Pain:** {top or '–'}  ",
+            f"**Nächstes Tool bauen für:** {top_without or 'Varianten/Verbesserung des Tools zum stärksten Pain'}  ",
+            "_Unter 3 Beiträgen je Pain nur Hypothese._"]
+    return out
+
+
 def cmd_insights() -> None:
     uid = user_id()
     state = load_state()
@@ -371,11 +400,16 @@ def cmd_insights() -> None:
     for pid, p in state["published"].items():
         metrics = REEL_METRICS if p["type"] == "reel" else FEED_METRICS
         m = media_insights(p["media_id"], metrics)
-        row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic",
+        try:
+            p = {**p, "pain": load_spec(pid).get("pain") or load_spec(pid).get("topic")}
+        except FileNotFoundError:
+            pass
+        row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic", "pain",
                                                          "local_date", "local_time", "weekday", "seconds")}, **m}
         if p["type"] == "reel" and m.get("ig_reels_avg_watch_time") and p.get("seconds"):
             row["watch_ratio"] = round(float(m["ig_reels_avg_watch_time"]) / 1000 / float(p["seconds"]), 3)
         row["score"] = score(row)
+        row["interest"] = interest(row)
         rows.append(row)
     today = datetime.now(TZ).date().isoformat()
     DATA.mkdir(parents=True, exist_ok=True)
@@ -393,20 +427,21 @@ def cmd_insights() -> None:
 
 
 def write_report(snap: dict) -> None:
-    rows = sorted(snap["posts"], key=lambda r: r["score"], reverse=True)
+    rows = sorted(snap["posts"], key=lambda r: r.get("interest", 0), reverse=True)
     lines = [f"# Instagram-Report {snap['date']}", "",
              f"Follower: **{snap['account'].get('followers_count')}** · Beiträge: {snap['account'].get('media_count')}", "",
-             "| Beitrag | Typ | Format | Hook | Reichweite | Views | Saves | Shares | Watch-Ratio | Score |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
+             "| Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
-        lines.append(f"| {r['post_id']} | {r['type']} | {r.get('format')} | {r.get('hook_style')} | "
-                     f"{r.get('reach', '–')} | {r.get('views', '–')} | {r.get('saved', '–')} | "
-                     f"{r.get('shares', '–')} | {r.get('watch_ratio', '–')} | {r['score']} |")
-    for key in ("format", "hook_style", "topic", "local_time"):
+        lines.append(f"| {r['post_id']} | {r.get('format')} | {r.get('pain')} | {r.get('hook_style')} | "
+                     f"{r.get('reach', '–')} | {r.get('views', '–')} | {r.get('likes', '–')} | {r.get('comments', '–')} | "
+                     f"{r.get('saved', '–')} | {r.get('shares', '–')} | {r.get('watch_ratio', '–')} | {r.get('interest', 0)} |")
+    lines += pain_report(rows)
+    for key in ("format", "hook_style", "pain", "local_time"):
         agg: dict = {}
         for r in rows:
-            agg.setdefault(r.get(key), []).append(r["score"])
-        lines += ["", f"## Ø Score nach {key}", ""]
+            agg.setdefault(r.get(key), []).append(r.get("interest", 0))
+        lines += ["", f"## Ø Interesse nach {key}", ""]
         for k, v in sorted(agg.items(), key=lambda kv: -sum(kv[1]) / len(kv[1])):
             lines.append(f"- {k}: {sum(v) / len(v):.2f} (n={len(v)})")
     (DATA / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
