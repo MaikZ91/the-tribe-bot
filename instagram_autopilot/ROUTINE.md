@@ -13,7 +13,13 @@ Betriebe in Bielefeld/OWL, Inhaber: Maik). Ziel: Anfragen über den kostenlosen 
 3. Bewerte: Score (Saves/Shares je Reichweite), Watch-Ratio bei Reels, Follower-Zuwachs,
    Leads. Format, Hook-Stil, Thema und Uhrzeit vergleichen. Unter 3 Beiträgen je Variante:
    noch keine harten Schlüsse.
-4. Plane 5 neue Beiträge für die nächste Woche als `posts/NNN-slug.json`
+4. Halte die Warteschlange bei mindestens 20 Beiträgen (Tempo: 5 Posts pro Tag, Slots in config.json).
+   Mix pro Woche: ca. 40 % Demo-/Tool-Reels, 30 % Leistungs-Beiträge über das ganze Angebot
+   (Website & Landingpages, Web-Apps, Social Media, Marketing & Vertrieb, Kundenservice/KI-Assistent,
+   Rechnungen & Buchhaltung, interne Abläufe, Zahlen & Reports – siehe 022-was-ich-automatisiere),
+   20 % Wissens-Karussells, 10 % Experimente. Maik als Experten positionieren: konkret zeigen, wie etwas
+   funktioniert, keine leeren Versprechen.
+   Plane dazu neue Beiträge für die nächste Woche als `posts/NNN-slug.json`
    (fortlaufende Nummer, Schema wie die vorhandenen Dateien, `status: queued`):
    ca. 70 % Varianten der bisher besten Formate/Hooks, ca. 30 % Experimente
    (neue Formate, Themen, Hooks). Verfügbare Slide-Typen: hook, point, flow, stat, cta.
