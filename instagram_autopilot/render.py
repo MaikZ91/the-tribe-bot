@@ -323,13 +323,13 @@ def slide_cta(img, s, t, dur, h):
     if s.get("text"):
         y = text_block(d, wrap(d, s["text"], ft, W - 2 * MARGIN_X), ft, MARGIN_X, y, B["text"], t, 0.0, line_gap=1.15) + 70
     a = ease((t - 0.3) / 0.45)
-    label = CONFIG["cta_title"]
+    label = s.get("button", CONFIG["cta_title"])
     bw = d.textlength(label, font=fb) + 120
     pulse = 1 + 0.025 * math.sin(t * 4) if a >= 1 else 1
     x0, y0 = MARGIN_X, y + int((1 - a) * 30)
     d.rounded_rectangle([x0, y0, x0 + bw * pulse, y0 + 140 * pulse], 70, fill=blend(B["bg"], B["accent"], a))
     d.text((x0 + 60, y0 + 34), label, font=fb, fill=blend(B["bg"], (255, 255, 255), a))
-    text_block(d, [CONFIG["cta_sub"]], fs, MARGIN_X + 8, y0 + 180, B["muted"], t, 0.55)
+    text_block(d, [s.get("button_sub", CONFIG["cta_sub"])], fs, MARGIN_X + 8, y0 + 180, B["muted"], t, 0.55)
 
 
 def clip_path(s: dict) -> Path:
@@ -396,7 +396,8 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     use_voice = bool(CONFIG.get("voice")) and spec.get("voice", True)
     lines = [tts(s.get("voice", "")) if use_voice else np.zeros(0, dtype=np.float32) for s in spec["slides"]]
     durs = [clip_duration(clip_path(s)) if s["kind"] == "clip"
-            else max(s.get("min_seconds", 2.4), len(v) / SR + 0.75, reading_seconds(s))
+            else max(s.get("min_seconds", 2.4), len(v) / SR + 0.75,
+                     min(reading_seconds(s), s.get("max_seconds", 3.0)) if s["kind"] == "hook" else reading_seconds(s))
             for s, v in zip(spec["slides"], lines)]
     total = sum(durs) + 0.3
     audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
