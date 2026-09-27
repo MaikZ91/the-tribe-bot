@@ -25,3 +25,11 @@ Lokal testen: `python instagram_autopilot/render.py instagram_autopilot/posts/00
 - Keine realistischen KI-Menschen (sonst Kennzeichnungspflicht) – nur Grafik, Text, echte Aufnahmen.
 - Nur eigene oder lizenzfreie Musik (`render.py` synthetisiert die Musik selbst).
 - Jeder Beitrag endet mit dem Aufruf zum kostenlosen KI-Check.
+
+## Demo-Reels mit Bildschirmaufnahme
+1. Tool lokal ausliefern: `cd docs && python3 -m http.server 8765`
+2. Mit Playwright (Node) aufnehmen: Viewport 1080×1920, `deviceScaleFactor: 1`,
+   per `addInitScript` `document.documentElement.style.zoom = '2.5'` setzen,
+   `recordVideo: {size: {width:1080, height:1920}}`, Eingaben mit `keyboard.type(…, {delay: 40})`.
+3. WebM nach MP4 wandeln, schwarzes Ende abschneiden (`ffmpeg -t …`), nach `footage/` legen.
+4. Im Beitrag: `{"kind": "clip", "src": "footage/<datei>.mp4", "captions": [[start, ende, "Text"], …]}`.

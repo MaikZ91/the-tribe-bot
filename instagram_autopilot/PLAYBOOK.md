@@ -11,6 +11,12 @@ lokalen Instagram-Kanal für KI-Automatisierung. Gilt für die Wochenplanung
 - **Kernbotschaften (max. 3):** 1) Routinearbeit kostet Stunden – die bekommst du zurück. 2) Arbeitet mit deinen bestehenden Tools. 3) Persönlich, aus Bielefeld.
 - **Kanal:** Reels (Reichweite), Karussells (Speichern), Story-Repost (bestehende Follower), CHECK→DM (Umwandlung).
 
+## 1b. Positionierung: Zeigen statt behaupten
+„Der Ingenieur aus Bielefeld, der zeigt, was KI im Betrieb konkret erledigt.“ Beweise schlagen
+Behauptungen: jede Woche ein echtes, kostenloses Tool + Demo-Reel (Bildschirmaufnahme).
+Content-Säulen: 1) Demo-Reels (Kern) · 2) Wissens-Karussells · 3) „So würde ich das
+automatisieren“-Aufschlüsselungen · 4) eigene Web/App-Beispiele (nie fremde Firmen ohne Erlaubnis).
+
 ## 2. Beitragsaufbau (Social)
 Hook (1. Zeile / erste 2 s) → 2–4 kurze Punkte oder Mini-Story → **ein** CTA → 3–10 Hashtags.
 Nur ein Aufruf pro Beitrag: „Kommentiere CHECK“. Zusätzlich darf eine Frage zum Kommentieren anregen („Wie viele Ja hast du?“).
