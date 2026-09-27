@@ -1,0 +1,86 @@
+name: Instagram Autopilot — Posten
+
+# Stündlich prüfen, ob laut instagram_autopilot/config.json ein Posting-Slot
+# offen ist. Wenn ja: nächsten Beitrag rendern, Medien committen (GitHub Pages
+# liefert sie aus), über die Instagram-API veröffentlichen, Status speichern.
+# Nutzt ausschließlich IG_AI_TOKEN / IG_AI_USER_ID — The Tribe bleibt unberührt.
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+    inputs:
+      post_id:
+        description: 'Bestimmten Beitrag posten (leer = nächster in der Warteschlange)'
+        required: false
+      force:
+        description: 'Slot-Plan ignorieren und jetzt posten'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ig-autopilot
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN }}
+      IG_AI_USER_ID: ${{ secrets.IG_AI_USER_ID }}
+      PIPER_VOICE_DIR: ${{ github.workspace }}/.piper-voices
+      POST_ID: ${{ inputs.post_id }}
+      FORCE: ${{ inputs.force && '1' || '0' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fälligen Beitrag ermitteln
+        id: due
+        run: |
+          if [ -z "$IG_AI_TOKEN" ] || [ -z "$IG_AI_USER_ID" ]; then
+            echo "::notice::Secrets IG_AI_TOKEN / IG_AI_USER_ID fehlen – nichts zu tun."
+            exit 0
+          fi
+          echo "id=$(python instagram_autopilot/autopilot.py due)" >> "$GITHUB_OUTPUT"
+
+      - name: Abhängigkeiten
+        if: steps.due.outputs.id != ''
+        run: pip install -q -r instagram_autopilot/requirements.txt
+
+      - name: Stimme aus dem Cache
+        if: steps.due.outputs.id != ''
+        uses: actions/cache@v4
+        with:
+          path: .piper-voices
+          key: piper-voices-v1
+
+      - name: Rendern
+        if: steps.due.outputs.id != ''
+        run: python instagram_autopilot/autopilot.py render "${{ steps.due.outputs.id }}"
+
+      - name: Medien veröffentlichen (GitHub Pages)
+        if: steps.due.outputs.id != ''
+        run: |
+          git config user.name "ig-autopilot[bot]"
+          git config user.email "ig-autopilot[bot]@users.noreply.github.com"
+          git add "docs/ig-media/${{ steps.due.outputs.id }}"
+          git commit -m "ig-autopilot: Medien für ${{ steps.due.outputs.id }}"
+          git pull --rebase -q && git push
+
+      - name: Auf Instagram posten
+        if: steps.due.outputs.id != ''
+        run: python instagram_autopilot/autopilot.py publish "${{ steps.due.outputs.id }}"
+
+      - name: Status speichern und alte Medien aufräumen
+        if: always() && steps.due.outputs.id != ''
+        run: |
+          python instagram_autopilot/autopilot.py prune || true
+          git add -A instagram_autopilot/data instagram_autopilot/posts docs/ig-media
+          git diff --cached --quiet || git commit -m "ig-autopilot: ${{ steps.due.outputs.id }} gepostet"
+          git pull --rebase -q && git push
