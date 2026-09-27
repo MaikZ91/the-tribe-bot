@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ededed">
+<title>Angebot in 60 Sekunden — kostenloser Angebots-Rechner für Handwerker</title>
+<meta name="description" content="Stichpunkte rein, fertiges Angebot raus: Positionen, Netto, MwSt., Brutto – druckfertig als PDF. Kostenlos, ohne Anmeldung, alles bleibt in deinem Browser.">
+<style>
+@font-face{font-family:'Geist';font-weight:400;font-display:swap;src:url(../../assets/fonts/geist-400.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-weight:500;font-display:swap;src:url(../../assets/fonts/geist-500.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-weight:600;font-display:swap;src:url(../../assets/fonts/geist-600.woff2) format('woff2')}
+:root{--bg:#ededed;--card:#fff;--text:#0a0a0a;--muted:rgba(10,10,10,.6);--line:rgba(10,10,10,.1);--accent:#0052d4;--wash:rgba(0,82,212,.07);--ok:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 "Geist",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 16px 60px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:500;font-size:.92rem}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-size:clamp(1.7rem,6vw,2.3rem);line-height:1.12;letter-spacing:-.02em;margin:18px 0 8px}
+.lead{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0}
+.card h2{font-size:1rem;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.step{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:.8rem}
+label{display:block;font-size:.8rem;color:var(--muted);margin:10px 0 4px}
+input,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fafafa;color:var(--text)}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;background:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:.8rem;color:var(--muted);margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 11px;font:inherit;font-size:.8rem;cursor:pointer}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:600;background:var(--accent);color:#fff;cursor:pointer;margin-top:12px}
+.btn.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:.75rem;padding:6px 4px;border-bottom:1px solid var(--line)}
+td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;white-space:nowrap}
+td button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:1rem}
+.sum{margin-top:10px;font-size:.95rem}
+.sum div{display:flex;justify-content:space-between;padding:3px 0}
+.sum .total{font-weight:600;font-size:1.15rem;border-top:2px solid var(--text);margin-top:6px;padding-top:8px}
+.empty{color:var(--muted);font-size:.9rem;padding:8px 0}
+#doc{display:none}
+.doc{background:#fff;border-radius:6px;padding:28px 24px;font-size:.88rem;box-shadow:0 10px 40px rgba(0,0,0,.08)}
+.doc .head{display:flex;justify-content:space-between;gap:12px;margin-bottom:26px}
+.doc h3{margin:0 0 4px;font-size:1.3rem}
+.doc .meta{font-size:.8rem;color:var(--muted);text-align:right}
+.doc .to{margin-bottom:18px}
+.doc .foot{margin-top:22px;font-size:.78rem;color:var(--muted)}
+.flash{animation:flash .9s ease}
+@keyframes flash{0%{background:var(--wash)}100%{background:transparent}}
+.cta{background:var(--text);color:#fff;border-radius:18px;padding:20px;margin-top:22px}
+.cta p{margin:6px 0 0;color:rgba(255,255,255,.75);font-size:.92rem}
+.cta a{display:inline-block;margin-top:12px;background:#fff;color:var(--text);text-decoration:none;font-weight:600;padding:11px 16px;border-radius:12px}
+footer{margin-top:26px;font-size:.78rem;color:var(--muted);text-align:center}
+footer a{color:var(--muted)}
+@media print{
+  body{background:#fff}
+  .wrap>*:not(#doc){display:none!important}
+  #doc{display:block!important}
+  .doc{box-shadow:none;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><i></i>ai.made.in.bielefeld · Kostenloses Tool</div>
+  <h1>Angebot in 60 Sekunden.</h1>
+  <p class="lead">Stichpunkte rein, fertiges Angebot raus – mit Netto, MwSt. und Brutto, druckfertig als PDF. Ohne Anmeldung. Alles bleibt in deinem Browser.</p>
+
+  <div class="card">
+    <h2><span class="step">1</span> Deine Firma</h2>
+    <div class="row2">
+      <div><label for="f-firma">Firma</label><input id="f-firma" placeholder="Malerbetrieb Muster"></div>
+      <div><label for="f-ort">Ort</label><input id="f-ort" placeholder="Bielefeld"></div>
+    </div>
+    <label for="f-kunde">Kunde</label><input id="f-kunde" placeholder="Familie Schmidt, Hauptstr. 1">
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span> Leistungen als Stichpunkte</h2>
+    <textarea id="f-notiz" placeholder="Wohnzimmer streichen 45 m2 à 12,50&#10;Decke spachteln 20 m2 à 9&#10;Material pauschal 180&#10;Anfahrt 1x 35"></textarea>
+    <div class="hint">Eine Zeile pro Position: <b>Was · Menge · Einheit · Preis</b>. „à“, „zu“, „x“ oder „pauschal“ werden erkannt.</div>
+    <div class="chips" id="chips"></div>
+    <button class="btn" id="b-erstellen">Angebot erstellen</button>
+  </div>
+
+  <div class="card" id="pos-card">
+    <h2><span class="step">3</span> Positionen</h2>
+    <div id="pos"><div class="empty">Noch keine Positionen – oben Stichpunkte eintragen.</div></div>
+    <div class="sum" id="sum"></div>
+    <button class="btn ghost" id="b-pdf" style="display:none">Als PDF speichern / drucken</button>
+  </div>
+
+  <div id="doc"></div>
+
+  <div class="cta">
+    <b>Das ist die einfache Version.</b>
+    <p>Für deinen Betrieb geht mehr: Angebot direkt aus der Sprachnachricht nach dem Kundentermin, mit deinen Preisen, in deinem Programm – automatisch.</p>
+    <a href="../../ki-automatisierung/?utm_source=tool&amp;utm_medium=angebot">Kostenloser KI-Check · 2 Min.</a>
+  </div>
+
+  <footer>Ein Tool von <a href="https://www.instagram.com/ai.made.in.bielefeld/">@ai.made.in.bielefeld</a> · <a href="../../impressum.html">Impressum</a> · <a href="../../datenschutz.html">Datenschutz</a><br>Ohne Gewähr – bitte Angebot vor dem Versand prüfen.</footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+var MWST = 0.19;
+var VORLAGEN = {
+  'Maler': 'Wände streichen 60 m2 à 11,50\nDecke streichen 25 m2 à 12\nAbkleben und Abdecken pauschal 120\nMaterial pauschal 210',
+  'Fliesen': 'Bodenfliesen verlegen 18 m2 à 48\nAlte Fliesen entfernen 18 m2 à 22\nFugen und Silikon pauschal 140\nKleber und Material pauschal 260',
+  'Elektro': 'Steckdose setzen 6 Stk à 45\nLeitung verlegen 25 m à 14\nSicherungsautomat tauschen 2 Stk à 65\nAnfahrt 1x 35',
+  'Garten': 'Hecke schneiden 40 m à 6,50\nRasen mähen 300 m2 à 0,35\nGrünschnitt entsorgen pauschal 90'
+};
+var $ = function(id){ return document.getElementById(id); };
+var positionen = [];
+
+function num(s){ return parseFloat(String(s).replace(/\./g,'').replace(',', '.')); }
+function euro(v){ return v.toLocaleString('de-DE',{style:'currency',currency:'EUR'}); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+/* Parse one line like "Wand streichen 45 m2 à 12,50" or "Material pauschal 180". */
+function parseLine(line){
+  line = line.trim().replace(/€/g,'').replace(/\s+/g,' ');
+  if(!line) return null;
+  var m = line.match(/^(.*?)\s+pauschal\s+([\d.,]+)\s*$/i);
+  if(m) return {text:m[1], menge:1, einheit:'psch.', preis:num(m[2])};
+  m = line.match(/^(.*?)\s+([\d.,]+)\s*(m2|m²|qm|m|stk|stück|h|std|x|lfm|psch)?\.?\s*(?:à|a|zu|je|x|@)\s*([\d.,]+)\s*$/i);
+  if(m){
+    var e = (m[3]||'Stk').toLowerCase();
+    e = {m2:'m²',qm:'m²','m²':'m²',m:'m',lfm:'lfm',stk:'Stk','stück':'Stk',h:'Std',std:'Std',x:'x',psch:'psch.'}[e] || e;
+    return {text:m[1], menge:num(m[2]), einheit:e, preis:num(m[4])};
+  }
+  m = line.match(/^(.*?)\s+([\d.,]+)\s*$/);
+  if(m) return {text:m[1], menge:1, einheit:'psch.', preis:num(m[2])};
+  return null;
+}
+
+function render(){
+  var box = $('pos');
+  if(!positionen.length){ box.innerHTML = '<div class="empty">Noch keine Positionen – oben Stichpunkte eintragen.</div>'; $('sum').innerHTML=''; $('b-pdf').style.display='none'; return; }
+  var html = '<table><thead><tr><th>Leistung</th><th class="n">Menge</th><th class="n">Preis</th><th class="n">Summe</th><th></th></tr></thead><tbody>';
+  positionen.forEach(function(p,i){
+    html += '<tr class="flash"><td>'+esc(p.text)+'</td><td class="n">'+p.menge.toLocaleString('de-DE')+' '+esc(p.einheit)+'</td><td class="n">'+euro(p.preis)+'</td><td class="n">'+euro(p.menge*p.preis)+'</td><td><button aria-label="Position löschen" data-i="'+i+'">×</button></td></tr>';
+  });
+  box.innerHTML = html + '</tbody></table>';
+  var netto = positionen.reduce(function(s,p){ return s + p.menge*p.preis; },0);
+  $('sum').innerHTML = '<div><span>Netto</span><span>'+euro(netto)+'</span></div><div><span>MwSt. 19 %</span><span>'+euro(netto*MWST)+'</span></div><div class="total"><span>Gesamt</span><span>'+euro(netto*(1+MWST))+'</span></div>';
+  $('b-pdf').style.display='block';
+  buildDoc(netto);
+  try{ localStorage.setItem('angebot-firma', JSON.stringify({firma:$('f-firma').value, ort:$('f-ort').value})); }catch(e){}
+}
+
+function buildDoc(netto){
+  var d = new Date(), bis = new Date(d.getTime()+30*864e5);
+  var nr = 'A-' + d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0');
+  var rows = positionen.map(function(p,i){ return '<tr><td>'+(i+1)+'</td><td>'+esc(p.text)+'</td><td class="n">'+p.menge.toLocaleString('de-DE')+' '+esc(p.einheit)+'</td><td class="n">'+euro(p.preis)+'</td><td class="n">'+euro(p.menge*p.preis)+'</td></tr>'; }).join('');
+  $('doc').innerHTML = '<div class="doc"><div class="head"><div><h3>Angebot</h3><div>'+esc($('f-firma').value||'Ihr Betrieb')+(($('f-ort').value)?' · '+esc($('f-ort').value):'')+'</div></div>'+
+    '<div class="meta">Nr. '+nr+'<br>Datum: '+d.toLocaleDateString('de-DE')+'<br>Gültig bis: '+bis.toLocaleDateString('de-DE')+'</div></div>'+
+    '<div class="to"><b>Für:</b> '+esc($('f-kunde').value||'—')+'</div>'+
+    '<table><thead><tr><th>#</th><th>Leistung</th><th class="n">Menge</th><th class="n">Einzelpreis</th><th class="n">Gesamt</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<div class="sum"><div><span>Netto</span><span>'+euro(netto)+'</span></div><div><span>zzgl. 19 % MwSt.</span><span>'+euro(netto*MWST)+'</span></div><div class="total"><span>Angebotssumme</span><span>'+euro(netto*(1+MWST))+'</span></div></div>'+
+    '<div class="foot">Wir freuen uns auf Ihren Auftrag. Dieses Angebot ist 30 Tage gültig.</div></div>';
+}
+
+$('b-erstellen').addEventListener('click', function(){
+  var neu = $('f-notiz').value.split('\n').map(parseLine).filter(Boolean);
+  if(!neu.length){ $('f-notiz').focus(); return; }
+  positionen = neu;
+  render();
+  $('pos-card').scrollIntoView({behavior:'smooth', block:'start'});
+});
+$('pos').addEventListener('click', function(e){
+  var i = e.target.getAttribute('data-i');
+  if(i !== null){ positionen.splice(+i,1); render(); }
+});
+$('b-pdf').addEventListener('click', function(){ window.print(); });
+Object.keys(VORLAGEN).forEach(function(k){
+  var b = document.createElement('button'); b.className='chip'; b.type='button'; b.textContent='Beispiel: '+k;
+  b.addEventListener('click', function(){ $('f-notiz').value = VORLAGEN[k]; });
+  $('chips').appendChild(b);
+});
+try{ var f = JSON.parse(localStorage.getItem('angebot-firma')||'{}'); if(f.firma) $('f-firma').value=f.firma; if(f.ort) $('f-ort').value=f.ort; }catch(e){}
+})();
+</script>
+</body>
+</html>

@@ -110,7 +110,7 @@ def reading_seconds(slide: dict) -> float:
     text = " ".join(str(slide.get(k, "")) for k in ("text", "sub", "title", "body", "label", "note"))
     text += " " + " ".join(slide.get("steps", []))
     words = len(text.split())
-    base = {"flow": 1.8, "stat": 1.6, "cta": 1.4}.get(slide["kind"], 1.2)
+    base = {"flow": 1.8, "stat": 1.6, "cta": 1.4, "clip": 0}.get(slide["kind"], 1.2)
     return base + words / 3.3
 
 
@@ -332,6 +332,50 @@ def slide_cta(img, s, t, dur, h):
     text_block(d, [CONFIG["cta_sub"]], fs, MARGIN_X + 8, y0 + 180, B["muted"], t, 0.55)
 
 
+def clip_path(s: dict) -> Path:
+    return (ROOT / s["src"]).resolve()
+
+
+def clip_duration(path: Path) -> float:
+    out = subprocess.run([ffmpeg_exe(), "-i", str(path)], capture_output=True, text=True).stderr
+    for line in out.splitlines():
+        if "Duration:" in line:
+            h, m, sec = line.split("Duration:")[1].split(",")[0].strip().split(":")
+            return int(h) * 3600 + int(m) * 60 + float(sec)
+    raise RuntimeError(f"Dauer von {path} unbekannt")
+
+
+def clip_frames(path: Path, height: int):
+    """Yield RGB frames of a screen recording, scaled/padded to W x height."""
+    cmd = [ffmpeg_exe(), "-v", "error", "-i", str(path), "-vf",
+           f"scale={W}:{height}:force_original_aspect_ratio=decrease,pad={W}:{height}:(ow-iw)/2:(oh-ih)/2:color=0xededed,fps={FPS}",
+           "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    size = W * height * 3
+    while True:
+        buf = proc.stdout.read(size)
+        if len(buf) < size:
+            break
+        yield Image.frombytes("RGB", (W, height), buf)
+    proc.wait()
+
+
+def draw_clip_caption(img: Image.Image, text: str, a: float) -> None:
+    """Caption pill in the lower safe zone of a screen-recording slide."""
+    if not text or a <= 0:
+        return
+    d = ImageDraw.Draw(img, "RGBA")
+    f = font("Bold", 58)
+    lines = wrap(d, text, f, W - 2 * MARGIN_X - 60)
+    lh = 72
+    h = len(lines) * lh + 50
+    y0 = int(H_REEL * 0.70) + int((1 - a) * 30)
+    d.rounded_rectangle([MARGIN_X - 10, y0, W - MARGIN_X + 10, y0 + h], 34, fill=B["text"] + (int(235 * a),))
+    for i, line in enumerate(lines):
+        tw = d.textlength(line, font=f)
+        d.text(((W - tw) / 2, y0 + 25 + i * lh), line, font=f, fill=(255, 255, 255, int(255 * a)))
+
+
 RENDERERS = {"hook": slide_hook, "point": slide_point, "flow": slide_flow,
              "stat": slide_stat, "cta": slide_cta}
 
@@ -351,7 +395,8 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     canvas = Canvas(H_REEL, seed)
     use_voice = bool(CONFIG.get("voice")) and spec.get("voice", True)
     lines = [tts(s.get("voice", "")) if use_voice else np.zeros(0, dtype=np.float32) for s in spec["slides"]]
-    durs = [max(s.get("min_seconds", 2.4), len(v) / SR + 0.75, reading_seconds(s))
+    durs = [clip_duration(clip_path(s)) if s["kind"] == "clip"
+            else max(s.get("min_seconds", 2.4), len(v) / SR + 0.75, reading_seconds(s))
             for s, v in zip(spec["slides"], lines)]
     total = sum(durs) + 0.3
     audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
@@ -377,9 +422,19 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     bar_y = H_REEL - 70
     elapsed = 0.0
     for s, dur in zip(spec["slides"], durs):
+        if s["kind"] == "clip":
+            frames = clip_frames(clip_path(s), H_REEL)
         for k in range(int(round(dur * FPS))):
             t = k / FPS
-            img = draw_slide(canvas, s, t, dur)
+            if s["kind"] == "clip":
+                frame = next(frames, None)
+                img = frame if frame is not None else img
+                img = img.copy()
+                for c0, c1, text in s.get("captions", []):
+                    if c0 <= t < c1:
+                        draw_clip_caption(img, text, ease((t - c0) / 0.3))
+            else:
+                img = draw_slide(canvas, s, t, dur)
             d = ImageDraw.Draw(img)
             prog = (elapsed + t) / total
             d.rectangle([0, bar_y, W, bar_y + 8], fill=(214, 214, 214))
