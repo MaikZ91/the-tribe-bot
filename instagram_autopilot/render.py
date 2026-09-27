@@ -430,14 +430,107 @@ def draw_clip_caption(img: Image.Image, text: str, a: float) -> None:
         d.text(((W - tw) / 2, y0 + 25 + i * lh), line, font=f, fill=(255, 255, 255, int(255 * a)))
 
 
-RENDERERS = {"hook": slide_hook, "point": slide_point, "flow": slide_flow,
+_FONT_CACHE: dict = {}
+
+
+def font_c(weight: str, size: int) -> ImageFont.FreeTypeFont:
+    key = (weight, size)
+    if key not in _FONT_CACHE:
+        _FONT_CACHE[key] = font(weight, size)
+    return _FONT_CACHE[key]
+
+
+def slide_beat(img, s, t, dur, h):
+    """Viral beat: words pop in one by one (scale bounce), *word* = highlighted."""
+    d = ImageDraw.Draw(img)
+    size = s.get("size", 112)
+    base = font_c("Bold", size)
+    words = s["text"].split()
+    # layout with the final size
+    lines, cur, maxw = [], [], W - 2 * MARGIN_X
+    for w in words:
+        test = " ".join(x.strip("*") for x in cur + [w])
+        if d.textlength(test, font=base) <= maxw or not cur:
+            cur.append(w)
+        else:
+            lines.append(cur); cur = [w]
+    lines.append(cur)
+    lh = int(size * 1.16)
+    y0 = (h - len(lines) * lh) // 2 - (40 if h == H_REEL else 0)
+    i = 0
+    for li, line in enumerate(lines):
+        widths = [d.textlength(w.strip("*"), font=base) for w in line]
+        space = d.textlength(" ", font=base)
+        x = (W - (sum(widths) + space * (len(line) - 1))) / 2
+        for w, ww in zip(line, widths):
+            appear = t - i * s.get("stagger", 0.07)
+            if appear >= 0:
+                k = min(1.0, appear / 0.16)
+                sc = 1.0 + 0.35 * (1 - k) ** 2          # pop: big -> normal
+                f = font_c("Bold", max(10, int(size * sc)))
+                word = w.strip("*")
+                wx = x + (ww - d.textlength(word, font=f)) / 2
+                wy = y0 + li * lh - (f.size - size) / 2
+                if w.startswith("*"):
+                    d.rounded_rectangle([x - 14, y0 + li * lh - 4, x + ww + 14, y0 + li * lh + size + 18], 18,
+                                        fill=B["accent"])
+                d.text((wx + 4, wy + 5), word, font=f, fill=(0, 0, 0))
+                d.text((wx, wy), word, font=f, fill=(255, 255, 255))
+            x += ww + space
+            i += 1
+    if s.get("small"):
+        fs = font_c("Medium", 44)
+        tw = d.textlength(s["small"], font=fs)
+        d.text(((W - tw) / 2, y0 + len(lines) * lh + 40), s["small"], font=fs, fill=(235, 238, 245))
+
+
+def beat_track(seconds: float, bpm: int, seed: int) -> np.ndarray:
+    """Self-made punchy beat (kick, clap, hats, bass) – no licensing issues."""
+    rng = np.random.default_rng(seed)
+    n = int(seconds * SR)
+    out = np.zeros(n, dtype=np.float32)
+    beat = 60.0 / bpm
+    t_k = np.arange(int(0.35 * SR)) / SR
+    kick = np.sin(2 * np.pi * (50 + 110 * np.exp(-t_k * 28)) * t_k) * np.exp(-t_k * 9)
+    t_c = np.arange(int(0.18 * SR)) / SR
+    clap = rng.standard_normal(len(t_c)) * np.exp(-t_c * 26) * 0.55
+    t_h = np.arange(int(0.05 * SR)) / SR
+    hat = np.diff(rng.standard_normal(len(t_h) + 1)) * np.exp(-t_h * 90) * 0.18
+    roots = [45, 45, 41, 43]                       # A, A, F, G (bass)
+    def add(sig, at):
+        i = int(at * SR)
+        if i < n:
+            out[i:i + len(sig)] += sig[: n - i]
+    b = 0
+    while b * beat < seconds:
+        at = b * beat
+        add(kick * 0.9, at)
+        if b % 2 == 1:
+            add(clap, at)
+        add(hat, at + beat / 2)
+        f = 440 * 2 ** ((roots[(b // 4) % 4] - 69) / 12)
+        tb = np.arange(int(beat * 0.9 * SR)) / SR
+        add((np.sign(np.sin(2 * np.pi * f * tb)) * 0.12 + np.sin(2 * np.pi * f * tb) * 0.2) * np.exp(-tb * 3), at)
+        b += 1
+    out = np.convolve(out, np.ones(6) / 6, mode="same")
+    fade = np.clip(np.minimum(np.arange(n) / (0.05 * SR), (n - np.arange(n)) / (0.4 * SR)), 0, 1)
+    out *= fade
+    out = out / max(1e-6, np.abs(out).max())
+    out = np.tanh(out * 2.6) / np.tanh(2.6)          # soft-clip = louder, punchier
+    return (out * 0.92).astype(np.float32)
+
+
+RENDERERS = {"beat": slide_beat, "hook": slide_hook, "point": slide_point, "flow": slide_flow,
              "stat": slide_stat, "cta": slide_cta}
 
 
 def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None = None) -> Image.Image:
     bg = s.get("bg")
     use_theme(bool(bg))
-    img = canvas.base(t, page, bg, min(1.0, t / max(dur, 0.1)))
+    p = min(1.0, t / max(dur, 0.1))
+    if s["kind"] == "beat":                     # fast punch-in right after the cut
+        p = 0.35 * (1 - ease(t / 0.25)) + 0.6 * p
+    img = canvas.base(t, page, bg, p)
     RENDERERS[s["kind"]](img, s, t, dur, canvas.h)
     use_theme(False)
     return img
@@ -465,12 +558,17 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     canvas = Canvas(H_REEL, seed)
     use_voice = bool(CONFIG.get("voice")) and spec.get("voice", True)
     lines = [tts(s.get("voice", "")) if use_voice else np.zeros(0, dtype=np.float32) for s in spec["slides"]]
-    durs = [clip_duration(clip_path(s)) if s["kind"] == "clip"
+    bpm = spec.get("bpm", 120)
+    durs = [s.get("beats", 3) * 60.0 / bpm if s["kind"] == "beat"
+            else clip_duration(clip_path(s)) if s["kind"] == "clip"
             else max(s.get("min_seconds", 2.4), len(v) / SR + 0.75,
                      min(reading_seconds(s), s.get("max_seconds", 3.0)) if s["kind"] == "hook" else reading_seconds(s))
             for s, v in zip(spec["slides"], lines)]
     total = sum(durs) + 0.3
-    audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
+    if spec.get("music") == "beat":
+        audio = beat_track(total, bpm, seed)
+    else:
+        audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
     pos = 0.0
     for v, dur in zip(lines, durs):
         start = int((pos + 0.3) * SR)
@@ -507,7 +605,10 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
                         draw_clip_caption(img, text, ease((t - c0) / 0.3))
             else:
                 img = draw_slide(canvas, s, t, dur)
-            if k < 7 and prev is not None:          # soft crossfade between slides
+            if s["kind"] == "beat":
+                if k < 3 and prev is not None:      # hard cut with a short white flash
+                    img = Image.blend(img, Image.new("RGB", img.size, (255, 255, 255)), 0.45 * (1 - k / 3))
+            elif k < 7 and prev is not None:        # soft crossfade between slides
                 img = Image.blend(prev, img, (k + 1) / 8)
             d = ImageDraw.Draw(img)
             prog = (elapsed + t) / total
