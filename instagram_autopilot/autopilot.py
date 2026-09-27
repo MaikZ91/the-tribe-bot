@@ -100,11 +100,13 @@ def api(method: str, path: str, **params) -> dict:
 # --------------------------------------------------------------------------
 
 def next_queued(state: dict) -> str | None:
+    """Next queued post: lowest `priority` first (default 50), then file name."""
+    queued = []
     for f in sorted(POSTS.glob("*.json")):
         spec = json.loads(f.read_text(encoding="utf-8"))
         if spec.get("status", "queued") == "queued" and spec["id"] not in state["published"]:
-            return spec["id"]
-    return None
+            queued.append((spec.get("priority", 50), f.name, spec["id"]))
+    return min(queued)[2] if queued else None
 
 
 def cmd_due() -> None:
@@ -201,6 +203,14 @@ def cmd_publish(post_id: str) -> None:
     wait_container(cid)
     pub = api("POST", f"{uid}/media_publish", creation_id=cid)
     info = api("GET", pub["id"], fields="permalink,timestamp")
+    if spec["type"] == "reel" and CONFIG.get("story_repost", True):
+        try:   # same video as a story -> reaches existing followers first
+            st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
+            wait_container(st["id"], minutes=8)
+            api("POST", f"{uid}/media_publish", creation_id=st["id"])
+            print("Story veröffentlicht")
+        except RuntimeError as e:
+            print(f"Story fehlgeschlagen (Reel ist trotzdem online): {e}")
     now = datetime.now(TZ)
     state = load_state()
     state["published"][post_id] = {
