@@ -99,14 +99,39 @@ def api(method: str, path: str, **params) -> dict:
 # Scheduling
 # --------------------------------------------------------------------------
 
+def category(spec: dict) -> str:
+    fmt = spec.get("format", "")
+    if fmt.startswith("viral"):
+        return "viral"
+    if fmt.startswith("demo"):
+        return "tool"
+    if fmt.startswith("service"):
+        return "leistung"
+    return "wissen"
+
+
 def next_queued(state: dict) -> str | None:
-    """Next queued post: lowest `priority` first (default 50), then file name."""
+    """Next queued post following the content mix in config.json (`mix`).
+
+    The slot in the rotation is derived from how many posts are published;
+    within a category the lowest `priority` wins (default 50), then file name.
+    If the wanted category is empty, the next category in the rotation is used.
+    """
     queued = []
     for f in sorted(POSTS.glob("*.json")):
         spec = json.loads(f.read_text(encoding="utf-8"))
         if spec.get("status", "queued") == "queued" and spec["id"] not in state["published"]:
-            queued.append((spec.get("priority", 50), f.name, spec["id"]))
-    return min(queued)[2] if queued else None
+            queued.append((spec.get("priority", 50), f.name, spec["id"], category(spec)))
+    if not queued:
+        return None
+    mix = CONFIG.get("mix") or ["viral", "tool", "leistung", "viral", "tool", "wissen"]
+    start = len(state["published"]) % len(mix)
+    for k in range(len(mix)):
+        want = mix[(start + k) % len(mix)]
+        cand = [q for q in queued if q[3] == want]
+        if cand:
+            return min(cand)[2]
+    return min(queued)[2]
 
 
 def cmd_due() -> None:
