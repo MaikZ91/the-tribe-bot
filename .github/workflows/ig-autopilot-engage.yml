@@ -1,0 +1,39 @@
+name: Instagram Autopilot — Kommentare
+
+# Alle 15 Minuten: Wer unter einem Beitrag von @ai.made.in.bielefeld
+# "CHECK" kommentiert, bekommt einmalig den KI-Check-Link per DM
+# (Private Reply) und eine kurze öffentliche Antwort.
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ig-autopilot-engage
+  cancel-in-progress: false
+
+jobs:
+  engage:
+    runs-on: ubuntu-latest
+    env:
+      IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN || secrets.AI }}
+      IG_AI_USER_ID: ${{ secrets.IG_AI_USER_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Kommentare beantworten
+        if: env.IG_AI_TOKEN != ''
+        run: |
+          pip install -q requests
+          python instagram_autopilot/autopilot.py engage
+      - name: Speichern
+        run: |
+          git config user.name "ig-autopilot[bot]"
+          git config user.email "ig-autopilot[bot]@users.noreply.github.com"
+          git add -A instagram_autopilot/data
+          git diff --cached --quiet || { git commit -m "ig-autopilot: Kommentare beantwortet"; git pull --rebase -q && git push; }

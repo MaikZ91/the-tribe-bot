@@ -7,6 +7,7 @@ Commands (run from the repo root):
   python instagram_autopilot/autopilot.py insights     -> stores metrics + rebuilds data/report.md
   python instagram_autopilot/autopilot.py refresh      -> refreshes the long-lived token
   python instagram_autopilot/autopilot.py prune        -> deletes media of posts published >3 days ago
+  python instagram_autopilot/autopilot.py engage       -> DMs the KI-Check link to "CHECK" commenters
 
 Uses the "Instagram API with Instagram Login" (graph.instagram.com), so no
 Facebook page is needed. Secrets: IG_AI_TOKEN, IG_AI_USER_ID (optional
@@ -226,6 +227,68 @@ def cmd_prune() -> None:
 
 
 # --------------------------------------------------------------------------
+# Engagement: keyword comments -> private reply (DM) with the KI-Check link
+# --------------------------------------------------------------------------
+
+ENGAGE_FILE = DATA / "engage.json"
+
+
+def api_json(path: str, payload: dict) -> dict:
+    r = requests.post(f"{API}/{path}", params={"access_token": token()}, json=payload, timeout=60)
+    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {"raw": r.text}
+    if r.status_code >= 400 or "error" in body:
+        raise RuntimeError(f"POST {path} -> {r.status_code}: {json.dumps(body)[:400]}")
+    return body
+
+
+def is_keyword(text: str) -> bool:
+    words = {w.strip(".,!?:;\"'()").lower() for w in (text or "").split()}
+    return bool(words & {k.lower() for k in CONFIG["engage"]["keywords"]})
+
+
+def cmd_engage() -> None:
+    """Answer keyword comments (e.g. "CHECK") once with a private reply.
+
+    Only comments on our own recent posts are handled, each at most once,
+    and only because the commenter asked for it. Stored: comment ids only.
+    """
+    cfg = CONFIG["engage"]
+    uid = user_id()
+    handled = set(json.loads(ENGAGE_FILE.read_text())["handled"]) if ENGAGE_FILE.exists() else set()
+    cutoff = datetime.now(timezone.utc) - timedelta(days=6)   # private replies: max 7 days
+    media = api("GET", f"{uid}/media", fields="id,timestamp", limit=25).get("data", [])
+    new = 0
+    for m in media:
+        if datetime.strptime(m["timestamp"], "%Y-%m-%dT%H:%M:%S%z") < cutoff:
+            continue
+        comments = api("GET", f"{m['id']}/comments", fields="id,text,username,timestamp", limit=50).get("data", [])
+        for c in comments:
+            if c["id"] in handled or c.get("username", "").lower() == CONFIG["account"].lower():
+                continue
+            if not is_keyword(c.get("text", "")):
+                continue
+            name = c.get("username", "")
+            try:
+                api_json(f"{uid}/messages", {"recipient": {"comment_id": c["id"]},
+                                               "message": {"text": cfg["dm_text"].format(name=name, link=CONFIG["dm_link"])}})
+                api("POST", f"{c['id']}/replies", message=cfg["public_reply"].format(name=name))
+                new += 1
+            except RuntimeError as e:
+                print(f"Antwort auf Kommentar {c['id']} fehlgeschlagen: {e}")
+                continue
+            handled.add(c["id"])
+    DATA.mkdir(parents=True, exist_ok=True)
+    ENGAGE_FILE.write_text(json.dumps({"handled": sorted(handled)}, indent=1) + "\n", encoding="utf-8")
+    stats = DATA / "engage_stats.json"
+    st = json.loads(stats.read_text()) if stats.exists() else {}
+    day = datetime.now(TZ).date().isoformat()
+    if new:
+        st[day] = st.get(day, 0) + new
+        stats.write_text(json.dumps(st, indent=1) + "\n", encoding="utf-8")
+    print(f"{new} Keyword-Kommentare beantwortet")
+
+
+# --------------------------------------------------------------------------
 # Insights + report
 # --------------------------------------------------------------------------
 
@@ -354,4 +417,4 @@ def cmd_refresh() -> None:
 if __name__ == "__main__":
     cmd, *args = sys.argv[1:] or ["due"]
     {"due": cmd_due, "render": cmd_render, "publish": cmd_publish, "insights": cmd_insights,
-     "refresh": cmd_refresh, "prune": cmd_prune}[cmd](*args)
+     "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage}[cmd](*args)
