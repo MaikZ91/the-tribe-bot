@@ -1,0 +1,54 @@
+name: Instagram Autopilot — Auswertung
+
+# Täglich die Kennzahlen aller Beiträge abholen und
+# instagram_autopilot/data/report.md neu schreiben (Grundlage für die
+# wöchentliche Content-Planung). Montags zusätzlich das Token verlängern
+# (Instagram-Login-Tokens gelten 60 Tage).
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ig-autopilot
+  cancel-in-progress: false
+
+jobs:
+  insights:
+    runs-on: ubuntu-latest
+    env:
+      IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN }}
+      IG_AI_USER_ID: ${{ secrets.IG_AI_USER_ID }}
+      GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Abhängigkeiten
+        run: pip install -q requests pynacl
+
+      - name: Token verlängern (montags oder manuell)
+        if: env.IG_AI_TOKEN != ''
+        continue-on-error: true   # ein frisches Token (<24 h) lässt sich noch nicht verlängern
+        run: |
+          if [ "$(date -u +%u)" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python instagram_autopilot/autopilot.py refresh
+          fi
+
+      - name: Kennzahlen abholen
+        if: env.IG_AI_TOKEN != ''
+        run: python instagram_autopilot/autopilot.py insights
+
+      - name: Speichern
+        run: |
+          git config user.name "ig-autopilot[bot]"
+          git config user.email "ig-autopilot[bot]@users.noreply.github.com"
+          git add -A instagram_autopilot/data
+          git diff --cached --quiet || git commit -m "ig-autopilot: Auswertung $(date -u +%F)"
+          git pull --rebase -q && git push
