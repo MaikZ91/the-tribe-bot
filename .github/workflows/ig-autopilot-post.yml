@@ -3,7 +3,8 @@ name: Instagram Autopilot — Posten
 # Stündlich prüfen, ob laut instagram_autopilot/config.json ein Posting-Slot
 # offen ist. Wenn ja: nächsten Beitrag rendern, Medien committen (GitHub Pages
 # liefert sie aus), über die Instagram-API veröffentlichen, Status speichern.
-# Nutzt ausschließlich IG_AI_TOKEN / IG_AI_USER_ID — The Tribe bleibt unberührt.
+# Manuell (workflow_dispatch) lassen sich mehrere Beiträge nacheinander posten.
+# Nutzt ausschließlich IG_AI_TOKEN / Secret AI — The Tribe bleibt unberührt.
 on:
   schedule:
     - cron: '7 * * * *'
@@ -16,6 +17,14 @@ on:
         description: 'Slot-Plan ignorieren und jetzt posten'
         type: boolean
         default: false
+      count:
+        description: 'Wie viele Beiträge nacheinander posten'
+        required: false
+        default: '1'
+      gap_minutes:
+        description: 'Pause zwischen den Beiträgen (Minuten)'
+        required: false
+        default: '0'
 
 permissions:
   contents: write
@@ -27,12 +36,15 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
+    timeout-minutes: 300
     env:
       IG_AI_TOKEN: ${{ secrets.IG_AI_TOKEN || secrets.AI }}
       IG_AI_USER_ID: ${{ secrets.IG_AI_USER_ID }}
       PIPER_VOICE_DIR: ${{ github.workspace }}/.piper-voices
       POST_ID: ${{ inputs.post_id }}
       FORCE: ${{ inputs.force && '1' || '0' }}
+      COUNT: ${{ inputs.count || '1' }}
+      GAP: ${{ inputs.gap_minutes || '0' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -62,27 +74,30 @@ jobs:
           path: .piper-voices
           key: piper-voices-v1
 
-      - name: Rendern
-        if: steps.due.outputs.id != ''
-        run: python instagram_autopilot/autopilot.py render "${{ steps.due.outputs.id }}"
-
-      - name: Medien veröffentlichen (GitHub Pages)
+      - name: Rendern, veröffentlichen, speichern
         if: steps.due.outputs.id != ''
         run: |
           git config user.name "ig-autopilot[bot]"
           git config user.email "ig-autopilot[bot]@users.noreply.github.com"
-          git add "docs/ig-media/${{ steps.due.outputs.id }}"
-          git commit -m "ig-autopilot: Medien für ${{ steps.due.outputs.id }}"
-          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep $((i*7)); done
-
-      - name: Auf Instagram posten
-        if: steps.due.outputs.id != ''
-        run: python instagram_autopilot/autopilot.py publish "${{ steps.due.outputs.id }}"
-
-      - name: Status speichern und alte Medien aufräumen
-        if: always() && steps.due.outputs.id != ''
-        run: |
-          python instagram_autopilot/autopilot.py prune || true
-          git add -A instagram_autopilot/ docs/ig-media/
-          git diff --cached --quiet || git commit -m "ig-autopilot: ${{ steps.due.outputs.id }} gepostet"
-          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep $((i*7)); done
+          push() { for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && return 0; sleep $((i*7)); done; return 1; }
+          id="${{ steps.due.outputs.id }}"
+          n=0
+          while [ -n "$id" ] && [ "$n" -lt "$COUNT" ]; do
+            n=$((n+1))
+            echo "::group::Beitrag $n/$COUNT: $id"
+            python instagram_autopilot/autopilot.py render "$id"
+            git add "docs/ig-media/$id"
+            git commit -q -m "ig-autopilot: Medien für $id"
+            push
+            ok=1
+            python instagram_autopilot/autopilot.py publish "$id" || ok=0
+            python instagram_autopilot/autopilot.py prune || true
+            git add -A instagram_autopilot/ docs/ig-media/
+            git diff --cached --quiet || git commit -q -m "ig-autopilot: $id gepostet"
+            push
+            echo "::endgroup::"
+            if [ "$ok" = "0" ]; then echo "::error::Posten von $id fehlgeschlagen – Abbruch"; exit 1; fi
+            [ "$n" -ge "$COUNT" ] && break
+            [ "$GAP" != "0" ] && sleep $((GAP*60))
+            POST_ID="" id=$(POST_ID="" python instagram_autopilot/autopilot.py due)
+          done
