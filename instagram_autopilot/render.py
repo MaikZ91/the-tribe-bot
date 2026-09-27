@@ -105,7 +105,16 @@ def tts(text: str) -> np.ndarray:
     return resample(x, sr)
 
 
-def music_bed(seconds: float, seed: int) -> np.ndarray:
+def reading_seconds(slide: dict) -> float:
+    """Time a viewer needs to read a slide without voice-over (~3.3 words/s)."""
+    text = " ".join(str(slide.get(k, "")) for k in ("text", "sub", "title", "body", "label", "note"))
+    text += " " + " ".join(slide.get("steps", []))
+    words = len(text.split())
+    base = {"flow": 1.8, "stat": 1.6, "cta": 1.4}.get(slide["kind"], 1.2)
+    return base + words / 3.3
+
+
+def music_bed(seconds: float, seed: int, volume_db: float = -27) -> np.ndarray:
     """Soft self-synthesised pad (no third-party music, no licence issues)."""
     rng = np.random.default_rng(seed)
     t = np.arange(int(seconds * SR)) / SR
@@ -132,7 +141,7 @@ def music_bed(seconds: float, seed: int) -> np.ndarray:
     fade = np.minimum(1.0, np.minimum(t / 1.5, (seconds - t) / 1.5))
     out *= np.clip(fade, 0, 1)
     out /= max(1e-6, np.abs(out).max())
-    return (out * 10 ** (CONFIG.get("music_volume_db", -27) / 20)).astype(np.float32)
+    return (out * 10 ** (volume_db / 20)).astype(np.float32)
 
 
 def write_wav(path: Path, x: np.ndarray) -> None:
@@ -340,10 +349,12 @@ def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None =
 def render_reel(spec: dict, out_dir: Path) -> dict:
     seed = zlib.crc32(spec["id"].encode())
     canvas = Canvas(H_REEL, seed)
-    lines = [tts(s.get("voice", "")) for s in spec["slides"]]
-    durs = [max(s.get("min_seconds", 2.4), len(v) / SR + 0.75) for s, v in zip(spec["slides"], lines)]
+    use_voice = bool(CONFIG.get("voice")) and spec.get("voice", True)
+    lines = [tts(s.get("voice", "")) if use_voice else np.zeros(0, dtype=np.float32) for s in spec["slides"]]
+    durs = [max(s.get("min_seconds", 2.4), len(v) / SR + 0.75, reading_seconds(s))
+            for s, v in zip(spec["slides"], lines)]
     total = sum(durs) + 0.3
-    audio = music_bed(total, seed)
+    audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
     pos = 0.0
     for v, dur in zip(lines, durs):
         start = int((pos + 0.3) * SR)
