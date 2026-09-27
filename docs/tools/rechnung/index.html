@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Rechnung in 60 Sekunden – mit Pflichtangaben-Check</title>
+<meta name="description" content="Rechnung schreiben inkl. Check aller Pflichtangaben nach §14 UStG, Kleinunternehmer-Option und PDF-Druck. Kostenlos, ohne Anmeldung.">
+<link rel="stylesheet" href="../kit/kit.css">
+<style>.doc{background:#fff;border-radius:6px;padding:26px 22px;font-size:.86rem}.doc h3{margin:0 0 4px;font-size:1.3rem}.doc .head{display:flex;justify-content:space-between;gap:12px;margin-bottom:22px}.doc .meta{text-align:right;color:var(--muted);font-size:.8rem}.sum div{display:flex;justify-content:space-between;padding:3px 0}.sum .total{font-weight:600;font-size:1.1rem;border-top:2px solid var(--ink);margin-top:6px;padding-top:8px}
+@media print{.wrap>*:not(#doc-card){display:none!important}#doc-card{box-shadow:none;border:0;padding:0}.hero{display:none}}</style>
+</head>
+<body>
+<header class="hero no-print"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Rechnungs-Generator</span>
+  <h1>Rechnung in 60 Sekunden – <em>mit Pflichtangaben-Check.</em></h1>
+  <p>Fehlt eine Pflichtangabe, kann dein Kunde die Vorsteuer nicht ziehen. Das Tool prüft live mit.</p>
+</div></header>
+<main class="wrap">
+  <div class="card no-print">
+    <h2><span class="step">1</span> Du</h2>
+    <div class="row2"><div><label for="firma">Firma / Name</label><input id="firma" placeholder="Malerbetrieb Muster"></div><div><label for="adresse">Anschrift</label><input id="adresse" placeholder="Hauptstr. 1, 33602 Bielefeld"></div></div>
+    <div class="row2"><div><label for="steuer">Steuernummer oder USt-IdNr.</label><input id="steuer" placeholder="305/123/45678"></div><div><label for="nr">Rechnungsnummer</label><input id="nr"></div></div>
+    <label style="display:flex;gap:8px;align-items:center;color:var(--ink)"><input type="checkbox" id="klein" style="width:auto"> Kleinunternehmer (§ 19 UStG, keine MwSt.)</label>
+  </div>
+  <div class="card no-print">
+    <h2><span class="step">2</span> Kunde &amp; Leistung</h2>
+    <div class="row2"><div><label for="kunde">Kunde (Name + Anschrift)</label><input id="kunde" placeholder="Familie Schmidt, Am Markt 3, 33602 Bielefeld"></div><div><label for="ldatum">Leistungsdatum / -zeitraum</label><input id="ldatum" placeholder="15.–17.09.2026"></div></div>
+    <label for="pos">Positionen – eine Zeile pro Position: Was · Menge · Einheit · Preis</label>
+    <textarea id="pos">Wohnzimmer streichen 45 m2 à 12,50
+Material pauschal 180
+Anfahrt 1x 35</textarea>
+    <div class="row2"><div><label for="ziel">Zahlungsziel (Tage)</label><input id="ziel" inputmode="numeric" value="14"></div><div><label for="iban">Bankverbindung (IBAN)</label><input id="iban" placeholder="DE…"></div></div>
+  </div>
+  <div class="card no-print" id="checks-card"><h2>Pflichtangaben-Check</h2><div id="checks"></div></div>
+  <div class="card" id="doc-card"><div id="doc" class="doc"></div></div>
+  <button class="btn no-print" onclick="window.print()">Als PDF speichern / drucken</button>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+function parseLine(line){
+  line=line.trim().replace(/€/g,'').replace(/\s+/g,' '); if(!line) return null;
+  var m=line.match(/^(.*?)\s+pauschal\s+([\d.,]+)\s*$/i); if(m) return {t:m[1],q:1,u:'psch.',p:K.num(m[2])};
+  m=line.match(/^(.*?)\s+([\d.,]+)\s*(m2|m²|qm|m|stk|stück|h|std|x|lfm)?\.?\s*(?:à|a|zu|je|x|@)\s*([\d.,]+)\s*$/i);
+  if(m){ var u=(m[3]||'Stk').toLowerCase(); u={m2:'m²',qm:'m²','m²':'m²',m:'m',lfm:'lfm',stk:'Stk','stück':'Stk',h:'Std',std:'Std',x:'Stk'}[u]||u; return {t:m[1],q:K.num(m[2]),u:u,p:K.num(m[4])}; }
+  m=line.match(/^(.*?)\s+([\d.,]+)\s*$/); if(m) return {t:m[1],q:1,u:'psch.',p:K.num(m[2])};
+  return null;
+}
+var d=new Date(); K.$('nr').value='R-'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'01';
+K.remember(['firma','adresse','steuer','iban']);
+function v(id){ return K.$(id).value.trim(); }
+function render(){
+  var pos=K.$('pos').value.split('\n').map(parseLine).filter(Boolean);
+  var klein=K.$('klein').checked, netto=pos.reduce(function(s,p){return s+p.q*p.p;},0), mw=klein?0:netto*0.19;
+  var faellig=new Date(d.getTime()+K.num(v('ziel'))*864e5);
+  var rows=pos.map(function(p,i){return '<tr><td>'+(i+1)+'</td><td>'+K.esc(p.t)+'</td><td class="n">'+K.fmt(p.q,2)+' '+p.u+'</td><td class="n">'+K.euro(p.p)+'</td><td class="n">'+K.euro(p.q*p.p)+'</td></tr>';}).join('');
+  K.$('doc').innerHTML='<div class="head"><div><h3>Rechnung</h3>'+K.esc(v('firma')||'Dein Betrieb')+'<br>'+K.esc(v('adresse'))+'<br>'+(v('steuer')?'Steuernr./USt-IdNr.: '+K.esc(v('steuer')):'')+'</div>'+
+    '<div class="meta">Nr. '+K.esc(v('nr'))+'<br>Datum: '+d.toLocaleDateString('de-DE')+'<br>Leistung: '+K.esc(v('ldatum')||'–')+'</div></div>'+
+    '<p><b>An:</b> '+K.esc(v('kunde')||'—')+'</p><table><thead><tr><th>#</th><th>Leistung</th><th class="n">Menge</th><th class="n">Einzelpreis</th><th class="n">Gesamt</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<div class="sum"><div><span>Netto</span><span>'+K.euro(netto)+'</span></div>'+(klein?'':'<div><span>zzgl. 19 % MwSt.</span><span>'+K.euro(mw)+'</span></div>')+'<div class="total"><span>Rechnungsbetrag</span><span>'+K.euro(netto+mw)+'</span></div></div>'+
+    (klein?'<p style="font-size:.8rem">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>':'')+
+    '<p style="font-size:.8rem;color:var(--muted)">Bitte überweisen Sie den Betrag bis zum '+faellig.toLocaleDateString('de-DE')+(v('iban')?' auf IBAN '+K.esc(v('iban')):'')+'. Vielen Dank für Ihren Auftrag!</p>';
+  var c=[[!!v('firma')&&!!v('adresse'),'Name und Anschrift des Leistenden'],[/\d{4,5}/.test(v('kunde')),'Name und Anschrift des Kunden (inkl. PLZ)'],[!!v('steuer'),'Steuernummer oder USt-IdNr.'],[true,'Ausstellungsdatum'],[!!v('nr'),'Fortlaufende Rechnungsnummer'],[pos.length>0,'Menge und Art der Leistung'],[!!v('ldatum'),'Zeitpunkt / Zeitraum der Leistung'],[pos.length>0,klein?'Hinweis auf Steuerbefreiung (§ 19 UStG)':'Entgelt, Steuersatz und Steuerbetrag']];
+  var ok=c.filter(function(x){return x[0];}).length;
+  K.$('checks').innerHTML='<p style="margin:0 0 6px"><b>'+ok+' von '+c.length+'</b> Pflichtangaben erfüllt</p>'+c.map(function(x){return '<div class="check'+(x[0]?'':' no')+'"><i>'+(x[0]?'✓':'!')+'</i>'+x[1]+'</div>';}).join('');
+}
+document.addEventListener('input',render); document.addEventListener('change',render);
+render();
+K.footer('rechnung','Rechnungen können auch automatisch entstehen – direkt aus dem Angebot oder dem erledigten Auftrag, inkl. Zahlungserinnerung. Was bei dir geht, zeigt der KI-Check.');
+})();
+</script>
+</body>
+</html>

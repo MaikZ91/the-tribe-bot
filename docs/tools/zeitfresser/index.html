@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Was kostet dich Routinearbeit? — Zeitfresser-Rechner</title>
+<meta name="description" content="Anfragen, Angebote, Rechnungen, Termine: Rechne aus, wie viele Stunden und Euro dich wiederkehrende Aufgaben im Jahr kosten. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Zeitfresser-Rechner</span>
+  <h1>Was kostet dich <em>Routinearbeit</em> im Jahr?</h1>
+  <p>Schieb die Regler – du siehst sofort, wie viele Stunden und Euro jedes Jahr in Aufgaben verschwinden, die sich wiederholen.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Deine wiederkehrenden Aufgaben</h2>
+    <table id="tab"><thead><tr><th>Aufgabe</th><th class="n">Min. je Mal</th><th class="n">pro Woche</th></tr></thead><tbody></tbody></table>
+    <label for="satz">Was ist eine Stunde deiner Zeit wert? (€)</label><input id="satz" inputmode="decimal" value="60">
+  </div>
+  <div class="result pop">
+    <div class="lbl">Das kostet dich jedes Jahr</div>
+    <div class="big" id="euro">–</div>
+    <div class="sub" id="std"></div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-woche">–</b><span>Stunden pro Woche</span></div>
+      <div class="kpi"><b id="k-wochen">–</b><span>volle Arbeitswochen / Jahr</span></div>
+      <div class="kpi"><b id="k-top">–</b><span>größter Zeitfresser</span></div>
+      <div class="kpi"><b id="k-halb">–</b><span>zurück, wenn nur die Hälfte automatisch läuft</span></div>
+    </div>
+  </div>
+  <button class="btn dark no-print" id="share">Ergebnis per WhatsApp teilen</button>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var rows=[['Anfragen beantworten',6,15],['Angebote schreiben',40,3],['Rechnungen schreiben',15,4],['Termine abstimmen & erinnern',5,10],['Daten abtippen (Excel, Belege)',20,3],['Nachfassen & Mahnen',8,3]];
+var tb=K.$('tab').querySelector('tbody');
+rows.forEach(function(r,i){
+  tb.insertAdjacentHTML('beforeend','<tr><td>'+r[0]+'</td><td class="n"><input style="width:70px;text-align:right" inputmode="numeric" id="m'+i+'" value="'+r[1]+'"></td><td class="n"><input style="width:62px;text-align:right" inputmode="numeric" id="w'+i+'" value="'+r[2]+'"></td></tr>');
+});
+var last={};
+function calc(){
+  var perWeek=0, top=['',0];
+  rows.forEach(function(r,i){ var h=K.num(K.$('m'+i).value)*K.num(K.$('w'+i).value)/60; perWeek+=h; if(h>top[1]) top=[r[0],h]; });
+  var year=perWeek*46, satz=K.num(K.$('satz').value), euro=year*satz;
+  K.countUp(K.$('euro'),euro,function(x){return K.euro(x,0);});
+  K.$('std').textContent=K.fmt(year,0)+' Stunden im Jahr (46 Arbeitswochen)';
+  K.$('k-woche').textContent=K.fmt(perWeek)+' h';
+  K.$('k-wochen').textContent=K.fmt(year/40)+' Wochen';
+  K.$('k-top').textContent=top[0];
+  K.$('k-halb').textContent=K.fmt(year/2,0)+' h · '+K.euro(euro/2,0);
+  last={euro:euro,year:year};
+}
+document.addEventListener('input',calc);
+K.$('share').addEventListener('click',function(){
+  window.open(K.whatsapp('Krass: Routinearbeit kostet mich ca. '+K.fmt(last.year,0)+' Stunden bzw. '+K.euro(last.euro,0)+' im Jahr. Rechne es selbst aus: '+location.href.split('?')[0]),'_blank');
+});
+calc();
+K.footer('zeitfresser','Genau diese Aufgaben lassen sich automatisieren – mit den Programmen, die du schon nutzt. Der KI-Check zeigt, wo du anfangen solltest.');
+})();
+</script>
+</body>
+</html>

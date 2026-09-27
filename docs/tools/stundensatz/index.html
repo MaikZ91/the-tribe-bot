@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Stundensatz-Rechner für Handwerk &amp; Selbstständige — kostenlos</title>
+<meta name="description" content="Was musst du pro Stunde verlangen, damit am Ende genug übrig bleibt? Kosten, Urlaub, Krankheit und unbezahlte Büroarbeit eingerechnet. Kostenlos, ohne Anmeldung.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Stundensatz-Rechner</span>
+  <h1>Rechnest du <em>zu billig?</em></h1>
+  <p>Die meisten vergessen Urlaub, Krankheit und die Stunden im Büro. Hier siehst du in 30 Sekunden, was deine Stunde wirklich kosten muss.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Was soll übrig bleiben?</h2>
+    <label for="netto">Wunsch-Einkommen netto pro Monat (€)</label><input id="netto" inputmode="decimal" value="3500">
+    <label for="kosten">Betriebskosten pro Monat (€) – Fahrzeug, Werkzeug, Miete, Versicherung, Software</label><input id="kosten" inputmode="decimal" value="1800">
+    <label for="abgaben">Rücklage für Steuern &amp; Sozialversicherung (% vom Gewinn)</label><input id="abgaben" inputmode="decimal" value="40">
+  </div>
+  <div class="card">
+    <h2><span class="step">2</span> Wie viel kannst du wirklich abrechnen?</h2>
+    <div class="row3">
+      <div><label for="urlaub">Urlaubstage</label><input id="urlaub" inputmode="numeric" value="25"></div>
+      <div><label for="feiertage">Feiertage</label><input id="feiertage" inputmode="numeric" value="10"></div>
+      <div><label for="krank">Krankheitstage</label><input id="krank" inputmode="numeric" value="8"></div>
+    </div>
+    <div class="row2">
+      <div><label for="std">Arbeitsstunden pro Tag</label><input id="std" inputmode="decimal" value="8"></div>
+      <div><label for="prod">davon abrechenbar (%)</label><input id="prod" inputmode="decimal" value="70"></div>
+    </div>
+    <div class="hint">Nicht abrechenbar: Angebote schreiben, Fahrten, Einkauf, Rechnungen, Telefonate.</div>
+  </div>
+  <div class="result pop" id="res">
+    <div class="lbl">Dein Stundensatz muss mindestens sein</div>
+    <div class="big" id="satz">–</div>
+    <div class="sub" id="brutto"></div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-std">–</b><span>abrechenbare Stunden / Jahr</span></div>
+      <div class="kpi"><b id="k-umsatz">–</b><span>nötiger Umsatz / Jahr (netto)</span></div>
+      <div class="kpi"><b id="k-buero">–</b><span>unbezahlte Stunden / Jahr</span></div>
+      <div class="kpi"><b id="k-wert">–</b><span>Wert dieser Stunden</span></div>
+    </div>
+  </div>
+  <div class="card" style="font-size:.92rem">
+    <b>Der größte Hebel:</b> <span id="hebel"></span>
+  </div>
+  <div class="hint">Überschlag zur Orientierung – ersetzt keine Steuerberatung.</div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var ids=['netto','kosten','abgaben','urlaub','feiertage','krank','std','prod'];
+function calc(){
+  var v={}; ids.forEach(function(i){ v[i]=K.num(K.$(i).value); });
+  var abg=Math.min(Math.max(v.abgaben,0),80)/100;
+  var bedarf=(v.netto*12)/(1-abg)+v.kosten*12;
+  var tage=Math.max(0,52*5-v.urlaub-v.feiertage-v.krank);
+  var gesamt=tage*v.std, fakt=gesamt*Math.min(Math.max(v.prod,1),100)/100;
+  var satz=fakt>0?bedarf/fakt:0, buero=gesamt-fakt;
+  K.countUp(K.$('satz'),satz,function(x){return K.euro(x,0)+' <small>/ Std. netto</small>';});
+  K.$('brutto').textContent='= '+K.euro(satz*1.19,0)+' inkl. 19 % MwSt. · bei '+K.fmt(tage,0)+' Arbeitstagen';
+  K.$('k-std').textContent=K.fmt(fakt,0)+' h';
+  K.$('k-umsatz').textContent=K.euro(bedarf,0);
+  K.$('k-buero').textContent=K.fmt(buero,0)+' h';
+  K.$('k-wert').textContent=K.euro(buero*satz,0);
+  var plus=Math.min(v.prod+10,100), satz2=bedarf/(gesamt*plus/100);
+  K.$('hebel').textContent='Wenn du nur 10 % mehr deiner Zeit abrechnen kannst (weniger Büro, weil Angebote, Rechnungen und Termine automatisch laufen), sinkt dein nötiger Stundensatz von '+K.euro(satz,0)+' auf '+K.euro(satz2,0)+' – oder du verdienst bei gleichem Preis ca. '+K.euro((satz-satz2)*gesamt*plus/100,0)+' mehr im Jahr.';
+}
+ids.forEach(function(i){ K.$(i).addEventListener('input',calc); });
+calc();
+K.footer('stundensatz','Die Stunden im Büro lassen sich zum großen Teil automatisieren – Angebote, Rechnungen, Terminabsprachen. Welche davon bei dir, zeigt der KI-Check.');
+})();
+</script>
+</body>
+</html>

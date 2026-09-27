@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Abwesenheitsnotiz &amp; WhatsApp-Autoantwort erstellen — kostenlos</title>
+<meta name="description" content="Urlaub, Feierabend, volle Auftragslage: professionelle Abwesenheitsnotiz für Mail und WhatsApp Business in Sekunden. Kein Kunde bleibt unbeantwortet. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Abwesenheits-Antwort</span>
+  <h1>Kein Kunde bleibt <em>unbeantwortet.</em></h1>
+  <p>Auch nicht im Urlaub oder nach Feierabend: fertige Autoantwort für Mail und WhatsApp Business.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Anlass</h2>
+    <div class="chips" id="anlass"></div>
+    <div class="row2"><div><label for="bis">Zurück am / erreichbar ab</label><input id="bis" placeholder="Montag, 13.10."></div><div><label for="firma">Dein Betrieb</label><input id="firma" placeholder="Malerbetrieb Muster"></div></div>
+    <label for="notfall">Notfall / Vertretung (optional)</label><input id="notfall" placeholder="Notdienst: 0521 123456">
+  </div>
+  <div class="card">
+    <h2><span class="step">2</span> Deine Autoantwort</h2>
+    <div class="chips" id="kanal"></div>
+    <div class="out" id="out" style="margin-top:10px"></div>
+    <button class="btn" id="copy">Kopieren</button>
+    <div class="hint" id="wo"></div>
+  </div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var A={urlaub:'Urlaub',feierabend:'Feierabend & Wochenende',voll:'Volle Auftragslage',krank:'Kurzfristig nicht erreichbar'}, an='urlaub', kanal='mail';
+Object.keys(A).forEach(function(k){ var b=document.createElement('button'); b.className='chip'; b.textContent=A[k]; b.onclick=function(){an=k;render();}; b.dataset.k=k; K.$('anlass').appendChild(b); });
+[['mail','E-Mail'],['wa','WhatsApp Business']].forEach(function(x){ var b=document.createElement('button'); b.className='chip'; b.textContent=x[1]; b.onclick=function(){kanal=x[0];render();}; b.dataset.k=x[0]; K.$('kanal').appendChild(b); });
+K.remember(['firma']);
+function render(){
+  document.querySelectorAll('#anlass .chip').forEach(function(b){b.classList.toggle('on',b.dataset.k===an);});
+  document.querySelectorAll('#kanal .chip').forEach(function(b){b.classList.toggle('on',b.dataset.k===kanal);});
+  var bis=K.$('bis').value.trim()||'[Datum]', f=K.$('firma').value.trim()||'[Dein Betrieb]', nf=K.$('notfall').value.trim();
+  var kern={urlaub:'wir sind im Urlaub und ab '+bis+' wieder für Sie da.',feierabend:'wir sind gerade nicht im Büro und melden uns ab '+bis+' bei Ihnen.',voll:'wir sind aktuell sehr gut ausgelastet. Ihre Anfrage ist angekommen – wir melden uns spätestens '+bis+' mit einem Terminvorschlag.',krank:'wir sind kurzfristig nicht erreichbar und melden uns ab '+bis+' bei Ihnen.'}[an];
+  var t = kanal==='mail'
+    ? 'Guten Tag,\n\nvielen Dank für Ihre Nachricht – '+kern+'\n\nDamit es danach schnell geht: Schreiben Sie uns gern kurz, worum es geht, und schicken Sie ggf. 2–3 Fotos mit.'+(nf?'\n\nIn dringenden Fällen: '+nf:'')+'\n\nFreundliche Grüße\n'+f
+    : 'Hallo! 👋 Danke für deine Nachricht – '+kern.replace(/Sie|Ihnen|Ihre/g,function(m){return {Sie:'dich',Ihnen:'dir',Ihre:'deine'}[m];})+(nf?'\nDringend? '+nf:'')+'\n'+f;
+  K.$('out').textContent=t;
+  K.$('wo').textContent=kanal==='mail'?'Outlook: Datei → Automatische Antworten. Gmail: Einstellungen → Abwesenheitsnotiz.':'WhatsApp Business: Unternehmenstools → Abwesenheitsnachricht.';
+}
+K.$('copy').onclick=function(){K.copy(K.$('out').textContent);};
+document.addEventListener('input',render); render();
+K.footer('autoantwort','Noch einen Schritt weiter: Anfragen werden auch in deiner Abwesenheit gelesen, sortiert und mit einem passenden Terminvorschlag beantwortet. Der KI-Check zeigt, ob das für dich passt.');
+})();
+</script>
+</body>
+</html>

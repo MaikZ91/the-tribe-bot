@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Flächen- &amp; Materialrechner für Maler, Fliesen, Boden — kostenlos</title>
+<meta name="description" content="Raummaße eingeben: Wand-, Decken- und Bodenfläche abzüglich Fenster und Türen – plus Farbe, Fliesen oder Laminat inkl. Verschnitt. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Flächen &amp; Material</span>
+  <h1>Aufmaß im Kopf? <em>Lass rechnen.</em></h1>
+  <p>Raummaße rein – Flächen abzüglich Fenster und Türen, dazu Farbe, Fliesen oder Boden inkl. Verschnitt.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Raum</h2>
+    <div class="row3"><div><label for="l">Länge (m)</label><input id="l" inputmode="decimal" value="5,2"></div><div><label for="b">Breite (m)</label><input id="b" inputmode="decimal" value="4,1"></div><div><label for="h">Höhe (m)</label><input id="h" inputmode="decimal" value="2,5"></div></div>
+    <div class="row2"><div><label for="fen">Fenster (Anzahl, je 1,2 m²)</label><input id="fen" inputmode="numeric" value="2"></div><div><label for="tuer">Türen (Anzahl, je 2 m²)</label><input id="tuer" inputmode="numeric" value="1"></div></div>
+  </div>
+  <div class="card">
+    <h2><span class="step">2</span> Material</h2>
+    <div class="chips" id="mat"></div>
+    <div class="row2"><div><label for="schichten" id="l-a">Anstriche</label><input id="schichten" inputmode="numeric" value="2"></div><div><label for="preis" id="l-p">Preis je Einheit (€)</label><input id="preis" inputmode="decimal" value="8,50"></div></div>
+  </div>
+  <div class="result pop">
+    <div class="lbl" id="r-lbl">Wandfläche</div>
+    <div class="big" id="big">–</div>
+    <div class="sub" id="sub"></div>
+    <div class="kpis">
+      <div class="kpi"><b id="k-wand">–</b><span>Wände (netto)</span></div>
+      <div class="kpi"><b id="k-boden">–</b><span>Boden / Decke</span></div>
+      <div class="kpi"><b id="k-menge">–</b><span id="k-mlbl">Material</span></div>
+      <div class="kpi"><b id="k-kosten">–</b><span>Materialkosten</span></div>
+    </div>
+  </div>
+  <div class="hint">Richtwerte: Farbe ca. 0,15 l/m² je Anstrich, Fliesen +10 % Verschnitt, Laminat/Vinyl +8 %. Herstellerangaben gehen vor.</div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var M={farbe:['Wandfarbe','Anstriche','Preis je Liter (€)'],fliesen:['Bodenfliesen','Verschnitt (%)','Preis je m² (€)'],boden:['Laminat / Vinyl','Verschnitt (%)','Preis je m² (€)']}, mat='farbe';
+Object.keys(M).forEach(function(k){ var b=document.createElement('button'); b.className='chip'; b.textContent=M[k][0]; b.onclick=function(){ mat=k; K.$('schichten').value=k==='farbe'?2:(k==='fliesen'?10:8); K.$('preis').value=k==='farbe'?'8,50':(k==='fliesen'?'35':'22'); calc(); }; b.dataset.k=k; K.$('mat').appendChild(b); });
+function calc(){
+  document.querySelectorAll('#mat .chip').forEach(function(b){b.classList.toggle('on',b.dataset.k===mat);});
+  K.$('l-a').textContent=M[mat][1]; K.$('l-p').textContent=M[mat][2];
+  var l=K.num(K.$('l').value), b=K.num(K.$('b').value), h=K.num(K.$('h').value);
+  var wand=Math.max(0,2*(l+b)*h-K.num(K.$('fen').value)*1.2-K.num(K.$('tuer').value)*2), boden=l*b, x=K.num(K.$('schichten').value), p=K.num(K.$('preis').value);
+  var menge, einheit, flaeche;
+  if(mat==='farbe'){ flaeche=wand+boden; menge=Math.ceil(flaeche*0.15*x); einheit=' l'; K.$('r-lbl').textContent='Wände + Decke streichen'; }
+  else { flaeche=boden; menge=Math.ceil(boden*(1+x/100)*10)/10; einheit=' m²'; K.$('r-lbl').textContent=M[mat][0]+' verlegen'; }
+  K.countUp(K.$('big'),flaeche,function(v){return K.fmt(v,1)+' <small>m²</small>';});
+  K.$('sub').textContent=mat==='farbe'?'Du brauchst ca. '+menge+' Liter Farbe für '+x+' Anstriche':'Du brauchst ca. '+K.fmt(menge,1)+' m² inkl. '+x+' % Verschnitt';
+  K.$('k-wand').textContent=K.fmt(wand,1)+' m²'; K.$('k-boden').textContent=K.fmt(boden,1)+' m²';
+  K.$('k-menge').textContent=K.fmt(menge,1)+einheit; K.$('k-mlbl').textContent=M[mat][0];
+  K.$('k-kosten').textContent=K.euro(menge*p,0);
+}
+document.addEventListener('input',calc); calc();
+K.footer('flaeche','Aus dem Aufmaß direkt ins Angebot – automatisch mit deinen Preisen, ohne Abtippen. Der KI-Check zeigt, wie viel Zeit das bei dir spart.');
+})();
+</script>
+</body>
+</html>

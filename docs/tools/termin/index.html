@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Terminbestätigung + Kalender-Eintrag in 20 Sekunden</title>
+<meta name="description" content="Termin eintragen, fertige Bestätigung für WhatsApp kopieren und Kalender-Datei mit Erinnerung für deinen Kunden erzeugen. Weniger vergessene Termine. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Termin-Bestätigung</span>
+  <h1>Nie wieder <em>vergessene Termine.</em></h1>
+  <p>Bestätigung für WhatsApp plus Kalender-Eintrag mit Erinnerung am Vortag – für dich und deinen Kunden.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Termin</h2>
+    <div class="row2"><div><label for="kunde">Kunde</label><input id="kunde" placeholder="Frau Schmidt"></div><div><label for="leistung">Worum geht's?</label><input id="leistung" placeholder="Besichtigung Badezimmer"></div></div>
+    <div class="row3"><div><label for="datum">Datum</label><input id="datum" type="date"></div><div><label for="zeit">Uhrzeit</label><input id="zeit" type="time" value="10:00"></div><div><label for="dauer">Dauer (Min.)</label><input id="dauer" inputmode="numeric" value="60"></div></div>
+    <label for="ort">Ort</label><input id="ort" placeholder="Am Markt 3, 33602 Bielefeld">
+    <label for="firma">Dein Betrieb</label><input id="firma" placeholder="Malerbetrieb Muster">
+  </div>
+  <div class="card">
+    <h2><span class="step">2</span> Bestätigung für den Kunden</h2>
+    <div class="out" id="out"></div>
+    <div class="row2"><button class="btn" id="copy">Text kopieren</button><a class="btn dark" id="wa" target="_blank" rel="noopener">WhatsApp</a></div>
+    <button class="btn ghost" id="ics">Kalender-Datei (.ics) mit Erinnerung laden</button>
+    <div class="hint">Die Datei funktioniert mit iPhone, Android, Outlook und Google Kalender – schick sie mit oder trag den Termin selbst ein.</div>
+  </div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var t=new Date(Date.now()+2*864e5); K.$('datum').value=t.toISOString().slice(0,10);
+K.remember(['firma']);
+function dt(){ var d=K.$('datum').value, z=K.$('zeit').value||'10:00'; return new Date(d+'T'+z+':00'); }
+function text(){
+  var s=dt(), wt=s.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'});
+  var n=K.$('kunde').value.trim();
+  return (n?'Hallo '+n+',':'Hallo,')+'\n\nhiermit bestätige ich unseren Termin:\n📅 '+wt+' um '+K.$('zeit').value+' Uhr\n📍 '+(K.$('ort').value.trim()||'–')+'\n🔧 '+(K.$('leistung').value.trim()||'Termin')+'\n\nFalls etwas dazwischenkommt, gib mir bitte kurz Bescheid. Bis dann!\n\n'+(K.$('firma').value.trim()||'');
+}
+function render(){ var x=text(); K.$('out').textContent=x; K.$('wa').href=K.whatsapp(x); }
+function ics(){
+  var s=dt(), e=new Date(s.getTime()+K.num(K.$('dauer').value||60)*6e4);
+  function f(d){ return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); }
+  function clean(v){ return String(v||'').replace(/([,;\\])/g,'\\$1').replace(/\n/g,'\\n'); }
+  var body=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ai.made.in.bielefeld//Termin//DE','BEGIN:VEVENT',
+    'UID:'+Date.now()+'@ai-made-in-bielefeld','DTSTAMP:'+f(new Date()),'DTSTART:'+f(s),'DTEND:'+f(e),
+    'SUMMARY:'+clean((K.$('leistung').value||'Termin')+' – '+(K.$('firma').value||'')),'LOCATION:'+clean(K.$('ort').value),
+    'DESCRIPTION:'+clean(text()),'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Erinnerung: Termin morgen','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  K.download('termin.ics',body,'text/calendar');
+}
+K.$('copy').onclick=function(){K.copy(text());}; K.$('ics').onclick=ics;
+document.addEventListener('input',render); render();
+K.footer('termin','Automatisch geht das auch: Kunde bucht online, bekommt Bestätigung und Erinnerung per WhatsApp oder Mail – ohne dass du etwas tippst. Der KI-Check zeigt, ob sich das für dich lohnt.');
+})();
+</script>
+</body>
+</html>

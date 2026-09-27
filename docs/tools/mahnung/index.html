@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Zahlungserinnerung &amp; Mahnung schreiben — kostenlos</title>
+<meta name="description" content="Offene Rechnung? Freundliche Zahlungserinnerung, 1. Mahnung oder letzte Mahnung in Sekunden – mit Tagen im Verzug und optionalen Verzugszinsen. Kostenlos.">
+<link rel="stylesheet" href="../kit/kit.css">
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Zahlungserinnerung</span>
+  <h1>Kunde zahlt nicht? <em>Freundlich, aber klar.</em></h1>
+  <p>Erinnerung oder Mahnung in drei Stufen – der Ton passt, die Rechnung stimmt.</p>
+</div></header>
+<main class="wrap">
+  <div class="card">
+    <h2><span class="step">1</span> Die offene Rechnung</h2>
+    <div class="row2"><div><label for="kunde">Kunde</label><input id="kunde" placeholder="Familie Schmidt"></div><div><label for="nr">Rechnungsnummer</label><input id="nr" placeholder="R-2026-0901"></div></div>
+    <div class="row3"><div><label for="betrag">Betrag (€)</label><input id="betrag" inputmode="decimal" value="1448,83"></div><div><label for="rdatum">Rechnungsdatum</label><input id="rdatum" type="date"></div><div><label for="faellig">Fällig am</label><input id="faellig" type="date"></div></div>
+    <label>Stufe</label><div class="chips" id="stufen"></div>
+    <div class="row2"><div><label for="gebuehr">Mahngebühr (€, optional)</label><input id="gebuehr" inputmode="decimal" value="0"></div><div><label for="zins">Verzugszins p. a. (%, optional)</label><input id="zins" inputmode="decimal" placeholder="z. B. Basiszins + 9"></div></div>
+    <div class="hint">Verzugszins: Geschäftskunden Basiszinssatz + 9 %-Punkte, Privatkunden + 5 %-Punkte (§ 288 BGB). Den aktuellen Basiszinssatz findest du bei der Bundesbank. Keine Rechtsberatung.</div>
+    <label for="firma">Dein Betrieb</label><input id="firma" placeholder="Malerbetrieb Muster">
+  </div>
+  <div class="result pop"><div class="lbl">Überfällig seit</div><div class="big" id="tage">–</div><div class="sub" id="summe"></div></div>
+  <div class="card">
+    <h2><span class="step">2</span> Dein Text</h2>
+    <div class="out" id="out"></div>
+    <div class="row2"><button class="btn" id="copy">Kopieren</button><a class="btn dark" id="mail">Als Mail öffnen</a></div>
+  </div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+var today=new Date(); var r=new Date(today.getTime()-30*864e5), f=new Date(today.getTime()-16*864e5);
+K.$('rdatum').value=r.toISOString().slice(0,10); K.$('faellig').value=f.toISOString().slice(0,10);
+var stufe=0, ST=['Freundliche Erinnerung','1. Mahnung','Letzte Mahnung'];
+ST.forEach(function(s,i){ var b=document.createElement('button'); b.className='chip'; b.textContent=s; b.onclick=function(){stufe=i;render();}; K.$('stufen').appendChild(b); });
+K.remember(['firma']);
+function d(id){ return new Date(K.$(id).value+'T00:00:00'); }
+function render(){
+  document.querySelectorAll('#stufen .chip').forEach(function(b,i){b.classList.toggle('on',i===stufe);});
+  var tage=Math.max(0,Math.floor((today-d('faellig'))/864e5)), betrag=K.num(K.$('betrag').value), geb=K.num(K.$('gebuehr').value), z=K.num(K.$('zins').value);
+  var zinsen=z>0?betrag*z/100*tage/365:0, gesamt=betrag+(stufe>0?geb+zinsen:0);
+  K.countUp(K.$('tage'),tage,function(x){return Math.round(x)+' <small>Tagen</small>';});
+  K.$('summe').textContent='Forderung: '+K.euro(gesamt)+(stufe>0&&(geb||zinsen)?' (inkl. '+(geb?K.euro(geb)+' Gebühr':'')+(geb&&zinsen?', ':'')+(zinsen?K.euro(zinsen)+' Zinsen':'')+')':'');
+  var n=K.$('kunde').value.trim(), nr=K.$('nr').value.trim()||'[Nr.]', rd=d('rdatum').toLocaleDateString('de-DE'), frist=new Date(today.getTime()+(stufe===2?7:10)*864e5).toLocaleDateString('de-DE'), firma=K.$('firma').value.trim()||'[Dein Betrieb]';
+  var t;
+  if(stufe===0) t='Guten Tag'+(n?' '+n:'')+',\n\nsicher ist es im Alltag untergegangen: Für unsere Rechnung '+nr+' vom '+rd+' über '+K.euro(betrag)+' konnten wir noch keinen Zahlungseingang feststellen.\n\nWir bitten Sie, den Betrag bis zum '+frist+' zu überweisen. Sollte sich Ihre Zahlung mit dieser Nachricht überschnitten haben, betrachten Sie sie bitte als gegenstandslos.\n\nFreundliche Grüße\n'+firma;
+  else if(stufe===1) t='Guten Tag'+(n?' '+n:'')+',\n\nleider ist unsere Rechnung '+nr+' vom '+rd+' über '+K.euro(betrag)+' trotz Fälligkeit seit '+tage+' Tagen noch offen.\n\nWir bitten Sie, den offenen Betrag'+(geb||zinsen?' zuzüglich '+[geb?'Mahngebühr '+K.euro(geb):'',zinsen?'Verzugszinsen '+K.euro(zinsen):''].filter(Boolean).join(' und ')+', insgesamt '+K.euro(gesamt)+',':'')+' bis spätestens '+frist+' zu begleichen.\n\nFreundliche Grüße\n'+firma;
+  else t='Guten Tag'+(n?' '+n:'')+',\n\ntrotz unserer bisherigen Erinnerungen ist die Rechnung '+nr+' vom '+rd+' weiterhin offen. Die Forderung beträgt inzwischen '+K.euro(gesamt)+'.\n\nWir fordern Sie auf, den Betrag bis zum '+frist+' zu zahlen. Andernfalls sehen wir uns gezwungen, weitere Schritte einzuleiten, wodurch Ihnen zusätzliche Kosten entstehen können.\n\nMit freundlichen Grüßen\n'+firma;
+  K.$('out').textContent=t;
+  K.$('mail').href='mailto:?subject='+encodeURIComponent(ST[stufe]+' – Rechnung '+nr)+'&body='+encodeURIComponent(t);
+}
+K.$('copy').onclick=function(){K.copy(K.$('out').textContent);};
+document.addEventListener('input',render); render();
+K.footer('mahnung','Automatisch: Offene Rechnungen werden erkannt und Erinnerungen gehen im richtigen Ton raus – du musst nicht mehr hinterherlaufen. Ob das bei dir passt, zeigt der KI-Check.');
+})();
+</script>
+</body>
+</html>

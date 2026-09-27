@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Google-Bewertungs-QR-Code &amp; Karte erstellen — kostenlos</title>
+<meta name="description" content="Mehr Google-Bewertungen: QR-Code und druckfertige Karte für deinen Betrieb erstellen – Kunde scannt, bewertet, fertig. Kostenlos, ohne Anmeldung.">
+<link rel="stylesheet" href="../kit/kit.css">
+<style>.karte{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center;max-width:360px;margin:0 auto}
+.karte h3{margin:0 0 4px;font-size:1.3rem}.karte .stars{font-size:1.6rem;color:#f5b301;letter-spacing:4px}.karte canvas{width:190px;height:190px;margin:12px auto;display:block;image-rendering:pixelated}
+@media print{.wrap>*:not(#karte-card){display:none!important}.hero{display:none}#karte-card{border:0;box-shadow:none}}</style>
+</head>
+<body>
+<header class="hero no-print"><div class="in">
+  <div class="brand"><i></i><a href="../">ai.made.in.bielefeld · Kostenlose Tools</a></div>
+  <span class="tag">Bewertungs-QR</span>
+  <h1>Mehr <em>Google-Bewertungen</em> – mit einer Karte auf dem Tresen.</h1>
+  <p>Link rein, QR-Code und druckfertige Karte raus. Kunde scannt, bewertet, fertig.</p>
+</div></header>
+<main class="wrap">
+  <div class="card no-print">
+    <h2><span class="step">1</span> Dein Bewertungs-Link</h2>
+    <label for="link">Link aus deinem Google-Unternehmensprofil („Nach Rezensionen fragen“ → Link kopieren)</label>
+    <input id="link" placeholder="https://g.page/r/…/review">
+    <label for="firma">Name deines Betriebs</label><input id="firma" placeholder="Malerbetrieb Muster">
+    <label for="text">Text auf der Karte</label><input id="text" value="Zufrieden? Wir freuen uns über deine Bewertung!">
+    <div class="hint">Bitte keine Gegenleistung für Bewertungen versprechen (Rabatt o. Ä.) – das ist wettbewerbswidrig.</div>
+  </div>
+  <div class="card" id="karte-card">
+    <div class="karte"><div class="stars">★★★★★</div><h3 id="k-firma">Dein Betrieb</h3><canvas id="qr" width="190" height="190"></canvas><div id="k-text"></div><div class="hint">Mit der Handy-Kamera scannen</div></div>
+  </div>
+  <div class="row2 no-print"><button class="btn" id="png">QR-Code als Bild</button><button class="btn dark" onclick="window.print()">Karte drucken</button></div>
+  <div id="kit-footer"></div>
+</main>
+<script src="../kit/qrcode.js"></script>
+<script src="../kit/kit.js"></script>
+<script>
+(function(){
+K.remember(['firma','link']);
+function draw(){
+  var url=K.$('link').value.trim()||'https://maikz91.github.io/the-tribe-bot/tools/bewertungen/';
+  var q=qrcode(0,'M'); q.addData(url,'Byte'); q.make();
+  var n=q.getModuleCount(), c=K.$('qr'), size=c.width, cell=Math.floor(size/(n+8)), off=Math.floor((size-cell*n)/2), x=c.getContext('2d');
+  x.fillStyle='#fff'; x.fillRect(0,0,size,size); x.fillStyle='#0a0a0a';
+  for(var r=0;r<n;r++) for(var k=0;k<n;k++) if(q.isDark(r,k)) x.fillRect(off+k*cell,off+r*cell,cell,cell);
+  K.$('k-firma').textContent=K.$('firma').value.trim()||'Dein Betrieb';
+  K.$('k-text').textContent=K.$('text').value;
+}
+K.$('png').onclick=function(){ var a=document.createElement('a'); a.href=K.$('qr').toDataURL('image/png'); a.download='bewertungs-qr.png'; a.click(); };
+document.addEventListener('input',draw); draw();
+K.footer('bewertungen','Automatisch nach jedem erledigten Auftrag: Danke-Nachricht mit Bewertungs-Link – genau im richtigen Moment. Was sich bei dir sonst noch automatisieren lässt, zeigt der KI-Check.');
+})();
+</script>
+</body>
+</html>
