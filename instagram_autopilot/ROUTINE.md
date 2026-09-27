@@ -8,8 +8,10 @@ frisch, aus den aktuellen Daten. `posts/*.json` mit `status: idea` sind eine Ide
 schöpfen, aber immer umschreiben und neu bebildern, nie unverändert posten. Maximal **3** Beiträge mit
 `status: queued` gleichzeitig.
 
-Läufe: morgens (06:40) → Slots 08:30 + 12:30; nachmittags (15:40) → Slot 19:00, reagiert schon auf die
-ersten Stunden der Morgenposts.
+Tempo: **5 Posts pro Tag** (Slots in config.json: 08:00, 11:30, 14:30, 17:30, 20:00).
+Läufe: morgens (06:40) → 3 Posts für 08:00, 11:30, 14:30; nachmittags (15:40) → 2 Posts für 17:30 und 20:00,
+reagiert schon auf die ersten Stunden der Morgenposts. Sobald genug Daten da sind (≥ 3 Posts je Slot),
+die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 
 ## 1. Lagebild (gründlich)
 
@@ -17,7 +19,7 @@ ersten Stunden der Morgenposts.
 - Auswertung älter als 3 h → Workflow `ig-autopilot-insights.yml` per GitHub-Actions-Dispatch starten, warten, pullen.
 - Signale nach Gewicht: **CHECK-Kommentare/Profilbesuche** > Shares > Saves > Watch-Zeit/Skip-Rate > Reichweite. Likes fast egal.
 - Hook-Qualität: Ø Watch-Zeit (s) und `reels_skip_rate` – hohe Skip-Rate = die ersten 1–2 s versagen → Einstieg ändern, nicht das Thema.
-- Abstand zwischen Posts (Report): < 90 min kannibalisiert Reichweite → max. 3/Tag.
+- Abstand zwischen Posts (Report): beobachten, ob sich Posts gegenseitig Reichweite nehmen; dann Slots weiter auseinanderlegen.
 - Ermüdung: Bilder, Formate und Hook-Stile der letzten 8 Posts nicht wiederholen (der Code bestraft das zusätzlich: `staleness`).
 
 ## 2. Entscheidung (schriftlich, 3–5 Zeilen oben in `learnings.md`, mit Datum/Uhrzeit)
