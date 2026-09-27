@@ -6,7 +6,7 @@ Commands (run from the repo root):
   python instagram_autopilot/autopilot.py publish ID   -> posts ID via the Instagram API
   python instagram_autopilot/autopilot.py insights     -> stores metrics + rebuilds data/report.md
   python instagram_autopilot/autopilot.py refresh      -> refreshes the long-lived token
-  python instagram_autopilot/autopilot.py prune        -> deletes media of posts published >3 days ago
+  python instagram_autopilot/autopilot.py prune        -> deletes rendered media of published posts
   python instagram_autopilot/autopilot.py engage       -> DMs the KI-Check link to "CHECK" commenters
 
 Uses the "Instagram API with Instagram Login" (graph.instagram.com), so no
@@ -123,7 +123,7 @@ def next_queued(state: dict) -> str | None:
         if spec.get("status", "queued") == "queued" and spec["id"] not in state["published"]:
             queued.append((spec.get("priority", 50), f.name, spec["id"], category(spec)))
     if not queued:
-        return None
+        return fallback_idea(state) if CONFIG.get("fallback_from_ideas", True) else None
     mix = CONFIG.get("mix") or ["viral", "tool", "leistung", "viral", "tool", "wissen"]
     start = len(state["published"]) % len(mix)
     for k in range(len(mix)):
@@ -132,6 +132,68 @@ def next_queued(state: dict) -> str | None:
         if cand:
             return min(cand)[2]
     return min(queued)[2]
+
+
+# --------------------------------------------------------------------------
+# Freshness + fallback: never repeat the same pictures / format back to back
+# --------------------------------------------------------------------------
+
+def spec_images(spec: dict) -> list[str]:
+    imgs = [spec["bg"]] if isinstance(spec.get("bg"), str) else list(spec.get("bg") or [])
+    for s in spec.get("slides", []):
+        if s.get("bg"):
+            imgs.append(s["bg"])
+        imgs += s.get("frames", [])
+    return sorted(set(imgs))
+
+
+def recent(state: dict, n: int) -> list[dict]:
+    rows = []
+    for pid, p in state["published"].items():
+        if "images" not in p and (POSTS / f"{pid}.json").exists():
+            p = {**p, "images": spec_images(load_spec(pid))}
+        rows.append(p)
+    rows.sort(key=lambda p: (p.get("local_date", ""), p.get("local_time", "")))
+    return rows[-n:]
+
+
+def staleness(spec: dict, state: dict) -> float:
+    """0 = completely fresh, 1 = looks like something we just posted."""
+    last = recent(state, CONFIG.get("freshness_window", 8))
+    used = {img for p in last for img in p.get("images", [])}
+    imgs = spec_images(spec)
+    overlap = len([i for i in imgs if i in used]) / len(imgs) if imgs else 0.0
+    same_fmt = sum(1 for p in last[-2:] if p.get("format") == spec.get("format"))
+    same_hook = sum(1 for p in last[-3:] if p.get("hook_style") == spec.get("hook_style"))
+    return min(1.0, 0.6 * overlap + 0.2 * same_fmt + 0.1 * same_hook)
+
+
+def pain_strength() -> dict:
+    """Mean interest per pain from the last insights run (empty if none yet)."""
+    try:
+        rows = json.loads((DATA / "insights_latest.json").read_text(encoding="utf-8"))["posts"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return {}
+    agg: dict = {}
+    for r in rows:
+        agg.setdefault(r.get("pain"), []).append(float(r.get("interest") or 0))
+    return {k: sum(v) / len(v) for k, v in agg.items()}
+
+
+def fallback_idea(state: dict) -> str | None:
+    """Safety net when the creative director has not queued anything:
+    pick the idea whose pain performs best and that looks least like recent posts."""
+    strength = pain_strength()
+    top = max(strength.values(), default=0) or 1.0
+    best = None
+    for f in sorted(POSTS.glob("*.json")):
+        spec = json.loads(f.read_text(encoding="utf-8"))
+        if spec.get("status") != "idea" or spec["id"] in state["published"]:
+            continue
+        val = strength.get(spec.get("pain"), top * 0.5) / top - 1.5 * staleness(spec, state)
+        if best is None or val > best[0]:
+            best = (val, spec["id"])
+    return best[1] if best else None
 
 
 def cmd_due() -> None:
@@ -242,8 +304,12 @@ def cmd_publish(post_id: str) -> None:
         "media_id": pub["id"], "permalink": info.get("permalink"), "timestamp": info.get("timestamp"),
         "local_date": now.date().isoformat(), "local_time": now.strftime("%H:%M"),
         "weekday": now.weekday(), "type": spec["type"], "format": spec.get("format"),
-        "hook_style": spec.get("hook_style"), "topic": spec.get("topic"),
-        "seconds": meta.get("seconds"),
+        "hook_style": spec.get("hook_style"), "topic": spec.get("topic"), "pain": spec.get("pain"),
+        "seconds": meta.get("seconds"), "images": spec_images(spec),
+        "hook": next((s.get("text") or s.get("title") for s in spec.get("slides", [])
+                      if s.get("text") or s.get("title")), ""),
+        "kinds": [s["kind"] for s in spec.get("slides", [])], "music": spec.get("music", "bed"),
+        "series": spec.get("series"),
     }
     save_state(state)
     spec["status"] = "published"
@@ -253,10 +319,10 @@ def cmd_publish(post_id: str) -> None:
 
 def cmd_prune() -> None:
     state = load_state()
-    cutoff = (datetime.now(TZ) - timedelta(days=3)).date().isoformat()
+    cutoff = (datetime.now(TZ) - timedelta(days=CONFIG.get("prune_after_days", 0))).date().isoformat()
     for pid, p in state["published"].items():
         d = MEDIA_DIR / pid
-        if d.exists() and p.get("local_date", "9999") < cutoff:
+        if d.exists() and p.get("local_date", "9999") <= cutoff:
             shutil.rmtree(d)
             print(f"Medien gelöscht: {pid}")
 
@@ -328,7 +394,8 @@ def cmd_engage() -> None:
 # --------------------------------------------------------------------------
 
 REEL_METRICS = ["views", "reach", "saved", "shares", "likes", "comments", "total_interactions",
-                "ig_reels_avg_watch_time", "ig_reels_video_view_total_time"]
+                "ig_reels_avg_watch_time", "ig_reels_video_view_total_time", "reels_skip_rate",
+                "follows", "profile_visits"]
 FEED_METRICS = ["views", "reach", "saved", "shares", "likes", "comments", "total_interactions",
                 "follows", "profile_visits"]
 
@@ -401,19 +468,33 @@ def cmd_insights() -> None:
         metrics = REEL_METRICS if p["type"] == "reel" else FEED_METRICS
         m = media_insights(p["media_id"], metrics)
         try:
-            p = {**p, "pain": load_spec(pid).get("pain") or load_spec(pid).get("topic")}
+            spec = load_spec(pid)
+            p = {"images": spec_images(spec), "kinds": [x["kind"] for x in spec.get("slides", [])],
+                 "music": spec.get("music", "bed"), "series": spec.get("series"),
+                 "hook": next((x.get("text") or x.get("title") for x in spec.get("slides", [])
+                               if x.get("text") or x.get("title")), ""),
+                 **p, "pain": spec.get("pain") or spec.get("topic")}
         except FileNotFoundError:
             pass
         row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic", "pain",
-                                                         "local_date", "local_time", "weekday", "seconds")}, **m}
+                                                         "local_date", "local_time", "weekday", "seconds",
+                                                         "images", "hook", "kinds", "music", "series",
+                                                         "permalink")}, **m}
+        if m.get("ig_reels_avg_watch_time"):
+            row["avg_watch_s"] = round(float(m["ig_reels_avg_watch_time"]) / 1000, 2)
         if p["type"] == "reel" and m.get("ig_reels_avg_watch_time") and p.get("seconds"):
             row["watch_ratio"] = round(float(m["ig_reels_avg_watch_time"]) / 1000 / float(p["seconds"]), 3)
         row["score"] = score(row)
         row["interest"] = interest(row)
         rows.append(row)
+    order = sorted(rows, key=lambda r: (r.get("local_date") or "", r.get("local_time") or ""))
+    for prev, r in zip([None] + order[:-1], order):     # minutes since the previous post
+        if prev and prev.get("local_date") == r.get("local_date") and prev.get("local_time") and r.get("local_time"):
+            h1, m1 = map(int, prev["local_time"].split(":")); h2, m2 = map(int, r["local_time"].split(":"))
+            r["gap_min"] = (h2 * 60 + m2) - (h1 * 60 + m1)
     today = datetime.now(TZ).date().isoformat()
     DATA.mkdir(parents=True, exist_ok=True)
-    snap = {"date": today, "account": acct, "posts": rows}
+    snap = {"date": today, "account": acct, "account_insights": account_insights(uid), "posts": rows}
     (DATA / "insights_latest.json").write_text(json.dumps(snap, ensure_ascii=False, indent=2), encoding="utf-8")
     hist = DATA / "followers.csv"
     new = not hist.exists()
@@ -424,6 +505,66 @@ def cmd_insights() -> None:
         w.writerow([today, acct.get("followers_count"), acct.get("media_count")])
     write_report(snap)
     print(f"{len(rows)} Beiträge ausgewertet, Follower: {acct.get('followers_count')}")
+
+
+def account_insights(uid: str) -> dict:
+    """Account-level signals: daily reach/profile views and where the audience lives."""
+    out: dict = {}
+    for metric in ("reach", "profile_views", "accounts_engaged", "follows_and_unfollows", "website_clicks"):
+        try:
+            res = api("GET", f"{uid}/insights", metric=metric, period="day", metric_type="total_value")
+            item = res["data"][0]
+            out[metric] = item.get("total_value", {}).get("value")
+        except (RuntimeError, IndexError, KeyError):
+            continue
+    for metric, key in (("engaged_audience_demographics", "engaged_cities"), ("follower_demographics", "follower_cities")):
+        try:
+            res = api("GET", f"{uid}/insights", metric=metric, period="lifetime", timeframe="this_month",
+                      breakdown="city", metric_type="total_value")
+            res_b = res["data"][0]["total_value"]["breakdowns"][0]["results"]
+            out[key] = sorted(({"city": r["dimension_values"][0], "n": r["value"]} for r in res_b),
+                              key=lambda x: -x["n"])[:8]
+        except (RuntimeError, IndexError, KeyError):
+            continue
+    return out
+
+
+def deep_report(snap: dict, rows: list[dict]) -> list[str]:
+    """What the creative director needs: hooks that held people, fatigue, cadence, audience."""
+    out = ["", "## Hooks: was hält, was nicht", ""]
+    reels = [r for r in rows if r.get("type") == "reel"]
+    for r in sorted(reels, key=lambda r: -(r.get("interest") or 0))[:3]:
+        out.append(f"- TOP {r['post_id']}: „{r.get('hook', '')}“ · Ø {r.get('avg_watch_s', '–')} s von "
+                   f"{r.get('seconds', '–')} s · Skip {r.get('reels_skip_rate', '–')} · Reichweite {r.get('reach', '–')}")
+    for r in sorted(reels, key=lambda r: (r.get("interest") or 0))[:3]:
+        out.append(f"- FLOP {r['post_id']}: „{r.get('hook', '')}“ · Ø {r.get('avg_watch_s', '–')} s · "
+                   f"Skip {r.get('reels_skip_rate', '–')} · Reichweite {r.get('reach', '–')}")
+    gaps = [r for r in rows if r.get("gap_min") is not None]
+    if gaps:
+        close = [r for r in gaps if r["gap_min"] < 90]
+        far = [r for r in gaps if r["gap_min"] >= 90]
+        avg = lambda xs: sum(float(x.get("reach") or 0) for x in xs) / len(xs) if xs else 0
+        out += ["", "## Abstand zwischen Posts", "",
+                f"- < 90 min nach dem vorigen Post: Ø Reichweite {avg(close):.1f} (n={len(close)})",
+                f"- ≥ 90 min: Ø Reichweite {avg(far):.1f} (n={len(far)})"]
+    img: dict = {}
+    for r in rows:
+        for i in r.get("images") or []:
+            img.setdefault(i, []).append(float(r.get("interest") or 0))
+    if img:
+        out += ["", "## Bilder (Ø Interesse, Anzahl Einsätze)", ""]
+        for i, v in sorted(img.items(), key=lambda kv: -sum(kv[1]) / len(kv[1]))[:12]:
+            out.append(f"- {i}: {sum(v) / len(v):.1f} (n={len(v)})")
+    ai = snap.get("account_insights") or {}
+    if ai:
+        out += ["", "## Konto (heute)", ""]
+        for k in ("reach", "profile_views", "accounts_engaged", "website_clicks", "follows_and_unfollows"):
+            if k in ai:
+                out.append(f"- {k}: {ai[k]}")
+        for key in ("engaged_cities", "follower_cities"):
+            if ai.get(key):
+                out.append(f"- {key}: " + ", ".join(f"{c['city']} ({c['n']})" for c in ai[key]))
+    return out
 
 
 def write_report(snap: dict) -> None:
@@ -437,7 +578,8 @@ def write_report(snap: dict) -> None:
                      f"{r.get('reach', '–')} | {r.get('views', '–')} | {r.get('likes', '–')} | {r.get('comments', '–')} | "
                      f"{r.get('saved', '–')} | {r.get('shares', '–')} | {r.get('watch_ratio', '–')} | {r.get('interest', 0)} |")
     lines += pain_report(rows)
-    for key in ("format", "hook_style", "pain", "local_time"):
+    lines += deep_report(snap, rows)
+    for key in ("format", "hook_style", "pain", "local_time", "music"):
         agg: dict = {}
         for r in rows:
             agg.setdefault(r.get(key), []).append(r.get("interest", 0))
