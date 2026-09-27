@@ -540,7 +540,8 @@ def render_carousel(spec: dict, out_dir: Path) -> dict:
             d = ImageDraw.Draw(img)
             f = font("SemiBold", 40)
             hint = "Swipe →"
-            d.text((W - MARGIN_X - d.textlength(hint, font=f), H_CAROUSEL - 110), hint, font=f, fill=B["accent"])
+            d.text((W - MARGIN_X - d.textlength(hint, font=f), H_CAROUSEL - 110), hint, font=f,
+                   fill=(255, 255, 255) if s.get("bg") else B["accent"])
         name = f"slide_{i + 1:02d}.jpg"
         img.convert("RGB").save(out_dir / name, quality=92)
         files.append(name)
