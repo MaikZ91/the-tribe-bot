@@ -269,6 +269,16 @@ def caption_for(spec: dict) -> str:
     return "\n".join(parts)[:2150]
 
 
+def quota_left(uid: str) -> int:
+    """Remaining API publishes in the rolling 24 h window (stories must never starve the reels)."""
+    try:
+        res = api("GET", f"{uid}/content_publishing_limit", fields="quota_usage,config")
+        item = res["data"][0]
+        return int(item.get("config", {}).get("quota_total", 100)) - int(item.get("quota_usage", 0))
+    except (RuntimeError, IndexError, KeyError, ValueError):
+        return 100
+
+
 def cmd_publish(post_id: str) -> None:
     spec = load_spec(post_id)
     meta = json.loads((MEDIA_DIR / post_id / "meta.json").read_text(encoding="utf-8"))
@@ -290,7 +300,7 @@ def cmd_publish(post_id: str) -> None:
     wait_container(cid)
     pub = api("POST", f"{uid}/media_publish", creation_id=cid)
     info = api("GET", pub["id"], fields="permalink,timestamp")
-    if spec["type"] == "reel" and CONFIG.get("story_repost", True):
+    if spec["type"] == "reel" and CONFIG.get("story_repost", True) and quota_left(uid) > 10:
         try:   # same video as a story -> reaches existing followers first
             st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
             wait_container(st["id"], minutes=8)
