@@ -40,6 +40,54 @@ def hex_rgb(h: str) -> tuple[int, int, int]:
 
 
 B = {k: hex_rgb(v) for k, v in CONFIG["brand"].items()}
+B["accent_text"] = B["accent"]
+LIGHT = dict(B)
+DARK = dict(B, text=(255, 255, 255), muted=(226, 230, 238), bg=(16, 18, 24), accent_text=(147, 197, 253))
+INK = (10, 10, 10)          # text on white cards, independent of the theme
+
+
+def use_theme(dark: bool) -> None:
+    """Switch the palette in place (photo slides use light text on dark)."""
+    B.clear()
+    B.update(DARK if dark else LIGHT)
+
+
+_PHOTOS: dict = {}
+
+
+def photo(path: str) -> Image.Image:
+    if path not in _PHOTOS:
+        _PHOTOS[path] = Image.open(ROOT / path).convert("RGB")
+    return _PHOTOS[path]
+
+
+_OVERLAYS: dict = {}
+
+
+def overlay(h: int) -> Image.Image:
+    """Dark gradient so white text stays readable on any photo."""
+    if h not in _OVERLAYS:
+        a = np.linspace(0, 1, h)[:, None]
+        mid = np.exp(-((a - 0.45) ** 2) / 0.05)          # a bit darker where the text sits
+        alpha = (55 + 70 * mid + 120 * a ** 2.2).clip(0, 225).astype(np.uint8)
+        arr = np.zeros((h, W, 4), dtype=np.uint8)
+        arr[..., 0:3] = (8, 12, 28)
+        arr[..., 3] = np.repeat(alpha, W, axis=1)
+        _OVERLAYS[h] = Image.fromarray(arr, "RGBA")
+    return _OVERLAYS[h]
+
+
+def ken_burns(path: str, h: int, p: float, seed: int) -> Image.Image:
+    """Slow zoom + pan over a photo, cover-fitted to W x h."""
+    src = photo(path)
+    z = 1.04 + 0.12 * p
+    scale = max(W / src.width, h / src.height) * z
+    tw, th = int(src.width * scale), int(src.height * scale)
+    dx = (tw - W) * (0.5 + 0.35 * math.sin(seed + p * 1.3) * (1 if seed % 2 else -1) * p)
+    dy = (th - h) * (0.5 - 0.25 * p)
+    img = src.resize((tw, th), Image.BILINEAR).crop((int(dx), int(dy), int(dx) + W, int(dy) + h))
+    img.paste(overlay(h), (0, 0), overlay(h))
+    return img
 
 
 def font(weight: str, size: int) -> ImageFont.FreeTypeFont:
@@ -196,11 +244,14 @@ class Canvas:
         self.blob = blob.filter(ImageFilter.GaussianBlur(160))
         self.small = font("Medium", 34)
 
-    def base(self, t: float, page: str | None = None) -> Image.Image:
-        img = Image.new("RGB", (W, self.h), B["bg"])
-        x = int(W * 0.55 + 180 * math.sin(t * 0.25 + self.blob_phase)) - 700
-        y = int(self.h * 0.35 + 140 * math.cos(t * 0.2 + self.blob_phase)) - 700
-        img.paste(self.blob, (x, y), self.blob)
+    def base(self, t: float, page: str | None = None, bg: str | None = None, p: float = 1.0) -> Image.Image:
+        if bg:
+            img = ken_burns(bg, self.h, p, int(self.blob_phase * 1000))
+        else:
+            img = Image.new("RGB", (W, self.h), B["bg"])
+            x = int(W * 0.55 + 180 * math.sin(t * 0.25 + self.blob_phase)) - 700
+            y = int(self.h * 0.35 + 140 * math.cos(t * 0.2 + self.blob_phase)) - 700
+            img.paste(self.blob, (x, y), self.blob)
         d = ImageDraw.Draw(img)
         top = 150 if self.h == H_REEL else 70
         d.ellipse([MARGIN_X, top + 6, MARGIN_X + 22, top + 28], fill=B["accent"])
@@ -222,7 +273,10 @@ def text_block(d, lines, f, x, y, color, t, start, stagger=0.09, line_gap=1.18):
         if a <= 0:
             continue
         col = blend(B["bg"], color, a)
-        d.text((x, y + i * lh + int((1 - a) * 40)), line, font=f, fill=col)
+        yy = y + i * lh + int((1 - a) * 40)
+        if B is not None and B.get("text") == (255, 255, 255):
+            d.text((x + 3, yy + 4), line, font=f, fill=(0, 0, 0))
+        d.text((x, yy), line, font=f, fill=col)
     return y + len(lines) * lh
 
 
@@ -291,7 +345,7 @@ def slide_flow(img, s, t, dur, h):
         ty = cy - len(lines) * 29
         for j, line in enumerate(lines):
             d.text((MARGIN_X + 150, ty + j * 58), line, font=fs,
-                   fill=blend((150, 150, 150), B["text"], max(active, 0.35 if t < on_at else 1)))
+                   fill=blend((150, 150, 150), INK, max(active, 0.35 if t < on_at else 1)))
         if i < n - 1 and appear >= 1:
             ax = W // 2
             d.polygon([(ax - 18, top + card_h + gap // 2 - 8), (ax + 18, top + card_h + gap // 2 - 8),
@@ -310,7 +364,7 @@ def slide_stat(img, s, t, dur, h):
     shown = value * ease(t / max(0.9, dur * 0.5))
     txt = f"{shown:,.0f}".replace(",", ".") + s.get("suffix", "")
     y = h // 2 - 260
-    d.text((MARGIN_X, y), txt, font=fbig, fill=B["accent"])
+    d.text((MARGIN_X, y), txt, font=fbig, fill=B["accent_text"])
     y = text_block(d, wrap(d, s.get("label", ""), fl, W - 2 * MARGIN_X), fl, MARGIN_X, y + 270, B["text"], t, 0.3)
     if s.get("note"):
         text_block(d, wrap(d, s["note"], ff, W - 2 * MARGIN_X), ff, MARGIN_X, y + 30, B["muted"], t, 0.6)
@@ -381,9 +435,25 @@ RENDERERS = {"hook": slide_hook, "point": slide_point, "flow": slide_flow,
 
 
 def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None = None) -> Image.Image:
-    img = canvas.base(t, page)
+    bg = s.get("bg")
+    use_theme(bool(bg))
+    img = canvas.base(t, page, bg, min(1.0, t / max(dur, 0.1)))
     RENDERERS[s["kind"]](img, s, t, dur, canvas.h)
+    use_theme(False)
     return img
+
+
+def apply_bg(spec: dict) -> None:
+    """Spec-level `bg` (one path or a list) fills slides without their own."""
+    pool = spec.get("bg")
+    if not pool:
+        return
+    pool = [pool] if isinstance(pool, str) else pool
+    k = 0
+    for s in spec["slides"]:
+        if s["kind"] != "clip" and "bg" not in s:
+            s["bg"] = pool[k % len(pool)]
+            k += 1
 
 
 # --------------------------------------------------------------------------
@@ -422,6 +492,7 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     cover = None
     bar_y = H_REEL - 70
     elapsed = 0.0
+    prev = None
     for s, dur in zip(spec["slides"], durs):
         if s["kind"] == "clip":
             frames = clip_frames(clip_path(s), H_REEL)
@@ -436,6 +507,8 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
                         draw_clip_caption(img, text, ease((t - c0) / 0.3))
             else:
                 img = draw_slide(canvas, s, t, dur)
+            if k < 7 and prev is not None:          # soft crossfade between slides
+                img = Image.blend(prev, img, (k + 1) / 8)
             d = ImageDraw.Draw(img)
             prog = (elapsed + t) / total
             d.rectangle([0, bar_y, W, bar_y + 8], fill=(214, 214, 214))
@@ -443,6 +516,7 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
             if cover is None and s is spec["slides"][0] and t >= dur - 1 / FPS:
                 cover = img.copy()
             proc.stdin.write(img.tobytes())
+        prev = img.copy()
         elapsed += dur
     for _ in range(int(0.3 * FPS)):
         proc.stdin.write(img.tobytes())
@@ -474,6 +548,8 @@ def render_carousel(spec: dict, out_dir: Path) -> dict:
 
 
 def render(spec: dict, out_dir: Path) -> dict:
+    spec = json.loads(json.dumps(spec))
+    apply_bg(spec)
     if spec["type"] == "reel":
         return render_reel(spec, out_dir)
     if spec["type"] == "carousel":
