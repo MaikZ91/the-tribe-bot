@@ -523,8 +523,253 @@ def beat_track(seconds: float, bpm: int, seed: int) -> np.ndarray:
     return (out * 0.92).astype(np.float32)
 
 
+
+# --------------------------------------------------------------------------
+# Motion graphics: icons, automation pipeline, editing timeline
+# --------------------------------------------------------------------------
+
+# Line icons on a 24x24 grid: ("l", points) polyline, ("c", cx, cy, r) circle,
+# ("r", x0, y0, x1, y1, radius) rounded rect, ("p", points) closed polygon.
+ICONS = {
+    "camera": [("r", 3, 7, 21, 19, 2.5), ("c", 12, 13, 3.6), ("l", [(8, 7), (9.5, 4.5), (14.5, 4.5), (16, 7)])],
+    "video": [("r", 2, 6, 16, 18, 2.5), ("p", [(16, 10), (22, 7), (22, 17), (16, 14)])],
+    "scissors": [("c", 6, 6, 3), ("c", 6, 18, 3), ("l", [(8.4, 7.8), (20, 18)]), ("l", [(8.4, 16.2), (20, 6)])],
+    "captions": [("r", 3, 5, 21, 19, 2.5), ("l", [(7, 11), (17, 11)]), ("l", [(7, 15), (13, 15)])],
+    "send": [("p", [(3, 11), (21, 3), (13, 21), (11, 13)]), ("l", [(11, 13), (21, 3)])],
+    "chart": [("l", [(3, 20), (21, 20)]), ("l", [(6, 16), (10, 11), (13, 14), (18, 7)])],
+    "chat": [("r", 3, 4, 21, 16, 3), ("l", [(8, 16), (6, 21), (12, 16)])],
+    "target": [("c", 12, 12, 9), ("c", 12, 12, 5), ("c", 12, 12, 1.5)],
+    "calendar": [("r", 3, 5, 21, 21, 2.5), ("l", [(3, 10), (21, 10)]), ("l", [(8, 3), (8, 7)]), ("l", [(16, 3), (16, 7)])],
+    "check": [("l", [(5, 12.5), (10, 17), (19, 7)])],
+    "image": [("r", 3, 4, 21, 20, 2.5), ("c", 8.5, 9.5, 1.8), ("l", [(3, 17), (9, 12), (13, 15), (16, 13), (21, 17)])],
+    "bot": [("r", 5, 8, 19, 19, 3), ("c", 9.5, 13.5, 1.2), ("c", 14.5, 13.5, 1.2), ("l", [(12, 8), (12, 4.5)]), ("c", 12, 3.5, 1)],
+    "idea": [("c", 12, 10, 6), ("l", [(9.5, 16), (9.5, 19), (14.5, 19), (14.5, 16)]), ("l", [(10.5, 21.5), (13.5, 21.5)])],
+    "phone": [("r", 7, 2, 17, 22, 2.5), ("l", [(11, 18.5), (13, 18.5)])],
+    "tag": [("p", [(3, 3), (12, 3), (21, 12), (12, 21), (3, 12)]), ("c", 7.5, 7.5, 1.3)],
+}
+
+
+def draw_icon(d, name: str, cx: float, cy: float, size: float, color, width: int = 5) -> None:
+    k = size / 24.0
+    ox, oy = cx - size / 2, cy - size / 2
+    P = lambda x, y: (ox + x * k, oy + y * k)
+    for part in ICONS.get(name, ICONS["check"]):
+        if part[0] == "l":
+            d.line([P(*pt) for pt in part[1]], fill=color, width=width, joint="curve")
+        elif part[0] == "p":
+            pts = [P(*pt) for pt in part[1]]
+            d.line(pts + [pts[0]], fill=color, width=width, joint="curve")
+        elif part[0] == "c":
+            x, y = P(part[1], part[2]); r = part[3] * k
+            d.ellipse([x - r, y - r, x + r, y + r], outline=color, width=width)
+        elif part[0] == "r":
+            x0, y0 = P(part[1], part[2]); x1, y1 = P(part[3], part[4])
+            d.rounded_rectangle([x0, y0, x1, y1], part[5] * k, outline=color, width=width)
+
+
+def glow_dot(img: Image.Image, x: float, y: float, r: float, color) -> None:
+    """Soft glowing packet travelling along a connector."""
+    d = ImageDraw.Draw(img, "RGBA")
+    for rr, a in ((r * 3.2, 40), (r * 2.2, 80), (r * 1.4, 150)):
+        d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=tuple(color) + (a,))
+    d.ellipse([x - r, y - r, x + r, y + r], fill=(255, 255, 255, 255))
+
+
+def slide_pipeline(img, s, t, dur, h):
+    """Automation chain: nodes light up one after another, packets flow between them."""
+    d = ImageDraw.Draw(img)
+    nodes = s["nodes"]
+    n = len(nodes)
+    reel = h == H_REEL
+    ft, fl, fs = font_c("Bold", 70 if reel else 60), font_c("Bold", 50 if reel else 40), font_c("Medium", 34 if reel else 28)
+    card_h = (168 if reel else 118) if n <= 5 else (132 if reel else 100)
+    gap = (62 if reel else 34) if n <= 5 else (44 if reel else 26)
+    title = wrap(d, s.get("title", ""), ft, W - 2 * MARGIN_X) if s.get("title") else []
+    badge_h = 110 if s.get("badge") else 0
+    total = len(title) * int(ft.size * 1.15) + (56 if title else 0) + n * card_h + (n - 1) * gap + badge_h
+    y = (h - total) // 2 - (30 if reel else -10)
+    y = text_block(d, title, ft, MARGIN_X, y, B["text"], t, 0.0, line_gap=1.15) + (56 if title else 0)
+    step = max(0.55, (dur - 1.6) / max(n, 1))
+    on = [0.45 + i * step for i in range(n)]
+    ix = MARGIN_X + 82                                      # icon column / connector x
+    tops = [y + i * (card_h + gap) for i in range(n)]
+    for i, node in enumerate(nodes):
+        appear = ease((t - 0.15 - i * 0.08) / 0.4)
+        if appear <= 0:
+            continue
+        active = ease((t - on[i]) / 0.3)
+        top = tops[i] + int((1 - appear) * 30)
+        pop = 1 + 0.04 * math.sin(min(1.0, max(0.0, (t - on[i]) / 0.35)) * math.pi)
+        dx = (W - 2 * MARGIN_X) * (pop - 1) / 2
+        d.rounded_rectangle([MARGIN_X - dx, top, W - MARGIN_X + dx, top + card_h], 36,
+                            fill=blend(B["bg"], B["card"], appear), outline=blend(B["card"], B["accent"], active), width=5)
+        cy, r = top + card_h // 2, card_h * 0.30
+        d.ellipse([ix - r, cy - r, ix + r, cy + r], fill=blend((226, 230, 238), B["accent"], active))
+        draw_icon(d, node.get("icon", "check"), ix, cy, r * 1.15, blend((90, 96, 110), (255, 255, 255), active), 5)
+        label, sub = node.get("label", ""), node.get("sub", "")
+        tx = ix + r + 40
+        room = W - MARGIN_X - 100 - tx                      # keep clear of the done badge
+        size = fl.size
+        while size > 26 and d.textlength(label, font=font_c("Bold", size)) > room:
+            size -= 2
+        fl = font_c("Bold", size)
+        col = blend((150, 150, 150), INK, max(active, 0.45))
+        if sub:
+            d.text((tx, cy - fl.size + 2), label, font=fl, fill=col)
+            d.text((tx, cy + 10), sub, font=fs, fill=blend((170, 170, 170), (95, 100, 112), max(active, 0.4)))
+        else:
+            d.text((tx, cy - fl.size * 0.62), label, font=fl, fill=col)
+        if active >= 1:                                    # done badge on the right
+            bx, br = W - MARGIN_X - 58, 24
+            d.ellipse([bx - br, cy - br, bx + br, cy + br], fill=(46, 139, 87))
+            d.line([(bx - 11, cy + 1), (bx - 3, cy + 9), (bx + 12, cy - 8)], fill=(255, 255, 255), width=5, joint="curve")
+    for i in range(n - 1):                                  # connectors + packets
+        if t < 0.3 + (i + 1) * 0.08:
+            continue
+        y0, y1 = tops[i] + card_h, tops[i + 1]
+        done = ease((t - on[i]) / max(0.2, on[i + 1] - on[i]))
+        d.line([(ix, y0), (ix, y1)], fill=(205, 210, 220), width=6)
+        if done > 0:
+            d.line([(ix, y0), (ix, y0 + (y1 - y0) * done)], fill=B["accent"], width=6)
+        if 0 < done < 1:
+            glow_dot(img, ix, y0 + (y1 - y0) * done, 9, B["accent2"])
+        elif t > on[-1] + 0.3 and t < 90:                   # steady flow once the chain runs
+            ph = ((t * 1.3 + i * 0.37) % 1.0)
+            glow_dot(img, ix, y0 + (y1 - y0) * ph, 7, B["accent2"])
+    if s.get("badge"):
+        a = ease((t - on[-1] - 0.35) / 0.4)
+        if a > 0:
+            fb = font_c("Bold", 44 if reel else 38)
+            bw = d.textlength(s["badge"], font=fb) + 110
+            by = tops[-1] + card_h + 44 + int((1 - a) * 24)
+            bx = (W - bw) / 2
+            d.rounded_rectangle([bx, by, bx + bw, by + 84], 42, fill=blend(B["bg"], (10, 10, 10), a))
+            d.ellipse([bx + 34, by + 32, bx + 54, by + 52], fill=blend((10, 10, 10), (46, 200, 110), a * (0.6 + 0.4 * math.sin(t * 6) ** 2)))
+            d.text((bx + 72, by + 18), s["badge"], font=fb, fill=blend((10, 10, 10), (255, 255, 255), a))
+
+
+_CROPS: dict = {}
+
+
+def cover_crop(path: str, w: int, h: int) -> Image.Image:
+    key = (path, w, h)
+    if key not in _CROPS:
+        im = photo(path)
+        sc = max(w * 1.15 / im.width, h * 1.15 / im.height)
+        _CROPS[key] = im.resize((int(im.width * sc), int(im.height * sc)), Image.LANCZOS)
+    return _CROPS[key]
+
+
+def slide_timeline(img, s, t, dur, h):
+    """Auto-editing: raw footage -> pauses cut -> captions -> all formats."""
+    d = ImageDraw.Draw(img, "RGBA")
+    reel = h == H_REEL
+    x0, x1 = 60, W - 60
+    top = 300 if reel else 150
+    bottom = h - (360 if reel else 110)
+    d.rounded_rectangle([x0, top, x1, bottom], 40, fill=(18, 20, 26))
+    for k, c in enumerate(((255, 95, 86), (255, 189, 46), (39, 201, 63))):
+        d.ellipse([x0 + 34 + k * 34, top + 30, x0 + 54 + k * 34, top + 50], fill=c)
+    fm = font_c("Medium", 30)
+    d.text((x0 + 150, top + 22), s.get("file", "baustelle_rohmaterial.mp4"), font=fm, fill=(150, 156, 170))
+    T = t if t < 90 else dur
+    ph = min(3.999, max(0.0, T / dur * 4.0))                # phase 0..3
+    stage, local = int(ph), ph - int(ph)
+    # preview monitor
+    pw, phh = x1 - x0 - 80, int((x1 - x0 - 80) * (0.62 if reel else 0.5))
+    px, py = x0 + 40, top + 80
+    frames = s.get("frames") or []
+    if frames:
+        src = cover_crop(frames[min(len(frames) - 1, int(T / dur * len(frames)))], pw, phh)
+        z = 1 + 0.06 * (T % 2.5) / 2.5
+        cw, ch = int(pw / z), int(phh / z)
+        ox, oy = (src.width - cw) // 2, (src.height - ch) // 2
+        img.paste(src.crop((ox, oy, ox + cw, oy + ch)).resize((pw, phh)), (px, py))
+    else:
+        d.rectangle([px, py, px + pw, py + phh], fill=(40, 44, 54))
+    d.rectangle([px, py, px + pw, py + phh], outline=(60, 64, 76), width=3)
+    if stage >= 2:                                          # burnt-in caption preview
+        caps = s.get("captions", ["So läuft das ab", "automatisch geschnitten"])
+        cap = caps[int(T * 1.6) % len(caps)]
+        fc = font_c("Bold", 46 if reel else 38)
+        cw = d.textlength(cap, font=fc)
+        a = ease((ph - 2) / 0.2)
+        d.rounded_rectangle([px + (pw - cw) / 2 - 24, py + phh - 110, px + (pw + cw) / 2 + 24, py + phh - 40], 18,
+                            fill=(10, 10, 10, int(210 * a)))
+        d.text((px + (pw - cw) / 2, py + phh - 104), cap, font=fc, fill=(255, 255, 255, int(255 * a)))
+    # tracks
+    ty = py + phh + 60
+    tl_x0, tl_x1 = x0 + 110, x1 - 40
+    track_h, tgap = (74, 26) if reel else (56, 16)
+    fl = font_c("SemiBold", 28)
+    for k, name in enumerate(("V1", "A1", "T1")):
+        d.text((x0 + 36, ty + k * (track_h + tgap) + track_h / 2 - 16), name, font=fl, fill=(130, 136, 150))
+        d.rounded_rectangle([tl_x0, ty + k * (track_h + tgap), tl_x1, ty + k * (track_h + tgap) + track_h], 12,
+                            fill=(30, 33, 41))
+    rng = np.random.default_rng(7)
+    segs = [(0.0, 0.17), (0.25, 0.44), (0.52, 0.63), (0.72, 0.92)]          # speech parts of the raw clip
+    total_speech = sum(b - a for a, b in segs)
+    squeeze = 0.0 if stage == 0 else (ease(local / 0.8) if stage == 1 else 1.0)
+    span = tl_x1 - tl_x0
+    pos, cur = [], 0.0
+    for a, b in segs:                                       # compacted layout blends from raw positions
+        ca, cb = cur, cur + (b - a) / total_speech * 0.96
+        pos.append((a + (ca - a) * squeeze, b + (cb - b) * squeeze))
+        cur = cb + 0.0133
+    vy, ay, cy_ = ty, ty + track_h + tgap, ty + 2 * (track_h + tgap)
+    for k, (a, b) in enumerate(pos):
+        xa, xb = tl_x0 + a * span, tl_x0 + b * span
+        d.rounded_rectangle([xa + 2, vy + 6, xb - 2, vy + track_h - 6], 10, fill=B["accent"])
+        n_bars = max(4, int((xb - xa) / 12))
+        amp = rng.uniform(0.3, 1.0, n_bars)
+        for j in range(n_bars):
+            bx = xa + 6 + j * (xb - xa - 12) / n_bars
+            hh = (track_h - 18) * amp[j] * (0.6 + 0.4 * math.sin(j * 0.9 + k))
+            d.line([(bx, ay + track_h / 2 - hh / 2), (bx, ay + track_h / 2 + hh / 2)], fill=(120, 200, 255), width=5)
+    if stage == 0:                                          # silent gaps marked red
+        for (a, _), (b, _) in zip([(sg[1], 0) for sg in segs[:-1]], [(sg[0], 0) for sg in segs[1:]]):
+            al = int(120 + 100 * abs(math.sin(T * 5)))
+            d.rounded_rectangle([tl_x0 + a * span + 3, vy + 6, tl_x0 + b * span - 3, ay + track_h - 6], 10,
+                                fill=(192, 57, 43, al))
+    if stage >= 2:                                          # caption blocks pop in
+        for k, (a, b) in enumerate(pos):
+            ap = ease((ph - 2 - k * 0.12) / 0.25)
+            if ap > 0:
+                d.rounded_rectangle([tl_x0 + a * span + 4, cy_ + 8 + (1 - ap) * 20, tl_x0 + b * span - 4, cy_ + track_h - 8],
+                                    10, fill=(239, 125, 0, int(255 * ap)))
+    play = tl_x0 + span * (local if stage != 1 else 0.96 * local)
+    d.line([(play, ty - 16), (play, cy_ + track_h + 10)], fill=(255, 255, 255), width=4)
+    d.polygon([(play - 14, ty - 30), (play + 14, ty - 30), (play, ty - 12)], fill=(255, 255, 255))
+    # format tiles in the last phase
+    fy = cy_ + track_h + (50 if reel else 26)
+    if stage >= 3:
+        specs = [("9:16", 0.5625), ("1:1", 1.0), ("16:9", 1.78)]
+        bh = 130 if reel else 90
+        widths = [bh * r for _, r in specs]
+        gx = (W - sum(widths) - 2 * 50) / 2
+        for k, ((lab, r), bw) in enumerate(zip(specs, widths)):
+            ap = ease((ph - 3 - k * 0.1) / 0.2)
+            if ap > 0:
+                yy = fy + (1 - ap) * 30
+                d.rounded_rectangle([gx, yy, gx + bw, yy + bh], 14, fill=(59, 130, 255, int(90 * ap)),
+                                    outline=(255, 255, 255, int(255 * ap)), width=4)
+                fb = font_c("Bold", 32)
+                d.text((gx + (bw - d.textlength(lab, font=fb)) / 2, yy + bh + 10), lab, font=fb, fill=(255, 255, 255, int(255 * ap)))
+            gx += bw + 50
+    # stage label
+    labels = s.get("labels", ["Rohmaterial rein", "Pausen & Versprecher raus", "Untertitel automatisch", "Fertig für jedes Format"])
+    lab = labels[stage]
+    fb = font_c("Bold", 54 if reel else 44)
+    la = ease(local / 0.15) if t < 90 else 1.0
+    lw = d.textlength(lab, font=fb)
+    ly = bottom + 50 if reel else top - 80
+    d.rounded_rectangle([(W - lw) / 2 - 36, ly - 14, (W + lw) / 2 + 36, ly + fb.size + 22], 40,
+                        fill=B["accent"] + (int(255 * la),))
+    d.text(((W - lw) / 2, ly), lab, font=fb, fill=(255, 255, 255, int(255 * la)))
+
 RENDERERS = {"beat": slide_beat, "hook": slide_hook, "point": slide_point, "flow": slide_flow,
-             "stat": slide_stat, "cta": slide_cta}
+             "stat": slide_stat, "cta": slide_cta,
+             "pipeline": slide_pipeline, "timeline": slide_timeline}
 
 
 def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None = None) -> Image.Image:

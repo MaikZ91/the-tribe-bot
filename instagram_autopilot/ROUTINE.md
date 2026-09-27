@@ -57,3 +57,11 @@ Regeln: siehe `README.md` (keine erfundenen Kunden/Ergebnisse/Preise, keine KI-M
 kein Kontakt zu Dritten, nichts an anderen Workflows oder an The Tribe ändern).
 Wenn die Secrets fehlen oder die Workflows fehlschlagen: nichts erzwingen, Problem in der
 Mail beschreiben.
+
+## Positionierung (Stand 27.09.)
+
+KI-Agentur für **Prozesse & Media**. Neben den Prozess-Themen gehören fest in den Mix:
+Video-Schnitt automatisch, Fotos automatisch aufbereiten, Social Media automatisch posten,
+Lead-Agent (Anfragen sofort beantworten, qualifizieren, Termin vorschlagen).
+Für Abläufe die Slide-Arten `pipeline` (Knoten mit Icons, leuchten nacheinander auf) und
+`timeline` (automatischer Videoschnitt) nutzen. Pains dafür: `media`, `leads`, `social-media`.
