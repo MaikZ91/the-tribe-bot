@@ -83,6 +83,6 @@ jobs:
         if: always() && steps.due.outputs.id != ''
         run: |
           python instagram_autopilot/autopilot.py prune || true
-          git add -A instagram_autopilot/data instagram_autopilot/posts docs/ig-media
+          git add -A instagram_autopilot/ docs/ig-media/
           git diff --cached --quiet || git commit -m "ig-autopilot: ${{ steps.due.outputs.id }} gepostet"
           git pull --rebase -q && git push
