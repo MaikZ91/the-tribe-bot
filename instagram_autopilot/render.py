@@ -24,9 +24,10 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-ROOT = Path(__file__).resolve().parent
+CODE = Path(__file__).resolve().parent
+ROOT = Path(os.getenv("AUTOPILOT_HOME") or CODE).resolve()   # account folder: config, posts, images
 CONFIG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
-FONT_DIR = ROOT / "fonts"
+FONT_DIR = CODE / "fonts"
 VOICE_DIR = Path(os.getenv("PIPER_VOICE_DIR", ROOT / ".voices"))
 FPS = 30
 SR = 48000
@@ -40,6 +41,7 @@ def hex_rgb(h: str) -> tuple[int, int, int]:
 
 
 B = {k: hex_rgb(v) for k, v in CONFIG["brand"].items()}
+B.setdefault("accent_ink", (255, 255, 255))
 B["accent_text"] = B["accent"]
 LIGHT = dict(B)
 DARK = dict(B, text=(255, 255, 255), muted=(226, 230, 238), bg=(16, 18, 24), accent_text=(147, 197, 253))
@@ -91,7 +93,8 @@ def ken_burns(path: str, h: int, p: float, seed: int) -> Image.Image:
 
 
 def font(weight: str, size: int) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(str(FONT_DIR / f"Geist-{weight}.ttf"), size)
+    custom = CONFIG.get("fonts", {}).get(weight)          # e.g. a display face per account
+    return ImageFont.truetype(str(ROOT / custom if custom else FONT_DIR / f"Geist-{weight}.ttf"), size)
 
 
 def ffmpeg_exe() -> str:
@@ -474,11 +477,14 @@ def slide_beat(img, s, t, dur, h):
                 word = w.strip("*")
                 wx = x + (ww - d.textlength(word, font=f)) / 2
                 wy = y0 + li * lh - (f.size - size) / 2
-                if w.startswith("*"):
-                    d.rounded_rectangle([x - 14, y0 + li * lh - 4, x + ww + 14, y0 + li * lh + size + 18], 18,
-                                        fill=B["accent"])
-                d.text((wx + 4, wy + 5), word, font=f, fill=(0, 0, 0))
-                d.text((wx, wy), word, font=f, fill=(255, 255, 255))
+                if w.startswith("*"):                     # box hugs the real glyphs (any font)
+                    bb = d.textbbox((x, y0 + li * lh), word, font=base)
+                    d.rounded_rectangle([bb[0] - 14, bb[1] - 12, bb[2] + 14, bb[3] + 14], 18, fill=B["accent"])
+                if w.startswith("*") and B["accent_ink"] != (255, 255, 255):
+                    d.text((wx, wy), word, font=f, fill=B["accent_ink"])
+                else:
+                    d.text((wx + 4, wy + 5), word, font=f, fill=(0, 0, 0))
+                    d.text((wx, wy), word, font=f, fill=(255, 255, 255))
             x += ww + space
             i += 1
     if s.get("small"):

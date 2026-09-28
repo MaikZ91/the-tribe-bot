@@ -31,11 +31,12 @@ import requests
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
-CONFIG = json.loads((HERE / "config.json").read_text(encoding="utf-8"))
-POSTS = HERE / "posts"
-DATA = HERE / "data"
+HOME = Path(os.getenv("AUTOPILOT_HOME") or HERE).resolve()   # account folder (config, posts, data)
+CONFIG = json.loads((HOME / "config.json").read_text(encoding="utf-8"))
+POSTS = HOME / "posts"
+DATA = HOME / "data"
 STATE_FILE = DATA / "state.json"
-MEDIA_DIR = REPO / "docs" / "ig-media"
+MEDIA_DIR = REPO / "docs" / CONFIG.get("media_dir", "ig-media")
 API = CONFIG["api_base"]
 TZ = ZoneInfo(CONFIG["timezone"])
 
@@ -60,7 +61,8 @@ def user_id() -> str:
     u = os.getenv("IG_AI_USER_ID", "").strip() or "me"
     if not _ACCOUNT_CHECKED:
         who = api("GET", u, fields="username")
-        if who.get("username", "").lower() != CONFIG["account"].lower():
+        print(f"Konto: @{who.get('username')}")
+        if CONFIG["account"] and who.get("username", "").lower() != CONFIG["account"].lower():
             sys.exit(f"Token gehört zu @{who.get('username')}, erwartet @{CONFIG['account']} – Abbruch.")
         _ACCOUNT_CHECKED = True
     return u
