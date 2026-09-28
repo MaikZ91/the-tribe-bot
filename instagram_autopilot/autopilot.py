@@ -84,13 +84,19 @@ def load_spec(post_id: str) -> dict:
 def api(method: str, path: str, **params) -> dict:
     params["access_token"] = token()
     url = path if path.startswith("http") else f"{API}/{path}"
-    for attempt in range(4):
+    for attempt in range(8):
         r = requests.request(method, url, params=params if method == "GET" else None,
                              data=params if method != "GET" else None, timeout=60)
+        body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {"raw": r.text}
+        err = body.get("error") or {}
+        if err.get("code") in (4, 17, 32, 613) or err.get("is_transient"):
+            wait = min(60 * 2 ** attempt, 900)          # rate limit: back off instead of failing
+            print(f"Rate-Limit ({err.get('code')}), warte {wait} s")
+            time.sleep(wait)
+            continue
         if r.status_code < 500:
             break
         time.sleep(5 * (attempt + 1))
-    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {"raw": r.text}
     if r.status_code >= 400 or "error" in body:
         raise RuntimeError(f"{method} {path} -> {r.status_code}: {json.dumps(body)[:500]}")
     return body
@@ -265,14 +271,14 @@ def media_url(post_id: str, name: str) -> str:
 
 
 def wait_container(cid: str, minutes: int = 12) -> None:
-    for _ in range(minutes * 6):
+    for _ in range(minutes * 3):
         st = api("GET", cid, fields="status_code,status")
         code = st.get("status_code")
         if code == "FINISHED":
             return
         if code in ("ERROR", "EXPIRED"):
             raise RuntimeError(f"Container {cid}: {st}")
-        time.sleep(10)
+        time.sleep(20)
     raise RuntimeError(f"Container {cid} nicht fertig geworden")
 
 
