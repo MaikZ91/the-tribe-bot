@@ -307,6 +307,10 @@ def cmd_publish(post_id: str) -> None:
     spec = load_spec(post_id)
     meta = json.loads((MEDIA_DIR / post_id / "meta.json").read_text(encoding="utf-8"))
     uid = user_id()
+    left = quota_left(uid)
+    if left < 1:   # rolling 24 h limit of the publishing API: keep the post queued, try again later
+        print(f"Kontingent erschöpft ({left} frei) – {post_id} bleibt in der Warteschlange.")
+        return
     caption = caption_for(spec)
     if spec["type"] == "reel":
         c = api("POST", f"{uid}/media", media_type="REELS", video_url=media_url(post_id, meta["video"]),
@@ -324,7 +328,7 @@ def cmd_publish(post_id: str) -> None:
     wait_container(cid)
     pub = api("POST", f"{uid}/media_publish", creation_id=cid)
     info = api("GET", pub["id"], fields="permalink,timestamp")
-    if spec["type"] == "reel" and CONFIG.get("story_repost", True) and quota_left(uid) > 10:
+    if spec["type"] == "reel" and CONFIG.get("story_repost", True) and quota_left(uid) > CONFIG.get("story_min_quota", 25):
         try:   # same video as a story -> reaches existing followers first
             st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
             wait_container(st["id"], minutes=8)
