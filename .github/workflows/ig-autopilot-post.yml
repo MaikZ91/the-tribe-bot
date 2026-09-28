@@ -125,3 +125,12 @@ jobs:
             [ "$GAP" != "0" ] && sleep $((GAP*60))
             POST_ID="" id=$(POST_ID="" python instagram_autopilot/autopilot.py due)
           done
+
+      - name: Kommentare beantworten (CHECK → DM)
+        if: always() && env.IG_AI_TOKEN != ''
+        continue-on-error: true
+        run: |
+          pip install -q requests
+          python instagram_autopilot/autopilot.py engage
+          git add -A instagram_autopilot/data
+          git diff --cached --quiet || { git commit -q -m "ig-autopilot: Kommentare beantwortet"; for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep $((i*7)); done; }
