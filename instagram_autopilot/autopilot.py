@@ -211,7 +211,8 @@ def cmd_due() -> None:
     state = load_state()
     today = now.date().isoformat()
     posted_today = sum(1 for p in state["published"].values()
-                       if p.get("local_date") == today and not p.get("forced"))   # backlog runs don't eat slots
+                       if p.get("local_date") == today
+                       and (CONFIG.get("forced_counts") or not p.get("forced")))   # backlog runs don't eat slots
     if posted_today >= CONFIG.get("max_posts_per_day", 1) and os.getenv("FORCE") != "1":
         return
     window = timedelta(minutes=CONFIG.get("slot_window_minutes", 55))
