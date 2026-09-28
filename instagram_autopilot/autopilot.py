@@ -326,7 +326,13 @@ def cmd_publish(post_id: str) -> None:
         c = api("POST", f"{uid}/media", media_type="CAROUSEL", children=",".join(children), caption=caption)
         cid = c["id"]
     wait_container(cid)
-    pub = api("POST", f"{uid}/media_publish", creation_id=cid)
+    try:
+        pub = api("POST", f"{uid}/media_publish", creation_id=cid)
+    except RuntimeError as e:
+        if "2207042" in str(e):   # publishing limit reached: not an error, the post simply waits
+            print(f"Veröffentlichungslimit erreicht – {post_id} bleibt in der Warteschlange.")
+            return
+        raise
     info = api("GET", pub["id"], fields="permalink,timestamp")
     if spec["type"] == "reel" and CONFIG.get("story_repost", True) and quota_left(uid) > CONFIG.get("story_min_quota", 25):
         try:   # same video as a story -> reaches existing followers first
