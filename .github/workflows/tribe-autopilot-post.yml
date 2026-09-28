@@ -1,0 +1,130 @@
+name: Tribe Autopilot — Posten
+
+# Stündlich prüfen, ob laut tribe_autopilot/config.json ein Posting-Slot
+# offen ist. Wenn ja: nächsten Beitrag rendern, Medien committen (GitHub Pages
+# liefert sie aus), über die Instagram-API veröffentlichen, Status speichern.
+# Manuell (workflow_dispatch) lassen sich mehrere Beiträge nacheinander posten.
+# Eigener Autopilot für den The-Tribe-Kanal (Ordner tribe_autopilot/), von Maik freigegeben.
+# Liest die Secrets IG_ACCESS_TOKEN / IG_USER_ID nur, ändert sie nie; insta.py und
+# whatsapp-bot.yml bleiben unberührt.
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+    inputs:
+      post_id:
+        description: 'Bestimmten Beitrag posten (leer = nächster in der Warteschlange)'
+        required: false
+      force:
+        description: 'Slot-Plan ignorieren und jetzt posten'
+        type: boolean
+        default: false
+      count:
+        description: 'Wie viele Beiträge nacheinander posten'
+        required: false
+        default: '1'
+      gap_minutes:
+        description: 'Pause zwischen den Beiträgen (Minuten)'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tribe-autopilot
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      IG_AI_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      AUTOPILOT_HOME: tribe_autopilot
+      IG_AI_USER_ID: ${{ secrets.IG_USER_ID }}
+      PIPER_VOICE_DIR: ${{ github.workspace }}/.piper-voices
+      POST_ID: ${{ inputs.post_id }}
+      FORCE: ${{ inputs.force && '1' || '0' }}
+      COUNT: ${{ inputs.count || '1' }}
+      GAP: ${{ inputs.gap_minutes || '0' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fälligen Beitrag ermitteln
+        id: due
+        run: |
+          if [ -z "$IG_AI_TOKEN" ]; then
+            echo "::notice::Secret IG_ACCESS_TOKEN fehlt – nichts zu tun."
+            exit 0
+          fi
+          pip install -q requests
+          id=$(python instagram_autopilot/autopilot.py due)   # bricht bei Fehlern ab (bash -e)
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: Abhängigkeiten
+        if: steps.due.outputs.id != ''
+        run: pip install -q -r instagram_autopilot/requirements.txt
+
+      - name: Stimme aus dem Cache
+        if: steps.due.outputs.id != ''
+        uses: actions/cache@v4
+        with:
+          path: .piper-voices
+          key: piper-voices-v1
+
+      - name: Rendern, veröffentlichen, speichern
+        if: steps.due.outputs.id != ''
+        run: |
+          git config user.name "tribe-autopilot[bot]"
+          git config user.email "tribe-autopilot[bot]@users.noreply.github.com"
+          push() { for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && return 0; sleep $((i*7)); done; return 1; }
+          id="${{ steps.due.outputs.id }}"
+          if [ "$COUNT" -gt 1 ] && [ -z "$POST_ID" ]; then
+            # Stapel: alle Reels parallel rendern, einmal pushen (eine Pages-Auslieferung),
+            # dann ohne Wartezeiten nacheinander veröffentlichen.
+            ids=$(python instagram_autopilot/autopilot.py plan "$COUNT")
+            echo "Stapel: $(echo "$ids" | wc -l) Beiträge"
+            echo "$ids" | xargs -P "$(nproc)" -I{} sh -c 'python instagram_autopilot/autopilot.py render {} > /dev/null 2>&1 || echo "::warning::Rendern fehlgeschlagen: {}"'
+            git add docs/ig-media-tribe
+            git commit -q -m "tribe-autopilot: Medien für Stapel ($(echo "$ids" | wc -l) Beiträge)"
+            push
+            for id in $ids; do
+              [ -f "docs/ig-media-tribe/$id/meta.json" ] || continue
+              echo "::group::$id"
+              ok=1
+              python instagram_autopilot/autopilot.py publish "$id" || ok=0
+              python instagram_autopilot/autopilot.py prune || true
+              git add -A tribe_autopilot/ docs/ig-media-tribe/
+              git diff --cached --quiet || git commit -q -m "tribe-autopilot: $id gepostet"
+              push
+              echo "::endgroup::"
+              if [ "$ok" = "0" ]; then echo "::error::Posten von $id fehlgeschlagen – Abbruch"; exit 1; fi
+              [ "$GAP" != "0" ] && sleep $((GAP*60))
+            done
+            exit 0
+          fi
+          n=0
+          while [ -n "$id" ] && [ "$n" -lt "$COUNT" ]; do
+            n=$((n+1))
+            echo "::group::Beitrag $n/$COUNT: $id"
+            python instagram_autopilot/autopilot.py render "$id"
+            git add "docs/ig-media-tribe/$id"
+            git commit -q -m "tribe-autopilot: Medien für $id"
+            push
+            ok=1
+            python instagram_autopilot/autopilot.py publish "$id" || ok=0
+            python instagram_autopilot/autopilot.py prune || true
+            git add -A tribe_autopilot/ docs/ig-media-tribe/
+            git diff --cached --quiet || git commit -q -m "tribe-autopilot: $id gepostet"
+            push
+            echo "::endgroup::"
+            if [ "$ok" = "0" ]; then echo "::error::Posten von $id fehlgeschlagen – Abbruch"; exit 1; fi
+            [ "$n" -ge "$COUNT" ] && break
+            [ "$GAP" != "0" ] && sleep $((GAP*60))
+            POST_ID="" id=$(POST_ID="" python instagram_autopilot/autopilot.py due)
+          done
