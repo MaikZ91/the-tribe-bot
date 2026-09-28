@@ -91,7 +91,7 @@ jobs:
             echo "Stapel: $(echo "$ids" | wc -l) Beiträge"
             echo "$ids" | xargs -P "$(nproc)" -I{} sh -c 'python instagram_autopilot/autopilot.py render {} > /dev/null 2>&1 || echo "::warning::Rendern fehlgeschlagen: {}"'
             git add docs/ig-media-tribe
-            git commit -q -m "tribe-autopilot: Medien für Stapel ($(echo "$ids" | wc -l) Beiträge)"
+            git diff --cached --quiet || git commit -q -m "tribe-autopilot: Medien für Stapel ($(echo "$ids" | wc -l) Beiträge)"
             push
             for id in $ids; do
               [ -f "docs/ig-media-tribe/$id/meta.json" ] || continue
@@ -114,7 +114,7 @@ jobs:
             echo "::group::Beitrag $n/$COUNT: $id"
             python instagram_autopilot/autopilot.py render "$id"
             git add "docs/ig-media-tribe/$id"
-            git commit -q -m "tribe-autopilot: Medien für $id"
+            git diff --cached --quiet || git commit -q -m "tribe-autopilot: Medien für $id"
             push
             ok=1
             python instagram_autopilot/autopilot.py publish "$id" || ok=0
