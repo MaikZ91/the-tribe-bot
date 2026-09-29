@@ -1899,18 +1899,6 @@ async function installMediaSendPatch() {
                 });
 
                 window.__tribeClobbered = clobbered.slice();
-                // Vollbild der Felder, die ueberhaupt in die Nachricht
-                // gespreadet werden. Bleibt die Kollisionsliste leer, steht
-                // hier trotzdem, woran es stattdessen liegen kann — sonst
-                // kostet jede weitere Vermutung wieder einen ganzen Lauf.
-                try {
-                    window.__tribeMediaKeys = {
-                        own: Object.keys(mediaData),
-                        json: Object.keys(origToJSON())
-                    };
-                } catch (err) {
-                    window.__tribeMediaKeys = { fehler: String(err) };
-                }
                 return mediaData;
             };
             // Zweiter Teil: die beiden Schritte um den Versand herum
@@ -1986,7 +1974,6 @@ async function sendMedia(target, media, caption, label) {
         if (fehler) {
             console.warn(`${label}: gesendet, aber Serialisierung scheiterte: ${fehler}`);
         }
-        await berichteKollisionen(label);
         return sent;
     } catch (err) {
         // Entscheidend fuer die Frage, ob trotzdem etwas in der Gruppe steht.
@@ -2007,24 +1994,15 @@ async function sendMedia(target, media, caption, label) {
     }
 }
 
-// Welche Umschlagfelder das Medien-Modell tatsaechlich ueberschrieben haette.
-// Steht so im Log, statt dass die Ursache eine Annahme bleibt.
+// Nur im Fehlerfall: wie viele Modell-Interna der Patch aus der Nachricht
+// genommen hat. Null bedeutet, dass der Patch nicht gegriffen hat — ein
+// anderer Fehler als der von September 2026.
 async function berichteKollisionen(label) {
-    const bericht = await client.pupPage
-        .evaluate(() => ({
-            felder: window.__tribeClobbered,
-            keys: window.__tribeMediaKeys
-        }))
+    const felder = await client.pupPage
+        .evaluate(() => window.__tribeClobbered)
         .catch(() => null);
-    const felder = bericht?.felder;
     if (Array.isArray(felder)) {
-        console.log(felder.length
-            ? `${label}: aus dem Medien-Spread genommen: ${felder.join(', ')}`
-            : `${label}: nichts aus dem Medien-Spread zu nehmen`);
-    }
-    if (bericht?.keys) {
-        console.log(`${label}: Medien-Modell own=[${(bericht.keys.own || []).join(', ')}]`);
-        console.log(`${label}: Medien-Modell json=[${(bericht.keys.json || []).join(', ')}]`);
+        console.log(`${label}: ${felder.length} Modell-Interna aus dem Medien-Spread genommen`);
     }
 }
 
