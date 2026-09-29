@@ -1411,6 +1411,45 @@ async function renderWeekendPlannerImage(groups, date = getBerlinNow(), options 
     return outputPath;
 }
 
+// Instagram-Stories sind 1080x1920 (9:16), der Flyer ist 1080x1350 (4:5).
+// Laedt man ihn direkt hoch, zoomt Instagram auf Formatfuellung und schneidet
+// oben und unten ab — genau dort stehen die Uhrzeiten. Deshalb bekommt die
+// Story eine eigene Fassung: der Flyer unveraendert und in voller Breite,
+// mittig auf einer 9:16-Flaeche.
+//
+// Mittig heisst hier 285 px Rand oben und unten. Instagram legt ueber die
+// oberen und unteren rund 250 px seine eigene Bedienung (Profilzeile,
+// Antwortleiste); der Flyer bleibt damit vollstaendig darunter hervor.
+const STORY_WIDTH = 1080;
+const STORY_HEIGHT = 1920;
+
+async function renderStoryVariant(posterPath) {
+    const storyPath = posterPath.replace(/\.jpg$/, '-story.jpg');
+    const posterData = fs.readFileSync(posterPath).toString('base64');
+    const browser = await getPuppeteerBrowser();
+    const shouldCloseBrowser = browser !== client.pupBrowser
+        && (!client.pupPage || browser !== client.pupPage.browser());
+    const page = await browser.newPage();
+
+    try {
+        await page.setViewport({ width: STORY_WIDTH, height: STORY_HEIGHT, deviceScaleFactor: 1 });
+        await page.setContent(`<!doctype html><html><body style="margin:0">
+            <div style="width:${STORY_WIDTH}px;height:${STORY_HEIGHT}px;background:#000;
+                        display:flex;align-items:center;justify-content:center">
+              <img src="data:image/jpeg;base64,${posterData}" style="width:${STORY_WIDTH}px;display:block">
+            </div></body></html>`, { waitUntil: 'load' });
+        await page.screenshot({ path: storyPath, type: 'jpeg', quality: 82, fullPage: false });
+        console.log(`Story-Fassung gerendert: ${storyPath} (${Math.round(fs.statSync(storyPath).size / 1024)} KB)`);
+    } finally {
+        await page.close().catch(() => {});
+        if (shouldCloseBrowser) {
+            await browser.close().catch(() => {});
+        }
+    }
+
+    return storyPath;
+}
+
 
 // Zielgruppe des Flyers. Standard ist die Ankuendigungsgruppe; ueber
 // WHATSAPP_FLYER_CHAT_ID umstellbar, ohne Code-Aenderung.
@@ -1519,7 +1558,8 @@ async function sendDailyHighlightsInstagramStory(imagePath) {
     }
 
     try {
-        const imageUrl = await uploadHighlightImageToGithub(imagePath);
+        const storyPath = await renderStoryVariant(imagePath);
+        const imageUrl = await uploadHighlightImageToGithub(storyPath);
         const storyId = await postInstagramStory(imageUrl);
         console.log(`Instagram-Story gepostet: ${storyId}`);
     } catch (error) {
@@ -1765,41 +1805,61 @@ async function installMediaSendPatch() {
                 //         ...(mediaOptions.toJSON ? mediaOptions.toJSON() : {}),
                 //     };
                 //
-                // Die Umschlagfelder der Nachricht stehen also VOR den beiden
-                // Medien-Spreads und werden von jedem gleichnamigen Feld des
-                // Medien-Modells ueberschrieben. Der Msg-Konstruktor prueft
-                // danach den Absender und bekommt undefined:
+                // Der erste Spread kopiert das GANZE Modellobjekt in die
+                // Nachricht — nicht nur seine Mediendaten, sondern auch seine
+                // Interna. Der vorige Lauf hat sie protokolliert:
+                //
+                //     revisionNumber, __x_stale, __fired, __changes,
+                //     __initialized, parent, collection, _uiObservers,
+                //     mirror, __x_type, __x_id, __x_mediaBlob, ...
+                //
+                // 'parent' und 'collection' landen damit als Attribute in der
+                // neuen Msg und zeigen auf die Medien-Sammlung statt auf den
+                // Chat. Der Absender-Lookup im Konstruktor laeuft daran ins
+                // Leere:
                 //
                 //     at Object.c [as getSender]
                 //     at Object.w [as getValidatedSender]
                 //     at i.initialize
                 //     at t.a [as constructor]
                 //
-                // Textnachrichten haben kein mediaOptions und sind deshalb nie
-                // betroffen — daher ging Text durch und jedes Bild nicht.
+                // Textnachrichten haben kein mediaOptions und schleppen daher
+                // keine fremden Interna mit — deshalb ging Text durch und
+                // jedes Bild nicht.
                 //
-                // Ein erster Versuch schuetzte nur 'id' und aenderte nichts:
-                // getValidatedSender liest den Absender, nicht den Schluessel.
-                // Deshalb jetzt alle Umschlagfelder, und der Lauf protokolliert,
-                // welches tatsaechlich kollidiert ist — damit der Grund im Log
-                // steht und nicht in einer Annahme. 'type', 'caption' und die
-                // eigentlichen Mediendaten bleiben bewusst unangetastet: die
-                // sollen ja gerade aus dem Modell kommen.
+                // Die echten Medienwerte kommen aus dem ZWEITEN Spread,
+                // mediaOptions.toJSON(). Die Rohinterna im ersten Spread
+                // tragen nichts bei und werden hier aus der Aufzaehlung
+                // genommen — nicht geloescht, denn sendMessage greift spaeter
+                // noch selbst auf das Modell zu (mediaHandle,
+                // WAWebMediaUpdateMsg). Der Wert bleibt also lesbar, er wird
+                // nur nicht mehr mitkopiert.
+                //
+                // Zwei vorige Versuche gingen daneben: erst nur 'id', dann
+                // alle Umschlagfelder. Der Lauf hat beides widerlegt — das
+                // Modell traegt gar kein id/from/to. Die Umschlag-Liste bleibt
+                // trotzdem stehen, sie kostet nichts und deckt den Fall ab,
+                // dass ein kuenftiger Modellstand doch eines mitbringt.
                 const ENVELOPE_FIELDS = [
                     'id', 'ack', 'from', 'to', 'author', 'participant',
                     'local', 'self', 't', 'isNewMsg', 'chatId'
                 ];
+                // Maschinerie des Modells, die in keiner Nachricht etwas zu
+                // suchen hat.
+                const MODEL_INTERNALS = [
+                    'parent', 'collection', 'mirror', 'revisionNumber'
+                ];
+                const istInternum = (key) =>
+                    key.startsWith('__') || key.startsWith('_ui') ||
+                    MODEL_INTERNALS.includes(key);
                 const clobbered = [];
 
-                // Erster Spread: die eigenen aufzaehlbaren Felder des Modells.
-                // Nicht loeschen — spaeter greift sendMessage noch auf das
-                // Modell zu (mediaHandle, WAWebMediaUpdateMsg). Nur aus der
-                // Aufzaehlung nehmen, der Wert bleibt lesbar.
-                for (const field of ENVELOPE_FIELDS) {
-                    const desc = Object.getOwnPropertyDescriptor(mediaData, field);
+                for (const key of Object.keys(mediaData)) {
+                    if (!ENVELOPE_FIELDS.includes(key) && !istInternum(key)) continue;
+                    const desc = Object.getOwnPropertyDescriptor(mediaData, key);
                     if (desc && desc.enumerable && desc.configurable) {
-                        Object.defineProperty(mediaData, field, { ...desc, enumerable: false });
-                        clobbered.push(`${field} (eigenes Feld)`);
+                        Object.defineProperty(mediaData, key, { ...desc, enumerable: false });
+                        clobbered.push(key);
                     }
                 }
 
@@ -1945,8 +2005,8 @@ async function berichteKollisionen(label) {
     const felder = bericht?.felder;
     if (Array.isArray(felder)) {
         console.log(felder.length
-            ? `${label}: vom Medien-Modell ueberschriebene Umschlagfelder: ${felder.join(', ')}`
-            : `${label}: keine Umschlagfelder vom Medien-Modell ueberschrieben`);
+            ? `${label}: aus dem Medien-Spread genommen: ${felder.join(', ')}`
+            : `${label}: nichts aus dem Medien-Spread zu nehmen`);
     }
     if (bericht?.keys) {
         console.log(`${label}: Medien-Modell own=[${(bericht.keys.own || []).join(', ')}]`);
