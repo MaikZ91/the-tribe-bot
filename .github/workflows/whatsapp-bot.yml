@@ -32,6 +32,11 @@ on:
           - muenster-weekend-starter
           - check-new-members
           - germany-export
+      force_instagram_story:
+        description: "Instagram-Story auch dann posten, wenn heute schon eine lief (für eine misslungene Story)"
+        required: false
+        default: false
+        type: boolean
       force_fresh_auth:
         description: "WhatsApp-Session-Cache löschen (erzwingt neue Kopplung)"
         required: false
@@ -131,6 +136,7 @@ jobs:
           TRIBE_JAM_SESSION_IMAGE_URL: ${{ secrets.TRIBE_JAM_SESSION_IMAGE_URL }}
           TRIBE_THURSDAY_FOOTBALL_IMAGE_URL: ${{ secrets.TRIBE_THURSDAY_FOOTBALL_IMAGE_URL }}
           TRIBE_KENNENLERNABEND_IMAGE_URL: ${{ secrets.TRIBE_KENNENLERNABEND_IMAGE_URL }}
+          FORCE_INSTAGRAM_STORY: ${{ (github.event_name == 'workflow_dispatch' && inputs.force_instagram_story) && '1' || '0' }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

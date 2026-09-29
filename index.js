@@ -168,6 +168,10 @@ const DAILY_HIGHLIGHTS_IMAGE_DIR = path.join(IMAGES_DIR, 'daily-highlights');
 
 const IG_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN;
 const IG_USER_ID = process.env.IG_USER_ID;
+// Einmalig den Tagesmerker der Story uebergehen (siehe sendPlanner).
+const FORCE_INSTAGRAM_STORY = ['1', 'true'].includes(
+    String(process.env.FORCE_INSTAGRAM_STORY || '').toLowerCase()
+);
 const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const BOT_COMMAND = (process.env.BOT_COMMAND || process.argv.find(arg => arg.startsWith('--bot-command='))?.split('=')[1] || '').trim();
@@ -1651,11 +1655,21 @@ async function sendPlanner(options = {}) {
     // Der eigene Merker ist noetig, weil runDueJobs() den Job alle zehn
     // Minuten erneut versucht, solange WhatsApp scheitert. Ohne ihn stuenden
     // nach einem kaputten Abend vier identische Stories im Profil.
+    //
+    // FORCE_INSTAGRAM_STORY setzt den Merker fuer genau einen Lauf ausser
+    // Kraft. Gedacht fuer den Fall, dass eine Story zwar gepostet wurde, aber
+    // unbrauchbar war — ohne den Schalter bliebe nur, einen ganzen Tag zu
+    // warten. Bewusst ein eigener Schalter und nicht an den manuellen Lauf
+    // gekoppelt: sonst stuende nach jedem Testlauf eine weitere Story im
+    // Profil.
     const storyKey = `instagram:${slug}`;
     const { dateKey } = getDateParts(now);
-    if (wasJobDoneToday(storyKey, dateKey)) {
+    if (wasJobDoneToday(storyKey, dateKey) && !FORCE_INSTAGRAM_STORY) {
         console.log(`${label}: Instagram-Story lief heute bereits — uebersprungen.`);
     } else {
+        if (FORCE_INSTAGRAM_STORY) {
+            console.log(`${label}: FORCE_INSTAGRAM_STORY gesetzt — Story wird trotz Tagesmerker gepostet.`);
+        }
         await sendDailyHighlightsInstagramStory(imagePath);
         markJobDone(storyKey, dateKey);
     }
