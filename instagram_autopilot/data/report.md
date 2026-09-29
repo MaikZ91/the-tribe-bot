@@ -8,7 +8,7 @@ Follower: **55** · Beiträge: 37
 | M02-video-schnitt-automatisch | service-reel | media | problem | 129 | 133 | 0 | 0 | 0 | 0 | 0.049 | 69.8 |
 | 012-demo-stundensatz | demo-reel | preise | zahl | 115 | 122 | 0 | 0 | 0 | 0 | 0.143 | 69.7 |
 | 032-demo-verpasste-anfragen | demo-reel | anfragen | frage | 93 | 99 | 0 | 0 | 0 | 0 | 0.127 | 55.8 |
-| D2809b-60-euro-stundensatz | demo-reel | preise | zahl-frage | 72 | 76 | 0 | 0 | 0 | 0 | 0.179 | 44.8 |
+| D2809b-60-euro-stundensatz | demo-reel | preise | zahl-frage | 73 | 79 | 0 | 0 | 0 | 0 | 0.176 | 46.5 |
 | V03-dinge-jeder-handwerker-kennt | viral-beat | anfragen | relatable | 47 | 49 | 0 | 0 | 0 | 0 | 0.166 | 28.6 |
 | M03-lead-agent | service-reel | leads | problem | 34 | 39 | 0 | 0 | 0 | 0 | 0.297 | 25.3 |
 | 018-demo-mahnung | demo-reel | rechnungen | problem | 34 | 37 | 0 | 0 | 0 | 0 | 0.259 | 23.3 |
@@ -26,12 +26,12 @@ Follower: **55** · Beiträge: 37
 | V06-wettbewerber-2-minuten | viral-beat | anfragen | relatable | 10 | 16 | 0 | 0 | 0 | 0 | 0.414 | 11.3 |
 | 010-bereit-checkliste | list-carousel | zeit | checkliste | 4 | 11 | 0 | 0 | 0 | 0 | – | 11.0 |
 | V01-pov-selbststaendig | viral-beat | zeit | pov | 4 | 8 | 0 | 0 | 0 | 0 | 1.602 | 10.4 |
-| 017-demo-termin | demo-reel | termine | problem | 8 | 13 | 0 | 0 | 0 | 0 | 0.453 | 9.4 |
 | 013-demo-bewertungen | demo-reel | bewertungen | so-gehts | 13 | 15 | 0 | 0 | 0 | 0 | 0.236 | 9.3 |
+| 017-demo-termin | demo-reel | termine | problem | 9 | 13 | 0 | 0 | 0 | 0 | 0.416 | 9.2 |
 | M05-fotos-automatisch | service-reel | media | problem | 13 | 13 | 0 | 0 | 0 | 0 | 0.12 | 7.3 |
 | 031-webdesign-web-apps-demo | demo-reel | website | so-gehts | 11 | 11 | 0 | 0 | 0 | 0 | 0.164 | 6.4 |
 | 016-demo-antworten | demo-reel | anfragen | frage | 10 | 10 | 0 | 0 | 0 | 0 | 0.206 | 6.0 |
-| 024-excel-chaos-web-app | service-reel | web-apps | problem | 5 | 7 | 0 | 0 | 0 | 0 | 0.512 | 5.3 |
+| 024-excel-chaos-web-app | service-reel | web-apps | problem | 6 | 8 | 0 | 0 | 0 | 0 | 0.457 | 5.8 |
 | V05-stop-angebote-per-hand | viral-beat | angebote | relatable | 3 | 6 | 0 | 0 | 0 | 0 | 0.709 | 5.1 |
 | M01-du-filmst-rest-automatisch | viral-beat | media | relatable | 5 | 6 | 0 | 0 | 0 | 0 | 0.527 | 4.6 |
 | D2809a-samstag-1847 | viral-beat | anfragen | uhrzeit-szene | 4 | 4 | 0 | 0 | 0 | 0 | 1.013 | 4.0 |
@@ -42,7 +42,7 @@ Follower: **55** · Beiträge: 37
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
-| preise | 57.2 | 99.0 | 0.16 | 2 | stundensatz |
+| preise | 58.1 | 100.5 | 0.16 | 2 | stundensatz |
 | anfragen | 28.1 | 44.5 | 0.34 | 8 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | media | 25.7 | 40.0 | 0.23 | 4 | – |
 | leads | 25.3 | 39.0 | 0.30 | 1 | – |
@@ -52,9 +52,9 @@ Follower: **55** · Beiträge: 37
 | website | 10.2 | 8.5 | 0.16 | 2 | – |
 | angebote | 10.0 | 13.7 | 0.67 | 3 | angebot |
 | social-media | 9.9 | 17.0 | 0.45 | 2 | – |
-| termine | 9.4 | 13.0 | 0.45 | 1 | termin |
 | bewertungen | 9.3 | 15.0 | 0.24 | 1 | bewertungen |
-| web-apps | 5.3 | 7.0 | 0.51 | 1 | – |
+| termine | 9.2 | 13.0 | 0.42 | 1 | termin |
+| web-apps | 5.8 | 8.0 | 0.46 | 1 | – |
 
 **Stärkster Pain:** preise  
 **Nächstes Tool bauen für:** media  
@@ -72,14 +72,14 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Abstand zwischen Posts
 
-- < 90 min nach dem vorigen Post: Ø Reichweite 24.5 (n=30)
-- ≥ 90 min: Ø Reichweite 72.0 (n=1)
+- < 90 min nach dem vorigen Post: Ø Reichweite 24.6 (n=30)
+- ≥ 90 min: Ø Reichweite 73.0 (n=1)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
 - images/bad-modern.jpg: 69.8 (n=1)
-- images/rechner-auswertung.jpg: 44.8 (n=1)
-- images/taschenrechner-haende.jpg: 44.8 (n=1)
+- images/rechner-auswertung.jpg: 46.5 (n=1)
+- images/taschenrechner-haende.jpg: 46.5 (n=1)
 - images/bad-waschtisch.jpg: 38.5 (n=2)
 - images/haende-messschieber.jpg: 28.6 (n=1)
 - images/werkstatt-dunkel.jpg: 28.6 (n=1)
@@ -92,7 +92,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Konto (heute)
 
-- reach: 1337
+- reach: 1345
 - profile_views: 22
 - accounts_engaged: 3
 - website_clicks: 1
@@ -100,8 +100,8 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 ## Ø Interesse nach format
 
 - flow-reel: 80.10 (n=1)
-- demo-reel: 24.85 (n=12)
-- service-reel: 21.72 (n=5)
+- demo-reel: 24.97 (n=12)
+- service-reel: 21.82 (n=5)
 - stat-reel: 17.80 (n=1)
 - service-carousel: 16.75 (n=4)
 - viral-beat: 11.08 (n=9)
@@ -110,10 +110,10 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 ## Ø Interesse nach hook_style
 
 - uhrzeit: 80.10 (n=1)
-- zahl-frage: 44.80 (n=1)
+- zahl-frage: 46.50 (n=1)
 - zahl: 33.23 (n=3)
 - frage: 24.62 (n=5)
-- problem: 22.06 (n=7)
+- problem: 22.10 (n=7)
 - list: 21.00 (n=1)
 - liste: 15.00 (n=1)
 - relatable: 12.19 (n=7)
@@ -125,7 +125,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Ø Interesse nach pain
 
-- preise: 57.25 (n=2)
+- preise: 58.10 (n=2)
 - anfragen: 28.10 (n=8)
 - media: 25.67 (n=4)
 - leads: 25.30 (n=1)
@@ -135,9 +135,9 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 - website: 10.20 (n=2)
 - angebote: 10.03 (n=3)
 - social-media: 9.95 (n=2)
-- termine: 9.40 (n=1)
 - bewertungen: 9.30 (n=1)
-- web-apps: 5.30 (n=1)
+- termine: 9.20 (n=1)
+- web-apps: 5.80 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -145,7 +145,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 - 19:23: 69.80 (n=1)
 - 18:01: 69.70 (n=1)
 - 18:34: 55.80 (n=1)
-- 20:08: 44.80 (n=1)
+- 20:08: 46.50 (n=1)
 - 19:21: 28.60 (n=1)
 - 19:19: 25.30 (n=1)
 - 20:51: 23.30 (n=1)
@@ -163,12 +163,12 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 - 07:12: 11.30 (n=1)
 - 16:44: 11.00 (n=1)
 - 18:22: 10.40 (n=1)
-- 07:07: 9.40 (n=1)
 - 18:12: 9.30 (n=1)
+- 07:07: 9.20 (n=1)
 - 19:33: 7.30 (n=1)
 - 19:20: 6.40 (n=1)
 - 19:34: 6.00 (n=1)
-- 07:15: 5.30 (n=1)
+- 07:15: 5.80 (n=1)
 - 07:00: 5.10 (n=1)
 - 19:17: 4.60 (n=1)
 - 20:41: 4.00 (n=1)
@@ -177,5 +177,5 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Ø Interesse nach music
 
-- bed: 27.58 (n=13)
-- beat: 16.20 (n=20)
+- bed: 27.62 (n=13)
+- beat: 16.27 (n=20)
