@@ -133,6 +133,9 @@ def next_queued(state: dict) -> str | None:
             queued.append((spec.get("priority", 50), f.name, spec["id"], category(spec)))
     if not queued:
         return fallback_idea(state) if CONFIG.get("fallback_from_ideas", True) else None
+    fresh = [q for q in queued if q[0] <= 1]      # Director's fresh posts beat the content mix
+    if fresh:
+        return min(fresh)[2]
     mix = CONFIG.get("mix") or ["viral", "tool", "leistung", "viral", "tool", "wissen"]
     start = len(state["published"]) % len(mix)
     for k in range(len(mix)):
