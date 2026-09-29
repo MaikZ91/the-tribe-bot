@@ -1757,16 +1757,18 @@ async function installMediaSendPatch() {
                 //
                 //     const message = {
                 //         ...options,
-                //         id: newMsgKey,                 <- richtiger Schluessel
-                //         ...
-                //         ...mediaOptions,
+                //         id: newMsgKey,   ack: 0,   from: from,
+                //         to: chat.id,     local: true,  self: 'out',
+                //         t: ...,          isNewMsg: true,  type: 'chat',
+                //         ...ephemeralFields,
+                //         ...mediaOptions,                          <- hier
                 //         ...(mediaOptions.toJSON ? mediaOptions.toJSON() : {}),
                 //     };
                 //
-                // Das Medien-Modell hat eine eigene id, und sein toJSON() steht
-                // NACH id: newMsgKey — es ueberschreibt den Nachrichten-
-                // schluessel mit der Medien-id. Der Msg-Konstruktor validiert
-                // dann den Absender dagegen und bekommt undefined:
+                // Die Umschlagfelder der Nachricht stehen also VOR den beiden
+                // Medien-Spreads und werden von jedem gleichnamigen Feld des
+                // Medien-Modells ueberschrieben. Der Msg-Konstruktor prueft
+                // danach den Absender und bekommt undefined:
                 //
                 //     at Object.c [as getSender]
                 //     at Object.w [as getValidatedSender]
@@ -1775,13 +1777,66 @@ async function installMediaSendPatch() {
                 //
                 // Textnachrichten haben kein mediaOptions und sind deshalb nie
                 // betroffen — daher ging Text durch und jedes Bild nicht.
-                const origToJSON = mediaData.toJSON.bind(mediaData);
-                mediaData.toJSON = () => {
-                    const json = origToJSON();
-                    delete json.id;
-                    return json;
-                };
+                //
+                // Ein erster Versuch schuetzte nur 'id' und aenderte nichts:
+                // getValidatedSender liest den Absender, nicht den Schluessel.
+                // Deshalb jetzt alle Umschlagfelder, und der Lauf protokolliert,
+                // welches tatsaechlich kollidiert ist — damit der Grund im Log
+                // steht und nicht in einer Annahme. 'type', 'caption' und die
+                // eigentlichen Mediendaten bleiben bewusst unangetastet: die
+                // sollen ja gerade aus dem Modell kommen.
+                const ENVELOPE_FIELDS = [
+                    'id', 'ack', 'from', 'to', 'author', 'participant',
+                    'local', 'self', 't', 'isNewMsg', 'chatId'
+                ];
+                const clobbered = [];
 
+                // Erster Spread: die eigenen aufzaehlbaren Felder des Modells.
+                // Nicht loeschen — spaeter greift sendMessage noch auf das
+                // Modell zu (mediaHandle, WAWebMediaUpdateMsg). Nur aus der
+                // Aufzaehlung nehmen, der Wert bleibt lesbar.
+                for (const field of ENVELOPE_FIELDS) {
+                    const desc = Object.getOwnPropertyDescriptor(mediaData, field);
+                    if (desc && desc.enumerable && desc.configurable) {
+                        Object.defineProperty(mediaData, field, { ...desc, enumerable: false });
+                        clobbered.push(`${field} (eigenes Feld)`);
+                    }
+                }
+
+                // Zweiter Spread: das Ergebnis von toJSON().
+                const origToJSON = mediaData.toJSON.bind(mediaData);
+                Object.defineProperty(mediaData, 'toJSON', {
+                    enumerable: false,
+                    configurable: true,
+                    writable: true,
+                    value: () => {
+                        const json = origToJSON();
+                        for (const field of ENVELOPE_FIELDS) {
+                            if (Object.prototype.hasOwnProperty.call(json, field)) {
+                                delete json[field];
+                                if (!clobbered.includes(`${field} (toJSON)`)) {
+                                    clobbered.push(`${field} (toJSON)`);
+                                }
+                            }
+                        }
+                        window.__tribeClobbered = clobbered.slice();
+                        return json;
+                    }
+                });
+
+                window.__tribeClobbered = clobbered.slice();
+                // Vollbild der Felder, die ueberhaupt in die Nachricht
+                // gespreadet werden. Bleibt die Kollisionsliste leer, steht
+                // hier trotzdem, woran es stattdessen liegen kann — sonst
+                // kostet jede weitere Vermutung wieder einen ganzen Lauf.
+                try {
+                    window.__tribeMediaKeys = {
+                        own: Object.keys(mediaData),
+                        json: Object.keys(origToJSON())
+                    };
+                } catch (err) {
+                    window.__tribeMediaKeys = { fehler: String(err) };
+                }
                 return mediaData;
             };
             // Zweiter Teil: die beiden Schritte um den Versand herum
@@ -1846,6 +1901,7 @@ async function sendMedia(target, media, caption, label) {
         window.__tribeModelFehler = null;
         window.__tribeStufe = null;
         window.__tribeStack = null;
+        window.__tribeClobbered = null;
     }).catch(() => {});
 
     try {
@@ -1856,6 +1912,7 @@ async function sendMedia(target, media, caption, label) {
         if (fehler) {
             console.warn(`${label}: gesendet, aber Serialisierung scheiterte: ${fehler}`);
         }
+        await berichteKollisionen(label);
         return sent;
     } catch (err) {
         // Entscheidend fuer die Frage, ob trotzdem etwas in der Gruppe steht.
@@ -1868,10 +1925,32 @@ async function sendMedia(target, media, caption, label) {
             .catch(() => null);
         console.warn(`${label}: Bildversand gescheitert: ${err.message}`);
         console.warn(`${label}: zugestellt=${diagnose?.zugestellt} Stufe=${diagnose?.stufe}`);
+        await berichteKollisionen(label);
         if (diagnose?.stack) {
             console.warn(`${label}: Stack aus der Seite:\n${diagnose.stack}`);
         }
         throw err;
+    }
+}
+
+// Welche Umschlagfelder das Medien-Modell tatsaechlich ueberschrieben haette.
+// Steht so im Log, statt dass die Ursache eine Annahme bleibt.
+async function berichteKollisionen(label) {
+    const bericht = await client.pupPage
+        .evaluate(() => ({
+            felder: window.__tribeClobbered,
+            keys: window.__tribeMediaKeys
+        }))
+        .catch(() => null);
+    const felder = bericht?.felder;
+    if (Array.isArray(felder)) {
+        console.log(felder.length
+            ? `${label}: vom Medien-Modell ueberschriebene Umschlagfelder: ${felder.join(', ')}`
+            : `${label}: keine Umschlagfelder vom Medien-Modell ueberschrieben`);
+    }
+    if (bericht?.keys) {
+        console.log(`${label}: Medien-Modell own=[${(bericht.keys.own || []).join(', ')}]`);
+        console.log(`${label}: Medien-Modell json=[${(bericht.keys.json || []).join(', ')}]`);
     }
 }
 
