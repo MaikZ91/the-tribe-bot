@@ -1751,6 +1751,37 @@ async function installMediaSendPatch() {
                     mediaHandle: sendToChannel ? mediaEntry.handle : null
                 });
 
+                // Der eigentliche Fix.
+                //
+                // WWebJS.sendMessage baut die Nachricht so:
+                //
+                //     const message = {
+                //         ...options,
+                //         id: newMsgKey,                 <- richtiger Schluessel
+                //         ...
+                //         ...mediaOptions,
+                //         ...(mediaOptions.toJSON ? mediaOptions.toJSON() : {}),
+                //     };
+                //
+                // Das Medien-Modell hat eine eigene id, und sein toJSON() steht
+                // NACH id: newMsgKey — es ueberschreibt den Nachrichten-
+                // schluessel mit der Medien-id. Der Msg-Konstruktor validiert
+                // dann den Absender dagegen und bekommt undefined:
+                //
+                //     at Object.c [as getSender]
+                //     at Object.w [as getValidatedSender]
+                //     at i.initialize
+                //     at t.a [as constructor]
+                //
+                // Textnachrichten haben kein mediaOptions und sind deshalb nie
+                // betroffen — daher ging Text durch und jedes Bild nicht.
+                const origToJSON = mediaData.toJSON.bind(mediaData);
+                mediaData.toJSON = () => {
+                    const json = origToJSON();
+                    delete json.id;
+                    return json;
+                };
+
                 return mediaData;
             };
             // Zweiter Teil: die beiden Schritte um den Versand herum
