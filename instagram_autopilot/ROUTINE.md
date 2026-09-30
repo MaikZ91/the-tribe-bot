@@ -26,13 +26,23 @@ die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
    Themen: Terminanfragen & Rückrufe, Dauerklingeln am Telefon, Personalsuche/Recruiting per Instagram, Instagram der Praxis
    automatisch, Bewertungen, interne Abläufe (Dienstplan, QM-Doku). NIE Patientendaten-Prozesse zeigen oder versprechen
    (keine Befunde, Diagnosen, Patientenakten). Maik hat Medizintechnik studiert – fachlich korrekt, keine Arbeitgeberbezüge.
-   Pro Reel EIN Problem; alle drei Tagesreels Praxen, aber unterschiedliche Praxis-Typen/Probleme. Feld `niche: "praxen"`.
+   Leistungen, die gezeigt werden dürfen: Praxis-Website mit KI-Assistent (beantwortet Fragen, nimmt Terminwünsche an),
+   KI-Agenten für Telefon/Anfragen, Media (Praxis-Fotos, Videos, Instagram automatisch), Recruiting-Posts.
+   Pro Reel EIN Problem; unterschiedliche Praxis-Typen/Probleme. Feld `niche: "praxen"`.
    CTA: „Kommentiere PRAXIS“ (DM mit Praxis-Check).
 2. **Zielgruppe im Hook benannt:** Hook-Slide mit `"tag": "FÜR PRAXEN"` (oder konkreter: „FÜR PHYSIOPRAXEN“, „FÜR ZAHNARZTPRAXEN“), Keyword im Text
    (Praxis, Termin, Patienten-Anfrage, Rezeption, Personal, Bielefeld).
 3. **Problem oder Wunsch der Zielgruppe** im ersten Satz, nicht das Produkt.
 4. **Hook mittig, sofort lesbar:** kurz (max. ~8 Wörter pro Satz, keine Einzelwörter in einer Zeile), zentriert (config `hook_align`).
 5. **3-Sekunden-Test:** Versteht eine fremde Person in 3 s, worum es geht und für wen? Sonst umschreiben.
+
+## Bildsprache (Maiks Vorgabe 30.09.): Emotion statt Deko
+
+- Jedes Reel braucht mindestens ein **emotionales Foto mit echten Menschen**: gestresste Rezeption, Therapeutin mit
+  Patient im Gespräch, erleichtertes Team, Coach mit Klientin, Feierabend-Moment. Gefühl vor Technik.
+- Nur **echte CC0-Fotos** (Openverse, bevorzugt stocksnap/rawpixel/pexels-Quellen) – **nie KI-generierte Menschen**.
+- Keine Bilder, die echte Patienten in intimen/medizinischen Situationen bloßstellen; keine Marken, keine Klinik-Logos.
+- Reihenfolge im Reel: Emotion (Problem-Moment) → Ablauf/Demo → Emotion (Erleichterung) → Logo-Endkarte (`kind: "logo"`).
 
 ## 1. Lagebild (gründlich)
 
@@ -61,8 +71,8 @@ die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
   captions, send, chart, chat, target, calendar, check, image, bot, idea, phone, tag), `timeline`
   (automatischer Videoschnitt). Neue Animationen in `render.py` ergänzen, wenn eine Idee sie braucht.
 - Bilder: für jede Geschichte die *passenden* Motive – neue CC0-Fotos über die Openverse-API (`license=cc0`)
-  holen, nach `images/` legen und in `images/CREDITS.json` eintragen. Keine erkennbaren Gesichter als
-  Hauptmotiv, keine fremden Marken/Firmen-Websites. Pro Post höchstens ein Bild aus den letzten 8 Posts.
+  holen, nach `images/` legen und in `images/CREDITS.json` eintragen. Echte Menschen mit Emotion sind erwünscht (siehe Bildsprache),
+  keine KI-Menschen, keine fremden Marken/Firmen-Websites. Pro Post höchstens ein Bild aus den letzten 8 Posts.
 - Rendern (`python render.py posts/<id>.json /tmp/out`), 3–4 Frames als Bild ansehen: Lesbarkeit, Überlauf,
   Text passt zum Bild, Timing. Erst dann `status: queued` (+ `priority` 1 für den nächsten Slot).
 - Caption: erster Satz = zweiter Hook, dann Nutzen in 2–3 Sätzen, Frage oder „Kommentiere CHECK“.
