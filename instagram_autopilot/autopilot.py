@@ -228,6 +228,13 @@ def cmd_due() -> None:
         start = now.replace(hour=h, minute=m, second=0, microsecond=0)
         if start <= now < start + window:
             in_slot = True
+    gap = CONFIG.get("min_gap_minutes", 0)
+    if gap and os.getenv("FORCE") != "1":   # two runs in one slot must not post back to back
+        stamps = [p.get("timestamp") for p in state["published"].values() if p.get("timestamp")]
+        if stamps:
+            last = max(datetime.strptime(t, "%Y-%m-%dT%H:%M:%S%z") for t in stamps)
+            if now - last < timedelta(minutes=gap):
+                return
     if in_slot or os.getenv("FORCE") == "1":
         pid = os.getenv("POST_ID") or next_queued(state)
         if pid:

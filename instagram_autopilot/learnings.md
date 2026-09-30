@@ -1,5 +1,9 @@
 # Learnings
 
+## 30.09. 15:50 – Creative Director (Nachmittagslauf)
+- Heute zwei Posts binnen 18 min im 08:00-Slot (Routine-Dispatch + GitHub-Zeitplan). Neu: `min_gap_minutes: 120` in config.json – ein zweiter Lauf im selben Slot postet nicht mehr.
+- Richtungswechsel nach Maiks Feedback (kaum Reichweite): erst Kanal aufbauen, dann verkaufen. Test: teilbares Relatable-Karussell „Was Kunden sagen – und was sie meinen“ mit CTA Kommentieren/Teilen/Folgen statt CHECK.
+
 ## 30.09. 06:55 – Creative Director (Morgenlauf)
 - Daten (41 Posts, 55 Follower): Die Posts von gestern bleiben klein (E2909a 13, E2909b 5, E2909c 2, 025 7), obwohl E2909a exakt das Format des Top-Reels 001 (126) hat. Gleiches Format, 10× weniger Reichweite → Engpass ist gerade die Verteilung, nicht das Motiv. Wahrscheinliche Ursache: Massen-Postings am 27./28. (~75 Posts) + ein Doppel-Post (E2909b 17:47/17:54, Bug behoben).
 - Hypothese: Instagram drosselt das Konto nach der Flut; Erholung braucht einige Tage mit sauberem Rhythmus. Test heute: erstes Karussell seit Tagen (Karussells bekommen als einzige Kommentare) + zwei Demo-Reels zu den stärksten Pains (Anfragen, Preise/Zeit).
