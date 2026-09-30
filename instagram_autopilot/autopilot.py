@@ -1,4 +1,4 @@
-"""Instagram autopilot for @ai.made.in.bielefeld.
+"""Instagram autopilot for @health.ai.bi.ms (formerly @ai.made.in.bielefeld).
 
 Commands (run from the repo root):
   python instagram_autopilot/autopilot.py due          -> prints the post id due now (or nothing)
@@ -63,8 +63,9 @@ def user_id() -> str:
     if not _ACCOUNT_CHECKED:
         who = api("GET", u, fields="username")
         print(f"Konto: @{who.get('username')}")
-        if CONFIG["account"] and who.get("username", "").lower() != CONFIG["account"].lower():
-            sys.exit(f"Token gehört zu @{who.get('username')}, erwartet @{CONFIG['account']} – Abbruch.")
+        allowed = CONFIG["account"] if isinstance(CONFIG["account"], list) else [CONFIG["account"]]
+        if any(allowed) and who.get("username", "").lower() not in {a.lower() for a in allowed if a}:
+            sys.exit(f"Token gehört zu @{who.get('username')}, erwartet @{allowed[0]} – Abbruch.")
         _ACCOUNT_CHECKED = True
     return u
 
