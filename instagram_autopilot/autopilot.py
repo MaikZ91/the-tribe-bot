@@ -1,4 +1,4 @@
-"""Instagram autopilot for @health.ai.bi.ms (formerly @ai.made.in.bielefeld).
+"""Instagram autopilot for @praxis.ki.bielefeld (formerly @ai.made.in.bielefeld).
 
 Commands (run from the repo root):
   python instagram_autopilot/autopilot.py due          -> prints the post id due now (or nothing)
