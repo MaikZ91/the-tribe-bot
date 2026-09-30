@@ -414,10 +414,16 @@ def clip_duration(path: Path) -> float:
     raise RuntimeError(f"Dauer von {path} unbekannt")
 
 
-def clip_frames(path: Path, height: int):
-    """Yield RGB frames of a screen recording, scaled/padded to W x height."""
-    cmd = [ffmpeg_exe(), "-v", "error", "-i", str(path), "-vf",
-           f"scale={W}:{height}:force_original_aspect_ratio=decrease,pad={W}:{height}:(ow-iw)/2:(oh-ih)/2:color=0xededed,fps={FPS}",
+def clip_frames(path: Path, height: int, cover: bool = False, start: float = 0.0):
+    """Yield RGB frames of a clip scaled to W x height.
+
+    Screen recordings are letterboxed (pad); real footage (`fit: cover`) is centre-cropped
+    to fill the vertical frame and gets a light darkening so captions stay readable.
+    """
+    vf = (f"scale={W}:{height}:force_original_aspect_ratio=increase,crop={W}:{height},eq=brightness=-0.06,fps={FPS}"
+          if cover else
+          f"scale={W}:{height}:force_original_aspect_ratio=decrease,pad={W}:{height}:(ow-iw)/2:(oh-ih)/2:color=0xededed,fps={FPS}")
+    cmd = [ffmpeg_exe(), "-v", "error", "-ss", str(start), "-i", str(path), "-vf", vf,
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     size = W * height * 3
@@ -439,7 +445,7 @@ def draw_clip_caption(img: Image.Image, text: str, a: float) -> None:
     lh = 72
     h = len(lines) * lh + 50
     y0 = int(H_REEL * 0.70) + int((1 - a) * 30)
-    d.rounded_rectangle([MARGIN_X - 10, y0, W - MARGIN_X + 10, y0 + h], 34, fill=B["text"] + (int(235 * a),))
+    d.rounded_rectangle([MARGIN_X - 10, y0, W - MARGIN_X + 10, y0 + h], 34, fill=(B["text"] if sum(B["text"]) < 300 else (8, 16, 30)) + (int(225 * a),))
     for i, line in enumerate(lines):
         tw = d.textlength(line, font=f)
         d.text(((W - tw) / 2, y0 + 25 + i * lh), line, font=f, fill=(255, 255, 255, int(255 * a)))
@@ -848,7 +854,7 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     lines = [tts(s.get("voice", "")) if use_voice else np.zeros(0, dtype=np.float32) for s in spec["slides"]]
     bpm = spec.get("bpm", 120)
     durs = [s.get("beats", 3) * 60.0 / bpm if s["kind"] == "beat"
-            else clip_duration(clip_path(s)) if s["kind"] == "clip"
+            else (s.get("length") or clip_duration(clip_path(s)) - s.get("start", 0)) if s["kind"] == "clip"
             else max(s.get("min_seconds", 2.4), len(v) / SR + 0.75,
                      min(reading_seconds(s), s.get("max_seconds", 3.0)) if s["kind"] == "hook" else reading_seconds(s))
             for s, v in zip(spec["slides"], lines)]
@@ -881,7 +887,7 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
     prev = None
     for s, dur in zip(spec["slides"], durs):
         if s["kind"] == "clip":
-            frames = clip_frames(clip_path(s), H_REEL)
+            frames = clip_frames(clip_path(s), H_REEL, s.get("fit") == "cover", s.get("start", 0.0))
         for k in range(int(round(dur * FPS))):
             t = k / FPS
             if s["kind"] == "clip":

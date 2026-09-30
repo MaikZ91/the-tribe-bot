@@ -44,6 +44,19 @@ die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 - Keine Bilder, die echte Patienten in intimen/medizinischen Situationen bloßstellen; keine Marken, keine Klinik-Logos.
 - Reihenfolge im Reel: Emotion (Problem-Moment) → Ablauf/Demo → Emotion (Erleichterung) → Logo-Endkarte (`kind: "logo"`).
 
+## Echte Videoclips (authentischer als Fotos) – `footage/stock/`
+
+Quelle: Mixkit (kostenlose Lizenz, kommerziell nutzbar, keine Namensnennung; Liste in `footage/stock/CREDITS.json`).
+Einbau als Slide: `{"kind": "clip", "src": "footage/stock/<datei>.mp4", "fit": "cover", "start": 1, "length": 3.5,
+"captions": [[0.2, 3.3, "kurzer Text"]]}` – `cover` schneidet auf Hochformat zu, `start`/`length` wählen den Ausschnitt.
+Vorhanden: arzt-empfang-laechelt (älterer Arzt lächelt am Empfang), arzt-schreibt (Tablet-Doku), arzt-gespraech (Hände,
+Gespräch am Bett), therapeut-buero (Therapeutin im Büro), zahnarzt-team, zahn-tablet-erklaert (Röntgenbild auf Tablet),
+zahnaerztin-portrait, physio-uebung (Übung mit Ball), app-handy-hilfe (Pflegerin zeigt älterer Frau das Handy),
+arzt-flur, zahnarzt-morgens, haende-halten (Trost, Emotion).
+Mehr holen: `curl https://mixkit.co/free-stock-video/<begriff>/` → `assets.mixkit.co/videos/<id>/<id>-720.mp4`,
+Frames prüfen, sinnvoll benennen, in CREDITS.json eintragen. Keine Clips mit Krankheit/Leid als Blickfang
+(Krebsdiagnose, Tränen, Intensivstation). Möglichst jedes Reel mit mindestens einem echten Clip beginnen oder enden.
+
 ## 1. Lagebild (gründlich)
 
 - `git pull`; lies `data/report.md`, `data/insights_latest.json`, `data/state.json`, `data/engage_stats.json`, `learnings.md`.
