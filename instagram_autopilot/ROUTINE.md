@@ -19,17 +19,14 @@ die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 
 ## Positionierungs-Check (ab 01.10., nach Maiks Hinweis) – jedes Reel muss alle Punkte erfüllen
 
-1. **Nischen-Test 01.–07.10.:** Welche Zielgruppe reagiert auf Instagram? Pro Tag je ein Reel für
-   - 08:00 **Praxen/Gesundheit** (Physio, Zahnarzt, Therapie, Arztpraxis – Tag „FÜR PRAXEN“): Terminanfragen, Telefon,
-     Personalsuche, Instagram der Praxis. NIE Patientendaten-Prozesse zeigen oder versprechen.
-   - 14:30 **Labore & Technik-Betriebe** (Tag „FÜR LABORE“ / „FÜR TECHNIK-BETRIEBE“): Prüfprotokolle, Doku, Auswertungen,
-     Anfragen/Angebote. Maik hat Medizintechnik studiert – fachlich korrekt bleiben, keine Firmen-/Arbeitgeberbezüge.
-   - 20:00 **Immobilienmakler** (Tag „FÜR MAKLER“): Anfrage zum Objekt in Sekunden beantwortet, Besichtigungstermine,
-     Objekt-Reels automatisch.
-   Kennzahlen je Nische (Aufrufe, Profilbesuche, Follows, Shares) im Feld `niche` der Posts. Danach entscheidet Maik.
-   Pro Reel nur EIN Problem der jeweiligen Zielgruppe; kein Sammelsurium.
-2. **Zielgruppe im Hook benannt:** Hook-Slide mit `"tag": "FÜR HANDWERKSBETRIEBE"` (oder konkreter Beruf), Keyword im Text
-   (Anfrage, Angebot, Stundensatz, Handwerk, Bielefeld).
+1. **Eine Nische (Maiks Entscheidung 30.09.): Praxen & Gesundheit** – Physio, Zahnarzt, Therapie, Arztpraxis in Bielefeld/OWL.
+   Themen: Terminanfragen & Rückrufe, Dauerklingeln am Telefon, Personalsuche/Recruiting per Instagram, Instagram der Praxis
+   automatisch, Bewertungen, interne Abläufe (Dienstplan, QM-Doku). NIE Patientendaten-Prozesse zeigen oder versprechen
+   (keine Befunde, Diagnosen, Patientenakten). Maik hat Medizintechnik studiert – fachlich korrekt, keine Arbeitgeberbezüge.
+   Pro Reel EIN Problem; alle drei Tagesreels Praxen, aber unterschiedliche Praxis-Typen/Probleme. Feld `niche: "praxen"`.
+   CTA: „Kommentiere PRAXIS“ (DM mit Praxis-Check).
+2. **Zielgruppe im Hook benannt:** Hook-Slide mit `"tag": "FÜR PRAXEN"` (oder konkreter: „FÜR PHYSIOPRAXEN“, „FÜR ZAHNARZTPRAXEN“), Keyword im Text
+   (Praxis, Termin, Patienten-Anfrage, Rezeption, Personal, Bielefeld).
 3. **Problem oder Wunsch der Zielgruppe** im ersten Satz, nicht das Produkt.
 4. **Hook mittig, sofort lesbar:** kurz (max. ~8 Wörter pro Satz, keine Einzelwörter in einer Zeile), zentriert (config `hook_align`).
 5. **3-Sekunden-Test:** Versteht eine fremde Person in 3 s, worum es geht und für wen? Sonst umschreiben.
