@@ -42,6 +42,8 @@ def hex_rgb(h: str) -> tuple[int, int, int]:
 
 B = {k: hex_rgb(v) for k, v in CONFIG["brand"].items()}
 B.setdefault("accent_ink", (255, 255, 255))
+B.setdefault("card_ink", (10, 10, 10))      # text on cards
+B.setdefault("card_muted", (150, 150, 150))
 B["accent_text"] = B["accent"]
 LIGHT = dict(B)
 DARK = dict(B, text=(255, 255, 255), muted=(226, 230, 238), bg=(16, 18, 24), accent_text=(147, 197, 253))
@@ -358,7 +360,7 @@ def slide_flow(img, s, t, dur, h):
         ty = cy - len(lines) * 29
         for j, line in enumerate(lines):
             d.text((MARGIN_X + 150, ty + j * 58), line, font=fs,
-                   fill=blend((150, 150, 150), INK, max(active, 0.35 if t < on_at else 1)))
+                   fill=blend(B["card_muted"], B["card_ink"], max(active, 0.35 if t < on_at else 1)))
         if i < n - 1 and appear >= 1:
             ax = W // 2
             d.polygon([(ax - 18, top + card_h + gap // 2 - 8), (ax + 18, top + card_h + gap // 2 - 8),
@@ -629,7 +631,7 @@ def slide_pipeline(img, s, t, dur, h):
         while size > 26 and d.textlength(label, font=font_c("Bold", size)) > room:
             size -= 2
         fl = font_c("Bold", size)
-        col = blend((150, 150, 150), INK, max(active, 0.45))
+        col = blend(B["card_muted"], B["card_ink"], max(active, 0.45))
         if sub:
             d.text((tx, cy - fl.size + 2), label, font=fl, fill=col)
             d.text((tx, cy + 10), sub, font=fs, fill=blend((170, 170, 170), (95, 100, 112), max(active, 0.4)))
@@ -783,7 +785,29 @@ def slide_timeline(img, s, t, dur, h):
                         fill=B["accent"] + (int(255 * la),))
     d.text(((W - lw) / 2, ly), lab, font=fb, fill=(255, 255, 255, int(255 * la)))
 
-RENDERERS = {"beat": slide_beat, "hook": slide_hook, "point": slide_point, "flow": slide_flow,
+def slide_logo(img, s, t, dur, h):
+    """Brand end card: the square logo contained and centred on its own colour, gentle zoom-in."""
+    src = photo(s["src"])
+    img.paste(src.getpixel((8, 8)), [0, 0, W, h])
+    a = ease(t / 0.6)
+    size = int(W * (0.92 + 0.04 * min(t / max(dur, 0.1), 1)))
+    logo = src.resize((size, size), Image.LANCZOS)
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rectangle([60, 60, size - 60, size - 60], fill=255)
+    mask = mask.filter(ImageFilter.GaussianBlur(45))
+    if a < 1:
+        logo = Image.blend(Image.new("RGB", logo.size, src.getpixel((8, 8))), logo, a)
+    img.paste(logo, ((W - size) // 2, (h - size) // 2 - (40 if h == H_REEL else 0)), mask)
+    if s.get("text"):
+        d = ImageDraw.Draw(img)
+        f = font("Bold", 48)
+        tw = d.textlength(s["text"], font=f)
+        y = (h + size) // 2 + 20
+        d.rounded_rectangle([(W - tw) / 2 - 36, y - 14, (W + tw) / 2 + 36, y + 70], 42, fill=B["accent"])
+        d.text(((W - tw) / 2, y), s["text"], font=f, fill=B.get("accent_ink", (255, 255, 255)))
+
+
+RENDERERS = {"beat": slide_beat, "logo": slide_logo, "hook": slide_hook, "point": slide_point, "flow": slide_flow,
              "stat": slide_stat, "cta": slide_cta,
              "pipeline": slide_pipeline, "timeline": slide_timeline}
 
@@ -808,7 +832,7 @@ def apply_bg(spec: dict) -> None:
     pool = [pool] if isinstance(pool, str) else pool
     k = 0
     for s in spec["slides"]:
-        if s["kind"] != "clip" and "bg" not in s:
+        if s["kind"] not in ("clip", "logo") and "bg" not in s:
             s["bg"] = pool[k % len(pool)]
             k += 1
 
