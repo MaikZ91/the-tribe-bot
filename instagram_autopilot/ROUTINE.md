@@ -19,7 +19,10 @@ die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 
 ## Positionierungs-Check (ab 01.10., nach Maiks Hinweis) – jedes Reel muss alle Punkte erfüllen
 
-1. **Eine Nische (Maiks Entscheidung 30.09.): Praxen & Gesundheit** – Physio, Zahnarzt, Therapie, Arztpraxis in Bielefeld/OWL.
+1. **Eine Nische (Maiks Entscheidung 30.09.): Praxen & Gesundheit** – Physio, Zahnarzt, Therapie, Arztpraxis in Bielefeld/OWL,
+   dazu **Gesundheits-Coaches** (Ernährung, Fitness/Personal Training, Mental/Stress, Yoga, Heilpraktiker). Mix pro Tag: 2 Praxen, 1 Coach.
+   Coach-Themen: Erstgespräch-Anfragen per DM automatisch beantworten und buchen, Content/Reels automatisch aus Sprachnotizen,
+   Onboarding neuer Klienten, Terminerinnerungen. Coach-Reels: `niche: "coaches"`, Tag „FÜR COACHES“, CTA „Kommentiere COACH“.
    Themen: Terminanfragen & Rückrufe, Dauerklingeln am Telefon, Personalsuche/Recruiting per Instagram, Instagram der Praxis
    automatisch, Bewertungen, interne Abläufe (Dienstplan, QM-Doku). NIE Patientendaten-Prozesse zeigen oder versprechen
    (keine Befunde, Diagnosen, Patientenakten). Maik hat Medizintechnik studiert – fachlich korrekt, keine Arbeitgeberbezüge.
