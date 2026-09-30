@@ -342,14 +342,18 @@ def cmd_publish(post_id: str) -> None:
             return
         raise
     info = api("GET", pub["id"], fields="permalink,timestamp")
-    if spec["type"] == "reel" and CONFIG.get("story_repost", True) and quota_left(uid) > CONFIG.get("story_min_quota", 25):
-        try:   # same video as a story -> reaches existing followers first
-            st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
+    story = None
+    if CONFIG.get("story_repost", True) and quota_left(uid) > CONFIG.get("story_min_quota", 25):
+        try:   # same content as a story -> reaches existing followers first (carousel: its cover slide)
+            if spec["type"] == "reel":
+                st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
+            else:
+                st = api("POST", f"{uid}/media", media_type="STORIES", image_url=media_url(post_id, meta["images"][0]))
             wait_container(st["id"], minutes=8)
-            api("POST", f"{uid}/media_publish", creation_id=st["id"])
+            story = api("POST", f"{uid}/media_publish", creation_id=st["id"])["id"]
             print("Story veröffentlicht")
         except RuntimeError as e:
-            print(f"Story fehlgeschlagen (Reel ist trotzdem online): {e}")
+            print(f"Story fehlgeschlagen (Beitrag ist trotzdem online): {e}")
     now = datetime.now(TZ)
     state = load_state()
     state["published"][post_id] = {
@@ -361,7 +365,7 @@ def cmd_publish(post_id: str) -> None:
         "hook": next((s.get("text") or s.get("title") for s in spec.get("slides", [])
                       if s.get("text") or s.get("title")), ""),
         "kinds": [s["kind"] for s in spec.get("slides", [])], "music": spec.get("music", "bed"),
-        "series": spec.get("series"), "forced": os.getenv("FORCE") == "1",
+        "series": spec.get("series"), "forced": os.getenv("FORCE") == "1", "story_id": story,
     }
     save_state(state)
     spec["status"] = "published"
