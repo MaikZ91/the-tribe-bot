@@ -130,13 +130,13 @@ jobs:
             POST_ID="" id=$(POST_ID="" python instagram_autopilot/autopilot.py due)
           done
 
-      - name: Kennzahlen abholen (nur lesen, höchstens alle 5 h)
+      - name: Kennzahlen abholen (nur lesen; per Zeitplan höchstens alle 5 h)
         if: always() && env.IG_AI_TOKEN != ''
         continue-on-error: true
         run: |
           f=tribe_autopilot/data/insights_latest.json
           last=$(git log -1 --format=%ct -- "$f" 2>/dev/null || echo 0)
-          if [ $(( $(date +%s) - ${last:-0} )) -lt 18000 ]; then echo "Auswertung ist frisch – übersprungen."; exit 0; fi
+          if [ "${{ github.event_name }}" = "schedule" ] && [ $(( $(date +%s) - ${last:-0} )) -lt 18000 ]; then echo "Auswertung ist frisch – übersprungen."; exit 0; fi
           pip install -q requests
           python instagram_autopilot/autopilot.py insights
           git config user.name "tribe-autopilot[bot]"
