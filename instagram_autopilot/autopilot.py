@@ -479,8 +479,11 @@ def media_insights(mid: str, metrics: list[str]) -> dict:
             res = api("GET", f"{mid}/insights", metric=m)
             item = res["data"][0]
             out[m] = (item.get("values") or [{}])[0].get("value", item.get("total_value", {}).get("value"))
-        except (RuntimeError, IndexError, KeyError):
+        except (RuntimeError, IndexError, KeyError) as e:
+            err = e
             continue
+    if not out:
+        print(f"Keine Kennzahlen für {mid}: {locals().get('err')}", file=sys.stderr)
     return out
 
 
