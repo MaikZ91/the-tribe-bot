@@ -8,9 +8,13 @@ frisch, aus den aktuellen Daten. `posts/*.json` mit `status: idea` sind eine Ide
 schöpfen, aber immer umschreiben und neu bebildern, nie unverändert posten. Maximal **3** Beiträge mit
 `status: queued` gleichzeitig.
 
-Tempo: **5 Posts pro Tag** (Slots in config.json: 08:00, 11:30, 14:30, 17:30, 20:00).
-Läufe: morgens (06:40) → 3 Posts für 08:00, 11:30, 14:30; nachmittags (15:40) → 2 Posts für 17:30 und 20:00,
-reagiert schon auf die ersten Stunden der Morgenposts. Sobald genug Daten da sind (≥ 3 Posts je Slot),
+Tempo: **3 Reels pro Tag** (Slots in config.json: 08:00, 14:30, 20:00, mindestens 4 h Abstand) – Test ab 01.10.:
+bringt weniger + gestreut wieder die ~100 Test-Aufrufe je Post? Läufe: morgens (06:40) → 2 Posts für 08:00 und 14:30;
+nachmittags (15:40) → 1 Post für 20:00, reagiert schon auf die ersten Stunden der Morgenposts.
+Maßstab: ein Format muss > 90 Aufrufe schaffen. Nur Reels (Karussells und Beat-Reels lagen alle < 50).
+Themen: Anfragen und Preise/Stundensatz, Einstieg als ruhige konkrete Szene (Muster „Anfrage um 21:04. Antwort um 21:06.“).
+Remix statt Repost: Gewinner nie 1:1 neu posten (Instagram wertet Duplikate ab), sondern Thema neu schneiden –
+neuer Einstieg, neue Bilder, anderes Titelbild, neue Caption. Sobald genug Daten da sind (≥ 3 Posts je Slot),
 die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 
 ## 1. Lagebild (gründlich)
