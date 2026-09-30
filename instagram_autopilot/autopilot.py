@@ -552,13 +552,13 @@ def cmd_insights() -> None:
                  "music": spec.get("music", "bed"), "series": spec.get("series"),
                  "hook": next((x.get("text") or x.get("title") for x in spec.get("slides", [])
                                if x.get("text") or x.get("title")), ""),
-                 **p, "pain": spec.get("pain") or spec.get("topic")}
+                 **p, "pain": spec.get("pain") or spec.get("topic"), "niche": spec.get("niche")}
         except FileNotFoundError:
             pass
         row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic", "pain",
                                                          "local_date", "local_time", "weekday", "seconds",
                                                          "images", "hook", "kinds", "music", "series",
-                                                         "permalink")}, **m}
+                                                         "permalink", "niche")}, **m}
         if m.get("ig_reels_avg_watch_time"):
             row["avg_watch_s"] = round(float(m["ig_reels_avg_watch_time"]) / 1000, 2)
         if p["type"] == "reel" and m.get("ig_reels_avg_watch_time") and p.get("seconds"):
@@ -659,7 +659,7 @@ def write_report(snap: dict) -> None:
                      f"{r.get('saved', '–')} | {r.get('shares', '–')} | {r.get('watch_ratio', '–')} | {r.get('interest', 0)} |")
     lines += pain_report(rows)
     lines += deep_report(snap, rows)
-    for key in ("format", "hook_style", "pain", "local_time", "music"):
+    for key in ("niche", "format", "hook_style", "pain", "local_time", "music"):
         agg: dict = {}
         for r in rows:
             agg.setdefault(r.get(key), []).append(r.get("interest", 0))
