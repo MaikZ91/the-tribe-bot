@@ -25,14 +25,14 @@ Follower: **55** · Beiträge: 41
 | V04-was-papierkram-kostet | viral-beat | zeit | relatable | 18 | 21 | 0 | 0 | 0 | 0 | 0.224 | 12.9 |
 | 014-demo-zeitfresser | demo-reel | zeit | zahl | 15 | 20 | 0 | 0 | 0 | 0 | 0.22 | 12.2 |
 | V06-wettbewerber-2-minuten | viral-beat | anfragen | relatable | 10 | 16 | 0 | 0 | 0 | 0 | 0.414 | 11.3 |
-| E2909a-anfrage-2231 | flow-reel | anfragen | uhrzeit | 13 | 18 | 0 | 0 | 0 | 0 | 0.19 | 10.7 |
+| E2909a-anfrage-2231 | flow-reel | anfragen | uhrzeit | 14 | 19 | 0 | 0 | 0 | 0 | 0.18 | 11.2 |
 | V01-pov-selbststaendig | viral-beat | zeit | pov | 4 | 8 | 0 | 0 | 0 | 0 | 1.602 | 10.4 |
 | 013-demo-bewertungen | demo-reel | bewertungen | so-gehts | 13 | 15 | 0 | 0 | 0 | 0 | 0.236 | 9.3 |
 | V02-kunde-ungefaehr | viral-beat | angebote | relatable | 5 | 9 | 0 | 0 | 0 | 0 | 1.041 | 9.2 |
 | 017-demo-termin | demo-reel | termine | problem | 9 | 13 | 0 | 0 | 0 | 0 | 0.416 | 9.2 |
 | 025-account-postet-sich-selbst | service-reel | social-media | problem | 7 | 12 | 0 | 0 | 0 | 0 | 0.316 | 7.9 |
-| E2909c-du-filmst-40-sekunden | demo-reel | social-media | zahl | 2 | 6 | 0 | 0 | 0 | 0 | 1.469 | 7.4 |
 | M05-fotos-automatisch | service-reel | media | problem | 13 | 13 | 0 | 0 | 0 | 0 | 0.12 | 7.3 |
+| E2909c-du-filmst-40-sekunden | demo-reel | social-media | zahl | 4 | 7 | 0 | 0 | 0 | 0 | 0.923 | 6.7 |
 | 031-webdesign-web-apps-demo | demo-reel | website | so-gehts | 11 | 11 | 0 | 0 | 0 | 0 | 0.164 | 6.4 |
 | D2809a-samstag-1847 | viral-beat | anfragen | uhrzeit-szene | 4 | 7 | 0 | 0 | 0 | 0 | 0.837 | 6.4 |
 | 016-demo-antworten | demo-reel | anfragen | frage | 10 | 10 | 0 | 0 | 0 | 0 | 0.206 | 6.0 |
@@ -49,7 +49,7 @@ Follower: **55** · Beiträge: 41
 |---|---|---|---|---|---|
 | preise | 63.3 | 109.0 | 0.16 | 2 | stundensatz |
 | leads | 28.4 | 43.0 | 0.32 | 1 | – |
-| anfragen | 26.9 | 42.3 | 0.30 | 9 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
+| anfragen | 26.9 | 42.4 | 0.29 | 9 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | media | 25.9 | 40.2 | 0.23 | 4 | – |
 | rechnungen | 21.0 | 35.5 | 0.18 | 2 | rechnung, mahnung |
 | allgemein | 18.0 | 10.0 | 0.00 | 1 | – |
@@ -57,7 +57,7 @@ Follower: **55** · Beiträge: 41
 | website | 10.7 | 9.0 | 0.16 | 2 | – |
 | angebote | 10.3 | 13.5 | 0.65 | 4 | angebot |
 | bewertungen | 9.3 | 15.0 | 0.24 | 1 | bewertungen |
-| social-media | 8.8 | 13.0 | 0.67 | 4 | – |
+| social-media | 8.6 | 13.2 | 0.53 | 4 | – |
 | web-apps | 5.8 | 8.0 | 0.46 | 1 | – |
 | termine | 4.6 | 6.5 | 0.42 | 2 | termin |
 
@@ -78,7 +78,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 24.7 (n=30)
-- ≥ 90 min: Ø Reichweite 22.4 (n=5)
+- ≥ 90 min: Ø Reichweite 23.0 (n=5)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -97,15 +97,15 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Konto (heute)
 
-- reach: 546
+- reach: 556
 - profile_views: 8
 - accounts_engaged: 1
 - website_clicks: 0
 
 ## Ø Interesse nach format
 
-- flow-reel: 45.40 (n=2)
-- demo-reel: 23.14 (n=14)
+- flow-reel: 45.65 (n=2)
+- demo-reel: 23.09 (n=14)
 - service-reel: 20.02 (n=6)
 - service-carousel: 19.00 (n=4)
 - stat-reel: 17.80 (n=1)
@@ -114,9 +114,9 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Ø Interesse nach hook_style
 
-- uhrzeit: 45.40 (n=2)
+- uhrzeit: 45.65 (n=2)
 - zahl-frage: 31.40 (n=2)
-- zahl: 26.78 (n=4)
+- zahl: 26.60 (n=4)
 - frage: 24.62 (n=5)
 - list: 22.00 (n=1)
 - problem: 20.90 (n=8)
@@ -132,7 +132,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 - preise: 63.30 (n=2)
 - leads: 28.40 (n=1)
-- anfragen: 26.88 (n=9)
+- anfragen: 26.93 (n=9)
 - media: 25.92 (n=4)
 - rechnungen: 20.95 (n=2)
 - allgemein: 18.00 (n=1)
@@ -140,7 +140,7 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 - website: 10.70 (n=2)
 - angebote: 10.35 (n=4)
 - bewertungen: 9.30 (n=1)
-- social-media: 8.80 (n=4)
+- social-media: 8.62 (n=4)
 - web-apps: 5.80 (n=1)
 - termine: 4.60 (n=2)
 
@@ -167,14 +167,14 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 - 19:27: 12.90 (n=1)
 - 19:25: 12.20 (n=1)
 - 07:12: 11.30 (n=1)
-- 14:41: 10.70 (n=1)
+- 14:41: 11.20 (n=1)
 - 18:22: 10.40 (n=1)
 - 18:12: 9.30 (n=1)
 - 18:56: 9.20 (n=1)
 - 07:07: 9.20 (n=1)
 - 11:38: 7.90 (n=1)
-- 20:11: 7.40 (n=1)
 - 19:33: 7.30 (n=1)
+- 20:11: 6.70 (n=1)
 - 19:20: 6.40 (n=1)
 - 20:41: 6.40 (n=1)
 - 19:34: 6.00 (n=1)
@@ -187,5 +187,5 @@ Antwort um 21:06.“ · Ø 5.41 s von 26.53 s · Skip 67.2 · Reichweite 126
 
 ## Ø Interesse nach music
 
-- bed: 23.70 (n=17)
+- bed: 23.69 (n=17)
 - beat: 16.53 (n=21)
