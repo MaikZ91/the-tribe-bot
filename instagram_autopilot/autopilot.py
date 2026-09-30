@@ -529,8 +529,21 @@ def cmd_insights() -> None:
     uid = user_id()
     state = load_state()
     acct = api("GET", uid, fields="username,followers_count,media_count")
+    live, url = set(), f"{uid}/media"
+    try:   # posts Maik deleted by hand drop out of the analysis instead of erroring
+        params = {"fields": "id", "limit": 100}
+        while url:
+            page = api("GET", url, **params)
+            live |= {m["id"] for m in page.get("data", [])}
+            nxt = page.get("paging", {}).get("next")
+            url, params = nxt, {}
+    except RuntimeError:
+        live = set()
     rows = []
     for pid, p in state["published"].items():
+        if live and p.get("media_id") not in live:
+            p["deleted"] = True
+            continue
         metrics = REEL_METRICS if p["type"] == "reel" else FEED_METRICS
         m = media_insights(p["media_id"], metrics)
         try:
@@ -569,6 +582,7 @@ def cmd_insights() -> None:
         if new:
             w.writerow(["date", "followers", "media_count"])
         w.writerow([today, acct.get("followers_count"), acct.get("media_count")])
+    save_state(state)
     write_report(snap)
     print(f"{len(rows)} Beiträge ausgewertet, Follower: {acct.get('followers_count')}")
 

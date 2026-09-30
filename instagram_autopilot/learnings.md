@@ -1,5 +1,10 @@
 # Learnings
 
+## 30.09. 20:15 – Maik hat alle Posts unter 90 Aufrufen gelöscht
+- Übrig (Aufrufe): „Bielefelder Unternehmen aufgepasst" 7.256 (echte Person, direkte lokale Ansprache; vermutlich beworben – klären), „Genau das kann KI für dich übernehmen" 924 (Person im Bild, angepinnt), „Videos schneiden?" 133, „Anfrage um 21:04" 133, „Rechnest du zu billig?" 122, „Wie viel Umsatz verlierst du…" 99, „60 € pro Stunde" 96, Logo-Post 22. 30-Tage-Aufrufe gesamt 8.998.
+- Lehre: Die Autopilot-Masse (≈40 Posts < 90 Aufrufe) hat nichts beigetragen. Maßstab ab jetzt: ein Post muss > 90 Aufrufe schaffen, sonst Format verwerfen. Lokale Direktansprache („Bielefelder Unternehmen …") ist das stärkste Signal im Profil.
+- Gelöschte Posts werden in der Auswertung automatisch als `deleted` markiert und ignoriert.
+
 ## 30.09. 15:50 – Creative Director (Nachmittagslauf)
 - Heute zwei Posts binnen 18 min im 08:00-Slot (Routine-Dispatch + GitHub-Zeitplan). Neu: `min_gap_minutes: 120` in config.json – ein zweiter Lauf im selben Slot postet nicht mehr.
 - Richtungswechsel nach Maiks Feedback (kaum Reichweite): erst Kanal aufbauen, dann verkaufen. Test: teilbares Relatable-Karussell „Was Kunden sagen – und was sie meinen“ mit CTA Kommentieren/Teilen/Folgen statt CHECK.
