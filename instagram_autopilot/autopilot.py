@@ -19,6 +19,7 @@ from __future__ import annotations
 import base64
 import csv
 import json
+import subprocess
 import os
 import shutil
 import sys
@@ -308,6 +309,10 @@ def quota_left(uid: str) -> int:
 
 def cmd_publish(post_id: str) -> None:
     spec = load_spec(post_id)
+    subprocess.run(["git", "pull", "-q", "--rebase", "--autostash"], cwd=REPO, check=False)
+    if post_id in load_state()["published"]:   # a parallel run already posted it
+        print(f"{post_id} ist bereits veröffentlicht – übersprungen.")
+        return
     meta = json.loads((MEDIA_DIR / post_id / "meta.json").read_text(encoding="utf-8"))
     uid = user_id()
     left = quota_left(uid)

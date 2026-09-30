@@ -59,6 +59,7 @@ jobs:
             echo "::notice::Secret AI (bzw. IG_AI_TOKEN) fehlt – nichts zu tun."
             exit 0
           fi
+          git pull -q --ff-only || true   # a parallel run may have just posted
           pip install -q requests
           id=$(python instagram_autopilot/autopilot.py due)   # bricht bei Fehlern ab (bash -e)
           echo "id=$id" >> "$GITHUB_OUTPUT"
