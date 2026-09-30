@@ -268,7 +268,7 @@ class Canvas:
 # Each slide renderer draws the slide at local time t (seconds) of total dur.
 # For carousels t == dur, i.e. the final, fully revealed state.
 
-def text_block(d, lines, f, x, y, color, t, start, stagger=0.09, line_gap=1.18):
+def text_block(d, lines, f, x, y, color, t, start, stagger=0.09, line_gap=1.18, center=False):
     """Draw lines with a staggered slide-up reveal; returns the bottom y."""
     lh = int(f.size * line_gap)
     for i, line in enumerate(lines):
@@ -277,9 +277,10 @@ def text_block(d, lines, f, x, y, color, t, start, stagger=0.09, line_gap=1.18):
             continue
         col = blend(B["bg"], color, a)
         yy = y + i * lh + int((1 - a) * 40)
+        xx = (W - d.textlength(line, font=f)) / 2 if center else x
         if B is not None and B.get("text") == (255, 255, 255):
-            d.text((x + 3, yy + 4), line, font=f, fill=(0, 0, 0))
-        d.text((x, yy), line, font=f, fill=col)
+            d.text((xx + 3, yy + 4), line, font=f, fill=(0, 0, 0))
+        d.text((xx, yy), line, font=f, fill=col)
     return y + len(lines) * lh
 
 
@@ -289,11 +290,20 @@ def slide_hook(img, s, t, dur, h):
     lines = wrap(d, s["text"], f, W - 2 * MARGIN_X)
     fs = font("Medium", 46)
     sub = wrap(d, s.get("sub", ""), fs, W - 2 * MARGIN_X) if s.get("sub") else []
-    total = len(lines) * int(f.size * 1.18) + (40 + len(sub) * int(fs.size * 1.3) if sub else 0)
+    center = s.get("align", CONFIG.get("hook_align", "left")) == "center"
+    tag = s.get("tag")          # names the exact audience, e.g. "FÜR HANDWERKSBETRIEBE IN OWL"
+    ft = font("Bold", 36)
+    total = len(lines) * int(f.size * 1.18) + (40 + len(sub) * int(fs.size * 1.3) if sub else 0) + (90 if tag else 0)
     y = (h - total) // 2 - (60 if h == H_REEL else 0)
-    y = text_block(d, lines, f, MARGIN_X, y, B["text"], t, 0.05)
+    if tag:
+        tw = d.textlength(tag, font=ft)
+        x0 = (W - tw) / 2 - 24 if center else MARGIN_X
+        d.rounded_rectangle([x0, y, x0 + tw + 48, y + 62], radius=31, fill=B["accent"])
+        d.text((x0 + 24, y + 11), tag, font=ft, fill=B.get("accent_ink", (255, 255, 255)))
+        y += 90
+    y = text_block(d, lines, f, MARGIN_X, y, B["text"], t, 0.05, center=center)
     if sub:
-        text_block(d, sub, fs, MARGIN_X, y + 40, B["muted"], t, 0.35 + 0.09 * len(lines), line_gap=1.3)
+        text_block(d, sub, fs, MARGIN_X, y + 40, B["muted"], t, 0.35 + 0.09 * len(lines), line_gap=1.3, center=center)
 
 
 def slide_point(img, s, t, dur, h):

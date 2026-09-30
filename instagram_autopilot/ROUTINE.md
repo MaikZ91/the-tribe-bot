@@ -17,6 +17,16 @@ Remix statt Repost: Gewinner nie 1:1 neu posten (Instagram wertet Duplikate ab),
 neuer Einstieg, neue Bilder, anderes Titelbild, neue Caption. Sobald genug Daten da sind (≥ 3 Posts je Slot),
 die Slot-Zeiten in config.json zu den stärksten Uhrzeiten verschieben.
 
+## Positionierungs-Check (ab 01.10., nach Maiks Hinweis) – jedes Reel muss alle Punkte erfüllen
+
+1. **Ein Thema:** Anfragen & Angebote automatisch für Handwerksbetriebe in OWL (Preise/Stundensatz als Einstieg).
+   Media nur, wenn es direkt dazu passt. Keine Themen-Sprünge.
+2. **Zielgruppe im Hook benannt:** Hook-Slide mit `"tag": "FÜR HANDWERKSBETRIEBE"` (oder konkreter Beruf), Keyword im Text
+   (Anfrage, Angebot, Stundensatz, Handwerk, Bielefeld).
+3. **Problem oder Wunsch der Zielgruppe** im ersten Satz, nicht das Produkt.
+4. **Hook mittig, sofort lesbar:** kurz (max. ~8 Wörter pro Satz, keine Einzelwörter in einer Zeile), zentriert (config `hook_align`).
+5. **3-Sekunden-Test:** Versteht eine fremde Person in 3 s, worum es geht und für wen? Sonst umschreiben.
+
 ## 1. Lagebild (gründlich)
 
 - `git pull`; lies `data/report.md`, `data/insights_latest.json`, `data/state.json`, `data/engage_stats.json`, `learnings.md`.
