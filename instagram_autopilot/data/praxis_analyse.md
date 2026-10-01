@@ -36,6 +36,6 @@ Leistungen zum Abgleich: **W** = Website mit KI-Assistent · **A** = KI-Agent Te
 ## Muster für Content
 
 1. **Kein einziger** der geprüften Praxen hat einen Chat oder KI-Assistenten. Das ist das Alleinstellungsmerkmal.
-2. **Die Hälfte hat keine Online-Buchung** oder nur eine Terminanfrage → Telefonlast. Reel-Thema bleibt richtig.
-3. **ZFA/MFA-Mangel** ist akut (2 von 9 suchen öffentlich, beide seit August) → Recruiting-Reel nachlegen.
+2. **Online-Buchung trennt die Branchen:** 7 von 8 Zahnarztpraxen haben sie, keine der 3 Physio-/HP-Praxen (dazu NoLimits ohne Website). Insgesamt 4 von 12 Seiten ohne → Telefon-Thema vor allem für Physio/Therapie.
+3. **ZFA/MFA-Mangel** ist akut (2 der 8 Zahnarztpraxen suchen öffentlich, beide seit August) → Recruiting-Reel nachlegen.
 4. Viele Einzel-Therapeuten sind **nur mit Handynummer** erreichbar → Coach/Einzelpraxis-Reel: „Behandeln oder telefonieren?“

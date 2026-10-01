@@ -1,5 +1,14 @@
 # Learnings
 
+## 01.10. 17:00 – Praxis-Analyse (12 Websites Bielefeld/OWL, data/praxis_analyse.md)
+- Fakten: 0 von 12 Praxis-Websites mit Chat/KI-Assistent. Online-Buchung: 7 von 8 Zahnärzten, 0 von 3 Physio/HP. Zahnärzte Brake + Dr. Störmer suchen seit 03.08. öffentlich ZFA. Einzeltherapeuten oft nur per Handynummer erreichbar.
+- Folge für Reels – Pain je Praxistyp statt einheitlich:
+  - Zahnarzt: nicht „Telefon“ (die haben Buchung), sondern **Recruiting** („ZFA-Anzeige seit August online – und keiner meldet sich?“) und **Website-Assistent** („Patientin fragt um 22:40, ob ihr Angstpatienten behandelt“).
+  - Physio/Therapie: **Telefon + fehlende Online-Termine** („Behandeln oder ans Telefon gehen?“, „Kursplan als PDF“).
+  - Einzelpraxis/Coach: **Handy klingelt während der Behandlung**.
+- Neue Hook-Möglichkeit mit echter Zahl: „Wir haben uns 12 Praxis-Websites in Bielefeld angesehen. Keine einzige hat das.“ (Stichprobe nennen, keine Praxis namentlich, nichts übertreiben.)
+- KI-Check: Option „Chat / Assistent auf der Website“ ergänzt; Ergebnis zeigt jetzt einen Bielefeld-Vergleich aus dieser Stichprobe.
+
 ## 01.10. 06:50 – Creative Director (Morgenlauf, Tag 1 Praxis KI)
 - Erster Praxis-Post P0110a (30.09. 21:15): nach ~9 h 9 Aufrufe, 4 Reichweite, aber Watch-Ratio 0,68 – bester Haltewert bisher. Inhalt hält, Verteilung fehlt (Konto noch gedrosselt, neue Zielgruppe ohne Follower-Basis).
 - Hypothese: Echte Clips + Praxis-Szene halten die Leute; Reichweite kommt erst mit Abstand zwischen Posts und/oder etwas Werbebudget. Test heute: 08:00 Physio-Telefon (Clip + Ablauf), 14:30 Zahnarzt-Website mit KI-Assistent (zwei Clips), 20:00 Coach.
