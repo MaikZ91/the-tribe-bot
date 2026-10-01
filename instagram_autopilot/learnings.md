@@ -1,5 +1,10 @@
 # Learnings
 
+## 01.10. 15:45 – Creative Director (Nachmittagslauf)
+- Daten (Auswertung 01.10. 15:37): Konto 56 Follower, Reichweite 137. P0110b 7 Aufrufe, P0110a 9, P0110c 1 (frisch). Watch-Ratio 0,74–0,77 = beste Haltewerte überhaupt → Inhalt trägt, Verteilung fehlt weiter.
+- Test 20:00: erstes Coach-Reel P0110d (Szene „Mitten im Training. 6 neue Anfragen.“, 3 echte Mixkit-Clips, Logo-Endkarte „Kommentiere COACH“). Frage: holt die Coach-Nische mehr Reichweite als Praxen?
+- Tribe: T05 „Samstag ist Feiertag“ (Events aus events.json: Afro Friday, parkrun Obersee, Cutie Dance) für morgen 17:15 queued; T03 läuft heute.
+
 ## 01.10. 17:30 – Belegte Statistiken (data/statistiken.md)
 - Nur Zahlen aus `data/statistiken.md` verwenden, Quelle + Jahr in die Caption. Stärkste: 88 % finden Praxen telefonisch schwer erreichbar (Bitkom 2024); 27 % wählen die Praxis nach Online-Termin aus (Bitkom 2024); ZFA = Engpassberuf Nr. 1 (BA 2024).
 - Test: ein Statistik-Hook pro Tag gegen Szenen-Hook (z. B. „Anfrage um 22:40“). Variable: Hook-Typ.
