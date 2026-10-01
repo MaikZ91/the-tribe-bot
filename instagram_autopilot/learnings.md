@@ -1,5 +1,9 @@
 # Learnings
 
+## 01.10. 06:50 – Creative Director (Morgenlauf, Tag 1 Praxis KI)
+- Erster Praxis-Post P0110a (30.09. 21:15): nach ~9 h 9 Aufrufe, 4 Reichweite, aber Watch-Ratio 0,68 – bester Haltewert bisher. Inhalt hält, Verteilung fehlt (Konto noch gedrosselt, neue Zielgruppe ohne Follower-Basis).
+- Hypothese: Echte Clips + Praxis-Szene halten die Leute; Reichweite kommt erst mit Abstand zwischen Posts und/oder etwas Werbebudget. Test heute: 08:00 Physio-Telefon (Clip + Ablauf), 14:30 Zahnarzt-Website mit KI-Assistent (zwei Clips), 20:00 Coach.
+
 ## 30.09. 20:15 – Maik hat alle Posts unter 90 Aufrufen gelöscht
 - Übrig (Aufrufe): „Bielefelder Unternehmen aufgepasst" 7.256 (echte Person, direkte lokale Ansprache; vermutlich beworben – klären), „Genau das kann KI für dich übernehmen" 924 (Person im Bild, angepinnt), „Videos schneiden?" 133, „Anfrage um 21:04" 133, „Rechnest du zu billig?" 122, „Wie viel Umsatz verlierst du…" 99, „60 € pro Stunde" 96, Logo-Post 22. 30-Tage-Aufrufe gesamt 8.998.
 - Lehre: Die Autopilot-Masse (≈40 Posts < 90 Aufrufe) hat nichts beigetragen. Maßstab ab jetzt: ein Post muss > 90 Aufrufe schaffen, sonst Format verwerfen. Lokale Direktansprache („Bielefelder Unternehmen …") ist das stärkste Signal im Profil.
