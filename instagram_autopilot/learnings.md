@@ -1,5 +1,15 @@
 # Learnings
 
+## 01.10. 18:00 – Pain-Korrektur nach Gespräch Maik ↔ Ergotherapeutin
+- Praxis-Realität: Heilmittelpraxen (Physio/Ergo/Logo) sind **überlastet und haben Wartelisten** – ein Drittel nennt 3 Monate Wartezeit, Hausbesuche oft 7+ Monate (HELPER-Befragung, Bayer. Gesundheitsministerium/FAU, iww 05.05.2026). Die meisten haben **Praxissoftware** mit Terminplanung, Erinnerung, Abrechnung.
+- Folge: „Du verlierst Patienten, weil du nicht erreichbar bist“ ist für Therapiepraxen der **falsche** Pain. Die brauchen nicht mehr Patienten, sondern weniger Last.
+- Richtige Pains je Typ:
+  - Therapie/Physio/Ergo: **Personal** (Physio-Stelle 280 Tage offen, >12.000 Fachkräfte fehlen) → Recruiting + Instagram als Arbeitgeber; **Telefon-Unterbrechungen**: zehnmal am Tag „Haben Sie noch einen Platz?“ – „Nein, Warteliste“ mitten in der Behandlung.
+  - Zahnarzt: Personal (ZFA Engpass Nr. 1) + Selbstzahler-Leistungen sichtbar machen (Prophylaxe, Implantate).
+  - Coaches: Anfragen/Kundengewinnung bleibt richtig – die brauchen Kunden.
+- Nicht anbieten, was die Praxissoftware schon kann (Terminbuchung, Erinnerung, Abrechnung). Dokumentation/Verordnungen = Patientendaten → bleibt tabu.
+- Reel-Regel: Für Therapiepraxen keine „verpasste Patienten“-Hooks mehr. Stattdessen z. B. „Seit 9 Monaten suchst du eine Physiotherapeutin.“ / „Zum 10. Mal heute: Nein, wir haben keinen Platz frei.“
+
 ## 01.10. 15:45 – Creative Director (Nachmittagslauf)
 - Daten (Auswertung 01.10. 15:37): Konto 56 Follower, Reichweite 137. P0110b 7 Aufrufe, P0110a 9, P0110c 1 (frisch). Watch-Ratio 0,74–0,77 = beste Haltewerte überhaupt → Inhalt trägt, Verteilung fehlt weiter.
 - Test 20:00: erstes Coach-Reel P0110d (Szene „Mitten im Training. 6 neue Anfragen.“, 3 echte Mixkit-Clips, Logo-Endkarte „Kommentiere COACH“). Frage: holt die Coach-Nische mehr Reichweite als Praxen?
