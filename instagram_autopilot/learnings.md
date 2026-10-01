@@ -1,5 +1,10 @@
 # Learnings
 
+## 01.10. 17:30 – Belegte Statistiken (data/statistiken.md)
+- Nur Zahlen aus `data/statistiken.md` verwenden, Quelle + Jahr in die Caption. Stärkste: 88 % finden Praxen telefonisch schwer erreichbar (Bitkom 2024); 27 % wählen die Praxis nach Online-Termin aus (Bitkom 2024); ZFA = Engpassberuf Nr. 1 (BA 2024).
+- Test: ein Statistik-Hook pro Tag gegen Szenen-Hook (z. B. „Anfrage um 22:40“). Variable: Hook-Typ.
+- Praxis-Check zeigt im Ergebnis jetzt je größter Baustelle eine belegte Zahl mit Quelle.
+
 ## 01.10. 17:00 – Praxis-Analyse (12 Websites Bielefeld/OWL, data/praxis_analyse.md)
 - Fakten: 0 von 12 Praxis-Websites mit Chat/KI-Assistent. Online-Buchung: 7 von 8 Zahnärzten, 0 von 3 Physio/HP. Zahnärzte Brake + Dr. Störmer suchen seit 03.08. öffentlich ZFA. Einzeltherapeuten oft nur per Handynummer erreichbar.
 - Folge für Reels – Pain je Praxistyp statt einheitlich:

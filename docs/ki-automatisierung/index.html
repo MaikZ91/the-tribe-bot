@@ -621,6 +621,7 @@ html.in-app .legal{padding-bottom:calc(.55rem + 44px + env(safe-area-inset-botto
           <div class="res-num"><span id="res-hours">0–0</span><small>Std. / Woche</small></div>
           <p class="res-intro" id="res-intro"></p>
           <p class="res-intro" id="res-local" hidden></p>
+          <p class="res-intro" id="res-stat" hidden></p>
         </div></div>
         <div class="recs" id="recs"></div>
         <div class="maik">
@@ -893,6 +894,21 @@ function evaluate(){
 /* Vergleich mit einer Stichprobe Bielefelder/OWL-Praxis-Websites
    (12 Seiten, gesichtet am 01.10.2026): 0 mit Chat-Assistent,
    7 von 8 Zahnarztpraxen mit Online-Buchung, 0 von 3 Physio-/HP-Praxen. */
+/* Belegte Zahlen je groesster Baustelle – nur Primaerquellen,
+   Quelle steht im Text. Uebersicht: instagram_autopilot/data/statistiken.md */
+var STAT = {
+  telefon:'88 % der Deutschen finden Arztpraxen telefonisch oft schwer erreichbar. (Bitkom, 2024)',
+  team_ueberlastet:'88 % der Deutschen finden Arztpraxen telefonisch oft schwer erreichbar. (Bitkom, 2024)',
+  termine:'64 % haben schon einmal online einen Arzttermin gebucht – 2023 waren es 36 %. (Bitkom, 2025)',
+  anfragen_liegen:'27 % suchen ihre Praxis gezielt danach aus, ob sie Online-Termine anbietet. (Bitkom, 2024)',
+  personal:'Zahnmedizinische Fachangestellte sind 2024 der Engpassberuf Nr. 1 in Deutschland. (Bundesagentur für Arbeit)'
+};
+function statNote(){
+  if(answers.pain === 'personal' && (answers.branche === 'Physio' || answers.branche === 'Ergo'))
+    return 'Physio- und Ergotherapie teilen sich 2024 Platz 1 der Engpassberufe; eine Physio-Stelle bleibt im Schnitt 280 Tage offen. (Bundesagentur für Arbeit, via IFK)';
+  return STAT[answers.pain] || '';
+}
+
 function localNote(){
   var t = answers.tools, b = answers.branche;
   if(t.indexOf('chat') < 0)
@@ -908,6 +924,8 @@ function renderResult(r){
   document.getElementById('res-intro').textContent = (PAIN[answers.pain] && PAIN[answers.pain].hint) || BRANCHE_HINT[answers.branche] || BRANCHE_HINT.Sonstiges;
   var ln = localNote(), le = document.getElementById('res-local');
   le.textContent = ln; le.hidden = !ln;
+  var sn = statNote(), se = document.getElementById('res-stat');
+  se.textContent = sn; se.hidden = !sn;
   var wrap = document.getElementById('recs');
   /* Drei Empfehlungen passen ohne Scrollen; die Mail enthaelt alle */
   wrap.innerHTML = r.picks.slice(0,3).map(function(k, i){
