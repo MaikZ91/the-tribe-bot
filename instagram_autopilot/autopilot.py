@@ -129,8 +129,11 @@ def next_queued(state: dict) -> str | None:
     If the wanted category is empty, the next category in the rotation is used.
     """
     queued = []
+    today = datetime.now(TZ).date().isoformat()
     for f in sorted(POSTS.glob("*.json")):
         spec = json.loads(f.read_text(encoding="utf-8"))
+        if not spec.get("not_before", "") <= today <= spec.get("expires", "9999"):
+            continue      # dated posts (e.g. gastro events) only go out in their window
         if spec.get("status", "queued") == "queued" and spec["id"] not in state["published"]:
             queued.append((spec.get("priority", 50), f.name, spec["id"], category(spec)))
     if not queued:
