@@ -1,5 +1,10 @@
 # Learnings
 
+## 02.10. 15:45 – Creative Director (Nachmittagslauf)
+- 20:00-Slot ist belegt: Zahnarzt-Reel P0210b rückt nach, weil das Gastro-Reel P0210c auf Maiks Wunsch schon 12:17 lief (4-h-Abstand). Kein neues Reel gebaut.
+- Account umbenannt in @ki.fuer.dein.business, neues Logo als Endkarte. Gastro-Reel ist das erste unter neuem Namen – Vergleich ab morgen.
+- Tribe: Datenschutz-Anfrage → nur noch 3 Fotos (dinner-restaurant, rooftop-gruppe, rooftop-vier). T03 heute umgebaut, T06 „Samstagabend. Feiertag.“ (Black October, Afro Saturday, Cutie Dance aus events.json) für morgen queued.
+
 ## 02.10. 10:30 – Maik: 1 von 3 Reels täglich = Gastro
 - Neues Branchenmodul `branchen/gastro.py` (Wochennachricht → Wochenprogramm + Event-Reels + Stories, Freigabe). Auf @praxis.ki.bielefeld wird es beworben: 20:00-Slot = Gastro.
 - Erstes Gastro-Reel P0210c „Freitag, 17 Uhr. Noch nichts gepostet.“ mit echter Tool-Ausgabe (Demo-Kneipe), CTA „Kommentiere GASTRO“ → eigene Auto-DM.
