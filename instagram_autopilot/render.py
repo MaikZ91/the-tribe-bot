@@ -943,8 +943,29 @@ def render_carousel(spec: dict, out_dir: Path) -> dict:
     return {"images": files}
 
 
+def render_video(spec: dict, out_dir: Path) -> dict:
+    """A finished video from the account's footage pool, posted as it is.
+
+    Only re-encoded to what Instagram accepts (H.264/AAC, 30 fps, <= 1080x1920);
+    its own sound stays."""
+    src = ROOT / spec["video"]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ff = ffmpeg_exe()
+    subprocess.run([ff, "-v", "error", "-y", "-i", str(src), "-vf",
+                    "scale='min(1080,iw)':-2,fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "medium",
+                    "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-movflags", "+faststart",
+                    str(out_dir / "reel.mp4")], check=True)
+    subprocess.run([ff, "-v", "error", "-y", "-ss", str(spec.get("cover_at", 0.5)), "-i", str(out_dir / "reel.mp4"),
+                    "-frames:v", "1", "-q:v", "2", str(out_dir / "cover.jpg")], check=True)
+    probe = subprocess.run([ff, "-i", str(out_dir / "reel.mp4")], capture_output=True, text=True).stderr
+    h, m, sec = probe.split("Duration: ")[1].split(",")[0].split(":")
+    return {"video": "reel.mp4", "cover": "cover.jpg", "seconds": round(int(h) * 3600 + int(m) * 60 + float(sec), 2)}
+
+
 def render(spec: dict, out_dir: Path) -> dict:
     spec = json.loads(json.dumps(spec))
+    if spec["type"] == "reel" and spec.get("video"):
+        return render_video(spec, out_dir)
     apply_bg(spec)
     if spec["type"] == "reel":
         return render_reel(spec, out_dir)
