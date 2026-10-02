@@ -23,7 +23,7 @@ import zlib
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 CODE = Path(__file__).resolve().parent
 ROOT = Path(os.getenv("AUTOPILOT_HOME") or CODE).resolve()   # account folder: config, posts, images
@@ -941,7 +941,22 @@ def render_carousel(spec: dict, out_dir: Path) -> dict:
         name = f"slide_{i + 1:02d}.jpg"
         img.convert("RGB").save(out_dir / name, quality=92)
         files.append(name)
-    return {"images": files}
+    story_frame(draw_slide(canvas, spec["slides"][0], 99.0, 1.0).convert("RGB"), out_dir / "story.jpg")
+    return {"images": files, "story": "story.jpg"}
+
+
+def story_frame(slide: Image.Image, dst: Path) -> None:
+    """9:16 story from a 4:5 cover (drawn without page counter and swipe hint): the
+    whole slide centred, clear of the story header and reply bar, on a blurred,
+    darkened copy of itself, so nothing is cropped."""
+    bg = slide.resize((round(H_REEL * slide.width / slide.height), H_REEL))
+    bg = bg.crop(((bg.width - W) // 2, 0, (bg.width - W) // 2 + W, H_REEL))
+    bg = ImageEnhance.Brightness(bg.filter(ImageFilter.GaussianBlur(40))).enhance(0.55)
+    fg = slide.resize((W - 80, round((W - 80) * slide.height / slide.width)))
+    mask = Image.new("L", fg.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, *fg.size), 36, fill=255)
+    bg.paste(fg, (40, (H_REEL - fg.height) // 2), mask)
+    bg.save(dst, quality=92)
 
 
 def render_video(spec: dict, out_dir: Path) -> dict:

@@ -359,7 +359,8 @@ def cmd_publish(post_id: str) -> None:
             if spec["type"] == "reel":
                 st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
             else:
-                st = api("POST", f"{uid}/media", media_type="STORIES", image_url=media_url(post_id, meta["images"][0]))
+                st = api("POST", f"{uid}/media", media_type="STORIES",
+                         image_url=media_url(post_id, meta.get("story") or meta["images"][0]))
             wait_container(st["id"], minutes=8)
             story = api("POST", f"{uid}/media_publish", creation_id=st["id"])["id"]
             print("Story veröffentlicht")
