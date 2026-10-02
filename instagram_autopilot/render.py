@@ -11,6 +11,7 @@ from __future__ import annotations
 import io
 import json
 import math
+import re
 import os
 import shutil
 import subprocess
@@ -951,8 +952,16 @@ def render_video(spec: dict, out_dir: Path) -> dict:
     src = ROOT / spec["video"]
     out_dir.mkdir(parents=True, exist_ok=True)
     ff = ffmpeg_exe()
+    probe_src = subprocess.run([ff, "-i", str(src)], capture_output=True, text=True).stderr
+    m = re.search(r"Video:.*?(\d{2,5})x(\d{2,5})", probe_src)
+    w, h = (int(m[1]), int(m[2])) if m else (1080, 1920)
+    if w > h:   # landscape: centred on a blurred 9:16 copy of itself
+        vf = ("split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:2,"
+              "eq=brightness=-0.08[bg];[b]scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30,format=yuv420p")
+    else:
+        vf = "scale='min(1080,iw)':-2,fps=30,format=yuv420p"
     subprocess.run([ff, "-v", "error", "-y", "-i", str(src), "-vf",
-                    "scale='min(1080,iw)':-2,fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "medium",
+                    vf, "-c:v", "libx264", "-preset", "medium",
                     "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-movflags", "+faststart",
                     str(out_dir / "reel.mp4")], check=True)
     subprocess.run([ff, "-v", "error", "-y", "-ss", str(spec.get("cover_at", 0.5)), "-i", str(out_dir / "reel.mp4"),
