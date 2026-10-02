@@ -414,6 +414,15 @@ def is_keyword(text: str) -> bool:
     return bool(words & {k.lower() for k in CONFIG["engage"]["keywords"]})
 
 
+def dm_text_for(comment: str, cfg: dict) -> str:
+    """Keyword-specific DM (engage.texts, e.g. GASTRO) before the default text."""
+    words = {w.strip(".,!?:;\"'()").lower() for w in (comment or "").split()}
+    for key, text in (cfg.get("texts") or {}).items():
+        if key.lower() in words:
+            return text
+    return cfg["dm_text"]
+
+
 def cmd_engage() -> None:
     """Answer keyword comments (e.g. "CHECK") once with a private reply.
 
@@ -431,14 +440,16 @@ def cmd_engage() -> None:
             continue
         comments = api("GET", f"{m['id']}/comments", fields="id,text,username,timestamp", limit=50).get("data", [])
         for c in comments:
-            if c["id"] in handled or c.get("username", "").lower() == CONFIG["account"].lower():
+            own = CONFIG["account"] if isinstance(CONFIG["account"], list) else [CONFIG["account"]]
+            if c["id"] in handled or c.get("username", "").lower() in {a.lower() for a in own if a}:
                 continue
             if not is_keyword(c.get("text", "")):
                 continue
             name = c.get("username", "")
+            text = dm_text_for(c.get("text", ""), cfg)
             try:
                 api_json(f"{uid}/messages", {"recipient": {"comment_id": c["id"]},
-                                               "message": {"text": cfg["dm_text"].format(name=name, link=CONFIG["dm_link"])}})
+                                               "message": {"text": text.format(name=name, link=CONFIG["dm_link"])}})
                 api("POST", f"{c['id']}/replies", message=cfg["public_reply"].format(name=name))
                 new += 1
             except RuntimeError as e:

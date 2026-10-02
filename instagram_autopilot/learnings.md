@@ -1,5 +1,10 @@
 # Learnings
 
+## 02.10. 10:30 – Maik: 1 von 3 Reels täglich = Gastro
+- Neues Branchenmodul `branchen/gastro.py` (Wochennachricht → Wochenprogramm + Event-Reels + Stories, Freigabe). Auf @praxis.ki.bielefeld wird es beworben: 20:00-Slot = Gastro.
+- Erstes Gastro-Reel P0210c „Freitag, 17 Uhr. Noch nichts gepostet.“ mit echter Tool-Ausgabe (Demo-Kneipe), CTA „Kommentiere GASTRO“ → eigene Auto-DM.
+- Hypothese: Wirte reagieren stärker als Praxen, weil Instagram für sie direkt Gäste bringt. Vergleich je Nische am 08.10.
+
 ## 02.10. 06:45 – Creative Director (Morgenlauf)
 - Daten (Auswertung 01.10. abends): Praxis-Reels 9–14 Aufrufe, Coach-Reel P0110d nach ~1 h 10 Aufrufe, Watch-Ratio nur 0,12 (Praxis-Reels 0,47–0,69). Reichweite bleibt der Engpass, der Coach-Einstieg hielt schlechter.
 - Erste Reels mit korrigierten Pains: 08:00 P0210a Physio „10× heute: Kein Platz frei.“ (Telefon-Unterbrechung trotz Warteliste), 14:30 P0210b Zahnarzt „ZFA: Platz 1 der Engpassberufe“ (erster Statistik-Hook, Quelle BA 2024 in Caption).

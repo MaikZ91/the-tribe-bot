@@ -106,3 +106,12 @@ Keine erfundenen Kunden, Zitate, Ergebnisse, Zahlen oder Preise (Beispiele als B
 Keine realistischen KI-Menschen, keine Computerstimme, nur eigene/lizenzfreie Musik (render.py erzeugt sie).
 Niemanden anschreiben außer über die bestehende CHECK-Automatik; keine Kalt-DMs. Nichts an The Tribe,
 anderen Workflows oder Secrets ändern. Blockiert/unklar: nichts erzwingen, im Bericht beschreiben.
+
+## Mix ab 02.10.: 1 von 3 Reels = Gastro
+
+- 08:00 Praxen · 14:30 Praxen oder Coaches · 20:00 **Gastro** (Kneipen, Bars, Restaurants, Cafés, Clubs, Veranstalter).
+- Gastro-Reels zeigen das Tool in Aktion: eine Wochennachricht („Freitag DJ ab 21 Uhr …“) wird zu Wochenprogramm, Event-Reels und Stories. Ausgabe kommt echt aus `branchen/gastro.py` (Demo-Kneipe, `docs/ig-media-kunden/demo-kneipe/`), nie gestellt.
+- Probleme der Wirte: keine Zeit zum Posten zwischen Lieferung, Schicht und Tresen; Events, von denen keiner weiß; Wochenprogramm nur als Zettel an der Tür; Feed seit Wochen still. Keine erfundenen Umsatz- oder Gästezahlen.
+- Hook-Tag: FÜR KNEIPEN & BARS / FÜR RESTAURANTS / FÜR CAFÉS / FÜR VERANSTALTER. Feld `niche: "gastro"`. Logo-Endkarte „Kommentiere GASTRO“ (Auto-DM: `engage.texts.gastro`).
+- Bilder: Mixkit-Bar-Clips in `footage/stock/` (bar-cocktail, bar-zapfen) und `images/bar-atmosphaere.jpg`; neue per Mixkit-Suche (bar, cocktail, dj, restaurant, cafe, concert).
+- Je Lauf nur bauen, was für den nächsten freien Slot fehlt – nie zwei Reels für denselben Slot.
