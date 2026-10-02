@@ -12,9 +12,9 @@ Follower: **56** · Beiträge: 13
 | P0110b-physio-telefon-schon-wieder | flow-reel | telefon | szene | 16 | 15 | 2 | 0 | 0 | 0 | 0.452 | 15.2 |
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 13 | 15 | 0 | 0 | 0 | 0 | 0.301 | 9.8 |
 | P0110a-telefon-14-mal | flow-reel | telefon | uhrzeit-szene | 6 | 11 | 0 | 0 | 0 | 0 | 0.621 | 8.9 |
+| P0210a-physio-kein-platz | flow-reel | telefon | szene | 9 | 13 | 0 | 0 | 0 | 0 | 0.349 | 8.8 |
 | P0110c-zahnarzt-website-2240 | flow-reel | anfragen | uhrzeit-szene | 9 | 12 | 0 | 0 | 0 | 0 | 0.378 | 8.3 |
-| P0210a-physio-kein-platz | flow-reel | telefon | szene | 8 | 12 | 0 | 0 | 0 | 0 | 0.381 | 8.3 |
-| P0210c-gastro-freitag-17uhr | flow-reel | social-media | szene | 7 | 7 | 0 | 0 | 0 | 0 | 0.517 | 5.3 |
+| P0210c-gastro-freitag-17uhr | flow-reel | social-media | szene | 8 | 8 | 0 | 0 | 0 | 0 | 0.535 | 6.1 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -23,8 +23,8 @@ Follower: **56** · Beiträge: 13
 | media | 71.0 | 135.0 | 0.05 | 1 | – |
 | preise | 64.2 | 110.0 | 0.17 | 2 | stundensatz |
 | anfragen | 38.8 | 65.2 | 0.25 | 4 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
-| telefon | 10.8 | 12.7 | 0.48 | 3 | – |
-| social-media | 5.3 | 7.0 | 0.52 | 1 | – |
+| telefon | 11.0 | 13.0 | 0.47 | 3 | – |
+| social-media | 6.1 | 8.0 | 0.54 | 1 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -37,17 +37,17 @@ Antwort um 21:06.“ · Ø 5.38 s von 26.53 s · Skip 67.5 · Reichweite 128
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.12 s von 21.62 s · Skip 99.2 · Reichweite 132
 - TOP 012-demo-stundensatz: „Rechnest du zu billig?“ · Ø 2.03 s von 13.77 s · Skip 94.8 · Reichweite 116
 - FLOP P0210c-gastro-freitag-17uhr: „Freitag, 17 Uhr.
-Noch nichts gepostet.“ · Ø 14.0 s · Skip 42.9 · Reichweite 7
+Noch nichts gepostet.“ · Ø 14.49 s · Skip 50 · Reichweite 8
 - FLOP P0110c-zahnarzt-website-2240: „22:40 Uhr.
 Jemand sucht einen Zahnarzt.
 Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 - FLOP P0210a-physio-kein-platz: „10× heute:
-„Kein Platz frei.““ · Ø 8.06 s · Skip 42.9 · Reichweite 8
+„Kein Platz frei.““ · Ø 7.39 s · Skip 50 · Reichweite 9
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 113.0 (n=2)
-- ≥ 90 min: Ø Reichweite 36.2 (n=4)
+- ≥ 90 min: Ø Reichweite 36.5 (n=4)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -59,13 +59,13 @@ Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 - images/stress-buero.jpg: 56.6 (n=1)
 - images/physio-training.jpg: 15.2 (n=1)
 - images/coach-training.jpg: 9.8 (n=1)
-- images/telefon-praxis.jpg: 8.6 (n=2)
+- images/telefon-praxis.jpg: 8.9 (n=2)
 - images/behandlungsraum.jpg: 8.3 (n=1)
-- images/bar-atmosphaere.jpg: 5.3 (n=1)
+- images/bar-atmosphaere.jpg: 6.1 (n=1)
 
 ## Konto (heute)
 
-- reach: 124
+- reach: 130
 - profile_views: 9
 - accounts_engaged: 2
 - website_clicks: 0
@@ -73,15 +73,15 @@ Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 ## Ø Interesse nach niche
 
 - None: 67.32 (n=5)
-- praxen: 10.18 (n=4)
+- praxen: 10.30 (n=4)
 - coaches: 9.80 (n=1)
-- gastro: 5.30 (n=1)
+- gastro: 6.10 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 71.00 (n=1)
 - demo-reel: 61.67 (n=3)
-- flow-reel: 19.49 (n=7)
+- flow-reel: 19.67 (n=7)
 
 ## Ø Interesse nach hook_style
 
@@ -90,7 +90,7 @@ Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 - zahl: 70.50 (n=1)
 - zahl-frage: 57.90 (n=1)
 - frage: 56.60 (n=1)
-- szene: 9.65 (n=4)
+- szene: 9.97 (n=4)
 - uhrzeit-szene: 8.60 (n=2)
 
 ## Ø Interesse nach pain
@@ -98,8 +98,8 @@ Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 - media: 71.00 (n=1)
 - preise: 64.20 (n=2)
 - anfragen: 38.83 (n=4)
-- telefon: 10.80 (n=3)
-- social-media: 5.30 (n=1)
+- telefon: 10.97 (n=3)
+- social-media: 6.10 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -111,11 +111,11 @@ Eure Website schweigt.“ · Ø 8.42 s · Skip 88.9 · Reichweite 9
 - 08:24: 15.20 (n=1)
 - 20:09: 9.80 (n=1)
 - 21:15: 8.90 (n=1)
+- 08:20: 8.80 (n=1)
 - 14:44: 8.30 (n=1)
-- 08:20: 8.30 (n=1)
-- 12:17: 5.30 (n=1)
+- 12:17: 6.10 (n=1)
 
 ## Ø Interesse nach music
 
 - beat: 57.25 (n=2)
-- bed: 30.88 (n=9)
+- bed: 31.02 (n=9)
