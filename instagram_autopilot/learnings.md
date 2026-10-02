@@ -1,5 +1,10 @@
 # Learnings
 
+## 02.10. 06:45 – Creative Director (Morgenlauf)
+- Daten (Auswertung 01.10. abends): Praxis-Reels 9–14 Aufrufe, Coach-Reel P0110d nach ~1 h 10 Aufrufe, Watch-Ratio nur 0,12 (Praxis-Reels 0,47–0,69). Reichweite bleibt der Engpass, der Coach-Einstieg hielt schlechter.
+- Erste Reels mit korrigierten Pains: 08:00 P0210a Physio „10× heute: Kein Platz frei.“ (Telefon-Unterbrechung trotz Warteliste), 14:30 P0210b Zahnarzt „ZFA: Platz 1 der Engpassberufe“ (erster Statistik-Hook, Quelle BA 2024 in Caption).
+- Test: Statistik-Hook (P0210b) vs. Szenen-Hook (P0210a). Variable: Hook-Typ.
+
 ## 01.10. 18:00 – Pain-Korrektur nach Gespräch Maik ↔ Ergotherapeutin
 - Praxis-Realität: Heilmittelpraxen (Physio/Ergo/Logo) sind **überlastet und haben Wartelisten** – ein Drittel nennt 3 Monate Wartezeit, Hausbesuche oft 7+ Monate (HELPER-Befragung, Bayer. Gesundheitsministerium/FAU, iww 05.05.2026). Die meisten haben **Praxissoftware** mit Terminplanung, Erinnerung, Abrechnung.
 - Folge: „Du verlierst Patienten, weil du nicht erreichbar bist“ ist für Therapiepraxen der **falsche** Pain. Die brauchen nicht mehr Patienten, sondern weniger Last.
