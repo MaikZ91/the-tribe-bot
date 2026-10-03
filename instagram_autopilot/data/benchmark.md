@@ -1,0 +1,20 @@
+# Benchmark 2026-10-03T21:32+02:00
+
+Interaktion = Likes + 2 × Kommentare, Rate = je 100 Follower. Views gibt die API für fremde Accounts nicht her.
+
+
+## Nicht abrufbar
+
+- @physiowicht: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Awfxxo3uyIS
+- @physio_fit_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AokEcRSF06a
+- @h.h.sportphysiotherapie: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A3SSIRw6C7Q
+- @ergotherapie_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Af-PhtS93qA
+- @zahnarzt_eckzahn_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AyM4r-NIAE-
+- @dentikum.zahnaerzte: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "ADY6mbFiNV3
+- @praxis.elbeallee: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AF3MRQLrSEi
+- @co_medic: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AuVCzfScJTW
+- @bielatesflow: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A7ETjI9NOFp
+- @vivavitalisbielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AkHBmAEqra7
+- @fitnessstudio_bodytalk: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A5nIFKy-jyV
+
+_business_discovery ist mit diesem Token nicht verfügbar – Vergleich per Websuche (öffentliche Artikel, Fallstudien, Beispiele der Accounts) und im Bericht so kennzeichnen._
