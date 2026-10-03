@@ -1,5 +1,9 @@
 # Learnings
 
+## 03.10. 15:45 – Creative Director (Nachmittagslauf)
+- 08:00 Physio + 14:30 Zahnarzt gepostet. 20:00 Gastro P0310c „Euer Wochenprogramm? Hängt an der Tür.“ – zeigt das Wochenprogramm-Karussell der Demo-Kneipe als Ausgabe.
+- Tribe: heute T06 (Samstagabend-Karussell), morgen T09 (Video „Neu in Bielefeld?“) – Wechsel Karussell/Video.
+
 ## 03.10. 06:45 – Creative Director (Morgenlauf)
 - Daten (Auswertung 02.10. 20 Uhr): Reels bleiben bei 8–15 Aufrufen, Watch-Ratio 0,30–0,62. Account-Umbenennung + Feiertag: keine belastbare Veränderung.
 - Heute: 08:00 P0310a Physio-Personal („Seit Monaten keine Bewerbung.“, Quelle BA-Engpass in Caption), 14:30 P0310b Zahnarzt-Selbstzahler („Prophylaxe? Bleaching? Auf der Website versteckt.“), 20:00 Gastro baut der Nachmittagslauf.
