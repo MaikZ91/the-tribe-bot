@@ -909,7 +909,7 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
             prog = (elapsed + t) / total
             d.rectangle([0, bar_y, W, bar_y + 8], fill=(214, 214, 214))
             d.rectangle([0, bar_y, int(W * prog), bar_y + 8], fill=B["accent"])
-            if cover is None and s is spec["slides"][0] and t >= dur - 1 / FPS:
+            if cover is None and s is spec["slides"][0] and k == int(round(dur * FPS)) - 1:
                 cover = img.copy()
             proc.stdin.write(img.tobytes())
         prev = img.copy()

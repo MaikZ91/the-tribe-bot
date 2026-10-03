@@ -1,5 +1,10 @@
 # Learnings
 
+## 03.10. 06:45 – Creative Director (Morgenlauf)
+- Daten (Auswertung 02.10. 20 Uhr): Reels bleiben bei 8–15 Aufrufen, Watch-Ratio 0,30–0,62. Account-Umbenennung + Feiertag: keine belastbare Veränderung.
+- Heute: 08:00 P0310a Physio-Personal („Seit Monaten keine Bewerbung.“, Quelle BA-Engpass in Caption), 14:30 P0310b Zahnarzt-Selbstzahler („Prophylaxe? Bleaching? Auf der Website versteckt.“), 20:00 Gastro baut der Nachmittagslauf.
+- Fix: Cover-Bild nahm bei manchen Hook-Längen das letzte Bild (Logo) statt des Hooks – jetzt immer letzter Frame der Hook-Folie.
+
 ## 02.10. 15:45 – Creative Director (Nachmittagslauf)
 - 20:00-Slot ist belegt: Zahnarzt-Reel P0210b rückt nach, weil das Gastro-Reel P0210c auf Maiks Wunsch schon 12:17 lief (4-h-Abstand). Kein neues Reel gebaut.
 - Account umbenannt in @ki.fuer.dein.business, neues Logo als Endkarte. Gastro-Reel ist das erste unter neuem Namen – Vergleich ab morgen.
