@@ -18,7 +18,16 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
 4. Jede neue Spec trägt `"briefing": "<Briefing-ID>"` und `"hypothesis": "…"` (welche Regel aus dem Briefing sie nutzt
    bzw. welche **eine** Variable sie testet). `config.json` → `require_briefing: true`: Specs ohne gültiges Briefing
    (höchstens 2 Tage alt) postet der Autopilot **nicht**.
-5. Steuern, nicht nur befüllen: Zeigen die Daten mit n ≥ 3 eine bessere Uhrzeit, Länge oder Hook-Art, passt du
+5. **Reichweite außerhalb der Follower** (Kennzahl im Briefing: Anteil Nicht-Follower an Reichweite/Views):
+   - Probe-Reels: `"trial": "SS_PERFORMANCE"` in der Spec → Instagram zeigt das Reel zuerst nur Nicht-Followern und
+     gibt es bei guter Leistung selbst für Follower frei (keine Story dazu). Für Experimente und neue Hook-Arten nutzen,
+     Vergleich normal vs. Probe steht im Briefing („Ausspielung“).
+   - Teilen ist das stärkste Signal für Nicht-Follower: Reels so bauen, dass man sie Kolleg:innen schickt
+     (konkreter Alltagsmoment der Zielgruppe, Text „Schick das deiner Praxis-Kollegin“ o. ä. am Ende).
+   - Originalität: Instagram stuft wiederverwendete Inhalte herab. Stock-Clips nie unverändert als Hauptmotiv,
+     immer mit eigener Grafik/Text/Schnitt; eigene Bildschirmaufnahmen und Tool-Ausgaben bevorzugen.
+   - Keywords in Caption und Hook-Text (Instagram-Suche): Branche + Problem + Bielefeld/OWL; 3–5 passende Hashtags.
+6. Steuern, nicht nur befüllen: Zeigen die Daten mit n ≥ 3 eine bessere Uhrzeit, Länge oder Hook-Art, passt du
    `config.json` (Slots) bzw. die Produktion selbst an und begründest es in `learnings.md`. Maiks feste Vorgaben
    (3 Reels/Tag, mind. 4 h Abstand, 1 von 3 Gastro, Positionierung, Regeln unten) bleiben.
 

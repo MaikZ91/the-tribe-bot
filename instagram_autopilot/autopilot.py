@@ -337,9 +337,20 @@ def cmd_publish(post_id: str) -> None:
         print(f"Kontingent erschöpft ({left} frei) – {post_id} bleibt in der Warteschlange.")
         return
     caption = caption_for(spec)
+    trial = None
     if spec["type"] == "reel":
-        c = api("POST", f"{uid}/media", media_type="REELS", video_url=media_url(post_id, meta["video"]),
-                cover_url=media_url(post_id, meta["cover"]), caption=caption, share_to_feed="true")
+        args = dict(media_type="REELS", video_url=media_url(post_id, meta["video"]),
+                    cover_url=media_url(post_id, meta["cover"]), caption=caption, share_to_feed="true")
+        trial = spec.get("trial")
+        if trial:   # trial reel: shown to non-followers only; Meta graduates it on good early performance
+            strategy = trial if trial in ("MANUAL", "SS_PERFORMANCE") else "SS_PERFORMANCE"
+            try:
+                c = api("POST", f"{uid}/media", **args, trial_params=json.dumps({"graduation_strategy": strategy}))
+            except RuntimeError as e:
+                print(f"Probe-Reel abgelehnt, poste normal: {e}")
+                trial, c = None, api("POST", f"{uid}/media", **args)
+        else:
+            c = api("POST", f"{uid}/media", **args)
         cid = c["id"]
     else:
         children = []
@@ -360,7 +371,7 @@ def cmd_publish(post_id: str) -> None:
         raise
     info = api("GET", pub["id"], fields="permalink,timestamp")
     story = None
-    if CONFIG.get("story_repost", True) and quota_left(uid) > CONFIG.get("story_min_quota", 25):
+    if CONFIG.get("story_repost", True) and not trial and quota_left(uid) > CONFIG.get("story_min_quota", 25):
         try:   # same content as a story -> reaches existing followers first (carousel: its cover slide)
             if spec["type"] == "reel":
                 st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
@@ -384,6 +395,7 @@ def cmd_publish(post_id: str) -> None:
                       if s.get("text") or s.get("title")), ""),
         "kinds": [s["kind"] for s in spec.get("slides", [])], "music": spec.get("music", "bed"),
         "series": spec.get("series"), "forced": os.getenv("FORCE") == "1", "story_id": story,
+        "trial": bool(trial),
     }
     save_state(state)
     spec["status"] = "published"
@@ -580,7 +592,7 @@ def cmd_insights() -> None:
         row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic", "pain",
                                                          "local_date", "local_time", "weekday", "seconds",
                                                          "images", "hook", "kinds", "music", "series",
-                                                         "permalink", "niche")}, **m}
+                                                         "permalink", "niche", "trial")}, **m}
         if m.get("ig_reels_avg_watch_time"):
             row["avg_watch_s"] = round(float(m["ig_reels_avg_watch_time"]) / 1000, 2)
         if p["type"] == "reel" and m.get("ig_reels_avg_watch_time") and p.get("seconds"):
@@ -617,6 +629,14 @@ def account_insights(uid: str) -> dict:
             res = api("GET", f"{uid}/insights", metric=metric, period="day", metric_type="total_value")
             item = res["data"][0]
             out[metric] = item.get("total_value", {}).get("value")
+        except (RuntimeError, IndexError, KeyError):
+            continue
+    for metric in ("reach", "views"):   # how much comes from people who do not follow yet
+        try:
+            res = api("GET", f"{uid}/insights", metric=metric, period="day", metric_type="total_value",
+                      breakdown="follow_type")
+            res_b = res["data"][0]["total_value"]["breakdowns"][0]["results"]
+            out[f"{metric}_by_follow_type"] = {r["dimension_values"][0]: r["value"] for r in res_b}
         except (RuntimeError, IndexError, KeyError):
             continue
     for metric, key in (("engaged_audience_demographics", "engaged_cities"), ("follower_demographics", "follower_cities")):
@@ -783,6 +803,14 @@ def cmd_briefing(niche: str = "") -> None:
     ai = snap.get("account_insights") or {}
     L.append("Heute: " + ", ".join(f"{k} {ai.get(k, 'n/a')}" for k in
                                     ("reach", "profile_views", "accounts_engaged", "website_clicks")))
+    for metric in ("reach", "views"):
+        ft = ai.get(f"{metric}_by_follow_type")
+        if ft:
+            non, fol = float(ft.get("NON_FOLLOWER") or 0), float(ft.get("FOLLOWER") or 0)
+            L.append(f"{metric} heute: Nicht-Follower {non:.0f} · Follower {fol:.0f} · "
+                     f"Anteil Nicht-Follower {100 * non / max(non + fol, 1):.0f} %")
+        else:
+            L.append(f"{metric} nach Follower/Nicht-Follower: n/a")
     by_day: dict = {}
     for r in rows:
         by_day.setdefault(r.get("local_date"), []).append(float(r.get("views") or 0))
@@ -808,6 +836,7 @@ def cmd_briefing(niche: str = "") -> None:
     L += _table(base, _length, "Länge")
     L += _table(base, _opener, "Einstieg")
     L += _table(base, "music", "Musik")
+    L += _table(base, lambda r: "Probe-Reel (nur Nicht-Follower)" if r.get("trial") else "normal", "Ausspielung")
     ranked = sorted(base, key=lambda r: -float(r.get("views") or 0))
     L += ["", "### Hooks nach Views", ""]
     for r in ranked:
