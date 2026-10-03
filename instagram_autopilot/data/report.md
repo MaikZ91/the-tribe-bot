@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-03
 
-Follower: **56** · Beiträge: 16
+Follower: **56** · Beiträge: 17
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -15,9 +15,10 @@ Follower: **56** · Beiträge: 16
 | P0210a-physio-kein-platz | flow-reel | telefon | szene | 10 | 15 | 0 | 0 | 0 | 0 | 0.298 | 9.7 |
 | P0110a-telefon-14-mal | flow-reel | telefon | uhrzeit-szene | 6 | 11 | 0 | 0 | 0 | 0 | 0.621 | 8.9 |
 | P0110c-zahnarzt-website-2240 | flow-reel | anfragen | uhrzeit-szene | 11 | 13 | 0 | 0 | 0 | 0 | 0.359 | 8.8 |
-| P0310a-physio-stelle-offen | flow-reel | personal | szene | 11 | 13 | 0 | 0 | 0 | 0 | 0.191 | 7.7 |
+| P0310a-physio-stelle-offen | flow-reel | personal | szene | 12 | 14 | 0 | 0 | 0 | 0 | 0.18 | 8.3 |
 | P0210c-gastro-freitag-17uhr | flow-reel | social-media | szene | 9 | 10 | 0 | 0 | 0 | 0 | 0.515 | 7.6 |
-| P0310b-zahnarzt-selbstzahler | flow-reel | sichtbarkeit | szene | 5 | 8 | 0 | 0 | 0 | 0 | 0.225 | 4.9 |
+| P0310b-zahnarzt-selbstzahler | flow-reel | sichtbarkeit | szene | 9 | 12 | 0 | 0 | 0 | 0 | 0.157 | 6.9 |
+| P0310c-gastro-zettel-an-der-tuer | flow-reel | social-media | szene | 0 | 5 | 0 | 0 | 0 | 0 | – | 5.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -26,10 +27,10 @@ Follower: **56** · Beiträge: 16
 | media | 71.0 | 135.0 | 0.05 | 1 | – |
 | preise | 64.8 | 111.0 | 0.17 | 2 | stundensatz |
 | anfragen | 39.1 | 65.8 | 0.26 | 4 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
-| personal | 11.4 | 19.0 | 0.20 | 2 | – |
+| personal | 11.7 | 19.5 | 0.19 | 2 | – |
 | telefon | 11.3 | 13.7 | 0.46 | 3 | – |
-| social-media | 7.6 | 10.0 | 0.52 | 1 | – |
-| sichtbarkeit | 4.9 | 8.0 | 0.23 | 1 | – |
+| sichtbarkeit | 6.9 | 12.0 | 0.16 | 1 | – |
+| social-media | 6.3 | 7.5 | 0.52 | 2 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -41,17 +42,17 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 Antwort um 21:06.“ · Ø 5.38 s von 26.53 s · Skip 67.5 · Reichweite 128
 - TOP 012-demo-stundensatz: „Rechnest du zu billig?“ · Ø 2.04 s von 13.77 s · Skip 94 · Reichweite 117
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.12 s von 21.62 s · Skip 99.2 · Reichweite 132
+- FLOP P0310c-gastro-zettel-an-der-tuer: „Euer Wochenprogramm?
+Hängt an der Tür.“ · Ø – s · Skip 0 · Reichweite 0
 - FLOP P0310b-zahnarzt-selbstzahler: „Prophylaxe? Bleaching?
-Auf der Website versteckt.“ · Ø 4.71 s · Skip 80 · Reichweite 5
+Auf der Website versteckt.“ · Ø 3.29 s · Skip 88.9 · Reichweite 9
 - FLOP P0210c-gastro-freitag-17uhr: „Freitag, 17 Uhr.
 Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
-- FLOP P0310a-physio-stelle-offen: „Seit Monaten
-keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 113.5 (n=2)
-- ≥ 90 min: Ø Reichweite 28.8 (n=6)
+- ≥ 90 min: Ø Reichweite 25.3 (n=7)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -61,15 +62,15 @@ keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 - images/rechner-auswertung.jpg: 58.5 (n=1)
 - images/taschenrechner-haende.jpg: 58.5 (n=1)
 - images/stress-buero.jpg: 57.1 (n=1)
-- images/physio-training.jpg: 11.4 (n=2)
+- images/physio-training.jpg: 11.8 (n=2)
+- images/behandlungsraum.jpg: 10.3 (n=3)
 - images/coach-training.jpg: 10.1 (n=1)
-- images/behandlungsraum.jpg: 9.6 (n=3)
 - images/telefon-praxis.jpg: 9.3 (n=2)
-- images/bar-atmosphaere.jpg: 7.6 (n=1)
+- images/bar-atmosphaere.jpg: 6.3 (n=2)
 
 ## Konto (heute)
 
-- reach: 181
+- reach: 205
 - profile_views: 7
 - accounts_engaged: 1
 - website_clicks: 0
@@ -77,15 +78,15 @@ keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 67.68 (n=5)
+- praxen: 10.41 (n=7)
 - coaches: 10.10 (n=1)
-- praxen: 10.04 (n=7)
-- gastro: 7.60 (n=1)
+- gastro: 6.30 (n=2)
 
 ## Ø Interesse nach format
 
 - service-reel: 71.00 (n=1)
 - demo-reel: 62.27 (n=3)
-- flow-reel: 16.86 (n=10)
+- flow-reel: 16.02 (n=11)
 
 ## Ø Interesse nach hook_style
 
@@ -95,7 +96,7 @@ keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 - zahl-frage: 58.50 (n=1)
 - frage: 57.10 (n=1)
 - statistik: 15.10 (n=1)
-- szene: 9.20 (n=6)
+- szene: 8.97 (n=7)
 - uhrzeit-szene: 8.85 (n=2)
 
 ## Ø Interesse nach pain
@@ -103,10 +104,10 @@ keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 - media: 71.00 (n=1)
 - preise: 64.85 (n=2)
 - anfragen: 39.15 (n=4)
-- personal: 11.40 (n=2)
+- personal: 11.70 (n=2)
 - telefon: 11.27 (n=3)
-- social-media: 7.60 (n=1)
-- sichtbarkeit: 4.90 (n=1)
+- sichtbarkeit: 6.90 (n=1)
+- social-media: 6.30 (n=2)
 
 ## Ø Interesse nach local_time
 
@@ -120,11 +121,12 @@ keine Bewerbung.“ · Ø 4.19 s · Skip 81.8 · Reichweite 11
 - 08:20: 9.70 (n=1)
 - 21:15: 8.90 (n=1)
 - 14:44: 8.80 (n=1)
-- 08:08: 7.70 (n=1)
+- 08:08: 8.30 (n=1)
 - 12:17: 7.60 (n=1)
-- 14:38: 4.90 (n=1)
+- 14:38: 6.90 (n=1)
+- 20:07: 5.00 (n=1)
 
 ## Ø Interesse nach music
 
 - beat: 57.80 (n=2)
-- bed: 25.90 (n=12)
+- bed: 24.49 (n=13)
