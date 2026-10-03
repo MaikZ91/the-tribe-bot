@@ -27,7 +27,12 @@ Code (autopilot.py/render.py), Produktion oder Regeln. Maik bekommt die Erkenntn
    Länge / Einstieg / Musik Ø Views, Watch-Ratio und Skip-Rate, Hooks nach Views, abgeleitete Regeln,
    Ermüdung (Bilder und Hooks der letzten 8 Posts) und die letzten Hypothesen.
 3. Zusätzlich lesen: `learnings.md` (Tagesauswertung vom Vorabend), `data/statistiken.md`, `data/praxis_analyse.md`.
-4. Jede neue Spec trägt `"briefing": "<Briefing-ID>"` und `"hypothesis": "…"` (welche Regel aus dem Briefing sie nutzt
+4. **Lernen:** Jede neue Spec trägt zusätzlich `"variable"` (die eine getestete Größe: hook_style, opener, length,
+   trial, music, topic, time …) und `"variant"` (der getestete Wert). Die Auswertung bewertet jedes Experiment nach
+   48 h gegen die 10 Reels davor (gewonnen ≥ 1,3× Views ohne schlechtere Skip-Rate, verloren ≤ 0,77×) und führt
+   `data/regeln.json`: ab 3 Tests „bestätigt“ (wird Standard) oder „verworfen“ (nicht mehr verwenden). Bestätigte
+   Regeln stehen im Briefing und gelten, bis neue Daten sie widerlegen.
+   Jede neue Spec trägt `"briefing": "<Briefing-ID>"` und `"hypothesis": "…"` (welche Regel aus dem Briefing sie nutzt
    bzw. welche **eine** Variable sie testet). `config.json` → `require_briefing: true`: Specs ohne gültiges Briefing
    (höchstens 2 Tage alt) postet der Autopilot **nicht**.
 5. **Reichweite außerhalb der Follower** (Kennzahl im Briefing: Anteil Nicht-Follower an Reichweite/Views):

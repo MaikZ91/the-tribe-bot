@@ -396,7 +396,8 @@ def cmd_publish(post_id: str) -> None:
                       if s.get("text") or s.get("title")), ""),
         "kinds": [s["kind"] for s in spec.get("slides", [])], "music": spec.get("music", "bed"),
         "series": spec.get("series"), "forced": os.getenv("FORCE") == "1", "story_id": story,
-        "trial": bool(trial),
+        "trial": bool(trial), "briefing": spec.get("briefing"), "hypothesis": spec.get("hypothesis"),
+        "variable": spec.get("variable"), "variant": spec.get("variant"),
     }
     save_state(state)
     spec["status"] = "published"
@@ -593,7 +594,8 @@ def cmd_insights() -> None:
         row = {"post_id": pid, **{k: p.get(k) for k in ("type", "format", "hook_style", "topic", "pain",
                                                          "local_date", "local_time", "weekday", "seconds",
                                                          "images", "hook", "kinds", "music", "series",
-                                                         "permalink", "niche", "trial")}, **m}
+                                                         "permalink", "niche", "trial", "timestamp",
+                                                         "hypothesis", "variable", "variant")}, **m}
         if m.get("ig_reels_avg_watch_time"):
             row["avg_watch_s"] = round(float(m["ig_reels_avg_watch_time"]) / 1000, 2)
         if p["type"] == "reel" and m.get("ig_reels_avg_watch_time") and p.get("seconds"):
@@ -619,6 +621,7 @@ def cmd_insights() -> None:
         w.writerow([today, acct.get("followers_count"), acct.get("media_count")])
     save_state(state)
     write_report(snap)
+    evaluate_experiments(rows)
     print(f"{len(rows)} Beiträge ausgewertet, Follower: {acct.get('followers_count')}")
 
 
@@ -905,14 +908,17 @@ def cmd_briefing(niche: str = "") -> None:
     except (FileNotFoundError, IndexError):
         L += ["", "## Andere Accounts", "", "data/benchmark.md fehlt – `autopilot.py benchmark` laufen lassen."]
 
+    L += ["", "## Gelernte Regeln (data/regeln.json – bestätigte nutzen, verworfene meiden)", ""] + rules_summary()
+
     # 7. last hypotheses
     try:
         heads = [l for l in (HOME / "learnings.md").read_text(encoding="utf-8").splitlines() if l.startswith("## ")][:3]
         L += ["", "## Letzte Einträge in learnings.md", ""] + [f"- {h[3:]}" for h in heads]
     except FileNotFoundError:
         pass
-    L += ["", f"Neue Specs tragen `\"briefing\": \"{bid}\"` und nennen in `\"hypothesis\"`, welche Regel sie nutzen "
-          "bzw. welche eine Variable sie testen."]
+    L += ["", f"Neue Specs tragen `\"briefing\": \"{bid}\"`, `\"hypothesis\"` (Begründung aus den Daten), "
+          "`\"variable\"` (die eine getestete Größe: hook_style, opener, length, trial, music, topic, time …) und "
+          "`\"variant\"` (der getestete Wert). Nur so lernt das System, was wirkt."]
     (DATA / "briefing.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     try:
         known = json.loads(BRIEFINGS.read_text(encoding="utf-8"))
@@ -922,6 +928,71 @@ def cmd_briefing(niche: str = "") -> None:
     known = dict(sorted(known.items())[-30:])
     BRIEFINGS.write_text(json.dumps(known, indent=1), encoding="utf-8")
     print("\n".join(L))
+
+
+# --------------------------------------------------------------------------
+# Experiments -> rules: the account's long-term memory
+# --------------------------------------------------------------------------
+
+RULES = DATA / "regeln.json"
+
+
+def evaluate_experiments(rows: list[dict]) -> None:
+    """Judge every reel that tested a variable against the 10 reels before it, then aggregate.
+
+    A spec declares "variable" (hook_style, opener, length, trial, music, topic, time …) and
+    "variant" (the value tried). After 48 h: win = views >= 1.3x baseline median and skip rate
+    not more than 5 points worse; loss = views <= 0.77x baseline. Per variable/variant:
+    n >= 3 with 2+ wins and more wins than losses -> "bestätigt" (rule), 2+ losses -> "verworfen".
+    """
+    reels = sorted((r for r in rows if r.get("type") == "reel" and r.get("views") is not None),
+                   key=lambda r: (r.get("local_date") or "", r.get("local_time") or ""))
+    now = datetime.now(timezone.utc)
+    med = lambda xs: sorted(xs)[len(xs) // 2] if xs else None
+    results = []
+    for i, r in enumerate(reels):
+        if not r.get("variable") or not r.get("timestamp"):
+            continue
+        age_h = (now - datetime.strptime(r["timestamp"], "%Y-%m-%dT%H:%M:%S%z")).total_seconds() / 3600
+        prev = reels[max(0, i - 10):i]
+        base_v = med([float(x.get("views") or 0) for x in prev])
+        base_s = med([float(x["reels_skip_rate"]) for x in prev if x.get("reels_skip_rate") is not None])
+        if age_h < 48 or not base_v:
+            verdict = "läuft"
+        else:
+            ratio = float(r.get("views") or 0) / base_v
+            skip_worse = (r.get("reels_skip_rate") is not None and base_s is not None
+                          and float(r["reels_skip_rate"]) > base_s + 5)
+            verdict = "gewonnen" if ratio >= 1.3 and not skip_worse else "verloren" if ratio <= 0.77 else "neutral"
+        results.append({"post_id": r["post_id"], "variable": r["variable"], "variant": r.get("variant"),
+                        "hypothesis": r.get("hypothesis"), "views": r.get("views"), "baseline_views": base_v,
+                        "skip": r.get("reels_skip_rate"), "baseline_skip": base_s, "verdict": verdict})
+    agg: dict = {}
+    for x in results:
+        if x["verdict"] != "läuft":
+            agg.setdefault(f"{x['variable']}={x['variant']}", []).append(x["verdict"])
+    rules = {}
+    for key, vs in agg.items():
+        w, l = vs.count("gewonnen"), vs.count("verloren")
+        status = ("bestätigt" if len(vs) >= 3 and w >= 2 and w > l else
+                  "verworfen" if len(vs) >= 3 and l >= 2 else "offen")
+        rules[key] = {"n": len(vs), "gewonnen": w, "verloren": l, "status": status}
+    RULES.write_text(json.dumps({"updated": now.isoformat(timespec="minutes"), "rules": rules,
+                                 "experiments": results}, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def rules_summary() -> list[str]:
+    try:
+        data = json.loads(RULES.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return ["Noch keine ausgewerteten Experimente – jede Spec mit \"variable\" und \"variant\" anlegen."]
+    out = []
+    for status in ("bestätigt", "verworfen", "offen"):
+        keys = [f"{k} ({v['gewonnen']}:{v['verloren']} von {v['n']})" for k, v in data["rules"].items() if v["status"] == status]
+        out.append(f"- {status}: " + (", ".join(keys) or "–"))
+    running = [x["post_id"] for x in data["experiments"] if x["verdict"] == "läuft"]
+    out.append(f"- läuft noch (< 48 h): {', '.join(running) or '–'}")
+    return out
 
 
 # --------------------------------------------------------------------------
