@@ -9,6 +9,7 @@ Commands (run from the repo root):
   python instagram_autopilot/autopilot.py refresh      -> refreshes the long-lived token
   python instagram_autopilot/autopilot.py prune        -> deletes rendered media of published posts
   python instagram_autopilot/autopilot.py engage       -> DMs the KI-Check link to "CHECK" commenters
+  python instagram_autopilot/autopilot.py benchmark    -> data/benchmark.md: what works for comparable accounts
   python instagram_autopilot/autopilot.py briefing [N]  -> data/briefing.md: all data condensed into
                                                            rules for the next reel (N = niche)
 
@@ -897,6 +898,13 @@ def cmd_briefing(niche: str = "") -> None:
     except FileNotFoundError:
         L.append("Recherche: data/recherche.md fehlt – anlegen.")
 
+    try:
+        bm = (DATA / "benchmark.md").read_text(encoding="utf-8").splitlines()
+        top = [l for l in bm if l.startswith("- ")][:5]
+        L += ["", "## Andere Accounts (data/benchmark.md, " + bm[0][12:] + ")", ""] + top
+    except (FileNotFoundError, IndexError):
+        L += ["", "## Andere Accounts", "", "data/benchmark.md fehlt – `autopilot.py benchmark` laufen lassen."]
+
     # 7. last hypotheses
     try:
         heads = [l for l in (HOME / "learnings.md").read_text(encoding="utf-8").splitlines() if l.startswith("## ")][:3]
@@ -913,6 +921,68 @@ def cmd_briefing(niche: str = "") -> None:
     known[bid] = now.isoformat(timespec="minutes")
     known = dict(sorted(known.items())[-30:])
     BRIEFINGS.write_text(json.dumps(known, indent=1), encoding="utf-8")
+    print("\n".join(L))
+
+
+# --------------------------------------------------------------------------
+# Benchmark: what works for other accounts (public business_discovery data)
+# --------------------------------------------------------------------------
+
+def cmd_benchmark() -> None:
+    """Fetch public metrics of the accounts in data/benchmark_accounts.json and rank their posts.
+
+    Uses business_discovery (professional accounts only, likes/comments, no views).
+    Writes data/benchmark.json + data/benchmark.md; unreachable accounts are listed, not fatal.
+    """
+    cfg = json.loads((DATA / "benchmark_accounts.json").read_text(encoding="utf-8"))
+    uid = user_id()
+    fields = ("username,name,followers_count,media_count,biography,media.limit(25)"
+              "{caption,like_count,comments_count,media_type,media_product_type,timestamp,permalink}")
+    accounts, failed = [], []
+    for group, handles in cfg.items():
+        if group.startswith("_"):
+            continue
+        for h in handles:
+            try:
+                res = api("GET", uid, fields=f"business_discovery.username({h}){{{fields}}}")["business_discovery"]
+                res["group"] = group
+                accounts.append(res)
+            except (RuntimeError, KeyError) as e:
+                failed.append((h, str(e)[:160]))
+    posts = []
+    for a in accounts:
+        fol = max(int(a.get("followers_count") or 0), 1)
+        for m in (a.get("media") or {}).get("data", []):
+            eng = int(m.get("like_count") or 0) + 2 * int(m.get("comments_count") or 0)
+            posts.append({"account": a["username"], "group": a["group"], "followers": fol,
+                          "type": m.get("media_product_type") or m.get("media_type"),
+                          "eng": eng, "eng_rate": round(100 * eng / fol, 2), "timestamp": m.get("timestamp"),
+                          "hook": ((m.get("caption") or "").strip().splitlines() or [""])[0][:120],
+                          "permalink": m.get("permalink")})
+    now = datetime.now(TZ).isoformat(timespec="minutes")
+    (DATA / "benchmark.json").write_text(json.dumps({"generated_at": now, "accounts": accounts, "failed": failed},
+                                                    ensure_ascii=False, indent=1), encoding="utf-8")
+    L = [f"# Benchmark {now}", "", "Interaktion = Likes + 2 × Kommentare, Rate = je 100 Follower. Views gibt die API für fremde Accounts nicht her.", ""]
+    if accounts:
+        L += ["## Accounts", "", "| Account | Gruppe | Follower | Ø Rate Reels | Ø Rate Bilder/Karussell | Reels-Anteil |", "|---|---|---|---|---|---|"]
+        for a in sorted(accounts, key=lambda a: -int(a.get("followers_count") or 0)):
+            ps = [p for p in posts if p["account"] == a["username"]]
+            reels = [p["eng_rate"] for p in ps if p["type"] == "REELS"]
+            other = [p["eng_rate"] for p in ps if p["type"] != "REELS"]
+            L.append(f"| @{a['username']} | {a['group']} | {a.get('followers_count')} | {_avg(reels)} | {_avg(other)} | "
+                     f"{len(reels)}/{len(ps)} |")
+        L += ["", "## Top-Beiträge nach Rate (erste Caption-Zeile = Hook)", ""]
+        for p in sorted(posts, key=lambda p: -p["eng_rate"])[:15]:
+            L.append(f"- {p['eng_rate']} · {p['type']} · @{p['account']} · „{p['hook']}“ {p['permalink']}")
+        L += ["", "## Schwächste Beiträge", ""]
+        for p in sorted(posts, key=lambda p: p["eng_rate"])[:5]:
+            L.append(f"- {p['eng_rate']} · {p['type']} · @{p['account']} · „{p['hook']}“")
+    if failed:
+        L += ["", "## Nicht abrufbar", ""] + [f"- @{h}: {e}" for h, e in failed]
+        if not accounts:
+            L += ["", "_business_discovery ist mit diesem Token nicht verfügbar – Vergleich per Websuche "
+                  "(öffentliche Artikel, Fallstudien, Beispiele der Accounts) und im Bericht so kennzeichnen._"]
+    (DATA / "benchmark.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     print("\n".join(L))
 
 
@@ -957,4 +1027,4 @@ if __name__ == "__main__":
     cmd, *args = sys.argv[1:] or ["due"]
     {"due": cmd_due, "render": cmd_render, "publish": cmd_publish, "insights": cmd_insights,
      "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage, "plan": cmd_plan,
-     "briefing": cmd_briefing}[cmd](*args)
+     "briefing": cmd_briefing, "benchmark": cmd_benchmark}[cmd](*args)

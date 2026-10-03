@@ -45,6 +45,14 @@ jobs:
         if: env.IG_AI_TOKEN != ''
         run: python instagram_autopilot/autopilot.py insights
 
+      - name: Andere Accounts vergleichen (einmal täglich bzw. manuell)
+        if: env.IG_AI_TOKEN != ''
+        continue-on-error: true   # Vergleich darf die Auswertung nie blockieren
+        run: |
+          if [ "$(date -u +%H)" -lt 6 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python instagram_autopilot/autopilot.py benchmark
+          fi
+
       - name: Speichern
         run: |
           git config user.name "ig-autopilot[bot]"
