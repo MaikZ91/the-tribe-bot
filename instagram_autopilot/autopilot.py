@@ -877,7 +877,27 @@ def cmd_briefing(niche: str = "") -> None:
           "- Hooks: " + " | ".join((p.get("hook") or "").replace("\n", " / ") for p in last[-4:]),
           "- Hook-Stile zuletzt: " + ", ".join(str(p.get("hook_style")) for p in last[-3:])]
 
-    # 6. last hypotheses
+    # 6. originality: share of reels in the last 30 days that lean on stock footage
+    cut = (now.date() - timedelta(days=30)).isoformat()
+    stock = total = 0
+    for pid, p in load_state()["published"].items():
+        if p.get("type") != "reel" or p.get("deleted") or (p.get("local_date") or "") < cut or not (POSTS / f"{pid}.json").exists():
+            continue
+        slides = load_spec(pid).get("slides", [])
+        clips = [x for x in slides if x.get("kind") == "clip" and "footage/stock" in str(x.get("src", ""))]
+        total += 1
+        stock += bool(clips) and (slides[1:2] == clips[:1] or slides[:1] == clips[:1] or len(clips) * 2 >= len(slides))
+    L += ["", "## Originalität (Empfehlungsfähigkeit)", "",
+          f"Reels der letzten 30 Tage mit Stock-Clip als Einstieg oder Hauptteil: {stock} von {total}"
+          + (" – **über der Hälfte: Risiko, nicht mehr empfohlen zu werden. Eigenes Material vorziehen.**"
+             if total and stock * 2 > total else "")]
+    try:
+        heads = [l for l in (DATA / "recherche.md").read_text(encoding="utf-8").splitlines() if l.startswith("## ")][:2]
+        L.append("Recherche (data/recherche.md): " + " · ".join(h[3:] for h in heads))
+    except FileNotFoundError:
+        L.append("Recherche: data/recherche.md fehlt – anlegen.")
+
+    # 7. last hypotheses
     try:
         heads = [l for l in (HOME / "learnings.md").read_text(encoding="utf-8").splitlines() if l.startswith("## ")][:3]
         L += ["", "## Letzte Einträge in learnings.md", ""] + [f"- {h[3:]}" for h in heads]

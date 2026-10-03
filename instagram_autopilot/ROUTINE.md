@@ -9,6 +9,13 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
 
 ## 0. Daten-Gate (Pflicht vor jedem Reel)
 
+**Recherche gehört dazu, ohne dass Maik fragen muss.** Du bist Creative Director: Plattform-Mechanik, neue
+Instagram-Funktionen, Ranking-Signale, Formate, die in den Nischen gerade funktionieren, recherchierst du selbst
+(WebSearch) – mindestens montags, und immer sofort, wenn Ø Views oder der Nicht-Follower-Anteil gegenüber der
+Vorwoche um mehr als ein Drittel fallen, eine Kennzahl unerklärlich ist oder du ein neues Format planst.
+Ergebnisse oben in `data/recherche.md` (Erkenntnis → Konsequenz → Quelle) und noch im selben Lauf umsetzen:
+Code (autopilot.py/render.py), Produktion oder Regeln. Maik bekommt die Erkenntnis im Bericht, nicht die Frage.
+
 1. `ig-autopilot-insights.yml` per GitHub-Dispatch starten, auf Abschluss warten, `git pull` (Auswertung höchstens 3 h alt).
 2. `python instagram_autopilot/autopilot.py briefing <nische>` (praxen / coaches / gastro) → `data/briefing.md`.
    Es fasst alles zusammen: Follower-Verlauf, Konto-Reichweite, Leads, je Nische / Hook-Stil / Pain / Uhrzeit /
@@ -26,6 +33,8 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
      (konkreter Alltagsmoment der Zielgruppe, Text „Schick das deiner Praxis-Kollegin“ o. ä. am Ende).
    - Originalität: Instagram stuft wiederverwendete Inhalte herab. Stock-Clips nie unverändert als Hauptmotiv,
      immer mit eigener Grafik/Text/Schnitt; eigene Bildschirmaufnahmen und Tool-Ausgaben bevorzugen.
+   - Skip-Rate ≤ 40 % ist das Ziel (Recherche 03.10.): Hook-Text in den ersten 3 s, 5–10 Wörter, Zielgruppe zuerst.
+   - Nie Beiträge löschen – Instagram testet Reels stufenweise, manche wachsen erst nach Tagen.
    - Keywords in Caption und Hook-Text (Instagram-Suche): Branche + Problem + Bielefeld/OWL; 3–5 passende Hashtags.
 6. Steuern, nicht nur befüllen: Zeigen die Daten mit n ≥ 3 eine bessere Uhrzeit, Länge oder Hook-Art, passt du
    `config.json` (Slots) bzw. die Produktion selbst an und begründest es in `learnings.md`. Maiks feste Vorgaben
