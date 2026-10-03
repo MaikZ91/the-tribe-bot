@@ -9,6 +9,8 @@ Commands (run from the repo root):
   python instagram_autopilot/autopilot.py refresh      -> refreshes the long-lived token
   python instagram_autopilot/autopilot.py prune        -> deletes rendered media of published posts
   python instagram_autopilot/autopilot.py engage       -> DMs the KI-Check link to "CHECK" commenters
+  python instagram_autopilot/autopilot.py briefing [N]  -> data/briefing.md: all data condensed into
+                                                           rules for the next reel (N = niche)
 
 Uses the "Instagram API with Instagram Login" (graph.instagram.com), so no
 Facebook page is needed. Secrets: IG_AI_TOKEN, IG_AI_USER_ID (optional
@@ -134,6 +136,10 @@ def next_queued(state: dict) -> str | None:
         spec = json.loads(f.read_text(encoding="utf-8"))
         if not spec.get("not_before", "") <= today <= spec.get("expires", "9999"):
             continue      # dated posts (e.g. gastro events) only go out in their window
+        if CONFIG.get("require_briefing") and spec.get("status", "queued") == "queued" \
+                and not briefing_ok(spec):
+            print(f"{spec['id']}: ohne gültiges Briefing – wird nicht gepostet.", file=sys.stderr)
+            continue
         if spec.get("status", "queued") == "queued" and spec["id"] not in state["published"]:
             queued.append((spec.get("priority", 50), f.name, spec["id"], category(spec)))
     if not queued:
@@ -589,7 +595,7 @@ def cmd_insights() -> None:
             r["gap_min"] = (h2 * 60 + m2) - (h1 * 60 + m1)
     today = datetime.now(TZ).date().isoformat()
     DATA.mkdir(parents=True, exist_ok=True)
-    snap = {"date": today, "account": acct, "account_insights": account_insights(uid), "posts": rows}
+    snap = {"date": today, "generated_at": datetime.now(TZ).isoformat(timespec="minutes"), "account": acct, "account_insights": account_insights(uid), "posts": rows}
     (DATA / "insights_latest.json").write_text(json.dumps(snap, ensure_ascii=False, indent=2), encoding="utf-8")
     hist = DATA / "followers.csv"
     new = not hist.exists()
@@ -686,6 +692,182 @@ def write_report(snap: dict) -> None:
 
 
 # --------------------------------------------------------------------------
+# Briefing: every reel is built from the data, and only briefed reels post
+# --------------------------------------------------------------------------
+
+BRIEFINGS = DATA / "briefings.json"
+
+
+def briefing_ok(spec: dict) -> bool:
+    """A queued spec posts only if it names a briefing written in the last 2 days."""
+    try:
+        known = json.loads(BRIEFINGS.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return False
+    made = known.get(spec.get("briefing") or "")
+    if not made:
+        return False
+    return datetime.now(TZ) - datetime.fromisoformat(made) < timedelta(days=2)
+
+
+def _avg(xs: list) -> float | None:
+    xs = [float(x) for x in xs if x not in (None, "", "–")]
+    return round(sum(xs) / len(xs), 2) if xs else None
+
+
+def _table(rows: list[dict], key, title: str) -> list[str]:
+    """Mean views / watch ratio / skip rate grouped by key (a field name or a function)."""
+    agg: dict = {}
+    for r in rows:
+        agg.setdefault(key(r) if callable(key) else r.get(key), []).append(r)
+    out = ["", f"### {title}", "", "| Wert | n | Ø Views | Ø Reichweite | Ø Watch-Ratio | Ø Skip % |", "|---|---|---|---|---|---|"]
+    for k, rs in sorted(agg.items(), key=lambda kv: -(_avg([r.get("views") for r in kv[1]]) or 0)):
+        out.append(f"| {k} | {len(rs)} | {_avg([r.get('views') for r in rs])} | {_avg([r.get('reach') for r in rs])} | "
+                   f"{_avg([r.get('watch_ratio') for r in rs])} | {_avg([r.get('reels_skip_rate') for r in rs])} |")
+    return out
+
+
+def _length(r: dict) -> str:
+    s = float(r.get("seconds") or 0)
+    return "< 12 s" if s < 12 else "12–18 s" if s < 18 else "18–24 s" if s < 24 else "≥ 24 s"
+
+
+def _slot(r: dict) -> str:
+    return (r.get("local_time") or "??")[:2] + " Uhr"
+
+
+def _niche(r: dict) -> str:
+    return r.get("niche") or "alt (vor Nischenwechsel 30.09.)"
+
+
+def _opener(r: dict) -> str:
+    kinds = r.get("kinds") or []
+    return "Clip zuerst" if kinds[1:2] == ["clip"] or kinds[:1] == ["clip"] else "Grafik zuerst"
+
+
+def cmd_briefing(niche: str = "") -> None:
+    """Condense every data source into data/briefing.md before a reel is built.
+
+    Sources: insights_latest.json (per-reel metrics), followers.csv (trend), state.json
+    (what ran when, fatigue), engage.json (keyword comments/DMs), learnings.md (last
+    hypotheses). Writes a briefing id the new spec must carry ("briefing": id);
+    with config "require_briefing" only such specs are posted.
+    """
+    now = datetime.now(TZ)
+    bid = now.strftime("B%Y%m%d-%H%M")
+    try:
+        snap = json.loads((DATA / "insights_latest.json").read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        snap = {"posts": [], "account": {}}
+    rows = [r for r in snap.get("posts", []) if r.get("type") == "reel"]
+    since = (now.date() - timedelta(days=14)).isoformat()
+    cur = [r for r in rows if (r.get("local_date") or "") >= since]
+    gen = snap.get("generated_at")
+    age_h = (now - datetime.fromisoformat(gen)).total_seconds() / 3600 if gen else None
+    L = [f"# Briefing {bid}" + (f" · Nische {niche}" if niche else ""), "",
+         f"Daten: Auswertung {gen or snap.get('date', 'n/a')}"
+         + (f" ({age_h:.1f} h alt)" if age_h is not None else "")
+         + (" – **VERALTET: erst ig-autopilot-insights.yml laufen lassen**" if age_h is None or age_h > 3 else ""),
+         f"Reels gesamt: {len(rows)} · davon letzte 14 Tage: {len(cur)}", ""]
+
+    # 1. account trend: last value per day
+    try:
+        per_day: dict = {}
+        with (DATA / "followers.csv").open(encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                per_day[row["date"]] = row["followers"]
+        days = sorted(per_day)[-7:]
+        L += ["## Konto", "", "Follower: " + " → ".join(f"{d[5:]} {per_day[d]}" for d in days)]
+    except FileNotFoundError:
+        L += ["## Konto", "", "Follower: n/a"]
+    ai = snap.get("account_insights") or {}
+    L.append("Heute: " + ", ".join(f"{k} {ai.get(k, 'n/a')}" for k in
+                                    ("reach", "profile_views", "accounts_engaged", "website_clicks")))
+    by_day: dict = {}
+    for r in rows:
+        by_day.setdefault(r.get("local_date"), []).append(float(r.get("views") or 0))
+    L.append("Ø Views je Posting-Tag: " + ", ".join(f"{d[5:]} {sum(v) / len(v):.0f} (n={len(v)})"
+                                                 for d, v in sorted(by_day.items()) if d))
+
+    # 2. leads
+    try:
+        handled = json.loads((DATA / "engage.json").read_text(encoding="utf-8")).get("handled", [])
+    except FileNotFoundError:
+        handled = []
+    L += ["", "## Leads", "", f"Keyword-Kommentare mit Auto-DM bisher: {len(handled)}",
+          f"Kommentare auf Reels gesamt: {sum(int(r.get('comments') or 0) for r in rows)}, "
+          f"Shares: {sum(int(r.get('shares') or 0) for r in rows)}, Saves: {sum(int(r.get('saved') or 0) for r in rows)}"]
+
+    # 3. what works – recent reels first (old account phase is a different audience)
+    base = cur or rows
+    L += ["", "## Was wirkt (letzte 14 Tage, Views = Verteilung, Skip = erste Sekunden, Watch-Ratio = Inhalt)"]
+    L += _table(base, _niche, "Nische")
+    L += _table(base, "hook_style", "Hook-Stil")
+    L += _table(base, "pain", "Pain")
+    L += _table(base, _slot, "Uhrzeit (Stunde)")
+    L += _table(base, _length, "Länge")
+    L += _table(base, _opener, "Einstieg")
+    L += _table(base, "music", "Musik")
+    ranked = sorted(base, key=lambda r: -float(r.get("views") or 0))
+    L += ["", "### Hooks nach Views", ""]
+    for r in ranked:
+        hook = (r.get("hook") or "").replace("\n", " / ")
+        L.append(f"- {r.get('views', 'n/a')} Views · Skip {r.get('reels_skip_rate', 'n/a')} % · "
+                 f"WR {r.get('watch_ratio', 'n/a')} · {r.get('niche')}/{r.get('hook_style')} · „{hook}“ ({r['post_id']})")
+
+    # 4. derived rules (only from groups with n >= 2; below that it is a hypothesis)
+    def best(key, metric, low=False):
+        agg: dict = {}
+        for r in base:
+            v = r.get(metric)
+            if v not in (None, "", "–") and (key != "niche" or r.get("niche")):
+                agg.setdefault(key(r) if callable(key) else r.get(key), []).append(float(v))
+        agg = {k: sum(v) / len(v) for k, v in agg.items() if len(v) >= 2}
+        if not agg:
+            return None
+        return (min if low else max)(agg.items(), key=lambda kv: kv[1])
+    L += ["", "## Regeln für das nächste Reel", ""]
+    for label, key, metric, low in (("Hook-Stil mit niedrigster Skip-Rate", "hook_style", "reels_skip_rate", True),
+                                    ("Hook-Stil mit meisten Views", "hook_style", "views", False),
+                                    ("Länge mit bester Watch-Ratio", _length, "watch_ratio", False),
+                                    ("Einstieg mit niedrigster Skip-Rate", _opener, "reels_skip_rate", True),
+                                    ("Uhrzeit mit meisten Views", _slot, "views", False),
+                                    ("Nische mit meisten Views", "niche", "views", False)):
+        b = best(key, metric, low)
+        L.append(f"- {label}: {b[0]} ({b[1]:.2f})" if b else f"- {label}: n/a (unter 2 Reels je Gruppe – nur Hypothese)")
+    if niche:
+        own = [r for r in base if r.get("niche") == niche]
+        L.append(f"- Nische {niche}: {len(own)} Reels, Ø Views {_avg([r.get('views') for r in own])}, "
+                 f"Ø Skip {_avg([r.get('reels_skip_rate') for r in own])} %, Ø WR {_avg([r.get('watch_ratio') for r in own])}")
+
+    # 5. fatigue: do not repeat
+    last = recent(load_state(), CONFIG.get("freshness_window", 8))
+    imgs = sorted({i for p in last for i in p.get("images", [])})
+    L += ["", "## Nicht wiederholen (letzte 8 Posts)", "",
+          "- Bilder: " + (", ".join(imgs) or "–"),
+          "- Hooks: " + " | ".join((p.get("hook") or "").replace("\n", " / ") for p in last[-4:]),
+          "- Hook-Stile zuletzt: " + ", ".join(str(p.get("hook_style")) for p in last[-3:])]
+
+    # 6. last hypotheses
+    try:
+        heads = [l for l in (HOME / "learnings.md").read_text(encoding="utf-8").splitlines() if l.startswith("## ")][:3]
+        L += ["", "## Letzte Einträge in learnings.md", ""] + [f"- {h[3:]}" for h in heads]
+    except FileNotFoundError:
+        pass
+    L += ["", f"Neue Specs tragen `\"briefing\": \"{bid}\"` und nennen in `\"hypothesis\"`, welche Regel sie nutzen "
+          "bzw. welche eine Variable sie testen."]
+    (DATA / "briefing.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    try:
+        known = json.loads(BRIEFINGS.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        known = {}
+    known[bid] = now.isoformat(timespec="minutes")
+    known = dict(sorted(known.items())[-30:])
+    BRIEFINGS.write_text(json.dumps(known, indent=1), encoding="utf-8")
+    print("\n".join(L))
+
+
+# --------------------------------------------------------------------------
 # Token refresh
 # --------------------------------------------------------------------------
 
@@ -725,4 +907,5 @@ def cmd_refresh() -> None:
 if __name__ == "__main__":
     cmd, *args = sys.argv[1:] or ["due"]
     {"due": cmd_due, "render": cmd_render, "publish": cmd_publish, "insights": cmd_insights,
-     "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage, "plan": cmd_plan}[cmd](*args)
+     "refresh": cmd_refresh, "prune": cmd_prune, "engage": cmd_engage, "plan": cmd_plan,
+     "briefing": cmd_briefing}[cmd](*args)
