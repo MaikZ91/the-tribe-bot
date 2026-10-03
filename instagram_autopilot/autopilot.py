@@ -935,7 +935,20 @@ def cmd_benchmark() -> None:
     Writes data/benchmark.json + data/benchmark.md; unreachable accounts are listed, not fatal.
     """
     cfg = json.loads((DATA / "benchmark_accounts.json").read_text(encoding="utf-8"))
-    uid = user_id()
+    # business_discovery exists only in the API with Facebook Login (graph.facebook.com):
+    # optional secrets IG_FB_TOKEN / IG_FB_USER_ID; without them the Instagram-Login token is tried (fails).
+    fb_token, fb_uid = os.getenv("IG_FB_TOKEN"), os.getenv("IG_FB_USER_ID")
+
+    def discover(h: str, flds: str) -> dict:
+        q = f"business_discovery.username({h}){{{flds}}}"
+        if fb_token and fb_uid:
+            r = requests.get(f"https://graph.facebook.com/v25.0/{fb_uid}",
+                             params={"fields": q, "access_token": fb_token}, timeout=60)
+            body = r.json()
+            if r.status_code >= 400 or "error" in body:
+                raise RuntimeError(f"{r.status_code}: {json.dumps(body)[:300]}")
+            return body["business_discovery"]
+        return api("GET", user_id(), fields=q)["business_discovery"]
     fields = ("username,name,followers_count,media_count,biography,media.limit(25)"
               "{caption,like_count,comments_count,media_type,media_product_type,timestamp,permalink}")
     accounts, failed = [], []
@@ -944,7 +957,7 @@ def cmd_benchmark() -> None:
             continue
         for h in handles:
             try:
-                res = api("GET", uid, fields=f"business_discovery.username({h}){{{fields}}}")["business_discovery"]
+                res = discover(h, fields)
                 res["group"] = group
                 accounts.append(res)
             except (RuntimeError, KeyError) as e:
@@ -980,8 +993,9 @@ def cmd_benchmark() -> None:
     if failed:
         L += ["", "## Nicht abrufbar", ""] + [f"- @{h}: {e}" for h, e in failed]
         if not accounts:
-            L += ["", "_business_discovery ist mit diesem Token nicht verfügbar – Vergleich per Websuche "
-                  "(öffentliche Artikel, Fallstudien, Beispiele der Accounts) und im Bericht so kennzeichnen._"]
+            L += ["", "_Fremde Kennzahlen gibt es nur über die Instagram-API mit Facebook-Login (Secrets IG_FB_TOKEN, "
+                  "IG_FB_USER_ID; Instagram-Konto mit einer Facebook-Seite verknüpft). Bis dahin Vergleich per Websuche "
+                  "(öffentliche Artikel, Fallstudien, Profile) und im Bericht so kennzeichnen._"]
     (DATA / "benchmark.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     print("\n".join(L))
 

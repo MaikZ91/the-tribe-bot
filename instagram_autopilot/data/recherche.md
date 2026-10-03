@@ -3,6 +3,15 @@
 Pflege: der Creative Director recherchiert selbst (ROUTINE.md, Abschnitt 0 – Recherche) und trägt Neues oben ein.
 Jede Zeile: Erkenntnis → was wir daraus machen → Quelle. Nur Belegtes; Schätzungen aus Blogs als solche kennzeichnen.
 
+## 03.10.2026 21:35 – Messung Follower / Nicht-Follower (erste Daten)
+
+- Reichweite heute 210, davon **196 Nicht-Follower (93 %)**, Views 305, davon 234 Nicht-Follower (77 %).
+  → Die Reels gehen also schon an Fremde, aber nur in kleinen Testgruppen. Engpass ist nicht „nur Follower“,
+  sondern dass die Testgruppe nicht hält (Skip-Rate) und nicht teilt – deshalb weitet Instagram nicht aus.
+- Andere Accounts: business_discovery gibt es mit unserem Instagram-Login-Token nicht („nonexisting field“);
+  instagram.com blockt Abrufe aus der Cloud (HTTP 429). Fremde Kennzahlen erst mit Facebook-Login-Token
+  (Maik). Bis dahin Vergleich per Websuche, ohne Zahlen zu erfinden.
+
 ## 03.10.2026 – Warum zeigt Instagram unsere Reels kaum Nicht-Followern?
 
 Ausgangslage: 27.09. 100–135 Views je Reel bei 56 Followern (also fast nur Nicht-Follower), seit 30.09. 5–25 Views.

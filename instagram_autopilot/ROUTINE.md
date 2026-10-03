@@ -13,6 +13,11 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
 Instagram-Funktionen, Ranking-Signale, Formate, die in den Nischen gerade funktionieren, recherchierst du selbst
 (WebSearch) – mindestens montags, und immer sofort, wenn Ø Views oder der Nicht-Follower-Anteil gegenüber der
 Vorwoche um mehr als ein Drittel fallen, eine Kennzahl unerklärlich ist oder du ein neues Format planst.
+**Andere Accounts anschauen gehört dazu:** `data/benchmark.md` (täglich über `autopilot.py benchmark`:
+öffentliche Kennzahlen vergleichbarer Accounts, Top-/Flop-Beiträge je 100 Follower) lesen. Vorbilder, die in
+Praxis-, Coach-, Gastro- oder KI-Nischen nachweislich viel Reichweite holen, per Websuche finden und mit Begründung in
+`data/benchmark_accounts.json` → `vorbilder` eintragen. Daraus Muster ableiten (Hook-Art, Länge, Format, Bildsprache,
+Thema) – nie kopieren, immer mit eigenem Material neu umsetzen (Originalität).
 Ergebnisse oben in `data/recherche.md` (Erkenntnis → Konsequenz → Quelle) und noch im selben Lauf umsetzen:
 Code (autopilot.py/render.py), Produktion oder Regeln. Maik bekommt die Erkenntnis im Bericht, nicht die Frage.
 
