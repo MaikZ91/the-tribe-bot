@@ -1,5 +1,9 @@
 # Learnings
 
+## 04.10. 15:45 – Creative Director (Nachmittagslauf)
+- 20:00 ist mit P0410c (Gastro, Club/Bar-Menschen, Hook über Video) bereits frisch belegt – kein neues Reel.
+- Tribe: heute 17:15 T09 (Video, jetzt mit neuer Musik). Morgen 05.10. T14 Karussell „Montag. Kein Plan?“ – echte Events aus events.json: Tribe Powerworkout 18 Uhr Gellershagen Park, VHS-Vortrag „Als Frau unterwegs“ 18 Uhr Sennestadthaus, Pub Quiz 20 Uhr Irish Pub. Wechsel Video → Karussell eingehalten.
+
 ## 04.10. 15:30 – Maik: 2 × Gastro + 1 × Health, Videos mit Menschen zurück
 - Neuer Mix: 08:00 Health (Praxen/Coaches), 14:30 + 20:00 Gastro. Jedes Reel mit echten Menschen/Atmosphäre im Video; Originalität über Hook-Text direkt auf dem Clip, Captions, Schnitte, eigene Tool-Ausgaben.
 - 20:00 heute: P0410c „Freitag DJ. Samstag Live. Keiner weiß es.“ – Thema/Slot von P0310c (stärkstes Signal), Hook über vollem Bar-Video, echte Tool-Ausgabe, Teilen-Folie „Schick das deinem Lieblingswirt“, Musik mood:gastro. Experiment variable=opener, variant=clip-mit-hook.
