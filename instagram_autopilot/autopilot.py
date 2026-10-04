@@ -903,7 +903,8 @@ def cmd_briefing(niche: str = "") -> None:
 
     try:
         bm = (DATA / "benchmark.md").read_text(encoding="utf-8").splitlines()
-        top = [l for l in bm if l.startswith("- ")][:5]
+        top = [l for l in bm if l.startswith("- ") and "->" not in l][:5] or [
+            "- keine Fremddaten abrufbar (Facebook-Login-Token fehlt) – Vorbilder per Websuche auswerten"]
         L += ["", "## Andere Accounts (data/benchmark.md, " + bm[0][12:] + ")", ""] + top
     except (FileNotFoundError, IndexError):
         L += ["", "## Andere Accounts", "", "data/benchmark.md fehlt – `autopilot.py benchmark` laufen lassen."]

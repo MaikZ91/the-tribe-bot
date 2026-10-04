@@ -1,5 +1,12 @@
 # Learnings
 
+## 04.10. 06:50 – Creative Director (Morgenlauf)
+- Daten (Auswertung 06:43): Reichweite 313, davon 95 % Nicht-Follower; Ø Views 03.10. 23 (02.10. 17, 01.10. 15) – leicht steigend, aber weit unter 27.09. (124). Follower 56, 0 Shares/Saves/Keyword-Kommentare. Stock-Anteil 9 von 15 (Originalitätsrisiko).
+- Entscheidung: beide Reels heute komplett aus eigener Grafik (Hook, Ablauf-Pipeline, Teilen-Folie, Logo) – kein Stock. Teilen-Aufforderung als neuer Standard (Recherche: Sends wichtigstes Signal für Nicht-Follower).
+- 08:00 P0410a Physio „Physios: Wie oft heute „Kein Platz frei“?“ – Experiment variable=opener, variant=grafik-ohne-stock.
+- 14:30 P0410b Coach „Anfrage 21:04. Antwort 21:06.“ – Remix des bisher besten Hooks (134 Views, Skip 67,5 %) für Coaches; Experiment variable=trial, variant=SS_PERFORMANCE (Probe-Reel nur an Nicht-Follower, ohne Story).
+- 20:00 Gastro baut der Nachmittagslauf (Gastro ist aktuell die Nische mit den meisten Views, n=2).
+
 ## 03.10. 15:45 – Creative Director (Nachmittagslauf)
 - 08:00 Physio + 14:30 Zahnarzt gepostet. 20:00 Gastro P0310c „Euer Wochenprogramm? Hängt an der Tür.“ – zeigt das Wochenprogramm-Karussell der Demo-Kneipe als Ausgabe.
 - Tribe: heute T06 (Samstagabend-Karussell), morgen T09 (Video „Neu in Bielefeld?“) – Wechsel Karussell/Video.
