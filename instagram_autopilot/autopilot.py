@@ -834,6 +834,20 @@ def cmd_briefing(niche: str = "") -> None:
     L.append("Ø Views je Posting-Tag: " + ", ".join(f"{d[5:]} {sum(v) / len(v):.0f} (n={len(v)})"
                                                  for d, v in sorted(by_day.items()) if d))
 
+    # 1b. freshest signal first: the last 72 h decide the next reel more than old averages
+    cut72 = (now - timedelta(hours=72)).date().isoformat()
+    fresh = sorted((r for r in rows if (r.get("local_date") or "") >= cut72),
+                   key=lambda r: -float(r.get("views") or 0))
+    if fresh:
+        L += ["", "## Stärkstes Signal (letzte 72 h) – zuerst darauf reagieren", ""]
+        for r in fresh:
+            hook = (r.get("hook") or "").replace("\n", " / ")
+            L.append(f"- {r.get('views', 'n/a')} Views · Reichweite {r.get('reach', 'n/a')} · Skip {r.get('reels_skip_rate', 'n/a')} % · "
+                     f"WR {r.get('watch_ratio', 'n/a')} · {r.get('niche')} · {r.get('local_date', '')[5:]} {r.get('local_time')} · „{hook}“")
+        top = fresh[0]
+        L.append(f"→ Top: {top['post_id']}. Viel Reichweite + hohe Skip-Rate = Thema/Zeit tragen, Einstieg hält nicht "
+                 "(Thema behalten, Hook neu). Wenig Reichweite + niedrige Skip-Rate = Inhalt hält, Verteilung fehlt.")
+
     # 2. leads
     try:
         handled = json.loads((DATA / "engage.json").read_text(encoding="utf-8")).get("handled", [])

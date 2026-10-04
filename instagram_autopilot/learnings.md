@@ -1,5 +1,10 @@
 # Learnings
 
+## 04.10. 15:00 – Selbstkritik nach Maiks Frage („war das datenbasiert?“)
+- Morgenlauf hat das stärkste frische Signal übersehen: P0310c Gastro „Euer Wochenprogramm? Hängt an der Tür.“ hatte um 06:43 schon 34 Views (jetzt 40, Reichweite 39) – bestes Reel seit dem Nischenwechsel, 2–3× die Praxis-Reels. Entschieden wurde stattdessen aus der Recherche (Originalität) und dem Slot-Mix.
+- Lesart P0310c: Reichweite hoch, aber Skip 94,9 %, Watch-Ratio 0,09 → Instagram zeigt Gastro/20 Uhr mehr Leuten, der Einstieg hält sie nicht. Also: Gastro-Thema und 20-Uhr-Slot ausbauen, Hook und erste 2 s neu.
+- Fix: Briefing zeigt jetzt oben „Stärkstes Signal (letzte 72 h)“ mit Lesart; darauf wird zuerst reagiert.
+
 ## 04.10. 09:30 – Musik (Maiks Auftrag)
 - Neu: Musikbibliothek `music/` (16 lizenzfreie Mixkit-Tracks, Stimmungen business/corporate/lofi/chill/upbeat/gastro/tribe/party). Ein Track wird pro Konto nicht direkt wiederholt.
 - The Tribe: 3 Videos (neu-in-bielefeld-ad, neu-in-muenster ×2) hatten identische Tonspur, 2 weitere fast identisch (Korrelation 0,87). Tribe-Videos bekommen jetzt einen wechselnden Track (Stimmung tribe), selbst gebaute Tribe-Reels ebenso.
