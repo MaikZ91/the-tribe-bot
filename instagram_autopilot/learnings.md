@@ -1,5 +1,9 @@
 # Learnings
 
+## 04.10. 15:30 – Maik: 2 × Gastro + 1 × Health, Videos mit Menschen zurück
+- Neuer Mix: 08:00 Health (Praxen/Coaches), 14:30 + 20:00 Gastro. Jedes Reel mit echten Menschen/Atmosphäre im Video; Originalität über Hook-Text direkt auf dem Clip, Captions, Schnitte, eigene Tool-Ausgaben.
+- 20:00 heute: P0410c „Freitag DJ. Samstag Live. Keiner weiß es.“ – Thema/Slot von P0310c (stärkstes Signal), Hook über vollem Bar-Video, echte Tool-Ausgabe, Teilen-Folie „Schick das deinem Lieblingswirt“, Musik mood:gastro. Experiment variable=opener, variant=clip-mit-hook.
+
 ## 04.10. 15:00 – Selbstkritik nach Maiks Frage („war das datenbasiert?“)
 - Morgenlauf hat das stärkste frische Signal übersehen: P0310c Gastro „Euer Wochenprogramm? Hängt an der Tür.“ hatte um 06:43 schon 34 Views (jetzt 40, Reichweite 39) – bestes Reel seit dem Nischenwechsel, 2–3× die Praxis-Reels. Entschieden wurde stattdessen aus der Recherche (Originalität) und dem Slot-Mix.
 - Lesart P0310c: Reichweite hoch, aber Skip 94,9 %, Watch-Ratio 0,09 → Instagram zeigt Gastro/20 Uhr mehr Leuten, der Einstieg hält sie nicht. Also: Gastro-Thema und 20-Uhr-Slot ausbauen, Hook und erste 2 s neu.

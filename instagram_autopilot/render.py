@@ -938,6 +938,10 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
                 frame = next(frames, None)
                 img = frame if frame is not None else img
                 img = img.copy()
+                if s.get("hook"):    # hook over real footage: own text layer = materially transformed clip
+                    img = Image.blend(img, Image.new("RGB", img.size, (0, 0, 0)), 0.42)
+                    slide_hook(img, {"text": s["hook"], "tag": s.get("tag"), "sub": s.get("sub"), "align": "center"},
+                               t, dur, H_REEL)
                 for c0, c1, text in s.get("captions", []):
                     if c0 <= t < c1:
                         draw_clip_caption(img, text, ease((t - c0) / 0.3))

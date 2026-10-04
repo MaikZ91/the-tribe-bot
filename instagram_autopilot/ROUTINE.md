@@ -162,7 +162,22 @@ Keine realistischen KI-Menschen, keine Computerstimme, nur eigene/lizenzfreie Mu
 Niemanden anschreiben außer über die bestehende CHECK-Automatik; keine Kalt-DMs. Nichts an The Tribe,
 anderen Workflows oder Secrets ändern. Blockiert/unklar: nichts erzwingen, im Bericht beschreiben.
 
-## Mix ab 02.10.: 1 von 3 Reels = Gastro
+## Mix ab 04.10. (Maik): 2 × Gastro, 1 × Health – und immer echte Menschen im Video
+
+- **08:00 Health** (Praxen oder Gesundheits-Coaches im Wechsel) · **14:30 Gastro** · **20:00 Gastro**.
+  Gastro ist die Nische mit der meisten Reichweite (P0310c: 40 Views, 2–3× Praxis-Reels) und passt zu The Tribe
+  (Bars, Events, Leute in Bielefeld).
+- **Jedes Reel braucht echte Menschen und Atmosphäre im Video** (Maiks Vorgabe 04.10.): Bar voller Leute, Anstoßen,
+  Kellner, Küche, Therapeutin mit Patientin, Trainer mit Klientin. Keine reinen Grafik-Reels mehr als Standard.
+- Originalität trotzdem wahren: Stock-Clips nie nackt, sondern mit eigener Ebene – Hook direkt über dem Clip
+  (`{"kind":"clip", …, "tag": "FÜR …", "hook": "…"}` → abgedunkelt, großer Text), Untertitel-Captions, Schnitt
+  zwischen mehreren Clips, dazu eigene Tool-Ausgaben (`footage/demo-gastro-*.mp4`) und eigene Grafikfolien.
+- Neue Clips (04.10.) in `footage/stock/`: bar-voll-elegant, bar-atmosphaere-bier, bartender-zapfhahn, freunde-anstossen,
+  freunde-drinks-bar, freunde-bier-fussball, club-tanzen, djs-auflegen, kellner-bestellung, kellner-drinks-bar,
+  koeche-kueche, restaurant-gaeste, restaurant-draussen, cafe-freundinnen, physio-nacken, physio-schulter,
+  personal-trainer-klientin, fitness-trainerin-kurs, yoga-gruppe.
+
+## (alt) Mix ab 02.10.: 1 von 3 Reels = Gastro
 
 - 08:00 Praxen · 14:30 Praxen oder Coaches · 20:00 **Gastro** (Kneipen, Bars, Restaurants, Cafés, Clubs, Veranstalter).
 - Gastro-Reels zeigen das Tool in Aktion: eine Wochennachricht („Freitag DJ ab 21 Uhr …“) wird zu Wochenprogramm, Event-Reels und Stories. Ausgabe kommt echt aus `branchen/gastro.py` (Demo-Kneipe, `docs/ig-media-kunden/demo-kneipe/`), nie gestellt.
