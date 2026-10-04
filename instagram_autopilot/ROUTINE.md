@@ -177,6 +177,9 @@ anderen Workflows oder Secrets ändern. Blockiert/unklar: nichts erzwingen, im B
 - Originalität trotzdem wahren: Stock-Clips nie nackt, sondern mit eigener Ebene – Hook direkt über dem Clip
   (`{"kind":"clip", …, "tag": "FÜR …", "hook": "…"}` → abgedunkelt, großer Text), Untertitel-Captions, Schnitt
   zwischen mehreren Clips, dazu eigene Tool-Ausgaben (`footage/demo-gastro-*.mp4`) und eigene Grafikfolien.
+- **Thema Wochenprogramm ausbauen** (Maik 04.10.: bestes Reel P0310c „Euer Wochenprogramm? Hängt an der Tür.“, 40 Views):
+  mindestens 1 der 2 Gastro-Reels pro Tag variiert das Wochenprogramm-Thema (Zettel an der Tür, „keiner weiß, was läuft“,
+  Programm per Nachricht → Posts), jeweils mit neuem Hook und Menschen-Atmosphäre. Feld `"series": "Wochenprogramm"`.
 - **Menschen im Mittelpunkt** (Maik 04.10.): Leute, die feiern, tanzen, zusammen an der Bar sitzen und lachen, DJ mit
   Publikum – Club-Atmosphäre. Produkt-/Detailclips (Cocktail, Zapfhahn, Bierglas, DJ-Hände) nur kurz als Zwischenschnitt,
   nie als Einstieg oder Hauptmotiv (in CREDITS.json `"menschen": false`). Gute Menschen-Clips: dj-club-mischt,
