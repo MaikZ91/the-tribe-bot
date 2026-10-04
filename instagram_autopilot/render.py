@@ -198,6 +198,46 @@ def music_bed(seconds: float, seed: int, volume_db: float = -27) -> np.ndarray:
     return (out * 10 ** (volume_db / 20)).astype(np.float32)
 
 
+MUSIC = CODE / "music"     # shared licence-free library (Mixkit), see music/CATALOG.json
+
+
+def recent_tracks(n: int = 6) -> list[str]:
+    """Library tracks used by the account's last n posts (so music does not repeat)."""
+    try:
+        pub = json.loads((ROOT / "data" / "state.json").read_text(encoding="utf-8"))["published"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return []
+    rows = sorted(pub.values(), key=lambda p: (p.get("local_date", ""), p.get("local_time", "")))
+    return [str(p.get("music", ""))[6:] for p in rows[-n:] if str(p.get("music", "")).startswith("track:")]
+
+
+def pick_track(choice: str, seed: int) -> str | None:
+    """'track:<file>' -> that file; 'mood:<m>' -> a library track with that mood that the account
+    did not use recently (deterministic per post). Anything else -> None (self-made bed/beat)."""
+    if choice.startswith("track:"):
+        return choice[6:]
+    if not choice.startswith("mood:"):
+        return None
+    cat = json.loads((MUSIC / "CATALOG.json").read_text(encoding="utf-8"))["tracks"]
+    pool = sorted(f for f, t in cat.items() if choice[5:] in t["moods"])
+    if not pool:
+        raise ValueError(f"keine Musik mit Stimmung {choice[5:]!r} in music/CATALOG.json")
+    fresh = [f for f in pool if f not in recent_tracks()] or pool
+    return fresh[seed % len(fresh)]
+
+
+def load_track(name: str, seconds: float, peak: float = 0.6) -> np.ndarray:
+    """Decode a library track to mono float at SR, cut to length, fade in/out."""
+    raw = subprocess.run([ffmpeg_exe(), "-v", "error", "-i", str(MUSIC / name), "-t", f"{seconds + 0.5:.2f}",
+                          "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"], capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768
+    n = int(seconds * SR)
+    x = np.pad(x, (0, max(0, n - len(x))))[:n]
+    t = np.arange(n) / SR
+    x *= np.clip(np.minimum(t / 0.25, (seconds - t) / 1.5), 0, 1)
+    return (x / max(1e-6, float(np.abs(x).max())) * peak).astype(np.float32)
+
+
 def write_wav(path: Path, x: np.ndarray) -> None:
     pcm = (np.clip(x, -1, 1) * 32767).astype(np.int16)
     with wave.open(str(path), "wb") as w:
@@ -860,7 +900,10 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
                      min(reading_seconds(s), s.get("max_seconds", 3.0)) if s["kind"] == "hook" else reading_seconds(s))
             for s, v in zip(spec["slides"], lines)]
     total = sum(durs) + 0.3
-    if spec.get("music") == "beat":
+    track = pick_track(str(spec.get("music") or CONFIG.get("default_music", "bed")), seed)
+    if track:
+        audio = load_track(track, total, 0.35 if use_voice else 0.6)
+    elif spec.get("music") == "beat":
         audio = beat_track(total, bpm, seed)
     else:
         audio = music_bed(total, seed, CONFIG.get("music_volume_db" if use_voice else "music_volume_db_novoice", -27))
@@ -921,7 +964,8 @@ def render_reel(spec: dict, out_dir: Path) -> dict:
         raise RuntimeError("ffmpeg failed")
     wav.unlink()
     (cover or img).convert("RGB").save(out_dir / "cover.jpg", quality=92)
-    return {"video": "reel.mp4", "cover": "cover.jpg", "seconds": round(total, 2)}
+    return {"video": "reel.mp4", "cover": "cover.jpg", "seconds": round(total, 2),
+            "music": f"track:{track}" if track else spec.get("music", "bed")}
 
 
 def render_carousel(spec: dict, out_dir: Path) -> dict:
@@ -962,9 +1006,13 @@ def story_frame(slide: Image.Image, dst: Path) -> None:
 def render_video(spec: dict, out_dir: Path) -> dict:
     """A finished video from the account's footage pool, posted as it is.
 
-    Only re-encoded to what Instagram accepts (H.264/AAC, 30 fps, <= 1080x1920);
-    its own sound stays."""
+    Only re-encoded to what Instagram accepts (H.264/AAC, 30 fps, <= 1080x1920).
+    Sound: its own, unless spec "music" (or config "video_music") names a library track or mood –
+    then that track replaces it ("music_mix": "replace", default) or plays over the original
+    turned down ("music_mix": "duck", for clips with speech)."""
     src = ROOT / spec["video"]
+    choice = str(spec.get("music") or CONFIG.get("video_music") or "")
+    track = pick_track(choice, zlib.crc32(spec["id"].encode())) if choice else None
     out_dir.mkdir(parents=True, exist_ok=True)
     ff = ffmpeg_exe()
     probe_src = subprocess.run([ff, "-i", str(src)], capture_output=True, text=True).stderr
@@ -975,15 +1023,28 @@ def render_video(spec: dict, out_dir: Path) -> dict:
               "eq=brightness=-0.08[bg];[b]scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30,format=yuv420p")
     else:
         vf = "scale='min(1080,iw)':-2,fps=30,format=yuv420p"
-    subprocess.run([ff, "-v", "error", "-y", "-i", str(src), "-vf",
+    audio_in, audio_map = [], []
+    if track:
+        dur = float(re.search(r"Duration: (\d+):(\d+):([\d.]+)", probe_src).group(3)) + 60 * float(
+            re.search(r"Duration: (\d+):(\d+):", probe_src).group(2))
+        wav = out_dir / "music.wav"
+        write_wav(wav, load_track(track, dur, 0.7))
+        audio_in = ["-i", str(wav)]
+        if spec.get("music_mix") == "duck" and "Audio:" in probe_src:
+            audio_map = ["-filter_complex", "[0:a]volume=0.35[o];[o][1:a]amix=inputs=2:duration=first:normalize=0[a]",
+                         "-map", "0:v", "-map", "[a]"]
+        else:
+            audio_map = ["-map", "0:v", "-map", "1:a"]
+    subprocess.run([ff, "-v", "error", "-y", "-i", str(src), *audio_in, *audio_map, "-vf",
                     vf, "-c:v", "libx264", "-preset", "medium",
-                    "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-movflags", "+faststart",
+                    "-crf", "20", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-shortest", "-movflags", "+faststart",
                     str(out_dir / "reel.mp4")], check=True)
     subprocess.run([ff, "-v", "error", "-y", "-ss", str(spec.get("cover_at", 0.5)), "-i", str(out_dir / "reel.mp4"),
                     "-frames:v", "1", "-q:v", "2", str(out_dir / "cover.jpg")], check=True)
     probe = subprocess.run([ff, "-i", str(out_dir / "reel.mp4")], capture_output=True, text=True).stderr
     h, m, sec = probe.split("Duration: ")[1].split(",")[0].split(":")
-    return {"video": "reel.mp4", "cover": "cover.jpg", "seconds": round(int(h) * 3600 + int(m) * 60 + float(sec), 2)}
+    return {"video": "reel.mp4", "cover": "cover.jpg", "seconds": round(int(h) * 3600 + int(m) * 60 + float(sec), 2),
+            "music": f"track:{track}" if track else "original"}
 
 
 def render(spec: dict, out_dir: Path) -> dict:

@@ -1,5 +1,10 @@
 # Learnings
 
+## 04.10. 09:30 – Musik (Maiks Auftrag)
+- Neu: Musikbibliothek `music/` (16 lizenzfreie Mixkit-Tracks, Stimmungen business/corporate/lofi/chill/upbeat/gastro/tribe/party). Ein Track wird pro Konto nicht direkt wiederholt.
+- The Tribe: 3 Videos (neu-in-bielefeld-ad, neu-in-muenster ×2) hatten identische Tonspur, 2 weitere fast identisch (Korrelation 0,87). Tribe-Videos bekommen jetzt einen wechselnden Track (Stimmung tribe), selbst gebaute Tribe-Reels ebenso.
+- KI für dein Business: Standard ab jetzt Stimmung business; Musik ist Test-Variable. Bisher: selbst gemachter Beat Ø 99,5 Views (n=2, beide 27.09. – überlagert vom Zeitpunkt), Pad Ø 44 (n=13). Nächste Tests: mood:lofi vs. mood:corporate vs. beat.
+
 ## 04.10. 06:50 – Creative Director (Morgenlauf)
 - Daten (Auswertung 06:43): Reichweite 313, davon 95 % Nicht-Follower; Ø Views 03.10. 23 (02.10. 17, 01.10. 15) – leicht steigend, aber weit unter 27.09. (124). Follower 56, 0 Shares/Saves/Keyword-Kommentare. Stock-Anteil 9 von 15 (Originalitätsrisiko).
 - Entscheidung: beide Reels heute komplett aus eigener Grafik (Hook, Ablauf-Pipeline, Teilen-Folie, Logo) – kein Stock. Teilen-Aufforderung als neuer Standard (Recherche: Sends wichtigstes Signal für Nicht-Follower).

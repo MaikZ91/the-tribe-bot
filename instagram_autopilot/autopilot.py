@@ -394,7 +394,7 @@ def cmd_publish(post_id: str) -> None:
         "seconds": meta.get("seconds"), "images": spec_images(spec),
         "hook": next((s.get("text") or s.get("title") for s in spec.get("slides", [])
                       if s.get("text") or s.get("title")), ""),
-        "kinds": [s["kind"] for s in spec.get("slides", [])], "music": spec.get("music", "bed"),
+        "kinds": [s["kind"] for s in spec.get("slides", [])], "music": meta.get("music") or spec.get("music", "bed"),
         "series": spec.get("series"), "forced": os.getenv("FORCE") == "1", "story_id": story,
         "trial": bool(trial), "briefing": spec.get("briefing"), "hypothesis": spec.get("hypothesis"),
         "variable": spec.get("variable"), "variant": spec.get("variant"),
@@ -764,6 +764,19 @@ def _niche(r: dict) -> str:
     return r.get("niche") or "alt (vor Nischenwechsel 30.09.)"
 
 
+def _music(r: dict) -> str:
+    """Music group: self-made bed/beat or the library track's main mood (music/CATALOG.json)."""
+    m = str(r.get("music") or "bed")
+    if not m.startswith("track:"):
+        return f"selbst gemacht ({m})"
+    try:
+        cat = json.loads((HERE / "music" / "CATALOG.json").read_text(encoding="utf-8"))["tracks"]
+        moods = cat[m[6:]]["moods"]
+        return f"Bibliothek: {moods[1] if len(moods) > 1 else moods[0]}"
+    except (FileNotFoundError, KeyError):
+        return m
+
+
 def _opener(r: dict) -> str:
     kinds = r.get("kinds") or []
     return "Clip zuerst" if kinds[1:2] == ["clip"] or kinds[:1] == ["clip"] else "Grafik zuerst"
@@ -839,7 +852,7 @@ def cmd_briefing(niche: str = "") -> None:
     L += _table(base, _slot, "Uhrzeit (Stunde)")
     L += _table(base, _length, "Länge")
     L += _table(base, _opener, "Einstieg")
-    L += _table(base, "music", "Musik")
+    L += _table(base, _music, "Musik")
     L += _table(base, lambda r: "Probe-Reel (nur Nicht-Follower)" if r.get("trial") else "normal", "Ausspielung")
     ranked = sorted(base, key=lambda r: -float(r.get("views") or 0))
     L += ["", "### Hooks nach Views", ""]

@@ -46,7 +46,14 @@ Code (autopilot.py/render.py), Produktion oder Regeln. Maik bekommt die Erkenntn
    - Skip-Rate ≤ 40 % ist das Ziel (Recherche 03.10.): Hook-Text in den ersten 3 s, 5–10 Wörter, Zielgruppe zuerst.
    - Nie Beiträge löschen – Instagram testet Reels stufenweise, manche wachsen erst nach Tagen.
    - Keywords in Caption und Hook-Text (Instagram-Suche): Branche + Problem + Bielefeld/OWL; 3–5 passende Hashtags.
-6. Steuern, nicht nur befüllen: Zeigen die Daten mit n ≥ 3 eine bessere Uhrzeit, Länge oder Hook-Art, passt du
+6. **Musik testen:** Bibliothek `music/` (lizenzfreie Mixkit-Tracks, Stimmungen in `music/CATALOG.json`:
+   business, corporate, lofi, chill, upbeat, gastro, tribe, party …). In der Spec `"music": "mood:<stimmung>"`
+   (wählt einen Track, den das Konto zuletzt nicht hatte), `"track:<datei>"` oder `"bed"`/`"beat"` (selbst gemacht).
+   Ohne Angabe gilt `default_music` aus config.json. Musik ist eine Test-Variable wie Hook oder Länge
+   (`"variable": "music"`, `"variant": "mood:lofi"` …); das Briefing vergleicht die Musikgruppen.
+   Fehlt eine passende Stimmung: neue Tracks von mixkit.co/free-stock-music/ holen (70-s-Ausschnitt ab dem ersten
+   lauten Teil) und in CATALOG.json eintragen. Nie Musik ohne klare Lizenz für Social Media.
+7. Steuern, nicht nur befüllen: Zeigen die Daten mit n ≥ 3 eine bessere Uhrzeit, Länge oder Hook-Art, passt du
    `config.json` (Slots) bzw. die Produktion selbst an und begründest es in `learnings.md`. Maiks feste Vorgaben
    (3 Reels/Tag, mind. 4 h Abstand, 1 von 3 Gastro, Positionierung, Regeln unten) bleiben.
 
