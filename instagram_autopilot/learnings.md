@@ -1,5 +1,11 @@
 # Learnings
 
+## Tagesauswertung 04.10. (21:14)
+- Konto: 56 Follower (±0), Reichweite 471 (Vortag 205/313 morgens), davon 469 Nicht-Follower; 5 Profilaufrufe, 0 Link-Klicks, 0 Keyword-Kommentare.
+- Reels heute: P0410a Physio (Grafik ohne Stock) 18 Views, Skip 86 %, WR 0,19 · P0410b Coach (Uhrzeit-Remix) 7 Views, Skip 100 % · P0410c Gastro (Hook über Club-Video, 20:10) nach 1 h 4 Views, Skip 50 %, WR 1,05 (zu früh). Keine Likes/Saves/Shares.
+- Nische: Gastro weiter vorn (P0310c jetzt 41 Views), Coaches schwächste.
+- Hypothese für morgen: Menschen-Video als Einstieg hält besser als Grafik (erste Stunde P0410c: Skip 50 % vs. 86–100 %). Morgen 14:30 + 20:00 Gastro mit Club-/Bar-Menschen, eines davon Wochenprogramm-Serie; Health 08:00 ebenfalls mit Menschen-Clip als Einstieg statt Grafik.
+
 ## 04.10. 19:00 – Wochenstrategie (KW 40 → KW 41)
 - Woche 28.09.–04.10.: 13 Reels, Ø 23,6 Views / 20 Reichweite (Woche davor, 27.09.: 4 Reels, Ø 123,5), Ø Skip 84 %, Watch-Ratio 0,3; 0 Shares, 0 Saves, 0 Kommentare; Follower 58 → 56; Konto-Reichweite heute 406, davon 96 % Nicht-Follower; 4 Profilaufrufe.
 - Nischen: Gastro Ø 25 Views (n=2, Skip 75 %) > Praxen 17 (n=8) > Coaches 10,5 (n=2). → Maiks neuer Mix (2× Gastro, 1× Health) passt zu den Daten.
