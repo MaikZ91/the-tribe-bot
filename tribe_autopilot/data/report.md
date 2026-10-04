@@ -1,6 +1,6 @@
-# Instagram-Report 2026-10-03
+# Instagram-Report 2026-10-04
 
-Follower: **1270** · Beiträge: 32
+Follower: **1272** · Beiträge: 33
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -10,6 +10,7 @@ Follower: **1270** · Beiträge: 32
 | T05-langes-wochenende | event-carousel | neu-in-bielefeld | anlass | – | – | – | – | – | – | – | 0.0 |
 | T03-pov-eine-woche-spaeter | viral-beat | None | pov | – | – | – | – | – | – | – | 0.0 |
 | T06-samstagabend-feiertag | event-carousel | neu-in-bielefeld | anlass | – | – | – | – | – | – | – | 0.0 |
+| T09-video-neu-in-bielefeld | fertig-video | neu-in-stadt | video | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -17,6 +18,7 @@ Follower: **1270** · Beiträge: 32
 |---|---|---|---|---|---|
 | sonstiges | 0.0 | 0.0 | 0.00 | 3 | – |
 | neu-in-bielefeld | 0.0 | 0.0 | 0.00 | 3 | – |
+| neu-in-stadt | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** sonstiges  
 **Nächstes Tool bauen für:** neu-in-bielefeld  
@@ -26,8 +28,10 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 - TOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø – s von 8.8 s · Skip – · Reichweite –
 - TOP T03-pov-eine-woche-spaeter: „POV: Du ziehst nach *Bielefeld.*“ · Ø – s von 9.8 s · Skip – · Reichweite –
+- TOP T09-video-neu-in-bielefeld: „“ · Ø – s von 4.77 s · Skip – · Reichweite –
 - FLOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø – s · Skip – · Reichweite –
 - FLOP T03-pov-eine-woche-spaeter: „POV: Du ziehst nach *Bielefeld.*“ · Ø – s · Skip – · Reichweite –
+- FLOP T09-video-neu-in-bielefeld: „“ · Ø – s · Skip – · Reichweite –
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -40,13 +44,14 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 0.00 (n=6)
+- None: 0.00 (n=7)
 
 ## Ø Interesse nach format
 
 - viral-beat: 0.00 (n=2)
 - list-carousel: 0.00 (n=1)
 - event-carousel: 0.00 (n=3)
+- fertig-video: 0.00 (n=1)
 
 ## Ø Interesse nach hook_style
 
@@ -55,11 +60,13 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - neu-in-stadt: 0.00 (n=1)
 - anlass: 0.00 (n=2)
 - pov: 0.00 (n=1)
+- video: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
 - None: 0.00 (n=3)
 - neu-in-bielefeld: 0.00 (n=3)
+- neu-in-stadt: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -68,8 +75,10 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 17:42: 0.00 (n=1)
 - 17:38: 0.00 (n=2)
 - 17:37: 0.00 (n=1)
+- 20:10: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
 - beat: 0.00 (n=2)
 - bed: 0.00 (n=4)
+- track:summers-here.mp3: 0.00 (n=1)
