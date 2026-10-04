@@ -3,6 +3,14 @@
 Pflege: der Creative Director recherchiert selbst (ROUTINE.md, Abschnitt 0 – Recherche) und trägt Neues oben ein.
 Jede Zeile: Erkenntnis → was wir daraus machen → Quelle. Nur Belegtes; Schätzungen aus Blogs als solche kennzeichnen.
 
+## 04.10.2026 14:45 – Probe-Reels: noch nicht freigeschaltet
+
+- Instagram lehnt Probe-Reels für @ki.fuer.dein.business ab: „Trial Reel Not Enough Followers – The instagram account
+  does not meet the trial reel follower requirement“ (API-Fehler 2207081). P0410b ging deshalb normal raus.
+- Konsequenz: bis zur Follower-Schwelle keine `"trial"`-Experimente mehr (die genaue Schwelle nennt Meta nicht;
+  bei Gelegenheit mit einem Reel neu prüfen, sobald die Follower deutlich steigen). Reichweite außerhalb der Follower
+  weiter über Halten (Skip-Rate), Teilen und Originalität.
+
 ## 03.10.2026 21:35 – Messung Follower / Nicht-Follower (erste Daten)
 
 - Reichweite heute 210, davon **196 Nicht-Follower (93 %)**, Views 305, davon 234 Nicht-Follower (77 %).

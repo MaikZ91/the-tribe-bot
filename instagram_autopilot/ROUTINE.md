@@ -36,7 +36,8 @@ Code (autopilot.py/render.py), Produktion oder Regeln. Maik bekommt die Erkenntn
    bzw. welche **eine** Variable sie testet). `config.json` → `require_briefing: true`: Specs ohne gültiges Briefing
    (höchstens 2 Tage alt) postet der Autopilot **nicht**.
 5. **Reichweite außerhalb der Follower** (Kennzahl im Briefing: Anteil Nicht-Follower an Reichweite/Views):
-   - Probe-Reels: `"trial": "SS_PERFORMANCE"` in der Spec → Instagram zeigt das Reel zuerst nur Nicht-Followern und
+   - Probe-Reels (Stand 04.10.: für dieses Konto **noch gesperrt** – zu wenige Follower, API-Fehler 2207081;
+     erst wieder testen, wenn die Follower deutlich gestiegen sind): `"trial": "SS_PERFORMANCE"` in der Spec → Instagram zeigt das Reel zuerst nur Nicht-Followern und
      gibt es bei guter Leistung selbst für Follower frei (keine Story dazu). Für Experimente und neue Hook-Arten nutzen,
      Vergleich normal vs. Probe steht im Briefing („Ausspielung“).
    - Teilen ist das stärkste Signal für Nicht-Follower: Reels so bauen, dass man sie Kolleg:innen schickt
