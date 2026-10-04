@@ -3,6 +3,15 @@
 Pflege: der Creative Director recherchiert selbst (ROUTINE.md, Abschnitt 0 – Recherche) und trägt Neues oben ein.
 Jede Zeile: Erkenntnis → was wir daraus machen → Quelle. Nur Belegtes; Schätzungen aus Blogs als solche kennzeichnen.
 
+## 04.10.2026 18:55 – Wochenrecherche
+
+| Erkenntnis | Konsequenz | Quelle |
+|---|---|---|
+| Reels-Ranking: Watch-Time, Completion Rate, Replays; „Aufrufe“ ist jetzt die Hauptkennzahl über alle Formate. | Kürzere Reels testen (≤ 15 s), damit mehr bis zum Ende schauen; Loop-Ende (letzte Szene führt zurück zum Anfang). | fanpagekarma.com, onlinemarktplatz.de |
+| Laut fanpagekarma liefen Karussells Ende 2025/Anfang 2026 teils besser als Reels. | Bei uns bisher nicht (Karussells < 50 Views, n klein). Kein Formatwechsel; ggf. später 1 Gastro-Karussell als Test. | fanpagekarma.com |
+| Gastro-Reels: Atmosphäre mit Menschen (anstoßen, lachen, volle Bar), „POV: du sitzt an der Bar“, Spannung aufbauen und am Ende auflösen, Gäste-Reaktionen. | Passt zu Maiks Vorgabe; POV-Hook für Gäste testen („POV: Freitag, 21 Uhr, …“). | malou.io, socialmon.ai |
+| Nutzer können ihren Reels-Algorithmus („Your Algorithm“) selbst steuern. | Klare Themen-Signale (Hashtags/Keywords Gastro Bielefeld) werden wichtiger. | onlinemarktplatz.de |
+
 ## 04.10.2026 14:45 – Probe-Reels: noch nicht freigeschaltet
 
 - Instagram lehnt Probe-Reels für @ki.fuer.dein.business ab: „Trial Reel Not Enough Followers – The instagram account

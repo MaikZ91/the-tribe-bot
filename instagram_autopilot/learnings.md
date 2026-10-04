@@ -1,5 +1,18 @@
 # Learnings
 
+## 04.10. 19:00 – Wochenstrategie (KW 40 → KW 41)
+- Woche 28.09.–04.10.: 13 Reels, Ø 23,6 Views / 20 Reichweite (Woche davor, 27.09.: 4 Reels, Ø 123,5), Ø Skip 84 %, Watch-Ratio 0,3; 0 Shares, 0 Saves, 0 Kommentare; Follower 58 → 56; Konto-Reichweite heute 406, davon 96 % Nicht-Follower; 4 Profilaufrufe.
+- Nischen: Gastro Ø 25 Views (n=2, Skip 75 %) > Praxen 17 (n=8) > Coaches 10,5 (n=2). → Maiks neuer Mix (2× Gastro, 1× Health) passt zu den Daten.
+- Regeln: noch nichts bestätigt/verworfen (Experimente seit 04.10.).
+- Experimente KW 41 (je eine Variable):
+  1. opener: clip-mit-hook (Menschen) vs. grafik – läuft (P0410c vs. P0410a).
+  2. length: ≤ 15 s vs. 20–25 s (Completion Rate laut Recherche zentral, Skip 84 %).
+  3. hook_style Gastro: Gäste-POV („POV: Freitag, 21 Uhr …“, zum Teilen an Freunde) vs. Wirte-Problem.
+  4. music: mood:gastro vs. mood:party bei Gastro.
+  5. time: neuer 14:30-Gastro-Slot vs. 20:00.
+- Standard ab sofort: echte Menschen im Video, Hook in den ersten 2 s über dem Clip, Teilen-Folie, eigene Ebene auf jedem Stock-Clip.
+- Weggefallen: Probe-Reels (gesperrt), reine Grafik-Reels als Standard.
+
 ## 04.10. 15:45 – Creative Director (Nachmittagslauf)
 - 20:00 ist mit P0410c (Gastro, Club/Bar-Menschen, Hook über Video) bereits frisch belegt – kein neues Reel.
 - Tribe: heute 17:15 T09 (Video, jetzt mit neuer Musik). Morgen 05.10. T14 Karussell „Montag. Kein Plan?“ – echte Events aus events.json: Tribe Powerworkout 18 Uhr Gellershagen Park, VHS-Vortrag „Als Frau unterwegs“ 18 Uhr Sennestadthaus, Pub Quiz 20 Uhr Irish Pub. Wechsel Video → Karussell eingehalten.

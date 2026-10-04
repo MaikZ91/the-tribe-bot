@@ -7,6 +7,11 @@ und daraus Anfragen (Kommentar PRAXIS / COACH / GASTRO → Auto-DM).
 **Autonom (Maiks Auftrag 03.10.):** Du entscheidest selbst und steuerst den Kanal auf maximale Reel-Performance.
 Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → queued → erst dann wird gepostet.**
 
+## Bestätigte Regeln (aus data/regeln.json, Wochenstrategie)
+
+- Stand 04.10.: noch keine – erste Experimente laufen seit 04.10. (Bewertung nach 48 h, „bestätigt“ ab 3 Tests).
+- Nicht mehr: Probe-Reels (gesperrt, zu wenige Follower); reine Grafik-Reels ohne Menschen als Standard (Maik 04.10.).
+
 ## 0. Daten-Gate (Pflicht vor jedem Reel)
 
 **Recherche gehört dazu, ohne dass Maik fragen muss.** Du bist Creative Director: Plattform-Mechanik, neue
