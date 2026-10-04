@@ -172,6 +172,11 @@ anderen Workflows oder Secrets ändern. Blockiert/unklar: nichts erzwingen, im B
 - Originalität trotzdem wahren: Stock-Clips nie nackt, sondern mit eigener Ebene – Hook direkt über dem Clip
   (`{"kind":"clip", …, "tag": "FÜR …", "hook": "…"}` → abgedunkelt, großer Text), Untertitel-Captions, Schnitt
   zwischen mehreren Clips, dazu eigene Tool-Ausgaben (`footage/demo-gastro-*.mp4`) und eigene Grafikfolien.
+- **Menschen im Mittelpunkt** (Maik 04.10.): Leute, die feiern, tanzen, zusammen an der Bar sitzen und lachen, DJ mit
+  Publikum – Club-Atmosphäre. Produkt-/Detailclips (Cocktail, Zapfhahn, Bierglas, DJ-Hände) nur kurz als Zwischenschnitt,
+  nie als Einstieg oder Hauptmotiv (in CREDITS.json `"menschen": false`). Gute Menschen-Clips: dj-club-mischt,
+  bar-freunde-foto-lachen, bar-freunde-bier, club-leute-tanzen, club-zwei-freundinnen, club-leute-springen,
+  party-freunde-gruppe, club-haende-hoch, freunde-anstossen, bar-voll-elegant, cafe-freunde-lachen.
 - Neue Clips (04.10.) in `footage/stock/`: bar-voll-elegant, bar-atmosphaere-bier, bartender-zapfhahn, freunde-anstossen,
   freunde-drinks-bar, freunde-bier-fussball, club-tanzen, djs-auflegen, kellner-bestellung, kellner-drinks-bar,
   koeche-kueche, restaurant-gaeste, restaurant-draussen, cafe-freundinnen, physio-nacken, physio-schulter,
