@@ -1,6 +1,6 @@
-# Instagram-Report 2026-10-04
+# Instagram-Report 2026-10-05
 
-Follower: **1272** · Beiträge: 33
+Follower: **1273** · Beiträge: 34
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -11,13 +11,14 @@ Follower: **1272** · Beiträge: 33
 | T03-pov-eine-woche-spaeter | viral-beat | None | pov | – | – | – | – | – | – | – | 0.0 |
 | T06-samstagabend-feiertag | event-carousel | neu-in-bielefeld | anlass | – | – | – | – | – | – | – | 0.0 |
 | T09-video-neu-in-bielefeld | fertig-video | neu-in-stadt | video | – | – | – | – | – | – | – | 0.0 |
+| T14-montag-drei-ideen | event-carousel | neu-in-bielefeld | anlass | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | sonstiges | 0.0 | 0.0 | 0.00 | 3 | – |
-| neu-in-bielefeld | 0.0 | 0.0 | 0.00 | 3 | – |
+| neu-in-bielefeld | 0.0 | 0.0 | 0.00 | 4 | – |
 | neu-in-stadt | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** sonstiges  
@@ -39,18 +40,18 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - images/party-selfie-1.jpg: 0.0 (n=2)
 - images/party-selfie-2.jpg: 0.0 (n=4)
 - images/rooftop-gruppe.jpg: 0.0 (n=5)
-- images/rooftop-vier.jpg: 0.0 (n=6)
+- images/rooftop-vier.jpg: 0.0 (n=7)
 - images/cafe-tisch-gruppe.jpg: 0.0 (n=1)
 
 ## Ø Interesse nach niche
 
-- None: 0.00 (n=7)
+- None: 0.00 (n=8)
 
 ## Ø Interesse nach format
 
 - viral-beat: 0.00 (n=2)
 - list-carousel: 0.00 (n=1)
-- event-carousel: 0.00 (n=3)
+- event-carousel: 0.00 (n=4)
 - fertig-video: 0.00 (n=1)
 
 ## Ø Interesse nach hook_style
@@ -58,21 +59,21 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - frage: 0.00 (n=1)
 - so-gehts: 0.00 (n=1)
 - neu-in-stadt: 0.00 (n=1)
-- anlass: 0.00 (n=2)
+- anlass: 0.00 (n=3)
 - pov: 0.00 (n=1)
 - video: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
 - None: 0.00 (n=3)
-- neu-in-bielefeld: 0.00 (n=3)
+- neu-in-bielefeld: 0.00 (n=4)
 - neu-in-stadt: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
 - 07:34: 0.00 (n=1)
 - 17:46: 0.00 (n=1)
-- 17:42: 0.00 (n=1)
+- 17:42: 0.00 (n=2)
 - 17:38: 0.00 (n=2)
 - 17:37: 0.00 (n=1)
 - 20:10: 0.00 (n=1)
@@ -80,5 +81,5 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Ø Interesse nach music
 
 - beat: 0.00 (n=2)
-- bed: 0.00 (n=4)
+- bed: 0.00 (n=5)
 - track:summers-here.mp3: 0.00 (n=1)
