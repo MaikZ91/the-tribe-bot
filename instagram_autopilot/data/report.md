@@ -13,7 +13,7 @@ Follower: **56** · Beiträge: 20
 | P0210b-zahnarzt-zfa-engpass | flow-reel | personal | statistik | 19 | 26 | 0 | 0 | 0 | 0 | 0.201 | 15.6 |
 | P0110b-physio-telefon-schon-wieder | flow-reel | telefon | szene | 16 | 15 | 2 | 0 | 0 | 0 | 0.452 | 15.2 |
 | P0310a-physio-stelle-offen | flow-reel | personal | szene | 22 | 26 | 0 | 0 | 0 | 0 | 0.131 | 14.7 |
-| P0410a-physio-wie-oft-kein-platz | flow-reel | telefon | frage | 15 | 19 | 0 | 0 | 0 | 0 | 0.179 | 11.2 |
+| P0410a-physio-wie-oft-kein-platz | flow-reel | telefon | frage | 16 | 20 | 0 | 0 | 0 | 0 | 0.172 | 11.7 |
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 13 | 15 | 0 | 0 | 0 | 0 | 0.341 | 10.1 |
 | P0210a-physio-kein-platz | flow-reel | telefon | szene | 10 | 15 | 0 | 0 | 0 | 0 | 0.298 | 9.7 |
 | P0110c-zahnarzt-website-2240 | flow-reel | anfragen | uhrzeit-szene | 12 | 14 | 0 | 0 | 0 | 0 | 0.336 | 9.4 |
@@ -32,7 +32,7 @@ Follower: **56** · Beiträge: 20
 | anfragen | 32.6 | 54.4 | 0.28 | 5 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | personal | 15.1 | 26.0 | 0.17 | 2 | – |
 | social-media | 12.7 | 21.0 | 0.32 | 3 | – |
-| telefon | 11.2 | 15.0 | 0.39 | 4 | – |
+| telefon | 11.4 | 15.2 | 0.39 | 4 | – |
 | sichtbarkeit | 8.5 | 14.0 | 0.21 | 1 | – |
 
 **Stärkster Pain:** media  
@@ -49,7 +49,9 @@ Antwort um 21:06.“ · Ø 5.38 s von 26.53 s · Skip 67.5 · Reichweite 128
 Antwort 21:06.“ · Ø 7.33 s · Skip 100 · Reichweite 4
 - FLOP P0210c-gastro-freitag-17uhr: „Freitag, 17 Uhr.
 Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
-- FLOP P0410c-gastro-freitag-dj-keiner-weiss: „Schick das deinem Lieblingswirt.“ · Ø 9.15 s · Skip 77.8 · Reichweite 9
+- FLOP P0410c-gastro-freitag-dj-keiner-weiss: „Freitag DJ.
+Samstag Live.
+Keiner weiß es.“ · Ø 9.15 s · Skip 77.8 · Reichweite 9
 
 ## Abstand zwischen Posts
 
@@ -72,7 +74,7 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 
 ## Konto (heute)
 
-- reach: 675
+- reach: 702
 - profile_views: 7
 - accounts_engaged: 2
 - website_clicks: 1
@@ -81,14 +83,14 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 
 - None: 67.68 (n=5)
 - gastro: 12.73 (n=3)
-- praxen: 11.65 (n=8)
+- praxen: 11.71 (n=8)
 - coaches: 7.85 (n=2)
 
 ## Ø Interesse nach format
 
 - service-reel: 71.00 (n=1)
 - demo-reel: 62.27 (n=3)
-- flow-reel: 16.26 (n=14)
+- flow-reel: 16.30 (n=14)
 
 ## Ø Interesse nach hook_style
 
@@ -96,7 +98,7 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 - problem: 71.00 (n=1)
 - zahl-frage: 58.50 (n=1)
 - uhrzeit: 43.10 (n=2)
-- frage: 34.15 (n=2)
+- frage: 34.40 (n=2)
 - statistik: 15.60 (n=1)
 - szene: 12.05 (n=8)
 - uhrzeit-szene: 9.15 (n=2)
@@ -108,7 +110,7 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 - anfragen: 32.56 (n=5)
 - personal: 15.15 (n=2)
 - social-media: 12.73 (n=3)
-- telefon: 11.25 (n=4)
+- telefon: 11.37 (n=4)
 - sichtbarkeit: 8.50 (n=1)
 
 ## Ø Interesse nach local_time
@@ -122,7 +124,7 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 - 08:24: 15.20 (n=1)
 - 08:08: 14.70 (n=1)
 - 20:09: 12.85 (n=2)
-- 08:10: 11.20 (n=1)
+- 08:10: 11.70 (n=1)
 - 08:20: 9.70 (n=1)
 - 14:44: 9.40 (n=1)
 - 21:15: 8.90 (n=1)
@@ -134,5 +136,5 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 ## Ø Interesse nach music
 
 - beat: 57.80 (n=2)
-- bed: 24.11 (n=15)
+- bed: 24.15 (n=15)
 - track:recline-and-chill.mp3: 8.20 (n=1)
