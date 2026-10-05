@@ -392,8 +392,8 @@ def cmd_publish(post_id: str) -> None:
         "weekday": now.weekday(), "type": spec["type"], "format": spec.get("format"),
         "hook_style": spec.get("hook_style"), "topic": spec.get("topic"), "pain": spec.get("pain"),
         "seconds": meta.get("seconds"), "images": spec_images(spec),
-        "hook": next((s.get("text") or s.get("title") for s in spec.get("slides", [])
-                      if s.get("text") or s.get("title")), ""),
+        "hook": next((s.get("hook") or s.get("text") or s.get("title") for s in spec.get("slides", [])
+                      if s.get("hook") or s.get("text") or s.get("title")), ""),
         "kinds": [s["kind"] for s in spec.get("slides", [])], "music": meta.get("music") or spec.get("music", "bed"),
         "series": spec.get("series"), "forced": os.getenv("FORCE") == "1", "story_id": story,
         "trial": bool(trial), "briefing": spec.get("briefing"), "hypothesis": spec.get("hypothesis"),
@@ -586,8 +586,8 @@ def cmd_insights() -> None:
             spec = load_spec(pid)
             p = {"images": spec_images(spec), "kinds": [x["kind"] for x in spec.get("slides", [])],
                  "music": spec.get("music", "bed"), "series": spec.get("series"),
-                 "hook": next((x.get("text") or x.get("title") for x in spec.get("slides", [])
-                               if x.get("text") or x.get("title")), ""),
+                 "hook": next((x.get("hook") or x.get("text") or x.get("title") for x in spec.get("slides", [])
+                               if x.get("hook") or x.get("text") or x.get("title")), ""),
                  **p, "pain": spec.get("pain") or spec.get("topic"), "niche": spec.get("niche")}
         except FileNotFoundError:
             pass
