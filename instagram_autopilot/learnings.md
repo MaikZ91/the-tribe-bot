@@ -1,5 +1,11 @@
 # Learnings
 
+## Tagesauswertung 05.10. (21:15)
+- Konto: 56 Follower (±0), Reichweite 743 (Vortag 471), davon 728 Nicht-Follower; 9 Profilaufrufe (Vortag 5), 1 Link-Klick (erster), 0 Keyword-Kommentare, 0 Likes/Saves/Shares.
+- Reels heute: P0510a Physio (Hook über Behandlungs-Clip) 17 Views, Skip 80 %, WR 0,14 · P0510b Gastro-POV 6 Views, Skip 75 %, WR 0,42 · P0510c Gastro 20:11 nach 1 h 2 Views (zu früh).
+- Vergleich: Health 08:00 liefert stabil 17–20 Views; neue Gastro-Reels 6–14 (P0310c mit 41 bleibt Ausreißer vom Samstag 20 Uhr). Menschen-Einstieg senkt Skip auf 75–82 % (Grafik/Standbild 87–95 %), Verteilung pro Reel bleibt klein.
+- Hypothese für morgen: Die Gastro-Reels erreichen zu wenige, weil der Hook den Wirt anspricht, die Testgruppe aber überwiegend Gäste/Nicht-Follower sind. Test 06.10.: ein Gastro-Reel mit Wochenprogramm-Thema, Hook an Gäste + Bielefeld-Bezug („Bielefeld, was geht heute?“), das andere wie gehabt an Wirte – Vergleich Views/Skip.
+
 ## 05.10. 15:50 – Creative Director (Nachmittagslauf)
 - 08:29 P0510a Physio und 14:44 P0510b Gastro-POV online.
 - 20:00 P0510c Gastro „Volle Bar. Kein Insta-Post. Seit Wochen.“ – Aufbau wie P0410c (Hook über Bar-Video, Kellner, Tool-Ausgabe, Party-Gruppe, Teilen-Folie). Experiment variable=music, variant=mood:party.
