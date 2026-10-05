@@ -1,5 +1,10 @@
 # Learnings
 
+## 05.10. 15:50 – Creative Director (Nachmittagslauf)
+- 08:29 P0510a Physio und 14:44 P0510b Gastro-POV online.
+- 20:00 P0510c Gastro „Volle Bar. Kein Insta-Post. Seit Wochen.“ – Aufbau wie P0410c (Hook über Bar-Video, Kellner, Tool-Ausgabe, Party-Gruppe, Teilen-Folie). Experiment variable=music, variant=mood:party.
+- Tribe: morgen 06.10. T07 Video „Deine neuen Leute“ (Wechsel Karussell → Video, Musik automatisch aus mood:tribe).
+
 ## 05.10. 06:55 – Creative Director (Morgenlauf, Montag mit Recherche)
 - Recherche: neue Reels-Kennzahlen „Gesamtwiedergabezeit“; Physio-Accounts wachsen mit klarer Problem-Zeile am Anfang (physitrack). Kein Formatwechsel nötig.
 - 08:00 P0510a Physio „Seit Monaten keine Bewerbung?“ – Pain von P0310a (26 Views), Hook über echter Physio-Behandlung. Experiment opener=clip-mit-hook (Health).
