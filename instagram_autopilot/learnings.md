@@ -1,5 +1,12 @@
 # Learnings
 
+## 05.10. 06:55 – Creative Director (Morgenlauf, Montag mit Recherche)
+- Recherche: neue Reels-Kennzahlen „Gesamtwiedergabezeit“; Physio-Accounts wachsen mit klarer Problem-Zeile am Anfang (physitrack). Kein Formatwechsel nötig.
+- 08:00 P0510a Physio „Seit Monaten keine Bewerbung?“ – Pain von P0310a (26 Views), Hook über echter Physio-Behandlung. Experiment opener=clip-mit-hook (Health).
+- 14:30 P0510b Gastro, Serie Wochenprogramm, „POV: Ihr wollt heute raus. Was läuft wo?“ – Experiment hook_style=gaeste-pov (Gästesicht statt Wirt).
+- 20:00 Gastro baut der Nachmittagslauf (Wirte-Sicht, Menschen-Atmosphäre).
+- Tribe: heute 17:15 T14 Montags-Karussell.
+
 ## Tagesauswertung 04.10. (21:14)
 - Konto: 56 Follower (±0), Reichweite 471 (Vortag 205/313 morgens), davon 469 Nicht-Follower; 5 Profilaufrufe, 0 Link-Klicks, 0 Keyword-Kommentare.
 - Reels heute: P0410a Physio (Grafik ohne Stock) 18 Views, Skip 86 %, WR 0,19 · P0410b Coach (Uhrzeit-Remix) 7 Views, Skip 100 % · P0410c Gastro (Hook über Club-Video, 20:10) nach 1 h 4 Views, Skip 50 %, WR 1,05 (zu früh). Keine Likes/Saves/Shares.
