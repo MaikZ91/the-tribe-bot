@@ -1,4 +1,4 @@
-# Instagram-Report 2026-10-05
+# Instagram-Report 2026-10-06
 
 Follower: **56** · Beiträge: 23
 
@@ -16,15 +16,15 @@ Follower: **56** · Beiträge: 23
 | P0410a-physio-wie-oft-kein-platz | flow-reel | telefon | frage | 16 | 20 | 0 | 0 | 0 | 0 | 0.169 | 11.7 |
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 13 | 15 | 0 | 0 | 0 | 0 | 0.341 | 10.1 |
 | P0210a-physio-kein-platz | flow-reel | telefon | szene | 10 | 15 | 0 | 0 | 0 | 0 | 0.298 | 9.7 |
-| P0510a-physio-keine-bewerbung-clip | flow-reel | personal | szene | 14 | 17 | 0 | 0 | 0 | 0 | 0.136 | 9.7 |
+| P0510a-physio-keine-bewerbung-clip | flow-reel | personal | szene | 15 | 17 | 0 | 0 | 0 | 0 | 0.13 | 9.6 |
 | P0110c-zahnarzt-website-2240 | flow-reel | anfragen | uhrzeit-szene | 12 | 14 | 0 | 0 | 0 | 0 | 0.336 | 9.4 |
 | P0310b-zahnarzt-selbstzahler | flow-reel | sichtbarkeit | szene | 13 | 15 | 0 | 0 | 0 | 0 | 0.202 | 9.0 |
 | P0410c-gastro-freitag-dj-keiner-weiss | flow-reel | social-media | szene | 11 | 14 | 0 | 0 | 0 | 0 | 0.284 | 9.0 |
 | P0110a-telefon-14-mal | flow-reel | telefon | uhrzeit-szene | 6 | 11 | 0 | 0 | 0 | 0 | 0.621 | 8.9 |
 | P0410b-coach-anfrage-2104 | flow-reel | anfragen | uhrzeit | 5 | 11 | 0 | 0 | 0 | 0 | 0.403 | 7.7 |
 | P0210c-gastro-freitag-17uhr | flow-reel | social-media | szene | 9 | 10 | 0 | 0 | 0 | 0 | 0.515 | 7.6 |
-| P0510b-gastro-pov-was-laeuft | flow-reel | social-media | gaeste-pov | 4 | 6 | 0 | 0 | 0 | 0 | 0.42 | 4.3 |
-| P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 1 | 2 | 0 | 0 | 0 | 0 | 0.111 | 1.1 |
+| P0510b-gastro-pov-was-laeuft | flow-reel | social-media | gaeste-pov | 6 | 8 | 0 | 0 | 0 | 0 | 0.323 | 5.3 |
+| P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 2 | 3 | 0 | 0 | 0 | 0 | 0.097 | 1.6 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -33,9 +33,9 @@ Follower: **56** · Beiträge: 23
 | media | 71.0 | 135.0 | 0.05 | 1 | – |
 | preise | 64.8 | 111.0 | 0.17 | 2 | stundensatz |
 | anfragen | 33.0 | 55.0 | 0.28 | 5 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
-| personal | 13.3 | 23.0 | 0.16 | 3 | – |
+| personal | 13.3 | 23.0 | 0.15 | 3 | – |
 | telefon | 11.4 | 15.2 | 0.39 | 4 | – |
-| social-media | 9.0 | 14.8 | 0.28 | 5 | – |
+| social-media | 9.3 | 15.4 | 0.26 | 5 | – |
 | sichtbarkeit | 9.0 | 15.0 | 0.20 | 1 | – |
 
 **Stärkster Pain:** media  
@@ -50,17 +50,17 @@ Antwort um 21:06.“ · Ø 5.38 s von 26.53 s · Skip 67.5 · Reichweite 128
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.12 s von 21.62 s · Skip 99.2 · Reichweite 132
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
-Seit Wochen.“ · Ø 2.56 s · Skip 100 · Reichweite 1
+Seit Wochen.“ · Ø 2.23 s · Skip 100 · Reichweite 2
 - FLOP P0510b-gastro-pov-was-laeuft: „POV: Ihr wollt
 heute raus.
-Was läuft wo?“ · Ø 9.58 s · Skip 75 · Reichweite 4
+Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 - FLOP P0210c-gastro-freitag-17uhr: „Freitag, 17 Uhr.
 Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 113.5 (n=2)
-- ≥ 90 min: Ø Reichweite 22.3 (n=11)
+- ≥ 90 min: Ø Reichweite 22.5 (n=11)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -78,23 +78,23 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 
 ## Konto (heute)
 
-- reach: 743
-- profile_views: 9
+- reach: 810
+- profile_views: 10
 - accounts_engaged: 2
 - website_clicks: 1
 
 ## Ø Interesse nach niche
 
 - None: 67.68 (n=5)
-- praxen: 11.54 (n=9)
-- gastro: 9.00 (n=5)
+- praxen: 11.53 (n=9)
+- gastro: 9.30 (n=5)
 - coaches: 8.90 (n=2)
 
 ## Ø Interesse nach format
 
 - service-reel: 71.00 (n=1)
 - demo-reel: 62.27 (n=3)
-- flow-reel: 14.55 (n=17)
+- flow-reel: 14.63 (n=17)
 
 ## Ø Interesse nach hook_style
 
@@ -104,18 +104,18 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 - uhrzeit: 44.15 (n=2)
 - frage: 34.40 (n=2)
 - statistik: 15.60 (n=1)
-- szene: 10.91 (n=10)
+- szene: 10.95 (n=10)
 - uhrzeit-szene: 9.15 (n=2)
-- gaeste-pov: 4.30 (n=1)
+- gaeste-pov: 5.30 (n=1)
 
 ## Ø Interesse nach pain
 
 - media: 71.00 (n=1)
 - preise: 64.85 (n=2)
 - anfragen: 32.98 (n=5)
-- personal: 13.33 (n=3)
+- personal: 13.30 (n=3)
 - telefon: 11.37 (n=4)
-- social-media: 9.00 (n=5)
+- social-media: 9.30 (n=5)
 - sichtbarkeit: 9.00 (n=1)
 
 ## Ø Interesse nach local_time
@@ -131,20 +131,20 @@ Noch nichts gepostet.“ · Ø 13.93 s · Skip 55.6 · Reichweite 9
 - 20:09: 12.85 (n=2)
 - 08:10: 11.70 (n=1)
 - 08:20: 9.70 (n=1)
-- 08:29: 9.70 (n=1)
+- 08:29: 9.60 (n=1)
 - 14:38: 9.00 (n=1)
 - 20:10: 9.00 (n=1)
 - 21:15: 8.90 (n=1)
 - 14:41: 7.70 (n=1)
 - 12:17: 7.60 (n=1)
-- 14:44: 6.85 (n=2)
-- 20:11: 1.10 (n=1)
+- 14:44: 7.35 (n=2)
+- 20:11: 1.60 (n=1)
 
 ## Ø Interesse nach music
 
 - beat: 57.80 (n=2)
 - bed: 24.36 (n=15)
-- track:motivating-mornings.mp3: 9.70 (n=1)
+- track:motivating-mornings.mp3: 9.60 (n=1)
 - track:recline-and-chill.mp3: 9.00 (n=1)
-- track:house-vibes.mp3: 4.30 (n=1)
-- track:i-can-hear-your-heartbeat.mp3: 1.10 (n=1)
+- track:house-vibes.mp3: 5.30 (n=1)
+- track:i-can-hear-your-heartbeat.mp3: 1.60 (n=1)
