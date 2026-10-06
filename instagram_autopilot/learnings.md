@@ -1,5 +1,12 @@
 # Learnings
 
+## 06.10. 06:55 – Creative Director (Morgenlauf)
+- Basis: Tagesauswertung 05.10. (Health stabil 17–20 Views, Gastro 6–14; Menschen-Einstieg Skip 75–82 %).
+- 08:00 P0610a Zahnarzt „ZFA gesucht? Platz 1 der Engpassberufe.“ – Remix des Statistik-Hooks (P0210b, 26 Views) über Zahnärztin-Video (Quelle BA via zm-online). Experiment opener=clip-mit-hook.
+- 14:30 P0610b Gastro, Serie Wochenprogramm, „Bielefeld, was geht heute?“ über Club-Crowd – Experiment hook_style=gaeste-bielefeld (Gäste + Ortsbezug statt Wirt).
+- 20:00 Gastro an Wirte baut der Nachmittagslauf (Vergleich).
+- Tribe: heute 17:15 T07 Video „Deine neuen Leute“.
+
 ## Tagesauswertung 05.10. (21:15)
 - Konto: 56 Follower (±0), Reichweite 743 (Vortag 471), davon 728 Nicht-Follower; 9 Profilaufrufe (Vortag 5), 1 Link-Klick (erster), 0 Keyword-Kommentare, 0 Likes/Saves/Shares.
 - Reels heute: P0510a Physio (Hook über Behandlungs-Clip) 17 Views, Skip 80 %, WR 0,14 · P0510b Gastro-POV 6 Views, Skip 75 %, WR 0,42 · P0510c Gastro 20:11 nach 1 h 2 Views (zu früh).
