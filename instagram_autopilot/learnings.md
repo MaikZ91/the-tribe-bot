@@ -1,5 +1,10 @@
 # Learnings
 
+## 06.10. – Wettbewerbsanalyse (Vorschläge für den Creative Director, Details data/wettbewerb.md)
+- Gastro-KI-Marketing ist bundesweit unbesetzt → Wochenprogramm-Serie weiter priorisieren.
+- Reel-Idee: Sprachnachricht vom Wirt → fertiges Wochenprogramm-Post (Ergebnis zeigen, „Testnummer“-Prinzip von fonio).
+- Reel-Idee Praxis: „7:58, das Telefon klingelt …“ (Problem-Reel, kein Anbieter-Vergleich).
+
 ## 06.10. 15:55 – Creative Director (Nachmittagslauf)
 - 08:12 P0610a Zahnarzt und 14:41 P0610b Gastro an Gäste online.
 - 20:00 P0610c Gastro an Wirte „Euer Programm kennt keiner.“ (Tag FÜR WIRTE IN BIELEFELD) – direkter Vergleich zu P0610b (gleiche Serie, Musik, Aufbau), variable=hook_style.
