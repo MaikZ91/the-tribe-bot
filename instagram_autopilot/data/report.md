@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-06
 
-Follower: **56** · Beiträge: 24
+Follower: **56** · Beiträge: 25
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -24,8 +24,9 @@ Follower: **56** · Beiträge: 24
 | P0410b-coach-anfrage-2104 | flow-reel | anfragen | uhrzeit | 5 | 11 | 0 | 0 | 0 | 0 | 0.403 | 7.7 |
 | P0210c-gastro-freitag-17uhr | flow-reel | social-media | szene | 9 | 10 | 0 | 0 | 0 | 0 | 0.515 | 7.6 |
 | P0510b-gastro-pov-was-laeuft | flow-reel | social-media | gaeste-pov | 6 | 8 | 0 | 0 | 0 | 0 | 0.323 | 5.3 |
-| P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 2 | 3 | 0 | 0 | 0 | 0 | 0.097 | 1.6 |
-| P0610a-zahnarzt-zfa-clip | flow-reel | personal | statistik | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
+| P0610a-zahnarzt-zfa-clip | flow-reel | personal | statistik | 4 | 4 | 0 | 0 | 0 | 0 | 0.229 | 2.5 |
+| P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 3 | 3 | 0 | 0 | 0 | 0 | 0.097 | 1.6 |
+| P0610b-gastro-bielefeld-was-geht | flow-reel | social-media | gaeste-bielefeld | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -35,9 +36,9 @@ Follower: **56** · Beiträge: 24
 | preise | 64.8 | 111.0 | 0.17 | 2 | stundensatz |
 | anfragen | 33.0 | 55.0 | 0.28 | 5 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | telefon | 11.4 | 15.2 | 0.39 | 4 | – |
-| personal | 10.0 | 17.2 | 0.15 | 4 | – |
-| social-media | 9.3 | 15.4 | 0.26 | 5 | – |
+| personal | 10.6 | 18.2 | 0.17 | 4 | – |
 | sichtbarkeit | 9.0 | 15.0 | 0.20 | 1 | – |
+| social-media | 7.8 | 12.8 | 0.26 | 6 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -49,20 +50,19 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 Antwort um 21:06.“ · Ø 5.38 s von 26.53 s · Skip 67.5 · Reichweite 128
 - TOP 012-demo-stundensatz: „Rechnest du zu billig?“ · Ø 2.04 s von 13.77 s · Skip 94 · Reichweite 117
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.12 s von 21.62 s · Skip 99.2 · Reichweite 132
-- FLOP P0610a-zahnarzt-zfa-clip: „ZFA gesucht?
-Platz 1 der
-Engpassberufe.“ · Ø – s · Skip 0 · Reichweite 0
+- FLOP P0610b-gastro-bielefeld-was-geht: „Bielefeld,
+was geht heute?“ · Ø – s · Skip 0 · Reichweite 0
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
-Seit Wochen.“ · Ø 2.23 s · Skip 100 · Reichweite 2
-- FLOP P0510b-gastro-pov-was-laeuft: „POV: Ihr wollt
-heute raus.
-Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
+Seit Wochen.“ · Ø 2.23 s · Skip 100 · Reichweite 3
+- FLOP P0610a-zahnarzt-zfa-clip: „ZFA gesucht?
+Platz 1 der
+Engpassberufe.“ · Ø 5.99 s · Skip 100 · Reichweite 4
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 113.5 (n=2)
-- ≥ 90 min: Ø Reichweite 22.5 (n=11)
+- ≥ 90 min: Ø Reichweite 20.8 (n=12)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -80,23 +80,23 @@ Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 
 ## Konto (heute)
 
-- reach: 837
-- profile_views: 11
-- accounts_engaged: 2
-- website_clicks: 1
+- reach: 444
+- profile_views: 5
+- accounts_engaged: 0
+- website_clicks: 0
 
 ## Ø Interesse nach niche
 
 - None: 67.68 (n=5)
-- praxen: 10.38 (n=10)
-- gastro: 9.30 (n=5)
+- praxen: 10.63 (n=10)
 - coaches: 8.90 (n=2)
+- gastro: 7.75 (n=6)
 
 ## Ø Interesse nach format
 
 - service-reel: 71.00 (n=1)
 - demo-reel: 62.27 (n=3)
-- flow-reel: 13.82 (n=18)
+- flow-reel: 13.22 (n=19)
 
 ## Ø Interesse nach hook_style
 
@@ -107,8 +107,9 @@ Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 - frage: 34.40 (n=2)
 - szene: 10.95 (n=10)
 - uhrzeit-szene: 9.15 (n=2)
-- statistik: 7.80 (n=2)
+- statistik: 9.05 (n=2)
 - gaeste-pov: 5.30 (n=1)
+- gaeste-bielefeld: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
@@ -116,9 +117,9 @@ Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 - preise: 64.85 (n=2)
 - anfragen: 32.98 (n=5)
 - telefon: 11.37 (n=4)
-- personal: 9.97 (n=4)
-- social-media: 9.30 (n=5)
+- personal: 10.60 (n=4)
 - sichtbarkeit: 9.00 (n=1)
+- social-media: 7.75 (n=6)
 
 ## Ø Interesse nach local_time
 
@@ -137,11 +138,11 @@ Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 - 14:38: 9.00 (n=1)
 - 20:10: 9.00 (n=1)
 - 21:15: 8.90 (n=1)
-- 14:41: 7.70 (n=1)
 - 12:17: 7.60 (n=1)
 - 14:44: 7.35 (n=2)
+- 14:41: 3.85 (n=2)
+- 08:12: 2.50 (n=1)
 - 20:11: 1.60 (n=1)
-- 08:12: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
@@ -150,5 +151,6 @@ Was läuft wo?“ · Ø 7.37 s · Skip 83.3 · Reichweite 6
 - track:motivating-mornings.mp3: 9.60 (n=1)
 - track:recline-and-chill.mp3: 9.00 (n=1)
 - track:house-vibes.mp3: 5.30 (n=1)
+- track:lo-fi-03.mp3: 2.50 (n=1)
 - track:i-can-hear-your-heartbeat.mp3: 1.60 (n=1)
-- track:lo-fi-03.mp3: 0.00 (n=1)
+- track:upbeat-jazz.mp3: 0.00 (n=1)
