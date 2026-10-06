@@ -1,15 +1,15 @@
-# Briefing B20261006-0645 · Nische gastro
+# Briefing B20261006-1545 · Nische gastro
 
-Daten: Auswertung 2026-10-06T06:43+02:00 (0.0 h alt)
-Reels gesamt: 21 · davon letzte 14 Tage: 21
+Daten: Auswertung 2026-10-06T08:36+02:00 (7.2 h alt) – **VERALTET: erst ig-autopilot-insights.yml laufen lassen**
+Reels gesamt: 22 · davon letzte 14 Tage: 22
 
 ## Konto
 
 Follower: 09-30 56 → 10-01 56 → 10-02 56 → 10-03 56 → 10-04 56 → 10-05 56 → 10-06 56
-Heute: reach 820, profile_views 10, accounts_engaged 2, website_clicks 1
-reach heute: Nicht-Follower 804 · Follower 16 · Anteil Nicht-Follower 98 %
-views heute: Nicht-Follower 951 · Follower 88 · Anteil Nicht-Follower 92 %
-Ø Views je Posting-Tag: 09-27 124 (n=4), 09-28 98 (n=1), 09-30 11 (n=1), 10-01 15 (n=3), 10-02 17 (n=3), 10-03 28 (n=3), 10-04 15 (n=3), 10-05 9 (n=3)
+Heute: reach 837, profile_views 11, accounts_engaged 2, website_clicks 1
+reach heute: Nicht-Follower 820 · Follower 16 · Anteil Nicht-Follower 98 %
+views heute: Nicht-Follower 973 · Follower 89 · Anteil Nicht-Follower 92 %
+Ø Views je Posting-Tag: 09-27 124 (n=4), 09-28 98 (n=1), 09-30 11 (n=1), 10-01 15 (n=3), 10-02 17 (n=3), 10-03 28 (n=3), 10-04 15 (n=3), 10-05 9 (n=3), 10-06 0 (n=1)
 
 ## Stärkstes Signal (letzte 72 h) – zuerst darauf reagieren
 
@@ -22,6 +22,7 @@ views heute: Nicht-Follower 951 · Follower 88 · Anteil Nicht-Follower 92 %
 - 11 Views · Reichweite 5 · Skip 80 % · WR 0.403 · coaches · 10-04 14:41 · „Anfrage 21:04. / Antwort 21:06.“
 - 8 Views · Reichweite 6 · Skip 83.3 % · WR 0.323 · gastro · 10-05 14:44 · „POV: Ihr wollt / heute raus. / Was läuft wo?“
 - 3 Views · Reichweite 2 · Skip 100 % · WR 0.097 · gastro · 10-05 20:11 · „Volle Bar. / Kein Insta-Post. / Seit Wochen.“
+- 0 Views · Reichweite 0 · Skip 0 % · WR n/a · praxen · 10-06 08:12 · „ZFA gesucht? / Platz 1 der / Engpassberufe.“
 → Top: P0310c-gastro-zettel-an-der-tuer. Viel Reichweite + hohe Skip-Rate = Thema/Zeit tragen, Einstieg hält nicht (Thema behalten, Hook neu). Wenig Reichweite + niedrige Skip-Rate = Inhalt hält, Verteilung fehlt.
 
 ## Leads
@@ -36,7 +37,7 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | Wert | n | Ø Views | Ø Reichweite | Ø Watch-Ratio | Ø Skip % |
 |---|---|---|---|---|---|
 | alt (vor Nischenwechsel 30.09.) | 5 | 118.4 | 111.8 | 0.15 | 90.16 |
-| praxen | 9 | 17.67 | 14.33 | 0.28 | 85.5 |
+| praxen | 10 | 15.9 | 12.9 | 0.28 | 76.95 |
 | gastro | 5 | 15.4 | 13.8 | 0.26 | 83.16 |
 | coaches | 2 | 13.0 | 9.0 | 0.37 | 74.6 |
 
@@ -49,8 +50,8 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | zahl-frage | 1 | 98.0 | 87.0 | 0.19 | 93.3 |
 | uhrzeit | 2 | 72.5 | 66.5 | 0.3 | 73.75 |
 | frage | 2 | 60.5 | 55.5 | 0.15 | 92.15 |
-| statistik | 1 | 26.0 | 19.0 | 0.2 | 84.2 |
 | szene | 10 | 17.2 | 15.2 | 0.25 | 81.77 |
+| statistik | 2 | 13.0 | 9.5 | 0.2 | 42.1 |
 | uhrzeit-szene | 2 | 12.5 | 9.0 | 0.48 | 90.9 |
 | gaeste-pov | 1 | 8.0 | 6.0 | 0.32 | 83.3 |
 
@@ -61,7 +62,7 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | media | 1 | 135.0 | 132.0 | 0.05 | 99.2 |
 | preise | 2 | 111.0 | 102.0 | 0.17 | 93.65 |
 | anfragen | 5 | 55.0 | 50.6 | 0.28 | 79.06 |
-| personal | 3 | 23.0 | 18.67 | 0.15 | 87.27 |
+| personal | 4 | 17.25 | 14.0 | 0.15 | 65.45 |
 | social-media | 5 | 15.4 | 13.8 | 0.26 | 83.16 |
 | telefon | 4 | 15.25 | 12.0 | 0.39 | 83.55 |
 | sichtbarkeit | 1 | 15.0 | 13.0 | 0.2 | 91.7 |
@@ -74,7 +75,7 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | 16 Uhr | 1 | 134.0 | 128.0 | 0.2 | 67.5 |
 | 18 Uhr | 2 | 112.5 | 106.0 | 0.14 | 95.4 |
 | 20 Uhr | 6 | 33.0 | 28.83 | 0.2 | 87.27 |
-| 08 Uhr | 5 | 18.6 | 15.8 | 0.24 | 82.36 |
+| 08 Uhr | 6 | 15.5 | 13.17 | 0.24 | 68.63 |
 | 14 Uhr | 4 | 12.0 | 9.0 | 0.32 | 84.2 |
 | 21 Uhr | 1 | 11.0 | 6.0 | 0.62 | 100.0 |
 | 12 Uhr | 1 | 10.0 | 9.0 | 0.52 | 55.6 |
@@ -84,7 +85,7 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | Wert | n | Ø Views | Ø Reichweite | Ø Watch-Ratio | Ø Skip % |
 |---|---|---|---|---|---|
 | 12–18 s | 4 | 83.5 | 76.25 | 0.27 | 96.03 |
-| ≥ 24 s | 6 | 38.67 | 36.17 | 0.26 | 75.98 |
+| ≥ 24 s | 7 | 33.14 | 31.0 | 0.26 | 65.13 |
 | 18–24 s | 11 | 26.18 | 23.0 | 0.24 | 85.94 |
 
 ### Einstieg
@@ -92,7 +93,7 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | Wert | n | Ø Views | Ø Reichweite | Ø Watch-Ratio | Ø Skip % |
 |---|---|---|---|---|---|
 | Grafik zuerst | 6 | 68.17 | 62.33 | 0.27 | 87.92 |
-| Clip zuerst | 15 | 29.67 | 26.73 | 0.25 | 83.85 |
+| Clip zuerst | 16 | 27.81 | 25.06 | 0.25 | 78.61 |
 
 ### Musik
 
@@ -103,12 +104,13 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 | Bibliothek: corporate | 1 | 17.0 | 15.0 | 0.13 | 86.7 |
 | Bibliothek: chill | 1 | 14.0 | 11.0 | 0.28 | 81.8 |
 | Bibliothek: party | 2 | 5.5 | 4.0 | 0.21 | 91.65 |
+| Bibliothek: lofi | 1 | 0.0 | 0.0 | None | 0.0 |
 
 ### Ausspielung
 
 | Wert | n | Ø Views | Ø Reichweite | Ø Watch-Ratio | Ø Skip % |
 |---|---|---|---|---|---|
-| normal | 21 | 40.67 | 36.9 | 0.25 | 85.01 |
+| normal | 22 | 38.82 | 35.23 | 0.25 | 81.15 |
 
 ### Hooks nach Views
 
@@ -133,26 +135,27 @@ Kommentare auf Reels gesamt: 0, Shares: 0, Saves: 0
 - 10 Views · Skip 55.6 % · WR 0.515 · gastro/szene · „Freitag, 17 Uhr. / Noch nichts gepostet.“ (P0210c-gastro-freitag-17uhr)
 - 8 Views · Skip 83.3 % · WR 0.323 · gastro/gaeste-pov · „POV: Ihr wollt / heute raus. / Was läuft wo?“ (P0510b-gastro-pov-was-laeuft)
 - 3 Views · Skip 100 % · WR 0.097 · gastro/szene · „Volle Bar. / Kein Insta-Post. / Seit Wochen.“ (P0510c-gastro-volle-bar-keine-zeit)
+- 0 Views · Skip 0 % · WR n/a · praxen/statistik · „ZFA gesucht? / Platz 1 der / Engpassberufe.“ (P0610a-zahnarzt-zfa-clip)
 
 ## Regeln für das nächste Reel
 
-- Hook-Stil mit niedrigster Skip-Rate: uhrzeit (73.75)
+- Hook-Stil mit niedrigster Skip-Rate: statistik (42.10)
 - Hook-Stil mit meisten Views: uhrzeit (72.50)
 - Länge mit bester Watch-Ratio: 12–18 s (0.27)
-- Einstieg mit niedrigster Skip-Rate: Clip zuerst (83.85)
+- Einstieg mit niedrigster Skip-Rate: Clip zuerst (78.61)
 - Uhrzeit mit meisten Views: 18 Uhr (112.50)
-- Nische mit meisten Views: praxen (17.67)
+- Nische mit meisten Views: praxen (15.90)
 - Nische gastro: 5 Reels, Ø Views 15.4, Ø Skip 83.16 %, Ø WR 0.26
 
 ## Nicht wiederholen (letzte 8 Posts)
 
-- Bilder: images/bar-atmosphaere.jpg, images/behandlungsraum.jpg
-- Hooks: Freitag DJ. / Samstag Live. / Keiner weiß es. | Seit Monaten / keine Bewerbung? | POV: Ihr wollt / heute raus. / Was läuft wo? | Volle Bar. / Kein Insta-Post. / Seit Wochen.
-- Hook-Stile zuletzt: szene, gaeste-pov, szene
+- Bilder: –
+- Hooks: POV: Ihr wollt / heute raus. / Was läuft wo? | Volle Bar. / Kein Insta-Post. / Seit Wochen. | ZFA gesucht? / Platz 1 der / Engpassberufe. | Bielefeld, / was geht heute?
+- Hook-Stile zuletzt: szene, statistik, gaeste-bielefeld
 
 ## Originalität (Empfehlungsfähigkeit)
 
-Reels der letzten 30 Tage mit Stock-Clip als Einstieg oder Hauptteil: 13 von 21 – **über der Hälfte: Risiko, nicht mehr empfohlen zu werden. Eigenes Material vorziehen.**
+Reels der letzten 30 Tage mit Stock-Clip als Einstieg oder Hauptteil: 15 von 23 – **über der Hälfte: Risiko, nicht mehr empfohlen zu werden. Eigenes Material vorziehen.**
 Recherche (data/recherche.md): 04.10.2026 18:55 – Wochenrecherche · 04.10.2026 14:45 – Probe-Reels: noch nicht freigeschaltet
 
 ## Andere Accounts (data/benchmark.md, 2026-10-06T06:43+02:00)
@@ -163,13 +166,13 @@ Recherche (data/recherche.md): 04.10.2026 18:55 – Wochenrecherche · 04.10.202
 
 - bestätigt: –
 - verworfen: –
-- offen: –
-- läuft noch (< 48 h): P0410a-physio-wie-oft-kein-platz, P0410b-coach-anfrage-2104, P0410c-gastro-freitag-dj-keiner-weiss, P0510a-physio-keine-bewerbung-clip, P0510b-gastro-pov-was-laeuft, P0510c-gastro-volle-bar-keine-zeit
+- offen: opener=grafik-ohne-stock (1:0 von 1)
+- läuft noch (< 48 h): P0410b-coach-anfrage-2104, P0410c-gastro-freitag-dj-keiner-weiss, P0510a-physio-keine-bewerbung-clip, P0510b-gastro-pov-was-laeuft, P0510c-gastro-volle-bar-keine-zeit, P0610a-zahnarzt-zfa-clip
 
 ## Letzte Einträge in learnings.md
 
+- 06.10. 06:55 – Creative Director (Morgenlauf)
 - Tagesauswertung 05.10. (21:15)
 - 05.10. 15:50 – Creative Director (Nachmittagslauf)
-- 05.10. 06:55 – Creative Director (Morgenlauf, Montag mit Recherche)
 
-Neue Specs tragen `"briefing": "B20261006-0645"`, `"hypothesis"` (Begründung aus den Daten), `"variable"` (die eine getestete Größe: hook_style, opener, length, trial, music, topic, time …) und `"variant"` (der getestete Wert). Nur so lernt das System, was wirkt.
+Neue Specs tragen `"briefing": "B20261006-1545"`, `"hypothesis"` (Begründung aus den Daten), `"variable"` (die eine getestete Größe: hook_style, opener, length, trial, music, topic, time …) und `"variant"` (der getestete Wert). Nur so lernt das System, was wirkt.

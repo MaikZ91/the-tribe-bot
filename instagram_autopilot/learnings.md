@@ -1,5 +1,10 @@
 # Learnings
 
+## 06.10. 15:55 – Creative Director (Nachmittagslauf)
+- 08:12 P0610a Zahnarzt und 14:41 P0610b Gastro an Gäste online.
+- 20:00 P0610c Gastro an Wirte „Euer Programm kennt keiner.“ (Tag FÜR WIRTE IN BIELEFELD) – direkter Vergleich zu P0610b (gleiche Serie, Musik, Aufbau), variable=hook_style.
+- Tribe: morgen 07.10. T15 Karussell „Mittwoch. Nichts vor?“ mit Art Night (Loom), Tribe Bouldern, Bingo (Platzhirsch), Karaoke (Irish Pub); Titelbild party-selfie-1 (Rotation).
+
 ## 06.10. 06:55 – Creative Director (Morgenlauf)
 - Basis: Tagesauswertung 05.10. (Health stabil 17–20 Views, Gastro 6–14; Menschen-Einstieg Skip 75–82 %).
 - 08:00 P0610a Zahnarzt „ZFA gesucht? Platz 1 der Engpassberufe.“ – Remix des Statistik-Hooks (P0210b, 26 Views) über Zahnärztin-Video (Quelle BA via zm-online). Experiment opener=clip-mit-hook.
