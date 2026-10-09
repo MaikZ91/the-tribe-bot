@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<meta name="theme-color" content="#0F0D0C">
+<meta name="theme-color" content="#1a1715">
 <title>DatingPics MS — 99 Problems. Gratis Profil-Check</title>
 <meta name="description" content="Gratis Profil-Check per WhatsApp: Ich sag dir, welches Foto rausfliegt. Dating-Fotos in Münster – Launch-Aktion 99 € statt 149 €.">
 <meta property="og:title" content="99 Problems. Dein Dating-Profil ist keins.">
@@ -17,133 +17,140 @@
 
 <style>
   @font-face{font-family:'Anton';font-weight:400;font-display:swap;src:url(../assets/fonts/anton-latin.woff2) format('woff2')}
+  @font-face{font-family:'Instrument Serif';font-weight:400;font-style:normal;font-display:swap;src:url(../assets/fonts/instrument-serif-latin-400-normal.woff2) format('woff2')}
   @font-face{font-family:'Instrument Serif';font-weight:400;font-style:italic;font-display:swap;src:url(../assets/fonts/instrument-serif-latin-400-italic.woff2) format('woff2')}
-  @font-face{font-family:'Manrope';font-weight:500;font-display:swap;src:url(../assets/fonts/manrope-latin-500-normal.woff2) format('woff2')}
-  @font-face{font-family:'Manrope';font-weight:700;font-display:swap;src:url(../assets/fonts/manrope-latin-700-normal.woff2) format('woff2')}
+  @font-face{font-family:'Manrope';font-weight:400;font-display:swap;src:url(../assets/fonts/manrope-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:'Manrope';font-weight:600;font-display:swap;src:url(../assets/fonts/manrope-latin-600-normal.woff2) format('woff2')}
 
+  /* Design tokens = Original-Seite (Lovable "99 Problems") */
   :root{
-    --ink:#0F0D0C; --paper:#F6F2EA; --champ:#D6BE94; --muted:#A39C93;
-    --wa:#25D366; --wa-ink:#06210f; --rule:rgba(246,242,234,.16);
+    --bg:oklch(0.965 0.012 85); --fg:oklch(0.16 0.005 60); --card:oklch(0.94 0.015 80);
+    --muted-fg:oklch(0.45 0.01 60); --secondary:oklch(0.27 0.006 60); --border:oklch(0.16 0.005 60 / 15%);
+    --champ:oklch(0.8 0.06 80); --ink:oklch(0.13 0.004 60); --paper:oklch(0.965 0.012 85);
     --fd:"Anton","Impact",sans-serif; --fs:"Instrument Serif",Georgia,serif; --fb:"Manrope",system-ui,-apple-system,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{font-family:var(--fb);background:var(--ink);color:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.45;
+  body{font-family:var(--fb);background:var(--ink);color:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5;
     overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   a{color:inherit;text-decoration:none}
-  .eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700}
-  .serif{font-family:var(--fs);font-style:italic;font-weight:400}
+  .eyebrow{font-family:var(--fb);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600}
+  .display{font-family:var(--fd);text-transform:uppercase;font-weight:400;letter-spacing:-.01em;line-height:.88}
+  .serif{font-family:var(--fs);font-weight:400}
+  .it{font-style:italic}
+  .champ{color:var(--champ)}
+  .muted{color:var(--muted-fg)}
 
-  /* chrome */
-  .chrome{position:fixed;top:0;left:0;right:0;z-index:40;padding:max(10px,env(safe-area-inset-top)) 14px 0;
-    background:linear-gradient(to bottom,rgba(15,13,12,.75),rgba(15,13,12,0));pointer-events:none}
-  .bars{display:flex;gap:5px;margin-bottom:12px}
-  .bars .seg{flex:1;height:3px;border-radius:3px;background:rgba(246,242,234,.28);overflow:hidden}
+  /* chrome (adapts to light/dark panel) */
+  .chrome{position:fixed;top:0;left:0;right:0;z-index:40;padding:max(10px,env(safe-area-inset-top)) 24px 0;pointer-events:none;
+    background:linear-gradient(to bottom,oklch(0.13 0.004 60 / 70%),transparent);transition:background .3s,color .3s}
+  .bars{display:flex;gap:4px;margin-bottom:14px}
+  .bars .seg{flex:1;height:2px;background:oklch(0.965 0.012 85 / 30%);overflow:hidden}
   .bars .seg i{display:block;height:100%;width:0;background:var(--paper)}
   .bars .seg.done i{width:100%}
   .accountrow{display:flex;align-items:center;justify-content:space-between}
-  .logo{font-family:var(--fd);font-size:19px;text-transform:uppercase;letter-spacing:-.01em}
-  .logo b{color:var(--champ);font-weight:400}
-  .pill{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;background:var(--wa);color:var(--wa-ink);
-    font-weight:700;font-size:13px;padding:8px 15px;border-radius:100px;box-shadow:0 6px 18px rgba(37,211,102,.4)}
-  .pill svg{width:15px;height:15px}
+  .logo{font-family:var(--fd);font-size:1.25rem;text-transform:uppercase;letter-spacing:-.01em}
+  .pill{pointer-events:auto;border:1px solid oklch(0.965 0.012 85 / 40%);padding:8px 14px}
+  body.light .chrome{color:var(--fg);background:linear-gradient(to bottom,oklch(0.965 0.012 85 / 92%),transparent)}
+  body.light .bars .seg{background:oklch(0.16 0.005 60 / 18%)}
+  body.light .bars .seg i{background:var(--fg)}
+  body.light .pill{border-color:oklch(0.16 0.005 60 / 35%)}
 
   /* deck */
   .deck{height:100dvh;width:100%;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none}
   .deck::-webkit-scrollbar{display:none}
-  .panel{position:relative;height:100dvh;width:100%;scroll-snap-align:start;scroll-snap-stop:always;
-    display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px calc(108px + env(safe-area-inset-bottom));overflow:hidden}
-  .bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
-  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(to top,rgba(15,13,12,.95) 0%,rgba(15,13,12,.7) 30%,rgba(15,13,12,.15) 60%,rgba(15,13,12,.5) 100%)}
-  .inner{position:relative;z-index:2}
-  .symbol{position:absolute;top:calc(86px + env(safe-area-inset-top));right:14px;z-index:3;font-size:10px;letter-spacing:.12em;
-    text-transform:uppercase;color:rgba(246,242,234,.7);background:rgba(0,0,0,.35);padding:3px 8px;border-radius:100px}
-  .kicker{color:var(--champ);margin-bottom:14px}
-  h1,h2{font-family:var(--fd);text-transform:uppercase;font-weight:400;line-height:.88;letter-spacing:-.01em}
-  h1{font-size:clamp(64px,21vw,120px)}
-  h2{font-size:clamp(46px,14vw,84px)}
-  h2 em,h1 em{font-style:normal;color:var(--champ)}
-  .tag{font-size:clamp(26px,8vw,40px);line-height:1.1;margin-top:10px}
-  .sub{margin-top:16px;font-size:17px;line-height:1.45;max-width:26ch}
-  .sub b{color:var(--champ)}
+  .panel{position:relative;height:100dvh;width:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px calc(100px + env(safe-area-inset-bottom));
+    background:var(--ink);color:var(--paper)}
+  .panel.light{background:var(--bg);color:var(--fg)}
+  .panel.card{background:var(--card);color:var(--fg)}
+  .panel.center{justify-content:center;text-align:center;align-items:center}
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8}
+  .grad{position:absolute;inset:0;background:linear-gradient(to top,var(--ink),oklch(0.13 0.004 60 / 40%) 50%,oklch(0.13 0.004 60 / 30%))}
+  .inner{position:relative;z-index:2;width:100%}
+  .symbol{position:absolute;top:calc(84px + env(safe-area-inset-top));right:24px;z-index:3;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:oklch(0.965 0.012 85 / 55%)}
 
-  .anim{opacity:0;transform:translateY(16px)}
-  .panel.live .anim{opacity:1;transform:none;transition:opacity .4s ease,transform .4s ease}
+  h1{font-size:19vw;margin-top:18px}
+  .h2{font-size:clamp(3rem,15vw,4.6rem);margin-top:14px}
+  .tag{font-size:clamp(1.6rem,8vw,2.4rem);line-height:1.12;margin-top:10px}
+  .lead{margin-top:18px;max-width:28rem;font-size:1rem}
+
+  .anim{opacity:0;transform:translateY(14px)}
+  .panel.live .anim{opacity:1;transform:none;transition:opacity .45s ease,transform .45s ease}
   .panel.live .d2{transition-delay:.1s}.panel.live .d3{transition-delay:.2s}.panel.live .d4{transition-delay:.3s}
-  .tap-hint{position:absolute;right:18px;top:50%;z-index:2;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--muted);animation:hint 2.4s ease-in-out infinite}
-  @keyframes hint{0%,100%{opacity:.45}50%{opacity:1}}
+  .tap-hint{position:absolute;right:20px;top:50%;z-index:2;color:oklch(0.965 0.012 85 / 60%);animation:hint 2.4s ease-in-out infinite}
+  @keyframes hint{0%,100%{opacity:.4}50%{opacity:1}}
 
-  /* before / after */
-  .split{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--ink)}
-  .split figure{position:relative;overflow:hidden}
-  .split img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-  .split .before img{filter:grayscale(45%) brightness(.85)}
-  .split figcaption{position:absolute;left:0;top:calc(96px + env(safe-area-inset-top));padding:6px 10px;color:var(--ink);font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
-  .split .before figcaption{background:rgba(246,242,234,.85)}
-  .split .after figcaption{background:var(--champ)}
+  /* buttons — like the original Cta */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:20px 30px;margin-top:28px;transition:transform .15s,background .2s}
+  .btn:active{transform:scale(.98)}
+  .btn-ink{background:var(--ink);color:var(--paper)} .btn-ink:hover{background:var(--secondary)}
+  .btn-paper{background:var(--paper);color:var(--ink)} .btn-paper:hover{background:var(--champ)}
+  .linkline{display:inline-block;margin-top:16px;border-bottom:1px solid currentColor;padding-bottom:2px;font-size:.9rem}
 
-  /* whatsapp mock */
-  .wa-mock{margin-top:20px;background:#ECE5DD;border-radius:16px;padding:14px 12px;display:grid;gap:8px;max-width:340px}
-  .wa-msg{max-width:88%;padding:8px 11px;border-radius:10px;font-size:14px;line-height:1.4;color:#111}
-  .wa-msg.me{justify-self:end;background:#DCF8C6;border-top-right-radius:2px}
-  .wa-msg.them{justify-self:start;background:#fff;border-top-left-radius:2px}
-  .panel.live .wa-msg{animation:pop .4s ease both}
-  .panel.live .wa-msg.them{animation-delay:.9s}
-  @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  /* problem list */
+  .plist{margin-top:28px;border-top:1px solid var(--border)}
+  .plist li{list-style:none;display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--border)}
+  .plist .n{font-family:var(--fs);font-style:italic;font-size:1.4rem;color:var(--muted-fg)}
+  .plist b{display:block;font-size:1.2rem;font-weight:600}
+  .plist span.d{color:var(--muted-fg);font-size:.95rem}
 
-  /* offer */
-  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--champ);color:var(--ink);padding:6px 12px;margin-bottom:16px}
-  .badge i{width:7px;height:7px;border-radius:50%;background:var(--ink);animation:hint 1.6s infinite}
-  .was{font-family:var(--fd);font-size:34px;line-height:1;color:var(--muted)}
+  /* transformation */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}
+  .pair figure{position:relative;aspect-ratio:3/4;overflow:hidden}
+  .pair img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+  .pair .before img{filter:grayscale(40%)}
+  .pair figcaption{position:absolute;left:0;bottom:0;padding:7px 10px;color:var(--ink)}
+  .pair .before figcaption{background:oklch(0.965 0.012 85 / 80%)}
+  .pair .after figcaption{background:var(--champ)}
+
+  /* gratis-check chat (original ChatBubble look) */
+  .chatbox{margin-top:22px;border:1px solid var(--border);background:var(--bg);border-radius:12px;overflow:hidden;max-width:380px}
+  .chatbox header{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:8px 12px}
+  .chatbox header img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+  .chatbox header b{display:block;font-size:.75rem}.chatbox header small{font-size:.6rem;color:oklch(0.965 0.012 85 / 60%)}
+  .chatbox .log{display:grid;gap:10px;padding:14px;font-size:.88rem;line-height:1.45}
+  .chatbox .m{max-width:85%;padding:9px 13px;border-radius:16px}
+  .chatbox .me{justify-self:end;background:var(--ink);color:var(--paper)}
+  .chatbox .bot{justify-self:start;background:var(--card)}
+  .panel.live .chatbox .m{animation:pop .4s ease both}
+  .panel.live .chatbox .bot{animation-delay:.8s}
+  @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* price */
+  .was{margin-top:22px;font-family:var(--fd);font-size:2.2rem;line-height:1;color:var(--muted-fg)}
   .was s{text-decoration-color:var(--champ);text-decoration-thickness:3px}
-  .price{font-family:var(--fd);font-size:clamp(110px,36vw,190px);line-height:.85}
-  .price em{font-style:normal;color:var(--champ)}
-  .facts{margin-top:14px;color:rgba(246,242,234,.8)}
-  .spots{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:16px;max-width:300px}
+  .big{font-size:42vw;line-height:1;margin-top:4px}
+  .facts{margin-top:14px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px}
+  .spots{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:18px auto 0;width:min(280px,80%)}
   .spots i{height:6px;background:var(--champ)}
+  .note{margin-top:10px;font-size:.88rem;color:var(--muted-fg)}
 
-  /* buttons */
-  .cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;margin-top:22px;padding:19px 30px;border-radius:100px;
-    background:var(--wa);color:var(--wa-ink);font-family:var(--fd);font-size:21px;text-transform:uppercase;letter-spacing:.04em;line-height:1;
-    box-shadow:0 14px 36px rgba(37,211,102,.45);animation:beat 2.6s ease-in-out infinite}
-  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
-  .cta svg{width:22px;height:22px}
-  .ghost{display:inline-flex;margin-top:14px;padding:13px 22px;border:1.5px solid var(--paper);border-radius:100px;font-weight:700;font-size:15px}
+  .foot{margin-top:40px;color:oklch(0.965 0.012 85 / 40%)}
+  .foot a{text-decoration:underline}
+  .restart{cursor:pointer}
 
-  /* closer */
-  .panel.closer{justify-content:center;align-items:center;text-align:center;
-    background:radial-gradient(ellipse at 50% 65%,rgba(37,211,102,.2),transparent 60%),var(--ink)}
-  .panel.closer .inner{display:flex;flex-direction:column;align-items:center}
-  .closer h2{font-size:clamp(44px,13.5vw,80px)}
-  .closer .ghost{border-color:var(--rule);font-weight:500;font-size:14px}
-  .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:20px;font-size:13px;color:var(--muted)}
-  .trust b{color:var(--wa)}
-  .restart{margin-top:20px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);cursor:pointer}
-  .legal{margin-top:16px;font-size:11.5px;color:var(--muted)}.legal a{text-decoration:underline}
-
-  /* sticky */
-  .sticky{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:8px;
-    padding:11px 14px calc(11px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--ink) 62%,rgba(15,13,12,.8));border-top:1px solid var(--rule)}
-  .sticky a{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:16px 16px;border-radius:100px;line-height:1}
-  .sticky .free{flex:1;max-width:330px;background:var(--wa);color:var(--wa-ink);font-family:var(--fd);font-size:clamp(15px,4.6vw,19px);
-    text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;box-shadow:0 10px 28px rgba(37,211,102,.34)}
-  .sticky .free svg{width:18px;height:18px;flex-shrink:0}
-  .sticky .book{border:1.5px solid var(--rule);font-size:14px;font-weight:700;white-space:nowrap}
-  .sticky .book s{color:var(--muted);font-weight:500;margin-right:4px}
+  /* sticky — like the original mobile CTA */
+  .sticky{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:16px 20px;background:var(--champ);color:var(--ink);box-shadow:0 20px 40px rgba(0,0,0,.35);white-space:nowrap}
 
   @media (max-height:700px){
-    .panel{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
-    h2{font-size:clamp(40px,12vw,64px)}
-    .wa-mock{margin-top:14px}.cta{margin-top:16px;padding:16px 24px;font-size:19px}
-    .price{font-size:clamp(96px,30vw,150px)}
+    .panel{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+    h1{font-size:17vw}.h2{font-size:clamp(2.6rem,12.5vw,3.6rem)}
+    .plist li{padding:11px 0}.plist b{font-size:1.05rem}
+    .chatbox{margin-top:14px}.btn{margin-top:18px;padding:16px 24px}
+    .pair{margin-top:14px;width:82%}
+    .big{font-size:34vw}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.anim{opacity:1;transform:none}}
   @media (min-width:560px){
+    body{background:var(--ink)}
     .panel,.chrome{max-width:480px;margin:0 auto}
     .chrome{left:50%;transform:translateX(-50%)}
     .deck{display:flex;flex-direction:column;align-items:center}
+    h1{font-size:6.5rem}.big{font-size:12rem}
+    .sticky{max-width:456px;left:50%;right:auto;width:calc(100% - 24px);transform:translateX(-50%)}
   }
 </style>
 <!-- Meta Pixel: PIXEL_ID eintragen (Events Manager → Datenquellen). Leer = aus. -->
@@ -156,95 +163,98 @@
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
-  posthog.register({landing_variant:'datingpics-story', story_version:'v5-99problems-story'});
+  posthog.register({landing_variant:'datingpics-story', story_version:'v6-original-style-story'});
 </script>
 
 <header class="chrome">
   <div class="bars" id="bars"></div>
   <div class="accountrow">
-    <span class="logo">DatingPics<b>.</b>MS</span>
-    <a class="pill" data-free data-cta="free" data-cta-location="top" data-no-advance><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg> Gratis-Check</a>
+    <span class="logo">DatingPics<span class="champ">.</span>MS</span>
+    <a class="pill eyebrow" data-free data-cta="free" data-cta-location="top" data-no-advance>Gratis-Check</a>
   </div>
 </header>
 
 <main class="deck" id="deck">
-  <!-- 1 Hook -->
-  <section class="panel" data-dur="2200">
-    <img class="bg" src="img/lp-hero.jpg" alt="" fetchpriority="high"><div class="scrim"></div><span class="symbol">Symbolbild</span>
-    <div class="inner">
-      <div class="kicker eyebrow anim">Dating-Fotos · Münster</div>
-      <h1 class="anim d2">99<br>Problems.</h1>
-      <p class="tag serif anim d3">Your dating profile ain't one.</p>
-    </div>
-    <div class="tap-hint">Tippen ›</div>
-  </section>
-
-  <!-- 2 Problem -->
-  <section class="panel" data-dur="2200">
-    <img class="bg" src="img/lp-before-1.jpg" alt="" loading="lazy" style="filter:brightness(.75) grayscale(30%)"><div class="scrim"></div><span class="symbol">Symbolbild</span>
-    <div class="inner">
-      <div class="kicker eyebrow anim">Wird weggewischt</div>
-      <h2 class="anim d2">Spiegel-Selfie.<br>Gruppenfoto.<br><em>Sonnenbrille.</em></h2>
-    </div>
-  </section>
-
-  <!-- 3 Transformation -->
+  <!-- 1 HERO -->
   <section class="panel" data-dur="2400">
-    <div class="split">
-      <figure class="before"><img src="img/lp-before-2.jpg" alt="" loading="lazy"><figcaption>Vorher</figcaption></figure>
-      <figure class="after"><img src="img/lp-after-2.jpg" alt="" loading="lazy"><figcaption>DatingPics</figcaption></figure>
-    </div>
-    <div class="scrim"></div>
+    <img class="bg" src="img/lp-hero.jpg" alt="" fetchpriority="high"><div class="grad"></div>
     <div class="inner">
-      <h2 class="anim">From „meh“<br>to <em>„date-worthy“.</em></h2>
-      <p class="sub anim d2">Du bleibst du. Nur mit dem richtigen Foto.</p>
+      <p class="eyebrow champ anim">Dating Photography · Münster</p>
+      <h1 class="display anim d2">99 Problems.</h1>
+      <p class="tag serif it anim d3">Your dating profile ain't one.</p>
+    </div>
+    <span class="tap-hint eyebrow">Tap ›</span>
+    <span class="symbol">Symbolbild</span>
+  </section>
+
+  <!-- 2 PROBLEM -->
+  <section class="panel light" data-theme="light" data-dur="2800">
+    <div class="inner">
+      <p class="eyebrow muted anim">01 / The problem</p>
+      <h2 class="display h2 anim d2">Dein Profil hat mehr Potenzial.</h2>
+      <ul class="plist anim d3">
+        <li><span class="n">01</span><div><b>Das Spiegelselfie</b><span class="d">Badezimmerlicht. Handy vorm Gesicht.</span></div></li>
+        <li><span class="n">02</span><div><b>Das Gruppenfoto</b><span class="d">Welcher von den fünf bist du?</span></div></li>
+        <li><span class="n">03</span><div><b>Das Urlaubsfoto</b><span class="d">2019. 480p. Sonnenbrille.</span></div></li>
+      </ul>
     </div>
   </section>
 
-  <!-- 4 Gratis-Check -->
-  <section class="panel" data-dur="4200">
-    <img class="bg" src="img/lp-cafe.jpg" alt="" loading="lazy" style="filter:brightness(.45)"><div class="scrim"></div>
+  <!-- 3 TRANSFORMATION -->
+  <section class="panel" data-dur="2800">
     <div class="inner">
-      <div class="kicker eyebrow anim">Kostenlos · per WhatsApp</div>
-      <h2 class="anim d2">Ich check<br>dein Profil.<br><em>Gratis.</em></h2>
-      <div class="wa-mock" aria-hidden="true">
-        <div class="wa-msg me">Hi Maik! Hier mein Profil 📸</div>
-        <div class="wa-msg them">Foto 3 fliegt raus. Foto 1 wird dein Hauptbild 👌</div>
+      <p class="eyebrow champ anim">02 / The transformation</p>
+      <h2 class="display h2 anim d2">From „meh“ to „date-worthy“.</h2>
+      <div class="pair anim d3">
+        <figure class="before"><img src="img/lp-before-1.jpg" alt="" loading="lazy"><figcaption class="eyebrow">Typical profile</figcaption></figure>
+        <figure class="after"><img src="img/lp-after-1.jpg" alt="" loading="lazy"><figcaption class="eyebrow">DatingPics</figcaption></figure>
       </div>
-      <a class="cta anim d4" data-free data-cta="free" data-cta-location="panel-check" data-no-advance><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg> Gratis checken</a>
+      <p class="eyebrow anim d4" style="margin-top:10px;color:oklch(0.965 0.012 85 / 40%)">Symbolbilder</p>
     </div>
   </section>
 
-  <!-- 5 Offer -->
-  <section class="panel" data-dur="3000">
-    <img class="bg" src="img/lp-after-1.jpg" alt="" loading="lazy" style="filter:brightness(.6)"><div class="scrim"></div><span class="symbol">Symbolbild</span>
+  <!-- 4 GRATIS-CHECK -->
+  <section class="panel card" data-theme="light" data-dur="4000">
     <div class="inner">
-      <span class="badge eyebrow anim"><i></i>Launch-Aktion</span>
+      <p class="eyebrow muted anim">03 / Gratis Profil-Check</p>
+      <h2 class="display h2 anim d2">Ich check dein Profil. <span class="champ">Gratis.</span></h2>
+      <div class="chatbox" aria-hidden="true">
+        <header><img src="img/maik.jpg" alt=""><div><b>Frag Maik</b><small>Per WhatsApp · DatingPics MS</small></div></header>
+        <div class="log">
+          <div class="m me">Hi Maik! Hier mein Profil 📸</div>
+          <div class="m bot">Foto 3 fliegt raus. Foto 1 wird dein Hauptbild.</div>
+        </div>
+      </div>
+      <a class="btn btn-ink eyebrow anim d4" data-free data-cta="free" data-cta-location="panel-check" data-no-advance>Gratis checken per WhatsApp <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- 5 PRICE / LAUNCH OFFER -->
+  <section class="panel light center" data-theme="light" data-dur="3200">
+    <div class="inner">
+      <p class="eyebrow muted anim">Launch offer · Limited spots</p>
       <p class="was anim d2">Statt <s>149 €</s></p>
-      <p class="price anim d2">99<em>€</em></p>
-      <p class="facts eyebrow anim d3">60 Min · 2 Locations · 6–8 Fotos</p>
+      <p class="display big anim d2">99<span class="champ">€</span></p>
+      <div class="eyebrow facts anim d3"><span>60 Minutes</span><span>2 Locations</span><span>6–8 Edited photos</span></div>
       <div class="spots anim d4" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="sub anim d4" style="font-size:15px;margin-top:10px">Nur die ersten <b>10 Plätze</b>. Danach 149 €.</p>
+      <p class="note anim d4">Nur die ersten 10 Plätze. Danach 149 €.</p>
+      <a class="btn btn-ink eyebrow anim d4" data-book data-cta="book" data-cta-location="panel-price" data-no-advance>Launch-Platz sichern <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
-  <!-- 6 Closer -->
-  <section class="panel closer" data-dur="0">
+  <!-- 6 FINAL -->
+  <section class="panel center" data-dur="0">
     <div class="inner">
-      <h2 class="anim">Look good.<br>Feel good.<br><em>Date better.</em></h2>
-      <a class="cta anim d2" data-free data-cta="free" data-cta-location="closer" data-no-advance><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg> Gratis Profil-Check</a>
-      <a class="ghost anim d3" data-book data-cta="book" data-cta-location="closer" data-no-advance>Launch-Platz für 99 € sichern</a>
-      <div class="trust anim d4"><span><b>✓</b> Kostenlos</span><span><b>✓</b> Persönlich von Maik</span><span><b>✓</b> Kein Kaufzwang</span></div>
-      <span class="restart" id="restart" data-no-advance>↻ Nochmal ansehen</span>
-      <p class="legal"><a href="../impressum.html" data-no-advance>Impressum</a> · <a href="../datenschutz.html" data-no-advance>Datenschutz</a></p>
+      <h2 class="display anim" style="font-size:clamp(4rem,18vw,6rem)">99 Problems.</h2>
+      <p class="tag serif it anim d2">Your dating profile ain't one.</p>
+      <a class="btn btn-paper eyebrow anim d3" data-free data-cta="free" data-cta-location="closer" data-no-advance>Gratis Profil-Check <span aria-hidden="true">→</span></a><br>
+      <a class="linkline anim d3" data-book data-cta="book" data-cta-location="closer" data-no-advance style="color:oklch(0.965 0.012 85 / 70%)">oder Launch-Platz für 99 € sichern</a>
+      <p class="eyebrow foot"><span class="restart" id="restart" data-no-advance>↻ Nochmal</span> · <a href="../impressum.html" data-no-advance>Impressum</a> · <a href="../datenschutz.html" data-no-advance>Datenschutz</a></p>
     </div>
   </section>
 </main>
 
-<div class="sticky">
-  <a class="free" data-free data-cta="free" data-cta-location="sticky-free" data-no-advance><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg> Gratis Profil-Check</a>
-  <a class="book" data-book data-cta="book" data-cta-location="sticky-book" data-no-advance><s>149</s>99 €</a>
-</div>
+<a class="sticky eyebrow" data-free data-cta="free" data-cta-location="sticky" data-no-advance><span>Gratis Profil-Check</span><span aria-hidden="true">WhatsApp →</span></a>
 
 <script>
 (function(){
@@ -280,6 +290,7 @@
     cur=i;
     if(i>maxReached){ maxReached=i; try{ window.posthog && posthog.register({max_panel_reached:maxReached,max_panel_pct:Math.round(maxReached/(n-1)*100)}); }catch(e){} }
     panels.forEach(function(pn,idx){ pn.classList.toggle('live',idx===i); });
+    document.body.classList.toggle('light', panels[i].getAttribute('data-theme')==='light');
     paint(); cap('story_panel_view',{panel_index:i,panel_total:n}); startTimer();
   }
   function go(i){
