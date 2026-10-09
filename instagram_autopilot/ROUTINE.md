@@ -167,7 +167,15 @@ Keine realistischen KI-Menschen, keine Computerstimme, nur eigene/lizenzfreie Mu
 Niemanden anschreiben außer über die bestehende CHECK-Automatik; keine Kalt-DMs. Nichts an The Tribe,
 anderen Workflows oder Secrets ändern. Blockiert/unklar: nichts erzwingen, im Bericht beschreiben.
 
-## Mix ab 04.10. (Maik): 2 × Gastro, 1 × Health – und immer echte Menschen im Video
+## Mix ab 09.10. (Maik 06.10.): VOLL GASTRO-EVENTS – 3 × Gastro pro Tag
+
+- **08:00 · 14:30 · 20:00 Gastro** (Bars, Kneipen, Clubs, Veranstalter). Health/Coaches pausiert.
+- Schwerpunkt Events + Wochenprogramm (Wettbewerbsanalyse 06.10.: Gastro-KI-Marketing bundesweit unbesetzt).
+- Pro Tag mind. 1 Reel an Wirte (Käufer) und 1 an Gäste/Bielefeld (Reichweite); das dritte = Experiment.
+- Ergebnis zeigen statt erklären (Sprachnachricht → fertiges Wochenprogramm, Demo-Kneipe).
+- Ad-Vorlage: ads/AD01-gastro-events-volle-bude.json (nicht im Autopilot, Maik schaltet selbst).
+
+## (alt) Mix ab 04.10. (Maik): 2 × Gastro, 1 × Health – und immer echte Menschen im Video
 
 - **08:00 Health** (Praxen oder Gesundheits-Coaches im Wechsel) · **14:30 Gastro** · **20:00 Gastro**.
   Gastro ist die Nische mit der meisten Reichweite (P0310c: 40 Views, 2–3× Praxis-Reels) und passt zu The Tribe
