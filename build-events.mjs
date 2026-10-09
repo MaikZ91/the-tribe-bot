@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const WA = 'https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS';
+const WA = 'https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS?mode=gi_t';
 const OG = 'https://maikz91.github.io/the-tribe-bot/assets/gruppe.webp';
 
 const I = {

@@ -42,7 +42,7 @@ const ANALYTICS_FILE = path.join(__dirname, '.community-dashboard.json');
 const PENDING_MEMBERS_FILE = path.join(__dirname, '.pending-new-members.json');
 const KNOWN_MEMBERS_FILE = path.join(__dirname, '.known-members.json');
 const GERMANY_MAP_FILE = path.join(__dirname, 'docs', 'germany', 'cities.json');
-const GERMANY_BIELEFELD_LINK = 'https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS';
+const GERMANY_BIELEFELD_LINK = 'https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS?mode=gi_t';
 // Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json.
 // Gruppennamen der Community werden gegen diese Liste gematcht (Auto-Discovery
 // für /germany). Wenn sich die Liste ändert: build-germany-map.mjs neu laufen lassen.
