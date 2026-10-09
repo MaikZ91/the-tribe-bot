@@ -308,8 +308,16 @@ def wait_container(cid: str, minutes: int = 12) -> None:
     raise RuntimeError(f"Container {cid} nicht fertig geworden")
 
 
+def tags_for(spec: dict) -> list:
+    """IG usernames to tag (no acceptance needed); spec overrides config."""
+    t = spec.get("tag_users", CONFIG.get("tag_users") or [])
+    return [u.lstrip("@") for u in t][:20]
+
+
 def caption_for(spec: dict) -> str:
     parts = [spec["caption"].strip(), "", CONFIG["caption_footer"]]
+    if tags_for(spec):
+        parts += ["📸 " + " ".join("@" + u for u in tags_for(spec))]
     if spec.get("hashtags"):
         parts += ["", " ".join(spec["hashtags"])]
     return "\n".join(parts)[:2150]
@@ -342,13 +350,24 @@ def cmd_publish(post_id: str) -> None:
     # Collab partners (max. 3 IG usernames): invited as co-authors, the post shows up on their profile once accepted
     collabs = [c.lstrip("@") for c in (spec.get("collaborators") or CONFIG.get("collaborators") or [])][:3]
 
+    tags = tags_for(spec)
+
     def create(**kw):
+        if tags and kw.get("media_type") == "REELS":
+            kw = dict(kw, user_tags=json.dumps([{"username": u} for u in tags]))
         if collabs:
             try:
                 return api("POST", f"{uid}/media", **kw, collaborators=json.dumps(collabs))
             except RuntimeError as e:
                 print(f"Kollab-Einladung abgelehnt ({', '.join(collabs)}), poste ohne: {e}")
-        return api("POST", f"{uid}/media", **kw)
+        try:
+            return api("POST", f"{uid}/media", **kw)
+        except RuntimeError as e:
+            if "user_tags" not in kw:
+                raise
+            print(f"Markierung abgelehnt ({', '.join(tags)}), poste ohne: {e}")
+            kw.pop("user_tags")
+            return api("POST", f"{uid}/media", **kw)
     if spec["type"] == "reel":
         args = dict(media_type="REELS", video_url=media_url(post_id, meta["video"]),
                     cover_url=media_url(post_id, meta["cover"]), caption=caption, share_to_feed="true")
@@ -365,8 +384,18 @@ def cmd_publish(post_id: str) -> None:
         cid = c["id"]
     else:
         children = []
-        for name in meta["images"]:
-            child = api("POST", f"{uid}/media", image_url=media_url(post_id, name), is_carousel_item="true")
+        for i, name in enumerate(meta["images"]):
+            ckw = dict(image_url=media_url(post_id, name), is_carousel_item="true")
+            if tags and i == 0:   # tag on the cover image; x/y required for photo tags
+                ckw["user_tags"] = json.dumps([{"username": u, "x": 0.5, "y": 0.85} for u in tags])
+            try:
+                child = api("POST", f"{uid}/media", **ckw)
+            except RuntimeError as e:
+                if "user_tags" not in ckw:
+                    raise
+                print(f"Markierung abgelehnt ({', '.join(tags)}), Bild ohne: {e}")
+                ckw.pop("user_tags")
+                child = api("POST", f"{uid}/media", **ckw)
             children.append(child["id"])
         for ch in children:
             wait_container(ch, minutes=5)
