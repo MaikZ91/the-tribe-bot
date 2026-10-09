@@ -97,6 +97,17 @@
   .plist span.d{color:var(--muted-fg);font-size:.95rem}
 
   /* transformation */
+  .pair-full{position:absolute;left:0;right:0;top:calc(72px + env(safe-area-inset-top));height:calc(100dvh - 72px - 235px - env(safe-area-inset-top) - env(safe-area-inset-bottom));z-index:0;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--ink)}
+  .pair-full figure{position:relative;overflow:hidden}
+  .pair-full img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;transform:scale(1.04);transition:transform 3.2s ease}
+  .panel.live .pair-full img{transform:scale(1)}
+  .pair-full .before img{filter:grayscale(40%) brightness(.9);object-position:22% 35%}
+  .pair-full figcaption{position:absolute;left:0;bottom:0;padding:8px 12px;color:var(--ink);font-size:.72rem}
+  .pair-full .before figcaption{background:oklch(0.965 0.012 85 / 85%)}
+  .pair-full .after figcaption{background:var(--champ)}
+  .cmp-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,var(--ink) 0%,var(--ink) 18%,transparent 34%)}
+  .panel.compare .symbol{top:calc(80px + env(safe-area-inset-top));right:10px}
+  .panel.compare .h2{font-size:clamp(2.6rem,12vw,4rem)}
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}
   .pair figure{position:relative;aspect-ratio:3/4;overflow:hidden}
   .pair img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
@@ -163,7 +174,7 @@
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug L qs getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
-  posthog.register({landing_variant:'datingpics-story', story_version:'v6-original-style-story'});
+  posthog.register({landing_variant:'datingpics-story', story_version:'v7-original-style-story'});
 </script>
 
 <header class="chrome">
@@ -200,17 +211,17 @@
     </div>
   </section>
 
-  <!-- 3 TRANSFORMATION -->
-  <section class="panel" data-dur="2800">
+  <!-- 3 TRANSFORMATION (full-bleed comparison) -->
+  <section class="panel compare" data-dur="3200">
+    <div class="pair-full">
+      <figure class="before"><img src="img/lp-before-1.jpg" alt="Vorher: Spiegelselfie" loading="lazy"><figcaption class="eyebrow">Vorher</figcaption></figure>
+      <figure class="after"><img src="img/lp-after-1.jpg" alt="Nachher: Portrait in Münster" loading="lazy"><figcaption class="eyebrow">DatingPics</figcaption></figure>
+    </div>
     <div class="inner">
       <p class="eyebrow champ anim">02 / The transformation</p>
       <h2 class="display h2 anim d2">From „meh“ to „date-worthy“.</h2>
-      <div class="pair anim d3">
-        <figure class="before"><img src="img/lp-before-1.jpg" alt="" loading="lazy"><figcaption class="eyebrow">Typical profile</figcaption></figure>
-        <figure class="after"><img src="img/lp-after-1.jpg" alt="" loading="lazy"><figcaption class="eyebrow">DatingPics</figcaption></figure>
-      </div>
-      <p class="eyebrow anim d4" style="margin-top:10px;color:oklch(0.965 0.012 85 / 40%)">Symbolbilder</p>
     </div>
+    <span class="symbol">Symbolbilder</span>
   </section>
 
   <!-- 4 GRATIS-CHECK -->
