@@ -12,7 +12,7 @@
      customPayUrl: full custom checkout link (Stripe/PayPal button); takes priority.
      app         : link to the Tribe event app (liebefeld.lovable.app — "weiß, wo die besten Events laufen"). */
   var TRIBE = window.TRIBE = {
-    whatsapp:    "https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL",
+    whatsapp:    "https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS",
     app:         "https://liebefeld.lovable.app/",
     paypalUser:  "",
     customPayUrl:"",
