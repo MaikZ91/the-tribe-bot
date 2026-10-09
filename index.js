@@ -42,7 +42,7 @@ const ANALYTICS_FILE = path.join(__dirname, '.community-dashboard.json');
 const PENDING_MEMBERS_FILE = path.join(__dirname, '.pending-new-members.json');
 const KNOWN_MEMBERS_FILE = path.join(__dirname, '.known-members.json');
 const GERMANY_MAP_FILE = path.join(__dirname, 'docs', 'germany', 'cities.json');
-const GERMANY_BIELEFELD_LINK = 'https://chat.whatsapp.com/CTbK6Xi8QHRExmoXhkaqvL';
+const GERMANY_BIELEFELD_LINK = 'https://chat.whatsapp.com/IUq7hukgx0JBqIdkxhHbMS';
 // Kanonische Städte-Namen — identisch zu den Keys in docs/germany/geometry.json.
 // Gruppennamen der Community werden gegen diese Liste gematcht (Auto-Discovery
 // für /germany). Wenn sich die Liste ändert: build-germany-map.mjs neu laufen lassen.
@@ -259,7 +259,7 @@ const muensterChatId = (process.env.WHATSAPP_MUENSTER_CHAT_ID || '').trim();
 // also passiert das zur Laufzeit — einmal pro Prozess, danach gemerkt.
 // Der Standard ist der oeffentliche Beitrittslink der Muenster-Gruppe — er
 // steht ohnehin auf docs/muenster/index.html und in docs/germany/cities.json.
-const MUENSTER_INVITE_DEFAULT = 'GKn2ZMFLdBeCCvuem2povl';
+const MUENSTER_INVITE_DEFAULT = 'CmKx2UTP7BrGJXS1CMcbLJ';
 const muensterInvite = (process.env.WHATSAPP_MUENSTER_INVITE || MUENSTER_INVITE_DEFAULT)
     .trim()
     .replace(/^https?:\/\/chat\.whatsapp\.com\//i, '')
