@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 09.10. (21:15)
+- @flow.media.ai (vorher ki.fuer.dein.business): keine Daten – Zugang seit 08.10. ungültig (Code 190, Sitzung von Facebook beendet). Keine Reels 07.–09.10. Neuer IG_AI_TOKEN nötig.
+- Tribe: 1.283 Follower (+3 heute, +6 seit 08.10.), T16 Wochenend-Karussell 17:41 online (Post-Kennzahlen n/a, Token ohne Insights). Ab heute Markierung @flow.media.ai.
+- Hypothese: Sobald der Token da ist, Gastro-Events-Mix starten; erstes Reel = Wochenprogramm an Gäste (bester bisheriger Typ).
+
 ## 06.10. – Wettbewerbsanalyse (Vorschläge für den Creative Director, Details data/wettbewerb.md)
 - Gastro-KI-Marketing ist bundesweit unbesetzt → Wochenprogramm-Serie weiter priorisieren.
 - Reel-Idee: Sprachnachricht vom Wirt → fertiges Wochenprogramm-Post (Ergebnis zeigen, „Testnummer“-Prinzip von fonio).
