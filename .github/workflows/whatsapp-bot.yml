@@ -1,22 +1,39 @@
 name: WhatsApp Bot
 
+# PAUSIERT seit 09.10.2026 — Zeitplan und Push-Trigger sind stillgelegt.
+#
+# Die WhatsApp-Session ist am 03.10. abends verloren gegangen. Seitdem hat
+# jeder Lauf 25 Minuten lang alle zwei Minuten einen Kopplungscode angefordert
+# und ist dann gescheitert: 20 Laeufe, grob 200 Kopplungsanfragen in sechs
+# Tagen. WhatsApp lehnt seitdem auch frische, Sekunden alte Codes pauschal ab
+# ("Geraet konnte nicht hinzugefuegt werden"), bei freier Geraeteliste — das
+# Muster einer Drosselung auf Kontoebene.
+#
+# Weiterlaufen laesst den Zaehler nur steigen, deshalb sind beide
+# automatischen Trigger aus. workflow_dispatch bleibt absichtlich bestehen:
+# damit laeuft der eine Kopplungsversuch, wenn er sinnvoll ist, statt vierer
+# pro Tag ins Leere.
+#
+# WIEDER EINSCHALTEN, sobald die Kopplung steht: die beiden Bloecke 'push' und
+# 'schedule' unten wieder einkommentieren. Sonst postet der Bot nichts mehr,
+# auch wenn die Verbindung laengst wieder haelt.
 on:
-  push:
-    branches:
-      - main
-    # Wegen dieses Pfadfilters löst ein leerer Commit KEINEN Lauf aus — um den
-    # Bot ausserhalb des Zeitplans zu starten, muss eine der Dateien unten
-    # tatsächlich verändert werden.
-    #
-    # Ein Push holt nur fällige Jobs nach und ist nach zwei Minuten fertig
-    # (siehe BOT_COMMAND weiter unten). Den Dauerlauf startet allein der
-    # Zeitplan — von Hand geht er über "Run workflow" mit run-due.
-    paths:
-      - ".github/workflows/whatsapp-bot.yml"
-      - "index.js"
-      - "package.json"
-      - "package-lock.json"
-      - "render-highlights-video.js"
+  # push:
+  #   branches:
+  #     - main
+  #   # Wegen dieses Pfadfilters löst ein leerer Commit KEINEN Lauf aus — um den
+  #   # Bot ausserhalb des Zeitplans zu starten, muss eine der Dateien unten
+  #   # tatsächlich verändert werden.
+  #   #
+  #   # Ein Push holt nur fällige Jobs nach und ist nach zwei Minuten fertig
+  #   # (siehe BOT_COMMAND weiter unten). Den Dauerlauf startet allein der
+  #   # Zeitplan — von Hand geht er über "Run workflow" mit run-due.
+  #   paths:
+  #     - ".github/workflows/whatsapp-bot.yml"
+  #     - "index.js"
+  #     - "package.json"
+  #     - "package-lock.json"
+  #     - "render-highlights-video.js"
   workflow_dispatch:
     inputs:
       command:
@@ -47,16 +64,16 @@ on:
         required: false
         default: ""
         type: string
-  schedule:
-    # Vier Dauerläufe am Tag, je knapp sechs Stunden — zusammen decken sie den
-    # Tag ab. Der Bot bleibt dabei verbunden, damit 'message' und 'group_join'
-    # ankommen (Dashboard-Zahlen, Mitglieder-Begrüßung). Die Posts löst er
-    # selbst aus, alle zehn Minuten über runDueJobs().
-    #
-    # Feste Post-Crons gibt es deshalb nicht mehr. Vier Läufe am Tag werden von
-    # GitHub auch deutlich seltener übersprungen als der frühere Halbstunden-
-    # takt: gemessen über 38,6 h liefen von 77 erwarteten */30-Läufen nur 30.
-    - cron: "0 0,6,12,18 * * *"
+  # schedule:
+  #   # Vier Dauerläufe am Tag, je knapp sechs Stunden — zusammen decken sie den
+  #   # Tag ab. Der Bot bleibt dabei verbunden, damit 'message' und 'group_join'
+  #   # ankommen (Dashboard-Zahlen, Mitglieder-Begrüßung). Die Posts löst er
+  #   # selbst aus, alle zehn Minuten über runDueJobs().
+  #   #
+  #   # Feste Post-Crons gibt es deshalb nicht mehr. Vier Läufe am Tag werden von
+  #   # GitHub auch deutlich seltener übersprungen als der frühere Halbstunden-
+  #   # takt: gemessen über 38,6 h liefen von 77 erwarteten */30-Läufen nur 30.
+  #   - cron: "0 0,6,12,18 * * *"
 
 concurrency:
   group: whatsapp-bot
