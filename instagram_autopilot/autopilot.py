@@ -339,6 +339,16 @@ def cmd_publish(post_id: str) -> None:
         return
     caption = caption_for(spec)
     trial = None
+    # Collab partners (max. 3 IG usernames): invited as co-authors, the post shows up on their profile once accepted
+    collabs = [c.lstrip("@") for c in (spec.get("collaborators") or CONFIG.get("collaborators") or [])][:3]
+
+    def create(**kw):
+        if collabs:
+            try:
+                return api("POST", f"{uid}/media", **kw, collaborators=json.dumps(collabs))
+            except RuntimeError as e:
+                print(f"Kollab-Einladung abgelehnt ({', '.join(collabs)}), poste ohne: {e}")
+        return api("POST", f"{uid}/media", **kw)
     if spec["type"] == "reel":
         args = dict(media_type="REELS", video_url=media_url(post_id, meta["video"]),
                     cover_url=media_url(post_id, meta["cover"]), caption=caption, share_to_feed="true")
@@ -346,12 +356,12 @@ def cmd_publish(post_id: str) -> None:
         if trial:   # trial reel: shown to non-followers only; Meta graduates it on good early performance
             strategy = trial if trial in ("MANUAL", "SS_PERFORMANCE") else "SS_PERFORMANCE"
             try:
-                c = api("POST", f"{uid}/media", **args, trial_params=json.dumps({"graduation_strategy": strategy}))
+                c = create(**args, trial_params=json.dumps({"graduation_strategy": strategy}))
             except RuntimeError as e:
                 print(f"Probe-Reel abgelehnt, poste normal: {e}")
-                trial, c = None, api("POST", f"{uid}/media", **args)
+                trial, c = None, create(**args)
         else:
-            c = api("POST", f"{uid}/media", **args)
+            c = create(**args)
         cid = c["id"]
     else:
         children = []
@@ -360,7 +370,7 @@ def cmd_publish(post_id: str) -> None:
             children.append(child["id"])
         for ch in children:
             wait_container(ch, minutes=5)
-        c = api("POST", f"{uid}/media", media_type="CAROUSEL", children=",".join(children), caption=caption)
+        c = create(media_type="CAROUSEL", children=",".join(children), caption=caption)
         cid = c["id"]
     wait_container(cid)
     try:
