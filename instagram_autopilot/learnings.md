@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 10.10. (21:15)
+- @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), Slots 11:30/17:30/20:00 ohne Post. Neuer IG_AI_TOKEN nötig.
+- Tribe: 1.286 Follower (+3 zum Vortag), T17 Samstags-Karussell 17:41 online (https://www.instagram.com/p/DeUbWiHjNZV/), Post-Kennzahlen n/a (Token ohne instagram_manage_insights). T16 (09.10.) ist in state.json als gelöscht markiert.
+- Hypothese: Tribe wächst stabil +2–3/Tag mit täglichen Event-Karussells; morgen T18 Sonntag mit Kennenlernabend als Anlass – prüfen, ob ein konkretes Event mehr Follower bringt als Ideen-Listen.
+
 ## Tagesauswertung 09.10. (21:15)
 - @flow.media.ai (vorher ki.fuer.dein.business): keine Daten – Zugang seit 08.10. ungültig (Code 190, Sitzung von Facebook beendet). Keine Reels 07.–09.10. Neuer IG_AI_TOKEN nötig.
 - Tribe: 1.283 Follower (+3 heute, +6 seit 08.10.), T16 Wochenend-Karussell 17:41 online (Post-Kennzahlen n/a, Token ohne Insights). Ab heute Markierung @flow.media.ai.
