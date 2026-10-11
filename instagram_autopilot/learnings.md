@@ -1,5 +1,11 @@
 # Learnings
 
+## Wochen-Strategie 12.–18.10. (So 11.10., 18:50)
+- Datenlage: @flow.media.ai ohne neue Daten seit 07.10. (Token ungültig, Code 190). Letzter Stand 56 Follower, Beitragszahl 18 → 5 (04.→07.10., Beiträge gelöscht). Keine Regel bestätigt oder verworfen – regeln.json unverändert, ROUTINE.md bleibt.
+- Tribe: 1.272 → 1.287 Follower (+15 in 7 Tagen, ≈ +2/Tag); Post-Takt läuft seit 10.10. wieder täglich (T17, T18; T20 für 12.10. queued). Mehrere ältere Tribe-Posts sind als gelöscht markiert.
+- Plan, sobald Token da: Woche 1 nur 1 Gastro-Reel/Tag (statt 3) zum Neustart, je Reel EINE Variable: (1) Hook Gäste vs. Wirte, (2) Musik party vs. chill, (3) Sprachnachricht→Wochenprogramm-Demo vs. Menschen-Montage. Danach auf 2–3/Tag hochfahren.
+- Ohne Token: keine Reels bauen (Vorrat 1 Reel queued), nur Tribe weiterführen.
+
 ## Tagesauswertung 10.10. (21:15)
 - @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), Slots 11:30/17:30/20:00 ohne Post. Neuer IG_AI_TOKEN nötig.
 - Tribe: 1.286 Follower (+3 zum Vortag), T17 Samstags-Karussell 17:41 online (https://www.instagram.com/p/DeUbWiHjNZV/), Post-Kennzahlen n/a (Token ohne instagram_manage_insights). T16 (09.10.) ist in state.json als gelöscht markiert.
