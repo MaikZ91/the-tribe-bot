@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 11.10. (21:15)
+- @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), alle Slots ohne Post.
+- Tribe: 1.287 Follower (+1 zum Vortag), T18 Sonntag/Kennenlernabend 17:39 online (https://www.instagram.com/p/DeW_5-lFzE2/), Post-Kennzahlen n/a (Token ohne Insights).
+- Hypothese: Wochenstart-Karussell mit Pub Quiz (T20) als „Team gesucht“-Anlass prüfen – bringt ein Mitmach-Anlass mehr als Ideen-Listen?
+
 ## Wochen-Strategie 12.–18.10. (So 11.10., 18:50)
 - Datenlage: @flow.media.ai ohne neue Daten seit 07.10. (Token ungültig, Code 190). Letzter Stand 56 Follower, Beitragszahl 18 → 5 (04.→07.10., Beiträge gelöscht). Keine Regel bestätigt oder verworfen – regeln.json unverändert, ROUTINE.md bleibt.
 - Tribe: 1.272 → 1.287 Follower (+15 in 7 Tagen, ≈ +2/Tag); Post-Takt läuft seit 10.10. wieder täglich (T17, T18; T20 für 12.10. queued). Mehrere ältere Tribe-Posts sind als gelöscht markiert.
