@@ -12,110 +12,115 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/vorher-bad.jpg">
-<link rel="preload" as="image" href="img/lamberti.jpg">
+<link rel="preload" as="image" href="img/vorher-bad.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/lamberti.jpg" fetchpriority="high">
 <!-- Meta Pixel: PIXEL_ID eintragen (Events Manager → Datenquellen). Leer = aus. -->
 <script>
   var PIXEL_ID='';
   if(PIXEL_ID){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',PIXEL_ID);fbq('track','PageView');}
 </script>
 <style>
-:root{--bg:#F6F0E6;--ink:#161412;--red:#C8232C;--red-d:#A81C24;--mute:#5A544D;--wa:#1FA855;--wa-d:#178A45}
+:root{--bg:#F6F0E6;--ink:#161412;--red:#C8232C;--mute:#5A544D;--wa:#1FA855;--wa-d:#178A45}
 *{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:'Archivo','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:560px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.logo{font-weight:900;font-size:18px;letter-spacing:.14em}
+.wrap{height:100vh;height:100svh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(6px,1.4svh,12px);padding:max(12px,env(safe-area-inset-top)) 16px max(10px,env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo{font-weight:900;font-size:16px;letter-spacing:.14em}
 .logo span{color:var(--red)}
-.badge{background:var(--red);color:#fff;font-weight:700;font-size:13px;padding:7px 13px;border-radius:999px;white-space:nowrap}
-h1{font-weight:900;font-size:clamp(44px,13vw,72px);line-height:.95;letter-spacing:-.03em;margin-top:22px}
-.sub{font-weight:500;font-size:clamp(19px,5.4vw,26px);margin-top:10px}
-.sol{font-weight:900;font-size:clamp(25px,7.4vw,38px);line-height:1.05;letter-spacing:-.02em;color:var(--red);margin-top:14px}
-.ba{display:grid;grid-template-columns:1fr 6px 1fr;gap:10px;margin-top:20px}
-.ba figure{display:flex;flex-direction:column;gap:7px}
-.ba figcaption{font-weight:800;font-size:13px;letter-spacing:.14em}
-.ba img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:6px;display:block;background:#e6ddd0}
-.ba .bar{background:var(--red);border-radius:3px;margin-top:22px}
-.note{font-size:11px;color:var(--mute);text-align:right;margin-top:6px}
-.box{background:var(--ink);color:var(--bg);border-radius:14px;padding:20px 18px 18px;margin-top:18px}
-.kicker{color:#E8534B;font-weight:800;font-size:13px;letter-spacing:.18em}
-.box h2{font-weight:900;font-size:clamp(34px,10vw,46px);line-height:1;letter-spacing:-.02em;margin-top:4px}
-.box p{color:#D9D2C8;font-size:16px;line-height:1.35;margin-top:8px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:10px;font-weight:800;font-size:19px;text-decoration:none;text-align:center;padding:14px 18px;transition:transform .08s ease,background .15s ease}
+.badge{background:var(--red);color:#fff;font-weight:700;font-size:12px;padding:6px 11px;border-radius:999px;white-space:nowrap}
+.head{display:flex;flex-direction:column;gap:clamp(2px,.8svh,8px)}
+h1{font-weight:900;font-size:min(11.5vw,6.2svh,60px);line-height:.95;letter-spacing:-.03em}
+.sub{font-weight:500;font-size:min(4.8vw,2.6svh,22px)}
+.sol{font-weight:900;font-size:min(6.4vw,3.5svh,32px);line-height:1.05;letter-spacing:-.02em;color:var(--red)}
+.ba{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 5px 1fr;gap:9px}
+.ba figure{display:flex;flex-direction:column;gap:5px;min-height:0}
+.ba figcaption{font-weight:800;font-size:12px;letter-spacing:.14em;flex:0 0 auto}
+.ph{flex:1 1 auto;min-height:0;position:relative;overflow:hidden;border-radius:6px;background:#e6ddd0}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.before .ph img{object-position:30% 50%}
+.after .ph img{object-position:50% 35%}
+.ba .bar{background:var(--red);border-radius:3px;margin-top:20px}
+.note{position:absolute;right:6px;bottom:5px;font-size:10px;color:#fff;background:rgba(0,0,0,.35);padding:2px 6px;border-radius:4px}
+.box{flex:0 0 auto;background:var(--ink);color:var(--bg);border-radius:14px;padding:clamp(10px,1.8svh,16px) 14px}
+.kicker{color:#E8534B;font-weight:800;font-size:11px;letter-spacing:.18em}
+.box h2{font-weight:900;font-size:min(8.6vw,4.4svh,40px);line-height:1;letter-spacing:-.02em;margin-top:2px}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;min-height:50px;border-radius:10px;font-weight:800;font-size:18px;text-decoration:none;text-align:center;padding:10px 14px;transition:transform .08s ease,background .15s ease}
 .btn:active{transform:scale(.98)}
-.btn svg{width:22px;height:22px;flex:0 0 auto}
-.btn-wa{background:var(--wa);color:#fff;margin-top:16px}
+.btn svg{width:21px;height:21px;flex:0 0 auto}
+.btn-wa{background:var(--wa);color:#fff;margin-top:clamp(8px,1.3svh,12px)}
 .btn-wa:hover{background:var(--wa-d)}
-.price{border-top:1px solid #3A3631;margin-top:18px;padding-top:16px}
-.price .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.price b{font-weight:900;font-size:30px;color:var(--bg)}
-.price s{color:#A8A097;font-size:18px}
-.price small{color:#D9D2C8;font-size:14px}
-.btn-book{background:transparent;color:var(--bg);border:2px solid #F6F0E6;margin-top:12px;font-size:17px;min-height:52px}
+.price{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #3A3631;margin-top:clamp(8px,1.3svh,12px);padding-top:clamp(8px,1.3svh,12px)}
+.price .pr{display:flex;flex-direction:column;line-height:1.1}
+.price b{font-weight:900;font-size:24px;color:var(--bg)}
+.price b s{color:#A8A097;font-size:15px;font-weight:500;margin-left:6px}
+.price small{color:#D9D2C8;font-size:12px}
+.btn-book{background:transparent;color:var(--bg);border:2px solid #F6F0E6;font-size:15px;min-height:44px;padding:8px 12px;white-space:nowrap}
 .btn-book:hover{background:#2A2622}
-.legal{text-align:center;font-size:12px;color:var(--mute);margin-top:22px}
+.legal{flex:0 0 auto;text-align:center;font-size:11px;color:var(--mute)}
 .legal a{color:var(--mute)}
-.sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:rgba(246,240,230,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(22,20,18,.1);transform:translateY(110%);transition:transform .25s ease;z-index:5}
-.sticky.on{transform:none}
-.sticky .btn{margin:0 auto;max-width:524px;min-height:52px;font-size:17px}
+/* Animation: Fotos blenden ein, zoomen langsam; Vorher bleibt blass, Nachher leuchtet auf */
+.ph img{opacity:0;transform:scale(1.12)}
+.in .ph img{animation:enter 1s cubic-bezier(.2,.7,.2,1) forwards, drift 9s ease-in-out 1s infinite alternate}
+.in .before img{filter:saturate(.75) brightness(.97)}
+.in .after img{animation-delay:.35s,1.35s}
+.in .after .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%);animation:shine 1.4s ease 1.4s 1 forwards, shine 1.4s ease 6s infinite}
+.in .after .ph{animation:pop .6s ease 1.2s 1}
+@keyframes enter{to{opacity:1;transform:scale(1.04)}}
+@keyframes drift{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1.5%)}}
+@keyframes shine{to{transform:translateX(120%)}}
+@keyframes pop{50%{box-shadow:0 0 0 4px rgba(200,35,44,.55)}}
+@media (prefers-reduced-motion:reduce){.ph img{opacity:1;transform:none;animation:none!important}.in .after .ph::after{display:none}}
 </style>
 </head>
 <body>
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_ktsJAdQbuZh9PbsdX7RxZdTWZjEgkZLHAyB7kzb9eG6t',{api_host:'https://eu.i.posthog.com',person_profiles:'always',capture_pageview:true,capture_pageleave:true,autocapture:true,session_recording:{maskAllInputs:true},enable_heatmaps:true});
-  posthog.register({landing_variant:'datingpics-story', story_version:'v11-ad-match'});
+  posthog.register({landing_variant:'datingpics-story', story_version:'v12-one-screen'});
 </script>
 
-<main class="wrap">
+<main class="wrap" id="wrap">
   <header class="top">
     <span class="logo">ECHT DU<span>.</span></span>
     <span class="badge">Fotoshooting in Münster</span>
   </header>
 
-  <h1>Keine Matches?</h1>
-  <p class="sub">Liegt meistens an deinen Fotos.</p>
-  <p class="sol">Die Lösung: authentische Dating-Bilder.</p>
+  <div class="head">
+    <h1>Keine Matches?</h1>
+    <p class="sub">Liegt meistens an deinen Fotos.</p>
+    <p class="sol">Die Lösung: authentische Dating-Bilder.</p>
+  </div>
 
   <div class="ba">
-    <figure>
+    <figure class="before">
       <figcaption>VORHER</figcaption>
-      <img src="img/vorher-bad.jpg" alt="Vorher: Spiegel-Selfie im Badezimmer" width="550" height="690">
+      <div class="ph"><img src="img/vorher-bad.jpg" alt="Vorher: Spiegel-Selfie im Badezimmer"></div>
     </figure>
     <div class="bar" aria-hidden="true"></div>
-    <figure>
+    <figure class="after">
       <figcaption>NACHHER</figcaption>
-      <img src="img/lamberti.jpg" alt="Nachher: natürliches Porträt vor St. Lamberti in Münster" width="550" height="690">
+      <div class="ph"><img src="img/lamberti.jpg" alt="Nachher: natürliches Porträt vor St. Lamberti in Münster"><span class="note">Beispielbilder</span></div>
     </figure>
   </div>
-  <p class="note">Beispielbilder</p>
 
-  <section class="box" id="check">
+  <section class="box">
     <p class="kicker">KOSTENLOS</p>
     <h2>Profil-Check</h2>
-    <p>Schick mir 2–3 Screenshots deines Profils. Ich sag dir ehrlich, welches Foto rausfliegt.</p>
-    <a class="btn btn-wa" id="mainCta" data-free data-cta="free" data-cta-location="check-box">
+    <a class="btn btn-wa" data-free data-cta="free" data-cta-location="check-box">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
       Gratis Profil-Check →
     </a>
-
     <div class="price">
-      <div class="row"><b>99 €</b><s>149 €</s><small>Shooting · nur wenige Plätze</small></div>
-      <a class="btn btn-book" data-book data-cta="book" data-cta-location="price-box">Shooting für 99 € sichern →</a>
+      <div class="pr"><b>99 €<s>149 €</s></b><small>Shooting · nur wenige Plätze</small></div>
+      <a class="btn btn-book" data-book data-cta="book" data-cta-location="price-box">99 € sichern →</a>
     </div>
   </section>
 
   <p class="legal"><a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a></p>
 </main>
-
-<div class="sticky" id="sticky" aria-hidden="true">
-  <a class="btn btn-wa" data-free data-cta="free" data-cta-location="sticky" tabindex="-1">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
-    Gratis Profil-Check
-  </a>
-</div>
 
 <script>
 (function(){
@@ -135,18 +140,16 @@ h1{font-weight:900;font-size:clamp(44px,13vw,72px);line-height:.95;letter-spacin
     cap('whatsapp_cta_click',{cta_kind:kind,cta_location:a.getAttribute('data-cta-location')||'unknown'},true);
   },true);
 
-  // Sticky-Button, sobald der Haupt-Button aus dem Bild ist
-  var main=document.getElementById('mainCta'), sticky=document.getElementById('sticky');
-  new IntersectionObserver(function(es){ es.forEach(function(e){
-    sticky.classList.toggle('on', !e.isIntersecting && e.boundingClientRect.top>0);
-  }); },{threshold:0}).observe(main);
+  // Fotos animieren, sobald die Bilder geladen sind
+  var w=document.getElementById('wrap'), imgs=w.querySelectorAll('.ph img'), left=imgs.length;
+  function go(){ requestAnimationFrame(function(){ w.classList.add('in'); }); }
+  imgs.forEach(function(i){ if(i.complete) { if(--left===0) go(); } else { i.addEventListener('load',function(){ if(--left===0) go(); }); i.addEventListener('error',function(){ if(--left===0) go(); }); } });
+  setTimeout(go,1500);
 
   // Verweildauer (IG-In-App-Browser verliert pageleave)
   var vis=document.visibilityState==='visible'?Date.now():0, total=0, tk=0;
   function flush(){ if(vis){ total+=Date.now()-vis; vis=Date.now(); } }
-  function send(reason){ flush(); cap('dating_dwell',{reason:reason,ticks:tk,dwell_ms:total,max_scroll_pct:maxScroll},true); }
-  var maxScroll=0;
-  addEventListener('scroll',function(){ var h=document.documentElement; var p=Math.round((h.scrollTop+innerHeight)/h.scrollHeight*100); if(p>maxScroll) maxScroll=Math.min(100,p); },{passive:true});
+  function send(reason){ flush(); cap('dating_dwell',{reason:reason,ticks:tk,dwell_ms:total},true); }
   setInterval(function(){ if(document.visibilityState==='visible'){ tk++; send('heartbeat'); } },5000);
   document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden'){ send('hidden'); vis=0; } else { vis=Date.now(); } });
   addEventListener('pagehide',function(){ send('pagehide'); });
