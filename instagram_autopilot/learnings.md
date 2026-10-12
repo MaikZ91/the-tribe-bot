@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 12.10. (21:15)
+- @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), alle Slots ohne Post.
+- Tribe: 1.289 Follower (+2 zum Vortag), T20 Montag/Pub Quiz 17:38 online (https://www.instagram.com/p/DeZktXiDaGn/), Post-Kennzahlen n/a.
+- Hypothese: Takt stabil (+1–3/Tag); morgen T21 Dienstag mit Hook-Frage „Nur Sofa?“ – Vergleich Follower-Δ zu „Nichts vor?“.
+
 ## Tagesauswertung 11.10. (21:15)
 - @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), alle Slots ohne Post.
 - Tribe: 1.287 Follower (+1 zum Vortag), T18 Sonntag/Kennenlernabend 17:39 online (https://www.instagram.com/p/DeW_5-lFzE2/), Post-Kennzahlen n/a (Token ohne Insights).
