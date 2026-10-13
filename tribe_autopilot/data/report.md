@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-13
 
-Follower: **1290** · Beiträge: 33
+Follower: **1289** · Beiträge: 33
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
