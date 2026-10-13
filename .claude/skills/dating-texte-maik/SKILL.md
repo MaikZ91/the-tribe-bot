@@ -107,3 +107,9 @@ Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Foli
 3. Münster-Spots (Altstadt, Kanal, Hafen, Schloss, Botanischer Garten, Aasee, Promenade, Café).
 4. Profil-Tipps (Hauptfoto, Aktivität, sozial, Überraschung; echt statt KI-Gesicht).
 5. Beleg (ein Kunde: von null auf rund 10 Likes, „Die Fotos sind mega“) – sparsam, nicht in jedem Post.
+
+## Bilder & Rotation (Maik, 13.10.2026)
+- Solange es keine Kundenfotos gibt: Maiks eigene Fotos (echt-*) UND die KI-Stilbilder (stil-*) aktiv nutzen. stil-* immer gelabelt („Stil-Inspiration · KI-generiert“) und als Stilvorlage einordnen („So könnte dein Look aussehen“), nie als Kunde oder Ergebnis.
+- Offen zeigen, dass Maik KI als Technologie einsetzt (Bearbeitung, Tempo, Stil-Ideen) – das gehört zur Marke „Maik mit KI“. Die Fotos selbst bleiben echte Fotos von echten Menschen.
+- Rotation der Posts: 1) Persönliches teilen (Maiks Geschichte, Gedanken) → 2) Mehrwert (z. B. „So baust du ein gutes Dating-Profil auf“, Fototypen, Fehler im Profil) → 3) Ablauf/Angebot. Statistiken nur mit geprüfter Quelle (Quelle in der Caption nennen); sonst ohne Zahl.
+- Erster Post nach dem Interview: Maiks Geschichte („Ich hab Geld für Boosts ausgegeben. Gebracht hat es nichts.“).
