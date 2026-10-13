@@ -42,6 +42,9 @@ DATA = HOME / "data"
 STATE_FILE = DATA / "state.json"
 MEDIA_DIR = REPO / "docs" / CONFIG.get("media_dir", "ig-media")
 API = CONFIG["api_base"]
+FB_API = "https://graph.facebook.com/v21.0"
+if os.getenv("IG_AI_TOKEN", "").strip().startswith("EAA"):
+    API = FB_API   # Facebook-Login token (EAA…) only works on graph.facebook.com
 TZ = ZoneInfo(CONFIG["timezone"])
 
 
@@ -63,6 +66,18 @@ def user_id() -> str:
     """
     global _ACCOUNT_CHECKED
     u = os.getenv("IG_AI_USER_ID", "").strip() or "me"
+    if API == FB_API and HOME == HERE.resolve():
+        u = "me"   # IG_AI_USER_ID stems from Instagram Login and differs on graph.facebook.com
+    if u == "me" and API == FB_API:
+        # Facebook token: 'me' is the Facebook user, so look up the Instagram account
+        # among the user's pages and pick the configured one.
+        allowed = CONFIG["account"] if isinstance(CONFIG["account"], list) else [CONFIG["account"]]
+        pages = api("GET", "me/accounts", fields="instagram_business_account{id,username}").get("data", [])
+        igs = [p["instagram_business_account"] for p in pages if p.get("instagram_business_account")]
+        hit = [a for a in igs if a.get("username", "").lower() in {x.lower() for x in allowed if x}]
+        if not hit:
+            sys.exit(f"Kein passendes Instagram-Konto zum Token gefunden: {[a.get('username') for a in igs]}")
+        u = hit[0]["id"]
     if not _ACCOUNT_CHECKED:
         who = api("GET", u, fields="username")
         print(f"Konto: @{who.get('username')}")
@@ -1157,6 +1172,9 @@ def store_secret(name: str, value: str) -> bool:
 
 
 def cmd_refresh() -> None:
+    if API == FB_API:
+        print("Facebook-Token: keine Verlängerung über graph.instagram.com – übersprungen.")
+        return
     r = requests.get("https://graph.instagram.com/refresh_access_token",
                      params={"grant_type": "ig_refresh_token", "access_token": token()}, timeout=30)
     body = r.json()
