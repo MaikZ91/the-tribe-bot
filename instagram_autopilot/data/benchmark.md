@@ -1,20 +1,20 @@
-# Benchmark 2026-10-06T15:45+02:00
+# Benchmark 2026-10-13T06:55+02:00
 
 Interaktion = Likes + 2 × Kommentare, Rate = je 100 Follower. Views gibt die API für fremde Accounts nicht her.
 
 
 ## Nicht abrufbar
 
-- @physiowicht: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A4Yh7DX-DyR
-- @physio_fit_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AZwoQ4N-STY
-- @h.h.sportphysiotherapie: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AXlEkYH_Hml
-- @ergotherapie_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AmhNQW7KKXn
-- @zahnarzt_eckzahn_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A4SfQOD64jo
-- @dentikum.zahnaerzte: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Aya57AJdLLF
-- @praxis.elbeallee: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AgrROI4tiy0
-- @co_medic: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AV46_i0okaM
-- @bielatesflow: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A3JcdF7M7lV
-- @vivavitalisbielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AdawheyTYzp
-- @fitnessstudio_bodytalk: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AqMFnooSmmT
+- @physiowicht: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @physio_fit_bielefeld: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @h.h.sportphysiotherapie: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @ergotherapie_bielefeld: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @zahnarzt_eckzahn_bielefeld: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @dentikum.zahnaerzte: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @praxis.elbeallee: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @co_medic: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @bielatesflow: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @vivavitalisbielefeld: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
+- @fitnessstudio_bodytalk: GET 17841455511784097 -> 400: {"error": {"message": "(#10) Application does not have permission for this action", "type": "OAuthException", "code": 10, "fbtrace
 
 _Fremde Kennzahlen gibt es nur über die Instagram-API mit Facebook-Login (Secrets IG_FB_TOKEN, IG_FB_USER_ID; Instagram-Konto mit einer Facebook-Seite verknüpft). Bis dahin Vergleich per Websuche (öffentliche Artikel, Fallstudien, Profile) und im Bericht so kennzeichnen._
