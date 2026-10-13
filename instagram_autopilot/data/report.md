@@ -1,6 +1,6 @@
-# Instagram-Report 2026-10-13
+# Instagram-Report 2026-10-14
 
-Follower: **57** · Beiträge: 17
+Follower: **58** · Beiträge: 18
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -12,6 +12,7 @@ Follower: **57** · Beiträge: 17
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | – | – | – | – | – | – | – | 0.0 |
 | D0209-zeig-dein-hobby | tipp-carousel | langweiliges-profil | aufforderung | – | – | – | – | – | – | – | 0.0 |
 | D0304-vier-fotos-profil | maik-text | nur-ein-foto | liste | – | – | – | – | – | – | – | 0.0 |
+| D0306-wer-posiert | maik-text | wirkt-steif | aussage | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -25,6 +26,7 @@ Follower: **57** · Beiträge: 17
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
+| wirkt-steif | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -48,7 +50,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=1)
+- ≥ 90 min: Ø Reichweite 0.0 (n=2)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -70,7 +72,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=5)
+- dating: 0.00 (n=6)
 
 ## Ø Interesse nach format
 
@@ -80,7 +82,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=1)
+- maik-text: 0.00 (n=2)
 
 ## Ø Interesse nach hook_style
 
@@ -90,6 +92,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - kontrast: 0.00 (n=1)
 - aufforderung: 0.00 (n=1)
 - liste: 0.00 (n=1)
+- aussage: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
@@ -101,6 +104,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
+- wirkt-steif: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -112,8 +116,9 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 07:38: 0.00 (n=1)
 - 08:22: 0.00 (n=1)
 - 13:30: 0.00 (n=1)
+- 18:57: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=7)
+- bed: 0.00 (n=8)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
