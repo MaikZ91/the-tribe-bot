@@ -75,5 +75,19 @@ Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Foli
 - Natürlich / nicht gestellt.
 - Schnell: KI nur zur Bildbearbeitung → Bilder noch am selben Tag fertig.
 - Fair: Bezahlt wird erst, wenn der Kunde mit dem Ergebnis zufrieden ist.
-**Belege (nur so verwenden, nichts aufblähen):** Mehrere Shootings, die Kunden waren bisher zufrieden; der letzte Kunde war sehr zufrieden. Ein Kunde: von 0 auf etwa 10 Matches pro Woche (Maik bestätigt noch, ob diese Zahl so zitiert werden darf – bis dahin nicht als Zahl verwenden). Keine weiteren Zahlen, Kundenanzahlen oder Erfolgsquoten erfinden oder hochrechnen.
+**Belege (nur so verwenden, nichts aufblähen):** Mehrere Shootings, die Kunden waren bisher zufrieden; der letzte Kunde war sehr zufrieden. Ein Kunde: vorher praktisch keine Likes, danach rund 10 – freigegeben (Maik 13.10.). Genau so formulieren: „von null auf rund 10 Likes“ – NICHT „Matches pro Woche“, nicht aufrunden. Sein Kommentar zu den Bildern (anonym zitierbar): „Die Fotos sind mega.“ Keine weiteren Zahlen, Kundenanzahlen oder Erfolgsquoten erfinden oder hochrechnen.
 **Abgrenzung:** Persönlicher Kontakt und echtes Gespräch statt Posing-Anweisungen, Ergebnis wie im echten Leben statt KI-Hochglanz, schnell dank KI-Bearbeitung, Bezahlung erst bei Zufriedenheit.
+
+## Positionierung – Block 2 (Geschichte & Ablauf, 13.10.2026)
+**Tiefpunkt (Story-Material):** Frust, Selbstzweifel, das Gefühl, nicht gut genug zu sein. Maik hat Geld für Premium/Boosts auf Dating-Plattformen ausgegeben, um höher platziert zu werden – hat nichts gebracht. Kernaussage: Mehr Sichtbarkeit nützt nichts, wenn die Fotos nicht funktionieren.
+**Wendepunkt:** Das Shooting mit einem Kumpel hat Spaß gemacht – und danach kamen deutlich mehr Likes und gute Dates. (Nicht erzählen: dass Maik heute kein Online-Dating mehr macht; keine Prahlerei mit „attraktiven Frauen“.)
+**Warum Fotografie:** Kreativ sein, draußen unterwegs sein, Menschen persönlich kennenlernen. Im Mittelpunkt steht das gemeinsame Erleben: coole Spots aussuchen, improvisieren – nicht die Kamera.
+**Ablauf aus Kundensicht (so beschreiben):**
+1. Erst per WhatsApp schreiben.
+2. Vorab treffen und quatschen: Vorstellung, Stil, was du magst, welche Orte zu dir passen.
+3. Shooting in Münster, z. B. Altstadt, Kanal, Hafen, Schloss, Botanischer Garten, Aasee, Promenade oder gemütlich im Café – authentisches Flair.
+4. Bearbeitung mit KI → schnell, noch am selben Tag; die Bilder wirken trotzdem menschlich, nicht künstlich.
+5. Nicht zufrieden → du zahlst nichts.
+**Was Maik nicht macht:** gestellte Posen, klassische „Fotografen-Fotos“, KI-generierte Gesichter oder Profilbilder.
+**Verkaufsargumente (Priorität):** 1) Du zahlst nur, wenn du zufrieden bist. 2) Fotos wie im echten Leben – sie sieht beim Date denselben Mann. 3) Persönlich: erst kennenlernen, dann fotografieren. 4) Noch am selben Tag fertig. 5) Münsters schönste Spots.
+**Erlaubte Aussage zum Markt:** „Matches sind auf Dating-Apps extrem ungleich verteilt.“ Keine Studienzahl.
