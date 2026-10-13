@@ -1,5 +1,10 @@
 # Learnings
 
+## Dating – Creative Director 13.10. (13:30)
+- Daten: 56 Follower (Vortag 57), 20 Beiträge; Kennzahlen je Post noch n/a (Posts < 8 h alt). → Testphase: 1 Reel + 2 Karussells pro Tag.
+- Neu (aus Skill dating-texte-maik, Texte neu in Maiks Stimme): D0301 Foto-Reel „Kennst du den Moment vor dem Klick?“ (Variable hook_style=frage), D0302 Karussell „3 Sätze, die du bei mir nie hörst“ (hook_style=verneinung), D0303 Karussell KI-Stil „Wie wirkst du, wenn du nicht daran denkst?“ (bildquelle=ki-stil).
+- Hypothese: Reels erreichen mehr Nicht-Follower als Karussells; Karussells holen mehr Saves. Prüfen ab 15.10.
+
 ## Tagesauswertung 12.10. (21:15)
 - @flow.media.ai: keine Daten – Token weiter ungültig (seit 08.10.), alle Slots ohne Post.
 - Tribe: 1.289 Follower (+2 zum Vortag), T20 Montag/Pub Quiz 17:38 online (https://www.instagram.com/p/DeZktXiDaGn/), Post-Kennzahlen n/a.

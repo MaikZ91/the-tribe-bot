@@ -57,4 +57,5 @@ Schau dir die Story-Serie an, die zeigt, wie das Schritt für Schritt aussieht. 
 1. Einen Kernsatz als Hook (Folie 1 / Reel-Start), Problem → Gedanke → Angebot.
 2. Maiks Texte sind Vorlagen: frei umschreiben, neu kombinieren, kürzen, neue Hooks und Blickwinkel finden – aber in SEINER Stimme (Ich-Form, ehrlich, ruhig, kurze Sätze, Problem → Gedanke → Angebot). Inhaltlich nur Fakten aus diesem Skill (keine Kundenzahlen, Match-Quoten oder Abläufe, die Maik nicht genannt hat).
 3. Formate: Karussell (4–6 Folien), Foto-Reel (15–30 s, Ken-Burns über Maiks Fotos, Musik, je Szene max. 6 Wörter, Endkarte Angebot), Mini-Doku-Reel (nur mit echten Clips).
-4. Keine Caption 1:1 wiederholen – jeder Post bekommt einen neu geschriebenen Text in Maiks Stimme.
+4. JEDE Folie bekommt ein Bild ("bg"), auch Text-/Listen- und CTA-Folien – passend zur Aussage (z. B. „Kopf leicht nach links“ → Profilfoto). Keine reinen Textfolien. Der Renderer füllt fehlende Bilder notfalls automatisch aus images/dating/ (ohne bg_exclude), aber gezielt gewählte Bilder sind Pflicht.
+5. Keine Caption 1:1 wiederholen – jeder Post bekommt einen neu geschriebenen Text in Maiks Stimme.

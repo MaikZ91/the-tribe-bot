@@ -881,6 +881,16 @@ def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None =
 def apply_bg(spec: dict) -> None:
     """Spec-level `bg` (one path or a list) fills slides without their own."""
     pool = spec.get("bg")
+    if not pool and CONFIG.get("bg_pool"):
+        # Accounts with "bg_pool" never show a slide without a photo: fill gaps with
+        # pool images not already used in this post (deterministic per post id).
+        used = {s.get("bg") for s in spec["slides"]}
+        skip = set(CONFIG.get("bg_exclude", []))
+        files = sorted(str(f.relative_to(ROOT)) for f in (ROOT / CONFIG["bg_pool"]).glob("*.jpg") if f.name not in skip)
+        prefer = [f for f in files if f not in used and Path(f).name.startswith(CONFIG.get("bg_prefer", ""))]
+        pool = prefer or [f for f in files if f not in used] or files
+        off = zlib.crc32(spec["id"].encode()) % max(len(pool), 1)
+        pool = pool[off:] + pool[:off]
     if not pool:
         return
     pool = [pool] if isinstance(pool, str) else pool
