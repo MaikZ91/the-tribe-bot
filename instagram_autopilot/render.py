@@ -881,6 +881,7 @@ def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None =
 def apply_bg(spec: dict) -> None:
     """Spec-level `bg` (one path or a list) fills slides without their own."""
     pool = spec.get("bg")
+    label_ai(spec)
     if not pool and CONFIG.get("bg_pool"):
         # Accounts with "bg_pool" never show a slide without a photo: fill gaps with
         # pool images not already used in this post (deterministic per post id).
@@ -899,6 +900,14 @@ def apply_bg(spec: dict) -> None:
         if s["kind"] not in ("clip", "logo") and "bg" not in s:
             s["bg"] = pool[k % len(pool)]
             k += 1
+    label_ai(spec)
+
+
+def label_ai(spec: dict) -> None:
+    """AI style images (file name 'stil-*') always carry the label, however they got onto the slide."""
+    for s in spec["slides"]:
+        if Path(str(s.get("bg", ""))).name.startswith("stil-"):
+            s.setdefault("badge", "Stil-Inspiration · KI-generiert")
 
 
 # --------------------------------------------------------------------------
