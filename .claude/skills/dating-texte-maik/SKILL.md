@@ -5,6 +5,9 @@ description: Maiks eigene Texte und Formatvorgaben für @natuerlich.du.ms (Datin
 
 # Texte & Formate von Maik (Quelle für alle Posts)
 
+## Positionierung in einem Satz (zuerst lesen)
+Ich bin Maik, Männerfotograf in Münster. Ich mache Dating-Fotos, die so aussehen wie du im echten Leben – erst lernen wir uns kennen, dann fotografieren wir, bearbeitet mit KI noch am selben Tag, und du zahlst nur, wenn du zufrieden bist.
+
 ## Ton
 Ich-Form, ehrlich, ruhig, leicht selbstironisch. Kein Hype, keine Ausrufezeichen-Ketten. Erst das Problem benennen, das der Leser kennt („Du weißt selbst, dass das Foto nicht gut ist“), dann der Gedanke, dann das Angebot. Kurze Sätze. Du-Ansprache.
 
@@ -91,3 +94,16 @@ Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Foli
 **Was Maik nicht macht:** gestellte Posen, klassische „Fotografen-Fotos“, KI-generierte Gesichter oder Profilbilder.
 **Verkaufsargumente (Priorität):** 1) Du zahlst nur, wenn du zufrieden bist. 2) Fotos wie im echten Leben – sie sieht beim Date denselben Mann. 3) Persönlich: erst kennenlernen, dann fotografieren. 4) Noch am selben Tag fertig. 5) Münsters schönste Spots.
 **Erlaubte Aussage zum Markt:** „Matches sind auf Dating-Apps extrem ungleich verteilt.“ Keine Studienzahl.
+
+## Positionierung – Block 3 (Ton & Auftritt, 13.10.2026)
+**Absender:** einfach „Maik“ – Personal Brand, Maik persönlich; KI nur als Werkzeug (Bearbeitung). Account bleibt @natuerlich.du.ms.
+**Sprache:** so, wie Maik redet – umgänglich, locker, ehrlich, ruhig, gern auch mal verletzlich (eigene Zweifel und Frust zugeben). Alltagswörter wie „Bock haben“, „quatschen“, „mega“, „cool“ sind ok, sparsam.
+**Verboten:** „Digger“, „Bro“, „Alpha“, „Game“, Slang/Kiezdeutsch, Aufreißer- oder Pickup-Vokabular, Hype mit Ausrufezeichen-Ketten, Coach-Sprech.
+**Gesicht/Stimme:** Maik spricht NICHT selbst in Reels (kein Voiceover, keine Computerstimme). Persönliches zeigen über seine eigenen Fotos (echt-*) und Ich-Geschichten – regelmäßig einbauen.
+**CTA:** Ziel ist WhatsApp: „Schreib mir auf WhatsApp – Link in Bio.“ (Die Landingpage verlinkt direkt zu WhatsApp.) Alternativ „Kommentiere CHECK“ für den Gratis-Profil-Check.
+**Content-Säulen (Mix):**
+1. Maiks Geschichte (Frust → Boosts gekauft, nichts gebracht → Shooting mit Kumpel → es lief).
+2. Ablauf & Haltung (erst quatschen, dann Kamera; keine gestellten Posen; zahlen nur bei Zufriedenheit).
+3. Münster-Spots (Altstadt, Kanal, Hafen, Schloss, Botanischer Garten, Aasee, Promenade, Café).
+4. Profil-Tipps (Hauptfoto, Aktivität, sozial, Überraschung; echt statt KI-Gesicht).
+5. Beleg (ein Kunde: von null auf rund 10 Likes, „Die Fotos sind mega“) – sparsam, nicht in jedem Post.
