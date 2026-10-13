@@ -54,6 +54,6 @@ Schau dir die Story-Serie an, die zeigt, wie das Schritt für Schritt aussieht. 
 
 ## So baust du daraus neue Posts
 1. Einen Kernsatz als Hook (Folie 1 / Reel-Start), Problem → Gedanke → Angebot.
-2. Neue Varianten nur durch Umstellen/Kürzen von Maiks Sätzen oder klar im selben Ton – keine neuen Behauptungen (keine Kundenzahlen, Match-Quoten, Abläufe, die Maik nicht genannt hat).
+2. Maiks Texte sind Vorlagen: frei umschreiben, neu kombinieren, kürzen, neue Hooks und Blickwinkel finden – aber in SEINER Stimme (Ich-Form, ehrlich, ruhig, kurze Sätze, Problem → Gedanke → Angebot). Inhaltlich nur Fakten aus diesem Skill (keine Kundenzahlen, Match-Quoten oder Abläufe, die Maik nicht genannt hat).
 3. Formate: Karussell (4–6 Folien), Foto-Reel (15–30 s, Ken-Burns über Maiks Fotos, Musik, je Szene max. 6 Wörter, Endkarte Angebot), Mini-Doku-Reel (nur mit echten Clips).
-4. Original-Texte T1/T2 nie verändern, nur 1:1 als Caption wiederverwenden (frühestens nach 14 Tagen erneut).
+4. Keine Caption 1:1 wiederholen – jeder Post bekommt einen neu geschriebenen Text in Maiks Stimme.
