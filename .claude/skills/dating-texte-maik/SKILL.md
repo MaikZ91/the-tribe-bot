@@ -20,18 +20,19 @@ Ich-Form, ehrlich, ruhig, leicht selbstironisch. Kein Hype, keine Ausrufezeichen
 - „Alle vier hast du nach einem Shooting. Keinen davon hast du nach einem Selfie-Nachmittag.“
 - „Mehr Matches fangen mit dem ersten Bild an.“
 
-## Angebot (Stand 13.10.2026 – nur das verwenden)
-1 Stunde · 50 € · Bilder noch am selben Tag fertig bearbeitet · Münster. CTA: „Buchungslink in Bio“ / „Link in Bio“ / „Schreib mir, wenn du wissen willst, wie das bei dir aussehen würde.“ Kommentarfrage-Vorlage: „Was wäre dein liebstes Setting für ein Shooting?“
+## Angebot (Stand 13.10.2026, Maik: „50 € streichen – ab 99 € ist mein Wert“ – nur das verwenden)
+1 Stunde · ab 99 € · Bilder noch am selben Tag fertig bearbeitet · Münster. CTA: „Buchungslink in Bio“ / „Link in Bio“ / „Schreib mir, wenn du wissen willst, wie das bei dir aussehen würde.“ Kommentarfrage-Vorlage: „Was wäre dein liebstes Setting für ein Shooting?“
 
 ## Hashtag-Pool
 #DatingFotos #ProfilbildUpgrade #MehrMatches #OnlineDating #AuthentischeFotos #DatingApp #ProfilfotosDating #Münster
 
 ## Vorlage-Texte (Original)
+> Preis in den Vorlagen auf „ab 99 €“ aktualisiert (Maik, 13.10.).
 ### T1 – Selfie vs. Moment (Post D0212)
-Badezimmerspiegel, schlechtes Licht, gezwungenes Lächeln. Du weißt selbst, dass das Foto nicht gut ist. Trotzdem bleibt es auf deinem Profil, weil du nichts Besseres hast. / Das ist kein Vorwurf, das ist die Realität für die meisten, die auf Dating-Apps aktiv sind. / Der Unterschied … ist … der Moment. Beim Selfie hältst du die Luft an und hoffst. Beim Shooting läuft ein echtes Gespräch … genau dann drücke ich ab. Das Ergebnis ist ein Foto, das zeigt, wie du wirkst, wenn du entspannt bist, nicht wie du aussiehst, wenn du dich fotografierst. / Ein Shooting dauert eine Stunde, kostet 50 Euro, und die Bilder sind noch am selben Tag fertig bearbeitet. Mehr Matches fangen mit dem ersten Bild an. / Buchung direkt über den Link.
+Badezimmerspiegel, schlechtes Licht, gezwungenes Lächeln. Du weißt selbst, dass das Foto nicht gut ist. Trotzdem bleibt es auf deinem Profil, weil du nichts Besseres hast. / Das ist kein Vorwurf, das ist die Realität für die meisten, die auf Dating-Apps aktiv sind. / Der Unterschied … ist … der Moment. Beim Selfie hältst du die Luft an und hoffst. Beim Shooting läuft ein echtes Gespräch … genau dann drücke ich ab. Das Ergebnis ist ein Foto, das zeigt, wie du wirkst, wenn du entspannt bist, nicht wie du aussiehst, wenn du dich fotografierst. / Ein Shooting dauert eine Stunde, kostet ab 99 Euro, und die Bilder sind noch am selben Tag fertig bearbeitet. Mehr Matches fangen mit dem ersten Bild an. / Buchung direkt über den Link.
 
 ### T2 – Wer posiert (Post D0213)
-Jeder, der posiert, sieht aus wie jemand, der posiert. / Das klingt banal. Aber schau dir mal deine letzten Profilfotos an. Du siehst drauf aus, als würdest du auf ein Foto warten. Dieser Moment, kurz bevor der Auslöser klickt … Den sieht man. / … nicht die Beleuchtung, nicht der Hintergrund, sondern die Anspannung. / Wenn du redest, passiert etwas anderes. Ein echter Gedanke huscht über dein Gesicht. Du lachst, weil etwas tatsächlich lustig war. Du schaust weg, weil du nachdenkst. … / Deshalb ist mein Shooting kein Shooting im klassischen Sinne. … Wir reden einfach, ich fotografiere dabei. Fertig bearbeitet noch am selben Tag, für 50 Euro die Stunde. / Fotos, die zeigen, wer du wirklich bist … / Schreib mir, wenn du wissen willst, wie das bei dir aussehen würde.
+Jeder, der posiert, sieht aus wie jemand, der posiert. / Das klingt banal. Aber schau dir mal deine letzten Profilfotos an. Du siehst drauf aus, als würdest du auf ein Foto warten. Dieser Moment, kurz bevor der Auslöser klickt … Den sieht man. / … nicht die Beleuchtung, nicht der Hintergrund, sondern die Anspannung. / Wenn du redest, passiert etwas anderes. Ein echter Gedanke huscht über dein Gesicht. Du lachst, weil etwas tatsächlich lustig war. Du schaust weg, weil du nachdenkst. … / Deshalb ist mein Shooting kein Shooting im klassischen Sinne. … Wir reden einfach, ich fotografiere dabei. Fertig bearbeitet noch am selben Tag, ab 99 Euro. / Fotos, die zeigen, wer du wirklich bist … / Schreib mir, wenn du wissen willst, wie das bei dir aussehen würde.
 
 ### F1 – Mini-Doku-Reel (Skill dating-reel-minidoku)
 45–60 s, echte Schnitte: Ankunft, erstes Gespräch, Lachen über etwas Zufälliges, Klick der Kamera, fertiges Bild. Nur Musik. Titel-Card „Das ist kein Fotoshooting. Das ist ein Gespräch mit Kamera.“ CTA Link in Bio. Caption-Frage „Was wäre dein liebstes Setting für ein Shooting?“ → braucht echte Clips; bis dahin Foto-Reel-Variante (D0215).
@@ -46,7 +47,7 @@ Du kommst an, wir reden. Über irgendwas. Deinen Job, deinen letzten Urlaub, was
 
 Kein "Stell dich mal so hin", kein "Lächel jetzt". Nichts davon.
 
-Danach: KI-Bearbeitung, fertig noch am selben Tag. Für 50 Euro die Stunde bekommst du Fotos, die zeigen, wer du wirklich bist. Nicht eine polierte Version davon.
+Danach: KI-Bearbeitung, fertig noch am selben Tag. Ab 99 Euro bekommst du Fotos, die zeigen, wer du wirklich bist. Nicht eine polierte Version davon.
 
 #BehindTheScenes #DatingFotos #Authentizität #OnlineDating #Singlelife
 

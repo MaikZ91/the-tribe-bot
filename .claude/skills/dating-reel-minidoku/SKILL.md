@@ -19,7 +19,7 @@ description: Mini-Doku-Reel (45–60 s) für @natuerlich.du.ms – Shooting-Abla
 | 4 | Der Klick der Kamera (Nahaufnahme Auslöser) | 3–5 s | `footage/dating/04-klick*.mp4` |
 | 5 | Das fertige Bild (Foto aus diesem Shooting, kurzer Zoom) | 5–7 s | `images/dating/kunde-*.jpg` |
 | 6 | Titel-Card: „Das ist kein Fotoshooting. Das ist ein Gespräch mit Kamera.“ | 4–5 s | Text auf dunklem Grund |
-| 7 | CTA: „Link in Bio“ (+ 1 Stunde · 50 € · noch am selben Tag fertig) | 3–4 s | Logo-/CTA-Karte |
+| 7 | CTA: „Link in Bio“ (+ 1 Stunde · ab 99 € · noch am selben Tag fertig) | 3–4 s | Logo-/CTA-Karte |
 
 ## Caption
 Kurz, Ich-Form, Maiks Ton. Endet IMMER mit der Kommentarfrage:
