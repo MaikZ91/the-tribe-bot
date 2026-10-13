@@ -62,3 +62,18 @@ Schau dir die Story-Serie an, die zeigt, wie das Schritt für Schritt aussieht. 
 
 ## Niemanden markieren (Pflicht)
 Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Folien, keine Foto-Credits mit @, keine User-Tags, keine Collab-Einladungen. Auch nicht bei Fotos von Freunden. `config.json` hat dafür `no_mentions: true` – der Autopilot entfernt @-Zeilen und Tags zusätzlich automatisch.
+
+## Positionierung & Geschichte (Interview mit Maik, 13.10.2026 – Block 1)
+**Wer:** Maik – Männerfotograf in Münster, spezialisiert auf Dating-Fotos. Personal Brand: Maik persönlich, KI nur als Werkzeug in der Bildbearbeitung. KEIN Dating-Coach (nie so nennen).
+**Für wen:** Singlemänner ca. 25–35+, oft schon länger Single, haben es mit eigenen Fotos versucht, es kommen kaum Matches. Wünschen sich eine Partnerschaft.
+**Problem (nicht zu psychologisch erzählen):** Wenige Matches drücken auf den Selbstwert. Man denkt, es liegt an einem selbst – oft liegt es an den Fotos.
+**Maiks Geschichte:** Hat Online-Dating selbst intensiv ausprobiert, auch hier in Münster. Mit eigenen Fotos lief wenig. Dann hat ein Kumpel ein Shooting mit ihm gemacht – mit den neuen Fotos ging es von null auf ein paar Matches. (Nicht erwähnen: Ansprechen auf der Straße.)
+**Warum ihm das wichtig ist:** Er findet es unfair, wie ungleich Matches auf Dating-Apps verteilt sind – viele Männer bekommen kaum welche, und das macht etwas mit dem Selbstwert. (Keine Studienzahl nennen, solange keine geprüfte Quelle vorliegt.)
+**Werte:**
+- Persönlich: vorher kennenlernen, herausfinden, welcher Stil zu dir passt und was dir wichtig ist. Das Gespräch steht im Vordergrund, nicht die Kamera.
+- Authentisch / wie im echten Leben: Fotos zeigen dich so, wie dich eine Frau beim Date erlebt. Maik hat KI-Profilbilder selbst ausprobiert – sie wirken nicht, weil beim Treffen ein anderer Mensch vor ihr steht. Deshalb: keine KI-generierten Profilfotos.
+- Natürlich / nicht gestellt.
+- Schnell: KI nur zur Bildbearbeitung → Bilder noch am selben Tag fertig.
+- Fair: Bezahlt wird erst, wenn der Kunde mit dem Ergebnis zufrieden ist.
+**Belege (nur so verwenden, nichts aufblähen):** Mehrere Shootings, die Kunden waren bisher zufrieden; der letzte Kunde war sehr zufrieden. Ein Kunde: von 0 auf etwa 10 Matches pro Woche (Maik bestätigt noch, ob diese Zahl so zitiert werden darf – bis dahin nicht als Zahl verwenden). Keine weiteren Zahlen, Kundenanzahlen oder Erfolgsquoten erfinden oder hochrechnen.
+**Abgrenzung:** Persönlicher Kontakt und echtes Gespräch statt Posing-Anweisungen, Ergebnis wie im echten Leben statt KI-Hochglanz, schnell dank KI-Bearbeitung, Bezahlung erst bei Zufriedenheit.
