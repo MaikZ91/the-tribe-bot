@@ -24,6 +24,7 @@ import csv
 import json
 import subprocess
 import os
+import re
 import shutil
 import sys
 import time
@@ -325,12 +326,25 @@ def wait_container(cid: str, minutes: int = 12) -> None:
 
 def tags_for(spec: dict) -> list:
     """IG usernames to tag (no acceptance needed); spec overrides config."""
+    if CONFIG.get("no_mentions"):
+        return []
     t = spec.get("tag_users", CONFIG.get("tag_users") or [])
     return [u.lstrip("@") for u in t][:20]
 
 
+def strip_mentions(text: str) -> str:
+    """Drop every line that @-mentions another account (no_mentions: nobody gets tagged)."""
+    own = {a.lower() for a in CONFIG.get("account", [])}
+    keep = [l for l in text.splitlines()
+            if not any(m.lower() not in own for m in re.findall(r"@([\w.]+)", l))]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(keep)).strip()
+
+
 def caption_for(spec: dict) -> str:
-    parts = [spec["caption"].strip(), "", CONFIG["caption_footer"]]
+    cap = spec["caption"].strip()
+    if CONFIG.get("no_mentions"):
+        cap = strip_mentions(cap)
+    parts = [cap, "", CONFIG["caption_footer"]]
     if tags_for(spec):
         parts += ["📸 " + " ".join("@" + u for u in tags_for(spec))]
     if spec.get("hashtags"):
@@ -364,6 +378,8 @@ def cmd_publish(post_id: str) -> None:
     trial = None
     # Collab partners (max. 3 IG usernames): invited as co-authors, the post shows up on their profile once accepted
     collabs = [c.lstrip("@") for c in (spec.get("collaborators") or CONFIG.get("collaborators") or [])][:3]
+    if CONFIG.get("no_mentions"):
+        collabs = []
 
     tags = tags_for(spec)
 

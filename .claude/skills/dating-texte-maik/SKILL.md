@@ -59,3 +59,6 @@ Schau dir die Story-Serie an, die zeigt, wie das Schritt für Schritt aussieht. 
 3. Formate: Karussell (4–6 Folien), Foto-Reel (15–30 s, Ken-Burns über Maiks Fotos, Musik, je Szene max. 6 Wörter, Endkarte Angebot), Mini-Doku-Reel (nur mit echten Clips).
 4. JEDE Folie bekommt ein Bild ("bg"), auch Text-/Listen- und CTA-Folien – passend zur Aussage (z. B. „Kopf leicht nach links“ → Profilfoto). Keine reinen Textfolien. Der Renderer füllt fehlende Bilder notfalls automatisch aus images/dating/ (ohne bg_exclude), aber gezielt gewählte Bilder sind Pflicht.
 5. Keine Caption 1:1 wiederholen – jeder Post bekommt einen neu geschriebenen Text in Maiks Stimme.
+
+## Niemanden markieren (Pflicht)
+Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Folien, keine Foto-Credits mit @, keine User-Tags, keine Collab-Einladungen. Auch nicht bei Fotos von Freunden. `config.json` hat dafür `no_mentions: true` – der Autopilot entfernt @-Zeilen und Tags zusätzlich automatisch.

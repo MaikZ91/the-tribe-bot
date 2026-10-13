@@ -1,6 +1,8 @@
 > **13.10.2026: Account umbenannt in @natuerlich.du.ms (Maik). Gastro-Mix pausiert.**
 > **Ab 14.10.: Dating-Fotos Münster.** 1 Post/Tag (Start 19:00, Uhrzeit ist Test-Variable). Bilder nur aus images/dating/ (von Maik). KI-Bilder immer mit badge „Stil-Inspiration · KI-generiert“ und Hinweis in der Caption; nie als echtes Shooting-Ergebnis ausgeben. Fremde/Stock-Bilder nie. CTA: gratis Profil-Check (Kommentiere CHECK). Keine erfundenen Kunden, Matches oder Vorher/Nachher.
 
+> **Niemanden markieren:** keine @-Erwähnungen, Foto-Credits, User-Tags oder Collabs auf @natuerlich.du.ms (Maiks Ansage 13.10.).
+
 > Konto heißt seit 09.10.2026 **@flow.media.ai** (vorher @ki.fuer.dein.business).
 
 # Creative Director – täglich, datengetrieben, on demand
