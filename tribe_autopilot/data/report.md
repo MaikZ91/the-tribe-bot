@@ -10,14 +10,14 @@ Follower: **1289** · Beiträge: 34
 | T17-samstag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 221 | 505 | 5 | 1 | 0 | 0 | – | 525.0 |
 | T18-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | anlass | 213 | 484 | 7 | 0 | 0 | 0 | – | 505.0 |
 | T20-montag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 143 | 307 | 0 | 0 | 0 | 0 | – | 307.0 |
-| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
+| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 0 | 7 | 0 | 0 | 0 | 0 | – | 7.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | sonstiges | 872.7 | 885.5 | 0.62 | 2 | – |
-| neu-in-bielefeld | 498.2 | 480.4 | 0.00 | 5 | – |
+| neu-in-bielefeld | 499.6 | 481.8 | 0.00 | 5 | – |
 
 **Stärkster Pain:** sonstiges  
 **Nächstes Tool bauen für:** neu-in-bielefeld  
@@ -33,14 +33,14 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
 - images/rooftop-vier.jpg: 966.5 (n=3)
-- images/dinner-restaurant.jpg: 724.9 (n=4)
-- images/party-selfie-2.jpg: 724.9 (n=4)
-- images/party-selfie-1.jpg: 587.1 (n=3)
-- images/rooftop-gruppe.jpg: 581.8 (n=3)
+- images/dinner-restaurant.jpg: 726.6 (n=4)
+- images/party-selfie-2.jpg: 726.6 (n=4)
+- images/party-selfie-1.jpg: 589.5 (n=3)
+- images/rooftop-gruppe.jpg: 584.1 (n=3)
 - images/dinner-gruppe-bar.jpg: 525.0 (n=1)
 - images/cafe-tisch-gruppe.jpg: 505.0 (n=1)
-- images/kneipe-selfie-gruppe.jpg: 153.5 (n=2)
-- images/wandern-gruppe-ausblick.jpg: 0.0 (n=1)
+- images/kneipe-selfie-gruppe.jpg: 157.0 (n=2)
+- images/wandern-gruppe-ausblick.jpg: 7.0 (n=1)
 
 ## Konto (heute)
 
@@ -54,26 +54,26 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 605.20 (n=7)
+- None: 606.20 (n=7)
 
 ## Ø Interesse nach format
 
 - list-carousel: 1138.00 (n=1)
 - event-carousel: 622.75 (n=4)
 - viral-beat: 607.40 (n=1)
-- event-reel: 0.00 (n=1)
+- event-reel: 7.00 (n=1)
 
 ## Ø Interesse nach hook_style
 
 - neu-in-stadt: 1154.00 (n=1)
 - so-gehts: 1138.00 (n=1)
 - frage: 607.40 (n=1)
-- anlass: 334.25 (n=4)
+- anlass: 336.00 (n=4)
 
 ## Ø Interesse nach pain
 
 - None: 872.70 (n=2)
-- neu-in-bielefeld: 498.20 (n=5)
+- neu-in-bielefeld: 499.60 (n=5)
 
 ## Ø Interesse nach local_time
 
@@ -83,11 +83,11 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 17:41: 525.00 (n=1)
 - 17:39: 505.00 (n=1)
 - 17:38: 307.00 (n=1)
-- 18:21: 0.00 (n=1)
+- 18:21: 7.00 (n=1)
 
 ## Ø Interesse nach music
 
 - bed: 1146.00 (n=2)
 - beat: 607.40 (n=1)
 - mood:tribe: 445.67 (n=3)
-- track:take-this-higher.mp3: 0.00 (n=1)
+- track:take-this-higher.mp3: 7.00 (n=1)
