@@ -193,3 +193,6 @@
 - Karussells bekommen als einzige Kommentare (M06: 2, 022: 1).
 - Test heute: Serie „Uhrzeit-Szene“ (Reel + Karussell) vs. Zahl-Frage-Hook „60 € pro Stunde“. Variable: Hook-Typ.
 
+
+## Tribe – CD 13.10. (16:48)
+- Karussell-Reichweite fällt (T17 217 → T18 209 → T20 131), Reel T01 hatte 473 → heute T21 als Foto-Reel mit Musik (take-this-higher, pop/party). Test-Variable: medium. Kinoslot ersetzt (events.json: Verity nur 14 Uhr) durch Helena Barop 19 Uhr Nr.z.P.
