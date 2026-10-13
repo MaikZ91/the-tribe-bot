@@ -196,3 +196,6 @@
 
 ## Tribe – CD 13.10. (16:48)
 - Karussell-Reichweite fällt (T17 217 → T18 209 → T20 131), Reel T01 hatte 473 → heute T21 als Foto-Reel mit Musik (take-this-higher, pop/party). Test-Variable: medium. Kinoslot ersetzt (events.json: Verity nur 14 Uhr) durch Helena Barop 19 Uhr Nr.z.P.
+
+## Dating – CD 13.10. (18:48)
+- Keine Post-Metriken (AI-Token ohne instagram_manage_insights), Follower flach bei 57. Regel < 7 Tage: Formatwechsel → nach Reel D0305 jetzt Karussell D0306 „Wer posiert“ (T2 umgeschrieben). Test-Variable: Bildquelle (erstmals echt + KI-Stil gemischt, 2 von 6 Folien KI, gelabelt). CTA „Kommentiere CHECK“.
