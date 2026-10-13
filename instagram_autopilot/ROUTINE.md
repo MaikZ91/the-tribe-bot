@@ -1,3 +1,5 @@
+> **13.10.2026: Account umbenannt in @natuerlich.du.ms (Maik). Gastro-Mix pausiert – Inhalte liefert Maik, nichts Eigenes bauen, bis neue Ausrichtung steht.**
+
 > Konto heißt seit 09.10.2026 **@flow.media.ai** (vorher @ki.fuer.dein.business).
 
 # Creative Director – täglich, datengetrieben, on demand
