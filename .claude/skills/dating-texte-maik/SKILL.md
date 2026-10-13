@@ -39,6 +39,23 @@ Jeder, der posiert, sieht aus wie jemand, der posiert. / Das klingt banal. Aber 
 ### F2 – Karussell „Die 4 Fotos“ (Post D0214)
 S1 „Ein Profilbild reicht nicht. Hier sind die 4, die zusammen wirken.“ · S2 Hauptfoto – klares Gesicht, natürlicher Ausdruck · S3 Aktivitätsfoto – du bei etwas, das du magst · S4 Soziales Foto – du mit anderen · S5 Überraschungsfoto – etwas Unerwartetes, das Gesprächsstoff gibt. Caption „Alle vier hast du nach einem Shooting. Keinen davon hast du nach einem Selfie-Nachmittag.“ CTA Buchungslink in Bio.
 
+### T3 – So läuft ein Shooting wirklich (Post D0216, 13.10.)
+Ich zeige dir, wie ein Shooting bei mir wirklich abläuft. / Du kommst an, wir reden. Über irgendwas. Deinen Job, deinen letzten Urlaub, was auch immer. Irgendwann vergisst du, dass die Kamera da ist. Genau das ist der Moment, den ich suche, weil dieser Ausdruck, den du gerade im Gespräch hast, der ist es, der auf Dating-Apps funktioniert. Nicht das aufgesetzte Lächeln vor weißem Hintergrund. / Kein „Stell dich mal so hin“, kein „Lächel jetzt“. Nichts davon. / Danach: KI-Bearbeitung, fertig noch am selben Tag. Für 50 Euro die Stunde bekommst du Fotos, die zeigen, wer du wirklich bist. Nicht eine polierte Version davon. / Hashtags: #BehindTheScenes #DatingFotos #Authentizität #OnlineDating #Singlelife / (Original-Schluss „Schau dir die Story-Serie an …“ erst verwenden, wenn die Story-Serie existiert.)
+Neue Fakten: Gesprächsthemen Job/Urlaub; Bearbeitung mit KI-Unterstützung (offen so benennen).
+
+### T3 – So läuft ein Shooting wirklich (Original, 13.10.)
+Ich zeige dir, wie ein Shooting bei mir wirklich abläuft.
+
+Du kommst an, wir reden. Über irgendwas. Deinen Job, deinen letzten Urlaub, was auch immer. Irgendwann vergisst du, dass die Kamera da ist. Genau das ist der Moment, den ich suche, weil dieser Ausdruck, den du gerade im Gespräch hast, der ist es, der auf Dating-Apps funktioniert. Nicht das aufgesetzte Lächeln vor weißem Hintergrund.
+
+Kein "Stell dich mal so hin", kein "Lächel jetzt". Nichts davon.
+
+Danach: KI-Bearbeitung, fertig noch am selben Tag. Für 50 Euro die Stunde bekommst du Fotos, die zeigen, wer du wirklich bist. Nicht eine polierte Version davon.
+
+#BehindTheScenes #DatingFotos #Authentizität #OnlineDating #Singlelife
+
+Schau dir die Story-Serie an, die zeigt, wie das Schritt für Schritt aussieht. Link in Bio.
+
 ## So baust du daraus neue Posts
 1. Einen Kernsatz als Hook (Folie 1 / Reel-Start), Problem → Gedanke → Angebot.
 2. Neue Varianten nur durch Umstellen/Kürzen von Maiks Sätzen oder klar im selben Ton – keine neuen Behauptungen (keine Kundenzahlen, Match-Quoten, Abläufe, die Maik nicht genannt hat).
