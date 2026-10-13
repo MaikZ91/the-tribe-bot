@@ -867,6 +867,13 @@ def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None =
         p = 0.35 * (1 - ease(t / 0.25)) + 0.6 * p
     img = canvas.base(t, page, bg, p)
     RENDERERS[s["kind"]](img, s, t, dur, canvas.h)
+    if s.get("badge"):          # small corner note, e.g. "KI-generiert"
+        d = ImageDraw.Draw(img)
+        fb = font("Medium", 30)
+        tw = d.textlength(s["badge"], font=fb)
+        y0 = canvas.h - 70
+        d.rounded_rectangle([MARGIN_X - 14, y0 - 8, MARGIN_X + tw + 14, y0 + 40], 20, fill=(0, 0, 0))
+        d.text((MARGIN_X, y0), s["badge"], font=fb, fill=(230, 230, 230))
     use_theme(False)
     return img
 
