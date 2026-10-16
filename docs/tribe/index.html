@@ -148,6 +148,23 @@ h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margi
 .inst[hidden]{display:none}.inst div{flex:1;min-width:0}.inst b{display:block;font-weight:600;font-size:14px}.inst span{font-size:12px;color:var(--fog)}
 .inst .btn{padding:10px 14px;font-size:13px}.ix{font-size:22px;color:var(--fog);width:28px}
 .steps{padding-left:20px;line-height:1.6;color:var(--cream);font-size:15px}.steps li{padding:6px 0}.kb{display:inline-block;border:1px solid var(--line2);border-radius:6px;padding:0 6px;margin-left:4px}
+.ask{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;padding:7px 12px 7px 10px;border-radius:99px;border:1px solid rgba(217,160,102,.45);color:var(--amb)}
+.ask svg{width:16px;height:16px}
+.chatpn{height:88dvh;display:flex;flex-direction:column;padding:0!important}
+.chd{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 12px 20px;border-bottom:1px solid var(--line)}
+.chd b{display:block;font-weight:600}.chd span{font-size:12px;color:var(--fog)}
+.msgs{flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:86%;padding:10px 14px;border-radius:16px;font-size:15px;line-height:1.45}
+.m.u{align-self:flex-end;background:var(--cream);color:var(--ink);border-bottom-right-radius:4px}
+.m.b{align-self:flex-start;background:var(--ink3);border-bottom-left-radius:4px}
+.m.b a{text-decoration:underline}
+.mev{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
+.mev:first-of-type{margin-top:8px}.mev img,.mev .ph{width:44px;height:44px;border-radius:4px;object-fit:cover;flex:0 0 44px}
+.mev small{display:block;color:var(--amb);font-size:11px}.mev span{font-size:14px;font-weight:500}
+.sugg{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}.sugg button{flex:0 0 auto;font-size:13px;padding:7px 12px;border:1px solid var(--line2);border-radius:99px;color:var(--dim)}
+.cin{display:flex;gap:8px;padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.cin input{flex:1;background:var(--ink3);border:1px solid var(--line2);border-radius:99px;padding:12px 16px;color:var(--cream);font:inherit;font-size:16px;outline:none}
+.cin .btn{width:46px;padding:0;font-size:18px}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -156,8 +173,8 @@ footer a{text-decoration:underline}
 </head>
 <body>
 <header id="hdr"><div class="wrap">
-  <div class="top"><div class="logo">THE TRIBE<span>.</span></div><div class="city">Bielefeld</div></div>
-  <div class="hero-t" id="heroT"><h1>Was geht<br>in Bielefeld.</h1><p>Partys, Konzerte, Bars – und Leute, die mitkommen.</p></div>
+  <div class="top"><div class="logo">THE TRIBE<span>.</span></div><button class="ask" id="askBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>Frag THE TRIBE</button></div>
+  <div id="heroT"></div>
   <div id="filters">
     <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Club, Bar, Konzert, Künstler …" autocomplete="off"></div>
     <div class="days" id="days"></div>
@@ -247,6 +264,12 @@ footer a{text-decoration:underline}
 <ol class="steps"><li>Unten in Safari auf <b>Teilen</b> tippen <span class="kb">&#x2191;&#xFE0E;</span></li><li>Runterscrollen: <b>„Zum Home-Bildschirm“</b></li><li>Oben rechts <b>„Hinzufügen“</b> – fertig.</li></ol>
 <p class="note">Funktioniert nur in Safari. Bist du in Instagram oder Chrome, öffne den Link zuerst in Safari.</p>
 <button class="btn or full" id="iosOk" style="margin-top:16px">Verstanden</button></div></div></div>
+<div class="sheet" id="chat"><div class="bg"></div><div class="pn chatpn">
+<div class="chd"><div><b>Frag THE TRIBE</b><span>Dein Ausgeh-Assistent für Bielefeld</span></div><button class="x" id="chatX" style="position:static"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<div class="msgs" id="msgs"></div>
+<div class="sugg" id="sugg"><button>Wo kann ich heute tanzen?</button><button>Konzerte am Wochenende</button><button>Bar heute Abend</button><button>Ich will nicht allein hin</button></div>
+<form class="cin" id="chatForm"><input id="chatIn" placeholder="z. B. Techno morgen, Comedy Freitag …" autocomplete="off"><button class="btn or" type="submit">↑</button></form>
+</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -397,6 +420,34 @@ load();
   addEventListener('appinstalled',()=>{$('#inst').hidden=true});
   if(location.hash==='#installieren')setTimeout(()=>{show();ios&&$('#iosSheet').classList.add('open')},600);
 })();
+
+// --- Chat assistant (local, answers only from real event data) ---
+const DAYW={sonntag:0,montag:1,dienstag:2,mittwoch:3,donnerstag:4,freitag:5,samstag:6};
+const CATW=[['party',/tanz|party|club|techno|house|feiern|disco|hip ?hop|elektro|rave/],['musik',/konzert|live|band|musik|jazz|rock|gig/],['ausgehen',/bar|bier|drink|kneipe|cocktail|wein|quiz|karaoke/],['comedy',/comedy|lachen|stand.?up|kabarett/],['kino',/kino|film/],['kultur',/theater|kultur|lesung|poetry|slam|ausstellung|bühne/]];
+const STOP=new Set('wo was wann wie kann ich heute morgen abend am im in der die das ein eine einen gibt es geht was ist mit und oder für zum zur nach mal bitte noch so auf bock lust will möchte gehen hin irgendwas etwas bielefeld wochenende wochenend tanzen'.split(' '));
+function addMsg(html,who){const d=document.createElement('div');d.className='m '+who;d.innerHTML=html;$('#msgs').appendChild(d);$('#msgs').scrollTop=1e9}
+function answer(q){const t=q.toLowerCase(),t0=today0();let from=t0,to=t0,label='heute';
+  if(/morgen/.test(t)){from=to=addDays(t0,1);label='morgen'}
+  else if(/wochenend/.test(t)){const d=t0.getDay();from=d===0?t0:addDays(t0,(5-d+7)%7);if(d===6)from=t0;to=d===0?t0:addDays(t0,(7-d)%7);label='am Wochenende'}
+  else if(/woche|bald|demnächst/.test(t)){to=addDays(t0,7);label='in den nächsten 7 Tagen'}
+  else{for(const k in DAYW)if(t.includes(k)){const n=(DAYW[k]-t0.getDay()+7)%7;from=to=addDays(t0,n);label='am '+k[0].toUpperCase()+k.slice(1);break}}
+  if(/allein|leute|anschluss|niemand|kennenlernen|mitkommen|community/.test(t))return`Musst du nicht! In der THE TRIBE Community findest du jeden Tag Leute, die mitkommen – kostenlos, ohne Anmeldung.<br><br><a href="${WA_COMMUNITY}" target="_blank" rel="noopener">Community auf WhatsApp beitreten</a> oder unten bei <b>Spontan</b> posten, wo du gerade bist.`;
+  if(/veranstalter|listen|eintragen|werbung|mein event/.test(t))return`Super! Unter <b>Veranstalter</b> kannst du dein Event listen – ab 19 €. <a href="#veranstalter" onclick="closeChat();document.querySelector('nav [data-v=host]').click()">Zu den Paketen</a>`;
+  const cat=(CATW.find(c=>c[1].test(t))||[])[0];
+  const words=t.replace(/[^a-zäöüß0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!STOP.has(w)&&!DAYW[w]&&!CATW.some(c=>c[1].test(w)));
+  const k0=dayKey(from),k1=to;let L=ALL.filter(e=>e.date&&e.date>=from&&e.date<=addDays(to,0)&&!e.minor);
+  if(cat)L=L.filter(e=>e.cat===cat);
+  if(words.length){const W=L.filter(e=>words.some(w=>(e.title+' '+e.venue+' '+e.desc).toLowerCase().includes(w)));if(W.length||!cat)L=W}
+  L.sort((a,b)=>a.date-b.date||b.score-a.score).splice(6);
+  if(!L.length)return`Dazu habe ich ${label} leider nichts gefunden. Probier's mit „Party morgen“ oder „Konzerte am Wochenende“ – oder frag in der <a href="${WA_COMMUNITY}" target="_blank" rel="noopener">Community</a>, was geht.`;
+  return`${label[0].toUpperCase()+label.slice(1)} ${L.length===1?'hab ich das hier':'hab ich das hier für dich'}:`+L.map(e=>`<div class="mev" data-id="${esc(e.id)}">${bigimg(e,40)}<div><small>${fmtDay(e.date)}${e.time?' · '+esc(e.time):''}</small><span>${esc(e.title)}</span></div></div>`).join('')}
+function openChat(){$('#chat').classList.add('open');if(!$('#msgs').children.length)addMsg('Hey! Sag mir, worauf du Bock hast – ich such dir die passenden Events raus. Zum Beispiel „Wo kann ich heute tanzen?“','b');setTimeout(()=>$('#chatIn').focus(),300)}
+function closeChat(){$('#chat').classList.remove('open')}
+function ask(q){if(!q.trim())return;addMsg(esc(q),'u');setTimeout(()=>addMsg(answer(q),'b'),350)}
+$('#askBtn').onclick=openChat;$('#chatX').onclick=closeChat;$('#chat .bg').onclick=closeChat;
+$('#chatForm').onsubmit=e=>{e.preventDefault();ask($('#chatIn').value);$('#chatIn').value=''};
+$('#sugg').onclick=e=>{const b=e.target.closest('button');if(b)ask(b.textContent)};
+$('#msgs').addEventListener('click',e=>{const c=e.target.closest('.mev');if(c){e.stopPropagation();closeChat();open(c.dataset.id)}});
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
