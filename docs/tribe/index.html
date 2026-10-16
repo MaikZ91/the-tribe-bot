@@ -165,6 +165,49 @@ h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margi
 .cin{display:flex;gap:8px;padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
 .cin input{flex:1;background:var(--ink3);border:1px solid var(--line2);border-radius:99px;padding:12px 16px;color:var(--cream);font:inherit;font-size:16px;outline:none}
 .cin .btn{width:46px;padding:0;font-size:18px}
+/* stories */
+.stories{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;margin:6px -20px 0;padding:6px 20px 4px}
+.stories::-webkit-scrollbar{display:none}
+.sb{flex:0 0 auto;width:68px;text-align:center;cursor:pointer}
+.sb .ring{width:68px;height:68px;border-radius:50%;padding:2.5px;background:conic-gradient(from 200deg,#F5C98F,#D9A066,#8A5A30,#F5C98F)}
+.sb .ring>div{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid var(--ink);background:var(--ink3)}
+.sb img,.sb .ph{width:100%;height:100%;object-fit:cover}
+.sb.seen .ring{background:var(--ink4)}
+.sb small{display:block;font-size:11px;color:var(--dim);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb.rnd .ring>div{display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--amb);background:var(--ink2)}
+.story{position:fixed;inset:0;z-index:70;background:#000;display:none}
+.story.open{display:block}
+.simg{position:absolute;inset:0}.simg img,.simg .ph{width:100%;height:100%;object-fit:cover}
+.simg:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),transparent 22%,transparent 45%,rgba(0,0,0,.92))}
+.sbars{position:absolute;top:calc(10px + env(safe-area-inset-top));left:10px;right:10px;display:flex;gap:4px;z-index:3}
+.sbars i{flex:1;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden}.sbars i b{display:block;height:100%;width:0;background:#fff}
+.sbars i.done b{width:100%}.sbars i.cur b{animation:sp 6s linear forwards}
+@keyframes sp{to{width:100%}}
+.shd{position:absolute;top:calc(22px + env(safe-area-inset-top));left:16px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:3;font-size:14px}
+.shd button{width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.snav{position:absolute;inset:0;display:flex;z-index:2}.snav i{flex:1}
+.sbody{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:20px 20px calc(24px + env(safe-area-inset-bottom))}
+.sbody .when{font-size:13px;color:var(--amb2,#F5C98F);letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.sbody h3{font-size:34px;line-height:1;letter-spacing:-.03em;margin:8px 0 6px;font-weight:600}
+.sbody p{color:rgba(255,255,255,.75);margin:0 0 18px;font-size:14px}
+.sbody .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sbody .btn{padding:12px 8px;font-size:13px}.sbody .btn.gh{background:rgba(0,0,0,.35);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.25)}
+/* timetable */
+.pulse{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 4px}
+.pulse b{font-weight:600;font-size:22px;letter-spacing:-.02em}.pulse span{font-size:12px;color:var(--fog)}
+.slot{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog);margin:22px 0 2px;display:flex;align-items:center;gap:8px}
+.slot.live{color:var(--amb)}.slot.live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amb);animation:pl 1.6s infinite}
+@keyframes pl{50%{opacity:.3;transform:scale(.7)}}
+.ev{gap:14px;padding:13px 0}
+.ev .tc{flex:0 0 48px;font-weight:600;font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.ev .tc small{display:block;font-weight:400;font-size:10px;color:var(--amb);letter-spacing:.04em;margin-top:3px}
+.ev .th{order:3;flex:0 0 52px;height:52px;border-radius:50%}
+.ev .b{padding-right:0!important}
+.ev .tm{color:var(--fog);font-size:10.5px;letter-spacing:.16em}
+.ev .nm{font-size:15.5px;-webkit-line-clamp:2;margin:2px 0}
+.ev .acts{order:4;display:flex;flex-direction:column;gap:2px}
+.ev .acts button{position:static;transform:none;width:30px;height:30px}
+.shr,.fav{position:static!important;transform:none!important}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -184,15 +227,15 @@ footer a{text-decoration:underline}
 
 <main class="wrap">
   <section class="view on" id="v-events">
-    <div id="hlWrap"><h2>Top <em id="hlLabel">heute</em><span class="k">Kuratiert</span></h2><div class="hl" id="hl"></div></div>
+    <div id="hlWrap"><div class="stories" id="hl"></div></div>
+    <div class="pulse" id="pulse"></div>
+    <div class="list" id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    <button class="more" id="moreBtn" hidden>Mehr anzeigen</button>
     <div class="cta">
       <span class="badge g">WhatsApp-Community</span><h3>Geh nicht <em>allein.</em></h3>
       <p>In der kostenlosen WhatsApp-Community findest du Leute, die mitkommen – jeden Tag, ohne Anmeldung.</p>
       <a class="btn wa full" id="waJoin" target="_blank" rel="noopener">Community beitreten</a>
     </div>
-    <h2 id="listTitle">Alle Events</h2>
-    <div class="list" id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
-    <button class="more" id="moreBtn" hidden>Mehr anzeigen</button>
   </section>
 
   <section class="view" id="v-favs">
@@ -226,7 +269,7 @@ footer a{text-decoration:underline}
       <div class="plan best">
         <span class="badge">Beliebt</span>
         <h3>Highlight</h3><div class="p">49 € <small>/ Event</small></div>
-        <ul><li>Alles aus Event-Listing</li><li>Platz in „Top heute“ am Event-Tag</li><li>Hervorgehoben in der Liste</li><li>Erwähnung in der Instagram-Story von @the_tribe.bi.ms</li></ul>
+        <ul><li>Alles aus Event-Listing</li><li>Platz in den Highlight-Stories ganz oben am Event-Tag</li><li>Hervorgehoben in der Liste</li><li>Erwähnung in der Instagram-Story von @the_tribe.bi.ms</li></ul>
         <button class="btn or full" data-plan="Highlight (49 €)">Auswählen</button>
       </div>
       <div class="plan">
@@ -235,6 +278,7 @@ footer a{text-decoration:underline}
         <button class="btn gh full" data-plan="Partner (99 €/Monat)">Auswählen</button>
       </div>
     </div>
+
     <form id="hostForm">
       <h2 style="font-size:22px">Event <em>einreichen</em></h2>
       <label>Paket</label><select id="fPlan"><option>Event-Listing (19 €)</option><option>Highlight (49 €)</option><option>Partner (99 €/Monat)</option></select>
@@ -270,6 +314,10 @@ footer a{text-decoration:underline}
 <div class="sugg" id="sugg"><button>Wo kann ich heute tanzen?</button><button>Konzerte am Wochenende</button><button>Bar heute Abend</button><button>Ich will nicht allein hin</button></div>
 <form class="cin" id="chatForm"><input id="chatIn" placeholder="z. B. Techno morgen, Comedy Freitag …" autocomplete="off"><button class="btn or" type="submit">↑</button></form>
 </div></div>
+<div class="story" id="story"><div class="sbars" id="sbars"></div><div class="simg" id="simg"></div>
+<div class="shd"><b id="sven"></b><button id="sclose" aria-label="Schließen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<div class="snav"><i id="sprev"></i><i id="snext"></i></div>
+<div class="sbody" id="sbody"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -279,6 +327,7 @@ const WA_HOST='4917645961547';
 const $=s=>document.querySelector(s);
 const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 const CATS=[['party','Party'],['musik','Konzerte'],['ausgehen','Bars & Ausgehen'],['comedy','Comedy'],['kultur','Kultur & Bühne'],['tribe','Tribe'],['kino','Kino'],['sport','Sport']];
+const MOOD={party:'Tanzen',musik:'Live-Musik',ausgehen:'Bars & Drinks',comedy:'Lachen',kultur:'Kultur',tribe:'Tribe-Treffen',kino:'Kino',sport:'Sport'};
 const CNAME=Object.fromEntries(CATS.map(c=>[c[0],c[1]]));
 const SV=d=>`<svg class="i" viewBox="0 0 24 24">${d}</svg>`;
 const IC_SHARE=SV('<path d="M12 15V3.5M7.5 8L12 3.5 16.5 8"/><path d="M5 12.5V19a1.5 1.5 0 001.5 1.5h11A1.5 1.5 0 0019 19v-6.5"/>'),IC_HEART=SV('<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/>'),IC_PIN=SV('<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),IC_CLOCK=SV('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>');
@@ -293,6 +342,7 @@ function parseDate(s){const m=String(s||'').match(/(\d{1,2})\.(\d{1,2})\.?(\d{4}
   if(!m[3]&&d<new Date(now.getFullYear(),now.getMonth(),now.getDate()-60))d=new Date(y+1,+m[2]-1,+m[1]);return d}
 function categorize(e,title){const c=(e.category||'').toLowerCase(),t=(title+' '+(e.genre||'')+' '+(e.category||'')+' '+(e.description||'')).toLowerCase();
   if(/tribe/i.test(title))return'tribe';
+  if(/jazzclub|jazz|blues|konzert|live ?musik/.test(t)&&!/party|club night|disco/.test(t))return'musik';
   if(/hochschulsport|\b(yoga|laufen|fußball|volleyball|badminton|tischtennis|zumba|fitness|parkrun|klettern|schwimmen)\b/.test(t)||c==='sport')return'sport';
   if(c==='kino'||/\bkino\b|cinemaxx|lichtwerk|kamera/.test(t))return'kino';
   if(/comedy|stand-up|kabarett/.test(t))return'comedy';
@@ -326,24 +376,39 @@ function fmtDay(d){const t=today0();if(dayKey(d)===dayKey(t))return'Heute';if(da
 function ph(cat,size){return`<div class="ph" style="--s:${Math.round(size/3.2)}px"><span>${CNAME[cat]||''}</span></div>`}
 function bigimg(e,size){return e.img?`<img loading="lazy" src="${esc(e.img)}" alt="" onerror="this.outerHTML=ph('${e.cat}',${size})">`:ph(e.cat,size)}
 function thumb(e){return bigimg(e,48)}
-function card(e){return`<div class="ev${e.featured?' feat':''}" data-id="${esc(e.id)}"><div class="th">${thumb(e)}</div><div class="b">
- <div class="tm">${fmtDay(e.date).toUpperCase()}${e.time?' · '+esc(e.time):''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div></div>
- <button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">${IC_HEART}</button><button class="shr" data-share="${esc(e.id)}" aria-label="Auf WhatsApp teilen">${IC_SHARE}</button></div>`}
+function startsIn(e){if(!e.time||dayKey(e.date)!==dayKey(today0()))return null;const [h,m]=e.time.split(':').map(Number);const st=new Date(e.date);st.setHours(h,m||0);return Math.round((st-new Date())/6e4)}
+function hint(e){const n=startsIn(e);if(n===null)return'';if(n<=0&&n>-180)return'läuft';if(n>0&&n<=120)return n<60?`in ${n} min`:`in ${Math.round(n/60)} h`;return''}
+function card(e){return`<div class="ev${e.featured?' feat':''}" data-id="${esc(e.id)}"><div class="tc">${e.time?esc(e.time):'–'}<small>${hint(e)}</small></div><div class="b">
+ <div class="tm">${MOOD[e.cat]||''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div></div><div class="th">${thumb(e)}</div>
+ <div class="acts"><button class="shr" data-share="${esc(e.id)}" aria-label="Auf WhatsApp teilen">${IC_SHARE}</button><button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">${IC_HEART}</button></div></div>`}
 
 function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay()]],['tomorrow','Morgen',WD[addDays(t,1).getDay()]],['weekend','Wochenende','Fr–So'],['week','7 Tage','alles']];
   for(let i=2;i<7;i++){const d=addDays(t,i);opts.push([dayKey(d),WD[d.getDay()],d.getDate()+'.'+(d.getMonth()+1)+'.'])}
   $('#days').innerHTML=opts.map(o=>`<button class="day${state.day===o[0]?' on':''}" data-day="${o[0]}">${o[1]}<small>${o[2]}</small></button>`).join('')}
-function renderChips(){$('#chips').innerHTML=`<button class="chip${!state.cat?' on':''}" data-cat="">Alle</button>`+CATS.map(c=>`<button class="chip${state.cat===c[0]?' on':''}" data-cat="${c[0]}">${c[1]}</button>`).join('')}
+function renderChips(){const base=ALL.filter(e=>inRange(e));const cnt=c=>base.filter(e=>e.cat===c).length;
+  $('#chips').innerHTML=`<button class="chip${!state.cat?' on':''}" data-cat="">Alles</button>`+CATS.filter(c=>cnt(c[0])||state.cat===c[0]).map(c=>`<button class="chip${state.cat===c[0]?' on':''}" data-cat="${c[0]}">${MOOD[c[0]]} <span style="opacity:.5">${cnt(c[0])}</span></button>`).join('')}
+let SL=[],SI=0,ST=null;
 function render(){renderDays();renderChips();const L=filtered();
-  const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||fmtDay(L[0]?.date||today0());
-  $('#hlLabel').textContent=lbl;
-  const hl=[...L].filter(e=>!e.minor).sort((a,b)=>b.score-a.score).slice(0,6);
+  const hl=[...L].filter(e=>!e.minor).sort((a,b)=>b.score-a.score).slice(0,8);SL=hl;
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
-  $('#hl').innerHTML=hl.map(e=>`<div class="hcard" data-id="${esc(e.id)}">${bigimg(e,90)}
-   <div class="ov">${e.featured?'<span class="badge">Highlight</span>':`<span class="badge g">${CNAME[e.cat]}</span>`}<div class="t">${esc(e.title)}</div><div class="meta">${fmtDay(e.date)}${e.time?' · '+esc(e.time):''} · ${esc(e.venue||'Bielefeld')}</div></div></div>`).join('');
-  $('#listTitle').textContent=L.length?`${L.length} Events`:'Keine Events';
-  $('#list').innerHTML=L.length?L.slice(0,state.limit).map(card).join(''):'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
+  $('#hl').innerHTML=`<div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
+  const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
+  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade':''}</span>`:'';
+  const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
+  L.slice(0,state.limit).forEach(e=>{let g;
+    if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;g=n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}
+    else g=fmtDay(e.date);
+    if(g!==last){out+=`<div class="slot${g==='Läuft gerade'?' live':''}">${g}</div>`;last=g}out+=card(e)});
+  $('#list').innerHTML=L.length?out:'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
   $('#moreBtn').hidden=L.length<=state.limit}
+function showStory(i){if(i<0)i=0;if(i>=SL.length){closeStory();return}SI=i;const e=SL[i];clearTimeout(ST);
+  $('#sbars').innerHTML=SL.map((_,k)=>`<i class="${k<i?'done':k===i?'cur':''}"><b></b></i>`).join('');
+  $('#simg').innerHTML=bigimg(e,40);$('#sven').textContent=e.venue||'Bielefeld';
+  $('#sbody').innerHTML=`<div class="when">${fmtDay(e.date)}${e.time?' · '+esc(e.time)+' Uhr':''} · ${MOOD[e.cat]}</div><h3>${esc(e.title)}</h3><p>${esc(e.venue||'Bielefeld')}</p>
+   <div class="row"><button class="btn or" data-sgo="${esc(e.id)}">Details</button><button class="btn gh" data-share="${esc(e.id)}">Teilen</button><button class="btn gh" data-fav="${esc(e.id)}">${favs.has(e.id)?'Gemerkt':'Merken'}</button></div>`;
+  document.querySelectorAll('.sb')[i+1]?.classList.add('seen');
+  $('#story').classList.add('open');ST=setTimeout(()=>showStory(SI+1),6000)}
+function closeStory(){clearTimeout(ST);$('#story').classList.remove('open')}
 function renderFavs(){const L=ALL.filter(e=>favs.has(e.id)&&e.date>=today0()).sort((a,b)=>a.date-b.date);
   $('#favList').innerHTML=L.length?L.map(card).join(''):'<div class="empty">Tippe auf das Herz bei einem Event, um es dir zu merken.</div>'}
 
@@ -368,8 +433,11 @@ function shareText(e){return`${e.title} – ${fmtDay(e.date)}${e.time?' '+e.time
 function closeSheet(){$('#sheet').classList.remove('open');history.replaceState(null,'',location.pathname)}
 
 document.addEventListener('click',ev=>{const t=ev.target;
+  const sg=t.closest('[data-sgo]');if(sg){closeStory();open(sg.dataset.sgo);return}
+  const sbb=t.closest('[data-story]');if(sbb){showStory(+sbb.dataset.story);return}
+  if(t.closest('#rnd')){const P=filtered().filter(e=>!e.minor&&(startsIn(e)===null||startsIn(e)>-60));const pool=P.length?P:filtered();if(pool.length){const e=pool[Math.floor(Math.random()*pool.length)];open(e.id);toast('Wie wär\'s damit?')}return}
   const sh=t.closest('[data-share]');if(sh){ev.stopPropagation();const e=ALL.find(x=>x.id===sh.dataset.share);if(e)window.open('https://wa.me/?text='+encodeURIComponent(shareText(e)),'_blank');return}
-  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Gemerkt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);return}
+  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Gemerkt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);if($('#story').classList.contains('open'))fv.textContent=favs.has(id)?'Gemerkt':'Merken';return}
   const d=t.closest('[data-day]');if(d){state.day=d.dataset.day;state.limit=30;render();return}
   const c=t.closest('[data-cat]');if(c){state.cat=c.dataset.cat||null;state.limit=30;render();return}
   const card=t.closest('[data-id]');if(card){open(card.dataset.id);return}
@@ -378,7 +446,7 @@ document.addEventListener('click',ev=>{const t=ev.target;
     $('#filters').style.display=v==='events'?'':'none';$('#heroT').style.display=v==='events'?'':'none';if(v==='favs')renderFavs();if(v==='spontan')initMap();scrollTo(0,0);return}
   const pl=t.closest('[data-plan]');if(pl){$('#fPlan').value=pl.dataset.plan;$('#hostForm').scrollIntoView({behavior:'smooth'});return}
 });
-$('#sx').onclick=closeSheet;$('#sheet .bg').onclick=closeSheet;
+$('#sx').onclick=closeSheet;$('#sclose').onclick=closeStory;$('#sprev').onclick=()=>showStory(SI-1);$('#snext').onclick=()=>showStory(SI+1);$('#sheet .bg').onclick=closeSheet;
 $('#moreBtn').onclick=()=>{state.limit+=30;render()};
 let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value;if(state.q)state.day='week';render()},150)};
 $('#waJoin').href=WA_COMMUNITY;$('#waJoin2').href=WA_COMMUNITY;
