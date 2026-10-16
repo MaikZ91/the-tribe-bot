@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E0C0A">
+<title>THE TRIBE · Was geht in Bielefeld</title>
+<meta name="description" content="Alle Events in Bielefeld auf einen Blick – heute, morgen, am Wochenende. Und Leute, die mitkommen.">
+<meta property="og:title" content="THE TRIBE · Was geht in Bielefeld">
+<meta property="og:description" content="Alle Events in Bielefeld auf einen Blick – und Leute, die mitkommen.">
+<meta property="og:image" content="og.jpg">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+@font-face{font-family:'Familjen';src:url('../assets/fonts/familjen-grotesk-latin.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Anton';src:url('../assets/fonts/anton-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{
+  --ink:#0E0C0A;--ink2:#17140F;--ink3:#211C15;--ink4:#2B251C;
+  --or:#F28C28;--or2:#FFB25B;--cream:#F2ECE0;--dim:#B9B0A0;--fog:#857C6D;
+  --line:rgba(242,236,224,.09);--line2:rgba(242,236,224,.16);
+  --disp:'Anton',Impact,system-ui,sans-serif;--body:'Familjen',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --r:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--body)}
+body{min-height:100dvh;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+/* header */
+header{position:sticky;top:0;z-index:20;background:linear-gradient(var(--ink) 75%,rgba(14,12,10,0));padding-top:env(safe-area-inset-top)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 0 8px}
+.logo{font-family:var(--disp);font-size:26px;letter-spacing:.04em}
+.logo span{color:var(--or)}
+.city{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line2);padding:6px 10px;border-radius:99px}
+.search{display:flex;align-items:center;gap:8px;background:var(--ink3);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:4px 0 10px}
+.search input{flex:1;background:none;border:0;color:var(--cream);font:inherit;font-size:16px;outline:none}
+.search input::placeholder{color:var(--fog)}
+.days,.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.days::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;padding:9px 14px;border-radius:12px;background:var(--ink3);border:1px solid var(--line);font-weight:700;font-size:14px;white-space:nowrap}
+.day small{display:block;font-weight:400;color:var(--fog);font-size:11px}
+.day.on{background:var(--or);color:#1a0f02;border-color:var(--or)}
+.day.on small{color:#3b2208}
+.chip{flex:0 0 auto;padding:7px 12px;border-radius:99px;border:1px solid var(--line2);font-size:13px;white-space:nowrap}
+.chip.on{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+/* sections */
+h2{font-family:var(--disp);font-weight:400;font-size:28px;letter-spacing:.02em;margin:22px 0 10px;text-transform:uppercase}
+h2 em{font-style:normal;color:var(--or)}
+.sub{color:var(--dim);font-size:14px;margin:-6px 0 12px}
+.hl{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:0 16px 6px}
+.hl::-webkit-scrollbar{display:none}
+.hcard{flex:0 0 78%;max-width:340px;scroll-snap-align:start;border-radius:var(--r);overflow:hidden;position:relative;aspect-ratio:4/5;background:var(--ink3)}
+.hcard img{width:100%;height:100%;object-fit:cover;display:block}
+.hcard .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(14,12,10,.95));display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.hcard .t{font-family:var(--disp);font-size:26px;line-height:1.05;text-transform:uppercase}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:var(--or);color:#1a0f02;margin-bottom:8px;align-self:flex-start}
+.badge.g{background:rgba(242,236,224,.14);color:var(--cream)}
+.meta{color:var(--dim);font-size:13px;margin-top:6px}
+.list{display:flex;flex-direction:column;gap:10px}
+.ev{display:flex;gap:12px;align-items:stretch;background:var(--ink2);border:1px solid var(--line);border-radius:16px;padding:10px;position:relative}
+.ev .th{flex:0 0 76px;height:76px;border-radius:12px;overflow:hidden;background:var(--ink4);display:flex;align-items:center;justify-content:center;font-size:28px}
+.ev .th img{width:100%;height:100%;object-fit:cover}
+.ev .b{flex:1;min-width:0}
+.ev .tm{font-size:12px;font-weight:700;color:var(--or);letter-spacing:.04em}
+.ev .nm{font-weight:700;font-size:16px;line-height:1.25;margin:2px 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ev .vn{font-size:13px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fav{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--fog)}
+.fav.on{color:var(--or)}
+.ev.feat{border-color:rgba(242,140,40,.5);background:linear-gradient(135deg,rgba(242,140,40,.12),var(--ink2) 60%)}
+.empty{color:var(--dim);text-align:center;padding:30px 10px}
+.more[hidden]{display:none}.more{display:block;width:100%;margin:12px 0;padding:12px;border-radius:12px;border:1px solid var(--line2);font-weight:700}
+/* community banner */
+.cta{margin:22px 0;border-radius:var(--r);padding:18px;background:linear-gradient(135deg,#1f3b26,#11241a);border:1px solid rgba(80,200,120,.25)}
+.cta h3{margin:0 0 6px;font-family:var(--disp);font-weight:400;font-size:24px;text-transform:uppercase}
+.cta p{margin:0 0 12px;color:#cfe8d6;font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;padding:12px 16px;border-radius:12px;font-weight:700;font-size:15px}
+.btn.wa{background:#25D366;color:#062b14}
+.btn.or{background:var(--or);color:#1a0f02}
+.btn.gh{border:1px solid var(--line2)}
+.btn.full{width:100%}
+/* bottom nav */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(14,12,10,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav .in{max-width:720px;margin:0 auto;display:flex}
+nav button{flex:1;padding:10px 0 12px;font-size:11px;color:var(--fog);display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button b{font-size:20px;font-weight:400;line-height:1}
+nav button.on{color:var(--or)}
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:50;display:none}
+.sheet.open{display:block}
+.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.sheet .pn{position:absolute;left:0;right:0;bottom:0;max-height:92dvh;overflow:auto;background:var(--ink2);border-radius:22px 22px 0 0;padding:0 0 calc(20px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
+.sheet .hero{aspect-ratio:16/10;background:var(--ink4);overflow:hidden}
+.sheet .hero img{width:100%;height:100%;object-fit:cover}
+.sheet .c{padding:16px}
+.sheet h1{font-family:var(--disp);font-weight:400;font-size:30px;line-height:1.05;text-transform:uppercase;margin:6px 0}
+.sheet .row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.sheet .row .btn{flex:1 1 45%}
+.x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.55);font-size:18px;z-index:2}
+.desc{color:var(--dim);font-size:15px;line-height:1.5}
+/* organizer */
+.price{display:grid;gap:12px;margin:14px 0}
+.plan{border:1px solid var(--line2);border-radius:var(--r);padding:16px;background:var(--ink2)}
+.plan.best{border-color:var(--or);background:linear-gradient(135deg,rgba(242,140,40,.14),var(--ink2) 55%)}
+.plan h3{margin:0;font-size:18px}
+.plan .p{font-family:var(--disp);font-size:34px;margin:6px 0}
+.plan .p small{font-family:var(--body);font-size:13px;color:var(--dim)}
+.plan ul{margin:8px 0 14px;padding-left:18px;color:var(--dim);font-size:14px;line-height:1.6}
+form label{display:block;font-size:13px;color:var(--dim);margin:10px 0 4px}
+form input,form select,form textarea{width:100%;background:var(--ink3);border:1px solid var(--line2);color:var(--cream);border-radius:10px;padding:11px;font:inherit;font-size:16px}
+.note{font-size:12px;color:var(--fog);margin-top:10px}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--cream);color:var(--ink);padding:10px 16px;border-radius:99px;font-weight:700;font-size:14px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+.view{display:none}.view.on{display:block}
+.skel{height:96px;border-radius:16px;background:linear-gradient(90deg,var(--ink2),var(--ink3),var(--ink2));background-size:200%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+footer{color:var(--fog);font-size:12px;text-align:center;padding:24px 0}
+footer a{text-decoration:underline}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><div class="logo">THE TRIBE<span>.</span></div><div class="city">Bielefeld</div></div>
+  <div id="filters">
+    <div class="search"><span>⌕</span><input id="q" type="search" placeholder="Suche: Party, Konzert, Jazz, Ort …" autocomplete="off"></div>
+    <div class="days" id="days"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <section class="view on" id="v-events">
+    <div id="hlWrap"><h2>Top <em id="hlLabel">heute</em></h2><div class="hl" id="hl"></div></div>
+    <div class="cta">
+      <h3>Geh nicht allein.</h3>
+      <p>In der kostenlosen WhatsApp-Community findest du Leute, die mitkommen – jeden Tag, ohne Anmeldung.</p>
+      <a class="btn wa full" id="waJoin" target="_blank" rel="noopener">Community beitreten</a>
+    </div>
+    <h2 id="listTitle">Alle Events</h2>
+    <div class="list" id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    <button class="more" id="moreBtn" hidden>Mehr anzeigen</button>
+  </section>
+
+  <section class="view" id="v-favs">
+    <h2>Gemerkt</h2><p class="sub">Deine Events – nur auf diesem Gerät gespeichert.</p>
+    <div class="list" id="favList"></div>
+  </section>
+
+  <section class="view" id="v-host">
+    <h2>Für <em>Veranstalter</em></h2>
+    <p class="sub">Bring dein Event vor die Leute, die in Bielefeld wirklich rausgehen.</p>
+    <div class="price">
+      <div class="plan">
+        <h3>Event-Listing</h3><div class="p">19 € <small>/ Event</small></div>
+        <ul><li>Dein Event in der App mit Bild, Zeit, Ort und Link</li><li>In Suche, Tages- und Wochenendansicht</li><li>Online in 24 Stunden</li></ul>
+        <button class="btn gh full" data-plan="Event-Listing (19 €)">Auswählen</button>
+      </div>
+      <div class="plan best">
+        <span class="badge">Beliebt</span>
+        <h3>Highlight</h3><div class="p">49 € <small>/ Event</small></div>
+        <ul><li>Alles aus Event-Listing</li><li>Platz in „Top heute“ am Event-Tag</li><li>Hervorgehoben in der Liste</li><li>Erwähnung in der Instagram-Story von @the_tribe.bi.ms</li></ul>
+        <button class="btn or full" data-plan="Highlight (49 €)">Auswählen</button>
+      </div>
+      <div class="plan">
+        <h3>Partner</h3><div class="p">99 € <small>/ Monat</small></div>
+        <ul><li>Unbegrenzt Events listen</li><li>Ein Highlight pro Woche</li><li>Platz im Instagram-Weekend-Planer (donnerstags)</li><li>Monatlich kündbar</li></ul>
+        <button class="btn gh full" data-plan="Partner (99 €/Monat)">Auswählen</button>
+      </div>
+    </div>
+    <form id="hostForm">
+      <h2 style="font-size:22px">Event <em>einreichen</em></h2>
+      <label>Paket</label><select id="fPlan"><option>Event-Listing (19 €)</option><option>Highlight (49 €)</option><option>Partner (99 €/Monat)</option></select>
+      <label>Veranstalter / Location</label><input id="fHost" required>
+      <label>Event-Name</label><input id="fName" required>
+      <label>Datum und Uhrzeit</label><input id="fWhen" placeholder="z. B. Sa, 24.10., 21 Uhr" required>
+      <label>Link (Tickets, Instagram, Website)</label><input id="fLink" type="url" placeholder="https://">
+      <button class="btn or full" style="margin-top:14px" type="submit">Per WhatsApp anfragen</button>
+      <p class="note">Du schickst die Anfrage per WhatsApp an THE TRIBE. Bezahlt wird erst, wenn dein Event freigeschaltet ist.</p>
+    </form>
+  </section>
+</main>
+
+<footer class="wrap">THE TRIBE · Bielefeld · <a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a><br>Event-Daten ohne Gewähr – Angaben bitte beim Veranstalter prüfen.</footer>
+
+<nav><div class="in">
+  <button class="on" data-v="events"><b>◉</b>Events</button>
+  <button data-v="favs"><b>♥</b>Gemerkt</button>
+  <button data-v="community"><b>☺</b>Community</button>
+  <button data-v="host"><b>＋</b>Veranstalter</button>
+</div></nav>
+
+<div class="sheet" id="sheet"><div class="bg"></div><div class="pn"><button class="x" id="sx">✕</button><div id="sc"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SRC='https://raw.githubusercontent.com/MaikZ91/productiontools/master/events.json';
+const WA_COMMUNITY='https://chat.whatsapp.com/C13SQuimtp0JHtx5x87uxK';
+const WA_HOST='4917645961547';
+const $=s=>document.querySelector(s);
+const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
+const CATS=[['party','Party','🪩'],['musik','Konzerte','🎸'],['kultur','Kultur & Bühne','🎭'],['comedy','Comedy','😂'],['kino','Kino','🎬'],['tribe','Tribe','🔥'],['sport','Sport','🏃'],['ausgehen','Ausgehen','🍻']];
+const CICON=Object.fromEntries(CATS.map(c=>[c[0],c[2]]));
+let ALL=[],state={day:'today',cat:null,q:'',limit:30};
+let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem('tribe_favs')||'[]'))}catch(e){}
+const saveFavs=()=>{try{localStorage.setItem('tribe_favs',JSON.stringify([...favs]))}catch(e){}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1600)}
+
+function parseDate(s){const m=String(s||'').match(/(\d{1,2})\.(\d{1,2})\.?(\d{4})?/);if(!m)return null;
+  const now=new Date();let y=m[3]?+m[3]:now.getFullYear();let d=new Date(y,+m[2]-1,+m[1]);
+  if(!m[3]&&d<new Date(now.getFullYear(),now.getMonth(),now.getDate()-60))d=new Date(y+1,+m[2]-1,+m[1]);return d}
+function categorize(e,title){const c=(e.category||'').toLowerCase(),t=(title+' '+(e.genre||'')+' '+(e.category||'')+' '+(e.description||'')).toLowerCase();
+  if(/tribe/i.test(title))return'tribe';
+  if(/hochschulsport|\b(yoga|laufen|fußball|volleyball|badminton|tischtennis|zumba|fitness|parkrun|klettern|schwimmen)\b/.test(t)||c==='sport')return'sport';
+  if(c==='kino'||/\bkino\b|cinemaxx|lichtwerk|kamera/.test(t))return'kino';
+  if(/comedy|stand-up|kabarett/.test(t))return'comedy';
+  if(/party|club|dj|dance|rave|techno|afro|disco/.test(t)||c==='party')return'party';
+  if(/konzert|band|jazz|blues|live|tour|rock|orchester|kammer|musik/.test(t))return'musik';
+  if(/theater|slam|lesung|ausstellung|kunst|museum|kreativ|oper|bühne/.test(t)||c==='kreativität')return'kultur';
+  return'ausgehen'}
+function norm(e,i){let title=e.event||e.title||'';let venue='';const m=title.match(/\(@?([^)]+)\)\s*\*?$/);
+  if(m){venue=m[1].replace(/_/g,' ').trim();title=title.replace(m[0],'').replace(/^\*+|\*+$/g,'').trim()}
+  title=title.replace(/^\*+|\*+$/g,'').trim();
+  const d=parseDate(e.date);const time=(e.time&&/\d/.test(e.time))?e.time:'';
+  const cat=categorize(e,title+' '+venue);
+  const desc=e.description||((e.category||'').length>25?e.category:'');
+  const id=(d?d.toISOString().slice(0,10):'x')+'|'+title.toLowerCase().slice(0,40)+'|'+time;
+  let score={party:5,musik:6,kultur:6,comedy:6,tribe:9,kino:2,ausgehen:3,sport:0}[cat];
+  if(e.image_url)score+=2;if(/hochschulsport|wochenmarkt/i.test(venue+title))score-=6;if(e.featured)score+=20;
+  return{id,title,venue,date:d,time,cat,img:e.image_url||'',link:e.link||'',desc,featured:!!e.featured,score}}
+function dayKey(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function today0(){const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function inRange(ev){if(!ev.date)return false;const t=today0();
+  if(state.day==='today')return dayKey(ev.date)===dayKey(t);
+  if(state.day==='tomorrow')return dayKey(ev.date)===dayKey(addDays(t,1));
+  if(state.day==='weekend'){const wd=t.getDay();const fri=addDays(t,wd===0?-2:wd===6?-1:5-wd);return ev.date>=Math.max(fri,t)&&ev.date<=addDays(fri,2)}
+  if(state.day==='week')return ev.date>=t&&ev.date<addDays(t,7);
+  return dayKey(ev.date)===state.day}
+function filtered(){const q=state.q.trim().toLowerCase();
+  return ALL.filter(e=>inRange(e)&&(!state.cat||e.cat===state.cat)&&(!q||(e.title+' '+e.venue+' '+e.desc+' '+e.cat).toLowerCase().includes(q)))
+   .sort((a,b)=>a.date-b.date||(a.time||'99').localeCompare(b.time||'99'))}
+function fmtDay(d){const t=today0();if(dayKey(d)===dayKey(t))return'Heute';if(dayKey(d)===dayKey(addDays(t,1)))return'Morgen';return WD[d.getDay()]+', '+d.getDate()+'.'+(d.getMonth()+1)+'.'}
+function ph(cat,size){return`<div style="height:100%;display:flex;align-items:center;justify-content:center;font-size:${size}px;background:radial-gradient(circle at 30% 20%,#3a2a14,#120f0b)">${CICON[cat]}</div>`}
+function bigimg(e,size){return e.img?`<img loading="lazy" src="${esc(e.img)}" alt="" onerror="this.outerHTML=ph('${e.cat}',${size})">`:ph(e.cat,size)}
+function thumb(e){return e.img?`<img loading="lazy" src="${esc(e.img)}" alt="" onerror="this.parentNode.textContent='${CICON[e.cat]}'">`:CICON[e.cat]}
+function card(e){return`<div class="ev${e.featured?' feat':''}" data-id="${esc(e.id)}"><div class="th">${thumb(e)}</div><div class="b">
+ <div class="tm">${fmtDay(e.date).toUpperCase()}${e.time?' · '+esc(e.time):''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div></div>
+ <button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">♥</button></div>`}
+
+function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay()]],['tomorrow','Morgen',WD[addDays(t,1).getDay()]],['weekend','Wochenende','Fr–So'],['week','7 Tage','alles']];
+  for(let i=2;i<7;i++){const d=addDays(t,i);opts.push([dayKey(d),WD[d.getDay()],d.getDate()+'.'+(d.getMonth()+1)+'.'])}
+  $('#days').innerHTML=opts.map(o=>`<button class="day${state.day===o[0]?' on':''}" data-day="${o[0]}">${o[1]}<small>${o[2]}</small></button>`).join('')}
+function renderChips(){$('#chips').innerHTML=`<button class="chip${!state.cat?' on':''}" data-cat="">Alle</button>`+CATS.map(c=>`<button class="chip${state.cat===c[0]?' on':''}" data-cat="${c[0]}">${c[2]} ${c[1]}</button>`).join('')}
+function render(){renderDays();renderChips();const L=filtered();
+  const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||fmtDay(L[0]?.date||today0());
+  $('#hlLabel').textContent=lbl;
+  const hl=[...L].filter(e=>e.cat!=='sport').sort((a,b)=>b.score-a.score).slice(0,6);
+  $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
+  $('#hl').innerHTML=hl.map(e=>`<div class="hcard" data-id="${esc(e.id)}">${bigimg(e,90)}
+   <div class="ov">${e.featured?'<span class="badge">Highlight</span>':`<span class="badge g">${CICON[e.cat]} ${CATS.find(c=>c[0]===e.cat)[1]}</span>`}<div class="t">${esc(e.title)}</div><div class="meta">${fmtDay(e.date)}${e.time?' · '+esc(e.time):''} · ${esc(e.venue||'Bielefeld')}</div></div></div>`).join('');
+  $('#listTitle').textContent=L.length?`${L.length} Events`:'Keine Events';
+  $('#list').innerHTML=L.length?L.slice(0,state.limit).map(card).join(''):'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
+  $('#moreBtn').hidden=L.length<=state.limit}
+function renderFavs(){const L=ALL.filter(e=>favs.has(e.id)&&e.date>=today0()).sort((a,b)=>a.date-b.date);
+  $('#favList').innerHTML=L.length?L.map(card).join(''):'<div class="empty">Tippe auf ♥ bei einem Event, um es dir zu merken.</div>'}
+
+function ics(e){const d=e.date;const p=n=>String(n).padStart(2,'0');const [h,mi]=(e.time||'19:00').split(':').map(Number);
+  const s=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(h||19)}${p(mi||0)}00`;
+  const body=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//THE TRIBE//DE\nBEGIN:VEVENT\nUID:${encodeURIComponent(e.id)}@thetribe\nDTSTAMP:${s}\nDTSTART:${s}\nDURATION:PT3H\nSUMMARY:${e.title.replace(/[,;]/g,' ')}\nLOCATION:${(e.venue||'Bielefeld').replace(/[,;]/g,' ')} Bielefeld\nEND:VEVENT\nEND:VCALENDAR`;
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/calendar'}));a.download='event.ics';a.click()}
+function open(id){const e=ALL.find(x=>x.id===id);if(!e)return;
+  const share=`${e.title} – ${fmtDay(e.date)}${e.time?' '+e.time:''}, ${e.venue||'Bielefeld'}. Kommst du mit? ${location.href.split('#')[0]}`;
+  $('#sc').innerHTML=`<div class="hero">${bigimg(e,110)}</div>
+  <div class="c"><span class="badge g">${CICON[e.cat]} ${CATS.find(c=>c[0]===e.cat)[1]}</span><h1>${esc(e.title)}</h1>
+  <div class="meta" style="font-size:15px">${fmtDay(e.date)}${e.time?' · '+esc(e.time)+' Uhr':''}<br>📍 ${esc(e.venue||'Bielefeld')}</div>
+  ${e.desc?`<p class="desc">${esc(e.desc)}</p>`:''}
+  <div class="row"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(share)}">Freunde fragen</a>
+  <a class="btn gh" target="_blank" rel="noopener" href="${WA_COMMUNITY}">Wer kommt mit?</a>
+  <button class="btn gh" id="icsBtn">In Kalender</button>
+  <a class="btn gh" target="_blank" rel="noopener" href="https://www.openstreetmap.org/search?query=${encodeURIComponent((e.venue||'')+' Bielefeld')}">Route</a></div>
+  ${e.link?`<a class="btn or full" target="_blank" rel="noopener" href="${esc(e.link)}">Zum Veranstalter</a>`:''}
+  <button class="btn gh full" style="margin-top:8px" data-fav="${esc(e.id)}">${favs.has(e.id)?'♥ Gemerkt':'♡ Merken'}</button></div>`;
+  $('#icsBtn').onclick=()=>ics(e);$('#sheet').classList.add('open');history.replaceState(null,'','#e='+encodeURIComponent(id))}
+function closeSheet(){$('#sheet').classList.remove('open');history.replaceState(null,'',location.pathname)}
+
+document.addEventListener('click',ev=>{const t=ev.target;
+  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Gemerkt ♥':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);return}
+  const d=t.closest('[data-day]');if(d){state.day=d.dataset.day;state.limit=30;render();return}
+  const c=t.closest('[data-cat]');if(c){state.cat=c.dataset.cat||null;state.limit=30;render();return}
+  const card=t.closest('[data-id]');if(card){open(card.dataset.id);return}
+  const n=t.closest('nav button');if(n){const v=n.dataset.v;if(v==='community'){window.open(WA_COMMUNITY,'_blank');return}
+    document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b===n));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+    $('#filters').style.display=v==='events'?'':'none';if(v==='favs')renderFavs();scrollTo(0,0);return}
+  const pl=t.closest('[data-plan]');if(pl){$('#fPlan').value=pl.dataset.plan;$('#hostForm').scrollIntoView({behavior:'smooth'});return}
+});
+$('#sx').onclick=closeSheet;$('#sheet .bg').onclick=closeSheet;
+$('#moreBtn').onclick=()=>{state.limit+=30;render()};
+let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value;if(state.q)state.day='week';render()},150)};
+$('#waJoin').href=WA_COMMUNITY;
+$('#hostForm').onsubmit=ev=>{ev.preventDefault();const msg=`Hi THE TRIBE! Ich möchte ein Event in eurer App listen.\nPaket: ${$('#fPlan').value}\nVeranstalter: ${$('#fHost').value}\nEvent: ${$('#fName').value}\nWann: ${$('#fWhen').value}\nLink: ${$('#fLink').value||'-'}`;
+  window.open(`https://wa.me/${WA_HOST}?text=${encodeURIComponent(msg)}`,'_blank')};
+if(location.hash==='#veranstalter')document.querySelector('nav [data-v=host]').click();
+
+async function load(){let raw=[];
+  try{const r=await fetch(SRC,{cache:'no-cache'});const j=await r.json();raw=Array.isArray(j)?j:(j.events||[]);try{localStorage.setItem('tribe_ev',JSON.stringify(raw))}catch(e){}}
+  catch(e){try{raw=JSON.parse(localStorage.getItem('tribe_ev')||'[]')}catch(_){}}
+  try{const f=await fetch('featured.json',{cache:'no-cache'});if(f.ok){const fe=await f.json();raw=raw.concat(fe.map(x=>({...x,featured:true})))}}catch(e){}
+  const seen=new Set();ALL=raw.map(norm).filter(e=>e.date&&e.title&&!seen.has(e.id)&&seen.add(e.id));
+  if(!ALL.some(inRange)&&state.day==='today')state.day='week';
+  render();const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
+load();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
