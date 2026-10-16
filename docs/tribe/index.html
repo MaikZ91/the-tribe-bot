@@ -74,6 +74,8 @@ h2 .k{font-size:11px;letter-spacing:.2em;color:var(--fog);margin-left:auto;font-
 .ev .nm{font-weight:500;font-size:16px;line-height:1.3;letter-spacing:-.01em;margin:4px 0 3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .ev .vn{font-size:13px;color:var(--fog);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fav{position:absolute;top:50%;right:-6px;transform:translateY(-50%);width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--fog)}
+.shr{position:absolute;top:50%;right:28px;transform:translateY(-50%);width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--fog)}
+.ev .b{padding-right:64px!important}
 .fav.on{color:var(--cream)}.fav.on svg{fill:var(--cream)}
 .ev.feat .tm:after{content:" · Highlight";color:var(--cream)}
 .empty{color:var(--dim);padding:36px 0;line-height:1.55;border-top:1px solid var(--line)}
@@ -130,9 +132,19 @@ form input:focus,form select:focus{outline:none;border-color:var(--cream)}
 @keyframes fd{from{opacity:0}}
 .skel{height:112px;border-top:1px solid var(--line);background:linear-gradient(90deg,var(--ink),var(--ink3),var(--ink));background-size:200%;animation:sk 1.2s infinite}
 @keyframes sk{to{background-position:-200% 0}}
+#map{height:260px;border-radius:var(--r);overflow:hidden;background:var(--ink3);margin-top:8px}
+.leaflet-container{background:var(--ink3)}
+.leaflet-tile-pane{filter:invert(1) grayscale(1) brightness(.85) contrast(.9)}
+.leaflet-control-attribution{background:rgba(10,10,10,.6)!important;color:var(--fog)!important}.leaflet-control-attribution a{color:var(--dim)!important}
+.me{background:var(--amb);border:3px solid var(--cream);border-radius:50%;box-shadow:0 0 0 8px rgba(217,160,102,.25)}
+h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margin:30px 0 12px}
+#spMood{flex-wrap:wrap}
+.note a{text-decoration:underline}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 </head>
 <body>
 <header id="hdr"><div class="wrap">
@@ -161,6 +173,20 @@ footer a{text-decoration:underline}
   <section class="view" id="v-favs">
     <h2>Gemerkt</h2><p class="sub">Deine Events – nur auf diesem Gerät gespeichert.</p>
     <div class="list" id="favList"></div>
+  </section>
+
+  <section class="view" id="v-spontan">
+    <div class="hero-s"><h1 class="big">Spontan raus.</h1><p class="sub">Sag der Community, wo du gerade bist und worauf du Bock hast – wer in der Nähe ist, kommt dazu.</p></div>
+    <div id="map"></div>
+    <button class="btn gh full" id="locBtn" style="margin-top:10px">Meinen Standort verwenden</button>
+    <form id="spForm">
+      <label>Wo bist du?</label><input id="spWhere" placeholder="z. B. Sternberg, Siegfriedplatz" required>
+      <label>Worauf hast du Bock?</label>
+      <div class="chips" id="spMood"><button type="button" class="chip on">Ein Bier</button><button type="button" class="chip">Tanzen</button><button type="button" class="chip">Konzert</button><button type="button" class="chip">Quatschen</button><button type="button" class="chip">Weiterziehen</button></div>
+      <label>Bis wann ungefähr?</label><select id="spUntil"><option>die nächste Stunde</option><option>bis 22 Uhr</option><option>bis Mitternacht</option><option>open end</option></select>
+      <button class="btn or full" style="margin-top:20px" type="submit">In der Community posten</button>
+      <p class="note">Öffnet WhatsApp mit fertiger Nachricht – wähle dort die Tribe-Community aus. Dein Standort wird nur geteilt, wenn du ihn oben aktivierst. Noch nicht drin? <a id="waJoin2" target="_blank" rel="noopener">Community beitreten</a></p>
+    </form>
   </section>
 
   <section class="view" id="v-host">
@@ -201,8 +227,8 @@ footer a{text-decoration:underline}
 
 <nav><div class="in">
   <button class="on" data-v="events"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Events</button>
+  <button data-v="spontan"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Spontan</button>
   <button data-v="favs"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/></svg>Gemerkt</button>
-  <button data-v="community"><svg class="i" viewBox="0 0 24 24"><path d="M4 18.5V7a3 3 0 013-3h10a3 3 0 013 3v7a3 3 0 01-3 3H8z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></svg>Community</button>
   <button data-v="host"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/></svg>Veranstalter</button>
 </div></nav>
 
@@ -218,7 +244,7 @@ const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
 const CATS=[['party','Party'],['musik','Konzerte'],['ausgehen','Bars & Ausgehen'],['comedy','Comedy'],['kultur','Kultur & Bühne'],['tribe','Tribe'],['kino','Kino'],['sport','Sport']];
 const CNAME=Object.fromEntries(CATS.map(c=>[c[0],c[1]]));
 const SV=d=>`<svg class="i" viewBox="0 0 24 24">${d}</svg>`;
-const IC_HEART=SV('<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/>'),IC_PIN=SV('<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),IC_CLOCK=SV('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>');
+const IC_SHARE=SV('<path d="M12 15V3.5M7.5 8L12 3.5 16.5 8"/><path d="M5 12.5V19a1.5 1.5 0 001.5 1.5h11A1.5 1.5 0 0019 19v-6.5"/>'),IC_HEART=SV('<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/>'),IC_PIN=SV('<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'),IC_CLOCK=SV('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>');
 let ALL=[],state={day:'today',cat:null,q:'',limit:30};
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem('tribe_favs')||'[]'))}catch(e){}
 const saveFavs=()=>{try{localStorage.setItem('tribe_favs',JSON.stringify([...favs]))}catch(e){}};
@@ -265,7 +291,7 @@ function bigimg(e,size){return e.img?`<img loading="lazy" src="${esc(e.img)}" al
 function thumb(e){return bigimg(e,48)}
 function card(e){return`<div class="ev${e.featured?' feat':''}" data-id="${esc(e.id)}"><div class="th">${thumb(e)}</div><div class="b">
  <div class="tm">${fmtDay(e.date).toUpperCase()}${e.time?' · '+esc(e.time):''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div></div>
- <button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">${IC_HEART}</button></div>`}
+ <button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">${IC_HEART}</button><button class="shr" data-share="${esc(e.id)}" aria-label="Auf WhatsApp teilen">${IC_SHARE}</button></div>`}
 
 function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay()]],['tomorrow','Morgen',WD[addDays(t,1).getDay()]],['weekend','Wochenende','Fr–So'],['week','7 Tage','alles']];
   for(let i=2;i<7;i++){const d=addDays(t,i);opts.push([dayKey(d),WD[d.getDay()],d.getDate()+'.'+(d.getMonth()+1)+'.'])}
@@ -289,34 +315,48 @@ function ics(e){const d=e.date;const p=n=>String(n).padStart(2,'0');const [h,mi]
   const body=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//THE TRIBE//DE\nBEGIN:VEVENT\nUID:${encodeURIComponent(e.id)}@thetribe\nDTSTAMP:${s}\nDTSTART:${s}\nDURATION:PT3H\nSUMMARY:${e.title.replace(/[,;]/g,' ')}\nLOCATION:${(e.venue||'Bielefeld').replace(/[,;]/g,' ')} Bielefeld\nEND:VEVENT\nEND:VCALENDAR`;
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/calendar'}));a.download='event.ics';a.click()}
 function open(id){const e=ALL.find(x=>x.id===id);if(!e)return;
-  const share=`${e.title} – ${fmtDay(e.date)}${e.time?' '+e.time:''}, ${e.venue||'Bielefeld'}. Kommst du mit? ${location.href.split('#')[0]}`;
+  const share=shareText(e);const _unused=`${e.title} – ${fmtDay(e.date)}${e.time?' '+e.time:''}, ${e.venue||'Bielefeld'}. Kommst du mit? ${location.href.split('#')[0]}#e=${encodeURIComponent(e.id)}`;
   $('#sc').innerHTML=`<div class="hero">${bigimg(e,110)}</div>
   <div class="c"><span class="badge g">${CNAME[e.cat]}</span><h1>${esc(e.title)}</h1>
   <div class="facts"><div>${IC_CLOCK}${fmtDay(e.date)}${e.time?' · '+esc(e.time)+' Uhr':''}</div><div>${IC_PIN}${esc(e.venue||'Bielefeld')}</div></div>
   ${e.desc?`<p class="desc">${esc(e.desc)}</p>`:''}
-  <div class="row"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(share)}">Freunde fragen</a>
+  <div class="row"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(share)}">Auf WhatsApp teilen</a>
   <a class="btn gh" target="_blank" rel="noopener" href="${WA_COMMUNITY}">Wer kommt mit?</a>
   <button class="btn gh" id="icsBtn">In Kalender</button>
   <a class="btn gh" target="_blank" rel="noopener" href="https://www.openstreetmap.org/search?query=${encodeURIComponent((e.venue||'')+' Bielefeld')}">Route</a></div>
   ${e.link?`<a class="btn or full" target="_blank" rel="noopener" href="${esc(e.link)}">Zum Veranstalter</a>`:''}
   <button class="btn gh full" style="margin-top:8px" data-fav="${esc(e.id)}">${favs.has(e.id)?'Gemerkt':'Merken'}</button></div>`;
   $('#icsBtn').onclick=()=>ics(e);$('#sheet').classList.add('open');history.replaceState(null,'','#e='+encodeURIComponent(id))}
+function shareText(e){return`${e.title} – ${fmtDay(e.date)}${e.time?' '+e.time+' Uhr':''}, ${e.venue||'Bielefeld'}. Kommst du mit? ${location.href.split('#')[0]}#e=${encodeURIComponent(e.id)}`}
 function closeSheet(){$('#sheet').classList.remove('open');history.replaceState(null,'',location.pathname)}
 
 document.addEventListener('click',ev=>{const t=ev.target;
+  const sh=t.closest('[data-share]');if(sh){ev.stopPropagation();const e=ALL.find(x=>x.id===sh.dataset.share);if(e)window.open('https://wa.me/?text='+encodeURIComponent(shareText(e)),'_blank');return}
   const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Gemerkt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);return}
   const d=t.closest('[data-day]');if(d){state.day=d.dataset.day;state.limit=30;render();return}
   const c=t.closest('[data-cat]');if(c){state.cat=c.dataset.cat||null;state.limit=30;render();return}
   const card=t.closest('[data-id]');if(card){open(card.dataset.id);return}
   const n=t.closest('nav button');if(n){const v=n.dataset.v;if(v==='community'){window.open(WA_COMMUNITY,'_blank');return}
     document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b===n));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-    $('#filters').style.display=v==='events'?'':'none';if(v==='favs')renderFavs();scrollTo(0,0);return}
+    $('#filters').style.display=v==='events'?'':'none';$('#heroT').style.display=v==='events'?'':'none';if(v==='favs')renderFavs();if(v==='spontan')initMap();scrollTo(0,0);return}
   const pl=t.closest('[data-plan]');if(pl){$('#fPlan').value=pl.dataset.plan;$('#hostForm').scrollIntoView({behavior:'smooth'});return}
 });
 $('#sx').onclick=closeSheet;$('#sheet .bg').onclick=closeSheet;
 $('#moreBtn').onclick=()=>{state.limit+=30;render()};
 let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value;if(state.q)state.day='week';render()},150)};
-$('#waJoin').href=WA_COMMUNITY;
+$('#waJoin').href=WA_COMMUNITY;$('#waJoin2').href=WA_COMMUNITY;
+let map,pos=null,marker;
+function initMap(){if(map||!window.L)return setTimeout(()=>map&&map.invalidateSize(),50);
+  map=L.map('map',{zoomControl:false,attributionControl:true}).setView([52.0216,8.5325],14);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map)}
+$('#locBtn').onclick=()=>{if(!navigator.geolocation){toast('Standort nicht verfügbar');return}
+  navigator.geolocation.getCurrentPosition(p=>{pos=[p.coords.latitude,p.coords.longitude];initMap();
+    const ic=L.divIcon({className:'me',iconSize:[18,18]});marker?marker.setLatLng(pos):marker=L.marker(pos,{icon:ic}).addTo(map);map.setView(pos,16);
+    $('#locBtn').textContent='Standort wird mitgeschickt'},()=>toast('Standort nicht freigegeben'),{enableHighAccuracy:true,timeout:10000})};
+$('#spMood').onclick=ev=>{const b=ev.target.closest('.chip');if(b){b.classList.toggle('on')}};
+$('#spForm').onsubmit=ev=>{ev.preventDefault();const moods=[...document.querySelectorAll('#spMood .chip.on')].map(b=>b.textContent).join(', ')||'was Spontanes';
+  const msg=`Spontan unterwegs: Bin gerade ${$('#spWhere').value} und hab Bock auf ${moods} – ${$('#spUntil').value}. Wer ist in der Nähe und kommt dazu?`+(pos?`\nhttps://maps.google.com/?q=${pos[0].toFixed(5)},${pos[1].toFixed(5)}`:'');
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank')};
 $('#hostForm').onsubmit=ev=>{ev.preventDefault();const msg=`Hi THE TRIBE! Ich möchte ein Event in eurer App listen.\nPaket: ${$('#fPlan').value}\nVeranstalter: ${$('#fHost').value}\nEvent: ${$('#fName').value}\nWann: ${$('#fWhen').value}\nLink: ${$('#fLink').value||'-'}`;
   window.open(`https://wa.me/${WA_HOST}?text=${encodeURIComponent(msg)}`,'_blank')};
 if(location.hash==='#veranstalter')document.querySelector('nav [data-v=host]').click();
