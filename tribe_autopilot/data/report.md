@@ -1,23 +1,24 @@
-# Instagram-Report 2026-10-13
+# Instagram-Report 2026-10-16
 
-Follower: **1289** · Beiträge: 34
+Follower: **1288** · Beiträge: 35
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 601 | 1106 | 8 | 0 | 1 | 1 | – | 1154.0 |
-| T02-so-laeuft-the-tribe | list-carousel | None | so-gehts | 525 | 1059 | 10 | 3 | 4 | 0 | – | 1138.0 |
-| T01-neu-in-bielefeld | viral-beat | None | frage | 474 | 712 | 6 | 0 | 3 | 0 | 0.624 | 607.4 |
-| T17-samstag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 221 | 505 | 5 | 1 | 0 | 0 | – | 525.0 |
-| T18-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | anlass | 213 | 484 | 7 | 0 | 0 | 0 | – | 505.0 |
-| T20-montag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 143 | 307 | 0 | 0 | 0 | 0 | – | 307.0 |
-| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 0 | 7 | 0 | 0 | 0 | 0 | – | 7.0 |
+| T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 617 | 1122 | 8 | 0 | 1 | 1 | – | 1170.0 |
+| T02-so-laeuft-the-tribe | list-carousel | None | so-gehts | 540 | 1070 | 10 | 3 | 4 | 0 | – | 1149.0 |
+| T01-neu-in-bielefeld | viral-beat | None | frage | 486 | 722 | 6 | 0 | 3 | 0 | 0.624 | 615.5 |
+| T17-samstag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 248 | 553 | 5 | 1 | 1 | 0 | – | 579.0 |
+| T18-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | anlass | 242 | 547 | 7 | 0 | 0 | 0 | – | 568.0 |
+| T20-montag-vier-ideen | event-carousel | neu-in-bielefeld | anlass | 191 | 401 | 0 | 0 | 1 | 0 | – | 407.0 |
+| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 228 | 277 | 2 | 0 | 0 | 0 | 0.199 | 169.7 |
+| T22-freitag-fuenf-ideen | event-carousel | neu-in-bielefeld | anlass | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
-| sonstiges | 872.7 | 885.5 | 0.62 | 2 | – |
-| neu-in-bielefeld | 499.6 | 481.8 | 0.00 | 5 | – |
+| sonstiges | 882.2 | 896.0 | 0.62 | 2 | – |
+| neu-in-bielefeld | 482.3 | 483.3 | 0.20 | 6 | – |
 
 **Stärkster Pain:** sonstiges  
 **Nächstes Tool bauen für:** neu-in-bielefeld  
@@ -25,28 +26,28 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Hooks: was hält, was nicht
 
-- TOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø 5.49 s von 8.8 s · Skip 57.3 · Reichweite 474
-- TOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø – s von 21.02 s · Skip 0 · Reichweite 0
-- FLOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø – s · Skip 0 · Reichweite 0
-- FLOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø 5.49 s · Skip 57.3 · Reichweite 474
+- TOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø 5.49 s von 8.8 s · Skip 57 · Reichweite 486
+- TOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.19 s von 21.02 s · Skip 77.8 · Reichweite 228
+- FLOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.19 s · Skip 77.8 · Reichweite 228
+- FLOP T01-neu-in-bielefeld: „Neu in *Bielefeld?*“ · Ø 5.49 s · Skip 57 · Reichweite 486
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
-- images/rooftop-vier.jpg: 966.5 (n=3)
-- images/dinner-restaurant.jpg: 726.6 (n=4)
-- images/party-selfie-2.jpg: 726.6 (n=4)
-- images/party-selfie-1.jpg: 589.5 (n=3)
-- images/rooftop-gruppe.jpg: 584.1 (n=3)
-- images/dinner-gruppe-bar.jpg: 525.0 (n=1)
-- images/cafe-tisch-gruppe.jpg: 505.0 (n=1)
-- images/kneipe-selfie-gruppe.jpg: 157.0 (n=2)
-- images/wandern-gruppe-ausblick.jpg: 7.0 (n=1)
+- images/rooftop-vier.jpg: 978.2 (n=3)
+- images/dinner-restaurant.jpg: 620.8 (n=5)
+- images/party-selfie-2.jpg: 620.8 (n=5)
+- images/party-selfie-1.jpg: 488.8 (n=4)
+- images/rooftop-gruppe.jpg: 483.6 (n=4)
+- images/dinner-gruppe-bar.jpg: 289.5 (n=2)
+- images/cafe-tisch-gruppe.jpg: 284.0 (n=2)
+- images/kneipe-selfie-gruppe.jpg: 192.2 (n=3)
+- images/wandern-gruppe-ausblick.jpg: 169.7 (n=1)
 
 ## Konto (heute)
 
-- reach: 1760
-- profile_views: 35
-- accounts_engaged: 8
+- reach: 1138
+- profile_views: 25
+- accounts_engaged: 2
 - website_clicks: 1
 - follows_and_unfollows: None
 - engaged_cities: Bielefeld, Nordrhein-Westfalen (41), Münster, Nordrhein-Westfalen (31), Enger, Nordrhein-Westfalen (4), Herford, Nordrhein-Westfalen (3), Hiddenhausen, Nordrhein-Westfalen (3), Gütersloh, Nordrhein-Westfalen (3), Ahlen, Nordrhein-Westfalen (3), Paderborn, Nordrhein-Westfalen (3)
@@ -54,40 +55,41 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 606.20 (n=7)
+- None: 582.27 (n=8)
 
 ## Ø Interesse nach format
 
-- list-carousel: 1138.00 (n=1)
-- event-carousel: 622.75 (n=4)
-- viral-beat: 607.40 (n=1)
-- event-reel: 7.00 (n=1)
+- list-carousel: 1149.00 (n=1)
+- viral-beat: 615.50 (n=1)
+- event-carousel: 544.80 (n=5)
+- event-reel: 169.70 (n=1)
 
 ## Ø Interesse nach hook_style
 
-- neu-in-stadt: 1154.00 (n=1)
-- so-gehts: 1138.00 (n=1)
-- frage: 607.40 (n=1)
-- anlass: 336.00 (n=4)
+- neu-in-stadt: 1170.00 (n=1)
+- so-gehts: 1149.00 (n=1)
+- frage: 615.50 (n=1)
+- anlass: 344.74 (n=5)
 
 ## Ø Interesse nach pain
 
-- None: 872.70 (n=2)
-- neu-in-bielefeld: 499.60 (n=5)
+- None: 882.25 (n=2)
+- neu-in-bielefeld: 482.28 (n=6)
 
 ## Ø Interesse nach local_time
 
-- 17:42: 1154.00 (n=1)
-- 17:46: 1138.00 (n=1)
-- 07:34: 607.40 (n=1)
-- 17:41: 525.00 (n=1)
-- 17:39: 505.00 (n=1)
-- 17:38: 307.00 (n=1)
-- 18:21: 7.00 (n=1)
+- 17:42: 1170.00 (n=1)
+- 17:46: 1149.00 (n=1)
+- 07:34: 615.50 (n=1)
+- 17:41: 579.00 (n=1)
+- 17:39: 568.00 (n=1)
+- 17:38: 407.00 (n=1)
+- 18:21: 169.70 (n=1)
+- 16:58: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 1146.00 (n=2)
-- beat: 607.40 (n=1)
-- mood:tribe: 445.67 (n=3)
-- track:take-this-higher.mp3: 7.00 (n=1)
+- bed: 1159.50 (n=2)
+- beat: 615.50 (n=1)
+- mood:tribe: 388.50 (n=4)
+- track:take-this-higher.mp3: 169.70 (n=1)
