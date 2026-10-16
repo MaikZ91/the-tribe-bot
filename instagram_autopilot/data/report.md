@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-16
 
-Follower: **59** · Beiträge: 19
+Follower: **59** · Beiträge: 20
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -14,6 +14,7 @@ Follower: **59** · Beiträge: 19
 | D0304-vier-fotos-profil | maik-text | nur-ein-foto | liste | – | – | – | – | – | – | – | 0.0 |
 | D0306-wer-posiert | maik-text | wirkt-steif | aussage | – | – | – | – | – | – | – | 0.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | – | – | – | – | – | – | – | 0.0 |
+| D1016-drei-fehler | maik-text | schlechte-fotos | liste | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -28,6 +29,7 @@ Follower: **59** · Beiträge: 19
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
 | wirkt-steif | 0.0 | 0.0 | 0.00 | 1 | – |
+| schlechte-fotos | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -51,7 +53,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=2)
+- ≥ 90 min: Ø Reichweite 0.0 (n=3)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -64,7 +66,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/dating/stil-hafen-pullover.jpg: 0.0 (n=1)
 - images/dating/stil-treppe-ganzkoerper.jpg: 0.0 (n=2)
 - images/dating/echt-feld-arme.jpg: 0.0 (n=1)
-- images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=1)
+- images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=2)
 - images/dating/echt-gitarre-halde.jpg: 0.0 (n=1)
 - images/dating/echt-lachen-feld.jpg: 0.0 (n=1)
 
@@ -73,7 +75,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=7)
+- dating: 0.00 (n=8)
 
 ## Ø Interesse nach format
 
@@ -83,7 +85,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=2)
+- maik-text: 0.00 (n=3)
 - foto-reel: 0.00 (n=1)
 
 ## Ø Interesse nach hook_style
@@ -93,7 +95,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - so-gehts: 0.00 (n=1)
 - kontrast: 0.00 (n=1)
 - aufforderung: 0.00 (n=1)
-- liste: 0.00 (n=1)
+- liste: 0.00 (n=2)
 - aussage: 0.00 (n=1)
 - geschichte: 0.00 (n=1)
 
@@ -108,6 +110,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
 - wirkt-steif: 0.00 (n=1)
+- schlechte-fotos: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -121,9 +124,10 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 13:30: 0.00 (n=1)
 - 18:57: 0.00 (n=1)
 - 07:57: 0.00 (n=1)
+- 12:58: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=8)
+- bed: 0.00 (n=9)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
