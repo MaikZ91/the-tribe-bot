@@ -21,10 +21,11 @@ Kernsatz: **„Events finden. Leute finden. Rausgehen.“**
 Rotiere in dieser Reihenfolge, zuletzt gezeigtes Feature steht in state.json/Post-Spec (`"feature"`):
 1. **Stadtpuls** (Top, Maik 17.10.) – Karte glüht, wo gerade was abgeht; Puls-Zahl 0–100 („Die Stadt brennt“). Hook: „Wo geht in Bielefeld gerade richtig was?“ Immer dazu: „Hochrechnung aus allen Events“ – nie „live gezählte Besucher“ behaupten.
 2. **Ich bin unterwegs** (Top, Maik 17.10.) – auf der Karte Standort tippen → Community weiß, wo du bist und worauf du Bock hast → wer in der Nähe ist, kommt dazu. Hook: „Spontan raus, aber keiner hat Zeit?“
-3. **Tribe Tonight** – 3 Fragen, dann erzählt die App deinen Abend in Kapiteln mit Musik. Hook: „Ich hab die App gefragt, was ich heute machen soll.“
-4. **Abend bauen** – wischen wie bei Tinder → fertige Route mit Gehzeiten.
-5. **Wer kommt mit? / Allein hin?** – fertige Nachricht für die WhatsApp-Community.
-6. Highlights-Stories, Mein Abend, Status-Bild.
+3. **Frag THE TRIBE – der Chat** (Maik 17.10.: wichtig, regelmäßig zeigen) – oben rechts im Kopf; man fragt in normaler Sprache („Wo kann ich heute tanzen?“, „Konzerte am Wochenende“, „Ich will nicht allein hin“) und bekommt passende echte Events bzw. den Weg in die Community. Hook: „Ich hab die App gefragt, wo ich heute tanzen kann.“ Screenshot: `#askBtn`, dann `#sugg button` oder Text in `#chatIn` + Enter. Nicht als „KI“ bezeichnen (regelbasiert) – „Frag einfach“.
+4. **Tribe Tonight** – 3 Fragen, dann erzählt die App deinen Abend in Kapiteln mit Musik. Hook: „Ich hab die App gefragt, was ich heute machen soll.“
+5. **Abend bauen** – wischen wie bei Tinder → fertige Route mit Gehzeiten.
+6. **Wer kommt mit? / Allein hin?** – fertige Nachricht für die WhatsApp-Community.
+7. Highlights-Stories, Mein Abend, Status-Bild.
 
 Screenshots/Bildschirmaufnahme (Playwright, 390×844, scale 3, Uhrzeit per `page.clock.install` auf einen Abend, an dem Events laufen, z. B. heute 23:00):
 - Stadtpuls: Navigation `nav [data-v=map]`, ca. 3 s warten (Karte + Glühen). Für Reels mehrere Frames mit wanderndem Regler `#slR` (19:00 → 01:00) = „die Nacht bewegt sich“.
