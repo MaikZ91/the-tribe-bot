@@ -208,6 +208,23 @@ h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margi
 .ev .acts{order:4;display:flex;flex-direction:column;gap:2px}
 .ev .acts button{position:static;transform:none;width:30px;height:30px}
 .shr,.fav{position:static!important;transform:none!important}
+header.solid .search{display:none}
+@media (max-width:390px){
+ .wrap{padding:0 14px}.top{padding:12px 0 2px}.logo{font-size:12px;letter-spacing:.24em}
+ .ask{font-size:11px;padding:6px 10px 6px 8px}.search{padding:10px 0 8px;margin:2px 0}.search input{font-size:15px}
+ .days{gap:16px;padding:8px 0 2px}.day{font-size:14px;padding-bottom:6px}.chips{padding:8px 0 8px}.chip{font-size:11.5px;padding:5px 10px}
+ .stories{gap:10px;margin:2px -14px 0;padding:4px 14px 2px}.sb{width:56px}.sb .ring{width:56px;height:56px;padding:2px}.sb small{font-size:10px;margin-top:4px}
+ .pulse{margin:14px 0 0}.pulse b{font-size:18px}.slot{margin:14px 0 0;font-size:10px}
+ .ev{gap:10px;padding:10px 0}.ev .tc{flex:0 0 40px;font-size:14px}.ev .tc small{font-size:9px}
+ .ev .th{flex:0 0 42px;height:42px}.ev .nm{font-size:14px}.ev .vn{font-size:12px}.ev .tm{font-size:9.5px}
+ .ev .acts button{width:26px;height:26px}.ev .acts svg{width:17px;height:17px}
+ .ev .tm{display:none}.ev{padding:9px 0}.ev .tc small{white-space:nowrap}.ev .nm{-webkit-line-clamp:1;margin:0 0 1px}.ev .acts{flex-direction:row;gap:0}
+ .stories{padding-bottom:0}.sb small{display:none}.sb{width:52px}.sb .ring{width:52px;height:52px}
+ nav button{padding:8px 0 9px;font-size:9.5px}.sheet h1{font-size:28px}.cta h3{font-size:26px}
+}
+.plan-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0 4px}
+.gap{font-size:11px;color:var(--fog);padding:6px 0 6px 52px;border-top:1px dashed var(--line)}
+.wx{color:var(--dim)}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -239,8 +256,9 @@ footer a{text-decoration:underline}
   </section>
 
   <section class="view" id="v-favs">
-    <h2>Gemerkt</h2><p class="sub">Deine Events – nur auf diesem Gerät gespeichert.</p>
+    <h2>Mein Abend</h2><p class="sub">Merk dir Events mit dem Herz – hier wird daraus dein Plan, mit Zeiten und Lücken. Ein Tipp, und deine Leute wissen Bescheid.</p>
     <div class="list" id="favList"></div>
+    <div id="planBtns" hidden><a class="btn or full" id="planShare" target="_blank" rel="noopener">Plan auf WhatsApp teilen</a><a class="btn gh full" style="margin-top:8px" id="planCrew" target="_blank" rel="noopener">Wer kommt mit? – Community fragen</a></div>
   </section>
 
   <section class="view" id="v-spontan">
@@ -297,7 +315,7 @@ footer a{text-decoration:underline}
 <nav><div class="in">
   <button class="on" data-v="events"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Events</button>
   <button data-v="spontan"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Spontan</button>
-  <button data-v="favs"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/></svg>Gemerkt</button>
+  <button data-v="favs"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7.3a4.3 4.3 0 017.5 2.5C19.5 15.4 12 20 12 20z"/></svg>Mein Abend</button>
   <button data-v="host"><svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/></svg>Veranstalter</button>
 </div></nav>
 
@@ -387,13 +405,18 @@ function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay(
   $('#days').innerHTML=opts.map(o=>`<button class="day${state.day===o[0]?' on':''}" data-day="${o[0]}">${o[1]}<small>${o[2]}</small></button>`).join('')}
 function renderChips(){const base=ALL.filter(e=>inRange(e));const cnt=c=>base.filter(e=>e.cat===c).length;
   $('#chips').innerHTML=`<button class="chip${!state.cat?' on':''}" data-cat="">Alles</button>`+CATS.filter(c=>cnt(c[0])||state.cat===c[0]).map(c=>`<button class="chip${state.cat===c[0]?' on':''}" data-cat="${c[0]}">${MOOD[c[0]]} <span style="opacity:.5">${cnt(c[0])}</span></button>`).join('')}
-let SL=[],SI=0,ST=null;
+let SL=[],SI=0,ST=null,WX=null;
+function wxText(){if(!WX||!WX.hourly||state.day!=='today')return'';const h=WX.hourly,now=new Date(),key=dayKey(now);let best=null;
+  h.time.forEach((t,i)=>{const d=new Date(t);if(dayKey(d)===key&&d.getHours()===21)best=i});if(best===null)return'';
+  const T=Math.round(h.temperature_2m[best]),P=h.precipitation_probability[best];
+  return`21 Uhr: ${T}°, ${P>=50?'Regen wahrscheinlich – eher was drinnen':P>=25?'evtl. Schauer':'trocken'}`}
+fetch('https://api.open-meteo.com/v1/forecast?latitude=52.02&longitude=8.53&hourly=temperature_2m,precipitation_probability&timezone=Europe%2FBerlin&forecast_days=2').then(r=>r.json()).then(j=>{WX=j;render()}).catch(()=>{});
 function render(){renderDays();renderChips();const L=filtered();
   const hl=[...L].filter(e=>!e.minor).sort((a,b)=>b.score-a.score).slice(0,8);SL=hl;
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
   $('#hl').innerHTML=`<div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
   const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
-  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade':''}</span>`:'';
+  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
   const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
   L.slice(0,state.limit).forEach(e=>{let g;
     if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;g=n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}
@@ -409,8 +432,15 @@ function showStory(i){if(i<0)i=0;if(i>=SL.length){closeStory();return}SI=i;const
   document.querySelectorAll('.sb')[i+1]?.classList.add('seen');
   $('#story').classList.add('open');ST=setTimeout(()=>showStory(SI+1),6000)}
 function closeStory(){clearTimeout(ST);$('#story').classList.remove('open')}
-function renderFavs(){const L=ALL.filter(e=>favs.has(e.id)&&e.date>=today0()).sort((a,b)=>a.date-b.date);
-  $('#favList').innerHTML=L.length?L.map(card).join(''):'<div class="empty">Tippe auf das Herz bei einem Event, um es dir zu merken.</div>'}
+function renderFavs(){const L=ALL.filter(e=>favs.has(e.id)&&e.date>=today0()).sort((a,b)=>a.date-b.date||(a.time||'').localeCompare(b.time||''));
+  if(!L.length){$('#favList').innerHTML='<div class="empty">Noch nichts geplant. Tippe bei Events auf das Herz – hier entsteht dein Abend.</div>';$('#planBtns').hidden=true;return}
+  let out='',lastDay='',prev=null;const mins=t=>{if(!t)return null;const[h,m]=t.split(':').map(Number);return(h<6?h+24:h)*60+(m||0)};
+  L.forEach(e=>{const dk=fmtDay(e.date);if(dk!==lastDay){out+=`<div class="slot">${dk}</div>`;lastDay=dk;prev=null}
+    const m=mins(e.time);if(prev!==null&&m!==null){const g=m-prev;out+=`<div class="gap">${g<0?'⚠︎ überschneidet sich':g<60?g+' min bis zum nächsten':Math.floor(g/60)+' h '+(g%60?g%60+' min ':'')+'Zeit – Bar dazwischen?'}</div>`}
+    out+=card(e);prev=m!==null?m+90:prev});
+  $('#favList').innerHTML=out;$('#planBtns').hidden=false;
+  const txt='Mein Plan 🌙\n'+L.map(e=>`${fmtDay(e.date)}${e.time?' '+e.time:''} – ${e.title} (${e.venue||'Bielefeld'})`).join('\n')+'\nKommst du mit? '+location.href.split('#')[0];
+  $('#planShare').href='https://wa.me/?text='+encodeURIComponent(txt);$('#planCrew').href=WA_COMMUNITY}
 
 function ics(e){const d=e.date;const p=n=>String(n).padStart(2,'0');const [h,mi]=(e.time||'19:00').split(':').map(Number);
   const s=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(h||19)}${p(mi||0)}00`;
@@ -437,7 +467,7 @@ document.addEventListener('click',ev=>{const t=ev.target;
   const sbb=t.closest('[data-story]');if(sbb){showStory(+sbb.dataset.story);return}
   if(t.closest('#rnd')){const P=filtered().filter(e=>!e.minor&&(startsIn(e)===null||startsIn(e)>-60));const pool=P.length?P:filtered();if(pool.length){const e=pool[Math.floor(Math.random()*pool.length)];open(e.id);toast('Wie wär\'s damit?')}return}
   const sh=t.closest('[data-share]');if(sh){ev.stopPropagation();const e=ALL.find(x=>x.id===sh.dataset.share);if(e)window.open('https://wa.me/?text='+encodeURIComponent(shareText(e)),'_blank');return}
-  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Gemerkt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);if($('#story').classList.contains('open'))fv.textContent=favs.has(id)?'Gemerkt':'Merken';return}
+  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Zu „Mein Abend“ hinzugefügt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);if($('#story').classList.contains('open'))fv.textContent=favs.has(id)?'Gemerkt':'Merken';return}
   const d=t.closest('[data-day]');if(d){state.day=d.dataset.day;state.limit=30;render();return}
   const c=t.closest('[data-cat]');if(c){state.cat=c.dataset.cat||null;state.limit=30;render();return}
   const card=t.closest('[data-id]');if(card){open(card.dataset.id);return}
