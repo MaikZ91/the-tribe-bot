@@ -207,3 +207,9 @@
 ## Tribe – CD 16.10. (16:50)
 - 14./15.10. kein Tribe-Post (Routinen in inaktiver Sitzung). Follower 1289 (Stand 13.10., Abruf seither nicht gelaufen). Nach Reel T21 → Karussell T22 „Freitag. Was geht?“ (5 echte Events aus events.json). Test-Variable: medium.
 - CD 16.10. (18:50): Follower 59 (±0 heute). Wechsel → Reel D1016 „Spots in Münster“ (neue Säule lokal, 3 KI-Stilbilder gelabelt), Musik neu: recline-and-chill (abend). Test-Variable: Thema.
+
+## Tagesauswertung 16.10.2026
+- @natuerlich.du.ms (instagram_autopilot): Follower 59 (Δ 0 zum 15.10.). Post-Metriken n/a (Token „AI“ ohne instagram_manage_insights). Heute 3 Posts (D1016 Boosts / 3 Fehler / Spots Münster) – kein Follower-Effekt messbar.
+- @ki.fuer.dein.business: kein eigener Datensatz mehr im Repo (instagram_autopilot läuft auf @natuerlich.du.ms) → n/a.
+- @the_tribe.bi.ms: Follower 1286 (Δ −3 seit 13.10.). T22 Freitag-Karussell 98 Reichweite / 221 Views / 0 Likes (schwächster Event-Post), T23 App-Release-Reel nach ~1 h: 0 Reichweite / 1 View (Insights hinken evtl. nach). Bester Post bleibt T04 „Ersti-Wochenende“ 617 Reichweite.
+- Schlussfolgerung/Hypothese morgen: Event-Karussells „X Ideen“ ermüden (248 → 98 Reichweite). Für Tribe morgen ein Format mit Menschen/Community-Bezug („neu in Bielefeld“ wie T04/T01) statt reiner Event-Liste; T23-Reichweite morgen früh prüfen – bleibt sie < 50, wurde das Reel vermutlich nicht ausgespielt (Musiktausch durch Pipeline, Text-lastig).
