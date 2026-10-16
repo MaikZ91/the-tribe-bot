@@ -11,6 +11,10 @@
 <meta property="og:image" content="og.jpg">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="THE TRIBE">
 <style>
 @font-face{font-family:'Geist';src:url('../assets/fonts/geist-400.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Geist';src:url('../assets/fonts/geist-500.woff2') format('woff2');font-weight:500;font-display:swap}
@@ -140,6 +144,10 @@ form input:focus,form select:focus{outline:none;border-color:var(--cream)}
 h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margin:30px 0 12px}
 #spMood{flex-wrap:wrap}
 .note a{text-decoration:underline}
+.inst{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:35;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;background:rgba(24,24,24,.96);backdrop-filter:blur(16px);border:1px solid var(--line2);border-radius:16px}
+.inst[hidden]{display:none}.inst div{flex:1;min-width:0}.inst b{display:block;font-weight:600;font-size:14px}.inst span{font-size:12px;color:var(--fog)}
+.inst .btn{padding:10px 14px;font-size:13px}.ix{font-size:22px;color:var(--fog);width:28px}
+.steps{padding-left:20px;line-height:1.6;color:var(--cream);font-size:15px}.steps li{padding:6px 0}.kb{display:inline-block;border:1px solid var(--line2);border-radius:6px;padding:0 6px;margin-left:4px}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -233,6 +241,12 @@ footer a{text-decoration:underline}
 </div></nav>
 
 <div class="sheet" id="sheet"><div class="bg"></div><div class="pn"><button class="x" id="sx" aria-label="Schließen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div id="sc"></div></div></div>
+<div class="inst" id="inst" hidden><div><b>THE TRIBE als App</b><span>Kostenlos, ohne App Store</span></div><button class="btn or" id="instBtn">Installieren</button><button class="ix" id="instX" aria-label="Schließen">×</button></div>
+<div class="sheet" id="iosSheet"><div class="bg"></div><div class="pn"><div class="c" style="margin-top:0;padding-top:28px">
+<h1>App installieren</h1><p class="desc">Auf dem iPhone in drei Schritten – kein App Store nötig:</p>
+<ol class="steps"><li>Unten in Safari auf <b>Teilen</b> tippen <span class="kb">&#x2191;&#xFE0E;</span></li><li>Runterscrollen: <b>„Zum Home-Bildschirm“</b></li><li>Oben rechts <b>„Hinzufügen“</b> – fertig.</li></ol>
+<p class="note">Funktioniert nur in Safari. Bist du in Instagram oder Chrome, öffne den Link zuerst in Safari.</p>
+<button class="btn or full" id="iosOk" style="margin-top:16px">Verstanden</button></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -369,6 +383,20 @@ async function load(){let raw=[];
   if(!ALL.some(inRange)&&state.day==='today')state.day='week';
   render();const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
 load();
+(function(){const ua=navigator.userAgent,ios=/iphone|ipad|ipod/i.test(ua),inApp=/instagram|fban|fbav/i.test(ua);
+  const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;let dp=null;
+  let dismissed=false;try{dismissed=+localStorage.getItem('tribe_inst_x')>Date.now()}catch(e){}
+  const show=()=>{if(!standalone&&!dismissed)$('#inst').hidden=false};
+  addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;show()});
+  if(ios)setTimeout(show,2500);
+  $('#instBtn').onclick=async()=>{if(dp){dp.prompt();const r=await dp.userChoice;dp=null;$('#inst').hidden=true;if(r.outcome==='accepted')toast('Installiert')}
+    else if(ios){$('#iosSheet').classList.add('open')}
+    else toast(inApp?'Link im Browser öffnen, dann installieren':'Browser-Menü ⋮ → „App installieren“')};
+  $('#instX').onclick=()=>{$('#inst').hidden=true;try{localStorage.setItem('tribe_inst_x',Date.now()+3*864e5)}catch(e){}};
+  $('#iosOk').onclick=$('#iosSheet .bg').onclick=()=>$('#iosSheet').classList.remove('open');
+  addEventListener('appinstalled',()=>{$('#inst').hidden=true});
+  if(location.hash==='#installieren')setTimeout(()=>{show();ios&&$('#iosSheet').classList.add('open')},600);
+})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
