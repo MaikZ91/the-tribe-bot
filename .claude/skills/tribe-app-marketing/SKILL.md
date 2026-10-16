@@ -32,7 +32,7 @@ Screenshots/Bildschirmaufnahme (Playwright, 390×844, scale 3, Uhrzeit per `page
 - Tribe Tonight: Direktlink `…/tribe/#tonight`, Antworten anklicken (`[data-tq]`), Kapitel per `[data-tt=next]`.
 - Bilder für Events: externe Bilder per Python laden und an die Seite durchreichen (Sandbox), siehe frühere Shot-Skripte.
 
-Video-Posts mit eigener Musik: in der Spec `"music": ""` setzen bzw. prüfen, dass der Renderer den Ton nicht ersetzt (config `video_music`).
+Fertige Videos mit eigener (lizenzfreier) Musik: in der Spec `"keep_audio": true` setzen – sonst ersetzt der Renderer den Ton durch config `video_music`.
 
 ## Profiltext (Vorschlag, Maik setzt ihn manuell)
 THE TRIBE · Bielefeld

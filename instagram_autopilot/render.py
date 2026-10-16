@@ -1041,7 +1041,7 @@ def render_video(spec: dict, out_dir: Path) -> dict:
     then that track replaces it ("music_mix": "replace", default) or plays over the original
     turned down ("music_mix": "duck", for clips with speech)."""
     src = ROOT / spec["video"]
-    choice = str(spec.get("music") or CONFIG.get("video_music") or "")
+    choice = "" if spec.get("keep_audio") else str(spec.get("music") or CONFIG.get("video_music") or "")
     track = pick_track(choice, zlib.crc32(spec["id"].encode())) if choice else None
     out_dir.mkdir(parents=True, exist_ok=True)
     ff = ffmpeg_exe()
