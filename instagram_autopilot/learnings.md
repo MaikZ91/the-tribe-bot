@@ -206,3 +206,4 @@
 
 ## Tribe – CD 16.10. (16:50)
 - 14./15.10. kein Tribe-Post (Routinen in inaktiver Sitzung). Follower 1289 (Stand 13.10., Abruf seither nicht gelaufen). Nach Reel T21 → Karussell T22 „Freitag. Was geht?“ (5 echte Events aus events.json). Test-Variable: medium.
+- CD 16.10. (18:50): Follower 59 (±0 heute). Wechsel → Reel D1016 „Spots in Münster“ (neue Säule lokal, 3 KI-Stilbilder gelabelt), Musik neu: recline-and-chill (abend). Test-Variable: Thema.
