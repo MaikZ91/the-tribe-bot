@@ -312,6 +312,8 @@ nav button.mid svg{color:var(--amb)}
 .fyc .why{margin:4px 0 0;gap:4px}.fyc .why span{font-size:10.5px;padding:3px 8px}
 .allbtn{width:100%;padding:13px;border-radius:14px;border:1px solid var(--line2);color:var(--dim);font-size:14px;margin:6px 0 0}
 .pf-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:15px}.pf-row span{color:var(--fog);text-align:right;max-width:60%}
+.leaflet-tooltip.vlab{background:rgba(10,10,10,.82);border:1px solid rgba(217,160,102,.35);color:var(--cream);border-radius:8px;padding:4px 8px;box-shadow:none;font-family:var(--body);line-height:1.25;white-space:nowrap}
+.leaflet-tooltip.vlab:before{display:none}.vlab b{display:block;font-size:12px;font-weight:600}.vlab span{display:block;font-size:10.5px;color:var(--amb)}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -739,12 +741,15 @@ function buildRoute(){if(!LIKED.length){toast('Erst ein paar Events nach rechts 
   h+='<div id="rmap"></div><button class="btn or full" id="rShare">Route in die WhatsApp-Gruppe</button><p class="note">Die Stationen stehen jetzt auch unter „Mein Abend“.</p></div>';$('#route').innerHTML=h;
   $('#rShare').onclick=()=>wa('Mein Abend heute 🌙\n'+R.map(e=>`${e.time} ${e.title} (${e.venue||'Bielefeld'})`).join('\n')+'\nWer steigt wo ein? '+location.href.split('#')[0]);
   const pts=R.map(geo).filter(Boolean);if(window.L&&pts.length){rmap=L.map('rmap',{zoomControl:false,attributionControl:false});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(rmap);
-    pts.forEach((p,i)=>L.marker(p,{icon:L.divIcon({className:'dot',iconSize:[14,14]})}).addTo(rmap));if(pts.length>1)L.polyline(pts,{color:'#D9A066',weight:2,dashArray:'4 6'}).addTo(rmap);rmap.fitBounds(L.latLngBounds(pts).pad(.4),{maxZoom:15})}else{const m=$('#rmap');if(m)m.remove()}
+    R.forEach((e,i)=>{const p=geo(e);if(p)L.marker(p,{icon:L.divIcon({className:'dot',iconSize:[14,14]})}).bindTooltip(`<b>${i+1}. ${esc(prettyVenue(e))}</b><span>${esc(e.time)}</span>`,{permanent:true,direction:'right',offset:[8,0],className:'vlab'}).addTo(rmap)});if(pts.length>1)L.polyline(pts,{color:'#D9A066',weight:2,dashArray:'4 6'}).addTo(rmap);rmap.fitBounds(L.latLngBounds(pts).pad(.4),{maxZoom:15})}else{const m=$('#rmap');if(m)m.remove()}
   $('#route').scrollIntoView({behavior:'smooth'})}
 // Nachtkarte
 let nmap,nlayer;
-function initNight(){if(!window.L)return;if(!nmap){nmap=L.map('nmap',{zoomControl:false}).setView([52.024,8.532],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(nmap);nlayer=L.layerGroup().addTo(nmap)}
+function initNight(){if(!window.L)return;if(!nmap){nmap=L.map('nmap',{zoomControl:false}).setView([52.024,8.532],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(nmap);nlayer=L.layerGroup().addTo(nmap);nmap.on('dragstart zoomstart',e=>{if(e.originalEvent||e.type==='dragstart')nmap._userMoved=true})}
   setTimeout(()=>nmap.invalidateSize(),60);const n=new Date();let v=n.getHours()*60+n.getMinutes();if(v<360)v+=1440;$('#slR').value=Math.min(1680,Math.max(960,Math.round(v/15)*15));drawNight()}
+function prettyVenue(e){let v=(e.venue||'').replace(/[._]/g,' ').replace(/\bbielefeld\b|\bbi\b|liveclub|club$/gi,'').replace(/\s+/g,' ').trim();
+  const M={'hinterzimmer':'LIV / Hinterzimmer','cutiebielefeld':'Cutie','cutie':'Cutie','sams':'Club Sams','nr z p':'Nr. z. P.','forum':'Forum','cafe europa':'Café Europa','movie':'Movie','platzhirschbielefeld':'Platzhirsch','platzhirsch':'Platzhirsch','cinemaxx':'Cinemaxx','irish pub':'Irish Pub','lokschuppen':'Lokschuppen','stereo':'Stereo','loom':'Loom','gegenueber bar':'Gegenüber'};
+  const k=v.toLowerCase();return M[k]||v.replace(/\b\w/g,c=>c.toUpperCase())||'Bielefeld'}
 function heatOf(e,T){const m=toMin(e.time),dur=e.cat==='party'?300:e.cat==='kino'?120:160;const t=T-m;if(t<-45||t>dur)return 0;
   const w={party:1,musik:.8,tribe:.7,ausgehen:.65,comedy:.55,kultur:.45,kino:.25}[e.cat]||.4;
   let c=t<0?.25*(1+t/45):t<60?.35+.65*t/60:t<dur-60?1:Math.max(.2,(dur-t)/60);
@@ -759,7 +764,10 @@ function drawNight(){if(!nmap)return;const T=+$('#slR').value;$('#slTime').textC
     if(p&&h>0){const k=p[0].toFixed(3)+','+p[1].toFixed(3);(spots[k]=spots[k]||{p,h:0,ev:[]}).h+=h;spots[k].ev.push(e)}});
   const S=Object.values(spots).sort((a,b)=>b.h-a.h);
   S.forEach(sp=>{const r=Math.round(40+Math.min(1.6,sp.h)*55);const ic=L.divIcon({className:'',html:`<div class="heat" style="width:${r}px;height:${r}px;--sp:${(2.6-Math.min(1.5,sp.h)).toFixed(2)}s"></div>`,iconSize:[r,r]});
-    L.marker(sp.p,{icon:ic}).bindPopup(`<div class="pop">${sp.ev.map(e=>`<b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button>`).join('<hr>')}</div>`).addTo(nlayer)});
+    const vn=[...new Set(sp.ev.map(e=>prettyVenue(e)))];const top=sp.ev.slice().sort((a,b)=>heatOf(b,T)-heatOf(a,T))[0];const rank=S.indexOf(sp);
+    const lab=`<b>${esc(vn.slice(0,2).join(' · '))}${vn.length>2?' +'+(vn.length-2):''}</b><span>${esc(top.time)}${sp.ev.length>1?' · '+sp.ev.length+' Events':''}</span>`;
+    L.marker(sp.p,{icon:ic}).bindTooltip(lab,{permanent:rank<6,direction:rank%2?'left':'right',offset:[rank%2?-(r/2-14):(r/2-14),0],className:'vlab'}).bindPopup(`<div class="pop">${sp.ev.map(e=>`<b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button>`).join('<hr>')}</div>`).addTo(nlayer)});
+  if(S.length&&!nmap._userMoved){const b=L.latLngBounds(S.slice(0,6).map(x=>x.p));nmap.fitBounds(b.pad(.6),{maxZoom:16,animate:false})}
   const tot=live.reduce((a,e)=>a+heatOf(e,T)*wf,0);const score=Math.min(100,Math.round(100*(1-Math.exp(-tot/2.2))));
   const mood=score>=75?'Die Stadt brennt':score>=50?'Es läuft richtig':score>=25?'Es geht los':score>0?'Noch ruhig':'Gerade nichts los';
   const wd=WD[today0().getDay()];
