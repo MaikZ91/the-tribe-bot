@@ -194,7 +194,7 @@ h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margi
 .sbody .btn{padding:12px 8px;font-size:13px}.sbody .btn.gh{background:rgba(0,0,0,.35);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.25)}
 /* timetable */
 .pulse{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 4px}
-.pulse b{font-weight:600;font-size:22px;letter-spacing:-.02em}.pulse span{font-size:12px;color:var(--fog)}
+.pulse b{white-space:nowrap;font-weight:600;font-size:22px;letter-spacing:-.02em}.pulse span{font-size:12px;color:var(--fog)}
 .slot{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog);margin:22px 0 2px;display:flex;align-items:center;gap:8px}
 .slot.live{color:var(--amb)}.slot.live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amb);animation:pl 1.6s infinite}
 @keyframes pl{50%{opacity:.3;transform:scale(.7)}}
@@ -214,7 +214,7 @@ header.solid .search{display:none}
  .ask{font-size:11px;padding:6px 10px 6px 8px}.search{padding:10px 0 8px;margin:2px 0}.search input{font-size:15px}
  .days{gap:16px;padding:8px 0 2px}.day{font-size:14px;padding-bottom:6px}.chips{padding:8px 0 8px}.chip{font-size:11.5px;padding:5px 10px}
  .stories{gap:10px;margin:2px -14px 0;padding:4px 14px 2px}.sb{width:56px}.sb .ring{width:56px;height:56px;padding:2px}.sb small{font-size:10px;margin-top:4px}
- .pulse{margin:14px 0 0}.pulse b{font-size:18px}.slot{margin:14px 0 0;font-size:10px}
+ .pulse{margin:14px 0 0}.pulse b{white-space:nowrap;font-size:18px}.slot{margin:14px 0 0;font-size:10px}
  .ev{gap:10px;padding:10px 0}.ev .tc{flex:0 0 40px;font-size:14px}.ev .tc small{font-size:9px}
  .ev .th{flex:0 0 42px;height:42px}.ev .nm{font-size:14px}.ev .vn{font-size:12px}.ev .tm{font-size:9.5px}
  .ev .acts button{width:26px;height:26px}.ev .acts svg{width:17px;height:17px}
@@ -225,6 +225,8 @@ header.solid .search{display:none}
 .plan-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0 4px}
 .gap{font-size:11px;color:var(--fog);padding:6px 0 6px 52px;border-top:1px dashed var(--line)}
 .wx{color:var(--dim)}
+.lg{display:flex;align-items:baseline;gap:10px}.cty{font-size:11px;color:var(--fog);letter-spacing:.06em;display:flex;align-items:center;gap:3px}
+.cr{display:flex;justify-content:space-between;width:100%;padding:15px 0;border-bottom:1px solid var(--line);font-size:17px;text-align:left}.cr small{color:var(--fog);font-size:13px}.cr.on span{color:var(--amb)}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -233,7 +235,7 @@ footer a{text-decoration:underline}
 </head>
 <body>
 <header id="hdr"><div class="wrap">
-  <div class="top"><div class="logo">THE TRIBE<span>.</span></div><button class="ask" id="askBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>Frag THE TRIBE</button></div>
+  <div class="top"><div class="lg"><div class="logo">THE TRIBE<span>.</span></div><button class="cty" id="ctyBtn"><span id="ctyName">Bielefeld</span> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></div><button class="ask" id="askBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>Frag THE TRIBE</button></div>
   <div id="heroT"></div>
   <div id="filters">
     <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Club, Bar, Konzert, Künstler …" autocomplete="off"></div>
@@ -336,6 +338,7 @@ footer a{text-decoration:underline}
 <div class="shd"><b id="sven"></b><button id="sclose" aria-label="Schließen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
 <div class="snav"><i id="sprev"></i><i id="snext"></i></div>
 <div class="sbody" id="sbody"></div></div>
+<div class="sheet" id="ctySheet"><div class="bg"></div><div class="pn"><div class="c" style="margin-top:0;padding-top:24px"><h1 style="font-size:26px">Stadt wählen</h1><div id="ctyList"></div></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -377,7 +380,7 @@ function norm(e,i){let title=e.event||e.title||'';let venue='';const m=title.mat
   const id=(d?d.toISOString().slice(0,10):'x')+'|'+title.toLowerCase().slice(0,40)+'|'+time;
   let score={party:8,musik:7,kultur:5,comedy:6,tribe:9,kino:2,ausgehen:6,sport:0}[cat];
   if(e.image_url)score+=2;if(/hochschulsport|wochenmarkt/i.test(venue+title))score-=6;if(e.featured)score+=20;
-  return{id,title,venue,date:d,time,cat,img:e.image_url||'',link:e.link||'',desc,featured:!!e.featured,score,minor:cat==='sport'||/hochschulsport|wochenmarkt|flohmarkt/i.test(venue+title)}}
+  return{id,title,venue,date:d,time,cat,img:e.image_url||'',link:e.link||'',desc,featured:!!e.featured,score,city:(e.city||'Bielefeld').trim(),minor:cat==='sport'||/hochschulsport|wochenmarkt|flohmarkt/i.test(venue+title)}}
 function dayKey(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
 function today0(){const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())}
 function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
@@ -388,7 +391,7 @@ function inRange(ev){if(!ev.date)return false;const t=today0();
   if(state.day==='week')return ev.date>=t&&ev.date<addDays(t,7);
   return dayKey(ev.date)===state.day}
 function filtered(){const q=state.q.trim().toLowerCase();
-  return ALL.filter(e=>inRange(e)&&(state.cat?e.cat===state.cat:(q||!e.minor))&&(!q||(e.title+' '+e.venue+' '+e.desc+' '+e.cat).toLowerCase().includes(q)))
+  return ALL.filter(e=>e.city===CITY&&inRange(e)&&(state.cat?e.cat===state.cat:(q||!e.minor))&&(!q||(e.title+' '+e.venue+' '+e.desc+' '+e.cat).toLowerCase().includes(q)))
    .sort((a,b)=>a.date-b.date||(a.time||'99').localeCompare(b.time||'99'))}
 function fmtDay(d){const t=today0();if(dayKey(d)===dayKey(t))return'Heute';if(dayKey(d)===dayKey(addDays(t,1)))return'Morgen';return WD[d.getDay()]+', '+d.getDate()+'.'+(d.getMonth()+1)+'.'}
 function ph(cat,size){return`<div class="ph" style="--s:${Math.round(size/3.2)}px"><span>${CNAME[cat]||''}</span></div>`}
@@ -406,10 +409,15 @@ function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay(
 function renderChips(){const base=ALL.filter(e=>inRange(e));const cnt=c=>base.filter(e=>e.cat===c).length;
   $('#chips').innerHTML=`<button class="chip${!state.cat?' on':''}" data-cat="">Alles</button>`+CATS.filter(c=>cnt(c[0])||state.cat===c[0]).map(c=>`<button class="chip${state.cat===c[0]?' on':''}" data-cat="${c[0]}">${MOOD[c[0]]} <span style="opacity:.5">${cnt(c[0])}</span></button>`).join('')}
 let SL=[],SI=0,ST=null,WX=null;
+let CITY='Bielefeld';try{CITY=localStorage.getItem('tribe_city')||'Bielefeld'}catch(e){}
+function cities(){const c={};ALL.forEach(e=>{if(e.date>=today0())c[e.city]=(c[e.city]||0)+1});return Object.entries(c).sort((a,b)=>(b[0]==='Bielefeld')-(a[0]==='Bielefeld')||a[0].localeCompare(b[0]))}
+function setCity(c){CITY=c;try{localStorage.setItem('tribe_city',c)}catch(e){}$('#ctyName').textContent=c;state.limit=30;closeCity();render()}
+function openCity(){const L=cities();$('#ctyList').innerHTML=L.map(([c,n])=>`<button class="cr${c===CITY?' on':''}" data-city="${esc(c)}"><span>${esc(c)}</span><small>${n} Events</small></button>`).join('')+(L.length<2?'<p class="note">Weitere Städte folgen – sobald dort Events eingetragen sind, tauchen sie hier auf.</p>':'');$('#ctySheet').classList.add('open')}
+function closeCity(){$('#ctySheet').classList.remove('open')}
 function wxText(){if(!WX||!WX.hourly||state.day!=='today')return'';const h=WX.hourly,now=new Date(),key=dayKey(now);let best=null;
   h.time.forEach((t,i)=>{const d=new Date(t);if(dayKey(d)===key&&d.getHours()===21)best=i});if(best===null)return'';
   const T=Math.round(h.temperature_2m[best]),P=h.precipitation_probability[best];
-  return`21 Uhr: ${T}°, ${P>=50?'Regen wahrscheinlich – eher was drinnen':P>=25?'evtl. Schauer':'trocken'}`}
+  return`21 Uhr ${T}° · ${P>=50?'Regen':P>=25?'evtl. Schauer':'trocken'}`}
 fetch('https://api.open-meteo.com/v1/forecast?latitude=52.02&longitude=8.53&hourly=temperature_2m,precipitation_probability&timezone=Europe%2FBerlin&forecast_days=2').then(r=>r.json()).then(j=>{WX=j;render()}).catch(()=>{});
 function render(){renderDays();renderChips();const L=filtered();
   const hl=[...L].filter(e=>!e.minor).sort((a,b)=>b.score-a.score).slice(0,8);SL=hl;
@@ -476,7 +484,7 @@ document.addEventListener('click',ev=>{const t=ev.target;
     $('#filters').style.display=v==='events'?'':'none';$('#heroT').style.display=v==='events'?'':'none';if(v==='favs')renderFavs();if(v==='spontan')initMap();scrollTo(0,0);return}
   const pl=t.closest('[data-plan]');if(pl){$('#fPlan').value=pl.dataset.plan;$('#hostForm').scrollIntoView({behavior:'smooth'});return}
 });
-$('#sx').onclick=closeSheet;$('#sclose').onclick=closeStory;$('#sprev').onclick=()=>showStory(SI-1);$('#snext').onclick=()=>showStory(SI+1);$('#sheet .bg').onclick=closeSheet;
+$('#sx').onclick=closeSheet;$('#ctyBtn').onclick=openCity;$('#ctySheet .bg').onclick=closeCity;$('#ctyList').onclick=e=>{const b=e.target.closest('[data-city]');if(b)setCity(b.dataset.city)};$('#sclose').onclick=closeStory;$('#sprev').onclick=()=>showStory(SI-1);$('#snext').onclick=()=>showStory(SI+1);$('#sheet .bg').onclick=closeSheet;
 $('#moreBtn').onclick=()=>{state.limit+=30;render()};
 let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value;if(state.q)state.day='week';render()},150)};
 $('#waJoin').href=WA_COMMUNITY;$('#waJoin2').href=WA_COMMUNITY;
@@ -503,7 +511,7 @@ async function load(){let raw=[];
   const seen=new Set();ALL=raw.map(norm).filter(e=>e.date&&e.title&&!seen.has(e.id)&&seen.add(e.id));
   if(!ALL.some(inRange)&&state.day==='today')state.day='week';
   render();const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
-load();
+$('#ctyName').textContent=CITY;load();
 (function(){const ua=navigator.userAgent,ios=/iphone|ipad|ipod/i.test(ua),inApp=/instagram|fban|fbav/i.test(ua);
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;let dp=null;
   let dismissed=false;try{dismissed=+localStorage.getItem('tribe_inst_x')>Date.now()}catch(e){}
@@ -533,7 +541,7 @@ function answer(q){const t=q.toLowerCase(),t0=today0();let from=t0,to=t0,label='
   if(/veranstalter|listen|eintragen|werbung|mein event/.test(t))return`Super! Unter <b>Veranstalter</b> kannst du dein Event listen – ab 19 €. <a href="#veranstalter" onclick="closeChat();document.querySelector('nav [data-v=host]').click()">Zu den Paketen</a>`;
   const cat=(CATW.find(c=>c[1].test(t))||[])[0];
   const words=t.replace(/[^a-zäöüß0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!STOP.has(w)&&!DAYW[w]&&!CATW.some(c=>c[1].test(w)));
-  const k0=dayKey(from),k1=to;let L=ALL.filter(e=>e.date&&e.date>=from&&e.date<=addDays(to,0)&&!e.minor);
+  const k0=dayKey(from),k1=to;let L=ALL.filter(e=>e.city===CITY&&e.date&&e.date>=from&&e.date<=addDays(to,0)&&!e.minor);
   if(cat)L=L.filter(e=>e.cat===cat);
   if(words.length){const W=L.filter(e=>words.some(w=>(e.title+' '+e.venue+' '+e.desc).toLowerCase().includes(w)));if(W.length||!cat)L=W}
   L.sort((a,b)=>a.date-b.date||b.score-a.score).splice(6);
