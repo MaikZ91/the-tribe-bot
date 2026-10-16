@@ -33,3 +33,10 @@ Veranstalter? Event listen ↓
 - Nichts erfinden: Events nur aus events.json, keine erfundenen Nutzerzahlen („die einzige App mit Community“ ist Maiks Positionierung – keine Zahlen dazudichten).
 - Niemanden markieren. Keine KI-Menschen. Münster-Fotos nie als Bielefeld.
 - Ton: locker, direkt, Du, kein Werbe-Sprech.
+
+## Installation (in Posts/Stories erwähnen)
+Die App ist eine Web-App – kein App Store, kostenlos. In Posts als „App“ bezeichnen, Installation in einer Folie/Story zeigen:
+- **iPhone:** Link in Safari öffnen → Teilen → „Zum Home-Bildschirm“.
+- **Android:** Link öffnen → Button „Installieren“ unten in der App (oder Chrome-Menü ⋮ → „App installieren“).
+- Direktlink mit Anleitung: https://maikz91.github.io/the-tribe-bot/tribe/#installieren
+- Hinweis: Aus Instagram heraus erst „Im Browser öffnen“, dann installieren.
