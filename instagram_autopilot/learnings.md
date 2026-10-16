@@ -199,3 +199,6 @@
 
 ## Dating – CD 13.10. (18:48)
 - Keine Post-Metriken (AI-Token ohne instagram_manage_insights), Follower flach bei 57. Regel < 7 Tage: Formatwechsel → nach Reel D0305 jetzt Karussell D0306 „Wer posiert“ (T2 umgeschrieben). Test-Variable: Bildquelle (erstmals echt + KI-Stil gemischt, 2 von 6 Folien KI, gelabelt). CTA „Kommentiere CHECK“.
+
+## Dating – CD 16.10. (07:50)
+- 14./15.10. kein Post (Routinen liefen in eine inaktive Sitzung). Follower 57 → 59 seit D0306 (Karussell). Wechsel → Reel D1016 „Boosts gekauft“: erster Post mit Maiks eigener Geschichte (Positionierung 13.10.). Test-Variable: Thema (persönliche Geschichte). Musik neu: sweet-september (ruhig, lofi). Garantie „zahlst nur, wenn zufrieden“ als CTA.
