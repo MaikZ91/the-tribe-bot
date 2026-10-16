@@ -260,6 +260,29 @@ nav button.mid svg{color:var(--amb)}
 .nmpost input,.nmpost select{background:var(--ink3);border:1px solid var(--line2);border-radius:12px;padding:11px;color:var(--cream);font:inherit;font-size:16px}
 .me2{width:16px;height:16px;border-radius:50%;background:#4da3ff;border:3px solid #fff;box-shadow:0 0 0 8px rgba(77,163,255,.25)}
 .pop b{display:block;margin-bottom:6px}.pop button{display:block;width:100%;margin-top:6px;padding:8px;border-radius:99px;border:1px solid #ccc;font-size:12px;color:#111;background:#fff}
+.tt{position:fixed;inset:0;z-index:80;background:#050505;display:none;overflow:hidden}
+.tt.open{display:block}
+.ttbg{position:absolute;inset:0;transition:opacity .8s}.ttbg img,.ttbg .ph{width:100%;height:100%;object-fit:cover;animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.15)}to{transform:scale(1)}}
+.ttbg:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.2) 35%,rgba(0,0,0,.95) 75%)}
+.ttx,.ttsnd{position:absolute;top:calc(14px + env(safe-area-inset-top));z-index:3;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.4);font-size:22px;color:#fff}
+.ttx{right:14px}.ttsnd{right:62px;font-size:16px}.ttsnd.off{opacity:.4}
+.ttin{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 22px calc(30px + env(safe-area-inset-bottom))}
+.ttin .k{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amb)}
+.ttin h2{font-size:40px;line-height:1;letter-spacing:-.035em;margin:10px 0 18px;text-transform:none;font-weight:600;display:block}
+.ttin h2.xl{font-size:52px}
+.ttin p{color:rgba(255,255,255,.75);font-size:15px;line-height:1.5;margin:0 0 18px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts button{padding:16px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);text-align:left;font-size:17px;font-weight:500;display:flex;justify-content:space-between}
+.opts button small{color:var(--fog);font-weight:400;font-size:13px}
+.opts button:active{background:var(--cream);color:var(--ink)}
+.why{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 20px}.why span{font-size:12px;padding:5px 10px;border-radius:99px;background:rgba(217,160,102,.15);color:var(--amb2,#F5C98F);border:1px solid rgba(217,160,102,.3)}
+.ttbar{position:absolute;top:calc(64px + env(safe-area-inset-top));left:22px;right:22px;display:flex;gap:4px;z-index:3}.ttbar i{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.25)}.ttbar i.on{background:#fff}
+.scan{font-size:15px;color:rgba(255,255,255,.8);line-height:2}.scan b{color:var(--amb)}
+.fade{animation:fu .6s both}@keyframes fu{from{opacity:0}}
+.ttrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ttrow .btn{padding:14px 8px}
+.sum div{display:flex;gap:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15px}.sum b{width:50px;flex:0 0 50px}
+.sb.tn .ring{background:conic-gradient(from 0deg,#fff,#F5C98F,#D9A066,#fff)}.sb.tn .ring>div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.06em;background:var(--ink);color:var(--cream);text-align:center;line-height:1.1}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -428,6 +451,10 @@ footer a{text-decoration:underline}
 <h1 style="font-size:28px">Allein hin?</h1><p class="desc">Zwei Angaben – ich schreib dir eine lockere Nachricht für die Community.</p>
 <form id="aloneForm"><label>Dein Vorname</label><input id="alName" placeholder="z. B. Lisa" required><label>Zwei Stichworte zu dir</label><input id="alAbout" placeholder="z. B. neu hier, mag Techno"><button class="btn or full" style="margin-top:18px" type="submit">Nachricht in WhatsApp öffnen</button></form>
 </div></div></div>
+<div class="tt" id="tt"><audio id="ttAudio" src="tonight.mp3" preload="none" loop></audio>
+<div class="ttbg" id="ttBg"></div>
+<button class="ttx" id="ttX" aria-label="Schließen">×</button><button class="ttsnd" id="ttSnd" aria-label="Ton">♪</button>
+<div class="ttin" id="ttIn"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -511,7 +538,7 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=52.02&longitude=8.53&hour
 function render(){renderDays();renderChips();const L=filtered();
   const hl=[...L].filter(e=>!e.minor).sort((a,b)=>(b.score+prefBoost(b))-(a.score+prefBoost(a))).slice(0,8);SL=hl;
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
-  $('#hl').innerHTML=`<div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
+  $('#hl').innerHTML=`<div class="sb tn" id="ttOpen"><div class="ring"><div>TRIBE<br>TONIGHT</div></div><small>Dein Abend</small></div><div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
   const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
   $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
   const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
@@ -762,6 +789,73 @@ $('#nmPost').onsubmit=ev=>{ev.preventDefault();const moods=[...document.querySel
   wa(`Spontan unterwegs 📍 Bin gerade ${$('#nmWhere').value} und hab Bock auf ${moods} – ${$('#nmUntil').value}. Wer ist in der Nähe und kommt dazu?`+(nmPos?`\nhttps://maps.google.com/?q=${nmPos[0].toFixed(5)},${nmPos[1].toFixed(5)}`:''))};
 document.addEventListener('click',ev=>{const h=ev.target.closest('[data-here]');if(h){const e=ALL.find(x=>x.id===h.dataset.here);if(e)wa(`Bin gerade bei „${e.title}“ (${e.venue||'Bielefeld'}) 🙌 Wer kommt dazu?\n${location.href.split('#')[0]}#e=${encodeURIComponent(e.id)}`);return}
   const o=ev.target.closest('[data-open]');if(o)open(o.dataset.open)},true);
+
+// ===== TRIBE TONIGHT =====
+const TT={a:{}};let ttSound=true;
+const Q=[
+ {k:'mood',t:'Worauf hast du heute Bock?',o:[['chill','Entspannt','Drinks, gute Gespräche'],['social','Gesellig','Leute, Live-Musik, Lachen'],['wild','Eskalation','Tanzen bis es hell wird']]},
+ {k:'who',t:'Mit wem?',o:[['solo','Allein','Ich will Leute kennenlernen'],['crew','Mit Freunden','Wir sind schon ein paar'],['date','Date','Zu zweit, bisschen besonders']]},
+ {k:'end',t:'Wie lange?',o:[['early','Früh zuhause','bis ca. 23 Uhr'],['mid','Bis Mitternacht','dann sehen wir weiter'],['late','Open End','ich hab morgen frei']]}];
+const MOODFIT={chill:{ausgehen:4,kultur:3,musik:2,comedy:1,kino:2},social:{ausgehen:3,musik:4,comedy:4,tribe:4,kultur:2,party:1},wild:{party:6,musik:2,ausgehen:1}};
+const WHOFIT={solo:{tribe:5,ausgehen:2,comedy:2,party:1},crew:{party:2,ausgehen:2,musik:2,comedy:1},date:{kultur:3,musik:3,ausgehen:2,kino:2}};
+function ttBg(e){$('#ttBg').innerHTML=e?bigimg(e,40):'<div class="ph"></div>'}
+function ttShow(h){$('#ttIn').innerHTML=`<div class="fade">${h}</div>`}
+function ttOpen(){TT.a={};$('#tt').classList.add('open');const pool=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.img);ttBg(pool[Math.floor(Math.random()*pool.length)]);
+  const a=$('#ttAudio');if(ttSound){a.currentTime=0;a.volume=.6;a.play().catch(()=>{})}
+  const h=new Date().getHours();ttShow(`<div class="k">Tribe Tonight</div><h2 class="xl">${h<12?'Guten Morgen.':h<18?'Hey.':'Na,'}<br>${h>=18?'was geht heute?':'Lass uns deinen Abend bauen.'}</h2><p>3 Fragen. Dann zeig ich dir deinen Abend – ohne Suchen.</p><div class="opts"><button data-tt="start">Los geht's <small>→</small></button></div>`)}
+function ttQ(i){const q=Q[i];ttShow(`<div class="k">Frage ${i+1} von 3</div><h2>${q.t}</h2><div class="opts">${q.o.map(o=>`<button data-tq="${i}" data-tv="${o[0]}">${o[1]} <small>${o[2]}</small></button>`).join('')}</div>`)}
+function ttPlan(){const a=TT.a,now=new Date(),nowM=(now.getHours()<6?now.getHours()+24:now.getHours())*60+now.getMinutes();
+  const endM={early:23*60,mid:24*60+30,late:30*60}[a.end];
+  const here=nmPos||(typeof pos!=='undefined'&&pos)||null;
+  let C=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.time).map(e=>{const m=toMin(e.time);let sc=e.score*.6+prefBoost(e)+(MOODFIT[a.mood][e.cat]||0)+(WHOFIT[a.who][e.cat]||0);const why=[];
+    if((MOODFIT[a.mood][e.cat]||0)>=3)why.push({chill:'entspannt',social:'gesellig',wild:'zum Tanzen'}[a.mood]);
+    if(a.who==='solo'&&(WHOFIT.solo[e.cat]||0)>=2){why.push('gut allein');}
+    if(prefBoost(e)>=3){why.push('dein Geschmack')}
+    const g=geo(e);if(here&&g){const d=km(here,g);sc-=d*.8;if(d<1.5)why.push(Math.max(1,Math.round(d/5*60))+' min zu Fuß')}
+    if(e.featured){sc+=3;why.push('Highlight')}
+    return{e,m,sc,why}}).filter(x=>x.m>=nowM-30&&x.m<endM);
+  if(!C.length)return null;
+  // pick sequence: up to 3 stops, intensity rising
+  C.sort((x,y)=>y.sc-x.sc);const R=[];let free=0;
+  const order=[...C].sort((x,y)=>x.m-y.m);
+  const first=order.filter(x=>x.m<=Math.max(nowM,20*60)+150).sort((x,y)=>y.sc-x.sc)[0]||C[0];R.push(first);free=first.m+(first.e.cat==='party'?240:110);
+  for(const x of [...C]){if(R.length>=3)break;if(x.m>=free-10&&!R.includes(x)&&!R.some(r=>r.e.venue===x.e.venue)){R.push(x);free=x.m+(x.e.cat==='party'?240:110)}}
+  R.sort((x,y)=>x.m-y.m);
+  // weather
+  let wx='';try{wx=wxText()}catch(_){}
+  return{R,wx,n:C.length}}
+function ttScan(){const total=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())).length;
+  ttShow(`<div class="k">Moment …</div><h2>Ich bau deinen Abend.</h2><div class="scan" id="scan"></div>`);
+  const lines=[`<b>${total}</b> Events heute in ${CITY} durchsucht`,`Stimmung, Uhrzeit und Wege abgeglichen`,(()=>{try{const w=wxText();return w?'Wetter: '+w:'Wetter gecheckt'}catch(_){return'Wetter gecheckt'}})(),`Fertig.`];
+  lines.forEach((l,i)=>setTimeout(()=>{const s=$('#scan');if(s)s.innerHTML+=`<div class="fade">✓ ${l}</div>`},450*(i+1)));
+  setTimeout(()=>{TT.plan=ttPlan();if(!TT.plan){ttShow(`<div class="k">Hm.</div><h2>Heute ist für dein Zeitfenster nichts mehr drin.</h2><p>Frag die Community – irgendwer ist immer unterwegs.</p><div class="opts"><button data-tt="restart">Anders antworten</button><button data-tt="crew">Community fragen</button></div>`);return}TT.i=0;ttChapter()},2300)}
+function ttChapter(){const P=TT.plan,x=P.R[TT.i],e=x.e;ttBg(e);
+  const prev=TT.i?P.R[TT.i-1]:null;const a=prev&&geo(prev.e),b=geo(e);const walk=a&&b?Math.max(1,Math.round(km(a,b)/5*60)):null;
+  ttShow(`<div class="ttbar">${P.R.map((_,k)=>`<i class="${k<=TT.i?'on':''}"></i>`).join('')}<i></i></div>
+   <div class="k">Kapitel ${TT.i+1} · ${esc(e.time)} Uhr${walk?' · '+walk+' min zu Fuß':''}</div><h2>${esc(e.title)}</h2><p>${esc(e.venue||CITY)}</p>
+   ${x.why.length?`<div class="why">${[...new Set(x.why)].map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}
+   <div class="ttrow"><button class="btn gh" data-tt="swap">Anderes</button><button class="btn or" data-tt="next">${TT.i<P.R.length-1?'Weiter →':'Mein Abend →'}</button></div>`)}
+function ttSummary(){const P=TT.plan;P.R.forEach(x=>favs.add(x.e.id));saveFavs();
+  ttShow(`<div class="k">Dein Abend</div><h2>${{chill:'Entspannt',social:'Gesellig',wild:'Eskalation'}[TT.a.mood]}. ${{solo:'Und nicht allein.',crew:'Mit deiner Crew.',date:'Zu zweit.'}[TT.a.who]}</h2>
+   <div class="sum">${P.R.map(x=>`<div><b>${esc(x.e.time)}</b><span>${esc(x.e.title)}<br><small style="color:var(--fog)">${esc(x.e.venue||'')}</small></span></div>`).join('')}</div>
+   ${P.wx?`<p style="margin-top:12px">${esc(P.wx)}</p>`:''}
+   <div class="opts" style="margin-top:14px"><button data-tt="share">Ab in die WhatsApp-Gruppe <small>→</small></button><button data-tt="restart">Neu würfeln</button></div>`)}
+function ttClose(){$('#tt').classList.remove('open');$('#ttAudio').pause();render();renderFavs()}
+$('#ttX').onclick=ttClose;
+$('#ttSnd').onclick=()=>{ttSound=!ttSound;$('#ttSnd').classList.toggle('off',!ttSound);const a=$('#ttAudio');ttSound?a.play().catch(()=>{}):a.pause()};
+document.addEventListener('click',ev=>{const t=ev.target;
+  if(t.closest('#ttOpen')){ttOpen();return}
+  const q=t.closest('[data-tq]');if(q){TT.a[Q[+q.dataset.tq].k]=q.dataset.tv;+q.dataset.tq<2?ttQ(+q.dataset.tq+1):ttScan();return}
+  const b=t.closest('[data-tt]');if(!b)return;const k=b.dataset.tt;
+  if(k==='start')ttQ(0);
+  if(k==='restart'){TT.a={};ttQ(0)}
+  if(k==='next'){TT.i<TT.plan.R.length-1?(TT.i++,ttChapter()):ttSummary()}
+  if(k==='swap'){const P=TT.plan,cur=P.R[TT.i];const alt=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.time&&!P.R.some(r=>r.e.id===e.id)&&Math.abs(toMin(e.time)-cur.m)<=90);
+    if(!alt.length){toast('Keine Alternative in dem Zeitfenster');return}const e=alt[Math.floor(Math.random()*alt.length)];P.R[TT.i]={e,m:toMin(e.time),sc:0,why:['Alternative']};ttChapter()}
+  if(k==='share'){const P=TT.plan;wa(`Mein Abend heute 🌙 (gebaut mit THE TRIBE)\n`+P.R.map(x=>`${x.e.time} ${x.e.title} – ${x.e.venue||''}`).join('\n')+`\nWer ist dabei? ${location.href.split('#')[0]}`)}
+  if(k==='crew')window.open(WA_COMMUNITY,'_blank')
+},true);
+if(location.hash==='#tonight')setTimeout(ttOpen,600);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
