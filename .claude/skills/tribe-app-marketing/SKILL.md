@@ -17,6 +17,23 @@ THE TRIBE ist die **einzige** Ausgeh-App in Bielefeld, die Events UND Community 
 
 Kernsatz: **„Events finden. Leute finden. Rausgehen.“**
 
+## Feature-Rotation (jeder App-Post zeigt EIN Feature groß, mit echtem Live-Screenshot)
+Rotiere in dieser Reihenfolge, zuletzt gezeigtes Feature steht in state.json/Post-Spec (`"feature"`):
+1. **Stadtpuls** (Top, Maik 17.10.) – Karte glüht, wo gerade was abgeht; Puls-Zahl 0–100 („Die Stadt brennt“). Hook: „Wo geht in Bielefeld gerade richtig was?“ Immer dazu: „Hochrechnung aus allen Events“ – nie „live gezählte Besucher“ behaupten.
+2. **Ich bin unterwegs** (Top, Maik 17.10.) – auf der Karte Standort tippen → Community weiß, wo du bist und worauf du Bock hast → wer in der Nähe ist, kommt dazu. Hook: „Spontan raus, aber keiner hat Zeit?“
+3. **Tribe Tonight** – 3 Fragen, dann erzählt die App deinen Abend in Kapiteln mit Musik. Hook: „Ich hab die App gefragt, was ich heute machen soll.“
+4. **Abend bauen** – wischen wie bei Tinder → fertige Route mit Gehzeiten.
+5. **Wer kommt mit? / Allein hin?** – fertige Nachricht für die WhatsApp-Community.
+6. Highlights-Stories, Mein Abend, Status-Bild.
+
+Screenshots/Bildschirmaufnahme (Playwright, 390×844, scale 3, Uhrzeit per `page.clock.install` auf einen Abend, an dem Events laufen, z. B. heute 23:00):
+- Stadtpuls: Navigation `nav [data-v=map]`, ca. 3 s warten (Karte + Glühen). Für Reels mehrere Frames mit wanderndem Regler `#slR` (19:00 → 01:00) = „die Nacht bewegt sich“.
+- Ich bin unterwegs: `ctx.set_geolocation` auf eine Bielefelder Location (z. B. Siegfriedplatz 52.0281/8.5226), dann `#nmLoc` klicken.
+- Tribe Tonight: Direktlink `…/tribe/#tonight`, Antworten anklicken (`[data-tq]`), Kapitel per `[data-tt=next]`.
+- Bilder für Events: externe Bilder per Python laden und an die Seite durchreichen (Sandbox), siehe frühere Shot-Skripte.
+
+Video-Posts mit eigener Musik: in der Spec `"music": ""` setzen bzw. prüfen, dass der Renderer den Ton nicht ersetzt (config `video_music`).
+
 ## Profiltext (Vorschlag, Maik setzt ihn manuell)
 THE TRIBE · Bielefeld
 Events finden. Leute finden. Rausgehen.
