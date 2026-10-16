@@ -202,3 +202,4 @@
 
 ## Dating – CD 16.10. (07:50)
 - 14./15.10. kein Post (Routinen liefen in eine inaktive Sitzung). Follower 57 → 59 seit D0306 (Karussell). Wechsel → Reel D1016 „Boosts gekauft“: erster Post mit Maiks eigener Geschichte (Positionierung 13.10.). Test-Variable: Thema (persönliche Geschichte). Musik neu: sweet-september (ruhig, lofi). Garantie „zahlst nur, wenn zufrieden“ als CTA.
+- CD 16.10. (12:50): Follower 59 (±0 seit früh). Wechsel → Karussell D1016 „3 Fehler im Profil“ (Mehrwert-Säule), CTA Gratis-Check. Test-Variable: Thema (Mehrwert vs. Geschichte am Morgen).
