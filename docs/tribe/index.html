@@ -252,6 +252,14 @@ nav button.mid svg{color:var(--amb)}
 .cd{font-size:44px;font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:8px 0}
 .stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}.stamps i{aspect-ratio:1;border-radius:50%;border:1.5px dashed var(--line2);display:flex;align-items:center;justify-content:center;font-style:normal;color:var(--fog);font-size:11px}
 .stamps i.on{border:0;background:var(--amb);color:var(--ink);font-weight:700}
+.mapwrap{position:relative}
+.locfab{position:absolute;right:10px;bottom:22px;z-index:500;display:flex;gap:6px;align-items:center;padding:10px 14px;border-radius:99px;background:var(--cream);color:var(--ink);font-weight:500;font-size:13px;box-shadow:0 8px 20px -6px #000}
+.locfab svg{width:17px;height:17px}
+.nmpost{border:1px solid rgba(217,160,102,.4);border-radius:16px;padding:14px;margin:4px 0 10px;background:var(--ink2);display:flex;flex-direction:column;gap:10px}
+.nmpost[hidden]{display:none}.nmh{display:flex;justify-content:space-between;align-items:center}.nmh button{font-size:22px;color:var(--fog)}
+.nmpost input,.nmpost select{background:var(--ink3);border:1px solid var(--line2);border-radius:12px;padding:11px;color:var(--cream);font:inherit;font-size:16px}
+.me2{width:16px;height:16px;border-radius:50%;background:#4da3ff;border:3px solid #fff;box-shadow:0 0 0 8px rgba(77,163,255,.25)}
+.pop b{display:block;margin-bottom:6px}.pop button{display:block;width:100%;margin-top:6px;padding:8px;border-radius:99px;border:1px solid #ccc;font-size:12px;color:#111;background:#fff}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -310,8 +318,16 @@ footer a{text-decoration:underline}
   </section>
 
   <section class="view" id="v-map">
-    <div class="vh"><h1 class="big">Nachtkarte.</h1><p class="sub">Zieh den Regler und sieh, wie sich die Nacht durch die Stadt bewegt.</p></div>
-    <div id="nmap"></div>
+    <div class="vh"><h1 class="big">Nachtkarte.</h1><p class="sub">Was läuft wo – und wer ist gerade unterwegs. Tipp auf einen Punkt oder sag der Community, wo du bist.</p></div>
+    <div class="mapwrap"><div id="nmap"></div><button class="locfab" id="nmLoc"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7.5"/></svg>Ich bin unterwegs</button></div>
+    <form class="nmpost" id="nmPost" hidden>
+      <div class="nmh"><b>Spontan treffen</b><button type="button" id="nmClose" aria-label="Schließen">×</button></div>
+      <input id="nmWhere" placeholder="Wo bist du? z. B. Sternberg" required>
+      <div class="chips" id="nmMood" style="flex-wrap:wrap"><button type="button" class="chip on">Ein Bier</button><button type="button" class="chip">Tanzen</button><button type="button" class="chip">Konzert</button><button type="button" class="chip">Quatschen</button><button type="button" class="chip">Weiterziehen</button></div>
+      <select id="nmUntil"><option>die nächste Stunde</option><option>bis Mitternacht</option><option>open end</option></select>
+      <button class="btn or full" type="submit">In der Community posten</button>
+      <p class="note">Öffnet WhatsApp mit fertiger Nachricht und deinem Standort – dort die Tribe-Gruppe wählen.</p>
+    </form>
     <div class="slider"><div class="sl-top"><b id="slTime">21:00</b><span id="slInfo"></span></div><input type="range" id="slR" min="960" max="1680" step="15" value="1260"><div class="sl-ax"><span>16</span><span>20</span><span>0</span><span>4 Uhr</span></div></div>
     <div class="list" id="mapList"></div>
     <p class="note">Orte sind aus OpenStreetMap ermittelt und können ungenau sein. Events ohne bekannten Ort fehlen auf der Karte.</p>
@@ -673,7 +689,7 @@ function drawNight(){if(!nmap)return;const T=+$('#slR').value;$('#slTime').textC
   const day=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.time);let live=[],soon=0;
   day.forEach(e=>{const m=toMin(e.time),dur=e.cat==='party'?300:150,p=geo(e);const on=T>=m&&T<m+dur,up=m>T&&m-T<=90;
     if(on)live.push(e);if(up)soon++;if(!p||!(on||up))return;
-    L.marker(p,{icon:L.divIcon({className:'dot'+(on?'':' soon'),iconSize:on?[14,14]:[10,10]})}).on('click',()=>open(e.id)).bindTooltip(`${e.time} ${e.title}`,{direction:'top'}).addTo(nlayer)});
+    L.marker(p,{icon:L.divIcon({className:'dot'+(on?'':' soon'),iconSize:on?[14,14]:[10,10]})}).bindPopup(`<div class="pop"><b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button></div>`).addTo(nlayer)});
   $('#slInfo').textContent=`${live.length} läuft · ${soon} startet bald`;
   $('#mapList').innerHTML=live.map(card).join('')}
 $('#slR').oninput=drawNight;
@@ -733,6 +749,19 @@ document.addEventListener('click',ev=>{const t=ev.target;
   const rs=t.closest('.rstop');if(rs){open(rs.dataset.id)}
 },true);
 if(location.hash==='#mystery')setTimeout(()=>go('mystery'),400);
+
+// Nachtkarte: Standort + Spontan-Treffen
+let nmPos=null,nmMe=null;
+$('#nmLoc').onclick=()=>{$('#nmPost').hidden=false;if(!navigator.geolocation){toast('Standort nicht verfügbar');return}
+  navigator.geolocation.getCurrentPosition(p=>{nmPos=[p.coords.latitude,p.coords.longitude];if(nmMe)nmMe.setLatLng(nmPos);else nmMe=L.marker(nmPos,{icon:L.divIcon({className:'me2',iconSize:[16,16]})}).addTo(nmap);nmap.setView(nmPos,15);
+    let best=null,bd=.35;Object.entries(VEN).forEach(([k,c])=>{const d=km(nmPos,c);if(d<bd){bd=d;best=k}});
+    if(best&&!$('#nmWhere').value){const ev=ALL.find(e=>e.vkey===best);$('#nmWhere').value=ev?ev.venue:best}},()=>toast('Standort nicht freigegeben – trag einfach ein, wo du bist'),{enableHighAccuracy:true,timeout:10000})};
+$('#nmClose').onclick=()=>$('#nmPost').hidden=true;
+$('#nmMood').onclick=ev=>{const b=ev.target.closest('.chip');if(b)b.classList.toggle('on')};
+$('#nmPost').onsubmit=ev=>{ev.preventDefault();const moods=[...document.querySelectorAll('#nmMood .chip.on')].map(b=>b.textContent).join(', ')||'was Spontanes';
+  wa(`Spontan unterwegs 📍 Bin gerade ${$('#nmWhere').value} und hab Bock auf ${moods} – ${$('#nmUntil').value}. Wer ist in der Nähe und kommt dazu?`+(nmPos?`\nhttps://maps.google.com/?q=${nmPos[0].toFixed(5)},${nmPos[1].toFixed(5)}`:''))};
+document.addEventListener('click',ev=>{const h=ev.target.closest('[data-here]');if(h){const e=ALL.find(x=>x.id===h.dataset.here);if(e)wa(`Bin gerade bei „${e.title}“ (${e.venue||'Bielefeld'}) 🙌 Wer kommt dazu?\n${location.href.split('#')[0]}#e=${encodeURIComponent(e.id)}`);return}
+  const o=ev.target.closest('[data-open]');if(o)open(o.dataset.open)},true);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
