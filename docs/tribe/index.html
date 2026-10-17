@@ -208,7 +208,7 @@ h1.big{font-weight:600;font-size:40px;letter-spacing:-.035em;line-height:1;margi
 .ev .acts{order:4;display:flex;flex-direction:column;gap:2px}
 .ev .acts button{position:static;transform:none;width:30px;height:30px}
 .shr,.fav{position:static!important;transform:none!important}
-header.solid .search{display:none}
+header.solid .askbar{padding:9px 12px}header.solid .askbar em,header.solid .askbar i{display:none}
 @media (max-width:390px){
  .wrap{padding:0 14px}.top{padding:12px 0 2px}.logo{font-size:12px;letter-spacing:.24em}
  .ask{font-size:11px;padding:6px 10px 6px 8px}.search{padding:10px 0 8px;margin:2px 0}.search input{font-size:15px}
@@ -314,6 +314,11 @@ nav button.mid svg{color:var(--amb)}
 .pf-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:15px}.pf-row span{color:var(--fog);text-align:right;max-width:60%}
 .leaflet-tooltip.vlab{background:rgba(10,10,10,.82);border:1px solid rgba(217,160,102,.35);color:var(--cream);border-radius:8px;padding:4px 8px;box-shadow:none;font-family:var(--body);line-height:1.25;white-space:nowrap}
 .leaflet-tooltip.vlab:before{display:none}.vlab b{display:block;font-size:12px;font-weight:600}.vlab span{display:block;font-size:10.5px;color:var(--amb)}
+.askbar{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:8px 0 6px;padding:13px 14px;border-radius:16px;border:1px solid rgba(217,160,102,.45);background:linear-gradient(120deg,rgba(217,160,102,.14),rgba(217,160,102,.03));color:var(--cream)}
+.askbar svg{color:var(--amb);width:22px;height:22px}
+.askbar span{flex:1;min-width:0;display:flex;flex-direction:column}.askbar b{font-weight:600;font-size:15px}
+.askbar i{font-style:normal;font-size:13px;color:var(--dim);transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.askbar em{font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);border:1px solid rgba(217,160,102,.4);border-radius:99px;padding:4px 8px;white-space:nowrap}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -322,10 +327,10 @@ footer a{text-decoration:underline}
 </head>
 <body>
 <header id="hdr"><div class="wrap">
-  <div class="top"><div class="lg"><div class="logo">THE TRIBE<span>.</span></div><button class="cty" id="ctyBtn"><span id="ctyName">Bielefeld</span> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="hr"><button class="av" id="avBtn" aria-label="Profil">?</button><button class="ask" id="askBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>Frag THE TRIBE</button></div></div>
+  <div class="top"><div class="lg"><div class="logo">THE TRIBE<span>.</span></div><button class="cty" id="ctyBtn"><span id="ctyName">Bielefeld</span> <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="hr"><button class="av" id="avBtn" aria-label="Profil">?</button></div></div>
   <div id="heroT"></div>
   <div id="filters">
-    <div class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Club, Bar, Konzert, Künstler …" autocomplete="off"></div>
+    <button class="askbar" id="askBar"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg><span><b>Frag THE TRIBE</b><i id="askHint">„Wo kann ich heute tanzen?“</i></span><em>Suchen &amp; fragen</em></button>
     <div class="days" id="days"></div>
     <div class="chips" id="chips"></div>
   </div>
@@ -637,7 +642,8 @@ document.addEventListener('click',ev=>{const t=ev.target;
 });
 $('#sx').onclick=closeSheet;$('#ctyBtn').onclick=openCity;$('#ctySheet .bg').onclick=closeCity;$('#ctyList').onclick=e=>{const b=e.target.closest('[data-city]');if(b)setCity(b.dataset.city)};$('#sclose').onclick=closeStory;$('#sprev').onclick=()=>showStory(SI-1);$('#snext').onclick=()=>showStory(SI+1);$('#sheet .bg').onclick=closeSheet;
 $('#moreBtn').onclick=()=>{state.limit+=30;render()};
-let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value;if(state.q)state.day='week';render()},150)};
+$('#askBar').onclick=openChat;
+{const H=['„Wo kann ich heute tanzen?“','„Konzerte am Wochenende“','„Was läuft im Forum?“','„Comedy Freitag“','„Techno morgen“','„Ich will nicht allein hin“','„Bar heute Abend“'];let hi=0;setInterval(()=>{const el=$('#askHint');if(!el)return;hi=(hi+1)%H.length;el.style.opacity=0;setTimeout(()=>{el.textContent=H[hi];el.style.opacity=1},250)},2800)}
 $('#waJoin').href=WA_COMMUNITY;$('#waJoin2').href=WA_COMMUNITY;
 let map,pos=null,marker;
 function initMap(){if(map||!window.L)return setTimeout(()=>map&&map.invalidateSize(),50);
@@ -694,14 +700,16 @@ function answer(q){const t=q.toLowerCase(),t0=today0();let from=t0,to=t0,label='
   const words=t.replace(/[^a-zäöüß0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!STOP.has(w)&&!DAYW[w]&&!CATW.some(c=>c[1].test(w)));
   const k0=dayKey(from),k1=to;let L=ALL.filter(e=>e.city===CITY&&e.date&&e.date>=from&&e.date<=addDays(to,0)&&!e.minor);
   if(cat)L=L.filter(e=>e.cat===cat);
-  if(words.length){const W=L.filter(e=>words.some(w=>(e.title+' '+e.venue+' '+e.desc).toLowerCase().includes(w)));if(W.length||!cat)L=W}
+  if(words.length){const hit=e=>words.some(w=>(e.title+' '+e.venue+' '+e.vkey+' '+e.desc).toLowerCase().includes(w));let W=L.filter(hit);
+    if(!W.length&&!/heute|morgen|wochenend|montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag/.test(t)){W=ALL.filter(e=>e.city===CITY&&e.date&&e.date>=today0()&&e.date<=addDays(today0(),21)&&hit(e));if(W.length)label='demnächst'}
+    if(W.length||!cat)L=W}
   L.sort((a,b)=>a.date-b.date||b.score-a.score).splice(6);
   if(!L.length)return`Dazu habe ich ${label} leider nichts gefunden. Probier's mit „Party morgen“ oder „Konzerte am Wochenende“ – oder frag in der <a href="${WA_COMMUNITY}" target="_blank" rel="noopener">Community</a>, was geht.`;
   return`${label[0].toUpperCase()+label.slice(1)} ${L.length===1?'hab ich das hier':'hab ich das hier für dich'}:`+L.map(e=>`<div class="mev" data-id="${esc(e.id)}">${bigimg(e,40)}<div><small>${fmtDay(e.date)}${e.time?' · '+esc(e.time):''}</small><span>${esc(e.title)}</span></div></div>`).join('')}
-function openChat(){$('#chat').classList.add('open');if(!$('#msgs').children.length)addMsg('Hey! Sag mir, worauf du Bock hast – ich such dir die passenden Events raus. Zum Beispiel „Wo kann ich heute tanzen?“','b');setTimeout(()=>$('#chatIn').focus(),300)}
+function openChat(){$('#chat').classList.add('open');if(!$('#msgs').children.length)addMsg(`Hey${PROF&&PROF.name?' '+esc(PROF.name):''}! Ich bin deine Suche – frag einfach ganz normal:<br>• nach Stimmung: „Wo kann ich heute tanzen?“<br>• nach Tag: „Comedy Freitag“, „Konzerte am Wochenende“<br>• nach Ort oder Künstler: „Was läuft im Forum?“<br>• oder: „Ich will nicht allein hin“`,'b');setTimeout(()=>$('#chatIn').focus(),300)}
 function closeChat(){$('#chat').classList.remove('open')}
 function ask(q){if(!q.trim())return;addMsg(esc(q),'u');setTimeout(()=>addMsg(answer(q),'b'),350)}
-$('#askBtn').onclick=openChat;$('#chatX').onclick=closeChat;$('#chat .bg').onclick=closeChat;
+$('#chatX').onclick=closeChat;$('#chat .bg').onclick=closeChat;
 $('#chatForm').onsubmit=e=>{e.preventDefault();ask($('#chatIn').value);$('#chatIn').value=''};
 $('#sugg').onclick=e=>{const b=e.target.closest('button');if(b)ask(b.textContent)};
 $('#msgs').addEventListener('click',e=>{const c=e.target.closest('.mev');if(c){e.stopPropagation();closeChat();open(c.dataset.id)}});
