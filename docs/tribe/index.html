@@ -1063,13 +1063,10 @@ const COLS=['#F5C98F','#9fd3c7','#f4a6a6','#b8c4ff','#ffd27f','#c3e88d','#e0b0ff
 const col=n=>COLS[[...(n||'?')].reduce((a,c)=>a+c.charCodeAt(0),0)%COLS.length];
 const face=(n,a)=>a?`<i style="background-image:url('${esc(a)}')"></i>`:`<i style="background:${col(n)}">${esc((n||'?')[0].toUpperCase())}</i>`;
 function myName(){return (PROF&&PROF.name)||(()=>{try{return localStorage.getItem('tribe_name')}catch(_){return ''}})()||''}
-function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),K=LKD[id]||[],k=Math.max(K.length,LN[id]||0);let h='';
-  if(n)h+=`<span class="gzi"><span class="faces">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')||face('+')}</span><span>${n} ${n===1?'geht':'gehen'} hin</span></span>`;
-  if(k)h+=`<span class="gzi lk"><span class="faces">${K.slice(0,3).map(x=>face(x.name,x.av)).join('')}</span><span>♥ ${K.length?esc(K.slice(0,2).map(x=>x.name).join(', '))+(k>2?' +'+(k-2):''):k}</span></span>`;
-  return h}
-function goBlock(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),mine=ME&&L.some(x=>x.uid===ME.id);
-  const names=L.map(x=>x.name).filter(Boolean);
-  return`${n?`<div class="faces">${L.slice(0,5).map(x=>face(x.name,x.av)).join('')}</div>`:''}<div class="gt"><b>${n?n+' aus der Community '+(n===1?'geht':'gehen')+' hin':'Noch keiner – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Wer hingeht, sieht wer noch kommt.'}</div><button data-going="${esc(id)}" class="${mine?'on':''}">${mine?'✓ Dabei':'Ich geh hin'}</button>`}
+function gzHtml(id){const K=LKD[id]||[],k=Math.max(K.length,LN[id]||0);if(!k)return'';
+  return`<span class="gzi lk"><span class="faces">${K.slice(0,3).map(x=>face(x.name,x.av)).join('')}</span><span>♥ gefällt ${K.length?esc(K.slice(0,2).map(x=>x.name).join(', '))+(k>2?' +'+(k-2):''):k+(k===1?' Person':' Leuten')}</span></span>`}
+function goBlock(id){const K=LKD[id]||[],k=Math.max(K.length,LN[id]||0),mine=favs.has(id);const names=K.map(x=>x.name).filter(Boolean);
+  return`${k?`<div class="faces">${K.slice(0,5).map(x=>face(x.name,x.av)).join('')}</div>`:''}<div class="gt"><b>${k?'Gefällt '+k+(k===1?' Person':' Leuten')+' aus der Community':'Noch keinem – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Herz drauf – dann sehen die anderen, dass du Bock hast.'}</div><button data-fav="${esc(id)}" class="${mine?'on':''}">${mine?'♥ Gefällt dir':'♡ Gefällt mir'}</button>`}
 function paintGoing(){document.querySelectorAll('[data-gz]').forEach(el=>{el.innerHTML=gzHtml(el.dataset.gz)});const gb=document.querySelector('[data-gb]');if(gb)gb.innerHTML=goBlock(gb.dataset.gb)}
 async function sbInit(){if(!window.supabase){setTimeout(sbInit,400);return}
   sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
@@ -1088,7 +1085,7 @@ async function loadGoing(){if(!sb||!ALL.length)return;const t0=today0(),ids=ALL.
     Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}));
     Object.keys(LKD).forEach(k=>delete LKD[k]);(lk||[]).forEach(r=>(LKD[r.event_id]=LKD[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}))}catch(_){}}
   paintGoing()}
-async function syncLike(id,on){if(!sb)return;const e=ALL.find(x=>x.id===id);if(!e)return;if(!ME&&!myName())return;try{await ensureMe();
+async function syncLike(id,on){if(!sb)return;const e=ALL.find(x=>x.id===id);if(!e)return;try{await ensureMe();
   if(on){await sb.from('tribe_likes').upsert({user_id:ME.id,event_id:id,event_date:e.date.toISOString().slice(0,10)});act('like',e)}else await sb.from('tribe_likes').delete().match({user_id:ME.id,event_id:id});loadGoing()}catch(_){}}
 async function toggleGoing(id){const e=ALL.find(x=>x.id===id);if(!e)return;let nm;try{nm=await ensureMe()}catch(err){if(String(err.message)!=='noname')toast('Gerade keine Verbindung');return}
   const mine=(GO[id]||[]).some(x=>x.uid===ME.id);
@@ -1120,7 +1117,7 @@ function placeGeo(place){const p=(place||'').toLowerCase().replace(/^(im|in der|
   const e=ALL.find(x=>(x.venue||'').toLowerCase().includes(p)&&geo(x));return e?geo(e):null}
 // feed texts for ticker
 function feedItems(){const now=Date.now();const out=[];
-  FEED.filter(m=>now-m.at<45*60e3).slice(0,6).forEach(m=>{const t=m.t==='going'?`geht zu ${esc(m.title||'')}`:m.t==='like'?`mag ${esc(m.title||'')}`:m.t==='here'?`ist unterwegs: ${esc(m.place||'')}`:m.t==='tonight'?'hat sich gerade einen Abend gebaut':'ist aktiv';
+  FEED.filter(m=>now-m.at<45*60e3).slice(0,6).forEach(m=>{const t=m.t==='going'?`geht zu ${esc(m.title||'')}`:m.t==='like'?`♥ ${esc(m.title||'')}`:m.t==='here'?`ist unterwegs: ${esc(m.place||'')}`:m.t==='tonight'?'hat sich gerade einen Abend gebaut':'ist aktiv';
     out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${face(m.name,m.av)}</span><b>${esc(m.name)}</b> ${t}`,id:m.id||null,s:200-(now-m.at)/60e3})});
   if(ONLINE.size>1){const L=onlineList();out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')}</span><b>${L.length?esc(L.slice(0,3).map(x=>x.name).join(', '))+(ONLINE.size>3?' +'+(ONLINE.size-3):''):ONLINE.size}</b> gerade online`,id:null,s:150})}
   const ppl=Object.entries(PPL).sort((a,b)=>b[1]-a[1]);if(ppl.length)out.push({h:`👥 <b>${ppl.reduce((a,b)=>a+b[1],0)} unterwegs</b> · ${esc(ppl.slice(0,2).map(x=>x[0]).join(', '))}`,id:null,s:160});
@@ -1151,22 +1148,22 @@ async function loadWaves(){if(!sb||!ME)return;const {data}=await sb.from('tribe_
 const avDiv=(n,a)=>a?`style="background-image:url('${esc(a)}')"`:`style="background:${col(n)}"`;
 async function renderPeople(routeIds){const box=$('#people');if(!box)return;
   if(!sb){box.innerHTML='';return}
-  if(!ME){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Sieh, wer zu deinen Events geht und zu dir passt – und sag Hallo.</p><button class="btn or full" id="ppJoin">Leute finden</button></div>`;$('#ppJoin').onclick=async()=>{try{await ensureMe();renderPeople(routeIds)}catch(_){}};return}
+  if(!ME){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Sieh, wer dieselben Events mag und zu dir passt – und sag Hallo.</p><button class="btn or full" id="ppJoin">Leute finden</button></div>`;$('#ppJoin').onclick=async()=>{try{await ensureMe();renderPeople(routeIds)}catch(_){}};return}
   box.innerHTML='<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Suche passende Leute …</p></div>';
   const t0=today0();const ids=(routeIds&&routeIds.length?routeIds:ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,2)).map(e=>e.id)).slice(0,500);
   const myGo=new Set(ALL.filter(e=>favs.has(e.id)).map(e=>e.id));(routeIds||[]).forEach(i=>myGo.add(i));
   try{
-    const [{data:g},{data:pres}]=await Promise.all([sb.from('tribe_going').select('user_id,event_id').in('event_id',ids).neq('user_id',ME.id),sb.from('tribe_presence').select('user_id,place,mood').neq('user_id',ME.id)]);
+    const [{data:g},{data:pres}]=await Promise.all([sb.from('tribe_likes').select('user_id,event_id').in('event_id',ids).neq('user_id',ME.id),sb.from('tribe_presence').select('user_id,place,mood').neq('user_id',ME.id)]);
     const uids=[...new Set([...(g||[]).map(r=>r.user_id),...(pres||[]).map(r=>r.user_id)])];
-    if(!uids.length){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Noch hat sich keiner für diese Events eingetragen. Sei der Erste: tippe bei einem Event auf „Ich geh hin“ – dann finden dich die anderen.</p></div>`;return}
+    if(!uids.length){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Noch hat keiner diese Events geliked. Setz ein Herz bei deinen Events – dann finden dich die anderen.</p></div>`;return}
     const {data:pr}=await sb.from('tribe_profiles').select('id,name,avatar_url,moods,genres').in('id',uids);await loadWaves();
     const myM=new Set((PROF&&PROF.moods)||[]),myG=new Set((PROF&&PROF.genres)||[]);
     const P=(pr||[]).map(p=>{const ev=(g||[]).filter(r=>r.user_id===p.id).map(r=>ALL.find(e=>e.id===r.event_id)).filter(Boolean);const same=ev.filter(e=>myGo.has(e.id));
       const sm=(p.moods||[]).filter(m=>myM.has(m)),sg=(p.genres||[]).filter(x=>myG.has(x));const pz=(pres||[]).find(r=>r.user_id===p.id);
       const score=same.length*30+sg.length*15+sm.length*10+(pz?8:0)+Math.min(ev.length,3)*3;
-      const tags=[...same.slice(0,1).map(e=>'geht auch zu '+e.title.slice(0,22)),...sg.map(x=>((GENRES.find(z=>z[0]===x)||[])[1]||x).split(' /')[0]),...sm.map(m=>MOOD[m])].slice(0,3);
+      const tags=[...same.slice(0,1).map(e=>'mag auch '+e.title.slice(0,22)),...sg.map(x=>((GENRES.find(z=>z[0]===x)||[])[1]||x).split(' /')[0]),...sm.map(m=>MOOD[m])].slice(0,3);
       return{p,ev,same,score:Math.min(99,Math.round(40+score)),tags,pz}}).sort((a,b)=>b.score-a.score).slice(0,8);
-    box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Wer zu deinen Events geht und tickt wie du. Hallo sagen = 👋 – sagt die andere Person auch Hallo, ist es ein Match.</p>
+    box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Wer dieselben Events mag und tickt wie du. Hallo sagen = 👋 – sagt die andere Person auch Hallo, ist es ein Match.</p>
      ${P.map(x=>{const st=WAV.out.has(x.p.id)&&WAV.in.has(x.p.id)?'match':WAV.out.has(x.p.id)?'on':'';const ev=x.same[0]||x.ev[0];
       return`<div class="pcard"><div class="pa" ${avDiv(x.p.name,x.p.avatar_url)}>${x.p.avatar_url?'':esc((x.p.name||'?')[0].toUpperCase())}</div><div class="pt"><b>${esc(x.p.name)} <span class="sc">${x.score}% passt</span></b>
        <div class="pm">${x.pz?'📍 gerade '+esc(x.pz.place):ev?esc(fmtDay(ev.date))+(ev.time?' '+esc(ev.time):'')+' · '+esc(ev.title.slice(0,28)):''}${WAV.in.has(x.p.id)&&!WAV.out.has(x.p.id)?' · <b style="display:inline;color:var(--amb)">winkt dir 👋</b>':''}</div>
@@ -1179,7 +1176,7 @@ async function wave(btn){const to=btn.dataset.wave;if(WAV.out.has(to))return;try
   if(WAV.in.has(to))showMatch(btn.dataset.wn,btn.dataset.wa,btn.dataset.we);else toast('Hallo gesagt 👋');renderPeople()}catch(_){toast('Ging gerade nicht')}}
 function showMatch(name,av,evId){const e=ALL.find(x=>x.id===evId);const d=document.createElement('div');d.className='match-pop';
   d.innerHTML=`<div class="in"><div class="two"><div ${avDiv(myName(),myAvatar())}>${myAvatar()?'':esc((myName()||'?')[0])}</div><div ${avDiv(name,av)}>${av?'':esc((name||'?')[0])}</div></div><h2>Match mit ${esc(name)}!</h2>
-   <p>${e?`Ihr geht beide zu „${esc(e.title)}“ – ${esc(fmtDay(e.date))}${e.time?' '+esc(e.time):''}. `:''}Verabredet euch in der Community oder trefft euch direkt dort.</p>
+   <p>${e?`Ihr mögt beide „${esc(e.title)}“ – ${esc(fmtDay(e.date))}${e.time?' '+esc(e.time):''}. `:''}Verabredet euch in der Community oder trefft euch direkt dort.</p>
    <a class="btn or full" href="${WA_COMMUNITY}" target="_blank" rel="noopener">In der Community schreiben</a><button class="btn gh full" style="margin-top:8px" id="mClose">Weiter</button></div>`;
   document.body.appendChild(d);d.querySelector('#mClose').onclick=()=>d.remove()}
 document.addEventListener('click',ev=>{const w=ev.target.closest('[data-wave]');if(w){ev.stopPropagation();wave(w)}},true);
