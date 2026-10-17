@@ -348,6 +348,15 @@ main,header,#v-events{overflow-x:clip}
 .avbig{width:64px;height:64px;font-size:24px;position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 64px;overflow:visible}.avbig img{border-radius:50%}
 .avbig span{position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:var(--ink3);border:1px solid var(--line2);font-size:12px;display:flex;align-items:center;justify-content:center}
 .faces i{background-size:cover;background-position:center}
+.pp h2{margin:28px 0 4px}.pp .sub{margin:0 0 12px}
+.pcard{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--ink2);margin-bottom:8px}
+.pcard .pa{width:54px;height:54px;border-radius:50%;flex:0 0 54px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-weight:700;color:#111;font-size:20px}
+.pcard .pt{flex:1;min-width:0}.pcard b{display:block;font-size:15px}.pcard .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.pcard .tags span{font-size:10.5px;padding:2px 7px;border-radius:99px;background:rgba(217,160,102,.14);color:var(--amb2,#F5C98F)}
+.pcard .pm{font-size:12px;color:var(--dim);margin-top:3px}.pcard .sc{font-size:11px;color:var(--amb);font-weight:600}
+.pcard button{padding:9px 12px;border-radius:99px;background:var(--cream);color:var(--ink);font-weight:600;font-size:12.5px;white-space:nowrap}.pcard button.on{background:var(--amb)}.pcard button.match{background:#3ddc84}
+.match-pop{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.match-pop .in{max-width:340px}.match-pop .two{display:flex;justify-content:center;margin-bottom:16px}.match-pop .two div{width:84px;height:84px;border-radius:50%;background-size:cover;background-position:center;border:3px solid var(--ink);margin:0 -8px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#111}
+.match-pop h2{font-size:34px;text-transform:none;letter-spacing:-.03em;display:block;margin:0 0 8px}.match-pop p{color:var(--dim);margin:0 0 18px}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -406,6 +415,7 @@ footer a{text-decoration:underline}
     <div class="deck" id="deck"></div>
     <div class="dbtn"><button class="no" id="swNo" aria-label="Nö">✕</button><button class="btn gh" id="swBuild">Route bauen</button><button class="yes" id="swYes" aria-label="Bock">♥</button></div>
     <div id="route"></div>
+    <div id="people"></div>
   </section>
 
   <section class="view" id="v-map">
@@ -802,7 +812,7 @@ function buildRoute(){if(!LIKED.length){toast('Erst ein paar Events nach rechts 
   $('#rShare').onclick=()=>wa('Mein Abend heute 🌙\n'+R.map(e=>`${e.time} ${e.title} (${e.venue||'Bielefeld'})`).join('\n')+'\nWer steigt wo ein? '+location.href.split('#')[0]);
   const pts=R.map(geo).filter(Boolean);if(window.L&&pts.length){rmap=L.map('rmap',{zoomControl:false,attributionControl:false});L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(rmap);
     R.forEach((e,i)=>{const p=geo(e);if(p)L.marker(p,{icon:L.divIcon({className:'dot',iconSize:[14,14]})}).bindTooltip(`<b>${i+1}. ${esc(prettyVenue(e))}</b><span>${esc(e.time)}</span>`,{permanent:true,direction:'right',offset:[8,0],className:'vlab'}).addTo(rmap)});if(pts.length>1)L.polyline(pts,{color:'#D9A066',weight:2,dashArray:'4 6'}).addTo(rmap);rmap.fitBounds(L.latLngBounds(pts).pad(.4),{maxZoom:15})}else{const m=$('#rmap');if(m)m.remove()}
-  $('#route').scrollIntoView({behavior:'smooth'})}
+  $('#route').scrollIntoView({behavior:'smooth'});if(typeof renderPeople==='function')renderPeople(R.map(e=>e.id))}
 // Nachtkarte
 let nmap,nlayer;
 function initNight(){if(!window.L)return;if(!nmap){nmap=L.map('nmap',{zoomControl:false}).setView([52.024,8.532],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(nmap);nlayer=L.layerGroup().addTo(nmap);nmap.on('dragstart zoomstart',e=>{if(e.originalEvent||e.type==='dragstart')nmap._userMoved=true})}
@@ -885,7 +895,7 @@ $('#swNo').onclick=()=>decide(false);$('#swYes').onclick=()=>decide(true);$('#sw
 function go(v){const b=document.querySelector(`nav [data-v="${v}"]`);if(b){b.click();return}
   document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x.dataset.v==='more'));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
   $('#filters').style.display='none';$('#heroT').style.display='none';scrollTo(0,0);onView(v)}
-function onView(v){if(v==='swipe')buildDeck();if(v==='map')initNight();if(v==='mystery')renderMystery();if(v==='pass')renderPass();if(v==='foryou')renderFY();if(v==='spontan')initMap()}
+function onView(v){if(v==='swipe'){buildDeck();if(typeof renderPeople==='function')renderPeople()}if(v==='map')initNight();if(v==='mystery')renderMystery();if(v==='pass')renderPass();if(v==='foryou')renderFY();if(v==='spontan')initMap()}
 document.addEventListener('click',ev=>{const t=ev.target;
   const g=t.closest('[data-go]');if(g){ev.preventDefault();go(g.dataset.go);return}
   const cr=t.closest('[data-crew]');if(cr){const e=ALL.find(x=>x.id===cr.dataset.crew);if(e){learn(e,1);wa(crewText(e))}return}
@@ -1077,6 +1087,7 @@ function pushFeed(m){FEED.unshift(m);FEED.splice(20);if(typeof window.tickNow===
 function joinLive(){CH=sb.channel('tribe-live-'+CITY,{config:{presence:{key:(ME&&ME.id)||('g'+Math.random().toString(36).slice(2,9))}}});
   CH.on('presence',{event:'sync'},()=>{ONLINE.clear();const st=CH.presenceState();Object.entries(st).forEach(([k,v])=>ONLINE.set(k,(v[0]||{}).name||''));paintOnline()})
     .on('broadcast',{event:'act'},({payload})=>pushFeed(payload))
+    .on('broadcast',{event:'wave'},({payload})=>{if(!ME||payload.to!==ME.id)return;WAV.in.add(payload.from);if(WAV.out.has(payload.from))showMatch(payload.name,payload.av,payload.ev);else toast((payload.name||'Jemand')+' winkt dir 👋 – schau bei „Abend bauen“');if($('#v-swipe').classList.contains('on'))renderPeople()})
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_going'},()=>loadGoing())
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_presence'},()=>loadPeople())
     .subscribe(st=>{if(st==='SUBSCRIBED')CH.track({name:myName(),at:Date.now()})})}
@@ -1111,6 +1122,45 @@ async function setPic(file){if(!file)return;try{
 document.addEventListener('click',ev=>{if(ev.target.closest('[data-pic]')){ev.preventDefault();ev.stopPropagation();if(OB&&$('#onb').classList.contains('open')){const n=$('#obName');if(n&&n.value.trim())try{localStorage.setItem('tribe_name',n.value.trim())}catch(_){}}$('#picIn').click()}},true);
 $('#picIn').onchange=e=>{setPic(e.target.files[0]);e.target.value=''};
 saveProf();
+
+// ===== People-Matching (Abend bauen) =====
+let WAV={out:new Set(),in:new Set()};
+async function loadWaves(){if(!sb||!ME)return;const {data}=await sb.from('tribe_waves').select('from_id,to_id');WAV={out:new Set(),in:new Set()};(data||[]).forEach(w=>{if(w.from_id===ME.id)WAV.out.add(w.to_id);else if(w.to_id===ME.id)WAV.in.add(w.from_id)})}
+const avDiv=(n,a)=>a?`style="background-image:url('${esc(a)}')"`:`style="background:${col(n)}"`;
+async function renderPeople(routeIds){const box=$('#people');if(!box)return;
+  if(!sb){box.innerHTML='';return}
+  if(!ME){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Sieh, wer zu deinen Events geht und zu dir passt – und sag Hallo.</p><button class="btn or full" id="ppJoin">Leute finden</button></div>`;$('#ppJoin').onclick=async()=>{try{await ensureMe();renderPeople(routeIds)}catch(_){}};return}
+  box.innerHTML='<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Suche passende Leute …</p></div>';
+  const t0=today0();const ids=(routeIds&&routeIds.length?routeIds:ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,2)).map(e=>e.id)).slice(0,500);
+  const myGo=new Set(ALL.filter(e=>favs.has(e.id)).map(e=>e.id));(routeIds||[]).forEach(i=>myGo.add(i));
+  try{
+    const [{data:g},{data:pres}]=await Promise.all([sb.from('tribe_going').select('user_id,event_id').in('event_id',ids).neq('user_id',ME.id),sb.from('tribe_presence').select('user_id,place,mood').neq('user_id',ME.id)]);
+    const uids=[...new Set([...(g||[]).map(r=>r.user_id),...(pres||[]).map(r=>r.user_id)])];
+    if(!uids.length){box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Noch hat sich keiner für diese Events eingetragen. Sei der Erste: tippe bei einem Event auf „Ich geh hin“ – dann finden dich die anderen.</p></div>`;return}
+    const {data:pr}=await sb.from('tribe_profiles').select('id,name,avatar_url,moods,genres').in('id',uids);await loadWaves();
+    const myM=new Set((PROF&&PROF.moods)||[]),myG=new Set((PROF&&PROF.genres)||[]);
+    const P=(pr||[]).map(p=>{const ev=(g||[]).filter(r=>r.user_id===p.id).map(r=>ALL.find(e=>e.id===r.event_id)).filter(Boolean);const same=ev.filter(e=>myGo.has(e.id));
+      const sm=(p.moods||[]).filter(m=>myM.has(m)),sg=(p.genres||[]).filter(x=>myG.has(x));const pz=(pres||[]).find(r=>r.user_id===p.id);
+      const score=same.length*30+sg.length*15+sm.length*10+(pz?8:0)+Math.min(ev.length,3)*3;
+      const tags=[...same.slice(0,1).map(e=>'geht auch zu '+e.title.slice(0,22)),...sg.map(x=>((GENRES.find(z=>z[0]===x)||[])[1]||x).split(' /')[0]),...sm.map(m=>MOOD[m])].slice(0,3);
+      return{p,ev,same,score:Math.min(99,Math.round(40+score)),tags,pz}}).sort((a,b)=>b.score-a.score).slice(0,8);
+    box.innerHTML=`<div class="pp"><h2>Leute für deinen Abend</h2><p class="sub">Wer zu deinen Events geht und tickt wie du. Hallo sagen = 👋 – sagt die andere Person auch Hallo, ist es ein Match.</p>
+     ${P.map(x=>{const st=WAV.out.has(x.p.id)&&WAV.in.has(x.p.id)?'match':WAV.out.has(x.p.id)?'on':'';const ev=x.same[0]||x.ev[0];
+      return`<div class="pcard"><div class="pa" ${avDiv(x.p.name,x.p.avatar_url)}>${x.p.avatar_url?'':esc((x.p.name||'?')[0].toUpperCase())}</div><div class="pt"><b>${esc(x.p.name)} <span class="sc">${x.score}% passt</span></b>
+       <div class="pm">${x.pz?'📍 gerade '+esc(x.pz.place):ev?esc(fmtDay(ev.date))+(ev.time?' '+esc(ev.time):'')+' · '+esc(ev.title.slice(0,28)):''}${WAV.in.has(x.p.id)&&!WAV.out.has(x.p.id)?' · <b style="display:inline;color:var(--amb)">winkt dir 👋</b>':''}</div>
+       ${x.tags.length?`<div class="tags">${x.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div>
+       <button class="${st}" data-wave="${x.p.id}" data-wn="${esc(x.p.name)}" data-wa="${esc(x.p.avatar_url||'')}" data-we="${esc(ev?ev.id:'')}">${st==='match'?'Match ✓':st==='on'?'Gewinkt':'👋 Hallo'}</button></div>`}).join('')}</div>`}
+  catch(_){box.innerHTML=''}}
+async function wave(btn){const to=btn.dataset.wave;if(WAV.out.has(to))return;try{await ensureMe();
+  await sb.from('tribe_waves').insert({from_id:ME.id,to_id:to,event_id:btn.dataset.we||null});WAV.out.add(to);
+  if(CH)CH.send({type:'broadcast',event:'wave',payload:{to,from:ME.id,name:myName(),av:myAvatar(),ev:btn.dataset.we}});
+  if(WAV.in.has(to))showMatch(btn.dataset.wn,btn.dataset.wa,btn.dataset.we);else toast('Hallo gesagt 👋');renderPeople()}catch(_){toast('Ging gerade nicht')}}
+function showMatch(name,av,evId){const e=ALL.find(x=>x.id===evId);const d=document.createElement('div');d.className='match-pop';
+  d.innerHTML=`<div class="in"><div class="two"><div ${avDiv(myName(),myAvatar())}>${myAvatar()?'':esc((myName()||'?')[0])}</div><div ${avDiv(name,av)}>${av?'':esc((name||'?')[0])}</div></div><h2>Match mit ${esc(name)}!</h2>
+   <p>${e?`Ihr geht beide zu „${esc(e.title)}“ – ${esc(fmtDay(e.date))}${e.time?' '+esc(e.time):''}. `:''}Verabredet euch in der Community oder trefft euch direkt dort.</p>
+   <a class="btn or full" href="${WA_COMMUNITY}" target="_blank" rel="noopener">In der Community schreiben</a><button class="btn gh full" style="margin-top:8px" id="mClose">Weiter</button></div>`;
+  document.body.appendChild(d);d.querySelector('#mClose').onclick=()=>d.remove()}
+document.addEventListener('click',ev=>{const w=ev.target.closest('[data-wave]');if(w){ev.stopPropagation();wave(w)}},true);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
