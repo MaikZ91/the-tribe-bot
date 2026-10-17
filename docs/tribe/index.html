@@ -318,10 +318,13 @@ nav button.mid svg{color:var(--amb)}
 .askbar svg{color:var(--amb);width:18px;height:18px}
 .askbar span{flex:1;min-width:0}.askbar i{display:block;font-style:normal;font-size:14px;color:var(--dim);transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fyx{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -20px;padding:2px 20px 6px}.fyx::-webkit-scrollbar{display:none}
-.fyk{flex:0 0 38%;max-width:150px;scroll-snap-align:start;border-radius:14px;overflow:hidden;background:var(--ink2);border:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;transition:.25s}
-.fyk .im{aspect-ratio:1;overflow:hidden;background:var(--ink3)}.fyk .im img,.fyk .im .ph{width:100%;height:100%;object-fit:cover}
-.fyk .tx{padding:8px 10px 2px;flex:1}.fyk small{color:var(--amb);font-size:10px}.fyk b{font-weight:600;font-size:13px;line-height:1.2;margin:2px 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.fyk .tx>span{font-size:11px;color:var(--fog);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fyk{flex:0 0 31%;max-width:124px;scroll-snap-align:start;border-radius:14px;overflow:hidden;background:var(--ink2);border:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;transition:.25s}
+.fyk .im{position:relative;aspect-ratio:1;overflow:hidden;background:var(--ink3)}.fyk .im img,.fyk .im .ph{width:100%;height:100%;object-fit:cover}
+.fyk .tx{padding:6px 8px 8px;flex:1}.fyk small{color:var(--amb);font-size:10px}.fyk b{font-weight:600;font-size:13px;line-height:1.2;margin:2px 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.fyk .tx>span{font-size:11px;color:var(--fog);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fyk .why{margin:4px 0 0;gap:3px}.fyk .why span{font-size:9.5px;padding:2px 6px}
+.fx,.fh{position:absolute;top:5px;width:26px;height:26px;border-radius:50%;background:rgba(10,10,10,.55);backdrop-filter:blur(6px);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.fx{left:5px}.fh{right:5px}.fh svg{width:14px;height:14px}.fh.on{color:var(--amb)}.fh.on svg{fill:var(--amb)}
+.fyk b{font-size:12px!important;-webkit-line-clamp:2}.fyk .tx>span{display:none!important}
 .ld{display:flex;gap:6px;padding:6px 10px 10px}.ld button{flex:1;padding:5px;border-radius:9px;border:1px solid var(--line2);font-size:13px}.ld button.on{background:rgba(217,160,102,.2);border-color:var(--amb)}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
@@ -907,7 +910,7 @@ function ttChapter(){const P=TT.plan,x=P.R[TT.i],e=x.e;ttBg(e);
   const prev=TT.i?P.R[TT.i-1]:null;const a=prev&&geo(prev.e),b=geo(e);const walk=a&&b?Math.max(1,Math.round(km(a,b)/5*60)):null;
   ttShow(`<div class="ttbar">${P.R.map((_,k)=>`<i class="${k<=TT.i?'on':''}"></i>`).join('')}<i></i></div>
    <div class="k">Kapitel ${TT.i+1} · ${esc(e.time)} Uhr${walk?' · '+walk+' min zu Fuß':''}</div><h2>${esc(e.title)}</h2><p>${esc(e.venue||CITY)}</p>
-   ${x.why.length?`<div class="why">${[...new Set(x.why)].map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}
+   
    <div class="ttrow"><button class="btn gh" data-tt="swap">Anderes</button><button class="btn or" data-tt="next">${TT.i<P.R.length-1?'Weiter →':'Mein Abend →'}</button></div>`)}
 function ttSummary(){const P=TT.plan;P.R.forEach(x=>favs.add(x.e.id));saveFavs();
   ttShow(`<div class="k">Dein Abend</div><h2>${{chill:'Entspannt',social:'Gesellig',wild:'Eskalation'}[TT.a.mood]}. ${{solo:'Und nicht allein.',crew:'Mit deiner Crew.',date:'Zu zweit.'}[TT.a.who]}</h2>
@@ -980,9 +983,8 @@ function fyBlock(L){const box=$('#fyHome');if(!box)return;if(state.q||state.cat)
   const C=L.filter(e=>!e.minor&&!HID.has(e.id)&&(startsIn(e)===null||startsIn(e)>-90)).map(e=>{const p=profScore(e),sb=simBoost(e);const why=[...p.why];if(sb.why)why.unshift(sb.why);if(LK.some(l=>l.id===e.id))why.unshift('gefällt dir');return{e,s:e.score+prefBoost(e)+sb.b,why}}).sort((a,b)=>b.s-a.s).slice(0,12);
   if(!C.length){box.innerHTML='';return}
   const nm=PROF&&PROF.name?', '+esc(PROF.name):'';const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||'';
-  box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2><p class="sub">${PROF?'Dein Programm '+lbl+'.':'Unsere Tipps '+lbl+'. <a href="#" id="fyStart" style="text-decoration:underline;color:var(--amb)">Profil anlegen</a>'} 👍 mehr davon · 👎 weg damit</p>
-   <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}</div><div class="tx"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span>${x.why.length?`<div class="why">${[...new Set(x.why)].slice(0,1).map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}</div>
-     <div class="ld"><button data-dis="${esc(x.e.id)}" aria-label="Gefällt mir nicht">👎</button><button data-like="${esc(x.e.id)}" class="${liked?'on':''}" aria-label="Gefällt mir">👍</button></div></div>`}).join('')}</div>
+  box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2>
+   <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}<button class="fx" data-dis="${esc(x.e.id)}" aria-label="Nicht für mich">✕</button><button class="fh${liked?' on':''}" data-like="${esc(x.e.id)}" aria-label="Gefällt mir">${IC_HEART}</button></div><div class="tx"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span></div></div>`}).join('')}</div>
    <button class="allbtn" id="allBtn">${state.showAll?'Alle Events ausblenden':'Alle '+L.length+' Events anzeigen'}</button>${HID.size?`<button class="allbtn" id="unhide" style="border:0;font-size:12px;margin:0">${HID.size} ausgeblendet · zurückholen</button>`:''}</div>`;
   const fs=$('#fyStart');if(fs)fs.onclick=ev=>{ev.preventDefault();obOpen()}}
 document.addEventListener('click',ev=>{const t=ev.target;
