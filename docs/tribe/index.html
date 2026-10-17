@@ -313,7 +313,7 @@ nav button.mid svg{color:var(--amb)}
 .allbtn{width:100%;padding:13px;border-radius:14px;border:1px solid var(--line2);color:var(--dim);font-size:14px;margin:6px 0 0}
 .pf-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:15px}.pf-row span{color:var(--fog);text-align:right;max-width:60%}
 .leaflet-tooltip.vlab{background:rgba(10,10,10,.82);border:1px solid rgba(217,160,102,.35);color:var(--cream);border-radius:8px;padding:4px 8px;box-shadow:none;font-family:var(--body);line-height:1.25;white-space:nowrap}
-.leaflet-tooltip.vlab:before{display:none}.vlab b{display:block;font-size:12px;font-weight:600}.vlab span{display:block;font-size:10.5px;color:var(--amb)}
+.leaflet-tooltip.vlab:before{display:none}.leaflet-tooltip.vlab{display:flex;align-items:center;gap:7px;padding:4px 9px 4px 4px}.leaflet-tooltip.vlab{max-width:170px}.vlab b{font-size:11.5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}.vlab img{width:30px;height:30px;border-radius:6px;object-fit:cover;flex:0 0 34px}.vlab b{display:block;font-size:12px;font-weight:600}.vlab span{display:block;font-size:10.5px;color:var(--amb)}
 .askbar{display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin:6px 0 4px;padding:10px 12px;border-radius:12px;border:1px solid rgba(217,160,102,.35);background:rgba(217,160,102,.06);color:var(--dim)}
 .askbar svg{color:var(--amb);width:18px;height:18px}
 .askbar span{flex:1;min-width:0}.askbar i{display:block;font-style:normal;font-size:14px;color:var(--dim);transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -838,11 +838,12 @@ function drawNight(){if(!nmap)return;const T=+$('#slR').value;$('#slTime').textC
     if(on)live.push(e);if(up)soon++;const h=heatOf(e,T)*wf;
     if(p&&h>0){const k=p[0].toFixed(3)+','+p[1].toFixed(3);(spots[k]=spots[k]||{p,h:0,ev:[]}).h+=h;spots[k].ev.push(e)}});
   const S=Object.values(spots).sort((a,b)=>b.h-a.h);
+  if(S.length&&!nmap._userMoved){const b=L.latLngBounds(S.slice(0,6).map(x=>x.p));nmap.fitBounds(b.pad(.6),{maxZoom:16,animate:false})}
   S.forEach(sp=>{const r=Math.round(40+Math.min(1.6,sp.h)*55);const ic=L.divIcon({className:'',html:`<div class="heat" style="width:${r}px;height:${r}px;--sp:${(2.6-Math.min(1.5,sp.h)).toFixed(2)}s"></div>`,iconSize:[r,r]});
     const vn=[...new Set(sp.ev.map(e=>prettyVenue(e)))];const top=sp.ev.slice().sort((a,b)=>heatOf(b,T)-heatOf(a,T))[0];const rank=S.indexOf(sp);
-    const lab=`<b>${esc(vn.slice(0,2).join(' · '))}${vn.length>2?' +'+(vn.length-2):''}</b><span>${esc(top.time)}${sp.ev.length>1?' · '+sp.ev.length+' Events':''}</span>`;
-    L.marker(sp.p,{icon:ic}).bindTooltip(lab,{permanent:rank<6,direction:rank%2?'left':'right',offset:[rank%2?-(r/2-14):(r/2-14),0],className:'vlab'}).bindPopup(`<div class="pop">${sp.ev.map(e=>`<b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button>`).join('<hr>')}</div>`).addTo(nlayer)});
-  if(S.length&&!nmap._userMoved){const b=L.latLngBounds(S.slice(0,6).map(x=>x.p));nmap.fitBounds(b.pad(.6),{maxZoom:16,animate:false})}
+    const tt=top.title.length>18?top.title.slice(0,17)+'…':top.title;
+    const lab=`${top.img?`<img src="${esc(top.img)}" alt="" onerror="this.remove()">`:''}<div><b>${esc(tt)}</b><span>${esc(top.time)}${sp.ev.length>1?' · +'+(sp.ev.length-1)+' weitere':''}</span></div>`;
+    L.marker(sp.p,{icon:ic}).bindTooltip(lab,(()=>{const pt=nmap.latLngToContainerPoint(sp.p),left=pt.x>nmap.getSize().x/2;return{permanent:rank<4,direction:left?'left':'right',offset:[left?-(r/2-14):(r/2-14),0],className:'vlab'}})()).bindPopup(`<div class="pop">${sp.ev.map(e=>`<b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button>`).join('<hr>')}</div>`).addTo(nlayer)});
   Object.entries(PPL).forEach(([pl,n])=>{const c=placeGeo(pl);if(!c)return;L.marker(c,{icon:L.divIcon({className:'ppl',html:`<div>👥 ${n}</div>`,iconSize:null}),zIndexOffset:1000}).bindPopup(`<div class="pop"><b>${n} ${n===1?'Person':'Leute'} gerade hier</b>${esc(pl)}<button data-open-here="1">Ich komm dazu</button></div>`).addTo(nlayer)});
   const tot=live.reduce((a,e)=>a+heatOf(e,T)*wf,0);const score=Math.min(100,Math.round(100*(1-Math.exp(-tot/2.2))));
   const mood=score>=75?'Die Stadt brennt':score>=50?'Es läuft richtig':score>=25?'Es geht los':score>0?'Noch ruhig':'Gerade nichts los';
