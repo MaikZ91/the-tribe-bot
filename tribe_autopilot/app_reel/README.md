@@ -7,3 +7,8 @@ Animierte Promo-Reels aus echten App-Abläufen (Maik 17.10.: „geile Animatione
 3. Als fertiges Video posten mit `"keep_audio": true` in der Spec.
 
 Regeln: nur echte App-Screens, Stadtpuls = „Hochrechnung aus allen Events“, keine KI-Menschen, nur Mixkit-Lizenz.
+
+## Pflicht-Aufbau (Maik 17.10.)
+1. Einstieg: Tag nennen („Samstag. Was geht?“) und SOFORT die Events von heute zeigen (`s_today(...)` mit `today_events('<TT.MM.JJJJ>')`): 3 Event-Karten mit Bild, Uhrzeit, Name, Location – Party/Club zuerst, dann Live (Rock/Punk/Indie/Hip-Hop); Klassik, Kammermusik, Sport, Wochenmarkt, Stammtisch NICHT.
+2. Dann die App-Features (Ticker, Herz, Stadtpuls, Ich bin unterwegs …).
+3. Schluss: junge Party-/Crowd-Szene (Mixkit) + Endkarte. Zielgruppe jung (ca. 20–35): keine Fotos von älteren Personen, kein zufälliges Event-Bild als Hintergrund – jedes Bild vorher ansehen.

@@ -33,7 +33,7 @@ Screenshots/Bildschirmaufnahme (Playwright, 390×844, scale 3, Uhrzeit per `page
 - Tribe Tonight: Direktlink `…/tribe/#tonight`, Antworten anklicken (`[data-tq]`), Kapitel per `[data-tt=next]`.
 - Bilder für Events: externe Bilder per Python laden und an die Seite durchreichen (Sandbox), siehe frühere Shot-Skripte.
 
-Animierte Reels (bevorzugt, Maik 17.10.): Baukasten in `tribe_autopilot/app_reel/` (README) – echte App-Abläufe als Bildfolgen im Handy-Mockup, Scroll-Pan, Stadtpuls-Zeitregler, Herz-Klick, Chat. Mindestens jeden 2. App-Post als animiertes Reel.
+Animierte Reels (bevorzugt, Maik 17.10.) – IMMER mit den Events von heute beginnen (siehe app_reel/README „Pflicht-Aufbau“), junge Zielgruppe, keine Bilder älterer Personen: Baukasten in `tribe_autopilot/app_reel/` (README) – echte App-Abläufe als Bildfolgen im Handy-Mockup, Scroll-Pan, Stadtpuls-Zeitregler, Herz-Klick, Chat. Mindestens jeden 2. App-Post als animiertes Reel.
 
 Fertige Videos mit eigener (lizenzfreier) Musik: in der Spec `"keep_audio": true` setzen – sonst ersetzt der Renderer den Ton durch config `video_music`.
 

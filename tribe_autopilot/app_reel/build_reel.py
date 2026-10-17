@@ -81,20 +81,56 @@ def s_pan(path,dur,cap,sub=None):
         if sub:text(d,(W//2,370),sub,font('Geist-Medium.ttf',46),AMB,'mm',ta)
         return b
     scenes.append((dur,r))
+
+import json as _json,requests as _rq,re as _re,io as _io,datetime as _dt
+def today_events(day,n=4):
+    d=_json.load(open('../ev_live.json'));out=[]
+    for e in d:
+        if day not in e.get('date',''):continue
+        t=e.get('event','');c=(e.get('category') or '').lower();txt=(t+' '+c).lower()
+        if _re.search(r'hochschulsport|wochenmarkt|yoga|laufen|fußball|stammtisch',txt) or not e.get('image_url') or not e.get('time'):continue
+        pri=3 if 'party' in c or _re.search(r'party|club|rave|dance|friday|saturday|techno|house',txt) else 0 if _re.search(r'kammer|oetker|semesterstart|orchester|klassik|lange nacht musik',txt) else 2 if _re.search(r'konzert|live|band|punk|rock|indie|hip ?hop|movie|forum|sams',txt) else 1
+        m=_re.search(r'\(@?([^)]+)\)\s*$',t);ven=m.group(1).replace('_',' ').replace('bielefeld','').strip().title() if m else ''
+        out.append((pri,e['time'],_re.sub(r'\s*\(@?[^)]+\)\s*$','',t).strip(),ven,e['image_url']))
+    out=[o for o in out if o[0]>=2]
+    out.sort(key=lambda x:(-x[0],x[1]));pick=sorted(out[:n],key=lambda x:x[1])
+    ims=[]
+    for p in pick:
+        try:
+            r=_rq.get(p[4],headers={'User-Agent':'Mozilla/5.0','Referer':'https://maikz91.github.io/'},timeout=15,verify='/root/.ccr/ca-bundle.crt');ims.append((p,Image.open(_io.BytesIO(r.content)).convert('RGB')))
+        except Exception:pass
+    return ims
+def s_today(dur,label,events):
+    def r(i,n):
+        b=Image.new('RGB',(W,H),INK);d=ImageDraw.Draw(b)
+        a0=ease(i/8);text(d,(80,190),'HEUTE IN BIELEFELD',font('Geist-SemiBold.ttf',40),AMB,'la',a0);text(d,(80,250),label,font('Geist-Bold.ttf',96),CREAM,'la',a0)
+        y=440
+        for k,(p,im) in enumerate(events):
+            a=ease((i-6-k*5)/9)
+            if a<=0:continue
+            x=80+int((1-a)*120);ch=330;cw=W-160
+            card=Image.new('RGB',(cw,ch),(24,24,24));th=im.copy();s=max(ch/th.height,300/th.width);th=th.resize((int(th.width*s),int(th.height*s)));card.paste(th.crop(((th.width-300)//2,(th.height-ch)//2,(th.width-300)//2+300,(th.height-ch)//2+ch)),(0,0))
+            cd=ImageDraw.Draw(card);cd.text((330,40),p[1]+' Uhr',font=font('Geist-SemiBold.ttf',40),fill=AMB)
+            ttl=p[2] if len(p[2])<=26 else p[2][:25]+'…';cd.text((330,100),ttl,font=font('Geist-Bold.ttf',46),fill=CREAM)
+            cd.text((330,170),p[3][:28],font=font('Geist-Medium.ttf',36),fill=(154,152,147))
+            m=Image.new('L',(cw,ch),0);ImageDraw.Draw(m).rounded_rectangle((0,0,cw-1,ch-1),36,fill=int(255*a))
+            b.paste(card,(x,y),m);y+=ch+40
+        return b
+    scenes.append((dur,r))
 B=font('Geist-Bold.ttf',116);M=font('Geist-SemiBold.ttf',64);S=font('Geist-Medium.ttf',54)
 A='app3/'
-s_stock('14105',1,1.3,[('Bielefeld,',B,CREAM),('heute Abend.',B,AMB)],'a')
-s_phone([A+f'tick{k}.png' for k in range(4)],2.2,'Live-Ticker.','Was gerade läuft – direkt oben')
-s_pan(A+'full.png',2.8,'Dein Programm.','Für dich. Nicht für alle.')
-s_phone([A+f'fy{k}.png' for k in range(8)]+[A+'liked.png']*3,2.2,'Herz = mehr davon.','Die App lernt deinen Geschmack')
-s_phone([A+'chat0.png',A+'chat1.png',A+'chat1.png'],1.9,'Frag einfach.','„Wo kann ich heute tanzen?“')
-s_phone([A+f'puls{k}.png' for k in range(7)],2.8,'Stadtpuls.','Sieh, wo die Stadt gerade brennt')
-s_phone(A+'here.png',1.7,'Ich bin unterwegs.','Wer in der Nähe ist, kommt dazu')
-s_phone([A+'tt0.png',A+'tt1.png',A+'tt2.png',A+'tt3.png'],2.4,'Tribe Tonight.','3 Fragen. Dein Abend.')
+EV=today_events('17.10.2026')
+s_stock('4185',0.5,1.3,[('Samstag.',B,CREAM),('Was geht?',B,AMB)],'a2')
+s_today(3.4,'Samstag, 17.10.',EV)
+s_phone([A+f'tick{k}.png' for k in range(4)],2.0,'Alles live in der App.','Was läuft – direkt oben im Ticker')
+s_phone([A+f'fy{k}.png' for k in range(8)]+[A+'liked.png']*3,2.0,'Herz = mehr davon.','Die App lernt deinen Geschmack')
+s_phone([A+f'puls{k}.png' for k in range(7)],2.6,'Stadtpuls.','Sieh, wo die Stadt gerade brennt')
+s_phone(A+'here.png',1.6,'Ich bin unterwegs.','Wer in der Nähe ist, kommt dazu')
+s_stock('14105',1,1.6,[('Geh nicht allein.',B,CREAM),('Finde deine Leute.',M,AMB)],'z')
 s_end(2.8)
 os.makedirs('out',exist_ok=True)
 p=subprocess.Popen([F,'-v','error','-y','-f','rawvideo','-pix_fmt','rgb24','-s',f'{W}x{H}','-r',str(FPS),'-i','-','-ss','15.5','-i','/home/user/the-tribe-bot/instagram_autopilot/music/house-vibes.mp3',
-  '-map','0:v','-map','1:a','-shortest','-c:v','libx264','-pix_fmt','yuv420p','-crf','19','-preset','medium','-c:a','aac','-b:a','192k','-af','afade=t=in:d=0.3,afade=t=out:st=19.0:d=1.2','-movflags','+faststart','out/tribe-app-v3.mp4'],stdin=subprocess.PIPE)
+  '-map','0:v','-map','1:a','-shortest','-c:v','libx264','-pix_fmt','yuv420p','-crf','19','-preset','medium','-c:a','aac','-b:a','192k','-af','afade=t=in:d=0.3,afade=t=out:st=17.6:d=1.2','-movflags','+faststart','out/tribe-app-v4.mp4'],stdin=subprocess.PIPE)
 tot=0
 for dur,r in scenes:
     n=int(dur*FPS)
