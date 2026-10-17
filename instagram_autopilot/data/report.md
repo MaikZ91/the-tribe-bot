@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-17
 
-Follower: **59** · Beiträge: 23
+Follower: **59** · Beiträge: 24
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -18,6 +18,7 @@ Follower: **59** · Beiträge: 23
 | D1016-spots-muenster | foto-reel | wo-shooten | frage | – | – | – | – | – | – | – | 0.0 |
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | – | – | – | – | – | – | – | 0.0 |
 | D1017b-null-auf-zehn | foto-reel | keine-matches | beleg | – | – | – | – | – | – | – | 0.0 |
+| D1017c-vier-fotos | maik-text | nur-ein-bild | frage | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -34,6 +35,7 @@ Follower: **59** · Beiträge: 23
 | wirkt-steif | 0.0 | 0.0 | 0.00 | 1 | – |
 | schlechte-fotos | 0.0 | 0.0 | 0.00 | 1 | – |
 | wo-shooten | 0.0 | 0.0 | 0.00 | 1 | – |
+| nur-ein-bild | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -57,7 +59,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=5)
+- ≥ 90 min: Ø Reichweite 0.0 (n=6)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -65,7 +67,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/bad-waschtisch.jpg: 0.0 (n=1)
 - images/baustelle-arbeiter.jpg: 0.0 (n=1)
 - images/coach-training.jpg: 0.0 (n=1)
-- images/dating/stil-altstadt-laecheln.jpg: 0.0 (n=3)
+- images/dating/stil-altstadt-laecheln.jpg: 0.0 (n=4)
 - images/dating/stil-dom-portrait.jpg: 0.0 (n=2)
 - images/dating/stil-hafen-pullover.jpg: 0.0 (n=2)
 - images/dating/stil-treppe-ganzkoerper.jpg: 0.0 (n=2)
@@ -79,7 +81,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=11)
+- dating: 0.00 (n=12)
 
 ## Ø Interesse nach format
 
@@ -89,7 +91,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=4)
+- maik-text: 0.00 (n=5)
 - foto-reel: 0.00 (n=3)
 
 ## Ø Interesse nach hook_style
@@ -102,7 +104,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - liste: 0.00 (n=2)
 - aussage: 0.00 (n=1)
 - geschichte: 0.00 (n=1)
-- frage: 0.00 (n=1)
+- frage: 0.00 (n=2)
 - versprechen: 0.00 (n=1)
 - beleg: 0.00 (n=1)
 
@@ -119,6 +121,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - wirkt-steif: 0.00 (n=1)
 - schlechte-fotos: 0.00 (n=1)
 - wo-shooten: 0.00 (n=1)
+- nur-ein-bild: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -130,7 +133,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 07:38: 0.00 (n=1)
 - 08:22: 0.00 (n=1)
 - 13:30: 0.00 (n=1)
-- 18:57: 0.00 (n=1)
+- 18:57: 0.00 (n=2)
 - 07:57: 0.00 (n=2)
 - 12:58: 0.00 (n=1)
 - 18:58: 0.00 (n=1)
@@ -138,7 +141,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=10)
+- bed: 0.00 (n=11)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
