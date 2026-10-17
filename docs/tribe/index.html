@@ -344,6 +344,10 @@ nav button.mid svg{color:var(--amb)}
 html,body{overflow-x:hidden;overscroll-behavior-x:none;max-width:100%}
 main,header,#v-events{overflow-x:clip}
 @media (max-width:390px){.fyx,.hl,.stories{margin-left:-14px!important;margin-right:-14px!important;padding-left:14px!important;padding-right:14px!important}}
+.av{overflow:hidden;padding:0}.av img{width:100%;height:100%;object-fit:cover;display:block}
+.avbig{width:64px;height:64px;font-size:24px;position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 64px;overflow:visible}.avbig img{border-radius:50%}
+.avbig span{position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:var(--ink3);border:1px solid var(--line2);font-size:12px;display:flex;align-items:center;justify-content:center}
+.faces i{background-size:cover;background-position:center}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -521,6 +525,7 @@ footer a{text-decoration:underline}
 <div class="ttin" id="ttIn"></div></div>
 <div class="onb" id="onb"><div class="onbin" id="onbIn"></div></div>
 <div class="sheet" id="profSheet"><div class="bg"></div><div class="pn"><div class="c" style="margin-top:0;padding-top:24px" id="profC"></div></div></div>
+<input type="file" id="picIn" accept="image/*" hidden>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -975,7 +980,8 @@ if(location.hash==='#tonight')setTimeout(ttOpen,600);
 // ===== Profil =====
 const GENRES=[['techno','Techno / House',/techno|house|electro|rave|minimal|trance/],['hiphop','Hip-Hop / RnB',/hip ?hop|rap|r&b|rnb|afro|urban/],['indie','Indie / Rock',/indie|rock|punk|alternative|grunge/],['pop','Pop / Charts',/pop|charts|80er|90er|2000er|party hits/],['jazz','Jazz / Blues / Soul',/jazz|blues|soul|funk/],['latin','Latin / Salsa',/latin|salsa|bachata|reggaeton|tango/],['comedy','Comedy / Slam',/comedy|slam|kabarett|impro/],['kultur','Theater / Kunst',/theater|ausstellung|kunst|lesung/]];
 let PROF=null;try{PROF=JSON.parse(localStorage.getItem('tribe_profile')||'null')}catch(_){}
-const saveProf=()=>{try{localStorage.setItem('tribe_profile',JSON.stringify(PROF))}catch(_){};$('#avBtn').textContent=PROF&&PROF.name?PROF.name[0].toUpperCase():'?'};
+const myAvatar=()=>{try{return localStorage.getItem('tribe_avatar')||''}catch(_){return''}};
+const saveProf=()=>{try{localStorage.setItem('tribe_profile',JSON.stringify(PROF))}catch(_){};const a=myAvatar();$('#avBtn').innerHTML=a?`<img src="${esc(a)}" alt="">`:(PROF&&PROF.name?esc(PROF.name[0].toUpperCase()):'?')};
 function profScore(e){if(!PROF)return{b:0,why:[]};let b=0;const why=[];const txt=(e.title+' '+e.desc+' '+e.venue).toLowerCase();
   if((PROF.moods||[]).includes(e.cat)){b+=4;why.push(MOOD[e.cat])}
   GENRES.forEach(g=>{if((PROF.genres||[]).includes(g[0])&&g[2].test(txt)){b+=4;why.push(g[1].split(' /')[0])}});
@@ -985,7 +991,7 @@ function profScore(e){if(!PROF)return{b:0,why:[]};let b=0;const why=[];const txt
 // onboarding
 let OB={step:0,d:{}};
 function obDraw(){const st=OB.step,d=OB.d,N=5;const dots=`<div class="dots">${Array.from({length:N},(_,i)=>`<i class="${i<=st?'on':''}"></i>`).join('')}</div>`;let h='';
-  if(st===0)h=`<div class="k">Willkommen bei THE TRIBE</div><h2>Kein Scrollen mehr.</h2><p>Sag mir kurz, wer du bist – dann zeig ich dir jeden Tag dein Programm. Dauert 20 Sekunden, bleibt nur auf deinem Handy.</p><label class="k" style="margin:10px 0 8px;display:block">Wie heißt du?</label><input id="obName" placeholder="Vorname" value="${esc(d.name||'')}" autocomplete="given-name">`;
+  if(st===0)h=`<div class="k">Willkommen bei THE TRIBE</div><h2>Kein Scrollen mehr.</h2><p>Sag mir kurz, wer du bist – dann zeig ich dir jeden Tag dein Programm. Dauert 20 Sekunden, bleibt nur auf deinem Handy.</p><label class="k" style="margin:10px 0 8px;display:block">Wie heißt du?</label><input id="obName" placeholder="Vorname" value="${esc(d.name||'')}" autocomplete="given-name"><button class="allbtn" style="margin-top:14px" data-pic="1">${myAvatar()?'✓ Profilbild gesetzt – ändern':'+ Profilbild hinzufügen (optional)'}</button>`;
   if(st===1)h=`<div class="k">Schritt 2 von 5</div><h2>Worauf hast du meistens Bock?</h2><p>Mehrere möglich.</p><div class="big-chips">${CATS.filter(c=>c[0]!=='sport').map(c=>`<button data-ob="moods" data-v="${c[0]}" class="${(d.moods||[]).includes(c[0])?'on':''}">${MOOD[c[0]]}</button>`).join('')}</div>`;
   if(st===2)h=`<div class="k">Schritt 3 von 5</div><h2>Welche Musik?</h2><p>Damit ich die richtigen Partys und Konzerte finde.</p><div class="big-chips">${GENRES.map(g=>`<button data-ob="genres" data-v="${g[0]}" class="${(d.genres||[]).includes(g[0])?'on':''}">${g[1]}</button>`).join('')}</div>`;
   if(st===3)h=`<div class="k">Schritt 4 von 5</div><h2>Dein typischer Abend?</h2><div class="big-chips">${[['chill','Entspannt'],['social','Gesellig'],['wild','Eskalation']].map(v=>`<button data-ob1="vibe" data-v="${v[0]}" class="${d.vibe===v[0]?'on':''}">${v[1]}</button>`).join('')}</div><p style="margin-top:22px">Gehst du auch mal allein los?</p><div class="big-chips">${[['1','Ja, gern – will Leute kennenlernen'],['0','Eher mit Freunden']].map(v=>`<button data-ob1="solo" data-v="${v[0]}" class="${String(d.solo)===v[0]?'on':''}">${v[1]}</button>`).join('')}</div>`;
@@ -1007,9 +1013,9 @@ document.addEventListener('click',ev=>{const t=ev.target;
   if(t.closest('#allBtn')){state.showAll=!state.showAll;render();return}
 },true);
 function profOpen(){const P=PROF;const G=(P.genres||[]).map(g=>(GENRES.find(x=>x[0]===g)||[])[1]).filter(Boolean);
-  $('#profC').innerHTML=`<div style="display:flex;gap:14px;align-items:center"><div class="av" style="width:56px;height:56px;font-size:22px;display:flex;align-items:center;justify-content:center">${esc((P.name||'?')[0].toUpperCase())}</div><div><h1 style="font-size:26px;margin:0">${esc(P.name||'Du')}</h1><span style="color:var(--fog);font-size:13px">Dabei seit ${new Date(P.created).toLocaleDateString('de-DE')}</span></div></div>
+  $('#profC').innerHTML=`<div style="display:flex;gap:14px;align-items:center"><button class="av avbig" data-pic="1" aria-label="Profilbild ändern">${myAvatar()?`<img src="${esc(myAvatar())}" alt="">`:esc((P.name||'?')[0].toUpperCase())}<span>📷</span></button><div><h1 style="font-size:26px;margin:0">${esc(P.name||'Du')}</h1><span style="color:var(--fog);font-size:13px">Dabei seit ${new Date(P.created).toLocaleDateString('de-DE')}</span></div></div>
    <div style="margin-top:18px"><div class="pf-row">Stimmungen<span>${(P.moods||[]).map(c=>MOOD[c]).join(', ')||'–'}</span></div><div class="pf-row">Musik<span>${G.join(', ')||'–'}</span></div><div class="pf-row">Typischer Abend<span>${{chill:'Entspannt',social:'Gesellig',wild:'Eskalation'}[P.vibe]||'–'}</span></div><div class="pf-row">Allein los<span>${P.solo?'Ja, gern':'Eher mit Freunden'}</span></div><div class="pf-row">Gemerkt<span>${favs.size}</span></div><div class="pf-row">Stadt<span>${esc(CITY)}</span></div></div>
-   <button class="btn or full" style="margin-top:18px" data-pf="edit">Vorlieben ändern</button><button class="btn gh full" style="margin-top:8px" data-pf="reset">Profil löschen</button>
+   <button class="btn gh full" style="margin-top:18px" data-pic="1">${myAvatar()?'Profilbild ändern':'Profilbild hinzufügen'}</button><button class="btn or full" style="margin-top:8px" data-pf="edit">Vorlieben ändern</button><button class="btn gh full" style="margin-top:8px" data-pf="reset">Profil löschen</button>
    <p class="note">Dein Profil liegt nur auf diesem Handy – kein Konto, kein Server.</p>`;$('#profSheet').classList.add('open')}
 $('#profSheet .bg').onclick=()=>$('#profSheet').classList.remove('open');
 // Like / Dislike für "Für dich"
@@ -1040,12 +1046,12 @@ const SB_URL='https://ykleosfvtqcmqxqihnod.supabase.co',SB_KEY='eyJhbGciOiJIUzI1
 let sb=null,ME=null,CH=null;const GO={},GN={},FEED=[],ONLINE=new Map(),PPL={};
 const COLS=['#F5C98F','#9fd3c7','#f4a6a6','#b8c4ff','#ffd27f','#c3e88d','#e0b0ff'];
 const col=n=>COLS[[...(n||'?')].reduce((a,c)=>a+c.charCodeAt(0),0)%COLS.length];
-const face=n=>`<i style="background:${col(n)}">${esc((n||'?')[0].toUpperCase())}</i>`;
+const face=(n,a)=>a?`<i style="background-image:url('${esc(a)}')"></i>`:`<i style="background:${col(n)}">${esc((n||'?')[0].toUpperCase())}</i>`;
 function myName(){return (PROF&&PROF.name)||(()=>{try{return localStorage.getItem('tribe_name')}catch(_){return ''}})()||''}
-function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0);if(!n)return'';return`<div class="faces">${L.slice(0,3).map(x=>face(x.name)).join('')||face('+')}</div><span>${n} ${n===1?'geht':'gehen'} hin</span>`}
+function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0);if(!n)return'';return`<div class="faces">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')||face('+')}</div><span>${n} ${n===1?'geht':'gehen'} hin</span>`}
 function goBlock(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),mine=ME&&L.some(x=>x.uid===ME.id);
   const names=L.map(x=>x.name).filter(Boolean);
-  return`${n?`<div class="faces">${L.slice(0,5).map(x=>face(x.name)).join('')}</div>`:''}<div class="gt"><b>${n?n+' aus der Community '+(n===1?'geht':'gehen')+' hin':'Noch keiner – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Wer hingeht, sieht wer noch kommt.'}</div><button data-going="${esc(id)}" class="${mine?'on':''}">${mine?'✓ Dabei':'Ich geh hin'}</button>`}
+  return`${n?`<div class="faces">${L.slice(0,5).map(x=>face(x.name,x.av)).join('')}</div>`:''}<div class="gt"><b>${n?n+' aus der Community '+(n===1?'geht':'gehen')+' hin':'Noch keiner – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Wer hingeht, sieht wer noch kommt.'}</div><button data-going="${esc(id)}" class="${mine?'on':''}">${mine?'✓ Dabei':'Ich geh hin'}</button>`}
 function paintGoing(){document.querySelectorAll('[data-gz]').forEach(el=>{el.innerHTML=gzHtml(el.dataset.gz)});const gb=document.querySelector('[data-gb]');if(gb)gb.innerHTML=goBlock(gb.dataset.gb)}
 async function sbInit(){if(!window.supabase){setTimeout(sbInit,400);return}
   sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
@@ -1053,20 +1059,20 @@ async function sbInit(){if(!window.supabase){setTimeout(sbInit,400);return}
   loadGoing();loadPeople();joinLive();setInterval(loadPeople,60000)}
 async function ensureMe(){if(!sb)throw new Error('offline');if(!ME){const {data,error}=await sb.auth.signInAnonymously();if(error)throw error;ME=data.user}
   let nm=myName();if(!nm){nm=(prompt('Wie sollen dich die anderen sehen? (Vorname)')||'').trim().slice(0,30);if(!nm)throw new Error('noname');try{localStorage.setItem('tribe_name',nm)}catch(_){}}
-  await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,moods:(PROF&&PROF.moods)||[],genres:(PROF&&PROF.genres)||[],city:CITY});
+  await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,avatar_url:myAvatar()||null,moods:(PROF&&PROF.moods)||[],genres:(PROF&&PROF.genres)||[],city:CITY});
   if(CH)CH.track({name:nm,at:Date.now()});return nm}
 async function loadGoing(){if(!sb||!ALL.length)return;const t0=today0(),ids=ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,7)).map(e=>e.id).slice(0,600);
   try{const {data}=await sb.rpc('tribe_going_counts',{ids});Object.keys(GN).forEach(k=>delete GN[k]);(data||[]).forEach(r=>GN[r.event_id]=r.n)}catch(_){}
   if(ME){try{const {data:g}=await sb.from('tribe_going').select('user_id,event_id').in('event_id',ids.filter(i=>GN[i]));const uids=[...new Set((g||[]).map(r=>r.user_id))];
-    const {data:pr}=uids.length?await sb.from('tribe_profiles').select('id,name').in('id',uids):{data:[]};const NM=Object.fromEntries((pr||[]).map(p=>[p.id,p.name]));
-    Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?'}))}catch(_){}}
+    const {data:pr}=uids.length?await sb.from('tribe_profiles').select('id,name,avatar_url').in('id',uids):{data:[]};const NM=Object.fromEntries((pr||[]).map(p=>[p.id,p.name])),AV=Object.fromEntries((pr||[]).map(p=>[p.id,p.avatar_url]));
+    Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}))}catch(_){}}
   paintGoing()}
 async function toggleGoing(id){const e=ALL.find(x=>x.id===id);if(!e)return;let nm;try{nm=await ensureMe()}catch(err){if(String(err.message)!=='noname')toast('Gerade keine Verbindung');return}
   const mine=(GO[id]||[]).some(x=>x.uid===ME.id);
   if(mine){await sb.from('tribe_going').delete().match({user_id:ME.id,event_id:id});toast('Abgemeldet')}
   else{await sb.from('tribe_going').upsert({user_id:ME.id,event_id:id,event_date:e.date.toISOString().slice(0,10)});favs.add(id);saveFavs();toast('Du bist dabei 🙌');act('going',e,nm)}
   await loadGoing()}
-function act(t,e,nm){nm=nm||myName();if(!CH||!nm)return;const m={t,name:nm,id:e&&e.id,title:e&&e.title,place:e&&e.place,at:Date.now()};CH.send({type:'broadcast',event:'act',payload:m});pushFeed(m)}
+function act(t,e,nm){nm=nm||myName();if(!CH||!nm)return;const m={t,name:nm,av:myAvatar(),id:e&&e.id,title:e&&e.title,place:e&&e.place,at:Date.now()};CH.send({type:'broadcast',event:'act',payload:m});pushFeed(m)}
 function pushFeed(m){FEED.unshift(m);FEED.splice(20);if(typeof window.tickNow==='function')window.tickNow()}
 function joinLive(){CH=sb.channel('tribe-live-'+CITY,{config:{presence:{key:(ME&&ME.id)||('g'+Math.random().toString(36).slice(2,9))}}});
   CH.on('presence',{event:'sync'},()=>{ONLINE.clear();const st=CH.presenceState();Object.entries(st).forEach(([k,v])=>ONLINE.set(k,(v[0]||{}).name||''));paintOnline()})
@@ -1082,13 +1088,29 @@ function placeGeo(place){const p=(place||'').toLowerCase().replace(/^(im|in der|
 // feed texts for ticker
 function feedItems(){const now=Date.now();const out=[];
   FEED.filter(m=>now-m.at<45*60e3).slice(0,6).forEach(m=>{const t=m.t==='going'?`geht zu ${esc(m.title||'')}`:m.t==='like'?`mag ${esc(m.title||'')}`:m.t==='here'?`ist unterwegs: ${esc(m.place||'')}`:m.t==='tonight'?'hat sich gerade einen Abend gebaut':'ist aktiv';
-    out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${face(m.name)}</span><b>${esc(m.name)}</b> ${t}`,id:m.id||null,s:200-(now-m.at)/60e3})});
+    out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${face(m.name,m.av)}</span><b>${esc(m.name)}</b> ${t}`,id:m.id||null,s:200-(now-m.at)/60e3})});
   if(ONLINE.size>1)out.push({h:`<span class="onl"></span> <b>${ONLINE.size} gerade online</b>${[...ONLINE.values()].filter(Boolean).length?' · '+esc([...ONLINE.values()].filter(Boolean).slice(0,3).join(', ')):''}`,id:null,s:150});
   const ppl=Object.entries(PPL).sort((a,b)=>b[1]-a[1]);if(ppl.length)out.push({h:`👥 <b>${ppl.reduce((a,b)=>a+b[1],0)} unterwegs</b> · ${esc(ppl.slice(0,2).map(x=>x[0]).join(', '))}`,id:null,s:160});
   return out}
 document.addEventListener('click',ev=>{const oh=ev.target.closest('[data-open-here]');if(oh){$('#nmPost').hidden=false;return}
   const g=ev.target.closest('[data-going]');if(g){ev.stopPropagation();toggleGoing(g.dataset.going)}},true);
 setTimeout(sbInit,300);
+
+// Profilbild
+async function setPic(file){if(!file)return;try{
+  const img=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=URL.createObjectURL(file)});
+  const S=320,c=document.createElement('canvas');c.width=c.height=S;const x=c.getContext('2d');const m=Math.min(img.width,img.height);x.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,S,S);
+  const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.85));toast('Bild wird hochgeladen …');
+  const nm=await ensureMe();const path=`tribe/${ME.id}.jpg`;
+  const {error}=await sb.storage.from('avatars').upload(path,blob,{upsert:true,contentType:'image/jpeg',cacheControl:'60'});if(error)throw error;
+  const url=sb.storage.from('avatars').getPublicUrl(path).data.publicUrl+'?v='+Date.now();
+  try{localStorage.setItem('tribe_avatar',url)}catch(_){}await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,avatar_url:url});
+  if(CH)CH.track({name:nm,av:url,at:Date.now()});saveProf();toast('Profilbild gespeichert');
+  if($('#profSheet').classList.contains('open'))profOpen();if($('#onb').classList.contains('open'))obDraw();loadGoing()}
+ catch(err){if(String(err&&err.message)!=='noname')toast('Hochladen ging gerade nicht')}}
+document.addEventListener('click',ev=>{if(ev.target.closest('[data-pic]')){ev.preventDefault();ev.stopPropagation();if(OB&&$('#onb').classList.contains('open')){const n=$('#obName');if(n&&n.value.trim())try{localStorage.setItem('tribe_name',n.value.trim())}catch(_){}}$('#picIn').click()}},true);
+$('#picIn').onchange=e=>{setPic(e.target.files[0]);e.target.value=''};
+saveProf();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
