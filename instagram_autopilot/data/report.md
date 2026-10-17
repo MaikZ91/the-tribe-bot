@@ -17,6 +17,7 @@ Follower: **59** · Beiträge: 23
 | D1016-drei-fehler | maik-text | schlechte-fotos | liste | – | – | – | – | – | – | – | 0.0 |
 | D1016-spots-muenster | foto-reel | wo-shooten | frage | – | – | – | – | – | – | – | 0.0 |
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | – | – | – | – | – | – | – | 0.0 |
+| D1017b-null-auf-zehn | foto-reel | keine-matches | beleg | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -25,7 +26,7 @@ Follower: **59** · Beiträge: 23
 | media | 0.0 | 0.0 | 0.00 | 1 | – |
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
-| keine-matches | 0.0 | 0.0 | 0.00 | 2 | – |
+| keine-matches | 0.0 | 0.0 | 0.00 | 3 | – |
 | unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 2 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -56,7 +57,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=4)
+- ≥ 90 min: Ø Reichweite 0.0 (n=5)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -78,7 +79,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=10)
+- dating: 0.00 (n=11)
 
 ## Ø Interesse nach format
 
@@ -89,7 +90,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
 - maik-text: 0.00 (n=4)
-- foto-reel: 0.00 (n=2)
+- foto-reel: 0.00 (n=3)
 
 ## Ø Interesse nach hook_style
 
@@ -103,13 +104,14 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - geschichte: 0.00 (n=1)
 - frage: 0.00 (n=1)
 - versprechen: 0.00 (n=1)
+- beleg: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
 - media: 0.00 (n=1)
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
-- keine-matches: 0.00 (n=2)
+- keine-matches: 0.00 (n=3)
 - unsicher-vor-kamera: 0.00 (n=2)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
@@ -132,6 +134,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 07:57: 0.00 (n=2)
 - 12:58: 0.00 (n=1)
 - 18:58: 0.00 (n=1)
+- 13:01: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
@@ -139,3 +142,4 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
+- track:summers-here.mp3: 0.00 (n=1)
