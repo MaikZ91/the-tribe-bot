@@ -592,9 +592,9 @@ function render(){renderDays();renderChips();const L=filtered();
     if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;g=n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}
     else g=fmtDay(e.date);
     if(g!==last){out+=`<div class="slot${g==='Läuft gerade'?' live':''}">${g}</div>`;last=g}out+=card(e)});
-  fyBlock(L);const hideList=!state.showAll&&!state.q&&!state.cat&&L.length>3;$('#list').style.display=hideList?'none':'';$('#pulse').style.display=hideList?'none':'';
+  fyBlock(L);const hideList=false;$('#list').style.display=hideList?'none':'';$('#pulse').style.display=hideList?'none':'';
   $('#list').innerHTML=L.length?out:'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
-  $('#moreBtn').hidden=L.length<=state.limit||(!state.showAll&&!state.q&&!state.cat&&L.length>3)}
+  $('#moreBtn').hidden=L.length<=state.limit}
 function showStory(i){if(i<0)i=0;if(i>=SL.length){closeStory();return}SI=i;const e=SL[i];clearTimeout(ST);
   $('#sbars').innerHTML=SL.map((_,k)=>`<i class="${k<i?'done':k===i?'cur':''}"><b></b></i>`).join('');
   $('#simg').innerHTML=bigimg(e,40);$('#sven').textContent=e.venue||'Bielefeld';
@@ -985,7 +985,7 @@ function fyBlock(L){const box=$('#fyHome');if(!box)return;if(state.q||state.cat)
   const nm=PROF&&PROF.name?', '+esc(PROF.name):'';const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||'';
   box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2>
    <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}<button class="fx" data-dis="${esc(x.e.id)}" aria-label="Nicht für mich">✕</button><button class="fh${liked?' on':''}" data-like="${esc(x.e.id)}" aria-label="Gefällt mir">${IC_HEART}</button></div><div class="tx"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span></div></div>`}).join('')}</div>
-   <button class="allbtn" id="allBtn">${state.showAll?'Alle Events ausblenden':'Alle '+L.length+' Events anzeigen'}</button>${HID.size?`<button class="allbtn" id="unhide" style="border:0;font-size:12px;margin:0">${HID.size} ausgeblendet · zurückholen</button>`:''}</div>`;
+   ${HID.size?`<button class="allbtn" id="unhide" style="border:0;font-size:12px;margin:0">${HID.size} ausgeblendet · zurückholen</button>`:''}</div>`;
   const fs=$('#fyStart');if(fs)fs.onclick=ev=>{ev.preventDefault();obOpen()}}
 document.addEventListener('click',ev=>{const t=ev.target;
   const lk=t.closest('[data-like]');if(lk){ev.stopPropagation();const e=ALL.find(x=>x.id===lk.dataset.like);if(!e)return;const i=LK.findIndex(l=>l.id===e.id);
