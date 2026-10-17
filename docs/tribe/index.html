@@ -359,6 +359,8 @@ main,header,#v-events{overflow-x:clip}
 .match-pop h2{font-size:34px;text-transform:none;letter-spacing:-.03em;display:block;margin:0 0 8px}.match-pop p{color:var(--dim);margin:0 0 18px}
 .onlbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}.onlbtn .faces i{width:18px;height:18px;font-size:8.5px;margin-left:-5px}
 .onrow{margin:2px 0 6px}.onrow:empty{display:none}.onrow .faces i{width:22px;height:22px;font-size:9.5px}.onrow .onlbtn{font-size:13px}
+.gz{flex-wrap:wrap;gap:8px}.gzi{display:inline-flex;align-items:center;gap:5px}.gzi.lk span:last-child{color:#f08aa0}
+.gz.mini{margin:0 0 3px}.gz.mini .faces i{width:16px;height:16px;font-size:8px;margin-left:-5px}.gz.mini span{font-size:9.5px}.gz.mini .gzi:not(.lk){display:none}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -680,7 +682,7 @@ document.addEventListener('click',ev=>{const t=ev.target;
   const sbb=t.closest('[data-story]');if(sbb){showStory(+sbb.dataset.story);return}
   if(t.closest('#rnd')){const P=filtered().filter(e=>!e.minor&&(startsIn(e)===null||startsIn(e)>-60));const pool=P.length?P:filtered();if(pool.length){const e=pool[Math.floor(Math.random()*pool.length)];open(e.id);toast('Wie wär\'s damit?')}return}
   const sh=t.closest('[data-share]');if(sh){ev.stopPropagation();const e=ALL.find(x=>x.id===sh.dataset.share);if(e)window.open('https://wa.me/?text='+encodeURIComponent(shareText(e)),'_blank');return}
-  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();toast(favs.has(id)?'Zu „Mein Abend“ hinzugefügt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);if($('#story').classList.contains('open'))fv.textContent=favs.has(id)?'Gemerkt':'Merken';return}
+  const fv=t.closest('[data-fav]');if(fv){ev.stopPropagation();const id=fv.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);saveFavs();if(typeof syncLike==='function')syncLike(id,favs.has(id));toast(favs.has(id)?'Zu „Mein Abend“ hinzugefügt':'Entfernt');render();renderFavs();if($('#sheet').classList.contains('open'))open(id);if($('#story').classList.contains('open'))fv.textContent=favs.has(id)?'Gemerkt':'Merken';return}
   if(t.closest('#dayPill')){const m=$('#dayMenu');m.hidden=!m.hidden;return}
   const d=t.closest('[data-day]');if(d){$('#dayMenu').hidden=true;state.day=d.dataset.day;state.limit=30;render();return}
   const c=t.closest('[data-cat]');if(c){state.cat=c.dataset.cat||null;state.limit=30;render();return}
@@ -1041,12 +1043,12 @@ function fyBlock(L){const box=$('#fyHome');if(!box)return;if(state.q||state.cat)
   if(!C.length){box.innerHTML='';return}
   const nm=PROF&&PROF.name?', '+esc(PROF.name):'';const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||'';
   box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2>
-   <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}<button class="fx" data-dis="${esc(x.e.id)}" aria-label="Nicht für mich">✕</button><button class="fh${liked?' on':''}" data-like="${esc(x.e.id)}" aria-label="Gefällt mir">${IC_HEART}</button></div><div class="tx"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span></div></div>`}).join('')}</div>
+   <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}<button class="fx" data-dis="${esc(x.e.id)}" aria-label="Nicht für mich">✕</button><button class="fh${liked?' on':''}" data-like="${esc(x.e.id)}" aria-label="Gefällt mir">${IC_HEART}</button></div><div class="tx"><div class="gz mini" data-gz="${esc(x.e.id)}">${gzHtml(x.e.id)}</div><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span></div></div>`}).join('')}</div>
    ${HID.size?`<button class="allbtn" id="unhide" style="border:0;font-size:12px;margin:0">${HID.size} ausgeblendet · zurückholen</button>`:''}</div>`;
   const fs=$('#fyStart');if(fs)fs.onclick=ev=>{ev.preventDefault();obOpen()}}
 document.addEventListener('click',ev=>{const t=ev.target;
   const lk=t.closest('[data-like]');if(lk){ev.stopPropagation();const e=ALL.find(x=>x.id===lk.dataset.like);if(!e)return;const i=LK.findIndex(l=>l.id===e.id);
-    if(i>=0){LK.splice(i,1);toast('Like entfernt')}else{LK.push({id:e.id,cat:e.cat,vkey:e.vkey,v:prettyVenue(e),t:e.title.slice(0,18),g:genresOf(e)});learn(e,2);favs.add(e.id);saveFavs();toast('Gemerkt – mehr davon 👍');if(typeof act==='function')act('like',e)}
+    if(i>=0){LK.splice(i,1);toast('Like entfernt')}else{LK.push({id:e.id,cat:e.cat,vkey:e.vkey,v:prettyVenue(e),t:e.title.slice(0,18),g:genresOf(e)});learn(e,2);favs.add(e.id);saveFavs();toast('Gemerkt – mehr davon 👍');if(typeof syncLike==='function')syncLike(e.id,true)}
     saveLK();render();return}
   const ds=t.closest('[data-dis]');if(ds){ev.stopPropagation();const e=ALL.find(x=>x.id===ds.dataset.dis);if(!e)return;HID.add(e.id);learn(e,-1.5);const card=ds.closest('.fyk');if(card){card.style.transition='.25s';card.style.opacity=0;card.style.transform='scale(.9)'}saveLK();setTimeout(render,230);toast('Ausgeblendet');return}
   if(t.closest('#unhide')){HID.clear();saveLK();render();return}
@@ -1056,12 +1058,15 @@ setTimeout(()=>{let sk=null;try{sk=localStorage.getItem('tribe_onb_skip')}catch(
 
 // ===== SOCIAL LIVE (Supabase) =====
 const SB_URL='https://ykleosfvtqcmqxqihnod.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbGVvc2Z2dHFjbXF4cWlobm9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5MzQ0NjIsImV4cCI6MjA1NjUxMDQ2Mn0.70wsZ-c7poYFnbTyXbKrG0b6YPSe-BonMN6kjZ2a2Wo';
-let sb=null,ME=null,CH=null;const GO={},GN={},FEED=[],ONLINE=new Map(),PPL={};
+let sb=null,ME=null,CH=null;const GO={},GN={},LKD={},LN={},FEED=[],ONLINE=new Map(),PPL={};
 const COLS=['#F5C98F','#9fd3c7','#f4a6a6','#b8c4ff','#ffd27f','#c3e88d','#e0b0ff'];
 const col=n=>COLS[[...(n||'?')].reduce((a,c)=>a+c.charCodeAt(0),0)%COLS.length];
 const face=(n,a)=>a?`<i style="background-image:url('${esc(a)}')"></i>`:`<i style="background:${col(n)}">${esc((n||'?')[0].toUpperCase())}</i>`;
 function myName(){return (PROF&&PROF.name)||(()=>{try{return localStorage.getItem('tribe_name')}catch(_){return ''}})()||''}
-function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0);if(!n)return'';return`<div class="faces">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')||face('+')}</div><span>${n} ${n===1?'geht':'gehen'} hin</span>`}
+function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),K=LKD[id]||[],k=Math.max(K.length,LN[id]||0);let h='';
+  if(n)h+=`<span class="gzi"><span class="faces">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')||face('+')}</span><span>${n} ${n===1?'geht':'gehen'} hin</span></span>`;
+  if(k)h+=`<span class="gzi lk"><span class="faces">${K.slice(0,3).map(x=>face(x.name,x.av)).join('')}</span><span>♥ ${K.length?esc(K.slice(0,2).map(x=>x.name).join(', '))+(k>2?' +'+(k-2):''):k}</span></span>`;
+  return h}
 function goBlock(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),mine=ME&&L.some(x=>x.uid===ME.id);
   const names=L.map(x=>x.name).filter(Boolean);
   return`${n?`<div class="faces">${L.slice(0,5).map(x=>face(x.name,x.av)).join('')}</div>`:''}<div class="gt"><b>${n?n+' aus der Community '+(n===1?'geht':'gehen')+' hin':'Noch keiner – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Wer hingeht, sieht wer noch kommt.'}</div><button data-going="${esc(id)}" class="${mine?'on':''}">${mine?'✓ Dabei':'Ich geh hin'}</button>`}
@@ -1075,11 +1080,16 @@ async function ensureMe(){if(!sb)throw new Error('offline');if(!ME){const {data,
   await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,avatar_url:myAvatar()||null,moods:(PROF&&PROF.moods)||[],genres:(PROF&&PROF.genres)||[],city:CITY});
   if(CH)CH.track({name:nm,av:myAvatar(),at:Date.now()});return nm}
 async function loadGoing(){if(!sb||!ALL.length)return;const t0=today0(),ids=ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,7)).map(e=>e.id).slice(0,600);
+  try{const {data:lc}=await sb.rpc('tribe_like_counts',{ids});Object.keys(LN).forEach(k=>delete LN[k]);(lc||[]).forEach(r=>LN[r.event_id]=r.n)}catch(_){}
   try{const {data}=await sb.rpc('tribe_going_counts',{ids});Object.keys(GN).forEach(k=>delete GN[k]);(data||[]).forEach(r=>GN[r.event_id]=r.n)}catch(_){}
-  if(ME){try{const {data:g}=await sb.from('tribe_going').select('user_id,event_id').in('event_id',ids.filter(i=>GN[i]));const uids=[...new Set((g||[]).map(r=>r.user_id))];
+  if(ME){try{const [{data:g},{data:lk}]=await Promise.all([sb.from('tribe_going').select('user_id,event_id').in('event_id',ids.filter(i=>GN[i])),sb.from('tribe_likes').select('user_id,event_id').in('event_id',ids.filter(i=>LN[i]))]);
+    const uids=[...new Set([...(g||[]),...(lk||[])].map(r=>r.user_id))];
     const {data:pr}=uids.length?await sb.from('tribe_profiles').select('id,name,avatar_url').in('id',uids):{data:[]};const NM=Object.fromEntries((pr||[]).map(p=>[p.id,p.name])),AV=Object.fromEntries((pr||[]).map(p=>[p.id,p.avatar_url]));
-    Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}))}catch(_){}}
+    Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}));
+    Object.keys(LKD).forEach(k=>delete LKD[k]);(lk||[]).forEach(r=>(LKD[r.event_id]=LKD[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?',av:AV[r.user_id]||''}))}catch(_){}}
   paintGoing()}
+async function syncLike(id,on){if(!sb)return;const e=ALL.find(x=>x.id===id);if(!e)return;if(!ME&&!myName())return;try{await ensureMe();
+  if(on){await sb.from('tribe_likes').upsert({user_id:ME.id,event_id:id,event_date:e.date.toISOString().slice(0,10)});act('like',e)}else await sb.from('tribe_likes').delete().match({user_id:ME.id,event_id:id});loadGoing()}catch(_){}}
 async function toggleGoing(id){const e=ALL.find(x=>x.id===id);if(!e)return;let nm;try{nm=await ensureMe()}catch(err){if(String(err.message)!=='noname')toast('Gerade keine Verbindung');return}
   const mine=(GO[id]||[]).some(x=>x.uid===ME.id);
   if(mine){await sb.from('tribe_going').delete().match({user_id:ME.id,event_id:id});toast('Abgemeldet')}
@@ -1092,6 +1102,7 @@ function joinLive(){CH=sb.channel('tribe-live-'+CITY,{config:{presence:{key:(ME&
     .on('broadcast',{event:'act'},({payload})=>pushFeed(payload))
     .on('broadcast',{event:'wave'},({payload})=>{if(!ME||payload.to!==ME.id)return;WAV.in.add(payload.from);if(WAV.out.has(payload.from))showMatch(payload.name,payload.av,payload.ev);else toast((payload.name||'Jemand')+' winkt dir 👋 – schau bei „Abend bauen“');if($('#v-swipe').classList.contains('on'))renderPeople()})
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_going'},()=>loadGoing())
+    .on('postgres_changes',{event:'*',schema:'public',table:'tribe_likes'},()=>loadGoing())
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_presence'},()=>loadPeople())
     .subscribe(st=>{if(st==='SUBSCRIBED')CH.track({name:myName(),av:myAvatar(),at:Date.now()})})}
 function onlineList(){return [...ONLINE.values()].filter(x=>x&&x.name)}
