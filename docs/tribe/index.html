@@ -532,7 +532,7 @@ function norm(e,i){let title=e.event||e.title||'';let venue='';const m=title.mat
   const d=parseDate(e.date);const time=(e.time&&/\d/.test(e.time))?e.time:'';
   const cat=categorize(e,title+' '+venue);
   const desc=e.description||((e.category||'').length>25?e.category:'');
-  const id=(d?d.toISOString().slice(0,10):'x')+'|'+title.toLowerCase().slice(0,40)+'|'+time;
+  const id=(d?d.toISOString().slice(0,10):'x')+'|'+title.toLowerCase().slice(0,40)+'|'+time+(e.city&&e.city!=='Bielefeld'?'|'+e.city:'');
   let score={party:8,musik:7,kultur:5,comedy:6,tribe:9,kino:2,ausgehen:6,sport:0}[cat];
   if(e.image_url)score+=2;if(/hochschulsport|wochenmarkt/i.test(venue+title))score-=6;if(e.featured)score+=20;
   return{id,title,venue,date:d,time,cat,img:e.image_url||'',link:e.link||'',desc,featured:!!e.featured,score,vkey:m?m[1].trim().toLowerCase():'',city:(e.city||'Bielefeld').trim(),minor:cat==='sport'||/hochschulsport|wochenmarkt|flohmarkt/i.test(venue+title)}}
@@ -665,6 +665,10 @@ async function load(){let raw=[];
   try{const r=await fetch(SRC,{cache:'no-cache'});const j=await r.json();raw=Array.isArray(j)?j:(j.events||[]);try{localStorage.setItem('tribe_ev',JSON.stringify(raw))}catch(e){}}
   catch(e){try{raw=JSON.parse(localStorage.getItem('tribe_ev')||'[]')}catch(_){}}
   try{const f=await fetch('featured.json',{cache:'no-cache'});if(f.ok){const fe=await f.json();raw=raw.concat(fe.map(x=>({...x,featured:true})))}}catch(e){}
+  // Tribe-Events: Weekend Starter jeden Freitag (Plakat: ab 19 Uhr, Treffpunkt wechselt – wird in der Community geteilt)
+  {const t=today0();for(let k=0;k<5;k++){const d=addDays(t,(5-t.getDay()+7)%7+7*k);const ds=`${WD[d.getDay()]}, ${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+    [['Bielefeld','ws-bielefeld.jpg'],['Münster','ws-muenster.jpg']].forEach(([c,img])=>raw.push({event:`THE TRIBE Weekend Starter (@Treffpunkt in der Community)`,date:ds,time:'19:00',category:'Tribe',city:c,image_url:img,link:WA_COMMUNITY,featured:true,
+      description:`Unser wöchentliches Ritual: ein lockeres Treffen, das das Eis bricht. Ankommen, kurz kennenlernen, gemeinsam den Abend starten – danach entstehen die Pläne fürs Wochenende. Kein Host, kein Programm, keine Anmeldung, kostenlos. Verschiedene Locations in ${c} – der Treffpunkt wird jede Woche in der WhatsApp-Community geteilt.`}))}}
   const seen=new Set();ALL=raw.map(norm).filter(e=>e.date&&e.title&&!seen.has(e.id)&&seen.add(e.id));
   if(!ALL.some(inRange)&&state.day==='today')state.day='week';
   render();const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
