@@ -333,11 +333,20 @@ nav button.mid svg{color:var(--amb)}
 .daymenu button{padding:7px 12px;border-radius:99px;border:1px solid var(--line2);font-size:13px;color:var(--dim)}.daymenu button small{margin-left:5px;color:var(--fog);font-size:11px}
 .daymenu button.on{background:var(--cream);color:var(--ink)}
 .askbar i b{font-weight:600;color:var(--cream)}.askbar .lv{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff5a4f;margin-right:6px;vertical-align:middle;animation:pl 1.4s infinite}
+.gz{display:flex;align-items:center;gap:6px;margin-top:4px;min-height:0}.gz:empty{display:none}
+.faces{display:flex}.faces i{width:20px;height:20px;border-radius:50%;margin-left:-6px;border:2px solid var(--ink);font-style:normal;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#111}.faces i:first-child{margin-left:0}
+.gz span{font-size:11px;color:var(--amb)}
+.goblk{margin:14px 0 4px;padding:12px;border:1px solid rgba(217,160,102,.35);border-radius:14px;background:rgba(217,160,102,.06);display:flex;align-items:center;gap:12px}
+.goblk .faces i{width:30px;height:30px;font-size:12px;margin-left:-8px}.goblk .gt{flex:1;font-size:13px;color:var(--dim);line-height:1.35}.goblk .gt b{color:var(--cream);display:block;font-size:14px}
+.goblk button{padding:10px 14px;border-radius:99px;background:var(--cream);color:var(--ink);font-weight:600;font-size:13px;white-space:nowrap}.goblk button.on{background:var(--amb)}
+.onl{display:inline-flex;align-items:center;gap:5px}.onl:before{content:"";width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 3px rgba(61,220,132,.2)}
+.ppl{width:auto!important;height:auto!important;background:none!important}.ppl div{display:flex;align-items:center;gap:4px;padding:3px 8px 3px 3px;border-radius:99px;background:#3ddc84;color:#06200f;font-size:11px;font-weight:700;white-space:nowrap;box-shadow:0 0 0 4px rgba(61,220,132,.25)}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
 </head>
 <body>
 <header id="hdr"><div class="wrap">
@@ -570,7 +579,7 @@ function thumb(e){return bigimg(e,48)}
 function startsIn(e){if(!e.time||dayKey(e.date)!==dayKey(today0()))return null;const [h,m]=e.time.split(':').map(Number);const st=new Date(e.date);st.setHours(h,m||0);return Math.round((st-new Date())/6e4)}
 function hint(e){const n=startsIn(e);if(n===null)return'';if(n<=0&&n>-180)return'läuft';if(n>0&&n<=120)return n<60?`in ${n} min`:`in ${Math.round(n/60)} h`;return''}
 function card(e){return`<div class="ev${e.featured?' feat':''}" data-id="${esc(e.id)}"><div class="tc">${e.time?esc(e.time):'–'}<small>${hint(e)}</small></div><div class="b">
- <div class="tm">${MOOD[e.cat]||''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div></div><div class="th">${thumb(e)}</div>
+ <div class="tm">${MOOD[e.cat]||''}</div><div class="nm">${esc(e.title)}</div><div class="vn">${esc(e.venue||'Bielefeld')}</div><div class="gz" data-gz="${esc(e.id)}">${typeof gzHtml==='function'?gzHtml(e.id):''}</div></div><div class="th">${thumb(e)}</div>
  <div class="acts"><button class="shr" data-share="${esc(e.id)}" aria-label="Auf WhatsApp teilen">${IC_SHARE}</button><button class="fav${favs.has(e.id)?' on':''}" data-fav="${esc(e.id)}" aria-label="Merken">${IC_HEART}</button></div></div>`}
 
 function renderDays(){const t=today0();const opts=[['today','Heute',WD[t.getDay()]],['tomorrow','Morgen',WD[addDays(t,1).getDay()]],['weekend','Wochenende','Fr–So'],['week','7 Tage','alles']];
@@ -594,7 +603,7 @@ function render(){renderDays();renderChips();let L=filtered();
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
   $('#hl').innerHTML=`<div class="sb tn" id="ttOpen"><div class="ring"><div>TRIBE<br>TONIGHT</div></div><small>Dein Abend</small></div><div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
   const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
-  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
+  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span><span id="onlineN"></span> ${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
   const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
   const grp=e=>{if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;return n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}return fmtDay(e.date)};
   const GO={'Läuft gerade':0,'Gleich':1,'Tagsüber':2,'Heute Abend':3,'Späte Nacht':4,'Nach Mitternacht':5,'Ganztägig':6};
@@ -605,7 +614,7 @@ function render(){renderDays();renderChips();let L=filtered();
     if(g!==last){out+=`<div class="slot${g==='Läuft gerade'?' live':''}">${g}</div>`;last=g}out+=card(e)});
   fyBlock(L);const hideList=false;$('#list').style.display=hideList?'none':'';$('#pulse').style.display=hideList?'none':'';
   $('#list').innerHTML=L.length?out:'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
-  $('#moreBtn').hidden=L.length<=state.limit}
+  $('#moreBtn').hidden=L.length<=state.limit;if(typeof paintGoing==='function')paintGoing()}
 function showStory(i){if(i<0)i=0;if(i>=SL.length){closeStory();return}SI=i;const e=SL[i];clearTimeout(ST);
   $('#sbars').innerHTML=SL.map((_,k)=>`<i class="${k<i?'done':k===i?'cur':''}"><b></b></i>`).join('');
   $('#simg').innerHTML=bigimg(e,40);$('#sven').textContent=e.venue||'Bielefeld';
@@ -633,6 +642,7 @@ function open(id){const e=ALL.find(x=>x.id===id);if(!e)return;
   $('#sc').innerHTML=`<div class="hero">${bigimg(e,110)}</div>
   <div class="c"><span class="badge g">${CNAME[e.cat]}</span><h1>${esc(e.title)}</h1>
   <div class="facts"><div>${IC_CLOCK}${fmtDay(e.date)}${e.time?' · '+esc(e.time)+' Uhr':''}</div><div>${IC_PIN}${esc(e.venue||'Bielefeld')}</div></div>
+  <div class="goblk" id="goBlk" data-gb="${esc(e.id)}">${typeof goBlock==='function'?goBlock(e.id):''}</div>
   ${e.desc?`<p class="desc">${esc(e.desc)}</p>`:''}
   <div class="row"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(share)}">Auf WhatsApp teilen</a>
   <button class="btn gh" data-crew="${esc(e.id)}">Wer kommt mit?</button>
@@ -668,8 +678,9 @@ $('#moreBtn').onclick=()=>{state.limit+=30;render()};
       else if(n!==null&&n>0&&n<=180)out.push({h:`<b>${n<60?'In '+n+' min':'Um '+e.time}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:80+e.score+pb});
       else if(n===null||n>180)out.push({h:`<b>Heute${e.time?' '+e.time:''}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:40+e.score+pb})});
     if(out.length<6)ALL.filter(e=>ok(e)&&e.date>t0&&e.date<=addDays(t0,3)).map(e=>({e,s:e.score+(typeof prefBoost==='function'?prefBoost(e):0)})).sort((a,b)=>b.s-a.s).slice(0,8-out.length).forEach(({e,s:sc})=>out.push({h:`<b>${fmtDay(e.date)}${e.time?' '+e.time:''}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:sc}));
+    if(typeof feedItems==='function')out.push(...feedItems());
     return out.sort((a,b)=>b.s-a.s).slice(0,10)}
-  let TK=[],cur=null;setInterval(()=>{const el=$('#askHint');if(!el||!ALL.length)return;if(hi%6===0)TK=tick();const useQ=hi%5===4||!TK.length;
+  let TK=[],cur=null;window.tickNow=()=>{TK=tick();hi=0};setInterval(()=>{const el=$('#askHint');if(!el||!ALL.length)return;if(hi%6===0)TK=tick();const useQ=hi%5===4||!TK.length;
     const item=useQ?{h:'Frag THE TRIBE: '+Q[(hi/5|0)%Q.length],id:null}:TK[(hi-(hi/5|0))%TK.length];cur=item.id;hi++;
     el.style.opacity=0;setTimeout(()=>{el.innerHTML=item.h;el.style.opacity=1},250)},3200);
   $('#askBar').onclick=ev=>{if(cur&&!ev.target.closest('svg')){open(cur)}else openChat()};}
@@ -700,7 +711,7 @@ async function load(){let raw=[];
       description:`Unser wöchentliches Ritual: ein lockeres Treffen, das das Eis bricht. Ankommen, kurz kennenlernen, gemeinsam den Abend starten – danach entstehen die Pläne fürs Wochenende. Kein Host, kein Programm, keine Anmeldung, kostenlos. Verschiedene Locations in ${c} – der Treffpunkt wird jede Woche in der WhatsApp-Community geteilt.`}))}}
   const seen=new Set();ALL=raw.map(norm).filter(e=>e.date&&e.title&&!seen.has(e.id)&&seen.add(e.id));
   if(!ALL.some(inRange)&&state.day==='today')state.day='week';
-  render();const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
+  render();if(typeof loadGoing==='function')setTimeout(loadGoing,500);const h=decodeURIComponent((location.hash.match(/#e=(.+)/)||[])[1]||'');if(h)open(h)}
 $('#ctyName').textContent=CITY;load();
 (function(){const ua=navigator.userAgent,ios=/iphone|ipad|ipod/i.test(ua),inApp=/instagram|fban|fbav/i.test(ua);
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;let dp=null;
@@ -809,6 +820,7 @@ function drawNight(){if(!nmap)return;const T=+$('#slR').value;$('#slTime').textC
     const lab=`<b>${esc(vn.slice(0,2).join(' · '))}${vn.length>2?' +'+(vn.length-2):''}</b><span>${esc(top.time)}${sp.ev.length>1?' · '+sp.ev.length+' Events':''}</span>`;
     L.marker(sp.p,{icon:ic}).bindTooltip(lab,{permanent:rank<6,direction:rank%2?'left':'right',offset:[rank%2?-(r/2-14):(r/2-14),0],className:'vlab'}).bindPopup(`<div class="pop">${sp.ev.map(e=>`<b>${esc(e.time)} · ${esc(e.title)}</b>${esc(e.venue||'')}<button data-crew="${esc(e.id)}">Wer kommt mit?</button><button data-here="${esc(e.id)}">Bin schon da – kommt dazu</button><button data-open="${esc(e.id)}">Details</button>`).join('<hr>')}</div>`).addTo(nlayer)});
   if(S.length&&!nmap._userMoved){const b=L.latLngBounds(S.slice(0,6).map(x=>x.p));nmap.fitBounds(b.pad(.6),{maxZoom:16,animate:false})}
+  Object.entries(PPL).forEach(([pl,n])=>{const c=placeGeo(pl);if(!c)return;L.marker(c,{icon:L.divIcon({className:'ppl',html:`<div>👥 ${n}</div>`,iconSize:null}),zIndexOffset:1000}).bindPopup(`<div class="pop"><b>${n} ${n===1?'Person':'Leute'} gerade hier</b>${esc(pl)}<button data-open-here="1">Ich komm dazu</button></div>`).addTo(nlayer)});
   const tot=live.reduce((a,e)=>a+heatOf(e,T)*wf,0);const score=Math.min(100,Math.round(100*(1-Math.exp(-tot/2.2))));
   const mood=score>=75?'Die Stadt brennt':score>=50?'Es läuft richtig':score>=25?'Es geht los':score>0?'Noch ruhig':'Gerade nichts los';
   const wd=WD[today0().getDay()];
@@ -884,7 +896,8 @@ $('#nmLoc').onclick=()=>{$('#nmPost').hidden=false;if(!navigator.geolocation){to
     if(best&&!$('#nmWhere').value){const ev=ALL.find(e=>e.vkey===best);$('#nmWhere').value=ev?ev.venue:best}},()=>toast('Standort nicht freigegeben – trag einfach ein, wo du bist'),{enableHighAccuracy:true,timeout:10000})};
 $('#nmClose').onclick=()=>$('#nmPost').hidden=true;
 $('#nmMood').onclick=ev=>{const b=ev.target.closest('.chip');if(b)b.classList.toggle('on')};
-$('#nmPost').onsubmit=ev=>{ev.preventDefault();const moods=[...document.querySelectorAll('#nmMood .chip.on')].map(b=>b.textContent).join(', ')||'was Spontanes';
+$('#nmPost').onsubmit=ev=>{ev.preventDefault();(async()=>{try{const nm=await ensureMe();const place=$('#nmWhere').value.trim().slice(0,60);const mood=[...document.querySelectorAll('#nmMood .chip.on')].map(b=>b.textContent).join(', ');
+    await sb.from('tribe_presence').upsert({user_id:ME.id,place,mood,city:CITY,expires_at:new Date(Date.now()+3*36e5).toISOString()});act('here',{place},nm);loadPeople()}catch(_){}})();const moods=[...document.querySelectorAll('#nmMood .chip.on')].map(b=>b.textContent).join(', ')||'was Spontanes';
   wa(`Spontan unterwegs 📍 Bin gerade ${$('#nmWhere').value} und hab Bock auf ${moods} – ${$('#nmUntil').value}. Wer ist in der Nähe und kommt dazu?`+(nmPos?`\nhttps://maps.google.com/?q=${nmPos[0].toFixed(5)},${nmPos[1].toFixed(5)}`:''))};
 document.addEventListener('click',ev=>{const h=ev.target.closest('[data-here]');if(h){const e=ALL.find(x=>x.id===h.dataset.here);if(e)wa(`Bin gerade bei „${e.title}“ (${e.venue||'Bielefeld'}) 🙌 Wer kommt dazu?\n${location.href.split('#')[0]}#e=${encodeURIComponent(e.id)}`);return}
   const o=ev.target.closest('[data-open]');if(o)open(o.dataset.open)},true);
@@ -1011,13 +1024,68 @@ function fyBlock(L){const box=$('#fyHome');if(!box)return;if(state.q||state.cat)
   const fs=$('#fyStart');if(fs)fs.onclick=ev=>{ev.preventDefault();obOpen()}}
 document.addEventListener('click',ev=>{const t=ev.target;
   const lk=t.closest('[data-like]');if(lk){ev.stopPropagation();const e=ALL.find(x=>x.id===lk.dataset.like);if(!e)return;const i=LK.findIndex(l=>l.id===e.id);
-    if(i>=0){LK.splice(i,1);toast('Like entfernt')}else{LK.push({id:e.id,cat:e.cat,vkey:e.vkey,v:prettyVenue(e),t:e.title.slice(0,18),g:genresOf(e)});learn(e,2);favs.add(e.id);saveFavs();toast('Gemerkt – mehr davon 👍')}
+    if(i>=0){LK.splice(i,1);toast('Like entfernt')}else{LK.push({id:e.id,cat:e.cat,vkey:e.vkey,v:prettyVenue(e),t:e.title.slice(0,18),g:genresOf(e)});learn(e,2);favs.add(e.id);saveFavs();toast('Gemerkt – mehr davon 👍');if(typeof act==='function')act('like',e)}
     saveLK();render();return}
   const ds=t.closest('[data-dis]');if(ds){ev.stopPropagation();const e=ALL.find(x=>x.id===ds.dataset.dis);if(!e)return;HID.add(e.id);learn(e,-1.5);const card=ds.closest('.fyk');if(card){card.style.transition='.25s';card.style.opacity=0;card.style.transform='scale(.9)'}saveLK();setTimeout(render,230);toast('Ausgeblendet');return}
   if(t.closest('#unhide')){HID.clear();saveLK();render();return}
 },true);
 saveProf();
 setTimeout(()=>{let sk=null;try{sk=localStorage.getItem('tribe_onb_skip')}catch(_){}if(!PROF&&!sk&&!location.hash)obOpen()},1200);
+
+// ===== SOCIAL LIVE (Supabase) =====
+const SB_URL='https://ykleosfvtqcmqxqihnod.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrbGVvc2Z2dHFjbXF4cWlobm9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5MzQ0NjIsImV4cCI6MjA1NjUxMDQ2Mn0.70wsZ-c7poYFnbTyXbKrG0b6YPSe-BonMN6kjZ2a2Wo';
+let sb=null,ME=null,CH=null;const GO={},GN={},FEED=[],ONLINE=new Map(),PPL={};
+const COLS=['#F5C98F','#9fd3c7','#f4a6a6','#b8c4ff','#ffd27f','#c3e88d','#e0b0ff'];
+const col=n=>COLS[[...(n||'?')].reduce((a,c)=>a+c.charCodeAt(0),0)%COLS.length];
+const face=n=>`<i style="background:${col(n)}">${esc((n||'?')[0].toUpperCase())}</i>`;
+function myName(){return (PROF&&PROF.name)||(()=>{try{return localStorage.getItem('tribe_name')}catch(_){return ''}})()||''}
+function gzHtml(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0);if(!n)return'';return`<div class="faces">${L.slice(0,3).map(x=>face(x.name)).join('')||face('+')}</div><span>${n} ${n===1?'geht':'gehen'} hin</span>`}
+function goBlock(id){const L=GO[id]||[],n=Math.max(L.length,GN[id]||0),mine=ME&&L.some(x=>x.uid===ME.id);
+  const names=L.map(x=>x.name).filter(Boolean);
+  return`${n?`<div class="faces">${L.slice(0,5).map(x=>face(x.name)).join('')}</div>`:''}<div class="gt"><b>${n?n+' aus der Community '+(n===1?'geht':'gehen')+' hin':'Noch keiner – sei der Erste'}</b>${names.length?esc(names.slice(0,4).join(', '))+(names.length>4?' +'+(names.length-4):''):'Wer hingeht, sieht wer noch kommt.'}</div><button data-going="${esc(id)}" class="${mine?'on':''}">${mine?'✓ Dabei':'Ich geh hin'}</button>`}
+function paintGoing(){document.querySelectorAll('[data-gz]').forEach(el=>{el.innerHTML=gzHtml(el.dataset.gz)});const gb=document.querySelector('[data-gb]');if(gb)gb.innerHTML=goBlock(gb.dataset.gb)}
+async function sbInit(){if(!window.supabase){setTimeout(sbInit,400);return}
+  sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  const {data}=await sb.auth.getSession();ME=data.session?data.session.user:null;
+  loadGoing();loadPeople();joinLive();setInterval(loadPeople,60000)}
+async function ensureMe(){if(!sb)throw new Error('offline');if(!ME){const {data,error}=await sb.auth.signInAnonymously();if(error)throw error;ME=data.user}
+  let nm=myName();if(!nm){nm=(prompt('Wie sollen dich die anderen sehen? (Vorname)')||'').trim().slice(0,30);if(!nm)throw new Error('noname');try{localStorage.setItem('tribe_name',nm)}catch(_){}}
+  await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,moods:(PROF&&PROF.moods)||[],genres:(PROF&&PROF.genres)||[],city:CITY});
+  if(CH)CH.track({name:nm,at:Date.now()});return nm}
+async function loadGoing(){if(!sb||!ALL.length)return;const t0=today0(),ids=ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,7)).map(e=>e.id).slice(0,600);
+  try{const {data}=await sb.rpc('tribe_going_counts',{ids});Object.keys(GN).forEach(k=>delete GN[k]);(data||[]).forEach(r=>GN[r.event_id]=r.n)}catch(_){}
+  if(ME){try{const {data:g}=await sb.from('tribe_going').select('user_id,event_id').in('event_id',ids.filter(i=>GN[i]));const uids=[...new Set((g||[]).map(r=>r.user_id))];
+    const {data:pr}=uids.length?await sb.from('tribe_profiles').select('id,name').in('id',uids):{data:[]};const NM=Object.fromEntries((pr||[]).map(p=>[p.id,p.name]));
+    Object.keys(GO).forEach(k=>delete GO[k]);(g||[]).forEach(r=>(GO[r.event_id]=GO[r.event_id]||[]).push({uid:r.user_id,name:NM[r.user_id]||'?'}))}catch(_){}}
+  paintGoing()}
+async function toggleGoing(id){const e=ALL.find(x=>x.id===id);if(!e)return;let nm;try{nm=await ensureMe()}catch(err){if(String(err.message)!=='noname')toast('Gerade keine Verbindung');return}
+  const mine=(GO[id]||[]).some(x=>x.uid===ME.id);
+  if(mine){await sb.from('tribe_going').delete().match({user_id:ME.id,event_id:id});toast('Abgemeldet')}
+  else{await sb.from('tribe_going').upsert({user_id:ME.id,event_id:id,event_date:e.date.toISOString().slice(0,10)});favs.add(id);saveFavs();toast('Du bist dabei 🙌');act('going',e,nm)}
+  await loadGoing()}
+function act(t,e,nm){nm=nm||myName();if(!CH||!nm)return;const m={t,name:nm,id:e&&e.id,title:e&&e.title,place:e&&e.place,at:Date.now()};CH.send({type:'broadcast',event:'act',payload:m});pushFeed(m)}
+function pushFeed(m){FEED.unshift(m);FEED.splice(20);if(typeof window.tickNow==='function')window.tickNow()}
+function joinLive(){CH=sb.channel('tribe-live-'+CITY,{config:{presence:{key:(ME&&ME.id)||('g'+Math.random().toString(36).slice(2,9))}}});
+  CH.on('presence',{event:'sync'},()=>{ONLINE.clear();const st=CH.presenceState();Object.entries(st).forEach(([k,v])=>ONLINE.set(k,(v[0]||{}).name||''));paintOnline()})
+    .on('broadcast',{event:'act'},({payload})=>pushFeed(payload))
+    .on('postgres_changes',{event:'*',schema:'public',table:'tribe_going'},()=>loadGoing())
+    .on('postgres_changes',{event:'*',schema:'public',table:'tribe_presence'},()=>loadPeople())
+    .subscribe(st=>{if(st==='SUBSCRIBED')CH.track({name:myName(),at:Date.now()})})}
+function paintOnline(){const el=document.getElementById('onlineN');const n=ONLINE.size;if(el)el.innerHTML=n?`<span class="onl">${n} gerade online</span>`:''}
+async function loadPeople(){if(!sb)return;try{const {data}=await sb.rpc('tribe_presence_counts',{p_city:CITY});Object.keys(PPL).forEach(k=>delete PPL[k]);(data||[]).forEach(r=>PPL[r.place]=r.n);if(typeof drawNight==='function')drawNight()}catch(_){}}
+function placeGeo(place){const p=(place||'').toLowerCase().replace(/^(im|in der|am|an der|beim|bei|in)\s+/,'').trim();if(!p)return null;
+  for(const[k,c]of Object.entries(VEN)){const pv=k.replace(/[._]/g,' ');if(pv.includes(p)||p.includes(pv.split(' ')[0])&&pv.split(' ')[0].length>3)return c}
+  const e=ALL.find(x=>(x.venue||'').toLowerCase().includes(p)&&geo(x));return e?geo(e):null}
+// feed texts for ticker
+function feedItems(){const now=Date.now();const out=[];
+  FEED.filter(m=>now-m.at<45*60e3).slice(0,6).forEach(m=>{const t=m.t==='going'?`geht zu ${esc(m.title||'')}`:m.t==='like'?`mag ${esc(m.title||'')}`:m.t==='here'?`ist unterwegs: ${esc(m.place||'')}`:m.t==='tonight'?'hat sich gerade einen Abend gebaut':'ist aktiv';
+    out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${face(m.name)}</span><b>${esc(m.name)}</b> ${t}`,id:m.id||null,s:200-(now-m.at)/60e3})});
+  if(ONLINE.size>1)out.push({h:`<span class="onl"></span> <b>${ONLINE.size} gerade online</b>${[...ONLINE.values()].filter(Boolean).length?' · '+esc([...ONLINE.values()].filter(Boolean).slice(0,3).join(', ')):''}`,id:null,s:150});
+  const ppl=Object.entries(PPL).sort((a,b)=>b[1]-a[1]);if(ppl.length)out.push({h:`👥 <b>${ppl.reduce((a,b)=>a+b[1],0)} unterwegs</b> · ${esc(ppl.slice(0,2).map(x=>x[0]).join(', '))}`,id:null,s:160});
+  return out}
+document.addEventListener('click',ev=>{const oh=ev.target.closest('[data-open-here]');if(oh){$('#nmPost').hidden=false;return}
+  const g=ev.target.closest('[data-going]');if(g){ev.stopPropagation();toggleGoing(g.dataset.going)}},true);
+setTimeout(sbInit,300);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('solid',scrollY>40),{passive:true});
 </script>
