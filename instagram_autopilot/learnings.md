@@ -216,3 +216,4 @@
 
 ## Dating – CD 17.10. (07:50)
 - Follower 59 (Δ 0 über die letzten 3 Posts: Geschichte-Reel D1016a, Tipps-Karussell D1016b, Spots-Reel D1016c). Post-Metriken weiter n/a (Token ohne Insights). Wechsel → Karussell D1017 „Du zahlst nur, wenn du zufrieden bist“ (Säule Ablauf & Haltung, stärkstes Verkaufsargument). Test-Variable: Thema (Garantie/Ablauf vs. Tipps).
+- CD 17.10. (12:50): Follower 59 (Δ 0 seit Morgen-Karussell D1017). Wechsel → Reel D1017b „Von null auf rund 10 Likes“ (Säule Beleg, erstmals), nur echte Fotos, Track summers-here (neu). Test-Variable: Thema (Beleg).
