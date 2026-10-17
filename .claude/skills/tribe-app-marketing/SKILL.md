@@ -83,3 +83,6 @@ Jedes Tribe-Reel bekommt ein eigenes, kreatives Konzept – nicht nur Fotos + Te
 - **Polaroid-Stapel**: Fotos fallen auf schwarzen Grund, das oberste beginnt sich zu bewegen.
 - **Ticket-Reel**: Event als schwarzes Ticket, wird „abgerissen“, dahinter das Event.
 Nur Mixkit-Clips/Musik, echte Events/Fotos, keine erfundenen Zahlen, keine Computerstimme. Bauen mit PIL+ffmpeg (Vorlagen in `coffee_walk/`, `app_reel/`), als `video` + `keep_audio: true` posten.
+
+## Coffee Walk jeden Samstag (Maik 17.10.)
+Jeden **Samstag** ist der Coffee Walk (findet sonntags statt) Teil des Postings – als eigenes Reel/Karussell oder als fester Bestandteil des Samstags-Posts. Vorlage: `coffee_walk/` (Flyer, `build_living_flyer.py`). Konzept variieren, Flyer-Look behalten. **Clips müssen zum Thema passen**: Leute mit Coffee to go in der Stadt, Café-Szenen, Stadtspaziergang – kein Campus, keine Rucksack-/Schulszenen, nichts Unpassendes. Freigegebene Clips: Mixkit 46650 (Freundinnen mit Coffee to go), 21358 (Altstadtgasse), 43247 (Café).

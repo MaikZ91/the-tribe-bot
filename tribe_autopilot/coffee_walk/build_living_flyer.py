@@ -8,7 +8,7 @@ K=2*W/FL.width                                      # 2x working canvas
 CW,CH=int(FL.width*K),int(FL.height*K)
 BASE=FL.resize((CW,CH),Image.LANCZOS)
 SLOTS={'top':(452,75,940,836),'bl':(26,852,524,1430),'br':(548,852,919,1430)}
-CLIPS={'top':('41229',0.5,0.8),'bl':('4560',0.5,0.5),'br':('43247',0.5,0.35)}
+CLIPS={'top':('46650',0.3,0.72),'bl':('21358',0.3,0.82),'br':('43247',0.5,0.35)}
 TOTAL=22.5
 def osw(s,w='Bold'):
     f=ImageFont.truetype('Oswald.ttf',s);f.set_variation_by_name(w);return f
@@ -43,14 +43,14 @@ def cam(t):
     for (t0,a),(t1,b) in zip(KF,KF[1:]):
         if t0<=t<=t1:return lerp(a,b,ease((t-t0)/(t1-t0)) if t1>t0 else 1)
     return FULL
-CAP=[(4.6,8.0,'GUTE LEUTE.'),(9.4,12.4,'ECHTE MOMENTE.'),(13.8,16.6,'GUTER KAFFEE.')]
+CAP=[(4.6,8.0,'GUTE LEUTE.'),(9.4,12.4,'DURCH DIE STADT.'),(13.8,16.6,'GUTER KAFFEE.')]
 def caption(im,t):
     for a,b,s in CAP:
         if a-0.2<=t<=b:
             al=min(ease((t-a+0.2)/0.5),ease((b-t)/0.4))
             L=Image.new('RGBA',(W,H),(0,0,0,0));d=ImageDraw.Draw(L)
             d.rectangle((0,H-430,W,H),fill=(0,0,0,int(150*al)))
-            d.text((70,H-330+int((1-al)*30)),s,font=osw(130),fill=(245,243,238,int(255*al)))
+            d.text((70,H-330+int((1-al)*30)),s,font=osw(130 if len(s)<16 else 92),fill=(245,243,238,int(255*al)))
             d.line((72,H-140,72+int(140*al),H-140),fill=(201,150,105,int(255*al)),width=5)
             im.paste(L,(0,0),L)
 def endcard(im,t):
