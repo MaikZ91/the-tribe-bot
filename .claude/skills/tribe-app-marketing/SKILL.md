@@ -64,5 +64,22 @@ Die App ist eine Web-App – kein App Store, kostenlos. In Posts als „App“ b
 ## Community-Verweis in jedem Post (Maik 17.10.)
 Jeder Tribe-Post verweist auf die Community: Caption endet automatisch mit `caption_footer` (Link in Bio → kostenlose WhatsApp-Community). Jede Story bekommt automatisch den Kasten aus `story_cta` in `tribe_autopilot/config.json` („KOMM IN DIE COMMUNITY · Link in Bio · WhatsApp · kostenlos“), bei Reels oben, bei Karussell-Storys unten. Nicht abschalten.
 
-## Reel-Stil (Maik 17.10.): schwarzer, minimalistischer Flyer-Look
-Referenz: `tribe_autopilot/coffee_walk/flyer.png`. Schwarz, weiße Headlines (Geist Bold, Oswald für Versalien-Zeilen), Kupfer-Akzent #C99669, viel Raum. Reels starten mit dem Flyer bzw. dem Kernbild, dann „lebender Flyer“: in den Fotofeldern laufen Videos, Kamera zoomt nacheinander hinein (Vorlage `build_living_flyer.py`). **Immer Menschen zuerst** – kein Einstieg mit Produkt/Kaffeemaschine; Tribe ist Community fürs Ausgehen. Ende: Community · Link in Bio.
+## Stil ist Pflicht (Maik 17.10.): Schwarz-Weiß, minimalistisch – Flyer-Look
+Referenz: `tribe_autopilot/coffee_walk/flyer.png`. Gilt für ALLE Tribe-Posts, Reels und Storys.
+- Schwarz (#000) als Fläche, Text weiß (#f5f3ee), einziger Akzent Kupfer #c99669. Kein Neon, kein Lila, kein Amber.
+- Schrift: Geist Bold für Headlines (groß, eng), Oswald (`tribe_autopilot/fonts/Oswald.ttf`) für Versalien-Zeilen wie „GUTE LEUTE.“, Geist Regular für Fließtext. Viel Leerraum.
+- Fotos/Clips entsättigt, kontrastreich (Render macht das über `photo_grade` in der Config automatisch; eigene Reel-Skripte: Sättigung ≈ 0.15–0.6, Kontrast +15 %).
+- **Immer Menschen zuerst** – kein Einstieg mit Produkt, Kaffeemaschine, Logo oder Text-Wand. Tribe ist Community fürs Ausgehen.
+- Ende jedes Reels: Community · Link in Bio.
+
+## Creative Director denkt sich die Idee selbst aus (Pflicht)
+Jedes Tribe-Reel bekommt ein eigenes, kreatives Konzept – nicht nur Fotos + Text hintereinander. Nie zweimal dasselbe Konzept hintereinander; Konzept + Ergebnis in learnings.md notieren. Ideen-Pool (erweitern!):
+- **Lebender Flyer**: Plakat/Flyer startet statisch, in den Fotofeldern beginnen Videos zu laufen, Kamera zoomt nacheinander in die Felder (`coffee_walk/build_living_flyer.py`).
+- **Raster wird lebendig**: 3×3-Schwarz-Raster mit Event-Fotos, Kacheln gehen nacheinander an wie Fenster am Abend.
+- **Countdown zum Abend**: 18:00 → 20:00 → 23:00 → 02:00, je Uhrzeit ein Event/Clip, große Oswald-Ziffern.
+- **Split-Screen „Du / Du mit Tribe“**: links Couch/Handy-Scrollen, rechts Leute unterwegs (nur echte/Stock-Clips, kein Vorher-Nachher-Versprechen).
+- **Typo-Schnitt**: ein Satz Wort für Wort im Beat, jedes Wort öffnet ein Fenster in einen Clip.
+- **Stadtpuls-Karte**: schwarze Karte, Events glühen kupfern auf (echte Daten aus events.json).
+- **Polaroid-Stapel**: Fotos fallen auf schwarzen Grund, das oberste beginnt sich zu bewegen.
+- **Ticket-Reel**: Event als schwarzes Ticket, wird „abgerissen“, dahinter das Event.
+Nur Mixkit-Clips/Musik, echte Events/Fotos, keine erfundenen Zahlen, keine Computerstimme. Bauen mit PIL+ffmpeg (Vorlagen in `coffee_walk/`, `app_reel/`), als `video` + `keep_audio: true` posten.

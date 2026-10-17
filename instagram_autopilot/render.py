@@ -62,7 +62,13 @@ _PHOTOS: dict = {}
 
 def photo(path: str) -> Image.Image:
     if path not in _PHOTOS:
-        _PHOTOS[path] = Image.open(ROOT / path).convert("RGB")
+        im = Image.open(ROOT / path).convert("RGB")
+        g = CONFIG.get("photo_grade")          # per-account look, e.g. the Tribe's muted black-and-white style
+        if g:
+            im = ImageEnhance.Color(im).enhance(g.get("saturation", 1.0))
+            im = ImageEnhance.Contrast(im).enhance(g.get("contrast", 1.0))
+            im = ImageEnhance.Brightness(im).enhance(g.get("brightness", 1.0))
+        _PHOTOS[path] = im
     return _PHOTOS[path]
 
 
@@ -76,7 +82,7 @@ def overlay(h: int) -> Image.Image:
         mid = np.exp(-((a - 0.45) ** 2) / 0.05)          # a bit darker where the text sits
         alpha = (55 + 70 * mid + 120 * a ** 2.2).clip(0, 225).astype(np.uint8)
         arr = np.zeros((h, W, 4), dtype=np.uint8)
-        arr[..., 0:3] = (8, 12, 28)
+        arr[..., 0:3] = tuple(CONFIG.get("overlay_rgb", (8, 12, 28)))
         arr[..., 3] = np.repeat(alpha, W, axis=1)
         _OVERLAYS[h] = Image.fromarray(arr, "RGBA")
     return _OVERLAYS[h]
