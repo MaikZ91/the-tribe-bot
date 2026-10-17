@@ -659,12 +659,15 @@ document.addEventListener('click',ev=>{const t=ev.target;
 $('#sx').onclick=closeSheet;$('#ctyBtn').onclick=openCity;$('#ctySheet .bg').onclick=closeCity;$('#ctyList').onclick=e=>{const b=e.target.closest('[data-city]');if(b)setCity(b.dataset.city)};$('#sclose').onclick=closeStory;$('#sprev').onclick=()=>showStory(SI-1);$('#snext').onclick=()=>showStory(SI+1);$('#sheet .bg').onclick=closeSheet;
 $('#moreBtn').onclick=()=>{state.limit+=30;render()};
 {const Q=['„Wo kann ich heute tanzen?“','„Konzerte am Wochenende“','„Was läuft im Forum?“','„Ich will nicht allein hin“','„Comedy Freitag“'];let hi=0;
-  function tick(){const T=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.time&&!(typeof HID!=='undefined'&&HID.has(e.id)));const out=[];
-    T.forEach(e=>{const n=startsIn(e);if(n!==null&&n<=0&&n>-150)out.push({h:`<span class="lv"></span><b>Läuft:</b> ${esc(e.title)} · ${esc(e.venue||'')}`,id:e.id,s:e.score+3});else if(n!==null&&n>0&&n<=180)out.push({h:`<b>${n<60?'In '+n+' min':'Um '+e.time}:</b> ${esc(e.title)} · ${esc(e.venue||'')}`,id:e.id,s:e.score+2})});
-    if(out.length<3)ALL.filter(e=>e.city===CITY&&e.date>today0()&&e.date<=addDays(today0(),3)&&!e.minor&&e.featured||e.cat==='party'&&e.city===CITY&&e.date>today0()&&e.date<=addDays(today0(),2)).slice(0,4).forEach(e=>out.push({h:`<b>${fmtDay(e.date)}${e.time?' '+e.time:''}:</b> ${esc(e.title)}`,id:e.id,s:e.score}));
-    return out.sort((a,b)=>b.s-a.s).slice(0,8)}
-  let TK=[],cur=null;setInterval(()=>{const el=$('#askHint');if(!el||!ALL.length)return;if(hi%6===0)TK=tick();const useQ=hi%3===2||!TK.length;
-    const item=useQ?{h:'Frag THE TRIBE: '+Q[(hi/3|0)%Q.length],id:null}:TK[(hi-(hi/3|0))%TK.length];cur=item.id;hi++;
+  function tick(){const ok=e=>e.city===CITY&&!e.minor&&!(typeof HID!=='undefined'&&HID.has(e.id));const out=[];const t0=today0();
+    ALL.filter(e=>ok(e)&&dayKey(e.date)===dayKey(t0)).forEach(e=>{const n=startsIn(e);const pb=typeof prefBoost==='function'?prefBoost(e):0;
+      if(n!==null&&n<=0&&n>-150)out.push({h:`<span class="lv"></span><b>Läuft:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:100+e.score+pb});
+      else if(n!==null&&n>0&&n<=180)out.push({h:`<b>${n<60?'In '+n+' min':'Um '+e.time}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:80+e.score+pb});
+      else if(n===null||n>180)out.push({h:`<b>Heute${e.time?' '+e.time:''}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:40+e.score+pb})});
+    if(out.length<6)ALL.filter(e=>ok(e)&&e.date>t0&&e.date<=addDays(t0,3)).map(e=>({e,s:e.score+(typeof prefBoost==='function'?prefBoost(e):0)})).sort((a,b)=>b.s-a.s).slice(0,8-out.length).forEach(({e,s:sc})=>out.push({h:`<b>${fmtDay(e.date)}${e.time?' '+e.time:''}:</b> ${esc(e.title)} · ${esc(prettyVenue(e))}`,id:e.id,s:sc}));
+    return out.sort((a,b)=>b.s-a.s).slice(0,10)}
+  let TK=[],cur=null;setInterval(()=>{const el=$('#askHint');if(!el||!ALL.length)return;if(hi%6===0)TK=tick();const useQ=hi%5===4||!TK.length;
+    const item=useQ?{h:'Frag THE TRIBE: '+Q[(hi/5|0)%Q.length],id:null}:TK[(hi-(hi/5|0))%TK.length];cur=item.id;hi++;
     el.style.opacity=0;setTimeout(()=>{el.innerHTML=item.h;el.style.opacity=1},250)},3200);
   $('#askBar').onclick=ev=>{if(cur&&!ev.target.closest('svg')){open(cur)}else openChat()};}
 $('#waJoin').href=WA_COMMUNITY;$('#waJoin2').href=WA_COMMUNITY;
@@ -784,7 +787,7 @@ function initNight(){if(!window.L)return;if(!nmap){nmap=L.map('nmap',{zoomContro
   setTimeout(()=>nmap.invalidateSize(),60);const n=new Date();let v=n.getHours()*60+n.getMinutes();if(v<360)v+=1440;$('#slR').value=Math.min(1680,Math.max(960,Math.round(v/15)*15));drawNight()}
 function prettyVenue(e){let v=(e.venue||'').replace(/[._]/g,' ').replace(/\bbielefeld\b|\bbi\b|liveclub|club$/gi,'').replace(/\s+/g,' ').trim();
   const M={'hinterzimmer':'LIV / Hinterzimmer','cutiebielefeld':'Cutie','cutie':'Cutie','sams':'Club Sams','nr z p':'Nr. z. P.','forum':'Forum','cafe europa':'Café Europa','movie':'Movie','platzhirschbielefeld':'Platzhirsch','platzhirsch':'Platzhirsch','cinemaxx':'Cinemaxx','irish pub':'Irish Pub','lokschuppen':'Lokschuppen','stereo':'Stereo','loom':'Loom','gegenueber bar':'Gegenüber'};
-  const k=v.toLowerCase();return M[k]||v.replace(/\b\w/g,c=>c.toUpperCase())||'Bielefeld'}
+  const k=v.toLowerCase();return M[k]||v.split(' ').map(w=>w?w[0].toUpperCase()+w.slice(1):w).join(' ')||'Bielefeld'}
 function heatOf(e,T){const m=toMin(e.time),dur=e.cat==='party'?300:e.cat==='kino'?120:160;const t=T-m;if(t<-45||t>dur)return 0;
   const w={party:1,musik:.8,tribe:.7,ausgehen:.65,comedy:.55,kultur:.45,kino:.25}[e.cat]||.4;
   let c=t<0?.25*(1+t/45):t<60?.35+.65*t/60:t<dur-60?1:Math.max(.2,(dur-t)/60);
