@@ -213,3 +213,6 @@
 - @ki.fuer.dein.business: kein eigener Datensatz mehr im Repo (instagram_autopilot läuft auf @natuerlich.du.ms) → n/a.
 - @the_tribe.bi.ms: Follower 1286 (Δ −3 seit 13.10.). T22 Freitag-Karussell 98 Reichweite / 221 Views / 0 Likes (schwächster Event-Post), T23 App-Release-Reel nach ~1 h: 0 Reichweite / 1 View (Insights hinken evtl. nach). Bester Post bleibt T04 „Ersti-Wochenende“ 617 Reichweite.
 - Schlussfolgerung/Hypothese morgen: Event-Karussells „X Ideen“ ermüden (248 → 98 Reichweite). Für Tribe morgen ein Format mit Menschen/Community-Bezug („neu in Bielefeld“ wie T04/T01) statt reiner Event-Liste; T23-Reichweite morgen früh prüfen – bleibt sie < 50, wurde das Reel vermutlich nicht ausgespielt (Musiktausch durch Pipeline, Text-lastig).
+
+## Dating – CD 17.10. (07:50)
+- Follower 59 (Δ 0 über die letzten 3 Posts: Geschichte-Reel D1016a, Tipps-Karussell D1016b, Spots-Reel D1016c). Post-Metriken weiter n/a (Token ohne Insights). Wechsel → Karussell D1017 „Du zahlst nur, wenn du zufrieden bist“ (Säule Ablauf & Haltung, stärkstes Verkaufsargument). Test-Variable: Thema (Garantie/Ablauf vs. Tipps).
