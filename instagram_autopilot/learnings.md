@@ -217,3 +217,6 @@
 ## Dating – CD 17.10. (07:50)
 - Follower 59 (Δ 0 über die letzten 3 Posts: Geschichte-Reel D1016a, Tipps-Karussell D1016b, Spots-Reel D1016c). Post-Metriken weiter n/a (Token ohne Insights). Wechsel → Karussell D1017 „Du zahlst nur, wenn du zufrieden bist“ (Säule Ablauf & Haltung, stärkstes Verkaufsargument). Test-Variable: Thema (Garantie/Ablauf vs. Tipps).
 - CD 17.10. (12:50): Follower 59 (Δ 0 seit Morgen-Karussell D1017). Wechsel → Reel D1017b „Von null auf rund 10 Likes“ (Säule Beleg, erstmals), nur echte Fotos, Track summers-here (neu). Test-Variable: Thema (Beleg).
+
+## Tribe – CD 17.10. (16:50)
+- Follower 1288 (+2 zum 16.10.). Heute schon 2 Reels (T24 App-Reel animiert). „X Ideen“-Karussells fielen (248→98). Test: Karussell T25 mit Community-Hook „Samstagabend. Und keiner hat Zeit?“ statt Anlass-Hook, CTA App + Community. Variable: hook.
