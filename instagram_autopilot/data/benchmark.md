@@ -1,4 +1,4 @@
-# Benchmark 2026-10-16T21:15+02:00
+# Benchmark 2026-10-17T06:43+02:00
 
 Interaktion = Likes + 2 × Kommentare, Rate = je 100 Follower. Views gibt die API für fremde Accounts nicht her.
 
