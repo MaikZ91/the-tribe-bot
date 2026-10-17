@@ -63,3 +63,6 @@ Die App ist eine Web-App – kein App Store, kostenlos. In Posts als „App“ b
 
 ## Community-Verweis in jedem Post (Maik 17.10.)
 Jeder Tribe-Post verweist auf die Community: Caption endet automatisch mit `caption_footer` (Link in Bio → kostenlose WhatsApp-Community). Jede Story bekommt automatisch den Kasten aus `story_cta` in `tribe_autopilot/config.json` („KOMM IN DIE COMMUNITY · Link in Bio · WhatsApp · kostenlos“), bei Reels oben, bei Karussell-Storys unten. Nicht abschalten.
+
+## Reel-Stil (Maik 17.10.): schwarzer, minimalistischer Flyer-Look
+Referenz: `tribe_autopilot/coffee_walk/flyer.png`. Schwarz, weiße Headlines (Geist Bold, Oswald für Versalien-Zeilen), Kupfer-Akzent #C99669, viel Raum. Reels starten mit dem Flyer bzw. dem Kernbild, dann „lebender Flyer“: in den Fotofeldern laufen Videos, Kamera zoomt nacheinander hinein (Vorlage `build_living_flyer.py`). **Immer Menschen zuerst** – kein Einstieg mit Produkt/Kaffeemaschine; Tribe ist Community fürs Ausgehen. Ende: Community · Link in Bio.
