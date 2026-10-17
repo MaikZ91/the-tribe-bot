@@ -60,3 +60,6 @@ Die App ist eine Web-App – kein App Store, kostenlos. In Posts als „App“ b
 - **Android:** Link öffnen → Button „Installieren“ unten in der App (oder Chrome-Menü ⋮ → „App installieren“).
 - Direktlink mit Anleitung: https://maikz91.github.io/the-tribe-bot/tribe/#installieren
 - Hinweis: Aus Instagram heraus erst „Im Browser öffnen“, dann installieren.
+
+## Community-Verweis in jedem Post (Maik 17.10.)
+Jeder Tribe-Post verweist auf die Community: Caption endet automatisch mit `caption_footer` (Link in Bio → kostenlose WhatsApp-Community). Jede Story bekommt automatisch den Kasten aus `story_cta` in `tribe_autopilot/config.json` („KOMM IN DIE COMMUNITY · Link in Bio · WhatsApp · kostenlos“), bei Reels oben, bei Karussell-Storys unten. Nicht abschalten.

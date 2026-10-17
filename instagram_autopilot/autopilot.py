@@ -445,7 +445,7 @@ def cmd_publish(post_id: str) -> None:
     if CONFIG.get("story_repost", True) and not trial and quota_left(uid) > CONFIG.get("story_min_quota", 25):
         try:   # same content as a story -> reaches existing followers first (carousel: its cover slide)
             if spec["type"] == "reel":
-                st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta["video"]))
+                st = api("POST", f"{uid}/media", media_type="STORIES", video_url=media_url(post_id, meta.get("story_video") or meta["video"]))
             else:
                 st = api("POST", f"{uid}/media", media_type="STORIES",
                          image_url=media_url(post_id, meta.get("story") or meta["images"][0]))

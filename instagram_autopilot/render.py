@@ -1077,7 +1077,49 @@ def render_video(spec: dict, out_dir: Path) -> dict:
             "music": f"track:{track}" if track else "original"}
 
 
+def story_cta_layer(top: bool) -> Image.Image | None:
+    """Transparent 9:16 layer with the account's story call to action (config "story_cta"),
+    placed under the story header (videos, whose own text sits low) or just above the
+    reply bar (cover images); None when the account has none."""
+    cta = CONFIG.get("story_cta")
+    if not cta:
+        return None
+    layer = Image.new("RGBA", (W, H_REEL), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    ft, fs = font("Bold", 56), font("Medium", 36)
+    x0, x1 = 70, W - 70
+    y0 = 230 if top else 1600
+    y1 = y0 + 180
+    d.rounded_rectangle((x0, y0, x1, y1), 40, fill=B["bg"] + (235,), outline=B["accent"] + (255,), width=4)
+    d.text((W // 2, y0 + 66), cta["title"], font=ft, fill=B["accent"], anchor="mm")
+    d.text((W // 2, y0 + 136), cta["sub"], font=fs, fill=B["text"], anchor="mm")
+    return layer
+
+
+def add_story_cta(out_dir: Path, meta: dict) -> dict:
+    layer = story_cta_layer(bool(meta.get("video")))
+    if layer is None:
+        return meta
+    if meta.get("video"):
+        layer.save(out_dir / "story_cta.png")
+        subprocess.run([ffmpeg_exe(), "-v", "error", "-y", "-i", str(out_dir / meta["video"]), "-loop", "1", "-i", str(out_dir / "story_cta.png"),
+                        "-filter_complex", "[1][0]scale2ref=w=iw:h=ih[o][v];[v][o]overlay=shortest=1,format=yuv420p[out]",
+                        "-map", "[out]", "-map", "0:a?",
+                        "-c:v", "libx264", "-crf", "20", "-c:a", "copy", "-movflags", "+faststart",
+                        str(out_dir / "story.mp4")], check=True)
+        meta["story_video"] = "story.mp4"
+    elif meta.get("story"):
+        im = Image.open(out_dir / meta["story"]).convert("RGB")
+        im.paste(layer, (0, 0), layer)
+        im.save(out_dir / meta["story"], quality=92)
+    return meta
+
+
 def render(spec: dict, out_dir: Path) -> dict:
+    return add_story_cta(out_dir, _render(spec, out_dir))
+
+
+def _render(spec: dict, out_dir: Path) -> dict:
     spec = json.loads(json.dumps(spec))
     if spec["type"] == "reel" and spec.get("video"):
         return render_video(spec, out_dir)
