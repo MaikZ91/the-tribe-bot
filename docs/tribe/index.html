@@ -935,7 +935,7 @@ const MOODFIT={chill:{ausgehen:4,kultur:3,musik:2,comedy:1,kino:2},social:{ausge
 const WHOFIT={solo:{tribe:5,ausgehen:2,comedy:2,party:1},crew:{party:2,ausgehen:2,musik:2,comedy:1},date:{kultur:3,musik:3,ausgehen:2,kino:2}};
 function ttBg(e){$('#ttBg').innerHTML=e?bigimg(e,40):'<div class="ph"></div>'}
 function ttShow(h){$('#ttIn').innerHTML=`<div class="fade">${h}</div>`}
-function ttOpen(){TT.a={};$('#tt').classList.add('open');const pool=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.img);ttBg(pool[Math.floor(Math.random()*pool.length)]);
+function ttOpen(){TT.a={};$('#tt').classList.add('open');const pool=ALL.filter(e=>e.city===CITY&&dayKey(e.date)===dayKey(today0())&&!e.minor&&e.img&&(e.cat==='party'||e.featured)).sort((a,b)=>b.score-a.score).slice(0,4);ttBg(pool.length?pool[Math.floor(Math.random()*pool.length)]:null);
   const a=$('#ttAudio');if(ttSound){a.currentTime=0;a.volume=.6;a.play().catch(()=>{})}
   const h=new Date().getHours();ttShow(`<div class="k">Tribe Tonight</div><h2 class="xl">${h<12?'Guten Morgen.':h<18?'Hey.':'Na,'}<br>${h>=18?'was geht heute?':'Lass uns deinen Abend bauen.'}</h2><p>3 Fragen. Dann zeig ich dir deinen Abend – ohne Suchen.</p><div class="opts"><button data-tt="start">Los geht's <small>→</small></button></div>`)}
 function ttQ(i){const q=Q[i];ttShow(`<div class="k">Frage ${i+1} von 3</div><h2>${q.t}</h2><div class="opts">${q.o.map(o=>`<button data-tq="${i}" data-tv="${o[0]}">${o[1]} <small>${o[2]}</small></button>`).join('')}</div>`)}
