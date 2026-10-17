@@ -319,6 +319,13 @@ nav button.mid svg{color:var(--amb)}
 .askbar span{flex:1;min-width:0;display:flex;flex-direction:column}.askbar b{font-weight:600;font-size:15px}
 .askbar i{font-style:normal;font-size:13px;color:var(--dim);transition:opacity .25s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .askbar em{font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);border:1px solid rgba(217,160,102,.4);border-radius:99px;padding:4px 8px;white-space:nowrap}
+.fyx{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -20px;padding:2px 20px 6px}.fyx::-webkit-scrollbar{display:none}
+.fyk{flex:0 0 72%;max-width:290px;scroll-snap-align:start;border-radius:18px;overflow:hidden;background:var(--ink2);border:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;transition:.25s}
+.fyk .im{aspect-ratio:4/3;overflow:hidden;background:var(--ink3)}.fyk .im img,.fyk .im .ph{width:100%;height:100%;object-fit:cover}
+.fyk .tx{padding:12px 14px 4px;flex:1}.fyk small{color:var(--amb);font-size:11px}.fyk b{display:block;font-weight:600;font-size:16px;line-height:1.2;margin:3px 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.fyk .tx>span{font-size:12px;color:var(--fog)}
+.fyk .why{margin:6px 0 0;gap:4px}.fyk .why span{font-size:10.5px;padding:3px 8px}
+.ld{display:flex;gap:8px;padding:8px 14px 14px}.ld button{flex:1;padding:9px;border-radius:12px;border:1px solid var(--line2);font-size:16px}.ld button.on{background:rgba(217,160,102,.2);border-color:var(--amb)}
+@media (max-width:390px){.fyk{flex-basis:78%}.fyk .im{aspect-ratio:16/10}}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -546,7 +553,7 @@ function inRange(ev){if(!ev.date)return false;const t=today0();
   if(state.day==='week')return ev.date>=t&&ev.date<addDays(t,7);
   return dayKey(ev.date)===state.day}
 function filtered(){const q=state.q.trim().toLowerCase();
-  return ALL.filter(e=>e.city===CITY&&inRange(e)&&(state.cat?e.cat===state.cat:(q||!e.minor))&&(!q||(e.title+' '+e.venue+' '+e.desc+' '+e.cat).toLowerCase().includes(q)))
+  return ALL.filter(e=>e.city===CITY&&!(typeof HID!=='undefined'&&HID.has(e.id))&&inRange(e)&&(state.cat?e.cat===state.cat:(q||!e.minor))&&(!q||(e.title+' '+e.venue+' '+e.desc+' '+e.cat).toLowerCase().includes(q)))
    .sort((a,b)=>a.date-b.date||(a.time||'99').localeCompare(b.time||'99'))}
 function fmtDay(d){const t=today0();if(dayKey(d)===dayKey(t))return'Heute';if(dayKey(d)===dayKey(addDays(t,1)))return'Morgen';return WD[d.getDay()]+', '+d.getDate()+'.'+(d.getMonth()+1)+'.'}
 function ph(cat,size){return`<div class="ph" style="--s:${Math.round(size/3.2)}px"><span>${CNAME[cat]||''}</span></div>`}
@@ -967,15 +974,27 @@ function profOpen(){const P=PROF;const G=(P.genres||[]).map(g=>(GENRES.find(x=>x
    <button class="btn or full" style="margin-top:18px" data-pf="edit">Vorlieben ändern</button><button class="btn gh full" style="margin-top:8px" data-pf="reset">Profil löschen</button>
    <p class="note">Dein Profil liegt nur auf diesem Handy – kein Konto, kein Server.</p>`;$('#profSheet').classList.add('open')}
 $('#profSheet .bg').onclick=()=>$('#profSheet').classList.remove('open');
-// Für-dich home block
+// Like / Dislike für "Für dich"
+let LK=[],HID=new Set();try{LK=JSON.parse(localStorage.getItem('tribe_likes')||'[]');HID=new Set(JSON.parse(localStorage.getItem('tribe_hidden')||'[]'))}catch(_){}
+const saveLK=()=>{try{localStorage.setItem('tribe_likes',JSON.stringify(LK.slice(-60)));localStorage.setItem('tribe_hidden',JSON.stringify([...HID].slice(-400)))}catch(_){}};
+const genresOf=e=>{const t=(e.title+' '+e.desc+' '+e.venue).toLowerCase();return GENRES.filter(g=>g[2].test(t)).map(g=>g[0])};
+function simBoost(e){let b=0,why='';for(const l of LK){let x=0;if(l.vkey&&l.vkey===e.vkey){x+=3;why='wie '+l.v}if(l.cat===e.cat)x+=1.5;const g=genresOf(e).filter(z=>(l.g||[]).includes(z));if(g.length){x+=2;why=why||'ähnlich wie '+l.t}b+=x}return{b:Math.min(8,b*.6),why}}
 function fyBlock(L){const box=$('#fyHome');if(!box)return;if(state.q||state.cat){box.innerHTML='';return}
-  const C=L.filter(e=>!e.minor&&(startsIn(e)===null||startsIn(e)>-90)).map(e=>{const p=profScore(e);return{e,s:e.score+prefBoost(e),why:p.why}}).sort((a,b)=>b.s-a.s).slice(0,3);
+  const C=L.filter(e=>!e.minor&&!HID.has(e.id)&&(startsIn(e)===null||startsIn(e)>-90)).map(e=>{const p=profScore(e),sb=simBoost(e);const why=[...p.why];if(sb.why)why.unshift(sb.why);if(LK.some(l=>l.id===e.id))why.unshift('gefällt dir');return{e,s:e.score+prefBoost(e)+sb.b,why}}).sort((a,b)=>b.s-a.s).slice(0,12);
   if(!C.length){box.innerHTML='';return}
   const nm=PROF&&PROF.name?', '+esc(PROF.name):'';const lbl={today:'heute',tomorrow:'morgen',weekend:'am Wochenende',week:'diese Woche'}[state.day]||'';
-  box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2><p class="sub">${PROF?'Dein Programm '+lbl+' – ausgesucht nach deinem Profil.':'Unsere Tipps '+lbl+'. <a href="#" id="fyStart" style="text-decoration:underline;color:var(--amb)">Profil anlegen</a> – dann passt es zu dir.'}</p>
-   ${C.map(x=>`<div class="fyc" data-id="${esc(x.e.id)}"><div class="th">${bigimg(x.e,20)}</div><div style="min-width:0"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span style="font-size:12px;color:var(--fog)">${esc(x.e.venue||'')}</span>${x.why.length?`<div class="why">${[...new Set(x.why)].slice(0,3).map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}</div></div>`).join('')}
-   <button class="allbtn" id="allBtn">${state.showAll?'Alle Events ausblenden':'Alle '+L.length+' Events anzeigen'}</button></div>`;
+  box.innerHTML=`<div class="fy"><h2>Für dich${nm}</h2><p class="sub">${PROF?'Dein Programm '+lbl+'.':'Unsere Tipps '+lbl+'. <a href="#" id="fyStart" style="text-decoration:underline;color:var(--amb)">Profil anlegen</a>'} 👍 = mehr davon · 👎 = weg damit.</p>
+   <div class="fyx">${C.map(x=>{const liked=LK.some(l=>l.id===x.e.id);return`<div class="fyk" data-id="${esc(x.e.id)}"><div class="im">${bigimg(x.e,30)}</div><div class="tx"><small>${fmtDay(x.e.date)}${x.e.time?' · '+esc(x.e.time):''}</small><b>${esc(x.e.title)}</b><span>${esc(x.e.venue||'')}</span>${x.why.length?`<div class="why">${[...new Set(x.why)].slice(0,2).map(w=>`<span>${esc(w)}</span>`).join('')}</div>`:''}</div>
+     <div class="ld"><button data-dis="${esc(x.e.id)}" aria-label="Gefällt mir nicht">👎</button><button data-like="${esc(x.e.id)}" class="${liked?'on':''}" aria-label="Gefällt mir">👍</button></div></div>`}).join('')}</div>
+   <button class="allbtn" id="allBtn">${state.showAll?'Alle Events ausblenden':'Alle '+L.length+' Events anzeigen'}</button>${HID.size?`<button class="allbtn" id="unhide" style="border:0;font-size:12px;margin:0">${HID.size} ausgeblendet · zurückholen</button>`:''}</div>`;
   const fs=$('#fyStart');if(fs)fs.onclick=ev=>{ev.preventDefault();obOpen()}}
+document.addEventListener('click',ev=>{const t=ev.target;
+  const lk=t.closest('[data-like]');if(lk){ev.stopPropagation();const e=ALL.find(x=>x.id===lk.dataset.like);if(!e)return;const i=LK.findIndex(l=>l.id===e.id);
+    if(i>=0){LK.splice(i,1);toast('Like entfernt')}else{LK.push({id:e.id,cat:e.cat,vkey:e.vkey,v:prettyVenue(e),t:e.title.slice(0,18),g:genresOf(e)});learn(e,2);favs.add(e.id);saveFavs();toast('Gemerkt – mehr davon 👍')}
+    saveLK();render();return}
+  const ds=t.closest('[data-dis]');if(ds){ev.stopPropagation();const e=ALL.find(x=>x.id===ds.dataset.dis);if(!e)return;HID.add(e.id);learn(e,-1.5);const card=ds.closest('.fyk');if(card){card.style.transition='.25s';card.style.opacity=0;card.style.transform='scale(.9)'}saveLK();setTimeout(render,230);toast('Ausgeblendet');return}
+  if(t.closest('#unhide')){HID.clear();saveLK();render();return}
+},true);
 saveProf();
 setTimeout(()=>{let sk=null;try{sk=localStorage.getItem('tribe_onb_skip')}catch(_){}if(!PROF&&!sk&&!location.hash)obOpen()},1200);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
