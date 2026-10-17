@@ -357,6 +357,8 @@ main,header,#v-events{overflow-x:clip}
 .match-pop{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
 .match-pop .in{max-width:340px}.match-pop .two{display:flex;justify-content:center;margin-bottom:16px}.match-pop .two div{width:84px;height:84px;border-radius:50%;background-size:cover;background-position:center;border:3px solid var(--ink);margin:0 -8px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#111}
 .match-pop h2{font-size:34px;text-transform:none;letter-spacing:-.03em;display:block;margin:0 0 8px}.match-pop p{color:var(--dim);margin:0 0 18px}
+.onlbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}.onlbtn .faces i{width:18px;height:18px;font-size:8.5px;margin-left:-5px}
+.onrow{margin:2px 0 6px}.onrow:empty{display:none}.onrow .faces i{width:22px;height:22px;font-size:9.5px}.onrow .onlbtn{font-size:13px}
 footer{color:var(--fog);font-size:12px;padding:40px 0 30px;line-height:1.6}
 footer a{text-decoration:underline}
 </style>
@@ -381,6 +383,7 @@ footer a{text-decoration:underline}
     <div id="hlWrap"><div class="stories" id="hl"></div></div>
     <div id="fyHome"></div>
     <div class="pulse" id="pulse"></div>
+    <div id="onlineN" class="onrow"></div>
     <div class="list" id="list"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
     <button class="more" id="moreBtn" hidden>Mehr anzeigen</button>
     <div class="cta">
@@ -621,7 +624,7 @@ function render(){renderDays();renderChips();let L=filtered();
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
   $('#hl').innerHTML=`<div class="sb tn" id="ttOpen"><div class="ring"><div>TRIBE<br>TONIGHT</div></div><small>Dein Abend</small></div><div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
   const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
-  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span><span id="onlineN"></span> ${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
+  $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
   const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
   const grp=e=>{if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;return n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}return fmtDay(e.date)};
   const GO={'Läuft gerade':0,'Gleich':1,'Tagsüber':2,'Heute Abend':3,'Späte Nacht':4,'Nach Mitternacht':5,'Ganztägig':6};
@@ -1070,7 +1073,7 @@ async function sbInit(){if(!window.supabase){setTimeout(sbInit,400);return}
 async function ensureMe(){if(!sb)throw new Error('offline');if(!ME){const {data,error}=await sb.auth.signInAnonymously();if(error)throw error;ME=data.user}
   let nm=myName();if(!nm){nm=(prompt('Wie sollen dich die anderen sehen? (Vorname)')||'').trim().slice(0,30);if(!nm)throw new Error('noname');try{localStorage.setItem('tribe_name',nm)}catch(_){}}
   await sb.from('tribe_profiles').upsert({id:ME.id,name:nm,avatar_url:myAvatar()||null,moods:(PROF&&PROF.moods)||[],genres:(PROF&&PROF.genres)||[],city:CITY});
-  if(CH)CH.track({name:nm,at:Date.now()});return nm}
+  if(CH)CH.track({name:nm,av:myAvatar(),at:Date.now()});return nm}
 async function loadGoing(){if(!sb||!ALL.length)return;const t0=today0(),ids=ALL.filter(e=>e.city===CITY&&e.date>=t0&&e.date<=addDays(t0,7)).map(e=>e.id).slice(0,600);
   try{const {data}=await sb.rpc('tribe_going_counts',{ids});Object.keys(GN).forEach(k=>delete GN[k]);(data||[]).forEach(r=>GN[r.event_id]=r.n)}catch(_){}
   if(ME){try{const {data:g}=await sb.from('tribe_going').select('user_id,event_id').in('event_id',ids.filter(i=>GN[i]));const uids=[...new Set((g||[]).map(r=>r.user_id))];
@@ -1085,13 +1088,21 @@ async function toggleGoing(id){const e=ALL.find(x=>x.id===id);if(!e)return;let n
 function act(t,e,nm){nm=nm||myName();if(!CH||!nm)return;const m={t,name:nm,av:myAvatar(),id:e&&e.id,title:e&&e.title,place:e&&e.place,at:Date.now()};CH.send({type:'broadcast',event:'act',payload:m});pushFeed(m)}
 function pushFeed(m){FEED.unshift(m);FEED.splice(20);if(typeof window.tickNow==='function')window.tickNow()}
 function joinLive(){CH=sb.channel('tribe-live-'+CITY,{config:{presence:{key:(ME&&ME.id)||('g'+Math.random().toString(36).slice(2,9))}}});
-  CH.on('presence',{event:'sync'},()=>{ONLINE.clear();const st=CH.presenceState();Object.entries(st).forEach(([k,v])=>ONLINE.set(k,(v[0]||{}).name||''));paintOnline()})
+  CH.on('presence',{event:'sync'},()=>{ONLINE.clear();const st=CH.presenceState();Object.entries(st).forEach(([k,v])=>ONLINE.set(k,{name:(v[0]||{}).name||'',av:(v[0]||{}).av||''}));paintOnline()})
     .on('broadcast',{event:'act'},({payload})=>pushFeed(payload))
     .on('broadcast',{event:'wave'},({payload})=>{if(!ME||payload.to!==ME.id)return;WAV.in.add(payload.from);if(WAV.out.has(payload.from))showMatch(payload.name,payload.av,payload.ev);else toast((payload.name||'Jemand')+' winkt dir 👋 – schau bei „Abend bauen“');if($('#v-swipe').classList.contains('on'))renderPeople()})
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_going'},()=>loadGoing())
     .on('postgres_changes',{event:'*',schema:'public',table:'tribe_presence'},()=>loadPeople())
-    .subscribe(st=>{if(st==='SUBSCRIBED')CH.track({name:myName(),at:Date.now()})})}
-function paintOnline(){const el=document.getElementById('onlineN');const n=ONLINE.size;if(el)el.innerHTML=n?`<span class="onl">${n} gerade online</span>`:''}
+    .subscribe(st=>{if(st==='SUBSCRIBED')CH.track({name:myName(),av:myAvatar(),at:Date.now()})})}
+function onlineList(){return [...ONLINE.values()].filter(x=>x&&x.name)}
+function paintOnline(){const el=document.getElementById('onlineN');const n=ONLINE.size,L=onlineList();
+  if(el)el.innerHTML=n?`<button class="onlbtn" id="onlBtn"><span class="faces">${L.slice(0,4).map(x=>face(x.name,x.av)).join('')}</span><span class="onl">${L.length?esc(L.slice(0,2).map(x=>x.name).join(', '))+(n>2?' +'+(n-2):''):n+' gerade'} online</span></button>`:''}
+function showOnline(){const L=onlineList(),anon=ONLINE.size-L.length;const d=document.createElement('div');d.className='sheet open';
+  d.innerHTML=`<div class="bg"></div><div class="pn"><div class="c" style="margin-top:0;padding-top:24px"><h1 style="font-size:26px">Gerade online · ${ONLINE.size}</h1>
+   ${L.map(x=>`<div class="pf-row" style="align-items:center;justify-content:flex-start;gap:12px"><span class="faces">${face(x.name,x.av)}</span><b style="font-weight:500;color:var(--cream)">${esc(x.name)}</b></div>`).join('')}
+   ${anon?`<p class="note">+ ${anon} ohne Profil</p>`:''}<button class="btn or full" style="margin-top:14px" data-go="swipe">Leute für deinen Abend finden</button></div></div>`;
+  document.body.appendChild(d);d.querySelector('.bg').onclick=()=>d.remove();d.querySelector('[data-go]').addEventListener('click',()=>d.remove())}
+document.addEventListener('click',ev=>{if(ev.target.closest('#onlBtn')){ev.stopPropagation();showOnline()}},true);
 async function loadPeople(){if(!sb)return;try{const {data}=await sb.rpc('tribe_presence_counts',{p_city:CITY});Object.keys(PPL).forEach(k=>delete PPL[k]);(data||[]).forEach(r=>PPL[r.place]=r.n);if(typeof drawNight==='function')drawNight()}catch(_){}}
 function placeGeo(place){const p=(place||'').toLowerCase().replace(/^(im|in der|am|an der|beim|bei|in)\s+/,'').trim();if(!p)return null;
   for(const[k,c]of Object.entries(VEN)){const pv=k.replace(/[._]/g,' ');if(pv.includes(p)||p.includes(pv.split(' ')[0])&&pv.split(' ')[0].length>3)return c}
@@ -1100,7 +1111,7 @@ function placeGeo(place){const p=(place||'').toLowerCase().replace(/^(im|in der|
 function feedItems(){const now=Date.now();const out=[];
   FEED.filter(m=>now-m.at<45*60e3).slice(0,6).forEach(m=>{const t=m.t==='going'?`geht zu ${esc(m.title||'')}`:m.t==='like'?`mag ${esc(m.title||'')}`:m.t==='here'?`ist unterwegs: ${esc(m.place||'')}`:m.t==='tonight'?'hat sich gerade einen Abend gebaut':'ist aktiv';
     out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${face(m.name,m.av)}</span><b>${esc(m.name)}</b> ${t}`,id:m.id||null,s:200-(now-m.at)/60e3})});
-  if(ONLINE.size>1)out.push({h:`<span class="onl"></span> <b>${ONLINE.size} gerade online</b>${[...ONLINE.values()].filter(Boolean).length?' · '+esc([...ONLINE.values()].filter(Boolean).slice(0,3).join(', ')):''}`,id:null,s:150});
+  if(ONLINE.size>1){const L=onlineList();out.push({h:`<span class="faces" style="display:inline-flex;vertical-align:middle;margin-right:6px">${L.slice(0,3).map(x=>face(x.name,x.av)).join('')}</span><b>${L.length?esc(L.slice(0,3).map(x=>x.name).join(', '))+(ONLINE.size>3?' +'+(ONLINE.size-3):''):ONLINE.size}</b> gerade online`,id:null,s:150})}
   const ppl=Object.entries(PPL).sort((a,b)=>b[1]-a[1]);if(ppl.length)out.push({h:`👥 <b>${ppl.reduce((a,b)=>a+b[1],0)} unterwegs</b> · ${esc(ppl.slice(0,2).map(x=>x[0]).join(', '))}`,id:null,s:160});
   return out}
 document.addEventListener('click',ev=>{const oh=ev.target.closest('[data-open-here]');if(oh){$('#nmPost').hidden=false;return}
