@@ -589,16 +589,19 @@ function wxText(){if(!WX||!WX.hourly||state.day!=='today')return'';const h=WX.ho
   const T=Math.round(h.temperature_2m[best]),P=h.precipitation_probability[best];
   return`21 Uhr ${T}° · ${P>=50?'Regen':P>=25?'evtl. Schauer':'trocken'}`}
 fetch('https://api.open-meteo.com/v1/forecast?latitude=52.02&longitude=8.53&hourly=temperature_2m,precipitation_probability&timezone=Europe%2FBerlin&forecast_days=2').then(r=>r.json()).then(j=>{WX=j;render()}).catch(()=>{});
-function render(){renderDays();renderChips();const L=filtered();
+function render(){renderDays();renderChips();let L=filtered();
   const hl=[...L].filter(e=>!e.minor).sort((a,b)=>(b.score+prefBoost(b))-(a.score+prefBoost(a))).slice(0,8);SL=hl;
   $('#hlWrap').style.display=hl.length&&!state.q?'':'none';
   $('#hl').innerHTML=`<div class="sb tn" id="ttOpen"><div class="ring"><div>TRIBE<br>TONIGHT</div></div><small>Dein Abend</small></div><div class="sb rnd" id="rnd"><div class="ring"><div>✦</div></div><small>Überrasch mich</small></div>`+hl.map((e,i)=>`<div class="sb" data-story="${i}"><div class="ring"><div>${bigimg(e,20)}</div></div><small>${esc(e.time||MOOD[e.cat])}</small></div>`).join('');
   const live=L.filter(e=>{const n=startsIn(e);return n!==null&&n<=0&&n>-180}).length;
   $('#pulse').innerHTML=L.length?`<b>${L.length} ${L.length===1?'Event':'Events'}</b><span>${live?live+' laufen gerade · ':''}<span class="wx">${wxText()}</span></span>`:'';
   const single=new Set(L.map(e=>dayKey(e.date))).size<=1;let out='',last='';
-  L.slice(0,state.limit).forEach(e=>{let g;
-    if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;g=n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}
-    else g=fmtDay(e.date);
+  const grp=e=>{if(single){const n=startsIn(e),h=e.time?+e.time.split(':')[0]:-1;return n!==null&&n<=0&&n>-180?'Läuft gerade':n!==null&&n>0&&n<=120?'Gleich':h<0?'Ganztägig':h<5?'Nach Mitternacht':h<17?'Tagsüber':h<22?'Heute Abend':'Späte Nacht'}return fmtDay(e.date)};
+  const GO={'Läuft gerade':0,'Gleich':1,'Tagsüber':2,'Heute Abend':3,'Späte Nacht':4,'Nach Mitternacht':5,'Ganztägig':6};
+  const boost=e=>(favs.has(e.id)?8:0)+((typeof LK!=='undefined'&&LK.some(l=>l.id===e.id))?8:0)+(typeof simBoost==='function'?simBoost(e).b:0)+(typeof prefBoost==='function'?prefBoost(e):0);
+  const tm=e=>{const m=toMin(e.time);return m===null?9999:m};
+  L=[...L].map(e=>({e,g:grp(e),b:boost(e)})).sort((a,b)=>(single?(GO[a.g]-GO[b.g]):(a.e.date-b.e.date))||(b.b-a.b)||(tm(a.e)-tm(b.e))).map(x=>x.e);
+  L.slice(0,state.limit).forEach(e=>{const g=grp(e);
     if(g!==last){out+=`<div class="slot${g==='Läuft gerade'?' live':''}">${g}</div>`;last=g}out+=card(e)});
   fyBlock(L);const hideList=false;$('#list').style.display=hideList?'none':'';$('#pulse').style.display=hideList?'none':'';
   $('#list').innerHTML=L.length?out:'<div class="empty">Hier ist noch nichts eingetragen. Schau morgen wieder rein – oder frag in der Community, was geht.</div>';
