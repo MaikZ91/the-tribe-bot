@@ -239,3 +239,6 @@
 
 ## Tribe – CD 18.10. (16:48)
 - Follower 1290 (+1). Nach Reel T29 → Karussell T30 im Flyer-Stil: eigenes Event (Tribe Kennenlernabend heute 19 Uhr) als Aufhänger, nur Community-Fotos, 2 von 5 Folien S/W. Variable: Titel-Event (eigenes Tribe-Event statt fremder Events).
+
+## Dating – CD 18.10. (18:50)
+- Follower 59 (Δ 0 über 6 Hook-Typen). Wechsel Karussell→Reel D1018c „POV: Du vergisst, dass da eine Kamera ist“, Track chill-bro (neu). Test-Variable: Hook-Typ (POV, aus Teil E).
