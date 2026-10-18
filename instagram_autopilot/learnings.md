@@ -236,3 +236,6 @@
 
 ## Dating – CD 18.10. (12:50)
 - Follower 59 (Δ 0 nach Reel D1018 am Morgen). Wechsel Reel→Karussell D1018b „Das ist kein Fotoshooting“ (Kernsatz Gespräch mit Kamera), 1 von 5 Folien KI. Test-Variable: Hook-Typ (Kontrast).
+
+## Tribe – CD 18.10. (16:48)
+- Follower 1290 (+1). Nach Reel T29 → Karussell T30 im Flyer-Stil: eigenes Event (Tribe Kennenlernabend heute 19 Uhr) als Aufhänger, nur Community-Fotos, 2 von 5 Folien S/W. Variable: Titel-Event (eigenes Tribe-Event statt fremder Events).
