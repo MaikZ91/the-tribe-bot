@@ -249,3 +249,9 @@
 - Bestätigt: nichts (zu wenig Signal ohne Insights). Verworfen: keine Regel – aber 3 Posts/Tag bringen ohne Reichweitendaten keinen messbaren Effekt.
 - Experimente KW 43 (je eine Variable): 1) Mini-Doku mit echten Shooting-Clips, sobald Maik Clips liefert (variable: format). 2) POV-/Kernsatz-Hooks gegen Frage-Hooks (variable: hook_style). 3) Reels 10–15 s statt 18 s (variable: length). 4) Kommentar-CTA „CHECK“ vs. „Link in Bio“ (variable: cta).
 - Tribe: Takt läuft (9 Posts seit 12.10., heute Reel T29 + Karussell T30), Follower 1287 → 1290.
+
+## Tagesauswertung 18.10.2026
+- @natuerlich.du.ms: Follower 59 (Δ 0). Post-Metriken n/a (Token ohne Insights). Heute 3 Posts (Reel D1018 Kernsatz, Karussell D1018b Kontrast, Reel D1018c POV) – kein Follower-Effekt.
+- @ki.fuer.dein.business: Konto läuft jetzt als @natuerlich.du.ms → n/a.
+- @the_tribe.bi.ms: Follower 1290 (+2). T25 Samstag-Karussell 197 Reichweite / 431 Views (verdoppelt seit gestern), T26 Coffee-Walk-Reel 56 / 86, T29 Polaroid-Reel 47 / 65 (Watch-Ratio 0.38), T24 App-Reel 43 / 66, T30 Kennenlernabend-Karussell nach 2 h: 0 (Insights hinken).
+- Hypothese: Bei Tribe erreichen Karussells mit Menschen derzeit 3–4× mehr als die selbstgebauten Reels (197 vs. 43–56). Reels werden kaum an Nicht-Follower ausgespielt → morgen App-Post als Karussell (Community-Fotos + App-Screenshot) statt Reel, Reel-Hooks kürzer und mit Bewegung im 1. Frame.
