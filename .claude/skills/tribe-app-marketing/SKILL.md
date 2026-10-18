@@ -98,3 +98,6 @@ Dateien: `tribe_autopilot/footage/referenz/250-mitglieder.mp4` (13,6 s) und `wan
 - **Ruhiges Ende** (10,7–13,6 s): ein Polaroid, Text „AUF DIE NÄCHSTEN 250 · THE TRIBE · Werde Teil der Community · Link in …“, ~3 s stehen lassen.
 - **Wandersamstag-Intro**: Landschaft (weiter Himmel) als ruhiger Start, **Whip-/Licht-Wisch-Übergang** und **weiße Blitzbalken** als Schnitt, dann Selfies mit **Bewegungsunschärfe-Übergängen**, Titel zweizeilig „TRIBE“ (weiß) + Eventname in Gelb/Kupfer-Serif, Unterzeile „Immer am 3. Samstag im Monat · Anmeldung in der Community“; feste Kopfzeile (schwarzer Balken mit Termin) + „THE TRIBE“-Label in der Ecke über die ganze Länge. **Ohne @-Namen** (keine Markierungen – Regel).
 - Rhythmus allgemein: Hook ≤ 1 s, Schnitte im Takt (0,5–0,7 s in der Mitte), Ende 2–3 s stehen. Kurz halten (7–15 s).
+
+## App-Posts nie nur App (Maik 18.10.)
+App-Vorschau-Bilder, App-Karussells und App-Reels zeigen immer auch echte Community-Fotos (mind. jede 2. Folie bzw. Szene; Titelbild = Menschen, Screenshot als Handy darüber oder daneben). Botschaft: Events finden **und** Leute finden. Link-Vorschau der App (`docs/tribe/og.jpg`) ist entsprechend gebaut.
