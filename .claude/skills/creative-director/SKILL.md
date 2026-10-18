@@ -19,7 +19,7 @@ Der Creative Director entscheidet selbst und datenbasiert (`learnings.md`, `data
 - **@natuerlich.du.ms** (`instagram_autopilot/`, Workflow `ig-autopilot-post.yml`): Maik, Männerfotograf Münster – Dating-Fotos wie im echten Leben. Angebot nur: 1 Stunde · ab 99 € · noch am selben Tag fertig bearbeitet · Münster · zahlen nur, wenn zufrieden. Stimme: Ich-Form, ehrlich, ruhig, kurze Sätze, Problem → Gedanke → Angebot. → Teil C
 
 ## 3. Stil
-- **Tribe:** schwarzer, minimalistischer Flyer-Look (Referenz `tribe_autopilot/coffee_walk/flyer.png`): schwarze Flächen, weiße Headlines (Geist Bold; Oswald für Versalien-Zeilen), Kupfer #c99669 als einziger Akzent, viel Raum. **Fotos in Farbe** (leicht zurückgenommen, `photo_grade` 0.85) – Schwarz-Weiß nur als einzelner Akzent. Menschen zuerst, nie mit Produkt/Logo/Text-Wand starten.
+- **Tribe:** schwarzer, minimalistischer Flyer-Look (Referenz `tribe_autopilot/coffee_walk/flyer.png`): schwarze Flächen, weiße Headlines (Geist Bold; Oswald für Versalien-Zeilen), Kupfer #c99669 als einziger Akzent, viel Raum. **Farbe und Schwarz-Weiß mischen** (Maik 18.10.): überwiegend Farbe (leicht zurückgenommen, `photo_grade` 0.85), aber regelmäßig Schwarz-Weiß dazwischen – etwa jedes 3.–4. Foto bzw. jede 3.–4. Szene, ab und zu auch ein ganzer Post in Schwarz-Weiß. Im Render: `"bg": "images/x.jpg#bw"`. Menschen zuerst, nie mit Produkt/Logo/Text-Wand starten.
 - **Dating:** echte Fotos (`echt-*`) und KI-Stilbilder (`stil-*`, immer gelabelt „Stil-Inspiration · KI-generiert“ + Hinweis in der Caption) mischen; kein Titelbild der letzten 6 Posts; `bg_exclude` beachten; echte Fotos nie als Kundenergebnis, kein Vorher/Nachher.
 
 ## 4. Bilder, Clips, Musik
@@ -119,7 +119,7 @@ Jeder Tribe-Post verweist auf die Community: Caption endet automatisch mit `capt
 Referenz: `tribe_autopilot/coffee_walk/flyer.png`. Gilt für ALLE Tribe-Posts, Reels und Storys.
 - Schwarz (#000) als Fläche, Text weiß (#f5f3ee), einziger Akzent Kupfer #c99669. Kein Neon, kein Lila, kein Amber.
 - Schrift: Geist Bold für Headlines (groß, eng), Oswald (`tribe_autopilot/fonts/Oswald.ttf`) für Versalien-Zeilen wie „GUTE LEUTE.“, Geist Regular für Fließtext. Viel Leerraum.
-- Fotos/Clips **in Farbe** (Maik 18.10.: nicht nur Schwarz-Weiß), nur leicht zurückgenommen und kontrastreicher (Render: `photo_grade` Sättigung 0.85; eigene Reel-Skripte ähnlich). Schwarz-Weiß höchstens als einzelnes Stilmittel (z. B. ein Polaroid), nie durchgehend. Schwarz ist die Fläche/Typo, nicht der Fotofilter.
+- Fotos/Clips: Farbe und Schwarz-Weiß mischen (Maik 18.10.) – überwiegend Farbe (Sättigung 0.85), regelmäßig S/W dazwischen (ca. jedes 3.–4. Bild/Szene, ab und zu ein ganzer S/W-Post). Render: `"bg": "images/x.jpg#bw"`; eigene Reel-Skripte: Sättigung 0 für S/W-Szenen.
 - **Immer Menschen zuerst** – kein Einstieg mit Produkt, Kaffeemaschine, Logo oder Text-Wand. Tribe ist Community fürs Ausgehen.
 - Ende jedes Reels: Community · Link in Bio.
 

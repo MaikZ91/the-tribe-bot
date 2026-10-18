@@ -62,12 +62,15 @@ _PHOTOS: dict = {}
 
 def photo(path: str) -> Image.Image:
     if path not in _PHOTOS:
-        im = Image.open(ROOT / path).convert("RGB")
+        bw = path.endswith("#bw")                 # "images/x.jpg#bw": this slide in black and white
+        im = Image.open(ROOT / path.removesuffix("#bw")).convert("RGB")
         g = CONFIG.get("photo_grade")          # per-account look, e.g. the Tribe's muted black-and-white style
         if g:
             im = ImageEnhance.Color(im).enhance(g.get("saturation", 1.0))
             im = ImageEnhance.Contrast(im).enhance(g.get("contrast", 1.0))
             im = ImageEnhance.Brightness(im).enhance(g.get("brightness", 1.0))
+        if bw:
+            im = ImageEnhance.Color(im).enhance(0.0)
         _PHOTOS[path] = im
     return _PHOTOS[path]
 
