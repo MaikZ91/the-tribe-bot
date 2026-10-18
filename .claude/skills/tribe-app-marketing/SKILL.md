@@ -68,7 +68,7 @@ Jeder Tribe-Post verweist auf die Community: Caption endet automatisch mit `capt
 Referenz: `tribe_autopilot/coffee_walk/flyer.png`. Gilt für ALLE Tribe-Posts, Reels und Storys.
 - Schwarz (#000) als Fläche, Text weiß (#f5f3ee), einziger Akzent Kupfer #c99669. Kein Neon, kein Lila, kein Amber.
 - Schrift: Geist Bold für Headlines (groß, eng), Oswald (`tribe_autopilot/fonts/Oswald.ttf`) für Versalien-Zeilen wie „GUTE LEUTE.“, Geist Regular für Fließtext. Viel Leerraum.
-- Fotos/Clips entsättigt, kontrastreich (Render macht das über `photo_grade` in der Config automatisch; eigene Reel-Skripte: Sättigung ≈ 0.15–0.6, Kontrast +15 %).
+- Fotos/Clips **in Farbe** (Maik 18.10.: nicht nur Schwarz-Weiß), nur leicht zurückgenommen und kontrastreicher (Render: `photo_grade` Sättigung 0.85; eigene Reel-Skripte ähnlich). Schwarz-Weiß höchstens als einzelnes Stilmittel (z. B. ein Polaroid), nie durchgehend. Schwarz ist die Fläche/Typo, nicht der Fotofilter.
 - **Immer Menschen zuerst** – kein Einstieg mit Produkt, Kaffeemaschine, Logo oder Text-Wand. Tribe ist Community fürs Ausgehen.
 - Ende jedes Reels: Community · Link in Bio.
 
@@ -100,4 +100,4 @@ Dateien: `tribe_autopilot/footage/referenz/250-mitglieder.mp4` (13,6 s) und `wan
 - Rhythmus allgemein: Hook ≤ 1 s, Schnitte im Takt (0,5–0,7 s in der Mitte), Ende 2–3 s stehen. Kurz halten (7–15 s).
 
 ## App-Posts nie nur App (Maik 18.10.)
-App-Vorschau-Bilder, App-Karussells und App-Reels zeigen immer auch echte Community-Fotos (mind. jede 2. Folie bzw. Szene; Titelbild = Menschen, Screenshot als Handy darüber oder daneben). Botschaft: Events finden **und** Leute finden. Link-Vorschau der App (`docs/tribe/og.jpg`) ist entsprechend gebaut.
+Gemeint sind die App-Posts auf Instagram: App-Karussells und App-Reels zeigen immer auch echte Community-Fotos (mind. jede 2. Folie bzw. Szene; Titelbild = Menschen, Screenshot als Handy darüber oder daneben). Botschaft: Events finden **und** Leute finden. Link-Vorschau der App (`docs/tribe/og.jpg`) ist entsprechend gebaut.
