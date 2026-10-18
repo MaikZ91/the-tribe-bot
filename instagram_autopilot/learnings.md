@@ -233,3 +233,6 @@
 
 ## Tribe – App-/Vormittags-Lauf 18.10. (10:48)
 - Daten: Menschen/„neu in der Stadt“ 490–625 Reichweite vs. App-Videos 25–56. Posten T29 „Neu in der Stadt?“ (Konzept Collage-Hook + Polaroid-Folge + Loop, nur Community-Fotos in Farbe, DJ-Bild als S/W-Akzent), Track take-this-higher. Variable: Konzept (Collage/Polaroid, erstmals).
+
+## Dating – CD 18.10. (12:50)
+- Follower 59 (Δ 0 nach Reel D1018 am Morgen). Wechsel Reel→Karussell D1018b „Das ist kein Fotoshooting“ (Kernsatz Gespräch mit Kamera), 1 von 5 Folien KI. Test-Variable: Hook-Typ (Kontrast).
