@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-18
 
-Follower: **59** · Beiträge: 24
+Follower: **59** · Beiträge: 26
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -19,6 +19,8 @@ Follower: **59** · Beiträge: 24
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | – | – | – | – | – | – | – | 0.0 |
 | D1017b-null-auf-zehn | foto-reel | keine-matches | beleg | – | – | – | – | – | – | – | 0.0 |
 | D1017c-vier-fotos | maik-text | nur-ein-bild | frage | – | – | – | – | – | – | – | 0.0 |
+| D1018-luft-anhalten | foto-reel | schlechte-selfies | kernsatz | – | – | – | – | – | – | – | 0.0 |
+| D1018b-gespraech-mit-kamera | maik-text | unsicher-vor-kamera | kontrast | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -28,7 +30,7 @@ Follower: **59** · Beiträge: 24
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
 | keine-matches | 0.0 | 0.0 | 0.00 | 3 | – |
-| unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 2 | – |
+| unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 3 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -36,6 +38,7 @@ Follower: **59** · Beiträge: 24
 | schlechte-fotos | 0.0 | 0.0 | 0.00 | 1 | – |
 | wo-shooten | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-bild | 0.0 | 0.0 | 0.00 | 1 | – |
+| schlechte-selfies | 0.0 | 0.0 | 0.00 | 1 | – |
 
 **Stärkster Pain:** media  
 **Nächstes Tool bauen für:** media  
@@ -59,7 +62,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=6)
+- ≥ 90 min: Ø Reichweite 0.0 (n=7)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -81,7 +84,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=12)
+- dating: 0.00 (n=14)
 
 ## Ø Interesse nach format
 
@@ -91,15 +94,15 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=5)
-- foto-reel: 0.00 (n=3)
+- maik-text: 0.00 (n=6)
+- foto-reel: 0.00 (n=4)
 
 ## Ø Interesse nach hook_style
 
 - problem: 0.00 (n=2)
 - szene: 0.00 (n=2)
 - so-gehts: 0.00 (n=1)
-- kontrast: 0.00 (n=1)
+- kontrast: 0.00 (n=2)
 - aufforderung: 0.00 (n=1)
 - liste: 0.00 (n=2)
 - aussage: 0.00 (n=1)
@@ -107,6 +110,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - frage: 0.00 (n=2)
 - versprechen: 0.00 (n=1)
 - beleg: 0.00 (n=1)
+- kernsatz: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
@@ -114,7 +118,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
 - keine-matches: 0.00 (n=3)
-- unsicher-vor-kamera: 0.00 (n=2)
+- unsicher-vor-kamera: 0.00 (n=3)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
@@ -122,6 +126,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - schlechte-fotos: 0.00 (n=1)
 - wo-shooten: 0.00 (n=1)
 - nur-ein-bild: 0.00 (n=1)
+- schlechte-selfies: 0.00 (n=1)
 
 ## Ø Interesse nach local_time
 
@@ -138,11 +143,14 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 12:58: 0.00 (n=1)
 - 18:58: 0.00 (n=1)
 - 13:01: 0.00 (n=1)
+- 07:59: 0.00 (n=1)
+- 12:55: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=11)
+- bed: 0.00 (n=12)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
 - track:summers-here.mp3: 0.00 (n=1)
+- track:lo-fi-03.mp3: 0.00 (n=1)
