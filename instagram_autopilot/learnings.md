@@ -227,3 +227,6 @@
 - @ki.fuer.dein.business: kein eigener Datensatz im Repo → n/a.
 - @the_tribe.bi.ms: Follower 1289 (Δ +3 zum 16.10.). T25 Samstag-Karussell (Community-Hook) 95 Reichweite / 207 Views / 1 Like – schwächer als Anlass-Karussells (150–256). Videos schwach: T23 56, T24 25 Reichweite (Watch-Ratio ~0.38); T26 Coffee Walk nach 1 h noch 0 (Insights hinken nach). Bestes bleibt T04 „Ersti-Wochenende“ 625.
 - Hypothese morgen: Was „neu in Bielefeld“ + Menschen zeigt (T04/T01/T02, 490–625) schlägt App-/Feature-Videos (25–56) um das 10-fache. Tribe-Reel im neuen Flyer-Stil mit Hook „Neu in Bielefeld?“ und Menschen-Clips testen, App nur im CTA.
+
+## Dating – CD 18.10. (07:50)
+- Follower 59 (Δ 0 über D1017/b/c, alle Themen flach). Wechsel Karussell→Reel D1018 „Beim Selfie hältst du die Luft an“ (Kernsatz T1 als Hook), Track lo-fi-03 (neu). Test-Variable: Hook-Typ (Kernsatz).
