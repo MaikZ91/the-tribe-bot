@@ -242,3 +242,10 @@
 
 ## Dating – CD 18.10. (18:50)
 - Follower 59 (Δ 0 über 6 Hook-Typen). Wechsel Karussell→Reel D1018c „POV: Du vergisst, dass da eine Kamera ist“, Track chill-bro (neu). Test-Variable: Hook-Typ (POV, aus Teil E).
+
+## Wochen-Strategie 18.10.2026 (KW 42)
+- Konto: Das frühere @ki.fuer.dein.business läuft inzwischen als @natuerlich.du.ms (Dating-Fotos Münster); Health/Gastro-Nischen sind ruhend → Strategie bezieht sich auf Dating.
+- Zahlen: Follower 56 → 59 (+3; Vorwoche +0). Posts 22 (Vorwoche 5). Post-Metriken n/a (Token ohne instagram_manage_insights). Zuwachs kam 13.–15.10. (Reels/Karussell mit Maiks Geschichte), seit 16.10. trotz 3 Posts/Tag flach.
+- Bestätigt: nichts (zu wenig Signal ohne Insights). Verworfen: keine Regel – aber 3 Posts/Tag bringen ohne Reichweitendaten keinen messbaren Effekt.
+- Experimente KW 43 (je eine Variable): 1) Mini-Doku mit echten Shooting-Clips, sobald Maik Clips liefert (variable: format). 2) POV-/Kernsatz-Hooks gegen Frage-Hooks (variable: hook_style). 3) Reels 10–15 s statt 18 s (variable: length). 4) Kommentar-CTA „CHECK“ vs. „Link in Bio“ (variable: cta).
+- Tribe: Takt läuft (9 Posts seit 12.10., heute Reel T29 + Karussell T30), Follower 1287 → 1290.
