@@ -86,3 +86,6 @@ Nur Mixkit-Clips/Musik, echte Events/Fotos, keine erfundenen Zahlen, keine Compu
 
 ## Coffee Walk jeden Samstag (Maik 17.10.)
 Jeden **Samstag** ist der Coffee Walk (findet sonntags statt) Teil des Postings – als eigenes Reel/Karussell oder als fester Bestandteil des Samstags-Posts. Vorlage: `coffee_walk/` (Flyer, `build_living_flyer.py`). Konzept variieren, Flyer-Look behalten. **Clips müssen zum Thema passen**: Leute mit Coffee to go in der Stadt, Café-Szenen, Stadtspaziergang – kein Campus, keine Rucksack-/Schulszenen, nichts Unpassendes. Freigegebene Clips: Mixkit 46650 (Freundinnen mit Coffee to go), 21358 (Altstadtgasse), 43247 (Café).
+
+## Eigene Community-Fotos zuerst (Maik 18.10.)
+Echte Tribe-Fotos (`tribe_autopilot/images/`, FREIGEGEBEN.json) sind der stärkste Content – Menschen aus der Community. Jeder Post zeigt mindestens ein echtes Community-Foto, Titelbild bevorzugt eins davon. Noch nie genutzte Fotos zuerst (in state.json `images` prüfen), z. B. die Wanderbilder (nur einmal als Hintergrund in T21) und die 15 neuen vom 18.10. Event-Bilder aus events.json nur ergänzend.
