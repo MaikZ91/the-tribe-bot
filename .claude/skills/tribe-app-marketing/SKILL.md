@@ -89,3 +89,12 @@ Jeden **Samstag** ist der Coffee Walk (findet sonntags statt) Teil des Postings 
 
 ## Eigene Community-Fotos zuerst (Maik 18.10.)
 Echte Tribe-Fotos (`tribe_autopilot/images/`, FREIGEGEBEN.json) sind der stärkste Content – Menschen aus der Community. Jeder Post zeigt mindestens ein echtes Community-Foto, Titelbild bevorzugt eins davon. Noch nie genutzte Fotos zuerst (in state.json `images` prüfen), z. B. die Wanderbilder (nur einmal als Hintergrund in T21) und die 15 neuen vom 18.10. Event-Bilder aus events.json nur ergänzend.
+
+## Schnitt-Referenzen aus Maiks eigenen Reels (18.10.) – Pflichtlektüre für den Creative Director
+Dateien: `tribe_autopilot/footage/referenz/250-mitglieder.mp4` (13,6 s) und `wandersamstag-intro-screen.mp4` (7 s). Vor jedem Reel ansehen (Frames ziehen), Techniken übernehmen und kombinieren:
+- **Zähler über Foto-Collage** (250 Mitglieder, 0–3,5 s): Mosaik aus vielen echten Community-Fotos, große weiße Zahl zählt hoch (22 → 70 → … → 250), Kacheln wechseln dabei. Für Meilensteine, „X Leute heute unterwegs“, „X Events heute“ (echte Zahlen!).
+- **Polaroid-Rahmen auf weichgezeichnetem Hintergrund** (3,5–10 s): Foto im weißen Sofortbild-Rahmen mit kleinem ♡ unten, dahinter dasselbe Bild groß, unscharf, abgedunkelt. Text mittig im Polaroid („DANKE, dass ihr dabei seid.“). Schwarz-Weiß ↔ Farbe als Stilmittel.
+- **Schnelle Polaroid-Folge** (8–10,7 s): Collage-Flash (1 Frame), dann alle ~0,6 s ein neues Polaroid – Tempo zieht zum Schluss an.
+- **Ruhiges Ende** (10,7–13,6 s): ein Polaroid, Text „AUF DIE NÄCHSTEN 250 · THE TRIBE · Werde Teil der Community · Link in …“, ~3 s stehen lassen.
+- **Wandersamstag-Intro**: Landschaft (weiter Himmel) als ruhiger Start, **Whip-/Licht-Wisch-Übergang** und **weiße Blitzbalken** als Schnitt, dann Selfies mit **Bewegungsunschärfe-Übergängen**, Titel zweizeilig „TRIBE“ (weiß) + Eventname in Gelb/Kupfer-Serif, Unterzeile „Immer am 3. Samstag im Monat · Anmeldung in der Community“; feste Kopfzeile (schwarzer Balken mit Termin) + „THE TRIBE“-Label in der Ecke über die ganze Länge. **Ohne @-Namen** (keine Markierungen – Regel).
+- Rhythmus allgemein: Hook ≤ 1 s, Schnitte im Takt (0,5–0,7 s in der Mitte), Ende 2–3 s stehen. Kurz halten (7–15 s).
