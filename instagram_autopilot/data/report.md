@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-18
 
-Follower: **59** · Beiträge: 26
+Follower: **59** · Beiträge: 27
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -21,6 +21,7 @@ Follower: **59** · Beiträge: 26
 | D1017c-vier-fotos | maik-text | nur-ein-bild | frage | – | – | – | – | – | – | – | 0.0 |
 | D1018-luft-anhalten | foto-reel | schlechte-selfies | kernsatz | – | – | – | – | – | – | – | 0.0 |
 | D1018b-gespraech-mit-kamera | maik-text | unsicher-vor-kamera | kontrast | – | – | – | – | – | – | – | 0.0 |
+| D1018c-pov-kamera-vergessen | foto-reel | unsicher-vor-kamera | pov | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -30,7 +31,7 @@ Follower: **59** · Beiträge: 26
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
 | keine-matches | 0.0 | 0.0 | 0.00 | 3 | – |
-| unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 3 | – |
+| unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 4 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -62,7 +63,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=7)
+- ≥ 90 min: Ø Reichweite 0.0 (n=8)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -84,7 +85,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=14)
+- dating: 0.00 (n=15)
 
 ## Ø Interesse nach format
 
@@ -95,7 +96,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
 - maik-text: 0.00 (n=6)
-- foto-reel: 0.00 (n=4)
+- foto-reel: 0.00 (n=5)
 
 ## Ø Interesse nach hook_style
 
@@ -111,6 +112,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - versprechen: 0.00 (n=1)
 - beleg: 0.00 (n=1)
 - kernsatz: 0.00 (n=1)
+- pov: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
@@ -118,7 +120,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
 - keine-matches: 0.00 (n=3)
-- unsicher-vor-kamera: 0.00 (n=3)
+- unsicher-vor-kamera: 0.00 (n=4)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
@@ -145,6 +147,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 13:01: 0.00 (n=1)
 - 07:59: 0.00 (n=1)
 - 12:55: 0.00 (n=1)
+- 18:56: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
@@ -154,3 +157,4 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - track:recline-and-chill.mp3: 0.00 (n=1)
 - track:summers-here.mp3: 0.00 (n=1)
 - track:lo-fi-03.mp3: 0.00 (n=1)
+- track:chill-bro.mp3: 0.00 (n=1)
