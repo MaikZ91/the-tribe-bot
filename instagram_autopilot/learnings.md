@@ -230,3 +230,6 @@
 
 ## Dating – CD 18.10. (07:50)
 - Follower 59 (Δ 0 über D1017/b/c, alle Themen flach). Wechsel Karussell→Reel D1018 „Beim Selfie hältst du die Luft an“ (Kernsatz T1 als Hook), Track lo-fi-03 (neu). Test-Variable: Hook-Typ (Kernsatz).
+
+## Tribe – App-/Vormittags-Lauf 18.10. (10:48)
+- Daten: Menschen/„neu in der Stadt“ 490–625 Reichweite vs. App-Videos 25–56. Posten T29 „Neu in der Stadt?“ (Konzept Collage-Hook + Polaroid-Folge + Loop, nur Community-Fotos in Farbe, DJ-Bild als S/W-Akzent), Track take-this-higher. Variable: Konzept (Collage/Polaroid, erstmals).
