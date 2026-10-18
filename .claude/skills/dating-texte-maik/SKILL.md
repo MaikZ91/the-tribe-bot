@@ -113,3 +113,6 @@ Nie andere Accounts markieren oder erwähnen: keine @-Namen in Caption oder Foli
 - Offen zeigen, dass Maik KI als Technologie einsetzt (Bearbeitung, Tempo, Stil-Ideen) – das gehört zur Marke „Maik mit KI“. Die Fotos selbst bleiben echte Fotos von echten Menschen.
 - Rotation der Posts: 1) Persönliches teilen (Maiks Geschichte, Gedanken) → 2) Mehrwert (z. B. „So baust du ein gutes Dating-Profil auf“, Fototypen, Fehler im Profil) → 3) Ablauf/Angebot. Statistiken nur mit geprüfter Quelle (Quelle in der Caption nennen); sonst ohne Zahl.
 - Erster Post nach dem Interview: Maiks Geschichte („Ich hab Geld für Boosts ausgegeben. Gebracht hat es nichts.“).
+
+## Virale Reels (18.10.)
+Vor jedem Reel `instagram_autopilot/VIRAL_REELS.md` lesen und die Checkliste (Abschnitt 6) abhaken.

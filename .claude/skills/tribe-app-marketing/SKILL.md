@@ -101,3 +101,6 @@ Dateien: `tribe_autopilot/footage/referenz/250-mitglieder.mp4` (13,6 s) und `wan
 
 ## App-Posts nie nur App (Maik 18.10.)
 Gemeint sind die App-Posts auf Instagram: App-Karussells und App-Reels zeigen immer auch echte Community-Fotos (mind. jede 2. Folie bzw. Szene; Titelbild = Menschen, Screenshot als Handy darüber oder daneben). Botschaft: Events finden **und** Leute finden. Link-Vorschau der App (`docs/tribe/og.jpg`) ist entsprechend gebaut.
+
+## Virale Reels (18.10.)
+Vor jedem Reel `instagram_autopilot/VIRAL_REELS.md` lesen und die Checkliste (Abschnitt 6) abhaken.
