@@ -261,3 +261,6 @@
 
 ## Tribe – App-Post 19.10. (10:48)
 - App-Reels 25–56 Reichweite, Karussells mit Menschen 95–197 → erster App-Post als Karussell T31 „Ich bin unterwegs“ (Feature-Rotation nach Stadtpuls): 2 Folien Community-Foto + echter App-Screenshot im Handy (neue Slide-Art „full“), Titel + CTA mit Community-Fotos. Variable: Medium (App-Karussell statt App-Reel).
+
+## Dating – CD 19.10. (12:50)
+- Follower 59 (Δ 0 nach Geschichte-Karussell D1019 heute früh). Wechsel → Reel D1019b „Kumpel-Shooting“ (Geschichte), 13,9 s statt ~18 s, Track talent-in-the-air (neu). Test-Variable: Länge. KI-Stilbild nur auf CTA-Folie, nie neben Aussagen über Maik/Ergebnisse.
