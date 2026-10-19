@@ -258,3 +258,6 @@
 
 ## Dating – CD 19.10. (07:50)
 - Follower 59 (Δ 0 über 9 Posts mit Hook-Tests seit 16.10.). Einziger Zuwachs 13.–15.10. mit Maiks Geschichte → Karussell D1019 „Ich habe KI-Profilbilder ausprobiert“ (Geschichte, neues Kapitel), nur echte Fotos. Test-Variable: Thema (Geschichte statt Hook-Variation).
+
+## Tribe – App-Post 19.10. (10:48)
+- App-Reels 25–56 Reichweite, Karussells mit Menschen 95–197 → erster App-Post als Karussell T31 „Ich bin unterwegs“ (Feature-Rotation nach Stadtpuls): 2 Folien Community-Foto + echter App-Screenshot im Handy (neue Slide-Art „full“), Titel + CTA mit Community-Fotos. Variable: Medium (App-Karussell statt App-Reel).

@@ -869,6 +869,12 @@ RENDERERS = {"beat": slide_beat, "logo": slide_logo, "hook": slide_hook, "point"
 
 
 def draw_slide(canvas: Canvas, s: dict, t: float, dur: float, page: str | None = None) -> Image.Image:
+    if s["kind"] == "full":     # a finished slide image (e.g. app screenshot in a phone), shown as it is
+        im = Image.open(ROOT / s["image"]).convert("RGB")
+        sc = max(W / im.width, canvas.h / im.height)
+        im = im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS)
+        x, y = (im.width - W) // 2, (im.height - canvas.h) // 2
+        return im.crop((x, y, x + W, y + canvas.h)).convert("RGBA")
     bg = s.get("bg")
     use_theme(bool(bg))
     p = min(1.0, t / max(dur, 0.1))
