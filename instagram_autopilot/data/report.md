@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-19
 
-Follower: **59** · Beiträge: 29
+Follower: **58** · Beiträge: 30
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -24,6 +24,7 @@ Follower: **59** · Beiträge: 29
 | D1018c-pov-kamera-vergessen | foto-reel | unsicher-vor-kamera | pov | – | – | – | – | – | – | – | 0.0 |
 | D1019-ki-profilbilder | maik-text | keine-matches | geschichte | – | – | – | – | – | – | – | 0.0 |
 | D1019b-kumpel-shooting | foto-reel | keine-matches | geschichte | – | – | – | – | – | – | – | 0.0 |
+| D1019c-unfair-verteilt | maik-text | keine-matches | haltung | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -32,7 +33,7 @@ Follower: **59** · Beiträge: 29
 | media | 0.0 | 0.0 | 0.00 | 1 | – |
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
-| keine-matches | 0.0 | 0.0 | 0.00 | 5 | – |
+| keine-matches | 0.0 | 0.0 | 0.00 | 6 | – |
 | unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 4 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -65,7 +66,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=9)
+- ≥ 90 min: Ø Reichweite 0.0 (n=10)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -75,7 +76,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/coach-training.jpg: 0.0 (n=1)
 - images/dating/stil-altstadt-laecheln.jpg: 0.0 (n=5)
 - images/dating/stil-dom-portrait.jpg: 0.0 (n=2)
-- images/dating/stil-hafen-pullover.jpg: 0.0 (n=2)
+- images/dating/stil-hafen-pullover.jpg: 0.0 (n=3)
 - images/dating/stil-treppe-ganzkoerper.jpg: 0.0 (n=2)
 - images/dating/echt-feld-arme.jpg: 0.0 (n=1)
 - images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=3)
@@ -87,7 +88,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=17)
+- dating: 0.00 (n=18)
 
 ## Ø Interesse nach format
 
@@ -97,7 +98,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=7)
+- maik-text: 0.00 (n=8)
 - foto-reel: 0.00 (n=6)
 
 ## Ø Interesse nach hook_style
@@ -115,13 +116,14 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - beleg: 0.00 (n=1)
 - kernsatz: 0.00 (n=1)
 - pov: 0.00 (n=1)
+- haltung: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
 - media: 0.00 (n=1)
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
-- keine-matches: 0.00 (n=5)
+- keine-matches: 0.00 (n=6)
 - unsicher-vor-kamera: 0.00 (n=4)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
@@ -142,7 +144,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 07:38: 0.00 (n=1)
 - 08:22: 0.00 (n=1)
 - 13:30: 0.00 (n=1)
-- 18:57: 0.00 (n=2)
+- 18:57: 0.00 (n=3)
 - 07:57: 0.00 (n=2)
 - 12:58: 0.00 (n=1)
 - 18:58: 0.00 (n=1)
@@ -155,7 +157,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=13)
+- bed: 0.00 (n=14)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
