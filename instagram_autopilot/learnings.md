@@ -267,3 +267,6 @@
 
 ## Tribe – CD 19.10. (16:48)
 - Follower 1292 (+2). T30 Kennenlernabend-Karussell 254 Reichweite / 585 Views (bestes seit T04). Wechsel → Reel T32 Konzept „Countdown zum Abend“ (neu, 9,2 s, echte Montags-Events, Community-Fotos, 1 S/W), Track house-vibes. Variable: Konzept.
+
+## Dating – CD 19.10. (18:50)
+- Follower 59 (Δ 0 nach D1019 + D1019b). Wechsel → Karussell D1019c „Matches sind unfair verteilt“ (Geschichte, Kapitel Warum/Haltung), KI-Stilbild nur auf CTA. Test-Variable: Thema.
