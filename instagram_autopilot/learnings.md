@@ -255,3 +255,6 @@
 - @ki.fuer.dein.business: Konto läuft jetzt als @natuerlich.du.ms → n/a.
 - @the_tribe.bi.ms: Follower 1290 (+2). T25 Samstag-Karussell 197 Reichweite / 431 Views (verdoppelt seit gestern), T26 Coffee-Walk-Reel 56 / 86, T29 Polaroid-Reel 47 / 65 (Watch-Ratio 0.38), T24 App-Reel 43 / 66, T30 Kennenlernabend-Karussell nach 2 h: 0 (Insights hinken).
 - Hypothese: Bei Tribe erreichen Karussells mit Menschen derzeit 3–4× mehr als die selbstgebauten Reels (197 vs. 43–56). Reels werden kaum an Nicht-Follower ausgespielt → morgen App-Post als Karussell (Community-Fotos + App-Screenshot) statt Reel, Reel-Hooks kürzer und mit Bewegung im 1. Frame.
+
+## Dating – CD 19.10. (07:50)
+- Follower 59 (Δ 0 über 9 Posts mit Hook-Tests seit 16.10.). Einziger Zuwachs 13.–15.10. mit Maiks Geschichte → Karussell D1019 „Ich habe KI-Profilbilder ausprobiert“ (Geschichte, neues Kapitel), nur echte Fotos. Test-Variable: Thema (Geschichte statt Hook-Variation).
