@@ -264,3 +264,6 @@
 
 ## Dating – CD 19.10. (12:50)
 - Follower 59 (Δ 0 nach Geschichte-Karussell D1019 heute früh). Wechsel → Reel D1019b „Kumpel-Shooting“ (Geschichte), 13,9 s statt ~18 s, Track talent-in-the-air (neu). Test-Variable: Länge. KI-Stilbild nur auf CTA-Folie, nie neben Aussagen über Maik/Ergebnisse.
+
+## Tribe – CD 19.10. (16:48)
+- Follower 1292 (+2). T30 Kennenlernabend-Karussell 254 Reichweite / 585 Views (bestes seit T04). Wechsel → Reel T32 Konzept „Countdown zum Abend“ (neu, 9,2 s, echte Montags-Events, Community-Fotos, 1 S/W), Track house-vibes. Variable: Konzept.
