@@ -270,3 +270,9 @@
 
 ## Dating – CD 19.10. (18:50)
 - Follower 59 (Δ 0 nach D1019 + D1019b). Wechsel → Karussell D1019c „Matches sind unfair verteilt“ (Geschichte, Kapitel Warum/Haltung), KI-Stilbild nur auf CTA. Test-Variable: Thema.
+
+## Tagesauswertung 19.10.2026
+- @natuerlich.du.ms: Follower 58 (Δ −1). Post-Metriken n/a (Token ohne Insights). Heute 3 Posts (Geschichte: KI-Profilbilder-Karussell, Kumpel-Reel 13,9 s, „unfair verteilt“-Karussell).
+- @ki.fuer.dein.business: läuft als @natuerlich.du.ms → n/a.
+- @the_tribe.bi.ms: Follower 1291 (−1). T30 Kennenlernabend-Karussell 281 Reichweite / 634 Views (bester Post seit T04), T25 228, T31 App-Karussell 140 / 298 nach 8 h (App-Reels bisher 25–56), T29 Polaroid-Reel 86, T32 Countdown-Reel n/a (frisch).
+- Hypothese: Tribe-Karussells mit Community-Fotos erreichen 2–5× mehr als Reels (140–281 vs. 43–86) – auch fürs App-Thema. Morgen Karussell statt Reel-Pflicht testen (Abwechslungsregel für Tribe aussetzen, Reels nur noch 1×/Tag).
