@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-20
 
-Follower: **57** · Beiträge: 30
+Follower: **58** · Beiträge: 31
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -25,6 +25,7 @@ Follower: **57** · Beiträge: 30
 | D1019-ki-profilbilder | maik-text | keine-matches | geschichte | – | – | – | – | – | – | – | 0.0 |
 | D1019b-kumpel-shooting | foto-reel | keine-matches | geschichte | – | – | – | – | – | – | – | 0.0 |
 | D1019c-unfair-verteilt | maik-text | keine-matches | haltung | – | – | – | – | – | – | – | 0.0 |
+| D1020-posieren | foto-reel | keine-matches | kernsatz | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -33,7 +34,7 @@ Follower: **57** · Beiträge: 30
 | media | 0.0 | 0.0 | 0.00 | 1 | – |
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
-| keine-matches | 0.0 | 0.0 | 0.00 | 6 | – |
+| keine-matches | 0.0 | 0.0 | 0.00 | 7 | – |
 | unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 4 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -81,14 +82,14 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/dating/echt-feld-arme.jpg: 0.0 (n=1)
 - images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=3)
 - images/dating/echt-gitarre-halde.jpg: 0.0 (n=1)
-- images/dating/echt-lachen-feld.jpg: 0.0 (n=1)
+- images/dating/echt-lachen-feld.jpg: 0.0 (n=2)
 
 ## Ø Interesse nach niche
 
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=18)
+- dating: 0.00 (n=19)
 
 ## Ø Interesse nach format
 
@@ -99,7 +100,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
 - maik-text: 0.00 (n=8)
-- foto-reel: 0.00 (n=6)
+- foto-reel: 0.00 (n=7)
 
 ## Ø Interesse nach hook_style
 
@@ -114,7 +115,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - frage: 0.00 (n=2)
 - versprechen: 0.00 (n=1)
 - beleg: 0.00 (n=1)
-- kernsatz: 0.00 (n=1)
+- kernsatz: 0.00 (n=2)
 - pov: 0.00 (n=1)
 - haltung: 0.00 (n=1)
 
@@ -123,7 +124,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - media: 0.00 (n=1)
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
-- keine-matches: 0.00 (n=6)
+- keine-matches: 0.00 (n=7)
 - unsicher-vor-kamera: 0.00 (n=4)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
@@ -154,6 +155,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 18:56: 0.00 (n=1)
 - 07:58: 0.00 (n=1)
 - 12:57: 0.00 (n=1)
+- 14:50: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
@@ -165,3 +167,4 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - track:lo-fi-03.mp3: 0.00 (n=1)
 - track:chill-bro.mp3: 0.00 (n=1)
 - track:talent-in-the-air.mp3: 0.00 (n=1)
+- track:summer-dream.mp3: 0.00 (n=1)
