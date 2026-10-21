@@ -279,3 +279,5 @@
 
 - 2026-10-20 (Nachholung 07:47/12:47 → ein Post): D1020-posieren, Foto-Reel 12 s, summer-dream. Follower 59→57 während Geschichte-Säule 17.–19.10. → Rotation zu Mehrwert; Test-Variable hook_style = Kernsatz („Wer posiert …“).
 - 2026-10-20 Tribe: T33 App-Reel „Frag THE TRIBE“ (echte Chat-Aufnahme, 3 Community-Szenen, 1 S/W, 13 s). Nach Karussell T31 Reel-Pflicht.
+
+- 2026-10-21 (Nachholung, 20.10. Nachmittag/Abend und 21.10. 07:47 verpasst – Session hing): D1021 Karussell „Die 4 Fotos“ (Follower 57→58 nach Mehrwert-Reel). Tribe T34 App-Karussell „Tribe Tonight“ (Wechsel nach Reel T33).
