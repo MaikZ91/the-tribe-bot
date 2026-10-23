@@ -287,3 +287,9 @@
 - 2026-10-23 12:47: D1023b Karussell „Boosts“ (Geschichte/Tiefpunkt, Geständnis-Hook). Follower 58.
 - 2026-10-23 Tribe 16:47: T36 Karussell „Freitag in 3 Akten“ (neues Konzept, Weekend Starter + echte Events, Community-Fotos, 1 S/W).
 - 2026-10-23 18:47: D1023c Foto-Reel „3 Dinge“ (Mehrwert, Listen-Hook im Reel, summers-here).
+
+### Tagesauswertung 2026-10-23
+- @natuerlich.du.ms: Follower 58 → 59 (+1; 21./22.10. flach bei 58). Heute 3 Posts: D1023 Reel Selfie vs. Moment, D1023b Karussell Boosts (Geständnis), D1023c Reel 3 Dinge. Reichweite/Views/Watch-Ratio: n/a (Token ohne instagram_manage_insights).
+- @the_tribe.bi.ms: Follower 1297 (21.10.) → 1298. Heute T35 App-Reel Abend bauen, T36 Karussell Freitag in 3 Akten. Post-Kennzahlen: n/a (Token).
+- 22.10. komplett ohne Posts (Session hing) – keine Follower-Veränderung an dem Tag.
+- Hypothese für morgen: Tage mit vollem 3er-Rhythmus Dating bringen +1, Ausfalltage 0 → Rhythmus halten; Samstag Tribe 10:47 = Coffee Walk T28.
