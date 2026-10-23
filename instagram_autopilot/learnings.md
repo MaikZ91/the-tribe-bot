@@ -286,3 +286,4 @@
 - 2026-10-23 Tribe: T35 App-Reel „Abend bauen“. Dabei Bug in docs/tribe gefunden + behoben: lokale Variable L in buildRoute() verdeckte Leaflet → Route-Bau warf TypeError, sobald Events Koordinaten hatten. Achtung: T34-CTA nutzte gruppe-altstadt-fest (Münster) – künftig FREIGEGEBEN.json-Notizen prüfen.
 - 2026-10-23 12:47: D1023b Karussell „Boosts“ (Geschichte/Tiefpunkt, Geständnis-Hook). Follower 58.
 - 2026-10-23 Tribe 16:47: T36 Karussell „Freitag in 3 Akten“ (neues Konzept, Weekend Starter + echte Events, Community-Fotos, 1 S/W).
+- 2026-10-23 18:47: D1023c Foto-Reel „3 Dinge“ (Mehrwert, Listen-Hook im Reel, summers-here).
