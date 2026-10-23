@@ -807,8 +807,8 @@ function drag(c){let x0=null,dx=0;const mv=ev=>{if(x0===null)return;dx=(ev.touch
   c.addEventListener('click',()=>{if(Math.abs(dx)<5)open(c.dataset.sid)})}
 let rmap;
 function buildRoute(){if(!LIKED.length){toast('Erst ein paar Events nach rechts wischen');return}
-  const L=[...LIKED].filter(e=>e.time).sort((a,b)=>toMin(a.time)-toMin(b.time));const R=[];let free=0;
-  L.forEach(e=>{const m=toMin(e.time);if(m>=free-15){R.push(e);free=m+(e.cat==='party'?180:100)}});
+  const LL=[...LIKED].filter(e=>e.time).sort((a,b)=>toMin(a.time)-toMin(b.time));const R=[];let free=0;
+  LL.forEach(e=>{const m=toMin(e.time);if(m>=free-15){R.push(e);free=m+(e.cat==='party'?180:100)}});
   if(!R.length){toast('Keine Uhrzeiten – merk sie dir einfach');return}
   R.forEach(e=>favs.add(e.id));saveFavs();
   let h='<div class="rt"><h2>Dein Abend</h2>';R.forEach((e,i)=>{if(i){const a=geo(R[i-1]),b=geo(e);h+=`<div class="rleg">${a&&b?'↓ ca. '+Math.max(1,Math.round(km(a,b)/5*60))+' min zu Fuß':'↓ weiter'}</div>`}
