@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-23
 
-Follower: **58** · Beiträge: 32
+Follower: **58** · Beiträge: 34
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -27,6 +27,8 @@ Follower: **58** · Beiträge: 32
 | D1019c-unfair-verteilt | maik-text | keine-matches | haltung | – | – | – | – | – | – | – | 0.0 |
 | D1020-posieren | foto-reel | keine-matches | kernsatz | – | – | – | – | – | – | – | 0.0 |
 | D1021-die-4-fotos | maik-text | keine-matches | liste | – | – | – | – | – | – | – | 0.0 |
+| D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | – | – | – | – | – | – | – | 0.0 |
+| D1023b-boosts | maik-text | keine-matches | geständnis | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -35,13 +37,13 @@ Follower: **58** · Beiträge: 32
 | media | 0.0 | 0.0 | 0.00 | 1 | – |
 | anfragen | 0.0 | 0.0 | 0.00 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 0.0 | 0.0 | 0.00 | 1 | – |
-| keine-matches | 0.0 | 0.0 | 0.00 | 8 | – |
+| keine-matches | 0.0 | 0.0 | 0.00 | 9 | – |
 | unsicher-vor-kamera | 0.0 | 0.0 | 0.00 | 4 | – |
 | zu-perfekt | 0.0 | 0.0 | 0.00 | 1 | – |
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
 | wirkt-steif | 0.0 | 0.0 | 0.00 | 1 | – |
-| schlechte-fotos | 0.0 | 0.0 | 0.00 | 1 | – |
+| schlechte-fotos | 0.0 | 0.0 | 0.00 | 2 | – |
 | wo-shooten | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-bild | 0.0 | 0.0 | 0.00 | 1 | – |
 | schlechte-selfies | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -68,7 +70,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=10)
+- ≥ 90 min: Ø Reichweite 0.0 (n=11)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -83,14 +85,14 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/dating/echt-feld-arme.jpg: 0.0 (n=1)
 - images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=4)
 - images/dating/echt-gitarre-halde.jpg: 0.0 (n=2)
-- images/dating/echt-lachen-feld.jpg: 0.0 (n=2)
+- images/dating/echt-lachen-feld.jpg: 0.0 (n=3)
 
 ## Ø Interesse nach niche
 
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=20)
+- dating: 0.00 (n=22)
 
 ## Ø Interesse nach format
 
@@ -100,15 +102,15 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - angebot-carousel: 0.00 (n=1)
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
-- maik-text: 0.00 (n=9)
-- foto-reel: 0.00 (n=7)
+- maik-text: 0.00 (n=10)
+- foto-reel: 0.00 (n=8)
 
 ## Ø Interesse nach hook_style
 
 - problem: 0.00 (n=2)
 - szene: 0.00 (n=2)
 - so-gehts: 0.00 (n=1)
-- kontrast: 0.00 (n=2)
+- kontrast: 0.00 (n=3)
 - aufforderung: 0.00 (n=1)
 - liste: 0.00 (n=3)
 - aussage: 0.00 (n=1)
@@ -119,19 +121,20 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - kernsatz: 0.00 (n=2)
 - pov: 0.00 (n=1)
 - haltung: 0.00 (n=1)
+- geständnis: 0.00 (n=1)
 
 ## Ø Interesse nach pain
 
 - media: 0.00 (n=1)
 - anfragen: 0.00 (n=1)
 - social-media: 0.00 (n=1)
-- keine-matches: 0.00 (n=8)
+- keine-matches: 0.00 (n=9)
 - unsicher-vor-kamera: 0.00 (n=4)
 - zu-perfekt: 0.00 (n=1)
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
 - wirkt-steif: 0.00 (n=1)
-- schlechte-fotos: 0.00 (n=1)
+- schlechte-fotos: 0.00 (n=2)
 - wo-shooten: 0.00 (n=1)
 - nur-ein-bild: 0.00 (n=1)
 - schlechte-selfies: 0.00 (n=1)
@@ -152,16 +155,17 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 18:58: 0.00 (n=1)
 - 13:01: 0.00 (n=1)
 - 07:59: 0.00 (n=1)
-- 12:55: 0.00 (n=1)
+- 12:55: 0.00 (n=2)
 - 18:56: 0.00 (n=1)
 - 07:58: 0.00 (n=1)
 - 12:57: 0.00 (n=1)
 - 14:50: 0.00 (n=1)
 - 14:48: 0.00 (n=1)
+- 08:01: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 0.00 (n=15)
+- bed: 0.00 (n=16)
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
@@ -170,3 +174,4 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - track:chill-bro.mp3: 0.00 (n=1)
 - track:talent-in-the-air.mp3: 0.00 (n=1)
 - track:summer-dream.mp3: 0.00 (n=1)
+- track:feeling-happy.mp3: 0.00 (n=1)
