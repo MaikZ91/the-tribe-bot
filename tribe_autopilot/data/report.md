@@ -1,24 +1,25 @@
-# Instagram-Report 2026-10-21
+# Instagram-Report 2026-10-23
 
-Follower: **1297** · Beiträge: 34
+Follower: **1298** · Beiträge: 35
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 636 | 1133 | 8 | 0 | 1 | 1 | – | 1181.0 |
-| T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 333 | 784 | 5 | 0 | 2 | 0 | – | 811.0 |
-| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 233 | 526 | 2 | 0 | 3 | 1 | – | 558.0 |
-| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 262 | 320 | 2 | 0 | 0 | 0 | 0.209 | 197.1 |
-| T32-montag-countdown | fertig-video | events | uhrzeit | 106 | 136 | 2 | 0 | 0 | 0 | 0.451 | 103.0 |
-| T24-app-animiert | fertig-video | app | video | 68 | 98 | 2 | 0 | 0 | 0 | 0.232 | 64.1 |
-| T34-app-tribe-tonight | app-carousel | app | frage | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
+| T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 645 | 1139 | 8 | 0 | 1 | 1 | – | 1187.0 |
+| T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 357 | 822 | 5 | 0 | 2 | 0 | – | 849.0 |
+| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 264 | 573 | 2 | 0 | 3 | 1 | – | 605.0 |
+| T34-app-tribe-tonight | app-carousel | app | frage | 130 | 299 | 1 | 0 | 0 | 0 | – | 302.0 |
+| T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 270 | 334 | 2 | 0 | 0 | 0 | 0.213 | 206.2 |
+| T32-montag-countdown | fertig-video | events | uhrzeit | 135 | 175 | 2 | 0 | 0 | 0 | 0.508 | 136.5 |
+| T24-app-animiert | fertig-video | app | video | 80 | 112 | 2 | 0 | 0 | 0 | 0.233 | 72.7 |
+| T35-app-abend-bauen | fertig-video | app | frage | 0 | 2 | 0 | 0 | 0 | 0 | – | 2.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
-| neu-in-bielefeld | 729.7 | 745.7 | 0.21 | 3 | – |
-| app | 207.4 | 208.0 | 0.23 | 3 | – |
-| events | 103.0 | 136.0 | 0.45 | 1 | – |
+| neu-in-bielefeld | 747.4 | 765.0 | 0.21 | 3 | – |
+| app | 245.4 | 246.5 | 0.23 | 4 | – |
+| events | 136.5 | 175.0 | 0.51 | 1 | – |
 
 **Stärkster Pain:** neu-in-bielefeld  
 **Nächstes Tool bauen für:** neu-in-bielefeld  
@@ -26,80 +27,81 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Hooks: was hält, was nicht
 
-- TOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.4 s von 21.02 s · Skip 75 · Reichweite 262
-- TOP T32-montag-countdown: „“ · Ø 4.15 s von 9.2 s · Skip 74.3 · Reichweite 106
-- TOP T24-app-animiert: „“ · Ø 4.65 s von 20.09 s · Skip 82.6 · Reichweite 68
-- FLOP T24-app-animiert: „“ · Ø 4.65 s · Skip 82.6 · Reichweite 68
-- FLOP T32-montag-countdown: „“ · Ø 4.15 s · Skip 74.3 · Reichweite 106
-- FLOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.4 s · Skip 75 · Reichweite 262
+- TOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.49 s von 21.02 s · Skip 73.7 · Reichweite 270
+- TOP T32-montag-countdown: „“ · Ø 4.67 s von 9.2 s · Skip 74.2 · Reichweite 135
+- TOP T24-app-animiert: „“ · Ø 4.67 s von 20.09 s · Skip 79.7 · Reichweite 80
+- FLOP T35-app-abend-bauen: „“ · Ø – s · Skip 0 · Reichweite 0
+- FLOP T24-app-animiert: „“ · Ø 4.67 s · Skip 79.7 · Reichweite 80
+- FLOP T32-montag-countdown: „“ · Ø 4.67 s · Skip 74.2 · Reichweite 135
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=0)
-- ≥ 90 min: Ø Reichweite 106.0 (n=1)
+- ≥ 90 min: Ø Reichweite 135.0 (n=1)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
-- images/rooftop-vier.jpg: 1181.0 (n=1)
-- images/club-drei-freunde.jpg#bw: 811.0 (n=1)
-- images/dinner-tischrunde-halle.jpg: 811.0 (n=1)
-- images/gitarre-live.jpg: 811.0 (n=1)
-- images/selfie-drei-schwarz.jpg#bw: 811.0 (n=1)
-- images/wandern-selfie-baum.jpg: 811.0 (n=1)
-- images/dinner-restaurant.jpg: 689.0 (n=2)
-- images/party-selfie-1.jpg: 689.0 (n=2)
-- images/party-selfie-2.jpg: 645.4 (n=3)
-- images/club-drei-freunde.jpg: 558.0 (n=1)
-- images/kneipe-selfie-gruppe.jpg: 197.1 (n=1)
-- images/rooftop-gruppe.jpg: 197.1 (n=1)
+- images/rooftop-vier.jpg: 1187.0 (n=1)
+- images/club-drei-freunde.jpg#bw: 849.0 (n=1)
+- images/dinner-tischrunde-halle.jpg: 849.0 (n=1)
+- images/gitarre-live.jpg: 849.0 (n=1)
+- images/selfie-drei-schwarz.jpg#bw: 849.0 (n=1)
+- images/wandern-selfie-baum.jpg: 849.0 (n=1)
+- images/dinner-restaurant.jpg: 696.6 (n=2)
+- images/party-selfie-1.jpg: 696.6 (n=2)
+- images/party-selfie-2.jpg: 666.1 (n=3)
+- images/club-drei-freunde.jpg: 605.0 (n=1)
+- images/bar-tisch-gespraech.jpg: 302.0 (n=1)
+- images/gruppe-altstadt-fest.jpg: 302.0 (n=1)
 
 ## Konto (heute)
 
-- reach: 1464
-- profile_views: 25
-- accounts_engaged: 6
-- website_clicks: 3
+- reach: 1277
+- profile_views: 22
+- accounts_engaged: 2
+- website_clicks: 2
 - follows_and_unfollows: None
-- engaged_cities: Bielefeld, Nordrhein-Westfalen (44), Münster, Nordrhein-Westfalen (29), Gütersloh, Nordrhein-Westfalen (5), Verl, Nordrhein-Westfalen (3), Greven, Nordrhein-Westfalen (3), Enger, Nordrhein-Westfalen (3), Emsdetten, Nordrhein-Westfalen (2), Rödinghausen, Nordrhein-Westfalen (1)
-- follower_cities: Bielefeld, Nordrhein-Westfalen (758), Münster, Nordrhein-Westfalen (57), Gütersloh, Nordrhein-Westfalen (23), Halle, Nordrhein-Westfalen (22), Steinhagen, Nordrhein-Westfalen (17), Herford, Nordrhein-Westfalen (16), Paderborn, Nordrhein-Westfalen (16), Oerlinghausen, Nordrhein-Westfalen (15)
+- engaged_cities: Bielefeld, Nordrhein-Westfalen (46), Münster, Nordrhein-Westfalen (25), Gütersloh, Nordrhein-Westfalen (5), Verl, Nordrhein-Westfalen (3), Greven, Nordrhein-Westfalen (3), Enger, Nordrhein-Westfalen (3), Emsdetten, Nordrhein-Westfalen (2), Hamm, Nordrhein-Westfalen (2)
+- follower_cities: Bielefeld, Nordrhein-Westfalen (753), Münster, Nordrhein-Westfalen (83), Gütersloh, Nordrhein-Westfalen (21), Halle, Nordrhein-Westfalen (20), Herford, Nordrhein-Westfalen (18), Steinhagen, Nordrhein-Westfalen (18), Oerlinghausen, Nordrhein-Westfalen (17), Werther, Nordrhein-Westfalen (15)
 
 ## Ø Interesse nach niche
 
-- None: 416.31 (n=7)
+- None: 420.05 (n=8)
 
 ## Ø Interesse nach format
 
-- event-carousel: 996.00 (n=2)
-- app-carousel: 279.00 (n=2)
-- event-reel: 197.10 (n=1)
-- fertig-video: 83.55 (n=2)
+- event-carousel: 1018.00 (n=2)
+- app-carousel: 453.50 (n=2)
+- event-reel: 206.20 (n=1)
+- fertig-video: 70.40 (n=3)
 
 ## Ø Interesse nach hook_style
 
-- neu-in-stadt: 1181.00 (n=1)
-- frage: 456.33 (n=3)
-- anlass: 197.10 (n=1)
-- uhrzeit: 103.00 (n=1)
-- video: 64.10 (n=1)
+- neu-in-stadt: 1187.00 (n=1)
+- frage: 439.50 (n=4)
+- anlass: 206.20 (n=1)
+- uhrzeit: 136.50 (n=1)
+- video: 72.70 (n=1)
 
 ## Ø Interesse nach pain
 
-- neu-in-bielefeld: 729.70 (n=3)
-- app: 207.37 (n=3)
-- events: 103.00 (n=1)
+- neu-in-bielefeld: 747.40 (n=3)
+- app: 245.43 (n=4)
+- events: 136.50 (n=1)
 
 ## Ø Interesse nach local_time
 
-- 17:42: 1181.00 (n=1)
-- 16:54: 811.00 (n=1)
-- 10:59: 558.00 (n=1)
-- 18:21: 197.10 (n=1)
-- 17:00: 103.00 (n=1)
-- 14:21: 64.10 (n=1)
-- 14:44: 0.00 (n=1)
+- 17:42: 1187.00 (n=1)
+- 16:54: 849.00 (n=1)
+- 10:59: 605.00 (n=1)
+- 14:44: 302.00 (n=1)
+- 18:21: 206.20 (n=1)
+- 17:00: 136.50 (n=1)
+- 14:21: 72.70 (n=1)
+- 11:01: 2.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 637.50 (n=4)
-- track:take-this-higher.mp3: 197.10 (n=1)
-- original: 83.55 (n=2)
+- bed: 735.75 (n=4)
+- track:take-this-higher.mp3: 206.20 (n=1)
+- original: 70.40 (n=3)
