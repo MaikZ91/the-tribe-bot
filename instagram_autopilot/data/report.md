@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-23
 
-Follower: **58** · Beiträge: 34
+Follower: **59** · Beiträge: 35
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -29,6 +29,7 @@ Follower: **58** · Beiträge: 34
 | D1021-die-4-fotos | maik-text | keine-matches | liste | – | – | – | – | – | – | – | 0.0 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | – | – | – | – | – | – | – | 0.0 |
 | D1023b-boosts | maik-text | keine-matches | geständnis | – | – | – | – | – | – | – | 0.0 |
+| D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | – | – | – | – | – | – | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -43,7 +44,7 @@ Follower: **58** · Beiträge: 34
 | langweiliges-profil | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-foto | 0.0 | 0.0 | 0.00 | 1 | – |
 | wirkt-steif | 0.0 | 0.0 | 0.00 | 1 | – |
-| schlechte-fotos | 0.0 | 0.0 | 0.00 | 2 | – |
+| schlechte-fotos | 0.0 | 0.0 | 0.00 | 3 | – |
 | wo-shooten | 0.0 | 0.0 | 0.00 | 1 | – |
 | nur-ein-bild | 0.0 | 0.0 | 0.00 | 1 | – |
 | schlechte-selfies | 0.0 | 0.0 | 0.00 | 1 | – |
@@ -70,7 +71,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=3)
-- ≥ 90 min: Ø Reichweite 0.0 (n=11)
+- ≥ 90 min: Ø Reichweite 0.0 (n=12)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -82,7 +83,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - images/dating/stil-dom-portrait.jpg: 0.0 (n=2)
 - images/dating/stil-hafen-pullover.jpg: 0.0 (n=3)
 - images/dating/stil-treppe-ganzkoerper.jpg: 0.0 (n=3)
-- images/dating/echt-feld-arme.jpg: 0.0 (n=1)
+- images/dating/echt-feld-arme.jpg: 0.0 (n=2)
 - images/dating/echt-frankfurt-portrait.jpg: 0.0 (n=4)
 - images/dating/echt-gitarre-halde.jpg: 0.0 (n=2)
 - images/dating/echt-lachen-feld.jpg: 0.0 (n=3)
@@ -92,7 +93,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - None: 0.00 (n=1)
 - coaches: 0.00 (n=1)
 - gastro: 0.00 (n=1)
-- dating: 0.00 (n=22)
+- dating: 0.00 (n=23)
 
 ## Ø Interesse nach format
 
@@ -103,7 +104,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - echt-carousel: 0.00 (n=1)
 - tipp-carousel: 0.00 (n=1)
 - maik-text: 0.00 (n=10)
-- foto-reel: 0.00 (n=8)
+- foto-reel: 0.00 (n=9)
 
 ## Ø Interesse nach hook_style
 
@@ -112,7 +113,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - so-gehts: 0.00 (n=1)
 - kontrast: 0.00 (n=3)
 - aufforderung: 0.00 (n=1)
-- liste: 0.00 (n=3)
+- liste: 0.00 (n=4)
 - aussage: 0.00 (n=1)
 - geschichte: 0.00 (n=3)
 - frage: 0.00 (n=2)
@@ -134,7 +135,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - langweiliges-profil: 0.00 (n=1)
 - nur-ein-foto: 0.00 (n=1)
 - wirkt-steif: 0.00 (n=1)
-- schlechte-fotos: 0.00 (n=2)
+- schlechte-fotos: 0.00 (n=3)
 - wo-shooten: 0.00 (n=1)
 - nur-ein-bild: 0.00 (n=1)
 - schlechte-selfies: 0.00 (n=1)
@@ -152,7 +153,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - 18:57: 0.00 (n=3)
 - 07:57: 0.00 (n=2)
 - 12:58: 0.00 (n=1)
-- 18:58: 0.00 (n=1)
+- 18:58: 0.00 (n=2)
 - 13:01: 0.00 (n=1)
 - 07:59: 0.00 (n=1)
 - 12:55: 0.00 (n=2)
@@ -169,7 +170,7 @@ Seit Wochen.“ · Ø – s · Skip – · Reichweite –
 - track:i-can-hear-your-heartbeat.mp3: 0.00 (n=1)
 - track:sweet-september.mp3: 0.00 (n=1)
 - track:recline-and-chill.mp3: 0.00 (n=1)
-- track:summers-here.mp3: 0.00 (n=1)
+- track:summers-here.mp3: 0.00 (n=2)
 - track:lo-fi-03.mp3: 0.00 (n=1)
 - track:chill-bro.mp3: 0.00 (n=1)
 - track:talent-in-the-air.mp3: 0.00 (n=1)
