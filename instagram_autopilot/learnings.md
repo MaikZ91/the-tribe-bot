@@ -281,3 +281,5 @@
 - 2026-10-20 Tribe: T33 App-Reel „Frag THE TRIBE“ (echte Chat-Aufnahme, 3 Community-Szenen, 1 S/W, 13 s). Nach Karussell T31 Reel-Pflicht.
 
 - 2026-10-21 (Nachholung, 20.10. Nachmittag/Abend und 21.10. 07:47 verpasst – Session hing): D1021 Karussell „Die 4 Fotos“ (Follower 57→58 nach Mehrwert-Reel). Tribe T34 App-Karussell „Tribe Tonight“ (Wechsel nach Reel T33).
+
+- 2026-10-23 07:47: D1023 Foto-Reel „Selfie vs. Moment“ (Angebot/Ablauf, feeling-happy). Follower 58 stabil. 21.10. Abend + 22.10. komplett ausgefallen (Session hing).
