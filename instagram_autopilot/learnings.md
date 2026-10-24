@@ -294,3 +294,9 @@
 - 22.10. komplett ohne Posts (Session hing) – keine Follower-Veränderung an dem Tag.
 - Hypothese für morgen: Tage mit vollem 3er-Rhythmus Dating bringen +1, Ausfalltage 0 → Rhythmus halten; Samstag Tribe 10:47 = Coffee Walk T28.
 - 2026-10-24 07:47: D1024 Karussell „So läuft die Stunde“ (Ablauf/Angebot). Follower 59.
+
+### Dating – erste echte Insights (24.10., neuer Token mit instagram_business_manage_insights)
+- Konto 28 Tage: Reichweite 130 (119 Nicht-Follower), Profilaufrufe 5, Website-Klicks 0.
+- Reels: D1023 Selfie vs. Moment 77 Reichweite / Watch 0,25; D1023c 3 Dinge 71 / 0,20; D1020 posieren 22 / 0,49; D1019b Kumpel 13 / 0,54.
+- Karussells: D1023b Boosts 6, D1021 4 Fotos 7, D1019c 7 Reichweite.
+- Schluss: Bei Dating erreichen Reels ~10× mehr als Karussells (anders als bei Tribe). Watch-Ratio der reichweitenstarken Reels nur 0,2–0,25 → Hook hält nicht. Ab jetzt Dating überwiegend Reels (max. 1 Karussell/Tag), Fokus erste 2 s.
