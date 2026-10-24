@@ -309,3 +309,4 @@
 - Heute: D1024 Karussell So läuft die Stunde 5 Reichweite · D1024b Reel Gespräch mit Kamera 85 / Watch 0,238 · D1024c Reel Boosts 3 / 0,07 (erst ~2 h alt). Vortag-Reels D1023c 81 / 0,21.
 - @the_tribe.bi.ms: Follower 1298 (±0). T36 Karussell Freitag in 3 Akten 150 Reichweite / 366 Views · T35 App-Reel 96 / 0,32 · T28 Coffee Walk Reel 78 / 0,16 · T37 App-Karussell noch ohne Daten.
 - Hypothese für morgen: Dating-Reels erreichen konstant 70–85 Nicht-Follower, verlieren aber 75 % vor dem Ende – Foto-Reels sind ausgereizt; nächster Hebel ist echtes Bewegtbild (Clip von Maik). Tribe: Karussells mit Menschen weiter vorn (150 vs. Reels 78–96).
+- 2026-10-24: Maik hat keine Clips → nächster Dating-Test: Beat-Cut-Montage aus echten Fotos (keine KI-Animation).

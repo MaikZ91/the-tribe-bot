@@ -245,6 +245,9 @@ Quellen: later.com/blog/instagram-reels-algorithm · socialpilot.co (Reels Algor
 - Altdaten desselben Accounts (früher @ki.fuer.dein.business): Grafik-/Standbild-Einstieg Skip 87–95 %, Mensch-Einstieg 75–82 %. Foto-Reels mit Ken-Burns wirken wie Standbild → Watch-Ratio 0,2. **Erster Frame braucht echte Bewegung** (Clip von Maik, schneller Schnitt, Zoom-Punch) und ein Gesicht.
 - Echte Clips von Maik (auch kurze Handyvideos) haben Vorrang → Mini-Doku (Teil D). Fehlen Clips: Maik gezielt danach fragen.
 
+## Nächster Test: Schnell-Schnitt statt Ken-Burns (24.10.)
+Maik hat keine Clips. Foto-Reels mit langsamem Zoom liegen bei Watch 0,21–0,24 (Hook-Länge änderte nichts). Nächster Hebel: **Beat-Cut-Montage** aus echten Fotos (`echt-*`) – 10–15 Fotos à 0,3–0,5 s, harte Schnitte auf den Takt, Zoom-Punch, Text-Pop; eigenes Skript mit PIL + ffmpeg, als `video` + `keep_audio: true` posten. **Keine** KI-Animation von Maiks Fotos (wäre ein KI-Video von Maik).
+
 ## Sends sind Pflicht
 Jedes Reel braucht einen Grund, es jemandem zu schicken: „Schick das dem Kumpel, der seit Monaten nur Spiegel-Selfies hat.“
 
