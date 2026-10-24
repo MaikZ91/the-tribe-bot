@@ -36,7 +36,7 @@ Der Creative Director entscheidet selbst und datenbasiert (`learnings.md`, `data
 
 ## 7. Ablauf je Post
 1. `git pull`; Daten lesen (Insights-Workflow dispatchen, wenn frische Zahlen nötig).
-2. Entscheiden: Format, Konzept, Hook, Bilder, Musik, eine Variable; Standard **Karussell mit Community-Fotos**, Reels nur mit starkem Konzept (Zahlen Teil F).
+2. Entscheiden: Format, Konzept, Hook, Bilder, Musik, eine Variable; Format (Reel, Karussell, Foto-Reel …) entscheidet der Creative Director **selbst anhand der aktuellen Daten** (insights_latest.json/report.md) – keine feste Format-Regel (Maik 24.10.).
 3. Bauen: Spec `tribe_autopilot/posts/T<NN>-…` (not_before/expires), Frames visuell prüfen.
 4. Commit + push, Workflow dispatchen (`post_id`, `force=true`, `count=1`), Permalink aus `data/state.json`.
 5. Begründung mit Zahl in `learnings.md`; Kurzbericht an Maik (Link, Konzept/Format/Musik, warum).
@@ -81,7 +81,7 @@ Screenshots/Bildschirmaufnahme (Playwright, 390×844, scale 3, Uhrzeit per `page
 - Tribe Tonight: Direktlink `…/tribe/#tonight`, Antworten anklicken (`[data-tq]`), Kapitel per `[data-tt=next]`.
 - Bilder für Events: externe Bilder per Python laden und an die Seite durchreichen (Sandbox), siehe frühere Shot-Skripte.
 
-Animierte Reels (bevorzugt, Maik 17.10.) – IMMER mit den Events von heute beginnen (siehe app_reel/README „Pflicht-Aufbau“), junge Zielgruppe, keine Bilder älterer Personen: Baukasten in `tribe_autopilot/app_reel/` (README) – echte App-Abläufe als Bildfolgen im Handy-Mockup, Scroll-Pan, Stadtpuls-Zeitregler, Herz-Klick, Chat. Mindestens jeden 2. App-Post als animiertes Reel.
+Animierte Reels (eine Option – Format nach Datenlage) – IMMER mit den Events von heute beginnen (siehe app_reel/README „Pflicht-Aufbau“), junge Zielgruppe, keine Bilder älterer Personen: Baukasten in `tribe_autopilot/app_reel/` (README) – echte App-Abläufe als Bildfolgen im Handy-Mockup, Scroll-Pan, Stadtpuls-Zeitregler, Herz-Klick, Chat.
 
 Fertige Videos mit eigener (lizenzfreier) Musik: in der Spec `"keep_audio": true` setzen – sonst ersetzt der Renderer den Ton durch config `video_music`.
 
@@ -197,7 +197,7 @@ Quellen: later.com/blog/instagram-reels-algorithm · socialpilot.co (Reels Algor
 ## Echte Zahlen Tribe (Report 23.10.)
 - Karussells mit Menschen/„neu in Bielefeld“: T04 645 · T30 361 · T31 278 Reichweite. App-Karussell T34 135.
 - Reels: T21 270 (Watch 0,21) · T32 Countdown 140 (0,50) · T24 App 81 · T35 App 59.
-- → **Standard = Karussell mit Community-Fotos.** Reels nur mit starkem Konzept. App-Reels sind am schwächsten.
+- → Stand 24.10. liegen Karussells mit Menschen vorn, App-Reels hinten – Datenlage, keine Regel; bei jedem Post neu prüfen.
 
 ## Sends sind Pflicht
 Stärkstes Signal bei Nicht-Followern ist das Weiterschicken per DM. Jeder Post braucht einen **konkreten Grund zum Senden**, ausgesprochen in Folie/Caption: „Schick das der Person, die mitkommen soll“, „Für deine WG-Gruppe“, „Wer ist dein Freitag-Partner?“.
@@ -205,6 +205,7 @@ Stärkstes Signal bei Nicht-Followern ist das Weiterschicken per DM. Jeder Post 
 ## Regeln aus Maiks Korrekturen (neue oben, mit Datum)
 | Datum | Regel | Anlass |
 |---|---|---|
+| 24.10.2026 | Keine festen Format-Regeln: der Creative Director wählt das Format selbst anhand der Datenlage. | „soll selber entscheiden welches Format passt anhand der Datenlage“ |
 | 24.10.2026 | Zwei getrennte Creative Directors: dieser nur für THE TRIBE. | „Vielleicht machen wir 2 Creative directors“ |
 | 23.10.2026 | Kopfzeile jeder Folie sagt „THE TRIBE · BIELEFELD“ → Fotos mit Orts-Notiz (Münster, Celona, „Ort offen“) **nie** in Karussells; vor jedem Post `orte` in FREIGEGEBEN.json prüfen. | Münster-/Celona-Fotos in T34 |
 | 18.10.2026 | Der 10:47-Slot ist immer ein App-Post (Samstag: Coffee Walk, App dann 16:47). | „es gab gar keinen App-Post“ |

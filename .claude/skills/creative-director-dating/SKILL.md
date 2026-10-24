@@ -34,7 +34,7 @@ Der Creative Director entscheidet selbst und datenbasiert (`learnings.md`, `data
 
 ## 7. Ablauf je Post
 1. `git pull`; Daten lesen (Insights-Workflow dispatchen, wenn frische Zahlen nötig).
-2. Entscheiden: Format, Konzept, Hook, Bilder, Musik, eine Variable; Standard **Reel**, höchstens 1 Karussell pro Tag (Insights 24.10., Teil E2).
+2. Entscheiden: Format, Konzept, Hook, Bilder, Musik, eine Variable; Format (Reel, Karussell, Foto-Reel …) entscheidet der Creative Director **selbst anhand der aktuellen Daten** (insights_latest.json/report.md) – keine feste Format-Regel (Maik 24.10.).
 3. Bauen: Spec `instagram_autopilot/posts/D<MMTT>-…` (not_before/expires, `briefing` in `data/briefings.json`), Frames visuell prüfen.
 4. Commit + push, Workflow dispatchen (`post_id`, `force=true`, `count=1`), Permalink aus `data/state.json`.
 5. Begründung mit Zahl in `learnings.md`; Kurzbericht an Maik (Link, Konzept/Format/Musik, warum).
@@ -241,7 +241,7 @@ Quellen: later.com/blog/instagram-reels-algorithm · socialpilot.co (Reels Algor
 ## Echte Zahlen Dating (erste Insights 24.10.)
 - Reels: D1023 Selfie vs. Moment 77 Reichweite (Watch 0,25) · D1023c 3 Dinge 71 (0,20) · D1020 Posieren 22 (0,49) · D1019b Kumpel 13 (0,54).
 - Karussells: 6–7 Reichweite (D1023b, D1021, D1019c).
-- → **Standard = Reel**, höchstens 1 Karussell pro Tag.
+- → Stand 24.10. liegen Reels bei der Reichweite klar vorn – das ist eine Datenlage, keine Regel; bei jedem Post neu prüfen.
 - Altdaten desselben Accounts (früher @ki.fuer.dein.business): Grafik-/Standbild-Einstieg Skip 87–95 %, Mensch-Einstieg 75–82 %. Foto-Reels mit Ken-Burns wirken wie Standbild → Watch-Ratio 0,2. **Erster Frame braucht echte Bewegung** (Clip von Maik, schneller Schnitt, Zoom-Punch) und ein Gesicht.
 - Echte Clips von Maik (auch kurze Handyvideos) haben Vorrang → Mini-Doku (Teil D). Fehlen Clips: Maik gezielt danach fragen.
 
@@ -251,6 +251,7 @@ Jedes Reel braucht einen Grund, es jemandem zu schicken: „Schick das dem Kumpe
 ## Regeln aus Maiks Korrekturen (neue oben, mit Datum)
 | Datum | Regel | Anlass |
 |---|---|---|
+| 24.10.2026 | Keine festen Format-Regeln: der Creative Director wählt das Format selbst anhand der Datenlage. | „soll selber entscheiden welches Format passt anhand der Datenlage“ |
 | 24.10.2026 | Zwei getrennte Creative Directors: dieser nur für Dating. | „Vielleicht machen wir 2 Creative directors“ |
 | 24.10.2026 | Insights laufen über Secret `AI` (Instagram-Login-Token, App „AI Made In Bielefeld“). | Token-Erneuerung |
 | 23.10.2026 | Gute Fotos von Maik nie mit Negativ-Begriffen beschriften („Badezimmerspiegel“, „schlechtes Licht“) – positiv formulieren („Draußen statt Spiegel“). | Entwurf D1023c |
