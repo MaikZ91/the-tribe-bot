@@ -293,3 +293,4 @@
 - @the_tribe.bi.ms: Follower 1297 (21.10.) → 1298. Heute T35 App-Reel Abend bauen, T36 Karussell Freitag in 3 Akten. Post-Kennzahlen: n/a (Token).
 - 22.10. komplett ohne Posts (Session hing) – keine Follower-Veränderung an dem Tag.
 - Hypothese für morgen: Tage mit vollem 3er-Rhythmus Dating bringen +1, Ausfalltage 0 → Rhythmus halten; Samstag Tribe 10:47 = Coffee Walk T28.
+- 2026-10-24 07:47: D1024 Karussell „So läuft die Stunde“ (Ablauf/Angebot). Follower 59.
