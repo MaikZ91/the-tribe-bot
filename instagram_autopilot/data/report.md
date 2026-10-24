@@ -6,8 +6,8 @@ Follower: **59** · Beiträge: 37
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
-| D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 78 | 85 | 0 | 0 | 0 | 0 | 0.218 | 51.8 |
-| D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 57 | 72 | 0 | 0 | 0 | 0 | 0.234 | 44.4 |
+| D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 68 | 89 | 0 | 0 | 0 | 0 | 0.218 | 54.2 |
+| D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 80 | 88 | 0 | 0 | 0 | 0 | 0.214 | 53.4 |
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | 18 | 35 | 0 | 0 | 0 | 0 | – | 35.0 |
 | D0306-wer-posiert | maik-text | wirkt-steif | aussage | 18 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
 | D1019-ki-profilbilder | maik-text | keine-matches | geschichte | 11 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
@@ -38,12 +38,12 @@ Follower: **59** · Beiträge: 37
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| schlechte-fotos | 42.3 | 64.3 | 0.23 | 3 | – |
+| schlechte-fotos | 42.9 | 65.3 | 0.23 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
 | langweiliges-profil | 26.0 | 26.0 | 0.00 | 1 | – |
-| unsicher-vor-kamera | 22.1 | 28.0 | 0.27 | 6 | – |
+| unsicher-vor-kamera | 23.7 | 30.8 | 0.26 | 6 | – |
 | keine-matches | 18.9 | 21.6 | 0.47 | 9 | – |
 | schlechte-selfies | 16.5 | 25.0 | 0.32 | 1 | – |
 | wo-shooten | 16.2 | 24.0 | 0.35 | 1 | – |
@@ -59,7 +59,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.78 s von 21.62 s · Skip 98.5 · Reichweite 134
 - TOP D1023-selfie-vs-moment: „Beim Selfie hältst du die Luft an.“ · Ø 3.65 s von 14.78 s · Skip 70.9 · Reichweite 77
-- TOP D1023c-drei-dinge: „3 Dinge, die dein Profilbild besser machen.“ · Ø 3.03 s von 13.93 s · Skip 86.1 · Reichweite 78
+- TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.41 s von 11.05 s · Skip 84.8 · Reichweite 68
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
@@ -70,26 +70,26 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 14.7 (n=3)
-- ≥ 90 min: Ø Reichweite 20.8 (n=13)
+- ≥ 90 min: Ø Reichweite 21.8 (n=13)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
 - images/bad-modern.jpg: 74.7 (n=1)
 - images/bad-waschtisch.jpg: 74.7 (n=1)
 - images/baustelle-arbeiter.jpg: 74.7 (n=1)
-- images/dating/stil-locken-sonnenuntergang.jpg: 51.8 (n=1)
-- images/dating/echt-feld-blick-runter.jpg: 44.4 (n=1)
-- images/dating/stil-rote-jacke-markt.jpg: 44.4 (n=1)
-- images/dating/echt-feld-arme.jpg: 43.4 (n=2)
+- images/dating/echt-feld-blick-runter.jpg: 54.2 (n=1)
+- images/dating/stil-rote-jacke-markt.jpg: 54.2 (n=1)
+- images/dating/stil-locken-sonnenuntergang.jpg: 53.4 (n=1)
+- images/dating/echt-feld-arme.jpg: 44.2 (n=2)
 - images/dating/echt-lachen-feld.jpg: 38.4 (n=3)
-- images/dating/echt-gitarre-tribe.jpg: 31.3 (n=3)
+- images/dating/echt-gitarre-tribe.jpg: 31.9 (n=3)
 - images/dating/stil-prinzipalmarkt-tag.jpg: 30.5 (n=3)
-- images/dating/echt-lachen-lampe.jpg: 28.3 (n=6)
+- images/dating/echt-lachen-lampe.jpg: 30.2 (n=6)
 - images/dating/echt-kamera-denkmal.jpg: 27.8 (n=4)
 
 ## Konto (heute)
 
-- reach: 190
+- reach: 203
 - profile_views: 6
 - accounts_engaged: 0
 - website_clicks: 0
@@ -97,7 +97,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 23.97 (n=25)
+- dating: 24.43 (n=25)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
@@ -105,7 +105,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - service-reel: 74.70 (n=1)
 - echt-carousel: 35.00 (n=1)
-- foto-reel: 26.63 (n=10)
+- foto-reel: 27.77 (n=10)
 - tipp-carousel: 26.00 (n=1)
 - stil-carousel: 25.00 (n=1)
 - angebot-carousel: 23.00 (n=1)
@@ -117,8 +117,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - problem: 49.85 (n=2)
 - kontrast: 36.73 (n=3)
 - aussage: 33.00 (n=1)
-- liste: 29.70 (n=4)
-- kernsatz: 29.00 (n=3)
+- kernsatz: 32.27 (n=3)
+- liste: 30.10 (n=4)
 - aufforderung: 26.00 (n=1)
 - geschichte: 19.00 (n=3)
 - versprechen: 18.00 (n=1)
@@ -133,12 +133,12 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach pain
 
 - media: 74.70 (n=1)
-- schlechte-fotos: 42.33 (n=3)
+- schlechte-fotos: 42.87 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
 - nur-ein-foto: 30.00 (n=1)
 - langweiliges-profil: 26.00 (n=1)
-- unsicher-vor-kamera: 22.08 (n=6)
+- unsicher-vor-kamera: 23.72 (n=6)
 - keine-matches: 18.90 (n=9)
 - schlechte-selfies: 16.50 (n=1)
 - wo-shooten: 16.20 (n=1)
@@ -150,9 +150,9 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - 19:23: 74.70 (n=1)
 - 08:01: 54.20 (n=1)
-- 12:56: 44.40 (n=1)
+- 12:56: 54.20 (n=1)
 - 07:38: 35.00 (n=1)
-- 18:58: 34.00 (n=2)
+- 18:58: 34.80 (n=2)
 - 07:58: 33.00 (n=1)
 - 13:30: 30.00 (n=1)
 - 14:50: 26.10 (n=1)
@@ -175,8 +175,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach music
 
 - track:feeling-happy.mp3: 54.20 (n=1)
-- track:take-this-higher.mp3: 44.40 (n=1)
-- track:summers-here.mp3: 34.90 (n=2)
+- track:take-this-higher.mp3: 54.20 (n=1)
+- track:summers-here.mp3: 35.70 (n=2)
 - track:summer-dream.mp3: 26.10 (n=1)
 - bed: 24.76 (n=17)
 - track:lo-fi-03.mp3: 16.50 (n=1)
