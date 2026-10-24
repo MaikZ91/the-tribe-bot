@@ -303,3 +303,9 @@
 - 2026-10-24 12:47: D1024b Foto-Reel 11 s, Hook-Folie 1,2 s statt 2,5 s (Test gegen Watch-Ratio 0,2).
 - 2026-10-24 Tribe 16:47 (App-Slot, Samstag): T37 App-Karussell „Wer kommt mit?“ – Format nach Daten (App-Karussell 135–278 vs. App-Reel 59–81).
 - 2026-10-24 18:47: Hook 1,2 s (D1024b) → Watch 0,218, unverändert ggü. 0,21–0,25. Länge/Hook-Dauer nicht der Hebel. Nächster Test D1024c: Geschichte-Hook im Reel.
+
+### Tagesauswertung 2026-10-24
+- @natuerlich.du.ms: Follower 59 (±0 zum Vortag). Konto 28 T: Reichweite 225 (gestern früh 130; 212 Nicht-Follower), Profilaufrufe 6, Website-Klicks 0, Likes/Shares 0 überall.
+- Heute: D1024 Karussell So läuft die Stunde 5 Reichweite · D1024b Reel Gespräch mit Kamera 85 / Watch 0,238 · D1024c Reel Boosts 3 / 0,07 (erst ~2 h alt). Vortag-Reels D1023c 81 / 0,21.
+- @the_tribe.bi.ms: Follower 1298 (±0). T36 Karussell Freitag in 3 Akten 150 Reichweite / 366 Views · T35 App-Reel 96 / 0,32 · T28 Coffee Walk Reel 78 / 0,16 · T37 App-Karussell noch ohne Daten.
+- Hypothese für morgen: Dating-Reels erreichen konstant 70–85 Nicht-Follower, verlieren aber 75 % vor dem Ende – Foto-Reels sind ausgereizt; nächster Hebel ist echtes Bewegtbild (Clip von Maik). Tribe: Karussells mit Menschen weiter vorn (150 vs. Reels 78–96).
