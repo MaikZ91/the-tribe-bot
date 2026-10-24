@@ -302,3 +302,4 @@
 - Schluss: Bei Dating erreichen Reels ~10× mehr als Karussells (anders als bei Tribe). Watch-Ratio der reichweitenstarken Reels nur 0,2–0,25 → Hook hält nicht. Ab jetzt Dating überwiegend Reels (max. 1 Karussell/Tag), Fokus erste 2 s.
 - 2026-10-24 12:47: D1024b Foto-Reel 11 s, Hook-Folie 1,2 s statt 2,5 s (Test gegen Watch-Ratio 0,2).
 - 2026-10-24 Tribe 16:47 (App-Slot, Samstag): T37 App-Karussell „Wer kommt mit?“ – Format nach Daten (App-Karussell 135–278 vs. App-Reel 59–81).
+- 2026-10-24 18:47: Hook 1,2 s (D1024b) → Watch 0,218, unverändert ggü. 0,21–0,25. Länge/Hook-Dauer nicht der Hebel. Nächster Test D1024c: Geschichte-Hook im Reel.
