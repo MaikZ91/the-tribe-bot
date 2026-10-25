@@ -311,3 +311,4 @@
 - Hypothese für morgen: Dating-Reels erreichen konstant 70–85 Nicht-Follower, verlieren aber 75 % vor dem Ende – Foto-Reels sind ausgereizt; nächster Hebel ist echtes Bewegtbild (Clip von Maik). Tribe: Karussells mit Menschen weiter vorn (150 vs. Reels 78–96).
 - 2026-10-24: Maik hat keine Clips → nächster Dating-Test: Beat-Cut-Montage aus echten Fotos (keine KI-Animation).
 - 2026-10-25 07:47: D1025 Beat-Cut-Montage 8,9 s (14 echte Fotos, 0,35 s Schnitte) – Test Schnitt vs. Ken-Burns (Watch-Basis 0,21–0,24).
+- 2026-10-25 Tribe 10:47: T38 App-Karussell „Mein Abend“ (Format nach Daten, Anker Kennenlernabend 19 Uhr).
