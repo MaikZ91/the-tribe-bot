@@ -16,6 +16,9 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
 
 ## Bestätigte Regeln (aus data/regeln.json, Wochenstrategie)
 
+- 25.10.2026 (Dating): Foto-Reels als Beat-Cut (0,22–0,35 s Zwischenbilder, Text-Beats 0,6–0,9 s) statt Ken-Burns-Zoom. Beleg: D1025 Watch 0,295, D1025b 0,301 vs. Ken-Burns D1023c 0,21, D1024b 0,26, D1024c 0,156.
+- Nicht mehr (Dating): Ken-Burns-Foto-Reels als Standard; Hook-Länge allein ändert die Watch-Ratio nicht (D1023–D1024b).
+
 - Stand 04.10.: noch keine – erste Experimente laufen seit 04.10. (Bewertung nach 48 h, „bestätigt“ ab 3 Tests).
 - Nicht mehr: Probe-Reels (gesperrt, zu wenige Follower); reine Grafik-Reels ohne Menschen als Standard (Maik 04.10.).
 

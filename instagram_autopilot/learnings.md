@@ -1,5 +1,13 @@
 # Learnings
 
+## Wochen-Strategie 26.10.–01.11. (So 25.10., 18:55)
+- Konto ist seit 13.10. @natuerlich.du.ms (Dating); Health/Gastro pausiert → Strategie nur Dating.
+- Woche 19.–25.10. vs. 12.–18.10.: 13 vs. 15 Posts, Ø Reichweite 51 vs. 14, Ø Reel-Reichweite 79 vs. 16, Watch 0,31 vs. 0,36 (Vorwoche nur wenige, sehr kleine Reels), Shares/Saves 0/0 beide Wochen. Follower 59 → 59.
+- Bestätigt: Beat-Cut (s. ROUTINE.md). Verworfen: Ken-Burns als Standard. Offen: Karussells (Reach 4–7) – nur noch als Test.
+- Experimente: (1) tempo 0,22 vs. 0,35 s (D1025c läuft); (2) laenge 6 s vs. 9 s; (3) hook_style frage vs. kernsatz bei gleichem Schnitt; (4) cta „Kommentiere CHECK“ vs. „Link in Bio“ (Ziel: erste Kommentare/Shares); (5) musik one-more-dance vs. take-this-higher.
+- Standard: Reels als Beat-Cut aus echten Fotos; Karussells max. 1×/Woche.
+- Tribe: 1.290 → 1.300 Follower (+10), täglicher Post-Takt läuft (T33–T39); T39 testet Beat-Cut.
+
 ## Dating – Creative Director 13.10. (13:30)
 - Daten: 56 Follower (Vortag 57), 20 Beiträge; Kennzahlen je Post noch n/a (Posts < 8 h alt). → Testphase: 1 Reel + 2 Karussells pro Tag.
 - Neu (aus Skill dating-texte-maik, Texte neu in Maiks Stimme): D0301 Foto-Reel „Kennst du den Moment vor dem Klick?“ (Variable hook_style=frage), D0302 Karussell „3 Sätze, die du bei mir nie hörst“ (hook_style=verneinung), D0303 Karussell KI-Stil „Wie wirkst du, wenn du nicht daran denkst?“ (bildquelle=ki-stil).
