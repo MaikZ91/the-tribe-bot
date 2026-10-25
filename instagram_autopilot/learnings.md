@@ -315,3 +315,6 @@
 
 ## Tribe – CD 25.10. (16:50)
 - T39 Beat-Cut-Reel „Kennenlernabend heute 19:00“. Grund: Dating-Beat-Cut D1025 Watch 0,311 vs. Ken-Burns-Basis ~0,22; Tribe-Reels streuen 0,13–0,48. Variable: Schnitt (Beat-Cut 0,35–0,7 s), 13 freigegebene Community-Fotos ohne Orts-Notiz, Track take-this-higher. Sendegrund: Event heute Abend.
+
+## Dating – CD 25.10. (18:50)
+- Beat-Cut repliziert: D1025 Watch 0,295 (Reach 112), D1025b 0,301 (Reach 110) vs. Ken-Burns 0,16–0,26. → Beat-Cut ist neuer Standard für Foto-Reels. Nächster Test D1025c: Tempo 0,22 s statt 0,35 s pro Zwischenbild.
