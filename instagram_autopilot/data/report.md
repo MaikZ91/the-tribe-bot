@@ -1,24 +1,25 @@
 # Instagram-Report 2026-10-25
 
-Follower: **59** · Beiträge: 39
+Follower: **59** · Beiträge: 40
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.255 | 77.2 |
+| D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 112 | 122 | 0 | 0 | 0 | 0 | 0.295 | 79.0 |
+| D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.26 | 77.5 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
+| D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 110 | 113 | 0 | 0 | 0 | 0 | 0.301 | 73.5 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 111 | 122 | 0 | 0 | 0 | 0 | 0.156 | 70.5 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
 | D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 81 | 89 | 0 | 0 | 0 | 0 | 0.21 | 53.8 |
-| D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 66 | 75 | 0 | 0 | 0 | 0 | 0.311 | 49.2 |
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | 18 | 35 | 0 | 0 | 0 | 0 | – | 35.0 |
 | D0306-wer-posiert | maik-text | wirkt-steif | aussage | 18 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
 | D1019-ki-profilbilder | maik-text | keine-matches | geschichte | 11 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
 | D0304-vier-fotos-profil | maik-text | nur-ein-foto | liste | 19 | 30 | 0 | 0 | 0 | 0 | – | 30.0 |
 | D1020-posieren | foto-reel | keine-matches | kernsatz | 22 | 35 | 0 | 0 | 0 | 0 | 0.493 | 26.1 |
 | D0209-zeig-dein-hobby | tipp-carousel | langweiliges-profil | aufforderung | 14 | 26 | 0 | 0 | 0 | 0 | – | 26.0 |
+| D1018b-gespraech-mit-kamera | maik-text | unsicher-vor-kamera | kontrast | 11 | 26 | 0 | 0 | 0 | 0 | – | 26.0 |
 | D0114-stil-erstes-foto | stil-carousel | keine-matches | problem | 10 | 25 | 0 | 0 | 0 | 0 | – | 25.0 |
-| D1018b-gespraech-mit-kamera | maik-text | unsicher-vor-kamera | kontrast | 11 | 25 | 0 | 0 | 0 | 0 | – | 25.0 |
-| D0116-so-laeuft-shooting | angebot-carousel | unsicher-vor-kamera | so-gehts | 12 | 23 | 0 | 0 | 0 | 0 | – | 23.0 |
+| D0116-so-laeuft-shooting | angebot-carousel | unsicher-vor-kamera | so-gehts | 13 | 24 | 0 | 0 | 0 | 0 | – | 24.0 |
 | D1016-drei-fehler | maik-text | schlechte-fotos | liste | 9 | 21 | 0 | 0 | 0 | 0 | – | 21.0 |
 | D1021-die-4-fotos | maik-text | keine-matches | liste | 8 | 19 | 0 | 0 | 0 | 0 | – | 19.0 |
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | 8 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
@@ -40,10 +41,11 @@ Follower: **59** · Beiträge: 39
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
+| schlechtes-profilbild | 73.5 | 113.0 | 0.30 | 1 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
+| unsicher-vor-kamera | 36.1 | 49.9 | 0.29 | 7 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
-| unsicher-vor-kamera | 31.5 | 42.9 | 0.29 | 7 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
 | langweiliges-profil | 26.0 | 26.0 | 0.00 | 1 | – |
 | keine-matches | 24.7 | 32.2 | 0.41 | 10 | – |
@@ -59,9 +61,9 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Hooks: was hält, was nicht
 
-- TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.82 s von 11.05 s · Skip 84.9 · Reichweite 102
+- TOP D1025-beatcut-gespraech: „“ · Ø 2.62 s von 8.89 s · Skip 80.4 · Reichweite 112
+- TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.87 s von 11.05 s · Skip 84.9 · Reichweite 102
 - TOP M02-video-schnitt-automatisch: „Videos schneiden? Macht bei mir die Automatisierung.“ · Ø 1.78 s von 21.62 s · Skip 98.5 · Reichweite 134
-- TOP D1024c-boosts-reel: „Ich hab für Boosts bezahlt.“ · Ø 2.06 s von 13.17 s · Skip 91 · Reichweite 111
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
@@ -71,13 +73,13 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Abstand zwischen Posts
 
-- < 90 min nach dem vorigen Post: Ø Reichweite 14.7 (n=3)
-- ≥ 90 min: Ø Reichweite 30.8 (n=14)
+- < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
+- ≥ 90 min: Ø Reichweite 36.1 (n=15)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
-- images/dating/echt-feld-blick-runter.jpg: 77.2 (n=1)
-- images/dating/stil-rote-jacke-markt.jpg: 77.2 (n=1)
+- images/dating/echt-feld-blick-runter.jpg: 77.5 (n=1)
+- images/dating/stil-rote-jacke-markt.jpg: 77.5 (n=1)
 - images/bad-modern.jpg: 74.7 (n=1)
 - images/bad-waschtisch.jpg: 74.7 (n=1)
 - images/baustelle-arbeiter.jpg: 74.7 (n=1)
@@ -87,11 +89,11 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - images/dating/echt-party-freunde.jpg: 43.8 (n=2)
 - images/dating/echt-lachen-feld.jpg: 38.4 (n=3)
 - images/dating/echt-lachen-lampe.jpg: 34.1 (n=6)
-- images/dating/echt-gitarre-tribe.jpg: 32.0 (n=3)
+- images/dating/stil-prinzipalmarkt-tag.jpg: 32.1 (n=3)
 
 ## Konto (heute)
 
-- reach: 287
+- reach: 433
 - profile_views: 2
 - accounts_engaged: 0
 - website_clicks: 0
@@ -99,32 +101,32 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 28.36 (n=27)
+- dating: 31.12 (n=28)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
+- fertig-video: 76.25 (n=2)
 - service-reel: 74.70 (n=1)
-- fertig-video: 49.20 (n=1)
 - echt-carousel: 35.00 (n=1)
-- foto-reel: 33.78 (n=11)
+- foto-reel: 33.81 (n=11)
 - tipp-carousel: 26.00 (n=1)
 - stil-carousel: 25.00 (n=1)
-- angebot-carousel: 23.00 (n=1)
-- maik-text: 21.45 (n=11)
+- angebot-carousel: 24.00 (n=1)
+- maik-text: 21.55 (n=11)
 - flow-reel: 10.75 (n=2)
 
 ## Ø Interesse nach hook_style
 
+- kernsatz: 54.52 (n=5)
 - problem: 49.85 (n=2)
-- kernsatz: 42.25 (n=4)
-- kontrast: 38.07 (n=3)
+- kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - geschichte: 31.88 (n=4)
 - liste: 30.95 (n=4)
 - aufforderung: 26.00 (n=1)
-- so-gehts: 18.00 (n=2)
+- so-gehts: 18.50 (n=2)
 - versprechen: 18.00 (n=1)
 - beleg: 18.00 (n=1)
 - geständnis: 17.00 (n=1)
@@ -136,10 +138,11 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach pain
 
 - media: 74.70 (n=1)
+- schlechtes-profilbild: 73.50 (n=1)
 - schlechte-fotos: 43.00 (n=3)
+- unsicher-vor-kamera: 36.09 (n=7)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
-- unsicher-vor-kamera: 31.50 (n=7)
 - nur-ein-foto: 30.00 (n=1)
 - langweiliges-profil: 26.00 (n=1)
 - keine-matches: 24.66 (n=10)
@@ -151,11 +154,12 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Ø Interesse nach local_time
 
-- 12:56: 77.20 (n=1)
+- 07:56: 79.00 (n=1)
+- 12:56: 77.50 (n=1)
 - 19:23: 74.70 (n=1)
+- 12:59: 73.50 (n=1)
 - 18:59: 70.50 (n=1)
 - 08:01: 54.20 (n=1)
-- 07:56: 49.20 (n=1)
 - 18:58: 35.00 (n=2)
 - 07:38: 35.00 (n=1)
 - 07:58: 33.00 (n=1)
@@ -163,8 +167,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 14:50: 26.10 (n=1)
 - 08:22: 26.00 (n=1)
 - 07:08: 25.00 (n=1)
-- 07:22: 23.00 (n=1)
-- 12:55: 21.00 (n=2)
+- 07:22: 24.00 (n=1)
+- 12:55: 21.50 (n=2)
 - 12:58: 21.00 (n=1)
 - 18:57: 20.00 (n=3)
 - 14:48: 19.00 (n=1)
@@ -179,13 +183,13 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Ø Interesse nach music
 
-- track:take-this-higher.mp3: 77.20 (n=1)
+- track:take-this-higher.mp3: 77.50 (n=1)
+- original: 76.25 (n=2)
 - track:feeling-happy.mp3: 54.20 (n=1)
-- original: 49.20 (n=1)
 - track:recline-and-chill.mp3: 43.35 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
 - track:summer-dream.mp3: 26.10 (n=1)
-- bed: 25.47 (n=17)
+- bed: 25.59 (n=17)
 - track:lo-fi-03.mp3: 16.50 (n=1)
 - track:chill-bro.mp3: 15.10 (n=1)
 - track:talent-in-the-air.mp3: 13.90 (n=1)
