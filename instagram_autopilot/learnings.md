@@ -312,3 +312,6 @@
 - 2026-10-24: Maik hat keine Clips → nächster Dating-Test: Beat-Cut-Montage aus echten Fotos (keine KI-Animation).
 - 2026-10-25 07:47: D1025 Beat-Cut-Montage 8,9 s (14 echte Fotos, 0,35 s Schnitte) – Test Schnitt vs. Ken-Burns (Watch-Basis 0,21–0,24).
 - 2026-10-25 Tribe 10:47: T38 App-Karussell „Mein Abend“ (Format nach Daten, Anker Kennenlernabend 19 Uhr).
+
+## Tribe – CD 25.10. (16:50)
+- T39 Beat-Cut-Reel „Kennenlernabend heute 19:00“. Grund: Dating-Beat-Cut D1025 Watch 0,311 vs. Ken-Burns-Basis ~0,22; Tribe-Reels streuen 0,13–0,48. Variable: Schnitt (Beat-Cut 0,35–0,7 s), 13 freigegebene Community-Fotos ohne Orts-Notiz, Track take-this-higher. Sendegrund: Event heute Abend.
