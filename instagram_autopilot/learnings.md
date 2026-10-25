@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 25.10. (21:15)
+- @natuerlich.du.ms: 59 Follower (±0). Beat-Cut D1025 Reach 114 / Views 125 / Watch 0,292; D1025b 111 / 114 / 0,299; D1025c (0,22 s, 18:47) erst 3 Views – n/a. Likes/Saves/Shares/Kommentare 0. Profilaufrufe/Link-Klicks n/a.
+- Tribe: 1.300 Follower (Vortag 1.298); T38 Reach 119, T37 197; T39 Beat-Cut (17:12) noch ohne Daten (Tribe-Insights Stand 16:56).
+- Hypothese für morgen: Beat-Cut hält ~0,30 Watch, bringt aber 0 Shares → nächste Variable CTA: „Kommentiere CHECK“ statt „Link in Bio“, Tempo-Ergebnis D1025c morgen früh werten.
+
 ## Wochen-Strategie 26.10.–01.11. (So 25.10., 18:55)
 - Konto ist seit 13.10. @natuerlich.du.ms (Dating); Health/Gastro pausiert → Strategie nur Dating.
 - Woche 19.–25.10. vs. 12.–18.10.: 13 vs. 15 Posts, Ø Reichweite 51 vs. 14, Ø Reel-Reichweite 79 vs. 16, Watch 0,31 vs. 0,36 (Vorwoche nur wenige, sehr kleine Reels), Shares/Saves 0/0 beide Wochen. Follower 59 → 59.
