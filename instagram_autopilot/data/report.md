@@ -9,9 +9,9 @@ Follower: **59** · Beiträge: 43
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.297 | 75.2 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 112 | 123 | 0 | 0 | 0 | 0 | 0.155 | 71.0 |
+| D1026-beatcut-check | fertig-video | unsicher-vor-kamera | kernsatz | 95 | 107 | 0 | 0 | 0 | 0 | 0.326 | 70.9 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
 | D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 81 | 89 | 0 | 0 | 0 | 0 | 0.21 | 53.8 |
-| D1026-beatcut-check | fertig-video | unsicher-vor-kamera | kernsatz | 68 | 78 | 0 | 0 | 0 | 0 | 0.323 | 51.6 |
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | 18 | 35 | 0 | 0 | 0 | 0 | – | 35.0 |
 | D0306-wer-posiert | maik-text | wirkt-steif | aussage | 18 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
 | D1019-ki-profilbilder | maik-text | keine-matches | geschichte | 11 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
@@ -28,16 +28,16 @@ Follower: **59** · Beiträge: 43
 | D1023b-boosts | maik-text | keine-matches | geständnis | 6 | 17 | 0 | 0 | 0 | 0 | – | 17.0 |
 | D1018-luft-anhalten | foto-reel | schlechte-selfies | kernsatz | 16 | 25 | 0 | 0 | 0 | 0 | 0.321 | 16.5 |
 | D1016-spots-muenster | foto-reel | wo-shooten | frage | 16 | 24 | 0 | 0 | 0 | 0 | 0.347 | 16.2 |
+| D1025c-beatcut-schnell | fertig-video | unsicher-vor-kamera | kernsatz | 26 | 25 | 0 | 0 | 0 | 0 | 0.252 | 15.7 |
 | D1018c-pov-kamera-vergessen | foto-reel | unsicher-vor-kamera | pov | 17 | 23 | 0 | 0 | 0 | 0 | 0.31 | 15.1 |
 | D1017c-vier-fotos | maik-text | nur-ein-bild | frage | 6 | 14 | 0 | 0 | 0 | 0 | – | 14.0 |
 | D1019c-unfair-verteilt | maik-text | keine-matches | haltung | 7 | 14 | 0 | 0 | 0 | 0 | – | 14.0 |
 | D1019b-kumpel-shooting | foto-reel | keine-matches | geschichte | 13 | 18 | 0 | 0 | 0 | 0 | 0.539 | 13.9 |
-| D1025c-beatcut-schnell | fertig-video | unsicher-vor-kamera | kernsatz | 22 | 22 | 0 | 0 | 0 | 0 | 0.243 | 13.7 |
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 16 | 19 | 0 | 0 | 0 | 0 | 0.397 | 13.3 |
 | D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 5 | 13 | 0 | 0 | 0 | 0 | – | 13.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
-| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 2 | 4 | 0 | 0 | 0 | 0 | 0.605 | 3.2 |
+| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 9 | 9 | 0 | 0 | 0 | 0 | 0.425 | 6.4 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -47,8 +47,8 @@ Follower: **59** · Beiträge: 43
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
+| unsicher-vor-kamera | 34.8 | 49.4 | 0.31 | 10 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
-| unsicher-vor-kamera | 32.4 | 45.7 | 0.34 | 10 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
 | langweiliges-profil | 26.0 | 26.0 | 0.00 | 1 | – |
 | keine-matches | 24.7 | 32.3 | 0.41 | 10 | – |
@@ -67,7 +67,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.6 s von 8.89 s · Skip 80.9 · Reichweite 115
 - TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.87 s von 11.05 s · Skip 84.9 · Reichweite 102
 - TOP D1025b-beatcut-profilbild: „“ · Ø 2.64 s von 8.89 s · Skip 80.4 · Reichweite 112
-- FLOP D1026b-beatcut-kurz: „“ · Ø 3.54 s · Skip 25 · Reichweite 2
+- FLOP D1026b-beatcut-kurz: „“ · Ø 2.48 s · Skip 77.8 · Reichweite 9
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
@@ -76,7 +76,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
-- ≥ 90 min: Ø Reichweite 33.5 (n=17)
+- ≥ 90 min: Ø Reichweite 34.1 (n=17)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -95,7 +95,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 307
+- reach: 341
 - profile_views: 1
 - accounts_engaged: 0
 - website_clicks: 0
@@ -103,14 +103,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 30.50 (n=31)
+- dating: 31.29 (n=31)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 45.02 (n=5)
+- fertig-video: 49.92 (n=5)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 33.85 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -122,7 +122,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - problem: 49.85 (n=2)
-- kernsatz: 43.15 (n=8)
+- kernsatz: 46.21 (n=8)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - geschichte: 32.00 (n=4)
@@ -143,8 +143,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - media: 74.70 (n=1)
 - schlechte-fotos: 43.00 (n=3)
 - zu-perfekt: 35.00 (n=1)
+- unsicher-vor-kamera: 34.80 (n=10)
 - wirkt-steif: 33.00 (n=1)
-- unsicher-vor-kamera: 32.35 (n=10)
 - nur-ein-foto: 30.00 (n=1)
 - langweiliges-profil: 26.00 (n=1)
 - keine-matches: 24.71 (n=10)
@@ -161,8 +161,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
 - 18:59: 71.00 (n=1)
+- 08:02: 70.90 (n=1)
 - 08:01: 54.20 (n=1)
-- 08:02: 51.60 (n=1)
 - 18:58: 35.00 (n=2)
 - 07:38: 35.00 (n=1)
 - 07:58: 33.00 (n=1)
@@ -173,22 +173,22 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 07:22: 24.00 (n=1)
 - 12:55: 21.50 (n=2)
 - 12:58: 21.00 (n=1)
+- 18:57: 19.18 (n=4)
 - 14:48: 19.00 (n=1)
-- 18:57: 18.68 (n=4)
 - 07:59: 16.50 (n=1)
 - 18:56: 15.10 (n=1)
 - 07:57: 14.05 (n=2)
 - 12:57: 13.90 (n=1)
 - 20:09: 13.30 (n=1)
 - 07:54: 13.00 (n=1)
-- 13:01: 10.60 (n=2)
+- 13:01: 12.20 (n=2)
 - 20:11: 8.20 (n=1)
 
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
 - track:feeling-happy.mp3: 54.20 (n=1)
-- original: 45.02 (n=5)
+- original: 49.92 (n=5)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
 - track:summer-dream.mp3: 26.10 (n=1)

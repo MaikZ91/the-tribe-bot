@@ -1,20 +1,20 @@
-# Benchmark 2026-10-26T12:53+01:00
+# Benchmark 2026-10-26T18:50+01:00
 
 Interaktion = Likes + 2 × Kommentare, Rate = je 100 Follower. Views gibt die API für fremde Accounts nicht her.
 
 
 ## Nicht abrufbar
 
-- @physiowicht: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A5aOJYKSZQ1
-- @physio_fit_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AGupsogWXG7
-- @h.h.sportphysiotherapie: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AVN0zkJ92u7
-- @ergotherapie_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A2NbBcPYM-f
-- @zahnarzt_eckzahn_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AF7OzIQtB1v
-- @dentikum.zahnaerzte: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Aa6a-_6HtxU
-- @praxis.elbeallee: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AsYhUGf0DBg
-- @co_medic: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Ad7s68HG6mC
-- @bielatesflow: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AJqsrR1iDU4
-- @vivavitalisbielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A-fXhq7MWg1
-- @fitnessstudio_bodytalk: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Az6XReHwwYl
+- @physiowicht: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AkvqJoKg50W
+- @physio_fit_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A-l5qfBZ1oX
+- @h.h.sportphysiotherapie: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Aa8fklIreX_
+- @ergotherapie_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AsGKZJQVeUF
+- @zahnarzt_eckzahn_bielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AMPIruHw-h_
+- @dentikum.zahnaerzte: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "Awn1bBt8Zg6
+- @praxis.elbeallee: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AI2c0KloN-D
+- @co_medic: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A3aHpFIL_E0
+- @bielatesflow: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "A18iQIVwGbP
+- @vivavitalisbielefeld: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AMNX78SxgZK
+- @fitnessstudio_bodytalk: GET me -> 400: {"error": {"message": "Tried accessing nonexisting field (business_discovery)", "type": "IGApiException", "code": 100, "fbtrace_id": "AAnKgyeQNZw
 
 _Fremde Kennzahlen gibt es nur über die Instagram-API mit Facebook-Login (Secrets IG_FB_TOKEN, IG_FB_USER_ID; Instagram-Konto mit einer Facebook-Seite verknüpft). Bis dahin Vergleich per Websuche (öffentliche Artikel, Fallstudien, Profile) und im Bericht so kennzeichnen._
