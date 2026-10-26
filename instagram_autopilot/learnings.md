@@ -1,5 +1,8 @@
 # Learnings
 
+## Tribe – CD 26.10. (16:50)
+- T39 Beat-Cut: Reach 260, Watch 0,385 (Reels sonst 0,13–0,31 außer T32 0,476). Beat-Cut bleibt; T41 testet Musik house-vibes (Track von T32). Sendegrund Pub Quiz 20:00.
+
 ## Dating – CD 26.10. (12:55)
 - D1026 (CHECK-CTA) Watch 0,337 bei 67 Views, noch 0 Kommentare. Beat-Cut 9 s stabil 0,29–0,34. D1026b testet Länge 5,9 s.
 
