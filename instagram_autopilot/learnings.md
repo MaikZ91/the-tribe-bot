@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 26.10. (12:55)
+- D1026 (CHECK-CTA) Watch 0,337 bei 67 Views, noch 0 Kommentare. Beat-Cut 9 s stabil 0,29–0,34. D1026b testet Länge 5,9 s.
+
 ## Dating – CD 26.10. (07:55)
 - D1025c Tempo 0,22 s: Watch 0,274 (16 Views) vs. 0,35 s 0,292/0,297 → kein Gewinn, 0,35 s bleibt. D1026 testet CTA „Kommentiere CHECK“ (bisher 0 Kommentare bei allen Beat-Cuts).
 
