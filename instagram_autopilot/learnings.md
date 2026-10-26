@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 26.10. (21:16)
+- @natuerlich.du.ms: 59 Follower (±0). D1026 CHECK-CTA Reach 102 / Views 114 / Watch 0,316; D1026b 6 s Reach 9 / 0,425 (Ausreißer, kaum ausgespielt); D1026c take-this-higher Reach 110 / 0,246. Likes/Saves/Shares/Kommentare überall 0. Profilaufrufe/Link-Klicks n/a.
+- Tribe: 1.298 Follower (Vortag 1.300); T39 Beat-Cut Reach 262 / Watch 0,382, T40 Stadtpuls-Karussell 97, T41 noch ohne Daten (Stand 17:00).
+- Hypothese für morgen: one-more-dance > take-this-higher (0,29–0,33 vs. 0,246) → zurück zu one-more-dance. 6 s nicht bewertbar (9 Views) – einmal wiederholen. CHECK brachte 0 Kommentare: nächster Hebel konkrete Kommentarfrage mit Ein-Wort-Antwort.
+
 ## Dating – CD 26.10. (18:55)
 - D1026 CHECK: Watch 0,326, Reach 95, 0 Kommentare. Abend-Slot schwach (D1025c Reach 26). D1026c testet Musik take-this-higher.
 
