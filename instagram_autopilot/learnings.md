@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 26.10. (18:55)
+- D1026 CHECK: Watch 0,326, Reach 95, 0 Kommentare. Abend-Slot schwach (D1025c Reach 26). D1026c testet Musik take-this-higher.
+
 ## Tribe – CD 26.10. (16:50)
 - T39 Beat-Cut: Reach 260, Watch 0,385 (Reels sonst 0,13–0,31 außer T32 0,476). Beat-Cut bleibt; T41 testet Musik house-vibes (Track von T32). Sendegrund Pub Quiz 20:00.
 
