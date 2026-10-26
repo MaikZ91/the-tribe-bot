@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 26.10. (07:55)
+- D1025c Tempo 0,22 s: Watch 0,274 (16 Views) vs. 0,35 s 0,292/0,297 → kein Gewinn, 0,35 s bleibt. D1026 testet CTA „Kommentiere CHECK“ (bisher 0 Kommentare bei allen Beat-Cuts).
+
 ## Tagesauswertung 25.10. (21:15)
 - @natuerlich.du.ms: 59 Follower (±0). Beat-Cut D1025 Reach 114 / Views 125 / Watch 0,292; D1025b 111 / 114 / 0,299; D1025c (0,22 s, 18:47) erst 3 Views – n/a. Likes/Saves/Shares/Kommentare 0. Profilaufrufe/Link-Klicks n/a.
 - Tribe: 1.300 Follower (Vortag 1.298); T38 Reach 119, T37 197; T39 Beat-Cut (17:12) noch ohne Daten (Tribe-Insights Stand 16:56).
