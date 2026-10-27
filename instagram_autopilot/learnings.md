@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 27.10. (12:55)
+- Auffällig: D1026b Reach 12, D1027 Reach 9 (5 h alt) vs. 100–115 bei D1025–D1026c. Mögliche Drosselung/Wiederholung. D1027b: neues Thema Spaziergang, kurze Frage-Hook. stil-* (KI-Gesichter) bewusst nicht in Reels, um keine KI-Menschen als Kunden wirken zu lassen.
+
 ## Dating – CD 27.10. (07:55)
 - one-more-dance zurück (0,29–0,32 vs. take-this-higher 0,246). D1027 testet Ein-Wort-Kommentarfrage (bisher 0 Kommentare, auch mit CHECK).
 
