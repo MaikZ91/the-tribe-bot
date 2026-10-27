@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-27
 
-Follower: **59** · Beiträge: 45
+Follower: **59** · Beiträge: 46
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -37,9 +37,10 @@ Follower: **59** · Beiträge: 45
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 16 | 19 | 0 | 0 | 0 | 0 | 0.397 | 13.3 |
 | D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 5 | 13 | 0 | 0 | 0 | 0 | – | 13.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
-| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 12 | 14 | 0 | 0 | 0 | 0 | 0.374 | 9.6 |
-| D1027-beatcut-ein-wort | fertig-video | unsicher-vor-kamera | kernsatz | 9 | 13 | 0 | 0 | 0 | 0 | 0.443 | 9.4 |
+| D1027-beatcut-ein-wort | fertig-video | unsicher-vor-kamera | kernsatz | 10 | 13 | 0 | 0 | 0 | 0 | 0.514 | 9.8 |
+| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 13 | 14 | 0 | 0 | 0 | 0 | 0.367 | 9.6 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
+| D1027b-beatcut-spaziergang | fertig-video | unsicher-vor-kamera | frage | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -48,8 +49,8 @@ Follower: **59** · Beiträge: 45
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
-| unsicher-vor-kamera | 36.7 | 53.3 | 0.31 | 12 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
+| unsicher-vor-kamera | 33.9 | 49.2 | 0.32 | 13 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
 | langweiliges-profil | 26.0 | 26.0 | 0.00 | 1 | – |
@@ -69,16 +70,16 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.6 s von 8.89 s · Skip 80.9 · Reichweite 115
 - TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.87 s von 11.05 s · Skip 84.9 · Reichweite 102
 - TOP D1026c-beatcut-musik: „“ · Ø 2.19 s von 8.89 s · Skip 85.5 · Reichweite 115
+- FLOP D1027b-beatcut-spaziergang: „“ · Ø – s · Skip 0 · Reichweite 0
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
-- FLOP D1027-beatcut-ein-wort: „“ · Ø 3.94 s · Skip 70 · Reichweite 9
-- FLOP D1026b-beatcut-kurz: „“ · Ø 2.19 s · Skip 78.6 · Reichweite 12
+- FLOP D1026b-beatcut-kurz: „“ · Ø 2.15 s · Skip 85.7 · Reichweite 13
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
-- ≥ 90 min: Ø Reichweite 38.8 (n=18)
+- ≥ 90 min: Ø Reichweite 36.8 (n=19)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -105,14 +106,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 32.18 (n=33)
+- dating: 31.25 (n=34)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 48.81 (n=7)
+- fertig-video: 42.76 (n=8)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 33.85 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -124,7 +125,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - problem: 49.85 (n=2)
-- kernsatz: 46.18 (n=10)
+- kernsatz: 46.22 (n=10)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - geschichte: 32.00 (n=4)
@@ -134,18 +135,18 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - versprechen: 18.00 (n=1)
 - beleg: 18.00 (n=1)
 - geständnis: 17.00 (n=1)
-- frage: 15.10 (n=2)
 - pov: 15.10 (n=1)
 - haltung: 14.00 (n=1)
 - szene: 10.75 (n=2)
+- frage: 10.07 (n=3)
 
 ## Ø Interesse nach pain
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
 - schlechte-fotos: 43.00 (n=3)
-- unsicher-vor-kamera: 36.68 (n=12)
 - zu-perfekt: 35.00 (n=1)
+- unsicher-vor-kamera: 33.88 (n=13)
 - wirkt-steif: 33.00 (n=1)
 - nur-ein-foto: 30.00 (n=1)
 - langweiliges-profil: 26.00 (n=1)
@@ -168,7 +169,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 18:58: 35.00 (n=2)
 - 07:38: 35.00 (n=1)
 - 07:58: 33.00 (n=1)
-- 08:01: 31.80 (n=2)
+- 08:01: 32.00 (n=2)
 - 13:30: 30.00 (n=1)
 - 14:50: 26.10 (n=1)
 - 08:22: 26.00 (n=1)
@@ -186,13 +187,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 20:09: 13.30 (n=1)
 - 07:54: 13.00 (n=1)
 - 20:11: 8.20 (n=1)
+- 13:05: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
 - track:feeling-happy.mp3: 54.20 (n=1)
-- original: 48.81 (n=7)
 - track:recline-and-chill.mp3: 43.60 (n=2)
+- original: 42.76 (n=8)
 - track:summers-here.mp3: 35.90 (n=2)
 - track:summer-dream.mp3: 26.10 (n=1)
 - bed: 25.65 (n=17)
