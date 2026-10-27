@@ -1,4 +1,4 @@
-# Instagram-Report 2026-10-26
+# Instagram-Report 2026-10-27
 
 Follower: **59** · Beiträge: 44
 
@@ -37,8 +37,8 @@ Follower: **59** · Beiträge: 44
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 16 | 19 | 0 | 0 | 0 | 0 | 0.397 | 13.3 |
 | D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 5 | 13 | 0 | 0 | 0 | 0 | – | 13.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
+| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 11 | 12 | 0 | 0 | 0 | 0 | 0.39 | 8.3 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
-| D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 9 | 11 | 0 | 0 | 0 | 0 | 0.425 | 7.8 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -47,7 +47,7 @@ Follower: **59** · Beiträge: 44
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
-| unsicher-vor-kamera | 38.9 | 56.5 | 0.30 | 11 | – |
+| unsicher-vor-kamera | 38.9 | 56.6 | 0.30 | 11 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
@@ -68,16 +68,16 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.6 s von 8.89 s · Skip 80.9 · Reichweite 115
 - TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.87 s von 11.05 s · Skip 84.9 · Reichweite 102
 - TOP D1025b-beatcut-profilbild: „“ · Ø 2.64 s von 8.89 s · Skip 80.4 · Reichweite 112
-- FLOP D1026b-beatcut-kurz: „“ · Ø 2.48 s · Skip 63.6 · Reichweite 9
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
+- FLOP D1026b-beatcut-kurz: „“ · Ø 2.28 s · Skip 83.3 · Reichweite 11
 - FLOP D1016-boosts-gekauft: „Ich hab Geld für Boosts ausgegeben.“ · Ø 7.13 s · Skip 78.6 · Reichweite 14
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
-- ≥ 90 min: Ø Reichweite 38.5 (n=18)
+- ≥ 90 min: Ø Reichweite 38.6 (n=18)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -96,7 +96,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 464
+- reach: 465
 - profile_views: 1
 - accounts_engaged: 0
 - website_clicks: 0
@@ -104,14 +104,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 32.81 (n=32)
+- dating: 32.82 (n=32)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 54.90 (n=6)
+- fertig-video: 54.98 (n=6)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 33.85 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -122,7 +122,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Ø Interesse nach hook_style
 
-- kernsatz: 49.94 (n=9)
+- kernsatz: 50.00 (n=9)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
@@ -143,7 +143,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
 - schlechte-fotos: 43.00 (n=3)
-- unsicher-vor-kamera: 38.89 (n=11)
+- unsicher-vor-kamera: 38.94 (n=11)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
 - nur-ein-foto: 30.00 (n=1)
@@ -182,14 +182,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 07:57: 14.05 (n=2)
 - 12:57: 13.90 (n=1)
 - 20:09: 13.30 (n=1)
+- 13:01: 13.15 (n=2)
 - 07:54: 13.00 (n=1)
-- 13:01: 12.90 (n=2)
 - 20:11: 8.20 (n=1)
 
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 54.90 (n=6)
+- original: 54.98 (n=6)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
