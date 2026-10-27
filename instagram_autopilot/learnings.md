@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 27.10. (18:55)
+- Reach-Einbruch bei Beat-Cuts: D1026b 13, D1027 10 (Insights Stand 13:30, Lauf um 18:50 nicht rechtzeitig fertig). D1027c testet ruhige Mini-Story (4 Fotos à 1,8 s) gegen mögliche Wiederholungs-Drosselung.
+
 ## Tribe – CD 27.10. (17:05)
 - Musik-Test: T39 take-this-higher Reach 278 / Watch 0,396 vs. T41 house-vibes 156 / 0,277 → take-this-higher bleibt. T43 testet Konzept Wochenplan (3 echte Termine).
 
