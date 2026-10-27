@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 27.10. (07:55)
+- one-more-dance zurück (0,29–0,32 vs. take-this-higher 0,246). D1027 testet Ein-Wort-Kommentarfrage (bisher 0 Kommentare, auch mit CHECK).
+
 ## Tagesauswertung 26.10. (21:16)
 - @natuerlich.du.ms: 59 Follower (±0). D1026 CHECK-CTA Reach 102 / Views 114 / Watch 0,316; D1026b 6 s Reach 9 / 0,425 (Ausreißer, kaum ausgespielt); D1026c take-this-higher Reach 110 / 0,246. Likes/Saves/Shares/Kommentare überall 0. Profilaufrufe/Link-Klicks n/a.
 - Tribe: 1.298 Follower (Vortag 1.300); T39 Beat-Cut Reach 262 / Watch 0,382, T40 Stadtpuls-Karussell 97, T41 noch ohne Daten (Stand 17:00).
