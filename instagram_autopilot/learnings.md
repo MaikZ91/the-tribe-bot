@@ -1,5 +1,8 @@
 # Learnings
 
+## Tribe – CD 27.10. (17:05)
+- Musik-Test: T39 take-this-higher Reach 278 / Watch 0,396 vs. T41 house-vibes 156 / 0,277 → take-this-higher bleibt. T43 testet Konzept Wochenplan (3 echte Termine).
+
 ## Dating – CD 27.10. (12:55)
 - Auffällig: D1026b Reach 12, D1027 Reach 9 (5 h alt) vs. 100–115 bei D1025–D1026c. Mögliche Drosselung/Wiederholung. D1027b: neues Thema Spaziergang, kurze Frage-Hook. stil-* (KI-Gesichter) bewusst nicht in Reels, um keine KI-Menschen als Kunden wirken zu lassen.
 
