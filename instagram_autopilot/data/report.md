@@ -1,11 +1,11 @@
-# Instagram-Report 2026-10-27
+# Instagram-Report 2026-10-28
 
 Follower: **59** · Beiträge: 47
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 126 | 0 | 0 | 0 | 0 | 0.291 | 81.3 |
-| D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 112 | 123 | 0 | 0 | 0 | 0 | 0.318 | 81.1 |
+| D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 113 | 123 | 0 | 0 | 0 | 0 | 0.318 | 81.1 |
 | D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.26 | 77.5 |
 | D1026c-beatcut-musik | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 121 | 0 | 0 | 0 | 0 | 0.247 | 75.4 |
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.296 | 75.2 |
@@ -69,7 +69,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Hooks: was hält, was nicht
 
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.59 s von 8.89 s · Skip 80.9 · Reichweite 115
-- TOP D1027c-mini-doku-frage: „“ · Ø 3.05 s von 9.59 s · Skip 75.4 · Reichweite 112
+- TOP D1027c-mini-doku-frage: „“ · Ø 3.04 s von 9.59 s · Skip 76.3 · Reichweite 113
 - TOP D1024b-gespraech-mit-kamera: „Kein Fotoshooting.“ · Ø 2.87 s von 11.05 s · Skip 84.9 · Reichweite 102
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
@@ -99,7 +99,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 362
+- reach: 365
 - profile_views: 2
 - accounts_engaged: 1
 - website_clicks: 0
