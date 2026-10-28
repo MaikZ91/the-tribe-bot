@@ -27,12 +27,12 @@ Follower: **59** · Beiträge: 47
 | D1021-die-4-fotos | maik-text | keine-matches | liste | 8 | 19 | 0 | 0 | 0 | 0 | – | 19.0 |
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | 8 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
 | D1017b-null-auf-zehn | foto-reel | keine-matches | beleg | 16 | 24 | 0 | 0 | 0 | 0 | 0.498 | 18.0 |
+| D1017c-vier-fotos | maik-text | nur-ein-bild | frage | 7 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
+| D1019c-unfair-verteilt | maik-text | keine-matches | haltung | 8 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
 | D1027-beatcut-ein-wort | fertig-video | unsicher-vor-kamera | kernsatz | 16 | 24 | 0 | 0 | 0 | 0 | 0.462 | 17.5 |
 | D1023b-boosts | maik-text | keine-matches | geständnis | 6 | 17 | 0 | 0 | 0 | 0 | – | 17.0 |
 | D1018-luft-anhalten | foto-reel | schlechte-selfies | kernsatz | 16 | 25 | 0 | 0 | 0 | 0 | 0.321 | 16.5 |
 | D1016-spots-muenster | foto-reel | wo-shooten | frage | 16 | 24 | 0 | 0 | 0 | 0 | 0.347 | 16.2 |
-| D1017c-vier-fotos | maik-text | nur-ein-bild | frage | 7 | 16 | 0 | 0 | 0 | 0 | – | 16.0 |
-| D1019c-unfair-verteilt | maik-text | keine-matches | haltung | 8 | 16 | 0 | 0 | 0 | 0 | – | 16.0 |
 | D1025c-beatcut-schnell | fertig-video | unsicher-vor-kamera | kernsatz | 26 | 25 | 0 | 0 | 0 | 0 | 0.247 | 15.6 |
 | D1018c-pov-kamera-vergessen | foto-reel | unsicher-vor-kamera | pov | 17 | 23 | 0 | 0 | 0 | 0 | 0.31 | 15.1 |
 | D1019b-kumpel-shooting | foto-reel | keine-matches | geschichte | 13 | 18 | 0 | 0 | 0 | 0 | 0.539 | 13.9 |
@@ -55,10 +55,10 @@ Follower: **59** · Beiträge: 47
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
 | langweiliges-profil | 26.0 | 26.0 | 0.00 | 1 | – |
-| keine-matches | 24.9 | 32.5 | 0.41 | 10 | – |
+| keine-matches | 25.1 | 32.7 | 0.41 | 10 | – |
+| nur-ein-bild | 18.0 | 18.0 | 0.00 | 1 | – |
 | schlechte-selfies | 16.5 | 25.0 | 0.32 | 1 | – |
 | wo-shooten | 16.2 | 24.0 | 0.35 | 1 | – |
-| nur-ein-bild | 16.0 | 16.0 | 0.00 | 1 | – |
 | anfragen | 13.3 | 19.0 | 0.40 | 1 | antworten, autoantwort, verpasste-anfragen, anfrage-qr |
 | social-media | 8.2 | 9.0 | 0.83 | 1 | – |
 
@@ -107,7 +107,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 33.34 (n=35)
+- dating: 33.45 (n=35)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
@@ -120,7 +120,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - tipp-carousel: 26.00 (n=1)
 - stil-carousel: 25.00 (n=1)
 - angebot-carousel: 24.00 (n=1)
-- maik-text: 22.00 (n=11)
+- maik-text: 22.36 (n=11)
 - flow-reel: 10.75 (n=2)
 
 ## Ø Interesse nach hook_style
@@ -136,10 +136,10 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - so-gehts: 18.50 (n=2)
 - versprechen: 18.00 (n=1)
 - beleg: 18.00 (n=1)
+- haltung: 18.00 (n=1)
 - geständnis: 17.00 (n=1)
-- haltung: 16.00 (n=1)
+- frage: 15.10 (n=3)
 - pov: 15.10 (n=1)
-- frage: 14.43 (n=3)
 - szene: 10.75 (n=2)
 
 ## Ø Interesse nach pain
@@ -152,10 +152,10 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - wirkt-steif: 33.00 (n=1)
 - nur-ein-foto: 30.00 (n=1)
 - langweiliges-profil: 26.00 (n=1)
-- keine-matches: 24.91 (n=10)
+- keine-matches: 25.11 (n=10)
+- nur-ein-bild: 18.00 (n=1)
 - schlechte-selfies: 16.50 (n=1)
 - wo-shooten: 16.20 (n=1)
-- nur-ein-bild: 16.00 (n=1)
 - anfragen: 13.30 (n=1)
 - social-media: 8.20 (n=1)
 
@@ -179,8 +179,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 07:08: 25.00 (n=1)
 - 07:22: 24.00 (n=1)
 - 12:55: 21.50 (n=2)
+- 18:57: 21.15 (n=4)
 - 12:58: 21.00 (n=1)
-- 18:57: 20.15 (n=4)
 - 14:48: 19.00 (n=1)
 - 07:59: 16.50 (n=1)
 - 18:56: 15.10 (n=1)
@@ -199,8 +199,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - original: 49.16 (n=9)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
+- bed: 26.12 (n=17)
 - track:summer-dream.mp3: 26.10 (n=1)
-- bed: 25.88 (n=17)
 - track:lo-fi-03.mp3: 16.50 (n=1)
 - track:chill-bro.mp3: 15.10 (n=1)
 - track:talent-in-the-air.mp3: 13.90 (n=1)
