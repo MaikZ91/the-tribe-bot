@@ -25,7 +25,7 @@ Follower: **59** · Beiträge: 47
 | D0116-so-laeuft-shooting | angebot-carousel | unsicher-vor-kamera | so-gehts | 13 | 24 | 0 | 0 | 0 | 0 | – | 24.0 |
 | D1016-drei-fehler | maik-text | schlechte-fotos | liste | 9 | 21 | 0 | 0 | 0 | 0 | – | 21.0 |
 | D1021-die-4-fotos | maik-text | keine-matches | liste | 9 | 20 | 0 | 0 | 0 | 0 | – | 20.0 |
-| D1027-beatcut-ein-wort | fertig-video | unsicher-vor-kamera | kernsatz | 17 | 25 | 0 | 0 | 0 | 0 | 0.469 | 18.4 |
+| D1027-beatcut-ein-wort | fertig-video | unsicher-vor-kamera | kernsatz | 18 | 27 | 0 | 0 | 0 | 0 | 0.459 | 19.7 |
 | D1017-zahlen-wenn-zufrieden | maik-text | unsicher-vor-kamera | versprechen | 8 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
 | D1017b-null-auf-zehn | foto-reel | keine-matches | beleg | 16 | 24 | 0 | 0 | 0 | 0 | 0.498 | 18.0 |
 | D1017c-vier-fotos | maik-text | nur-ein-bild | frage | 7 | 18 | 0 | 0 | 0 | 0 | – | 18.0 |
@@ -50,7 +50,7 @@ Follower: **59** · Beiträge: 47
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
-| unsicher-vor-kamera | 38.7 | 56.7 | 0.31 | 14 | – |
+| unsicher-vor-kamera | 38.8 | 56.9 | 0.31 | 14 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
 | nur-ein-foto | 30.0 | 30.0 | 0.00 | 1 | – |
@@ -99,7 +99,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 6
+- reach: 7
 - profile_views: 0
 - accounts_engaged: 0
 - website_clicks: 0
@@ -107,14 +107,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 33.52 (n=35)
+- dating: 33.56 (n=35)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 49.32 (n=9)
+- fertig-video: 49.47 (n=9)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 33.85 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -127,7 +127,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - verneinung: 81.10 (n=1)
 - problem: 49.85 (n=2)
-- kernsatz: 47.18 (n=10)
+- kernsatz: 47.31 (n=10)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - geschichte: 32.00 (n=4)
@@ -147,7 +147,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
 - schlechte-fotos: 43.00 (n=3)
-- unsicher-vor-kamera: 38.74 (n=14)
+- unsicher-vor-kamera: 38.83 (n=14)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
 - nur-ein-foto: 30.00 (n=1)
@@ -169,7 +169,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 08:02: 74.90 (n=1)
 - 19:23: 74.70 (n=1)
 - 18:59: 71.00 (n=1)
-- 08:01: 36.30 (n=2)
+- 08:01: 36.95 (n=2)
 - 18:58: 35.00 (n=2)
 - 07:38: 35.00 (n=1)
 - 07:58: 33.00 (n=1)
@@ -196,7 +196,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - track:take-this-higher.mp3: 77.50 (n=1)
 - track:feeling-happy.mp3: 54.20 (n=1)
-- original: 49.32 (n=9)
+- original: 49.47 (n=9)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
 - bed: 26.18 (n=17)
