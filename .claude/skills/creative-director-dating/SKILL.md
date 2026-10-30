@@ -254,6 +254,7 @@ Jedes Reel braucht einen Grund, es jemandem zu schicken: „Schick das dem Kumpe
 ## Regeln aus Maiks Korrekturen (neue oben, mit Datum)
 | Datum | Regel | Anlass |
 |---|---|---|
+| 30.10.2026 | Dating nur noch **1 Post pro Tag** (config max_posts_per_day=1, CD-Lauf 18:47). | „Poste die Dating Post ab sofort nur einmal pro Tag“ |
 | 24.10.2026 | Keine festen Format-Regeln: der Creative Director wählt das Format selbst anhand der Datenlage. | „soll selber entscheiden welches Format passt anhand der Datenlage“ |
 | 24.10.2026 | Zwei getrennte Creative Directors: dieser nur für Dating. | „Vielleicht machen wir 2 Creative directors“ |
 | 24.10.2026 | Insights laufen über Secret `AI` (Instagram-Login-Token, App „AI Made In Bielefeld“). | Token-Erneuerung |
