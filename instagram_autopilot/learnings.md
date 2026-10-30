@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 30.10. (13:00)
+- D1030 Mini-Story (Frage-Hook): Reach 61 nach 5 h, Watch 0,431 (Bestwert). Mini-Story wird Standard; D1030b testet Kernsatz-Hook.
+
 ## Dating – CD 30.10. (08:00)
 - Lücke 28./29.10.: keine CD-Läufe (Sitzung nicht erreichbar). D1027c Mini-Story Reach 113 / Watch 0,318; D1027 18, D1027b 13. D1030 repliziert die Mini-Story.
 
