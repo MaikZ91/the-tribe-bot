@@ -1,5 +1,8 @@
 # Learnings
 
+## Tribe – CD 30.10. (17:40)
+- T43 Wochenplan Reach 170/Watch 0,40; T42 Unterwegs-Karussell 151; Follower 1.297. T45: Beat-Cut, take-this-higher, Konzept ein Anlass (Freitagnacht).
+
 ## Dating – CD 30.10. (13:00)
 - D1030 Mini-Story (Frage-Hook): Reach 61 nach 5 h, Watch 0,431 (Bestwert). Mini-Story wird Standard; D1030b testet Kernsatz-Hook.
 
