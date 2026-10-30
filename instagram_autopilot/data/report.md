@@ -4,12 +4,12 @@ Follower: **59** · Beiträge: 49
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| D1030b-mini-doku-kernsatz | fertig-video | unsicher-vor-kamera | kernsatz | 127 | 152 | 0 | 0 | 0 | 0 | 0.505 | 114.4 |
+| D1030b-mini-doku-kernsatz | fertig-video | unsicher-vor-kamera | kernsatz | 128 | 153 | 0 | 0 | 0 | 0 | 0.503 | 115.0 |
 | D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 126 | 0 | 0 | 0 | 0 | 0.291 | 81.3 |
 | D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 113 | 123 | 0 | 0 | 0 | 0 | 0.316 | 80.9 |
+| D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 106 | 115 | 0 | 0 | 0 | 0 | 0.379 | 79.3 |
 | D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.26 | 77.5 |
 | D1026-beatcut-check | fertig-video | unsicher-vor-kamera | kernsatz | 103 | 116 | 0 | 0 | 0 | 0 | 0.319 | 76.5 |
-| D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 103 | 111 | 0 | 0 | 0 | 0 | 0.378 | 76.5 |
 | D1026c-beatcut-musik | fertig-video | unsicher-vor-kamera | kernsatz | 116 | 122 | 0 | 0 | 0 | 0 | 0.246 | 76.0 |
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.296 | 75.2 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
@@ -51,7 +51,7 @@ Follower: **59** · Beiträge: 49
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 46.0 | 66.3 | 0.33 | 16 | – |
+| unsicher-vor-kamera | 46.2 | 66.6 | 0.33 | 16 | – |
 | schlechte-fotos | 43.0 | 65.7 | 0.23 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -70,7 +70,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Hooks: was hält, was nicht
 
-- TOP D1030b-mini-doku-kernsatz: „“ · Ø 4.84 s von 9.59 s · Skip 57.7 · Reichweite 127
+- TOP D1030b-mini-doku-kernsatz: „“ · Ø 4.83 s von 9.59 s · Skip 58.1 · Reichweite 128
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.59 s von 8.89 s · Skip 80.9 · Reichweite 115
 - TOP D1027c-mini-doku-frage: „“ · Ø 3.03 s von 9.59 s · Skip 76.3 · Reichweite 113
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
@@ -82,7 +82,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
-- ≥ 90 min: Ø Reichweite 45.5 (n=21)
+- ≥ 90 min: Ø Reichweite 45.6 (n=21)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -101,7 +101,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 232
+- reach: 235
 - profile_views: 0
 - accounts_engaged: 1
 - website_clicks: 0
@@ -109,14 +109,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 36.94 (n=37)
+- dating: 37.04 (n=37)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 57.95 (n=11)
+- fertig-video: 58.26 (n=11)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 33.85 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -128,13 +128,13 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 80.90 (n=1)
-- kernsatz: 53.55 (n=11)
+- kernsatz: 53.61 (n=11)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - geschichte: 32.00 (n=4)
 - liste: 31.20 (n=4)
-- frage: 30.45 (n=4)
+- frage: 31.15 (n=4)
 - aufforderung: 26.00 (n=1)
 - so-gehts: 18.50 (n=2)
 - versprechen: 18.00 (n=1)
@@ -148,7 +148,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 45.99 (n=16)
+- unsicher-vor-kamera: 46.21 (n=16)
 - schlechte-fotos: 43.00 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -163,11 +163,11 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Ø Interesse nach local_time
 
-- 13:03: 114.40 (n=1)
+- 13:03: 115.00 (n=1)
 - 07:56: 81.30 (n=1)
 - 19:10: 80.90 (n=1)
+- 08:02: 77.90 (n=2)
 - 12:56: 77.50 (n=1)
-- 08:02: 76.50 (n=2)
 - 19:00: 76.00 (n=1)
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
@@ -198,7 +198,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 57.95 (n=11)
+- original: 58.26 (n=11)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 35.90 (n=2)
