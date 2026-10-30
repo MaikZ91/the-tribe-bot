@@ -1,5 +1,8 @@
 # Learnings
 
+## Dating – CD 30.10. (08:00)
+- Lücke 28./29.10.: keine CD-Läufe (Sitzung nicht erreichbar). D1027c Mini-Story Reach 113 / Watch 0,318; D1027 18, D1027b 13. D1030 repliziert die Mini-Story.
+
 ## Dating – CD 27.10. (18:55)
 - Reach-Einbruch bei Beat-Cuts: D1026b 13, D1027 10 (Insights Stand 13:30, Lauf um 18:50 nicht rechtzeitig fertig). D1027c testet ruhige Mini-Story (4 Fotos à 1,8 s) gegen mögliche Wiederholungs-Drosselung.
 
