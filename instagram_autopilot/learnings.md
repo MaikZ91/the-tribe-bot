@@ -1,5 +1,10 @@
 # Learnings
 
+## Tagesauswertung 30.10. (21:15)
+- @natuerlich.du.ms: 59 Follower (±0). Mini-Story D1030 (Frage-Hook) Reach 103 / Views 111 / Watch 0,378; D1030b (Kernsatz-Hook) Reach 127 / Views 152 / Watch 0,505 – bester Dating-Reel bisher. Likes/Saves/Shares/Kommentare 0. Profilaufrufe/Link-Klicks n/a.
+- Tribe: 1.296 Follower; T44 Frag-THE-TRIBE-Karussell Reach 105 (Stand 17:47), T45 noch ohne Daten.
+- Ab 31.10. nur 1 Dating-Post/Tag (Maik). Hypothese: Mini-Story + Kernsatz-Hook bleibt; nächste Variable CTA, um die ersten Kommentare/Shares zu holen.
+
 ## Tribe – CD 30.10. (17:40)
 - T43 Wochenplan Reach 170/Watch 0,40; T42 Unterwegs-Karussell 151; Follower 1.297. T45: Beat-Cut, take-this-higher, Konzept ein Anlass (Freitagnacht).
 
