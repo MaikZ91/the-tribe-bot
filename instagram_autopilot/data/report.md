@@ -1,6 +1,6 @@
 # Instagram-Report 2026-10-31
 
-Follower: **59** · Beiträge: 49
+Follower: **59** · Beiträge: 50
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -44,6 +44,7 @@ Follower: **59** · Beiträge: 49
 | D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 15 | 16 | 0 | 0 | 0 | 0 | 0.375 | 11.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
+| D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 1 | 9 | 0 | 0 | 0 | 0 | 0.262 | 5.7 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -51,7 +52,7 @@ Follower: **59** · Beiträge: 49
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 46.5 | 67.0 | 0.35 | 16 | – |
+| unsicher-vor-kamera | 44.1 | 63.6 | 0.34 | 17 | – |
 | schlechte-fotos | 44.0 | 66.7 | 0.24 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -73,11 +74,11 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP D1030b-mini-doku-kernsatz: „“ · Ø 4.8 s von 9.59 s · Skip 58.4 · Reichweite 129
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.59 s von 8.89 s · Skip 80.9 · Reichweite 115
 - TOP D1027c-mini-doku-frage: „“ · Ø 3.03 s von 9.59 s · Skip 76.3 · Reichweite 113
+- FLOP D1031-mini-doku-posieren: „“ · Ø 2.51 s · Skip 25 · Reichweite 1
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - FLOP D1016-boosts-gekauft: „Ich hab Geld für Boosts ausgegeben.“ · Ø 7.13 s · Skip 78.6 · Reichweite 14
-- FLOP D1026b-beatcut-kurz: „“ · Ø 2.19 s · Skip 87.5 · Reichweite 15
 
 ## Abstand zwischen Posts
 
@@ -101,7 +102,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 237
+- reach: 238
 - profile_views: 0
 - accounts_engaged: 1
 - website_clicks: 0
@@ -109,14 +110,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 37.25 (n=37)
+- dating: 36.42 (n=38)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 58.74 (n=11)
+- fertig-video: 54.32 (n=12)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 34.12 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -128,8 +129,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 80.90 (n=1)
-- kernsatz: 53.72 (n=11)
 - problem: 49.85 (n=2)
+- kernsatz: 49.72 (n=12)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
 - frage: 32.15 (n=4)
@@ -148,7 +149,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 46.53 (n=16)
+- unsicher-vor-kamera: 44.13 (n=17)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -186,19 +187,19 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:58: 21.00 (n=1)
 - 14:48: 20.00 (n=1)
 - 07:59: 16.50 (n=1)
-- 18:56: 15.10 (n=1)
 - 13:01: 14.50 (n=2)
 - 13:05: 14.50 (n=1)
 - 07:57: 14.05 (n=2)
 - 12:57: 13.90 (n=1)
 - 20:09: 13.30 (n=1)
 - 07:54: 13.00 (n=1)
+- 18:56: 10.40 (n=2)
 - 20:11: 8.20 (n=1)
 
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 58.74 (n=11)
+- original: 54.32 (n=12)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
