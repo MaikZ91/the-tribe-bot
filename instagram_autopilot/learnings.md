@@ -1,5 +1,11 @@
 # Learnings
 
+## Tagesauswertung 31.10. (21:15)
+- @natuerlich.du.ms: 59 Follower (±0). Konto: Reach 238, Profilaufrufe 0, Link-Klicks 0. D1031 Kurz-Story Posieren (Kernsatz) nach ~2 h Reach 1 / Views 9 / Watch 0,262 – zu früh. D1030 jetzt 107/0,377, D1030b 129/0,50. Likes/Saves/Shares/Kommentare weiter 0.
+- @ki.fuer.dein.business: keine neuen Reels heute; Nischen-Vergleich n/a.
+- Tribe: 1.295 Follower (−1); Konto-Reach 1.787, Profilaufrufe 46, Link-Klicks 5 (Stand 17:13). T44 134, T45 Beat-Cut 72/Watch 0,58, T46 Coffee Walk 90/0,386, T47 noch ohne Daten.
+- Hypothese: Kurz-Story + Kernsatz ist Dating-Standard; morgen Variable CTA (Kommentar-Keyword statt Link in Bio), um die ersten Interaktionen zu holen – sofern D1031 bis morgen früh ≥100 Reach erreicht.
+
 ## Tagesauswertung 30.10. (21:15)
 - @natuerlich.du.ms: 59 Follower (±0). Mini-Story D1030 (Frage-Hook) Reach 103 / Views 111 / Watch 0,378; D1030b (Kernsatz-Hook) Reach 127 / Views 152 / Watch 0,505 – bester Dating-Reel bisher. Likes/Saves/Shares/Kommentare 0. Profilaufrufe/Link-Klicks n/a.
 - Tribe: 1.296 Follower; T44 Frag-THE-TRIBE-Karussell Reach 105 (Stand 17:47), T45 noch ohne Daten.
