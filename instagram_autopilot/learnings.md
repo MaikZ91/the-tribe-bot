@@ -374,3 +374,6 @@
 
 ## Dating – CD 25.10. (18:50)
 - Beat-Cut repliziert: D1025 Watch 0,295 (Reach 112), D1025b 0,301 (Reach 110) vs. Ken-Burns 0,16–0,26. → Beat-Cut ist neuer Standard für Foto-Reels. Nächster Test D1025c: Tempo 0,22 s statt 0,35 s pro Zwischenbild.
+
+## CD 31.10 (Dating)
+- D1031-mini-doku-posieren: Kurz-Story 4 Fotos × 1,8 s + Endkarte, Kernsatz-Hook „Jeder, der posiert, sieht aus wie jemand, der posiert.“, one-more-dance. Grund: D1030b Reach 127/Watch 0,505 (Bestwert), D1030 Frage 103/0,378. Test-Variable: Thema (posieren statt nebenbei).
