@@ -1,40 +1,41 @@
-# Instagram-Report 2026-10-31
+# Instagram-Report 2026-11-01
 
-Follower: **1295** · Beiträge: 48
+Follower: **1298** · Beiträge: 49
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 656 | 1146 | 8 | 0 | 1 | 1 | – | 1194.0 |
-| T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 424 | 938 | 6 | 0 | 2 | 0 | – | 968.0 |
-| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 337 | 695 | 2 | 0 | 3 | 1 | – | 747.0 |
+| T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 428 | 958 | 6 | 0 | 2 | 0 | – | 988.0 |
+| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 340 | 701 | 2 | 0 | 3 | 1 | – | 753.0 |
 | T37-app-wer-kommt-mit | app-carousel | app | frage | 243 | 597 | 0 | 0 | 0 | 0 | – | 597.0 |
-| T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 218 | 538 | 2 | 0 | 0 | 0 | – | 544.0 |
-| T38-app-mein-abend | app-carousel | app | frage | 206 | 466 | 0 | 0 | 0 | 0 | – | 466.0 |
+| T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 218 | 540 | 2 | 0 | 0 | 0 | – | 546.0 |
+| T38-app-mein-abend | app-carousel | app | frage | 207 | 469 | 0 | 0 | 0 | 0 | – | 469.0 |
 | T34-app-tribe-tonight | app-carousel | app | frage | 199 | 433 | 1 | 0 | 0 | 0 | – | 436.0 |
-| T40-app-stadtpuls | app-carousel | app | frage | 173 | 396 | 0 | 0 | 0 | 0 | – | 396.0 |
-| T42-app-ich-bin-unterwegs | app-carousel | app | frage | 159 | 386 | 2 | 0 | 0 | 0 | – | 392.0 |
-| T39-beatcut-kennenlernabend | fertig-video | events | frage | 321 | 404 | 0 | 0 | 1 | 0 | 0.407 | 288.4 |
-| T44-app-frag-the-tribe-live | app-carousel | app | frage | 134 | 284 | 0 | 0 | 0 | 0 | – | 284.0 |
+| T40-app-stadtpuls | app-carousel | app | frage | 177 | 400 | 0 | 0 | 0 | 0 | – | 400.0 |
+| T42-app-ich-bin-unterwegs | app-carousel | app | frage | 162 | 393 | 2 | 0 | 0 | 0 | – | 399.0 |
+| T44-app-frag-the-tribe-live | app-carousel | app | frage | 145 | 301 | 0 | 0 | 0 | 0 | – | 301.0 |
+| T39-beatcut-kennenlernabend | fertig-video | events | frage | 324 | 407 | 0 | 0 | 1 | 0 | 0.407 | 290.5 |
+| T47-app-tribe-tonight-halloween | app-carousel | app | frage | 115 | 273 | 0 | 0 | 0 | 0 | – | 273.0 |
 | T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 283 | 348 | 2 | 0 | 0 | 0 | 0.213 | 214.7 |
-| T32-montag-countdown | fertig-video | events | uhrzeit | 186 | 233 | 2 | 0 | 0 | 0 | 0.468 | 175.4 |
-| T43-beatcut-tribe-woche | fertig-video | events | wochentag | 182 | 226 | 1 | 0 | 0 | 0 | 0.402 | 160.5 |
-| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 195 | 227 | 0 | 0 | 1 | 0 | 0.303 | 151.8 |
-| T28-coffee-walk-samstag | fertig-video | community-format | video | 214 | 249 | 0 | 0 | 1 | 0 | 0.146 | 146.1 |
-| T35-app-abend-bauen | fertig-video | app | frage | 160 | 202 | 1 | 0 | 0 | 0 | 0.306 | 133.9 |
-| T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 72 | 119 | 0 | 0 | 0 | 0 | 0.58 | 94.0 |
-| T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 90 | 129 | 0 | 0 | 0 | 0 | 0.386 | 89.4 |
+| T32-montag-countdown | fertig-video | events | uhrzeit | 187 | 234 | 2 | 0 | 0 | 0 | 0.466 | 175.9 |
+| T43-beatcut-tribe-woche | fertig-video | events | wochentag | 187 | 235 | 1 | 0 | 0 | 0 | 0.402 | 166.8 |
+| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 198 | 232 | 0 | 0 | 1 | 0 | 0.307 | 155.5 |
+| T28-coffee-walk-samstag | fertig-video | community-format | video | 216 | 252 | 0 | 0 | 1 | 0 | 0.15 | 148.3 |
+| T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 151 | 205 | 0 | 0 | 0 | 0 | 0.376 | 141.0 |
+| T35-app-abend-bauen | fertig-video | app | frage | 162 | 204 | 1 | 0 | 0 | 0 | 0.304 | 135.0 |
+| T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 85 | 134 | 0 | 0 | 0 | 0 | 0.571 | 105.3 |
 | T24-app-animiert | fertig-video | app | video | 100 | 134 | 2 | 0 | 0 | 0 | 0.229 | 86.0 |
-| T47-app-tribe-tonight-halloween | app-carousel | app | frage | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
+| T48-app-abend-bauen | app-carousel | app | frage | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
-| neu-in-bielefeld | 730.2 | 742.5 | 0.21 | 4 | – |
-| app | 353.8 | 359.3 | 0.27 | 10 | – |
-| events | 174.0 | 241.8 | 0.43 | 5 | – |
-| community-format | 146.1 | 249.0 | 0.15 | 1 | – |
-| coffee-walk | 89.4 | 129.0 | 0.39 | 1 | – |
+| neu-in-bielefeld | 735.7 | 748.0 | 0.21 | 4 | – |
+| app | 349.9 | 355.0 | 0.27 | 11 | – |
+| events | 178.8 | 248.4 | 0.43 | 5 | – |
+| community-format | 148.3 | 252.0 | 0.15 | 1 | – |
+| coffee-walk | 141.0 | 205.0 | 0.38 | 1 | – |
 
 **Stärkster Pain:** neu-in-bielefeld  
 **Nächstes Tool bauen für:** neu-in-bielefeld  
@@ -42,94 +43,94 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Hooks: was hält, was nicht
 
-- TOP T39-beatcut-kennenlernabend: „“ · Ø 3.38 s von 8.29 s · Skip 72.2 · Reichweite 321
+- TOP T39-beatcut-kennenlernabend: „“ · Ø 3.38 s von 8.29 s · Skip 72.2 · Reichweite 324
 - TOP T21-dienstag-vier-ideen: „Dienstag. Nur Sofa?“ · Ø 4.47 s von 21.02 s · Skip 72.5 · Reichweite 283
-- TOP T32-montag-countdown: „“ · Ø 4.3 s von 9.2 s · Skip 72.8 · Reichweite 186
+- TOP T32-montag-countdown: „“ · Ø 4.29 s von 9.2 s · Skip 72.9 · Reichweite 187
 - FLOP T24-app-animiert: „“ · Ø 4.6 s · Skip 78.9 · Reichweite 100
-- FLOP T46-beatcut-coffee-walk: „“ · Ø 3.32 s · Skip 74.2 · Reichweite 90
-- FLOP T45-beatcut-freitagnacht: „“ · Ø 4.86 s · Skip 75.7 · Reichweite 72
+- FLOP T45-beatcut-freitagnacht: „“ · Ø 4.78 s · Skip 75.3 · Reichweite 85
+- FLOP T35-app-abend-bauen: „“ · Ø 4.01 s · Skip 70.3 · Reichweite 162
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=0)
-- ≥ 90 min: Ø Reichweite 177.1 (n=8)
+- ≥ 90 min: Ø Reichweite 194.6 (n=8)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
-- images/rooftop-vier.jpg: 1194.0 (n=1)
-- images/club-drei-freunde.jpg#bw: 968.0 (n=1)
-- images/selfie-drei-schwarz.jpg#bw: 968.0 (n=1)
-- images/wandern-selfie-baum.jpg: 968.0 (n=1)
-- images/gitarre-live.jpg: 782.5 (n=2)
-- images/dinner-tischrunde-halle.jpg: 634.7 (n=3)
-- images/party-selfie-1.jpg: 624.9 (n=3)
-- images/dinner-restaurant.jpg: 600.4 (n=4)
-- images/bar-happy-hour-selfie.jpg: 544.0 (n=1)
-- images/party-rock-geste.jpg#bw: 544.0 (n=1)
-- images/party-selfie-2.jpg: 538.9 (n=4)
-- images/club-drei-freunde.jpg: 491.8 (n=4)
+- images/club-drei-freunde.jpg#bw: 988.0 (n=1)
+- images/selfie-drei-schwarz.jpg#bw: 988.0 (n=1)
+- images/wandern-selfie-baum.jpg: 988.0 (n=1)
+- images/gitarre-live.jpg: 792.5 (n=2)
+- images/dinner-tischrunde-halle.jpg: 644.3 (n=3)
+- images/party-selfie-1.jpg: 625.9 (n=3)
+- images/party-selfie-2.jpg: 608.7 (n=4)
+- images/dinner-restaurant.jpg: 601.4 (n=4)
+- images/rooftop-vier.jpg: 597.0 (n=2)
+- images/party-rock-geste.jpg#bw: 546.0 (n=1)
+- images/club-drei-freunde.jpg: 499.8 (n=4)
+- images/selfie-drei-schwarz.jpg: 473.0 (n=2)
 
 ## Konto (heute)
 
-- reach: 1787
-- profile_views: 46
-- accounts_engaged: 4
+- reach: 1503
+- profile_views: 35
+- accounts_engaged: 2
 - website_clicks: 5
 - follows_and_unfollows: None
 - engaged_cities: Bielefeld, Nordrhein-Westfalen (61), Münster, Nordrhein-Westfalen (25), Greven, Nordrhein-Westfalen (3), Dülmen, Nordrhein-Westfalen (2), Emsdetten, Nordrhein-Westfalen (2), Gütersloh, Nordrhein-Westfalen (2), Rietberg, Nordrhein-Westfalen (2), Barßel, Niedersachsen (1)
-- follower_cities: Bielefeld, Nordrhein-Westfalen (748), Münster, Nordrhein-Westfalen (83), Gütersloh, Nordrhein-Westfalen (21), Herford, Nordrhein-Westfalen (18), Halle, Nordrhein-Westfalen (18), Oerlinghausen, Nordrhein-Westfalen (18), Steinhagen, Nordrhein-Westfalen (17), Werther, Nordrhein-Westfalen (15)
+- follower_cities: Bielefeld, Nordrhein-Westfalen (746), Münster, Nordrhein-Westfalen (82), Gütersloh, Nordrhein-Westfalen (21), Herford, Nordrhein-Westfalen (18), Halle, Nordrhein-Westfalen (18), Oerlinghausen, Nordrhein-Westfalen (18), Steinhagen, Nordrhein-Westfalen (17), Werther, Nordrhein-Westfalen (15)
 
 ## Ø Interesse nach niche
 
-- None: 360.20 (n=21)
+- None: 362.50 (n=22)
 
 ## Ø Interesse nach format
 
-- event-carousel: 902.00 (n=3)
-- app-carousel: 414.75 (n=8)
+- event-carousel: 909.33 (n=3)
+- app-carousel: 403.11 (n=9)
 - event-reel: 214.70 (n=1)
-- fertig-video: 147.28 (n=9)
+- fertig-video: 156.03 (n=9)
 
 ## Ø Interesse nach hook_style
 
 - neu-in-stadt: 1194.00 (n=1)
-- struktur: 544.00 (n=1)
-- frage: 428.03 (n=11)
+- struktur: 546.00 (n=1)
+- frage: 420.12 (n=12)
 - anlass: 214.70 (n=1)
-- uhrzeit: 140.40 (n=3)
-- wochentag: 124.95 (n=2)
-- video: 116.05 (n=2)
+- wochentag: 153.90 (n=2)
+- uhrzeit: 145.57 (n=3)
+- video: 117.15 (n=2)
 
 ## Ø Interesse nach pain
 
-- neu-in-bielefeld: 730.17 (n=4)
-- app: 353.79 (n=10)
-- events: 174.02 (n=5)
-- community-format: 146.10 (n=1)
-- coffee-walk: 89.40 (n=1)
+- neu-in-bielefeld: 735.67 (n=4)
+- app: 349.91 (n=11)
+- events: 178.80 (n=5)
+- community-format: 148.30 (n=1)
+- coffee-walk: 141.00 (n=1)
 
 ## Ø Interesse nach local_time
 
 - 17:42: 1194.00 (n=1)
-- 16:54: 968.00 (n=1)
-- 10:59: 747.00 (n=1)
-- 16:56: 476.47 (n=3)
+- 16:54: 988.00 (n=1)
+- 10:59: 753.00 (n=1)
+- 16:56: 477.83 (n=3)
 - 14:44: 436.00 (n=1)
-- 10:57: 396.00 (n=1)
-- 10:56: 392.00 (n=1)
-- 11:13: 284.00 (n=1)
-- 10:55: 233.83 (n=3)
+- 10:57: 400.00 (n=1)
+- 11:13: 301.00 (n=1)
+- 17:12: 273.00 (n=1)
+- 10:55: 252.77 (n=3)
 - 18:21: 214.70 (n=1)
-- 17:00: 175.40 (n=1)
-- 17:09: 160.50 (n=1)
-- 16:59: 151.80 (n=1)
-- 11:01: 133.90 (n=1)
-- 17:46: 94.00 (n=1)
+- 10:56: 199.50 (n=2)
+- 17:00: 175.90 (n=1)
+- 17:09: 166.80 (n=1)
+- 16:59: 155.50 (n=1)
+- 11:01: 135.00 (n=1)
+- 17:46: 105.30 (n=1)
 - 14:21: 86.00 (n=1)
-- 17:12: 0.00 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 547.64 (n=11)
+- bed: 529.67 (n=12)
 - track:take-this-higher.mp3: 214.70 (n=1)
-- original: 147.28 (n=9)
+- original: 156.03 (n=9)
