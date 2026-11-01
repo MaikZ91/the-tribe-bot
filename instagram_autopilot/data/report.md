@@ -5,7 +5,7 @@ Follower: **59** · Beiträge: 51
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | D1030b-mini-doku-kernsatz | fertig-video | unsicher-vor-kamera | kernsatz | 129 | 154 | 0 | 0 | 0 | 0 | 0.5 | 115.5 |
-| D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 109 | 130 | 1 | 0 | 0 | 0 | 0.388 | 92.3 |
+| D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 110 | 130 | 1 | 0 | 0 | 0 | 0.393 | 92.6 |
 | D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 114 | 128 | 0 | 0 | 0 | 0 | 0.343 | 86.0 |
 | D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 126 | 0 | 0 | 0 | 0 | 0.291 | 81.3 |
 | D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 107 | 116 | 0 | 0 | 0 | 0 | 0.377 | 79.9 |
@@ -15,6 +15,7 @@ Follower: **59** · Beiträge: 51
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.296 | 75.2 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 112 | 123 | 0 | 0 | 0 | 0 | 0.155 | 71.0 |
+| D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 53 | 95 | 0 | 0 | 0 | 0 | 0.312 | 62.3 |
 | D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 82 | 92 | 0 | 0 | 0 | 0 | 0.232 | 56.7 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | 18 | 35 | 0 | 0 | 0 | 0 | – | 35.0 |
@@ -45,7 +46,6 @@ Follower: **59** · Beiträge: 51
 | D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 15 | 16 | 0 | 0 | 0 | 0 | 0.375 | 11.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
-| D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 0 | 0 | 0 | 0 | 0 | 0 | – | 0.0 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
 
@@ -53,7 +53,7 @@ Follower: **59** · Beiträge: 51
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 46.8 | 67.1 | 0.35 | 18 | – |
+| unsicher-vor-kamera | 50.3 | 72.3 | 0.35 | 18 | – |
 | schlechte-fotos | 44.0 | 66.7 | 0.24 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -73,13 +73,13 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Hooks: was hält, was nicht
 
 - TOP D1030b-mini-doku-kernsatz: „“ · Ø 4.8 s von 9.59 s · Skip 58.4 · Reichweite 129
-- TOP D1031-mini-doku-posieren: „“ · Ø 3.72 s von 9.59 s · Skip 66.4 · Reichweite 109
+- TOP D1031-mini-doku-posieren: „“ · Ø 3.77 s von 9.59 s · Skip 66.4 · Reichweite 110
 - TOP D1027c-mini-doku-frage: „“ · Ø 3.29 s von 9.59 s · Skip 75.7 · Reichweite 114
-- FLOP D1101-mini-doku-check: „“ · Ø – s · Skip 0 · Reichweite 0
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - FLOP D1016-boosts-gekauft: „Ich hab Geld für Boosts ausgegeben.“ · Ø 7.13 s · Skip 78.6 · Reichweite 14
+- FLOP D1026b-beatcut-kurz: „“ · Ø 2.19 s · Skip 87.5 · Reichweite 15
 
 ## Abstand zwischen Posts
 
@@ -103,7 +103,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 120
+- reach: 172
 - profile_views: 1
 - accounts_engaged: 2
 - website_clicks: 0
@@ -111,14 +111,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 37.84 (n=39)
+- dating: 39.45 (n=39)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 57.19 (n=13)
+- fertig-video: 62.01 (n=13)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 34.12 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -130,7 +130,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 86.00 (n=1)
-- kernsatz: 52.55 (n=13)
+- kernsatz: 57.37 (n=13)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
@@ -150,7 +150,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 46.77 (n=18)
+- unsicher-vor-kamera: 50.25 (n=18)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -174,9 +174,9 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
 - 18:59: 71.00 (n=1)
+- 18:56: 56.67 (n=3)
 - 08:01: 36.95 (n=2)
 - 18:58: 36.45 (n=2)
-- 18:56: 35.80 (n=3)
 - 07:38: 35.00 (n=1)
 - 07:58: 33.00 (n=1)
 - 13:30: 30.00 (n=1)
@@ -200,7 +200,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 57.19 (n=13)
+- original: 62.01 (n=13)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
