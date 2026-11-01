@@ -1,5 +1,11 @@
 # Learnings
 
+## Tagesauswertung 01.11. (21:15)
+- @natuerlich.du.ms: 59 Follower (±0). Konto: Reach 172, Profilaufrufe 1, Link-Klicks 0. D1101 Kurz-Story CTA „Kommentiere CHECK“ nach ~2 h Reach 53 / Views 95 / Watch 0,312, 0 Kommentare. D1031 jetzt 110 / Watch 0,393, erstes Like.
+- @ki.fuer.dein.business: keine Reels (pausiert) – n/a.
+- Tribe: 1.298 Follower (+3 zu gestern); Reach 1.938, Profilaufrufe 45, Link-Klicks 5 (Stand 16:58). T47 Tribe Tonight 123, T48 Abend bauen 118, T49 noch ohne Daten.
+- Hypothese: CHECK-CTA bis morgen Abend bewerten (Kommentare > 0?); falls weiter 0, morgen Musik-Test (take-this-higher) mit „Link in Bio“.
+
 ## Tagesauswertung 31.10. (21:15)
 - @natuerlich.du.ms: 59 Follower (±0). Konto: Reach 238, Profilaufrufe 0, Link-Klicks 0. D1031 Kurz-Story Posieren (Kernsatz) nach ~2 h Reach 1 / Views 9 / Watch 0,262 – zu früh. D1030 jetzt 107/0,377, D1030b 129/0,50. Likes/Saves/Shares/Kommentare weiter 0.
 - @ki.fuer.dein.business: keine neuen Reels heute; Nischen-Vergleich n/a.
