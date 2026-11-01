@@ -395,3 +395,6 @@
 
 ## Tribe – CD 01.11. (16:55)
 - T49 Beat-Cut „Sonntag. 19 Uhr. Niemanden kennen? Genau deshalb.“ mit take-this-higher; Konzept eigenes Treffen (Kennenlernabend) statt fremder Events. Grund: Beat-Cuts T39 278/0,396, T45 72/0,58, T46 90/0,386 – Anlass-Konzepte halten Watch, Reach schwankt.
+
+## CD 01.11 (Dating)
+- D1101-mini-doku-check: Kurz-Story, Kernsatz „Beim Selfie hältst du die Luft an. Und hoffst.“, one-more-dance. Test-Variable CTA „Kommentiere CHECK“ (alle Posts bisher 0 Kommentare; D1030b 129/0,50, D1031 106/0,392).
