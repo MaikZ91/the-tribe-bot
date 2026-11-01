@@ -1,10 +1,11 @@
-# Instagram-Report 2026-10-31
+# Instagram-Report 2026-11-01
 
 Follower: **59** · Beiträge: 50
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | D1030b-mini-doku-kernsatz | fertig-video | unsicher-vor-kamera | kernsatz | 129 | 154 | 0 | 0 | 0 | 0 | 0.5 | 115.5 |
+| D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 106 | 125 | 1 | 0 | 0 | 0 | 0.392 | 89.1 |
 | D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 126 | 0 | 0 | 0 | 0 | 0.291 | 81.3 |
 | D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 113 | 123 | 0 | 0 | 0 | 0 | 0.316 | 80.9 |
 | D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 107 | 116 | 0 | 0 | 0 | 0 | 0.377 | 79.9 |
@@ -43,7 +44,6 @@ Follower: **59** · Beiträge: 50
 | D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 5 | 13 | 0 | 0 | 0 | 0 | – | 13.0 |
 | D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 15 | 16 | 0 | 0 | 0 | 0 | 0.375 | 11.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
-| D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 5 | 10 | 0 | 0 | 0 | 0 | 0.779 | 8.9 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
@@ -52,7 +52,7 @@ Follower: **59** · Beiträge: 50
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 44.3 | 63.6 | 0.38 | 17 | – |
+| unsicher-vor-kamera | 49.0 | 70.4 | 0.35 | 17 | – |
 | schlechte-fotos | 44.0 | 66.7 | 0.24 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -72,13 +72,13 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Hooks: was hält, was nicht
 
 - TOP D1030b-mini-doku-kernsatz: „“ · Ø 4.8 s von 9.59 s · Skip 58.4 · Reichweite 129
+- TOP D1031-mini-doku-posieren: „“ · Ø 3.76 s von 9.59 s · Skip 66.7 · Reichweite 106
 - TOP D1025-beatcut-gespraech: „“ · Ø 2.59 s von 8.89 s · Skip 80.9 · Reichweite 115
-- TOP D1027c-mini-doku-frage: „“ · Ø 3.03 s von 9.59 s · Skip 76.3 · Reichweite 113
 - FLOP P0510c-gastro-volle-bar-keine-zeit: „Volle Bar.
 Kein Insta-Post.
 Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
-- FLOP D1031-mini-doku-posieren: „“ · Ø 7.47 s · Skip 60 · Reichweite 5
 - FLOP D1016-boosts-gekauft: „Ich hab Geld für Boosts ausgegeben.“ · Ø 7.13 s · Skip 78.6 · Reichweite 14
+- FLOP D1026b-beatcut-kurz: „“ · Ø 2.19 s · Skip 87.5 · Reichweite 15
 
 ## Abstand zwischen Posts
 
@@ -102,22 +102,22 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 240
+- reach: 349
 - profile_views: 1
-- accounts_engaged: 1
+- accounts_engaged: 3
 - website_clicks: 0
 
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 36.51 (n=38)
+- dating: 38.62 (n=38)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 54.58 (n=12)
+- fertig-video: 61.27 (n=12)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 34.12 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -129,7 +129,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 80.90 (n=1)
-- kernsatz: 49.98 (n=12)
+- kernsatz: 56.67 (n=12)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
@@ -149,7 +149,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 44.32 (n=17)
+- unsicher-vor-kamera: 49.04 (n=17)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -173,6 +173,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
 - 18:59: 71.00 (n=1)
+- 18:56: 52.10 (n=2)
 - 08:01: 36.95 (n=2)
 - 18:58: 36.45 (n=2)
 - 07:38: 35.00 (n=1)
@@ -193,13 +194,12 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:57: 13.90 (n=1)
 - 20:09: 13.30 (n=1)
 - 07:54: 13.00 (n=1)
-- 18:56: 12.00 (n=2)
 - 20:11: 8.20 (n=1)
 
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 54.58 (n=12)
+- original: 61.27 (n=12)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
