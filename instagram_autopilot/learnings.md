@@ -383,3 +383,6 @@
 
 ## CD 31.10 (Dating)
 - D1031-mini-doku-posieren: Kurz-Story 4 Fotos × 1,8 s + Endkarte, Kernsatz-Hook „Jeder, der posiert, sieht aus wie jemand, der posiert.“, one-more-dance. Grund: D1030b Reach 127/Watch 0,505 (Bestwert), D1030 Frage 103/0,378. Test-Variable: Thema (posieren statt nebenbei).
+
+## Tribe – CD 01.11. (16:55)
+- T49 Beat-Cut „Sonntag. 19 Uhr. Niemanden kennen? Genau deshalb.“ mit take-this-higher; Konzept eigenes Treffen (Kennenlernabend) statt fremder Events. Grund: Beat-Cuts T39 278/0,396, T45 72/0,58, T46 90/0,386 – Anlass-Konzepte halten Watch, Reach schwankt.
