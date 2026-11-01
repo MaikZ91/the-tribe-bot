@@ -54,6 +54,15 @@
 - Tribe: 1.300 Follower (Vortag 1.298); T38 Reach 119, T37 197; T39 Beat-Cut (17:12) noch ohne Daten (Tribe-Insights Stand 16:56).
 - Hypothese für morgen: Beat-Cut hält ~0,30 Watch, bringt aber 0 Shares → nächste Variable CTA: „Kommentiere CHECK“ statt „Link in Bio“, Tempo-Ergebnis D1025c morgen früh werten.
 
+## Wochen-Strategie 02.–08.11. (So 01.11., 18:55)
+- Konto weiter @natuerlich.du.ms (Dating); Health/Gastro pausiert → Strategie nur Dating.
+- Woche 26.10.–01.11. vs. 19.–25.10.: 9 vs. 14 Posts (ab 31.10. 1/Tag), Ø Reichweite 80 vs. 50, Watch Ø 0,38 vs. 0,31, Shares/Saves/Kommentare 0/0/0 beide Wochen, Follower 59 → 59. Profilaufrufe/Link-Klicks 0 (Konto-Insights 31.10.).
+- Bestätigt: Kurz-Story (4 Fotos × 1,8 s) – alle vier ≥106 Reach, Watch 0,32–0,50. Kernsatz-Hook ≥ Frage-Hook (D1030b 0,50 vs. D1030 0,377). Verworfen: Mehrfach-Posts/Tag. Offen: CTA, Musik, Länge.
+- Externe Recherche diese Woche nicht neu durchgeführt (Stand recherche.md bleibt).
+- Experimente (je 1 Variable, Kurz-Story als Basis): (1) cta „Kommentiere CHECK“ vs. „Link in Bio“ – Ziel erste Kommentare; (2) musik take-this-higher vs. one-more-dance; (3) laenge 3 vs. 4 Fotos; (4) topic Selfie-vs-Moment-Kernsatz; (5) hook_style Zahl („1 Stunde. 4 Fotos.“).
+- Standard: 1 Post/Tag 18:47, Kurz-Story, Kernsatz-Hook, echte Fotos. Wegfällt: Karussells (Reach 5–11).
+- Tribe: 1.296 → 1.298 Follower, Post-Takt läuft (T40–T49, täglich App-Post + Beat-Cut/Anlass). IG_ACCESS_TOKEN läuft am 02.11. ab.
+
 ## Wochen-Strategie 26.10.–01.11. (So 25.10., 18:55)
 - Konto ist seit 13.10. @natuerlich.du.ms (Dating); Health/Gastro pausiert → Strategie nur Dating.
 - Woche 19.–25.10. vs. 12.–18.10.: 13 vs. 15 Posts, Ø Reichweite 51 vs. 14, Ø Reel-Reichweite 79 vs. 16, Watch 0,31 vs. 0,36 (Vorwoche nur wenige, sehr kleine Reels), Shares/Saves 0/0 beide Wochen. Follower 59 → 59.

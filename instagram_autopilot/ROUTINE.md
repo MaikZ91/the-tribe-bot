@@ -18,6 +18,8 @@ Reihenfolge ohne Ausnahme: **Daten → Briefing → Reel bauen → prüfen → q
 
 - 25.10.2026 (Dating): Foto-Reels als Beat-Cut (0,22–0,35 s Zwischenbilder, Text-Beats 0,6–0,9 s) statt Ken-Burns-Zoom. Beleg: D1025 Watch 0,295, D1025b 0,301 vs. Ken-Burns D1023c 0,21, D1024b 0,26, D1024c 0,156.
 - Nicht mehr (Dating): Ken-Burns-Foto-Reels als Standard; Hook-Länge allein ändert die Watch-Ratio nicht (D1023–D1024b).
+- 01.11.2026 (Dating): Kurz-Story als Standard – 4 echte Fotos × 1,8 s mit je einem Satz + Endkarte (ca. 9,6 s). Beleg: D1027c 113/0,316, D1030 107/0,377, D1030b 129/0,50, D1031 106/0,392 vs. Beat-Cuts D1026–D1027b Ø 0,37 bei Reach 14–116.
+- Nicht mehr (Dating): mehrere Posts pro Tag (Maik 30.10.: 1 Post/Tag); Beat-Cut nur noch als Abwechslung.
 
 - Stand 04.10.: noch keine – erste Experimente laufen seit 04.10. (Bewertung nach 48 h, „bestätigt“ ab 3 Tests).
 - Nicht mehr: Probe-Reels (gesperrt, zu wenige Follower); reine Grafik-Reels ohne Menschen als Standard (Maik 04.10.).
