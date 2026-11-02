@@ -1,6 +1,6 @@
-# Instagram-Report 2026-11-01
+# Instagram-Report 2026-11-02
 
-Follower: **59** · Beiträge: 51
+Follower: **60** · Beiträge: 51
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -16,7 +16,7 @@ Follower: **59** · Beiträge: 51
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 112 | 123 | 0 | 0 | 0 | 0 | 0.155 | 71.0 |
 | D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 104 | 108 | 0 | 0 | 0 | 0 | 0.296 | 70.0 |
-| D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 82 | 92 | 0 | 0 | 0 | 0 | 0.232 | 56.7 |
+| D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 83 | 92 | 0 | 0 | 0 | 0 | 0.232 | 56.7 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
 | D0207-echt-statt-ki | echt-carousel | zu-perfekt | kontrast | 18 | 35 | 0 | 0 | 0 | 0 | – | 35.0 |
 | D0306-wer-posiert | maik-text | wirkt-steif | aussage | 18 | 33 | 0 | 0 | 0 | 0 | – | 33.0 |
@@ -40,9 +40,9 @@ Follower: **59** · Beiträge: 51
 | D1025c-beatcut-schnell | fertig-video | unsicher-vor-kamera | kernsatz | 26 | 25 | 0 | 0 | 0 | 0 | 0.247 | 15.6 |
 | D1018c-pov-kamera-vergessen | foto-reel | unsicher-vor-kamera | pov | 17 | 23 | 0 | 0 | 0 | 0 | 0.31 | 15.1 |
 | D1027b-beatcut-spaziergang | fertig-video | unsicher-vor-kamera | frage | 14 | 20 | 0 | 0 | 0 | 0 | 0.454 | 14.5 |
+| D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 6 | 14 | 0 | 0 | 0 | 0 | – | 14.0 |
 | D1019b-kumpel-shooting | foto-reel | keine-matches | geschichte | 13 | 18 | 0 | 0 | 0 | 0 | 0.539 | 13.9 |
 | P0110d-coach-handy-training | flow-reel | anfragen | szene | 16 | 19 | 0 | 0 | 0 | 0 | 0.397 | 13.3 |
-| D1024-so-laeuft-die-stunde | maik-text | unsicher-vor-kamera | so-gehts | 5 | 13 | 0 | 0 | 0 | 0 | – | 13.0 |
 | D1026b-beatcut-kurz | fertig-video | unsicher-vor-kamera | kernsatz | 15 | 16 | 0 | 0 | 0 | 0 | 0.375 | 11.0 |
 | D1016-boosts-gekauft | foto-reel | keine-matches | geschichte | 14 | 15 | 0 | 0 | 0 | 0 | 0.344 | 10.1 |
 | P0510c-gastro-volle-bar-keine-zeit | flow-reel | social-media | szene | 11 | 9 | 0 | 0 | 0 | 0 | 0.832 | 8.2 |
@@ -84,7 +84,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 15.0 (n=3)
-- ≥ 90 min: Ø Reichweite 45.8 (n=21)
+- ≥ 90 min: Ø Reichweite 45.9 (n=21)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -103,15 +103,15 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 221
-- profile_views: 1
+- reach: 222
+- profile_views: 2
 - accounts_engaged: 2
 - website_clicks: 0
 
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 39.64 (n=39)
+- dating: 39.67 (n=39)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
@@ -124,7 +124,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - tipp-carousel: 26.00 (n=1)
 - stil-carousel: 25.00 (n=1)
 - angebot-carousel: 24.00 (n=1)
-- maik-text: 22.45 (n=11)
+- maik-text: 22.55 (n=11)
 - flow-reel: 10.75 (n=2)
 
 ## Ø Interesse nach hook_style
@@ -138,7 +138,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - geschichte: 32.00 (n=4)
 - liste: 31.93 (n=4)
 - aufforderung: 26.00 (n=1)
-- so-gehts: 18.50 (n=2)
+- so-gehts: 19.00 (n=2)
 - versprechen: 18.00 (n=1)
 - beleg: 18.00 (n=1)
 - haltung: 18.00 (n=1)
@@ -150,7 +150,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 50.68 (n=18)
+- unsicher-vor-kamera: 50.73 (n=18)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -192,9 +192,9 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 13:01: 14.50 (n=2)
 - 13:05: 14.50 (n=1)
 - 07:57: 14.05 (n=2)
+- 07:54: 14.00 (n=1)
 - 12:57: 13.90 (n=1)
 - 20:09: 13.30 (n=1)
-- 07:54: 13.00 (n=1)
 - 20:11: 8.20 (n=1)
 
 ## Ø Interesse nach music
@@ -204,7 +204,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
-- bed: 26.18 (n=17)
+- bed: 26.24 (n=17)
 - track:summer-dream.mp3: 26.10 (n=1)
 - track:lo-fi-03.mp3: 16.50 (n=1)
 - track:chill-bro.mp3: 15.10 (n=1)
