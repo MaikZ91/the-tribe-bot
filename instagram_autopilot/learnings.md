@@ -1,5 +1,11 @@
 # Learnings
 
+## Tagesauswertung 02.11. (21:20)
+- @natuerlich.du.ms: 60 Follower (+1). Konto: Reach 147, Profilaufrufe 1, Link-Klicks 0. D1101 CHECK-CTA final 106 / Watch 0,298 / 0 Kommentare. D1102 (take-this-higher) nach ~2 h Reach 29 / Watch 0,382 (erste Stunden über D1101).
+- @ki.fuer.dein.business: pausiert – n/a.
+- Tribe: 1.298 Follower (±0); Reach 2.335, Profilaufrufe 42, Link-Klicks 2 (Stand 18:02). T49 Kennenlernabend-Beat-Cut 230 / Watch 0,472 (bester Beat-Cut seit T39), T50 Wer-kommt-mit 104, T51 noch ohne Daten. Token-Ablauf heute → morgen prüfen.
+- Hypothese: eigenes Treffen als Anlass (T49) zieht mehr als fremde Events; morgen Tribe-Beat-Cut wieder mit eigenem TRIBE-Event.
+
 ## Tagesauswertung 01.11. (21:15)
 - @natuerlich.du.ms: 59 Follower (±0). Konto: Reach 172, Profilaufrufe 1, Link-Klicks 0. D1101 Kurz-Story CTA „Kommentiere CHECK“ nach ~2 h Reach 53 / Views 95 / Watch 0,312, 0 Kommentare. D1031 jetzt 110 / Watch 0,393, erstes Like.
 - @ki.fuer.dein.business: keine Reels (pausiert) – n/a.
