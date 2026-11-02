@@ -404,3 +404,6 @@
 
 ## CD 01.11 (Dating)
 - D1101-mini-doku-check: Kurz-Story, Kernsatz „Beim Selfie hältst du die Luft an. Und hoffst.“, one-more-dance. Test-Variable CTA „Kommentiere CHECK“ (alle Posts bisher 0 Kommentare; D1030b 129/0,50, D1031 106/0,392).
+
+## Tribe – CD 02.11. (17:55)
+- T51 Beat-Cut „Montag. 20 Uhr. Pub Quiz. Kein Team?“ take-this-higher; Konzept Wochentag-Event + Mitkomm-Frage, passend zu T50 Wer kommt mit. Grund: T49/T45 Anlass-Beat-Cuts Watch 0,39–0,58.
