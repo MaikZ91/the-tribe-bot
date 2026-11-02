@@ -407,3 +407,6 @@
 
 ## Tribe – CD 02.11. (17:55)
 - T51 Beat-Cut „Montag. 20 Uhr. Pub Quiz. Kein Team?“ take-this-higher; Konzept Wochentag-Event + Mitkomm-Frage, passend zu T50 Wer kommt mit. Grund: T49/T45 Anlass-Beat-Cuts Watch 0,39–0,58.
+
+## CD 02.11 (Dating)
+- D1101 CHECK-CTA: Reach 104, Watch 0,296, 0 Kommentare → CTA-Test ohne Wirkung. D1102-mini-doku-anspannung: Kurz-Story, Kernsatz Anspannung, Link in Bio; Test-Variable Musik take-this-higher.
