@@ -1,4 +1,4 @@
-# Instagram-Report 2026-11-02
+# Instagram-Report 2026-11-03
 
 Follower: **60** · Beiträge: 52
 
@@ -7,6 +7,7 @@ Follower: **60** · Beiträge: 52
 | D1030b-mini-doku-kernsatz | fertig-video | unsicher-vor-kamera | kernsatz | 129 | 154 | 0 | 0 | 0 | 0 | 0.5 | 115.5 |
 | D1031-mini-doku-posieren | fertig-video | unsicher-vor-kamera | kernsatz | 111 | 131 | 1 | 0 | 0 | 0 | 0.395 | 93.5 |
 | D1027c-mini-doku-frage | fertig-video | unsicher-vor-kamera | verneinung | 114 | 128 | 0 | 0 | 0 | 0 | 0.343 | 86.0 |
+| D1102-mini-doku-anspannung | fertig-video | unsicher-vor-kamera | kernsatz | 107 | 122 | 0 | 0 | 0 | 0 | 0.397 | 85.2 |
 | D1025-beatcut-gespraech | fertig-video | unsicher-vor-kamera | kernsatz | 115 | 126 | 0 | 0 | 0 | 0 | 0.291 | 81.3 |
 | D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 107 | 116 | 0 | 0 | 0 | 0 | 0.377 | 79.9 |
 | D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.26 | 77.5 |
@@ -15,7 +16,6 @@ Follower: **60** · Beiträge: 52
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.296 | 75.2 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 106 | 112 | 0 | 0 | 0 | 0 | 0.298 | 72.7 |
-| D1102-mini-doku-anspannung | fertig-video | unsicher-vor-kamera | kernsatz | 87 | 103 | 0 | 0 | 0 | 0 | 0.389 | 71.5 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 112 | 123 | 0 | 0 | 0 | 0 | 0.155 | 71.0 |
 | D1023c-drei-dinge | foto-reel | schlechte-fotos | liste | 83 | 92 | 0 | 0 | 0 | 0 | 0.232 | 56.7 |
 | D1023-selfie-vs-moment | foto-reel | schlechte-fotos | kontrast | 77 | 87 | 0 | 0 | 0 | 0 | 0.247 | 54.2 |
@@ -54,7 +54,7 @@ Follower: **60** · Beiträge: 52
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 52.0 | 74.9 | 0.35 | 19 | – |
+| unsicher-vor-kamera | 52.7 | 75.9 | 0.35 | 19 | – |
 | schlechte-fotos | 44.0 | 66.7 | 0.24 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -104,22 +104,22 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 206
-- profile_views: 1
+- reach: 112
+- profile_views: 0
 - accounts_engaged: 0
 - website_clicks: 0
 
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 40.57 (n=40)
+- dating: 40.91 (n=40)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 63.49 (n=14)
+- fertig-video: 64.47 (n=14)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 34.17 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -131,7 +131,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 86.00 (n=1)
-- kernsatz: 59.23 (n=14)
+- kernsatz: 60.21 (n=14)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
@@ -151,7 +151,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 52.02 (n=19)
+- unsicher-vor-kamera: 52.74 (n=19)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -168,13 +168,13 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - 13:03: 115.50 (n=1)
 - 19:10: 86.00 (n=1)
+- 19:09: 85.20 (n=1)
 - 07:56: 81.30 (n=1)
 - 08:02: 78.20 (n=2)
 - 12:56: 77.50 (n=1)
 - 19:00: 76.00 (n=1)
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
-- 19:09: 71.50 (n=1)
 - 18:59: 71.00 (n=1)
 - 18:56: 60.43 (n=3)
 - 08:01: 36.95 (n=2)
@@ -202,7 +202,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 63.49 (n=14)
+- original: 64.47 (n=14)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
