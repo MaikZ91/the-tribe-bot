@@ -104,8 +104,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 116
-- profile_views: 0
+- reach: 4
+- profile_views: 2
 - accounts_engaged: 0
 - website_clicks: 0
 
