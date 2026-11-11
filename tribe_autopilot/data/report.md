@@ -8,8 +8,8 @@ Follower: **1306** · Beiträge: 53
 | T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 431 | 963 | 6 | 0 | 2 | 0 | – | 993.0 |
 | T31-app-ich-bin-unterwegs | app-carousel | app | frage | 354 | 705 | 2 | 0 | 3 | 1 | – | 757.0 |
 | T37-app-wer-kommt-mit | app-carousel | app | frage | 255 | 631 | 0 | 0 | 0 | 0 | – | 631.0 |
-| T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 232 | 575 | 2 | 0 | 0 | 0 | – | 581.0 |
-| T50-app-wer-kommt-mit | app-carousel | app | frage | 261 | 518 | 1 | 0 | 0 | 0 | – | 521.0 |
+| T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 232 | 576 | 2 | 0 | 0 | 0 | – | 582.0 |
+| T50-app-wer-kommt-mit | app-carousel | app | frage | 261 | 519 | 1 | 0 | 0 | 0 | – | 522.0 |
 | T38-app-mein-abend | app-carousel | app | frage | 227 | 506 | 0 | 0 | 0 | 0 | – | 506.0 |
 | T48-app-abend-bauen | app-carousel | app | frage | 234 | 483 | 0 | 0 | 0 | 0 | – | 483.0 |
 | T42-app-ich-bin-unterwegs | app-carousel | app | frage | 189 | 448 | 2 | 0 | 0 | 0 | – | 454.0 |
@@ -17,7 +17,7 @@ Follower: **1306** · Beiträge: 53
 | T40-app-stadtpuls | app-carousel | app | frage | 194 | 432 | 0 | 0 | 0 | 0 | – | 432.0 |
 | T47-app-tribe-tonight-halloween | app-carousel | app | frage | 196 | 419 | 0 | 0 | 0 | 0 | – | 419.0 |
 | T44-app-frag-the-tribe-live | app-carousel | app | frage | 188 | 381 | 0 | 0 | 0 | 0 | – | 381.0 |
-| T52-app-mein-abend | app-carousel | app | frage | 170 | 353 | 1 | 0 | 0 | 0 | – | 356.0 |
+| T52-app-mein-abend | app-carousel | app | frage | 170 | 356 | 1 | 0 | 0 | 0 | – | 359.0 |
 | T49-beatcut-kennenlernabend | fertig-video | community | uhrzeit | 314 | 418 | 1 | 0 | 0 | 0 | 0.505 | 316.8 |
 | T39-beatcut-kennenlernabend | fertig-video | events | frage | 337 | 427 | 0 | 0 | 1 | 0 | 0.409 | 305.0 |
 | T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 235 | 309 | 0 | 0 | 0 | 0 | 0.409 | 217.7 |
@@ -35,8 +35,8 @@ Follower: **1306** · Beiträge: 53
 
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
-| neu-in-bielefeld | 746.0 | 758.5 | 0.21 | 4 | – |
-| app | 432.1 | 436.3 | 0.26 | 13 | – |
+| neu-in-bielefeld | 746.3 | 758.8 | 0.21 | 4 | – |
+| app | 432.4 | 436.6 | 0.26 | 13 | – |
 | community | 316.8 | 418.0 | 0.51 | 1 | – |
 | coffee-walk | 217.7 | 309.0 | 0.41 | 1 | – |
 | events | 184.0 | 253.0 | 0.43 | 6 | – |
@@ -67,17 +67,17 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - images/wandern-selfie-baum.jpg: 993.0 (n=1)
 - images/rooftop-vier.jpg: 839.0 (n=2)
 - images/gitarre-live.jpg: 812.0 (n=2)
-- images/dinner-tischrunde-halle.jpg: 676.0 (n=3)
+- images/dinner-tischrunde-halle.jpg: 676.3 (n=3)
 - images/dinner-restaurant.jpg: 618.3 (n=4)
-- images/party-selfie-1.jpg: 609.3 (n=4)
-- images/party-selfie-2.jpg: 588.4 (n=5)
-- images/party-rock-geste.jpg#bw: 581.0 (n=1)
-- images/club-drei-freunde.jpg: 543.2 (n=4)
-- images/bar-happy-hour-selfie.jpg: 532.0 (n=2)
+- images/party-selfie-1.jpg: 609.5 (n=4)
+- images/party-selfie-2.jpg: 589.0 (n=5)
+- images/party-rock-geste.jpg#bw: 582.0 (n=1)
+- images/club-drei-freunde.jpg: 543.5 (n=4)
+- images/bar-happy-hour-selfie.jpg: 532.5 (n=2)
 
 ## Konto (heute)
 
-- reach: 1258
+- reach: 1275
 - profile_views: 24
 - accounts_engaged: 4
 - website_clicks: 0
@@ -87,20 +87,20 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 399.78 (n=26)
+- None: 399.98 (n=26)
 
 ## Ø Interesse nach format
 
-- event-carousel: 923.00 (n=3)
-- app-carousel: 489.91 (n=11)
+- event-carousel: 923.33 (n=3)
+- app-carousel: 490.27 (n=11)
 - event-reel: 215.10 (n=1)
 - fertig-video: 183.75 (n=11)
 
 ## Ø Interesse nach hook_style
 
 - neu-in-stadt: 1195.00 (n=1)
-- struktur: 581.00 (n=1)
-- frage: 487.75 (n=14)
+- struktur: 582.00 (n=1)
+- frage: 488.04 (n=14)
 - anlass: 215.10 (n=1)
 - wochentag: 203.40 (n=2)
 - uhrzeit: 185.34 (n=5)
@@ -108,8 +108,8 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach pain
 
-- neu-in-bielefeld: 746.02 (n=4)
-- app: 432.08 (n=13)
+- neu-in-bielefeld: 746.27 (n=4)
+- app: 432.38 (n=13)
 - community: 316.80 (n=1)
 - coffee-walk: 217.70 (n=1)
 - events: 184.00 (n=6)
@@ -120,14 +120,14 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 17:42: 1195.00 (n=1)
 - 16:54: 993.00 (n=1)
 - 10:59: 757.00 (n=1)
-- 16:56: 505.67 (n=3)
+- 16:56: 506.00 (n=3)
 - 10:56: 468.50 (n=2)
 - 14:44: 449.00 (n=1)
 - 10:57: 432.00 (n=1)
 - 17:12: 419.00 (n=1)
 - 11:13: 381.00 (n=1)
-- 12:45: 356.00 (n=1)
-- 11:01: 331.25 (n=2)
+- 12:45: 359.00 (n=1)
+- 11:01: 331.75 (n=2)
 - 16:57: 316.80 (n=1)
 - 10:55: 292.83 (n=3)
 - 18:21: 215.10 (n=1)
@@ -140,6 +140,6 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach music
 
-- bed: 582.71 (n=14)
+- bed: 583.07 (n=14)
 - track:take-this-higher.mp3: 215.10 (n=1)
 - original: 183.75 (n=11)
