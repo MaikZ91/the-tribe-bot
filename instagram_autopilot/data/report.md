@@ -12,8 +12,8 @@ Follower: **60** · Beiträge: 52
 | D1030-mini-doku-nebenbei | fertig-video | unsicher-vor-kamera | frage | 108 | 117 | 0 | 0 | 0 | 0 | 0.378 | 80.6 |
 | D1024b-gespraech-mit-kamera | foto-reel | unsicher-vor-kamera | kernsatz | 102 | 123 | 0 | 0 | 0 | 0 | 0.26 | 77.5 |
 | D1026-beatcut-check | fertig-video | unsicher-vor-kamera | kernsatz | 103 | 116 | 0 | 0 | 0 | 0 | 0.319 | 76.5 |
+| D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 108 | 117 | 0 | 0 | 0 | 0 | 0.306 | 76.4 |
 | D1026c-beatcut-musik | fertig-video | unsicher-vor-kamera | kernsatz | 116 | 122 | 0 | 0 | 0 | 0 | 0.246 | 76.0 |
-| D1101-mini-doku-check | fertig-video | unsicher-vor-kamera | kernsatz | 107 | 116 | 0 | 0 | 0 | 0 | 0.308 | 75.9 |
 | D1025b-beatcut-profilbild | fertig-video | schlechtes-profilbild | kernsatz | 112 | 116 | 0 | 0 | 0 | 0 | 0.296 | 75.2 |
 | M02-video-schnitt-automatisch | service-reel | media | problem | 134 | 138 | 0 | 0 | 0 | 0 | 0.082 | 74.7 |
 | D1024c-boosts-reel | foto-reel | keine-matches | geschichte | 112 | 123 | 0 | 0 | 0 | 0 | 0.155 | 71.0 |
@@ -54,7 +54,7 @@ Follower: **60** · Beiträge: 52
 |---|---|---|---|---|---|
 | schlechtes-profilbild | 75.2 | 116.0 | 0.30 | 1 | – |
 | media | 74.7 | 138.0 | 0.08 | 1 | – |
-| unsicher-vor-kamera | 53.4 | 76.7 | 0.35 | 19 | – |
+| unsicher-vor-kamera | 53.4 | 76.8 | 0.35 | 19 | – |
 | schlechte-fotos | 44.0 | 66.7 | 0.24 | 3 | – |
 | zu-perfekt | 35.0 | 35.0 | 0.00 | 1 | – |
 | wirkt-steif | 33.0 | 33.0 | 0.00 | 1 | – |
@@ -112,14 +112,14 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach niche
 
 - None: 74.70 (n=1)
-- dating: 41.21 (n=40)
+- dating: 41.23 (n=40)
 - coaches: 13.30 (n=1)
 - gastro: 8.20 (n=1)
 
 ## Ø Interesse nach format
 
 - service-reel: 74.70 (n=1)
-- fertig-video: 65.33 (n=14)
+- fertig-video: 65.36 (n=14)
 - echt-carousel: 35.00 (n=1)
 - foto-reel: 34.17 (n=11)
 - tipp-carousel: 26.00 (n=1)
@@ -131,7 +131,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach hook_style
 
 - verneinung: 86.00 (n=1)
-- kernsatz: 61.01 (n=14)
+- kernsatz: 61.05 (n=14)
 - problem: 49.85 (n=2)
 - kontrast: 38.40 (n=3)
 - aussage: 33.00 (n=1)
@@ -151,7 +151,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 - schlechtes-profilbild: 75.20 (n=1)
 - media: 74.70 (n=1)
-- unsicher-vor-kamera: 53.37 (n=19)
+- unsicher-vor-kamera: 53.39 (n=19)
 - schlechte-fotos: 43.97 (n=3)
 - zu-perfekt: 35.00 (n=1)
 - wirkt-steif: 33.00 (n=1)
@@ -176,7 +176,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 - 12:59: 75.20 (n=1)
 - 19:23: 74.70 (n=1)
 - 18:59: 71.00 (n=1)
-- 18:56: 63.27 (n=3)
+- 18:56: 63.43 (n=3)
 - 08:01: 36.95 (n=2)
 - 18:58: 36.45 (n=2)
 - 07:38: 35.00 (n=1)
@@ -202,7 +202,7 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 ## Ø Interesse nach music
 
 - track:take-this-higher.mp3: 77.50 (n=1)
-- original: 65.33 (n=14)
+- original: 65.36 (n=14)
 - track:feeling-happy.mp3: 54.20 (n=1)
 - track:recline-and-chill.mp3: 43.60 (n=2)
 - track:summers-here.mp3: 37.35 (n=2)
