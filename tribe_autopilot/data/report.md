@@ -9,26 +9,26 @@ Follower: **1307** · Beiträge: 53
 | T31-app-ich-bin-unterwegs | app-carousel | app | frage | 355 | 705 | 2 | 0 | 4 | 1 | – | 763.0 |
 | T37-app-wer-kommt-mit | app-carousel | app | frage | 256 | 631 | 0 | 0 | 0 | 0 | – | 631.0 |
 | T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 233 | 576 | 2 | 0 | 0 | 0 | – | 582.0 |
-| T50-app-wer-kommt-mit | app-carousel | app | frage | 267 | 526 | 1 | 0 | 0 | 0 | – | 529.0 |
+| T50-app-wer-kommt-mit | app-carousel | app | frage | 269 | 530 | 1 | 0 | 0 | 0 | – | 533.0 |
 | T38-app-mein-abend | app-carousel | app | frage | 227 | 506 | 0 | 0 | 0 | 0 | – | 506.0 |
 | T48-app-abend-bauen | app-carousel | app | frage | 236 | 484 | 0 | 0 | 0 | 0 | – | 484.0 |
-| T42-app-ich-bin-unterwegs | app-carousel | app | frage | 189 | 448 | 2 | 0 | 0 | 0 | – | 454.0 |
+| T42-app-ich-bin-unterwegs | app-carousel | app | frage | 190 | 449 | 2 | 0 | 0 | 1 | – | 463.0 |
 | T34-app-tribe-tonight | app-carousel | app | frage | 208 | 446 | 1 | 0 | 0 | 0 | – | 449.0 |
 | T40-app-stadtpuls | app-carousel | app | frage | 194 | 432 | 0 | 0 | 0 | 0 | – | 432.0 |
-| T47-app-tribe-tonight-halloween | app-carousel | app | frage | 196 | 419 | 0 | 0 | 0 | 0 | – | 419.0 |
+| T47-app-tribe-tonight-halloween | app-carousel | app | frage | 197 | 420 | 0 | 0 | 0 | 0 | – | 420.0 |
 | T44-app-frag-the-tribe-live | app-carousel | app | frage | 188 | 381 | 0 | 0 | 0 | 0 | – | 381.0 |
-| T52-app-mein-abend | app-carousel | app | frage | 176 | 366 | 1 | 0 | 0 | 0 | – | 369.0 |
+| T52-app-mein-abend | app-carousel | app | frage | 178 | 370 | 2 | 0 | 0 | 0 | – | 376.0 |
 | T49-beatcut-kennenlernabend | fertig-video | community | uhrzeit | 319 | 423 | 1 | 0 | 0 | 0 | 0.507 | 321.0 |
 | T39-beatcut-kennenlernabend | fertig-video | events | frage | 337 | 427 | 0 | 0 | 1 | 0 | 0.409 | 305.0 |
-| T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 236 | 312 | 0 | 0 | 0 | 0 | 0.411 | 220.1 |
+| T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 237 | 313 | 0 | 0 | 0 | 0 | 0.411 | 220.8 |
 | T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 283 | 349 | 2 | 0 | 0 | 0 | 0.212 | 215.1 |
 | T43-beatcut-tribe-woche | fertig-video | events | wochentag | 213 | 266 | 1 | 0 | 0 | 0 | 0.406 | 189.1 |
 | T32-montag-countdown | fertig-video | events | uhrzeit | 192 | 240 | 2 | 0 | 0 | 0 | 0.472 | 181.1 |
-| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 211 | 251 | 0 | 0 | 1 | 0 | 0.31 | 168.3 |
+| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 212 | 251 | 0 | 0 | 1 | 0 | 0.31 | 168.3 |
 | T28-coffee-walk-samstag | fertig-video | community-format | video | 226 | 263 | 0 | 0 | 1 | 0 | 0.151 | 154.8 |
+| T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 125 | 186 | 0 | 0 | 0 | 0 | 0.542 | 143.4 |
 | T35-app-abend-bauen | fertig-video | app | frage | 172 | 215 | 1 | 0 | 0 | 0 | 0.298 | 141.5 |
-| T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 123 | 182 | 0 | 0 | 0 | 0 | 0.54 | 140.1 |
-| T51-beatcut-pubquiz | fertig-video | events | uhrzeit | 122 | 158 | 3 | 0 | 0 | 1 | 0.416 | 123.9 |
+| T51-beatcut-pubquiz | fertig-video | events | uhrzeit | 123 | 159 | 3 | 0 | 0 | 1 | 0.414 | 124.4 |
 | T24-app-animiert | fertig-video | app | video | 101 | 135 | 2 | 0 | 0 | 0 | 0.227 | 86.5 |
 
 ## Pain-Ranking (Ø Interesse je Thema)
@@ -36,10 +36,10 @@ Follower: **1307** · Beiträge: 53
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | neu-in-bielefeld | 746.3 | 758.8 | 0.21 | 4 | – |
-| app | 434.2 | 438.0 | 0.26 | 13 | – |
+| app | 435.8 | 438.8 | 0.26 | 13 | – |
 | community | 321.0 | 423.0 | 0.51 | 1 | – |
-| coffee-walk | 220.1 | 312.0 | 0.41 | 1 | – |
-| events | 184.6 | 254.0 | 0.43 | 6 | – |
+| coffee-walk | 220.8 | 313.0 | 0.41 | 1 | – |
+| events | 185.2 | 254.8 | 0.43 | 6 | – |
 | community-format | 154.8 | 263.0 | 0.15 | 1 | – |
 
 **Stärkster Pain:** neu-in-bielefeld  
@@ -50,15 +50,15 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 - TOP T49-beatcut-kennenlernabend: „“ · Ø 4.25 s von 8.38 s · Skip 64.2 · Reichweite 319
 - TOP T39-beatcut-kennenlernabend: „“ · Ø 3.39 s von 8.29 s · Skip 72.5 · Reichweite 337
-- TOP T46-beatcut-coffee-walk: „“ · Ø 3.53 s von 8.59 s · Skip 71 · Reichweite 236
+- TOP T46-beatcut-coffee-walk: „“ · Ø 3.53 s von 8.59 s · Skip 70.7 · Reichweite 237
 - FLOP T24-app-animiert: „“ · Ø 4.56 s · Skip 79.2 · Reichweite 101
-- FLOP T51-beatcut-pubquiz: „“ · Ø 3.48 s · Skip 67.8 · Reichweite 122
-- FLOP T45-beatcut-freitagnacht: „“ · Ø 4.52 s · Skip 72.6 · Reichweite 123
+- FLOP T51-beatcut-pubquiz: „“ · Ø 3.47 s · Skip 68 · Reichweite 123
+- FLOP T35-app-abend-bauen: „“ · Ø 3.93 s · Skip 70.3 · Reichweite 172
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=0)
-- ≥ 90 min: Ø Reichweite 220.2 (n=10)
+- ≥ 90 min: Ø Reichweite 220.7 (n=10)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -67,18 +67,18 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - images/wandern-selfie-baum.jpg: 993.0 (n=1)
 - images/rooftop-vier.jpg: 839.5 (n=2)
 - images/gitarre-live.jpg: 812.0 (n=2)
-- images/dinner-tischrunde-halle.jpg: 676.3 (n=3)
+- images/dinner-tischrunde-halle.jpg: 679.3 (n=3)
 - images/dinner-restaurant.jpg: 618.3 (n=4)
-- images/party-selfie-1.jpg: 611.3 (n=4)
-- images/party-selfie-2.jpg: 592.2 (n=5)
+- images/party-selfie-1.jpg: 612.3 (n=4)
+- images/party-selfie-2.jpg: 593.8 (n=5)
 - images/party-rock-geste.jpg#bw: 582.0 (n=1)
-- images/club-drei-freunde.jpg: 545.0 (n=4)
+- images/club-drei-freunde.jpg: 547.2 (n=4)
 - images/bar-happy-hour-selfie.jpg: 533.0 (n=2)
 
 ## Konto (heute)
 
-- reach: 2009
-- profile_views: 36
+- reach: 1269
+- profile_views: 21
 - accounts_engaged: 10
 - website_clicks: 0
 - follows_and_unfollows: None
@@ -87,32 +87,32 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 401.29 (n=26)
+- None: 402.27 (n=26)
 
 ## Ø Interesse nach format
 
 - event-carousel: 923.33 (n=3)
-- app-carousel: 492.45 (n=11)
+- app-carousel: 494.36 (n=11)
 - event-reel: 215.10 (n=1)
-- fertig-video: 184.67 (n=11)
+- fertig-video: 185.08 (n=11)
 
 ## Ø Interesse nach hook_style
 
 - neu-in-stadt: 1195.00 (n=1)
 - struktur: 582.00 (n=1)
-- frage: 489.75 (n=14)
+- frage: 491.25 (n=14)
 - anlass: 215.10 (n=1)
-- wochentag: 204.60 (n=2)
-- uhrzeit: 186.88 (n=5)
+- wochentag: 204.95 (n=2)
+- uhrzeit: 187.64 (n=5)
 - video: 120.65 (n=2)
 
 ## Ø Interesse nach pain
 
 - neu-in-bielefeld: 746.27 (n=4)
-- app: 434.23 (n=13)
+- app: 435.85 (n=13)
 - community: 321.00 (n=1)
-- coffee-walk: 220.10 (n=1)
-- events: 184.58 (n=6)
+- coffee-walk: 220.80 (n=1)
+- events: 185.22 (n=6)
 - community-format: 154.80 (n=1)
 
 ## Ø Interesse nach local_time
@@ -121,25 +121,25 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 16:54: 993.00 (n=1)
 - 10:59: 763.00 (n=1)
 - 16:56: 506.00 (n=3)
-- 10:56: 469.00 (n=2)
+- 10:56: 473.50 (n=2)
 - 14:44: 449.00 (n=1)
 - 10:57: 432.00 (n=1)
-- 17:12: 419.00 (n=1)
+- 17:12: 420.00 (n=1)
 - 11:13: 381.00 (n=1)
-- 12:45: 369.00 (n=1)
-- 11:01: 335.25 (n=2)
+- 12:45: 376.00 (n=1)
+- 11:01: 337.25 (n=2)
 - 16:57: 321.00 (n=1)
-- 10:55: 293.63 (n=3)
+- 10:55: 293.87 (n=3)
 - 18:21: 215.10 (n=1)
 - 17:09: 189.10 (n=1)
 - 17:00: 181.10 (n=1)
 - 16:59: 168.30 (n=1)
-- 17:46: 140.10 (n=1)
-- 18:01: 123.90 (n=1)
+- 17:46: 143.40 (n=1)
+- 18:01: 124.40 (n=1)
 - 14:21: 86.50 (n=1)
 
 ## Ø Interesse nach music
 
-- bed: 584.79 (n=14)
+- bed: 586.29 (n=14)
 - track:take-this-higher.mp3: 215.10 (n=1)
-- original: 184.67 (n=11)
+- original: 185.08 (n=11)
