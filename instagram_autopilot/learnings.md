@@ -416,3 +416,8 @@
 
 ## CD 02.11 (Dating)
 - D1101 CHECK-CTA: Reach 104, Watch 0,296, 0 Kommentare → CTA-Test ohne Wirkung. D1102-mini-doku-anspannung: Kurz-Story, Kernsatz Anspannung, Link in Bio; Test-Variable Musik take-this-higher.
+
+### Tagesauswertung 13.11.2026
+- Dating (@natuerlich.du.ms): 60 Follower (Δ 0), kein neuer Post seit D1102 (02.11.). Bestes Reel weiter D1030b Mini-Doku Kernsatz (Reichweite 129, Watch-Ratio 0.50); alle Mini-Dokus 0.31–0.50, Likes/Saves/Shares ≈ 0.
+- Tribe (@the_tribe.bi.ms): 1307 Follower (Δ 0 zum 12.11.), kein neuer Post seit T52 (03.11.).
+- Hypothese: Mini-Doku mit Kernsatz-Hook bleibt Format Nr. 1 (Watch-Ratio ~0.4 vs. Foto-Reels ~0.2); Wachstum stockt, weil seit 10 Tagen nichts erscheint – nächster Post Mini-Doku Kernsatz.
