@@ -421,3 +421,8 @@
 - Dating (@natuerlich.du.ms): 60 Follower (Δ 0), kein neuer Post seit D1102 (02.11.). Bestes Reel weiter D1030b Mini-Doku Kernsatz (Reichweite 129, Watch-Ratio 0.50); alle Mini-Dokus 0.31–0.50, Likes/Saves/Shares ≈ 0.
 - Tribe (@the_tribe.bi.ms): 1307 Follower (Δ 0 zum 12.11.), kein neuer Post seit T52 (03.11.).
 - Hypothese: Mini-Doku mit Kernsatz-Hook bleibt Format Nr. 1 (Watch-Ratio ~0.4 vs. Foto-Reels ~0.2); Wachstum stockt, weil seit 10 Tagen nichts erscheint – nächster Post Mini-Doku Kernsatz.
+
+### Tagesauswertung 14.11.2026
+- Dating (@natuerlich.du.ms): 60 Follower (Δ 0), kein neuer Post seit D1102 (02.11.).
+- Tribe (@the_tribe.bi.ms): 1307 Follower (Δ 0), kein neuer Post seit T52 (03.11.); die Autopilot-Läufe ohne bereitliegende Specs haben nichts veröffentlicht.
+- Hypothese: Stillstand der Follower folgt direkt aus 11 Tagen ohne Post; erster neuer Post = Mini-Doku Kernsatz (Dating) bzw. Community-Reel (Tribe).
