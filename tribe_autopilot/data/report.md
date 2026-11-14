@@ -22,12 +22,12 @@ Follower: **1307** · Beiträge: 53
 | T39-beatcut-kennenlernabend | fertig-video | events | frage | 337 | 428 | 0 | 0 | 1 | 0 | 0.409 | 305.8 |
 | T46-beatcut-coffee-walk | fertig-video | coffee-walk | wochentag | 239 | 316 | 0 | 0 | 0 | 0 | 0.41 | 222.8 |
 | T21-dienstag-vier-ideen | event-reel | neu-in-bielefeld | anlass | 283 | 349 | 2 | 0 | 0 | 0 | 0.212 | 215.1 |
-| T43-beatcut-tribe-woche | fertig-video | events | wochentag | 216 | 267 | 1 | 0 | 0 | 0 | 0.409 | 190.2 |
+| T43-beatcut-tribe-woche | fertig-video | events | wochentag | 216 | 268 | 1 | 0 | 0 | 0 | 0.409 | 190.9 |
 | T32-montag-countdown | fertig-video | events | uhrzeit | 192 | 240 | 2 | 0 | 0 | 0 | 0.472 | 181.1 |
-| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 213 | 252 | 0 | 0 | 1 | 0 | 0.31 | 169.0 |
+| T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 213 | 253 | 0 | 0 | 1 | 0 | 0.31 | 169.6 |
 | T28-coffee-walk-samstag | fertig-video | community-format | video | 227 | 264 | 0 | 0 | 1 | 0 | 0.151 | 155.4 |
 | T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 129 | 192 | 0 | 0 | 0 | 0 | 0.548 | 148.6 |
-| T35-app-abend-bauen | fertig-video | app | frage | 173 | 216 | 1 | 0 | 0 | 0 | 0.297 | 142.0 |
+| T35-app-abend-bauen | fertig-video | app | frage | 173 | 217 | 1 | 0 | 0 | 0 | 0.297 | 142.7 |
 | T51-beatcut-pubquiz | fertig-video | events | uhrzeit | 136 | 166 | 3 | 0 | 0 | 1 | 0.409 | 128.9 |
 | T24-app-animiert | fertig-video | app | video | 101 | 135 | 2 | 0 | 0 | 0 | 0.227 | 86.5 |
 
@@ -36,10 +36,10 @@ Follower: **1307** · Beiträge: 53
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | neu-in-bielefeld | 746.5 | 759.0 | 0.21 | 4 | – |
-| app | 440.8 | 443.8 | 0.26 | 13 | – |
+| app | 440.9 | 443.8 | 0.26 | 13 | – |
 | community | 340.3 | 443.0 | 0.52 | 1 | – |
 | coffee-walk | 222.8 | 316.0 | 0.41 | 1 | – |
-| events | 187.3 | 257.5 | 0.43 | 6 | – |
+| events | 187.5 | 257.8 | 0.43 | 6 | – |
 | community-format | 155.4 | 264.0 | 0.15 | 1 | – |
 
 **Stärkster Pain:** neu-in-bielefeld  
@@ -53,7 +53,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP T46-beatcut-coffee-walk: „“ · Ø 3.52 s von 8.59 s · Skip 71 · Reichweite 239
 - FLOP T24-app-animiert: „“ · Ø 4.56 s · Skip 79.2 · Reichweite 101
 - FLOP T51-beatcut-pubquiz: „“ · Ø 3.43 s · Skip 68.2 · Reichweite 136
-- FLOP T35-app-abend-bauen: „“ · Ø 3.91 s · Skip 70.5 · Reichweite 173
+- FLOP T35-app-abend-bauen: „“ · Ø 3.91 s · Skip 70.1 · Reichweite 173
 
 ## Abstand zwischen Posts
 
@@ -77,7 +77,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 1194
+- reach: 1282
 - profile_views: 25
 - accounts_engaged: 3
 - website_clicks: 1
@@ -87,32 +87,32 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach niche
 
-- None: 406.10 (n=26)
+- None: 406.18 (n=26)
 
 ## Ø Interesse nach format
 
 - event-carousel: 923.67 (n=3)
 - app-carousel: 500.18 (n=11)
 - event-reel: 215.10 (n=1)
-- fertig-video: 188.24 (n=11)
+- fertig-video: 188.42 (n=11)
 
 ## Ø Interesse nach hook_style
 
 - neu-in-stadt: 1195.00 (n=1)
 - struktur: 583.00 (n=1)
-- frage: 495.91 (n=14)
+- frage: 495.96 (n=14)
 - anlass: 215.10 (n=1)
-- wochentag: 206.50 (n=2)
-- uhrzeit: 193.58 (n=5)
+- wochentag: 206.85 (n=2)
+- uhrzeit: 193.70 (n=5)
 - video: 120.95 (n=2)
 
 ## Ø Interesse nach pain
 
 - neu-in-bielefeld: 746.52 (n=4)
-- app: 440.81 (n=13)
+- app: 440.86 (n=13)
 - community: 340.30 (n=1)
 - coffee-walk: 222.80 (n=1)
-- events: 187.27 (n=6)
+- events: 187.48 (n=6)
 - community-format: 155.40 (n=1)
 
 ## Ø Interesse nach local_time
@@ -127,13 +127,13 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 17:12: 422.00 (n=1)
 - 12:45: 396.00 (n=1)
 - 11:13: 385.00 (n=1)
-- 11:01: 350.50 (n=2)
+- 11:01: 350.85 (n=2)
 - 16:57: 340.30 (n=1)
 - 10:55: 295.07 (n=3)
 - 18:21: 215.10 (n=1)
-- 17:09: 190.20 (n=1)
+- 17:09: 190.90 (n=1)
 - 17:00: 181.10 (n=1)
-- 16:59: 169.00 (n=1)
+- 16:59: 169.60 (n=1)
 - 17:46: 148.60 (n=1)
 - 18:01: 128.90 (n=1)
 - 14:21: 86.50 (n=1)
@@ -142,4 +142,4 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 - bed: 590.93 (n=14)
 - track:take-this-higher.mp3: 215.10 (n=1)
-- original: 188.24 (n=11)
+- original: 188.42 (n=11)
