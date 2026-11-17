@@ -1,4 +1,4 @@
-# Instagram-Report 2026-11-16
+# Instagram-Report 2026-11-17
 
 Follower: **60** · Beiträge: 52
 
@@ -104,9 +104,9 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 1
-- profile_views: 1
-- accounts_engaged: 1
+- reach: 0
+- profile_views: 0
+- accounts_engaged: 0
 - website_clicks: 0
 
 ## Ø Interesse nach niche
