@@ -14,7 +14,7 @@ Follower: **1311** · Beiträge: 53
 | T38-app-mein-abend | app-carousel | app | frage | 229 | 508 | 0 | 0 | 0 | 0 | – | 508.0 |
 | T42-app-ich-bin-unterwegs | app-carousel | app | frage | 196 | 455 | 2 | 0 | 0 | 1 | – | 469.0 |
 | T34-app-tribe-tonight | app-carousel | app | frage | 209 | 447 | 1 | 0 | 0 | 0 | – | 450.0 |
-| T52-app-mein-abend | app-carousel | app | frage | 219 | 433 | 2 | 0 | 0 | 0 | – | 439.0 |
+| T52-app-mein-abend | app-carousel | app | frage | 221 | 435 | 2 | 0 | 0 | 0 | – | 441.0 |
 | T40-app-stadtpuls | app-carousel | app | frage | 198 | 436 | 0 | 0 | 0 | 0 | – | 436.0 |
 | T47-app-tribe-tonight-halloween | app-carousel | app | frage | 207 | 433 | 0 | 0 | 0 | 0 | – | 433.0 |
 | T44-app-frag-the-tribe-live | app-carousel | app | frage | 196 | 391 | 0 | 0 | 0 | 0 | – | 391.0 |
@@ -27,7 +27,7 @@ Follower: **1311** · Beiträge: 53
 | T41-beatcut-montag-quiz | fertig-video | events | uhrzeit | 219 | 259 | 0 | 0 | 1 | 0 | 0.316 | 174.4 |
 | T28-coffee-walk-samstag | fertig-video | community-format | video | 229 | 266 | 0 | 0 | 1 | 0 | 0.151 | 156.5 |
 | T45-beatcut-freitagnacht | fertig-video | events | uhrzeit | 136 | 199 | 0 | 0 | 0 | 0 | 0.531 | 152.3 |
-| T51-beatcut-pubquiz | fertig-video | events | uhrzeit | 159 | 189 | 3 | 0 | 0 | 1 | 0.417 | 146.0 |
+| T51-beatcut-pubquiz | fertig-video | events | uhrzeit | 161 | 189 | 3 | 0 | 0 | 1 | 0.417 | 146.0 |
 | T35-app-abend-bauen | fertig-video | app | frage | 177 | 219 | 1 | 0 | 0 | 0 | 0.295 | 143.7 |
 | T24-app-animiert | fertig-video | app | video | 101 | 135 | 2 | 0 | 0 | 0 | 0.227 | 86.5 |
 
@@ -36,7 +36,7 @@ Follower: **1311** · Beiträge: 53
 | Pain | Ø Interesse | Ø Views | Ø Watch-Ratio | Beiträge | Tool vorhanden |
 |---|---|---|---|---|---|
 | neu-in-bielefeld | 747.0 | 759.5 | 0.21 | 4 | – |
-| app | 450.3 | 453.4 | 0.26 | 13 | – |
+| app | 450.5 | 453.5 | 0.26 | 13 | – |
 | community | 361.5 | 470.0 | 0.52 | 1 | – |
 | coffee-walk | 235.5 | 330.0 | 0.43 | 1 | – |
 | events | 193.2 | 266.0 | 0.42 | 6 | – |
@@ -53,12 +53,12 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - TOP T46-beatcut-coffee-walk: „“ · Ø 3.67 s von 8.59 s · Skip 70.6 · Reichweite 247
 - FLOP T24-app-animiert: „“ · Ø 4.56 s · Skip 79.2 · Reichweite 101
 - FLOP T35-app-abend-bauen: „“ · Ø 3.89 s · Skip 70.4 · Reichweite 177
-- FLOP T51-beatcut-pubquiz: „“ · Ø 3.5 s · Skip 67.8 · Reichweite 159
+- FLOP T51-beatcut-pubquiz: „“ · Ø 3.5 s · Skip 67.8 · Reichweite 161
 
 ## Abstand zwischen Posts
 
 - < 90 min nach dem vorigen Post: Ø Reichweite 0.0 (n=0)
-- ≥ 90 min: Ø Reichweite 232.8 (n=10)
+- ≥ 90 min: Ø Reichweite 233.0 (n=10)
 
 ## Bilder (Ø Interesse, Anzahl Einsätze)
 
@@ -70,29 +70,29 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - images/dinner-tischrunde-halle.jpg: 682.3 (n=3)
 - images/party-selfie-1.jpg: 627.0 (n=4)
 - images/dinner-restaurant.jpg: 620.0 (n=4)
-- images/party-selfie-2.jpg: 609.0 (n=5)
+- images/party-selfie-2.jpg: 609.4 (n=5)
 - images/party-rock-geste.jpg#bw: 585.0 (n=1)
 - images/club-drei-freunde.jpg: 552.0 (n=4)
 - images/bar-happy-hour-selfie.jpg: 548.0 (n=2)
 
 ## Konto (heute)
 
-- reach: 2055
-- profile_views: 42
-- accounts_engaged: 5
-- website_clicks: 1
+- reach: 1318
+- profile_views: 23
+- accounts_engaged: 2
+- website_clicks: 0
 - follows_and_unfollows: None
 - engaged_cities: Bielefeld, Nordrhein-Westfalen (35), Münster, Nordrhein-Westfalen (17), Gütersloh, Nordrhein-Westfalen (3), Leopoldshöhe, Nordrhein-Westfalen (2), Steinhagen, Nordrhein-Westfalen (2), Verl, Nordrhein-Westfalen (2), Schloß Holte-Stukenbrock, Nordrhein-Westfalen (2), Enger, Nordrhein-Westfalen (2)
 - follower_cities: Bielefeld, Nordrhein-Westfalen (745), Münster, Nordrhein-Westfalen (86), Gütersloh, Nordrhein-Westfalen (24), Herford, Nordrhein-Westfalen (20), Oerlinghausen, Nordrhein-Westfalen (17), Steinhagen, Nordrhein-Westfalen (16), Halle, Nordrhein-Westfalen (16), Werther, Nordrhein-Westfalen (16)
 
 ## Ø Interesse nach niche
 
-- None: 413.64 (n=26)
+- None: 413.72 (n=26)
 
 ## Ø Interesse nach format
 
 - event-carousel: 924.33 (n=3)
-- app-carousel: 511.27 (n=11)
+- app-carousel: 511.45 (n=11)
 - event-reel: 215.10 (n=1)
 - fertig-video: 194.78 (n=11)
 
@@ -100,7 +100,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 - neu-in-stadt: 1195.00 (n=1)
 - struktur: 585.00 (n=1)
-- frage: 504.91 (n=14)
+- frage: 505.06 (n=14)
 - wochentag: 216.05 (n=2)
 - anlass: 215.10 (n=1)
 - uhrzeit: 203.14 (n=5)
@@ -109,7 +109,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 ## Ø Interesse nach pain
 
 - neu-in-bielefeld: 747.02 (n=4)
-- app: 450.32 (n=13)
+- app: 450.48 (n=13)
 - community: 361.50 (n=1)
 - coffee-walk: 235.50 (n=1)
 - events: 193.15 (n=6)
@@ -123,7 +123,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 - 16:56: 509.03 (n=3)
 - 10:56: 490.00 (n=2)
 - 14:44: 450.00 (n=1)
-- 12:45: 439.00 (n=1)
+- 12:45: 441.00 (n=1)
 - 10:57: 436.00 (n=1)
 - 17:12: 433.00 (n=1)
 - 11:13: 391.00 (n=1)
@@ -140,6 +140,6 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Ø Interesse nach music
 
-- bed: 599.79 (n=14)
+- bed: 599.93 (n=14)
 - track:take-this-higher.mp3: 215.10 (n=1)
 - original: 194.78 (n=11)
