@@ -1,6 +1,6 @@
-# Instagram-Report 2026-11-18
+# Instagram-Report 2026-11-19
 
-Follower: **60** · Beiträge: 52
+Follower: **61** · Beiträge: 52
 
 | Beitrag | Format | Pain | Hook | Reichweite | Views | Likes | Komm. | Saves | Shares | Watch-Ratio | Interesse |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -104,8 +104,8 @@ Seit Wochen.“ · Ø 19.16 s · Skip 62.5 · Reichweite 11
 
 ## Konto (heute)
 
-- reach: 0
-- profile_views: 1
+- reach: 1
+- profile_views: 2
 - accounts_engaged: 0
 - website_clicks: 0
 
