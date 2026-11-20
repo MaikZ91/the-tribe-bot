@@ -6,7 +6,7 @@ Follower: **1312** · Beiträge: 53
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | T04-ersti-wochenende | event-carousel | neu-in-bielefeld | neu-in-stadt | 658 | 1151 | 8 | 0 | 1 | 1 | – | 1199.0 |
 | T30-sonntag-kennenlernabend | event-carousel | neu-in-bielefeld | frage | 431 | 966 | 6 | 0 | 2 | 0 | – | 996.0 |
-| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 374 | 708 | 2 | 0 | 4 | 1 | – | 766.0 |
+| T31-app-ich-bin-unterwegs | app-carousel | app | frage | 375 | 708 | 2 | 0 | 4 | 1 | – | 766.0 |
 | T37-app-wer-kommt-mit | app-carousel | app | frage | 259 | 638 | 0 | 0 | 0 | 0 | – | 638.0 |
 | T50-app-wer-kommt-mit | app-carousel | app | frage | 312 | 601 | 1 | 0 | 0 | 0 | – | 604.0 |
 | T36-freitag-in-3-akten | event-carousel | neu-in-bielefeld | struktur | 236 | 583 | 2 | 0 | 0 | 0 | – | 589.0 |
@@ -77,8 +77,8 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 971
-- profile_views: 27
+- reach: 1063
+- profile_views: 28
 - accounts_engaged: 2
 - website_clicks: 3
 - follows_and_unfollows: None
