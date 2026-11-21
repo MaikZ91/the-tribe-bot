@@ -77,8 +77,8 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 943
-- profile_views: 27
+- reach: 1203
+- profile_views: 30
 - accounts_engaged: 0
 - website_clicks: 5
 - follows_and_unfollows: None
