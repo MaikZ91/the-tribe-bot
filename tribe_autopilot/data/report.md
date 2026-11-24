@@ -1,4 +1,4 @@
-# Instagram-Report 2026-11-23
+# Instagram-Report 2026-11-24
 
 Follower: **1315** · Beiträge: 53
 
@@ -77,13 +77,13 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 2049
+- reach: 2110
 - profile_views: 39
 - accounts_engaged: 4
 - website_clicks: 0
 - follows_and_unfollows: None
 - engaged_cities: Bielefeld, Nordrhein-Westfalen (29), Münster, Nordrhein-Westfalen (18), Steinhagen, Nordrhein-Westfalen (2), Gütersloh, Nordrhein-Westfalen (2), Verl, Nordrhein-Westfalen (2), Schloß Holte-Stukenbrock, Nordrhein-Westfalen (2), Enger, Nordrhein-Westfalen (2), Coesfeld, Nordrhein-Westfalen (2)
-- follower_cities: Bielefeld, Nordrhein-Westfalen (770), Münster, Nordrhein-Westfalen (108), Steinhagen, Nordrhein-Westfalen (19), Gütersloh, Nordrhein-Westfalen (19), Paderborn, Nordrhein-Westfalen (17), Bad Salzuflen, Nordrhein-Westfalen (16), Herford, Nordrhein-Westfalen (15), Detmold, Nordrhein-Westfalen (14)
+- follower_cities: Bielefeld, Nordrhein-Westfalen (769), Münster, Nordrhein-Westfalen (110), Gütersloh, Nordrhein-Westfalen (20), Steinhagen, Nordrhein-Westfalen (19), Paderborn, Nordrhein-Westfalen (17), Bad Salzuflen, Nordrhein-Westfalen (16), Herford, Nordrhein-Westfalen (15), Detmold, Nordrhein-Westfalen (14)
 
 ## Ø Interesse nach niche
 
