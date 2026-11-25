@@ -77,9 +77,9 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 1556
-- profile_views: 34
-- accounts_engaged: 3
+- reach: 904
+- profile_views: 19
+- accounts_engaged: 2
 - website_clicks: 0
 - follows_and_unfollows: None
 - engaged_cities: Bielefeld, Nordrhein-Westfalen (29), Münster, Nordrhein-Westfalen (18), Steinhagen, Nordrhein-Westfalen (2), Gütersloh, Nordrhein-Westfalen (2), Verl, Nordrhein-Westfalen (2), Schloß Holte-Stukenbrock, Nordrhein-Westfalen (2), Enger, Nordrhein-Westfalen (2), Coesfeld, Nordrhein-Westfalen (2)
