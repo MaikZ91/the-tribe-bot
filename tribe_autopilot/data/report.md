@@ -1,4 +1,4 @@
-# Instagram-Report 2026-11-25
+# Instagram-Report 2026-11-26
 
 Follower: **1314** · Beiträge: 53
 
@@ -77,7 +77,7 @@ _Unter 3 Beiträgen je Pain nur Hypothese._
 
 ## Konto (heute)
 
-- reach: 1533
+- reach: 1582
 - profile_views: 35
 - accounts_engaged: 2
 - website_clicks: 0
